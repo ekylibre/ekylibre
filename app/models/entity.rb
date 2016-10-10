@@ -29,6 +29,7 @@
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
+#  codes                     :jsonb
 #  country                   :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -37,6 +38,8 @@
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
+#  employee                  :boolean          default(FALSE), not null
+#  employee_account_id       :integer
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
@@ -74,28 +77,30 @@ class Entity < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
   include Customizable
   attr_accessor :password_confirmation, :old_password
-  # belongs_to :attorney_account, class_name: "Account"
-  belongs_to :client_account, class_name: 'Account'
   refers_to :currency
   refers_to :language
   refers_to :country
   enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true
   versionize exclude: [:full_name]
+  belongs_to :client_account, class_name: 'Account'
+  belongs_to :employee_account, class_name: 'Account'
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
-  has_many :all_addresses, class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy
-  has_many :addresses, -> { actives }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mails,     -> { actives.mails    }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :emails,    -> { actives.emails   }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :phones,    -> { actives.phones   }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mobiles,   -> { actives.mobiles  }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :faxes,     -> { actives.faxes    }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :websites,  -> { actives.websites }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }, class_name: 'EntityAddress'
-  has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id
+  with_options class_name: 'EntityAddress', inverse_of: :entity do
+    has_many :all_addresses, dependent: :destroy
+    has_many :addresses, -> { actives }
+    has_many :mails,     -> { actives.mails    }
+    has_many :emails,    -> { actives.emails   }
+    has_many :phones,    -> { actives.phones   }
+    has_many :mobiles,   -> { actives.mobiles  }
+    has_many :faxes,     -> { actives.faxes    }
+    has_many :websites,  -> { actives.websites }
+    has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
+  end
+  has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
   has_many :issues, as: :target, dependent: :destroy
@@ -104,49 +109,63 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
-  has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id
-  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Purchase', foreign_key: :supplier_id
-  has_many :purchases, foreign_key: :supplier_id
+  has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
+  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
+           class_name: 'Purchase', foreign_key: :supplier_id
+  has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id
-  has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Sale', foreign_key: :client_id
-  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
-  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id
+  has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
+           class_name: 'Sale', foreign_key: :client_id
+  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
+  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: 'Sale'
   has_many :sale_items, through: :sales, source: :items
-  has_many :subscriptions, foreign_key: :subscriber_id
+  has_many :subscriptions, foreign_key: :subscriber_id, dependent: :restrict_with_error
   has_many :tasks
   has_many :trackings, foreign_key: :producer_id
-  has_many :transports, foreign_key: :transporter_id
+  has_many :deliveries, foreign_key: :transporter_id, dependent: :restrict_with_error
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
   has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
 
-  has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }, class_name: 'EntityAddress'
+  with_options class_name: 'EntityAddress' do
+    has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }
+    has_one :default_email_address, -> { where(by_default: true, canal: 'email') }
+    has_one :default_phone_address, -> { where(by_default: true, canal: 'phone') }
+    has_one :default_mobile_address, -> { where(by_default: true, canal: 'mobile') }
+    has_one :default_fax_address, -> { where(by_default: true, canal: 'fax') }
+    has_one :default_website_address, -> { where(by_default: true, canal: 'website') }
+  end
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
+  has_one :user, foreign_key: :person_id
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
-  validates_presence_of :currency, :full_name, :language, :last_name, :nature
+  validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
+  validates :activity_code, :deliveries_conditions, :first_name, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :currency, :language, :nature, presence: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :full_name, :last_name, presence: true, length: { maximum: 500 }
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :country, allow_nil: true, maximum: 2
-  validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :siret_number, allow_nil: true, maximum: 14
-  validates_length_of :vat_number, allow_nil: true, maximum: 20
-  validates_length_of :activity_code, allow_nil: true, maximum: 30
-  validates_length_of :deliveries_conditions, :number, allow_nil: true, maximum: 60
+  validates :country, length: { allow_nil: true, maximum: 2 }
+  validates :language, length: { allow_nil: true, maximum: 3 }
+  validates :siret_number, length: { allow_nil: true, maximum: 14 }
+  validates :vat_number, length: { allow_nil: true, maximum: 20 }
+  validates :activity_code, length: { allow_nil: true, maximum: 30 }
+  validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :name, :full_name
 
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("transporter OR id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
+  scope :employees,    -> { where(employee: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
@@ -154,8 +173,12 @@ class Entity < Ekylibre::Record::Base
   scope :responsibles,  -> { contacts }
   scope :contacts,      -> { where(nature: 'contact') }
   scope :organizations, -> { where(nature: 'organization') }
+  scope :with_address, ->(canal, coordinate) {
+    where(id: EntityAddress.where(canal: canal, coordinate: coordinate).select(:entity_id))
+  }
+  scope :with_email, ->(email) { with_address(:email, email) }
 
-  acts_as_numbered :number
+  acts_as_numbered :number, force: false, readonly: false
   accepts_nested_attributes_for :mails,    reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :emails,   reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :phones,   reject_if: :all_blank, allow_destroy: true
@@ -167,6 +190,7 @@ class Entity < Ekylibre::Record::Base
 
   before_validation do
     self.first_name = first_name.to_s.strip
+    self.first_name = nil if organization?
     self.last_name  = last_name.to_s.strip
     # FIXME: I18nize full name computation
     self.full_name = (title.to_s + ' ' + first_name.to_s + ' ' + last_name.to_s).strip
@@ -199,7 +223,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any?
   end
 
   class << self
@@ -275,7 +299,7 @@ class Entity < Ekylibre::Record::Base
 
   # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
-    natures = [:client, :supplier]
+    natures = [:client, :supplier, :employee]
     conversions = { payer: :client, payee: :supplier }
     nature = nature.to_sym
     nature = conversions[nature] || nature
@@ -284,7 +308,12 @@ class Entity < Ekylibre::Record::Base
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
-      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.accounting_system)
+      account_nomen = nature.to_s.pluralize
+      account_nomen = :staff_due_remunerations if nature == :employee
+      prefix = Preference[:"#{nature}_account_radix"]
+      if prefix.blank?
+        prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
+      end
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)
@@ -294,7 +323,7 @@ class Entity < Ekylibre::Record::Base
         suffix = '1'
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
         account = 1
-        # x=Time.zone.now
+        # x = Time.zone.now
         i = 0
         until account.nil?
           account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
@@ -320,7 +349,11 @@ class Entity < Ekylibre::Record::Base
   end
 
   def default_mail_coordinate
-    default_address ? default_address.coordinate : '[NoDefaultEntityAddressError]'
+    default_mail_address ? default_mail_address.coordinate : nil
+  end
+
+  def default_mail_address_id
+    default_mail_address ? default_mail_address.id : nil
   end
 
   def link_to!(entity, options = {})
@@ -337,12 +370,16 @@ class Entity < Ekylibre::Record::Base
       .maximum(:reduction_percentage).to_f || 0.0
   end
 
+  def last_subscription(nature)
+    subscriptions.where(nature: nature).order(stopped_on: :desc).first
+  end
+
   def picture_path(style = :original)
     picture.path(style)
   end
 
   def description
-    desc = number + '. ' + full_name
+    desc = (number.nil? ? '' : number) + '. ' + full_name
     c = default_mail_address
     desc += ' (' + c.mail_line_6.to_s + ')' unless c.nil?
     desc
@@ -351,11 +388,11 @@ class Entity < Ekylibre::Record::Base
   # Merge given entity into record. Alls related records of given entity will point on
   # self.
   def merge_with(entity, author = nil)
-    raise StandardError.new('Company entity is not mergeable') if entity.of_company?
+    raise StandardError, 'Company entity is not mergeable' if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # EntityAddress
-      threads = EntityAddress.unscoped.where(entity_id: id).pluck(:thread).uniq
-      other_threads = EntityAddress.unscoped.where(entity_id: entity.id).pluck(:thread).uniq
+      threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread)
+      other_threads = EntityAddress.unscoped.where(entity_id: entity.id).uniq.pluck(:thread)
       other_threads.each do |thread|
         thread.succ! while threads.include?(thread)
         threads << thread
@@ -390,10 +427,13 @@ class Entity < Ekylibre::Record::Base
       end
 
       # Update custom fields
-      custom_fields = CustomField.where(customized_type: models_set.map(&:name))
-      custom_fields.each do |custom_field|
+      self.custom_fields ||= {}
+      entity.custom_fields ||= {}
+      Entity.custom_fields.each do |custom_field|
         attr = custom_field.column_name
-        send("#{attr}=", entity.send(attr)) if send(attr).blank?
+        if self.custom_fields[attr].blank? && entity.custom_fields[attr].present?
+          self.custom_fields[attr] = entity.custom_fields[attr]
+        end
       end
 
       save!
@@ -404,8 +444,8 @@ class Entity < Ekylibre::Record::Base
         value = entity.send(attr).to_s
         content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" unless value.blank?
       end
-      custom_fields.each do |custom_field|
-        value = entity.send(custom_field.column_name).to_s
+      Entity.custom_fields.each do |custom_field|
+        value = entity.custom_fields[custom_field.column_name].to_s
         content << "  - #{custom_field.name} : #{value}\n" unless value.blank?
       end
 
@@ -434,114 +474,4 @@ class Entity < Ekylibre::Record::Base
     columns += CustomField.where("nature in ('string')").collect { |c| [CustomField.model_name.human + '/' + c.name, 'custom_field-id' + c.id.to_s] }.sort
     columns
   end
-
-  # def self.exportable_columns
-  #   columns = []
-  #   columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
-  #   columns += EntityAddress.content_columns.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c.name), "address-"+c.name]}.sort
-  #   columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
-  #   columns += Catalog.content_columns.collect{|c| [Catalog.model_name.human+"/"+Catalog.human_attribute_name(c.name), "product_price_listing-"+c.name]}.sort
-  #   columns += CustomField.all.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
-  #   return columns
-  # end
-
-  # def self.import(file, cols, options={})
-  #   sheet = Ekylibre::CSV.open(file)
-  #   header = sheet.shift # header
-  #   problems = {}
-  #   item_index = 1
-  #   code  = "ActiveRecord::Base.transaction do\n"
-  #   # unless cols[:entity_nature].is_a? Hash
-  #     # code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
-  #     # code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
-  #   # end
-  #   unless cols[:product_price_listing].is_a? Hash
-  #     code += "  sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
-  #     code += "  sale_catalog = Catalog.create!(:name => '-', by_default: false) unless sale_catalog\n"
-  #   end
-  #   for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
-  #     code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
-  #   end
-  #   code += "  while item = sheet.shift\n"
-  #   code += "    item_index += 1\n"
-  #   code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(item_index)\n" if options[:ignore]
-  #   # if cols[:entity_nature].is_a? Hash
-  #     # code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
-  #     # code += "    begin\n"
-  #     # code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-  #     # code += "    rescue\n"
-  #     # code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
-  #     # code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
-  #     # code += "    end unless nature\n"
-  #   # end
-  #   if cols[:product_price_listing].is_a? Hash
-  #     code += "    sale_catalog = Catalog.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
-  #     code += "    begin\n"
-  #     code += "      sale_catalog = Catalog.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-  #     code += "    rescue\n"
-  #     code += "      sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
-  #     code += "      sale_catalog = Catalog.create!(:name => '-', by_default: false) unless sale_catalog\n"
-  #     code += "    end unless sale_catalog\n"
-  #   end
-
-  #   code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_catalog_id => sale_catalog.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
-  #   code += "    if entity.save\n"
-  #   if cols[:address].is_a? Hash
-  #     code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-  #     code += "      unless address.save\n"
-  #     code += "        problems[item_index.to_s] ||= []\n"
-  #     code += "        problems[item_index.to_s] += address.errors.full_messages\n"
-  #     code += "      end\n"
-  #   end
-  #   for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
-  #     code += "      datum = entity.custom_field_data.build(:custom_field_id => custom_field_#{k}.id, :string_value => item[#{k}])\n"
-  #     code += "      unless datum.save\n"
-  #     code += "        problems[item_index.to_s] ||= []\n"
-  #     code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
-  #     code += "      end\n"
-  #   end
-  #   for k, v in cols[:custom_field]||{}
-  #     if custom_field = CustomField.find_by_id(k.to_s[2..-1].to_i)
-  #       if custom_field.nature == 'string'
-  #         code += "      datum = entity.custom_field_data.build(:custom_field_id => #{custom_field.id}, :string_value => item[#{k}])\n"
-  #         code += "      unless datum.save\n"
-  #         code += "        problems[item_index.to_s] ||= []\n"
-  #         code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
-  #         code += "      end\n"
-  #         # elsif custom_field.nature == 'choice'
-  #         #   code += "    co = entity.addresses.create("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n" if cols[:address].is_a? Hash
-  #       end
-  #     end
-  #   end
-  #   code += "    else\n"
-  #   code += "      problems[item_index.to_s] ||= []\n"
-  #   code += "      problems[item_index.to_s] += entity.errors.full_messages\n"
-  #   code += "    end\n"
-  #   code += "  end\n"
-  #   code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
-  #   code += "end\n"
-  #   # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-  #   eval(code)
-  #   return {:errors => problems, :items_count => item_index-1}
-  # end
-
-  def self.export(_options = {})
-    # entities = Entity.where(options)
-    csv_string = Ekylibre::CSV.generate do |csv|
-      csv << ['Code', 'Type', 'Catégorie', 'Nom', 'Prénom', 'Dest-Service', 'Bat.-Res.-ZI', 'N° et voie', 'Lieu dit', 'Code Postal', 'Ville', 'Téléphone', 'Mobile', 'Fax', 'Email', 'Site Web', 'Taux de réduction']
-      each do |entity|
-        address = EntityAddress.find_by(entity_id: entity.id, by_default: true, deleted_at: nil)
-        item = []
-        item << ["'" + entity.number.to_s, entity.nature.name, entity.sale_catalog.name, entity.name, entity.first_name]
-        item << if !address.nil?
-                  [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax, address.email, address.website]
-                else
-                  ['', '', '', '', '', '', '', '', '', '', '']
-      end
-        item << [entity.reduction_percentage.to_s.tr('.', ',')]
-        csv << item.flatten
-      end
-    end
-    csv_string
-end
 end

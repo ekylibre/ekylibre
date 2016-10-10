@@ -47,14 +47,15 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(fixed_asset_depreciation) { fixed_asset_depreciation.stopped_on && fixed_asset_depreciation.started_on }
-  validates_numericality_of :amount, :depreciable_amount, :depreciated_amount, allow_nil: true
-  validates_inclusion_of :accountable, :locked, in: [true, false]
-  validates_presence_of :amount, :fixed_asset, :started_on, :stopped_on
+  validates :accountable, :locked, inclusion: { in: [true, false] }
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :depreciable_amount, :depreciated_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset_depreciation) { fixed_asset_depreciation.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :fixed_asset, presence: true
   # ]VALIDATORS]
-  validates_presence_of :financial_year
+  validates :financial_year, presence: true
   delegate :currency, to: :fixed_asset
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
@@ -72,7 +73,9 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   validate do
     # A start day must be the depreciation start or a financial year start
     if fixed_asset && financial_year
-      unless started_on == fixed_asset.started_on || started_on.beginning_of_month == started_on || started_on == financial_year.started_on
+      unless started_on == fixed_asset.started_on ||
+             started_on == financial_year.started_on ||
+             started_on == started_on.beginning_of_month
         errors.add(:started_on, :invalid_date, start: fixed_asset.started_on)
       end
     end

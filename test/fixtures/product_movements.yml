@@ -1323,6 +1323,7 @@ product_movements_115:
   population: 10.0
   product_id: 98
   started_at: 2014-11-07 15:25:51.233605000 Z
+  stopped_at: 2016-07-01 19:46:56.161420000 Z
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
 product_movements_116:
@@ -1440,11 +1441,11 @@ product_movements_126:
   creator_id: 1
   delta: 1992.0
   id: 126
-  lock_version: 0
+  lock_version: 1
   population: 1992.0
   product_id: 143
-  started_at: 2213-10-30 13:52:00.000000000 Z
-  updated_at: 2014-11-07 19:36:59.233966000 Z
+  started_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.881322000 Z
   updater_id: 1
 product_movements_127:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -1791,3 +1792,143 @@ product_movements_163:
   product_id: 175
   started_at: 2015-01-01 00:00:00.000000000 Z
   updated_at: 2016-01-21 14:05:51.794926000 Z
+product_movements_164:
+  created_at: 2016-05-10 19:12:52.781402000 Z
+  creator_id: 1
+  delta: 3.9989
+  id: 164
+  lock_version: 0
+  population: 3.9989
+  product_id: 176
+  started_at: 2016-02-29 23:00:00.000000000 Z
+  updated_at: 2016-05-10 19:12:52.781402000 Z
+  updater_id: 1
+product_movements_165:
+  created_at: 2016-07-01 19:23:47.670523000 Z
+  creator_id: 1
+  delta: 25.0
+  id: 165
+  lock_version: 0
+  population: 25.0
+  product_id: 177
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  stopped_at: 2016-07-01 20:13:23.808717000 Z
+  updated_at: 2016-07-01 19:23:47.670523000 Z
+  updater_id: 1
+product_movements_166:
+  created_at: 2016-07-01 19:23:47.725206000 Z
+  creator_id: 1
+  delta: 25.0
+  id: 166
+  lock_version: 0
+  population: 25.0
+  product_id: 177
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.725206000 Z
+  updater_id: 1
+product_movements_167:
+  created_at: 2016-07-01 19:23:47.804518000 Z
+  creator_id: 1
+  delta: 35.0
+  id: 167
+  lock_version: 0
+  population: 35.0
+  product_id: 178
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.804518000 Z
+  updater_id: 1
+product_movements_168:
+  created_at: 2016-07-01 19:23:47.830886000 Z
+  creator_id: 1
+  delta: 35.0
+  id: 168
+  lock_version: 0
+  population: 35.0
+  product_id: 178
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.830886000 Z
+  updater_id: 1
+product_movements_169:
+  created_at: 2016-07-01 20:13:23.889444000 Z
+  creator_id: 1
+  delta: -25.0
+  id: 169
+  lock_version: 0
+  population: 0.0
+  product_id: 177
+  started_at: 2016-07-01 20:13:23.808717000 Z
+  updated_at: 2016-07-01 20:13:23.889444000 Z
+  updater_id: 1
+product_movements_170:
+  created_at: 2016-07-01 20:23:21.103738000 Z
+  creator_id: 1
+  delta: 11.0
+  id: 170
+  lock_version: 0
+  population: 11.0
+  product_id: 179
+  started_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.103738000 Z
+  updater_id: 1
+product_movements_171:
+  created_at: 2016-07-01 20:23:21.155791000 Z
+  creator_id: 1
+  delta: 11.0
+  id: 171
+  lock_version: 0
+  population: 11.0
+  product_id: 179
+  started_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.155791000 Z
+  updater_id: 1
+product_movements_172:
+  created_at: 2016-07-01 20:46:56.169394000 Z
+  creator_id: 1
+  delta: -0.9289
+  id: 172
+  lock_version: 0
+  originator_id: 158
+  originator_type: InterventionParameter
+  population: 9.0711
+  product_id: 98
+  started_at: 2016-07-01 19:46:56.161420000 Z
+  stopped_at: 2016-07-01 20:46:56.161420000 Z
+  updated_at: 2016-07-01 20:46:56.169394000 Z
+  updater_id: 1
+product_movements_173:
+  created_at: 2016-08-10 14:27:49.907001000 Z
+  creator_id: 1
+  delta: 0.0
+  id: 173
+  lock_version: 0
+  population: -2.0
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.798212000 Z
+  stopped_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.907001000 Z
+  updater_id: 1
+product_movements_174:
+  created_at: 2016-08-10 14:27:49.987221000 Z
+  creator_id: 1
+  delta: 250.0
+  id: 174
+  lock_version: 0
+  population: 248.0
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.987221000 Z
+  updater_id: 1
+product_movements_175:
+  created_at: 2016-08-10 14:33:28.819569000 Z
+  creator_id: 1
+  delta: -2.0
+  id: 175
+  lock_version: 1
+  originator_id: 168
+  originator_type: InterventionParameter
+  population: -2.0
+  product_id: 180
+  started_at: 2016-08-10 13:33:00.000000000 Z
+  stopped_at: 2016-08-10 14:27:49.798212000 Z
+  updated_at: 2016-08-10 14:33:28.858698000 Z
+  updater_id: 1

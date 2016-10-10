@@ -11,6 +11,7 @@ spa:
       invalid_token: "Token de autenticación válida."
       invited: "Usted tiene una invitación pendiente, lo aceptan para terminar de crear su cuenta."
       locked: "Tu cuenta esta bloqueada."
+      not_approved: "Su cuenta no ha sido aprobado por el administrador todavía."
       not_found_in_database: "Correo electrónico o contraseña no válidos."
       timeout: "Su sesión ha finalizado, inicia sesión de nuevo para continuar."
       unauthenticated: "Es necesario iniciar sesión o registrarse antes de continuar."
@@ -38,6 +39,16 @@ spa:
         ignore: "Si no desea aceptar la invitación, por favor, ignora este mensaje. <br /> Su cuenta no se creará hasta que acceda al enlace de arriba y fijó su contraseña."
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "Instrucciones de invitación"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "Firme aquí."
+          subject: "Su cuenta ha sido aceptado!"
+        signed_up:
+          confirm: "Por favor, confirme que en el panel de administración."
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "Nueva inscripción"
       reset_password_instructions:
         subject: "Restablecer las instrucciones de contraseña"
       unlock_instructions:
@@ -59,6 +70,8 @@ spa:
       signed_up_but_unconfirmed: "Un mensaje con un enlace de confirmación ha sido enviado a su dirección de correo electrónico. Por favor, abra el enlace para activar su cuenta."
       update_needs_confirmation: "Ha actualizado su cuenta con éxito, pero que necesita para verificar su nueva dirección de correo electrónico. Por favor, consultar su correo electrónico y haga clic en el enlace de confirmación para finalizar confirmando su nueva dirección de correo electrónico."
       updated: "Ha actualizado su cuenta correctamente."
+      user:
+        signed_up_but_not_approved: "Que se haya registrado con éxito, pero su cuenta no ha sido aprobado por el administrador sin embargo,"
     sessions:
       signed_in: "Firmado en éxito."
       signed_out: "Firmado a cabo con éxito."

@@ -22,32 +22,37 @@
 #
 # == Table: product_natures
 #
-#  abilities_list           :text
-#  active                   :boolean          default(FALSE), not null
-#  category_id              :integer          not null
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  custom_fields            :jsonb
-#  derivative_of            :string
-#  derivatives_list         :text
-#  description              :text
-#  evolvable                :boolean          default(FALSE), not null
-#  frozen_indicators_list   :text
-#  id                       :integer          not null, primary key
-#  linkage_points_list      :text
-#  lock_version             :integer          default(0), not null
-#  name                     :string           not null
-#  number                   :string           not null
-#  picture_content_type     :string
-#  picture_file_name        :string
-#  picture_file_size        :integer
-#  picture_updated_at       :datetime
-#  population_counting      :string           not null
-#  reference_name           :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
-#  variable_indicators_list :text
-#  variety                  :string           not null
+#  abilities_list            :text
+#  active                    :boolean          default(FALSE), not null
+#  category_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  derivative_of             :string
+#  derivatives_list          :text
+#  description               :text
+#  evolvable                 :boolean          default(FALSE), not null
+#  frozen_indicators_list    :text
+#  id                        :integer          not null, primary key
+#  linkage_points_list       :text
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  number                    :string           not null
+#  picture_content_type      :string
+#  picture_file_name         :string
+#  picture_file_size         :integer
+#  picture_updated_at        :datetime
+#  population_counting       :string           not null
+#  reference_name            :string
+#  subscribing               :boolean          default(FALSE), not null
+#  subscription_days_count   :integer          default(0), not null
+#  subscription_months_count :integer          default(0), not null
+#  subscription_nature_id    :integer
+#  subscription_years_count  :integer          default(0), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variable_indicators_list  :text
+#  variety                   :string           not null
 #
 
 class ProductNature < Ekylibre::Record::Base
@@ -55,10 +60,10 @@ class ProductNature < Ekylibre::Record::Base
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   refers_to :reference_name, class_name: 'ProductNature'
-  # Be careful with the fact that it depends directly on the nomenclature definition
-  # refers_to :population_counting, class_name: 'ProductNature::PopulationCounting'
   enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: { prefix: true }
   belongs_to :category, class_name: 'ProductNatureCategory'
+  belongs_to :subscription_nature
+  has_many :subscriptions, through: :subscription_nature
   has_many :products, foreign_key: :nature_id, dependent: :restrict_with_exception
   has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
   has_one :default_variant, -> { order(:id) }, class_name: 'ProductNatureVariant', foreign_key: :nature_id
@@ -72,21 +77,27 @@ class ProductNature < Ekylibre::Record::Base
   serialize :linkage_points_list, SymbolArray
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, :evolvable, in: [true, false]
-  validates_presence_of :category, :name, :number, :population_counting, :variety
+  validates :abilities_list, :derivatives_list, :description, :frozen_indicators_list, :linkage_points_list, :variable_indicators_list, length: { maximum: 500_000 }, allow_blank: true
+  validates :active, :evolvable, :subscribing, inclusion: { in: [true, false] }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :picture_content_type, :picture_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :category, :population_counting, :variety, presence: true
   # ]VALIDATORS]
-  validates_length_of :number, allow_nil: true, maximum: 30
-  validates_length_of :derivative_of, :reference_name, :variety, allow_nil: true, maximum: 120
-  validates_uniqueness_of :number
-  validates_uniqueness_of :name
+  validates :number, length: { allow_nil: true, maximum: 30 }
+  validates :derivative_of, :reference_name, :variety, length: { allow_nil: true, maximum: 120 }
+  validates :number, uniqueness: true
+  validates :name, uniqueness: true
   validates_attachment_content_type :picture, content_type: /image/
+  validates :subscription_nature, presence: { if: :subscribing? }
 
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
+
   acts_as_numbered force: false
 
-  delegate :subscribing?, :deliverable?, :purchasable?, :to, to: :category
+  delegate :deliverable?, :purchasable?, :to, to: :category
   delegate :fixed_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   scope :availables, -> { where(active: true).order(:name) }
@@ -95,7 +106,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
   scope :stockables_or_depreciables, -> { joins(:category).merge(ProductNatureCategory.stockables_or_depreciables).order(:name) }
   scope :storage, -> { of_expression('can store(matter) or can store_liquid or can store_fluid or can store_gaz') }
-
+  scope :identifiables, -> { of_variety(:animal) + select(&:population_counting_unitary?) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
@@ -134,6 +145,31 @@ class ProductNature < Ekylibre::Record::Base
     # end
     # self.indicators = self.indicators_array.map(&:name).sort.join(", ")
     # self.abilities_list = self.abilities_list.sort.join(", ")
+    self.subscription_years_count ||= 0
+    self.subscription_months_count ||= 0
+    self.subscription_days_count ||= 0
+  end
+
+  validate do
+    if subscribing
+      if self.subscription_years_count.zero? && self.subscription_months_count.zero? && self.subscription_days_count.zero?
+        errors.add(:subscription_months_count, :invalid)
+      end
+    end
+    if variety && variants.any?
+      if variants.detect { |p| Nomen::Variety.find(p.variety) > variety }
+        errors.add(:variety, :invalid)
+      end
+    end
+    if derivative_of && variants.any?
+      if variants.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
+        errors.add(:derivative_of, :invalid)
+      end
+    end
+  end
+
+  def identifiable?
+    of_variety?(:animal) || population_counting_unitary?
   end
 
   def has_indicator?(indicator)
@@ -253,7 +289,32 @@ class ProductNature < Ekylibre::Record::Base
     picture.path(style)
   end
 
+  # Return humanized duration
+  def subscription_duration
+    l = []
+    l << 'x_years'.tl(count: self.subscription_years_count) if self.subscription_years_count > 0
+    l << 'x_months'.tl(count: self.subscription_months_count) if self.subscription_months_count > 0
+    l << 'x_days'.tl(count: self.subscription_days_count) if self.subscription_days_count > 0
+    l.to_sentence
+  end
+
+  # Compute stopped_on date from a started_on date for subsrbing product nature
+  def subscription_stopped_on(started_on)
+    stopped_on = started_on
+    stopped_on += self.subscription_years_count.years
+    stopped_on += self.subscription_months_count.months
+    stopped_on += self.subscription_days_count.months
+    stopped_on -= 1.day if stopped_on > started_on
+    stopped_on
+  end
+
   class << self
+    # Returns some nomenclature items are available to be imported, e.g. not
+    # already imported
+    def any_reference_available?
+      Nomen::ProductNature.without(ProductNature.pluck(:reference_name).uniq).any?
+    end
+
     Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary
@@ -267,7 +328,8 @@ class ProductNature < Ekylibre::Record::Base
           Nomen::Variety.find(item.variety),
           Nomen::Variety.find(item.derivative_of),
           WorkingSet::AbilityArray.load(item.abilities),
-          f + v, f, v)
+          f + v, f, v
+        )
       end
     end
 

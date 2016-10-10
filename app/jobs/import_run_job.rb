@@ -30,6 +30,7 @@ class ImportRunJob < ActiveJob::Base
     rescue => e
       import.update_columns(state: e.is_a?(Import::InterruptRequest) ? :aborted : :errored)
       import.notify(:import_failed, { message: e.message }, level: :error)
+      raise e
     end
   end
 end

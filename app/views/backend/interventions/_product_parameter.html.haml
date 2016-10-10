@@ -7,7 +7,7 @@
       - elsif computation.none?
         = '&mdash;'.html_safe
       - elsif computation.quantity?
-        %span.quantity= computation.quantity.round(3).l
+        %span.quantity= computation.quantity.round(3).l(precision: 0)
         %span.unit-name= computation.unit_name
         = ' &times; '.html_safe
         - if computation.sale?
@@ -50,12 +50,13 @@
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
         %p
-          - if product_parameter.quantity_indicator_name == 'population'
-            = :x_thing.tl(x: product_parameter.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
-          - else
-            = product_parameter.quantity.round(2).l
-          - if product_parameter.product.france_maaid
+          - if product_parameter.is_population?
+            = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
+          - elsif product_parameter.product.france_maaid
             = lights(:caution)
+            = product_parameter.quantity.round(2).l(precision: 0)
+          - else
+            = product_parameter.quantity.round(2).l(precision: 0)
   - elsif variant
     .picture
       - if variant.picture.file?
@@ -70,7 +71,7 @@
       %p= product_parameter.name
       %p= product_parameter.model_name.human
       - if !variant.population_counting_unitary?
-        %p= :x_thing.tl(x: (product_parameter.quantity_value || 0).round(2).l,
+        %p= :x_thing.tl(x: (product_parameter.quantity_value || 0).round(2).l(precision: 0),
                         thing: variant.unit_name.mb_chars.downcase)
 
   - else

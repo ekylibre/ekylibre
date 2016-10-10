@@ -26,7 +26,7 @@
         url: beehive.data("beehive-reset-url")
         type: 'post'
         success: (data, status, request) ->
-          document.location.reload(true)
+          Turbolinks.visit()
 
     setSortable: (beehive) ->
       $.beehive.addCellProposers(beehive)
@@ -175,6 +175,7 @@
           else
             element.html(data)
             element.trigger('cell:load')
+            $(window).trigger('resize')
         error: (request, status, error) ->
           console.error("Error while retrieving #{element.data('cell')} cell content: #{status} #{error}")
           beehive_cell.removeClass("loading")

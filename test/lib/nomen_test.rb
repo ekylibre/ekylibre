@@ -53,4 +53,29 @@ class NomenTest < ActiveSupport::TestCase
 
     assert invalids.empty?, "#{invalids.count} product nature have invalid abilities:\n" + details.dig
   end
+
+  test 'product_nature_variants indicators' do
+    invalids = []
+    Nomen::ProductNatureVariant.find_each do |item|
+      unless item.frozen_indicators_values.to_s.blank?
+        item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
+            .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
+          indicator_name = i.first.strip.downcase.to_sym
+          nature = Nomen::ProductNature.find(item.nature)
+          unless nature.frozen_indicators.include? indicator_name
+            invalids << { item: item, exception: "Indicator :#{indicator_name} is not one of '#{item.name}' nature '#{item.nature}'" }
+          end
+        end
+      end
+    end
+    details = invalids.map do |invalid|
+      item = invalid[:item]
+      exception = invalid[:exception]
+      "#{item.name.to_s.yellow}:\n" \
+      "  expression: #{item.abilities.inspect}\n" \
+      "  exception: #{exception.message}"
+    end.join("\n")
+
+    assert invalids.empty?, "#{invalids.count} product nature have invalid abilities:\n" + details.dig
+  end
 end

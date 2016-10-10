@@ -3,10 +3,11 @@ module Backend
     # Show a chart with working time spent between different activities
     # It can accept :cobbler option to specify inclusion.
     def time_spent_by_activity(resource, options = {})
-      working_periods = InterventionWorkingPeriod.of_campaign(current_campaign).with_generic_cast(:tool, resource)
+      working_periods = InterventionWorkingPeriod.with_intervention_parameter(options[:as] || :tool, resource)
+      working_periods = working_periods.of_campaign(current_campaign) if options[:current_campaign]
       return nil unless current_campaign && working_periods.any?
-      started_at = working_periods.reorder(started_at: :asc).first.started_at.to_date
       stopped_at = working_periods.reorder(stopped_at: :desc).first.stopped_at.to_date
+      started_at = working_periods.reorder(started_at: :asc).first.started_at.to_date
       duration = working_periods.sum(:duration)
 
       unit = Nomen::Unit[options[:time_unit] || :hour]
@@ -22,16 +23,27 @@ module Backend
       end
 
       # data for bar chart times by activities and by month
-      current_campaign.activities.find_each do |activity|
+      Activity.find_each do |activity|
         activity_periods = working_periods.of_activities(activity).order(:started_at)
         if activity_periods.any?
-          sums = activity_periods.sums_of_periods.sort.inject({}) do |hash, period|
+          sums = activity_periods.sums_of_periods.sort.each_with_object({}) do |period, hash|
             hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
             hash
           end
           series << { name: activity.name, data: normalize_serie(sums, categories.keys),
-                      tooltip: { value_suffix: unit.symbol } }
+                      tooltip: { value_suffix: unit.symbol }, color: activity.color }
         end
+      end
+
+      # Without activities
+      activity_periods = working_periods.without_activity.order(:started_at)
+      if activity_periods.any?
+        sums = activity_periods.sums_of_periods.sort.each_with_object({}) do |period, hash|
+          hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
+          hash
+        end
+        series << { name: :undefined_activity.tl, data: normalize_serie(sums, categories.keys),
+                    tooltip: { value_suffix: unit.symbol }, color: '#777777' }
       end
 
       if series.any?
@@ -44,6 +56,26 @@ module Backend
           return html
         end
       end
+    end
+
+    # A product mini map show shape between born_at if born_at is in the
+    # future
+    def product_mini_map(product = nil)
+      product ||= resource
+      unless product.is_a?(Product)
+        raise ArgumentError, 'Product expected, got ' + product.inspect
+      end
+      mini_map(product) do |r|
+        { name: r.name, shape: r.shape(at: [r.born_at, Time.zone.now].compact.max) }
+      end
+    end
+
+    def product_info(name, options = {}, &block)
+      product ||= resource
+      unless product.respond_to?(name)
+        options[:value] ||= product.send(name, at: [product.born_at, Time.zone.now].compact.max)
+      end
+      resource_info(name, options, &block)
     end
   end
 end

@@ -1,14 +1,14 @@
 intervention id;Campagne;Date début;Heure début;durée (heures);procedure;description;Zones cultivables;cible variant;cible variété;code personnes;code equipements;code intrant 1;quantité intrant 1;unité intrant 1;unité de surface (hectare );code intrant 2;quantité intrant 2;unité intrant 2;Dose 2 (hectare );code intrant 3;quantité intrant 3;unité intrant 3;Dose 3 (hectare );indicateurs
-1;2015;05/01/2015;09:00;1;harvest_helping;Dechaussage;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-2;2015;06/01/2015;09:00;7.5;harvest_helping;Taille ( ou recolte);ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-3;2015;07/01/2015;09:00;4.5;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-4;2015;08/01/2015;09:00;7.5;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-5;2015;09/01/2015;09:00;6.5;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-6;2015;13/01/2015;09:00;0.5;harvest_helping;Dechaussage (compresseur sur le plant);ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-7;2015;14/01/2015;09:00;7;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-8;2015;15/01/2015;09:00;7.5;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-9;2015;27/01/2015;09:00;1;harvest_helping;Dechaussage;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-10;2015;27/01/2015;09:00;3;harvest_helping;Dechaussage;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-11;2015;28/01/2015;09:00;3;harvest_helping;Dechaussage;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-12;2015;27/01/2015;09:00;7;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
-13;2015;28/01/2015;09:00;7;harvest_helping;Taille;ZC02;market_gardening_crop;;AB;;;;;;;;;;;;;;
+1;2015;05/01/2015;09:00;1;harvest_helping;Dechaussage;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+2;2015;06/01/2015;09:00;7.5;harvest_helping;Taille ( ou recolte);ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+3;2015;07/01/2015;09:00;4.5;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+4;2015;08/01/2015;09:00;7.5;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+5;2015;09/01/2015;09:00;6.5;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+6;2015;13/01/2015;09:00;0.5;harvest_helping;Dechaussage (compresseur sur le plant);ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+7;2015;14/01/2015;09:00;7;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+8;2015;15/01/2015;09:00;7.5;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+9;2015;27/01/2015;09:00;1;harvest_helping;Dechaussage;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+10;2015;27/01/2015;09:00;3;harvest_helping;Dechaussage;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+11;2015;28/01/2015;09:00;3;harvest_helping;Dechaussage;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+12;2015;27/01/2015;09:00;7;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;
+13;2015;28/01/2015;09:00;7;harvest_helping;Taille;ZC2;market_gardening_crop;;AB;;;;;;;;;;;;;;

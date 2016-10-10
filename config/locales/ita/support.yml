@@ -19,6 +19,7 @@ ita:
       month: "% B% Y"
       month_letter: "% D% B% Y"
       short: "%d %b"
+      short_month: "%m/%Y"
     month_names: ["", "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
   datetime:
     distance_in_words:
@@ -56,6 +57,11 @@ ita:
       x_seconds:
         one: "1 secondo"
         other: "%{count} secondi"
+    periods:
+      day: "Giorno"
+      month: "Mese"
+      week: "Settimana"
+      year: "Anno"
     prompts:  #?
       day: "Giorno" #?
       hour: "Ora" #?
@@ -76,10 +82,10 @@ ita:
   http:
     errors:
       internal_server_error:
-        hint: "L&#39;applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
+        hint: "L'applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
         title: "Siamo spiacenti, ma qualcosa è andato storto"
       not_found:
-        hint: "Potreste aver digitato in modo errato l&#39;indirizzo o la pagina potrebbe essere spostato."
+        hint: "Potreste aver digitato in modo errato l'indirizzo o la pagina potrebbe essere spostato."
         title: "La pagina che stavi cercando non esiste"
       unprocessable_entity:
         hint: "Forse si è tentato di cambiare qualcosa che non ha accesso."
@@ -130,6 +136,12 @@ ita:
       format:
         delimiter: ""
   # rank: "#%{number}"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Numero di fattura del fornitore"
+    required:
+      text: "Richiesto"
   support:
     array:
       last_word_connector: " e "
@@ -139,7 +151,9 @@ ita:
   time:
     am: "am"
     formats:
+      compact: "% M /% d /% Y% H:% M"
       default: "%a %d %b %Y, %H:%M:%S %z"
       long: "%d %B %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M" #?
     pm: "pm"

@@ -57,13 +57,16 @@
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  person_id                              :integer
+#  provider                               :string
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
 #  rights                                 :text
 #  role_id                                :integer
 #  sign_in_count                          :integer          default(0)
+#  signup_at                              :datetime
 #  team_id                                :integer
+#  uid                                    :string
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
 #  updated_at                             :datetime         not null
@@ -83,7 +86,7 @@ class User < Ekylibre::Record::Base
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
   has_many :sales_invoices, -> { where(state: 'invoice') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_many :sales, through: :person, source: :managed_sales
-  has_many :transports, foreign_key: :responsible_id
+  has_many :deliveries, foreign_key: :responsible_id
   has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
 
@@ -91,25 +94,30 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :failed_attempts, :invitation_limit, allow_nil: true, only_integer: true
-  validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
-  validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
-  validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage
+  validates :administrator, :commercial, :employed, :locked, inclusion: { in: [true, false] }
+  validates :authentication_token, :confirmation_token, :invitation_token, :reset_password_token, :unlock_token, uniqueness: true, length: { maximum: 500 }, allow_blank: true
+  validates :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :current_sign_in_ip, :employment, :last_sign_in_ip, :provider, :uid, :unconfirmed_email, length: { maximum: 500 }, allow_blank: true
+  validates :description, :rights, length: { maximum: 500_000 }, allow_blank: true
+  validates :email, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :encrypted_password, :first_name, :last_name, presence: true, length: { maximum: 500 }
+  validates :failed_attempts, :invitation_limit, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :language, presence: true
+  validates :maximal_grantable_reduction_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
-  validates_length_of :language, allow_nil: true, maximum: 3
+  validates :language, length: { allow_nil: true, maximum: 3 }
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
-  validates_confirmation_of :password
-  validates_numericality_of :maximal_grantable_reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
-  validates_uniqueness_of :email, :person_id
-  validates_presence_of :role, unless: :administrator?
+  validates :password, confirmation: true
+  validates :maximal_grantable_reduction_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :email, :person_id, uniqueness: true
+  validates :role, presence: { unless: :administrator_or_unapproved? }
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :invitable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :invitable, :omniauthable, omniauth_providers: [:ekylibre]
   model_stamper # Needed to stamp.all records
   delegate :picture, :participations, to: :person
   delegate :name, to: :role, prefix: true
@@ -162,6 +170,11 @@ class User < Ekylibre::Record::Base
     end
   end
 
+  def status
+    return tc('status.invitation.pending') if created_by_invite? && !invitation_accepted?
+    return tc('status.registration.pending') if pending_approval?
+  end
+
   def name
     # TODO: I18nize the method User#name !
     "#{first_name} #{last_name}"
@@ -169,6 +182,14 @@ class User < Ekylibre::Record::Base
 
   def label
     name
+  end
+
+  def theme=(value)
+    prefer!(:theme, value, :string)
+  end
+
+  def theme
+    preference(:theme).value
   end
 
   # Returns the URL of the avatar of the user
@@ -204,6 +225,26 @@ class User < Ekylibre::Record::Base
   def self.notify_administrators(*args)
     User.administrators.each do |user|
       user.notify(*args)
+    end
+  end
+
+  def pending_approval?
+    signup_at.present?
+  end
+
+  def approved?
+    !pending_approval?
+  end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super
     end
   end
 
@@ -267,7 +308,7 @@ class User < Ekylibre::Record::Base
     if options[:on]
       crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
     end
-    crumbs.order(read_at: :asc).map(&:intervention_path)
+    crumbs.order(read_at: :asc).map(&:intervention_path).uniq
   end
 
   def current_campaign
@@ -282,6 +323,22 @@ class User < Ekylibre::Record::Base
 
   def current_campaign=(campaign)
     prefer!('current_campaign.id', campaign.id, :integer)
+  end
+
+  def current_period_interval
+    preference('current_period_interval', :years, :string).value
+  end
+
+  def current_period_interval=(period_interval)
+    prefer!('current_period_interval', period_interval, :string)
+  end
+
+  def current_period
+    preference('current_period', Date.today, :string).value
+  end
+
+  def current_period=(period)
+    prefer!('current_period', period, :string)
   end
 
   def card
@@ -301,6 +358,10 @@ class User < Ekylibre::Record::Base
   end
 
   private
+
+  def administrator_or_unapproved?
+    administrator? || !approved?
+  end
 
   def self.generate_password(password_length = 8, mode = :normal)
     return '' if password_length.blank? || password_length < 1

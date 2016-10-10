@@ -1,13 +1,13 @@
 postgis:
   image: mdillon/postgis
   volumes:
-    - ./tmp/data/postgres/ekylibre:/var/lib/postgresql/data
+    - /tmp/data/ekylibre/postgresql:/var/lib/postgresql/data
   ports:
     - "5432:5432"
 
 redis:
   image: redis:3.0
   volumes:
-    - /tmp/data/redis/ekylibre:/data
+    - /tmp/data/ekylibre/redis:/data
   ports:
     - "6379:6379"

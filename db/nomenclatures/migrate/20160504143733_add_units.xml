@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add units">
+  <item-creation item="dimensions#surface_area_flow" symbol="m&#xB2;/s"/>
+  <item-creation item="units#hectare_per_hour" dimension="surface_area_flow" symbol="ha/h" a="10000" d="3600"/>
+  <item-creation item="units#million_per_hectare" dimension="surface_area_density" symbol="M./ha" a="1000000" d="10000"/>
+</migration>

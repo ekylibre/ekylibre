@@ -41,27 +41,29 @@
 class Journal < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
-  has_many :cashes
-  has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal
-  has_many :entries, class_name: 'JournalEntry', inverse_of: :journal
-  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
+  refers_to :currency
+  has_many :cashes, dependent: :restrict_with_exception
+  has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
+  has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
+  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :closed_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_inclusion_of :used_for_affairs, :used_for_gaps, in: [true, false]
-  validates_presence_of :closed_on, :code, :currency, :name, :nature
+  validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :code, :name, presence: true, length: { maximum: 500 }
+  validates :currency, :nature, presence: true
+  validates :used_for_affairs, :used_for_gaps, inclusion: { in: [true, false] }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :code, allow_nil: true, maximum: 4
-  validates_length_of :nature, allow_nil: true, maximum: 30
-  validates_uniqueness_of :code
-  validates_uniqueness_of :name
-  validates_format_of :code, with: /\A[\dA-Z]+\z/
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :code, length: { allow_nil: true, maximum: 4 }
+  validates :nature, length: { allow_nil: true, maximum: 30 }
+  validates :code, uniqueness: true
+  validates :name, uniqueness: true
+  validates :code, format: { with: /\A[\dA-Z]+\z/ }
 
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 
   scope :used_for, lambda { |nature|
-    unless self.nature.values.include?(nature.to_s)
-      raise ArgumentError, "Journal#used_for must be one of these: #{self.nature.values.join(', ')}"
+    unless Journal.nature.values.include?(nature.to_s)
+      raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
     end
     where(nature: nature.to_s)
   }
@@ -74,6 +76,7 @@ class Journal < Ekylibre::Record::Base
   scope :forwards,  -> { where(nature: 'forward') }
   scope :various,   -> { where(nature: 'various') }
   scope :cashes,    -> { where(nature: 'cashes') }
+  scope :stocks,    -> { where(nature: 'stocks') }
   scope :banks_or_cashes, -> { where(nature: 'cashes').or.where(nature: 'bank') }
 
   before_validation(on: :create) do
@@ -85,11 +88,11 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = self.nature.l if name.blank? && self.nature
+    self.name = nature.l if name.blank? && nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.l if code.blank?
+    self.code = nature.l if code.blank?
     self.code = code.codeize[0..3]
   end
 
@@ -114,7 +117,7 @@ class Journal < Ekylibre::Record::Base
     def get(name)
       name = name.to_s
       pref_name = "#{name}_journal"
-      raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.key? pref_name
+      raise ArgumentError, "Unvalid journal name: #{name.inspect}" unless self.class.preferences_reference.key? pref_name
       unless journal = preferred(pref_name)
         journal = journals.find_by_nature(name)
         journal = journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency) unless journal
@@ -316,18 +319,15 @@ class Journal < Ekylibre::Record::Base
     journal_entries = 'je'
     accounts = 'a'
 
-    journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
+    journal_entries_states = ' AND (' + JournalEntry.state_condition(options[:states], journal_entries) + ')'
 
-    # account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
-    account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
+    account_range = ' AND (' + Account.range_condition(options[:accounts], accounts) + ')'
 
-    # raise StandardError.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
-    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}
-    options[:centralize] = centralize.join(' ')
-    centralized = centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ')
+    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
+    centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
 
     from_where  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    from_where += ' WHERE ' + JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
+    from_where += ' WHERE (' + JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries) + ')'
 
     # Total
     items = []

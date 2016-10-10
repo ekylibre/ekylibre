@@ -19,7 +19,7 @@ namespace :clean do
     end.each do |table|
       schema_hash[table] = {}
       schema_yaml << "\n#{table}:\n"
-      columns = Ekylibre::Record::Base.connection.columns(table).sort { |a, b| a.name <=> b.name }
+      columns = Ekylibre::Record::Base.connection.columns(table).sort_by(&:name)
       max = columns.map(&:name).map(&:size).max + 1
       model = begin
                 table.classify.constantize
@@ -96,7 +96,7 @@ namespace :clean do
     end
 
     File.open(Ekylibre::Schema.root.join('models.yml'), 'wb') do |f|
-      f.write(models.collect { |m| m.name.underscore }.to_yaml)
+      f.write(models.collect { |m| m.name.underscore }.uniq.sort.to_yaml)
     end
 
     Ekylibre::Schema.reset!

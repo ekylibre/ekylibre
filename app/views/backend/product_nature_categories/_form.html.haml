@@ -1,9 +1,7 @@
--# if f.object.errors.any?
-  = f.object.errors.inspect
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
 
 = field_set do
   = f.input :name
-  = f.input :pictogram
   = f.input :active
   = f.input :description
   = f.custom_fields
@@ -11,15 +9,10 @@
 = field_set(:nature) do
   = f.input :reductible
   = f.input :depreciable, :show => :financials_assets
-  = f.input :saleable, :show => :sales
+  = f.input :storable, :show => :stocks
   = f.input :purchasable, :show => :purchases
-  = f.input :storable, :show => :stock_account_field_zone
-  = f.referenced_association :stock_account, wrapper_html: {id: :stock_account_field_zone}
-  = f.input :subscribing, :show => :subscriptions
-
-= field_set(:subscriptions) do
-  = f.referenced_association :subscription_nature
-  = f.input :subscription_duration
+  = f.input :saleable, :show => :sales
+  = f.input :subscribing
 
 = field_set(:financials_assets) do
   = f.input :fixed_asset_depreciation_method, collection: enumerize_as_options(:fixed_asset, :depreciation_method)
@@ -28,20 +21,16 @@
   = f.referenced_association :fixed_asset_allocation_account, :source => :assets_depreciations
   = f.referenced_association :fixed_asset_expenses_account, :source => :asset_depreciations_inputations_expenses
 
-= field_set(:sales) do
-  = f.referenced_association :product_account
-  -# = f.association :sale_taxes, as: :radio_buttons
-  = f.nested_association :sale_taxations
+= field_set(:stocks) do
+  = f.referenced_association :stock_account
+  = f.referenced_association :stock_movement_account, :source => :stocks_variations
 
 = field_set(:purchases) do
   = f.referenced_association :charge_account
   -# = f.association :purchase_taxes, as: :radio_buttons
   = f.nested_association :purchase_taxations
 
-
-
--# = field_set(:accountancy) do
-
--#= field_set(:natures) do
-  = f.nested_association(:natures)
-
+= field_set(:sales) do
+  = f.referenced_association :product_account
+  -# = f.association :sale_taxes, as: :radio_buttons
+  = f.nested_association :sale_taxations

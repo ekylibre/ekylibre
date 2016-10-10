@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update product natures and variants for vegetables">
+  <item-creation item="product_nature_categories#vegetable"  product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf"/>
+  <item-creation item="product_natures#vegetable" category="vegetable" variety="vegetable" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
+  <item-creation item="product_natures#beet" category="vegetable" variety="vegetable" derivative_of="beta_vulgaris" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#chard" category="vegetable" variety="vegetable" derivative_of="beta_vulgaris_cicla" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#carrot" category="vegetable" variety="vegetable" derivative_of="daucus_carota" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#cabbage" category="vegetable" variety="vegetable" derivative_of="brassica_oleracea" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#squash" category="vegetable" variety="vegetable" derivative_of="cucurbita" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#spinach" category="vegetable" variety="vegetable" derivative_of="spinacia_oleracea" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#bean" category="vegetable" variety="vegetable" derivative_of="phaseolus_vulgaris" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#lettuce" category="vegetable" variety="vegetable" derivative_of="lactuca_sativa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#turnip" category="vegetable" variety="vegetable" derivative_of="brassica_rapa_rapa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#onion" category="vegetable" variety="vegetable" derivative_of="allium_cepa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#parsnip" category="vegetable" variety="vegetable" derivative_of="pastinaca_sativa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#leek" category="vegetable" variety="vegetable" derivative_of="allium_porrum" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#pea" category="vegetable" variety="vegetable" derivative_of="pisum" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#potato" category="vegetable" variety="vegetable" derivative_of="solanum_tuberosum" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#radish" category="vegetable" variety="vegetable" derivative_of="raphanus_sativus" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_natures#jerusalem_artichoke" category="vegetable" variety="vegetable" derivative_of="helianthus_tuberosus" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+  <item-creation item="product_nature_variants#beet" nature="beet" derivative_of="beta_vulgaris" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#chard" nature="chard" derivative_of="beta_vulgaris_cicla" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#carrot" nature="carrot" derivative_of="daucus_carota" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#cabbage" nature="cabbage" derivative_of="brassica_oleracea" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#squash" nature="squash" derivative_of="cucurbita" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#spinach" nature="spinach" derivative_of="spinacia_oleracea" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#bean" nature="bean" derivative_of="phaseolus_vulgaris" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#lettuce" nature="lettuce" derivative_of="lactuca_sativa" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#turnip" nature="turnip" derivative_of="brassica_rapa_rapa" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#onion" nature="onion" derivative_of="allium_cepa" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#parsnip" nature="parsnip" derivative_of="pastinaca_sativa" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#leek" nature="leek" derivative_of="allium_porrum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#pea" nature="pea" derivative_of="pisum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#potato" nature="potato" derivative_of="solanum_tuberosum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#radish" nature="radish" derivative_of="raphanus_sativus" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+  <item-creation item="product_nature_variants#jerusalem_artichoke" nature="jerusalem_artichoke" derivative_of="helianthus_tuberosus" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+</migration>

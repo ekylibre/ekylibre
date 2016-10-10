@@ -68,8 +68,7 @@ module LaGraineInformatique
           { 'madame et monsieur' => :contact,
             'monsieur et madame' => :contact,
             'monsieur' => :contact,
-            'madame' => :contact
-          }.each do |expr, name|
+            'madame' => :contact }.each do |expr, name|
             next unless r.full_name =~ /^#{expr}/i
             nature = name
             r.title = expr.upcase

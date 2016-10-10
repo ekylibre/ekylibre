@@ -6,13 +6,13 @@
       <output name="child" filter="is bos" cardinality="*">
         <attribute name="new_name"/>
         <!-- <attribute name="new_group"/>
-        <attribute name="new_container"/> -->
-        <handler name="population"/>
-        <reading name="sex"/>
-        <reading name="net_mass"/>
-        <reading name="animal_life_state"/>
-        <reading name="healthy"/>
-        <reading name="mammalia_birth_condition"/>
+             <attribute name="new_container"/> -->
+             <handler name="population"/>
+             <reading name="sex"/>
+             <reading name="net_mass"/>
+             <reading name="animal_life_state"/>
+             <reading name="healthy"/>
+             <reading name="mammalia_birth_condition"/>
       </output>
       <doer name="caregiver" filter="is worker" cardinality="*"/>
     </parameters>

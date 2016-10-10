@@ -6,10 +6,9 @@
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>
-        <page to="backend/entities#autocomplete_for_origin"/>
+        <page to="backend/entities#autocomplete"/>
         <page to="backend/entities#destroy"/>
         <page to="backend/entities#edit"/>
-        <page to="backend/entities#export"/>
         <page to="backend/entities#import"/>
         <page to="backend/entities#list"/>
         <page to="backend/entities#list_event_participations"/>
@@ -71,7 +70,7 @@
         <page to="backend/events#list"/>
         <page to="backend/events#new"/>
         <page to="backend/events#update"/>
-        <page to="backend/events#autocomplete_for_place"/>
+        <page to="backend/events#autocomplete"/>
         <page to="backend/events#change_minutes"/>
         <page to="backend/events#list_participations"/>
         <page to="backend/events#show"/>
@@ -166,10 +165,10 @@
         <page to="backend/cashes#list_deposits"/>
         <page to="backend/cashes#list_sessions"/>
         <page to="backend/cashes#new"/>
-        <page to="backend/cashes#point"/>
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
+        <page to="backend/bank_statement_items#new"/>
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -177,10 +176,11 @@
         <page to="backend/bank_statements#list"/>
         <page to="backend/bank_statements#list_items"/>
         <page to="backend/bank_statements#new"/>
-        <page to="backend/bank_statements#point"/>
         <page to="backend/bank_statements#show"/>
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
+        <page to="backend/bank_statements#reconciliation"/>
+        <page to="backend/bank_statements#import"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -222,7 +222,6 @@
         <page to="backend/sales#create"/>
         <page to="backend/sales#destroy"/>
         <page to="backend/sales#duplicate"/>
-        <page to="backend/sales#generate_parcel"/>
         <page to="backend/sales#edit"/>
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
@@ -253,6 +252,7 @@
         <page to="backend/sale_opportunities#update"/>
         <page to="backend/sale_opportunities#attach"/>
         <page to="backend/sale_opportunities#detach"/>
+        <page to="backend/sale_opportunities#detach_gaps"/>
         <page to="backend/sale_opportunities#evaluate"/>
         <page to="backend/sale_opportunities#finish"/>
         <page to="backend/sale_opportunities#lose"/>
@@ -266,6 +266,7 @@
         <page to="backend/affairs#index"/>
         <page to="backend/affairs#attach"/>
         <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#detach_gaps"/>
         <page to="backend/affairs#finish"/>
         <page to="backend/affairs#list"/>
         <page to="backend/affairs#select"/>
@@ -279,11 +280,26 @@
         <page to="backend/sale_tickets#index"/>
         <page to="backend/sale_tickets#attach"/>
         <page to="backend/sale_tickets#detach"/>
+        <page to="backend/sale_tickets#detach_gaps"/>
         <page to="backend/sale_tickets#finish"/>
         <page to="backend/sale_tickets#list"/>
         <page to="backend/sale_tickets#select"/>
         <page to="backend/sale_tickets#show"/>
         <page to="backend/sale_tickets#unroll"/>
+      </item>
+      <item name="subscriptions">
+        <page to="backend/subscriptions#index"/>
+        <page to="backend/subscriptions#create"/>
+        <page to="backend/subscriptions#destroy"/>
+        <page to="backend/subscriptions#edit"/>
+        <page to="backend/subscriptions#list"/>
+        <page to="backend/subscriptions#new"/>
+        <page to="backend/subscriptions#renew"/>
+        <page to="backend/subscriptions#show"/>
+        <page to="backend/subscriptions#unroll"/>
+        <page to="backend/subscriptions#update"/>
+        <page to="backend/subscriptions#suspend"/>
+        <page to="backend/subscriptions#takeover"/>
       </item>
     </group>
     <group name="purchases" icon="shopping-cart">
@@ -360,9 +376,11 @@
         <page to="backend/matters#list_carried_linkages"/>
         <page to="backend/matters#list_carrier_linkages"/>
         <page to="backend/matters#list_contained_products"/>
+        <page to="backend/matters#list_inspections"/>
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_product_parameters"/>
+        <page to="backend/matters#list_parcel_items"/>
         <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
@@ -383,15 +401,22 @@
         <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
         <page to="backend/products#list_contained_products"/>
+        <page to="backend/products#list_inspections"/>
         <page to="backend/products#list_groups"/>
         <page to="backend/products#list_issues"/>
         <page to="backend/products#list_readings"/>
         <page to="backend/products#list_intervention_product_parameters"/>
+        <page to="backend/products#list_parcel_items"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>
         <page to="backend/products#picture"/>
+        <page to="backend/product_localizations#create"/>
+        <page to="backend/product_localizations#destroy"/>
+        <page to="backend/product_localizations#edit"/>
+        <page to="backend/product_localizations#new"/>
+        <page to="backend/product_localizations#update"/>
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#create"/>
         <page to="backend/product_groups#destroy"/>
@@ -400,6 +425,8 @@
         <page to="backend/product_groups#list_carried_linkages"/>
         <page to="backend/product_groups#list_carrier_linkages"/>
         <page to="backend/product_groups#list_contained_products"/>
+        <page to="backend/product_groups#list_inspections"/>
+        <page to="backend/product_groups#list_parcel_items"/>
         <page to="backend/product_groups#list_groups"/>
         <page to="backend/product_groups#list_readings"/>
         <page to="backend/product_groups#list_intervention_product_parameters"/>
@@ -412,6 +439,8 @@
         <page to="backend/product_groups#take"/>
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
+      </item>
+      <item name="trackings">
         <page to="backend/trackings#index"/>
         <page to="backend/trackings#create"/>
         <page to="backend/trackings#destroy"/>
@@ -485,6 +514,26 @@
 -->
     </group>
     <group name="movements" icon="truck">
+      <item name="parcels">
+        <page to="backend/parcels#index"/>
+        <page to="backend/parcels#create"/>
+        <page to="backend/parcels#destroy"/>
+        <page to="backend/parcels#edit"/>
+        <page to="backend/parcels#invoice"/>
+        <page to="backend/parcels#list"/>
+        <page to="backend/parcels#list_incoming_items"/>
+        <page to="backend/parcels#list_outgoing_items"/>
+        <page to="backend/parcels#new"/>
+        <page to="backend/parcels#ship"/>
+        <page to="backend/parcels#show"/>
+        <page to="backend/parcels#unroll"/>
+        <page to="backend/parcels#update"/>
+        <page to="backend/parcels#cancel"/>
+        <page to="backend/parcels#check"/>
+        <page to="backend/parcels#give"/>
+        <page to="backend/parcels#order"/>
+        <page to="backend/parcels#prepare"/>
+      </item>
       <item name="deliveries">
         <page to="backend/deliveries#index"/>
         <page to="backend/deliveries#create"/>
@@ -503,32 +552,36 @@
         <page to="backend/deliveries#prepare"/>
         <page to="backend/deliveries#start"/>
       </item>
-      <item name="parcels">
-        <page to="backend/parcels#index"/>
-        <page to="backend/parcels#create"/>
-        <page to="backend/parcels#destroy"/>
-        <page to="backend/parcels#edit"/>
-        <page to="backend/parcels#invoice"/>
-        <page to="backend/parcels#list"/>
-        <page to="backend/parcels#list_items"/>
-        <page to="backend/parcels#new"/>
-        <page to="backend/parcels#ship"/>
-        <page to="backend/parcels#show"/>
-        <page to="backend/parcels#unroll"/>
-        <page to="backend/parcels#update"/>
-        <page to="backend/parcels#cancel"/>
-        <page to="backend/parcels#check"/>
-        <page to="backend/parcels#give"/>
-        <page to="backend/parcels#order"/>
-        <page to="backend/parcels#prepare"/>
-        <page to="backend/parcel_items#new"/>
-      </item>
     </group>
   </part>
   <part name="production" icon="cogs">
     <page to="backend/dashboards#production"/>
-    <group name="activity" icon="cogs">
-      <item name="productions">
+    <group name="production" icon="cogs">
+      <item name="activities">
+        <page to="backend/activities#index"/>
+        <page to="backend/activities#create"/>
+        <page to="backend/activities#destroy"/>
+        <page to="backend/activities#duplicate"/>
+        <page to="backend/activities#edit"/>
+        <page to="backend/activities#family"/>
+        <page to="backend/activities#list"/>
+        <page to="backend/activities#list_distributions"/>
+        <page to="backend/activities#list_inspections"/>
+        <page to="backend/activities#list_productions"/>
+        <page to="backend/activities#new"/>
+        <page to="backend/activities#show"/>
+        <page to="backend/activities#update"/>
+        <page to="backend/activities#unroll"/>
+        <page to="backend/activity_productions#index"/>
+        <page to="backend/activity_productions#list_interventions"/>
+        <page to="backend/activity_productions#list_target_distributions"/>
+        <page to="backend/activity_productions#show"/>
+        <page to="backend/activity_productions#unroll"/>
+        <page to="backend/activity_productions#create"/>
+        <page to="backend/activity_productions#destroy"/>
+        <page to="backend/activity_productions#edit"/>
+        <page to="backend/activity_productions#new"/>
+        <page to="backend/activity_productions#update"/>
         <page to="backend/campaigns#current"/>
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#index"/>
@@ -538,30 +591,9 @@
         <page to="backend/campaigns#list"/>
         <page to="backend/campaigns#new"/>
         <page to="backend/campaigns#open"/>
+        <page to="backend/campaigns#close"/>
         <page to="backend/campaigns#update"/>
         <page to="backend/campaigns#unroll"/>
-        <page to="backend/activity_productions#index"/>
-        <page to="backend/activity_productions#list_interventions"/>
-        <page to="backend/activity_productions#show"/>
-        <page to="backend/activity_productions#unroll"/>
-        <page to="backend/activity_productions#create"/>
-        <page to="backend/activity_productions#destroy"/>
-        <page to="backend/activity_productions#edit"/>
-        <page to="backend/activity_productions#new"/>
-        <page to="backend/activity_productions#update"/>
-        <page to="backend/activities#index"/>
-        <page to="backend/activities#create"/>
-        <page to="backend/activities#destroy"/>
-        <page to="backend/activities#duplicate"/>
-        <page to="backend/activities#edit"/>
-        <page to="backend/activities#family"/>
-        <page to="backend/activities#list"/>
-        <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_productions"/>
-        <page to="backend/activities#new"/>
-        <page to="backend/activities#show"/>
-        <page to="backend/activities#update"/>
-        <page to="backend/activities#unroll"/>
         <page to="backend/activity_budgets#index"/>
         <page to="backend/activity_budgets#create"/>
         <page to="backend/activity_budgets#destroy"/>
@@ -569,7 +601,17 @@
         <page to="backend/activity_budgets#edit"/>
         <page to="backend/activity_budgets#new"/>
         <page to="backend/activity_budgets#show"/>
+        <page to="backend/activity_budgets#unroll"/>
         <page to="backend/activity_budgets#update"/>
+        <page to="backend/activity_inspection_point_natures#autocomplete"/>
+        <page to="backend/activity_seasons#index"/>
+        <page to="backend/activity_seasons#create"/>
+        <page to="backend/activity_seasons#destroy"/>
+        <page to="backend/activity_seasons#edit"/>
+        <page to="backend/activity_seasons#new"/>
+        <page to="backend/activity_seasons#show"/>
+        <page to="backend/activity_seasons#unroll"/>
+        <page to="backend/activity_seasons#update"/>
         <page to="backend/animals#index"/>
         <page to="backend/animals#add_to_group"/>
         <page to="backend/animals#add_to_container"/>
@@ -585,7 +627,9 @@
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>
         <page to="backend/animals#picture"/>
+        <page to="backend/animals#list_parcel_items"/>
         <page to="backend/animals#list_contained_products"/>
+        <page to="backend/animals#list_inspections"/>
         <page to="backend/animals#list_groups"/>
         <page to="backend/animals#list_issues"/>
         <page to="backend/animals#list_readings"/>
@@ -601,26 +645,14 @@
         <page to="backend/animals#load_containers"/>
         <page to="backend/animals#load_natures"/>
         <page to="backend/animals#load_workers"/>
-        <page to="backend/plants#index"/>
-        <page to="backend/plants#create"/>
-        <page to="backend/plants#destroy"/>
-        <page to="backend/plants#edit"/>
-        <page to="backend/plants#list"/>
-        <page to="backend/plants#list_carried_linkages"/>
-        <page to="backend/plants#list_carrier_linkages"/>
-        <page to="backend/plants#list_contained_products"/>
-        <page to="backend/plants#list_groups"/>
-        <page to="backend/plants#list_readings"/>
-        <page to="backend/plants#list_intervention_product_parameters"/>
-        <page to="backend/plants#list_issues"/>
-        <page to="backend/plants#list_members"/>
-        <page to="backend/plants#list_places"/>
-        <page to="backend/plants#picture"/>
-        <page to="backend/plants#new"/>
-        <page to="backend/plants#show"/>
-        <page to="backend/plants#take"/>
-        <page to="backend/plants#unroll"/>
-        <page to="backend/plants#update"/>
+        <page to="backend/plant_density_abaci#index"/>
+        <page to="backend/plant_density_abaci#create"/>
+        <page to="backend/plant_density_abaci#destroy"/>
+        <page to="backend/plant_density_abaci#edit"/>
+        <page to="backend/plant_density_abaci#list"/>
+        <page to="backend/plant_density_abaci#new"/>
+        <page to="backend/plant_density_abaci#show"/>
+        <page to="backend/plant_density_abaci#update"/>
         <page to="backend/wine_tanks#index"/>
         <page to="backend/wine_tanks#list"/>
         <page to="backend/fungi#index"/>
@@ -628,11 +660,13 @@
         <page to="backend/fungi#destroy"/>
         <page to="backend/fungi#edit"/>
         <page to="backend/fungi#list"/>
+        <page to="backend/fungi#list_inspections"/>
         <page to="backend/fungi#list_carried_linkages"/>
         <page to="backend/fungi#list_carrier_linkages"/>
         <page to="backend/fungi#list_contained_products"/>
         <page to="backend/fungi#list_groups"/>
         <page to="backend/fungi#list_intervention_product_parameters"/>
+        <page to="backend/fungi#list_parcel_items"/>
         <page to="backend/fungi#list_issues"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
@@ -653,6 +687,17 @@
         <page to="backend/manure_management_plans#show"/>
         <page to="backend/manure_management_plans#unroll"/>
         <page to="backend/manure_management_plans#update"/>
+        <page to="backend/target_distributions#index"/>
+        <page to="backend/target_distributions#create"/>
+        <page to="backend/target_distributions#destroy"/>
+        <page to="backend/target_distributions#edit_many"/>
+        <page to="backend/target_distributions#edit"/>
+        <page to="backend/target_distributions#list"/>
+        <page to="backend/target_distributions#new"/>
+        <page to="backend/target_distributions#update_many"/>
+        <page to="backend/target_distributions#update"/>
+        <page to="backend/target_distributions#list_intervention_product_parameters"/>
+        <page to="backend/target_distributions#show"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#index"/>
@@ -664,7 +709,12 @@
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
+        <page to="backend/interventions#change_state"/>
+        <page to="backend/interventions#modal"/>
         <page to="backend/interventions#list_product_parameters"/>
+        <page to="backend/interventions#list_record_interventions"/>
+        <page to="backend/interventions#purchase"/>
+        <page to="backend/interventions#sell"/>
         <page to="backend/interventions#unroll"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>
@@ -681,7 +731,9 @@
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
       </item>
-      <item name="analyses" icon="beaker">
+    </group>
+    <group name="quality" icon="beaker">
+      <item name="analyses">
         <page to="backend/analyses#index"/>
         <page to="backend/analyses#create"/>
         <page to="backend/analyses#destroy"/>
@@ -694,8 +746,36 @@
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
       </item>
+      <item name="issues">
+        <page to="backend/issues#index"/>
+        <page to="backend/issues#create"/>
+        <page to="backend/issues#destroy"/>
+        <page to="backend/issues#edit"/>
+        <page to="backend/issues#list"/>
+        <page to="backend/issues#new"/>
+        <page to="backend/issues#show"/>
+        <page to="backend/issues#update"/>
+        <page to="backend/issues#abort"/>
+        <page to="backend/issues#close"/>
+        <page to="backend/issues#reopen"/>
+        <page to="backend/issues#list_interventions"/>
+        <page to="backend/issues#picture"/>
+        <page to="backend/issues#unroll"/>
+      </item>
+      <item name="inspections" icon="grain">
+        <page to="backend/inspections#index"/>
+        <page to="backend/inspections#create"/>
+        <page to="backend/inspections#destroy"/>
+        <page to="backend/inspections#edit"/>
+        <page to="backend/inspections#export"/>
+        <page to="backend/inspections#list"/>
+        <page to="backend/inspections#new"/>
+        <page to="backend/inspections#show"/>
+        <page to="backend/inspections#unroll"/>
+        <page to="backend/inspections#update"/>
+      </item>
     </group>
-    <group name="land_parcels" icon="land-parcels">
+    <group name="field_distribution" icon="land-parcels">
       <item name="cultivable_zones">
         <page to="backend/cultivable_zones#index"/>
         <page to="backend/cultivable_zones#create"/>
@@ -707,6 +787,54 @@
         <page to="backend/cultivable_zones#update"/>
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#index"/>
+        <page to="backend/land_parcels#create"/>
+        <page to="backend/land_parcels#destroy"/>
+        <page to="backend/land_parcels#edit"/>
+        <page to="backend/land_parcels#list"/>
+        <page to="backend/land_parcels#list_carried_linkages"/>
+        <page to="backend/land_parcels#list_parcel_items"/>
+        <page to="backend/land_parcels#list_carrier_linkages"/>
+        <page to="backend/land_parcels#list_contained_products"/>
+        <page to="backend/land_parcels#list_inspections"/>
+        <page to="backend/land_parcels#list_groups"/>
+        <page to="backend/land_parcels#list_readings"/>
+        <page to="backend/land_parcels#list_intervention_product_parameters"/>
+        <page to="backend/land_parcels#list_issues"/>
+        <page to="backend/land_parcels#list_members"/>
+        <page to="backend/land_parcels#list_places"/>
+        <page to="backend/land_parcels#picture"/>
+        <page to="backend/land_parcels#new"/>
+        <page to="backend/land_parcels#show"/>
+        <page to="backend/land_parcels#take"/>
+        <page to="backend/land_parcels#unroll"/>
+        <page to="backend/land_parcels#update"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#index"/>
+        <page to="backend/plants#create"/>
+        <page to="backend/plants#destroy"/>
+        <page to="backend/plants#edit"/>
+        <page to="backend/plants#list"/>
+        <page to="backend/plants#list_carried_linkages"/>
+        <page to="backend/plants#list_carrier_linkages"/>
+        <page to="backend/plants#list_contained_products"/>
+        <page to="backend/plants#list_inspections"/>
+        <page to="backend/plants#list_groups"/>
+        <page to="backend/plants#list_parcel_items"/>
+        <page to="backend/plants#list_readings"/>
+        <page to="backend/plants#list_intervention_product_parameters"/>
+        <page to="backend/plants#list_issues"/>
+        <page to="backend/plants#list_members"/>
+        <page to="backend/plants#list_places"/>
+        <page to="backend/plants#picture"/>
+        <page to="backend/plants#new"/>
+        <page to="backend/plants#show"/>
+        <page to="backend/plants#take"/>
+        <page to="backend/plants#unroll"/>
+        <page to="backend/plants#update"/>
       </item>
     </group>
     <group name="supervision">
@@ -724,6 +852,7 @@
         <page to="backend/sensors#update"/>
         <page to="backend/sensors#list_analyses"/>
         <page to="backend/sensors#retrieve"/>
+        <page to="backend/sensors#last_locations"/>
         <page to="backend/supervisions#index"/>
         <page to="backend/supervisions#create"/>
         <page to="backend/supervisions#destroy"/>
@@ -770,24 +899,6 @@
       </item>
       -->
     </group>
-    <group name="issues" icon="bug">
-      <item name="issues">
-        <page to="backend/issues#index"/>
-        <page to="backend/issues#create"/>
-        <page to="backend/issues#destroy"/>
-        <page to="backend/issues#edit"/>
-        <page to="backend/issues#list"/>
-        <page to="backend/issues#new"/>
-        <page to="backend/issues#show"/>
-        <page to="backend/issues#update"/>
-        <page to="backend/issues#abort"/>
-        <page to="backend/issues#close"/>
-        <page to="backend/issues#reopen"/>
-        <page to="backend/issues#list_interventions"/>
-        <page to="backend/issues#picture"/>
-        <page to="backend/issues#unroll"/>
-      </item>
-    </group>
     <group name="cartography" icon="layers">
       <item name="cap_statements">
         <page to="backend/cap_statements#index"/>
@@ -802,6 +913,7 @@
         <page to="backend/cap_statements#unroll"/>
         <page to="backend/cap_statements#update"/>
         <page to="backend/cap_islets#index"/>
+        <page to="backend/cap_islets#convert"/>
         <page to="backend/cap_islets#create"/>
         <page to="backend/cap_islets#destroy"/>
         <page to="backend/cap_islets#edit"/>
@@ -891,70 +1003,36 @@
         <page to="backend/settings#edit"/>
         <page to="backend/settings#update"/>
       </item>
-      <item name="users">
-        <page to="backend/users#index"/>
-        <page to="backend/users#create"/>
-        <page to="backend/users#destroy"/>
-        <page to="backend/users#edit"/>
-        <page to="backend/users#list"/>
-        <page to="backend/users#lock"/>
-        <page to="backend/users#new"/>
-        <page to="backend/users#show"/>
-        <page to="backend/users#unlock"/>
-        <page to="backend/users#unroll"/>
-        <page to="backend/users#update"/>
+      <item name="integrations">
+        <page to="backend/integrations#index"/>
+        <page to="backend/integrations#edit"/>
+        <page to="backend/integrations#new"/>
+        <page to="backend/integrations#create"/>
+        <page to="backend/integrations#update"/>
+        <page to="backend/integrations#destroy"/>
       </item>
-      <item name="invitations">
-        <page to="backend/invitations#index"/>
-        <page to="backend/invitations#list"/>
-        <page to="backend/invitations#new"/>
-        <page to="backend/invitations#create"/>
+      <item name="map_backgrounds">
+        <page to="backend/map_backgrounds#index"/>
+        <page to="backend/map_backgrounds#create"/>
+        <page to="backend/map_backgrounds#destroy"/>
+        <page to="backend/map_backgrounds#new"/>
+        <page to="backend/map_backgrounds#update"/>
+        <page to="backend/map_backgrounds#edit"/>
+        <page to="backend/map_backgrounds#load"/>
+        <page to="backend/map_backgrounds#show"/>
+        <page to="backend/map_backgrounds#star"/>
+        <page to="backend/map_backgrounds#toggle"/>
       </item>
-      <item name="teams">
-        <page to="backend/teams#index"/>
-        <page to="backend/teams#create"/>
-        <page to="backend/teams#destroy"/>
-        <page to="backend/teams#edit"/>
-        <page to="backend/teams#list"/>
-        <page to="backend/teams#new"/>
-        <page to="backend/teams#show"/>
-        <page to="backend/teams#unroll"/>
-        <page to="backend/teams#update"/>
-      </item>
-      <item name="roles">
-        <page to="backend/roles#index"/>
-        <page to="backend/roles#create"/>
-        <page to="backend/roles#destroy"/>
-        <page to="backend/roles#edit"/>
-        <page to="backend/roles#incorporate"/>
-        <page to="backend/roles#list"/>
-        <page to="backend/roles#list_users"/>
-        <page to="backend/roles#pick"/>
-        <page to="backend/roles#new"/>
-        <page to="backend/roles#show"/>
-        <page to="backend/roles#unroll"/>
-        <page to="backend/roles#update"/>
-      </item>
-      <item name="net_services">
-        <page to="backend/net_services#index"/>
-        <page to="backend/net_services#create"/>
-        <page to="backend/net_services#destroy"/>
-        <page to="backend/net_services#edit"/>
-        <page to="backend/net_services#list"/>
-        <page to="backend/net_services#list_identifiers"/>
-        <page to="backend/net_services#new"/>
-        <page to="backend/net_services#show"/>
-        <page to="backend/net_services#update"/>
-      </item>
-      <item name="identifiers">
-        <page to="backend/identifiers#index"/>
-        <page to="backend/identifiers#create"/>
-        <page to="backend/identifiers#destroy"/>
-        <page to="backend/identifiers#edit"/>
-        <page to="backend/identifiers#list"/>
-        <page to="backend/identifiers#new"/>
-        <page to="backend/identifiers#show"/>
-        <page to="backend/identifiers#update"/>
+      <item name="labels">
+        <page to="backend/labels#index"/>
+        <page to="backend/labels#create"/>
+        <page to="backend/labels#destroy"/>
+        <page to="backend/labels#edit"/>
+        <page to="backend/labels#list"/>
+        <page to="backend/labels#new"/>
+        <page to="backend/labels#show"/>
+        <page to="backend/labels#unroll"/>
+        <page to="backend/labels#update"/>
       </item>
       <item name="custom_fields">
         <page to="backend/custom_fields#index"/>
@@ -1003,24 +1081,85 @@
         <page to="backend/sequences#unroll"/>
         <page to="backend/sequences#update"/>
       </item>
+      <item name="teams">
+        <page to="backend/teams#index"/>
+        <page to="backend/teams#create"/>
+        <page to="backend/teams#destroy"/>
+        <page to="backend/teams#edit"/>
+        <page to="backend/teams#list"/>
+        <page to="backend/teams#new"/>
+        <page to="backend/teams#show"/>
+        <page to="backend/teams#unroll"/>
+        <page to="backend/teams#update"/>
+      </item>
+      <item name="net_services">
+        <page to="backend/net_services#index"/>
+        <page to="backend/net_services#create"/>
+        <page to="backend/net_services#destroy"/>
+        <page to="backend/net_services#edit"/>
+        <page to="backend/net_services#list"/>
+        <page to="backend/net_services#list_identifiers"/>
+        <page to="backend/net_services#new"/>
+        <page to="backend/net_services#show"/>
+        <page to="backend/net_services#update"/>
+      </item>
+      <item name="identifiers">
+        <page to="backend/identifiers#index"/>
+        <page to="backend/identifiers#create"/>
+        <page to="backend/identifiers#destroy"/>
+        <page to="backend/identifiers#edit"/>
+        <page to="backend/identifiers#list"/>
+        <page to="backend/identifiers#new"/>
+        <page to="backend/identifiers#show"/>
+        <page to="backend/identifiers#update"/>
+      </item>
       <item name="about">
         <page to="backend/settings#about"/>
       </item>
     </group>
-    <group name="people" icon="group">
-      <item name="subscription_natures">
-        <page to="backend/subscription_natures#index"/>
-        <page to="backend/subscription_natures#create"/>
-        <page to="backend/subscription_natures#decrement"/>
-        <page to="backend/subscription_natures#destroy"/>
-        <page to="backend/subscription_natures#edit"/>
-        <page to="backend/subscription_natures#increment"/>
-        <page to="backend/subscription_natures#list"/>
-        <page to="backend/subscription_natures#new"/>
-        <page to="backend/subscription_natures#update"/>
-        <page to="backend/subscription_natures#show"/>
-        <page to="backend/subscription_natures#unroll"/>
+    <group name="access" icon="shield">
+      <item name="roles">
+        <page to="backend/roles#index"/>
+        <page to="backend/roles#create"/>
+        <page to="backend/roles#destroy"/>
+        <page to="backend/roles#edit"/>
+        <page to="backend/roles#incorporate"/>
+        <page to="backend/roles#list"/>
+        <page to="backend/roles#list_users"/>
+        <page to="backend/roles#pick"/>
+        <page to="backend/roles#new"/>
+        <page to="backend/roles#show"/>
+        <page to="backend/roles#unroll"/>
+        <page to="backend/roles#update"/>
       </item>
+      <item name="users">
+        <page to="backend/users#index"/>
+        <page to="backend/users#create"/>
+        <page to="backend/users#destroy"/>
+        <page to="backend/users#edit"/>
+        <page to="backend/users#list"/>
+        <page to="backend/users#lock"/>
+        <page to="backend/users#new"/>
+        <page to="backend/users#show"/>
+        <page to="backend/users#unlock"/>
+        <page to="backend/users#unroll"/>
+        <page to="backend/users#update"/>
+      </item>
+      <item name="invitations">
+        <page to="backend/invitations#index"/>
+        <page to="backend/invitations#list"/>
+        <page to="backend/invitations#new"/>
+        <page to="backend/invitations#create"/>
+      </item>
+      <item name="registrations">
+        <page to="backend/registrations#index"/>
+        <page to="backend/registrations#list"/>
+        <page to="backend/registrations#edit"/>
+        <page to="backend/registrations#update"/>
+        <page to="backend/registrations#destroy"/>
+      </item>
+    </group>
+    <group name="people" icon="group">
       <item name="postal_zones">
         <page to="backend/postal_zones#index"/>
         <page to="backend/postal_zones#create"/>
@@ -1028,7 +1167,7 @@
         <page to="backend/postal_zones#edit"/>
         <page to="backend/postal_zones#list"/>
         <page to="backend/postal_zones#new"/>
-        <page to="backend/postal_zones#autocomplete_for_name"/>
+        <page to="backend/postal_zones#autocomplete"/>
         <page to="backend/postal_zones#update"/>
         <page to="backend/postal_zones#show"/>
         <page to="backend/postal_zones#unroll"/>
@@ -1112,6 +1251,19 @@
         <page to="backend/purchase_natures#update"/>
         <page to="backend/purchase_natures#unroll"/>
       </item>
+      <item name="subscription_natures">
+        <page to="backend/subscription_natures#index"/>
+        <page to="backend/subscription_natures#create"/>
+        <page to="backend/subscription_natures#destroy"/>
+        <page to="backend/subscription_natures#edit"/>
+        <page to="backend/subscription_natures#list"/>
+        <page to="backend/subscription_natures#list_subscriptions"/>
+        <page to="backend/subscription_natures#list_product_natures"/>
+        <page to="backend/subscription_natures#new"/>
+        <page to="backend/subscription_natures#update"/>
+        <page to="backend/subscription_natures#show"/>
+        <page to="backend/subscription_natures#unroll"/>
+      </item>
       <item name="incoming_payment_modes">
         <page to="backend/incoming_payment_modes#index"/>
         <page to="backend/incoming_payment_modes#create"/>
@@ -1181,6 +1333,7 @@
         <page to="backend/product_nature_variants#list"/>
         <page to="backend/product_nature_variants#new"/>
         <page to="backend/product_nature_variants#pick"/>
+        <page to="backend/product_nature_variants#picture"/>
         <page to="backend/product_nature_variants#quantifiers"/>
         <page to="backend/product_nature_variants#show"/>
         <page to="backend/product_nature_variants#update"/>
@@ -1189,6 +1342,9 @@
         <page to="backend/product_nature_variants#list_sale_items"/>
         <page to="backend/product_nature_variants#list_parcel_items"/>
         <page to="backend/product_nature_variants#unroll"/>
+        <page to="backend/product_nature_variants#list_components"/>
+        <page to="backend/product_nature_variant_components#autocomplete"/>
+        <page to="backend/product_nature_variant_components#unroll"/>
       </item>
       <item name="catalogs">
         <page to="backend/catalogs#index"/>
@@ -1224,10 +1380,12 @@
         <page to="backend/workers#list_carried_linkages"/>
         <page to="backend/workers#list_carrier_linkages"/>
         <page to="backend/workers#list_contained_products"/>
+        <page to="backend/workers#list_inspections"/>
         <page to="backend/workers#list_groups"/>
         <page to="backend/workers#list_readings"/>
         <page to="backend/workers#list_intervention_product_parameters"/>
         <page to="backend/workers#list_issues"/>
+        <page to="backend/workers#list_parcel_items"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#picture"/>
@@ -1246,7 +1404,9 @@
         <page to="backend/equipments#take"/>
         <page to="backend/equipments#unroll"/>
         <page to="backend/equipments#update"/>
+        <page to="backend/equipments#list_parcel_items"/>
         <page to="backend/equipments#list_contained_products"/>
+        <page to="backend/equipments#list_inspections"/>
         <page to="backend/equipments#list_groups"/>
         <page to="backend/equipments#list_issues"/>
         <page to="backend/equipments#list_readings"/>
@@ -1269,8 +1429,10 @@
         <page to="backend/buildings#take"/>
         <page to="backend/buildings#unroll"/>
         <page to="backend/buildings#list_contained_products"/>
+        <page to="backend/buildings#list_inspections"/>
         <page to="backend/buildings#list_groups"/>
         <page to="backend/buildings#list_issues"/>
+        <page to="backend/buildings#list_parcel_items"/>
         <page to="backend/buildings#list_readings"/>
         <page to="backend/buildings#list_intervention_product_parameters"/>
         <page to="backend/buildings#list_members"/>
@@ -1291,9 +1453,11 @@
         <page to="backend/building_divisions#take"/>
         <page to="backend/building_divisions#unroll"/>
         <page to="backend/building_divisions#update"/>
+        <page to="backend/building_divisions#list_inspections"/>
         <page to="backend/building_divisions#list_groups"/>
         <page to="backend/building_divisions#list_issues"/>
         <page to="backend/building_divisions#list_readings"/>
+        <page to="backend/building_divisions#list_parcel_items"/>
         <page to="backend/building_divisions#list_intervention_product_parameters"/>
         <page to="backend/building_divisions#list_members"/>
         <page to="backend/building_divisions#list_places"/>
@@ -1301,17 +1465,6 @@
         <page to="backend/building_divisions#list_carrier_linkages"/>
         <page to="backend/building_divisions#picture"/>
       </item>
-      <!--      <item name="land_parcel_groups">
-        <page to="backend/land_parcel_groups#index"/>
-        <page to="backend/land_parcel_groups#create"/>
-        <page to="backend/land_parcel_groups#destroy"/>
-        <page to="backend/land_parcel_groups#edit"/>
-        <page to="backend/land_parcel_groups#list"/>
-        <page to="backend/land_parcel_groups#new"/>
-        <page to="backend/land_parcel_groups#show"/>
-        <page to="backend/land_parcel_groups#update"/>
-      </item>
--->
       <item name="animal_groups">
         <page to="backend/animal_groups#index"/>
         <page to="backend/animal_groups#create"/>
@@ -1323,29 +1476,19 @@
         <page to="backend/animal_groups#update"/>
         <page to="backend/animal_groups#list_animals"/>
         <page to="backend/animal_groups#list_places"/>
+        <page to="backend/animal_groups#list_carried_linkages"/>
+        <page to="backend/animal_groups#list_carrier_linkages"/>
+        <page to="backend/animal_groups#list_contained_products"/>
+        <page to="backend/animal_groups#list_groups"/>
+        <page to="backend/animal_groups#list_parcel_items"/>
+        <page to="backend/animal_groups#list_inspections"/>
+        <page to="backend/animal_groups#list_intervention_product_parameters"/>
+        <page to="backend/animal_groups#list_issues"/>
+        <page to="backend/animal_groups#list_members"/>
+        <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#unroll"/>
-      </item>
-      <item name="land_parcels">
-        <page to="backend/land_parcels#index"/>
-        <page to="backend/land_parcels#create"/>
-        <page to="backend/land_parcels#destroy"/>
-        <page to="backend/land_parcels#edit"/>
-        <page to="backend/land_parcels#list"/>
-        <page to="backend/land_parcels#list_carried_linkages"/>
-        <page to="backend/land_parcels#list_carrier_linkages"/>
-        <page to="backend/land_parcels#list_contained_products"/>
-        <page to="backend/land_parcels#list_groups"/>
-        <page to="backend/land_parcels#list_readings"/>
-        <page to="backend/land_parcels#list_intervention_product_parameters"/>
-        <page to="backend/land_parcels#list_issues"/>
-        <page to="backend/land_parcels#list_members"/>
-        <page to="backend/land_parcels#list_places"/>
-        <page to="backend/land_parcels#picture"/>
-        <page to="backend/land_parcels#new"/>
-        <page to="backend/land_parcels#show"/>
-        <page to="backend/land_parcels#take"/>
-        <page to="backend/land_parcels#unroll"/>
-        <page to="backend/land_parcels#update"/>
+        <page to="backend/animal_groups#picture"/>
+        <page to="backend/animal_groups#take"/>
       </item>
       <item name="settlements">
         <page to="backend/settlements#index"/>
@@ -1356,11 +1499,13 @@
         <page to="backend/settlements#list_carried_linkages"/>
         <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
+        <page to="backend/settlements#list_inspections"/>
         <page to="backend/settlements#list_groups"/>
         <page to="backend/settlements#list_readings"/>
         <page to="backend/settlements#list_intervention_product_parameters"/>
         <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_members"/>
+        <page to="backend/settlements#list_parcel_items"/>
         <page to="backend/settlements#list_places"/>
         <page to="backend/settlements#picture"/>
         <page to="backend/settlements#new"/>
@@ -1372,19 +1517,6 @@
     </group>
   </part>
   <inaccessible-actions>
-    <group name="subscriptions" icon="tags">
-      <item name="subscriptions">
-        <page to="backend/subscriptions#index"/>
-        <page to="backend/subscriptions#create"/>
-        <page to="backend/subscriptions#destroy"/>
-        <page to="backend/subscriptions#edit"/>
-        <page to="backend/subscriptions#list"/>
-        <page to="backend/subscriptions#new"/>
-        <page to="backend/subscriptions#show"/>
-        <page to="backend/subscriptions#unroll"/>
-        <page to="backend/subscriptions#update"/>
-      </item>
-    </group>
     <group>
       <item name="georeadings">
         <page to="backend/georeadings#index"/>
@@ -1442,16 +1574,8 @@
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
       </item>
-      <item name="passwords">
-        <page to="authentication/passwords#create"/>
-        <page to="authentication/passwords#edit"/>
-        <page to="authentication/passwords#new"/>
-        <page to="authentication/passwords#update"/>
-      </item>
-      <item name="sessions">
-        <page to="authentication/sessions#create"/>
-        <page to="authentication/sessions#destroy"/>
-        <page to="authentication/sessions#new"/>
+      <item name="tours">
+        <page to="backend/tours#finish"/>
       </item>
       <item name="invitations">
         <page to="authentication/invitations#create"/>
@@ -1459,6 +1583,34 @@
         <page to="authentication/invitations#edit"/>
         <page to="authentication/invitations#new"/>
         <page to="authentication/invitations#update"/>
+      </item>
+      <item name="passwords">
+        <page to="authentication/passwords#create"/>
+        <page to="authentication/passwords#edit"/>
+        <page to="authentication/passwords#new"/>
+        <page to="authentication/passwords#update"/>
+      </item>
+      <item name="registrations">
+        <page to="authentication/registrations#cancel"/>
+        <page to="authentication/registrations#create"/>
+        <page to="authentication/registrations#destroy"/>
+        <page to="authentication/registrations#edit"/>
+        <page to="authentication/registrations#new"/>
+        <page to="authentication/registrations#update"/>
+      </item>
+      <item name="sessions">
+        <page to="authentication/sessions#create"/>
+        <page to="authentication/sessions#destroy"/>
+        <page to="authentication/sessions#new"/>
+      </item>
+      <item name="omniauth_callbacks">
+        <page to="authentication/omniauth_callbacks#ekylibre"/>
+        <page to="authentication/omniauth_callbacks#failure"/>
+        <page to="authentication/omniauth_callbacks#passthru"/>
+      </item>
+      <item name="omniauth_callbacks">
+        <page to="devise/omniauth_callbacks#failure"/>
+        <page to="devise/omniauth_callbacks#passthru"/>
       </item>
       <item name="confirmations">
         <page to="devise/confirmations#create"/>
@@ -1641,6 +1793,9 @@
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
       </item>
+      <item name="interventions">
+        <page to="api/v1/interventions#index"/>
+      </item>
       <item name="issues">
         <page to="api/v1/issues#index"/>
         <page to="api/v1/issues#create"/>
@@ -1649,97 +1804,15 @@
         <page to="api/v1/tokens#create"/>
         <page to="api/v1/tokens#destroy"/>
       </item>
-    </group>
-    <group>
-      <item name="attributes">
-        <page to="pasteque/v5/attributes#index"/>
+      <item name="plants">
+        <page to="api/v1/plants#index"/>
       </item>
-      <item name="cash_mvts">
-        <page to="pasteque/v5/cash_mvts#move"/>
+      <item name="plant_countings">
+        <page to="api/v1/plant_countings#create"/>
       </item>
-      <item name="cash_registers">
-        <page to="pasteque/v5/cash_registers#index"/>
-        <page to="pasteque/v5/cash_registers#show"/>
-      </item>
-      <item name="cashes">
-        <page to="pasteque/v5/cashes#search"/>
-        <page to="pasteque/v5/cashes#show"/>
-        <page to="pasteque/v5/cashes#update"/>
-        <page to="pasteque/v5/cashes#zticket"/>
-      </item>
-      <item name="categories">
-        <page to="pasteque/v5/categories#index"/>
-        <page to="pasteque/v5/categories#children"/>
-        <page to="pasteque/v5/categories#show"/>
-      </item>
-      <item name="compositions">
-        <page to="pasteque/v5/compositions#index"/>
-      </item>
-      <item name="currencies">
-        <page to="pasteque/v5/currencies#index"/>
-        <page to="pasteque/v5/currencies#main"/>
-        <page to="pasteque/v5/currencies#show"/>
-      </item>
-      <item name="customers">
-        <page to="pasteque/v5/customers#index"/>
-        <page to="pasteque/v5/customers#show"/>
-        <page to="pasteque/v5/customers#top"/>
-      </item>
-      <item name="discount_profiles">
-        <page to="pasteque/v5/discount_profiles#index"/>
-      </item>
-      <item name="images">
-        <page to="pasteque/v5/images#category"/>
-        <page to="pasteque/v5/images#payment_method"/>
-        <page to="pasteque/v5/images#product"/>
-        <page to="pasteque/v5/images#resource"/>
-      </item>
-      <item name="locations">
-        <page to="pasteque/v5/locations#index"/>
-        <page to="pasteque/v5/locations#show"/>
-      </item>
-      <item name="places">
-        <page to="pasteque/v5/places#index"/>
-        <page to="pasteque/v5/places#show"/>
-      </item>
-      <item name="products">
-        <page to="pasteque/v5/products#index"/>
-        <page to="pasteque/v5/products#category"/>
-        <page to="pasteque/v5/products#show"/>
-      </item>
-      <item name="resources">
-        <page to="pasteque/v5/resources#show"/>
-      </item>
-      <item name="roles">
-        <page to="pasteque/v5/roles#index"/>
-        <page to="pasteque/v5/roles#show"/>
-      </item>
-      <item name="stocks">
-        <page to="pasteque/v5/stocks#index"/>
-      </item>
-      <item name="tariff_areas">
-        <page to="pasteque/v5/tariff_areas#index"/>
-      </item>
-      <item name="taxes">
-        <page to="pasteque/v5/taxes#index"/>
-        <page to="pasteque/v5/taxes#show"/>
-      </item>
-      <item name="tickets">
-        <page to="pasteque/v5/tickets#index"/>
-        <page to="pasteque/v5/tickets#create"/>
-        <page to="pasteque/v5/tickets#destroy"/>
-        <page to="pasteque/v5/tickets#open"/>
-        <page to="pasteque/v5/tickets#save"/>
-        <page to="pasteque/v5/tickets#search"/>
-        <page to="pasteque/v5/tickets#show"/>
-      </item>
-      <item name="users">
-        <page to="pasteque/v5/users#index"/>
-        <page to="pasteque/v5/users#show"/>
-        <page to="pasteque/v5/users#update_password"/>
-      </item>
-      <item name="version">
-        <page to="pasteque/v5/version#index"/>
+      <item name="plant_density_abaci">
+        <page to="api/v1/plant_density_abaci#index"/>
+        <page to="api/v1/plant_density_abaci#show"/>
       </item>
     </group>
     <group>

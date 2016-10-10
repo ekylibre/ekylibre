@@ -13,9 +13,9 @@
         %span.value
           %i.picto{class: "picto-#{icon}"}
           = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-    = resource_info(:work_number, important: true)
+    = product_info(:work_number, important: true)
     - if resource.born_at && resource.age && resource.age >= 1.day
-      = resource_info(:age) do |age|
+      = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(age, display: 2)
     - if resource.variant.france_maaid
@@ -23,12 +23,14 @@
         %i.picto{class: "picto-flask"}
         = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
     - unless resource.population_counting_unitary?
-      = resource_info :population, important: true do |population|
+      = product_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
+    = product_info(:tracking, important: true) do |tracking|
+      = link_to(resource.tracking.serial, controller: :trackings, action: :show, id: resource.tracking.id)
     - if resource.has_indicator?(:net_mass) && resource.net_mass.to_d > 0
-      = resource_info(:net_mass, important: true)
+      = product_info(:net_mass, important: true)
     - if resource.current_ownership && resource.current_ownership.other?
-      = resource_info(:owner, important: true) do |owner|
+      = product_info(:owner, important: true) do |owner|
         = owner.name
     - if resource.incoming_parcel_item
       .med-info.important
@@ -42,6 +44,7 @@
         %span.value
           %i.picto{class: "picto-movements"}
           = link_to(resource.outgoing_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.outgoing_parcel_item.parcel.id)
+  = labels_info(resource.labels)
 
 = cobbles do |c|
 
@@ -54,6 +57,9 @@
   -# c.cobble(:variable_indicators) do
     = variable_readings(resource)
 
+  - c.cobble(:parcel_items) do
+    = cobble_list(:parcel_items)
+
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do
     = cobble_list(:readings)
 
@@ -61,6 +67,13 @@
     = cobble_toolbar do |t|
       = t.new(params: {controller: :interventions})
     = cobble_list(:intervention_product_parameters)
+
+  - c.cobble(:places) do
+    = cobble_toolbar do |t|
+      = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
+    = cobble_list(:places)
+
+  = render partial: 'backend/shared/distributions', locals: {c: c}
 
   -# c.cobble(:groups) do
     = cobble_list(:groups)

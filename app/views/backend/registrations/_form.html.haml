@@ -1,0 +1,7 @@
+= field_set do
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :language, collection: available_languages(false), include_blank: false
+  = f.input :role_id, collection: Role.all.pluck(:name, :id), include_blank: false
+  = f.input :email, input_html: { disabled: true }
+

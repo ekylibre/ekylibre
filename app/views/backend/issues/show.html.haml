@@ -38,10 +38,6 @@
         - c.cobble :map do
           = visualization(view: {zoom: 18}) do |v|
             - v.serie :main, [{name: "origine", shape: resource.geolocation}]
-            - v.background "Esri.WorldImagery"
-            - v.background "OpenStreetMap.HOT"
-            - v.background "OpenStreetMap.Mapnik"
-            - v.background "Thunderforest.Landscape"
             - v.points :geolocation, :main
             - v.control :zoom, 18
             - v.control :scale

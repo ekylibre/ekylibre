@@ -3,8 +3,8 @@
     f.object.name ||= nature.name
     f.object.unit_name ||= Nomen::Variety[nature.variety].human_name
     nature.frozen_indicators.each do |indicator|
-      unless f.object.readings.find_by(indicator_name: indicator.name)
-        f.object.readings.build(indicator_name: indicator.name)
+      unless f.object.readings.detect { |r| r.indicator_name.to_s == indicator.name.to_s }
+        f.object.readings.build(indicator_name: indicator.name, indicator_datatype: indicator.datatype)
       end
     end
   end
@@ -14,10 +14,10 @@
     = f.referenced_association :nature
   - else
     = f.association :nature, as: :hidden
-  - unless f.object.products.any? or nature.nil?
-    = f.variety scope: nature
+  = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
-  = f.input :number
+  = f.input :work_number
+  = f.input :gtin
   = f.input :active
   = f.input :unit_name
   = f.input :france_maaid
@@ -27,3 +27,10 @@
 - if f.object.readings.any?
   = field_set(:indicators) do
     = f.nested_association(:readings, new: false)
+
+- if f.object.of_variety? :equipment
+  = field_set(:components) do
+    = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
+
+
+

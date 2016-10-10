@@ -38,14 +38,15 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(intervention_working_period) { intervention_working_period.stopped_at && intervention_working_period.started_at }
-  validates_numericality_of :duration, allow_nil: true, only_integer: true
-  validates_presence_of :duration, :intervention, :started_at, :stopped_at
+  validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :intervention, presence: true
   # ]VALIDATORS]
 
   calculable period: :month, column: :duration, at: :started_at, name: :sum
 
+  scope :without_activity, -> { where.not(intervention_id: Intervention::HABTM_Activities.select(:activity_id)) }
   scope :of_activity, ->(activity) { where(intervention_id: Intervention.of_activity(activity)) }
   scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|
@@ -56,6 +57,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
+  scope :with_intervention_parameter, lambda { |role, object|
+    where(intervention_id: InterventionParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
+  }
+
   delegate :update_temporality, to: :intervention
 
   before_validation do
@@ -63,10 +68,8 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   end
 
   validate do
-    if started_at && stopped_at
-      if stopped_at <= started_at
-        errors.add(:stopped_at, :posterior, to: started_at.l)
-      end
+    if started_at && stopped_at && stopped_at <= started_at
+      errors.add(:stopped_at, :posterior, to: started_at.l)
     end
   end
 

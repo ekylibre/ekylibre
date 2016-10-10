@@ -33,6 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  nitrate_fixing      :boolean          default(FALSE), not null
 #  rank_number         :integer          not null
+#  season_id           :integer
 #  size_indicator_name :string           not null
 #  size_unit_name      :string
 #  size_value          :decimal(19, 4)   not null
@@ -42,6 +43,7 @@
 #  support_id          :integer          not null
 #  support_nature      :string
 #  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id           :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null
@@ -71,6 +73,7 @@ activity_productions_001:
     45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
     45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
     45.8266349359199,-0.796809196472168 45.8269227686334)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:15.017043000 Z
   updater_id: 1
   usage: fodder
@@ -99,6 +102,7 @@ activity_productions_002:
     45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
     45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
     45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:15.019045000 Z
   updater_id: 1
   usage: fodder
@@ -126,6 +130,7 @@ activity_productions_003:
     45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
     45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
     45.8266349359199,-0.796809196472168 45.8269227686334)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:48.520900000 Z
   updater_id: 1
   usage: fodder
@@ -154,6 +159,7 @@ activity_productions_004:
     45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
     45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
     45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:48.523744000 Z
   updater_id: 1
   usage: fodder
@@ -179,6 +185,7 @@ activity_productions_005:
   support_shape: SRID=4326;MULTIPOLYGON(((-0.801068544387817 45.825154629884,-0.801712274551391
     45.8250686513037,-0.802023410797119 45.823001387198,-0.799459218978882 45.8229901721743,-0.799303650856018
     45.8255060192232,-0.800360441207886 45.825132200702,-0.801068544387817 45.825154629884)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:48.526283000 Z
   updater_id: 1
   usage: fodder
@@ -193,6 +200,7 @@ activity_productions_006:
   lock_version: 0
   nitrate_fixing: false
   rank_number: 1
+  season_id: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 3.9989
@@ -219,6 +227,7 @@ activity_productions_007:
   lock_version: 0
   nitrate_fixing: false
   rank_number: 2
+  season_id: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 3.9989
@@ -378,7 +387,7 @@ activity_productions_013:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.5534
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -415,7 +424,7 @@ activity_productions_014:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.9989
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -457,7 +466,7 @@ activity_productions_015:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.2768
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -470,6 +479,7 @@ activity_productions_015:
     45.8236539757134,-0.791476772107831 45.8232871297451,-0.791852139433506 45.8229176058386,-0.792280733644158
     45.8224860308865,-0.792677952392898 45.8220886145692,-0.792718162762933 45.8220467646111,-0.792660125760958
     45.821890386501,-0.792454727108962 45.8215321667496,-0.79228204935118 45.8217001703347)))
+  tactic_id: 2
   updated_at: 2016-01-21 14:05:47.584213000 Z
   usage: grain
 activity_productions_016:
@@ -484,7 +494,7 @@ activity_productions_016:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 0.6467
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -496,6 +506,7 @@ activity_productions_016:
     45.8211977579553,-0.791745450108869 45.8212186030258,-0.792045173469404 45.8212258637823,-0.792164685590189
     45.8212195696032,-0.792173752206736 45.8212025676846,-0.791803126997377 45.8205256692196,-0.791587200522699
     45.8202132941208,-0.791397316324069 45.8204004370199)))
+  tactic_id: 2
   updated_at: 2016-01-21 14:05:47.735448000 Z
   usage: grain
 activity_productions_017:
@@ -510,7 +521,7 @@ activity_productions_017:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.206
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -540,7 +551,7 @@ activity_productions_018:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 9.712
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -579,7 +590,7 @@ activity_productions_019:
   rank_number: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.2445
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -612,7 +623,7 @@ activity_productions_020:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.3423
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -640,7 +651,7 @@ activity_productions_021:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.3843
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -672,7 +683,7 @@ activity_productions_022:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.0579
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -704,7 +715,7 @@ activity_productions_023:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 7.2782
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -734,7 +745,7 @@ activity_productions_024:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.8002
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -763,7 +774,7 @@ activity_productions_025:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.9359
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -796,7 +807,7 @@ activity_productions_026:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.3814
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -823,7 +834,7 @@ activity_productions_027:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.3421
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -853,7 +864,7 @@ activity_productions_028:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.944
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -883,7 +894,7 @@ activity_productions_029:
   rank_number: 4
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 6.0725
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -914,7 +925,7 @@ activity_productions_030:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.5386
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -941,7 +952,7 @@ activity_productions_031:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 5.5413
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -966,7 +977,7 @@ activity_productions_032:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.039
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -990,7 +1001,7 @@ activity_productions_033:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 5.7285
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1017,7 +1028,7 @@ activity_productions_034:
   rank_number: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 0.2087
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1040,7 +1051,7 @@ activity_productions_035:
   rank_number: 4
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 0.5827
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1063,7 +1074,7 @@ activity_productions_036:
   rank_number: 5
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.063
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1093,7 +1104,7 @@ activity_productions_037:
   rank_number: 6
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.4511
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1118,7 +1129,7 @@ activity_productions_038:
   rank_number: 7
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.009
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1141,7 +1152,7 @@ activity_productions_039:
   rank_number: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.7979
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1151,6 +1162,7 @@ activity_productions_039:
     45.8111230018021,-0.833857828947771 45.8118658812335,-0.834109935519252 45.8119445261964,-0.835397162023051
     45.8109659677897,-0.834452308254665 45.8106562420056,-0.833326474331472 45.810398202432,-0.832076922014566
     45.8101939142688,-0.831764859873219 45.8104393898025)))
+  tactic_id: 2
   updated_at: 2016-01-21 14:05:51.257525000 Z
   usage: grain
 activity_productions_040:
@@ -1165,7 +1177,7 @@ activity_productions_040:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 8.1114
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1191,7 +1203,7 @@ activity_productions_041:
   rank_number: 4
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 12.0715
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1222,6 +1234,7 @@ activity_productions_041:
     45.8170754335183,-0.829302013683621 45.8171068300726,-0.829505245430684 45.8171534391486,-0.82967807539789
     45.8172029918801,-0.829784650250927 45.8172522507178,-0.829941329591869 45.8173287405223,-0.8300624498879
     45.8174163108851,-0.830250397481167 45.8175561557014)))
+  tactic_id: 2
   updated_at: 2016-01-21 14:05:51.554886000 Z
   usage: grain
 activity_productions_042:
@@ -1236,7 +1249,7 @@ activity_productions_042:
   rank_number: 8
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.6746
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1261,7 +1274,7 @@ activity_productions_043:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.3275
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1273,4 +1286,32 @@ activity_productions_043:
     45.803027311612,-0.769429337832015 45.8023942476306,-0.768633098999782 45.8022705778991,-0.767840277204902
     45.8021968795018,-0.767839708537629 45.8021885504529,-0.767827230035493 45.8021806182845)))
   updated_at: 2016-01-21 14:05:51.817832000 Z
+  usage: grain
+activity_productions_044:
+  activity_id: 22
+  campaign_id: 6
+  created_at: 2016-05-10 19:12:52.835212000 Z
+  creator_id: 1
+  cultivable_zone_id: 5
+  id: 49
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 1
+  season_id: 1
+  size_indicator_name: net_surface_area
+  size_unit_name: hectare
+  size_value: 3.9989
+  started_on: 2016-03-01
+  state: opened
+  stopped_on: 2016-07-28
+  support_id: 176
+  support_nature: cultivation
+  support_shape: SRID=4326;MULTIPOLYGON(((-0.799569189548492 45.8210648929617,-0.800676941871643
+    45.8208704921367,-0.801602303981781 45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498
+    45.8215415459581,-0.801910758018494 45.8223359585506,-0.802023410797119 45.8230051255387,-0.799464583396912
+    45.8229752188059,-0.799569189548492 45.8210648929617)))
+  tactic_id: 1
+  updated_at: 2016-05-10 19:12:52.835212000 Z
+  updater_id: 1
   usage: grain

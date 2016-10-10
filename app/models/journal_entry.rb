@@ -73,17 +73,21 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
   has_many :bank_statement, through: :useful_items
+  accepts_nested_attributes_for :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :absolute_currency, :currency, :journal, :real_currency, presence: true
+  validates :number, :state, presence: true, length: { maximum: 500 }
+  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
+  validates :resource_type, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
-  validates_length_of :state, allow_nil: true, maximum: 30
-  validates_presence_of :real_currency
-  validates_format_of :number, with: /\A[\dA-Z]+\z/
-  validates_numericality_of :real_currency_rate, greater_than: 0
-  validates_uniqueness_of :number, scope: [:journal_id, :financial_year_id]
+  validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
+  validates :state, length: { allow_nil: true, maximum: 30 }
+  validates :real_currency, presence: true
+  validates :number, format: { with: /\A[\dA-Z]+\z/ }
+  validates :real_currency_rate, numericality: { greater_than: 0 }
+  validates :number, uniqueness: { scope: [:journal_id, :financial_year_id] }
 
   accepts_nested_attributes_for :items
 
@@ -152,7 +156,6 @@ class JournalEntry < Ekylibre::Record::Base
     self.state ||= :draft
   end
 
-  #
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.real_currency = journal.currency if journal
@@ -175,9 +178,37 @@ class JournalEntry < Ekylibre::Record::Base
     self.real_debit   = items.sum(:real_debit)
     self.real_credit  = items.sum(:real_credit)
     self.real_balance = real_debit - real_credit
+
     self.debit   = items.sum(:debit)
     self.credit  = items.sum(:credit)
+
     self.balance = debit - credit
+
+    if real_balance.zero? && !balance.zero?
+      error_sum = balance * 100
+      column = if error_sum > 0
+                 :credit
+               else
+                 :debit
+               end
+
+      error_sum = error_sum.abs
+
+      even_items = items.select { |item| !item.send(column).zero? }
+      proratas = even_items.map { |item| [item, item.send(column) / send(column)] }
+      proratas.reduce(error_sum) do |left, item|
+        error_to_update = [(error_sum * item[1]).ceil / 100.to_f, left].min
+        item[0].update_columns(column => item[0].send(column) + error_to_update)
+
+        left - error_to_update * 100
+      end
+
+      self.debit   = items.sum(:debit)
+      self.credit  = items.sum(:credit)
+
+      self.balance = debit - credit
+    end
+
     self.absolute_currency = Preference[:currency]
     if absolute_currency == currency
       self.absolute_debit = debit
@@ -211,6 +242,10 @@ class JournalEntry < Ekylibre::Record::Base
 
   after_save do
     JournalEntryItem.where(entry_id: id).update_all(state: self.state, journal_id: journal_id, financial_year_id: financial_year_id, printed_on: printed_on, entry_number: self.number, real_currency: real_currency, real_currency_rate: real_currency_rate)
+  end
+
+  before_destroy do
+    items.each(&:clear_bank_statement_reconciliation)
   end
 
   protect do
@@ -263,26 +298,36 @@ class JournalEntry < Ekylibre::Record::Base
   def save_with_items(entry_items)
     ActiveRecord::Base.transaction do
       saved = save
-      items.clear
-      entry_items.each_index do |index|
-        entry_items[index] = items.build(entry_items[index])
-        saved = false if saved && !entry_items[index].save
-      end
+
       if saved
-        reload
-        unless items.any?
-          errors.add(:items, :empty)
-          saved = false
+        # Remove removed items and keep existings
+        items.where.not(id: entry_items.map { |i| i[:id] }).find_each(&:destroy)
+
+        entry_items.each_with_index do |entry_item, _index|
+          item = items.detect { |i| i.id == entry_item[:id].to_i }
+          if item
+            item.attributes = entry_item.except(:id)
+          else
+            item = items.build(entry_item.except(:id))
+          end
+          saved = false unless item.save
         end
-        unless balanced?
-          errors.add(:debit, :unbalanced)
-          saved = false
+        if saved
+          reload
+          unless items.any?
+            errors.add(:items, :empty)
+            saved = false
+          end
+          unless balanced?
+            errors.add(:debit, :unbalanced)
+            saved = false
+          end
         end
-      end
-      if saved
-        return true
-      else
-        raise ActiveRecord::Rollback
+        if saved
+          return true
+        else
+          raise ActiveRecord::Rollback
+        end
       end
     end
     false
@@ -313,6 +358,8 @@ class JournalEntry < Ekylibre::Record::Base
     credit = !credit if amount < 0
     attributes = options.merge(name: name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
+    attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
+    attributes[:team_id] = options[:team].id if options[:team]
     # attributes[:real_currency] = self.journal.currency
     if credit
       attributes[:real_credit] = amount.abs

@@ -1,14 +1,9 @@
+# coding: utf-8
 require 'test_helper'
 
 class DragAnAnimal < CapybaraIntegrationTest
   setup do
-    # Need to go on page to set tenant
-    I18n.locale = @locale = ENV['LOCALE'] || I18n.default_locale
-    visit("/authentication/sign_in?locale=#{@locale}")
-    resize_window(1366, 768)
-    shoot_screen 'authentication/sign_in'
-    login_as(users(:users_001), scope: :user)
-    visit('/backend/animals')
+    login_with_user('/backend/animals')
     find(:xpath, "//a[@href='column']").click
     wait_for_ajax
     shoot_screen 'animals/golumn'

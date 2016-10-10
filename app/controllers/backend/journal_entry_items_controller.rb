@@ -32,12 +32,14 @@ module Backend
           @journal_entry_item.real_debit = credit - debit
         end
       end
+      @real_rate = params['journal_entry_real_currency_rate']
+      @real_rate &&= @real_rate.to_d
       if params[:journal_id] && @journal = Journal.find_by(id: params[:journal_id])
         if @journal.cashes.count == 1
           @journal_entry_item.account = @journal.cashes.first.account
         end
       end
-      params[:printed_on] = (params[:printed_on] =~ /\d\d\d\d-\d\d-\d\d/) ? params[:printed_on].to_date : nil
+      params[:printed_on] = params[:printed_on] =~ /\d\d\d\d-\d\d-\d\d/ ? params[:printed_on].to_date : nil
       if params[:printed_on]
         @financial_year = FinancialYear.at(params[:printed_on])
       end

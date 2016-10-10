@@ -6,6 +6,7 @@ arb:
     charentes_alliance_incoming_deliveries: "شارانت التحالف شحنات واردة"
     charentes_alliance_outgoing_deliveries: "شارانت التحالف شحنات الصادرة"
     # ebp_edi: "EBP EDI"
+    ekylibre_accounts: "حسابات Ekylibre"
     ekylibre_activities: "أنشطة Ekylibre"
     ekylibre_animal_groups: "المجموعات الحيوانية Ekylibre"
     ekylibre_animals: "الحيوانات Ekylibre"

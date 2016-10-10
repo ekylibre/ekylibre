@@ -14,6 +14,7 @@
 
 - main_toolbar do |t|
   -# t.new
-  = t.pick
+  - if ProductNatureVariant.any_reference_available?
+    = t.pick
 
 = main_list

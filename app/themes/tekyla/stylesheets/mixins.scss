@@ -330,6 +330,7 @@
   @include transition(background 0.2s, box-shadow 0.2s);
   &:hover > a {
     outline: none;
+    cursor: pointer;
     background: background-hover($menu-background);
   }
   &.disabled, &[disabled] {
@@ -341,10 +342,8 @@
     @include menu-separator;
   }
   a {
-    $vertical-padding: ($menu-height - $menu-text-height)/2;
-    $horizontal-padding: round($default-ratio * $vertical-padding);
+    padding: $menu-item-vertical-padding $menu-item-horizontal-padding;
     display: block;
-    padding: $vertical-padding $horizontal-padding;
     font-size: $fs-normal;
     line-height: $menu-text-height;
     height: $menu-text-height;
@@ -359,7 +358,7 @@
       height: $menu-text-height;
       vertical-align: middle;
       @include margin-left(0);
-      @include margin-right($horizontal-padding);
+      @include margin-right($menu-item-horizontal-padding);
     }
     &:focus,
     &:active {
@@ -761,4 +760,51 @@
 @mixin text-null-indicator {
   @include text-base-indicator;
   color: $caution-color;
+}
+
+@mixin respond-to-bigger-than($screen-size) {
+  @if $screen-size == small {
+    @media screen and (min-width: $small-screen) { @content; }
+  }
+  @else if $screen-size == medium {
+    @media screen and (min-width: $medium-screen) { @content; }
+  }
+  @else if $screen-size == normal {
+    @media screen and (min-width: $large-screen) { @content; }
+  }
+  @else {
+    @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
+    @content;
+  }
+}
+
+@mixin flex($direction, $horizontal-alignement: center, $vertical-alignement: center) {
+
+  display: flex;
+  @if $direction == row {
+
+    html[dir="ltr"] {
+      flex-direction: row;
+    }
+
+    html[dir="rtl"] {
+      flex-direction: row;
+    }
+
+    justify-content: $horizontal-alignement;
+    align-items: $vertical-alignement;
+  }
+  @else {
+    flex-direction: column;
+    justify-content: $vertical-alignement;
+    align-items: $horizontal-alignement;
+  }
+}
+
+@mixin flex-row($horizontal-alignement: center, $vertical-alignement: center) {
+  @include flex(row, $horizontal-alignement, $vertical-alignement);
+}
+
+@mixin flex-column($horizontal-alignement: center, $vertical-alignement: center) {
+  @include flex(column, $horizontal-alignement, $vertical-alignement);
 }

@@ -22,26 +22,37 @@
 #
 # == Table: activities
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivation_variety :string
-#  custom_fields       :jsonb
-#  description         :text
-#  family              :string           not null
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string           not null
-#  nature              :string           not null
-#  production_campaign :string
-#  production_cycle    :string           not null
-#  size_indicator_name :string
-#  size_unit_name      :string
-#  support_variety     :string
-#  suspended           :boolean          default(FALSE), not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  with_cultivation    :boolean          not null
-#  with_supports       :boolean          not null
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  cultivation_variety          :string
+#  custom_fields                :jsonb
+#  description                  :text
+#  family                       :string           not null
+#  grading_net_mass_unit_name   :string
+#  grading_sizes_indicator_name :string
+#  grading_sizes_unit_name      :string
+#  id                           :integer          not null, primary key
+#  lock_version                 :integer          default(0), not null
+#  measure_grading_items_count  :boolean          default(FALSE), not null
+#  measure_grading_net_mass     :boolean          default(FALSE), not null
+#  measure_grading_sizes        :boolean          default(FALSE), not null
+#  name                         :string           not null
+#  nature                       :string           not null
+#  production_campaign          :string
+#  production_cycle             :string           not null
+#  production_system_name       :string
+#  size_indicator_name          :string
+#  size_unit_name               :string
+#  support_variety              :string
+#  suspended                    :boolean          default(FALSE), not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  use_countings                :boolean          default(FALSE), not null
+#  use_gradings                 :boolean          default(FALSE), not null
+#  use_seasons                  :boolean          default(FALSE)
+#  use_tactics                  :boolean          default(FALSE)
+#  with_cultivation             :boolean          not null
+#  with_supports                :boolean          not null
 #
 
 # Activity represents a type of work in the farm like common wheats, pigs,
@@ -55,6 +66,10 @@ class Activity < Ekylibre::Record::Base
   refers_to :support_variety, class_name: 'Variety'
   refers_to :size_unit, class_name: 'Unit'
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
+  refers_to :grading_net_mass_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :grading_sizes_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
+  refers_to :grading_sizes_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :production_system
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   enumerize :production_cycle, in: [:annual, :perennial], predicates: true
   enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
@@ -62,32 +77,43 @@ class Activity < Ekylibre::Record::Base
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
+    has_many :seasons, class_name: 'ActivitySeason'
+    has_many :tactics, class_name: 'ActivityTactic'
+    has_many :inspections, class_name: 'Inspection'
+    has_many :plant_density_abaci, class_name: 'PlantDensityAbacus'
+    has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
+    has_many :inspection_calibration_scales, class_name: 'ActivityInspectionCalibrationScale'
+    has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
   end
   has_many :supports, through: :productions
 
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
-  validates_presence_of :family, :name, :nature, :production_cycle
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :family, :nature, :production_cycle, presence: true
+  validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :use_seasons, :use_tactics, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
-  validates_inclusion_of :family, in: family.values
-  validates_presence_of :cultivation_variety, if: :with_cultivation
-  validates_presence_of :support_variety, if: :with_supports
-  validates_uniqueness_of :name
+  validates :family, inclusion: { in: family.values }
+  validates :cultivation_variety, presence: { if: :with_cultivation }
+  validates :support_variety, presence: { if: :with_supports }
+  validates :name, uniqueness: true
   # validates_associated :productions
-  validates_presence_of :production_campaign, if: :perennial?
+  validates :production_campaign, presence: { if: :perennial? }
+  validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
+  validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
-  scope :of_intervention, lambda { |intervention|
-    where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
-  }
+
   scope :of_campaign, lambda { |campaign|
     if campaign
-      c = (campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation)) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
-      prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
-      budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
-      where(id: prods.select(:id) + budgets.select(:id))
+      c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
+      where(id: HABTM_Campaigns.select(:activity_id).where(campaign: c))
     else
       none
     end
@@ -105,7 +131,11 @@ class Activity < Ekylibre::Record::Base
   }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
-
+  accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
+  accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
+  accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
+  accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
   # protect(on: :update) do
   #   productions.any?
   # end
@@ -115,8 +145,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_validation do
-    family = Nomen::ActivityFamily.find(self.family)
-    if family
+    if Nomen::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
         self.with_supports ||= true
@@ -132,9 +161,13 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
-      else
-        self.with_supports = false
-        self.with_cultivation = false
+      elsif tool_maintaining?
+        self.with_supports = true
+        self.support_variety = :equipment_fleet
+        self.with_cultivation = true
+        self.cultivation_variety ||= :equipment
+        self.size_indicator_name = 'members_population' if size_indicator_name.blank?
+        self.size_unit_name = 'unity' if size_unit_name.blank?
       end
       # if with_supports || family.support_variety
       #   self.with_supports = true
@@ -149,16 +182,26 @@ class Activity < Ekylibre::Record::Base
       #   self.with_cultivation = false
       # end
     end
+    self.with_supports = false if with_supports.nil?
+    self.with_cultivation = false if with_cultivation.nil?
     true
   end
 
   validate do
-    if family = Nomen::ActivityFamily[self.family]
-      if with_supports && variety = Nomen::Variety[support_variety] && family.support_variety
-        errors.add(:support_variety, :invalid) unless variety <= family.support_variety
+    if family_item = Nomen::ActivityFamily[family]
+      if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
+        errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        unless family_item.cultivation_variety.blank?
+          errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
+        end
+      end
+    end
+    errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
+    if use_gradings
+      unless measure_something?
+        errors.add :use_gradings, :checked_without_measures
       end
     end
     true
@@ -167,6 +210,8 @@ class Activity < Ekylibre::Record::Base
   before_save do
     self.support_variety = nil unless with_supports
     self.cultivation_variety = nil unless with_cultivation
+    self.use_seasons = nil unless seasons.any?
+    self.use_tactics = nil unless tactics.any?
   end
 
   after_save do
@@ -174,6 +219,10 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
+    productions.each do |production|
+      production.update_column(:season_id, seasons.first.id) if use_seasons?
+      production.update_column(:tactic_id, tactics.first.id) if use_tactics?
+    end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100
@@ -214,10 +263,15 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  [:plant_farming, :animal_farming, :equipment_management, :processing].each do |family_name|
-    define_method  family_name.to_s + '?' do
-      family && Nomen::ActivityFamily.find(family) <= family_name
+  Nomen::ActivityFamily.find_each do |base_family|
+    define_method base_family.name.to_s + '?' do
+      family && Nomen::ActivityFamily.find(family) <= base_family
     end
+  end
+
+  def not_distributed_products
+    Product.mine_or_undefined.of_variety(cultivation_variety, support_variety)
+           .where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
   end
 
   def of_campaign?(campaign)
@@ -251,11 +305,7 @@ class Activity < Ekylibre::Record::Base
 
   # Returns a specific color for the given activity
   def color
-    if cultivation_variety
-      self.class.color(family, cultivation_variety)
-    else
-      return '#000000'
-    end
+    self.class.color(family, cultivation_variety)
   end
 
   def real_expense_amount(campaign)
@@ -268,79 +318,28 @@ class Activity < Ekylibre::Record::Base
     budget.expenses_amount
   end
 
+  COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze
+  COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
+
   class << self
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
     def color(family, variety)
-      colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
-                 orange: '#FF8000', red: '#FF0000', green: '#80BB00',
-                 green_yellow: '#ADFF2F', spring_green: '#00FF7F',
-                 dark_green: '#006400', lime: '#00FF00', dark_turquoise: '#00FFFF',
-                 blue: '#0000FF', purple: '#BF00FF', gray: '#A4A4A4',
-                 slate_gray: '#708090', dark_magenta: '#8B008B', violet: '#EE82EE',
-                 teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
       variety = Nomen::Variety.find(variety)
-      crop_sets = []
-      # if there no variety (no land cases)
-      if variety
-        crop_sets = Nomen::CropSet.select do |i|
-          i.varieties.detect { |v| variety <= v }
-        end.map { |i| i.name.to_sym }
-      end
-      return colors[:gray] unless activity_family
-      if activity_family <= :plant_farming && (variety || crop_sets.any?)
-        # MEADOW
-        if crop_sets.include?(:meadow)
-          colors[:dark_green]
-        # CEREALS
-        elsif crop_sets.include?(:cereals)
-          if variety <= :zea || variety <= :sorghum
-            colors[:orange]
-          elsif variety <= :hordeum || variety <= :avena || variety <= :secale
-            '#EEDD99'
-          elsif variety <= :triticum || variety <= :triticosecale
-            colors[:gold]
-          else
-            colors[:golden_rod]
-          end
-        # OILSEED
-        elsif crop_sets.include?(:oleaginous)
-          colors[:green_yellow]
-        # PROTEINS
-        elsif crop_sets.include?(:proteaginous)
-          colors[:teal]
-        # FIBER
-        elsif variety <= :linum ||
-              variety <= :cannabis
-          colors[:slate_gray]
-        # LEGUMINOUS
-        elsif crop_sets.include?(:leguminous)
-          colors[:lime]
-        elsif crop_sets.include?(:vegetables)
-          colors[:red]
-        elsif crop_sets.include?(:arboricultural)
-          colors[:blue]
-        # VINE
-        elsif variety <= :vitaceae
-          colors[:purple]
-        elsif crop_sets.include?(:aromatics_and_medicinals)
-          colors[:dark_turquoise]
-        elsif crop_sets.include?(:tropicals)
-          colors[:fuchsia]
-        elsif variety <= :nicotiana
-          colors[:dark_turquoise]
-        else
-          colors[:green]
-        end
+      return 'White' unless activity_family
+      if activity_family <= :plant_farming
+        list = COLORS['varieties']
+        return 'Gray' unless list
+        variety.rise { |i| list[i.name] }
       elsif activity_family <= :animal_farming
-        colors[:brown]
+        'Brown'
       elsif activity_family <= :administering
-        colors[:brown]
+        'RoyalBlue'
       elsif activity_family <= :tool_maintaining
-        colors[:blue]
+        'SlateGray'
       else
-        colors[:gray]
+        'DarkGray'
       end
     end
 
@@ -390,10 +389,33 @@ class Activity < Ekylibre::Record::Base
 
   def interventions_duration(campaign)
     # productions.of_campaign(campaign).map(&:duration).compact.sum
-    productions.of_campaign(campaign).collect { |p| p.interventions.map(&:working_duration) }.flatten.compact.sum
+    productions.of_campaign(campaign).collect { |p| p.interventions.real.sum(:working_duration) }.sum
   end
 
   def is_of_family?(family)
     Nomen::ActivityFamily[self.family] <= family
+  end
+
+  def inspectionable?
+    use_gradings && inspection_calibration_scales.any? && inspections.any?
+  end
+
+  def measure_something?
+    measure_grading_items_count || measure_grading_net_mass || measure_grading_sizes
+  end
+
+  def unit_choices
+    [:items_count, :net_mass]
+      .reject { |e| e == :items_count && !measure_grading_items_count }
+      .reject { |e| e == :net_mass && !measure_grading_net_mass }
+  end
+
+  def unit_preference(user, unit = nil)
+    unit_preference_name = "activity_#{id}_inspection_view_unit"
+    user.prefer!(unit_preference_name, unit.to_sym) if unit.present?
+    pref = user.preference(unit_preference_name).value
+    pref ||= :items_count
+    pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
+    pref ||= unit_choices.first
   end
 end

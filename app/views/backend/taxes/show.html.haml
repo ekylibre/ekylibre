@@ -5,10 +5,14 @@
 = cobbles do |c|
   - c.cobble :general_informations do
     = attributes_list do |l|
+      - l.attribute :active
+      - l.attribute :country
       - l.attribute :amount
+      - l.attribute :nature
       - l.attribute :collect_account, url: true
       - l.attribute :deduction_account, url: true
-      - l.attribute :reference_name
+      - l.attribute :fixed_asset_collect_account, url: true
+      - l.attribute :fixed_asset_deduction_account, url: true
       - l.attribute :description
 
   - c.cobble :balance do

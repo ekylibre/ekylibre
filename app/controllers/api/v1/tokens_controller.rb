@@ -39,8 +39,9 @@ module Api
 
         if @user.valid_password?(password)
           # This following line forbids simultaneous connections:
-          # @user.authentication_token = User.generate_authentication_token
-          @user.save!
+          if @user.authentication_token.blank?
+            @user.update_column(:authentication_token, User.generate_authentication_token)
+          end
           render json: { token: @user.authentication_token }
         else
           logger.info("User #{email} failed signin, password is invalid")
@@ -49,10 +50,10 @@ module Api
       end
 
       def destroy
-        if @user = User.find_by(authentication_token: params[:id])
-          @user.authentication_token = nil
-          @user.save!
-          render status: :success, json: { token: params[:id] }
+        @user = User.find_by(authentication_token: params[:id])
+        if @user
+          @user.update_column(:authentication_token, nil)
+          render status: :ok, json: { token: params[:id] }
         else
           logger.info('Token not found.')
           render status: :not_found, json: { message: 'Invalid token.' }

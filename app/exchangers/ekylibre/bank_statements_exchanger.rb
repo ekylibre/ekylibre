@@ -64,8 +64,8 @@ module Ekylibre
 
         # get bank_statement if exist in DB or create it
         bank_statement = BankStatement.find_or_initialize_by(cash: cash, number: bank_statement_number)
-        bank_statement.started_at = bank_statement_started_on.to_time
-        bank_statement.stopped_at = bank_statement_stopped_on.to_time
+        bank_statement.started_on = bank_statement_started_on.to_time
+        bank_statement.stopped_on = bank_statement_stopped_on.to_time
         bank_statement.save!
 
         # try to know if any items exist

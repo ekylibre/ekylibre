@@ -19,7 +19,7 @@ module Ekylibre
 
   class << self
     def http_languages
-      ::I18n.available_locales.inject({}) do |h, l|
+      ::I18n.available_locales.each_with_object({}) do |l, h|
         h['i18n.iso2'.t(locale: l)] = l
         h
       end
@@ -43,6 +43,13 @@ module Ekylibre
         end
       end
       @themes
+    end
+
+    def load_integrations
+      Dir.glob(Rails.root.join('app', 'integrations', '**', '*.rb')).each do |file|
+        require file
+      end
+      Ekylibre::Plugin.load_integrations
     end
 
     # Returns all helps files indexed by locale and controller-action

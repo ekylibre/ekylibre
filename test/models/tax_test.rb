@@ -22,23 +22,30 @@
 #
 # == Table: taxes
 #
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  collect_account_id   :integer
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  deduction_account_id :integer
-#  description          :text
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  reference_name       :string
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  active                           :boolean          default(FALSE), not null
+#  amount                           :decimal(19, 4)   default(0.0), not null
+#  collect_account_id               :integer
+#  country                          :string           not null
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  deduction_account_id             :integer
+#  description                      :text
+#  fixed_asset_collect_account_id   :integer
+#  fixed_asset_deduction_account_id :integer
+#  id                               :integer          not null, primary key
+#  lock_version                     :integer          default(0), not null
+#  name                             :string           not null
+#  nature                           :string           not null
+#  reference_name                   :string
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
 #
 
 require 'test_helper'
 
 class TaxTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+  test 'load the taxes' do
+    Tax.load_defaults
+  end
 end

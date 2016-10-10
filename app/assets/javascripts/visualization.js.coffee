@@ -10,6 +10,7 @@
 #= require visualization/path
 #= require visualization/paths
 #= require visualization/points
+#= require visualization/point_group
 #= require visualization/simple
 
 ((V, $) ->
@@ -44,7 +45,7 @@
       controlDefaults:
         fullscreen:
           position: 'topleft'
-          title: I18n.t('javascripts.leaflet.fullscreenTitle')
+          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
         geocoder:
           collapsed: true,
           position: 'topright',
@@ -64,9 +65,9 @@
         zoom:
           position: 'topleft'
           zoomInText: ''
-          zoomInTitle: I18n.t('javascripts.leaflet.zoomInTitle')
+          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
           zoomOutText: ''
-          zoomOutTitle: I18n.t('javascripts.leaflet.zoomOutTitle')
+          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
       layers: {}
       layerDefaults:
         band:
@@ -140,12 +141,26 @@
           fill: true
           fillOpacity: 1
           radius: 5
+        point_group:
+          stroke: true
+          color: "#333333"
+          weight: 2
+          opacity: 1
+          fill: true
+          fillOpacity: 1
+          radius: 5
       map:
         maxZoom: 25
         minZoom:2
         scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
+        setDefaultBackground: false
+        dragging: true
+        touchZoom: true
+        doubleClickZoom: true
+        boxZoom: true
+        tap: true
       view:
         center:[]
         zoom : 13
@@ -155,6 +170,24 @@
       $.extend(true, @options, @element.data("visualization"))
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
+      @layers = []
+
+      if @options.map.setDefaultBackground
+        opts = {}
+        opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
+        opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
+        opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+        opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
+        opts['tms'] = true if @options.backgrounds.tms
+
+        backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
+        backgroundLayer.addTo @map
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
+
+      @layersScheduler = L.layersScheduler()
+      @layersScheduler.addTo @map
+
       this._resize()
       this._refreshView()
       this._refreshControls()
@@ -175,6 +208,9 @@
     rebuild: ->
       this._destroy()
       this._create()
+
+    layrs: ->
+      return @layers
 
     mappo: ->
       return @map
@@ -235,10 +271,28 @@
       baseLayers = {}
       overlays = {}
 
-      for layer, index in @options.backgrounds
-        backgroundLayer = L.tileLayer.provider(layer.provider)
-        baseLayers[layer.label] = backgroundLayer
-        @map.addLayer(backgroundLayer) if index == 0
+      if @options.backgrounds.length > 0
+        for layer, index in @options.backgrounds
+          opts = {}
+          opts['attribution'] = layer.attribution if layer.attribution?
+          opts['minZoom'] = layer.minZoom if layer.minZoom?
+          opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+          opts['subdomains'] = layer.subdomains if layer.subdomains?
+          opts['tms'] = true if layer.tms
+
+          backgroundLayer = L.tileLayer(layer.url, opts)
+          baseLayers[layer.name] = backgroundLayer
+          @map.addLayer(backgroundLayer) if layer.byDefault
+      else
+        # no backgrounds, set defaults
+        backgrounds = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
+
+        baseLayers = {}
+        for layer, index in backgrounds
+          backgroundLayer = L.tileLayer.provider(layer)
+          baseLayers[layer] = backgroundLayer
+          @map.addLayer(backgroundLayer) if index == 0
+
 
       for layer in @options.overlays
         overlayLayer = L.tileLayer.provider(layer.provider_name)
@@ -270,8 +324,10 @@
           # Add layer overlay
           overlayLayer = L.layerGroup(layerGroup)
           overlayLayer.name = layer.name
+          @layers.push layer
           layer.overlay = overlays[layer.label] = overlayLayer
           @map.addLayer(overlayLayer)
+          @layersScheduler.insert overlayLayer._leaflet_id
           console.log("#{layer.name} layer added")
           try
             group = new L.featureGroup(layerGroup)
@@ -287,7 +343,8 @@
 
         console.groupEnd() if console.groupEnd isnt undefined
 
-      @map.on "overlayadd", (event) ->
+      @map.on "overlayadd", (event) =>
+        @layersScheduler.schedule event.layer
         console.log "Add legend control..."
         legend = $(legendControl.getContainer())
         legend.children("#legend-#{event.layer.name}").show()
@@ -340,14 +397,8 @@
 
     _refreshView: (view) ->
       this._setDefaultView()
-      # else if view.center?
-      #   if @options.layers?
-
-      #   if view.zoom?
-      #     @map.setView(center, view.zoom)
-      #   else
-      #     @map.setView(center, zoom)
-      # this
+      if @options.view.center.length > 0
+        @map.setView(@options.view.center, @options.view.zoom)
 
     _setDefaultView: ->
       @map.fitWorld()
@@ -360,7 +411,41 @@
   $.loadVisualizations = ->
     $("*[data-visualization]").each ->
       $(this).visualization()
+    $(".refresh-locations[data-visualization]").each ->
+      refreshSensors($(this))
     return
+
+  # Needed to easily write setTimeout in CoffeeScript
+  delay = (time, method) -> setTimeout method, time
+
+  refreshSensors = (mapElement) ->
+    console.log "Test"
+    unless mapElement.data("refreshTimeout")?
+      console.log "Setting timeout"
+      timeoutId = delay 10000, -> updateSensorLocations(mapElement)
+      mapElement.data("refreshTimeout", timeoutId)
+
+  updateSensorLocations = (mapElement) ->
+    sensorLayer = $(mapElement.visualization("layrs")).filter(-> this.name == "sensors")[0]
+    layers = sensorLayer.overlay._layers
+    layer_keys = Object.keys(sensorLayer.overlay._layers)
+    marker_keys = $(layer_keys).filter (index) -> layers[layer_keys[index]].sensorId
+    shadow_keys = $(layer_keys).filter (index) -> layers[layer_keys[index]].markerSensorId
+    markers = $.map marker_keys, (element, index) -> layers[element]
+    shadows = $.map shadow_keys, (element, index) -> layers[element]
+    $.get "/backend/sensors/last_locations", (data) ->
+      $(Object.keys(data)).each (index, sensorId) ->
+        marker = (marker for marker in markers when marker.sensorId == parseInt(sensorId))[0]
+        shadow = (shadow for shadow in shadows when shadow.markerSensorId == parseInt(sensorId))[0]
+        newPos = new L.LatLng(data[sensorId].coordinates[1], data[sensorId].coordinates[0])
+        if marker? && shadow?
+          unless marker.getLatLng().equals(newPos)
+            marker.setLatLng(newPos)
+            shadow.setLatLng(newPos)
+    console.log "Updated markers positions"
+    timeoutId = delay 10000, -> updateSensorLocations(mapElement)
+    clearTimeout mapElement.data("refreshTimeout")
+    mapElement.data("refreshTimeout", timeoutId)
 
   $(document).ready $.loadVisualizations
   $(document).on "page:load cocoon:after-insert cell:load", $.loadVisualizations

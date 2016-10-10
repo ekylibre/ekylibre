@@ -19,6 +19,15 @@
 
 module Backend
   class FormBuilder < SimpleForm::FormBuilder
+    def referenced_nomenclature(association, options = {})
+      klass = @object.class
+      reflection = klass.nomenclature_reflections[association]
+      raise ArgumentError, "Invalid nomenclature reflection: #{association}" unless reflection
+      options[:collection] ||= reflection.klass.selection
+      options[:label] ||= klass.human_attribute_name(association)
+      input(reflection.foreign_key, options)
+    end
+
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
@@ -44,15 +53,16 @@ module Backend
       end
       # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
       item = association.to_s.singularize
+      partial = options[:partial] || item + '_fields'
       options[:locals] ||= {}
-      html = simple_fields_for(association) do |nested|
-        @template.render(item + '_fields', options[:locals].merge(f: nested))
+      html = simple_fields_for(association, options[:collection]) do |nested|
+        @template.render(partial, options[:locals].merge(f: nested))
       end
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
       if reflection.macro == :has_many
         unless options[:new].is_a?(FalseClass)
           html << @template.content_tag(:div, class: 'links') do
-            @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
+            @template.link_to_add_association(options[:button_label] || "labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, partial: partial, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
           end
         end
         if options[:minimum]
@@ -144,13 +154,26 @@ module Backend
 
     # Updates default input method
     def input(attribute_name, options = {}, &block)
-      if targets = options.delete(:show)
-        options[:input_html] ||= {}
-        options[:input_html]['data-show'] = clean_targets(targets)
+      options[:input_html] ||= {}
+      if options[:show]
+        options[:input_html]['data-show'] = clean_targets(options.delete(:show))
       end
-      if targets = options.delete(:hide)
-        options[:input_html] ||= {}
-        options[:input_html]['data-hide'] = clean_targets(targets)
+      if options[:hide]
+        options[:input_html]['data-hide'] = clean_targets(options.delete(:hide))
+      end
+      unless options.key?(:disabled)
+        if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
+           @object.class.readonly_attributes.include?(attribute_name.to_s)
+          options[:disabled] = true unless options[:as] == :hidden
+        end
+      end
+      autocomplete = options[:autocomplete]
+      if autocomplete
+        autocomplete = {} if autocomplete.is_a?(TrueClass)
+        autocomplete[:column] ||= attribute_name.to_s
+        autocomplete[:action] ||= :autocomplete
+        autocomplete[:format] ||= :json
+        options[:input_html]['data-autocomplete'] = @template.url_for(autocomplete)
       end
       super(attribute_name, options, &block)
     end
@@ -204,7 +227,7 @@ module Backend
       input(attribute_name, options) do
         data_lists = {}
         @template.content_tag(:span, class: 'control-group abilities-list') do
-          abilities_for_select = Nomen::Ability.list.sort { |a, b| a.human_name <=> b.human_name }.map do |a|
+          abilities_for_select = Nomen::Ability.list.sort_by(&:human_name).map do |a|
             attrs = { value: a.name }
             if a.parameters
               a.parameters.each do |parameter|
@@ -271,7 +294,10 @@ module Backend
       editor[:controls][:importers] ||= { formats: [:gml, :kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
-      if geom = @object.send(attribute_name)
+      editor[:withoutLabel] = true
+
+      geom = @object.send(attribute_name)
+      if geom
         editor[:edit] = Charta.new_geometry(geom).to_json_object
         editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }
       else
@@ -286,16 +312,28 @@ module Backend
         show ||= @object.class.where.not(attribute_name => nil)
         union = Charta.empty_geometry
         if show.any?
-          union = show.geom_union(attribute_name)
-          editor[:show] = union.to_json_object unless union.empty?
+          if show.is_a?(Hash) && show.key?(:series)
+            editor[:show] = show
+          else
+            union = show.geom_union(attribute_name)
+            editor[:show] = union.to_json_object unless union.empty?
+          end
         end
       end
+      editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
 
     def shape_field(attribute_name = :shape, options = {})
       raise @object.send(attribute_name)
       geometry = Charta.new_geometry(@object.send(attribute_name) || Charta.empty_geometry)
+      options[:input_html] ||= {}
+      options[:input_html][:data] ||= {}
+      options[:input_html][:data][:map_editor] ||= {}
+      options[:input_html][:data][:map_editor] ||= {}
+      options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
     end
@@ -314,20 +352,23 @@ module Backend
         marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
         marker[:view] = { center: marker[:marker] }
       else
-        if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
-          marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
+        siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
+        if siblings.any?
+          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object)
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
     def point_field(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)
-        marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
+        coordinates = Charta.new_geometry(geom).to_json_object['coordinates']
+        marker[:marker] = coordinates.reverse if coordinates
         marker[:view] = { center: marker[:marker] }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
@@ -337,6 +378,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
+      marker[:background] &&= MapBackground.by_default.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -371,6 +414,18 @@ module Backend
           input(start_attribute_name, wrapper: :simplest) +
           @template.content_tag(:span, :to.tl, class: 'add-on') +
           input(stop_attribute_name, wrapper: :simplest)
+      end
+    end
+
+    def delta_field(value_attribute, delta_attribute, unit_name_attribute, unit_values, *args)
+      options = args.extract_options!
+      attribute_name = args.shift || options[:name]
+
+      input(attribute_name, options.merge(wrapper: :append)) do
+        input(value_attribute, wrapper: :simplest) +
+          @template.content_tag(:span, :delta.tl, class: 'add-on') +
+          input(delta_attribute, wrapper: :simplest) +
+          unit_field(unit_name_attribute, unit_values, args)
       end
     end
 
@@ -410,7 +465,7 @@ module Backend
     end
 
     # Build a frame for all product _forms
-    def product_form_frame(_options = {}, &block)
+    def product_form_frame(options = {}, &block)
       html = ''.html_safe
 
       variant = @object.variant
@@ -418,18 +473,36 @@ module Backend
         variant_id = @template.params[:variant_id]
         variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
       end
+
+      full_name = nil
+      if @template.params[:person_id]
+        person = Entity.find(@template.params[:person_id])
+        if person
+          @object.born_at ||= person.born_at
+          full_name = Entity.find(@template.params[:person_id]).full_name
+        end
+      end
+
+      options[:input_html] ||= {}
+      options[:input_html][:class] ||= ''
+
       if variant
         @object.nature ||= variant.nature
         whole_indicators = variant.whole_indicators
         # Add product type selector
-        html << @template.field_set do
+        form = @template.field_set options[:input_html] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
-          fs << input(:name)
+          fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
           # Add work number
-          fs << input(:work_number)
+          fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
+
+          fs << input(:born_at)
+          fs << input(:dead_at)
+
+          fs << nested_association(:labellings)
 
           # error message for indicators
           if Rails.env.development?
@@ -448,6 +521,7 @@ module Backend
 
           fs
         end
+        html << form
 
         # Add form body
         html += if block_given?
@@ -457,8 +531,9 @@ module Backend
                 end
 
         # Add first indicators
-
-        indicators = variant.variable_indicators.delete_if { |i| whole_indicators.include?(i) }
+        indicators = variant.variable_indicators.delete_if do |i|
+          whole_indicators.include?(i) || [:geolocation, :shape].include?(i.name.to_sym)
+        end
         if object.new_record? && indicators.any?
 
           indicators.each do |indicator|
@@ -521,11 +596,22 @@ module Backend
 
     def variety(options = {})
       scope = options[:scope]
-      varieties         = Nomen::Variety.selection(scope ? scope.variety : nil)
-      @object.variety ||= (scope ? scope.variety : varieties.first ? varieties.first.last : nil)
+      varieties = Nomen::Variety.selection(scope ? scope.variety : nil)
+      child_scope = options[:child_scope]
+      if child_scope
+        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
+      end
+      @object.variety ||= scope.variety if scope
+      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first
       if options[:derivative_of] || (scope && scope.derivative_of)
         derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
-        @object.derivative_of ||= (scope ? scope.derivative_of : derivatives.first ? derivatives.first.last : nil)
+        @object.derivative_of ||= scope.derivative_of if scope
+        @object.derivative_of ||= derivatives.first.last if @object.new_record? && derivatives.first
+        if child_scope
+          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
+        end
+      end
+      if !derivatives.nil? && derivatives.any?
         return input(:variety, wrapper: :append, class: :inline) do
           field = ('<span class="add-on">' <<
                    ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
@@ -534,7 +620,7 @@ module Backend
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')
           field.gsub!('@@VARIETY@@', input_field(:variety, as: :select, collection: varieties))
-          field.gsub!('@@DERIVATIVE@@', input_field(:derivative_of, as: :select, collection: derivatives))
+          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, as: :select, collection: derivatives, wrapper: :nested))
           field.html_safe
         end
       else
@@ -640,17 +726,23 @@ module Backend
       options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
       options[:input_html][:data][:selector] = @template.url_for(choices)
       unless options[:new].is_a?(FalseClass)
-        new_url = {}
+        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
         new_url[:controller] ||= choices[:controller]
         new_url[:action] ||= :new
         options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
-        options[:input_html][:data][:selector_new_item_default_values] = options[:new] if options[:new].is_a? Hash
       end
       # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
       options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
       options[:as] = :string
       options[:reflection] = reflection
       options
+    end
+
+    def unit_field(unit_name_attribute, units_values, *_args)
+      if units_values.is_a?(Array)
+        return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+      end
+      @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end
 end

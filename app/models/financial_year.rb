@@ -47,16 +47,17 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(financial_year) { financial_year.stopped_on && financial_year.started_on }
-  validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
-  validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :code, :currency, :started_on, :stopped_on
+  validates :closed, inclusion: { in: [true, false] }
+  validates :code, presence: true, length: { maximum: 500 }
+  validates :currency, presence: true
+  validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :code, allow_nil: true, maximum: 20
-  validates_uniqueness_of :code
-  validates_presence_of :currency
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :code, length: { allow_nil: true, maximum: 20 }
+  validates :code, uniqueness: true
+  validates :currency, presence: true
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
@@ -136,7 +137,9 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def journal_entries(conditions = nil)
-    JournalEntry.where(printed_on: started_on..stopped_on).where(conditions.nil? ? true : conditions)
+    entries = JournalEntry.where(printed_on: started_on..stopped_on)
+    entries = entries.where(conditions) unless conditions.blank?
+    entries
   end
 
   def name
@@ -206,7 +209,7 @@ class FinancialYear < Ekylibre::Record::Base
           for balance in account_balances.joins(:account).order('number')
             if balance.account.number.to_s =~ /^(#{expenses.number}|#{revenues.number})/
               result += balance.balance
-            elsif balance.balance != 0
+            elsif balance.balance.nonzero?
               # TODO: Use currencies properly in account_balances !
               entry.items.create!(account_id: balance.account_id, name: balance.account.name, real_debit: balance.balance_debit, real_credit: balance.balance_credit)
             end

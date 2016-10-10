@@ -11,5 +11,4 @@
   date: {
     order: [:day, :month, :year]
   }
-}
-}
+} }

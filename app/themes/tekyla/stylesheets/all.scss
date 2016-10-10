@@ -22,24 +22,29 @@
 // Specific
 @import "abilities";
 @import "accesses";
+@import "activities";
+@import "attachments";
+@import "bank_statements";
 @import "budget";
-// @import "bootstrap/buttons";
-// @import "bootstrap/button-groups";
 @import "buttons";
 @import "beehives";
 @import "calendars";
 @import "charts";
 @import "datetimepickers";
+@import "equipments";
 @import "forms";
 @import "golumns";
 @import "grid";
+@import "integrations";
+@import "interventions";
 @import "leaflet";
 @import "main";
+@import "map_backgrounds";
 @import "modals";
 @import "tables";
+@import "taskboard";
 @import "timelines";
-@import "attachments";
-@import "activities";
+@import "tour";
 
 // Optimization
 @import "symbolic_icons";

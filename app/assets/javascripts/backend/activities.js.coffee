@@ -11,6 +11,30 @@
         console.log data
         map.mapeditor('edit', data.shape, true)
 
+  $(document).on "change keyup", ".plant-density-abacus .activity_plant_density_abaci_seeding_density_unit select", (event)->
+    element = $(this)
+    label = element.find('option:selected').html()
+    element.closest('.plant-density-abacus').find('.seeding-density-unit').html(label)
+
+  $(document).on "change keyup", ".plant-density-abacus .activity_plant_density_abaci_sampling_length_unit select", (event)->
+    element = $(this)
+    label = element.find('option:selected').html()
+    element.closest('.plant-density-abacus').find('.sampling-length-unit').html(label)
+
+  $(document).on "cocoon:after-insert", ".plant-density-abacus #items-field", (event)->
+    element = $(this)
+    element.closest('.plant-density-abacus').find('select').trigger('change')
+
+
+  $(document).on "change keyup", ".inspection-calibration-scale .activity_inspection_calibration_scales_size_unit_name select", (event)->
+    element = $(this)
+    label = element.find('option:selected').html()
+    element.closest('.inspection-calibration-scale').find('.scale-unit').html(label)
+
+  $(document).on "cocoon:after-insert", ".inspection-calibration-scale #natures-field", (event)->
+    element = $(this)
+    element.closest('.inspection-calibration-scale').find('.activity_inspection_calibration_scales_size_unit_name select').trigger('change')
+
 
   # Set
   $(document).on "change keyup", "select[data-activity-family]", (event)->

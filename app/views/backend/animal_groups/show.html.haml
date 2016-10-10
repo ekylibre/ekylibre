@@ -29,10 +29,6 @@
   :ruby
     count = 0
     map = visualization do |v|
-      v.background "OpenStreetMap.HOT"
-      v.background "OpenStreetMap.Mapnik"
-      v.background "Thunderforest.Landscape"
-      v.background "Esri.WorldImagery"
       if resource.container
         if shape = resource.container.shape
           v.serie resource.container.id, [{name: resource.container.name, shape: shape}]

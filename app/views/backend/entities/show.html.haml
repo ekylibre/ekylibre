@@ -2,9 +2,17 @@
   = t.export :entity_sheet
   = t.edit resource
   = t.destroy
+  - if resource.contact? && !resource.worker && !resource.client? && !resource.supplier? && !resource.transporter? && !resource.prospect?
+    = t.menu :add_a_worker.tl, icon: false do |menu|
+      - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
+        - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, born_at: resource.born_at, redirect: request.fullpath}
 
 = main_informations attachment: true do
   = render 'coordinates'
+  - if resource.worker
+    .info
+      %span.title= Entity.human_attribute_name(:worker)
+      %span.value= link_to(resource.worker.name, {controller: :workers, action: :show, id: resource.worker.id})
 
 = janus do |j|
   - j.face :timeline do
@@ -39,6 +47,7 @@
       - l.side :tasks, at: :due_at, new: false
       - l.side :direct_links, at: :started_at
       - l.side :indirect_links, new: false
+      - l.side :subscriptions, new: false
       - l.side :events, at: :started_at, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
       - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}, at: :observed_at
       - l.side :attachments, new: false
@@ -129,7 +138,7 @@
 
       - c.cobble(:subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :subscriptions, entity_id: resource.id})
+          = t.new(params: {controller: :subscriptions, subscriber_id: resource.id, address_id: resource.default_mail_address_id})
         - if resource.subscriptions.any?
           = cobble_list(:subscriptions)
 

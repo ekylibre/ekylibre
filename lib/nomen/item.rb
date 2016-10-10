@@ -227,11 +227,12 @@ module Nomen
 
     # Returns property value
     def property(name)
+      return @name.to_sym if name == :name
       property = @nomenclature.properties[name]
       value = @attributes[name]
       if property
         if value.nil? && property.fallbacks
-          for fallback in property.fallbacks
+          property.fallbacks.each do |fallback|
             value ||= @attributes[fallback]
             break if value
           end

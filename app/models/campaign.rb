@@ -35,24 +35,28 @@
 #  updater_id   :integer
 #
 class Campaign < Ekylibre::Record::Base
-  has_many :cap_statements
-  has_many :activity_budgets, inverse_of: :campaign
+  has_many :cap_statements, dependent: :restrict_with_exception
+  has_many :activity_budgets, inverse_of: :campaign, dependent: :restrict_with_exception
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :closed_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
-  validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :name
+  validates :closed, inclusion: { in: [true, false] }
+  validates :closed_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :harvest_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :harvest_year, length: { is: 4 }, allow_nil: true
-  validates_uniqueness_of :harvest_year
+  validates :harvest_year, uniqueness: true
 
-  has_many :activity_productions
+  has_and_belongs_to_many :activities
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :activity_productions
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
   scope :of_activity_production, lambda { |activity_production|
-    joins(:activity_productions).where(activity_productions: { id: activity_production.id })
+    where('id IN (SELECT campaign_id FROM activity_productions_campaigns WHERE activity_production_id = ?)', activity_production.id)
   }
   scope :of_production, ->(production) { of_activity_production(production) }
 
@@ -73,18 +77,6 @@ class Campaign < Ekylibre::Record::Base
     def first_of_all
       Campaign.reorder(:harvest_year, :id).first
     end
-  end
-
-  def activity_productions
-    ActivityProduction.of_campaign(self)
-  end
-
-  def activities
-    Activity.of_campaign(self)
-  end
-
-  def interventions
-    Intervention.of_campaign(self)
   end
 
   # Returns all CampaignProduction. These productions always last the campaign

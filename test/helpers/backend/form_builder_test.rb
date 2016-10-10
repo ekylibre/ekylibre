@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::FormBuilderTest < ActionView::TestCase
+module Backend
+  class FormBuilderTest < ActionView::TestCase
+  end
 end

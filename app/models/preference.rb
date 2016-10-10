@@ -51,13 +51,17 @@ class Preference < Ekylibre::Record::Base
   belongs_to :record_value, polymorphic: true
   # cattr_reader :reference
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :decimal_value, allow_nil: true
-  validates_presence_of :name, :nature
+  validates :boolean_value, inclusion: { in: [true, false] }, allow_blank: true
+  validates :decimal_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :nature, presence: true
+  validates :record_value_type, length: { maximum: 500 }, allow_blank: true
+  validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :nature, allow_nil: true, maximum: 60
-  validates_inclusion_of :nature, in: nature.values
-  validates_uniqueness_of :name, scope: [:user_id]
+  validates :nature, length: { allow_nil: true, maximum: 60 }
+  validates :nature, inclusion: { in: nature.values }
+  validates :name, uniqueness: { scope: [:user_id] }
 
   alias_attribute :accounting_system_value, :string_value
   alias_attribute :country_value, :string_value
@@ -151,12 +155,13 @@ class Preference < Ekylibre::Record::Base
     def set!(name, value, nature = nil)
       name = name.to_s
       preference = Preference.find_by(name: name)
-      unless preference
+      if preference
+        preference.reload
+      else
         attributes = { name: name, nature: nature }
         attributes[:nature] = reference[name][:nature] if reference.key?(name)
         preference = new(attributes)
       end
-      preference.reload unless preference.new_record?
       preference.value = value
       preference.save!
       preference
@@ -164,6 +169,7 @@ class Preference < Ekylibre::Record::Base
   end
 
   prefer :bookkeep_automatically, :boolean, true
+  prefer :permanent_stock_inventory, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :host, :string, 'erp.example.com'
@@ -175,9 +181,11 @@ class Preference < Ekylibre::Record::Base
   prefer :currency, :currency, Nomen::Currency.default
   # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
-  prefer :force_intervention_started_at, :boolean, false
-  prefer :force_intervention_stopped_at, :boolean, false
   prefer :create_activities_from_telepac, :boolean, false
+  prefer :catalog_price_item_addition_if_blank, :boolean, true
+  prefer :client_account_radix, :string, ''
+  prefer :supplier_account_radix, :string, ''
+  prefer :employee_account_radix, :string, ''
 
   # Returns the name of the column used to store preference data
   def value_attribute

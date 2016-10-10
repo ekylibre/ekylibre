@@ -46,12 +46,15 @@ class CapLandParcel < Ekylibre::Record::Base
   has_one :campaign, through: :cap_statement
   has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :main_crop_commercialisation, :main_crop_seed_production, in: [true, false]
-  validates_presence_of :cap_islet, :islet, :land_parcel_number, :main_crop_code, :shape
+  validates :land_parcel_number, :main_crop_code, presence: true, length: { maximum: 500 }
+  validates :main_crop_commercialisation, :main_crop_seed_production, inclusion: { in: [true, false] }
+  validates :main_crop_precision, length: { maximum: 500 }, allow_blank: true
+  validates :cap_islet, :islet, :shape, presence: true
   # ]VALIDATORS]
 
   delegate :pacage_number, to: :cap_statement
   delegate :islet_number, to: :cap_islet
+  delegate :name, to: :campaign, prefix: true
 
   scope :of_campaign, lambda { |*campaigns|
     where(cap_islet_id: CapIslet.of_campaign(*campaigns))

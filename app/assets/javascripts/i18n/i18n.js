@@ -79,6 +79,20 @@
     return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
   }
 
+  var merge = function (dest, obj) {
+    var key, value;
+    for (key in obj) if (obj.hasOwnProperty(key)) {
+      value = obj[key];
+      if (Object.prototype.toString.call(value) === '[object String]') {
+        dest[key] = value;
+      } else {
+        if (dest[key] == null) dest[key] = {};
+        merge(dest[key], value);
+      }
+    }
+    return dest;
+  };
+
   // Set default days/months translations.
   var DATE = {
       day_names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -191,6 +205,12 @@
 
     if (typeof(this.translations) === "undefined" && this.translations !== null)
       this.translations = DEFAULT_OPTIONS.translations;
+
+    if (typeof(this.missingBehaviour) === "undefined" && this.missingBehaviour !== null)
+      this.missingBehaviour = DEFAULT_OPTIONS.missingBehaviour;
+
+    if (typeof(this.missingTranslationPrefix) === "undefined" && this.missingTranslationPrefix !== null)
+      this.missingTranslationPrefix = DEFAULT_OPTIONS.missingTranslationPrefix;
   };
   I18n.initializeOptions();
 
@@ -536,8 +556,9 @@
           function(match, p1, p2) {return p1 + ' ' + p2.toLowerCase()} );
     }
 
+    var localeForTranslation = (options != null && options.locale != null) ? options.locale : this.currentLocale();
     var fullScope           = this.getFullScope(scope, options);
-    var fullScopeWithLocale = [this.currentLocale(), fullScope].join(this.defaultSeparator);
+    var fullScopeWithLocale = [localeForTranslation, fullScope].join(this.defaultSeparator);
 
     return '[missing "' + fullScopeWithLocale + '" translation]';
   };
@@ -772,6 +793,10 @@
 
     options = this.prepareOptions(options, DATE);
 
+    if (isNaN(date.getTime())) {
+      throw new Error('I18n.strftime() requires a valid date object, but received an invalid date.');
+    }
+
     var weekDay = date.getDay()
       , day = date.getDate()
       , year = date.getFullYear()
@@ -910,19 +935,10 @@
    * https://stackoverflow.com/questions/8157700/object-has-no-hasownproperty-method-i-e-its-undefined-ie8
    */
   I18n.extend = function ( obj1, obj2 ) {
-    var extended = {};
-    var prop;
-    for (prop in obj1) {
-      if (Object.prototype.hasOwnProperty.call(obj1, prop)) {
-        extended[prop] = obj1[prop];
-      }
+    if (typeof(obj1) === "undefined" && typeof(obj2) === "undefined") {
+      return {};
     }
-    for (prop in obj2) {
-      if (Object.prototype.hasOwnProperty.call(obj2, prop)) {
-        extended[prop] = obj2[prop];
-      }
-    }
-    return extended;
+    return merge(obj1, obj2);
   };
 
   // Set aliases, so we can save some typing.

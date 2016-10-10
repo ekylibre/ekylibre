@@ -1,6 +1,8 @@
 - main_toolbar do |t|
   = t.export :purchases_invoice
   = t.edit resource if resource.draft?
+  - if current_user.can? :write, :parcels
+    = t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl) if resource.can_generate_parcel?
   = t.destroy
 
 = main_state_bar(resource)
@@ -11,6 +13,7 @@
     - l.attribute :number
     - l.attribute :reference_number unless resource.reference_number.blank?
     - l.attribute :state
+    - l.attribute :nature
     - l.attribute :responsible, :label => :full_name
     - l.attribute :created_at
     - l.attribute :confirmed_at
@@ -20,6 +23,8 @@
     - l.attribute :description unless resource.description.blank?
     - l.attribute :delivery_address, :label => :coordinate
     - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :undelivered_invoice_entry, url: true if resource.undelivered_invoice_entry
+    - l.attribute :quantity_gap_on_invoice_entry, url: true if resource.quantity_gap_on_invoice_entry
 
 = cobbles do |c|
 

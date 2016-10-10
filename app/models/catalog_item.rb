@@ -46,12 +46,16 @@ class CatalogItem < Ekylibre::Record::Base
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, allow_nil: true
-  validates_inclusion_of :all_taxes_included, in: [true, false]
-  validates_presence_of :amount, :catalog, :currency, :name, :variant
+  validates :all_taxes_included, inclusion: { in: [true, false] }
+  validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :commercial_description, length: { maximum: 500_000 }, allow_blank: true
+  validates :commercial_name, length: { maximum: 500 }, allow_blank: true
+  validates :catalog, :currency, :variant, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_uniqueness_of :variant_id, scope: :catalog_id
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :variant_id, uniqueness: { scope: :catalog_id }
+  validates :reference_tax, presence: { if: :all_taxes_included }
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true
@@ -77,12 +81,16 @@ class CatalogItem < Ekylibre::Record::Base
   before_validation do
     self.amount = amount.round(4) if amount
     self.name = commercial_name
-    self.name = variant_name if commercial_name.blank? && self.variant
+    self.name = variant_name if commercial_name.blank? && variant
   end
 
   # Compute a pre-tax amount
   def pretax_amount
-    (all_taxes_included? ? reference_tax.pretax_amount_of(amount) : amount)
+    if all_taxes_included && reference_tax
+      reference_tax.pretax_amount_of(amount)
+    else
+      amount
+    end
   end
   alias unit_pretax_amount pretax_amount
 end

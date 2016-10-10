@@ -7,22 +7,12 @@ class ChangeBalanceToJournalEntries < ActiveRecord::Migration
       r.up do
         execute <<-SQL
           UPDATE journal_entries
-          SET balance = debit - credit
-        SQL
-
-        execute <<-SQL
-          UPDATE journal_entries
-          SET real_balance = real_debit - real_credit
+          SET balance = debit - credit, real_balance = real_debit - real_credit
         SQL
 
         execute <<-SQL
           UPDATE journal_entry_items
-          SET balance = debit - credit
-        SQL
-
-        execute <<-SQL
-          UPDATE journal_entry_items
-          SET real_balance = real_debit - real_credit
+          SET balance = debit - credit, real_balance = real_debit - real_credit
         SQL
       end
 

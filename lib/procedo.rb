@@ -33,32 +33,16 @@ module Procedo
       @@list.keys
     end
 
+    # Returns an array of couple human_name/name sorted by human name.
+    def selection
+      procedures.map { |p| [p.human_name, p.name.to_s] }.sort { |a, b| I18n.transliterate(a.first) <=> I18n.transliterate(b.first) }
+    end
+
     # Give access to named procedures
     def find(name)
       @@list[name]
     end
     alias [] find
-
-    # Returns direct procedures of nature
-    def procedures_of_activity_family(*families)
-      procedures.select do |p|
-        p.of_activity_family?(*families)
-      end
-    end
-
-    # Returns direct procedures of nature
-    def procedures_of_category(*categories)
-      procedures.select do |p|
-        p.of_category?(*categories)
-      end
-    end
-
-    # Returns direct procedures of nature
-    def procedures_of_main_category(*categories)
-      procedures.select do |p|
-        categories.detect { |c| p.categories.first <= c }
-      end
-    end
 
     # Browse all available procedures
     def each_procedure

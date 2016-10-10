@@ -5,7 +5,7 @@ $sort-mask: rgba(0, 18, 132, 0.05);
 
 $list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress, &.active" rgba($active-color, 0.12)) ("&.done, &.disabled" rgba($neutral-color, 0.09)) ("&.success, &.finished" rgba($success-color, 0.12)) ("&.focus" rgba($highlight-color, 0.8));
 $list-column-backgrounds:    ("&" rgba(#FFF, 0)) ("&.sor" $sort-mask);
-$list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.22));
+$list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.08));
 $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 
 // $default-border-color: $menu-border-color;
@@ -28,11 +28,6 @@ table {
       display: block;
       @include text-align(center);
     }
-  }
-  th {
-    font-weight: bold;
-  }
-  td {
     &.decimal {
       @include text-align(right);
     }
@@ -40,11 +35,19 @@ table {
       @include text-align(center);
     }
   }
+  th {
+    font-weight: bold;
+  }
   tbody {
     border-top: $menu-border;
     border-bottom: $menu-border;
     td {
       border-top: $row-border;
+    }
+    tr.no-border{
+      td {
+        border: none;
+      }
     }
     tr:first-child {
       td {
@@ -108,7 +111,7 @@ table {
       }
     }
   }
-  tr.total {
+  tr.total, tr.title {
     td, th {
       &, span {
         font-size: $fs-large;
@@ -153,6 +156,9 @@ table {
   tr.subtotal {
     &.invalid td { color: $invalid-color; }
     &.valid   td { color: $success-color; }
+  }
+  tr.centralize {
+    td, th { font-style: italic; }
   }
   tr.first-line    td { border-top: 2px solid #F77; }
   tr.last-line     td { border-bottom: 2px solid #F77; }
@@ -212,6 +218,9 @@ table {
           border-right: none;
           line-height: $lh-normal;
           @include ellipsis;
+          input {
+            max-width: 100%;
+          }
           &.with-selector {
             overflow: visible;
           }
@@ -290,6 +299,9 @@ table {
     &:last-child {
       @include margin-right(0);
     }
+  }
+  .main-toolbar & {
+    @include inline-block;
   }
 }
 

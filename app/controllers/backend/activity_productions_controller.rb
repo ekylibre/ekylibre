@@ -23,15 +23,22 @@ module Backend
     unroll :rank_number, activity: :name, support: :name
 
     def index
-      @activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
+      redirect_to backend_activities_path
     end
 
     before_action only: :new do
       redirect_to backend_activity_productions_path if params[:activity_id].nil? || params[:campaign_id].nil?
     end
 
+    # List targets for one production support
+    list(:target_distributions, conditions: { activity_production_id: 'params[:id]'.c }, order: { started_at: :asc }) do |t|
+      t.column :target_name, url: true
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+    end
+
     # List interventions for one production support
-    list(:interventions, conditions: "['interventions.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))', params[:id]]".c, order: { created_at: :desc }, line_class: :status) do |t|
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT intervention_id FROM activity_productions_interventions WHERE activity_production_id = ?)", 'record', 'params[:id]'.c], order: { created_at: :desc }, line_class: :status) do |t|
       t.column :name, url: true
       # t.status
       t.column :started_at

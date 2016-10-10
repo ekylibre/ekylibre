@@ -45,12 +45,13 @@ class Import < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :archive_updated_at, :imported_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :archive_file_size, allow_nil: true, only_integer: true
-  validates_numericality_of :progression_percentage, allow_nil: true
-  validates_presence_of :nature, :state
+  validates :archive_content_type, :archive_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :archive_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :archive_updated_at, :imported_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :nature, :state, presence: true
+  validates :progression_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
+  validates :progression_percentage, inclusion: { in: 0..100, allow_blank: true }
   do_not_validate_attachment_file_type :archive
 
   class InterruptRequest < StandardError
@@ -97,7 +98,7 @@ class Import < Ekylibre::Record::Base
       end
     end
     raise InterruptRequest unless File.exist? progress_file
-    update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
+    update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Integer) ? User.stamper : nil))
   end
 
   def progress_file
@@ -114,7 +115,7 @@ class Import < Ekylibre::Record::Base
     undone? && archive.file?
   end
 
-  # Removing progress is the signal to interrupt the process
+  # Removing progress file is the signal to interrupt the process
   def abort
     FileUtils.rm_rf(progress_file)
     update_column(:state, :aborted)

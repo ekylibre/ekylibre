@@ -13,10 +13,16 @@ module Procedo
 
         def to_hash
           hash = super
-          hash[:quantity_handler] = @quantity_handler
-          hash[:quantity_value] = @quantity_value.to_s.to_f
-          hash[:quantity_population] = @quantity_population.to_s.to_f
+          hash[:quantity_handler] = @quantity_handler if @quantity_handler
+          hash[:quantity_value] = @quantity_value.to_s.to_f unless @quantity_value.nil?
+          hash[:quantity_population] = @quantity_population.to_s.to_f unless @quantity_population.nil?
           hash
+        end
+
+        def handlers_states
+          reference.handlers.each_with_object({}) do |handler, hash|
+            hash[handler.name] = usable_handler?(handler)
+          end
         end
 
         def quantity_handler_reference
@@ -29,9 +35,8 @@ module Procedo
           rh = reference.handler(handler)
           raise 'Invalid handler: ' + handler.inspect unless rh
           unless usable_handler?(rh)
-            # fail 'Unusable handler: ' + rh.name.inspect
             rh = reference.handlers.detect { |h| usable_handler?(h) }
-            handler = rh.name if rh
+            handler = rh.name.to_s if rh
           end
           @quantity_handler = handler
           return unless @quantity_population
@@ -61,6 +66,20 @@ module Procedo
           end
         end
 
+        def impact_dependencies!(field)
+          super(field)
+          impact_on_handlers(field)
+        end
+
+        # Checks that handler is always valid and fix it if possible
+        def impact_on_handlers(_field)
+          rh = reference.handler(@quantity_handler) unless @quantity_handler.blank?
+          unless @quantity_handler && usable_handler?(rh)
+            rh = reference.handlers.detect { |h| usable_handler?(h) }
+            self.quantity_handler = rh.name.to_s if rh
+          end
+        end
+
         def compute_value
           ref = quantity_handler_reference
           intervention.interpret(ref.backward_tree, env).round(4)
@@ -72,8 +91,7 @@ module Procedo
         end
 
         def env
-          { self: self, product: product, working_zone: working_zone,
-            value: quantity_value, population: quantity_population }
+          super.merge(value: quantity_value, population: quantity_population)
         end
       end
     end

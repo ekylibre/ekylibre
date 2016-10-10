@@ -16,17 +16,64 @@ deu:
         per_campaign: "pro Kampagne"
         per_production: "per Produktion"
         per_working_unit: "Je Arbeitseinheit"
+      direction:
+        expense: "Ausgabe"
+        revenue: "Einnahmen"
+    activity_inspection_point_nature:
+      category:
+        deformity: "Deformität"
+        disease: "Krankheit"
+        none: "Keiner"
     activity_production:
       support_nature:
+        animal_group: "Tiergruppe"
         border: "Rand"
         buffer: "Puffer"
         cultivation: "Anbau"
         fallow_land: "Brachland"
         none: "Keiner"
+    activity_tactic:
+      mode:
+        harvested: "Ernte Saattermin"
+        sowed: "Vorläufige Saattermin"
+    affair:
+      third_role:
+        client: "Klient"
+        supplier: "Lieferant"
+    analysis:
+      retrieval_status:
+        controller_error: "Controller-Fehler"
+        error: "Fehler"
+        internal_error: "Interner Fehler"
+        ok: "OK"
+        sensor_error: "Sensorfehler"
+    analysis_item:
+      indicator_datatype:
+        # boolean: "Boolean"
+        choice: "Wahl"
+        decimal: "Dezimal"
+        geometry: "Geometrie"
+        integer: "Ganze Zahl"
+        measure: "Messen"
+        multi_polygon: "Multi Polygon"
+        point: "Punkt"
+        string: "Schnur"
+    call_message:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
+    call_request:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
+    call_response:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
     cash:
       mode:
         bban: "Grund Bank Account Number (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
+        iban: "Internationale Bankkontonummer (IBAN)"
       nature:
         associate_account: "Mitarbeiterin Konto"
         bank_account: "Bank Konto"
@@ -37,6 +84,16 @@ deu:
         purchase: "Kauf"
         sale: "Verkauf"
         # stock: "Stock"
+    crumb:
+      nature:
+        hard_start: "Harte Start"
+        hard_stop: "Festanschlag"
+        # pause: "Pause"
+        point: "Punkt"
+        resume: "Fortsetzen"
+        # scan: "Scan"
+        start: "Anfang"
+        stop: "Halt"
     custom_field:
       nature:
         boolean: "Kontrollkästchen"
@@ -52,12 +109,12 @@ deu:
         us: "Von uns"
     document_template:
       archiving:
-        all: "Alle Typ"
-        all_of_template: "Alle Template"
+        all: "Alle Typ" #?
+        all_of_template: "Alle Template" #?
         first: "Zunächst Typ"
         first_of_template: "Zunächst template"
         last: "Zuletzt vom Typ"
-        # last_of_template: "Last of template"
+        last_of_template: "Der letzte Vorlage"
         none: "Keiner von Typ"
         none_of_template: "Keines template"
     entity:
@@ -80,26 +137,77 @@ deu:
         waiting: "Warten"
     fixed_asset:
       depreciation_method:
-        graduated: "abgestufte"
+        graduated: "abgestufte" #?
         # linear: "Linear"
         simplified_linear: "vereinfachte lineare"
+    gap:
+      direction:
+        loss: "Verlust"
+        profit: "Profitieren"
+      entity_role:
+        client: "Klient"
+        supplier: "Lieferant"
     georeading:
       nature:
-        line: "Linie"
+        line: "Linie" #?
+        linestring: "Linienfolge"
         point: "Punkt"
         polygon: "Vieleck"
+    guide:
+      frequency:
+        daily: "Täglich"
+        # decadely: "Decadely"
+        hourly: "Stündlich"
+        monthly: "Monatlich"
+        none: "Keiner"
+        weekly: "Wöchentlich"
+        yearly: "Jährlich"
     guide_analysis:
-      status:
-        errored: "Fehlerhafte"
+      acceptance_status:
+        # errored: "Errored"
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
+      status:  #?
+        errored: "Fehlerhafte" #?
+        failed: "Gescheitert" #?
+        passed: "Bestanden" #?
+        passed_with_warnings: "Mit Warnungen bestanden" #?
+    guide_analysis_point:
+      acceptance_status:
+        # errored: "Errored"
+        failed: "Gescheitert"
+        passed: "Bestanden"
+        passed_with_warnings: "Mit Warnungen bestanden"
+    import:
+      state:
+        aborted: "Abgebrochen"
+        # errored: "Errored"
+        finished: "Fertig"
+        in_progress: "In Bearbeitung"
+        undone: "Unerledigt"
     intervention:
+      nature:
+        record: "Aufzeichnen"
+        request: "Anfordern"
       state:
         done: "Erledigt"
         in_progress: "In Bearbeitung"
-        squeezed: "Eingezwängt"
-        undone: "unerledigt"
+        rejected: "Zurückgewiesen"
+        squeezed: "Eingezwängt" #?
+        undone: "unerledigt" #?
+        validated: "Validierte"
+    intervention_parameter_reading:
+      indicator_datatype:
+        # boolean: "Boolean"
+        choice: "Wahl"
+        decimal: "Dezimal"
+        geometry: "Geometrie"
+        integer: "Ganze Zahl"
+        measure: "Messen"
+        multi_polygon: "Multi Polygon"
+        point: "Punkt"
+        string: "Schnur"
     journal:
       nature:
         # bank: "Bank"
@@ -108,6 +216,17 @@ deu:
         purchases: "Käufe"
         sales: "Der Umsatz"
         various: "verschiedene Operationen"
+    listing_node:
+      nature:
+        belongs_to: "Gehört"
+        # boolean: "Boolean"
+        column: "Spalte"
+        custom: "Brauch"
+        datetime: "Terminzeit"
+        has_many: "Hat viele"
+        numeric: "Numerisch"
+        root: "Wurzel"
+        string: "Schnur"
     loan:
       repayment_method:
         constant_amount: "konstante Menge"
@@ -116,8 +235,14 @@ deu:
         month: "Monat"
         year: "Jahr"
       shift_method:
-        # anatocism: "anatocism"
+        anatocism: "anatocism"
         immediate_payment: "Sofortige Bezahlung"
+    notification:
+      level:
+        error: "Fehler"
+        # information: "Information"
+        success: "Erfolg"
+        warning: "Warnung"
     observation:
       importance:
         important: "Wichtig"
@@ -125,22 +250,150 @@ deu:
         notice: "Beachten"
     parcel:
       delivery_mode:
-        indifferent: "Gleichgültig"
+        indifferent: "Gleichgültig" #?
         third: "Transportiert durch Empfänger"
         transporter: "Transportiert durch Transporter"
         us: "Transportiert durch uns"
       nature:
         incoming: "Eingehend"
-        internal: "intern"
+        internal: "intern" #?
         outgoing: "abgehend"
-      state:
-        draft: "Entwurf"
-        given: "Gegeben"
-        in_preparation: "In Vorbereitung"
-        ordered: "bestellt"
-        prepared: "Bereit"
+      state:  #?
+        draft: "Entwurf" #?
+        given: "Gegeben" #?
+        in_preparation: "In Vorbereitung" #?
+        ordered: "bestellt" #?
+        prepared: "Bereit" #?
+    preference:
+      nature:
+        accounting_system: "Abrechnungssystem"
+        # boolean: "Boolean"
+        country: "Land"
+        currency: "Währung"
+        decimal: "Dezimal"
+        integer: "Ganze Zahl"
+        language: "Sprache"
+        record: "Aufzeichnen"
+        spatial_reference_system: "Räumliche Bezugssystem"
+        string: "Schnur"
+    product_enjoyment:
+      nature:
+        other: "Andere"
+        own: "Besitzen"
+        unknown: "Unbekannt"
+    product_linkage:
+      nature:
+        available: "Erhältlich"
+        occupied: "Belegt"
+        unavailable: "Nicht verfügbar"
+      point:
+        front: "Vorderseite"
+        rear: "Rückseite"
+    product_localization:
+      nature:
+        exterior: "Äußere"
+        interior: "Innere"
+        transfer: "Übertragung"
+    product_membership:
+      nature:
+        exterior: "Äußere"
+        interior: "Innere"
+    product_nature:
+      population_counting:
+        decimal: "Dezimal"
+        integer: "Ganze Zahl"
+        unitary: "Einheits-"
+    product_nature_category:
+      pictogram:
+        # bank: "Bank"
+        barn: "Scheune"
+        beaker: "Becherglas"
+        bolt: "Bolzen"
+        book: "Buch"
+        bug: "Fehler"
+        building: "Gebäude"
+        car: "Auto"
+        cc: "Cc"
+        cow: "Kuh"
+        credit_card: "Kreditkarte"
+        desktop: "Desktop-"
+        drop: "Fallen"
+        # fax: "Fax"
+        fish: "Fisch"
+        food: "Essen"
+        gift: "Geschenk"
+        group: "Gruppe"
+        home: "Zuhause"
+        land_parcels: "Grundstücke"
+        # laptop: "Laptop"
+        leaf: "Blatt"
+        legal: "Rechts-"
+        lemon: "Zitrone"
+        light_bulb: "Die Glühbirne"
+        male: "Männlich"
+        matter: "Angelegenheit"
+        # medkit: "Medkit"
+        money: "Geld"
+        mushroom: "Pilz"
+        phone: "Telefon"
+        pill: "Pille"
+        plane: "Ebene"
+        road: "Straße"
+        subscription: "Abonnement"
+        tasks: "Aufgaben"
+        tractor: "Traktor"
+        truck: "LKW"
+        umbrella: "Regenschirm"
+        undefined: "Undefiniert"
+        user: "Benutzer"
+        wheat: "Weizen"
+        wrench: "Schlüssel"
+    product_nature_category_taxation:
+      usage:
+        purchase: "Kauf"
+        sale: "Verkauf"
+    product_nature_variant_reading:
+      indicator_datatype:
+        # boolean: "Boolean"
+        choice: "Wahl"
+        decimal: "Dezimal"
+        geometry: "Geometrie"
+        integer: "Ganze Zahl"
+        measure: "Messen"
+        multi_polygon: "Multi Polygon"
+        point: "Punkt"
+        string: "Schnur"
+    product_ownership:
+      nature:
+        other: "Andere"
+        own: "Besitzen"
+        unknown: "Unbekannt"
+    product_reading:
+      indicator_datatype:
+        # boolean: "Boolean"
+        choice: "Wahl"
+        decimal: "Dezimal"
+        geometry: "Geometrie"
+        integer: "Ganze Zahl"
+        measure: "Messen"
+        multi_polygon: "Multi Polygon"
+        point: "Punkt"
+        string: "Schnur"
+    purchase_nature:
+      nature:
+        # payslip: "Payslip"
+        purchase: "Kauf"
+    sale_opportunity:
+      third_role:
+        client: "Klient"
+        supplier: "Lieferant"
+    sale_ticket:
+      third_role:
+        client: "Klient"
+        supplier: "Lieferant"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Hören"
         requesting: "Anfordern"
     sequence:
@@ -155,16 +408,21 @@ deu:
         animals: "Nummerierung der Tiere"
         campaigns: "Nummerierung der Kampagnen"
         cash_transfers: "Nummerierung der Geldtransfers"
+        deliveries: "Lieferungen"
         deposits: "Nummerierung der Einlagen"
         documents: "Nummerierung der Dokumente"
         entities: "Nummerierung der Menschen"
         fixed_assets: "Nummerierung von Anlagevermögen"
         gaps: "Nummerierung der Lücken"
-        incoming_parcels: "Nummerierung der eingehenden Lieferungen"
+        incoming_parcels: "Nummerierung der eingehenden Lieferungen" #?
         incoming_payments: "Nummerierung der Zahlungen"
+        inspections: "Inspektionen"
         interventions: "Nummerierung der Interventionen"
-        outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen"
+        inventories: "Die Vorräte"
+        opportunities: "Chancen"
+        outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen" #?
         outgoing_payments: "Nummerierung der Zahlungen"
+        parcels: "Parcels"
         plants: "Nummerierung der Pflanzen"
         product_nature_categories: "Nummerierung der Natur Produktkategorien"
         product_nature_variants: "Nummerierung der Produktart Varianten"
@@ -174,37 +432,40 @@ deu:
         sales: "Nummerierung der Verkäufe"
         sales_invoices: "Nummerierung der Verkaufsrechnungen"
         subscriptions: "Nummerierung der Abonnements"
-        transports: "Nummerierung der Transporte"
-    subscription_nature:
-      entity_link_direction:
-        all: "bidirektionale"
-        direct: "Direkt"
-        indirect: "Indirekt"
-      nature:
-        period: "Abonnement von Datum"
-        quantity: "Abonnement von Nummer"
+        transports: "Nummerierung der Transporte" #?
+    subscription_nature:  #?
+      entity_link_direction: #?
+        all: "bidirektionale" #?
+        direct: "Direkt" #?
+        indirect: "Indirekt" #?
+      nature: #?
+        period: "Abonnement von Datum" #?
+        quantity: "Abonnement von Nummer" #?
     task:
       nature:
-        document: "Schreiben"
+        document: "Schreiben" #?
         incoming_call: "Eingehender Anruf"
         incoming_email: "Eingehende E-Mail"
         incoming_mail: "Eingehende Post"
         outgoing_call: "Ausgehender Anruf"
         outgoing_email: "Ausgehende E-Mail"
         outgoing_mail: "Ausgangspost"
-        quote: "Zitat"
-    tax:
-      nature:
-        amount: "Menge"
-        percentage: "Prozentsatz"
+        quote: "Zitat" #?
+      state:
+        doing: "Tun"
+        done: "Erledigt"
+        todo: "Tun"
+    tax:  #?
+      nature: #?
+        amount: "Menge" #?
+        percentage: "Prozentsatz" #?
     tracking:
       usage_limit_nature:
         best_before: "Mindesthaltbarkeitsdatum"
         no_limit: "Keine Begrenzung"
         used_by: "Wird von Datum"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Lieferant Rechnungsnummer"
-    required:
-      text: "Erforderlich"
+    version:
+      event:
+        create: "Erstellen"
+        destroy: "Zerstören"
+        update: "Aktualisieren"

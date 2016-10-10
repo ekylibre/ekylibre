@@ -45,41 +45,45 @@ class Account < Ekylibre::Record::Base
   attr_readonly :number
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
-  has_many :balances, class_name: 'AccountBalance'
-  has_many :cashes
+  has_many :balances, class_name: 'AccountBalance', dependent: :destroy
+  has_many :cashes, dependent: :restrict_with_exception
   has_many :clients,             class_name: 'Entity', foreign_key: :client_account_id
   has_many :collected_taxes,     class_name: 'Tax', foreign_key: :collect_account_id
-  has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode', foreign_key: :commission_account_id
-  has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode', foreign_key: :depositables_account_id
-  has_many :journal_entry_items,  class_name: 'JournalEntryItem'
+  has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode',
+                                                 foreign_key: :commission_account_id
+  has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode',
+                                                 foreign_key: :depositables_account_id
+  has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
-  has_many :purchase_items,       class_name: 'PurchaseItem'
+  has_many :purchase_items,       class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,           class_name: 'SaleItem'
   has_many :products_categories,  class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :debtor, :reconcilable, in: [true, false]
-  validates_presence_of :label, :name, :number
+  validates :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
+  validates :label, :name, :number, presence: true, length: { maximum: 500 }
+  validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :last_letter, allow_nil: true, maximum: 10
-  validates_length_of :number, allow_nil: true, maximum: 20
-  validates_length_of :name, allow_nil: true, maximum: 200
-  validates_format_of :number, with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/
-  validates_uniqueness_of :number
+  validates :last_letter, length: { allow_nil: true, maximum: 10 }
+  validates :number, length: { allow_nil: true, maximum: 20 }
+  validates :name, length: { allow_nil: true, maximum: 200 }
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :number, uniqueness: true
 
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
-    unless Nomen::Account[usage]
+    unless Nomen::Account.find(usage)
       raise ArgumentError, "Unknown usage #{usage.inspect}"
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
   }
   # return Account which contains usages mentionned (OR)
   scope :of_usages, lambda { |*usages|
-    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|'))
+    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|')).reorder(:number)
   }
 
   scope :used_between, lambda { |started_at, stopped_at|
@@ -87,8 +91,9 @@ class Account < Ekylibre::Record::Base
     where(id: JournalEntryItem.between(started_at, stopped_at).select(:account_id))
   }
 
-  scope :clients,   -> { of_usage(:clients) }
-  scope :suppliers, -> { of_usage(:suppliers) }
+  scope :clients,   -> { of_usages(:clients, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :suppliers, -> { of_usages(:suppliers, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :employees, -> { of_usages(:staff_due_remunerations) }
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
@@ -110,10 +115,19 @@ class Account < Ekylibre::Record::Base
   # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
 
+  scope :stocks_variations, -> {
+    of_usages(:fertilizer_stocks_variation, :seed_stocks_variation, :plant_medicine_stocks_variation,
+              :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
+              :merchandising_stocks_variation, :adult_reproductor_animals_inventory_variations, :young_reproductor_animals_inventory_variations,
+              :long_cycle_product_inventory_variations, :short_cycle_product_inventory_variations,
+              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation)
+  }
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
+    self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
   protect(on: :destroy) do
@@ -156,12 +170,37 @@ class Account < Ekylibre::Record::Base
 
     # Find account with its usage among all existing account records
     def find_in_nomenclature(usage)
-      unless account = of_usage(usage).first
-        if item = Nomen::Account[usage]
-          account = find_by(number: item.send(accounting_system))
-        end
+      account = of_usage(usage).first
+      unless account
+        item = Nomen::Account[usage]
+        account = find_by(number: item.send(accounting_system)) if item
       end
       account
+    end
+
+    # Find usage in parent account by number
+    def find_parent_usage(number)
+      number = number.to_s
+
+      parent_accounts = nil
+      items = nil
+
+      max = number.size - 1
+      # get usages of nearest existing account by number
+      (0..max).to_a.reverse.each do |i|
+        n = number[0, i]
+        items = Nomen::Account.where(fr_pcga: n)
+        parent_accounts = Account.find_with_regexp(n)
+        break if parent_accounts.any?
+      end
+
+      usages = if parent_accounts && parent_accounts.any?
+                 parent_accounts.first.usages
+               elsif items.any?
+                 items.first.name
+               end
+
+      usages
     end
 
     # Find all account matching with the regexp in a String
@@ -200,14 +239,18 @@ class Account < Ekylibre::Record::Base
 
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage)
-      if account = find_in_nomenclature(usage)
-        return account
-      elsif item = Nomen::Account.find(usage)
-        account = create!(name: item.human_name, number: item.send(accounting_system), debtor: !!item.debtor, usages: item.name)
-        return account
-      else
-        raise ArgumentError, "The usage #{usage.inspect} is unknown"
+      item = Nomen::Account.find(usage)
+      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      account = find_in_nomenclature(usage)
+      unless account
+        account = create!(
+          name: item.human_name,
+          number: item.send(accounting_system),
+          debtor: !!item.debtor,
+          usages: item.name
+        )
       end
+      account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
 
@@ -286,7 +329,7 @@ class Account < Ekylibre::Record::Base
           if expr =~ /\-/
             start, finish = expr.split(/\-+/)[0..1]
             max = [start.length, finish.length].max
-            conditions << "#{connection.substr(table + '.number', 1, max)} BETWEEN #{connection.quote(start.ljust(max, '0'))} AND #{connection.quote(finish.ljust(max, 'Z'))}"
+            conditions << "SUBSTR(#{table}.number, 1, #{max}) BETWEEN #{connection.quote(start.ljust(max, '0'))} AND #{connection.quote(finish.ljust(max, 'Z'))}"
           else
             conditions << "#{table}.number LIKE #{connection.quote(expr + '%%')}"
           end
@@ -401,7 +444,7 @@ class Account < Ekylibre::Record::Base
     res_credit = 0
     res_balance = 0
 
-    for account in accounts
+    accounts.each do |account|
       debit  = account.journal_entry_items.sum(:debit,  conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
       credit = account.journal_entry_items.sum(:credit, conditions: { 'r.created_at' => from..to }, joins: "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
 

@@ -24,10 +24,10 @@ module Nomen
         options[:translateable] = !(element.attr('translateable').to_s == 'false')
         name = element.attr('name').to_s
         nomenclature = new(name, options)
-        for property in element.xpath('xmlns:properties/xmlns:property')
+        element.xpath('xmlns:properties/xmlns:property').each do |property|
           nomenclature.harvest_property(property)
         end
-        for item in element.xpath('xmlns:items/xmlns:item')
+        element.xpath('xmlns:items/xmlns:item').each do |item|
           nomenclature.harvest_item(item)
         end
         nomenclature.rebuild_tree!
@@ -242,7 +242,7 @@ module Nomen
 
     def check!
       # Check properties
-      for property in @properties.values
+      @properties.values.each do |property|
         if property.choices_nomenclature && !property.inline_choices? && !Nomen[property.choices_nomenclature.to_s]
           raise InvalidPropertyNature, "[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
         end
@@ -253,8 +253,8 @@ module Nomen
       end
 
       # Check items
-      for item in list
-        for property in @properties.values
+      list.each do |item|
+        @properties.values.each do |property|
           choices = property.choices
           if item.property(property.name) && property.type == :choice
             # Cleans for parametric reference
@@ -352,7 +352,7 @@ module Nomen
 
     # Returns a list for select as an array of pair (array)
     def selection(item_name = nil)
-      items = (item_name ? @items[item_name].self_and_children : @items.values)
+      items = (item_name ? find!(item_name).self_and_children : @items.values)
       items.collect do |item|
         [item.human_name, item.name.to_s]
       end.sort do |a, b|
@@ -362,21 +362,23 @@ module Nomen
 
     # Returns a list for select as an array of pair (hash)
     def selection_hash(item_name = nil)
-      @items[item_name].self_and_children.map do |item|
+      items = (item_name ? find!(item_name).self_and_children : @items.values)
+      items.collect do |item|
         { label: item.human_name, value: item.name }
       end.sort { |a, b| a[:label].lower_ascii <=> b[:label].lower_ascii }
     end
 
     # Returns a list for select, without specified items
     def select_without(already_imported)
-      selection = @items.values.collect do |item|
+      ActiveSupport::Deprecation.warn 'Nomen::Nomenclature#select_without method is deprecated. Please use Nomen::Nomenclature#without method instead.'
+      select_options = @items.values.collect do |item|
         [item.human_name, item.name.to_s] unless already_imported[item.name.to_s]
       end
-      selection.compact!
-      selection.sort! do |a, b|
+      select_options.compact!
+      select_options.sort! do |a, b|
         a.first <=> b.first
       end
-      selection
+      select_options
     end
 
     def degree_of_kinship(a, b)
@@ -393,11 +395,19 @@ module Nomen
       first(item_name)
     end
 
-    # Return the Item for the given name
+    # Return the Item for the given name. Returns nil if no item found
     def find(item_name)
       @items[item_name]
     end
     alias item find
+
+    # Return the Item for the given name. Raises Nomen::ItemNotFound if no item
+    # found in nomenclature
+    def find!(item_name)
+      i = find(item_name)
+      raise ItemNotFound, "Cannot find item #{item_name.inspect} in #{name}" unless i
+      i
+    end
 
     # Returns +true+ if an item exists in the nomenclature that matches the
     # name, or +false+ otherwise. The argument can take two forms:
@@ -412,16 +422,9 @@ module Nomen
       @properties[property_name]
     end
 
-    def find!(item_name)
-      unless i = @items[item_name]
-        raise "Cannot find item #{item_name} in #{name}"
-      end
-      i
-    end
-
     # Returns list of items as an Array
     def list
-      Nomen::Relation.new(@items.values)
+      Nomen::Relation.new(self, @items.values)
     end
 
     # Iterates on items
@@ -452,6 +455,13 @@ module Nomen
           end
         end
         valid
+      end
+    end
+
+    def without(*names)
+      excluded = names.flatten.compact.map(&:to_sym)
+      list.select do |item|
+        !excluded.include?(item.name)
       end
     end
 
@@ -506,6 +516,8 @@ module Nomen
           value = value.to_d
         elsif property.type == :integer
           value = value.to_i
+        elsif property.type == :date
+          value = (value.blank? ? nil : value.to_date)
         elsif property.type == :symbol
           unless value =~ /\A\w+\z/
             raise InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"

@@ -1,0 +1,4 @@
+.nested-fields
+  = link_to_remove_nested_association(:inspection_point_nature, f)
+  = f.input :name, autocomplete: { controller: :activity_inspection_point_natures }
+  = f.input :category, as: :radio_buttons

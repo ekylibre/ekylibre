@@ -79,7 +79,7 @@ fra:
     pasturing_working_area: "Zone de pâturage" #?
     payment_ratio: "Ratio de paiement"
     pictogram: "Pictogramme"
-    picture_path: "Chemin d&#39;image"
+    picture_path: "Chemin d'image"
     # plan: "Plan"
     prescription: "Ordonnance"
     pretax_amount: "Montant avant impôt"

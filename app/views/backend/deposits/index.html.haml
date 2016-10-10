@@ -4,6 +4,6 @@
       count = mode.depositable_payments.count
       [:new_deposit.tl(count: count, mode: mode.name), {action: :new, mode_id: mode.id}]
     end
-  = t.new variants: variants
+  = t.new variants: variants, params: { redirect: nil }
 
 = main_list

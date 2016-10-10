@@ -1,3 +1,5 @@
+@import "bootstrap/labels";
+
 i.icon {
   @include is-icon;
 }
@@ -162,6 +164,21 @@ ul.dropdown-menu {
   &, * {
     font-size: $fs-huge;
     line-height: $lh-huge;
+  }
+  .modal & {
+    padding: 8vh 10%;
+  }
+}
+
+.introduction-message {
+  padding: $lh-huge;
+  @include text-align(center);
+  &, * {
+    font-size: $fs-huge;
+    line-height: $lh-huge;
+  }
+  .modal & {
+    padding: $lh-large;
   }
 }
 
@@ -379,6 +396,7 @@ html.zen {
 }
 
 
+$authentication-main-width: 360px;
 html.authentication, html.exception {
   background: $desktop-background;
   background-image: image-url('background.jpg');
@@ -396,8 +414,8 @@ html.authentication, html.exception {
       // border-top: 2px solid $active-color;
       #main {
         background: transparent;
-        margin: 60px auto;
-        width: 360px;
+        margin: ($authentication-main-width / 6) auto;
+        width: $authentication-main-width;
         @include respond-to(small) {
           margin: auto;
           width: 100%;
@@ -438,21 +456,47 @@ html.authentication, html.exception {
             line-height: $lh-normal;
             margin-bottom: round($default-gap * 0.5);
           }
-          input[type="email"], input[type="password"], select {
+          input[type="email"], input[type="password"], input[type="text"], select {
             display: inline;
             width: 100%;
             @include box-sizing(border-box);
             height: 2 * $fs-normal;
           }
-          input[type="submit"] {
+          input[type="submit"], a.btn {
             @include inline-block;
             @include box-sizing(border-box);
             width: 100%;
             text-align: center;
-            margin: 10px auto;
+            margin: $default-gap auto;
             display: block;
-            height: 3 * $fs-normal;
-
+            line-height: $lh-normal;
+            white-space: normal;
+            padding: $default-gap;
+          }
+          .separator {
+            text-align: center;
+            @include display(block);
+            position: relative;
+            text-transform: uppercase;
+            margin: 2 * $fs-normal auto;
+            text-color: $neutral-color;
+            &:before,
+            &:after {
+              content: "";
+              position: absolute;
+              height: 0px;
+              border-bottom: 1px solid $neutral-color;
+              top: ($lh-normal - 1px) / 2;
+              width: $authentication-main-width * 0.3;
+            }
+            &:before {
+              right: 0%;
+              margin-right: 0;
+            }
+            &:after {
+              left: 0%;
+              margin-left: 0;
+            }
           }
           .field {
             margin-bottom: $default-gap;
@@ -716,8 +760,23 @@ form.search {
   border: $menu-border;
   box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
   @include float(left);
+  @include text-align(center);
   margin: 0 $default-gap;
   padding: $default-gap;
+  &.picture-identity {
+    min-height: 180px;
+    min-width: 180px;
+    border: none;
+    box-shadow: none;
+    padding: $default-gap 0;
+    > img {
+      @include border-radius($default-gap * 0.5);
+    }
+    > .picto {
+      font-size: 120px;
+      line-height: 180px;
+    }
+  }
 }
 
 .mini-map {
@@ -795,6 +854,11 @@ form.search {
   }
 }
 
+.info-labels {
+  padding: $default-gap 2 * $default-gap;
+  font-size: $fs-large;
+  line-height: $lh-large;
+}
 
 .info {
   @include ellipsis;
@@ -1624,6 +1688,7 @@ a[data-remove-closest], a[data-remove] {
 
 
 .affair {
+  overflow: auto;
   .deals {
     // @include padding-left(4em);
     width: 100%;
@@ -1845,22 +1910,6 @@ ul.tree {
   @include box-emphasis;
 }
 
-.activity-family {
-  margin: $default-gap * 2;
-  h2.activity-family-name {
-    font-size: $fs-large;
-    line-height: $lh-large;
-    margin-bottom: $default-gap * 2;
-    border-bottom: 1px solid #DDD;
-  }
-  .btn-group {
-    margin: $default-gap;
-    .btn {
-      min-width: 20em;
-    }
-  }
-}
-
 .proposal-list {
   padding: $default-gap;
   text-align: center;
@@ -1893,12 +1942,13 @@ ul.tree {
     margin-left: auto;
     margin-right: auto;
 
-    input[data-selector] {
-      @include calc-width("#{100%} - #{2 * round($fs-normal*0.70)} - #{2 * $menu-border-width} - #{2 * round($fs-normal * 0.2)} - #{11px}"); //11px = font
-    }
   }
 }
 
+
+input[data-selector] {
+  @include calc-width("#{100%} - #{2 * round($fs-normal*0.70)} - #{2 * $menu-border-width} - #{2 * round($fs-normal * 0.2)} - #{$fs-small}"); //11px = font
+}
 
 .historic {
   p {
@@ -2360,10 +2410,15 @@ a[data-annotate] {
 }
 
 .nested-fields {
+  tr.tr-add-on {
+    td {
+      border-top: none;
+    }
+  }
   .annotate {
     textarea {
       @include box-sizing(border-box);
-      margin: $default-gap 0 0;
+      // margin: $default-gap 0 0;
       width: 100%;
     }
   }
@@ -2434,17 +2489,29 @@ a[data-annotate] {
   &.active {
     display: block;
     height: 100%;
+    > *[data-cell], > *[data-highcharts] {
+      display: block;
+      height: inherit;
+    }
   }
 }
 
-.campaign-selector {
-  .campaign {
-    font-size: $fs-large;
+.period-type-selector,
+.period-selector {
+  .period {
+    font-size: $fs-normal;
     padding-left: $default-gap;
     padding-right: $default-gap;
     @include box-sizing(border-box);
+    &.day, &.month, &.year {
+      font-size: $fs-large;
+    }
   }
-  > .btn, > .campaign {
+
+
+  > .btn,
+  > .period-type,
+  > .period {
     height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
     line-height: $lh-large;
   }

@@ -22,25 +22,32 @@
 #
 # == Table: interventions
 #
-#  actions          :string
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  description      :text
-#  event_id         :integer
-#  id               :integer          not null, primary key
-#  issue_id         :integer
-#  lock_version     :integer          default(0), not null
-#  number           :string
-#  prescription_id  :integer
-#  procedure_name   :string           not null
-#  started_at       :datetime
-#  state            :string           not null
-#  stopped_at       :datetime
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  whole_duration   :integer          default(0), not null
-#  working_duration :integer          default(0), not null
+#  accounted_at            :datetime
+#  actions                 :string
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  currency                :string
+#  custom_fields           :jsonb
+#  description             :text
+#  event_id                :integer
+#  id                      :integer          not null, primary key
+#  issue_id                :integer
+#  journal_entry_id        :integer
+#  lock_version            :integer          default(0), not null
+#  nature                  :string           not null
+#  number                  :string
+#  prescription_id         :integer
+#  procedure_name          :string           not null
+#  request_intervention_id :integer
+#  started_at              :datetime
+#  state                   :string           not null
+#  stopped_at              :datetime
+#  trouble_description     :text
+#  trouble_encountered     :boolean          default(FALSE), not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  whole_duration          :integer          default(0), not null
+#  working_duration        :integer          default(0), not null
 #
 require 'test_helper'
 
@@ -69,8 +76,9 @@ class InterventionTest < ActiveSupport::TestCase
 
   test 'destruction protection' do
     # It should not be possible to destroy an intervention marked as done
+    assert_not interventions(:interventions_005).destroyable?
     assert_raise Ekylibre::Record::RecordNotDestroyable do
-      Intervention.destroy(interventions(:interventions_001).id)
+      Intervention.destroy(interventions(:interventions_005).id)
     end
   end
 
@@ -86,7 +94,7 @@ class InterventionTest < ActiveSupport::TestCase
     LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
       intervention.add_parameter!(:zone) do |g|
         g.add_parameter!(:land_parcel, land_parcel)
-        g.add_parameter!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
+        g.add_parameter!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
       end
     end
     assert intervention.runnable?, 'Intervention should be runnable'
@@ -106,7 +114,7 @@ class InterventionTest < ActiveSupport::TestCase
       LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
         i.add!(:zone) do |g|
           g.add!(:land_parcel, land_parcel)
-          g.add!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
+          g.add!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
         end
       end
     end
@@ -119,5 +127,10 @@ class InterventionTest < ActiveSupport::TestCase
     assert_not intervention.save, 'Intervention with invalid actions should not be saved'
     intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening])
     assert_not intervention.save, 'Intervention with invalid actions should not be saved'
+  end
+
+  test 'destroy intervention update intervention_activities_db_view' do
+    first_activity_intervention = Intervention::HABTM_Activities.first
+    assert Intervention.destroy(first_activity_intervention.intervention_id)
   end
 end

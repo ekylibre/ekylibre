@@ -22,18 +22,22 @@
 #
 # == Table: cultivable_zones
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  description   :text
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  shape         :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  uuid          :uuid
-#  work_number   :string           not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  custom_fields          :jsonb
+#  description            :text
+#  farmer_id              :integer
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string           not null
+#  owner_id               :integer
+#  production_system_name :string
+#  shape                  :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+#  soil_nature            :string
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  uuid                   :uuid
+#  work_number            :string           not null
 #
 require 'test_helper'
 

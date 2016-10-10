@@ -26,7 +26,7 @@ module Backend
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name
-      t.column :compute
+      t.column :last_value
       t.column :number_format, class: :code
       t.column :usage
       t.column :period

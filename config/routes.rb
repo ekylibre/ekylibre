@@ -15,24 +15,21 @@ Rails.application.routes.draw do
     get :list, on: :collection
   end
 
+  concern :autocomplete do
+    get 'complete/:column', on: :collection, action: :autocomplete, as: :autocomplete
+  end
+
+  concern :many do
+    collection do
+      get 'edit', action: :edit_many, as: :edit
+      patch '', action: :update_many
+    end
+  end
+
   concern :incorporate do
     collection do
       get :pick
       post :incorporate
-    end
-  end
-
-  concern :activities do
-    concerns :list, :unroll
-    collection do
-      get :family
-      post :duplicate
-    end
-    member do
-      get :list_budgets
-      get :list_distributions
-      get :list_interventions
-      get :list_productions
     end
   end
 
@@ -44,10 +41,12 @@ Rails.application.routes.draw do
       get :list_carrier_linkages
       get :list_contained_products
       get :list_groups
+      get :list_inspections
+      get :list_intervention_product_parameters
       get :list_issues
       get :list_readings
-      get :list_intervention_product_parameters
       get :list_members
+      get :list_parcel_items
       get :list_places
       get :take
     end
@@ -59,32 +58,41 @@ Rails.application.routes.draw do
       get :select
       post :attach
       delete :detach
+      delete :detach_gaps
       post :finish
     end
   end
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations]
+  devise_for :users, path: '',
+                     module: :authentication,
+                     skip: [:invitations, :registrations],
+                     path_names: {
+                       sign_in: 'sign-in',
+                       sign_out: 'sign-out',
+                       sign_up: 'sign-up'
+                     }
   as :user do
-    get 'authentication/invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
-    put 'authentication/invitation' => 'authentication/invitations#update', as: :user_invitation
-    patch 'authentication/invitation' => 'authentication/invitations#update'
+    # Invitations
+    get 'invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
+    put 'invitation' => 'authentication/invitations#update', as: :user_invitation
+    patch 'invitation' => 'authentication/invitations#update'
+
+    # Registrations
+    get 'signup' => 'authentication/registrations#new', as: :new_user_registration
+    post 'signup' => 'authentication/registrations#create', as: :user_registration
   end
 
-  namespace :pasteque do
-    # namespace :v6 do
-    #   pasteque_v6
-    # end
-    namespace :v5 do
-      pasteque_v5
-    end
-  end
-
+  # No '-' in API paths for now, only '_'
   namespace :api do
-    namespace :v1 do
+    namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
+      resources :interventions, only: [:index]
       resources :issues
+      resources :plant_density_abaci
+      resources :plant_countings
+      resources :plants
     end
   end
 
@@ -182,21 +190,38 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activities, concerns: [:activities]
+    resources :activities, concerns: [:list, :unroll] do
+      collection do
+        get :family
+        post :duplicate
+      end
+      member do
+        get :list_distributions
+        get :list_inspections
+        # get :list_interventions
+        get :list_productions
+      end
+    end
 
-    resources :activity_budgets do
+    resources :activity_budgets, concerns: [:unroll] do
       member do
         post :duplicate
       end
     end
 
+    resources :activity_inspection_point_natures, concerns: [:autocomplete],
+                                                  only: [], path: 'activity-inspection-point-natures'
+
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
+        get :list_target_distributions
       end
     end
 
-    resources :affairs, concerns: [:list, :affairs]
+    resources :activity_seasons, concerns: [:unroll]
+
+    resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 
     resources :analyses, concerns: [:list, :unroll] do
       member do
@@ -237,11 +262,14 @@ Rails.application.routes.draw do
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
       collection do
         get :list_items
+        match :import, via: [:get, :post]
       end
       member do
-        match 'point', via: [:get, :post]
+        match :reconciliation, via: [:get, :post]
       end
     end
+
+    resources :bank_statement_items, only: [:new]
 
     resources :beehives, only: [:update] do
       member do
@@ -262,14 +290,16 @@ Rails.application.routes.draw do
         get :current
       end
       member do
-        get :list_activity_productions
+        # get :list_activity_productions
         post :open
+        delete :close
       end
     end
 
     resources :cap_islets, concerns: [:list, :unroll] do
       member do
         get :list_cap_land_parcels
+        post :convert
       end
     end
 
@@ -284,7 +314,6 @@ Rails.application.routes.draw do
 
     resources :cashes, concerns: [:list, :unroll] do
       member do
-        get :point
         get :list_deposits
         get :list_bank_statements
         get :list_sessions
@@ -371,11 +400,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :entities, concerns: [:list, :unroll] do
+    resources :entities, concerns: [:autocomplete, :list, :unroll] do
       collection do
-        get :autocomplete_for_origin
         match 'import', via: [:get, :post]
-        match 'export', via: [:get, :post]
         match 'merge',  via: [:get, :post]
       end
       member do
@@ -402,9 +429,8 @@ Rails.application.routes.draw do
 
     resources :event_participations
 
-    resources :events, concerns: [:list, :unroll] do
+    resources :events, concerns: [:autocomplete, :list, :unroll] do
       collection do
-        get :autocomplete_for_place
         get :change_minutes
       end
       member do
@@ -416,9 +442,9 @@ Rails.application.routes.draw do
 
     resources :fixed_assets, concerns: [:list, :unroll], path: 'fixed-assets' do
       member do
-        get :cede
-        get :sell
-        post :depreciate
+        # get :cede
+        # get :sell
+        # post :depreciate
         get :list_depreciations
         get :list_products
       end
@@ -469,7 +495,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :identifiers, concerns: [:list, :unroll]
+    resources :identifiers, concerns: [:list]
 
     resources :imports, concerns: [:list] do
       member do
@@ -489,12 +515,23 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :integrations, except: [:show, :destroy] do
+      collection do
+        delete :destroy
+      end
+    end
+
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute
+        get :modal
+        post :change_state
       end
       member do
+        post :sell
+        post :purchase
         get :list_product_parameters
+        get :list_record_interventions
       end
     end
 
@@ -518,6 +555,7 @@ Rails.application.routes.draw do
     resources :januses, only: [] do
       member do
         post :toggle
+        get :toggle
       end
     end
 
@@ -548,11 +586,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :land_parcels, concerns: :products
+    resources :labels, concerns: [:list, :unroll]
 
-    resources :listing_nodes
+    resources :land_parcels, concerns: :products, path: 'land-parcels'
 
-    resources :listings, concerns: [:list, :unroll] do
+    resources :listing_nodes, except: [:index, :show], path: 'listing-nodes'
+
+    resources :listings, concerns: [:list, :unroll], except: [:show] do
       member do
         get :extract
         post :duplicate
@@ -566,11 +606,22 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_repayments, only: [:index, :show]
+    resources :loan_repayments, only: [:index, :show], path: 'loan-repayments'
 
-    resources :manure_management_plans, concerns: [:list, :unroll] do
+    resources :manure_management_plans, concerns: [:list, :unroll], path: 'manure-management-plans' do
       member do
         get :list_zones
+      end
+    end
+
+    resources :map_backgrounds do
+      collection do
+        post :load
+      end
+      member do
+        post :toggle
+        put :star
+        delete :destroy
       end
     end
 
@@ -582,7 +633,7 @@ Rails.application.routes.draw do
 
     resources :matters, concerns: :products
 
-    resources :net_services, concerns: [:list, :unroll] do
+    resources :net_services, concerns: [:list] do
       member do
         get :list_identifiers
       end
@@ -611,7 +662,8 @@ Rails.application.routes.draw do
     resources :parcels, concerns: [:list, :unroll] do
       member do
         post :invoice
-        get :list_items
+        get :list_incoming_items
+        get :list_outgoing_items
         post :ship
 
         post :order
@@ -622,15 +674,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :parcel_items, only: [:new], path: 'parcel-items'
+    resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
     resources :plants, concerns: :products
 
-    resources :postal_zones, concerns: [:list, :unroll] do
-      collection do
-        get :autocomplete_for_name
-      end
-    end
+    resources :postal_zones, concerns: [:autocomplete, :list, :unroll]
 
     resources :prescriptions, concerns: [:list, :unroll] do
       member do
@@ -640,7 +688,15 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
+    resources :inspections, concerns: [:list, :unroll] do
+      member do
+        get :export, defaults: { format: 'ods' }
+      end
+    end
+
     resources :product_groups, concerns: :products
+
+    resources :product_localizations, except: [:index, :show]
 
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       member do
@@ -659,6 +715,7 @@ Rails.application.routes.draw do
     resources :product_nature_variants, concerns: [:incorporate, :list, :picture, :unroll] do
       member do
         get :detail
+        get :list_components
         get :list_catalog_items
         get :list_parcel_items
         get :list_products
@@ -666,6 +723,9 @@ Rails.application.routes.draw do
         get :quantifiers
       end
     end
+
+    resources :product_nature_variant_components, only: [],
+                                                  concerns: [:autocomplete, :unroll]
 
     resources :purchase_natures, concerns: [:list, :unroll]
 
@@ -706,7 +766,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sale_tickets, concerns: [:list, :affairs], path: 'sale-tickets'
+    resources :sale_tickets, concerns: [:list, :affairs], only: [:index, :show], path: 'sale-tickets'
 
     resources :sales, concerns: [:list, :unroll] do
       collection do
@@ -719,7 +779,6 @@ Rails.application.routes.draw do
         get :list_subscriptions
         get :list_parcels
         get :list_credits
-        post :generate_parcel
         post :abort
         post :confirm
         post :correct
@@ -735,6 +794,7 @@ Rails.application.routes.draw do
       collection do
         get :models
         get :detail
+        get :last_locations
       end
       member do
         get :list_analyses
@@ -758,12 +818,18 @@ Rails.application.routes.draw do
 
     resources :subscription_natures, concerns: [:list, :unroll], path: 'subscription-natures' do
       member do
-        post :increment
-        post :decrement
+        get :list_subscriptions
+        get :list_product_natures
       end
     end
 
-    resources :subscriptions, concerns: [:list, :unroll]
+    resources :subscriptions, concerns: [:list, :unroll] do
+      member do
+        post :renew
+        post :suspend
+        post :takeover
+      end
+    end
 
     resources :supervisions, concerns: [:list, :unroll]
 
@@ -772,8 +838,13 @@ Rails.application.routes.draw do
         post :run
       end
     end
+    resources :target_distributions, concerns: [:list, :many], path: 'target-distributions' do
+      collection do
+        get :list_intervention_product_parameters
+      end
+    end
 
-    resources :tasks, concerns: [:list, :unroll] do
+    resources :tasks, concerns: [:list] do
       member do
         post :reset
         post :start
@@ -788,6 +859,12 @@ Rails.application.routes.draw do
     end
 
     resources :teams, concerns: [:list, :unroll]
+
+    resources :tours, only: [] do
+      member do
+        post :finish
+      end
+    end
 
     resources :trackings, concerns: [:list, :unroll] do
       member do
@@ -820,6 +897,8 @@ Rails.application.routes.draw do
     get 'invitations/list', to: 'invitations#list'
     get 'invitations/new', to: 'invitations#new'
     post 'invitations', to: 'invitations#create'
+
+    resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
   end
 
   root to: 'public#index'

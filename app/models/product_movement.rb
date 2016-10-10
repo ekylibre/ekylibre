@@ -40,47 +40,29 @@
 
 # A product move is a movement of population
 class ProductMovement < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include Taskable
   belongs_to :intervention
   belongs_to :product
   has_one :container, through: :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(product_movement) { product_movement.stopped_at && product_movement.started_at }
-  validates_numericality_of :delta, :population, allow_nil: true
-  validates_presence_of :delta, :population, :product, :started_at
+  validates :delta, :population, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :originator_type, length: { maximum: 500 }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(product_movement) { product_movement.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :product, presence: true
   # ]VALIDATORS]
 
   before_validation do
-    # errors.add(:delta, :invalid) if delta == 0.0
-    if delta
-      self.population = delta
-      self.population += previous.population if previous
-    end
+    # NOTE: -! Deprecated !- only there for it to work until 3.0
+    self.population = 0.0
+    self.stopped_at = started_at + 1.day
   end
 
-  before_update do
-    old_record.remove_delta_on_followings
+  def population
+    Maybe(product_population).value.or_else(0)
   end
 
-  after_save :add_delta_on_followings
-  after_destroy :remove_delta_on_followings
-
-  def remove_delta_on_followings
-    impact_on_followings(-delta)
-  end
-
-  def add_delta_on_followings
-    impact_on_followings(delta)
-  end
-
-  private
-
-  def impact_on_followings(quantity)
-    followings.update_all("population = population + (#{quantity})")
-  end
-
-  def siblings
-    product.movements
+  def product_population
+    ProductPopulation.find_by(product_id: product_id, started_at: started_at)
   end
 end

@@ -26,7 +26,7 @@ module Ekylibre
           end
           return nil
         else
-          return @references ||= tables.inject({}) do |h, table|
+          return @references ||= tables.each_with_object({}) do |table, h|
             h[table.first] = table.second
             h
           end.freeze
@@ -71,7 +71,7 @@ module Ekylibre
                end
         tables = {}.with_indifferent_access
         for table, columns in hash
-          tables[table] = columns.inject({}.with_indifferent_access) do |h, pair|
+          tables[table] = columns.each_with_object({}.with_indifferent_access) do |pair, h|
             options = pair.second
             type = options.delete(:type)
             options[:null] = !options.delete(:required)

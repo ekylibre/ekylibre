@@ -1,5 +1,4 @@
 .toolbar
   = tool_to :new.ta, {action: :new, controller: :activity_productions, activity_id: resource.id, campaign_id: current_campaign.id, redirect: request.fullpath}, tool: :new
-
 - productions = ActivityProduction.of_activity(resource).of_campaign(current_campaign)
 = production_chronologies(productions.order(:rank_number))

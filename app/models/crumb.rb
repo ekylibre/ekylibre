@@ -44,9 +44,11 @@ class Crumb < Ekylibre::Record::Base
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'
   has_one :worker, through: :user
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :read_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :accuracy, allow_nil: true
-  validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
+  validates :accuracy, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :device_uid, presence: true, length: { maximum: 500 }
+  validates :geolocation, :nature, presence: true
+  validates :metadata, length: { maximum: 500_000 }, allow_blank: true
+  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
   serialize :metadata, Hash
 
@@ -56,7 +58,7 @@ class Crumb < Ekylibre::Record::Base
 
   # returns all crumbs for a given day. Default: the current day
   # TODO: remove this and replace by something like #start_day_between or #at
-  scope :of_date, lambda{|start_date = Time.zone.now.midnight|
+  scope :of_date, lambda { |start_date = Time.zone.now.midnight|
     where(read_at: start_date.midnight..start_date.end_of_day)
   }
 
@@ -73,11 +75,11 @@ class Crumb < Ekylibre::Record::Base
   end
 
   after_destroy do
-    intervention_path.delete_all if start?
+    intervention_path.delete_all if start? && intervention_path
   end
 
   after_update do
-    if start? && previous = self.previous
+    if start? && previous
       previous.update_column(:nature, :stop) unless previous.stop?
     end
   end
@@ -140,15 +142,11 @@ class Crumb < Ekylibre::Record::Base
       ActiveSupport::Deprecation.warn('Use User#interventions_paths instead')
       user.interventions_paths
     end
-
-    # # returns all the dates for which a given user has pushed crumbs
-    # def interventions_dates(user)
-    #   Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
-    # end
   end
 
-  # returns all the crumbs corresponding to the same intervention as the current crumb, i.e. the nearest start crumb including itself,
-  # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
+  # Returns all the crumbs corresponding to the same intervention as the current
+  # crumb, i.e. the nearest start crumb including itself, the nearest stop crumb
+  # including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
     start_read_at = read_at.utc
     unless start?
@@ -166,71 +164,8 @@ class Crumb < Ekylibre::Record::Base
                      .first
       stop_read_at = stop.read_at.utc if stop
     end
-    CrumbSet.new(siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
-  end
-
-  # Turns a crumb into an actual intervention and returns the created intervention if any
-  # ==== Options :
-  #   * General options:
-  #       - support_id: the production support id for which the user wants to register an intervention.
-  #         Default: the first production support matched for the hard start crumbs of the same intervention
-  #         as the current crumb
-  #       - procedure_name: the name of the procedure for which the user wants to register an intervention.
-  #         Default: the first result matched by Intervention#match for the actors found from the crumbs of the
-  #         same intervention as the current crumb.
-  #   * Intervention#match related options:
-  #       - actors_ids: an array of ids corresponding to products that #products method might not match
-  #         but that belong to the current intervention. This array is converted into an array of products
-  #         and merged with products found by Crumb#products for the current intervention before being passed
-  #         to Intervention#match.
-  #       - relevance, limit, history, provisional, max_arity: see Intervention#match documentation.
-  def convert!(options = {})
-    intervention = nil
-    Ekylibre::Record::Base.transaction do
-      options[:actors_ids] ||= []
-      options[:actors_ids] << worker.id if user && worker
-      actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
-      unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
-        raise StandardError, :need_a_production_support.tn
-      end
-      support = ActivityProduction.find(options[:support_id])
-      options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
-      procedure = Procedo[options[:procedure_name]]
-
-      # preparing attributes for Intervention#create!
-      attributes = {}
-      attributes[:started_at] = intervention_path.started_at
-      attributes[:stopped_at] = intervention_path.stopped_at
-      attributes[:reference_name] = procedure.name
-      # attributes[:production] = support.production
-      attributes[:production_support] = support
-      intervention = Intervention.create!(attributes)
-
-      # creates product_parameters
-      # adds actors
-      procedure.matching_variables_for(actors).each do |variable, actor|
-        attributes = {}
-        attributes[:actor] = actor
-        attributes[:reference_name] = variable.name
-        parameter = intervention.add_parameter!(attributes)
-        if worker && actor == worker
-          intervention_path.update_all(intervention_parameter_id: parameter.id)
-        end
-      end
-
-      # adds empty product_parameters for unknown actors
-      for variable in procedure.variables.values
-        unless intervention.product_parameters.map(&:reference_name).include? variable.name.to_s
-          intervention.add_parameter!(reference_name: variable.name)
-        end
-      end
-    end
-    intervention
-  end
-
-  # Returns possible procedures matching a crumb and its corresponding intervention path
-  # Options: the same as Intervention#match
-  def possible_procedures_matching(options = {})
-    Intervention.match(Crumb.products(intervention_path.to_a), options).map { |procedure, *| procedure }
+    crumbs = siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
+    return nil unless crumbs.any?
+    CrumbSet.new(crumbs)
   end
 end

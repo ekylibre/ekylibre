@@ -1,17 +1,54 @@
-(($) ->
+#= require_self
+#= require mapeditor/simple
+#= require mapeditor/categories
+
+((M, $) ->
   "use strict"
+  ###
+  ## Series managment:
+  Series allows to display multiple layers of data on a single map, which can be hidden with the selector.
+  I/ Serie handlers:
+    Specify series to work with in a hash:
+      key: the uniq identifier of the serie
+      value: the data of a serie, as a geojson
+  II/ Layers handlers:
+    Specify layers to display data, in an array of hashes:
+      name: identifier of the layer
+      label: Visible name in the legend and the selector
+      serie: the serie identifier as in the handlers
+      type: 'simple' or 'categories', see below
+      legend: boolean (true), displays the layer name and color in the legend.
+      popup: An array of hashes, which define the way popup is shown:
+        type: 'label' or 'input'. A label is a static text whereas an input provide a form to edit properties.
+        property_label: text displayed before value
+        property_value: the name of the feature property to show/edit
+      Handler support layer-scoped styling, as supported by Leaflet (stroke, color, etc.)
+  III/ Layer types:
+     'simple': Display a single layer, identified by a name and a color.
+     'categories': Display a layer where geometries have their own set of properties, as color or opacity.
+        reference: The key allows to group geometries to a property, to display distinct categories.
+  Example: show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories, popup: [{type: :label, property_label: 'My name', property_value: :name}]}]}
+
+  ## Others options:
+  withoutLabel: boolean (false), bind label to edition layer
+  ###
+  M.layer = (layer, data, options) ->
+    @layerTypes ?= {}
+    if type = @layerTypes[layer.type]
+      return new type(layer, data, options)
+    else
+      console.warn "Invalid layer type: #{layer.type}"
+      return null
+
+  M.registerLayerType = (name, klass) ->
+    @layerTypes ?= {}
+    @layerTypes[name] = klass
 
   # allow to inject jquery objects and interpolate
   L.Map.Modal.prototype.reloadContent = (content) ->
-#    inject = L.Util.template(
-#      content,
-#      options
-#    )
     $(this._getInnerContentContainer()).find('.modal-body').empty()
-#    $(this._getInnerContentContainer()).find('.modal-body > :first-child').replaceWith($content)
     $(this._getInnerContentContainer()).find('.modal-body').append($(content))
     this.update()
-
 
   $.widget "ui.mapeditor",
     options:
@@ -19,12 +56,29 @@
         height: 400
         width: null
       customClass: ''
-      back: ['Esri.WorldImagery','OpenStreetMap.HOT','OpenStreetMap.Mapnik','Thunderforest.Landscape']
-      show: null
+      back: []
+      show:
+        layers: {}
+        layerDefaults:
+          simple:
+            color: "#333"
+            fillColor: "#333"
+            weight: 2
+            opacity: 0.8
+            fillOpacity: 0.4
+            legend: true
+          categories:
+            color: "#333"
+            fillColor: "#333"
+            weight: 2
+            opacity: 0.8
+            fillOpacity: 0.4
+            legend: true
       edit: null
       change: null
       view: 'auto'
       useFeatures: false
+      withoutLabel: false
       showStyle:
         color: "#333"
         fillOpacity: 0.4
@@ -36,6 +90,7 @@
         fillOpacity: 0
       defaultLabel: 'Unnamed'
       defaultLevelLabel: 'Level'
+      allowAttributesPopup: false
       editStyle:
         weight: 2
         color: "#33A"
@@ -54,37 +109,31 @@
             circle: false
             polygon:
               allowIntersection: false
-              showArea: true
+              showArea: false
+            reactiveMeasure: true
         zoom:
           position: "topleft"
           zoomInText: ""
           zoomOutText: ""
-          zoomInTitle: I18n.t('javascripts.leaflet.zoomInTitle')
-          zoomOutTitle: I18n.t('javascripts.leaflet.zoomOutTitle')
+          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
+          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
         scale:
           position: "bottomright"
           imperial: false
           maxWidth: 200
-        measure:
-          show :false
-          position: 'bottomleft'
-          primaryLengthUnit: 'meters',
-          secondaryLengthUnit: 'kilometers'
-          primaryAreaUnit: 'hectares',
-          secondaryAreaUnit: undefined
-          activeColor: '#ABE67E'
-          completedColor: '#C8F2BE'
-          localization: 'en'
         fullscreen:
           position: 'topleft'
-          title: I18n.t('javascripts.leaflet.fullscreenTitle')
+          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
+        reactiveMeasure:
+          metric: true
+          feet: false
         importers:
           gml: true
           geojson: true
           kml: true
           title: ''
           content: ''
-          buttonTitle: I18n.t('javascripts.leaflet.importerButtonTitle')
+          buttonTitle: I18n.t("#{I18n.rootKey}.leaflet.importerButtonTitle")
           template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">
@@ -113,9 +162,19 @@
         attributionControl: true
       )
 
+      this.elementSeries = $('<input>').insertAfter(this.mapElement)
+      this.elementSeries.attr "type", "hidden"
+
       widget = this
 
       this.counter = 1
+
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
+
+      @ghostLayerLabelCluster = L.ghostLabelCluster(type: 'hidden')
+      @ghostLayerLabelCluster.addTo @map
+
 
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
@@ -144,11 +203,11 @@
       this._resize()
       # console.log "resized"
       this._refreshBackgroundLayer()
+      this._refreshGhostLayerGroup()
       # console.log "backgrounded"
       this._refreshReferenceLayerGroup()
       # console.log "shown"
       this._refreshEditionLayerGroup()
-      this._refreshGhostLayerGroup()
 
       # console.log "edited"
       this._refreshView()
@@ -156,7 +215,30 @@
       this._refreshControls()
       # console.log "controlled"
 
-      $(this.mapElement).on 'click', '.updateAttributesInPopup', (e) =>
+      @updateAttributesSeries = (e) =>
+        return unless e.which == 1 || e.which == 13
+        e.preventDefault()
+        featureId = $(e.currentTarget).closest('.leaflet-popup-content').find('*[data-internal-id]').data('internal-id')
+        $newFields = $(e.currentTarget).closest('.popup-content').find('.updateAttributesSerieLabelInput')
+
+        layer = this.findLayer(featureId)
+
+        for field in $newFields
+          this.updateFeatureProperties(featureId, $(field).attr('name'), $(field).val())
+
+        if layer.feature and layer.feature.geometry and layer.feature.geometry.type == 'MultiPolygon'
+          layer.eachLayer (layer) ->
+            layer.closePopup()
+        else
+          layer.closePopup()
+
+        this.popupizeSerie layer.feature, layer
+
+
+
+
+      @updateAttributes = (e) =>
+        return unless e.which == 1 || e.which == 13
         e.preventDefault()
         featureId = $(e.currentTarget).closest('.leaflet-popup-content').find('*[data-internal-id]').data('internal-id')
         newName = $(e.currentTarget).closest('.popup-content').find('input[type="text"]').val()
@@ -198,6 +280,12 @@
 
         false
 
+      $(this.mapElement).on 'keypress', '.updateAttributesLabelInput', @updateAttributes
+      $(this.mapElement).on 'click', '.updateAttributesInPopup', @updateAttributes
+
+      $(this.mapElement).on 'click', '.updateAttributesSerieInPopup', @updateAttributesSeries
+
+
       widget.element.trigger "mapeditor:loaded"
 
     updateFeature: (feature_id, attributeName, attributeValue) ->
@@ -230,11 +318,11 @@
 
     findLayer: (feature_id) ->
       containerLayer = undefined
-      this.edition.eachLayer (layer) =>
-        if (parseInt(layer.feature.properties.internal_id) == feature_id)
+      @map.eachLayer (layer) =>
+        if layer.feature and (parseInt(layer.feature.properties.internal_id) == feature_id)
           containerLayer = layer
           return
-      return containerLayer
+      containerLayer
 
     findLayerByName: (feature_name) ->
       containerLayer = undefined
@@ -261,7 +349,7 @@
       popup += "<span class='leaflet-popup-warning right hide'></span>"
       popup += "</div>"
       popup += "<div class='popup-content'>"
-      popup += "<input type='text' value='#{feature.properties.name || this.options.defaultLabel}'/>"
+      popup += "<input type='text' class='updateAttributesLabelInput' value='#{feature.properties.name || this.options.defaultLabel}'/>"
 
       if this.options.multiLevels?
         popup += "<select>"
@@ -282,7 +370,34 @@
       popup += "<input class='updateAttributesInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
-      layer.bindPopup popup, keepInView: true, maxWidth: 600
+      layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
+
+    popupizeSerie: (feature, layer) ->
+      popup = ""
+      popup += "<div class='popup-header'>"
+      popup += "<span class='popup-block-content' data-internal-id='#{feature.properties.internal_id}'>#{feature.properties.name || ''}</span>"
+      popup += "<span class='leaflet-popup-warning right hide'></span>"
+      popup += "</div>"
+      popup += "<div class='popup-content'>"
+      for attribute in feature.properties['popupAttributes']
+        popup += "<div>"
+        popup += "<label for='#{attribute.property_value}'>#{attribute.property_label} : </label>"
+        switch attribute.type
+         when 'input'
+          popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
+         else
+            # include label
+            popup += "<span>#{feature.properties[attribute.property_value] || ''}</span>"
+        popup += "</div>"
+
+      popup += "<input class='updateAttributesSerieInPopup' type='button' value='ok'/>"
+      popup += "</div>"
+
+      if layer.feature and layer.feature.geometry and layer.feature.geometry.type == 'MultiPolygon'
+        layer.eachLayer (layer) ->
+          layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
+      else
+        layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
 
     colorize: (level) ->
       #levels rane is set to [-3,3]
@@ -341,15 +456,31 @@
       if this.backgroundLayer?
         this.map.removeLayer(this.backgroundLayer)
       if this.options.back?
-        if this.options.back.constructor.name is "String"
-          this.backgroundLayer = L.tileLayer.provider(this.options.back)
-          this.backgroundLayer.addTo this.map
-        else if this.options.back.constructor.name is "Array"
-          baseLayers = {}
-          for layer, index in @options.back
-            backgroundLayer = L.tileLayer.provider(layer)
-            baseLayers[layer] = backgroundLayer
-            this.map.addLayer(backgroundLayer) if index == 0
+        if this.options.back.constructor.name is "Array"
+
+          if @options.back.length > 0
+            baseLayers = {}
+            for layer, index in @options.back
+              opts = {}
+              opts['attribution'] = layer.attribution if layer.attribution?
+              opts['minZoom'] = layer.minZoom if layer.minZoom?
+              opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+              opts['subdomains'] = layer.subdomains if layer.subdomains?
+              opts['tms'] = true if layer.tms
+
+              backgroundLayer = L.tileLayer(layer.url, opts)
+              baseLayers[layer.name] = backgroundLayer
+              @map.addLayer(backgroundLayer) if layer.byDefault
+
+          else
+            # no backgrounds, set defaults
+            back = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
+
+            baseLayers = {}
+            for layer, index in back
+              backgroundLayer = L.tileLayer.provider(layer)
+              baseLayers[layer] = backgroundLayer
+              @map.addLayer(backgroundLayer) if index == 0
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector
@@ -358,24 +489,52 @@
           console.log this.options.back
       this
 
+    # Retuns data from a serie found with the given name
+    _getSerieData: (name) ->
+      if @options.show.series[name]?
+        return @options.show.series[name]
+      else
+        console.error "Cannot find serie #{name}"
+
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show?
+      if this.options.show? and this.options.show.layers.length > 0
         if this.options.useFeatures
-          this.reference = L.geoJson(this.options.show, {
-            onEachFeature: (feature, layer) =>
 
-              #required for cap_land_parcel_clusters as names are set later
-              if not feature.properties.name?
-                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
+          if @options.show.series?
 
-          })
+            @seriesReferencesLayers = {}
+
+            for layer in @options.show.layers
+
+              data = this._getSerieData(layer.serie)
+              options = $.extend true, {}, @options.show.layerDefaults[layer.type], layer, parent: this
+              renderedLayer = M.layer(layer, data, options)
+              if renderedLayer and renderedLayer.valid()
+                # Build layer group
+                layerGroup = renderedLayer.buildLayerGroup(this, options)
+                layerGroup.name = layer.name
+                layerGroup.renderedLayer = renderedLayer
+                @seriesReferencesLayers[layer.label] = layerGroup
+                @map.addLayer(layerGroup)
+
+          else
+
+            this.reference = L.geoJson(this.options.show, {
+              onEachFeature: (feature, layer) =>
+                feature.properties ||= {}
+                #required for cap_land_parcel_clusters as names are set later
+                if not feature.properties.name?
+                  feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
+
+            })
         else
           this.reference = L.GeoJSON.geometryToLayer(this.options.show)
 
-        this.reference.setStyle this.options.showStyle
-        this.reference.addTo this.map
+        if this.reference?
+          this.reference.setStyle this.options.showStyle
+          this.reference.addTo this.map
       this
 
     _refreshGhostLayerGroup: ->
@@ -386,10 +545,9 @@
           this.ghost = L.geoJson(this.options.ghost, {
             onEachFeature: (feature, layer) =>
 
-              label = new L.Label({direction: 'bottom', className: 'leaflet-ghost-label', offset: [0, -50], opacity: 0.6})
-              label.setContent(feature.properties.name || feature.properties.id)
-              label.setLatLng(layer.getBounds().getCenter())
-              this.map.showLabel(label)
+              label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: true).setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+              @ghostLayerLabelCluster.bind label, layer
+
           })
         else
           this.ghost = L.GeoJSON.geometryToLayer(this.options.ghost)
@@ -410,11 +568,14 @@
         this.counter += 1
         feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
-        layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className: 'leaflet-reference-label'})
+        unless this.options.withoutLabel
+          label = new L.GhostLabel(className: 'leaflet-ghost-label').setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+          @ghostLabelCluster.bind label, layer
+
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 
-      if feature.properties?
+      if feature.properties? and !!this.options.allowAttributesPopup
         this.popupize(feature, layer)
 
     featureStyling: (feature) ->
@@ -427,9 +588,13 @@
 
     _refreshEditionLayerGroup: ->
       if this.edition?
+        #remove overlay
+        @layerSelector.removeLayer this.edition
         this.map.removeLayer this.edition
       if this.options.edit?
         if this.options.useFeatures
+
+          polys = []
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
               #nested function cause geojson doesn't seem to pass binding context
@@ -437,7 +602,13 @@
 
             style: (feature) =>
               @featureStyling feature
+            filter: (feature) =>
+              if feature.type == 'MultiPolygon'
+                for coordinates in feature.coordinates
+                  polys.push {type: 'Polygon', coordinates: coordinates}
+              !(feature.type == 'MultiPolygon')
           })
+          this.edition.addData(polys)
         else
           this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
       else
@@ -456,7 +627,7 @@
       this._saveUpdates()
       this
 
-    buildLegend: (layers) ->
+    buildMultiLevelLegend: (layers) ->
       html = ""
       levels = []
       layers.eachLayer (layer) =>
@@ -515,7 +686,6 @@
         this.map.fitBounds(view.bounds)
       else
         console.log "How to set view with #{view}?"
-        console.log view
       this
 
     _setDefaultView: ->
@@ -538,14 +708,13 @@
         this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
         this.map.addControl this.controls.fullscreen
       if this.edition?
+        unless this.options.controls.reactiveMeasure is false
+          this.controls.reactiveMeasureControl = new L.ReactiveMeasureControl(this.edition, this.options.controls.reactiveMeasure)
         this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
         this.map.addControl this.controls.draw
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
-      unless this.options.controls.measure.show is false
-        this.controls.measure = new L.Control.Measure(this.options.controls.measure)
-        this.map.addControl this.controls.measure
       unless this.options.controls.importers.gml is false and this.options.controls.importers.geojson is false and this.options.controls.importers.kml is false
 
         this.controls.importers_ctrl = new L.Control.EasyButton "<i class='leaflet-importer-ctrl' title='#{this.options.controls.importers.buttonTitle}'></i>", (btn, map) =>
@@ -572,14 +741,15 @@
               $(modal._container).on 'ajax:complete','form[data-importer-form]', (e,data) =>
 
                 feature = $.parseJSON(data.responseText)
-
-                this.edition.addData feature
-
-                this.update()
-
-                modal.hide()
-
                 $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
+
+                if feature.alert?
+                  $(modal._container).find('#alert').text(feature.alert)
+                else
+                  this.edition.addData feature
+                  this.update()
+                  modal.hide()
+
 
                 this.navigateToLayer this.edition
 
@@ -590,18 +760,24 @@
 
           map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
 
-        this.map.addControl this.controls.importers_ctrl
+        this.controls.importers_ctrl.button['type'] = 'button'
 
+        this.map.addControl this.controls.importers_ctrl
+        this.map.addControl this.controls.reactiveMeasureControl
+
+
+
+      this.controls.legend = new L.control(position: "bottomright")
+      this.controls.legend.onAdd = (map) =>
+        L.DomUtil.create('div', 'leaflet-legend-control')
+
+      this.map.addControl this.controls.legend
 
 
       if this.options.multiLevels?
-        this.controls.multiLevelLegend = new L.control(position: "bottomright")
-        this.controls.multiLevelLegend.onAdd = (map) =>
-          L.DomUtil.create('div', 'leaflet-legend-control')
+        legend = @controls.legend.getContainer()
 
-        this.map.addControl this.controls.multiLevelLegend
-        legend = this.controls.multiLevelLegend.getContainer()
-        legend.innerHTML += this.buildLegend(this.edition)
+        legend.innerHTML += this.buildMultiLevelLegend(this.edition)
 
         $(legend).on 'click', '.leaflet-multilevel-legend', (e) =>
           e.preventDefault()
@@ -616,31 +792,63 @@
       if @options.overlaySelector?
 
         @map.on "overlayadd", (event) =>
-          if event.name == @options.overlaySelector.ghostLayer
-            @map.eachLayer (layer) =>
-              if layer.options? and layer.options.className == "leaflet-ghost-label"
-                label = $(layer._container)
-                label.show()
+
+          @layersScheduler.schedule event.layer
+
+          # for each layer in the layerGroup
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.bind layer.label, layer unless layer.label is undefined
+          @ghostLabelCluster.refresh()
+
 
         @map.on "overlayremove", (event) =>
-          if event.name == @options.overlaySelector.ghostLayer
-            @map.eachLayer (layer) =>
-              if layer.options? and layer.options.className == "leaflet-ghost-label"
-                label = $(layer._container)
-                label.hide()
 
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
+          @ghostLabelCluster.refresh()
+
+        @layersScheduler = L.layersScheduler()
+        @layersScheduler.addTo @map
         selector = @layerSelector || new L.Control.Layers()
-        selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer) if @ghost? and @ghost.getLayers().length > 0
-        selector.addOverlay(@reference, @options.overlaySelector.referenceLayer) if @reference? and @reference.getLayers().length > 0
-        selector.addOverlay(@edition, @options.overlaySelector.editionLayer) if @edition? and @edition.getLayers().length > 0
+
+        if @ghost? and @ghost.getLayers().length
+          selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer)
+          @layersScheduler.insert @ghost._leaflet_id, back: true
+
+        if @reference? and @reference.getLayers().length > 0
+          selector.addOverlay(@reference, @options.overlaySelector.referenceLayer)
+          @layersScheduler.insert @reference._leaflet_id
+
+
+        if @seriesReferencesLayers?
+          for label, layer of @seriesReferencesLayers
+            selector.addOverlay(layer, label)
+            @layersScheduler.insert layer._leaflet_id
+            @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend() if layer.renderedLayer.options.legend
+
+
+        if @edition? and @edition.getLayers().length > 0
+          selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
+          @layersScheduler.insert @edition._leaflet_id
+
 
     _saveUpdates: ->
       if this.edition?
         this.element.val JSON.stringify(this.edition.toGeoJSON())
       true
 
+    _saveUpdatesSeries: ->
+      if this.seriesReferencesLayers?
+        geojson = []
+        for layerGroup in @seriesReferencesLayers
+          geojson.push layerGroup.serie.toGeoJSON()
+
+        this.elementSeries.val JSON.stringify(geojson)
+      true
+
     update: ->
       this._saveUpdates()
+      this._saveUpdatesSeries()
       this._refreshControls()
       this.element.trigger "mapchange"
 
@@ -652,4 +860,4 @@
     $("input[data-map-editor]").each ->
       $(this).mapeditor()
 
-) jQuery
+) mapeditor, jQuery

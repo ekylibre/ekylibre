@@ -1,0 +1,16 @@
+---
+hourly_sensor_reading:
+  cron: '5 * * * *'
+  class: 'AllSensorsReadingJob'
+activity_production_change:
+  cron: '10 1 * * *'
+  class: 'ActivityProductionCheckJob'
+equipment_monitoring:
+  cron: '15 */7 * * *'
+  class: 'EquipmentLifeProgressCheckJob'
+hourly:
+  cron: '20 * * * *'
+  class: 'HourlyTriggerJob'
+daily:
+  cron: '25 1 * * *'
+  class: 'DailyTriggerJob'

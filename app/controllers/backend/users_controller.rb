@@ -35,6 +35,7 @@ module Backend
       t.column :role, url: true
       t.column :team, url: true, hidden: true
       t.column :administrator
+      t.column :status, label: :user_status
       t.column :employed, hidden: true
     end
 

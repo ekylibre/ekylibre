@@ -11,6 +11,7 @@ deu:
       invalid_token: "Ungültige Authentifizierungstoken."
       invited: "Sie haben eine offene Einladung akzeptieren es Ihrem Konto um den Vorgang abzuschließen."
       locked: "Ihr Konto ist gesperrt."
+      not_approved: "Ihr Konto wurde vom Administrator genehmigt noch nicht."
       not_found_in_database: "Ungültige E-Mail oder Passwort."
       timeout: "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut, um fortzufahren."
       unauthenticated: "Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren."
@@ -38,6 +39,16 @@ deu:
         ignore: "Wenn Sie möchten, um die Einladung nicht annehmen, ignorieren Sie diese E-Mail. <br /> Ihr Konto wird nicht erstellt werden, bis Sie auf den Link oben zuzugreifen und setzen Ihr Passwort ein."
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "Einladung Anweisungen"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "Hier anmelden."
+          subject: "Ihr Konto wurde genehmigt!"
+        signed_up:
+          confirm: "Bitte bestätigen Sie es im Administrations-Bereich."
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "Neu anmelden"
       reset_password_instructions:
         subject: "Passwort zurücksetzen Anweisungen"
       unlock_instructions:
@@ -59,6 +70,8 @@ deu:
       signed_up_but_unconfirmed: "Eine Nachricht mit einem Bestätigungslink wurde an Ihre E-Mail-Adresse gesendet. Bitte öffnen Sie den Link Ihr Konto zu aktivieren."
       update_needs_confirmation: "Sie aktualisiert Ihr Konto erfolgreich, aber wir brauchen Ihre neue E-Mail-Adresse zu bestätigen. Bitte überprüfen Sie Ihre E-Mail und klicken Sie auf den Bestätigungslink Bestätigung Ihrer neuen E-Mail-Adresse zu bestätigen."
       updated: "Sie aktualisiert erfolgreich Ihrem Konto."
+      user:
+        signed_up_but_not_approved: "Sie haben sich erfolgreich angemeldet, aber Ihr Konto wurde noch nicht vom Administrator genehmigt"
     sessions:
       signed_in: "Unterzeichnet erfolgreich in."
       signed_out: "Unterzeichnet erfolgreich aus."

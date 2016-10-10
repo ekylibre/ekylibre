@@ -7,15 +7,15 @@ module Aggeratio
       @name = name.to_s
       @type = type
       @options = options
-      raise ArgumentError.new("Type is unknown: #{@type.inspect}") unless TYPES.include?(@type)
+      raise ArgumentError, "Type is unknown: #{@type.inspect}" unless TYPES.include?(@type)
       @default = @options[:default]
-      raise ArgumentError.new("Default value must be given for #{@name}") unless @default
+      raise ArgumentError, "Default value must be given for #{@name}" unless @default
       @foreign_class = @options[:of].to_s.camelcase.constantize if @options[:of]
     end
 
     # Import parameter form an XML node
     def self.import(element)
-      options = element.attributes.inject({}) do |hash, pair|
+      options = element.attributes.each_with_object({}) do |pair, hash|
         hash[pair[0].to_sym] = pair[1].to_s
         hash
       end

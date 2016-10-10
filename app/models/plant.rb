@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -75,7 +76,7 @@ class Plant < Bioproduct
     unless campaign.is_a?(Campaign)
       raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
     end
-    started_at = Date.new(campaign.harvest_year.to_f, 01, 01)
+    started_at = Date.new(campaign.harvest_year.to_f, 0o1, 0o1)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
     where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
   }
@@ -100,5 +101,67 @@ class Plant < Bioproduct
     else
       return :go
     end
+  end
+
+  def ready_to_harvest?
+    analysis = analyses.where(nature: 'plant_analysis').reorder(sampled_at: :desc).first
+    return false unless analysis
+    item = analysis.items.find_by(indicator_name: 'ready_to_harvest')
+    return false unless item
+    item.value
+  end
+
+  def best_activity_production(options = {})
+    ActivityProduction.where(support: LandParcel.shape_intersecting(shape)).current.first || super
+  end
+
+  # INSPECTIONS RELATED
+
+  def stock_in_ground_by_calibration_series(dimension, natures)
+    find_calib = ->(i, nature) { i.calibrations.find_by(nature: nature) }
+    marketable = ->(calib) { calib.marketable_quantity(dimension).in(calib.user_quantity_unit(dimension)) }
+    name = ->(nature) { nature.name }
+
+    curves(natures, find_calib, marketable, name)
+  end
+
+  def disease_deformity_series(dimension)
+    categories = ActivityInspectionPointNature.unmarketable_categories
+    cat_percentage = ->(i, category) { i.points_percentage(dimension, category) }
+    nothing = ->(percentage) { percentage }
+
+    curves(categories, cat_percentage, nothing, nothing)
+  end
+
+  private
+
+  def curves(collection, set_first_val, get_value, get_name, round = 2)
+    hashes = inspections.reorder(:sampled_at).map do |intervention|
+      pairs = collection.map do |grouping_crit|
+        pre_val = set_first_val.call(intervention, grouping_crit)
+        value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
+        value = value.round(round) if round
+        [get_name.call(grouping_crit), value]
+      end
+      Rails.logger.info pairs.inspect.red
+      pairs_to_hash(pairs)
+    end
+
+    merge_all(hashes)
+  end
+
+  # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
+  def merge_all(hashes)
+    hashes.reduce do |final, caliber_hash|
+      final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
+    end
+  end
+
+  # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
+  def pairs_to_hash(array_of_pairs)
+    array_of_pairs
+      .group_by(&:first)
+      .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
+      .to_h
   end
 end

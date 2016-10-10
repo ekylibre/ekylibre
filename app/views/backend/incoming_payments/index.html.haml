@@ -2,5 +2,5 @@
   - k.text
   - k.choice :all, :not_received, :to_deposit_later, :to_deposit_now
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
 = main_list

@@ -11,6 +11,7 @@ jpn:
       invalid_token: "無効な認証トークン。"
       invited: "あなたは保留中の招待状を持って、アカウントの作成を完了するためにそれを受け入れます。"
       locked: "あなたのアカウントがロックされています。"
+      not_approved: "あなたのアカウントはまだ管理者によって承認されていません。"
       not_found_in_database: "無効なメールアドレスまたはパスワード。"
       timeout: "セッションが継続するには、もう一度ログインしてください、期限が切れて。"
       unauthenticated: "あなたはログインまたは継続する前にサインアップする必要があります。"
@@ -38,6 +39,16 @@ jpn:
         ignore: "あなたが招待を受諾しない場合は、このメールを無視してください。 <br />あなたのアカウントには、上記のリンクにアクセスするまで作成し、パスワードを設定されません。"
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "招待命令"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "ここにサインインします。"
+          subject: "アカウントは承認されました！"
+        signed_up:
+          confirm: "管理パネルでご確認ください。"
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "新しいサインアップ"
       reset_password_instructions:
         subject: "パスワード命令をリセット"
       unlock_instructions:
@@ -59,6 +70,8 @@ jpn:
       signed_up_but_unconfirmed: "確認リンクを含むメッセージは、あなたのメールアドレスに送信されました。アカウントを有効にするためのリンクを開いてください。"
       update_needs_confirmation: "あなたは成功し、アカウントを更新したが、我々は、新しいメールアドレスを確認する必要があります。あなたの電子メールをチェックし、新しいメールアドレスを確認し確定するために確認リンクをクリックしてください。"
       updated: "あなたは成功し、アカウントを更新しました。"
+      user:
+        signed_up_but_not_approved: "あなたが正常にサインアップしているが、あなたのアカウントはまだ管理者によって承認されていません"
     sessions:
       signed_in: "正常に署名しました。"
       signed_out: "正常にログアウトしました。"

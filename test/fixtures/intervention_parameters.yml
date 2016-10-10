@@ -22,31 +22,35 @@
 #
 # == Table: intervention_parameters
 #
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  event_participation_id  :integer
-#  group_id                :integer
-#  id                      :integer          not null, primary key
-#  intervention_id         :integer          not null
-#  lock_version            :integer          default(0), not null
-#  new_container_id        :integer
-#  new_group_id            :integer
-#  new_name                :string
-#  new_variant_id          :integer
-#  outcoming_product_id    :integer
-#  position                :integer          not null
-#  product_id              :integer
-#  quantity_handler        :string
-#  quantity_indicator_name :string
-#  quantity_population     :decimal(19, 4)
-#  quantity_unit_name      :string
-#  quantity_value          :decimal(19, 4)
-#  reference_name          :string           not null
-#  type                    :string
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  variant_id              :integer
-#  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  assembly_id              :integer
+#  component_id             :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  event_participation_id   :integer
+#  group_id                 :integer
+#  id                       :integer          not null, primary key
+#  intervention_id          :integer          not null
+#  lock_version             :integer          default(0), not null
+#  new_container_id         :integer
+#  new_group_id             :integer
+#  new_name                 :string
+#  new_variant_id           :integer
+#  outcoming_product_id     :integer
+#  position                 :integer          not null
+#  product_id               :integer
+#  quantity_handler         :string
+#  quantity_indicator_name  :string
+#  quantity_population      :decimal(19, 4)
+#  quantity_unit_name       :string
+#  quantity_value           :decimal(19, 4)
+#  reference_name           :string           not null
+#  type                     :string
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  variant_id               :integer
+#  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 ---
 intervention_doers_001:
@@ -61,6 +65,7 @@ intervention_doers_001:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:31:09.305211000 Z
   updater_id: 1
   variant_id: 23
@@ -76,6 +81,7 @@ intervention_doers_002:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:41:39.752672000 Z
   updater_id: 1
   variant_id: 23
@@ -91,6 +97,7 @@ intervention_doers_003:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 15:39:35.626436000 Z
   updater_id: 1
   variant_id: 23
@@ -106,6 +113,7 @@ intervention_doers_004:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:47:16.022902000 Z
   updater_id: 1
   variant_id: 23
@@ -121,6 +129,7 @@ intervention_doers_005:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:49:34.382240000 Z
   updater_id: 1
   variant_id: 23
@@ -136,6 +145,7 @@ intervention_doers_006:
   quantity_population: 1.0
   reference_name: caregiver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 14:44:11.029745000 Z
   updater_id: 1
   variant_id: 23
@@ -151,6 +161,7 @@ intervention_doers_007:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:02:12.160940000 Z
   updater_id: 1
   variant_id: 23
@@ -166,6 +177,7 @@ intervention_doers_008:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:26:35.559939000 Z
   updater_id: 1
   variant_id: 23
@@ -181,6 +193,7 @@ intervention_doers_009:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:30.924281000 Z
   updater_id: 1
   variant_id: 23
@@ -196,6 +209,7 @@ intervention_doers_010:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:20:51.439031000 Z
   updater_id: 1
   variant_id: 23
@@ -211,6 +225,7 @@ intervention_doers_011:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:49:41.942487000 Z
   updater_id: 1
   variant_id: 23
@@ -224,8 +239,9 @@ intervention_doers_012:
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: implanter_man
+  reference_name: doer
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:49:41.951173000 Z
   updater_id: 1
   variant_id: 23
@@ -241,6 +257,7 @@ intervention_doers_013:
   quantity_population: 0.0
   reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:58:54.144194000 Z
   updater_id: 1
   variant_id: 23
@@ -254,8 +271,9 @@ intervention_doers_014:
   position: 1
   product_id: 79
   quantity_population: 0.0
-  reference_name: cropper_driver
+  reference_name: driver
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 17:07:15.612283000 Z
   updater_id: 1
   variant_id: 23
@@ -271,6 +289,7 @@ intervention_doers_015:
   quantity_population: 0.0
   reference_name: wine_man
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:48.901584000 Z
   updater_id: 1
   variant_id: 23
@@ -286,6 +305,7 @@ intervention_doers_016:
   quantity_population: 0.0
   reference_name: wine_man
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:08:38.797904000 Z
   updater_id: 1
   variant_id: 23
@@ -301,6 +321,7 @@ intervention_doers_017:
   quantity_population: 0.0
   reference_name: wine_man
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:37.538291000 Z
   updater_id: 1
   variant_id: 23
@@ -316,6 +337,7 @@ intervention_doers_018:
   quantity_population: 0.0
   reference_name: wine_man
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:23:41.928210000 Z
   updater_id: 1
   variant_id: 23
@@ -331,7 +353,23 @@ intervention_doers_019:
   quantity_population: 0.0
   reference_name: wine_man
   type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:53.137218000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_doers_020:
+  created_at: 2016-07-01 20:46:56.153024000 Z
+  creator_id: 1
+  event_participation_id: 61
+  id: 157
+  intervention_id: 30
+  lock_version: 0
+  position: 5
+  product_id: 79
+  reference_name: driver
+  type: InterventionDoer
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-07-01 20:46:56.153024000 Z
   updater_id: 1
   variant_id: 23
 intervention_group_parameters_001:
@@ -343,6 +381,7 @@ intervention_group_parameters_001:
   position: 999
   reference_name: zone
   type: InterventionGroupParameter
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:46.130915000 Z
   updater_id: 1
 intervention_group_parameters_002:
@@ -354,6 +393,7 @@ intervention_group_parameters_002:
   position: 999
   reference_name: zone
   type: InterventionGroupParameter
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:50:07.381890000 Z
   updater_id: 1
 intervention_group_parameters_003:
@@ -365,7 +405,20 @@ intervention_group_parameters_003:
   position: 999
   reference_name: zone
   type: InterventionGroupParameter
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-03-23 09:36:39.556387000 Z
+  updater_id: 1
+intervention_group_parameters_004:
+  created_at: 2016-08-10 14:33:28.788139000 Z
+  creator_id: 1
+  id: 167
+  intervention_id: 33
+  lock_version: 0
+  position: 1
+  reference_name: work
+  type: InterventionGroupParameter
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-08-10 14:33:28.788139000 Z
   updater_id: 1
 intervention_inputs_001:
   created_at: 2014-11-05 15:39:35.605810000 Z
@@ -381,6 +434,7 @@ intervention_inputs_001:
   quantity_value: 20.0001
   reference_name: seeds
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-03-23 09:36:39.560725000 Z
   updater_id: 1
   variant_id: 10
@@ -398,6 +452,7 @@ intervention_inputs_002:
   quantity_value: 29.4553
   reference_name: seeds
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:50:06.991523000 Z
   updater_id: 1
   variant_id: 10
@@ -415,6 +470,7 @@ intervention_inputs_003:
   quantity_value: 0.02
   reference_name: animal_medicine
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 14:44:18.866173000 Z
   updater_id: 1
   variant_id: 21
@@ -432,6 +488,7 @@ intervention_inputs_004:
   quantity_value: 4.1745
   reference_name: plant_medicine
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:02:58.793077000 Z
   updater_id: 1
   variant_id: 20
@@ -449,6 +506,7 @@ intervention_inputs_005:
   quantity_value: 0.6425
   reference_name: fertilizer
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:26:50.566188000 Z
   updater_id: 1
   variant_id: 39
@@ -466,6 +524,7 @@ intervention_inputs_006:
   quantity_value: 177.8641
   reference_name: seeds
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:45.773268000 Z
   updater_id: 1
   variant_id: 42
@@ -482,6 +541,7 @@ intervention_inputs_007:
   quantity_value: 0.7477
   reference_name: fertilizer
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:20:51.424030000 Z
   updater_id: 1
   variant_id: 39
@@ -499,6 +559,7 @@ intervention_inputs_008:
   quantity_value: 5000.0
   reference_name: plants
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:50:07.168748000 Z
   updater_id: 1
   variant_id: 45
@@ -516,6 +577,7 @@ intervention_inputs_009:
   quantity_value: 6.4745
   reference_name: plant_medicine
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:59:09.814608000 Z
   updater_id: 1
   variant_id: 20
@@ -533,6 +595,7 @@ intervention_inputs_010:
   quantity_value: 3200.0
   reference_name: grape
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:56.195971000 Z
   updater_id: 1
   variant_id: 48
@@ -550,6 +613,7 @@ intervention_inputs_011:
   quantity_value: 6.0
   reference_name: oenological_intrant
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:08:55.217270000 Z
   updater_id: 1
   variant_id: 59
@@ -567,6 +631,7 @@ intervention_inputs_012:
   quantity_value: 0.118
   reference_name: oenological_intrant
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:42.886870000 Z
   updater_id: 1
   variant_id: 60
@@ -584,6 +649,7 @@ intervention_inputs_013:
   quantity_value: 1.18
   reference_name: oenological_intrant
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:24:10.255802000 Z
   updater_id: 1
   variant_id: 62
@@ -601,6 +667,7 @@ intervention_inputs_014:
   quantity_value: 15.0
   reference_name: wine
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:59.081425000 Z
   updater_id: 1
   variant_id: 49
@@ -618,6 +685,7 @@ intervention_inputs_015:
   quantity_value: 2004.0
   reference_name: bottles
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:59.149265000 Z
   updater_id: 1
   variant_id: 63
@@ -635,9 +703,50 @@ intervention_inputs_016:
   quantity_value: 1520.0
   reference_name: corks
   type: InterventionInput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:59.212241000 Z
   updater_id: 1
   variant_id: 64
+intervention_inputs_017:
+  created_at: 2016-07-01 20:46:56.155381000 Z
+  creator_id: 1
+  id: 158
+  intervention_id: 30
+  lock_version: 0
+  position: 2
+  product_id: 98
+  quantity_handler: nitrogen
+  quantity_indicator_name: mass_area_density
+  quantity_population: 0.9289
+  quantity_unit_name: kilogram_per_hectare
+  quantity_value: 20.0
+  reference_name: fertilizer
+  type: InterventionInput
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-07-01 20:46:56.155381000 Z
+  updater_id: 1
+  variant_id: 39
+intervention_inputs_018:
+  assembly_id: 32
+  component_id: 1
+  created_at: 2016-08-10 14:33:28.789526000 Z
+  creator_id: 1
+  group_id: 167
+  id: 168
+  intervention_id: 33
+  lock_version: 0
+  position: 3
+  product_id: 180
+  quantity_handler: population
+  quantity_indicator_name: population
+  quantity_population: 2.0
+  quantity_value: 2.0
+  reference_name: replacement_part
+  type: InterventionInput
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-08-10 14:33:28.789526000 Z
+  updater_id: 1
+  variant_id: 71
 intervention_outputs_001:
   created_at: 2014-11-05 15:39:35.633332000 Z
   creator_id: 1
@@ -648,8 +757,9 @@ intervention_outputs_001:
   position: 7
   product_id: 90
   quantity_population: 5.3806
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-03-23 09:36:39.562573000 Z
   updater_id: 1
   variant_id: 16
@@ -668,8 +778,9 @@ intervention_outputs_002:
   position: 7
   product_id: 92
   quantity_population: 0.0
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:50:07.049999000 Z
   updater_id: 1
   variant_id: 16
@@ -689,8 +800,9 @@ intervention_outputs_003:
   position: 7
   product_id: 103
   quantity_population: 10.1637
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:45.831395000 Z
   updater_id: 1
   variant_id: 40
@@ -709,6 +821,7 @@ intervention_outputs_004:
   quantity_population: 1.0
   reference_name: grass
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:50:04.462680000 Z
   updater_id: 1
   variant_id: 43
@@ -722,6 +835,7 @@ intervention_outputs_005:
   quantity_population: 10.1637
   reference_name: grass
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:16:21.828011000 Z
   updater_id: 1
   variant_id: 43
@@ -734,8 +848,9 @@ intervention_outputs_006:
   position: 8
   product_id: 110
   quantity_population: 0.0
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:50:07.225134000 Z
   updater_id: 1
   variant_id: 44
@@ -758,8 +873,9 @@ intervention_outputs_007:
   position: 4
   product_id: 114
   quantity_population: 32372.6138
-  reference_name: grains
+  reference_name: matters
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 17:08:50.459455000 Z
   updater_id: 1
   variant_id: 48
@@ -774,6 +890,7 @@ intervention_outputs_008:
   quantity_population: 30.0
   reference_name: juice
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:56.252536000 Z
   updater_id: 1
   variant_id: 56
@@ -788,6 +905,7 @@ intervention_outputs_009:
   quantity_population: 200.0
   reference_name: residue
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:56.308252000 Z
   updater_id: 1
   variant_id: 55
@@ -802,6 +920,7 @@ intervention_outputs_010:
   quantity_population: 29.5
   reference_name: fermented_juice
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:08:55.276817000 Z
   updater_id: 1
   variant_id: 49
@@ -816,6 +935,7 @@ intervention_outputs_011:
   quantity_population: 1992.0
   reference_name: wine_bottles
   type: InterventionOutput
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:59.273396000 Z
   updater_id: 1
   variant_id: 65
@@ -830,6 +950,7 @@ intervention_targets_001:
   quantity_population: 5.3806
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:31:09.310469000 Z
   updater_id: 1
   variant_id: 28
@@ -849,6 +970,7 @@ intervention_targets_002:
   quantity_population: 5.3806
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:41:39.740739000 Z
   updater_id: 1
   variant_id: 28
@@ -869,6 +991,7 @@ intervention_targets_003:
   quantity_population: 5.3806
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 15:39:35.631580000 Z
   updater_id: 1
   variant_id: 28
@@ -888,6 +1011,7 @@ intervention_targets_004:
   quantity_population: 8.349
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:47:42.946892000 Z
   updater_id: 1
   variant_id: 28
@@ -909,6 +1033,7 @@ intervention_targets_005:
   quantity_population: 8.349
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:49:34.386680000 Z
   updater_id: 1
   variant_id: 28
@@ -929,6 +1054,7 @@ intervention_targets_006:
   quantity_population: 1.0
   reference_name: animal
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 14:44:11.011153000 Z
   updater_id: 1
   variant_id: 17
@@ -943,6 +1069,7 @@ intervention_targets_007:
   quantity_population: 8.349
   reference_name: cultivation
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:02:12.164652000 Z
   updater_id: 1
   variant_id: 16
@@ -961,8 +1088,9 @@ intervention_targets_008:
   position: 6
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:26:35.564719000 Z
   updater_id: 1
   variant_id: 28
@@ -983,6 +1111,7 @@ intervention_targets_009:
   quantity_population: 10.1637
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:30.929885000 Z
   updater_id: 1
   variant_id: 28
@@ -1001,6 +1130,7 @@ intervention_targets_010:
   quantity_population: 10.1637
   reference_name: cultivation
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:55:52.248115000 Z
   updater_id: 1
   variant_id: 40
@@ -1019,6 +1149,7 @@ intervention_targets_011:
   quantity_population: 10.1637
   reference_name: cultivation
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:16:21.826306000 Z
   updater_id: 1
   variant_id: 40
@@ -1035,8 +1166,9 @@ intervention_targets_012:
   position: 6
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:20:51.443760000 Z
   updater_id: 1
   variant_id: 28
@@ -1057,6 +1189,7 @@ intervention_targets_013:
   quantity_population: 5.3954
   reference_name: land_parcel
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:49:41.954984000 Z
   updater_id: 1
   variant_id: 28
@@ -1081,6 +1214,7 @@ intervention_targets_014:
   quantity_population: 5.3954
   reference_name: cultivation
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:58:54.147211000 Z
   updater_id: 1
   variant_id: 44
@@ -1103,8 +1237,9 @@ intervention_targets_015:
   position: 3
   product_id: 110
   quantity_population: 5.3954
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 17:07:15.616923000 Z
   updater_id: 1
   variant_id: 44
@@ -1129,6 +1264,7 @@ intervention_targets_016:
   quantity_population: 1.0
   reference_name: tank_for_wine
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:48.883101000 Z
   updater_id: 1
   variant_id: 50
@@ -1143,6 +1279,7 @@ intervention_targets_017:
   quantity_population: 30.0
   reference_name: juice_to_ferment
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:08:38.781584000 Z
   updater_id: 1
   variant_id: 56
@@ -1157,6 +1294,7 @@ intervention_targets_018:
   quantity_population: 29.5
   reference_name: wine_to_treat
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:37.529155000 Z
   updater_id: 1
   variant_id: 49
@@ -1171,9 +1309,67 @@ intervention_targets_019:
   quantity_population: 29.5
   reference_name: wine_to_treat
   type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:23:41.911235000 Z
   updater_id: 1
   variant_id: 49
+intervention_targets_020:
+  created_at: 2016-07-01 20:46:56.175144000 Z
+  creator_id: 1
+  id: 159
+  intervention_id: 30
+  lock_version: 0
+  position: 1
+  product_id: 106
+  reference_name: cultivation
+  type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-07-01 20:46:56.175144000 Z
+  updater_id: 1
+  variant_id: 28
+  working_zone: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+intervention_targets_021:
+  created_at: 2016-07-01 20:46:56.179000000 Z
+  creator_id: 1
+  id: 160
+  intervention_id: 30
+  lock_version: 0
+  position: 1
+  product_id: 80
+  reference_name: cultivation
+  type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-07-01 20:46:56.179000000 Z
+  updater_id: 1
+  variant_id: 28
+  working_zone: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+intervention_targets_022:
+  created_at: 2016-08-10 14:33:28.823451000 Z
+  creator_id: 1
+  group_id: 167
+  id: 169
+  intervention_id: 33
+  lock_version: 0
+  position: 2
+  product_id: 32
+  reference_name: equipment
+  type: InterventionTarget
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-08-10 14:33:28.823451000 Z
+  updater_id: 1
+  variant_id: 29
 intervention_tools_001:
   created_at: 2014-11-04 18:31:09.308816000 Z
   creator_id: 1
@@ -1185,6 +1381,7 @@ intervention_tools_001:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:31:09.308816000 Z
   updater_id: 1
   variant_id: 26
@@ -1199,6 +1396,7 @@ intervention_tools_002:
   quantity_population: 1.0
   reference_name: plow
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:31:09.312157000 Z
   updater_id: 1
   variant_id: 27
@@ -1213,6 +1411,7 @@ intervention_tools_003:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:41:39.756098000 Z
   updater_id: 1
   variant_id: 26
@@ -1225,8 +1424,9 @@ intervention_tools_004:
   position: 4
   product_id: 88
   quantity_population: 1.0
-  reference_name: cultivator
+  reference_name: hoe
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:41:39.757856000 Z
   updater_id: 1
   variant_id: 34
@@ -1241,6 +1441,7 @@ intervention_tools_005:
   quantity_population: 1.0
   reference_name: sower
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 15:39:35.607997000 Z
   updater_id: 1
   variant_id: 29
@@ -1255,6 +1456,7 @@ intervention_tools_006:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 15:39:35.630192000 Z
   updater_id: 1
   variant_id: 26
@@ -1269,6 +1471,7 @@ intervention_tools_007:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:47:16.026916000 Z
   updater_id: 1
   variant_id: 26
@@ -1283,6 +1486,7 @@ intervention_tools_008:
   quantity_population: 1.0
   reference_name: plow
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:47:16.029670000 Z
   updater_id: 1
   variant_id: 27
@@ -1297,6 +1501,7 @@ intervention_tools_009:
   quantity_population: 1.0
   reference_name: sower
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:49:34.373467000 Z
   updater_id: 1
   variant_id: 29
@@ -1311,6 +1516,7 @@ intervention_tools_010:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:49:34.385387000 Z
   updater_id: 1
   variant_id: 26
@@ -1325,6 +1531,7 @@ intervention_tools_011:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:02:12.150087000 Z
   updater_id: 1
   variant_id: 26
@@ -1339,6 +1546,7 @@ intervention_tools_012:
   quantity_population: 1.0
   reference_name: sprayer
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:02:12.151232000 Z
   updater_id: 1
   variant_id: 36
@@ -1353,6 +1561,7 @@ intervention_tools_013:
   quantity_population: 1.0
   reference_name: spreader
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:26:35.546491000 Z
   updater_id: 1
   variant_id: 37
@@ -1367,6 +1576,7 @@ intervention_tools_014:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:26:35.563438000 Z
   updater_id: 1
   variant_id: 26
@@ -1381,6 +1591,7 @@ intervention_tools_015:
   quantity_population: 1.0
   reference_name: sower
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:30.888448000 Z
   updater_id: 1
   variant_id: 29
@@ -1395,6 +1606,7 @@ intervention_tools_016:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:45:30.928585000 Z
   updater_id: 1
   variant_id: 26
@@ -1409,6 +1621,7 @@ intervention_tools_017:
   quantity_population: 0.0
   reference_name: herd
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:47:46.998727000 Z
   updater_id: 1
   variant_id: 31
@@ -1423,6 +1636,7 @@ intervention_tools_018:
   quantity_population: 0.0
   reference_name: herd
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:16:21.824119000 Z
   updater_id: 1
   variant_id: 31
@@ -1437,6 +1651,7 @@ intervention_tools_019:
   quantity_population: 1.0
   reference_name: spreader
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:20:51.425202000 Z
   updater_id: 1
   variant_id: 37
@@ -1451,6 +1666,7 @@ intervention_tools_020:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:20:51.442456000 Z
   updater_id: 1
   variant_id: 26
@@ -1465,6 +1681,7 @@ intervention_tools_021:
   quantity_population: 1.0
   reference_name: implanter_tool
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:49:41.930712000 Z
   updater_id: 1
   variant_id: 46
@@ -1479,6 +1696,7 @@ intervention_tools_022:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:49:41.953808000 Z
   updater_id: 1
   variant_id: 26
@@ -1493,6 +1711,7 @@ intervention_tools_023:
   quantity_population: 1.0
   reference_name: tractor
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:58:54.130462000 Z
   updater_id: 1
   variant_id: 26
@@ -1507,6 +1726,7 @@ intervention_tools_024:
   quantity_population: 1.0
   reference_name: sprayer
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:58:54.131571000 Z
   updater_id: 1
   variant_id: 36
@@ -1521,6 +1741,7 @@ intervention_tools_025:
   quantity_population: 1.0
   reference_name: cropper
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 17:07:15.615508000 Z
   updater_id: 1
   variant_id: 47
@@ -1535,6 +1756,7 @@ intervention_tools_026:
   quantity_population: 1.0
   reference_name: tank_for_residue
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:48.884235000 Z
   updater_id: 1
   variant_id: 50
@@ -1549,6 +1771,7 @@ intervention_tools_027:
   quantity_population: 0.0
   reference_name: press
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:02:48.885290000 Z
   updater_id: 1
   variant_id: 52
@@ -1563,6 +1786,7 @@ intervention_tools_028:
   quantity_population: 1.0
   reference_name: tank
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:08:38.779989000 Z
   updater_id: 1
   variant_id: 50
@@ -1577,6 +1801,7 @@ intervention_tools_029:
   quantity_population: 1.0
   reference_name: tank
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:37.527848000 Z
   updater_id: 1
   variant_id: 50
@@ -1591,6 +1816,7 @@ intervention_tools_030:
   quantity_population: 1.0
   reference_name: tank
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:23:41.909497000 Z
   updater_id: 1
   variant_id: 50
@@ -1605,6 +1831,7 @@ intervention_tools_031:
   quantity_population: 1.0
   reference_name: tank
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:53.123476000 Z
   updater_id: 1
   variant_id: 50
@@ -1619,6 +1846,7 @@ intervention_tools_032:
   quantity_population: 0.0
   reference_name: hand_drawn
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:53.139991000 Z
   updater_id: 1
   variant_id: 66
@@ -1633,6 +1861,35 @@ intervention_tools_033:
   quantity_population: 1.0
   reference_name: corker
   type: InterventionTool
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:36:53.141079000 Z
   updater_id: 1
   variant_id: 67
+intervention_tools_034:
+  created_at: 2016-07-01 20:46:56.181474000 Z
+  creator_id: 1
+  id: 161
+  intervention_id: 30
+  lock_version: 0
+  position: 3
+  product_id: 97
+  reference_name: spreader
+  type: InterventionTool
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-07-01 20:46:56.181474000 Z
+  updater_id: 1
+  variant_id: 37
+intervention_tools_035:
+  created_at: 2016-07-01 20:46:56.183226000 Z
+  creator_id: 1
+  id: 162
+  intervention_id: 30
+  lock_version: 0
+  position: 4
+  product_id: 29
+  reference_name: tractor
+  type: InterventionTool
+  unit_pretax_stock_amount: 0.0
+  updated_at: 2016-07-01 20:46:56.183226000 Z
+  updater_id: 1
+  variant_id: 26

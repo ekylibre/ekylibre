@@ -14637,3 +14637,462 @@ versions_265:
         amet lorem. Ut aliquam tellus libero, a vehicula ante tincidunt non. Pellentesque
         semper magna id justo lacinia varius. '
   item_type: Product
+versions_266:
+  created_at: 2016-05-10 19:12:52.683401000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 303
+  item_id: 176
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 176
+    type: LandParcel
+    name: Le Margoulin Carotte 2016 n°1
+    number: PR00000000120
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2016-02-29 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.39989E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7995691895484920 45.8210648929617008, -0.8006769418716430
+        45.8208704921366987, -0.8016023039817810 45.8207901146742032, -0.8015057444572450
+        45.8212873315344993, -0.8015513420104980 45.8215415459580981, -0.8019107580184940
+        45.8223359585506032, -0.8020234107971190 45.8230051255386996, -0.7994645833969120
+        45.8229752188059010, -0.7995691895484920 45.8210648929617008)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-02-29 23:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-05-10 19:12:52.671463000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: dfe549f1-29de-46ba-ad8b-4a43797862ca
+    initial_movement_id:
+    custom_fields:
+  item_type: Product
+versions_267:
+  created_at: 2016-07-01 19:23:47.560821000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 304
+  item_id: 177
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 177
+    type: Matter
+    name: Adexar 5 l (P000000000003)
+    number: PR00000000121
+    variant_id: 8
+    nature_id: 8
+    category_id: 3
+    initial_born_at: 2016-07-01 19:23:47.522750000 Z
+    initial_dead_at:
+    initial_container_id: 11
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.25E2
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-07-01 19:23:47.522750000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 11
+    created_at: 2016-07-01 19:23:47.556500000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 84447166-89ff-40b6-83b9-230c3fb8fbf1
+    initial_movement_id:
+    custom_fields:
+  item_type: Product
+versions_268:
+  created_at: 2016-07-01 19:23:47.772767000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 305
+  item_id: 178
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 178
+    type: Matter
+    name: Riflexine (P000000000003)
+    number: PR00000000122
+    variant_id: 22
+    nature_id: 19
+    category_id: 12
+    initial_born_at: 2016-07-01 19:23:47.522750000 Z
+    initial_dead_at:
+    initial_container_id: 11
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.35E2
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-07-01 19:23:47.522750000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 11
+    created_at: 2016-07-01 19:23:47.769812000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 4bd617ed-ed00-4657-8756-326882cecabe
+    initial_movement_id:
+    custom_fields:
+  item_type: Product
+versions_269:
+  created_at: 2016-07-01 19:24:45.243412000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 306
+  item_id: 3
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    name: Call for new Contract
+    state: done
+    nature: outgoing_call
+    entity_id: 14
+    executor_id: 9
+    sale_opportunity_id:
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+      posuere in purus at consequat. Duis sed ultrices risus. Etiam sodales quam non
+      enim aliquam porta. Donec nisi enim, pellentesque ac lorem et, consequat imperdiet
+      diam. Nunc eget velit tempus, maximus libero dignissim, ultrices nulla. Pellentesque
+      vel lacinia ligula. Duis vehicula erat velit, facilisis mollis sem egestas vitae.
+      Cras ac scelerisque sem. Vivamus et cursus dui. Morbi facilisis vel magna quis
+      ullamcorper. Maecenas et metus hendrerit, faucibus diam vitae, scelerisque urna.
+      Phasellus viverra ex vel odio suscipit, vel pellentesque velit lacinia. Sed
+      convallis arcu at ex gravida, sit amet blandit ex cursus. Fusce vestibulum eget
+      sapien nec ultrices. Sed eget auctor est. \r\n\r\n Morbi lectus justo, volutpat
+      vel nulla ac, sollicitudin condimentum magna. Donec suscipit leo justo. Sed
+      tristique ipsum a odio ornare suscipit. Aenean eu mi augue. Nullam accumsan
+      ex eget lectus tincidunt ultricies. Aliquam hendrerit, magna vel commodo molestie,
+      neque magna elementum odio, et cursus urna est in neque. Sed malesuada purus
+      sem, id auctor orci luctus molestie. "
+    due_at: 2016-07-01 19:24:00.000000000 Z
+    created_at: 2016-07-01 19:24:45.238427000 Z
+    creator_id: 1
+    custom_fields:
+  item_type: Task
+versions_270:
+  created_at: 2016-07-01 19:25:02.959939000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 307
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+      posuere in purus at consequat. Duis sed ultrices risus. Etiam sodales quam non
+      enim aliquam porta. Donec nisi enim, pellentesque ac lorem et, consequat imperdiet
+      diam. Nunc eget velit tempus, maximus libero dignissim, ultrices nulla. Pellentesque
+      vel lacinia ligula. Duis vehicula erat velit, facilisis mollis sem egestas vitae.
+      Cras ac scelerisque sem. Vivamus et cursus dui. Morbi facilisis vel magna quis
+      ullamcorper. Maecenas et metus hendrerit, faucibus diam vitae, scelerisque urna.
+      Phasellus viverra ex vel odio suscipit, vel pellentesque velit lacinia. Sed
+      convallis arcu at ex gravida, sit amet blandit ex cursus. Fusce vestibulum eget
+      sapien nec ultrices. Sed eget auctor est. \r\n\r\n Morbi lectus justo, volutpat
+      vel nulla ac, sollicitudin condimentum magna. Donec suscipit leo justo. Sed
+      tristique ipsum a odio ornare suscipit. Aenean eu mi augue. Nullam accumsan
+      ex eget lectus tincidunt ultricies. Aliquam hendrerit, magna vel commodo molestie,
+      neque magna elementum odio, et cursus urna est in neque. Sed malesuada purus
+      sem, id auctor orci luctus molestie. "
+  item_id: 3
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    name: Call for new Contract
+    state: done
+    nature: outgoing_call
+    entity_id: 14
+    executor_id: 9
+    sale_opportunity_id:
+    description: 'Morbi lectus justo, volutpat vel nulla ac, sollicitudin condimentum
+      magna. Donec suscipit leo justo. Sed tristique ipsum a odio ornare suscipit.
+      Aenean eu mi augue. Nullam accumsan ex eget lectus tincidunt ultricies. Aliquam
+      hendrerit, magna vel commodo molestie, neque magna elementum odio, et cursus
+      urna est in neque. Sed malesuada purus sem, id auctor orci luctus molestie. '
+    due_at: 2016-07-01 19:24:00.000000000 Z
+    created_at: 2016-07-01 19:24:45.238427000 Z
+    creator_id: 1
+    custom_fields:
+  item_type: Task
+versions_271:
+  created_at: 2016-07-01 19:26:02.107587000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 308
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    nature: sir
+    meeting_origin: ''
+    siren: ''
+    siret_number: ''
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_id: 14
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 14
+    nature: contact
+    last_name: "Περικλῆς"
+    first_name: ''
+    number: P00000004
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: Acropole inauguration
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-04-21 08:27:39.814863000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_type: Entity
+versions_272:
+  created_at: 2016-07-01 20:23:21.038226000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 309
+  item_id: 179
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 179
+    type: Matter
+    name: Ammonitre 33,5%  Big Bag (P000000000005)
+    number: PR00000000123
+    variant_id: 39
+    nature_id: 33
+    category_id: 17
+    initial_born_at: 2016-07-01 20:23:20.986644000 Z
+    initial_dead_at:
+    initial_container_id: 12
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.11E2
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-07-01 20:23:20.986644000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 12
+    created_at: 2016-07-01 20:23:21.033093000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 165a7542-3292-4e3a-8ead-2bde5d8d0837
+    initial_movement_id:
+    custom_fields:
+  item_type: Product
+versions_273:
+  created_at: 2016-07-26 19:27:42.734614000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 310
+  item_id: 143
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 143
+    type: Matter
+    name: Bouteille de vin (75cl) [oct. 2013] (Hangar principal)
+    number: PR00000010087
+    variant_id: 65
+    nature_id: 41
+    category_id: 21
+    initial_born_at: 2013-10-30 13:52:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1992E4
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2013-10-30 13:52:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:36:59.233966000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 4959cf9c-db74-42c1-923e-dc00ef433bf6
+    initial_movement_id: 126
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      test: ''
+  item_type: Product
+versions_274:
+  created_at: 2016-08-10 14:27:49.848916000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 311
+  item_id: 180
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 180
+    type: Matter
+    name: Pièce de machine
+    number: PR00000000124
+    variant_id: 71
+    nature_id: 61
+    category_id: 23
+    initial_born_at: 2016-08-10 14:27:49.798212000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: equipment_part
+    derivative_of: equipment
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-08-10 14:27:49.798212000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-08-10 14:27:49.841387000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: a07ec5ff-4f65-4c35-93ce-86df33b8922b
+    initial_movement_id:
+    custom_fields:
+  item_type: Product

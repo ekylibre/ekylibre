@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add plant varieties">
+  <item-creation item="varieties#zea_mays_capuzi" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_pw450" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_ph450" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_5142" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_ceratina_mas56wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
+  <item-creation item="varieties#helianthus_annuus_es_romantic" parent="helianthus_annuus" itis_tsn="36616"/>
+  <item-creation item="varieties#phaseolus_vulgaris_red_kindley" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+</migration>

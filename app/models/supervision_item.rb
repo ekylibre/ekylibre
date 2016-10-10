@@ -38,14 +38,16 @@ class SupervisionItem < Ekylibre::Record::Base
   has_many :analyses, through: :sensor
   has_many :analysis_items, through: :analyses, source: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :sensor, :supervision
+  validates :color, length: { maximum: 500 }, allow_blank: true
+  validates :sensor, :supervision, presence: true
   # ]VALIDATORS]
 
   delegate :name, to: :sensor
   delegate :time_window, to: :supervision
 
   def indicator_names
-    analysis_items.pluck(:indicator_name).uniq
+    list = analysis_items.pluck(:indicator_name)
+    list.uniq
   end
 
   def historic_of(indicator_name)

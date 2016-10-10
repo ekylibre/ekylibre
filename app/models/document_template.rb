@@ -45,12 +45,14 @@ class DocumentTemplate < Ekylibre::Record::Base
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :active, :by_default, :managed, in: [true, false]
-  validates_presence_of :archiving, :language, :name, :nature
+  validates :active, :by_default, :managed, inclusion: { in: [true, false] }
+  validates :archiving, :language, :nature, presence: true
+  validates :formats, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :archiving, :nature, allow_nil: true, maximum: 60
-  validates_inclusion_of :nature, in: nature.values
+  validates :language, length: { allow_nil: true, maximum: 3 }
+  validates :archiving, :nature, length: { allow_nil: true, maximum: 60 }
+  validates :nature, inclusion: { in: nature.values }
 
   selects_among_all scope: :nature
 
@@ -93,7 +95,7 @@ class DocumentTemplate < Ekylibre::Record::Base
         # Updates template
         if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
           if template = document.root.xpath('xmlns:template').first
-            logger.info "Update <template> for document template #{self.nature}"
+            logger.info "Update <template> for document template #{nature}"
             template.children.remove
             style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
             # TODO: find a way to permit customization for users to restore that
@@ -103,7 +105,7 @@ class DocumentTemplate < Ekylibre::Record::Base
             end
             template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
           else
-            logger.info "Cannot find and update <template> in document template #{self.nature}"
+            logger.info "Cannot find and update <template> in document template #{nature}"
           end
         end
         # Writes source
@@ -119,9 +121,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Updates archiving methods of other templates of same nature
   after_save do
     if archiving.to_s =~ /\_of\_template$/
-      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', self.nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
+      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
     else
-      self.class.where('nature = ? AND id != ?', self.nature, id).update_all(archiving: archiving)
+      self.class.where('nature = ? AND id != ?', nature, id).update_all(archiving: archiving)
     end
   end
 

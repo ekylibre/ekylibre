@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add procedure actions">
+  <item-creation item="procedure_actions#plant_support"/>
+  <item-creation item="procedure_actions#yield_improvement"/>
+  <item-creation item="procedure_actions#pollinate"/>
+</migration>

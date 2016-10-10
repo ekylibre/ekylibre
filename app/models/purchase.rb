@@ -22,30 +22,32 @@
 #
 # == Table: purchases
 #
-#  accounted_at        :datetime
-#  affair_id           :integer
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  confirmed_at        :datetime
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  currency            :string           not null
-#  custom_fields       :jsonb
-#  delivery_address_id :integer
-#  description         :text
-#  id                  :integer          not null, primary key
-#  invoiced_at         :datetime
-#  journal_entry_id    :integer
-#  lock_version        :integer          default(0), not null
-#  nature_id           :integer
-#  number              :string           not null
-#  planned_at          :datetime
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string
-#  responsible_id      :integer
-#  state               :string
-#  supplier_id         :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  accounted_at                     :datetime
+#  affair_id                        :integer
+#  amount                           :decimal(19, 4)   default(0.0), not null
+#  confirmed_at                     :datetime
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  currency                         :string           not null
+#  custom_fields                    :jsonb
+#  delivery_address_id              :integer
+#  description                      :text
+#  id                               :integer          not null, primary key
+#  invoiced_at                      :datetime
+#  journal_entry_id                 :integer
+#  lock_version                     :integer          default(0), not null
+#  nature_id                        :integer
+#  number                           :string           not null
+#  planned_at                       :datetime
+#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_entry_id :integer
+#  reference_number                 :string
+#  responsible_id                   :integer
+#  state                            :string
+#  supplier_id                      :integer          not null
+#  undelivered_invoice_entry_id     :integer
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
 #
 
 class Purchase < Ekylibre::Record::Base
@@ -54,38 +56,42 @@ class Purchase < Ekylibre::Record::Base
   attr_readonly :currency, :nature_id
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
-  belongs_to :journal_entry
+  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :quantity_gap_on_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :nature, class_name: 'PurchaseNature'
   belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   has_many :parcels
-  has_many :documents, as: :owner
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, as: :resource
   has_many :products, -> { uniq }, through: :items
   has_many :fixed_assets, through: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
+  validates :accounted_at, :confirmed_at, :invoiced_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :currency, :payee, :supplier, presence: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :number, presence: true, length: { maximum: 500 }
+  validates :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :number, :state, allow_nil: true, maximum: 60
-  validates_presence_of :created_at, :state, :nature
-  validates_uniqueness_of :number
+  validates :number, :state, length: { allow_nil: true, maximum: 60 }
+  validates :created_at, :state, :nature, presence: true
+  validates :number, uniqueness: true
   validates_associated :items
 
   acts_as_numbered
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
 
-  delegate :closed, :balance, to: :affair, prefix: true
+  delegate :with_accounting, to: :nature
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).joins(:affair).where('NOT closed') }
+  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
@@ -131,6 +137,10 @@ class Purchase < Ekylibre::Record::Base
     self.amount = items.sum(:amount)
   end
 
+  after_update do
+    affair.reload_gaps
+  end
+
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
@@ -138,19 +148,49 @@ class Purchase < Ekylibre::Record::Base
   end
 
   after_create do
-    self.supplier.add_event(:purchase_creation, updater.person) if updater
+    supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: invoiced_on, if: invoice?) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: self.supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
-      for item in items
-        entry.add_debit(label, item.account, item.pretax_amount) unless item.pretax_amount.zero?
+    b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
+      items.each do |item|
+        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(:supplier).id, amount)
+      entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
+    end
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    # 1 / for undelivered invoice
+    # exchange undelivered invoice from parcel
+    parcels.each do |pi|
+      next unless pi.undelivered_invoice_entry
+      b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
+        undelivered_items = pi.undelivered_invoice_entry.items
+        undelivered_items.each do |undelivered_item|
+          next unless undelivered_item.real_balance.nonzero?
+          entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
+        end
+      end
+    end
+    # 2 / for gap between parcel item quantity and purchase item quantity
+    # if more quantity on purchase than parcel then i have value in D of stock account
+    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
+    b.journal_entry(stock_journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+      items.each do |item|
+        next unless item.variant.storable?
+        parcel_items_qty = item.parcel_items.map(&:population).compact.sum
+        gap = item.quantity - parcel_items_qty
+        next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
+        qty = item.parcel_items.first.unit_pretax_stock_amount
+        gap_value = gap * qty
+        next if gap_value.zero?
+        entry.add_debit(gap_label, item.variant.stock_account_id, gap_value)
+        entry.add_credit(gap_label, item.variant.stock_movement_account_id, gap_value)
+      end
     end
   end
 
@@ -254,5 +294,9 @@ class Purchase < Ekylibre::Record::Base
 
   def taxes_amount
     amount - pretax_amount
+  end
+
+  def can_generate_parcel?
+    items.any? && delivery_address && (order? || invoice?)
   end
 end

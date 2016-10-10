@@ -16,7 +16,7 @@ class FixCustomFieldData < ActiveRecord::Migration
     fields = custom_fields.each_with_object({}) do |field, hash|
       table = MODEL_TABLES[field['customized_type']]
       unless table
-        puts 'Unknown model: ' + field.inspect
+        # puts 'Unknown model: ' + field.inspect
         next
       end
       hash[table] ||= []

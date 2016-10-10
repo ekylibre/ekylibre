@@ -26,6 +26,7 @@ module Backend
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
     before_action :check_variant_availability, only: :new
+    before_action :clean_attachments, only: [:update]
 
     unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
 
@@ -33,19 +34,29 @@ module Backend
     #   :q Text search
     #   :working_set
     def self.list_conditions
-      code = search_conditions(products: [:name, :number], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
+
+      # State
       code << "if params[:s] == 'available'\n"
       code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NULL'\n"
       code << "elsif params[:s] == 'consume'\n"
       code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NOT NULL'\n"
       code << "end\n"
+
+      # Label
+      code << "if params[:label_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Product.table_name}.id IN (SELECT product_id FROM product_labellings WHERE label_id IN (?))'\n"
+      code << "  c << params[:label_id].to_i\n"
+      code << "end\n"
+
+      # Period
       code << "if params[:period].to_s != 'all'\n"
-      code << "  started_on = params[:started_at]\n"
-      code << "  stopped_on = params[:stopped_at]\n"
+      code << "  started_on = params[:started_on]\n"
+      code << "  stopped_on = params[:stopped_on]\n"
       code << "  c[0] << ' AND #{Product.table_name}.born_at BETWEEN ? AND ?'\n"
       code << "  c << started_on\n"
       code << "  c << stopped_on\n"
@@ -82,15 +93,6 @@ module Backend
       t.column :stopped_at, hidden: true
     end
 
-    # Lists localizations of the current product
-    list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-      t.column :nature
-      t.column :container, url: true
-      t.column :intervention, url: true
-      t.column :started_at
-      t.column :stopped_at, hidden: true
-    end
-
     # Lists carried linkages of the current product
     list(:carried_linkages, model: :product_linkages, conditions: { carrier_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :carried, url: true
@@ -112,26 +114,20 @@ module Backend
     end
 
     # Lists groups of the current product
+    list(:inspections, conditions: { product_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
+      t.column :number, url: true
+      t.column :position
+      t.column :sampled_at
+      # t.column :item_count
+      # t.column :net_mass, datatype: :measure
+    end
+
+    # Lists groups of the current product
     list(:groups, model: :product_memberships, conditions: { member_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :group, url: true
       t.column :intervention, url: true
       t.column :started_at
       t.column :stopped_at
-    end
-
-    # Lists members of the current product
-    list(:members, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
-      t.column :member, url: true
-      t.column :intervention, url: true
-      t.column :started_at
-      t.column :stopped_at
-    end
-
-    # Lists readings of the current product
-    list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :indicator_name
-      t.column :read_at
-      t.column :value
     end
 
     # Lists issues of the current product
@@ -143,16 +139,51 @@ module Backend
     end
 
     # Lists intervention product parameters of the current product
-    list(:intervention_product_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+    list(:intervention_product_parameters, model: :intervention_parameters, conditions: { interventions: { nature: :record }, product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
       t.column :intervention, url: true
       # t.column :roles, hidden: true
-      t.column :name, sort: :reference_name
+      t.column :reference, label_method: :name, sort: :reference_name
       t.column :started_at, through: :intervention, datatype: :datetime
       t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
       t.column :human_activities_names, through: :intervention
+      t.column :actions, label_method: :human_actions_names, through: :intervention
       # t.column :intervention_activities
       t.column :human_working_duration, through: :intervention
       t.column :human_working_zone_area, through: :intervention
+    end
+
+    # Lists members of the current product
+    list(:members, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
+      t.column :member, url: true
+      t.column :intervention, url: true
+      t.column :started_at
+      t.column :stopped_at
+    end
+
+    # Lists parcel items of the current product
+    list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :parcel, url: true
+      t.column :nature, through: :parcel
+      t.column :given_at, through: :parcel, datatype: :datetime
+      t.column :population
+      t.column :product_identification_number
+    end
+
+    # Lists localizations of the current product
+    list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.action :edit
+      t.column :nature
+      t.column :container, url: true
+      t.column :intervention, url: true
+      t.column :started_at
+      t.column :stopped_at
+    end
+
+    # Lists readings of the current product
+    list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :indicator_name
+      t.column :read_at
+      t.column :value
     end
 
     # Returns value of an indicator
@@ -183,6 +214,12 @@ module Backend
         redirect_to new_backend_product_nature_path
         return false
       end
+    end
+
+    def clean_attachments
+      permitted_params['attachments_attributes'].each do |k, v|
+        permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+      end if permitted_params.include?('attachments_attributes')
     end
   end
 end

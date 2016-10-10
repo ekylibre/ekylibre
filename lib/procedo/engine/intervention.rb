@@ -5,6 +5,7 @@ module Procedo
   module Engine
     class Intervention
       attr_reader :procedure
+      attr_reader :working_periods
 
       delegate :name, to: :procedure, prefix: true
       delegate :add, :add_group, :add_product, :to_hash, to: :root_group
@@ -40,6 +41,19 @@ module Procedo
         hash
       end
 
+      def handlers_states
+        hash = {}
+        @root_group.each_member do |parameter|
+          param_name = parameter.param_name
+          next unless parameter.respond_to? :handlers_states
+          states = parameter.handlers_states
+          next if states.empty?
+          hash[param_name] ||= {}
+          hash[param_name][parameter.id.to_s] = states
+        end
+        hash
+      end
+
       delegate :to_json, to: :to_hash
 
       def add_working_period(id, attributes = {})
@@ -64,22 +78,15 @@ module Procedo
       end
 
       # Impact changes
-      def impact_with!(updater_name)
-        steps = updater_name.to_s.split(/[\[\]]+/)
-        impact_with(steps)
-      end
-
-      # Find a working_period, or a parameters
-      def impact_with(steps)
-        if steps.size > 1
-          if steps.first == 'working_periods'
-            @working_periods[steps[1]].impact_with(steps[2..-1])
-          else
-            @root_group.impact_with(steps)
-          end
-        elsif !steps.empty?
-          field = steps.first
-          send(field + '=', send(field))
+      def impact_with!(steps)
+        steps = steps.to_s.split(/[\[\]]+/) unless steps.is_a?(Array)
+        unless steps.size > 1
+          raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+        end
+        if steps.first == 'working_periods'
+          @working_periods[steps[1]].impact_with(steps[2..-1])
+        else
+          @root_group.impact_with(steps)
         end
       end
 

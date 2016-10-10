@@ -11,10 +11,6 @@
           = area.round(3).l
   - c.cobble :resource_map, title: :map.tl do
     = visualization do |v|
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
       - v.serie resource.id, [{name: resource.number, shape: resource.content}]
       - options = {fill_opacity: 0}
       - if resource.polygon?

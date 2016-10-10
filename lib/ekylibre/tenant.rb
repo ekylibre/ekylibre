@@ -30,6 +30,10 @@ module Ekylibre
         name
       end
 
+      def host
+        "#{current}.#{ENV['HOST_DOMAIN_NAME'] || 'example.org'}"
+      end
+
       # Returns the private directory of the current tenant
       # If tenant name given, it returns its private_directory
       def private_directory(name = nil)
@@ -226,12 +230,14 @@ module Ekylibre
       end
 
       def list
-        unless @list
-          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
-          @list ||= {}
-        end
+        load! unless @list
         @list[env] ||= []
         @list[env]
+      end
+
+      def load!
+        @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+        @list ||= {}
       end
 
       def drop_aggregation_schema!
@@ -247,7 +253,7 @@ module Ekylibre
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
-        for table in Ekylibre::Schema.tables.keys
+        Ekylibre::Schema.tables.keys.each do |table|
           connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
           columns = Ekylibre::Schema.columns(table)
           queries = list.collect do |tenant|

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add equipment indicators">
+  <item-creation item="indicators#theoretical_working_speed" datatype="decimal"/>
+  <item-creation item="indicators#plowshare_count" datatype="integer"/>
+  <item-change item="product_natures#cover_implanter" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#dumper" frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass" variable_indicators="geolocation"/>
+  <item-change item="product_natures#ferry" frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass" variable_indicators="geolocation"/>
+  <item-change item="product_natures#fuel_tank" frozen_indicators="nominal_storable_net_volume" variable_indicators=""/>
+  <item-change item="product_natures#gas_engine" frozen_indicators="application_width, nominal_storable_net_volume, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#grinder" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#harrow" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#harvester" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#hiller" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#hoe" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#implanter" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#picker" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#plow" frozen_indicators="application_width, plowshare_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#reaper" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#seedbed_preparator" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#sieve_shaker" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#soil_loosener" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#sower" frozen_indicators="nominal_storable_net_volume, application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#sprayer" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#spreader" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#steam_engine" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#superficial_plow" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#topper" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#trailer"  frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass" variable_indicators="geolocation"/>
+  <item-change item="product_natures#trimmer" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#uncover" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#water_tank" frozen_indicators="nominal_storable_net_volume" variable_indicators="geolocation"/>
+  <item-change item="product_natures#weeder" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+  <item-change item="product_natures#wine_tank" frozen_indicators="nominal_storable_net_volume" variable_indicators="geolocation"/>
+</migration>

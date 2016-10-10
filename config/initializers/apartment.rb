@@ -18,10 +18,10 @@ Apartment.configure do |config|
   config.excluded_models = %w()
 
   # use postgres schemas?
-  # config.use_schemas = true
+  config.use_schemas = true
 
-  # use raw SQL dumps for creating postgres schemas? (only appies with use_schemas set to true)
-  # config.use_sql = true
+  # use raw SQL dumps for creating postgres schemas? (only applies with use_schemas set to true)
+  config.use_sql = true
 
   # Postgis default Schema must be "postgis"
   config.persistent_schemas = %w(postgis)
@@ -40,10 +40,20 @@ module Apartment
       def parse_tenant_name(request)
         return nil unless request.env['HTTP_X_TENANT']
         request.env.each do |k, v|
-          puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
+          # puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
         end
         # puts request.env.keys.inspect.red
         request.env['HTTP_X_TENANT']
+      end
+    end
+
+    class SecuredSubdomain < Apartment::Elevators::Subdomain
+      def call(env)
+        super
+      rescue ::Apartment::TenantNotFound
+        request = Rack::Request.new(env)
+        Rails.logger.error "Apartment Tenant not found: #{subdomain(request.host)}"
+        return [404, { 'Content-Type' => 'text/html' }, [File.read(Rails.root.join('public', '404.html'))]]
       end
     end
   end
@@ -56,5 +66,5 @@ elsif Rails.env.test?
 elsif ENV['ELEVATOR'] == 'header'
   Rails.application.config.middleware.use 'Apartment::Elevators::Header'
 else
-  Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
+  Rails.application.config.middleware.use 'Apartment::Elevators::SecuredSubdomain'
 end

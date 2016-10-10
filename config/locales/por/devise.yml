@@ -11,6 +11,7 @@ por:
       invalid_token: "Chave de autenticação inválida."
       invited: "Você tem um convite pendente, aceito-o para terminar de criar sua conta."
       locked: "Sua conta foi bloqueada."
+      not_approved: "A sua conta não foi aprovado pelo administrador ainda."
       not_found_in_database: "E-mail ou senha inválidos."
       timeout: "Sua sessão expirou, entre novamente para continuar."
       unauthenticated: "Você precisa entrar ou se inscrever para continuar."
@@ -38,6 +39,16 @@ por:
         ignore: "Se você não quiser aceitar o convite, por favor ignore este e-mail. <br /> A sua conta não será criada até que você acessar o link acima e definir a sua senha."
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "Instruções do convite"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "Entre aqui."
+          subject: "A sua conta foi aprovado!"
+        signed_up:
+          confirm: "Por favor, confirme-a no painel de administração."
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "Nova inscrição"
       reset_password_instructions:
         subject: "Instruções para resetar sua senha"
       unlock_instructions:
@@ -59,6 +70,8 @@ por:
       signed_up_but_unconfirmed: "Uma mensagem de confirmação foi enviada para seu e-mail. Por favor abra o link para ativar sua conta."
       update_needs_confirmation: "Você atualizou sua conta com sucesso, mas nós precisamos verificar seu e-mail. Por favor confira seu e-mail e clique para confirmar."
       updated: "Você atualizou sua conta com sucesso."
+      user:
+        signed_up_but_not_approved: "Você se inscreveu com êxito, mas sua conta não foi aprovado pelo administrador ainda"
     sessions:
       signed_in: "Sessão iniciada com sucesso."
       signed_out: "Sessão encerrada com sucesso."

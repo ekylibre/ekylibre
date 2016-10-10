@@ -28,7 +28,7 @@ module ActiveExchanger
       end
 
       def importers_selection
-        importers.collect { |i, e| [e.human_name, i] }.sort { |a, b| a.first <=> b.first }
+        importers.collect { |i, e| [e.human_name, i] }.sort_by { |a| a.first.lower_ascii }
       end
 
       def exporters
@@ -44,7 +44,12 @@ module ActiveExchanger
       def import(nature, file, options = {}, &block)
         exchanger = build(nature, file, options, &block)
         if exchanger.respond_to? :check
-          exchanger.import if exchanger.check
+          if exchanger.check
+            exchanger.import
+          else
+            Rails.logger.warn 'Cannot import file'
+            return false
+          end
         else
           exchanger.import
         end
@@ -81,7 +86,7 @@ module ActiveExchanger
       def find(nature)
         klass = @@exchangers[nature.to_sym]
         unless klass
-          raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
+          raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.keys.to_sentence(locale: :eng)})"
         end
         klass
       end

@@ -10,7 +10,6 @@
     - c.cobble :map do
       #map
         = visualization do |v|
-          - v.background "OpenStreetMap.HOT"
           - @supervision.items.each do |item|
             - next unless item.geolocalized?
             - serie_id = "sensor_#{item.id}".to_sym

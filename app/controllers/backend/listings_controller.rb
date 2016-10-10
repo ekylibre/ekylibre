@@ -23,7 +23,7 @@ module Backend
     list(order: :name) do |t|
       t.action :extract, url: { format: :csv }, image: :action
       # t.action :extract, url: {format: :csv, mode: :no_mail}, if: :can_mail?, image: :nomail
-      t.action :mail, if: :can_mail?
+      # t.action :mail, if: :can_mail?
       t.action :duplicate, method: :post
       t.action :edit
       t.action :destroy
@@ -47,7 +47,7 @@ module Backend
         query.gsub!(' ORDER BY ', ' AND (' + @listing.coordinate_columns.collect { |c| "#{c.name} NOT LIKE '%@%.%'" }.join(' AND ') + ') ORDER BY ') if params[:mode] == 'no_mail'
         # FIXME: Manage suppression of CURRENT_COMPANY...
         first_item = []
-        @listing.exportable_columns.each { |item| first_item << item.label }
+        @listing.exportable_fields.each { |item| first_item << item.label }
         result = ActiveRecord::Base.connection.select_rows(query)
         result.insert(0, first_item)
 
@@ -70,12 +70,12 @@ module Backend
     end
 
     def new
-      @listing = Listing.new
+      @listing = Listing.new root_model: params[:root_model], name: params[:name]
       # render_restfully_form
     end
 
     def create
-      @listing = Listing.new listing_params
+      @listing = Listing.new permitted_params
       return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
       # render_restfully_form
     end
@@ -88,7 +88,7 @@ module Backend
 
     def update
       return unless @listing = find_and_check
-      @listing.attributes = listing_params
+      @listing.attributes = permitted_params
       return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
       t3e @listing.attributes
       # render_restfully_form
@@ -162,7 +162,7 @@ module Backend
 
     protected
 
-    def listing_params
+    def permitted_params
       params.require(:listing).permit!
     end
   end

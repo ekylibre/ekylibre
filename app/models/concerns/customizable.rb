@@ -17,9 +17,9 @@ module Customizable
     custom_fields[field.column_name]
   end
 
-  def set_custom_value(field, _value)
+  def set_custom_value(field, value)
     self.custom_fields ||= {}
-    self.custom_fields[field.column_name]
+    self.custom_fields[field.column_name] = value
   end
 
   def validate_custom_fields

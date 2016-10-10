@@ -23,7 +23,7 @@
             %span.value= resource.declarant.full_name
           .med-info
             %span.title= :net_surface_area.tl
-            %span.value= resource.net_surface_area
+            %span.value= resource.human_net_surface_area
           .med-info
             %span.title= :number_of_cap_islets.tl
             %span.value= resource.cap_islets.count
@@ -60,10 +60,6 @@
       = visualization(box: {height: "100%"}) do |v|
         - v.serie :land_parcels, land_parcels
         - v.serie :islets, islets
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.background "Esri.WorldImagery"
         - v.simple :cap_islets, :islets
         - v.categories :main_crop_code, :land_parcels
         - v.control :zoom

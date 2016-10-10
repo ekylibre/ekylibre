@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update product natures seed">
+  <item-change item="product_natures#seed" frozen_indicators="net_mass, thousand_grains_mass, grains_count"/>
+  <item-change item="product_nature_variants#seed" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 45gram, grains_count: 1.00thousand"/>
+</migration>

@@ -6,7 +6,7 @@
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <output name="cultivation" filter="is plant" cardinality="1">
+        <output name="plant" filter="is plant" cardinality="1">
           <attribute name="new_name"/>
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>
@@ -43,17 +43,18 @@
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"
                  forward="VALUE / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare"
-                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0"
-                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_volume(liter)"/>
       </input>
-      <tool name="sower"   filter="can sow"/>
-      <tool name="tractor" filter="can tow(equipment) and can move"/>
-      <doer name="driver"  filter="can drive(equipment) and can move"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="sower"   filter="can sow" cardinality="*"/>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

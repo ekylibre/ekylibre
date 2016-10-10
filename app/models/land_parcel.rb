@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -82,8 +83,8 @@ class LandParcel < Easement
     end
   end
 
-  protect(on: :destroy) do
-    activity_productions.any?
+  def destroyable?
+    super && !(activity_productions.any? || analyses.any?)
   end
 
   def administrative_area

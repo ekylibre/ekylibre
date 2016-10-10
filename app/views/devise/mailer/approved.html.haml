@@ -1,0 +1,6 @@
+%p= t("devise.mailer.registrations.approved.hello", first_name: @resource.first_name, last_name: @resource.last_name)
+
+%p= t("devise.mailer.registrations.approved.accepted", url: URI(root_url).host)
+
+%p= link_to t("devise.mailer.registrations.approved.sign_in"), new_user_session_url
+

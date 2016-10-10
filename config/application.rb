@@ -13,6 +13,9 @@ module Ekylibre
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths << Rails.root.join('lib')
 
+    # We want to use the structure.sql file
+    config.active_record.schema_format = :sql
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
@@ -45,8 +48,6 @@ module Ekylibre
     #   end
     # end
 
-    config.middleware.use I18n::JS::Middleware
-
     config.middleware.insert_after ActionDispatch::ParamsParser, ActionDispatch::XmlParamsParser
 
     # Configure layouts for devise
@@ -61,8 +62,7 @@ module Ekylibre
     initializer :after_append_asset_paths, group: :all, after: :append_assets_path do
       { 'jquery-ui-rails' => ['app/assets/images'],
         'active_list' => ['app/assets/images'],
-        'bootstrap-sass' => ['assets/images', 'assets/fonts']
-      }.each do |gem, paths|
+        'bootstrap-sass' => ['assets/images', 'assets/fonts'] }.each do |gem, paths|
         root = Pathname.new(Gem.loaded_specs[gem].full_gem_path)
         paths.each do |path|
           config.assets.paths.delete_if { |p| p.to_s == root.join(path).to_s }

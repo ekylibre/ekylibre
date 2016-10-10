@@ -21,9 +21,11 @@ ActiveSupport::Inflector.inflections do |inflect|
   # Although Equipment is always uncountable, we need to have a different for
   # better understanding in code
   inflect.irregular 'equipment', 'equipments'
+  inflect.irregular 'abacus', 'abaci'
   inflect.irregular 'fungus', 'fungi'
   inflect.irregular 'maximum', 'maxima'
   inflect.irregular 'minimum', 'minima'
+  inflect.irregular 'criterion', 'criteria'
 end
 
 # Set pluralization active with the algorithms defined in [locale]/i18n.rb

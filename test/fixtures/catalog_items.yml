@@ -130,3 +130,63 @@ catalog_items_007:
   updated_at: 2014-11-05 09:46:51.845876000 Z
   updater_id: 1
   variant_id: 19
+catalog_items_008:
+  all_taxes_included: false
+  amount: 15.0
+  catalog_id: 3
+  commercial_description: ''
+  commercial_name: ''
+  created_at: 2016-07-01 20:48:11.670286000 Z
+  creator_id: 1
+  currency: EUR
+  id: 20
+  lock_version: 0
+  name: Employé
+  updated_at: 2016-07-01 20:48:11.670286000 Z
+  updater_id: 1
+  variant_id: 23
+catalog_items_009:
+  all_taxes_included: false
+  amount: 1500.0
+  catalog_id: 5
+  commercial_description: ''
+  commercial_name: ''
+  created_at: 2016-07-01 20:48:21.455953000 Z
+  creator_id: 1
+  currency: EUR
+  id: 21
+  lock_version: 0
+  name: Ammonitre 33,5%  Big Bag
+  updated_at: 2016-07-01 20:48:21.455953000 Z
+  updater_id: 1
+  variant_id: 39
+catalog_items_010:
+  all_taxes_included: false
+  amount: 22.0
+  catalog_id: 3
+  commercial_description: ''
+  commercial_name: ''
+  created_at: 2016-07-01 20:48:30.925872000 Z
+  creator_id: 1
+  currency: EUR
+  id: 22
+  lock_version: 0
+  name: "Épandeur à engrais"
+  updated_at: 2016-07-01 20:48:30.925872000 Z
+  updater_id: 1
+  variant_id: 37
+catalog_items_011:
+  all_taxes_included: false
+  amount: 16.0
+  catalog_id: 3
+  commercial_description: ''
+  commercial_name: ''
+  created_at: 2016-07-01 20:48:38.739313000 Z
+  creator_id: 1
+  currency: EUR
+  id: 23
+  lock_version: 0
+  name: Tracteur
+  updated_at: 2016-07-01 20:48:38.739313000 Z
+  updater_id: 1
+  variant_id: 26

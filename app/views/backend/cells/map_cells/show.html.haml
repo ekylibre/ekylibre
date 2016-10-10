@@ -5,6 +5,41 @@
 
 - if @campaigns && activity_productions.where.not(support_shape: nil).any?
   :ruby
+    sensor_data = []
+    Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
+      items = sensors.map do |sensor|
+        if sensor.analyses.last && sensor.analyses.last.geolocation
+          analysis = sensor.analyses.last
+          popup_lines = analysis.items.map do |item|
+            next unless item.value.respond_to? :l
+            { label: item.human_indicator_name, content: item.value.l }
+          end
+
+          battery = sensor.battery_level
+          popup_lines << { label: sensor.human_attribute_name(:battery_level), content: battery.to_s } if battery.present?
+          transmission = sensor.last_transmission_at
+          popup_lines << { label: sensor.human_attribute_name(:last_transmission_at), content: transmission.localize } if transmission.present?
+
+          bottom_line = ""
+          bottom_line << "<span>#{link_to(:see_more_details.tl, sensor.partner_url)}</span>" if sensor.partner_url.present?
+          bottom_line << "<i class='icon icon-battery-alert' style='color: red;'></i>" if sensor.alert_on? "battery_life"
+          bottom_line << "<i class='icon icon-portable-wifi-off' style='color: red;'></i>" if sensor.alert_on? "lost_connection"
+          popup_lines << ("<div style='display: flex; justify-content: space-between'>"+bottom_line+"</div>").html_safe
+          header_content = "<span class='sensor-name'>#{sensor.name}</span>#{lights(sensor.alert_status)}".html_safe
+          {
+            sensor_id: sensor.id,
+            name: sensor.name,
+            shape: analysis.geolocation,
+            shape_color: '#'+Digest::MD5.hexdigest(model)[0, 6].upcase,
+            group: model.camelize,
+            popup: {header: header_content, content: popup_lines }
+          }
+        end
+      end
+
+      sensor_data += (items || []).compact
+    end
+
     activity_productions.of_campaign(@campaigns).find_each do |support|
       next unless support.support_shape
       popup_content = []
@@ -49,24 +84,56 @@
       # TODO refactor
       #measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
       #yield_symbol = Nomen::Unit[measure_unit.to_sym]
-      mass_unit_name = :quintal
       surface_unit_name = :hectare
 
-      if params[:visualization] == "grain_yield"
-        popup_content << {label: :grain_yield.tl, value: support.grains_yield.round(2).l}
+      grass_yield = nil
+      grain_yield = nil
+
+      # case fodder (hay, grass) in ton per hectare
+      if support.usage == 'fodder' || support.usage == 'fiber'
+        matter = :grass
+        label = :grass_yield
+        mass_unit_name = :ton
+        grass_yield = support.harvest_yield(matter, procedure_category: :harvesting,
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
+      # case grain in quintal per hectare
+      elsif support.usage == 'grain' || support.usage == 'seed'
+        matter = :grain
+        label = :grain_yield
+        mass_unit_name = :quintal
+        grain_yield = support.harvest_yield(matter, procedure_category: :harvesting,
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
+      else
+        matter = :grain
+        label = :grain_yield
+        mass_unit_name = :quintal
+        grain_yield = support.harvest_yield(matter, procedure_category: :harvesting,
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
+      end
+
+
+
+      if params[:visualization] == "grain_yield" && grain_yield && label
+        popup_content << { label: label.tl, value: grain_yield.round(2).l }
       end
 
       #if support.net_surface_area
       #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
       #end
 
-      interventions = support.interventions
+      interventions = support.interventions.real
       if interventions.any?
-        spent_time = interventions.map(&:working_duration).compact.sum
-        popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}"}
+        spent_time = interventions.sum(:working_duration)
+        popup_content << { label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}" }
 
-        last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
-        popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
+        last_intervention = interventions.order(started_at: :desc).first
+        popup_content << { label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
       end
 
       popup_content << render('popup', production: support)
@@ -83,7 +150,8 @@
         # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
         # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
         interventions_count: interventions.count,
-        grain_yield: support.grains_yield.to_s.to_f.round(2),
+        grain_yield: grain_yield.to_s.to_f.round(2),
+        grass_yield: grass_yield.to_s.to_f.round(2),
         popup: {header: true, content: popup_content}
       }
       data << item
@@ -93,12 +161,13 @@
 - if data.empty?
   .placeholding-message= :no_production_defined_for_current_campaign.tn
 - else
-  = visualization do |v|
+  = visualization({}, { class: "refresh-locations" }) do |v|
     - v.serie :main, data
-    - v.background "OpenStreetMap.HOT"
-    - v.background "OpenStreetMap.Mapnik"
-    - v.background "Thunderforest.Landscape"
-    - v.background "Esri.WorldImagery"
+
+    - unless sensor_data.blank?
+      - v.serie :sensor_data, sensor_data
+      - v.point_group :sensors, :sensor_data
+
     - if params[:visualization] == "nitrogen_footprint"
       - v.choropleth :interventions_count, :main
       -# v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
@@ -106,7 +175,8 @@
       -# v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
       - v.categories :activity, :main
     - elsif params[:visualization] == "grain_yield"
-      - v.choropleth :grain_yield, :main, stop_color: "#00AA00"
+      - v.choropleth :grain_yield, :main, stop_color: "#E77000"
+      - v.choropleth :grass_yield, :main, stop_color: "#00AA00"
       -# v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
       - v.categories :activity, :main
     - else
@@ -114,6 +184,8 @@
       - v.choropleth :input_cost, :main, stop_color: "#1122DD"
       - v.choropleth :time_cost, :main, stop_color: "#E77000"
       - v.categories :activity, :main
+
+
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen

@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -97,18 +98,25 @@ class Product < Ekylibre::Record::Base
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
-  has_many :intervention_product_parameters, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
+  has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
+  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles([:input, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
+  has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
+  has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
+  has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
+  has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
+  has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
+  has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
@@ -121,6 +129,7 @@ class Product < Ekylibre::Record::Base
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
@@ -158,7 +167,7 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
-  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
+  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gteq(at)))) }
   scope :of_owner, lambda { |owner|
     if owner.is_a?(Symbol)
       joins(:current_ownership).where(product_ownerships: { nature: owner })
@@ -206,26 +215,53 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { where(dead_at: nil) }
-  scope :availables, -> { available }
+  scope :available, -> {}
+  scope :alive, -> { where(dead_at: nil) }
+  scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
-  scope :storage, -> { can('store(product)') } #-> { of_variety([:building_division, :equipment]) }
+  scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
+  scope :plants, -> { where(type: 'Plant') }
+
+  scope :mine, -> { of_owner(:own) }
+  scope :mine_or_undefined, ->(at = nil) {
+    at ||= Time.zone.now
+    where.not(id: ProductOwnership.select(:product_id).where(nature: :other).at(at))
+  }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_numericality_of :initial_population, allow_nil: true
-  validates_presence_of :category, :name, :nature, :number, :variant, :variety
+  validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :initial_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :category, :nature, :variant, :variety, presence: true
   # ]VALIDATORS]
-  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_presence_of :nature, :variant, :name, :uuid
+  validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
+  validates :nature, :variant, :name, :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
+
+  validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
+  validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
+
+  def born_at_in_interventions
+    return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
+    first_used_at = first_intervention.started_at
+    errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
+  end
+
+  def dead_at_in_interventions
+    last_used_at = interventions.order(stopped_at: :desc).first.stopped_at
+    errors.add(:dead_at, :on_or_after, restriction: last_used_at.l) if dead_at < last_used_at
+  end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
     !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
@@ -234,6 +270,7 @@ class Product < Ekylibre::Record::Base
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
+           :identifiable?,
            to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list,
            :abilities, :abilities_list, :indicators, :indicators_list,
@@ -246,6 +283,10 @@ class Product < Ekylibre::Record::Base
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
+    self.born_at ||= self.initial_born_at
+    self.initial_born_at = self.born_at
+    self.dead_at ||= initial_dead_at
+    self.initial_dead_at = self.dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 
@@ -260,16 +301,19 @@ class Product < Ekylibre::Record::Base
   end
 
   validate do
-    if self.nature && self.variant
-      errors.add(:nature_id, :invalid) if self.variant.nature_id != nature_id
+    if nature && variant
+      errors.add(:nature_id, :invalid) if variant.nature_id != nature_id
     end
-    if self.variant
-      if variety
+    if dead_at && born_at
+      errors.add(:dead_at, :invalid) if dead_at < born_at
+    end
+    if variant
+      if variety && Nomen::Variety.find(variant_variety)
         unless Nomen::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)
         end
       end
-      if derivative_of
+      if derivative_of && Nomen::Variety.find(variant_derivative_of)
         unless Nomen::Variety.find(variant_derivative_of) >= derivative_of
           errors.add(:derivative_of, :invalid)
         end
@@ -291,6 +335,37 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
+    def availables(**args)
+      at = args[:at]
+      return available if at.blank?
+      if at.is_a?(String)
+        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+        else
+          logger.warn('Cannot parse: ' + at)
+          available
+        end
+      else
+        available.at(at)
+      end
+    end
+  end
+
+  def production(at = nil)
+    distributions.at(at || Time.zone.now).first
+  end
+
+  def activity
+    production ? production.activity : nil
+  end
+
+  def activity_id
+    activity ? activity.id : nil
+  end
+
+  def best_activity_production(_options = {})
+    ActivityProduction.where(support: self).order(id: :desc).first
   end
 
   # TODO: Removes this ASAP
@@ -306,9 +381,16 @@ class Product < Ekylibre::Record::Base
     nature ? nature.name : nil
   end
 
-  # FIXME: Not I18nized
   def work_name
-    "#{name} (#{work_number})"
+    if work_number.present?
+      # FIXME: Not I18nized
+      name.to_s + ' (' + work_number.to_s + ')'
+    elsif identification_number.present?
+      # FIXME: Not I18nized
+      name.to_s + ' (' + identification_number.to_s + ')'
+    else
+      name
+    end
   end
 
   def unroll_name
@@ -339,6 +421,7 @@ class Product < Ekylibre::Record::Base
       movement.delta = initial_population
       movement.started_at = born_at
       movement.save!
+      update_column(:initial_movement_id, movement.id)
 
       # Initial shape
       if initial_shape && variable_indicators_list.include?(:shape)
@@ -356,9 +439,10 @@ class Product < Ekylibre::Record::Base
       phase.variant = variant
       phase.save!
       # set indicators from variant in products readings
-      for f_v_indicator in variant.readings
-        reading = readings.new(indicator_name: f_v_indicator.indicator_name)
-        reading.value = f_v_indicator.value
+      variant.readings.each do |variant_reading|
+        reading = readings.first_of_all(variant_reading.indicator_name) ||
+                  readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = variant_reading.value
         reading.read_at = born_at
         reading.save!
       end
@@ -492,12 +576,9 @@ class Product < Ekylibre::Record::Base
   end
 
   def population(options = {})
-    movements = self.movements.at(options[:at] || Time.zone.now)
-    if movements.any?
-      return movements.last.population
-    else
-      return 0.0
-    end
+    pops = populations.last_before(options[:at] || Time.zone.now)
+    return 0.0 if pops.none?
+    pops.first.value
   end
 
   # Moves population with given quantity
@@ -607,7 +688,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    new_record? || !(parcel_items.any? || intervention_product_parameters.any? || fixed_asset.present?)
+    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_asset.present?)
   end
 
   # TODO: Doc
@@ -630,11 +711,21 @@ class Product < Ekylibre::Record::Base
     list
   end
 
-  # Returns working duration of a product
-  def working_duration(options = {})
-    role = options[:as] || :tool
-    periods = InterventionWorkingPeriod.with_generic_cast(role, self)
-    periods = periods.of_campaign(options[:campaign]) if options[:campaign]
-    periods.sum(:duration)
+  # Override net_surface_area indicator to compute it from shape if
+  # product has shape indicator unless options :strict is given
+  def net_surface_area(options = {})
+    # TODO: Manage global preferred surface unit or system
+    area_unit = options[:unit] || :hectare
+    if !options.keys.detect { |k| [:gathering, :interpolate, :cast].include?(k) } &&
+       has_indicator?(:shape) && !options[:compute].is_a?(FalseClass)
+      unless options[:strict]
+        options[:at] = born_at if born_at && born_at > Time.zone.now
+      end
+      shape = get(:shape, options)
+      area = shape.area.in(area_unit).round(3) if shape
+    else
+      area = get(:net_surface_area, options)
+    end
+    area || 0.in(area_unit)
   end
 end

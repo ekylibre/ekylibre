@@ -1,0 +1,44 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :sampled_at
+    - l.attribute :sampling_area
+    - l.attribute :product_net_surface_area
+    - l.attribute :product, url: true
+    - l.attribute :activity, url: true
+    - l.attribute :comment
+
+
+= cobbles do |c|
+
+  - c.cobble(:totals) do
+    = render 'unit_selector', activity: resource.activity
+    = infos do
+      = render 'totals', resource: resource
+
+  - if resource.calibrations.any? && resource.any_quantity?
+    - c.cobble('stock_in_ground') do
+      = render 'unit_selector', activity: resource.activity
+      .chart-table
+        - resource.scales.each do |scale|
+          -if scale.natures.any? { |n| n.inspection_calibrations.any? }
+            = render 'charts', resource: resource, scale: scale
+
+  - c.cobble(:analyses) do
+    - analysis = resource.product.analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last
+    - if analysis
+      .med-info
+        %span.title= Analysis.human_attribute_name(:number)
+        %span.value
+          %i.picto{class: 'picto-flask'}
+          = link_to(analysis.number, {controller: :analyses, action: :show, id: analysis.id})
+    .help-panel
+      = link_to(:new.ta, {controller: :analyses, action: :new, nature: 'plant_analysis', product_id: resource.product.id, sampled_at: Time.now}, class: 'btn btn-default')
+
+  - if resource.measure_something? && (resource.points.any? || resource.calibrations.any?)
+    - c.cobble(:data) do
+      = hash_to_inspection_details(data_to_details_hash(resource)).html_safe

@@ -51,20 +51,24 @@
 
 class ListingNode < Ekylibre::Record::Base
   acts_as_list scope: :listing
-  acts_as_nested_set
+  acts_as_nested_set scope: :listing
   attr_readonly :listing_id, :nature
-  enumerize :nature, in: [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
+  enumerize :nature, in: [:root, :column, :datetime, :custom, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing, inverse_of: :nodes
   belongs_to :item_listing, class_name: 'Listing'
   belongs_to :item_listing_node, class_name: 'ListingNode'
-  has_many :items, class_name: 'ListingNodeItem'
+  has_many :items, class_name: 'ListingNodeItem', foreign_key: :node_id, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
-  validates_inclusion_of :exportable, in: [true, false]
-  validates_presence_of :depth, :label, :listing, :name, :nature
+  validates :attribute_name, :condition_operator, :condition_value, :item_nature, :key, :sql_type, length: { maximum: 500 }, allow_blank: true
+  validates :depth, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :exportable, inclusion: { in: [true, false] }
+  validates :item_value, length: { maximum: 500_000 }, allow_blank: true
+  validates :label, :name, presence: true, length: { maximum: 500 }
+  validates :lft, :rgt, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :listing, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :item_nature, allow_nil: true, maximum: 10
-  validates_uniqueness_of :key
+  validates :item_nature, length: { allow_nil: true, maximum: 10 }
+  validates :key, uniqueness: true
 
   autosave :listing
 
@@ -116,11 +120,14 @@ class ListingNode < Ekylibre::Record::Base
     elsif reflection?
       self.name = attribute_name.to_s + '_0'
     else
-      if parent.model
+      if nature == 'custom'
+        self.sql_type = convert_sql_type(parent.model.custom_fields.find_by_column_name(attribute_name).nature.to_s)
+        self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
+      elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
       end
       # raise StandardError.new self.attribute_name.inspect
-      self.name = parent.name.underscore + '.' + attribute_name
+      self.name ||= parent.name.underscore + '.' + attribute_name
     end
   end
 
@@ -146,7 +153,7 @@ class ListingNode < Ekylibre::Record::Base
 
   def compute_joins(sql_alias = nil)
     conditions = ''
-    for child in children.where('(nature = ? OR nature = ?)', 'belongs_to', 'has_many')
+    children.where('(nature = ? OR nature = ?)', 'belongs_to', 'has_many').find_each do |child|
       parent = sql_alias || name || child.parent.model.table_name
       if child.nature == 'has_many' # or child.nature == "belongs_to"
         conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.foreign_key} = #{parent}.id)"
@@ -196,9 +203,6 @@ class ListingNode < Ekylibre::Record::Base
     c
   end
 
-  def compute_condition
-  end
-
   def reflection?
     %w(belongs_to has_many root).include? nature.to_s
   end
@@ -230,7 +234,14 @@ class ListingNode < Ekylibre::Record::Base
     nodes = []
     return nodes unless reflection? && model = self.model
     # Columns
-    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.collect { |x| [model.human_attribute_name(x.name.to_s).to_s, 'column-' + x.name] }.sort]
+    column_nodes = model.content_columns.collect { |x| [model.human_attribute_name(x.name.to_s).to_s, 'column-' + x.name] }
+    if model.customizable?
+      column_nodes.delete_if { |_, col| col == 'column-custom_fields' }
+      model.custom_fields.each do |custom|
+        column_nodes << [custom.name, 'special-custom-' + custom.column_name]
+      end
+    end
+    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + column_nodes.sort]
     # Reflections
     nodes << [tc(:reflections), model.reflect_on_all_associations.select { |v| [:has_many, :belongs_to].include? v.macro }.collect { |r| [model.human_attribute_name(r.name).to_s, "#{r.macro}-#{r.name}"] }.sort]
     nodes

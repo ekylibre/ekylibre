@@ -19,8 +19,8 @@
 module Backend
   class ProductNatureVariantsController < Backend::BaseController
     manage_restfully active: true
-
     manage_restfully_incorporation
+    manage_restfully_picture
 
     unroll :name, :unit_name, :number
 
@@ -53,6 +53,7 @@ module Backend
       t.column :name, url: true
       t.column :number
       t.column :nature, url: true
+      t.column :category, url: true
       t.column :current_stock
       t.column :current_outgoing_stock_ordered_not_delivered
       t.column :unit_name
@@ -95,6 +96,11 @@ module Backend
       t.column :population
     end
 
+    list(:components, model: :product_nature_variant_component, conditions: { product_nature_variant_id: 'params[:id]'.c }, order: { parent_id: :desc }) do |t|
+      t.column :name
+      t.column :part_product_nature_variant, url: true
+    end
+
     # Returns quantifiers for a given variant
     def quantifiers
       return unless @product_nature_variant = find_and_check
@@ -102,6 +108,7 @@ module Backend
 
     def detail
       return unless @product_nature_variant = find_and_check
+      product_nature = @product_nature_variant.nature
       infos = {
         name: @product_nature_variant.name,
         number: @product_nature_variant.number,
@@ -110,6 +117,31 @@ module Backend
           name: @product_nature_variant.unit_name
         }
       }
+      if product_nature.subscribing?
+        entity = nil
+        address = nil
+        if params[:sale_address_id] || params[:purchase_address_id]
+          address = EntityAddress.mails.find_by(id: params[:sale_address_id] || params[:purchase_address_id])
+        end
+        if params[:sale_client_id] || params[:purchase_supplier_id]
+          entity = Entity.find_by(id: params[:sale_client_id] || params[:purchase_supplier_id])
+        end
+        entity ||= address.entity if address
+        started_on = Time.zone.today
+        subscription_nature = product_nature.subscription_nature
+        if entity
+          last_subscription = entity.last_subscription(subscription_nature)
+          started_on = last_subscription.stopped_on + 1 if last_subscription
+        end
+        address ||= entity.default_mail_address if entity
+        stopped_on = product_nature.subscription_stopped_on(started_on)
+        infos[:subscription] = {
+          nature_name: subscription_nature.name,
+          started_on: started_on,
+          stopped_on: stopped_on
+        }
+        infos[:subscription][:address_id] = address.id if address
+      end
       if @product_nature_variant.picture.file?
         infos[:picture] = @product_nature_variant.picture.url(:thumb)
       end

@@ -1,3 +1,5 @@
 require 'test_helper'
-class Authentication::PasswordsControllerTest < ActionController::TestCase
+module Authentication
+  class PasswordsControllerTest < ActionController::TestCase
+  end
 end

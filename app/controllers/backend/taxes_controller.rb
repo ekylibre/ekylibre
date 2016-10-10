@@ -25,15 +25,20 @@ module Backend
     list do |t|
       t.action :edit
       t.action :destroy
+      t.column :active
       t.column :name, url: true
       t.column :amount, precision: 3
-      t.column :reference_name
-      t.column :deduction_account, url: true
-      t.column :collect_account, url: true
+      t.column :nature
+      t.column :country
+      t.column :deduction_account, url: true, label_method: :number
+      t.column :collect_account, url: true, label_method: :number
+      t.column :fixed_asset_deduction_account, url: true, hidden: true, label_method: :number
+      t.column :fixed_asset_collect_account, url: true, hidden: true, label_method: :number
     end
 
     def load
-      Tax.import_all_from_nomenclature(Preference[:country].to_sym)
+      Tax.clean!
+      Tax.import_all_from_nomenclature(active: true)
       redirect_to params[:redirect] || { action: :index }
     end
   end

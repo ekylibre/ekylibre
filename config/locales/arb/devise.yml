@@ -11,6 +11,7 @@ arb:
       invalid_token: "رمز مصادقة صالح."
       invited: "لديك دعوة معلقة، استعرض للانتهاء من إنشاء حسابك."
       locked: "تم تأمين حسابك."
+      not_approved: "ولم تتم المصادقة على حسابك من قبل المسؤول الخاص بك حتى الآن."
       not_found_in_database: "البريد الإلكتروني أو كلمة السر خاطئة."
       timeout: "جلسة العمل الخاصة بك منتهية الصلاحية، الرجاء تسجيل الدخول مرة أخرى للمتابعة."
       unauthenticated: "تحتاج لتسجيل الدخول أو الاشتراك قبل المتابعة."
@@ -38,6 +39,16 @@ arb:
         ignore: "إذا كنت لا ترغب في قبول الدعوة، الرجاء تجاهل هذا البريد الإلكتروني. <br /> لن يتم إنشاء حسابك حتى وصول إلى الرابط أعلاه وتعيين كلمة المرور الخاصة بك."
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "تعليمات دعوة"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "تسجيل الدخول هنا."
+          subject: "وقد تمت الموافقة على حسابك!"
+        signed_up:
+          confirm: "يرجى تأكيد ذلك في لوحة الإدارة."
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "علامة جديدة تصل"
       reset_password_instructions:
         subject: "إعادة تعيين كلمة المرور تعليمات"
       unlock_instructions:
@@ -59,6 +70,8 @@ arb:
       signed_up_but_unconfirmed: "تم إرسال رسالة تحتوي على رابط تأكيد إلى عنوان البريد الإلكتروني الخاص بك. يرجى فتح الرابط لتفعيل حسابك."
       update_needs_confirmation: "قمت بتحديث حسابك بنجاح، لكننا بحاجة للتحقق من عنوان بريدك الإلكتروني الجديد. يرجى التحقق من البريد الإلكتروني الخاص بك وانقر على الرابط تأكيد لوضع اللمسات الأخيرة تؤكد عنوان بريدك الإلكتروني الجديد."
       updated: "قمت بتحديث حسابك بنجاح."
+      user:
+        signed_up_but_not_approved: "كنت قد وقعت بنجاح ولكن لم يتم الموافقة على حسابك الخاص من قبل المسؤول الخاص بك حتى الآن"
     sessions:
       signed_in: "وقعت في بنجاح."
       signed_out: "وقعت بنجاح."

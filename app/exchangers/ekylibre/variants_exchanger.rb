@@ -8,9 +8,10 @@ module Ekylibre
   # D: Variety CF NOMENCLATURE
   # E: Derivative CF NOMENCLATURE
   # F: Purchase pretax amount price
-  # G: Sale pretax amount price
-  # H: Price unity
-  # I: Indicators - HASH
+  # G: Stock pretax amount price
+  # H: Sale pretax amount price
+  # I: Price unity
+  # J: Indicators - HASH
   class VariantsExchanger < ActiveExchanger::Base
     # Create or updates variants
     def import
@@ -34,7 +35,7 @@ module Ekylibre
             stock_unit_pretax_amount: s.cell('G', row).blank? ? nil : s.cell('G', row).to_d,
             sale_unit_pretax_amount: s.cell('H', row).blank? ? nil : s.cell('H', row).to_d,
             price_unity: s.cell('I', row).blank? ? nil : s.cell('I', row).to_s.strip.split(/[\,\.\/\\\(\)]/),
-            indicators: s.cell('J', row).blank? ? {} : s.cell('J', row).to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+            indicators: s.cell('J', row).blank? ? {} : s.cell('J', row).to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
               h[i.first.strip.downcase.to_sym] = i.second
               h
             end,
@@ -46,19 +47,34 @@ module Ekylibre
             next
           end
           # force import variant from reference_nomenclature and update his attributes.
-          if Nomen::ProductNatureVariant.find(r.reference_name)
-            variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
+          if r.reference_name.to_s.start_with? '>'
+            reference_name = r.reference_name[1..-1]
+            if Nomen::ProductNature.find(reference_name)
+              nature = ProductNature.import_from_nomenclature(reference_name)
+              variant = nature.variants.new(name: r.name, active: true)
+            elsif (nature = ProductNature.find_by(number: reference_name))
+              variant = nature.variants.new(name: r.name, active: true)
+            end
+          elsif Nomen::ProductNatureVariant.find(r.reference_name)
+            variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, active: true)
           elsif Nomen::ProductNature.find(r.reference_name)
             nature = ProductNature.import_from_nomenclature(r.reference_name, true)
-            variant = nature.variants.new(name: nature.name)
+            variant = nature.variants.new(name: nature.name, active: true)
           else
             raise 'Invalid reference name: ' + r.reference_name.inspect
           end
           # update variant with attributes in the current row
           variant.name = r.name if r.name
-          variant.number = r.work_number if r.work_number
+          variant.work_number = r.work_number if r.work_number
+          variant.unit_name ||= :unit.tl
           variant.france_maaid = r.france_maaid if r.france_maaid
           variant.save!
+
+          if r.indicators.any?
+            r.indicators.each do |indicator_name, value|
+              variant.read! indicator_name, value
+            end
+          end
 
           if r.price_unity
             # Find unit and matching indicator

@@ -112,3 +112,17 @@ custom_fields_005:
   required: false
   updated_at: 2016-02-08 10:30:40.852803000 Z
   updater_id: 1
+custom_fields_006:
+  active: true
+  column_name: account_custom_test
+  created_at: 2016-07-13 13:09:40.852803000 Z
+  creator_id: 1
+  customized_type: Account
+  id: 6
+  lock_version: 0
+  name: Account CF test
+  nature: text
+  position: 1
+  required: false
+  updated_at: 2016-07-13 13:09:40.852803000 Z
+  updater_id: 1

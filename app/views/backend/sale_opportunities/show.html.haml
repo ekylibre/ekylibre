@@ -11,10 +11,10 @@
     - if resource.dead_line_at
       .med-info
         %span.title= SaleOpportunity.human_attribute_name(:timeleft)
-        %span.value= human_age(resource.timeleft, display: 2)
+        %span.value= human_interval(resource.timeleft, display: 2)
       .med-info
         %span.title= SaleOpportunity.human_attribute_name(:age)
-        %span.value= human_age(resource.age, display: 2)
+        %span.value= human_interval(resource.age, display: 2)
 
   .pull-right
     .med-info

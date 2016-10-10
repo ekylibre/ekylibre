@@ -53,6 +53,8 @@ module Backend
       t.column :balance, currency: true, hidden: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     def new
@@ -62,10 +64,8 @@ module Backend
       @journal_entry.printed_on = params[:printed_on] || Time.zone.today
       @journal_entry.number = @journal.next_number
       @journal_entry.real_currency_rate = params[:exchange_rate].to_f
-      @journal_entry_items = []
-
       if request.xhr?
-        render(partial: 'backend/journal_entries/items_form')
+        render(partial: 'backend/journal_entries/items_form', locals: { items: @journal_entry.items })
       else
         t3e @journal.attributes
       end

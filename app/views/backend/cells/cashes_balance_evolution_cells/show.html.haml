@@ -22,6 +22,6 @@
       series << {name: cash.name, data: data }
     end
 
-  = spline_highcharts(series,legend: { align: 'center', vertical_align: 'bottom', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})
+  = spline_highcharts(series, legend: { align: 'center', vertical_align: 'bottom', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})
 - else
   = no_data

@@ -1,10 +1,13 @@
 - series = []
-- if @campaign && Intervention.of_civil_year(@campaign.harvest_year).any?
+- interventions = Intervention.real.of_civil_year(@campaign.harvest_year)
+- if @campaign && interventions.any?
   :ruby
-    started_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).first.started_at.to_date
-    stopped_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).last.stopped_at.to_date
+    started_at = interventions.reorder(:started_at).first.started_at.to_date
+    stopped_at = interventions.reorder(:started_at).last.stopped_at.to_date
 
     unit = Nomen::Unit[:hour]
+
+    cost_unit = Nomen::Currency[Preference[:currency]]
 
     categories = {}
 
@@ -17,20 +20,20 @@
 
     # data for bar chart times by activities and by month
     Activity.actives.find_each do |activity|
-    puts activity.inspect.red
       activity_target_id = activity.productions.pluck(:support_id)
       targets = Product.find(activity_target_id)
-      interventions = Intervention.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
+      interventions = Intervention.real.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
       if interventions.any?
         sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
           hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
           hash
         end
-        #sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
-        #  hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
+        series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color, stack: 'time'}
+        #cost_sums = interventions.inject({}) do |hash, i|
+        #  hash[i.started_at.year.to_s + '0' + i.started_at.month.to_s] = i.total_cost.to_s.to_f
         #  hash
         #end
-        series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color}
+        #series << { name: activity.name, data: normalize_serie(cost_sums, categories.keys), tooltip: {value_suffix: cost_unit.symbol }, color: activity.color, stack: 'cost'}
       end
     end
 

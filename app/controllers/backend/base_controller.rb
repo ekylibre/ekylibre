@@ -18,7 +18,7 @@
 
 module Backend
   class BaseController < ::BaseController
-    include Unrollable, RestfullyManageable
+    include Unrollable, RestfullyManageable, Autocomplete
     protect_from_forgery
 
     layout :dialog_or_not
@@ -27,10 +27,14 @@ module Backend
     before_action :authorize_user!
     before_action :set_versioner
     before_action :set_current_campaign
+    before_action :set_current_period_interval
+    before_action :set_current_period
 
     include Userstamp
 
     helper_method :current_campaign
+    helper_method :current_period_interval
+    helper_method :current_period
 
     protected
 
@@ -45,6 +49,36 @@ module Backend
         if current_campaign != campaign
           @current_campaign = campaign
           current_user.current_campaign = @current_campaign
+        end
+      end
+    end
+
+    def current_period_interval
+      @current_period_interval ||= current_user.current_period_interval
+    end
+
+    def set_current_period_interval
+      if params[:current_period_interval]
+        period_interval = params[:current_period_interval].to_sym
+        current_period_interval = current_user.current_period_interval.to_sym
+        if period_interval != current_period_interval
+          @current_period_interval = period_interval
+          current_user.current_period_interval = @current_period_interval
+        end
+      end
+    end
+
+    def current_period
+      @current_period ||= current_user.current_period
+    end
+
+    def set_current_period
+      if params[:current_period]
+        period = params[:current_period].to_date
+        current_period = current_user.current_period.to_date
+        if period != current_period
+          @current_period = period
+          current_user.current_period = @current_period.to_s
         end
       end
     end
@@ -218,27 +252,6 @@ module Backend
     end
 
     class << self
-      # Autocomplete helper
-      def autocomplete_for(column, options = {})
-        model = (options.delete(:model) || controller_name).to_s.classify.constantize
-        item =  model.name.underscore.to_s
-        items = item.pluralize
-        items = "many_#{items}" if items == item
-        code =  "def #{__method__}_#{column}\n"
-        code << "  if params[:term]\n"
-        code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
-        code << "    @#{items} = #{model.name}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
-        code << "    respond_to do |format|\n"
-        code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
-        code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
-        code << "    end\n"
-        code << "  else\n"
-        code << "    render :text => '', :layout => true\n"
-        code << "  end\n"
-        code << "end\n"
-        class_eval(code, "#{__FILE__}:#{__LINE__}")
-      end
-
       # search is a hash like {table: [columns...]}
       def search_conditions(search = {}, options = {})
         conditions = options[:conditions] || 'c'
@@ -249,23 +262,30 @@ module Backend
         code = "\n#{conditions} = ['1=1']\n"
         columns = search.collect do |table, filtered_columns|
           filtered_columns.collect do |column|
-            ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
+            (table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table).to_s +
               '.' +
-              ActiveRecord::Base.connection.quote_column_name(column)
+              column.to_s
           end
         end.flatten
-        code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
+        code << "#{variable}.to_s.lower.split(/\\s+/).each do |kw|\n"
         code << "  kw = '%'+kw+'%'\n"
         filters = columns.collect do |x|
-          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) LIKE ?'
+          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) ILIKE ?'
         end
-        values = '[' + (['kw'] * columns.size).join(', ') + ']'
-        for k, v in options[:filters]
+        exp_count = columns.size
+        if options[:expressions]
+          filters += options[:expressions].collect do |x|
+            x.to_s + ' ILIKE ?'
+          end
+          exp_count += options[:expressions].count
+        end
+        values = '[' + (['kw'] * exp_count).join(', ') + ']'
+        options[:filters].each do |k, v|
           filters << k
           v = '[' + v.join(', ') + ']' if v.is_a? Array
           values += '+' + v
         end
-        code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
+        code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
         code << "  #{conditions} += #{values}\n"
         code << "end\n"
         code << conditions.to_s
@@ -304,7 +324,7 @@ module Backend
       def journal_period_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
-        code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_at], #{variable}[:stopped_at])\n"
+        code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
         code.c
       end
 

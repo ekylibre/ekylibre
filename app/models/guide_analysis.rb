@@ -37,16 +37,16 @@
 #
 class GuideAnalysis < Ekylibre::Record::Base
   belongs_to :guide, inverse_of: :analyses
-  has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id
+  has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id, dependent: :destroy
   enumerize :acceptance_status, in: [:passed, :passed_with_warnings, :failed, :errored], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(guide_analysis) { guide_analysis.stopped_at && guide_analysis.started_at }
-  validates_numericality_of :execution_number, allow_nil: true, only_integer: true
-  validates_inclusion_of :latest, in: [true, false]
-  validates_presence_of :acceptance_status, :execution_number, :guide, :started_at, :stopped_at
+  validates :acceptance_status, :guide, presence: true
+  validates :execution_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :latest, inclusion: { in: [true, false] }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(guide_analysis) { guide_analysis.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
-  validates_inclusion_of :acceptance_status, in: acceptance_status.values
+  validates :acceptance_status, inclusion: { in: acceptance_status.values }
 
   scope :latests, -> { where(latest: true) }
   selects_among_all :latest, scope: :guide_id

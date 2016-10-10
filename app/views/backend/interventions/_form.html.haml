@@ -1,17 +1,33 @@
 - if f.object.errors.any? && Rails.env.development?
   = f.object.errors.inspect
 - procedure = f.object.procedure
-- if procedure = f.object.procedure
+- content_for :main_title do
+  - interpolations = { number: f.object.number, nature: f.object.nature.l }
+  - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
+  - if procedure
+    - action_title_key << '_specified'
+    - interpolations[:procedure_name] = procedure.human_name
+  - action_title_key << "_#{f.object.nature}" unless f.object.record?
+  = "actions.#{controller_path}.#{action_title_key}".t(interpolations)
+
+- if procedure
   = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
+    = f.input :nature, as: :hidden
+    = f.input :state, as: :hidden
     = f.referenced_association :issue, new: false
+    - if f.object.record?
+      = f.referenced_association :request_intervention, new: false, as: :hidden
     = f.input :description
     - procedure.mandatory_actions.each do |a|
       = hidden_field_tag('intervention[actions][]', a.name)
     - if procedure.optional_actions.any?
-      = f.items_list(:actions, selection: procedure.optional_actions_selection)
-
+      = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
+    - if f.object.record?
+      = f.input :trouble_encountered, show: '#problem-description'
+      #problem-description
+        = f.input :trouble_description, as: :text
     = f.custom_fields
     #prescriptions
       = f.referenced_association :prescription
@@ -22,22 +38,25 @@
         - started_at ||= stopped_at - 1.hour
         - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
       = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'})
+    #labellings
+      = f.nested_association(:labellings)
 
   = field_set :parameters do
     - procedure.each_parameter do |parameter|
       = render 'parameter_form', reference: parameter, f: f, namespace: ''
 
 - else # Root Procedure Natures
-  - main_campaign_selector
+  - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|
     - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?
     .activity-family
-      %h2.activity-family-name= family.human_name
-      .activity-family-procedures
+      .activity-family-heading
+        %h2.activity-family-title= family.human_name
+      .activity-family-body
         - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
-          = dropdown_menu_button(category.human_name, class: 'btn-group-lg') do |menu|
-            - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect] }
+          = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
+            - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
+              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
   - f.clear_actions!

@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -71,8 +72,8 @@ class Animal < Bioproduct
   belongs_to :initial_father, class_name: 'Animal'
   belongs_to :initial_mother, class_name: 'Animal'
 
-  validates_presence_of :identification_number
-  validates_uniqueness_of :identification_number
+  validates :identification_number, presence: true
+  validates :identification_number, uniqueness: true
 
   scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }
   scope :mothers, -> { indicate(sex: 'female', reproductor: true).order(:name) }
@@ -104,5 +105,10 @@ class Animal < Bioproduct
 
   def variety_text
     "nomenclatures.varieties.items.#{variety}".t
+  end
+
+  def best_activity_production(options = {})
+    at = options[:at] || Time.zone.now
+    ActivityProduction.where(support: groups_at(at)).at(at).first || super
   end
 end

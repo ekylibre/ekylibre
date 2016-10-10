@@ -5,6 +5,8 @@ jpn:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "新しいパスワード"
+    authentication/registrations:
+      new: "サインアップ"
     authentication/sessions:
       destroy: "ログアウト"
       new: "ログイン"
@@ -25,18 +27,19 @@ jpn:
       # show: "Activity: %{name}"
     backend/activity_budgets:
       # edit: "Edit budget: %{name}"
-      # new: "New budget: %{name}"
+      new: "新しい予算"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      index: "プロダクション"
       new: "新しいアクティビティ生産"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "業務"
-      # select: "Select for affair %{number}"
+      select: "不倫に追加するレコードを選択"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -58,9 +61,10 @@ jpn:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      import: "インポートOFXファイル"
       index: "銀行取引明細書"
       new: "新銀行取引明細書"
-      # point: "Point bank statement %{number}"
+      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       # show: "Account statement N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -81,20 +85,20 @@ jpn:
       new: "新しいキャンペーン"
       # show: "Campaign %{name}"
     backend/cap_islets:
-      # edit: "Edit cap islet: %{islet_number}"
+      # edit: "Edit CAP islet: %{islet_number}"
       index: "キャップの島"
       new: "新しいキャップ島"
-      # show: "Cap islet: %{islet_number}"
+      # show: "CAP islet: %{islet_number}"
     backend/cap_land_parcels:
-      # edit: "Edit cap land parcel: %{land_parcel_number}"
+      # edit: "Edit CAP land parcel: %{land_parcel_number}"
       index: "キャップ土地区画"
       new: "新しいキャップ土地区画"
-      # show: "Cap land parcel: %{land_parcel_number}"
+      # show: "CAP land parcel: %{land_parcel_number}"
     backend/cap_statements:
-      # edit: "Edit cap statement: %{id}"
+      # edit: "Edit CAP statement: %{id}"
       index: "キャップ文"
       new: "新しいキャップステートメント"
-      # show: "Cap statement: %{id}"
+      # show: "CAP statement: %{id}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
       index: "現金移転"
@@ -114,8 +118,6 @@ jpn:
       index: "カタログ"
       new: "新カタログ"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "パン粉"
     backend/cultivable_zones:
@@ -265,10 +267,25 @@ jpn:
       index: "入金"
       new: "新入金"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      index: "製品のグレーディング"
+      new: "新製品のグレーディング"
+      # show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Edit integration: %{name}"
+      index: "統合"
+      # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
+      edit: "編集"
+      edit_request: "編集要求"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "介入"
       new: "新介入"
+      new_request: "新しい介入要求"
+      new_specified: "新介入"
+      new_specified_request: "新しい要求介入"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "編集インベントリ"
@@ -302,6 +319,11 @@ jpn:
       new: "新しいジャーナル"
       # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "ラベル"
+      new: "新しいラベル"
+      # show: "Label: %{name}"
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
       index: "土地区画"
@@ -326,6 +348,10 @@ jpn:
       index: "肥料管理計画"
       new: "新しい肥料管理計画"
       # show: "Manure management plan: %{name}"
+    backend/map_backgrounds:
+      # edit: "Edit map background: %{name}"
+      index: "地図の背景"
+      new: "新しいマップの背景"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事態"
@@ -359,10 +385,10 @@ jpn:
       ship: "船の小包"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "植物"
       new: "新工場"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "郵便ゾーン"
@@ -377,6 +403,9 @@ jpn:
       index: "商品のグループ"
       new: "新しいグループ"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      edit: "編集製品のローカライズ："
+      new: "新製品のローカライズ"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "製品カテゴリー"
@@ -417,6 +446,9 @@ jpn:
       propose_and_invoice: "直接請求書"
       refuse: "拒否したため"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "編集登録"
+      index: "登録"
     backend/roles:
       # edit: "Edit role: %{name}"
       index: "役割"
@@ -467,6 +499,7 @@ jpn:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "サブスクリプション"
       new: "新しいサブスクリプション"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       # index: "Supervisions"
@@ -475,6 +508,12 @@ jpn:
     backend/synchronizations:
       index: "同期の"
       # run: "Run synchronization: %{name}"
+    backend/target_distributions:
+      edit: "編集対象の分布"
+      edit_many: "影響を受けない製品を販売"
+      index: "ターゲットディストリビューション"
+      new: "新しいターゲットの配布"
+      show: "ターゲット配信"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "タスク"
@@ -515,10 +554,77 @@ jpn:
       index: "ホーム"
   errors:
     # format: "%{message}"
+    front-end:  #?
+      leaflet: #?
+        draw: #?
+          handlers: #?
+            circle: #?
+              tooltip: #?
+                start: "クリックして、円を描くようにドラッグします。" #?
+            marker: #?
+              tooltip: #?
+                start: "マーカーを配置するには、地図をクリックしてください。" #?
+            polygon: #?
+              tooltip: #?
+                cont: "形状の描画をクリックして続行します。" #?
+                end: "この形状を閉じるには、最初のポイントをクリックしてください。" #?
+                start: "形状を描画を開始する場合にクリックします。" #?
+            polyline: #?
+              error: "<strong>エラー：</strong>形状のエッジが交差することはできません！" #?
+              tooltip: #?
+                cont: "描画ラインをクリックして続行します。" #?
+                end: "行を終了する最後のポイントをクリックしてください。" #?
+                start: "ラインを描画を開始する場合にクリックします。" #?
+            rectangle: #?
+              tooltip: #?
+                start: "四角形を描画するためにクリックしてドラッグします。" #?
+            simpleshape: #?
+              tooltip: #?
+                end: "描画を終了するには、マウスを離します。" #?
+          toolbar: #?
+            actions: #?
+              text: "キャンセル" #?
+              title: "図面をキャンセル" #?
+            buttons: #?
+              circle: "円を描きます" #?
+              marker: "マーカーを引きます" #?
+              polygon: "ポリゴンを描画" #?
+              polyline: "ポリラインを描きます" #?
+              rectangle: "四角形を描画" #?
+            undo: #?
+              text: "最後のポイントを削除します。" #?
+              title: "描かれた最後のポイントを削除します。" #?
+        edit: #?
+          handlers: #?
+            edit: #?
+              tooltip: #?
+                subtext: "変更を元に戻すには、[キャンセル]をクリックします。" #?
+                text: "機能を編集するには、ハンドル、またはマーカーをドラッグします。" #?
+            remove: #?
+              tooltip: #?
+                text: "削除する機能をクリックしてください" #?
+          toolbar: #?
+            actions: #?
+              cancel: #?
+                text: "キャンセル" #?
+                title: "編集をキャンセルし、すべての変更を破棄します。" #?
+              save: #?
+                text: "セーブ" #?
+                title: "変更内容を保存。" #?
+            buttons: #?
+              edit: "編集層。" #?
+              editDisabled: "編集する層いいえ。" #?
+              remove: "レイヤーを削除します。" #?
+              removeDisabled: "削除するレイヤーいいえ。" #?
+        fullscreenTitle: "全画面表示" #?
+        importerButtonTitle: "インポート" #?
+        zoomInTitle: "ズームイン" #?
+        zoomOutTitle: "ズームアウトする" #?
     messages:
       already_confirmed: "すでに確認された、ログインしてみてください"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "有効期限が切れている、新しいものをリクエストしてください"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "見つかりません"
       not_locked: "ロックされていませんでした"
       not_saved:
@@ -529,6 +635,72 @@ jpn:
       header:
         # one: "1 error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
+  front-end:
+    leaflet:
+      draw:
+        handlers:
+          circle:
+            tooltip:
+              start: "クリックして、円を描くようにドラッグします。"
+          marker:
+            tooltip:
+              start: "マーカーを配置するには、地図をクリックしてください。"
+          polygon:
+            tooltip:
+              cont: "形状の描画をクリックして続行します。"
+              end: "この形状を閉じるには、最初のポイントをクリックしてください。"
+              start: "形状を描画を開始する場合にクリックします。"
+          polyline:
+            error: "<strong>エラー：</strong>形状のエッジが交差することはできません！"
+            tooltip:
+              cont: "描画ラインをクリックして続行します。"
+              end: "行を終了する最後のポイントをクリックしてください。"
+              start: "ラインを描画を開始する場合にクリックします。"
+          rectangle:
+            tooltip:
+              start: "四角形を描画するためにクリックしてドラッグします。"
+          simpleshape:
+            tooltip:
+              end: "描画を終了するには、マウスを離します。"
+        toolbar:
+          actions:
+            text: "キャンセル"
+            title: "図面をキャンセル"
+          buttons:
+            circle: "円を描きます"
+            marker: "マーカーを引きます"
+            polygon: "ポリゴンを描画"
+            polyline: "ポリラインを描きます"
+            rectangle: "四角形を描画"
+          undo:
+            text: "最後のポイントを削除します。"
+            title: "描かれた最後のポイントを削除します。"
+      edit:
+        handlers:
+          edit:
+            tooltip:
+              subtext: "変更を元に戻すには、[キャンセル]をクリックします。"
+              text: "機能を編集するには、ハンドル、またはマーカーをドラッグします。"
+          remove:
+            tooltip:
+              text: "削除する機能をクリックしてください"
+        toolbar:
+          actions:
+            cancel:
+              text: "キャンセル"
+              title: "編集をキャンセルし、すべての変更を破棄します。"
+            save:
+              text: "セーブ"
+              title: "変更内容を保存。"
+          buttons:
+            edit: "編集層。"
+            editDisabled: "編集する層いいえ。"
+            remove: "レイヤーを削除します。"
+            removeDisabled: "削除するレイヤーいいえ。"
+      fullscreenTitle: "全画面表示"
+      importerButtonTitle: "インポート"
+      zoomInTitle: "ズームイン"
+      zoomOutTitle: "ズームアウトする"
   labels:
     access: "アクセス"
     access_parameters: "アクセス・パラメータ"
@@ -541,12 +713,16 @@ jpn:
     activities: "活動"
     activity: "アクティビティ"
     activity_production: "アクティビティ生産"
+    activity_productions: "アクティビティ制作"
     add: "加える"
+    add_a_worker: "労働者を追加します。"
     add_annotation: "注釈を追加"
     add_attachment: "添付ファイルを追加します。"
     add_bank_statement: "銀行のステートメントを追加"
     add_catalog_price: "カタログ価格を追加します。"
+    add_child: "子コンポーネントを追加します。"
     add_choice: "選択肢を追加"
+    add_component: "コンポーネントを追加します"
     add_condition: "条件を追加します。"
     add_conditions: "条件を追加します。"
     add_delivery: "配達を追加"
@@ -556,7 +732,15 @@ jpn:
     add_expense: "費用を追加"
     add_fax: "ファックスを追加"
     add_filter: "フィルタを追加します。"
+    add_grading_check: "グレーディングチェックを追加"
+    add_inspection_calibration_nature: "検査校正性質を追加"
+    add_inspection_calibration_scale: "検査校正スケールを追加します。"
+    add_inspection_point_nature: "検査ポイントの性質を追加します。"
+    add_intervention_record: "介入のレコードを追加します。"
+    add_intervention_request: "介入要求を追加します。"
     add_item: "アイテムを追加"
+    add_labelling: "ラベルを追加"
+    add_line: "行を追加します。"
     add_linestring: "ラインストリングを追加します。"
     add_mail: "郵便アドレスを追加します。"
     add_mobile: "携帯電話番号を追加します。"
@@ -564,6 +748,7 @@ jpn:
     add_participation: "参加を追加"
     add_payment: "支払いを追加"
     add_phone: "電話番号を追加します。"
+    add_plant_density_abacus: "播種密度は参照テーブルを追加"
     add_point: "ポイントを追加"
     add_polygon: "ポリゴンを追加"
     add_production: "生産を追加"
@@ -572,8 +757,10 @@ jpn:
     add_reading: "指標の値を追加します。"
     add_revenue: "収益を追加"
     add_sale_taxation: "販売課税を追加します。"
+    add_season: "シーズンを追加"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "サポートを追加"
+    add_tactic: "作物管理技術を追加します。"
     add_tool: "ツールを追加"
     add_website: "ウェブサイトを追加"
     add_working_period: "working_periodを追加"
@@ -583,7 +770,7 @@ jpn:
     affairs: "業務"
     all: "すべて"
     all_accounts: "すべてのアカウント"
-    all_cash_balances: "すべての現金残高"
+    all_cash_balances: "すべての現金残高" #?
     all_columns: "すべての列"
     all_conditions: "すべての条件"
     all_periods: "すべての会計年度"
@@ -594,7 +781,7 @@ jpn:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "解析"
     animal_details: "動物の詳細"
-    animal_productions: "動物プロダクション"
+    animal_productions: "動物プロダクション" #?
     animals: "動物"
     apply: "適用する" #?
     archives: "アーカイブズ"
@@ -605,13 +792,14 @@ jpn:
       reopen_issue: "あなたはこの問題を再度開くにしてもよろしいですか？"
     are_you_sure_you_want_to_confirm: "あなたが注文してもよろしいです"
     are_you_sure_you_want_to_delete: "あなたはこのレコードを削除してもよろしいですか？"
-    are_you_sure_you_want_to_generate_parcel: "あなたが小包を生成してもよろしいです"
     are_you_sure_you_want_to_invoice: "あなたが請求してもよろしいですか？"
     are_you_sure_you_want_to_send_mails: "あなたは電子メールを送信してもよろしいですか？"
     area: "エリア"
+    at_the_address: "アドレス時"
     attach_deal: "契約を追加"
     attachment: "アタッチメント"
     attachments: "添付ファイル"
+    auto_reconciliate: "オートreconciliate"
     automatic: "オート"
     available: "利用できます"
     # available_columns: "Available columns: %{columns}"
@@ -651,6 +839,8 @@ jpn:
     centralize: "アカウントを一元化"
     # centralized_account: "Centralized account %{name}"
     change_password: "パスワードを変更する"
+    change_state: "状態遷移"
+    change_status_of_selected_interventions: "選択された介入のステータスを変更"
     chart: "チャート"
     check: "チェック"
     children: "子供"
@@ -658,6 +848,8 @@ jpn:
     choose_a_type_of_product: "製品の種類を選択してください"
     choose_creation_mode: "作成モードを選択します。"
     choose_mail_column: "電子メールの列を選択します"
+    choose_options_is_needed: "あなたは以下の介入のステータスを選択する必要があります。"
+    clear: "クリア"
     click_to_mail: "独自のメールソフトでメールにクリックしてください"
     client: "クライアント"
     client_informations: "クライアント情報"
@@ -669,6 +861,9 @@ jpn:
     column: "カラム"
     columns: "インポートする列"
     commission: "手数料"
+    company: "社会"
+    complete: "コンプリート"
+    completed: "完成しました"
     conditions:
       filter_on_attribute_of_class: "クラスの属性にフィルター"
       special-subscriber: "特別加入者"
@@ -679,6 +874,7 @@ jpn:
     container: "コンテナ"
     convert_balance_into_loss: "損失にバランスを変換します"
     convert_balance_into_profit: "利益にバランスを変換します"
+    convert_to_cultivable_zone: "耕作ゾーンに変換"
     cooperative_cartodb: "共同CartoDB"
     coordinates: "座標"
     copy_from_another_activity: "別のアクティビティからのコピー"
@@ -687,8 +883,9 @@ jpn:
     copy_previous_budget: "コピー前の予算"
     cost_per_net_surface_area: "ネット表面積あたりのコスト"
     costs: "費用"
-    costs_map: "コストマップ"
+    costs_map: "コストマップ" #?
     costs_per_hectare: "ヘクタールあたりの費用"
+    # countings: "Countings"
     counts: "カウンツ"
     counts_by_nature: "タイプごとに考慮するドキュメントの数"
     create: "創造する"
@@ -708,7 +905,6 @@ jpn:
     cropping_plan_on_cultivable_zones: "耕作区域に計画をトリミング"
     crumbs: "パン粉"
     cultivable_zone: "耕作地帯"
-    # cultivable_zone_abbreviation: "CZ"
     cultivable_zones: "耕作地帯"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "現在"
@@ -716,6 +912,7 @@ jpn:
     current_stocks_by_variety: "種々の方法により、現在の株式"
     custom_fields: "カスタムフィールド"
     dates: "期間開始日と期間終了日を選択"
+    days: "日々"
     deals: "お得な情報"
     debit: "借方"
     debts_on_assets: "資産の債務"
@@ -725,10 +922,15 @@ jpn:
     default_letter_introduction: "私たちの会話の後、私はあなたの推定値の要素を与えます。"
     # default_subject: "[%{company}]"
     definition: "定義"
+    deformity: "変形"
+    deformity_percentage: "変形（％）"
+    deformity_percentage_evolution: "奇形率の進化"
     delete: "削除"
+    delete_selected_interventions: "選択された介入を削除します。"
     deliver: "で配信"
     deliveries: "出荷"
     delivery: "配信"
+    # delta: "+/-"
     deposit: "保証金"
     depositable_options: "入金オプション"
     deposits: "預金"
@@ -740,10 +942,15 @@ jpn:
     # destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "詳細"
     details: "細部"
-    direct_margin: "ダイレクトマージン"
+    direct_margin: "ダイレクトマージン" #?
     discount: "割引（％）"
+    disease: "疾患"
+    disease_deformity_percentage: "病気や奇形の割合"
+    disease_percentage: "疾患（％）"
+    disease_percentage_evolution: "疾病率進化"
     display: "表示"
     display_help: "手伝い" #?
+    distribute_unaffected_products: "影響を受けない製品を販売"
     distributions: "ディストリビューション"
     divide: "分割"
     division: "分割"
@@ -751,6 +958,7 @@ jpn:
     document: "資料"
     document_natures: "ドキュメントタイプ"
     document_templates: "ドキュメントテンプレート"
+    documentation: "ドキュメンテーション"
     doer_cost: "行為者のコスト"
     done: "終わりました"
     dont_use_journal: "- ジャーナルを使用しないでください -"
@@ -761,12 +969,13 @@ jpn:
     duration: "デュレーション"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "間に"
-    earns: "稼いでいます"
+    earns: "稼いでいます" #?
     edit: "編集"
     edit_budget: "編集予算"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "活動による介入の時間経過"
+    elapsed_interventions_times_by_activities: "活動による介入の時間経過" #?
     email: "Eメール："
+    employee_informations: "従業員の情報"
     end: "に"
     entities: "エンティティ"
     entity_links: "エンティティへのリンク"
@@ -775,12 +984,14 @@ jpn:
     entries: "エントリー"
     entries_to_point: "を指しているエントリ"
     entry_items: "入力項目"
+    equipment: "装置"
+    equipment_name: "機器の名前"
     equipments: "機器"
     error: "ごめんなさい..."
     error_no_file: "ページ(%{article})はありません。"
     errors_explanation: "ファイルにエラーがあります。あなたがそれらを修正しなかった場合、不正な行がインポート時に無視されます。"
     estimate_yield: "推定収率"
-    evaluated_direct_margin: "評価の直接マージン"
+    evaluated_direct_margin: "評価の直接マージン" #?
     evaluated_doer_cost: "評価人件費"
     evaluated_input_cost: "評価入力コスト"
     evaluated_other_cost: "評価した他のコスト"
@@ -793,13 +1004,19 @@ jpn:
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "経費"
+    expenses_by_product_nature_category: "製品の性質上カテゴリ別経費"
+    expired_since: "（日）以降に期限切れに"
+    expired_within: "（日中）以内に期限が切れ"
     export: "輸出書類"
+    field_distribution: "電界分布"
     file_nature: "ファイルの種類"
     file_preview: "プレビュー"
     file_to_upload: "アップロードするファイル"
     filter: "フィルタ"
+    final_balance: "期末残高"
     financials_assets: "金融資産"
     finish: "仕上げ"
+    finished: "完成しました"
     first_line_as_title: "タイトルとして最初の行"
     fixed_asset_depreciations: "固定資産の減価償却"
     fixed_assets: "固定資産"
@@ -813,9 +1030,13 @@ jpn:
     general_informations: "一般的な情報"
     generate: "生成します"
     generate_last_journal_entry: "最後の仕訳を生成します"
+    generate_parcel: "小包を生成します"
     geolocation: "ジオロケーション"
     go: "行きます"
+    gradings: "グレーディング"
     grain_yield: "穀粒収量"
+    grains_yield: "穀物収量"
+    grass_yield: "牧草収量"
     gross_profit: "粗利益"
     group: "グループ"
     groups: "グループ"
@@ -845,12 +1066,14 @@ jpn:
     indicator_value: "指針値"
     indicators: "インジケータ"
     indicators_evolutions: "指標の進化"
-    indirect_expenses: "間接費用"
+    indirect_expenses: "間接費用" #?
     info: "一般的なパラメータ"
     infos: "製品および数量"
+    initial_balance_of_bank_statement: "銀行取引明細書の最初のバランス"
     input_cost: "投入原価"
-    input_cost_per_hectare: "ヘクタール当たりの入力コスト"
+    input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
+    inspections: "検査"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
     intervention: "介入"
@@ -859,10 +1082,12 @@ jpn:
     interventions: "介入"
     interventions_count: "介入は数えます"
     interventions_paths: "介入パス"
+    invalid_file: "無効なファイル"
+    invalid_format: "無効な形式"
     inventories: "棚卸"
     inventory: "インベントリ"
     invitation_status: "状態"
-    invoiced_amount: "売上請求額"
+    invoiced_amount: "売上請求額" #?
     invoices: "請求書"
     is: "あります"
     issue: "問題"
@@ -882,13 +1107,14 @@ jpn:
     journals: "ジャーナル"
     label: "ラベル"
     # label_value: "%{label}: %{value}"
-    # land_parcel_abbreviation: "LP"
     land_parcels: "土地区画"
     last_analyses: "最後のミルク分析"
     last_computed_balance: "最後に計算バランス"
+    last_documents: "最終文書"
     last_entities: "最後のエンティティ"
     last_events: "最後のイベント"
     last_incoming_parcels: "最終着信小包"
+    last_inspection: "最終検査"
     last_intervention: "最後の介入"
     last_issue: "最後の問題"
     last_issues: "最後の問題"
@@ -922,6 +1148,8 @@ jpn:
     map: "地図"
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
+    marketable_net_mass: "有価正味質量"
+    mass: "マッセ"
     maximal_temperature: "最高温度"
     members: "メンバー"
     menu:  #?
@@ -947,10 +1175,11 @@ jpn:
     nature: "タイプ"
     nature_changed: "ル型デanimaux変更"
     natures: "タイプ"
-    net_margin: "売上純利益率"
+    net_margin: "売上純利益率" #?
     net_mass: "正味質量"
     net_surface_area: "正味の表面積"
     new: "新しい"
+    new_activity: "新しいアクティビティ"
     new_animal: "新しい動物"
     new_attachment: "新付着"
     new_box: "新箱"
@@ -970,8 +1199,11 @@ jpn:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新しい電子メール"
     new_group: "新しいグループ"
+    new_incoming_parcel: "新しい着信小包"
     new_issue: "新発債"
+    new_listing: "新規上場"
     new_organization: "新組織"
+    new_outgoing_parcel: "新しい発信小包"
     new_production: "新生産"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新しい引用"
@@ -992,16 +1224,17 @@ jpn:
     none: "なし"
     normal: "ノーマル"
     not_delivered: "配信されません"
+    not_ready: "準備ができていない"
     not_received: "受信していない"
     now: "今"
     number: "数"
     number_of_cap_islets: "キャップ膵島の数"
     number_of_cap_land_parcels: "キャップ土地区画の数"
-    number_options: "オプション番号"
+    number_options: "オプション番号" #?
     numbers: "数字"
     on_account: "アカウントに"
     one_condition: "一つの条件"
-    open_a_campaign: "キャンペーンを開きます。"
+    open_a_campaign: "キャンペーンを開きます。" #?
     open_a_production: "生産を開きます"
     open_an_activity: "アクティビティを開きます"
     operating_margin: "営業利益率"
@@ -1009,8 +1242,12 @@ jpn:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "オペレーション"
     options: "オプション"
+    or: "または"
     organic_matter_concentration: "有機物濃度"
+    original_component: "元の"
     others: "他人"
+    outgoing_parcel_quantities: "数量（発信小包）"
+    outgoing_parcels: "発信小包"
     outgoing_payment: "支払"
     outgoing_payments: "支払"
     page_title: "%{company_code} - %{menu} - %{action}"
@@ -1019,12 +1256,13 @@ jpn:
     paid_amount: "支払金額"
     paid_at: "で有料"
     parameters: "パラメータ"
+    parcel_items: "小包のアイテム"
     parcels: "小包"
     participants: "参加者"
     participations: "参加"
     parts: "モジュール"
     password: "パスワード"
-    paths_to_convert: "変換するパス"
+    paths_to_convert: "変換するパス" #?
     payable_taxes: "未払税金"
     payment_amount: "支払額"
     payment_at: "お支払いについて"
@@ -1033,6 +1271,7 @@ jpn:
     payments: "支払い"
     payments_count: "支払いは数えます"
     people: "人"
+    percentage_by_calibration: "キャリブレーションによるパーセント"
     period: "期間"
     periods: "期間"
     permute: "並べ替えます"
@@ -1057,7 +1296,6 @@ jpn:
     prescriptions: "処方箋"
     pretax_amount: "税引前量"
     previous: "前へ"
-    # previous_bank_statement: "Previous account statement N°%{number}"
     price: "価格"
     prices: "物価"
     print: "印刷"
@@ -1075,33 +1313,44 @@ jpn:
     productions: "プロダクション"
     products: "プロダクト"
     profile: "プロフィール"
-    provisionnal_budget: "Provisionnal予算"
+    provisionnal_budget: "Provisionnal予算" #?
     purchase: "購入"
     purchase_items: "アイテムを購入します"
     purchase_number: "購入数"
     purchases: "購入"
+    quality: "品質"
+    # quandl: "Quandl"
     quantity: "量"
-    quantity_rest: "残量"
+    quantity_rest: "残量" #?
     query: "クエリ："
-    raw_margin: "生のマージン"
+    raw_margin: "生のマージン" #?
     reading_tasks: "読書のタスク"
     readings: "音読み"
+    ready: "レディー"
+    ready_to_harvest: "収穫の準備完了"
     received: "受け"
     recent_events: "最近のイベント"
+    reconciled_total: "和解合計"
+    record_maintenance: "記録管理"
     reflect: "反映します"
     reflected: "反射された変更"
     reflections: "リフレクションズ"
     refresh: "リフレッシュ"
+    register_intervention_request: "介入要求を登録"
     relationship: "関係"
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     # relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
+    remaining_amount_to_reconcile: "和解するための残量"
     remove: "削除します"
     remove_item: "項目を削除"
     remove_subscription: "サブスクリプションを削除します"
+    renewed: "新たな"
     repayments: "返済"
     repayments_graph: "返済グラフ"
     report: "報告する"
+    request_maintenance: "リクエストメンテナンス"
+    requests: "リクエスト"
     reset: "リセット"
     # resource: "View original document: %{resource} %{number}"
     resources: "リソースの管理"
@@ -1126,6 +1375,7 @@ jpn:
     sales: "セールス"
     sales_conditions: "販売の条件"
     sales_invoice: "請求書発行"
+    sales_pretax_amount: "税引前金額（売上高）"
     # same_variant_as_x: "Same variant as %{x}"
     save: "セーブ"
     save_in_draft: "下書きとして保存"
@@ -1133,13 +1383,15 @@ jpn:
     search: "探す"
     search_placeholder: "サーチ…"
     # section_x: "Section %{x}"
+    see_details: "詳細を見ます"
+    see_more_details: "詳細を見ます"
     select_closure_date: "閉じる日付を選択します。"
     select_columns: "列を選択します"
     select_date: "日付を選択"
     select_date_generation: "生成のための期限日"
     select_file_to_upload: "アップロードするファイルを選択します"
     select_forward_journal: "更新するジャーナルを選択しました"
-    select_number: "番号を選択します"
+    select_number: "番号を選択します" #?
     selection: "選択"
     send_mail: "メールを送信"
     send_test_mail: "テストメールを送信"
@@ -1159,21 +1411,27 @@ jpn:
     source: "ソース"
     start: "から"
     start_new_intervention_here: "ここに新しい介入を開始"
+    started: "開始"
     state: "状態"
     statistics: "統計"
     stewardship: "管理"
     stock: "株式"
     stock_container_map: "ストックマップ"
+    stock_in_ground: "地面の株価"
+    stock_in_ground_by_calibration: "キャリブレーションによって地面の株式"
     # stock_of_x: "Stock of %{x}"
     stocks: "ストック"
     stop: "やめる"
+    stopped: "停止"
     storage: "ストレージ"
     subject: "テーマ"
     submit: "提出します"
+    subscribed_on: "上の購読"
     # subscriber_period: "Subscribed on %{subscribed_at}"
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "サブスクリプション・タイプ"
     subscriptions: "サブスクリプション"
+    subscriptions_evolution: "サブスクリプションの進化"
     # subtotal: "Sub-total %{name}"
     subtotals_at_level: "レベルの小計"
     supplier: "サプライヤーの購入価格"
@@ -1181,7 +1439,7 @@ jpn:
     supply: "供給"
     support: "サポート"
     supports: "サポート"
-    supports_chart: "チャートをサポートしています"
+    supports_chart: "チャートをサポートしています" #?
     synthesis: "合成"
     target: "ターゲット"
     tasks: "タスク"
@@ -1195,6 +1453,7 @@ jpn:
     # timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "タイムラインエンティティリンク"
     # timeline_event: "%{name} with %{participants} %{when}"
+    # timeline_event_without_participants: "%{name} %{when}"
     # timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
     # timeline_item: "%{type} %{name} added by %{author} %{when}"
@@ -1214,21 +1473,52 @@ jpn:
     total: "合計"
     total_amount: "合計金額"
     total_cost: "総費用"
-    total_earn: "稼ぐ合計"
+    total_earn: "稼ぐ合計" #?
     # total_in_currency: "Total (%{currency})"
-    total_paid_amount: "総支払額"
+    total_paid_amount: "総支払額" #?
     total_pretax_expenses: "合計税引前費用"
     total_pretax_revenues: "合計税引前収入"
     total_quantity: "総量"
-    total_unpaid_amount: "合計未払い額"
+    total_unpaid_amount: "合計未払い額" #?
     totals: "合計"
+    tours:
+      production:
+        field_distribution:
+          content: "耕作ゾーン（キャンペーンの独立した）、制作に定義された土地区画、および介入中に播種栽培：栽培のための3つのレベルをここで見つけます。"
+          title: "フィールズ"
+        production:
+          content: "活動は、あなたが生産し、それを計画したいのかを定義することを可能にします。"
+          title: "製造"
+        quality:
+          content: "、分析の多くの種類のあなたの作物や活動に従って問題に疾患を監視し、検査と収穫の品質をチェック。"
+          title: "品質ツール"
+        supervision:
+          content: "センサーは、あなたの分野であなたセンサーの値を登録し、集中することを可能にします。"
+          title: "センサー"
+      welcome:
+        home:
+          content: "私たちは、アプリケーションのインターフェイスのクイックツアーを行います。アプリケーションのどこからでも家に帰るまずこのボタンを可能にします。"
+          title: "Ekylibreにようこそ"
+        main:
+          content: "すべてのアクションが起こるのはここです。私たちはあなたに幸せな利用を望みます。"
+          title: "どこで働きます"
+        parts:
+          content: "このメニューは、メインモジュールのすべてにアクセスすることを許可します。"
+          title: "Ekylibreのモジュール"
+        side:
+          content: "このサイドバーには、相談している現在のモジュールのすべてのサブメニューが含まれています。"
+          title: "モジュールのサイドバー"
+        user:
+          content: "ここで、あなたは、あなたの通知を参照してくださいヘルプを表示、ファーム名を読み取ることができます。ユーザー設定は、メニューから編集可能です。"
+          title: "ユーザメニュー"
     tracking: "追跡"
     trade: "トレード"
     trade_counts: "貿易カウント"
     transactions_by_month: "月ごとの取引"
     transfer: "転送"
-    transformations: "変換"
+    transformations: "変換" #?
     transport: "輸送"
+    undefined_activity: "未定義の活動"
     undefined_container: "未定義のコンテナ"
     undelivered: "未配達の"
     undone: "元に戻します"
@@ -1240,8 +1530,9 @@ jpn:
     unknown_variant: "未知のバリアント"
     unlock: "アンロック"
     unmark: "マーク解除します"
+    unmarketable_inspection_categories_evolution: "売れ検査カテゴリ進化"
     unpaid: "未払い"
-    unpaid_amount: "未払金額"
+    unpaid_amount: "未払金額" #?
     unpaid_days: "（日）以来の未払い"
     unpaid_purchases: "未払い購入"
     unpaid_sales: "未払いの販売"
@@ -1251,9 +1542,9 @@ jpn:
     # updated_at_by: "Updated at %{at} by %{author}"
     # updated_by_ago: "Updated by %{author} %{when}"
     upload: "アップロード"
-    uploaded_file: "アップロードされたファイル"
     usage: "使用法"
     user_name: "ユーザー名" #?
+    user_status: "状態"
     users: "ユーザー"
     valid: "有効な"
     validate: "検証"
@@ -1261,11 +1552,14 @@ jpn:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "選択したエントリを検証します"
+    validated: "有効な"
     values: "価値観"
     variable_indicators: "変数の指標"
     variants: "バリアント"
     view: "ビュー"
+    watering_concentration: "水利用"
     weather: "天気"
+    website: "ウェブサイト"
     wind_speed: "風速"
     with_fixed_assets_depreciations: "固定資産の減価償却と"
     workers: "労働者"
@@ -1307,12 +1601,18 @@ jpn:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
@@ -1328,6 +1628,9 @@ jpn:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_minutes:
+      # one: "%{count} minute"
+      # other: "%{count} minutes"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
@@ -1360,6 +1663,9 @@ jpn:
     x_sales_invoices:
       # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
+    x_seconds:
+      # one: "%{count} second"
+      # other: "%{count} seconds"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"
@@ -1367,6 +1673,9 @@ jpn:
       # one: "%{count} task"
       # other: "%{count} tasks"
     # x_thing: "%{x} %{thing}"
+    x_times:
+      # one: "%{count} time"
+      # other: "%{count} times"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1386,6 +1695,8 @@ jpn:
     x_years:
       one: "1年"
       # other: "%{count} years"
+    yield: "産出"
+    yield_by_calibration: "キャリブレーションによって収量"
     zones: "ゾーン"
   list:  #?
     pagination: #?
@@ -1400,6 +1711,7 @@ jpn:
       a_campaign_must_be_opened: "キャンペーンが開かれなければなりません"
       a_production_must_be_opened: "生産は開いておく必要があります"
       # access_denied: "Access denied. %{reason} (%{url})"
+      all_data_import_finished: "すべてのデータはインポートされました"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "すべての小包はinvoiceableと同じ性質と第三のものでなければなりません"
       an_activity_must_be_defined: "アクティビティを定義する必要があります"
       bookkeeping_is_finished: "商用のデータ転送が終了します。"
@@ -1420,6 +1732,10 @@ jpn:
         # other: "%{count} entries have been validated"
         zero: "いいえエントリは検証されていません"
       entity_columns_are_needed: "あなたは、その家族の名前の人のために、特に少なくとも1つの列を指定する必要があります。"
+      # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "ダミーデータを用いて実装"
@@ -1430,6 +1746,7 @@ jpn:
       impossible_to_add_items_to_purchase: "あなたの購入に製品を追加することはできません"
       incompatible_browser: "互換性のないブラウザ"
       # informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
+      integrate_tools_you_are_using_every_day: "あなたが毎日使用しているツールを統合"
       invalid_reference_name: "無効な参照名"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "レコードが既に確認されており、変更することはできません"
@@ -1443,7 +1760,7 @@ jpn:
       need_a_valid_sale_nature_to_start_new_sale: "新発売を開始するには、有効な販売のタイプを必要とします"
       need_building_to_record_stock_moves: "あなたは在庫を管理できるように建物を作成する必要があります。"
       need_cash_to_record_statements: "あなたは、少なくとも文を入力するために銀行口座を作成する必要があります。"
-      need_entries_to_point: "いいえエントリは銀行報告書の期間が見つかりませんでした。"
+      need_entries_to_reconciliate: "銀行取引明細書の期間にreconciliateするエントリはありません"
       need_payment_mode_to_create_deposit: "あなたが預金を作るために支払いのモードを指定する必要があります"
       need_quantities_to_cancel_an_sale: "あなたは、売上請求書をキャンセルするために数量を指定する必要があります"
       need_stocks_to_create_inventories: "あなたは在庫を管理するためにいくつかの株式を管理する必要が"
@@ -1460,6 +1777,7 @@ jpn:
       no_production_defined_for_current_campaign: "現在のキャンペーンのために定義されませ生産はありません"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "生産見つかりません。あなたは、新しい追加したり、前のキャンペーンからいくつかをコピーすることができます。"
       no_reopenable_journal: "あなたはこの雑誌を再度開くことができません。"
+      no_replacements_since_beginning: "初めから無置換ません"
       record_already_imported: "レコードがすでにインポート"
       record_cannot_be_removed: "レコードを削除することはできません"
       record_has_been_correctly_removed: "レコードが正常に削除されました"
@@ -1471,6 +1789,7 @@ jpn:
       # sensor_is_out_of_service: "Sensor %{name} is out of service: %{message}"
       # sensor_reading_failed: "Sensor %{name} reading failed: %{message}"
       some_parcels_are_not_shippable: "いくつかの小包が出荷可能ではありません"
+      subscription_is_not_renewable: "サブスクリプションは、再生可能ではありません"
       the_sales_invoice_is_not_cancellable: "売上請求書は解約ではありません"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
@@ -1481,18 +1800,24 @@ jpn:
         zero: "現時点でポイントするエントリがありません"
       you_must_have_an_email_column: "あなたの抽出にメールアドレスを持っている必要があります"
       you_need_to_review_your_application_configuration: "あなたは、アプリケーションの構成を確認する必要があります"
+      your_data_are_being_imported: "あなたのデータはインポートされています"
   preferences:
     accounting_system: "勘定科目一覧表"
     bookkeep_automatically: "自動簿記をアクティブ化"
     bookkeep_in_draft: "簿記の間にドラフトモードでレコードを保存"
+    catalog_price_item_addition_if_blank: "カタログ販売/購入の際にカタログに価格を追加する場合は空白のカタログ"
+    client_account_radix: "クライアントアカウントの基数"
     country: "国"
     create_activities_from_telepac: "Telepacインポート時に活動を作成します。"
     currency: "通貨"
     detail_payments_in_deposit_bookkeeping: "詳細預金簿記内のすべての支払い"
+    employee_account_radix: "従業員のアカウントの基数"
     host: "ホスト"
     language: "言語"
     map_measure_srs: "地図対策SRS"
+    permanent_stock_inventory: "永久在庫棚卸モード"
     sales_conditions: "販売条件"
+    supplier_account_radix: "サプライヤアカウントの基数"
     use_entity_codes_for_account_numbers: "口座番号を作成するためのコードを使用します"
   rest:
     actions:
@@ -1501,8 +1826,9 @@ jpn:
       attach: "アタッチ"
       # bookkeep: "Bookkeep"
       cancel: "キャンセル"
-      category: "カテゴリ"
-      children: "子供"
+      category: "カテゴリ" #?
+      check: "チェック"
+      children: "子供" #?
       close: "閉じる"
       compute: "計算"
       compute_balances: "残高を計算します"
@@ -1511,23 +1837,24 @@ jpn:
       convert: "変換"
       correct: "正しい"
       create: "作ります"
-      decrement: "デクリメント"
+      decrement: "デクリメント" #?
       destroy: "破壊する"
       detach: "デタッチ"
       detail: "詳細"
       down: "ダウン"
       duplicate: "複製"
       edit: "編集"
+      edit_many: "多くの編集"
       evaluate: "評価します"
       export: "エクスポート"
       extract: "エキス"
       family: "家族"
       finish: "仕上げ"
       generate_last_journal_entry: "最後の仕訳を生成します"
-      generate_parcel: "小包を生成します"
+      give: "与える"
       import: "インポート"
       incorporate: "組み込みます"
-      increment: "インクリメント"
+      increment: "インクリメント" #?
       index: "インデックス"
       invoice: "請求書"
       list: "リスト"
@@ -1537,34 +1864,41 @@ jpn:
       mail: "郵便物"
       mark: "マーク"
       merge: "マージ"
-      move: "移動"
+      move: "移動" #?
       # negociate: "Negociate"
       new: "新しい"
       open: "開いた"
+      order: "注文"
       pick: "ピック"
       picture: "画像"
-      point: "ポイント"
+      prepare: "準備します"
       propose: "提案します"
       propose_and_invoice: "提案と請求書"
       prospect: "見通し"
+      purchase: "購入に回し"
       qualify: "資格を得ます"
       quote: "見積もり"
       reconciliation: "和解"
       reflect: "反映します"
       refresh: "リフレッシュ"
       refuse: "ごみ"
+      renew: "更新します"
       reopen: "再び開きます"
       reset: "リセット"
       retrieve: "検索します"
       run: "ラン"
       search: "サーチ"
       select: "選択します"
+      sell: "販売に回し"
       ship: "船"
       show: "を表示"
       sort: "ソート"
+      star: "星"
       start: "開始"
       stop: "やめる"
+      suspend: "サスペンド"
       take: "テイク"
+      takeover: "引き継ぐ"
       toggle: "トグル"
       unlock: "アンロック"
       unmark: "マーク解除します"
@@ -1572,11 +1906,12 @@ jpn:
       # unvalidateds: "Unvalidateds"
       up: "アップ"
       update: "更新"
-      update_password: "パスワードを更新します"
+      update_password: "パスワードを更新します" #?
       win: "勝つ"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_budgets: "%{activity_name} %{campaign_name}"
     # backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
@@ -1585,6 +1920,7 @@ jpn:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

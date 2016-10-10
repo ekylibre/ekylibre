@@ -18,7 +18,7 @@
 
 module Backend
   class AnalysesController < Backend::BaseController
-    manage_restfully
+    manage_restfully sampled_at: 'Time.zone.now'.c, sampler_id: 'current_user.person.id'.c
 
     unroll
 

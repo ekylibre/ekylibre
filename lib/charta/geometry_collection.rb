@@ -1,9 +1,10 @@
 module Charta
   # Represent a Geometry with contains other geometries
   class GeometryCollection < Geometry
-    def initialize(ewkt)
+    def initialize(ewkt, flatten = true, options = [])
       super(ewkt)
-      homogenize!
+      @options = options
+      homogenize! if flatten
     end
 
     # Homogenize data if it's a GeometryCollection

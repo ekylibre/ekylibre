@@ -28,6 +28,10 @@
 //= require active_list.jquery
 //= require knockout
 //= require_self
+//= require i18n
+//= require i18n/translations
+//= require i18n/locale
+//= require i18n/ext
 //= require ekylibre
 //= require formize/behave
 //= require form/dialog
@@ -36,15 +40,14 @@
 //= require form/dependents
 //= require form/toggle
 //= require form/dates
-//= require formize/autocomplete
 //= require cocoon
 //= require jquery/ext
 //= require selector
 //= require ui
 //= require jstz
 //= require heatmap
-//= require i18n/translations
-//= require leaflet
+//= require geographiclib
+//= require leaflet.js.erb
 //= require leaflet/draw
 //= require leaflet/fullscreen
 //= require leaflet/providers
@@ -53,11 +56,17 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
+//= require d3
+//= require d3/tip
+//= require timeline-chart.js
+//= require rbush
 //= require autosize
 //= require plugins
 //= require_tree .
+//= require tour
 
 var visualization = {};
+var mapeditor = {};
 var ekylibre = {};
 var calcul = {};
 
@@ -69,3 +78,8 @@ $.rails.href = function (element) {
 
 Turbolinks.enableTransitionCache();
 Turbolinks.enableProgressBar();
+
+$(document).ready(function()
+{
+    L.Icon.Default.imagePath = '/assets';
+});

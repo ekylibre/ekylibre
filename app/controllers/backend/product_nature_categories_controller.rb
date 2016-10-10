@@ -25,15 +25,18 @@ module Backend
     unroll
 
     list do |t|
-      t.action :new,  on: :none
-      t.action :pick, on: :none
+      t.action :new, on: :none
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
-      t.column :saleable
-      t.column :purchasable
-      t.column :storable
-      t.column :depreciable
+      t.column :saleable, hidden: true
+      t.column :product_account, if: :saleable?, url: true
+      t.column :purchasable, hidden: true
+      t.column :charge_account, if: :purchasable?, url: true
+      t.column :storable, hidden: true
+      t.column :stock_account, if: :storable?, url: true
+      t.column :depreciable, hidden: true
+      t.column :fixed_asset_account, if: :depreciable?, url: true
     end
 
     list(:products, conditions: { category_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|

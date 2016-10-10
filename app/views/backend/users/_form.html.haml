@@ -1,7 +1,7 @@
 = field_set do
   = f.input :last_name
   = f.input :first_name
-  = f.input :language, collection: languages
+  = f.input :language, collection: available_languages(false)
   = f.input :email
   - if f.object.new_record?
     = f.input :password
@@ -9,7 +9,7 @@
   = f.custom_fields
 
 = field_set(:function) do
-  = f.referenced_association :person
+  = f.referenced_association :person, new: { nature: :contact }, source: { scope: :contacts }
   = f.input :employed, :show => :employee
   #employee
     = f.input :employment

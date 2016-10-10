@@ -10,13 +10,11 @@ class BackendInvitations < CapybaraIntegrationTest
     click_on(:create.tl)
     assert has_content?('Robert'), 'Robert must appear in list after creation'
     assert has_content?('Pending'), 'Invitation created should be pending'
+    js_logout
   end
 
   setup do
-    I18n.locale = @locale = ENV['LOCALE'] || I18n.default_locale
-    visit("/authentication/sign_in?locale=#{@locale}")
-    login_as(users(:users_001), scope: :user) # , run_callbacks: false
-    visit('/backend')
+    login_with_user(after_login_path: '/backend')
   end
 
   teardown do

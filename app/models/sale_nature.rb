@@ -51,17 +51,19 @@ class SaleNature < Ekylibre::Record::Base
   belongs_to :catalog
   belongs_to :journal
   belongs_to :payment_mode, class_name: 'IncomingPaymentMode'
-  has_many :sales
+  has_many :sales, foreign_key: :nature_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :downpayment_minimum, :downpayment_percentage, allow_nil: true
-  validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
-  validates_presence_of :catalog, :currency, :expiration_delay, :name, :payment_delay
+  validates :active, :by_default, :downpayment, :with_accounting, inclusion: { in: [true, false] }
+  validates :catalog, :currency, presence: true
+  validates :description, :payment_mode_complement, :sales_conditions, length: { maximum: 500_000 }, allow_blank: true
+  validates :downpayment_minimum, :downpayment_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :expiration_delay, :name, :payment_delay, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_presence_of :journal, if: :with_accounting?
-  validates_presence_of :currency
-  validates_uniqueness_of :name
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :journal, presence: { if: :with_accounting? }
+  validates :currency, presence: true
+  validates :name, uniqueness: true
   validates_delay_format_of :payment_delay, :expiration_delay
 
   selects_among_all

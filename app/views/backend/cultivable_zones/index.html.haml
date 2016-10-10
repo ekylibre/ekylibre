@@ -1,7 +1,5 @@
 - main_toolbar do |t|
-  = t.new
-
-- main_campaign_selector
+  = t.new params: { redirect: nil }
 
 = janus do |j|
   - if resource_model.any?

@@ -327,14 +327,14 @@ document_templates_020:
   active: true
   archiving: last
   by_default: true
-  created_at: 2016-01-22 13:22:00.916701000 Z
+  created_at: 2016-04-18 07:12:45.532973000 Z
   creator_id: 1
   formats: ''
-  id: 25
+  id: 26
   language: fra
   lock_version: 0
   managed: true
-  name: Shipping note
-  nature: shipping_note
-  updated_at: 2016-01-22 13:22:00.916701000 Z
+  name: Bon de livraison sortante
+  nature: outgoing_delivery_docket
+  updated_at: 2016-04-18 07:12:45.532973000 Z
   updater_id: 1

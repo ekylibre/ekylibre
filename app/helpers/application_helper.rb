@@ -87,7 +87,31 @@ module ApplicationHelper
     number.l
   end
 
-  def human_age(seconds, options = {})
+  def human_age(born_at, options = {})
+    options[:default] ||= '&ndash;'.html_safe
+    return options[:default] if born_at.nil?
+    at = options[:at] || Time.zone.now
+    sign = ''
+    if born_at > at
+      sign = '-'
+      at, born_at = born_at, at
+    end
+    vals = []
+    remaining_at = born_at + 0.seconds
+    %w(year month day hour minute second).each do |magnitude|
+      count = 0
+      while remaining_at + 1.send(magnitude) < at
+        remaining_at += 1.send(magnitude)
+        count += 1
+      end
+      if count > 0 && (!options[:display] || vals.size < options[:display])
+        vals << "x_#{magnitude.pluralize}".tl(count: count)
+      end
+    end
+    sign + vals.to_sentence
+  end
+
+  def human_interval(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
     vals = []
     if (seconds.to_f / 1.year).floor > 0.0 && (!options[:display] || vals.size < options[:display])
@@ -120,6 +144,14 @@ module ApplicationHelper
     vals.join(':')
   end
 
+  def reading_direction
+    t('i18n.dir')
+  end
+
+  def reading_ltr?
+    reading_direction == 'ltr'
+  end
+
   # def locale_selector
   #   # , :selected => ::I18n.locale)
   #   locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}
@@ -135,7 +167,7 @@ module ApplicationHelper
   # end
 
   def locale_selector_tag
-    locales = ::I18n.available_locales.sort { |a, b| a.to_s <=> b.to_s }
+    locales = ::I18n.available_locales.sort_by(&:to_s)
     # locales = ::I18n.valid_locales.sort{|a,b| a.to_s <=> b.to_s}
     locale = nil # ::I18n.locale
     if params[:locale].to_s =~ /^[a-z][a-z][a-z]$/
@@ -213,10 +245,10 @@ module ApplicationHelper
     nomenclature_as_options(:languages)
   end
 
-  def available_languages
+  def available_languages(native_language = true)
     I18n.available_locales.map do |l|
-      [I18n.t('i18n.name', locale: l), l]
-    end.sort { |a, b| a.second <=> b.second }
+      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
+    end.sort_by(&:second)
   end
 
   # Returns a selection from names list
@@ -227,7 +259,7 @@ module ApplicationHelper
     items.collect do |name|
       item = nomenclature.find(name)
       [item.human_name, item.name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   # Returns a selection from names list
@@ -237,7 +269,7 @@ module ApplicationHelper
     items = args.shift || enum.values
     items.collect do |name|
       [name.l, name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   def back_url
@@ -274,6 +306,8 @@ module ApplicationHelper
           #  raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
+      elsif value.is_a? Nomen::Item
+        value = value.human_name
       else
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
@@ -292,7 +326,7 @@ module ApplicationHelper
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
-    elsif value.respond_to?(:strftime) || value.is_a?(Numeric)
+    elsif value.respond_to?(:strftime) || value.respond_to?(:l) || value.is_a?(Numeric)
       value = value.l
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
@@ -393,7 +427,7 @@ module ApplicationHelper
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
-                               data: { toggle: 'dropdown' },
+                               data: { toggle: 'dropdown', disable_with: options[:disable_with] },
                                aria: { haspopup: 'true', expanded: 'false' })
   end
 
@@ -425,13 +459,16 @@ module ApplicationHelper
     end
     raise 'Need a name or a default item' unless name || default_item
     if name.is_a?(Symbol)
-      options[:icon] ||= name unless options.key?(:icon)
+      options[:icon] ||= name unless options[:icon].is_a?(FalseClass)
       name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
-    item_options[:tool] = options[:icon] if options[:icon]
-    content_tag(:div, class: 'btn-group' + (options[:class] ? ' ' + options[:class].to_s : '')) do
+    item_options[:tool] = options[:icon] if options.key?(:icon)
+    html_options = { class: 'btn-group' }
+    html_options[:class] << ' ' + options[:class].to_s if options[:class]
+    html_options[:id] = options[:id] if options[:id]
+    content_tag(:div, html_options) do
       if default_item
         html = tool_to(default_item.args.first, default_item.args.second,
                        item_options, &default_item.block)
@@ -439,13 +476,13 @@ module ApplicationHelper
           html << dropdown_toggle_button + dropdown_menu(menu.items)
         end
         html
-      elsif menu.list.size == 1 && menu.first.type == :item
+      elsif menu.list.size == 1 && menu.first.type == :item && !options[:force_menu]
         default_item = menu.first
         tool_to(name, default_item.args.second,
                 (default_item.args.third || {}).merge(item_options),
                 &default_item.block)
       else
-        dropdown_toggle_button(name, icon: options[:icon]) +
+        dropdown_toggle_button(name, icon: options[:icon], disable_with: options[:disable_with]) +
           dropdown_menu(menu.list)
       end
     end
@@ -476,6 +513,31 @@ module ApplicationHelper
       end
     else
       return tool_to(*args)
+    end
+  end
+
+  def pop_menu(options = {})
+    menu = Ekylibre::Support::Lister.new(:item, :separator)
+    default_class = options[:class] || 'pop-menu'
+
+    yield menu
+
+    content_tag(:nav, '', class: default_class) do
+      content_tag(:ul, class: 'menu', role: 'menu') do
+        html = ''.html_safe
+        menu.list.each do |item|
+          if item.name == :item
+
+            options = item.args.extract_options!
+            html << content_tag(:li, link_to(*item.args, options[:link_url], options[:link_options]), options[:item_options])
+
+          elsif item.name == :separator
+            html << content_tag(:li, '', class: 'separator')
+          end
+        end
+
+        html
+      end
     end
   end
 
@@ -624,7 +686,7 @@ module ApplicationHelper
   end
 
   def subheading(i18n_key, options = {})
-    raise StandardError.new('A subheading has already been given.') if content_for?(:subheading)
+    raise StandardError, 'A subheading has already been given.' if content_for?(:subheading)
     if options[:here]
       return subheading_tag(tl(i18n_key, options))
     else
@@ -681,7 +743,7 @@ module ApplicationHelper
   # TOOLBAR
 
   def menu_to(name, url, options = {})
-    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
     icon = (options.key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || 'icons-16'
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
@@ -706,8 +768,8 @@ module ApplicationHelper
   # end
 
   def tool_to(name, url, options = {})
-    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
-    icon = options.delete(:tool)
+    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
+    icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
@@ -790,12 +852,6 @@ module ApplicationHelper
 
   def backend_form_for(object, *args, &block)
     options = args.extract_options!
-
-    if options.fetch(:data, {}).key?(:defaults) && options[:data][:defaults].is_a?(Hash)
-      options[:data][:defaults].each do |k, v|
-        object.send("#{k}=", v) if object.has_attribute?(k)
-      end
-    end
     simple_form_for([:backend, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 
@@ -805,10 +861,13 @@ module ApplicationHelper
   end
 
   # Wraps a label and its input in a standard wrapper
-  def field(label, input, _options = {}, &block)
+  def field(label, input, options = {}, &block)
+    options[:label] ||= {}
+    options[:controls] ||= {}
+
     content_tag(:div,
-                content_tag(:label, label, class: 'control-label') +
-                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: 'controls'),
+                content_tag(:label, label, class: "control-label #{options[:label].key?(:class) ? options[:label][:class] : ''}") +
+                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: "controls #{options[:controls].key?(:class) ? options[:controls][:class] : ''}"),
                 class: 'control-group')
   end
 
@@ -878,6 +937,7 @@ module ApplicationHelper
         options[:id] = id
       end
     end
+
     title = options.delete(:title) || options.delete(:heading)
     options[:aria][:labelledby] ||= options[:id].underscore.camelcase(:lower)
     options[:tabindex] ||= '-1'
@@ -885,7 +945,7 @@ module ApplicationHelper
     header_options = options.slice(:close_button, :close_html).merge(title_id: options[:aria][:labelledby])
     content_for(:popover) do
       content_tag(:div, options) do
-        content_tag(:div, class: 'modal-dialog') do
+        content_tag(:div, class: 'modal-dialog' + (options[:size] == :large ? ' modal-lg' : options[:size] == :small ? ' modal-sm' : '')) do
           content_tag(:div, class: 'modal-content') do
             if title
               modal_header(title, header_options) + capture(&block)
@@ -904,9 +964,18 @@ module ApplicationHelper
       if options[:close_button].is_a? FalseClass
         content_tag(:h4, title, class: 'modal-title', id: title_id)
       else
-        button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
+
+        title = content_tag(:h4, title, class: 'modal-title', id: title_id)
+
+        close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
           content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
-        end + content_tag(:h4, title, class: 'modal-title', id: title_id)
+        end
+
+        if options[:flex]
+          title + close_button
+        else
+          close_button + title
+        end
       end
     end
   end
@@ -918,5 +987,69 @@ module ApplicationHelper
     else
       'datetime.relative_distance_in_words.sometime_ago'.t(distance: time_ago_in_words(time))
     end
+  end
+
+  def even_cells(*cells, **options)
+    options = default_evening_options(options)
+    filler = content_tag(
+      options[:filler_tag],
+      options[:filler_content],
+      class: options[:filler_class]
+    )
+    size = cells.size
+    # Number of depth levels we're going to need
+    # log2(number of elements)
+    # +1 here for proper handling of odds
+    n = Math.log(size + 1, 2).round
+
+    unbalanced = cells.count(nil).odd? && size.even?
+
+    # You can't balance a odd number of elements inside an odd numbered grid
+    cells.delete_at(cells.find_index(nil)) if unbalanced
+
+    empties = cells.count(nil)
+    filled = size - empties
+    return safe_join(cells.map { |_| filler }) if filled.zero?
+    return safe_join(cells.map { |cell| content_tag(options[:cell_tag], cell, class: options[:cell_class]) }) if empties.zero?
+
+    result = []
+    # We strive to put everything in the middle
+    # `filled <= (n - 1) * 2 - 1` tells us if there's
+    # enough roomin the inner levels to handle the elements
+    # or if we should take some of the burden.
+    if filled <= (n - 1) * 2 - 1
+      result << filler
+      result << even_cells(*(cells.compact + [nil] * (empties - 2)), **options)
+      result << filler
+    else
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.first,
+        class: options[:cell_class]
+      )
+      result << even_cells(*(cells.compact[1...-1] + [nil] * empties), **options)
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.last,
+        class: options[:cell_class]
+      )
+    end
+    # Continuation of the `odd in even` problem mentioned above.
+    result << filler if unbalanced
+
+    safe_join(result)
+  end
+
+  private
+
+  def default_evening_options(options)
+    defaults = {}
+    defaults[:filler_tag]     = options[:filler_tag]      || :div
+    defaults[:filler_class]   = options[:filler_class]    || :"even-filler"
+    defaults[:filler_content] = options[:filler_content]  || nil
+
+    defaults[:cell_tag]       = options[:cell_tag]        || :div
+    defaults[:cell_class]     = options[:cell_class]      || :"even-cell"
+    defaults
   end
 end

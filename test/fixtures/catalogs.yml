@@ -93,3 +93,16 @@ catalogs_004:
   updated_at: 2014-11-05 09:37:30.560702000 Z
   updater_id: 1
   usage: sale
+catalogs_005:
+  all_taxes_included: false
+  by_default: true
+  code: ACHAT
+  created_at: 2016-07-01 20:47:00.008436000 Z
+  creator_id: 1
+  currency: EUR
+  id: 5
+  lock_version: 0
+  name: Achat
+  updated_at: 2016-07-01 20:47:00.008436000 Z
+  updater_id: 1
+  usage: purchase

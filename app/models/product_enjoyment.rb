@@ -43,14 +43,15 @@ class ProductEnjoyment < Ekylibre::Record::Base
   belongs_to :product
   enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(product_enjoyment) { product_enjoyment.stopped_at && product_enjoyment.started_at }
-  validates_presence_of :nature, :product
+  validates :nature, :product, presence: true
+  validates :originator_type, length: { maximum: 500 }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(product_enjoyment) { product_enjoyment.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
-  validates_presence_of :enjoyer, if: :other?
+  validates :enjoyer, presence: { if: :other? }
 
   before_validation do
-    self.nature ||= (enjoyer.blank? ? :unknown : (enjoyer == Entity.of_company) ? :own : :other)
+    self.nature ||= (enjoyer.blank? ? :unknown : enjoyer == Entity.of_company ? :own : :other)
   end
 
   private

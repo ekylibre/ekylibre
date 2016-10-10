@@ -27,31 +27,34 @@ module Backend
     # params:
     #   :q Text search
     #   :state State search
-    #   :period Two Dates with _ separator
+    #   :period Two dates with "_" separator
     def self.purchases_conditions
       code = ''
       code = search_conditions(purchases: [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], entities: [:number, :full_name]) + " ||= []\n"
-      code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
-      code << "  if params[:period] != 'all'\n"
-      code << "    interval = params[:period].split('_')\n"
-      code << "    first_date = interval.first\n"
-      code << "    last_date = interval.last\n"
-      code << "    c[0] << \" AND #{Purchase.table_name}.invoiced_at BETWEEN ? AND ?\"\n"
-      code << "    c << first_date\n"
-      code << "    c << last_date\n"
-      code << "  end\n "
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "if params[:state].is_a?(Array) && !params[:state].empty?\n"
+      code << "  c[0] << ' AND #{Purchase.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
       code << "end\n "
-      code << "unless (params[:state].blank? or params[:state].is_a? Symbol)\n"
-      code << "  if params[:state] != 'all'\n"
-      code << "    c[0] << \" AND #{Purchase.table_name}.state IN (?)\"\n"
-      code << "    c << params[:state].flatten\n"
-      code << "  end\n "
-      code << "end\n "
-      code << "unless (params[:nature].blank? or params[:nature].is_a? Symbol)\n"
-      code << "  if params[:nature].flatten.first == 'unpaid'\n"
-      code << "    c[0] << \" AND #{Affair.table_name}.closed = FALSE\"\n"
-      code << "  end\n "
-      code << "end\n "
+      code << "if params[:nature].present? && params[:nature].to_s != 'all'\n"
+      code << "  if params[:nature] == 'unpaid'\n"
+      code << "    c[0] << ' AND NOT #{Affair.table_name}.closed'\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "if params[:responsible_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Purchase.table_name}.responsible_id = ?'\n"
+      code << "  c << params[:responsible_id]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -87,6 +90,8 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -109,9 +114,7 @@ module Backend
                                          supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
                                          parcels: { include: :items },
                                          affair: { methods: [:balance], include: [outgoing_payments: { include: :mode }] },
-                                         items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] }
-                            }
-                  ) do |format|
+                                         items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] } }) do |format|
         format.html do
           t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label, label: @purchase.label
         end
@@ -124,12 +127,16 @@ module Backend
         redirect_to action: :index
         return
       end
-      @purchase = Purchase.new(nature: nature)
+      @purchase = if params[:intervention_ids]
+                    Intervention.convert_to_purchase(params[:intervention_ids])
+                  else
+                    Purchase.new(nature: nature)
+                  end
       @purchase.currency = @purchase.nature.currency
       @purchase.responsible = current_user
       @purchase.planned_at = Time.zone.now
       @purchase.invoiced_at = Time.zone.now
-      @purchase.supplier_id = params[:supplier_id] if params[:supplier_id]
+      @purchase.supplier_id ||= params[:supplier_id] if params[:supplier_id]
       if address = Entity.of_company.default_mail_address
         @purchase.delivery_address = address
       end

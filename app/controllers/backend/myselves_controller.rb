@@ -24,7 +24,7 @@ module Backend
     end
 
     def update
-      permitted_params = params.require(:user).permit(:first_name, :last_name, :language)
+      permitted_params = params.require(:user).permit(:first_name, :last_name, :language, :theme)
       if @user.update_attributes(permitted_params)
         I18n.locale = permitted_params[:language]
         notify_success :update_is_done

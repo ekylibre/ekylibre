@@ -24,7 +24,7 @@ module Indicateable
       ids = []
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
-        puts name.inspect.yellow
+        # puts name.inspect.yellow
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
@@ -66,8 +66,7 @@ module Indicateable
     end
     read_at = options[:at] || Time.zone.now
     indicator_name = indicator.name
-    results = readings.select { |r| r.indicator_name == indicator_name && r.read_at <= read_at }
-    results.max { |a, b| a.read_at <=> b.read_at }
+    readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
   end
 
   def first_reading(indicator_name)

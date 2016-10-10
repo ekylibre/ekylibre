@@ -18,7 +18,7 @@
 
 module Backend
   class InventoriesController < Backend::BaseController
-    manage_restfully except: [:index, :show]
+    manage_restfully except: [:index, :show], achieved_at: 'Time.zone.now'.c, responsible_id: 'current_user.person.id'.c, name: 'Time.zone.now.year.to_s'.c
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
