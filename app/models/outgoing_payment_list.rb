@@ -65,19 +65,26 @@ class OutgoingPaymentList < Ekylibre::Record::Base
       "EKY-#{self.number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
 
     payments.each do |payment|
-      sct.add_transaction(
+      credit_transfer_params = {
         name: payment.payee.bank_account_holder_name.truncate(70, omission: ''),
-        bic: payment.payee.bank_identifier_code || 'NOTPROVIDED',
         iban: payment.payee.iban,
         amount: format('%.2f', payment.amount.round(2)),
         reference: payment.number,
         remittance_information: payment.affair.purchases.first.number,
-        requested_date: Time.zone.now,
+        requested_date: Time.zone.now.to_date,
         batch_booking: false
-      )
+      }
+
+      if payment.payee.bank_identifier_code.present?
+        credit_transfer_params[:bic] = payment.payee.bank_identifier_code
+      else
+        credit_transfer_params[:bic] = 'NOTPROVIDED'
+      end
+
+      sct.add_transaction(credit_transfer_params)
     end
 
-    sct.to_xml
+    sct.to_xml('pain.001.001.03')
   end
 
   def payments_sum

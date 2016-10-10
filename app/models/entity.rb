@@ -199,14 +199,10 @@ class Entity < Ekylibre::Record::Base
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
-<<<<<<< HEAD
-    self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
-    self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
-=======
     self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
     self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '')
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
->>>>>>> b4a3b70efe6d15a137d80033abcc92e14fb32e5c
+    self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
   end
 
   validate do
