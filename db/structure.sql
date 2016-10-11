@@ -3016,6 +3016,7 @@ CREATE TABLE intervention_participations (
     started_at timestamp without time zone,
     stopped_at timestamp without time zone,
     nature character varying,
+    request_compliant boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -3049,7 +3050,7 @@ ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_particip
 
 CREATE TABLE intervention_working_periods (
     id integer NOT NULL,
-    intervention_id integer NOT NULL,
+    intervention_id integer,
     started_at timestamp without time zone NOT NULL,
     stopped_at timestamp without time zone NOT NULL,
     duration integer NOT NULL,
@@ -3057,7 +3058,9 @@ CREATE TABLE intervention_working_periods (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    intervention_participation_id integer,
+    nature character varying
 );
 
 
@@ -15377,6 +15380,14 @@ ALTER TABLE ONLY intervention_participations
 
 ALTER TABLE ONLY alerts
     ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
+-- Name: fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
 
 
 --

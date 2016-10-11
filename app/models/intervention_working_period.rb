@@ -37,6 +37,7 @@
 class InterventionWorkingPeriod < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention
+  belongs_to :intervention_participation
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }

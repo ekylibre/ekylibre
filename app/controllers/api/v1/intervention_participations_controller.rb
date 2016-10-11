@@ -1,25 +1,38 @@
 module Api
   module V1
-    # Interventions API permits to access interventions
+    # Interventions Participations API permits to access interventions participations
     class InterventionParticipationsController < Api::V1::BaseController
       def create
         params = permitted_params
+
         intervention = Intervention.find_or_create_by!(
           request_intervention_id:  params[:request_intervention_id],
           procedure_name:           params[:procedure_name]
         )
-        participations = params[:working_periods].map do |participation_params|
-          part = InterventionParticipation.find_or_initialize_by(**participation_params.deep_symbolize_keys.merge(intervention_id: intervention.id, product_id: current_user.id))
-          next nil if intervention.participations.where("(started_at, stopped_at) OVERLAPS (?, ?)", part.started_at, part.stopped_at).any?
-          part.save!
-          part
+
+        participation = intervention.participations.find_or_initialize_by(
+          intervention_id: intervention.id,
+          product_id: current_user.id
+        )
+
+        participation.request_compliant = params[:request_compliant]
+        participation.state = params[:state]
+        participation.save!
+
+        params[:working_periods].map do |wp_params|
+          period = InterventionWorkingPeriod.find_or_initialize_by(
+            **wp_params
+            .merge(intervention_participation_id: participation.id)
+            .deep_symbolize_keys
+          )
+          next if participation.working_periods.where('(started_at, stopped_at) OVERLAPS (?, ?)', period.started_at, period.stopped_at).any?
+          period.save!
         end
 
-        # intervention.request_compliant &&= params[:request_compliant]
-        intervention.state = params[:state]
+        intervention.state = intervention.participations.pluck(:state).any? { |s| s == :in_progress }
         intervention.save!
 
-        render json: { participations_ids: participations.compact.map(&:id) }, status: :created
+        render json: { id: participation.id }, status: :created
       end
 
       private

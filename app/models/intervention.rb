@@ -254,6 +254,11 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  after_save do
+    return if state == :in_progress
+    participations.update_all(state: state)
+  end
+
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?
