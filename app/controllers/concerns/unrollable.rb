@@ -65,7 +65,8 @@ module Unrollable
       end
       haml << "}\n"
       haml << "      %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes.to_h)}}\n"
-      haml << '        = ' + (options[:partial] ? "render '#{partial}', item: item" : 'highlight(item_label, keys)') + "\n"
+      haml << "        - matches = keys + keys.map { |key| ActiveSupport::Inflector.transliterate(key) }\n"
+      haml << '        = ' + (options[:partial] ? "render '#{partial}', item: item" : 'highlight(item_label, matches)') + "\n"
       haml << "    - if params[:insert].to_i > 0\n"
       haml << "      %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
       haml << "  - if items.count > #{(max * 1.5).round}\n"
@@ -142,9 +143,9 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
       code << '      conditions[0] << ' + searchable_filters.collect do |column|
-        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
+        "LOWER(unaccent(CAST(#{column[:search]} AS VARCHAR))) ILIKE E? OR LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
       end.join(' OR ').inspect + "\n"
-      code << '      conditions += [' + searchable_filters.collect do |column|
+      code << '      conditions += [' + searchable_filters.zip(searchable_filters).flatten(1).collect do |column|
         column[:pattern].inspect.gsub('X', '" + key + "')
                         .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
       end.join(', ') + "]\n"
@@ -156,7 +157,7 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      ordering[0] << ') AND (' if index > 0\n"
       code << '      ordering[0] << ' + searchable_filters.collect do |column|
-        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
+        "LOWER(unaccent(CAST(#{column[:search]} AS VARCHAR))) ILIKE E?"
       end.join(' OR ').inspect + "\n"
       code << '      ordering += [' + searchable_filters.collect do |column|
         column[:start_pattern].inspect.gsub('X', '" + key + "')

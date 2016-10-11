@@ -17,12 +17,12 @@ module Autocomplete
           head :bad_request
           return
         end
-        pattern = '%' + params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%').gsub(/[#{String::MINUSCULES.join}]/, '_') + '%'
-        start_pattern = params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%').gsub(/[#{String::MINUSCULES.join}]/, '_') + '%'
-        start_ordering = 'CASE WHEN ' + model.send(:sanitize_sql_array, ["#{column} ILIKE E?", start_pattern]) + ' THEN -1 ELSE 1 END'
+        pattern = '%' + params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%') + '%'
+        start_pattern = params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%') + '%'
+        start_ordering = 'CASE WHEN ' + model.send(:sanitize_sql_array, ["unaccent(#{column}) ILIKE E?", start_pattern]) + ' THEN -1 ELSE 1 END'
         items = model
                 .select("DISTINCT #{column}, #{start_ordering}")
-                .where("#{column} ILIKE ?", pattern)
+                .where("unaccent(#{column}) ILIKE ? OR #{column} ILIKE ?", pattern, pattern)
                 .group(column)
                 .reorder(start_ordering)
                 .order(column => :asc)
