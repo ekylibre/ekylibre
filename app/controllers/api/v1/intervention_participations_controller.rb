@@ -20,7 +20,6 @@ module Api
         participation.save!
 
         params[:working_periods].map do |wp_params|
-          puts wp_params.inspect.red
           period = InterventionWorkingPeriod.find_or_initialize_by(
             **wp_params
             .merge(intervention_participation_id: participation.id)
