@@ -29,6 +29,8 @@
 #  integration_name :string
 #  lock_version     :integer          default(0), not null
 #  name             :string
+#  source_id        :integer
+#  source_type      :string
 #  state            :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -42,7 +44,7 @@ class Call < Ekylibre::Record::Base
   belongs_to :source, polymorphic: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :integration_name, :name, :state, length: { maximum: 500 }, allow_blank: true
+  validates :integration_name, :name, :source_type, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
   # Sync

@@ -66,7 +66,7 @@ spa:
     mechanical_pollinator: "polinizador mecánica"
     milk: "Leche"
     mother: "Madre"
-    movement: "Movimiento"
+    movement: "Movimiento" #?
     mower: "Cortacésped"
     mulching_material: "Rastrojo de cobertura"
     net_implanter: "Implantador neta"

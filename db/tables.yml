@@ -1032,6 +1032,11 @@ calls:
     required: true
   name:
     type: string
+  source_id:
+    type: integer
+    references: "~source_type"
+  source_type:
+    type: string
   state:
     type: string
   updated_at:
@@ -1911,6 +1916,30 @@ documents:
     type: boolean
     required: true
     default: false
+ednotif_loggers:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  operation_name:
+    type: string
+    required: true
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 entities:
   active:
     type: boolean
