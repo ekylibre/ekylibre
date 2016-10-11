@@ -15280,7 +15280,7 @@ ALTER TABLE ONLY alerts
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis";
+SET search_path TO "public", "postgis", "extensions";
 
 INSERT INTO schema_migrations (version) VALUES ('20121212122000');
 
@@ -15611,4 +15611,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 
 INSERT INTO schema_migrations (version) VALUES ('20161007151444');
+
+INSERT INTO schema_migrations (version) VALUES ('20161011195724');
 

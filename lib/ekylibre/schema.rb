@@ -5,8 +5,10 @@ module Ekylibre
     class << self
       def setup_extensions
         ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
+        ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS extensions;'
         ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
-        ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
+        ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA extensions;'
+        ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA extensions;'
       end
 
       def root
