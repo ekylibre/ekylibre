@@ -1682,6 +1682,7 @@ spa:
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
     undelivered: "No entregado"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "Deshecho"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"

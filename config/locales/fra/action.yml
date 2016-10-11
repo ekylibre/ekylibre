@@ -1985,6 +1985,7 @@ fra:
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
+    undelivered_invoices: "Factures non parvenues"
     undone: "Non-fait"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"

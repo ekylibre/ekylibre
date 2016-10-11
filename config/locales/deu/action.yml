@@ -1448,6 +1448,7 @@ deu:
     undefined_activity: "Nicht definierte Aktivität"
     undefined_container: "undefined Behälter"
     undelivered: "Nicht gesendet"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "unerledigt"
     unit: "Einheit"
     # unit_and_indicator: "%{unit} (%{indicator})"

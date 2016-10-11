@@ -2083,6 +2083,7 @@ arb:
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
+    # undelivered_invoices: "Undelivered invoices"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
     undone: "غير مصنوع"
     uninvoiced_amount: "قيمة غير مفوترة" #?

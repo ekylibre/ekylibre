@@ -1449,6 +1449,7 @@ cmn:
     undefined_activity: "未定义活动"
     undefined_container: "未定义的容器"
     undelivered: "未送达"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "未完成"
     unit: "单元"
     # unit_and_indicator: "%{unit} (%{indicator})"
