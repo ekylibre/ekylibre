@@ -19,7 +19,7 @@ module Api
         participation.state = params[:state]
         participation.save!
 
-        params[:working_periods].map(&:last).map do |wp_params|
+        params[:working_periods].map do |wp_params|
           puts wp_params.inspect.red
           period = InterventionWorkingPeriod.find_or_initialize_by(
             **wp_params
