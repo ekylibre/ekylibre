@@ -3257,6 +3257,10 @@ intervention_participations:
   product_id:
     type: integer
     references: product
+  request_compliant:
+    type: boolean
+    required: true
+    default: false
   started_at:
     type: datetime
   stopped_at:
@@ -3283,10 +3287,14 @@ intervention_working_periods:
   intervention_id:
     type: integer
     references: intervention
-    required: true
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
   started_at:
     type: datetime
     required: true

@@ -760,6 +760,8 @@ eng:
     intervention_cast: "Intervention cast" #?
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
+    # intervention_participated_to: "Intervention participated to"
+    # intervention_participation: "Intervention participation"
     # intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
@@ -1146,6 +1148,7 @@ eng:
     replacements: "Replacements" #?
     reporter: "Reporter" #?
     request: "Request"
+    # request_compliant: "Request compliant"
     request_intervention: "Request intervention"
     requests: "Requests"
     required: "Required"

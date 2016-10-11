@@ -12,14 +12,15 @@ module Api
 
         participation = intervention.participations.find_or_initialize_by(
           intervention_id: intervention.id,
-          product_id: current_user.id
+          product_id: current_user.worker.id
         )
 
         participation.request_compliant = params[:request_compliant]
         participation.state = params[:state]
         participation.save!
 
-        params[:working_periods].map do |wp_params|
+        params[:working_periods].map(&:last).map do |wp_params|
+          puts wp_params.inspect.red
           period = InterventionWorkingPeriod.find_or_initialize_by(
             **wp_params
             .merge(intervention_participation_id: participation.id)

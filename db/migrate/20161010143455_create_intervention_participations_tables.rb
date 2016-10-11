@@ -6,7 +6,7 @@ class CreateInterventionParticipationsTables < ActiveRecord::Migration
 
       t.datetime :started_at
       t.datetime :stopped_at
-      t.string :nature
+      t.string :state
 
       t.boolean :request_compliant, null: false, default: false
 
@@ -15,6 +15,22 @@ class CreateInterventionParticipationsTables < ActiveRecord::Migration
 
     add_reference :intervention_working_periods, :intervention_participation, foreign_key: true
     add_column    :intervention_working_periods, :nature, :string
-    change_column :intervention_working_periods, :intervention_id, :integer, null: true
+
+    reversible do |dir|
+      dir.up do
+        change_column_null :intervention_working_periods, :intervention_id, true
+      end
+
+      dir.down do
+        execute <<-SQL
+          UPDATE intervention_working_periods AS working_periods
+          SET    intervention_id = participations.intervention_id
+            FROM  intervention_participations AS participations
+            WHERE working_periods.intervention_participation_id = participations.id
+              AND working_periods.intervention_id IS NULL;
+          SQL
+        change_column_null :intervention_working_periods, :intervention_id, false
+      end
+    end
   end
 end

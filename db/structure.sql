@@ -3015,7 +3015,7 @@ CREATE TABLE intervention_participations (
     product_id integer,
     started_at timestamp without time zone,
     stopped_at timestamp without time zone,
-    nature character varying,
+    state character varying,
     request_compliant boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,

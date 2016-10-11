@@ -22,26 +22,29 @@
 #
 # == Table: intervention_participations
 #
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  id              :integer          not null, primary key
-#  intervention_id :integer
-#  lock_version    :integer          default(0), not null
-#  nature          :string
-#  product_id      :integer
-#  started_at      :datetime
-#  stopped_at      :datetime
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  id                :integer          not null, primary key
+#  intervention_id   :integer
+#  lock_version      :integer          default(0), not null
+#  nature            :string
+#  product_id        :integer
+#  request_compliant :boolean          default(FALSE), not null
+#  started_at        :datetime
+#  stopped_at        :datetime
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 class InterventionParticipation < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :product
+  has_many :working_periods, class_name: 'InterventionWorkingPeriod'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :request_compliant, inclusion: { in: [true, false] }
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention_participation) { intervention_participation.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
-  enumerize :nature, in: [:preparation, :travel, :intervention]
-  validates :nature, presence: true
+  enumerize :state, in: [:in_progress, :done, :validated]
+  validates :state, presence: true
 end
