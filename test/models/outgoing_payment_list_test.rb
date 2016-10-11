@@ -122,6 +122,21 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
     end
   end
 
+  test 'to_sepa with latin characters for bank_account_holder_name' do
+    @list.mode.cash.update!(bank_account_holder_name: 'Cédric Áttèntïòn')
+
+    @list.payments.first.payee.update!(bank_account_holder_name: 'Còmptë cômpliqüé')
+
+    doc = Nokogiri::XML(@list.to_sepa)
+    doc.collect_namespaces
+    doc.remove_namespaces!
+
+    message_identification = "EKY-#{@list.number}-161001-0901"
+    assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
+    assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
+    assert_equal('Compte complique', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
+  end
+
   test 'destroy with bank_statement_letter present' do
     @list.payments.last.journal_entry.items.last.update_column(
       :bank_statement_letter, 'someting'

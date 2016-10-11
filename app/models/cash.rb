@@ -110,6 +110,7 @@ class Cash < Ekylibre::Record::Base
   before_validation do
     mode.lower! unless mode.blank?
     self.mode = self.class.mode.default_value if mode.blank?
+    self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name)
     if currency.blank?
       if journal
         self.currency = journal_currency
