@@ -127,14 +127,16 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
 
     @list.payments.first.payee.update!(bank_account_holder_name: 'Còmptë cômpliqüé')
 
-    doc = Nokogiri::XML(@list.to_sepa)
-    doc.collect_namespaces
-    doc.remove_namespaces!
+    Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
+      doc = Nokogiri::XML(@list.to_sepa)
+      doc.collect_namespaces
+      doc.remove_namespaces!
 
-    message_identification = "EKY-#{@list.number}-161001-0901"
-    assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
-    assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
-    assert_equal('Compte complique', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
+      message_identification = "EKY-#{@list.number}-161001-0901"
+      assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
+      assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
+      assert_equal('Compte complique', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
+    end
   end
 
   test 'destroy with bank_statement_letter present' do
