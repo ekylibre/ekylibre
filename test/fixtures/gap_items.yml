@@ -34,28 +34,4 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
----
-gap_items_001:
-  amount: -11.23
-  created_at: 2014-11-05 13:35:14.450417000 Z
-  creator_id: 1
-  currency: EUR
-  gap_id: 3
-  id: 1
-  lock_version: 0
-  pretax_amount: -9.36
-  tax_id: 3
-  updated_at: 2014-11-05 13:35:14.450417000 Z
-  updater_id: 1
-gap_items_002:
-  amount: 0.8
-  created_at: 2014-11-05 13:36:51.333086000 Z
-  creator_id: 1
-  currency: EUR
-  gap_id: 4
-  id: 2
-  lock_version: 0
-  pretax_amount: 0.8
-  tax_id: 2
-  updated_at: 2014-11-05 13:36:51.333086000 Z
-  updater_id: 1
+--- {}

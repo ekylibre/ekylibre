@@ -1991,11 +1991,11 @@ CREATE TABLE entities (
     custom_fields jsonb,
     employee boolean DEFAULT false NOT NULL,
     employee_account_id integer,
+    codes jsonb,
+    supplier_payment_delay character varying,
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
-    iban character varying,
-    codes jsonb,
-    supplier_payment_delay character varying
+    iban character varying
 );
 
 
@@ -15639,15 +15639,7 @@ INSERT INTO schema_migrations (version) VALUES ('20160913133355');
 
 INSERT INTO schema_migrations (version) VALUES ('20160913133407');
 
-INSERT INTO schema_migrations (version) VALUES ('20160914082357');
-
-INSERT INTO schema_migrations (version) VALUES ('20160914132214');
-
-INSERT INTO schema_migrations (version) VALUES ('20160914150554');
-
 INSERT INTO schema_migrations (version) VALUES ('20160915094302');
-
-INSERT INTO schema_migrations (version) VALUES ('20160916091854');
 
 INSERT INTO schema_migrations (version) VALUES ('20160916220901');
 
@@ -15676,4 +15668,12 @@ INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 INSERT INTO schema_migrations (version) VALUES ('20161007151444');
 
 INSERT INTO schema_migrations (version) VALUES ('20161010205901');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145400');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145500');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145600');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145700');
 

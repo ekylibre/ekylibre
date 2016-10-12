@@ -32,14 +32,4 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
----
-activity_inspection_calibration_scales_001:
-  activity_id: 22
-  created_at: 2016-05-10 19:12:13.384484000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  size_indicator_name: diameter
-  size_unit_name: millimeter
-  updated_at: 2016-05-10 19:12:13.384484000 Z
-  updater_id: 1
+--- {}

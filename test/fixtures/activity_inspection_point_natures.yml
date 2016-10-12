@@ -32,44 +32,4 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
----
-activity_inspection_point_natures_001:
-  activity_id: 22
-  category: deformity
-  created_at: 2016-05-10 19:12:13.393352000 Z
-  creator_id: 1
-  id: 5
-  lock_version: 1
-  name: Défaut de couleur
-  updated_at: 2016-05-14 19:09:46.290404000 Z
-  updater_id: 1
-activity_inspection_point_natures_002:
-  activity_id: 22
-  category: deformity
-  created_at: 2016-05-10 19:12:13.394424000 Z
-  creator_id: 1
-  id: 6
-  lock_version: 1
-  name: Défaut de forme
-  updated_at: 2016-05-14 19:09:46.291723000 Z
-  updater_id: 1
-activity_inspection_point_natures_003:
-  activity_id: 17
-  category: none
-  created_at: 2016-05-10 19:13:40.624776000 Z
-  creator_id: 1
-  id: 7
-  lock_version: 0
-  name: Défaut de couleur
-  updated_at: 2016-05-10 19:13:40.624776000 Z
-  updater_id: 1
-activity_inspection_point_natures_004:
-  activity_id: 22
-  category: disease
-  created_at: 2016-05-14 19:09:46.293216000 Z
-  creator_id: 1
-  id: 8
-  lock_version: 0
-  name: Nématode
-  updated_at: 2016-05-14 19:09:46.293216000 Z
-  updater_id: 1
+--- {}
