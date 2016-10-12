@@ -24,7 +24,7 @@
 #
 #  absolute_credit    :decimal(19, 4)   default(0.0), not null
 #  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4) (0.0), not null
+#  absolute_debit     :decimal(19, 4)   default(0.0), not null
 #  balance            :decimal(19, 4)   default(0.0), not null
 #  created_at         :datetime         not null
 #  creator_id         :integer

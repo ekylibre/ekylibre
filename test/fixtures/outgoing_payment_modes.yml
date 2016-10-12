@@ -44,6 +44,7 @@ outgoing_payment_modes_001:
   id: 1
   lock_version: 1
   name: Par chèque
+  sepa: false
   updated_at: 2014-11-05 13:41:18.374090000 Z
   updater_id: 1
   with_accounting: true
@@ -55,6 +56,7 @@ outgoing_payment_modes_002:
   id: 2
   lock_version: 1
   name: En espèce
+  sepa: false
   updated_at: 2014-11-05 13:41:30.136337000 Z
   updater_id: 1
   with_accounting: true
@@ -66,7 +68,7 @@ outgoing_payment_modes_003:
   id: 3
   lock_version: 1
   name: SEPA
+  sepa: true
   updated_at: 2014-11-05 13:41:30.136337000 Z
   updater_id: 1
   with_accounting: true
-  sepa: true

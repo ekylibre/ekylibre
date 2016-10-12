@@ -1,5 +1,5 @@
-#
 # = Informations
+#
 # == License
 #
 # Ekylibre - Simple agricultural ERP
@@ -53,6 +53,7 @@
 ---
 cashes_001:
   account_id: 212
+  bank_account_holder_name: John Doe
   bank_account_key: ''
   bank_account_number: ''
   bank_agency_address: ''
@@ -64,7 +65,6 @@ cashes_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
-  bank_account_holder_name: John Doe
   iban: FR7611111222223333333333391
   id: 1
   journal_id: 2
@@ -77,6 +77,7 @@ cashes_001:
   updater_id: 1
 cashes_002:
   account_id: 214
+  bank_account_holder_name: John Doe
   bank_account_key: ''
   bank_account_number: ''
   bank_agency_address: "45 Fort Knox Street\r\n4541-78454 Baltimore"
@@ -88,7 +89,6 @@ cashes_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: USD
-  bank_account_holder_name: John Doe
   iban: US65123456789012345678912
   id: 2
   journal_id: 7
