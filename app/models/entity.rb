@@ -202,7 +202,7 @@ class Entity < Ekylibre::Record::Base
     self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
     self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '')
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
-    self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name)
+    self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
     self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
   end
 
