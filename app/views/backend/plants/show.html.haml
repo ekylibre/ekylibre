@@ -97,11 +97,9 @@
             - render "backend/inspections/percentage_chart", dataset: last_inspection.calibrations.of_scale(scale).reorder(:id), scale: scale, dimension: dimension, symbol_measure: symbol_measure
         .chart-table
           - pies.compact.each_slice(3) do |slice_of_pie|
-            - to_even = slice_of_pie
-            - rounded = ((to_even.length / 3.0).ceil)*3
-            - to_even += [nil]*(rounded - to_even.length)
             .chart-line
-              = even_cells(*to_even)
+              - slice_of_pie.each do |chart|
+                = chart
 
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do
     -# FIXME Add activity in URL to get link working

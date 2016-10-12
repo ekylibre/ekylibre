@@ -1453,6 +1453,7 @@ por:
     undefined_activity: "Atividade indefinida"
     undefined_container: "Recipiente indefinido"
     undelivered: "Não entregue"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "Desfeito"
     unit: "Unidade"
     # unit_and_indicator: "%{unit} (%{indicator})"

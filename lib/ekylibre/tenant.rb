@@ -291,6 +291,8 @@ module Ekylibre
 
         tenants.each do |tenant|
 
+          Ekylibre::Tenant::switch! tenant[:name]
+
           connection = ActiveRecord::Base.connection
           connection.execute("INSERT INTO schema_migrations SELECT * FROM public.schema_migrations")
 

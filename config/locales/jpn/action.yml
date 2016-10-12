@@ -1521,6 +1521,7 @@ jpn:
     undefined_activity: "未定義の活動"
     undefined_container: "未定義のコンテナ"
     undelivered: "未配達の"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "元に戻します"
     unit: "単位"
     # unit_and_indicator: "%{unit} (%{indicator})"

@@ -60,10 +60,11 @@ module Backend
 
         last_calibrations       = data.map(&:first)
         last_calibrations_yield = data.map(&:last)
+        yield_value = last_calibrations_yield.compact.blank? ? 0 : (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count)
 
         [
           { name: nature.name, data: [[nature.name, last_calibrations.compact.sum.to_s.to_f.round(2)]] },
-          { name: nature.name, data: [[nature.name, (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f.round(2)]] }
+          { name: nature.name, data: [[nature.name, yield_value.to_s.to_f.round(2)]] }
         ]
       end
 
@@ -81,7 +82,7 @@ module Backend
                    .reorder(:sampled_at)
                    .where('sampled_at <= ?', sample_time)
                    .group_by(&:product_id)
-                   .select { |plant, _| Plant.at(sample_time).pluck(:id).include? plant }
+                   .select { |plant, _| Plant.at(sample_time).where('dead_at > ? OR dead_at IS NULL', sample_time).pluck(:id).include? plant }
                    .values
                    .compact
                    .map do |insps_per_plant|
@@ -92,7 +93,7 @@ module Backend
                        .last
                    end
 
-          [sample_time.l, (values.sum / values.count).to_f.round(2)]
+          [sample_time.l, (values.blank? ? 0 : (values.sum / values.count)).to_f.round(2)]
         end
 
         { name: category.tl, data: spline_data }
@@ -100,7 +101,12 @@ module Backend
     end
 
     def spline_categories(inspections)
-      inspections.reorder(:sampled_at).pluck(:sampled_at).uniq
+      inspections
+        .pluck(:sampled_at)
+        .concat(inspections.includes(:product).pluck(:'products.dead_at'))
+        .compact
+        .uniq
+        .sort
     end
 
     private
