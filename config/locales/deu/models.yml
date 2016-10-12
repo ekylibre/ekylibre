@@ -29,6 +29,7 @@ deu:
         born_at: "Hergestellt in"
       outgoing_payment:
         delivered: "Da an Empfänger"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:

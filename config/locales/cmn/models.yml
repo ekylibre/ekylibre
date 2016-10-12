@@ -29,6 +29,7 @@ cmn:
         born_at: "创建时间"
       outgoing_payment:
         delivered: "给收件人"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:

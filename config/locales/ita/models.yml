@@ -29,6 +29,7 @@ ita:
         born_at: "creato a"
       outgoing_payment:
         delivered: "Dato al destinatario"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:

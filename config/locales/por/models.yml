@@ -29,6 +29,7 @@ por:
         born_at: "Criado em"
       outgoing_payment:
         delivered: "Dada a destinatário"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:

@@ -29,6 +29,7 @@ jpn:
         born_at: "で作成されました"
       outgoing_payment:
         delivered: "受信者に与えられました"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:

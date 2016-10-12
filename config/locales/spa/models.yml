@@ -29,6 +29,7 @@ spa:
         born_at: "Creado en"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:

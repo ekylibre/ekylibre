@@ -304,6 +304,7 @@ arb:
         amount: "القيمة" #?
         created_at: "انشأ في" #?
         delivered: "قدمت للمستفيد"
+        # list: "Outgoing payment list"
         mode: "طريقة تسديد الدفعة" #?
         number: "رقم" #?
         updated_at: "تحديثه في" #?
