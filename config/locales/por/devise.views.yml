@@ -45,6 +45,7 @@ por:
     sessions:
       new:
         sign_in: "Entrar"
+        sign_in_with_ekylibre: "Entrar com Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Não recebeu as instruções de confirmação?"

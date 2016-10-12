@@ -14,10 +14,10 @@
     = f.referenced_association :nature
   - else
     = f.association :nature, as: :hidden
-  - unless f.object.products.any? or nature.nil?
-    = f.variety scope: nature
+  = f.variety scope: nature, child_scope: f.object.products
   = f.input :name
-  = f.input :number
+  = f.input :work_number
+  = f.input :gtin
   = f.input :active
   = f.input :unit_name
   = f.picture

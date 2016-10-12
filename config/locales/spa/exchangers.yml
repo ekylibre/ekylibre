@@ -6,6 +6,7 @@ spa:
     charentes_alliance_incoming_deliveries: "Charentes Alianza entregas entrantes"
     charentes_alliance_outgoing_deliveries: "Charentes Alianza entregas salientes"
     # ebp_edi: "EBP EDI"
+    ekylibre_accounts: "Cuentas Ekylibre"
     ekylibre_activities: "Actividades Ekylibre"
     ekylibre_animal_groups: "Grupos de animales Ekylibre"
     ekylibre_animals: "Animales Ekylibre"

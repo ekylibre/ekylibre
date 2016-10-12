@@ -22,47 +22,50 @@
 #
 # == Table: sales
 #
-#  accounted_at        :datetime
-#  address_id          :integer
-#  affair_id           :integer
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text
-#  client_id           :integer          not null
-#  conclusion          :text
-#  confirmed_at        :datetime
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  credit              :boolean          default(FALSE), not null
-#  credited_sale_id    :integer
-#  currency            :string           not null
-#  custom_fields       :jsonb
-#  delivery_address_id :integer
-#  description         :text
-#  downpayment_amount  :decimal(19, 4)   default(0.0), not null
-#  expiration_delay    :string
-#  expired_at          :datetime
-#  function_title      :string
-#  has_downpayment     :boolean          default(FALSE), not null
-#  id                  :integer          not null, primary key
-#  initial_number      :string
-#  introduction        :text
-#  invoice_address_id  :integer
-#  invoiced_at         :datetime
-#  journal_entry_id    :integer
-#  letter_format       :boolean          default(TRUE), not null
-#  lock_version        :integer          default(0), not null
-#  nature_id           :integer
-#  number              :string           not null
-#  payment_at          :datetime
-#  payment_delay       :string           not null
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string
-#  responsible_id      :integer
-#  state               :string           not null
-#  subject             :string
-#  transporter_id      :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  accounted_at                     :datetime
+#  address_id                       :integer
+#  affair_id                        :integer
+#  amount                           :decimal(19, 4)   default(0.0), not null
+#  annotation                       :text
+#  client_id                        :integer          not null
+#  codes                            :jsonb
+#  conclusion                       :text
+#  confirmed_at                     :datetime
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  credit                           :boolean          default(FALSE), not null
+#  credited_sale_id                 :integer
+#  currency                         :string           not null
+#  custom_fields                    :jsonb
+#  delivery_address_id              :integer
+#  description                      :text
+#  downpayment_amount               :decimal(19, 4)   default(0.0), not null
+#  expiration_delay                 :string
+#  expired_at                       :datetime
+#  function_title                   :string
+#  has_downpayment                  :boolean          default(FALSE), not null
+#  id                               :integer          not null, primary key
+#  initial_number                   :string
+#  introduction                     :text
+#  invoice_address_id               :integer
+#  invoiced_at                      :datetime
+#  journal_entry_id                 :integer
+#  letter_format                    :boolean          default(TRUE), not null
+#  lock_version                     :integer          default(0), not null
+#  nature_id                        :integer
+#  number                           :string           not null
+#  payment_at                       :datetime
+#  payment_delay                    :string           not null
+#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_entry_id :integer
+#  reference_number                 :string
+#  responsible_id                   :integer
+#  state                            :string           not null
+#  subject                          :string
+#  transporter_id                   :integer
+#  undelivered_invoice_entry_id     :integer
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
 #
 ---
 sales_001:

@@ -1,7 +1,6 @@
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
-//= require bootstrap/datetimepicker
-//= require bootstrap/datetimepicker-i18n
+//= require bootstrap-datetimepicker
 //= require jquery-ui/slider
 
 (function ($) {

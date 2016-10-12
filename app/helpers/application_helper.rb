@@ -167,7 +167,7 @@ module ApplicationHelper
   # end
 
   def locale_selector_tag
-    locales = ::I18n.available_locales.sort { |a, b| a.to_s <=> b.to_s }
+    locales = ::I18n.available_locales.sort_by(&:to_s)
     # locales = ::I18n.valid_locales.sort{|a,b| a.to_s <=> b.to_s}
     locale = nil # ::I18n.locale
     if params[:locale].to_s =~ /^[a-z][a-z][a-z]$/
@@ -248,7 +248,7 @@ module ApplicationHelper
   def available_languages(native_language = true)
     I18n.available_locales.map do |l|
       [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
-    end.sort { |a, b| a.second <=> b.second }
+    end.sort_by(&:second)
   end
 
   # Returns a selection from names list
@@ -259,7 +259,7 @@ module ApplicationHelper
     items.collect do |name|
       item = nomenclature.find(name)
       [item.human_name, item.name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   # Returns a selection from names list
@@ -269,7 +269,7 @@ module ApplicationHelper
     items = args.shift || enum.values
     items.collect do |name|
       [name.l, name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   def back_url
@@ -427,7 +427,7 @@ module ApplicationHelper
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
-                               data: { toggle: 'dropdown' },
+                               data: { toggle: 'dropdown', disable_with: options[:disable_with] },
                                aria: { haspopup: 'true', expanded: 'false' })
   end
 
@@ -476,13 +476,13 @@ module ApplicationHelper
           html << dropdown_toggle_button + dropdown_menu(menu.items)
         end
         html
-      elsif menu.list.size == 1 && menu.first.type == :item
+      elsif menu.list.size == 1 && menu.first.type == :item && !options[:force_menu]
         default_item = menu.first
         tool_to(name, default_item.args.second,
                 (default_item.args.third || {}).merge(item_options),
                 &default_item.block)
       else
-        dropdown_toggle_button(name, icon: options[:icon]) +
+        dropdown_toggle_button(name, icon: options[:icon], disable_with: options[:disable_with]) +
           dropdown_menu(menu.list)
       end
     end
@@ -513,6 +513,31 @@ module ApplicationHelper
       end
     else
       return tool_to(*args)
+    end
+  end
+
+  def pop_menu(options = {})
+    menu = Ekylibre::Support::Lister.new(:item, :separator)
+    default_class = options[:class] || 'pop-menu'
+
+    yield menu
+
+    content_tag(:nav, '', class: default_class) do
+      content_tag(:ul, class: 'menu', role: 'menu') do
+        html = ''.html_safe
+        menu.list.each do |item|
+          if item.name == :item
+
+            options = item.args.extract_options!
+            html << content_tag(:li, link_to(*item.args, options[:link_url], options[:link_options]), options[:item_options])
+
+          elsif item.name == :separator
+            html << content_tag(:li, '', class: 'separator')
+          end
+        end
+
+        html
+      end
     end
   end
 
@@ -912,6 +937,7 @@ module ApplicationHelper
         options[:id] = id
       end
     end
+
     title = options.delete(:title) || options.delete(:heading)
     options[:aria][:labelledby] ||= options[:id].underscore.camelcase(:lower)
     options[:tabindex] ||= '-1'
@@ -938,9 +964,18 @@ module ApplicationHelper
       if options[:close_button].is_a? FalseClass
         content_tag(:h4, title, class: 'modal-title', id: title_id)
       else
-        button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
+
+        title = content_tag(:h4, title, class: 'modal-title', id: title_id)
+
+        close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
           content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
-        end + content_tag(:h4, title, class: 'modal-title', id: title_id)
+        end
+
+        if options[:flex]
+          title + close_button
+        else
+          close_button + title
+        end
       end
     end
   end
@@ -952,5 +987,69 @@ module ApplicationHelper
     else
       'datetime.relative_distance_in_words.sometime_ago'.t(distance: time_ago_in_words(time))
     end
+  end
+
+  def even_cells(*cells, **options)
+    options = default_evening_options(options)
+    filler = content_tag(
+      options[:filler_tag],
+      options[:filler_content],
+      class: options[:filler_class]
+    )
+    size = cells.size
+    # Number of depth levels we're going to need
+    # log2(number of elements)
+    # +1 here for proper handling of odds
+    n = Math.log(size + 1, 2).round
+
+    unbalanced = cells.count(nil).odd? && size.even?
+
+    # You can't balance a odd number of elements inside an odd numbered grid
+    cells.delete_at(cells.find_index(nil)) if unbalanced
+
+    empties = cells.count(nil)
+    filled = size - empties
+    return safe_join(cells.map { |_| filler }) if filled.zero?
+    return safe_join(cells.map { |cell| content_tag(options[:cell_tag], cell, class: options[:cell_class]) }) if empties.zero?
+
+    result = []
+    # We strive to put everything in the middle
+    # `filled <= (n - 1) * 2 - 1` tells us if there's
+    # enough roomin the inner levels to handle the elements
+    # or if we should take some of the burden.
+    if filled <= (n - 1) * 2 - 1
+      result << filler
+      result << even_cells(*(cells.compact + [nil] * (empties - 2)), **options)
+      result << filler
+    else
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.first,
+        class: options[:cell_class]
+      )
+      result << even_cells(*(cells.compact[1...-1] + [nil] * empties), **options)
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.last,
+        class: options[:cell_class]
+      )
+    end
+    # Continuation of the `odd in even` problem mentioned above.
+    result << filler if unbalanced
+
+    safe_join(result)
+  end
+
+  private
+
+  def default_evening_options(options)
+    defaults = {}
+    defaults[:filler_tag]     = options[:filler_tag]      || :div
+    defaults[:filler_class]   = options[:filler_class]    || :"even-filler"
+    defaults[:filler_content] = options[:filler_content]  || nil
+
+    defaults[:cell_tag]       = options[:cell_tag]        || :div
+    defaults[:cell_class]     = options[:cell_class]      || :"even-cell"
+    defaults
   end
 end

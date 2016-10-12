@@ -41,6 +41,8 @@ class Tracking < Ekylibre::Record::Base
   enumerize :usage_limit_nature, in: [:no_limit, :used_by, :best_before], default: :no_limit, predicates: true
   belongs_to :producer, class_name: 'Entity'
   belongs_to :product
+  has_many :products, class_name: 'Product', foreign_key: :tracking_id, inverse_of: :tracking
+  has_many :parcel_items, through: :products
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -51,4 +53,20 @@ class Tracking < Ekylibre::Record::Base
   validates :usage_limit_on, presence: { unless: :no_limit? }
 
   alias_attribute :serial_number, :serial
+
+  # get outgoing parcel quantity throught tracking
+  def outgoing_parcel_quantity(unit = :kilogram)
+    if parcel_items.any?
+      qty = parcel_items.map(&:population).sum
+      return qty.in(unit)
+    end
+  end
+
+  # get sale amount throught tracking
+  def sales_pretax_amount(currency = Preference[:currency].to_s)
+    sale_items = SaleItem.where(id: parcel_items.pluck(:sale_item_id))
+    if sale_items.any?
+      sale_items.map(&:pretax_amount).compact.sum.l(currency: currency)
+    end
+  end
 end

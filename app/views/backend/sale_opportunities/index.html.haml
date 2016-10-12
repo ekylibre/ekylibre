@@ -4,7 +4,7 @@
     %label= SaleOpportunity.human_attribute_name(:responsible)
     = select_tag(:responsible_id, options_for_select([[]] + Entity.users.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
-  - main_toolbar do |t|
-    = t.new
+- main_toolbar do |t|
+  = t.new params: { redirect: nil }
 
 = main_list

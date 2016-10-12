@@ -13,7 +13,7 @@ module Backend
           res = http.get("/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json&APPID=#{openweathermap_api_key.value}")
 
           json = begin
-                   JSON.load(res.body)
+                   JSON.parse(res.body)
                  rescue
                    nil
                  end

@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class AllSensorsReadingJobTest < ActionJob::TestCase
+class AllSensorsReadingJobTest < ActiveJob::TestCase
   # Add tests here...
 end

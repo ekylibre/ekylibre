@@ -24,7 +24,7 @@
       - if data_product.any?
         - v.serie :data_product, data_product
         - v.categories :activity, :data_product
-      - v.path "#{resource.number}", :data
+      - v.points "#{resource.number}", :data
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen

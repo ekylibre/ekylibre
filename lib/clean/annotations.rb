@@ -24,9 +24,9 @@ module Clean
         when NilClass                 then 'NULL'
         when TrueClass                then 'TRUE'
         when FalseClass               then 'FALSE'
-        when Float, Fixnum, Bignum    then value.to_s
+        when Float, Integer, Integer then value.to_s
         # BigDecimals need to be output in a non-normalized form and quoted.
-        when BigDecimal               then value.to_s('F')
+        when BigDecimal then value.to_s('F')
         else
           value.inspect
         end
@@ -47,7 +47,7 @@ module Clean
         #    info << "# Table name: #{klass.table_name}\n#\n"
 
         max_size = klass.column_names.collect(&:size).max
-        klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
+        klass.columns.sort_by(&:name).each do |col|
           next if col.name.to_s.start_with?('_') # Custom fields
           attrs = []
           if col.default

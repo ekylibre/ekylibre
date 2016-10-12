@@ -3157,3 +3157,953 @@ accounts_241:
   reconcilable: false
   updated_at: 2016-05-10 19:20:54.354885000 Z
   updater_id: 1
+accounts_242:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 585
+  label: 60312 – Variations de stock de semences et plants
+  lock_version: 0
+  name: Variations de stock de semences et plants
+  number: '60312'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: seed_stocks_variation
+accounts_243:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 586
+  label: 60315 – Variations de stock de produits de défense des animaux
+  lock_version: 0
+  name: Variations de stock de produits de défense des animaux
+  number: '60315'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: animal_medicine_stocks_variation
+accounts_244:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 587
+  label: 7137 – Variations d’inventaires ‒ produits
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits
+  number: '7137'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: products_inventory_variations
+accounts_245:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 588
+  label: 7131 – Variations d’inventaires ‒ animaux (cycle long)
+  lock_version: 0
+  name: Variations d’inventaires ‒ animaux (cycle long)
+  number: '7131'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: long_cycle_animals_inventory_variations
+accounts_246:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 589
+  label: 6032 – Variation des stocks autres approvisionnements
+  lock_version: 0
+  name: Variation des stocks autres approvisionnements
+  number: '6032'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: other_supply_stocks_variation
+accounts_247:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 590
+  label: 60311 – Variations de stock d’engrais et amendements
+  lock_version: 0
+  name: Variations de stock d’engrais et amendements
+  number: '60311'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: fertilizer_stocks_variation
+accounts_248:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 591
+  label: 60313 – Variations de stock de produits de défense des végétaux
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux
+  number: '60313'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_249:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 592
+  label: 100000035 – Zone accueillant des animaux
+  lock_version: 0
+  name: Tototo – Zone accueillant des animaux
+  number: '100000035'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_250:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 593
+  label: 100000007 – Herd
+  lock_version: 0
+  name: Tototo – Herd
+  number: '100000007'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_251:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 594
+  label: 100000005 – Cow
+  lock_version: 0
+  name: Tototo – Cow
+  number: '100000005'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_252:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 595
+  label: 100000004 – Dry matter
+  lock_version: 0
+  name: Tototo – Dry matter
+  number: '100000004'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_253:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 596
+  label: 100000003 – Building
+  lock_version: 0
+  name: Tototo – Building
+  number: '100000003'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_254:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 597
+  label: 100000002 – Lorem ipsum 2
+  lock_version: 0
+  name: Tototo – Lorem ipsum 2
+  number: '100000002'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_255:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 598
+  label: 100000001 – Generic Product Variant
+  lock_version: 0
+  name: Tototo – Generic Product Variant
+  number: '100000001'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_256:
+  created_at: 2014-10-31 18:48:46.392581000 Z
+  debtor: false
+  id: 599
+  label: 37500000018 – Lait de vache
+  lock_version: 0
+  name: Produits finis animaux – Lait de vache
+  number: '37500000018'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.392581000 Z
+  usages: animal_derivative_stock
+accounts_257:
+  created_at: 2014-10-31 18:48:46.404951000 Z
+  debtor: false
+  id: 600
+  label: 301500000022 – Riflexine
+  lock_version: 0
+  name: Stock de produits de défense des animaux – Riflexine
+  number: '301500000022'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.404951000 Z
+  usages: animal_medicine_stock
+accounts_258:
+  created_at: 2014-10-31 18:48:46.404951000 Z
+  debtor: false
+  id: 601
+  label: 301500000021 – Acetal
+  lock_version: 0
+  name: Stock de produits de défense des animaux – Acetal
+  number: '301500000021'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.404951000 Z
+  usages: animal_medicine_stock
+accounts_259:
+  created_at: 2014-10-31 18:48:46.550244000 Z
+  debtor: false
+  id: 602
+  label: 301100000039 – Ammonitre 33,5%  Big Bag
+  lock_version: 0
+  name: Stock d’engrais et amendements – Ammonitre 33,5%  Big Bag
+  number: '301100000039'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.550244000 Z
+  usages: fertilizer_stock
+accounts_260:
+  created_at: 2014-10-31 18:48:46.714343000 Z
+  debtor: false
+  id: 603
+  label: 3100000068 – Blonde d'Aquitaine
+  lock_version: 0
+  name: Animaux (cycle long) – Blonde d'Aquitaine
+  number: '3100000068'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.714343000 Z
+  usages: long_time_animal_stock
+accounts_261:
+  created_at: 2014-10-31 18:48:46.714343000 Z
+  debtor: false
+  id: 604
+  label: 3100000031 – Troupeau de bovins
+  lock_version: 0
+  name: Animaux (cycle long) – Troupeau de bovins
+  number: '3100000031'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.714343000 Z
+  usages: long_time_animal_stock
+accounts_262:
+  created_at: 2014-10-31 18:48:46.714343000 Z
+  debtor: false
+  id: 605
+  label: 3100000030 – Troupeau de vaches laitières
+  lock_version: 0
+  name: Animaux (cycle long) – Troupeau de vaches laitières
+  number: '3100000030'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.714343000 Z
+  usages: long_time_animal_stock
+accounts_263:
+  created_at: 2014-10-31 18:48:46.714343000 Z
+  debtor: false
+  id: 606
+  label: 3100000017 – Vache
+  lock_version: 0
+  name: Animaux (cycle long) – Vache
+  number: '3100000017'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.714343000 Z
+  usages: long_time_animal_stock
+accounts_264:
+  created_at: 2014-10-31 18:48:46.778022000 Z
+  debtor: false
+  id: 607
+  label: 302700000064 – Bouchon naturel
+  lock_version: 0
+  name: Stock d’autres consommables – Bouchon naturel
+  number: '302700000064'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.778022000 Z
+  usages: other_consumables_stock
+accounts_265:
+  created_at: 2014-10-31 18:48:46.778022000 Z
+  debtor: false
+  id: 608
+  label: 302700000063 – Bouteille Bordelaise 75cl
+  lock_version: 0
+  name: Stock d’autres consommables – Bouteille Bordelaise 75cl
+  number: '302700000063'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.778022000 Z
+  usages: other_consumables_stock
+accounts_266:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 609
+  label: 37400000065 – Bouteille de vin (75cl)
+  lock_version: 0
+  name: Stock de produits finis végétaux – Bouteille de vin (75cl)
+  number: '37400000065'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_267:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 610
+  label: 37400000056 – Jus de raisin
+  lock_version: 0
+  name: Stock de produits finis végétaux – Jus de raisin
+  number: '37400000056'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_268:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 611
+  label: 37400000055 – Co-produit du raisin
+  lock_version: 0
+  name: Stock de produits finis végétaux – Co-produit du raisin
+  number: '37400000055'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_269:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 612
+  label: 37400000054 – Résidu de culture
+  lock_version: 0
+  name: Stock de produits finis végétaux – Résidu de culture
+  number: '37400000054'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_270:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 613
+  label: 37400000053 – Moût de raisin
+  lock_version: 0
+  name: Stock de produits finis végétaux – Moût de raisin
+  number: '37400000053'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_271:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 614
+  label: 37400000049 – Vin
+  lock_version: 0
+  name: Stock de produits finis végétaux – Vin
+  number: '37400000049'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_272:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 615
+  label: 37400000048 – Grappe de raisin
+  lock_version: 0
+  name: Stock de produits finis végétaux – Grappe de raisin
+  number: '37400000048'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_273:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 616
+  label: 37400000043 – Herbe de prairie
+  lock_version: 0
+  name: Stock de produits finis végétaux – Herbe de prairie
+  number: '37400000043'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_274:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 617
+  label: 37400000019 – Graine de blé
+  lock_version: 0
+  name: Stock de produits finis végétaux – Graine de blé
+  number: '37400000019'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_275:
+  created_at: 2014-10-31 18:48:46.862025000 Z
+  debtor: false
+  id: 618
+  label: 37400000009 – Botte de paille de blé ‒ balle ronde
+  lock_version: 0
+  name: Stock de produits finis végétaux – Botte de paille de blé ‒ balle ronde
+  number: '37400000009'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.862025000 Z
+  usages: plant_derivative_stock
+accounts_276:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 619
+  label: 301300000062 – So2 liquide 10%
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – So2 liquide 10%
+  number: '301300000062'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_277:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 620
+  label: 301300000061 – Ferrocyanide de potassium ‒ 25kg
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Ferrocyanide de potassium ‒ 25kg
+  number: '301300000061'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_278:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 621
+  label: 301300000060 – Sucre blanc ‒ 25kg
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Sucre blanc ‒ 25kg
+  number: '301300000060'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_279:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 622
+  label: 301300000059 – Levure œnologique ‒ sachet de 500g
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Levure œnologique ‒ sachet de
+    500g
+  number: '301300000059'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_280:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 623
+  label: 301300000058 – Acide malique ‒ 25kg
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Acide malique ‒ 25kg
+  number: '301300000058'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_281:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 624
+  label: 301300000057 – Acide lactique ‒ 25kg
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Acide lactique ‒ 25kg
+  number: '301300000057'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_282:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 625
+  label: 301300000020 – Microthiol sp disp
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Microthiol sp disp
+  number: '301300000020'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_283:
+  created_at: 2014-10-31 18:48:46.870483000 Z
+  debtor: false
+  id: 626
+  label: 301300000008 – Adexar 5 l
+  lock_version: 0
+  name: Stock de produits de défense des végétaux – Adexar 5 l
+  number: '301300000008'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.870483000 Z
+  usages: plant_medicine_stock
+accounts_284:
+  created_at: 2014-10-31 18:48:46.920511000 Z
+  debtor: false
+  id: 627
+  label: 301200000045 – Plant de vigne standard (So4)
+  lock_version: 0
+  name: Stock de semences et plants – Plant de vigne standard (So4)
+  number: '301200000045'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.920511000 Z
+  usages: seed_stock
+accounts_285:
+  created_at: 2014-10-31 18:48:46.920511000 Z
+  debtor: false
+  id: 628
+  label: 301200000042 – Semence mixte
+  lock_version: 0
+  name: Stock de semences et plants – Semence mixte
+  number: '301200000042'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.920511000 Z
+  usages: seed_stock
+accounts_286:
+  created_at: 2014-10-31 18:48:46.920511000 Z
+  debtor: false
+  id: 629
+  label: 301200000041 – Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+  lock_version: 0
+  name: Stock de semences et plants – Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+  number: '301200000041'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.920511000 Z
+  usages: seed_stock
+accounts_287:
+  created_at: 2014-10-31 18:48:46.920511000 Z
+  debtor: false
+  id: 630
+  label: 301200000011 – Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  lock_version: 0
+  name: Stock de semences et plants – Semence d’avoine d’hiver une de mai ‒ sac de
+    25kg
+  number: '301200000011'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.920511000 Z
+  usages: seed_stock
+accounts_288:
+  created_at: 2014-10-31 18:48:46.920511000 Z
+  debtor: false
+  id: 631
+  label: 301200000010 – Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  lock_version: 0
+  name: Stock de semences et plants – Semence de Blé tendre Rubisko (r1 gau red) sac
+    de 25kg
+  number: '301200000010'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.920511000 Z
+  usages: seed_stock
+accounts_289:
+  created_at: 2014-10-31 18:48:46.939297000 Z
+  debtor: false
+  id: 632
+  label: 34100000044 – Culture de vigne
+  lock_version: 0
+  name: Avances aux cultures (cycle court) – Culture de vigne
+  number: '34100000044'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.939297000 Z
+  usages: short_cycle_cultivation_advances
+accounts_290:
+  created_at: 2014-10-31 18:48:46.939297000 Z
+  debtor: false
+  id: 633
+  label: 34100000040 – Culture de prairie permanente
+  lock_version: 0
+  name: Avances aux cultures (cycle court) – Culture de prairie permanente
+  number: '34100000040'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.939297000 Z
+  usages: short_cycle_cultivation_advances
+accounts_291:
+  created_at: 2014-10-31 18:48:46.939297000 Z
+  debtor: false
+  id: 634
+  label: 34100000032 – Culture de maïs
+  lock_version: 0
+  name: Avances aux cultures (cycle court) – Culture de maïs
+  number: '34100000032'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.939297000 Z
+  usages: short_cycle_cultivation_advances
+accounts_292:
+  created_at: 2014-10-31 18:48:46.939297000 Z
+  debtor: false
+  id: 635
+  label: 34100000016 – Culture de blé
+  lock_version: 0
+  name: Avances aux cultures (cycle court) – Culture de blé
+  number: '34100000016'
+  reconcilable: false
+  updated_at: 2014-10-31 18:48:46.939297000 Z
+  usages: short_cycle_cultivation_advances
+accounts_293:
+  created_at: 2014-12-24 11:08:52.805048000 Z
+  debtor: false
+  id: 636
+  label: 713100000017 – Vache
+  lock_version: 0
+  name: Variations d’inventaires ‒ animaux (cycle long) – Vache
+  number: '713100000017'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:52.805048000 Z
+  usages: long_cycle_animals_inventory_variations
+accounts_294:
+  created_at: 2014-12-24 11:08:52.805048000 Z
+  debtor: false
+  id: 637
+  label: 713100000068 – Blonde d'Aquitaine
+  lock_version: 0
+  name: Variations d’inventaires ‒ animaux (cycle long) – Blonde d'Aquitaine
+  number: '713100000068'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:52.805048000 Z
+  usages: long_cycle_animals_inventory_variations
+accounts_295:
+  created_at: 2014-12-24 11:08:52.814320000 Z
+  debtor: false
+  id: 638
+  label: 713300000045 – Plant de vigne standard (So4)
+  lock_version: 0
+  name: Variations d’inventaires ‒ végétaux (cycle long) – Plant de vigne standard
+    (So4)
+  number: '713300000045'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:52.814320000 Z
+  usages: long_cycle_vegetals_inventory_variations
+accounts_296:
+  created_at: 2014-12-24 11:08:52.954692000 Z
+  debtor: false
+  id: 639
+  label: 603200000063 – Bouteille Bordelaise 75cl
+  lock_version: 0
+  name: Variation des stocks autres approvisionnements – Bouteille Bordelaise 75cl
+  number: '603200000063'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:52.954692000 Z
+  usages: other_supply_stocks_variation
+accounts_297:
+  created_at: 2014-12-24 11:08:52.954692000 Z
+  debtor: false
+  id: 640
+  label: 603200000064 – Bouchon naturel
+  lock_version: 0
+  name: Variation des stocks autres approvisionnements – Bouchon naturel
+  number: '603200000064'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:52.954692000 Z
+  usages: other_supply_stocks_variation
+accounts_298:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 641
+  label: 713700000009 – Botte de paille de blé ‒ balle ronde
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Botte de paille de blé ‒ balle ronde
+  number: '713700000009'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_299:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 642
+  label: 713700000019 – Graine de blé
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Graine de blé
+  number: '713700000019'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_300:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 643
+  label: 713700000043 – Herbe de prairie
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Herbe de prairie
+  number: '713700000043'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_301:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 644
+  label: 713700000048 – Grappe de raisin
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Grappe de raisin
+  number: '713700000048'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_302:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 645
+  label: 713700000049 – Vin
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Vin
+  number: '713700000049'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_303:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 646
+  label: 713700000053 – Moût de raisin
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Moût de raisin
+  number: '713700000053'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_304:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 647
+  label: 713700000054 – Résidu de culture
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Résidu de culture
+  number: '713700000054'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_305:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 648
+  label: 713700000055 – Co-produit du raisin
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Co-produit du raisin
+  number: '713700000055'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_306:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 649
+  label: 713700000056 – Jus de raisin
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Jus de raisin
+  number: '713700000056'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_307:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 650
+  label: 713700000065 – Bouteille de vin (75cl)
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Bouteille de vin (75cl)
+  number: '713700000065'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_308:
+  created_at: 2014-12-24 11:08:53.004180000 Z
+  debtor: false
+  id: 651
+  label: 713700000018 – Lait de vache
+  lock_version: 0
+  name: Variations d’inventaires ‒ produits – Lait de vache
+  number: '713700000018'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.004180000 Z
+  usages: products_inventory_variations
+accounts_309:
+  created_at: 2014-12-24 11:08:53.093280000 Z
+  debtor: false
+  id: 652
+  label: 713400000016 – Culture de blé
+  lock_version: 0
+  name: Variations d’inventaires ‒ végétaux (cycle court) – Culture de blé
+  number: '713400000016'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.093280000 Z
+  usages: short_cycle_vegetals_inventory_variations
+accounts_310:
+  created_at: 2014-12-24 11:08:53.093280000 Z
+  debtor: false
+  id: 653
+  label: 713400000032 – Culture de maïs
+  lock_version: 0
+  name: Variations d’inventaires ‒ végétaux (cycle court) – Culture de maïs
+  number: '713400000032'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.093280000 Z
+  usages: short_cycle_vegetals_inventory_variations
+accounts_311:
+  created_at: 2014-12-24 11:08:53.093280000 Z
+  debtor: false
+  id: 654
+  label: 713400000040 – Culture de prairie permanente
+  lock_version: 0
+  name: Variations d’inventaires ‒ végétaux (cycle court) – Culture de prairie permanente
+  number: '713400000040'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.093280000 Z
+  usages: short_cycle_vegetals_inventory_variations
+accounts_312:
+  created_at: 2014-12-24 11:08:53.093280000 Z
+  debtor: false
+  id: 655
+  label: 713400000044 – Culture de vigne
+  lock_version: 0
+  name: Variations d’inventaires ‒ végétaux (cycle court) – Culture de vigne
+  number: '713400000044'
+  reconcilable: false
+  updated_at: 2014-12-24 11:08:53.093280000 Z
+  usages: short_cycle_vegetals_inventory_variations
+accounts_313:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 656
+  label: 6031200000010 – Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  lock_version: 0
+  name: Variations de stock de semences et plants – Semence de Blé tendre Rubisko
+    (r1 gau red) sac de 25kg
+  number: '6031200000010'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: seed_stocks_variation
+accounts_314:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 657
+  label: 6031200000011 – Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  lock_version: 0
+  name: Variations de stock de semences et plants – Semence d’avoine d’hiver une de
+    mai ‒ sac de 25kg
+  number: '6031200000011'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: seed_stocks_variation
+accounts_315:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 658
+  label: 6031200000041 – Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+  lock_version: 0
+  name: Variations de stock de semences et plants – Semence de trèfle violet ‒ Ségur
+    ‒ sac de 10kg
+  number: '6031200000041'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: seed_stocks_variation
+accounts_316:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 659
+  label: 6031200000042 – Semence mixte
+  lock_version: 0
+  name: Variations de stock de semences et plants – Semence mixte
+  number: '6031200000042'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: seed_stocks_variation
+accounts_317:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 660
+  label: 6031500000021 – Acetal
+  lock_version: 0
+  name: Variations de stock de produits de défense des animaux – Acetal
+  number: '6031500000021'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: animal_medicine_stocks_variation
+accounts_318:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 661
+  label: 6031500000022 – Riflexine
+  lock_version: 0
+  name: Variations de stock de produits de défense des animaux – Riflexine
+  number: '6031500000022'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: animal_medicine_stocks_variation
+accounts_319:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 662
+  label: 6031100000039 – Ammonitre 33,5%  Big Bag
+  lock_version: 0
+  name: Variations de stock d’engrais et amendements – Ammonitre 33,5%  Big Bag
+  number: '6031100000039'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: fertilizer_stocks_variation
+accounts_320:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 663
+  label: 6031300000008 – Adexar 5 l
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Adexar 5 l
+  number: '6031300000008'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_321:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 664
+  label: 6031300000020 – Microthiol sp disp
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Microthiol sp disp
+  number: '6031300000020'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_322:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 665
+  label: 6031300000057 – Acide lactique ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Acide lactique ‒
+    25kg
+  number: '6031300000057'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_323:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 666
+  label: 6031300000058 – Acide malique ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Acide malique ‒
+    25kg
+  number: '6031300000058'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_324:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 667
+  label: 6031300000059 – Levure œnologique ‒ sachet de 500g
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Levure œnologique
+    ‒ sachet de 500g
+  number: '6031300000059'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_325:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 668
+  label: 6031300000060 – Sucre blanc ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Sucre blanc ‒ 25kg
+  number: '6031300000060'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_326:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 669
+  label: 6031300000061 – Ferrocyanide de potassium ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Ferrocyanide de
+    potassium ‒ 25kg
+  number: '6031300000061'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_327:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 670
+  label: 6031300000062 – So2 liquide 10%
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – So2 liquide 10%
+  number: '6031300000062'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation

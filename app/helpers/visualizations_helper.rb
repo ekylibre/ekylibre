@@ -70,6 +70,14 @@ module Visualization
       layer(name, serie, { colors: @categories_colors }.merge(options.merge(type: :points)))
     end
 
+    def point_group(name, serie, options = {})
+      layer(name, serie, options.merge(type: :point_group))
+    end
+
+    def sensor_group(name, serie, options = {})
+      layer(name, serie, options.merge(type: :sensor_group))
+    end
+
     # def multi_points(name, serie, options = {})
     #   layer(name, serie, options.merge(type: :multi_points))
     # end

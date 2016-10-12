@@ -1,26 +1,23 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_mulching" categories="crop_protection" optional-actions="organic_fertilization">
+  <procedure name="plant_mulching" categories="crop_protection" actions="organic_fertilization, frost_protection, soil_structure_stabilisation">
     <parameters>
-      <input name="plastic" filter="is preparation and can wrap(cultivable_zone)">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="mulching_material" filter="is matter and can cover(plant)" cardinality="*">
         <handler indicator="net_length" unit="meter"
                  if="PRODUCT.net_length? and PRODUCT.net_length != 0"
                  backward="(POPULATION / PRODUCT.net_length(meter))"
                  forward="(VALUE * PRODUCT.net_length(meter))"/>
         <handler indicator="surface_area_percentage" unit="percent"
-                 if="land_parcel? and sum(land_parcel, :net_surface_area, :hectare) != 0 and PRODUCT.net_length? and PRODUCT.net_length != 0 and PRODUCT.width? and PRODUCT.width != 0"
-                 backward="(POPULATION * PRODUCT.net_length(meter) * PRODUCT.width(meter)) / sum(land_parcel, :net_surface_area, :square_meter)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / (PRODUCT.net_length(meter) * PRODUCT.width(meter))"/>
+                 if="plant? and sum(plant, :net_surface_area, :hectare) != 0 and PRODUCT.net_length? and PRODUCT.net_length != 0 and PRODUCT.width? and PRODUCT.width != 0"
+                 backward="(POPULATION * PRODUCT.net_length(meter) * PRODUCT.width(meter)) / sum(plant, :net_surface_area, :square_meter)"
+                 forward="(VALUE * sum(plant, :net_surface_area, :square_meter)) / (PRODUCT.net_length(meter) * PRODUCT.width(meter))"/>
       </input>
-      <parameter name="implanter" type="tool" filter="can seat(canvas_cover)"/>
-      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
-      <parameter name="tractor" type="tool" filter="is equipment and can catch(equipment)"/>
-      <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
+      <tool name="tool" filter="is portable_equipment" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

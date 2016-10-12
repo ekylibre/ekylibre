@@ -22,33 +22,35 @@
 #
 # == Table: intervention_parameters
 #
-#  assembly_id             :integer
-#  component_id            :integer
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  event_participation_id  :integer
-#  group_id                :integer
-#  id                      :integer          not null, primary key
-#  intervention_id         :integer          not null
-#  lock_version            :integer          default(0), not null
-#  new_container_id        :integer
-#  new_group_id            :integer
-#  new_name                :string
-#  new_variant_id          :integer
-#  outcoming_product_id    :integer
-#  position                :integer          not null
-#  product_id              :integer
-#  quantity_handler        :string
-#  quantity_indicator_name :string
-#  quantity_population     :decimal(19, 4)
-#  quantity_unit_name      :string
-#  quantity_value          :decimal(19, 4)
-#  reference_name          :string           not null
-#  type                    :string
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  variant_id              :integer
-#  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  assembly_id              :integer
+#  component_id             :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  event_participation_id   :integer
+#  group_id                 :integer
+#  id                       :integer          not null, primary key
+#  intervention_id          :integer          not null
+#  lock_version             :integer          default(0), not null
+#  new_container_id         :integer
+#  new_group_id             :integer
+#  new_name                 :string
+#  new_variant_id           :integer
+#  outcoming_product_id     :integer
+#  position                 :integer          not null
+#  product_id               :integer
+#  quantity_handler         :string
+#  quantity_indicator_name  :string
+#  quantity_population      :decimal(19, 4)
+#  quantity_unit_name       :string
+#  quantity_value           :decimal(19, 4)
+#  reference_name           :string           not null
+#  type                     :string
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  variant_id               :integer
+#  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
 class InterventionProductParameter < InterventionParameter
@@ -78,7 +80,8 @@ class InterventionProductParameter < InterventionParameter
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
-  delegate :started_at, :stopped_at, :duration, :procedure, to: :intervention
+  delegate :started_at, :stopped_at, :duration, :procedure, :currency, to: :intervention
+  delegate :currency, to: :intervention, prefix: true
   delegate :matching_model, to: :variant
 
   accepts_nested_attributes_for :readings, allow_destroy: true
@@ -90,6 +93,7 @@ class InterventionProductParameter < InterventionParameter
 
   before_validation do
     self.intervention = group.intervention if group && !intervention
+    self.currency = intervention_currency if intervention
     if reference
       if reference.handled? && quantity_handler?
         handler = reference.handler(quantity_handler)
@@ -99,13 +103,13 @@ class InterventionProductParameter < InterventionParameter
         end
       end
     end
-    if product.is_a?(Product)
-      self.variant ||= product.variant
-      # for indicator_name in product.whole_indicators_list
-      #   if send(indicator_name).blank? # and !reference.worked?
-      #     send("#{indicator_name}=", product.send(indicator_name, started_at))
-      #   end
-      # end
+    self.variant ||= product.variant if product.is_a?(Product)
+    v = variant || new_variant
+    if v
+      catalog_item = v.catalog_items.of_usage(:stock).first
+      if catalog_item && catalog_item.pretax_amount != 0.0
+        self.unit_pretax_stock_amount = catalog_item.pretax_amount
+      end
     end
     true
   end

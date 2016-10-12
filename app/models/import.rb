@@ -98,7 +98,7 @@ class Import < Ekylibre::Record::Base
       end
     end
     raise InterruptRequest unless File.exist? progress_file
-    update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
+    update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Integer) ? User.stamper : nil))
   end
 
   def progress_file
@@ -115,7 +115,7 @@ class Import < Ekylibre::Record::Base
     undone? && archive.file?
   end
 
-  # Removing progress is the signal to interrupt the process
+  # Removing progress file is the signal to interrupt the process
   def abort
     FileUtils.rm_rf(progress_file)
     update_column(:state, :aborted)

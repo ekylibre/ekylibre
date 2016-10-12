@@ -164,7 +164,7 @@ module Backend
       unless options.key?(:disabled)
         if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
            @object.class.readonly_attributes.include?(attribute_name.to_s)
-          options[:disabled] = true
+          options[:disabled] = true unless options[:as] == :hidden
         end
       end
       autocomplete = options[:autocomplete]
@@ -227,7 +227,7 @@ module Backend
       input(attribute_name, options) do
         data_lists = {}
         @template.content_tag(:span, class: 'control-group abilities-list') do
-          abilities_for_select = Nomen::Ability.list.sort { |a, b| a.human_name <=> b.human_name }.map do |a|
+          abilities_for_select = Nomen::Ability.list.sort_by(&:human_name).map do |a|
             attrs = { value: a.name }
             if a.parameters
               a.parameters.each do |parameter|
@@ -474,11 +474,13 @@ module Backend
         variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
       end
 
-      born_at = nil
       full_name = nil
       if @template.params[:person_id]
-        born_at = Entity.find(@template.params[:person_id]).born_at
-        full_name = Entity.find(@template.params[:person_id]).full_name
+        person = Entity.find(@template.params[:person_id])
+        if person
+          @object.born_at ||= person.born_at
+          full_name = Entity.find(@template.params[:person_id]).full_name
+        end
       end
 
       options[:input_html] ||= {}
@@ -497,8 +499,10 @@ module Backend
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << (born_at.nil? ? input(:born_at) : input(:born_at, input_html: { value: born_at }))
+          fs << input(:born_at)
           fs << input(:dead_at)
+
+          fs << nested_association(:labellings)
 
           # error message for indicators
           if Rails.env.development?
@@ -592,11 +596,22 @@ module Backend
 
     def variety(options = {})
       scope = options[:scope]
-      varieties         = Nomen::Variety.selection(scope ? scope.variety : nil)
-      @object.variety ||= (scope ? scope.variety : varieties.first ? varieties.first.last : nil)
+      varieties = Nomen::Variety.selection(scope ? scope.variety : nil)
+      child_scope = options[:child_scope]
+      if child_scope
+        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
+      end
+      @object.variety ||= scope.variety if scope
+      @object.variety ||= varieties.first.last if @object.new_record? && varieties.first
       if options[:derivative_of] || (scope && scope.derivative_of)
         derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
-        @object.derivative_of ||= (scope ? scope.derivative_of : derivatives.first ? derivatives.first.last : nil)
+        @object.derivative_of ||= scope.derivative_of if scope
+        @object.derivative_of ||= derivatives.first.last if @object.new_record? && derivatives.first
+        if child_scope
+          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
+        end
+      end
+      if !derivatives.nil? && derivatives.any?
         return input(:variety, wrapper: :append, class: :inline) do
           field = ('<span class="add-on">' <<
                    ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
@@ -605,7 +620,7 @@ module Backend
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')
           field.gsub!('@@VARIETY@@', input_field(:variety, as: :select, collection: varieties))
-          field.gsub!('@@DERIVATIVE@@', input_field(:derivative_of, as: :select, collection: derivatives))
+          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, as: :select, collection: derivatives, wrapper: :nested))
           field.html_safe
         end
       else
@@ -727,7 +742,6 @@ module Backend
       if units_values.is_a?(Array)
         return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
       end
-
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end

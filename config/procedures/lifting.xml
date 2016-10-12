@@ -2,12 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="lifting" categories="harvesting" actions="lifting">
     <parameters>
-      <target name="cultivation" filter="is plant and has indicator shape">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <tool name="lifter"  filter="can harvest(plant)"/>
-      <tool name="tractor" filter="can tow(equipment) and can move"/>
-      <doer name="driver"  filter="can drive(equipment) and can move"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="lifter" filter="can harvest(plant)" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

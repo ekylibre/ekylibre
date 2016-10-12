@@ -98,6 +98,8 @@ gem 'deep_cloneable', '~> 2.2.1'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-i18n-views'
+gem 'omniauth'
+gem 'omniauth-oauth2'
 
 # Attachments
 gem 'paperclip'
@@ -137,6 +139,7 @@ gem 'rubyzip'
 gem 'roo'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
+gem 'rodf'
 
 # Demo data
 gem 'ffaker', '>= 2.0.0'

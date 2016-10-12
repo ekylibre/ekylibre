@@ -3,8 +3,7 @@
   = f.input :name
   = f.input :number, required: false
   = f.input :active
-  = f.referenced_nomenclature :variety
-  = f.referenced_nomenclature :derivative_of
+  = f.variety derivative_of: true, child_scope: f.object.variants
   = f.input :population_counting, as: :radio_buttons
   = f.picture
   = f.input :subscribing, show: "#subscribing-options"

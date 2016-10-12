@@ -1,0 +1,93 @@
+@import "bootstrap/labels";
+
+$preview-modal-height: 80vh;
+
+.interventions-modal {
+  .intervention-activities {
+    padding: $default-gap;
+
+    .label {
+      margin-right: round($default-gap * 1.4);
+    }
+  }
+  .indicators {
+    @include flex-row(space-around);
+    flex-wrap: wrap;
+
+    .med-info {
+      @include flex-column();
+      flex: 1 50%;
+      padding: 0;
+      margin-top: round($default-gap * 1.4);
+
+      .value {
+        line-height: $fs-awesome;
+      }
+    }
+
+    .med-info.total-cost {
+      font-weight: bold;
+    }
+  }
+
+  .blocks {
+    @include flex-row(flex-start, flex-start);
+    flex-wrap: wrap;
+    padding: $default-gap;
+
+    .block {
+      flex: 1 50%;
+      margin: $fs-normal 0;
+
+      .block-title {
+        border-bottom: $menu-border;
+        padding-bottom: $default-gap;
+        font-size: $fs-normal;
+        font-weight: bold;
+      }
+
+      .data {
+        padding: $default-gap;
+        @include flex-row(flex-start, center);
+      }
+
+      .data-title {
+        font-weight: bold;
+      }
+
+      .picture .picto {
+        font-size: $fs-huge;
+        line-height: initial;
+      }
+    }
+  }
+}
+
+.taskboard.interventions-taskboard {
+
+  .taskboard-column {
+
+    &.requests {
+      border: $menu-border-width dashed $text-color;
+      & .tasks {
+        border-top: $menu-border-width dashed $text-color;
+      }
+    }
+  }
+
+  .task {
+
+    .completely_filled {
+      margin-left: round($default-gap * 1.4);
+      color: $success-color;
+      font-size: $fs-large;
+      min-width: initial;
+      line-height: initial;
+    }
+
+    &-data.doers {
+      background-color: $darkened-blue-grey;
+      color: $white;
+    }
+  }
+}

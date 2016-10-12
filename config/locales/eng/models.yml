@@ -86,6 +86,7 @@ eng:
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
         bank_statement:
           no_cash_match_ofx: "No cash found for the bank account number given in the file"
@@ -157,6 +158,8 @@ eng:
       activity_season: "Activity season"
       activity_tactic: "Activity cropping technique"
       affair: "Affair"
+      alert: "Alert"
+      alert_phase: "Alert phase"
       analysis: "Analysis"
       analysis_item: "Analysis item"
       animal: "Animal"
@@ -196,6 +199,7 @@ eng:
       entity_address: "Address"
       entity_link: "Entity link"
       equipment: "Equipment"
+      equipment_fleet: "Equipment fleet"
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
@@ -221,6 +225,7 @@ eng:
       intervention_doer: "Intervention doer"
       intervention_group_parameter: "Intervention group parameter"
       intervention_input: "Intervention input"
+      intervention_labelling: "Intervention labelling"
       intervention_output: "Intervention output"
       intervention_parameter: "Intervention parameter"
       intervention_parameter_reading: "Product reading task"
@@ -234,6 +239,7 @@ eng:
       journal: "Journal"
       journal_entry: "Journal entry"
       journal_entry_item: "Journal entry item"
+      label: "Label"
       land_parcel: "Land parcel"
       listing: "Listing"
       listing_node: "Listing node"
@@ -263,6 +269,7 @@ eng:
       product: "Product"
       product_enjoyment: "Product enjoyment"
       product_group: "Product group"
+      product_labelling: "Product labelling"
       product_link: "Product link"
       product_linkage: "Product linkage"
       product_localization: "Product localization"
@@ -276,6 +283,7 @@ eng:
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
       product_phase: "Product phase"
+      product_population: "Product population"
       product_reading: "Product reading"
       purchase: "Purchase"
       purchase_item: "Purchase item"
@@ -350,6 +358,8 @@ eng:
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at" #?
     age: "Age"
+    alert: "Alert"
+    alerts: "Alerts"
     all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
@@ -391,6 +401,7 @@ eng:
     bank_statement_letter: "Bank statement letter"
     bank_statements: "Bank statements"
     base_amount: "Base amount"
+    battery_level: "Battery level"
     body: "Body"
     boolean_value: "Boolean value"
     born_at: "Born at"
@@ -399,6 +410,7 @@ eng:
     by_default: "By default"
     calibrations: "Calibrations"
     campaign: "Campaign"
+    campaigns: "Campaigns"
     canal: "Canal"
     cap_islet: "CAP islet"
     cap_islets: "CAP islets"
@@ -435,7 +447,7 @@ eng:
     closed_on: "Closed on"
     clusters_work_number: "Clusters work number" #?
     code: "Code"
-    codes: "Codes" #?
+    codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "Collect account"
     collected_taxes: "Collected taxes"
@@ -520,9 +532,14 @@ eng:
     declarant: "Declarant"
     deduction_account: "Deduction account"
     default_computation_method: "Default computation method"
+    # default_email_address: "Default email address"
+    # default_fax_address: "Default fax address"
     default_mail_address: "Default mail address"
+    # default_mobile_address: "Default mobile address"
+    # default_phone_address: "Default phone address"
     default_storage: "Default storage"
     default_variant: "Default variant"
+    # default_website_address: "Default website address"
     deleted_at: "Deleted at"
     delivered: "Delivered"
     delivered_at: "Delivered at"
@@ -670,12 +687,15 @@ eng:
     grading_sizes_unit_name: "Grading sizes unit name"
     gradings: "Gradings" #?
     gravity: "Gravity"
-    gross_items: "Gross count" #?
-    gross_mass: "Gross mass" #?
-    gross_yield_value: "Gross yield value" #?
+    gross_items_count: "Gross items count" #?
+    gross_items_count_yield: "Gross item yield" #?
+    gross_net_mass: "Gross mass" #?
+    gross_net_mass_yield: "Gross mass yield" #?
+    gross_yield_value: "Gross yield" #?
     group: "Group"
     group_parameters: "Group parameters"
     groups: "Groups"
+    gtin: "GTIN"
     guide: "Guide"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
@@ -742,9 +762,11 @@ eng:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Intervention cast" #?
+    # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
+    interventions_used_in: "Interventions used in"
     introduction: "Introduction"
     inventory: "Inventory"
     invitation_accepted_at: "Invitation accepted at"
@@ -774,8 +796,8 @@ eng:
     item_type: "Item type"
     item_value: "Item value"
     items: "Items"
-    items_count: "Items count"
-    items_count_value: "Items count value" #?
+    items_count: "Items count" #?
+    items_count_value: "Items count value"
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
@@ -783,12 +805,15 @@ eng:
     journal_entry_items: "Journal entry items"
     key: "Key"
     label: "Label"
+    labellings: "Labellings"
+    labels: "Labels"
     land_parcel_number: "Land parcel number"
     land_parcels: "Land parcels"
     language: "Language"
     last_analysis: "Last analysis"
     last_bank_statement: "Last bank statement"
     last_cweek: "Last week"
+    last_intervention_target: "Last intervention target"
     last_journal_entry: "Journal entry of end of year"
     last_letter: "Last letter"
     last_month: "Last month"
@@ -796,6 +821,7 @@ eng:
     last_number: "Last number"
     last_sign_in_at: "Last sign in at"
     last_sign_in_ip: "Last sign in IP"
+    last_transmission_at: "Last transmission"
     last_value: "Last value"
     last_year: "Last year"
     latest: "Latest"
@@ -845,15 +871,16 @@ eng:
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
-    marketable_items_count: "Marketable items count"
-    marketable_net_mass: "Marketable net mass"
+    marketable_items_count: "Marketable items count" #?
+    marketable_net_mass: "Marketable net mass" #?
     marketable_net_yield: "Marketable net yield" #?
-    marketable_yield: "Marketable yield" #?
+    marketable_quantity: "Marketable quantity"
+    marketable_yield: "Marketable yield"
     mass: "Mass (kg)" #?
     max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
-    maximal_size: "Maximal size"
+    maximal_size: "Maximal size" #?
     maximal_size_value: "Maximal size value"
     maximal_value: "Maximal value"
     maximum_nitrogen_input: "Maximum nitrogen input"
@@ -875,7 +902,7 @@ eng:
     min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
     minimal_length: "Minimal length"
-    minimal_size: "Minimal size"
+    minimal_size: "Minimal size" #?
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
     mobiles: "Mobile phones"
@@ -890,10 +917,10 @@ eng:
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"
-    net_mass: "Net mass"
-    net_mass_percentage: "Net mass percentage"
+    net_mass: "Net mass" #?
+    net_mass_percentage: "Net mass percentage" #?
     net_mass_value: "Net mass value"
-    net_mass_yield: "Net mass yield"
+    net_mass_yield: "Net mass yield" #?
     net_service: "Net service"
     new_container: "New container"
     new_group: "New group"
@@ -949,6 +976,7 @@ eng:
     participant: "Participant"
     participants: "Participants"
     participations: "Participations"
+    partner_url: "Partner url"
     password: "Password"
     password_confirmation: "Confirmation of password"
     payee: "Payee"
@@ -986,6 +1014,7 @@ eng:
     points: "Points"
     population: "Population"
     population_counting: "Population counting"
+    populations: "Populations"
     position: "Position"
     post: "Post"
     postal_code: "Postal code"
@@ -1008,6 +1037,7 @@ eng:
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
     product_identification_number: "Identification number"
+    # product_labellings: "Product labellings"
     product_linkages: "Product linkages" #?
     product_localization: "Product localization"
     product_localizations: "Product localizations" #?
@@ -1044,6 +1074,7 @@ eng:
     progression_percentage: "Progression (%)"
     proposer: "Proposer"
     prospect: "Prospect"
+    # provider: "Provider"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
     purchasable: "Purchasable"
@@ -1057,13 +1088,15 @@ eng:
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
     quantity: "Quantity"
+    quantity_gap_on_invoice_entry: "Stock quantity gap entry"
     quantity_handler: "Quantity handler"
     quantity_indicator: "Quantity indicator" #?
     quantity_indicator_name: "Quantity indicator name"
     quantity_population: "Quantity population"
-    quantity_unit: "Quantity unit" #?
+    quantity_unit: "Quantity unit"
     quantity_unit_name: "Quantity unit name"
     quantity_value: "Quantity value"
+    quantity_yield: "Net marketable yield"
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
@@ -1205,6 +1238,7 @@ eng:
     state_label: "State"
     status: "Status"
     stock_account: "Stock account"
+    stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
@@ -1267,7 +1301,8 @@ eng:
     tool: "Tool"
     tools: "Tools"
     total_cost: "Total cost"
-    total_net_mass: "Total net mass"
+    total_items_count: "Total items count" #?
+    total_net_mass: "Total net mass" #?
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"
@@ -1280,14 +1315,16 @@ eng:
     trouble_description: "Trouble description"
     trouble_encountered: "Trouble encountered"
     type: "Type"
+    uid: "UID"
     unconfirmed_email: "Unconfirmed email"
+    undelivered_invoice_entry: "Undelivered invoice entry"
     undelivered_quantity: "Undelivered quantity"
     unit_amount: "Unit amount"
     unit_currency: "Unit currency"
     unit_name: "Unit name"
     unit_population: "Unit population"
     unit_pretax_amount: "Unit pre-tax amount"
-    unit_pretax_stock_amount: "Unit pretax stock amount" #?
+    unit_pretax_stock_amount: "Unit pretax stock amount"
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"
@@ -1308,6 +1345,7 @@ eng:
     use_tactics: "Use cropping techniques"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
+    used_intervention_parameters: "Used intervention parameters"
     useful_items: "Useful items"
     user: "User"
     users: "Users"
@@ -1420,10 +1458,13 @@ eng:
         transfer:
           name: "Virement"
     inspection:
-      items: "Items"
-      mass: "Mass"
+      items_count: "Items"
+      net_mass: "Mass"
     intervention:
       name: "%{intervention} #%{number}"
+    inventory:
+      bookkeep: "Physical inventory - [%{resource}] %{number}"
+      bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     issue:
       name_with_target: "%{nature} on %{target}"
       name_without_target: "%{nature}"
@@ -1486,6 +1527,7 @@ eng:
         transfer:
           name: "Transfer"
     parcel:
+      bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Draft"
@@ -1494,6 +1536,7 @@ eng:
           ordered: "Ordered"
           prepared: "Prepared"
           received: "Received"
+      undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -1524,8 +1567,10 @@ eng:
         sales: "Sales"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
+      exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label: "%{supplier} at %{address}"
       purchase: "Purchase"
+      quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "Aborted"
         draft: "Draft estimate"
@@ -1546,6 +1591,7 @@ eng:
         public: "Public"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         aborted: "Aborted sale %{number}"
         credit: "Sale credit %{number}"
@@ -1554,6 +1600,7 @@ eng:
         invoice: "Sales invoice %{number}"
         order: "Sales order %{number}"
         refused: "Refused estimate %{number}"
+      quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       sale: "Sale %{number}"
       sales_conditions:
         downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."

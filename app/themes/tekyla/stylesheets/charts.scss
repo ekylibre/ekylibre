@@ -2,7 +2,9 @@
  * This is a manifest file that'll be compiled into screen.css, which will include all the files
  * listed below.
  *
- *= require 'c3'
+ *= require c3
+ *= require timeline_chart
+ *= require d3-tip
  */
 
 .c3 {
@@ -37,6 +39,17 @@
           width: floor(10000% / $weight) / 100;
         }
       }
+    }
+
+    .even-filler {
+      width: 33.33%;
+      @include float(left);
+      @for $weight from 1 to 12 {
+        .chart-cell-#{$weight} {
+          width: floor(10000% / $weight) / 100;
+        }
+      }
+      height: 400px;
     }
   }
 }

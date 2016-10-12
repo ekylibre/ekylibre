@@ -19,7 +19,7 @@ namespace :clean do
     end.each do |table|
       schema_hash[table] = {}
       schema_yaml << "\n#{table}:\n"
-      columns = Ekylibre::Record::Base.connection.columns(table).sort { |a, b| a.name <=> b.name }
+      columns = Ekylibre::Record::Base.connection.columns(table).sort_by(&:name)
       max = columns.map(&:name).map(&:size).max + 1
       model = begin
                 table.classify.constantize

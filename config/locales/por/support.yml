@@ -20,6 +20,7 @@ por:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%d %b"
+      short_month: "%m/%Y"
     month_names: ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
   datetime:
     distance_in_words:
@@ -57,6 +58,11 @@ por:
       x_seconds:
         one: "1 segundo"
         other: "%{count} segundos"
+    periods:
+      day: "Dia"
+      month: "Mês"
+      week: "Semana"
+      year: "Ano"
     relative_distance_in_words:
       in_sometime: "em %{distance}"
       sometime_ago: "%{distance} atrás"
@@ -111,7 +117,9 @@ por:
   time:
     am: "am"
     formats:
+      compact: "% M /% d /% Y% H:% M"
       default: "%a, %d de %B de %Y, %H:%M:%S"
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
+      time: "%H:%M" #?
     pm: "pm"

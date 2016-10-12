@@ -631,6 +631,60 @@ affairs:
   updater_id:
     type: integer
     references: user
+alert_phases:
+  alert_id:
+    type: integer
+    references: alert
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  level:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  started_at:
+    type: datetime
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+alerts:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  sensor_id:
+    type: integer
+    references: sensor
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 analyses:
   analysed_at:
     type: datetime
@@ -1881,6 +1935,8 @@ entities:
   client_account_id:
     type: integer
     references: account
+  codes:
+    type: jsonb
   country:
     type: string
   created_at:
@@ -2855,7 +2911,7 @@ inspection_calibrations:
     type: integer
     references: inspection
     required: true
-  items_count:
+  items_count_value:
     type: integer
   lock_version:
     type: integer
@@ -2896,7 +2952,7 @@ inspection_points:
     type: integer
     references: inspection
     required: true
-  items_count:
+  items_count_value:
     type: integer
   lock_version:
     type: integer
@@ -3004,6 +3060,33 @@ integrations:
   updater_id:
     type: integer
     references: user
+intervention_labellings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_parameter_readings:
   absolute_measure_value_unit:
     type: string
@@ -3087,6 +3170,8 @@ intervention_parameters:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   event_participation_id:
     type: integer
     references: event_participation
@@ -3142,6 +3227,11 @@ intervention_parameters:
     required: true
   type:
     type: string
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -3189,6 +3279,8 @@ intervention_working_periods:
     type: integer
     references: user
 interventions:
+  accounted_at:
+    type: datetime
   actions:
     type: string
   created_at:
@@ -3197,6 +3289,8 @@ interventions:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
   description:
@@ -3210,6 +3304,9 @@ interventions:
   issue_id:
     type: integer
     references: issue
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -3263,8 +3360,13 @@ inventories:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
+  financial_year_id:
+    type: integer
+    references: financial_year
   id:
     type: integer
     required: true
@@ -3307,6 +3409,8 @@ inventory_items:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   expected_population:
     type: decimal
     precision: 19
@@ -3329,6 +3433,11 @@ inventory_items:
   product_movement_id:
     type: integer
     references: product_movement
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -3503,6 +3612,9 @@ journal_entry_items:
     type: integer
     references: account
     required: true
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   balance:
     type: decimal
     precision: 19
@@ -3601,6 +3713,9 @@ journal_entry_items:
   state:
     type: string
     required: true
+  team_id:
+    type: integer
+    references: team
   updated_at:
     type: datetime
     required: true
@@ -3651,6 +3766,31 @@ journals:
     type: boolean
     required: true
     default: false
+labels:
+  color:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 listing_node_items:
   created_at:
     type: datetime
@@ -4339,6 +4479,8 @@ parcel_items:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   id:
     type: integer
     required: true
@@ -4393,6 +4535,11 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -4403,6 +4550,8 @@ parcel_items:
     type: integer
     references: product_nature_variant
 parcels:
+  accounted_at:
+    type: datetime
   address_id:
     type: integer
     references: entity_address
@@ -4412,6 +4561,8 @@ parcels:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
   delivery_id:
@@ -4426,6 +4577,9 @@ parcels:
     required: true
   in_preparation_at:
     type: datetime
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -4473,6 +4627,9 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -4766,6 +4923,33 @@ product_enjoyments:
   updater_id:
     type: integer
     references: user
+product_labellings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 product_linkages:
   carried_id:
     type: integer
@@ -5052,6 +5236,9 @@ product_nature_categories:
   stock_account_id:
     type: integer
     references: account
+  stock_movement_account_id:
+    type: integer
+    references: account
   storable:
     type: boolean
     required: true
@@ -5219,6 +5406,8 @@ product_nature_variants:
     type: jsonb
   derivative_of:
     type: string
+  gtin:
+    type: string
   id:
     type: integer
     required: true
@@ -5233,6 +5422,7 @@ product_nature_variants:
     required: true
   number:
     type: string
+    required: true
   picture_content_type:
     type: string
   picture_file_name:
@@ -5243,6 +5433,12 @@ product_nature_variants:
     type: datetime
   reference_name:
     type: string
+  stock_account_id:
+    type: integer
+    references: account
+  stock_movement_account_id:
+    type: integer
+    references: account
   unit_name:
     type: string
     required: true
@@ -5255,6 +5451,8 @@ product_nature_variants:
   variety:
     type: string
     required: true
+  work_number:
+    type: string
 product_natures:
   abilities_list:
     type: text
@@ -5604,6 +5802,9 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  team_id:
+    type: integer
+    references: team
   tracking_id:
     type: integer
     references: tracking
@@ -5631,6 +5832,9 @@ purchase_items:
     type: integer
     references: account
     required: true
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   amount:
     type: decimal
     precision: 19
@@ -5684,6 +5888,9 @@ purchase_items:
     type: integer
     references: tax
     required: true
+  team_id:
+    type: integer
+    references: team
   unit_amount:
     type: decimal
     precision: 19
@@ -5805,6 +6012,9 @@ purchases:
     precision: 19
     scale: 4
     required: true
+  quantity_gap_on_invoice_entry_id:
+    type: integer
+    references: journal_entry
   reference_number:
     type: string
   responsible_id:
@@ -5816,6 +6026,9 @@ purchases:
     type: integer
     references: entity
     required: true
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -5852,6 +6065,9 @@ sale_items:
   account_id:
     type: integer
     references: account
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   amount:
     type: decimal
     precision: 19
@@ -5859,6 +6075,8 @@ sale_items:
     required: true
   annotation:
     type: text
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -5907,6 +6125,9 @@ sale_items:
   tax_id:
     type: integer
     references: tax
+  team_id:
+    type: integer
+    references: team
   unit_amount:
     type: decimal
     precision: 19
@@ -6017,6 +6238,8 @@ sales:
     type: integer
     references: entity
     required: true
+  codes:
+    type: jsonb
   conclusion:
     type: text
   confirmed_at:
@@ -6097,6 +6320,9 @@ sales:
     precision: 19
     scale: 4
     required: true
+  quantity_gap_on_invoice_entry_id:
+    type: integer
+    references: journal_entry
   reference_number:
     type: string
   responsible_id:
@@ -6110,6 +6336,9 @@ sales:
   transporter_id:
     type: integer
     references: entity
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -6123,6 +6352,10 @@ sensors:
     type: boolean
     required: true
     default: true
+  battery_level:
+    type: decimal
+    precision: 19
+    scale: 4
   created_at:
     type: datetime
     required: true
@@ -6143,6 +6376,8 @@ sensors:
   id:
     type: integer
     required: true
+  last_transmission_at:
+    type: datetime
   lock_version:
     type: integer
     required: true
@@ -6151,6 +6386,8 @@ sensors:
   name:
     type: string
     required: true
+  partner_url:
+    type: string
   product_id:
     type: integer
     references: product
@@ -6673,6 +6910,8 @@ users:
   person_id:
     type: integer
     references: entity
+  provider:
+    type: string
   remember_created_at:
     type: datetime
   reset_password_sent_at:
@@ -6691,6 +6930,8 @@ users:
   team_id:
     type: integer
     references: team
+  uid:
+    type: string
   unconfirmed_email:
     type: string
   unlock_token:

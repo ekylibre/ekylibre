@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
   = t.import params: { controller: :bank_statements }
 
 = janus do |j|

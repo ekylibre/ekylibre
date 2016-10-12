@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -71,6 +72,11 @@ class Equipment < Matter
   has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
   refers_to :variety, scope: :equipment
+
+  def best_activity_production(options = {})
+    at = options[:at] || Time.zone.now
+    ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  end
 
   ##################################################
   ### Statuses #####################################

@@ -87,6 +87,9 @@ class Activity < Ekylibre::Record::Base
   end
   has_many :supports, through: :productions
 
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
@@ -106,15 +109,11 @@ class Activity < Ekylibre::Record::Base
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
-  scope :of_intervention, lambda { |intervention|
-    where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
-  }
+
   scope :of_campaign, lambda { |campaign|
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
-      prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
-      budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
-      where(id: prods.select(:id) + budgets.select(:id))
+      where(id: HABTM_Campaigns.select(:activity_id).where(campaign: c))
     else
       none
     end
@@ -146,8 +145,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_validation do
-    family = Nomen::ActivityFamily.find(self.family)
-    if family
+    if Nomen::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
         self.with_supports ||= true
@@ -163,9 +161,13 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
-      else
-        self.with_supports = false
-        self.with_cultivation = false
+      elsif tool_maintaining?
+        self.with_supports = true
+        self.support_variety = :equipment_fleet
+        self.with_cultivation = true
+        self.cultivation_variety ||= :equipment
+        self.size_indicator_name = 'members_population' if size_indicator_name.blank?
+        self.size_unit_name = 'unity' if size_unit_name.blank?
       end
       # if with_supports || family.support_variety
       #   self.with_supports = true
@@ -180,18 +182,23 @@ class Activity < Ekylibre::Record::Base
       #   self.with_cultivation = false
       # end
     end
+    self.with_supports = false if with_supports.nil?
+    self.with_cultivation = false if with_cultivation.nil?
     true
   end
 
   validate do
-    if family = Nomen::ActivityFamily[self.family]
-      if with_supports && variety = Nomen::Variety[support_variety] && family.support_variety
-        errors.add(:support_variety, :invalid) unless variety <= family.support_variety
+    if family_item = Nomen::ActivityFamily[family]
+      if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
+        errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        unless family_item.cultivation_variety.blank?
+          errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
+        end
       end
     end
+    errors.add :use_gradings, :checked_off_with_inspections if inspections.any? && !use_gradings
     if use_gradings
       unless measure_something?
         errors.add :use_gradings, :checked_without_measures
@@ -256,10 +263,15 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  [:plant_farming, :animal_farming, :equipment_management, :processing].each do |family_name|
-    define_method  family_name.to_s + '?' do
-      family && Nomen::ActivityFamily.find(family) <= family_name
+  Nomen::ActivityFamily.find_each do |base_family|
+    define_method base_family.name.to_s + '?' do
+      family && Nomen::ActivityFamily.find(family) <= base_family
     end
+  end
+
+  def not_distributed_products
+    Product.mine_or_undefined.of_variety(cultivation_variety, support_variety)
+           .where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
   end
 
   def of_campaign?(campaign)
@@ -384,21 +396,25 @@ class Activity < Ekylibre::Record::Base
     Nomen::ActivityFamily[self.family] <= family
   end
 
+  def inspectionable?
+    use_gradings && inspection_calibration_scales.any? && inspections.any?
+  end
+
   def measure_something?
     measure_grading_items_count || measure_grading_net_mass || measure_grading_sizes
   end
 
   def unit_choices
-    [:items, :mass]
-      .reject { |e| e == :items && !measure_grading_items_count }
-      .reject { |e| e == :mass && !measure_grading_net_mass }
+    [:items_count, :net_mass]
+      .reject { |e| e == :items_count && !measure_grading_items_count }
+      .reject { |e| e == :net_mass && !measure_grading_net_mass }
   end
 
   def unit_preference(user, unit = nil)
     unit_preference_name = "activity_#{id}_inspection_view_unit"
     user.prefer!(unit_preference_name, unit.to_sym) if unit.present?
     pref = user.preference(unit_preference_name).value
-    pref ||= :mass
+    pref ||= :items_count
     pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
     pref ||= unit_choices.first
   end

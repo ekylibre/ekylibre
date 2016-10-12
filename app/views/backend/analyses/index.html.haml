@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.new variants: Nomen::AnalysisNature.list.map { |n| [n.human_name, { nature: n.name }] }
+  = t.new variants: Nomen::AnalysisNature.list.map { |n| [n.human_name, { nature: n.name }] }, params: { redirect: nil }
 = kujaku do |k|
   - k.text
   - samplers = Entity.all

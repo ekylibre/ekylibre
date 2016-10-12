@@ -230,12 +230,14 @@ module Ekylibre
       end
 
       def list
-        unless @list
-          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
-          @list ||= {}
-        end
+        load! unless @list
         @list[env] ||= []
         @list[env]
+      end
+
+      def load!
+        @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+        @list ||= {}
       end
 
       def drop_aggregation_schema!
@@ -251,7 +253,7 @@ module Ekylibre
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
-        for table in Ekylibre::Schema.tables.keys
+        Ekylibre::Schema.tables.keys.each do |table|
           connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
           columns = Ekylibre::Schema.columns(table)
           queries = list.collect do |tenant|
@@ -264,6 +266,40 @@ module Ekylibre
 
       def reset_search_path!
         ActiveRecord::Base.connection.schema_search_path = Ekylibre::Application.config.database_configuration[::Rails.env]['schema_search_path']
+      end
+
+      def list_tenants_with_migration_problem
+
+        tenants = []
+
+        list.each do |tenant|
+
+          Ekylibre::Tenant::switch! tenant
+          migration_version = ActiveRecord::Migrator.current_version
+
+          next if migration_version != 0
+
+          tenants << { name: tenant, version: migration_version }
+        end
+
+        tenants
+      end
+
+      def correct_tenants_with_migration_problem!
+
+        tenants = list_tenants_with_migration_problem
+
+        tenants.each do |tenant|
+
+          Ekylibre::Tenant::switch! tenant[:name]
+
+          connection = ActiveRecord::Base.connection
+          connection.execute("INSERT INTO schema_migrations SELECT * FROM public.schema_migrations")
+
+          puts (tenant[:name] + " : done").yellow
+        end
+
+        puts 'Task done'.blue
       end
 
       private

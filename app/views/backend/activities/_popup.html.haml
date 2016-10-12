@@ -1,17 +1,17 @@
-- if inspections.any?
+- if calibrations.any?
   %table{:border => "1"}
     %thead
     %tbody
       %tr.title
         %th= :stock_in_ground_by_calibration.tl
       %tr
-    - inspections.each do |inspection|
+    - calibrations.each do |inspection|
       %tr
         %td= inspection[:label]
         %td= inspection[:value]
 
 - if inspection_qualities_evolutions.any?
-  - inspection_qualities_evolutions.each do |evolution|
+  - inspection_qualities_evolutions.compact.each do |evolution|
     %tr
       %td= evolution[:label]
       %td= evolution[:value]

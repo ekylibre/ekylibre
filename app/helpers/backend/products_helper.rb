@@ -31,8 +31,19 @@ module Backend
             hash
           end
           series << { name: activity.name, data: normalize_serie(sums, categories.keys),
-                      tooltip: { value_suffix: unit.symbol } }
+                      tooltip: { value_suffix: unit.symbol }, color: activity.color }
         end
+      end
+
+      # Without activities
+      activity_periods = working_periods.without_activity.order(:started_at)
+      if activity_periods.any?
+        sums = activity_periods.sums_of_periods.sort.each_with_object({}) do |period, hash|
+          hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
+          hash
+        end
+        series << { name: :undefined_activity.tl, data: normalize_serie(sums, categories.keys),
+                    tooltip: { value_suffix: unit.symbol }, color: '#777777' }
       end
 
       if series.any?

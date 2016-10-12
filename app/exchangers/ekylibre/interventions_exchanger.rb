@@ -415,7 +415,7 @@ module Ekylibre
         target_variant = ProductNatureVariant.find_or_import!(r.target_variety).first
       end
       if target_variant.nil? && r.target_variant
-        unless target_variant = ProductNatureVariant.find_by(number: r.target_variant)
+        unless target_variant = ProductNatureVariant.find_by(work_number: r.target_variant)
           target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant)
         end
       end
@@ -435,7 +435,7 @@ module Ekylibre
         a.variant = if a.product = Product.find_by_work_number(a.product_code)
                       a.product.variant
                     else
-                      ProductNatureVariant.find_by_number(a.product_code)
+                      ProductNatureVariant.find_by_work_number(a.product_code)
                     end
       end
       a
@@ -541,7 +541,10 @@ module Ekylibre
       procedure ||= Procedo.find(r.procedure_name)
 
       # check if procedure is simple or not (with group parameter or output)
-      if procedure.parameters.detect { |parameter| parameter.is_a?(Procedo::Procedure::GroupParameter) || (parameter.is_a?(Procedo::Procedure::ProductParameter) && parameter.output?) }
+      if procedure.parameters.detect do |parameter|
+           parameter.is_a?(Procedo::Procedure::GroupParameter) ||
+           (parameter.is_a?(Procedo::Procedure::ProductParameter) && parameter.output?)
+         end
         return record_complex_intervention(r, targets, procedure)
       else
         return record_default_intervention(r, targets, procedure)
@@ -550,10 +553,19 @@ module Ekylibre
 
     def record_default_intervention(r, targets, procedure)
       # build base procedure
-      attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
+      attributes = {
+        procedure_name: procedure.name,
+        actions: procedure.mandatory_actions.map(&:name),
+        description: r.description
+      }
 
       ## working_periods
-      attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
+      attributes[:working_periods_attributes] = {
+        '0' => {
+          started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'),
+          stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M')
+        }
+      }
 
       w.debug "targets : #{targets.map(&:name)}".inspect.yellow
 
@@ -562,7 +574,11 @@ module Ekylibre
         procedure.parameters_of_type(:target).each do |support|
           # next unless target.of_expression(support.filter)
           attributes[:targets_attributes] ||= {}
-          attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson }
+          attributes[:targets_attributes][index.to_s] = {
+            reference_name: support.name,
+            product_id: target.id,
+            working_zone: target.shape.to_geojson
+          }
           # break
         end
       end
@@ -584,7 +600,12 @@ module Ekylibre
                     end
           next unless actor.product.of_expression(input.filter)
           attributes[:inputs_attributes] ||= {}
-          attributes[:inputs_attributes][index.to_s] = { reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f }
+          attributes[:inputs_attributes][index.to_s] = {
+            reference_name: input.name,
+            product_id: actor.product.id,
+            quantity_handler: handler,
+            quantity_value: product_measure.to_f
+          }
           updaters << "inputs[#{index}]quantity_value"
           break
         end
@@ -595,7 +616,10 @@ module Ekylibre
         procedure.parameters_of_type(:tool).each do |tool|
           next unless equipment.of_expression(tool.filter)
           attributes[:tools_attributes] ||= {}
-          attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
+          attributes[:tools_attributes][index.to_s] = {
+            reference_name: tool.name,
+            product_id: equipment.id
+          }
           break
         end
       end
@@ -605,7 +629,10 @@ module Ekylibre
         procedure.parameters_of_type(:doer).each do |doer|
           next unless worker.of_expression(doer.filter)
           attributes[:doers_attributes] ||= {}
-          attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
+          attributes[:doers_attributes][index.to_s] = {
+            reference_name: doer.name,
+            product_id: worker.id
+          }
           break
         end
       end

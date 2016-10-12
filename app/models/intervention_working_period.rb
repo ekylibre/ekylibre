@@ -46,6 +46,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
 
   calculable period: :month, column: :duration, at: :started_at, name: :sum
 
+  scope :without_activity, -> { where.not(intervention_id: Intervention::HABTM_Activities.select(:activity_id)) }
   scope :of_activity, ->(activity) { where(intervention_id: Intervention.of_activity(activity)) }
   scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|

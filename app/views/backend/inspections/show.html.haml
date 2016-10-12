@@ -1,5 +1,3 @@
-- selected_unit = resource.activity.unit_preference(current_user)
-
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy
@@ -17,28 +15,21 @@
 
 = cobbles do |c|
 
-  - if selected_unit
-    - c.cobble(:totals) do
+  - c.cobble(:totals) do
+    = render 'unit_selector', activity: resource.activity
+    = infos do
+      = render 'totals', resource: resource
+
+  - if resource.calibrations.any? && resource.any_quantity?
+    - c.cobble('stock_in_ground') do
       = render 'unit_selector', activity: resource.activity
-      = infos do
-        = render 'totals', to_display: selected_unit, resource: resource
-
-  - if resource.calibrations.any?
-    - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
-
-      - c.cobble('stock_in_ground') do
-        = render 'unit_selector', activity: resource.activity
-        .chart-table
-          - resource.scales.each do |scale|
-            :ruby
-              dataset = resource.calibrations.of_scale(scale).reorder(:id)
-            - if selected_unit == :mass || selected_unit != :items
-              = render 'charts', to_graph: 'net_mass', dataset: dataset, resource: resource, scale: scale
-            - if selected_unit != :mass || selected_unit == :items
-              = render 'charts', to_graph: 'items_count', dataset: dataset, resource: resource, scale: scale
+      .chart-table
+        - resource.scales.each do |scale|
+          -if scale.natures.any? { |n| n.inspection_calibrations.any? }
+            = render 'charts', resource: resource, scale: scale
 
   - c.cobble(:analyses) do
-    - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
+    - analysis = resource.product.analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last
     - if analysis
       .med-info
         %span.title= Analysis.human_attribute_name(:number)
@@ -50,112 +41,4 @@
 
   - if resource.measure_something? && (resource.points.any? || resource.calibrations.any?)
     - c.cobble(:data) do
-      - colspan = 3
-      - colspan += 1 if resource.measure_grading_items_count
-      - colspan += 1 if resource.measure_grading_net_mass
-      - colspan += 2 if resource.measure_grading_sizes
-      - colspan += 2 if resource.mass_statable?
-      %table
-        %thead
-        %tbody
-          - resource.scales.order(:id).each do |scale|
-            %tr.title
-              %th{ colspan: colspan }= scale.size_indicator.human_name
-            %tr
-              %th= InspectionCalibration.human_attribute_name(:name)
-              - if resource.measure_grading_items_count
-                %th= InspectionCalibration.human_attribute_name(:items_count)
-              - if resource.measure_grading_net_mass
-                %th= InspectionCalibration.human_attribute_name(:net_mass)
-              - if resource.measure_grading_sizes
-                %th= InspectionCalibration.human_attribute_name(:minimal_size)
-                %th= InspectionCalibration.human_attribute_name(:maximal_size)
-              - if resource.mass_statable?
-                %th= :total.tl
-                %th= Inspection.human_attribute_name(:gross_yield_value)
-                %th= InspectionCalibration.human_attribute_name(:marketable)
-            - resource.calibrations.of_scale(scale).reorder(:id).each do |calibration|
-              %tr
-                %td= calibration.nature_name
-                - if resource.measure_grading_items_count
-                  %td.decimal= calibration.items_count_in_unit.l(precision: 0)
-                - if resource.measure_grading_net_mass
-                  %td.decimal= calibration.net_mass_in_unit.l(precision: 0)
-                - if resource.measure_grading_sizes
-                  %td.decimal= calibration.minimal_size.l(precision: 0)
-                  %td.decimal= calibration.maximal_size.l(precision: 0)
-                - if resource.mass_statable?
-                  %td.decimal= calibration.total_net_mass.l(precision: 0)
-                  %td.decimal= calibration.net_mass_yield.l(precision: 0)
-                  %td.decimal= calibration.marketable? ? calibration.marketable_net_mass.round(0).l(precision: 0) : '&ndash;'.html_safe
-            %tr.total
-              %th= :totals.tl
-              - if resource.measure_grading_items_count
-                %th.decimal= resource.items_count(scale).l(precision: 0)
-              - if resource.measure_grading_net_mass
-                %th.decimal= resource.net_mass(scale).l(precision: 0)
-              - if resource.measure_grading_sizes
-                %th.decimal &ndash;
-                %th.decimal &ndash;
-              - if resource.mass_statable?
-                %th.decimal= resource.total_net_mass(scale).l(precision: 0)
-                %th.decimal= resource.net_mass_yield(scale).l(precision: 0)
-                %th.decimal= resource.marketable_net_mass(scale).round(2).l(precision: 0)
-          - if resource.points.any?
-            %tr.title
-              %th{ colspan: colspan }= Inspection.human_attribute_name(:points)
-            %tr
-              %th= InspectionPoint.human_attribute_name(:name)
-              - if resource.measure_grading_items_count
-                %th= InspectionPoint.human_attribute_name(:items_count)
-              - if resource.measure_grading_net_mass
-                %th= InspectionPoint.human_attribute_name(:net_mass)
-              - if resource.measure_grading_sizes
-                %th= InspectionPoint.human_attribute_name(:minimal_size)
-                %th= InspectionPoint.human_attribute_name(:maximal_size)
-              - if resource.mass_statable?
-                %th= :total.tl
-                %th= Inspection.human_attribute_name(:gross_yield_value)
-                %th= InspectionPoint.human_attribute_name(:net_mass_percentage)
-            - resource.points.joins(:nature).order('category, name').each do |point|
-              %tr
-                %td= point.nature_name
-                - if resource.measure_grading_items_count
-                  %td.decimal= point.items_count_in_unit.l(precision: 0)
-                - if resource.measure_grading_net_mass
-                  %td.decimal= point.net_mass_in_unit.l(precision: 0)
-                - if resource.measure_grading_sizes
-                  %td.decimal= point.minimal_size.l(precision: 0)
-                  %td.decimal= point.maximal_size.l(precision: 0)
-                - if resource.mass_statable?
-                  %td.decimal= point.total_net_mass.l(precision: 0)
-                  %td.decimal= point.net_mass_yield.l(precision: 0)
-                  %td.decimal= point.net_mass_percentage.round(2).l(precision: 2) + '%'
-            - (ActivityInspectionPointNature.category.values - ['none']).each do |category|
-              %tr.subtotal
-                %th= "enumerize.activity_inspection_point_nature.category.#{category}".t
-                - if resource.measure_grading_items_count
-                  %td.decimal= resource.points_items_count(category).l(precision: 0)
-                - if resource.measure_grading_net_mass
-                  %td.decimal= resource.points_net_mass(category).l(precision: 0)
-                - if resource.measure_grading_sizes
-                  %td.decimal &ndash;
-                  %td.decimal &ndash;
-                - if resource.mass_statable?
-                  %td.decimal= resource.total_points_net_mass(category).l(precision: 0)
-                  %td.decimal= resource.points_net_mass_yield(category).l(precision: 0)
-                  %td.decimal= resource.points_net_mass_percentage(category).round(2).l(precision: 2) + '%'
-            %tr.total
-              %th= :totals.tl
-              - if resource.measure_grading_items_count
-                %th.decimal= resource.points_items_count.l(precision: 0)
-              - if resource.measure_grading_net_mass
-                %th.decimal= resource.points_net_mass.l(precision: 0)
-              - if resource.measure_grading_sizes
-                %th.decimal &ndash;
-                %th.decimal &ndash;
-              - if resource.mass_statable?
-                %th.decimal= resource.total_points_net_mass.l(precision: 0)
-                %th.decimal= resource.points_net_mass_yield.l(precision: 0)
-                %th.decimal= resource.points_net_mass_percentage.round(2).l(precision: 2) + '%'
-
+      = hash_to_inspection_details(data_to_details_hash(resource)).html_safe

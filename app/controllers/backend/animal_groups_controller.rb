@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class AnimalGroupsController < Backend::BaseController
+  class AnimalGroupsController < Backend::ProductGroupsController
     manage_restfully
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

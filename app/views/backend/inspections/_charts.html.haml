@@ -1,12 +1,10 @@
-- if to_graph == "items_count"
-  - unit = Nomen::Unit[:thousand]
-  - yield_unit = Nomen::Unit[:thousand_per_hectare]
-- elsif to_graph == "net_mass"
-  - unit = Nomen::Unit[:ton]
-  - yield_unit = Nomen::Unit[:ton_per_hectare]
-- else
-  - raise "I don't know how to handle the units for that measure: #{to_graph}"
+- dimension = resource.activity.unit_preference(current_user)
+- symbol_measure = Nomen::Unit.find(resource.user_quantity_unit(dimension)).symbol
+- yield_symbol = Nomen::Unit.find(resource.user_per_area_unit(dimension)).symbol
+
+- dataset = resource.calibrations.of_scale(scale).reorder(:id)
 
 .chart-line
-  - %w(percentage stock_in_ground yield_by_calibration).each do |measure|
-    = render "#{measure}_chart", dataset: dataset, resource: resource, unit: unit, yield_unit: yield_unit, scale: scale, to_graph: to_graph
+  - charts = %w(percentage stock_in_ground yield_by_calibration).map do |measure|
+    - render "#{measure}_chart", dataset: dataset, resource: resource, scale: scale, dimension: dimension, symbol_measure: symbol_measure, yield_symbol: yield_symbol
+  = even_cells(*charts, cell_tag: :span)

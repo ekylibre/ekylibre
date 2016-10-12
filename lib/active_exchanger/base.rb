@@ -28,7 +28,7 @@ module ActiveExchanger
       end
 
       def importers_selection
-        importers.collect { |i, e| [e.human_name, i] }.sort { |a, b| a.first <=> b.first }
+        importers.collect { |i, e| [e.human_name, i] }.sort_by { |a| a.first.lower_ascii }
       end
 
       def exporters

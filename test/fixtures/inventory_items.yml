@@ -22,17 +22,19 @@
 #
 # == Table: inventory_items
 #
-#  actual_population   :decimal(19, 4)   not null
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  expected_population :decimal(19, 4)   not null
-#  id                  :integer          not null, primary key
-#  inventory_id        :integer          not null
-#  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
-#  product_movement_id :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  actual_population        :decimal(19, 4)   not null
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  expected_population      :decimal(19, 4)   not null
+#  id                       :integer          not null, primary key
+#  inventory_id             :integer          not null
+#  lock_version             :integer          default(0), not null
+#  product_id               :integer          not null
+#  product_movement_id      :integer
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
 ---
 inventory_items_001:
@@ -44,6 +46,7 @@ inventory_items_001:
   inventory_id: 1
   lock_version: 0
   product_id: 65
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 inventory_items_002:
@@ -55,5 +58,6 @@ inventory_items_002:
   inventory_id: 1
   lock_version: 0
   product_id: 65
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1

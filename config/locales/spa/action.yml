@@ -303,13 +303,15 @@ spa:
       index: "Integraciones"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      edit: "Editar"
+      edit_request: "Editar solicitud"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "Intervenciones"
       new: "Intervención New"
-      new_request: "Intervención New solicitado"
-      new_undefined: "Intervención New"
-      new_undefined_request: "Nueva solicitud de intervención"
+      new_request: "Nueva solicitud de intervención"
+      new_specified: "Intervención New"
+      new_specified_request: "Intervención New solicitado"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificación del inventario"
@@ -343,6 +345,11 @@ spa:
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
       show: "Periodico\_: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "Etiquetas"
+      new: "Nuevo titulo"
+      # show: "Label: %{name}"
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
       index: "Parcelas"
@@ -546,8 +553,8 @@ spa:
       index: "Sincronizaciones"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
-      distribute: "distribuir productos"
       edit: "modificar la distribución de destino"
+      edit_many: "Distribuir productos no afectados"
       index: "distribuciones de destino"
       new: "Nueva distribución de destino"
       show: "distribución de destino"
@@ -736,6 +743,7 @@ spa:
     add_intervention_record: "Añadir registro de intervención"
     add_intervention_request: "Añadir solicitud de intervención"
     add_item: "Añadir artículo"
+    add_labelling: "Añadir etiqueta"
     add_line: "Añadir línea"
     add_linestring: "Añadir cadena de líneas"
     add_mail: "Añadir la dirección postal"
@@ -861,6 +869,8 @@ spa:
     centralize: "Cuentos contables centralizadores"
     centralized_account: "Cuento centralizador %{name}"
     change_password: "Cambia la contraseña"
+    change_state: "Cambio de estado"
+    change_status_of_selected_interventions: "Cambiar el estado de las intervenciones seleccionadas"
     chart: "Gráfico"
     check: "Comprobar"
     children: "Niños"
@@ -868,6 +878,7 @@ spa:
     choose_a_type_of_product: "Elija un tipo de producto"
     choose_creation_mode: "Elige el modo de creación"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
+    choose_options_is_needed: "Debe elegir el estado de las siguientes intervenciones:"
     clear: "Claro"
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     client: "Cliente"
@@ -883,6 +894,7 @@ spa:
     commission: "Comisión"
     company: "Sociedad"
     complete: "Completar"
+    completed: "Terminado"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
@@ -955,6 +967,7 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
+    delete_selected_interventions: "Eliminar las intervenciones seleccionadas"
     deliver: "Entregado en"
     deliveries: "Entregas"
     delivery: "Entrega"
@@ -986,6 +999,7 @@ spa:
     disease_percentage: "Enfermedad (%)"
     disease_percentage_evolution: "Evolución porcentual de Enfermedades"
     display: "Monitor"
+    distribute_unaffected_products: "Distribuir productos no afectados"
     distributions: "Distribuciones"
     divide: "Dividir"
     division: "División"
@@ -1049,6 +1063,8 @@ spa:
     expedier: "Expédier"
     expenses: "Gastos"
     expenses_by_product_nature_category: "Los gastos por categoría de productos naturaleza"
+    expired_since: "Expirado ya (en días)"
+    expired_within: "Expirado el plazo de (en días)"
     export: "Exportación de un fichero de salvaguardia"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
@@ -1284,6 +1300,7 @@ spa:
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
+    new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"
@@ -1326,6 +1343,7 @@ spa:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "Operaciones"
     options: "Opciones"
+    or: "O"
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
@@ -1334,6 +1352,8 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
+    outgoing_parcel_quantities: "Cantidades (parcela Saliente)"
+    outgoing_parcels: "Paquetes salientes"
     outgoing_payment: "Salida de pagos"
     outgoing_payments: "Pagos salientes"
     overflow: "CREDITO O ECCEDENTE" #?
@@ -1343,6 +1363,7 @@ spa:
     paid_amount: "Monto de pago"
     paid_at: "Pagado en"
     parameters: "Parametros"
+    parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
     participants: "Los participantes"
     participations: "Participaciones"
@@ -1454,6 +1475,7 @@ spa:
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
     request_maintenance: "Solicitud de mantenimiento"
+    requests: "Peticiones"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
@@ -1501,6 +1523,7 @@ spa:
     sales_invoice: "Facturas"
     sales_invoice_items: "Lineas de factura" #?
     sales_invoice_print: "Imprimir la factura" #?
+    sales_pretax_amount: "Cantidad antes de impuestos (Ventas)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar en la niebla"
@@ -1508,6 +1531,8 @@ spa:
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
+    see_details: "Ver detalles"
+    see_more_details: "Ver más detalles"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?
@@ -1560,6 +1585,7 @@ spa:
     storage: "Almacenamiento"
     subject: "Tema"
     submit: "Enviar"
+    subscribed_on: "Suscrito el"
     # subscriber_period: "Subscribed on %{subscribed_at}"
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Tipo de suscripción"
@@ -1656,8 +1682,10 @@ spa:
     transfer: "Transferir"
     transformations: "Transformaciones" #?
     transport: "Transporte"
+    undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
     undelivered: "No entregado"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "Deshecho"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"
@@ -1697,6 +1725,7 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
@@ -2006,14 +2035,19 @@ spa:
     accounting_system: "Catálogo de cuentas"
     bookkeep_automatically: "Active la contabilidad automática"
     bookkeep_in_draft: "Guardar los registros en modo de borrador en la contabilidad"
+    catalog_price_item_addition_if_blank: "Añadir catálogo de precios para catalogar durante la venta / compra si catálogo en blanco"
+    client_account_radix: "Radix de cuenta de cliente"
     country: "País"
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
+    employee_account_radix: "Radix de la cuenta del empleado"
     host: "Anfitrión"
     language: "Idioma"
     map_measure_srs: "SRS Mapa de medida"
+    permanent_stock_inventory: "Modo de inventario de existencias permanentes"
     sales_conditions: "Condiciones de ventas"
+    supplier_account_radix: "Radix de la cuenta del proveedor"
     use_entity_codes_for_account_numbers: "Utilice el código para la creación de números de cuenta"
   rest:
     actions:
@@ -2037,10 +2071,10 @@ spa:
       destroy: "Destruir"
       detach: "Despegar"
       detail: "Detalle"
-      distribute: "Distribuir productos no afectados"
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"
+      edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
       # export_to_sepa: "Export to SEPA"
@@ -2073,6 +2107,7 @@ spa:
       propose: "Proponer"
       propose_and_invoice: "Proponer y factura"
       prospect: "Perspectiva"
+      purchase: "Convertirse en la compra"
       qualify: "Calificar"
       quote: "Citar"
       reconciliation: "Reconciliación"
@@ -2086,6 +2121,7 @@ spa:
       run: "Correr"
       search: "Buscar"
       select: "Seleccionar"
+      sell: "Convertirse en venta"
       ship: "Enviar"
       show: "Espectáculo"
       sort: "Ordenar"
@@ -2107,6 +2143,7 @@ spa:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_budgets: "%{activity_name} %{campaign_name}"
     # backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"

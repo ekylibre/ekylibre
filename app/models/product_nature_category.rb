@@ -45,6 +45,7 @@
 #  reference_name                      :string
 #  saleable                            :boolean          default(FALSE), not null
 #  stock_account_id                    :integer
+#  stock_movement_account_id           :integer
 #  storable                            :boolean          default(FALSE), not null
 #  subscribing                         :boolean          default(FALSE), not null
 #  updated_at                          :datetime         not null
@@ -61,6 +62,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   belongs_to :charge_account,    class_name: 'Account'
   belongs_to :product_account,   class_name: 'Account'
   belongs_to :stock_account,     class_name: 'Account'
+  belongs_to :stock_movement_account, class_name: 'Account'
   has_many :natures, class_name: 'ProductNature', foreign_key: :category_id, inverse_of: :category, dependent: :restrict_with_exception
   has_many :products, foreign_key: :category_id, dependent: :restrict_with_exception
   has_many :taxations, class_name: 'ProductNatureCategoryTaxation', dependent: :destroy
@@ -82,6 +84,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates :product_account, presence: { if: :saleable? }
   validates :charge_account,  presence: { if: :purchasable? }
   validates :stock_account,   presence: { if: :storable? }
+  validates :stock_movement_account, presence: { if: :storable? }
   validates :fixed_asset_account, presence: { if: :depreciable? }
   validates :fixed_asset_allocation_account, presence: { if: :depreciable? }
   validates :fixed_asset_expenses_account, presence: { if: :depreciable? }
@@ -103,7 +106,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :with_sale_catalog_items, -> { where(id: Catalog.for_sale.joins(items: { variant: :category }).pluck(:category_id)) }
 
   protect(on: :destroy) do
-    natures.any? && products.any?
+    natures.any? || products.any?
   end
 
   before_validation do
@@ -136,11 +139,12 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
     # Load a product nature category from product nature category nomenclature
     def import_from_nomenclature(reference_name, force = false)
-      unless item = Nomen::ProductNatureCategory.find(reference_name)
+      unless (item = Nomen::ProductNatureCategory.find(reference_name))
         raise ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
       end
-      if !force && category = ProductNatureCategory.find_by_reference_name(reference_name)
-        return category
+      unless force
+        category = ProductNatureCategory.find_by(reference_name: reference_name)
+        return category if category
       end
       attributes = {
         active: true,
@@ -155,10 +159,11 @@ class ProductNatureCategory < Ekylibre::Record::Base
         fixed_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
         fixed_asset_depreciation_method: :simplified_linear
       }.with_indifferent_access
-      for account in [:fixed_asset, :fixed_asset_allocation, :fixed_asset_expenses, :charge, :product, :stock]
-        name = item.send("#{account}_account")
-        unless name.blank?
-          attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(name)
+      [:fixed_asset, :fixed_asset_allocation, :fixed_asset_expenses,
+       :charge, :product, :stock, :stock_movement].each do |account|
+        account_name = item.send("#{account}_account")
+        unless account_name.blank?
+          attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(account_name)
         end
       end
       # TODO: add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)

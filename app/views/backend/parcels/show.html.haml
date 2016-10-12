@@ -33,6 +33,8 @@
     - l.attribute :in_preparation_at
     - l.attribute :prepared_at
     - l.attribute :given_at
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :undelivered_invoice_entry, url: true if resource.undelivered_invoice_entry
 
 
 = cobbles do |c|

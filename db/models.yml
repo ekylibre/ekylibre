@@ -12,6 +12,8 @@
 - activity_season
 - activity_tactic
 - affair
+- alert
+- alert_phase
 - analysis
 - analysis_item
 - animal
@@ -51,6 +53,7 @@
 - entity_address
 - entity_link
 - equipment
+- equipment_fleet
 - event
 - event_participation
 - financial_year
@@ -76,6 +79,7 @@
 - intervention_doer
 - intervention_group_parameter
 - intervention_input
+- intervention_labelling
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
@@ -89,6 +93,7 @@
 - journal
 - journal_entry
 - journal_entry_item
+- label
 - land_parcel
 - listing
 - listing_node
@@ -118,6 +123,7 @@
 - product
 - product_enjoyment
 - product_group
+- product_labelling
 - product_link
 - product_linkage
 - product_localization
@@ -131,6 +137,7 @@
 - product_nature_variant_reading
 - product_ownership
 - product_phase
+- product_population
 - product_reading
 - purchase
 - purchase_item

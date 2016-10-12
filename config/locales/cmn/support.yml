@@ -19,6 +19,7 @@ cmn:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%b%d日"
+      short_month: "%m-%d"
     month_names: ["", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
   datetime:
     distance_in_words:
@@ -56,6 +57,11 @@ cmn:
       x_seconds:
         one: "一秒"
         other: "%{count} 秒"
+    periods:
+      day: "天"
+      month: "月"
+      week: "周"
+      year: "年"
     prompts:  #?
       day: "日" #?
       hour: "时" #?
@@ -116,7 +122,9 @@ cmn:
   time:
     am: "上午"
     formats:
+      compact: "％M /％D /％Y％H：％M"
       default: "%Y年%b%d日 %A %H:%M:%S %Z"
       long: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"
+      time: "%H:%M" #?
     pm: "下午"

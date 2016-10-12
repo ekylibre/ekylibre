@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -104,5 +105,10 @@ class Animal < Bioproduct
 
   def variety_text
     "nomenclatures.varieties.items.#{variety}".t
+  end
+
+  def best_activity_production(options = {})
+    at = options[:at] || Time.zone.now
+    ActivityProduction.where(support: groups_at(at)).at(at).first || super
   end
 end

@@ -362,7 +362,7 @@ module Clean
             end
             next unless attrs.any?
             translation << "    #{model.name.underscore}:\n"
-            attrs.sort { |a, b| a.name <=> b.name }.each do |attr|
+            attrs.sort_by(&:name).each do |attr|
               translation << "      #{attr.name}:\n"
               attr.values.sort { |a, b| a <=> b }.each do |value|
                 translation << s.exp(ref, :enumerize, model.name.underscore.to_sym, attr.name, value.to_sym).dig(4)
@@ -490,7 +490,7 @@ module Clean
                   if property_nature.type == :choice || property_nature.type == :choice_list
                     if property_nature.inline_choices?
                       choices << "#{name}:\n"
-                      property_nature.choices.sort { |a, b| a.to_s <=> b.to_s }.each do |choice|
+                      property_nature.choices.sort_by(&:to_s).each do |choice|
                         choices << s.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
                       end
                     end
@@ -556,7 +556,6 @@ module Clean
         untranslated = 0
 
         translation  = "#{locale}:\n"
-        translation << "  procedo:\n"
 
         translation << "  procedure_handlers:\n"
         handlers = []
@@ -671,7 +670,7 @@ module Clean
       def write(file, translation, total, untranslated = 0)
         file = locale_dir.join(file) if file.is_a?(String)
         File.write(file, translation.strip)
-        log "  * #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
+        log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
         @total += total
         @count += total - untranslated
       end
@@ -720,7 +719,7 @@ module Clean
       Translation.new(reference, log: log).clean!
       locales = ::I18n.available_locales.delete_if do |l|
         l == reference || l.to_s.size != 3
-      end.sort { |a, b| a.to_s <=> b.to_s }
+      end.sort_by(&:to_s)
       locales.each do |locale|
         Translation.new(locale, log: log).clean_from!(reference)
       end

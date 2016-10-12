@@ -24,7 +24,7 @@ module Indicateable
       ids = []
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
-        puts name.inspect.yellow
+        # puts name.inspect.yellow
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end

@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
 
-- main_campaign_selector
+- main_period_selector(:year)
 
 = janus do |j|
   - if Equipment.any? && Equipment.with_given_readings(:shape).any?
@@ -16,4 +16,10 @@
         - k.helper do
           %label= Equipment.human_attribute_name(:variant)
           = select_tag(:variant_id, options_for_select([[]] + variants.order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
+      - if current_campaign
+        - activities = Activity.of_campaign(current_campaign)
+        - if activities && activities.any?
+          - k.helper do
+            %label= Activity.human_attribute_name(:activity)
+            = select_tag(:activity_id, options_for_select([[]] + activities.order(:name).collect{|u| [u.name, u.id]}, params[:activity_id]))
     = main_list

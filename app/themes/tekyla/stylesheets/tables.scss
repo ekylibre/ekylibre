@@ -202,6 +202,9 @@ table {
           border-right: none;
           line-height: $lh-normal;
           @include ellipsis;
+          input {
+            max-width: 100%;
+          }
           &.with-selector {
             overflow: visible;
           }

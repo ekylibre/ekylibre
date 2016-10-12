@@ -60,7 +60,7 @@ module Backend
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
-      t.action :destroy, if: :aborted?
+      t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
       t.column :created_at
       t.column :invoiced_at
@@ -138,6 +138,8 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     # Displays details of one sale selected with +params[:id]+
@@ -170,9 +172,13 @@ module Backend
         redirect_to action: :index
         return
       end
-      @sale = Sale.new(nature: nature)
+      @sale = if params[:intervention_ids]
+                Intervention.convert_to_sale(params[:intervention_ids])
+              else
+                Sale.new(nature: nature)
+              end
       @sale.currency = @sale.nature.currency
-      if client = Entity.find_by_id(params[:client_id] || params[:entity_id] || session[:current_entity_id])
+      if client = Entity.find_by_id(@sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
         if client.default_mail_address
           cid = client.default_mail_address.id
           @sale.attributes = { address_id: cid, delivery_address_id: cid, invoice_address_id: cid }

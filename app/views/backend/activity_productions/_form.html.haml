@@ -20,10 +20,9 @@
     = f.shape :support_shape
     = f.input :irrigated
     = f.input :nitrate_fixing
-  - elsif activity.animal_farming?
-    -# Animal farming
-    = f.input :size_value
-  - elsif activity.with_support
+  - elsif activity.animal_farming? || activity.tool_maintaining?
+    = f.input :size_value, label: ActivityProduction.human_attribute_name(:size)
+  - elsif activity.with_supports
     -# Other families
     = f.referenced_association :support
   = f.custom_fields

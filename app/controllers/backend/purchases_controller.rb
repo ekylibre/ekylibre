@@ -92,6 +92,8 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -127,12 +129,16 @@ module Backend
         redirect_to action: :index
         return
       end
-      @purchase = Purchase.new(nature: nature)
+      @purchase = if params[:intervention_ids]
+                    Intervention.convert_to_purchase(params[:intervention_ids])
+                  else
+                    Purchase.new(nature: nature)
+                  end
       @purchase.currency = @purchase.nature.currency
       @purchase.responsible = current_user
       @purchase.planned_at = Time.zone.now
       @purchase.invoiced_at = Time.zone.now
-      @purchase.supplier_id = params[:supplier_id] if params[:supplier_id]
+      @purchase.supplier_id ||= params[:supplier_id] if params[:supplier_id]
       if address = Entity.of_company.default_mail_address
         @purchase.delivery_address = address
       end

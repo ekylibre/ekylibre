@@ -81,12 +81,12 @@ class Deposit < Ekylibre::Record::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    payments = reload.payments unless b.action == :destroy
-    amount = self.payments.sum(:amount)
+    reload unless b.action == :destroy
+    amount = payments.sum(:amount)
     b.journal_entry(cash.journal, if: !mode.depositables_account.nil?) do |entry|
       commissions = {}
       commissions_amount = 0
-      for payment in payments
+      payments.each do |payment|
         commissions[payment.commission_account_id.to_s] ||= 0
         commissions[payment.commission_account_id.to_s] += payment.commission_amount
         commissions_amount += payment.commission_amount
@@ -95,12 +95,12 @@ class Deposit < Ekylibre::Record::Base
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, count: payments_count, mode: mode.name, responsible: responsible.label, description: description)
 
       entry.add_debit(label, cash.account_id, amount - commissions_amount)
-      for commission_account_id, commission_amount in commissions
+      commissions.each do |commission_account_id, commission_amount|
         entry.add_debit(label, commission_account_id.to_i, commission_amount) if commission_amount > 0
       end
 
       if detail_payments # Preference[:detail_payments_in_deposit_bookkeeping]
-        for payment in payments
+        payments.each do |payment|
           label = tc(:bookkeep_with_payment, resource: self.class.model_name.human, number: number, mode: mode.name, payer: payment.payer.full_name, check_number: payment.bank_check_number, payment: payment.number)
           entry.add_credit(label, mode.depositables_account_id, payment.amount)
         end

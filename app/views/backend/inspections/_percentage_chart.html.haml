@@ -1,5 +1,3 @@
-- symbol_measure = unit.symbol
-- dataset = resource.calibrations.of_scale(scale).reorder(:id)
-- data = data_series(resource, :"marketable_#{to_graph}", dataset, unit) { |name, result| {name: name, y: result} }
+- data = data_series(dimension, :marketable_quantity, dataset) { |name, result| {name: name, y: result} }
 
-.chart-cell= pie_highcharts({ name: scale.name, data: data }, title: {text: :percentage_by_calibration.tl}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})
+.chart-cell= pie_highcharts({ name: scale.name, data: data }, title: {text: :percentage_by_calibration_x.tl(x: scale.name)}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y:1f} #{symbol_measure} : <b>{point.percentage:.1f} %</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})

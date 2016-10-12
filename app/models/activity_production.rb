@@ -61,13 +61,16 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
   belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :productions
   belongs_to :season, class_name: 'ActivitySeason', inverse_of: :productions
-  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :restrict_with_exception
+  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :destroy
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
   has_one :cap_land_parcel, class_name: 'CapLandParcel', inverse_of: :activity_production, foreign_key: :support_id
+
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
 
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
@@ -93,23 +96,21 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
-  delegate :animal_farming?, :plant_farming?,
+  delegate :animal_farming?, :plant_farming?, :tool_maintaining?,
            :at_cycle_start?, :at_cycle_end?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
            :color, :annual?, :perennial?, to: :activity
 
   scope :of_campaign, lambda { |campaign|
-    where('campaign_id = ?' \
-          ' OR campaign_id IS NULL AND (' \
-          "activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on))))" \
-          " OR activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))" \
-          ')', campaign.id, campaign.id, campaign.id)
+    where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
   }
 
   scope :of_cultivation_variety, lambda { |variety|
     where(activity: Activity.of_cultivation_variety(variety))
   }
-  scope :of_current_campaigns, -> { of_campaign(Campaign.current.last) }
+  scope :of_current_campaigns, -> {
+    of_campaign(Campaign.current.last)
+  }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activities, lambda { |*activities|
@@ -119,9 +120,8 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
 
-  scope :of_intervention, ->(intervention) { where(id: TargetDistribution.select(:activity_production_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention.id))) }
-
-  scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
+  scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
+  scope :current, -> { at(Time.zone.now) }
 
   state_machine :state, initial: :opened do
     state :opened
@@ -143,8 +143,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   before_validation on: :create do
-    if self.activity
-      self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+    if activity
+      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
     end
     true
   end
@@ -152,65 +152,17 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.started_on ||= Date.today
     self.usage = Nomen::ProductionUsage.first unless usage
-    if self.activity
+    if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
-        self.support_shape ||= cultivable_zone.shape if cultivable_zone
-        unless support
-          if support_shape
-            land_parcels = LandParcel.shape_matching(support_shape)
-                                     .where.not(id: ActivityProduction.select(:support_id))
-                                     .order(:id)
-            self.support = land_parcels.first if land_parcels.any?
-          end
-          self.support ||= LandParcel.new
-        end
-        support.name = computed_support_name
-        support.initial_shape = support_shape
-        support.initial_born_at = started_on
-        support.initial_dead_at = stopped_on
-        support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
-        support.save!
-        reading = support.first_reading(:shape)
-        if reading
-          reading.value = support_shape
-          reading.save!
-        end
-        self.size = support_shape_area.in(size_unit_name)
+        initialize_land_parcel_support!
       elsif animal_farming?
-        self.support = AnimalGroup.new unless support
-        support.name = computed_support_name
-        # FIXME: Need to find better category and population_counting...
-        unless support.variant
-          nature = ProductNature.find_or_create_by!(
-            variety: :animal_group,
-            derivative_of: :animal,
-            name: AnimalGroup.model_name.human,
-            category: ProductNatureCategory.import_from_nomenclature(:cattle_herd),
-            population_counting: :unitary
-          )
-          variant = ProductNatureVariant.find_or_initialize_by(
-            nature: nature,
-            variety: :animal_group,
-            derivative_of: :animal
-          )
-          variant.name ||= nature.name
-          variant.unit_name ||= :unit.tl
-          variant.save! if variant.new_record?
-          support.variant = variant
-        end
-        if self.activity.cultivation_variety
-          support.derivative_of ||= self.activity.cultivation_variety
-        end
-        support.save!
-        if size_value.nil?
-          errors.add(:size_value, :empty)
-        else
-          self.size = size_value.in(size_unit_name)
-        end
+        initialize_animal_group_support!
+      elsif tool_maintaining?
+        initialize_equipment_fleet_support!
       end
     end
     true
@@ -223,14 +175,18 @@ class ActivityProduction < Ekylibre::Record::Base
 
   validate do
     if plant_farming?
-      errors.add(:support_shape, :empty) if self.support_shape && self.support_shape.empty?
+      errors.add(:support_shape, :empty) if support_shape && support_shape.empty?
     end
     true
   end
 
+  after_create do
+    add_target!(support) if support
+  end
+
   after_commit do
-    if self.activity.productions.where(rank_number: rank_number).count > 1
-      update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
+    if activity.productions.where(rank_number: rank_number).count > 1
+      update_column(:rank_number, activity.productions.maximum(:rank_number) + 1)
     end
     Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
   end
@@ -262,17 +218,108 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
+  def initialize_land_parcel_support!
+    self.support_shape ||= cultivable_zone.shape if cultivable_zone
+    unless support
+      if support_shape
+        land_parcels = LandParcel.shape_matching(support_shape)
+                                 .where.not(id: ActivityProduction.select(:support_id))
+                                 .order(:id)
+        self.support = land_parcels.first if land_parcels.any?
+      end
+      self.support ||= LandParcel.new
+    end
+    support.name = computed_support_name
+    support.initial_shape = support_shape
+    support.initial_born_at = started_on
+    support.initial_dead_at = stopped_on
+    support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
+    support.save!
+    reading = support.first_reading(:shape)
+    if reading
+      reading.value = support_shape
+      reading.save!
+    end
+    self.size = support_shape_area.in(size_unit_name)
+  end
+
+  def initialize_animal_group_support!
+    self.support = AnimalGroup.new unless support
+    support.name = computed_support_name
+    # FIXME: Need to find better category and population_counting...
+    unless support.variant
+      nature = ProductNature.find_or_create_by!(
+        variety: :animal_group,
+        derivative_of: :animal,
+        name: AnimalGroup.model_name.human,
+        category: ProductNatureCategory.import_from_nomenclature(:cattle_herd),
+        population_counting: :unitary
+      )
+      variant = ProductNatureVariant.find_or_initialize_by(
+        nature: nature,
+        variety: :animal_group,
+        derivative_of: :animal
+      )
+      variant.name ||= nature.name
+      variant.unit_name ||= :unit.tl
+      variant.save! if variant.new_record?
+      support.variant = variant
+    end
+    if activity.cultivation_variety
+      support.derivative_of ||= activity.cultivation_variety
+    end
+    support.save!
+    if size_value.nil?
+      errors.add(:size_value, :empty)
+    else
+      self.size = size_value.in(size_unit_name)
+    end
+  end
+
+  def initialize_equipment_fleet_support!
+    self.support = EquipmentFleet.new unless support
+    support.name = computed_support_name
+    # FIXME: Need to find better category and population_counting...
+    unless support.variant
+      nature = ProductNature.find_or_create_by!(
+        variety: :equipment_fleet,
+        derivative_of: :equipment,
+        name: EquipmentFleet.model_name.human,
+        category: ProductNatureCategory.import_from_nomenclature(:equipment_fleet),
+        population_counting: :unitary
+      )
+      variant = ProductNatureVariant.find_or_initialize_by(
+        nature: nature,
+        variety: :equipment_fleet,
+        derivative_of: :equipment
+      )
+      variant.name ||= nature.name
+      variant.unit_name ||= :unit.tl
+      variant.save! if variant.new_record?
+      support.variant = variant
+    end
+    if activity.cultivation_variety
+      support.derivative_of ||= activity.cultivation_variety
+    end
+    support.save!
+    if size_value.nil?
+      errors.add(:size_value, :empty)
+    else
+      self.size = size_value.in(size_unit_name)
+    end
+  end
+
+  def add_target!(product, at = nil)
+    at ||= Time.now if distributions.where(target: product).any?
+    distributions.create!(target: product)
+  end
+
   def active?
     activity.family.to_s != 'fallow_land'
   end
 
   def season?
     !season_id.nil?
-  end
-
-  # Returns interventions of current production
-  def interventions
-    Intervention.of_activity_production(self)
   end
 
   def interventions_by_weeks
@@ -291,10 +338,6 @@ class ActivityProduction < Ekylibre::Record::Base
     end
 
     interventions_by_week
-  end
-
-  def campaigns
-    Campaign.of_activity_production(self)
   end
 
   def started_on_for(campaign)
@@ -573,8 +616,8 @@ class ActivityProduction < Ekylibre::Record::Base
   def name(options = {})
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
-    list << cultivable_zone.name if cultivable_zone
-    list << started_on.to_date.l(format: :month) if started_on
+    list << cultivable_zone.name if cultivable_zone && plant_farming?
+    list << started_on.to_date.l(format: :month) if activity.annual? && started_on
     list << :rank.t(number: rank_number)
     list = list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')

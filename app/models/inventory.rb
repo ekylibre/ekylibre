@@ -22,28 +22,34 @@
 #
 # == Table: inventories
 #
-#  accounted_at     :datetime
-#  achieved_at      :datetime
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number           :string           not null
-#  reflected        :boolean          default(FALSE), not null
-#  reflected_at     :datetime
-#  responsible_id   :integer
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  accounted_at      :datetime
+#  achieved_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string
+#  custom_fields     :jsonb
+#  financial_year_id :integer
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer
+#  lock_version      :integer          default(0), not null
+#  name              :string           not null
+#  number            :string           not null
+#  reflected         :boolean          default(FALSE), not null
+#  reflected_at      :datetime
+#  responsible_id    :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 class Inventory < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  attr_readonly :currency
+  refers_to :currency
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
+  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :financial_year
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
@@ -51,6 +57,7 @@ class Inventory < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :achieved_at, presence: true
   validates :name, uniqueness: true
+  validates :financial_year, presence: true
 
   acts_as_numbered
 
@@ -61,9 +68,57 @@ class Inventory < Ekylibre::Record::Base
 
   before_validation do
     self.achieved_at ||= Time.zone.now
+    self.currency ||= Preference[:currency]
   end
 
-  bookkeep on: :nothing do |_b|
+  #          Mode Inventory     |     Debit                      |            Credit            |
+  #     exchange current balance|    - balance (3X)              |   - balance (603X/71X)       |
+  #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
+  bookkeep do |b|
+    if financial_year
+
+      stock_journal = Journal.find_or_create_by!(nature: :stocks)
+      first_started_at = stock_journal.entries.reorder(:printed_on).first.printed_on.to_time if stock_journal.entries.any?
+      fy_started_at = first_started_at || financial_year.started_on.to_time
+      fy_stopped_at = financial_year.stopped_on.to_time
+
+      # get all variants corresponding to current items
+      variants = ProductNatureVariant.where(id: Product.where(id: items.pluck(:product_id)).pluck(:variant_id).uniq)
+      b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: reflected?) do |entry|
+        variants.each do |variant|
+          # for all items of current variant (if storable)
+          next unless variant.storable? && variant.stock_account && variant.stock_movement_account
+
+          s = variant.stock_account
+          sm = variant.stock_movement_account
+
+          # step 1 : neutralize last current stock in stock journal for current variant
+          # by exchanging the current balance
+          label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
+          entry.add_credit(label, sm.id, sm.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at))
+          entry.add_credit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at))
+
+          # step 2 : record inventory stock in stock journal
+          # TODO update methods to evaluates price stock or open unit_pretax_stock_amount field to the user during inventory
+          # build the global value of the stock for each item
+          i = items.of_variant(variant)
+          values = []
+          i.each do |item|
+            v = item.actual_population * item.unit_pretax_stock_amount
+            values << v
+          end
+          # bookkeep step 2
+          next if values.compact.sum.zero?
+          label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
+          entry.add_credit(label, sm.id, values.compact.sum)
+          entry.add_debit(label, s.id, values.compact.sum)
+        end
+      end
+    end
+  end
+
+  def printed_at
+    (reflected? ? reflected_at : achieved_at? ? self.achieved_at : created_at)
   end
 
   protect do

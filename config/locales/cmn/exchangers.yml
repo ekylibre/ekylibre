@@ -6,6 +6,7 @@ cmn:
     charentes_alliance_incoming_deliveries: "夏朗德联盟传入交付"
     charentes_alliance_outgoing_deliveries: "夏朗德联盟传出交付"
     # ebp_edi: "EBP EDI"
+    ekylibre_accounts: "Ekylibre账户"
     ekylibre_activities: "Ekylibre活动"
     ekylibre_animal_groups: "Ekylibre动物群"
     ekylibre_animals: "Ekylibre动物"

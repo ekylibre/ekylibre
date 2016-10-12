@@ -76,7 +76,7 @@ module Backend
     list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
       t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
-      t.action :edit,    on: :both, method: :get, if: :updateable?
+      t.action :edit, if: :updateable?
       t.action :destroy
       t.column :nature
       t.column :number, url: true
@@ -99,7 +99,8 @@ module Backend
     list(:outgoing_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :source_product, url: true
       t.column :product, url: true, hidden: true
-      # t.column :product_work_number, through: :product, label_method: :work_number
+      t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
+      t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
       # t.column :variant, url: true

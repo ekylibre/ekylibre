@@ -7,6 +7,7 @@ $default-ratio: $golden-ratio;
 // Basic colors
 $white: #FFFFFF !default;
 $black: #000000 !default;
+$blue-grey: #607D8B !default;
 
 // Font sizes
 $fs-ratio:   1.2 !default;
@@ -47,7 +48,13 @@ $title-color:        darken($base-color, 40%) !default;
 $selection-color:  $active-color;
 $base-font-color:  $text-color !default;
 $base-font-reversed-color: $white !default;
+$default-border-color: #DDD;
 
+// Basic colors
+$darkened-white: mix($black, $white, 2%) !default;
+$lightened-black: mix($black, $white, 60%) !default;
+$lightened-grey: mix($black, $white, 30%) !default;
+$darkened-blue-grey: darken($blue-grey, 10%) !default;
 
 $brand-primary: $base-color;
 $brand-success: $success-color;
@@ -108,7 +115,7 @@ $buttons-aliases: ("abort" "times") ("action" "cog") ("backup" "backward") ("bar
 
                                     ("delay" "times") ("document" "briefcase") ("general-informations" "book") ("stock" "exchange") ("group" "group") ("movement" "exchange") ("accountancy" "money") ("coordinates" "map-marker") ("amount" "money") ("vegetable" "wheat") ("genealogy" "sitemap") ("animal" "cow") ("entity" "user") ("indicators" "dashboard") ("analytics" "cogs") ("measure_options" "dashboard") ("string_options" "comment") ("decimal_options" "circle-o") ("choice_options" "list") ("products" "wheat") ("identification" "barcode") ("animal_identification" "barcode") ("productions" "cog") ("nature" "wrench") ("variant" "sitemap") ("subscriptions" "stack-exchange") ("casting" "bullhorn") ("people" "group") ("next" "chevron-right") ("previous" "chevron-left")
                                     ("observation" "comment-o") ("event" "calendar") ("task" "check-square-o") ("entity-link" "arrows-h") ("incoming-payment" "credit-card") ("outgoing-payment" "credit-card") ("issue" "bug") ("incoming-call" "call") ("outgoing-call" "call") ("incoming-email" "envelope-o") ("outgoing-email" "envelope-o") ("quote" "calculator") ("sale-opportunity" "file-text-o") ("sale" "eur") ("purchase" "shopping-cart") ("product-ownership" "key") ("product-localization" "map-marker") ("product-phase" "label") ("attachment" "paperclip")
-                                    ("map" "map-marker") ("chart" "bar-chart") ("timeline" "history") ("cobbles" "view-stream")
+                                    ("map" "map-marker") ("chart" "bar-chart") ("timeline" "history") ("cobbles" "view-stream") ("sell" "money")
 
                                     ("veterinary_booklet" "medkit") ("animal_husbandry_register" "cow") ("doer" "male") ("exchange_accountancy_file_fr" "file") ("input" "matter") ("intervention_register" "tractor") ("manure_management_plan" "land-parcels") ("provisional_manure_management_plan" "land-parcels") ("land_parcel_register" "land-parcels") ("phytosanitary_register" "flask") ("vine_phytosanitary_register" "flask") ("general_ledger" "money") ("income_statement" "money") ("activity_cost" "money") ("tool" "tractor") ("wine_bottling_register" "bottles") ("wine_detention_register" "flask") ("wine_manipulation_register" "bottle");
 

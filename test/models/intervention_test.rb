@@ -22,14 +22,17 @@
 #
 # == Table: interventions
 #
+#  accounted_at            :datetime
 #  actions                 :string
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  currency                :string
 #  custom_fields           :jsonb
 #  description             :text
 #  event_id                :integer
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
+#  journal_entry_id        :integer
 #  lock_version            :integer          default(0), not null
 #  nature                  :string           not null
 #  number                  :string
@@ -91,7 +94,7 @@ class InterventionTest < ActiveSupport::TestCase
     LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
       intervention.add_parameter!(:zone) do |g|
         g.add_parameter!(:land_parcel, land_parcel)
-        g.add_parameter!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
+        g.add_parameter!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
       end
     end
     assert intervention.runnable?, 'Intervention should be runnable'
@@ -111,7 +114,7 @@ class InterventionTest < ActiveSupport::TestCase
       LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
         i.add!(:zone) do |g|
           g.add!(:land_parcel, land_parcel)
-          g.add!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
+          g.add!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
         end
       end
     end
@@ -124,5 +127,10 @@ class InterventionTest < ActiveSupport::TestCase
     assert_not intervention.save, 'Intervention with invalid actions should not be saved'
     intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening])
     assert_not intervention.save, 'Intervention with invalid actions should not be saved'
+  end
+
+  test 'destroy intervention update intervention_activities_db_view' do
+    first_activity_intervention = Intervention::HABTM_Activities.first
+    assert Intervention.destroy(first_activity_intervention.intervention_id)
   end
 end

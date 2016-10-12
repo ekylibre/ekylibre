@@ -1,0 +1,94 @@
+= modal_header(intervention.name)
+
+.modal-body
+
+  .indicators
+    .med-info.total-cost
+      %span.title= :total_cost.tl
+      %span.value
+        %i.picto.picto-timelapse
+        - currency = Nomen::Currency.find(resource.currency)
+        = resource.total_cost.round(currency.precision).l(currency: currency.name)
+
+    .med-info
+      %span.title= Intervention.human_attribute_name(:working_duration)
+      %span.value
+        %i.picto.picto-timelapse
+        = human_duration(resource.working_duration)
+
+    .med-info
+      %span.title= Intervention.human_attribute_name(:started_at)
+      %span.value
+        %i.picto.picto-clock-o
+        = resource.started_at.l(format: :compact)
+
+    .med-info
+      %span.title= Intervention.human_attribute_name(:stopped_at)
+      %span.value
+        %i.picto.picto-clock-o
+        = resource.stopped_at.l(format: :compact)
+
+  - if intervention.activities.any?
+    .intervention-activities
+      - intervention.activities.each do |activity|
+        = link_to({ action: :show, controller: :activities, id: activity.id}, style: "background-color: #{activity.color}; color: #{contrasted_color(activity.color)}", class: 'label') do
+          = activity.name
+  .blocks
+
+    - if intervention.targets.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:targets)
+
+        - intervention.targets.each do |target|
+          - title = target.product.name
+          - detail = target.product.nature.name
+          - if target.product.has_indicator? :shape
+            - detail << ' - ' + target.human_working_zone_area unless target.working_zone_area.nil?
+          = add_detail_to_modal_block(title, detail, {icon: 'picto-land-parcels'})
+
+    - if intervention.doers.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:doers)
+
+        - intervention.doers.each do |doer|
+          - title = doer.product.name
+          - detail = doer.name
+          = add_detail_to_modal_block(title, detail, {icon: 'picto-male'})
+
+    - if intervention.inputs.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:inputs)
+
+        - intervention.inputs.each do |input|
+          - unless input.product.blank?
+            - title = input.product.name
+            - detail = ""
+
+            - unless input.quantity_handler_reference.unit.nil?
+              - detail = input.quantity_value.round(2).l(precision: 0)
+              - detail << " " + input.quantity_handler_reference.unit.symbol
+
+            = add_detail_to_modal_block(title, detail, {icon: 'picto-matter'})
+
+
+    - if intervention.tools.any?
+      .block
+        %h3.block-title= Intervention.human_attribute_name(:tools)
+
+        - intervention.tools.each do |tool|
+          - title = tool.product.name
+          - detail = tool.product.nature.name
+          = add_detail_to_modal_block(title, detail, {icon: "picto-tractor"})
+
+
+.modal-footer
+  - displayed_state = intervention.state.tl
+  - displayed_state = intervention.nature.l if intervention.nature.to_sym == :request
+
+  = dropdown_menu_button(displayed_state, class: 'btn btn-primary dropup', icon: false, disable_with: tl(:please_wait)) do |menu|
+    - Intervention.state.options.each do |state, option|
+      - unless option.to_sym == :rejected || ( option.to_sym == intervention.state.to_sym && intervention.nature.to_sym != :request)
+        - menu.item state, change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, :state => option.to_sym }), method: :post
+
+  = link_to :see_details.tl, backend_intervention_path(intervention), class: 'btn btn-default'
+  = link_to :edit.tl, edit_backend_intervention_path(intervention), class: 'btn btn-default'
