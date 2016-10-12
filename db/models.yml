@@ -108,6 +108,7 @@
 - notification
 - observation
 - outgoing_payment
+- outgoing_payment_list
 - outgoing_payment_mode
 - parcel
 - parcel_item

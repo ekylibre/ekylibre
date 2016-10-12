@@ -33,48 +33,4 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
----
-activity_inspection_calibration_natures_001:
-  created_at: 2016-05-10 19:12:13.392222000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  marketable: false
-  maximal_value: 60.0
-  minimal_value: 40.0
-  scale_id: 1
-  updated_at: 2016-05-10 19:12:13.392222000 Z
-  updater_id: 1
-activity_inspection_calibration_natures_002:
-  created_at: 2016-05-10 19:12:13.391102000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 1
-  marketable: true
-  maximal_value: 40.0
-  minimal_value: 25.0
-  scale_id: 1
-  updated_at: 2016-05-14 19:09:46.297264000 Z
-  updater_id: 1
-activity_inspection_calibration_natures_003:
-  created_at: 2016-05-10 19:12:13.389428000 Z
-  creator_id: 1
-  id: 3
-  lock_version: 1
-  marketable: true
-  maximal_value: 25.0
-  minimal_value: 10.0
-  scale_id: 1
-  updated_at: 2016-05-14 19:09:46.295647000 Z
-  updater_id: 1
-activity_inspection_calibration_natures_004:
-  created_at: 2016-05-10 19:12:13.386958000 Z
-  creator_id: 1
-  id: 4
-  lock_version: 0
-  marketable: false
-  maximal_value: 10.0
-  minimal_value: 0.0
-  scale_id: 1
-  updated_at: 2016-05-10 19:12:13.386958000 Z
-  updater_id: 1
+--- {}

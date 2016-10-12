@@ -362,6 +362,13 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
+      <item name="outgoing_payment_lists">
+        <page to="backend/outgoing_payment_lists#index"/>
+        <page to="backend/outgoing_payment_lists#destroy"/>
+        <page to="backend/outgoing_payment_lists#list"/>
+        <page to="backend/outgoing_payment_lists#show"/>
+        <page to="backend/outgoing_payment_lists#unroll" nonexistent="true"/>
+      </item>
     </group>
   </part>
   <part name="stocks" icon="truck">
@@ -1835,6 +1842,18 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="outgoing_payment_lists">
+        <page to="backend/outgoing_payment_lists#create"/>
+        <page to="backend/outgoing_payment_lists#edit"/>
+        <page to="backend/outgoing_payment_lists#export_to_sepa"/>
+        <page to="backend/outgoing_payment_lists#list_payments"/>
+        <page to="backend/outgoing_payment_lists#new"/>
+        <page to="backend/outgoing_payment_lists#update"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#pay"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -8,6 +8,7 @@
   = f.input :reference_number
   = f.input :planned_at
   = f.input :invoiced_at
+  = f.input :payment_delay
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description
   = f.custom_fields

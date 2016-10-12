@@ -461,6 +461,9 @@ arb:
     backend/outgoing_parcels:  #?
       edit: "تعديل التسليم" #?
       new: "اضافة تسليم" #?
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
@@ -2322,6 +2325,7 @@ arb:
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
       all_data_import_finished: "تم استيراد جميع البيانات الخاصة بك"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "يجب تعريف النشاط"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
@@ -2416,6 +2420,7 @@ arb:
       password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "سجل استيراد بالفعل"
       record_cannot_be_removed: "لا يمكن حذف السجل"
       record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
@@ -2549,6 +2554,7 @@ arb:
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
+      # export_to_sepa: "Export to SEPA"
       extract: "استخراج"
       family: "أسرة"
       finish: "إنهاء"
@@ -2571,6 +2577,7 @@ arb:
       new: "جديد"
       open: "فتح"
       order: "طلب"
+      # pay: "Pay"
       pick: "اختيار"
       picture: "صورة"
       prepare: "إعداد"

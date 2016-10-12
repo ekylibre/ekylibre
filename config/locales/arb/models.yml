@@ -309,6 +309,8 @@ arb:
         updated_at: "تحديثه في" #?
         updater: "التعديل" #?
         updater_id: "تعديل" #?
+      outgoing_payment_list:
+        # payments_sum: "Total"
       outgoing_payment_mode:  #?
         cash: "الخزينة" #?
         cash_id: "خزينة" #?
@@ -630,6 +632,7 @@ arb:
         # is_at: "%{attribute} must be at %{restriction}"
         less_than: "%{attribute} يجب ان يكون اقل من %{count}"
         less_than_or_equal_to: "%{attribute} يجب ان يكون اقل او يساو %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
         # must_be_a_mail_address: "%{attribute} must be a mail address"
         not_a_number: "%{attribute} ليس برقم"
         # not_an_end_of_month: "%{attribute} must be an end of month"
@@ -1023,6 +1026,10 @@ arb:
     analysis_items: "عناصر التحليل"
     annotation: "ملاحظة"
     archive: "أرشيف"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archiving: "أرشفة"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1048,6 +1055,7 @@ arb:
     balance_amount: "الرصيد" #?
     balances: "ارصدة الحساب"
     bank: "البنك" #?
+    # bank_account_holder_name: "Account owner"
     bank_account_key: "مفتاح الحساب المصرفي"
     bank_account_number: "رقم الحساب المصرفي"
     bank_agency_address: "عنوان وكالة البنك"
@@ -1399,7 +1407,11 @@ arb:
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
     file: "ملف"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "حجم الملف"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "عد الصفحات"
     file_updated_at: "تحديث في"
     filename: "الملف" #?
@@ -1526,6 +1538,10 @@ arb:
     initiated_on: "بدأت يوم"
     inputs: "المدخلات"
     inspection: "تفتيش"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "عمليات التفتيش"
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
@@ -1612,6 +1628,7 @@ arb:
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?
+    # leaves_parameters: "Leaves parameters"
     lender: "المقرض"
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
@@ -1632,6 +1649,7 @@ arb:
     linked_id: "الملف الثاني" #?
     linked_role: "كيان 2 دور"
     links: "الروابط"
+    # list: "List"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
     listing_node_items: "عناصر العقدة المستخرجة" #?
@@ -2011,6 +2029,10 @@ arb:
     reductions: "طرق الخصومات" #?
     reference_name: "اسم الإشارة"
     reference_number: "الرقم المرجعي"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "الضرائب المرجعية"
     reference_value: "قيمة مرجعية"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
@@ -2112,6 +2134,7 @@ arb:
     sensor: "الاستشعار"
     sensors: "أجهزة الاستشعار"
     sent_at: "أرسلت في"
+    # sepa: "SEPA"
     separated_stock: "لا تندمج مع المخزونات الحالية"
     sequences: "التسلسلات" #?
     serial: "عدد الحصص"
@@ -2191,6 +2214,7 @@ arb:
     supplier_accounts: "حسابات المموليين" #?
     supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?
+    # supplier_payment_delay: "Supplier payment delay"
     suppliers: "الممولين"
     support: "الدعم"
     support_nature: "نوع الدعم"

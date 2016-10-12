@@ -1301,6 +1301,8 @@ cashes:
     type: integer
     references: account
     required: true
+  bank_account_holder_name:
+    type: string
   bank_account_key:
     type: string
   bank_account_number:
@@ -1920,6 +1922,10 @@ entities:
     type: string
   authorized_payments_count:
     type: integer
+  bank_account_holder_name:
+    type: string
+  bank_identifier_code:
+    type: string
   born_at:
     type: datetime
   client:
@@ -1964,6 +1970,8 @@ entities:
   full_name:
     type: string
     required: true
+  iban:
+    type: string
   id:
     type: integer
     required: true
@@ -2022,6 +2030,8 @@ entities:
   supplier_account_id:
     type: integer
     references: account
+  supplier_payment_delay:
+    type: string
   title:
     type: string
   transporter:
@@ -4335,6 +4345,18 @@ observations:
   updater_id:
     type: integer
     references: user
+outgoing_payment_lists:
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  number:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
 outgoing_payment_modes:
   active:
     type: boolean
@@ -4360,6 +4382,10 @@ outgoing_payment_modes:
     required: true
   position:
     type: integer
+  sepa:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -4412,6 +4438,9 @@ outgoing_payments:
   journal_entry_id:
     type: integer
     references: journal_entry
+  list_id:
+    type: integer
+    references: outgoing_payment_list
   lock_version:
     type: integer
     required: true
@@ -5972,6 +6001,10 @@ purchases:
   number:
     type: string
     required: true
+  payment_at:
+    type: datetime
+  payment_delay:
+    type: string
   planned_at:
     type: datetime
   pretax_amount:

@@ -38,6 +38,8 @@
 #  lock_version                     :integer          default(0), not null
 #  nature_id                        :integer
 #  number                           :string           not null
+#  payment_at                       :datetime
+#  payment_delay                    :string
 #  planned_at                       :datetime
 #  pretax_amount                    :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_entry_id :integer
@@ -69,17 +71,18 @@ class Purchase < Ekylibre::Record::Base
   has_many :products, -> { uniq }, through: :items
   has_many :fixed_assets, through: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :confirmed_at, :invoiced_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :confirmed_at, :invoiced_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :payee, :supplier, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
-  validates :reference_number, :state, length: { maximum: 500 }, allow_blank: true
+  validates :payment_delay, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
   validates :number, uniqueness: true
   validates_associated :items
+  validates_delay_format_of :payment_delay
 
   acts_as_numbered
   acts_as_affairable :supplier
@@ -133,6 +136,7 @@ class Purchase < Ekylibre::Record::Base
   before_validation do
     self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
+    self.payment_delay = self.supplier.supplier_payment_delay if self.payment_delay.blank?
     self.pretax_amount = items.sum(:pretax_amount)
     self.amount = items.sum(:amount)
   end
@@ -264,6 +268,7 @@ class Purchase < Ekylibre::Record::Base
     return false unless can_invoice?
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
+    self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
     save!
     super
   end
@@ -299,5 +304,18 @@ class Purchase < Ekylibre::Record::Base
 
   def can_generate_parcel?
     items.any? && delivery_address && (order? || invoice?)
+  end
+
+  def payable?
+    (order? || invoice?) && sepable?
+  end
+
+  def sepable?
+    cash_mode = OutgoingPaymentMode.mode_sepa.first
+
+    cash_mode &&
+      currency == cash_mode.cash.currency &&
+      payee.iban.present? &&
+      payee.bank_account_holder_name.present?
   end
 end
