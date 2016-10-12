@@ -1688,7 +1688,7 @@ jpn:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "すべてのデータはインポートされました"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "すべての小包はinvoiceableと同じ性質と第三のものでなければなりません"
-      # all_purchases_must_be_ordered: "All purchases must be ordered."
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "アクティビティを定義する必要があります"
       bookkeeping_is_finished: "商用のデータ転送が終了します。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."

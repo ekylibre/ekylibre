@@ -1612,7 +1612,7 @@ cmn:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "您的所有数据被导入"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "所有包裹必须开发票和同一性质和第三位"
-      # all_purchases_must_be_ordered: "All purchases must be ordered."
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "一个活动必须被定义"
       bookkeeping_is_finished: "商业数据传送已完成。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."

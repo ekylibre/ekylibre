@@ -1611,7 +1611,7 @@ deu:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "All das wurde Ihrer Daten importiert"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Alle Pakete müssen abrechenbaren und von gleicher Art und dritte sein"
-      # all_purchases_must_be_ordered: "All purchases must be ordered."
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "Eine Aktivität muss definiert werden"
       bookkeeping_is_finished: "Die kommerzielle Datenübertragung beendet ist."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
