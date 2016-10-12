@@ -39,4 +39,463 @@
 #  updater_id       :integer
 #  usage            :string
 #
---- {}
+---
+sequences_001:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  last_cweek: 26
+  last_month: 7
+  last_number: 14
+  last_year: 2016
+  lock_version: 15
+  name: Sales
+  number_format: SO[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-07-01 20:12:41.325012000 Z
+  updater_id: 1
+  usage: sales
+sequences_002:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  last_cweek: 3
+  last_month: 1
+  last_number: 7
+  last_year: 2016
+  lock_version: 10
+  name: Personnes
+  number_format: P[number|8]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-01-21 14:05:46.138642000 Z
+  updater_id: 1
+  usage: entities
+sequences_003:
+  created_at: 2014-11-01 16:00:07.976913000 Z
+  creator_id: 1
+  id: 3
+  last_cweek: 32
+  last_month: 8
+  last_number: 124
+  last_year: 2016
+  lock_version: 126
+  name: products
+  number_format: PR[number|11]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-08-10 14:27:49.837974000 Z
+  updater_id: 1
+  usage: products
+sequences_004:
+  created_at: 2014-11-01 16:00:08.011117000 Z
+  creator_id: 1
+  id: 4
+  last_cweek: 45
+  last_month: 11
+  last_number: 17
+  last_year: 2014
+  lock_version: 19
+  name: Bons de réception
+  number_format: ID[year|4][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-07 19:34:09.452014000 Z
+  updater_id: 1
+  usage: incoming_parcels
+sequences_005:
+  created_at: 2014-11-01 16:03:04.383294000 Z
+  creator_id: 1
+  id: 5
+  last_cweek: 36
+  last_month: 9
+  last_number: 47
+  last_year: 2016
+  lock_version: 50
+  name: Analyse
+  number_format: A[number|8]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-09-09 09:01:20.150472000 Z
+  updater_id: 1
+  usage: analyses
+sequences_006:
+  created_at: 2014-11-01 16:03:04.391388000 Z
+  creator_id: 1
+  id: 6
+  last_cweek: 45
+  last_month: 11
+  last_number: 1
+  last_year: 2014
+  lock_version: 1
+  name: Campagne
+  number_format: CAMP[number|4]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-04 15:26:29.110544000 Z
+  updater_id: 1
+  usage: campaigns
+sequences_007:
+  created_at: 2014-11-01 16:03:04.402621000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  name: Virement interne
+  number_format: VI[year|4][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-01 16:03:04.402621000 Z
+  updater_id: 1
+  usage: cash_transfers
+sequences_008:
+  created_at: 2014-11-01 16:03:04.413999000 Z
+  creator_id: 1
+  id: 8
+  last_cweek: 45
+  last_month: 11
+  last_number: 2
+  last_year: 2014
+  lock_version: 2
+  name: Remise en banque
+  number_format: B[year|4][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-05 12:46:06.205861000 Z
+  updater_id: 1
+  usage: deposits
+sequences_009:
+  created_at: 2014-11-01 16:03:04.418996000 Z
+  creator_id: 1
+  id: 9
+  last_cweek: 26
+  last_month: 7
+  last_number: 18
+  last_year: 2016
+  lock_version: 20
+  name: Document
+  number_format: D[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-07-01 20:12:54.997405000 Z
+  updater_id: 1
+  usage: documents
+sequences_010:
+  created_at: 2014-11-01 16:25:18.117267000 Z
+  creator_id: 1
+  id: 10
+  last_cweek: 26
+  last_month: 7
+  last_number: 35
+  last_year: 2016
+  lock_version: 38
+  name: Affaire
+  number_format: A[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-07-01 20:22:49.218878000 Z
+  updater_id: 1
+  usage: affairs
+sequences_011:
+  created_at: 2014-11-01 16:25:18.188360000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  name: Animal
+  number_format: ANI[year|4][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-01 16:25:18.188360000 Z
+  updater_id: 1
+  usage: animals
+sequences_012:
+  created_at: 2014-11-01 16:25:18.202839000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  name: Immobilisation
+  number_format: IM[number|7]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 16:25:18.202839000 Z
+  updater_id: 1
+  usage: fixed_assets
+sequences_013:
+  created_at: 2014-11-01 16:25:18.214468000 Z
+  creator_id: 1
+  id: 13
+  last_cweek: 45
+  last_month: 11
+  last_number: 3
+  last_year: 2014
+  lock_version: 4
+  name: Perte ou profit
+  number_format: E[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-05 13:36:51.327537000 Z
+  updater_id: 1
+  usage: gaps
+sequences_014:
+  created_at: 2014-11-01 16:25:18.232107000 Z
+  creator_id: 1
+  id: 14
+  last_cweek: 45
+  last_month: 11
+  last_number: 3
+  last_year: 2014
+  lock_version: 3
+  name: Encaissement
+  number_format: R[year|4][number|6]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-05 13:36:45.637786000 Z
+  updater_id: 1
+  usage: incoming_payments
+sequences_015:
+  created_at: 2014-11-01 16:25:18.953891000 Z
+  creator_id: 1
+  id: 15
+  last_cweek: 32
+  last_month: 8
+  last_number: 31
+  last_year: 2016
+  lock_version: 32
+  name: Intervention
+  number_format: "[number]"
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-08-10 14:33:28.771594000 Z
+  updater_id: 1
+  usage: interventions
+sequences_016:
+  created_at: 2014-11-01 16:25:18.971984000 Z
+  creator_id: 1
+  id: 16
+  last_cweek: 45
+  last_month: 11
+  last_number: 5
+  last_year: 2014
+  lock_version: 5
+  name: Livraison
+  number_format: BL[year|4][number|6]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-07 14:13:05.513428000 Z
+  updater_id: 1
+  usage: outgoing_parcels
+sequences_017:
+  created_at: 2014-11-01 16:25:18.981743000 Z
+  creator_id: 1
+  id: 17
+  last_cweek: 45
+  last_month: 11
+  last_number: 3
+  last_year: 2014
+  lock_version: 3
+  name: Décaissement
+  number_format: D[year|4][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-07 16:53:26.220252000 Z
+  updater_id: 1
+  usage: outgoing_payments
+sequences_018:
+  created_at: 2014-11-01 16:25:18.999692000 Z
+  creator_id: 1
+  id: 18
+  lock_version: 0
+  name: Plante
+  number_format: PLANT[year|4][number|4]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2014-11-01 16:25:18.999692000 Z
+  updater_id: 1
+  usage: plants
+sequences_019:
+  created_at: 2014-11-01 16:25:19.021542000 Z
+  creator_id: 1
+  id: 19
+  last_cweek: 26
+  last_month: 7
+  last_number: 1
+  last_year: 2016
+  lock_version: 6
+  name: Achat
+  number_format: A[year|4][month|2][number|6]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2016-07-01 20:22:49.185450000 Z
+  updater_id: 1
+  usage: purchases
+sequences_020:
+  created_at: 2014-11-01 16:25:19.028014000 Z
+  creator_id: 1
+  id: 20
+  last_cweek: 26
+  last_month: 7
+  last_number: 3
+  last_year: 2016
+  lock_version: 7
+  name: sales_invoices
+  number_format: F[year|4][number|6]
+  number_increment: 1
+  number_start: 1
+  period: year
+  updated_at: 2016-07-01 20:12:48.645211000 Z
+  updater_id: 1
+  usage: sales_invoices
+sequences_021:
+  created_at: 2014-11-01 16:25:19.033897000 Z
+  creator_id: 1
+  id: 21
+  lock_version: 0
+  name: stock_transfers
+  number_format: ST[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 16:25:19.033897000 Z
+  updater_id: 1
+  usage: stock_transfers
+sequences_022:
+  created_at: 2014-11-01 16:25:19.042625000 Z
+  creator_id: 1
+  id: 22
+  last_cweek: 21
+  last_month: 5
+  last_number: 2
+  last_year: 2016
+  lock_version: 2
+  name: Abonnement
+  number_format: ABO[number|8]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-05-26 21:26:57.746089000 Z
+  updater_id: 1
+  usage: subscriptions
+sequences_023:
+  created_at: 2014-11-01 16:25:19.051177000 Z
+  creator_id: 1
+  id: 23
+  last_cweek: 38
+  last_month: 9
+  last_number: 2
+  last_year: 2015
+  lock_version: 2
+  name: Transport
+  number_format: TR[number|8]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2015-09-17 13:31:53.235281000 Z
+  updater_id: 1
+  usage: deliveries
+sequences_024:
+  created_at: 2014-11-01 19:06:50.057606000 Z
+  creator_id: 1
+  id: 24
+  last_cweek: 10
+  last_month: 3
+  last_number: 54
+  last_year: 2015
+  lock_version: 54
+  name: Variante de type de produit
+  number_format: GWNVKRYVPNV[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2015-03-08 16:48:51.062772000 Z
+  updater_id: 1
+  usage: product_nature_variants
+sequences_025:
+  created_at: 2014-11-01 20:47:16.048462000 Z
+  creator_id: 1
+  id: 25
+  lock_version: 0
+  name: Type de produit
+  number_format: PN[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 20:47:16.048462000 Z
+  updater_id: 1
+  usage: product_natures
+sequences_026:
+  created_at: 2014-11-01 20:47:16.066552000 Z
+  creator_id: 1
+  id: 26
+  lock_version: 0
+  name: Catégorie de type de produit
+  number_format: PNC[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 20:47:16.066552000 Z
+  updater_id: 1
+  usage: product_nature_categories
+sequences_027:
+  created_at: 2015-09-17 13:24:45.008381000 Z
+  creator_id: 1
+  id: 27
+  last_cweek: 32
+  last_month: 8
+  last_number: 6
+  last_year: 2016
+  lock_version: 6
+  name: Colis
+  number_format: P[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-08-10 14:27:46.124881000 Z
+  updater_id: 1
+  usage: parcels
+sequences_028:
+  created_at: 2016-05-10 19:19:24.861020000 Z
+  creator_id: 1
+  id: 28
+  last_cweek: 19
+  last_month: 5
+  last_number: 2
+  last_year: 2016
+  lock_version: 2
+  name: Agréage produit
+  number_format: PG[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-05-10 21:09:18.950537000 Z
+  updater_id: 1
+  usage: inspections
+sequences_029:
+  created_at: 2016-07-26 19:07:46.003990000 Z
+  id: 29
+  lock_version: 0
+  name: Inventories
+  number_format: I[number|8]
+  number_increment: 1
+  number_start: 3
+  period: number
+  updated_at: 2016-07-26 19:07:46.003990000 Z
+  usage: inventories
