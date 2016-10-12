@@ -456,6 +456,12 @@ eng:
     backend/observations:
       edit: "Edit observation"
       new: "New observation"
+    backend/outgoing_payment_lists:
+      # edit: "Edit outgoing payment list: %{name}"
+      # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
+      index: "Outgoing payments batch list"
+      # new: "New outgoing payment list"
+      show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
@@ -553,6 +559,7 @@ eng:
       index: "Purchases"
       invoice: "Receive invoice"
       new: "New purchase"
+      # pay: "Pay purchase: %{name}"
       propose: "Propose order"
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
@@ -990,7 +997,7 @@ eng:
     convert_balance_into_profit: "Convert balance into profit"
     convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
-    coordinates: "Coordinates" #?
+    coordinates: "Coordinates"
     copy_from_another_activity: "Copy from another activity"
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
@@ -1810,6 +1817,7 @@ eng:
       access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "All of your data was imported" #?
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
+      all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "An activity must be defined" #?
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1875,8 +1883,10 @@ eng:
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      # no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
+      purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"
@@ -1955,6 +1965,7 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
+      export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
@@ -1985,6 +1996,7 @@ eng:
       open: "Open"
       order: "Order"
       # passthru: "Passthru"
+      pay: "Pay"
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"

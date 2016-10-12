@@ -450,6 +450,9 @@ fra:
       new: "Nouveau colis à expédier" #?
       ship: "Expédier les colis" #?
       show: "Colis à expédier\_: %{number}" #?
+    backend/outgoing_payment_lists:
+      index: "Lots de décaissements"
+      show: "Lot de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -2236,6 +2239,8 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       all_data_import_finished: "Toutes vos données ont été importées"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
+      all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
@@ -2333,6 +2338,7 @@ fra:
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
+      purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
@@ -2418,6 +2424,7 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
+      export_to_sepa: "Export SEPA"
       extract: "Extraire"
       family: "Famille"
       finish: "Finir"
@@ -2440,6 +2447,7 @@ fra:
       new: "Nouveau"
       open: "Ouvrir"
       order: "Commander"
+      pay: "Payer"
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"

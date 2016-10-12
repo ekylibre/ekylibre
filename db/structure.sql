@@ -1991,11 +1991,11 @@ CREATE TABLE entities (
     custom_fields jsonb,
     employee boolean DEFAULT false NOT NULL,
     employee_account_id integer,
+    codes jsonb,
+    supplier_payment_delay character varying,
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
-    iban character varying,
-    supplier_payment_delay character varying,
-    codes jsonb
+    iban character varying
 );
 
 
@@ -5316,7 +5316,9 @@ CREATE TABLE purchases (
     payment_delay character varying,
     payment_at timestamp without time zone,
     undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer
+    quantity_gap_on_invoice_entry_id integer,
+    payment_delay character varying,
+    payment_at timestamp without time zone
 );
 
 
@@ -15801,3 +15803,12 @@ INSERT INTO schema_migrations (version) VALUES ('20161010143455');
 
 INSERT INTO schema_migrations (version) VALUES ('20161010205901');
 
+INSERT INTO schema_migrations (version) VALUES ('20161010205901');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145400');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145500');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145600');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145700');

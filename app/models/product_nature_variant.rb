@@ -444,7 +444,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variants.reload
     end
 
-    Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
+    ItemStruct = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary
     # name, variety, derivative_od, abilities
@@ -453,7 +453,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         nature = Nomen::ProductNature[item.nature]
         f = (nature.frozen_indicators || []).map(&:to_sym)
         v = (nature.variable_indicators || []).map(&:to_sym)
-        Item.new(
+        ItemStruct.new(
           item.name,
           Nomen::Variety.find(item.variety || nature.variety),
           Nomen::Variety.find(item.derivative_of || nature.derivative_of),

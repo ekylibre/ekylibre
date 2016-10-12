@@ -406,6 +406,9 @@ spa:
     backend/outgoing_parcels:  #?
       edit: "Modificación de la entrega" #?
       new: "Añadir una entrega" #?
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Editar modo de desembolso"
       index: "Modos de desembolso"
@@ -1884,6 +1887,7 @@ spa:
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
       all_data_import_finished: "Todos los datos fueron importados"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "Una actividad se debe definir"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
@@ -1984,6 +1988,7 @@ spa:
       password_successfully_changed: "Su contraseña ha sido puesta a día con éxito" #?
       prices_import_succeeded: "Sus datos han sido importados correctamente" #?
       print_failure: "Imposible de imprimir. Intenta recargar los modelos de documentos para corrgir el problema. %{error} (%{class})." #?
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Registro ya importada"
       record_cannot_be_removed: "El registro no puede ser suprimido"
       record_has_been_correctly_removed: "El registro ha sido suprimido correctamente"
@@ -2072,6 +2077,7 @@ spa:
       edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
+      # export_to_sepa: "Export to SEPA"
       extract: "Extraer"
       family: "Familia"
       finish: "Acabado"
@@ -2094,6 +2100,7 @@ spa:
       new: "Nuevo"
       open: "Abierto"
       order: "Orden"
+      # pay: "Pay"
       pick: "Recoger"
       picture: "Imagen"
       prepare: "Preparar"
