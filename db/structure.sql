@@ -1387,7 +1387,8 @@ CREATE TABLE cashes (
     container_id integer,
     last_number integer,
     owner_id integer,
-    custom_fields jsonb
+    custom_fields jsonb,
+    bank_account_holder_name character varying
 );
 
 
@@ -1990,6 +1991,10 @@ CREATE TABLE entities (
     custom_fields jsonb,
     employee boolean DEFAULT false NOT NULL,
     employee_account_id integer,
+    bank_account_holder_name character varying,
+    bank_identifier_code character varying,
+    iban character varying,
+    supplier_payment_delay character varying,
     codes jsonb
 );
 
@@ -3898,6 +3903,37 @@ ALTER SEQUENCE observations_id_seq OWNED BY observations.id;
 
 
 --
+-- Name: outgoing_payment_lists; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE outgoing_payment_lists (
+    id integer NOT NULL,
+    number character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: outgoing_payment_lists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE outgoing_payment_lists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: outgoing_payment_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE outgoing_payment_lists_id_seq OWNED BY outgoing_payment_lists.id;
+
+
+--
 -- Name: outgoing_payment_modes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3912,7 +3948,8 @@ CREATE TABLE outgoing_payment_modes (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    sepa boolean DEFAULT false NOT NULL
 );
 
 
@@ -3961,7 +3998,8 @@ CREATE TABLE outgoing_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    list_id integer
 );
 
 
@@ -5275,6 +5313,8 @@ CREATE TABLE purchases (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
+    payment_delay character varying,
+    payment_at timestamp without time zone,
     undelivered_invoice_entry_id integer,
     quantity_gap_on_invoice_entry_id integer
 );
@@ -6712,6 +6752,13 @@ ALTER TABLE ONLY observations ALTER COLUMN id SET DEFAULT nextval('observations_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY outgoing_payment_lists ALTER COLUMN id SET DEFAULT nextval('outgoing_payment_lists_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY outgoing_payment_modes ALTER COLUMN id SET DEFAULT nextval('outgoing_payment_modes_id_seq'::regclass);
 
 
@@ -7753,6 +7800,14 @@ ALTER TABLE ONLY notifications
 
 ALTER TABLE ONLY observations
     ADD CONSTRAINT observations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: outgoing_payment_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_lists
+    ADD CONSTRAINT outgoing_payment_lists_pkey PRIMARY KEY (id);
 
 
 --
@@ -15706,7 +15761,15 @@ INSERT INTO schema_migrations (version) VALUES ('20160913133355');
 
 INSERT INTO schema_migrations (version) VALUES ('20160913133407');
 
+INSERT INTO schema_migrations (version) VALUES ('20160914082357');
+
+INSERT INTO schema_migrations (version) VALUES ('20160914132214');
+
+INSERT INTO schema_migrations (version) VALUES ('20160914150554');
+
 INSERT INTO schema_migrations (version) VALUES ('20160915094302');
+
+INSERT INTO schema_migrations (version) VALUES ('20160916091854');
 
 INSERT INTO schema_migrations (version) VALUES ('20160916220901');
 
@@ -15735,4 +15798,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 INSERT INTO schema_migrations (version) VALUES ('20161007151444');
 
 INSERT INTO schema_migrations (version) VALUES ('20161010143455');
+
+INSERT INTO schema_migrations (version) VALUES ('20161010205901');
 

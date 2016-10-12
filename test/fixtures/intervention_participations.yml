@@ -35,15 +35,3 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-
-one:
-  intervention_id:
-  started_at: 2016-10-10 16:34:55
-  stopped_at: 2016-10-10 16:34:55
-  nature: MyString
-
-two:
-  intervention_id:
-  started_at: 2016-10-10 16:34:55
-  stopped_at: 2016-10-10 16:34:55
-  nature: MyString

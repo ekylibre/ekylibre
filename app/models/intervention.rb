@@ -255,8 +255,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
-    return if state == :in_progress
-    participations.update_all(state: state)
+    participations.update_all(state: state) unless state == :in_progress
   end
 
   # Prevents from deleting an intervention that was executed
@@ -519,6 +518,12 @@ class Intervention < Ekylibre::Record::Base
 
   def add_working_period!(started_at, stopped_at)
     working_periods.create!(started_at: started_at, stopped_at: stopped_at)
+  end
+
+  def update_state(additional_state = nil)
+    return unless participations.any? || additional_state
+    new_state = participations.pluck(:state).concat([additional_state]).compact.find { |s| s.to_sym == :in_progress }
+    update(state: new_state) if new_state.present?
   end
 
   class << self

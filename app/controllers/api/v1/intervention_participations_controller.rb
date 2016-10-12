@@ -29,9 +29,6 @@ module Api
           period.save!
         end
 
-        intervention.state = intervention.participations.pluck(:state).any? { |s| s == :in_progress }
-        intervention.save!
-
         render json: { id: participation.id }, status: :created
       end
 
