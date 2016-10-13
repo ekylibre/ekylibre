@@ -1,4 +1,11 @@
 fra:
+  activemodel:  #?
+    errors: #?
+      models: #?
+        sepa/credit_transfer_transaction: #?
+          attributes: #?
+            amount: #?
+              greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
       activity:  #?

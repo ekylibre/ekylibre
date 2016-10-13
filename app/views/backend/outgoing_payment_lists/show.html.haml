@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.destroy resource
-  = t.export_to_sepa resource
+  = t.export_to_sepa resource if resource.sepa?
 
 = main_informations do
   = attributes_list do |l|

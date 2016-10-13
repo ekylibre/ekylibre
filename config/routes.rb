@@ -740,6 +740,7 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_parcels
+        get :payment_mode
         post :abort
         post :confirm
         post :correct

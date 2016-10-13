@@ -1853,6 +1853,7 @@
       </item>
       <item name="purchases">
         <page to="backend/purchases#pay"/>
+        <page to="backend/purchases#payment_mode"/>
       </item>
     </group>
   </untreated-actions>
