@@ -3262,8 +3262,6 @@ intervention_participations:
   lock_version:
     type: integer
     required: true
-  nature:
-    type: string
   product_id:
     type: integer
     references: product
@@ -3271,10 +3269,8 @@ intervention_participations:
     type: boolean
     required: true
     default: false
-  started_at:
-    type: datetime
-  stopped_at:
-    type: datetime
+  state:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -3360,6 +3356,8 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_compliant:
+    type: boolean
   request_intervention_id:
     type: integer
     references: intervention

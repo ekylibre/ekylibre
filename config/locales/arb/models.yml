@@ -2056,6 +2056,7 @@ arb:
     replacements: "بدلاء"
     reporter: "صحافي"
     request: "طلب"
+    # request_compliant: "Request compliant"
     request_intervention: "تدخل الطلب"
     requests: "طلبات"
     required: "الزامي"

@@ -1142,6 +1142,7 @@ por:
     # replacements: "Replacements"
     reporter: "Repórter"
     request: "Pedido"
+    # request_compliant: "Request compliant"
     request_intervention: "Intervenção pedido"
     requests: "Pedidos"
     required: "Requeridos"

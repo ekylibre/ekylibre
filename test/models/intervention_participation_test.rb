@@ -27,11 +27,9 @@
 #  id                :integer          not null, primary key
 #  intervention_id   :integer
 #  lock_version      :integer          default(0), not null
-#  nature            :string
 #  product_id        :integer
 #  request_compliant :boolean          default(FALSE), not null
-#  started_at        :datetime
-#  stopped_at        :datetime
+#  state             :string
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #

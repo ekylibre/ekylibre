@@ -1154,7 +1154,7 @@ eng:
     replacements: "Replacements" #?
     reporter: "Reporter" #?
     request: "Request"
-    # request_compliant: "Request compliant"
+    request_compliant: "Request compliant"
     request_intervention: "Request intervention"
     requests: "Requests"
     required: "Required"

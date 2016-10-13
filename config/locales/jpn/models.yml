@@ -1142,6 +1142,7 @@ jpn:
     replacements: "リプレイスメント"
     reporter: "レポーター"
     request: "要求"
+    # request_compliant: "Request compliant"
     request_intervention: "リクエスト介入"
     requests: "リクエスト"
     required: "必須"

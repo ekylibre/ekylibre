@@ -38,6 +38,7 @@
 #  number                  :string
 #  prescription_id         :integer
 #  procedure_name          :string           not null
+#  request_compliant       :boolean
 #  request_intervention_id :integer
 #  started_at              :datetime
 #  state                   :string           not null
@@ -90,6 +91,7 @@ class Intervention < Ekylibre::Record::Base
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
+  validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }

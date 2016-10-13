@@ -198,6 +198,11 @@ eng:
         point: "Point"
         string: "String"
     intervention_participation:
+      state:
+        # done: "Done"
+        # in_progress: "In progress"
+        # validated: "Validated"
+    intervention_working_period:
       nature:
         # intervention: "Intervention"
         # preparation: "Preparation"

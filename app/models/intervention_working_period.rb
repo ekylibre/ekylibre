@@ -44,7 +44,6 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   enumerize :nature, in: [:preparation, :travel, :intervention]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
-  validates :nature, length: { maximum: 500 }, allow_blank: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]

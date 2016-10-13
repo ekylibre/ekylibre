@@ -1142,6 +1142,7 @@ deu:
     replacements: "Ersatz"
     # reporter: "Reporter"
     request: "Anfordern"
+    # request_compliant: "Request compliant"
     request_intervention: "Antrag Intervention"
     requests: "Anfragen"
     required: "Erforderlich"
