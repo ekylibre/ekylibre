@@ -35,6 +35,8 @@
 
 # Sum of all the deltas in product movements up to and including a date.
 class ProductPopulation < Ekylibre::Record::Base
+  self.primary_key = 'id'
+
   belongs_to :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :id, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
