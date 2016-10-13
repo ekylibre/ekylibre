@@ -11,6 +11,8 @@ class CreateInterventionParticipationsTables < ActiveRecord::Migration
       t.stamps
     end
 
+    add_column :interventions, :request_compliant, :boolean
+
     add_reference :intervention_working_periods, :intervention_participation, foreign_key: true
     add_column    :intervention_working_periods, :nature, :string
 

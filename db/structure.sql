@@ -323,7 +323,8 @@ CREATE TABLE interventions (
     trouble_description text,
     accounted_at timestamp without time zone,
     currency character varying,
-    journal_entry_id integer
+    journal_entry_id integer,
+    request_compliant boolean
 );
 
 
@@ -3018,8 +3019,6 @@ CREATE TABLE intervention_participations (
     id integer NOT NULL,
     intervention_id integer,
     product_id integer,
-    started_at timestamp without time zone,
-    stopped_at timestamp without time zone,
     state character varying,
     request_compliant boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -5313,8 +5312,6 @@ CREATE TABLE purchases (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    payment_delay character varying,
-    payment_at timestamp without time zone,
     undelivered_invoice_entry_id integer,
     quantity_gap_on_invoice_entry_id integer,
     payment_delay character varying,
@@ -15763,15 +15760,7 @@ INSERT INTO schema_migrations (version) VALUES ('20160913133355');
 
 INSERT INTO schema_migrations (version) VALUES ('20160913133407');
 
-INSERT INTO schema_migrations (version) VALUES ('20160914082357');
-
-INSERT INTO schema_migrations (version) VALUES ('20160914132214');
-
-INSERT INTO schema_migrations (version) VALUES ('20160914150554');
-
 INSERT INTO schema_migrations (version) VALUES ('20160915094302');
-
-INSERT INTO schema_migrations (version) VALUES ('20160916091854');
 
 INSERT INTO schema_migrations (version) VALUES ('20160916220901');
 
@@ -15799,10 +15788,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 
 INSERT INTO schema_migrations (version) VALUES ('20161007151444');
 
-INSERT INTO schema_migrations (version) VALUES ('20161010143455');
-
-INSERT INTO schema_migrations (version) VALUES ('20161010205901');
-
 INSERT INTO schema_migrations (version) VALUES ('20161010205901');
 
 INSERT INTO schema_migrations (version) VALUES ('20161012145400');
@@ -15812,3 +15797,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161012145500');
 INSERT INTO schema_migrations (version) VALUES ('20161012145600');
 
 INSERT INTO schema_migrations (version) VALUES ('20161012145700');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145800');
+
