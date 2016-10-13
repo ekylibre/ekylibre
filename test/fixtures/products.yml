@@ -3135,6 +3135,22 @@ product_groups_003:
   uuid: 52a52ad6-8e44-4c8f-bea0-349d979a8269
   variant_id: 1
   variety: product_group
+equipment_fleet_001:
+  category_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 71
+  initial_population: 0.0
+  lock_version: 0
+  name: Armada de l'Empire
+  nature_id: 1
+  number: '413'
+  type: EquipmentFleet
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  uuid: 52a52ad6-8e44-4c8f-bea0-349d979a8269
+  variant_id: 1
+  variety: equipment_fleet
 settlements_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
