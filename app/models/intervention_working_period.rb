@@ -77,6 +77,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
+    unless intervention_participation.blank?
+      errors.add(:started_at, :invalid) if intervention_participation.working_periods.where('started_at <= ? AND ? < stopped_at', started_at, started_at).any?
+      errors.add(:stopped_at, :invalid) if intervention_participation.working_periods.where('started_at < ? AND ? <= stopped_at', stopped_at, stopped_at).any?
+    end
   end
 
   after_commit :update_temporality, unless: -> { intervention.blank? }

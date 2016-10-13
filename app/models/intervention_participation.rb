@@ -38,15 +38,16 @@ class InterventionParticipation < Ekylibre::Record::Base
   belongs_to :product
   has_many :working_periods, class_name: 'InterventionWorkingPeriod'
 
+  validates :product_id, presence: true
+  validates :intervention_id, uniqueness: { scope: [:product_id] }
+  validates :state, presence: true
+  enumerize :state, in: [:in_progress, :done, :validated]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :request_compliant, inclusion: { in: [true, false] }
   # ]VALIDATORS]
-  validates :intervention_id, uniqueness: { scope: [:product_id] }
-  validates :product_id, presence: true
-  enumerize :state, in: [:in_progress, :done, :validated]
-  validates :state, presence: true
 
   before_save do
     intervention.update_state(state)
+    intervention.update_compliance(request_compliant)
   end
 end

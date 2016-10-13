@@ -256,6 +256,7 @@ class Intervention < Ekylibre::Record::Base
 
   after_save do
     participations.update_all(state: state) unless state == :in_progress
+    participations.update_all(request_compliant: request_compliant) if request_compliant
   end
 
   # Prevents from deleting an intervention that was executed
@@ -521,9 +522,15 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def update_state(additional_state = nil)
-    return unless participations.any? || additional_state
+    return unless participations.any? || !additional_state.nil?
     new_state = participations.pluck(:state).concat([additional_state]).compact.find { |s| s.to_sym == :in_progress }
     update(state: new_state) if new_state.present?
+  end
+
+  def update_compliance(additional_compliance = nil)
+    return unless participations.any? || !additional_compliance.nil?
+    new_compliance = participations.pluck(:request_compliant).concat([additional_compliance]).compact.find(&:!)
+    update(request_compliant: new_compliance) unless new_compliance.nil?
   end
 
   class << self

@@ -4,29 +4,28 @@ module Api
     class InterventionParticipationsController < Api::V1::BaseController
       def create
         params = permitted_params
+        return render json: :unprocessable_entity if params.blank?
 
-        intervention = Intervention.find_or_create_by!(
+        intervention = Intervention.create_with(actions: params[:actions]).find_or_create_by!(
           request_intervention_id:  params[:request_intervention_id],
           procedure_name:           params[:procedure_name]
         )
 
         participation = intervention.participations.find_or_initialize_by(
-          intervention_id: intervention.id,
           product_id: current_user.worker.id
         )
 
-        participation.request_compliant = params[:request_compliant]
+        participation.request_compliant = !params[:request_compliant].to_i.zero?
         participation.state = params[:state]
         participation.save!
 
-        params[:working_periods].map do |wp_params|
-          period = InterventionWorkingPeriod.find_or_initialize_by(
+        params[:working_periods].each do |wp_params|
+          period = participation.working_periods.find_or_initialize_by(
             **wp_params
-            .merge(intervention_participation_id: participation.id)
             .deep_symbolize_keys
           )
-          next if participation.working_periods.where('(started_at, stopped_at) OVERLAPS (?, ?)', period.started_at, period.stopped_at).any?
-          period.save!
+          next if period.save
+          period.destroy
         end
 
         render json: { id: participation.id }, status: :created
