@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get :list_intervention_product_parameters
       get :list_issues
       get :list_readings
+      get :list_trackings
       get :list_members
       get :list_parcel_items
       get :list_places

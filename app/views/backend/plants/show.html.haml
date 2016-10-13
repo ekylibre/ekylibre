@@ -32,13 +32,6 @@
             %i.picto{class: "picto-grain"}
             - unit = stock.unit + "_per_" + resource.net_surface_area.unit
             = (stock.to_d / resource.population).in(unit).round(3).l
-    - if resource.trackings.any?
-      - resource.trackings.each do |tracking|
-        .med-info
-          %span.title= Tracking.human_attribute_name(:serial)
-          %span.value
-            %i.picto{class: "picto-barcode"}
-            = link_to(tracking.serial, controller: :trackings, action: :show, id: tracking.id)
     = product_info(:status, important: true) do |status|
       = lights(status)
     .med-info
@@ -57,6 +50,11 @@
   - if resource.intervention_product_parameters.any?
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
       = cobble_list(:intervention_product_parameters)
+
+  - c.cobble(:trackings, title: :x_trackings.tl(count: resource.trackings.count)) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :trackings, product_id: resource.id, active: true})
+    = cobble_list(:trackings)
 
   - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
     = cobble_toolbar do |t|

@@ -54,6 +54,10 @@ class Tracking < Ekylibre::Record::Base
 
   alias_attribute :serial_number, :serial
 
+  protect(on: :destroy) do
+    products.any?
+  end
+
   # get outgoing parcel quantity throught tracking
   def outgoing_parcel_quantity(unit = :kilogram)
     if parcel_items.any?
