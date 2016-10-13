@@ -177,7 +177,7 @@ outgoing_payments_006:
   updater_id: 1
 outgoing_payments_007:
   accounted_at: 2016-10-01 14:33:26.229792000 Z
-  affair_id: 16
+  affair_id: 17
   amount: 1761.0
   bank_check_number: ''
   cash_id: 1

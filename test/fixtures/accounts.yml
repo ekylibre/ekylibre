@@ -1737,19 +1737,6 @@ accounts_131:
   updated_at: 2014-12-24 11:08:52.800045000 Z
   updater_id: 1
   usages: associates_frozen_accounts
-accounts_132:
-  created_at: 2014-12-24 11:08:52.805048000 Z
-  creator_id: 1
-  debtor: false
-  id: 475
-  label: 7131 - Variations d’inventaires ‒ animaux (cycle long)
-  lock_version: 0
-  name: Variations d’inventaires ‒ animaux (cycle long)
-  number: '7131'
-  reconcilable: false
-  updated_at: 2014-12-24 11:08:52.805048000 Z
-  updater_id: 1
-  usages: long_cycle_animals_inventory_variations
 accounts_133:
   created_at: 2014-12-24 11:08:52.809705000 Z
   creator_id: 1
@@ -2166,19 +2153,6 @@ accounts_164:
   updated_at: 2014-12-24 11:08:52.949422000 Z
   updater_id: 1
   usages: other_staff_expenses
-accounts_165:
-  created_at: 2014-12-24 11:08:52.954692000 Z
-  creator_id: 1
-  debtor: false
-  id: 508
-  label: 6032 - Variation des stocks autres approvisionnements
-  lock_version: 0
-  name: Variation des stocks autres approvisionnements
-  number: '6032'
-  reconcilable: false
-  updated_at: 2014-12-24 11:08:52.954692000 Z
-  updater_id: 1
-  usages: other_supply_stocks_variation
 accounts_166:
   created_at: 2014-12-24 11:08:52.959263000 Z
   creator_id: 1
@@ -2283,19 +2257,6 @@ accounts_173:
   updated_at: 2014-12-24 11:08:52.999278000 Z
   updater_id: 1
   usages: principal_associates_current_accounts
-accounts_174:
-  created_at: 2014-12-24 11:08:53.004180000 Z
-  creator_id: 1
-  debtor: false
-  id: 517
-  label: 7137 - Variations d’inventaires ‒ produits
-  lock_version: 0
-  name: Variations d’inventaires ‒ produits
-  number: '7137'
-  reconcilable: false
-  updated_at: 2014-12-24 11:08:53.004180000 Z
-  updater_id: 1
-  usages: products_inventory_variations
 accounts_175:
   created_at: 2014-12-24 11:08:53.008731000 Z
   creator_id: 1
