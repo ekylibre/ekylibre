@@ -200,7 +200,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def destroyable_accounts?
-    self.deliverables? && stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
+    deliverable? && stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
   end
 
   # create unique account for stock management in accountancy
