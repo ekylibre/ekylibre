@@ -41,10 +41,11 @@ class InterventionParticipationTest < ActiveSupport::TestCase
   test_model_actions
 
   setup do
-    @intervention = Intervention.create!(procedure_name: :sowing, actions: [:sowing])
+    @intervention = Intervention.create!(procedure_name: :sowing, actions: [:sowing], request_compliant: false)
     @worker = Worker.create!(name: 'Alice', variety: 'worker', variant: ProductNatureVariant.first, person: Entity.contacts.first)
 
     @participation = @worker.intervention_participations.create!(intervention_id: @intervention.id, state: :in_progress)
+    @intervention.reload
   end
 
   test 'only one participation per worker per intervention' do
@@ -64,6 +65,21 @@ class InterventionParticipationTest < ActiveSupport::TestCase
     done_int.reload
 
     assert_equal :in_progress, done_int.state.to_sym
+  end
+
+  test 'setting an intervention\'s compliance to true sets all participations\' compliance to true' do
+    @intervention.update!(request_compliant: true)
+    @participation.reload
+
+    assert_equal true, @participation.request_compliant
+  end
+
+  test 'creating a non-compliant participation sets the intervention\'s compliance to false' do
+    non_comp_int = Intervention.create!(procedure_name: :sowing, actions: [:sowing], state: :done, request_compliant: true)
+    @worker.intervention_participations.create!(intervention_id: non_comp_int.id, state: :in_progress, request_compliant: false)
+    non_comp_int.reload
+
+    assert_equal false, non_comp_int.request_compliant
   end
 
   test 'working periods in a participation shouldn\'t be able to overlap' do
