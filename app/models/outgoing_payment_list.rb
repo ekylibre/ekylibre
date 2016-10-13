@@ -22,12 +22,18 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at :datetime         not null
-#  id         :integer          not null, primary key
-#  number     :string
-#  updated_at :datetime         not null
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  number       :string
+#  updated_at   :datetime
+#  updater_id   :integer
 #
 class OutgoingPaymentList < Ekylibre::Record::Base
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :number, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
 
   delegate :name, to: :mode, prefix: true
