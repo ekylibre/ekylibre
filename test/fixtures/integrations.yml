@@ -32,5 +32,4 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
----
-# Can't be 'Fixtured' due to encryption depending on an environment dependent key.
+--- {}

@@ -184,13 +184,13 @@ parcel_items_010:
   parted: false
   population: 1.0
   product_id: 5
+  product_identification_number: P00000000004
+  product_name: Bonnemine
   source_product_id: 5
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:29:58.321983000 Z
   updater_id: 1
   variant_id: 17
-  product_name: Bonnemine
-  product_identification_number: P00000000004
 parcel_items_011:
   created_at: 2014-11-01 19:35:50.426074000 Z
   creator_id: 1
@@ -200,13 +200,13 @@ parcel_items_011:
   parted: false
   population: 1.0
   product_id: 6
+  product_identification_number: P00000000005
+  product_name: Isabelle
   source_product_id: 6
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:35:50.426074000 Z
   updater_id: 1
   variant_id: 17
-  product_name: Isabelle
-  product_identification_number: P00000000005
 parcel_items_012:
   created_at: 2014-11-01 20:19:35.464060000 Z
   creator_id: 1

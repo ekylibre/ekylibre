@@ -71,8 +71,8 @@ inspections_002:
   lock_version: 0
   number: PG000000000002
   product_id: 90
-  product_net_surface_area_value: 5.381
   product_net_surface_area_unit: hectare
+  product_net_surface_area_value: 5.381
   sampled_at: 2016-05-10 21:09:00.000000000 Z
   sampling_distance: 3.0
   updated_at: 2016-05-10 21:09:18.953461000 Z
