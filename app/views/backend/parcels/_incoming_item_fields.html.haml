@@ -8,7 +8,7 @@
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td
       = f.input :purchase_item_id, as: :hidden
-      = f.referenced_association(:variant, wrapper: :nested, source: { scope: :deliverables }, input_html: {data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+      = f.referenced_association(:variant, wrapper: :nested, source: { scope: :stockables_or_depreciables }, input_html: {data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
       -# .errors= item.errors.inspect
     %td
       .item-quantifier

@@ -26,6 +26,14 @@
  * Make it work in bootstrap v3
  */
 
+/*
+ * Improvements by Ekylibre @ 2016-oct-11
+ *
+ * Working translations through datetimepicker-i18n.js
+ * + working clearBtn.
+ *
+ */
+
 !function ($) {
 
 	function UTCDate() {
@@ -192,7 +200,8 @@
 			this.keyboardNavigation = this.element.data('date-keyboard-navigation');
 		}
 
-		this.todayBtn = (options.todayBtn || this.element.data('date-today-btn') || false);
+		this.clearBtn = (options.clearBtn || this.element.data('date-clear-btn') || true);
+    this.todayBtn = (options.todayBtn || this.element.data('date-today-btn') || false);
 		this.todayHighlight = (options.todayHighlight || this.element.data('date-today-highlight') || false);
 
 		this.weekStart = ((options.weekStart || this.element.data('date-weekstart') || dates[this.language].weekStart || 0) % 7);
@@ -538,6 +547,9 @@
 			this.picker.find('tfoot th.today')
 				.text(dates[this.language].today)
 				.toggle(this.todayBtn !== false);
+      this.picker.find('tfoot th.clear')
+        .text(dates[this.language].clear || dates['en'].clear)
+        .toggle(this.clearBtn !== false);
 			this.updateNavArrows();
 			this.fillMonths();
 			/*var prevMonth = UTCDate(year, month, 0,0,0,0,0);
@@ -825,6 +837,12 @@
 								}
 								this.fill();
 								break;
+              case 'clear':
+                this.reset();
+                if (this.autoclose) {
+                  this.hide();
+                }
+                break;
 							case 'today':
 								var date = new Date();
 								date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), 0);
@@ -1252,16 +1270,17 @@
 	};
 	$.fn.datetimepicker.Constructor = Datetimepicker;
 	var dates = $.fn.datetimepicker.dates = {
-		en: {
-			days:        ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-			daysShort:   ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-			daysMin:     ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-			months:      ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-			meridiem:    ["am", "pm"],
-			suffix:      ["st", "nd", "rd", "th"],
-			today:       "Today"
-		}
+    en: {
+  		clear:       "Clear",
+      days:        ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+  		daysShort:   ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  		daysMin:     ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+  		months:      ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  		monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  		meridiem:    ["am", "pm"],
+  		suffix:      ["st", "nd", "rd", "th"],
+  		today:       "Today"
+    }
 	};
 
 	var DPGlobal = {
@@ -1598,7 +1617,7 @@
 							  '</tr>' +
 			'</thead>',
 		contTemplate:     '<tbody><tr><td colspan="7"></td></tr></tbody>',
-		footTemplate:     '<tfoot><tr><th colspan="7" class="today"></th></tr></tfoot>'
+		footTemplate:     '<tfoot><tr><th colspan="7" class="today"></th></tr><tr><th colspan="7" class="clear"></th></tr></tfoot>'
 	};
 	DPGlobal.template = '<div class="datetimepicker">' +
 		'<div class="datetimepicker-minutes">' +
@@ -1683,23 +1702,5 @@
 		$.fn.datetimepicker = old;
 		return this;
 	};
-
-	/* DATETIMEPICKER DATA-API
-	 * ================== */
-
-	$(document).on(
-		'focus.datetimepicker.data-api click.datetimepicker.data-api',
-		'[data-provide="datetimepicker"]',
-		function (e) {
-			var $this = $(this);
-			if ($this.data('datetimepicker')) return;
-			e.preventDefault();
-			// component click requires us to explicitly show it
-			$this.datetimepicker('show');
-		}
-	);
-	$(function () {
-		$('[data-provide="datetimepicker-inline"]').datetimepicker();
-	});
 
 }(window.jQuery);

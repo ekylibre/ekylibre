@@ -19,6 +19,8 @@
     - l.attribute :confirmed_at
     - l.attribute :invoiced_at
     - l.attribute :planned_at
+    - l.attribute :payment_delay, :label => :name
+    - l.attribute :payment_at if resource.invoiced_at?
     - l.attribute :currency unless resource.currency == Preference[:currency]
     - l.attribute :description unless resource.description.blank?
     - l.attribute :delivery_address, :label => :coordinate

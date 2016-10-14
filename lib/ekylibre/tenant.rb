@@ -268,6 +268,40 @@ module Ekylibre
         ActiveRecord::Base.connection.schema_search_path = Ekylibre::Application.config.database_configuration[::Rails.env]['schema_search_path']
       end
 
+      def list_tenants_with_migration_problem
+
+        tenants = []
+
+        list.each do |tenant|
+
+          Ekylibre::Tenant::switch! tenant
+          migration_version = ActiveRecord::Migrator.current_version
+
+          next if migration_version != 0
+
+          tenants << { name: tenant, version: migration_version }
+        end
+
+        tenants
+      end
+
+      def correct_tenants_with_migration_problem!
+
+        tenants = list_tenants_with_migration_problem
+
+        tenants.each do |tenant|
+
+          Ekylibre::Tenant::switch! tenant[:name]
+
+          connection = ActiveRecord::Base.connection
+          connection.execute("INSERT INTO schema_migrations SELECT * FROM public.schema_migrations")
+
+          puts (tenant[:name] + " : done").yellow
+        end
+
+        puts 'Task done'.blue
+      end
+
       private
 
       def config_file
