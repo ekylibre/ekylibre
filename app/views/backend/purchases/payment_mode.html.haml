@@ -1,0 +1,6 @@
+= form_tag(pay_backend_purchase_path) do
+  = field_set do
+    = hidden_field_tag :purchase_ids, params[:id]
+    = field OutgoingPaymentMode.human_attribute_name(:name), selector_tag(:mode_id, {controller: :outgoing_payment_modes, action: :unroll}, value: params[:mode_id])
+  = form_actions do
+    = submit_tag :pay.ta

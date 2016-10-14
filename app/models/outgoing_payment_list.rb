@@ -53,7 +53,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   end
 
   def mode
-    payments.first.mode
+    payments.first.mode unless payments.first.nil?
   end
 
   def currency

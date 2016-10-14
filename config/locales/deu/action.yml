@@ -445,6 +445,7 @@ deu:
       index: "Käufe"
       invoice: "Erhalten Rechnung"
       new: "Neuanschaffung"
+      # payment_mode: "Select payment mode"
       propose: "vorschlagen, um"
       propose_and_invoice: "Rechnung direkt"
       refuse: "weigerte sich um"
@@ -1606,6 +1607,10 @@ deu:
     x_times:
       # one: "%{count} time"
       # other: "%{count} times"
+    x_trackings:
+      # one: "%{count} tracking"
+      # other: "%{count} trackings"
+      # zero: "No tracking found"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1799,6 +1804,7 @@ deu:
       open: "Öffnen"
       order: "Auftrag"
       # pay: "Pay"
+      # payment_mode: "Payment mode"
       pick: "pflücken"
       picture: "Bild"
       prepare: "Bereiten"
