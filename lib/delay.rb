@@ -151,7 +151,7 @@ class Delay
 
     module ClassMethods
       def validates_delay_format_of(*attr_names)
-        for attr_name in attr_names
+        attr_names.each do |attr_name|
           validates attr_name, delay: true
         end
         # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
