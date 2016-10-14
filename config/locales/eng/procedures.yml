@@ -96,7 +96,6 @@ eng:
     mother: "Mother"
     movement: "Movement"
     mower: "Mower"
-    mower_driver: "Mower driver"
     mulching_material: "Mulching material"
     net_implanter: "Net implanter"
     net_roll: "Net roll"

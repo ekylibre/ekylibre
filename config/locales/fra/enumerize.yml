@@ -247,17 +247,12 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
-      state:
-        draft: "Brouillon"
-        given: "Expédié"
-        in_preparation: "En préparation"
-        ordered: "Lancé"
-        prepared: "Préparé"
-    product_nature:  #?
-      population_counting: #?
-        decimal: "Décimal" #?
-        integer: "Entier" #?
-        unitary: "Unitaire" #?
+      state:  #?
+        draft: "Brouillon" #?
+        given: "Expédié" #?
+        in_preparation: "En préparation" #?
+        ordered: "Lancé" #?
+        prepared: "Préparé" #?
     preference:
       nature:
         accounting_system: "Système de comptabilité"

@@ -875,6 +875,7 @@ por:
     marketable_quantity: "Quantidade comercializável"
     marketable_yield: "A produtividade comercial"
     mass: "Massa (kg)"
+    # max_inputs_count: "Maximum inputs count"
     max_zoom: "zoom Max"
     maximal_grantable_reduction_percentage: "Percentagem de redução máxima grantable"
     maximal_length: "Comprimento máximo"

@@ -875,6 +875,7 @@ cmn:
     marketable_quantity: "可流通数量"
     marketable_yield: "适销对路的产量"
     mass: "质量（kg）"
+    # max_inputs_count: "Maximum inputs count"
     max_zoom: "最大变焦"
     maximal_grantable_reduction_percentage: "最大可授予的百分比减少"
     maximal_length: "最大长度"

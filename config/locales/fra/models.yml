@@ -853,7 +853,7 @@ fra:
     following: "Suivant"
     # format: "Format"
     formats: "Formats"
-    fourth_producer: "Quatrième producteur" #?
+    fourth_producer: "Quatrième producteur"
     fourth_producer_way: "Voie du quatrième producteur" #?
     france_maaid: "N° AMM"
     frequency: "Fréquence"
