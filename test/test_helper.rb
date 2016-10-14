@@ -1,9 +1,19 @@
+require 'codacy-coverage'
 require 'coveralls'
-Coveralls.wear!('rails') unless ENV['COVERALL'] == 'off'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+
+Coveralls.setup!
+
+SimpleCov.formatters = [
+  Codacy::Formatter,
+  Coveralls::SimpleCov::Formatter
+]
+
+Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
+SimpleCov.start
 
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new

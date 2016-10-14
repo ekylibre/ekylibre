@@ -118,6 +118,8 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
+    codacy-coverage (1.1.0)
+      simplecov (>= 0.10.0)
     code_analyzer (0.4.7)
       sexp_processor
     code_string (0.0.0)
@@ -532,6 +534,7 @@ DEPENDENCIES
   capybara-webkit
   charlock_holmes
   cocoon
+  codacy-coverage
   code_string
   coffee-rails (~> 4.1.0)
   colored
@@ -614,4 +617,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.12.5
+   1.13.3
