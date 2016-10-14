@@ -26,6 +26,7 @@
 #  affair_id                        :integer
 #  amount                           :decimal(19, 4)   default(0.0), not null
 #  confirmed_at                     :datetime
+#  contract_id                      :integer
 #  created_at                       :datetime         not null
 #  creator_id                       :integer
 #  currency                         :string           not null
@@ -65,6 +66,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
+  belongs_to :contract
   has_many :parcels
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, as: :resource

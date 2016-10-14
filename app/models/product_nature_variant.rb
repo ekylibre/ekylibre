@@ -66,6 +66,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
   belongs_to :stock_account, class_name: 'Account', dependent: :destroy
 
+  has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception

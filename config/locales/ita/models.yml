@@ -215,6 +215,7 @@ ita:
       cash_transfer: "trasferimento di denaro"
       catalog: "Catalogare"
       catalog_item: "prezzo di catalogo"
+      # contract: ""
       crumb: "Mollica"
       cultivable_zone: "zone coltivabili"
       custom_field: "Campo personalizzato"
@@ -509,6 +510,7 @@ ita:
     content: "contenuto"
     content_localizations: "localizzazioni di contenuti"
     contents: "Contenuto"
+    # contract: "Contract"
     coordinate: "Coordinata"
     coordinate_columns: "coordinare le colonne"
     # costs_per_unit: "Costs per %{unit}"
@@ -1440,6 +1442,8 @@ ita:
         name: "Catalogo Prezzi di vendita"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
+    contract:
+      # label: "Contract %{nature} n° %{number} of %{supplier}"
     delivery:
       state_machine:
         states:
@@ -1671,6 +1675,7 @@ ita:
         animals: "ANI [anno | 4] [numero | 4]"
         campaigns: "CAMP [numero | 4]"
         cash_transfers: "CT [anno | 4] [numero | 4]"
+        # contracts: "CN[year|4][number|4]"
         deliveries: "DL [anno | 4] [numero | 8]"
         deposits: "D [anno | 4] [numero | 4]"
         entities: "[Numero | 8]"

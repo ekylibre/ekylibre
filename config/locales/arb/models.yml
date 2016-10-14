@@ -788,6 +788,7 @@ arb:
       catalog_item: "سعر كتالوج"
       company: "الشركة" #?
       contact: "الاتصالات" #?
+      # contract: ""
       crumb: "كسرة خبز"
       cultivable_zone: "منطقة القابلة للزراعة"
       currency: "العملة" #?
@@ -1182,6 +1183,7 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
+    # contract: "Contract"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
     # costs_per_unit: "Costs per %{unit}"
@@ -2593,6 +2595,8 @@ arb:
       sales_invoice_creation: "انشاء فاتورة" #?
     contact:  #?
       error_modify_contact: "من المستحيل تعديل الاسماء" #?
+    contract:
+      # label: "Contract %{nature} n° %{number} of %{supplier}"
     custom_field:  #?
       natures: #?
         boolean: "صندوق للتحقق" #?
@@ -2994,6 +2998,7 @@ arb:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
+        # contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"

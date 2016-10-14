@@ -154,6 +154,21 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/contract_natures:
+      edit: "Edit contract nature: %{name}"
+      index: "Contract natures"
+      new: "New contract nature"
+      show: "Contract nature: %{name}"
+    backend/contracts:
+      edit: "Edit contract: %{name}"
+      index: "Contracts"
+      lose: "Lose contract: %{name}"
+      negociate: "Negociate contract: %{name}"
+      new: "New contract"
+      prospect: "Prospect contract: %{name}"
+      quote: "Quote contract: %{name}"
+      show: "Contract: %{name}"
+      win: "Win contract: %{name}"
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"

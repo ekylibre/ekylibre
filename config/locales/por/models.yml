@@ -184,6 +184,7 @@ por:
       cash_transfer: "Transferência de dinheiro"
       catalog: "Catálogo"
       catalog_item: "Preço de catálogo"
+      # contract: ""
       crumb: "Migalha"
       cultivable_zone: "Zona cultivável"
       custom_field: "Campo customizado"
@@ -478,6 +479,7 @@ por:
     content: "Conteúdo"
     content_localizations: "Localizações conteúdo"
     contents: "Conteúdo"
+    # contract: "Contract"
     coordinate: "Coordenada"
     coordinate_columns: "Coordenar colunas"
     # costs_per_unit: "Costs per %{unit}"
@@ -1409,6 +1411,8 @@ por:
         name: "Catálogo dos preços de venda"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
+    contract:
+      # label: "Contract %{nature} n° %{number} of %{supplier}"
     delivery:
       state_machine:
         states:
@@ -1640,6 +1644,7 @@ por:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
+        # contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"
