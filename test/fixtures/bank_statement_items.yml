@@ -145,7 +145,7 @@ bank_statement_items_008:
   id: 8
   lock_version: 0
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
-  transfered_on: 2015-04-24
+  transfered_on: 2015-10-24
   updated_at: 2016-06-29 05:49:23.204491000 Z
 bank_statement_items_009:
   bank_statement_id: 4
