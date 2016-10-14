@@ -84,7 +84,8 @@ class Delay
 
   def inspect
     @expression.collect do |step|
-      (step.size == 1 ? step[0].to_s.upcase : step[1].to_s + ' ' + step[0].to_s + 's')
+      next step.first.to_s.upcase if step.size == 1
+      step[1].abs.to_s + ' ' + step[0].to_s + 's' + (step[1] < 0 ? ' ago' : '')
     end.join(', ')
   end
 
@@ -98,10 +99,10 @@ class Delay
   #   * x <duration> -> x <duration> ago
   def invert!
     @expression = @expression.collect do |step|
-      if step == :eom
-        :bom
-      elsif step == :bom
-        :eom
+      if step.first == :eom
+        [:bom]
+      elsif step.first == :bom
+        [:eom]
       else
         [step.first, -step.second]
       end
@@ -121,26 +122,26 @@ class Delay
     elsif delay.is_a?(String)
       Delay.new(to_s + ', ' + Delay.new(delay).to_s)
     elsif delay.is_a?(Numeric)
-      Delay.new(to_s + ', ' + delay.to_s + ' seconds')
-    elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit)
-      Delay.new(to_s + ', ' + delay.value.to_s + ' ' + delay.unit.to_s)
+      Delay.new(to_s + ', ' + Delay.new(delay.to_s + ' seconds').to_s)
+    elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit.to_sym)
+      Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).to_s)
     else
-      raise ArgumentError, "Cannot sum #{delay.class.name} to a #{self.class.name}"
+      raise ArgumentError, "Cannot sum #{delay.to_s} [#{delay.class.name}] to a #{self.class.name}"
     end
   end
 
   # Adds opposites values of given delay
   def -(delay)
     if delay.is_a?(Delay)
-      Delay.new(to_s + ', ' + delay.opposite.to_s)
+      Delay.new(to_s + ', ' + delay.invert.to_s)
     elsif delay.is_a?(String)
-      Delay.new(to_s + ', ' + Delay.new(delay).opposite.to_s)
+      Delay.new(to_s + ', ' + Delay.new(delay).invert.to_s)
     elsif delay.is_a?(Numeric)
-      Delay.new(to_s + ', ' + delay.to_s + ' seconds')
-    elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit)
-      Delay.new(to_s + ', ' + delay.value.to_s + ' ' + delay.unit.to_s + ' ago')
+      Delay.new(to_s + ', ' + Delay.new(delay.to_s + ' seconds').invert.to_s)
+    elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit.to_sym)
+      Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).invert.to_s)
     else
-      raise ArgumentError, "Cannot sum #{delay.class.name} to a #{self.class.name}"
+      raise ArgumentError, "Cannot subtract #{delay.to_s} [#{delay.class.name}] from a #{self.class.name}"
     end
   end
 
