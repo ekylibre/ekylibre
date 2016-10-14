@@ -2218,6 +2218,7 @@ arb:
     supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?
     # supplier_payment_delay: "Supplier payment delay"
+    # supplier_payment_mode: "Supplier payment mode"
     suppliers: "الممولين"
     support: "الدعم"
     support_nature: "نوع الدعم"

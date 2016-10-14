@@ -1289,6 +1289,7 @@ ita:
     supplier_account: "conto del fornitore"
     supplier_address: "indirizzo del fornitore"
     # supplier_payment_delay: "Supplier payment delay"
+    # supplier_payment_mode: "Supplier payment mode"
     suppliers: "fornitori"
     support: "Supporto"
     support_nature: "tipo di Supporto"

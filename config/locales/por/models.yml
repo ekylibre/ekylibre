@@ -1258,6 +1258,7 @@ por:
     supplier_account: "Conta de fornecedor"
     supplier_address: "Endereço de fornecedor"
     # supplier_payment_delay: "Supplier payment delay"
+    # supplier_payment_mode: "Supplier payment mode"
     suppliers: "Fornecedores"
     support: "Apoio"
     support_nature: "Tipo de suporte"

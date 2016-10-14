@@ -2159,6 +2159,9 @@ entities:
     references: account
   supplier_payment_delay:
     type: string
+  supplier_payment_mode_id:
+    type: integer
+    references: outgoing_payment_mode
   title:
     type: string
   transporter:

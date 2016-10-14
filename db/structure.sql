@@ -2115,7 +2115,8 @@ CREATE TABLE entities (
     supplier_payment_delay character varying,
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
-    iban character varying
+    iban character varying,
+    supplier_payment_mode_id integer
 );
 
 
@@ -10343,6 +10344,13 @@ CREATE INDEX index_entities_on_supplier_account_id ON entities USING btree (supp
 
 
 --
+-- Name: index_entities_on_supplier_payment_mode_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entities_on_supplier_payment_mode_id ON entities USING btree (supplier_payment_mode_id);
+
+
+--
 -- Name: index_entities_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16014,4 +16022,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161012145700');
 INSERT INTO schema_migrations (version) VALUES ('20161013023259');
 
 INSERT INTO schema_migrations (version) VALUES ('20161013235101');
+
+INSERT INTO schema_migrations (version) VALUES ('20161014191401');
 

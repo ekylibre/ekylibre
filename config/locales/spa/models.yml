@@ -1262,6 +1262,7 @@ spa:
     supplier_account: "Cuenta de proveedor"
     supplier_address: "Dirección del proveedor"
     # supplier_payment_delay: "Supplier payment delay"
+    # supplier_payment_mode: "Supplier payment mode"
     suppliers: "Proveedores"
     support: "Apoyo"
     support_nature: "Tipo de soporte"
