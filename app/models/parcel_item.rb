@@ -108,6 +108,7 @@ class ParcelItem < Ekylibre::Record::Base
     end
     read_at = parcel ? parcel_prepared_at : Time.zone.now
     self.population ||= product_is_unitary? ? 1 : 0
+    self.unit_pretax_amount ||= 0.0
     self.pretax_amount = population * unit_pretax_amount
     next if parcel_incoming?
 

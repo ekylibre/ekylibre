@@ -116,6 +116,7 @@ module Backend
       t.column :product_identification_number
       t.column :population
       t.column :unit_name, through: :variant
+      t.column :unit_pretax_amount, currency: true
       t.status
       # t.column :net_mass
       t.column :product, url: true
