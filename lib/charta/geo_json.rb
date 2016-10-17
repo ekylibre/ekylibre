@@ -135,7 +135,7 @@ module Charta
         end.join(', ') + ')'
       end
 
-      def multi_polygon_to_ewkt(hash)
+      def multipolygon_to_ewkt(hash)
         return 'MULTIPOLYGON EMPTY' if hash['coordinates'].blank?
         'MULTIPOLYGON(' + hash['coordinates'].collect do |polygon|
           '(' + polygon.collect do |hole|
