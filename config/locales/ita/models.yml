@@ -29,13 +29,17 @@ ita:
         born_at: "creato a"
       outgoing_payment:
         delivered: "Dato al destinatario"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:
         population: "Quantità"
       plant:
         born_at: "piantato a"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Indirizzo per la stima"
         has_downpayment: "Anticipo ricevuti"
       sale_nature:

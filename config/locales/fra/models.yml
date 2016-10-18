@@ -1,4 +1,11 @@
 fra:
+  activemodel:  #?
+    errors: #?
+      models: #?
+        sepa/credit_transfer_transaction: #?
+          attributes: #?
+            amount: #?
+              greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
       activity:  #?
@@ -88,6 +95,7 @@ fra:
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
+        list: "Lot de décaissements"
       outgoing_payment_list:
         payments_sum: "Total"
       outgoing_payment_mode:  #?
@@ -119,7 +127,8 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      purchase:  #?
+      purchase:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
         label: "Commande" #?
@@ -128,6 +137,7 @@ fra:
       purchase_item:  #?
         amount: "Montant TTC" #?
       sale:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
@@ -1515,7 +1525,7 @@ fra:
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
     supplier_address: "Adresse du fournisseur"
-    # supplier_payment_delay: "Supplier payment delay"
+    supplier_payment_delay: "Délai de paiement fournisseur"
     suppliers: "Fournisseurs"
     support: "Support"
     support_nature: "Type de support"

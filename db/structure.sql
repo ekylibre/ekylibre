@@ -3908,8 +3908,11 @@ ALTER SEQUENCE observations_id_seq OWNED BY observations.id;
 CREATE TABLE outgoing_payment_lists (
     id integer NOT NULL,
     number character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -12339,6 +12342,20 @@ CREATE INDEX index_observations_on_updater_id ON observations USING btree (updat
 
 
 --
+-- Name: index_outgoing_payment_lists_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payment_lists_on_creator_id ON outgoing_payment_lists USING btree (creator_id);
+
+
+--
+-- Name: index_outgoing_payment_lists_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payment_lists_on_updater_id ON outgoing_payment_lists USING btree (updater_id);
+
+
+--
 -- Name: index_outgoing_payment_modes_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15798,5 +15815,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161012145600');
 
 INSERT INTO schema_migrations (version) VALUES ('20161012145700');
 
-INSERT INTO schema_migrations (version) VALUES ('20161012145800');
+INSERT INTO schema_migrations (version) VALUES ('20161013023259');
 
+INSERT INTO schema_migrations (version) VALUES ('20161018162500');

@@ -29,13 +29,17 @@ por:
         born_at: "Criado em"
       outgoing_payment:
         delivered: "Dada a destinatário"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:
         population: "Quantidade"
       plant:
         born_at: "Plantadas em"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Endereço para a estimativa"
         has_downpayment: "È recebido"
       sale_nature:

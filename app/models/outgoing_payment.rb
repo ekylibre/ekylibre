@@ -92,6 +92,11 @@ class OutgoingPayment < Ekylibre::Record::Base
     (journal_entry && journal_entry.closed?)
   end
 
+  def check_updateable_or_destroyable?
+    return false if list
+    self.updateable? || self.destroyable?
+  end
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

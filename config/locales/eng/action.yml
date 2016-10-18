@@ -560,6 +560,7 @@ eng:
       invoice: "Receive invoice"
       new: "New purchase"
       # pay: "Pay purchase: %{name}"
+      payment_mode: "Select payment mode"
       propose: "Propose order"
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
@@ -1027,6 +1028,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    # currency: "Currency"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1781,6 +1783,10 @@ eng:
     x_times:
       one: "%{count} time"
       other: "%{count} times"
+    x_trackings:
+      one: "%{count} tracking"
+      other: "%{count} trackings"
+      zero: "No tracking found"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1861,6 +1867,7 @@ eng:
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_production_support: "Need a production support" #?
+      # need_a_valid_payment_mode: "Need a valid payment mode"
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
@@ -1997,6 +2004,7 @@ eng:
       order: "Order"
       # passthru: "Passthru"
       pay: "Pay"
+      payment_mode: "Payment mode"
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"

@@ -450,6 +450,7 @@ por:
       index: "Compras"
       invoice: "Receba factura"
       new: "Nova compra"
+      # payment_mode: "Select payment mode"
       propose: "Propor fim"
       propose_and_invoice: "Facturar directamente"
       refuse: "Fim recusou"
@@ -1611,6 +1612,10 @@ por:
     x_times:
       # one: "%{count} time"
       # other: "%{count} times"
+    x_trackings:
+      # one: "%{count} tracking"
+      # other: "%{count} trackings"
+      # zero: "No tracking found"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1805,6 +1810,7 @@ por:
       open: "Aberto"
       order: "Ordem"
       # pay: "Pay"
+      # payment_mode: "Payment mode"
       pick: "Escolher"
       picture: "Fotografia"
       prepare: "Preparar"

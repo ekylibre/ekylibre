@@ -22,10 +22,13 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at :datetime         not null
-#  id         :integer          not null, primary key
-#  number     :string
-#  updated_at :datetime         not null
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  number       :string
+#  updated_at   :datetime
+#  updater_id   :integer
 #
 require 'test_helper'
 

@@ -2079,7 +2079,7 @@ journal_entries_079:
   credit: 1850.0
   currency: EUR
   debit: 1850.0
-  financial_year_id: 26
+  financial_year_id: 25
   id: 86
   journal_id: 2
   lock_version: 7
@@ -2105,7 +2105,7 @@ journal_entries_080:
   credit: 176.16
   currency: EUR
   debit: 176.16
-  financial_year_id: 26
+  financial_year_id: 25
   id: 87
   journal_id: 2
   lock_version: 7

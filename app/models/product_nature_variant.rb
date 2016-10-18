@@ -200,19 +200,19 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def destroyable_accounts?
-    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
+    !storable? || (stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?)
   end
 
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
     unless storable?
-      raise ArgumentError, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
+      errors.add :stock_account, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
     end
 
     category_account = category.send(account_key)
     unless category_account
-      raise ArgumentError, "Account is not configure for #{self.name.inspect}. You have to check category first"
+      errors.add :category_account, "Account is not configure for #{self.name.inspect}. You have to check category first"
     end
 
     options = {}

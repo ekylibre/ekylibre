@@ -4385,15 +4385,22 @@ observations:
 outgoing_payment_lists:
   created_at:
     type: datetime
-    required: true
+  creator_id:
+    type: integer
+    references: user
   id:
+    type: integer
+    required: true
+  lock_version:
     type: integer
     required: true
   number:
     type: string
   updated_at:
     type: datetime
-    required: true
+  updater_id:
+    type: integer
+    references: user
 outgoing_payment_modes:
   active:
     type: boolean

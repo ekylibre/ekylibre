@@ -60,7 +60,7 @@ module Backend
     end
 
     list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
-      t.action :pay, on: :both, method: :post, if: :payable?
+      t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
@@ -71,13 +71,14 @@ module Backend
       t.column :payment_at
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
-      t.column :description
+      t.column :description, hidden: true
       # t.column :shipped
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :affair_balance, currency: true, hidden: true
     end
 
     list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -170,7 +171,16 @@ module Backend
       redirect_to action: :show, id: @purchase.id
     end
 
+    def payment_mode
+      # use view to select payment mode for mass payment on purchase
+    end
+
     def pay
+      unless mode = OutgoingPaymentMode.find_by(id: params[:mode_id])
+        notify_error :need_a_valid_payment_mode
+        redirect_to action: :index
+        return
+      end
       purchases = find_purchases
       return unless purchases
 
@@ -180,17 +190,17 @@ module Backend
         return
       end
 
-      cash_mode = OutgoingPaymentMode.mode_sepa.first
-
-      unless purchases.all?(&:sepable?)
-        notify_error(:purchases_invalid_for_sepa)
-        redirect_to(params[:redirect] || { action: :index })
-        return
+      if mode.sepa?
+        unless purchases.all?(&:sepable?)
+          notify_error(:purchases_invalid_for_sepa)
+          redirect_to(params[:redirect] || { action: :index })
+          return
+        end
       end
 
       payments_list = OutgoingPaymentList.build_from_purchases(
         purchases,
-        cash_mode,
+        mode,
         current_user
       )
 

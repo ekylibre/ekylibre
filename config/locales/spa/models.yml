@@ -29,13 +29,17 @@ spa:
         born_at: "Creado en"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
+        # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel_item:
         population: "Cantidad"
       plant:
         born_at: "Plantado en"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Dirección para la estimación"
         has_downpayment: "Pago Inicial recibida"
       sale_nature:

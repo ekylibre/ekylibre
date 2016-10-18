@@ -535,6 +535,7 @@ fra:
       index: "Achats"
       invoice: "Réception de la facture"
       new: "Nouvel achat"
+      payment_mode: "Selection du mode de paiement"
       propose: "Commande soumise au fournisseur"
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
@@ -2198,6 +2199,10 @@ fra:
     x_times:
       one: "%{count} fois"
       other: "%{count} fois"
+    x_trackings:
+      one: "%{count} numéro de lot"
+      other: "%{count} numéros de lot"
+      zero: "Aucun numéro de lot"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
@@ -2448,6 +2453,7 @@ fra:
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"
+      payment_mode: "Payer (Mode)"
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"

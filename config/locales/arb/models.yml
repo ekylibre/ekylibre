@@ -304,6 +304,7 @@ arb:
         amount: "القيمة" #?
         created_at: "انشأ في" #?
         delivered: "قدمت للمستفيد"
+        # list: "Outgoing payment list"
         mode: "طريقة تسديد الدفعة" #?
         number: "رقم" #?
         updated_at: "تحديثه في" #?
@@ -447,7 +448,8 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      purchase:  #?
+      purchase:
+        # affair_balance: "Balance"
         amount_with_taxes: "القيمة مع كل الضرائب" #?
         comment: "تعليق" #?
         created_at: "انشأت يوم" #?
@@ -472,6 +474,7 @@ arb:
         created_at: "انشأ في" #?
       sale:
         accounted_at: "تمت محاسبته في" #?
+        # affair_balance: "Balance"
         amount: "القيمة من دون تاضرائب" #?
         client_id: "عميل" #?
         contact: "عنوان للاقتياس"

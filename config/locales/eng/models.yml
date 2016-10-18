@@ -29,13 +29,17 @@ eng:
         born_at: "Created at"
       outgoing_payment:
         delivered: "Given to recipient"
+        list: "Outgoing payment list"
       outgoing_payment_list:
         payments_sum: "Total"
       parcel_item:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      purchase:
+        affair_balance: "Balance"
       sale:
+        affair_balance: "Balance"
         contact: "Address for the estimate"
         has_downpayment: "Downpayment received"
       sale_nature:
