@@ -39,13 +39,13 @@ module Charta
 
       def flatten(hash)
         flattened =
-          if hash['type'] == 'FeatureCollection'
-            flatten_feature_collection(hash)
-          elsif hash['type'] == 'Feature'
-            flatten_feature(hash)
-          else
-            flatten_geometry(hash)
-          end
+            if hash['type'] == 'FeatureCollection'
+              flatten_feature_collection(hash)
+            elsif hash['type'] == 'Feature'
+              flatten_feature(hash)
+            else
+              flatten_geometry(hash)
+            end
         new(flattened)
       end
 
@@ -60,20 +60,20 @@ module Charta
       def flatten_geometry(hash)
         coordinates = hash['coordinates']
         flattened =
-          case hash['type']
-          when 'Point' then
-            flatten_position(coordinates)
-          when 'MultiPoint', 'LineString'
-            coordinates.map { |p| flatten_position(p) }
-          when 'MultiLineString', 'Polygon'
-            coordinates.map { |l| l.map { |p| flatten_position(p) } }
-          when 'MultiPolygon'
-            coordinates.map { |m| m.map { |l| l.map { |p| flatten_position(p) } } }
-          when 'GeometryCollection' then
-            return hash.except('geometries').merge('geometries' => hash['geometries'].map { |g| flatten_geometry(g) })
-          else
-            raise StandardError, "Cannot handle: #{hash['type']}"
-          end
+            case hash['type']
+              when 'Point' then
+                flatten_position(coordinates)
+              when 'MultiPoint', 'LineString'
+                coordinates.map { |p| flatten_position(p) }
+              when 'MultiLineString', 'Polygon'
+                coordinates.map { |l| l.map { |p| flatten_position(p) } }
+              when 'MultiPolygon'
+                coordinates.map { |m| m.map { |l| l.map { |p| flatten_position(p) } } }
+              when 'GeometryCollection' then
+                return hash.except('geometries').merge('geometries' => hash['geometries'].map { |g| flatten_geometry(g) })
+              else
+                raise StandardError, "Cannot handle: #{hash['type']}"
+            end
 
         hash.except('coordinates').merge('coordinates' => flattened)
       end
@@ -92,6 +92,7 @@ module Charta
           object_to_ewkt(feature)
         end.join(', ') + ')'
       end
+
       alias geometry_collection_to_ewkt feature_collection_to_ewkt
 
       def feature_to_ewkt(hash)
@@ -136,6 +137,18 @@ module Charta
       end
 
       def multipolygon_to_ewkt(hash)
+        return 'MULTIPOLYGON EMPTY' if hash['coordinates'].blank?
+        'MULTIPOLYGON(' + hash['coordinates'].collect do |polygon|
+          '(' + polygon.collect do |hole|
+            '(' + hole.collect do |point|
+              point.join(' ')
+            end.join(', ') + ')'
+          end.join(', ') + ')'
+        end.join(', ') + ')'
+      end
+
+      #for PostGIS ST_ASGeoJSON compatibility
+      def multi_polygon_to_ewkt(hash)
         return 'MULTIPOLYGON EMPTY' if hash['coordinates'].blank?
         'MULTIPOLYGON(' + hash['coordinates'].collect do |polygon|
           '(' + polygon.collect do |hole|
