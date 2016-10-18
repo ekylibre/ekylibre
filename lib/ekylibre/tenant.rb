@@ -299,6 +299,8 @@ module Ekylibre
           puts (tenant[:name] + " : done").yellow
         end
 
+        load!
+
         puts 'Task done'.blue
       end
 
@@ -343,6 +345,8 @@ module Ekylibre
           )")
 
         ActiveRecord::Migrator.migrate "db/migrate"
+
+        load!
       end
 
       private
