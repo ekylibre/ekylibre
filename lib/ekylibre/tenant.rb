@@ -302,6 +302,33 @@ module Ekylibre
         puts 'Task done'.blue
       end
 
+      def list_tenant_with_table_not_exist(table_name)
+
+        tenants = []
+
+        list.each do |tenant|
+
+          Ekylibre::Tenant::switch! tenant
+
+          connection = ActiveRecord::Base.connection
+          result = connection.execute(
+                          "SELECT EXISTS(
+                            SELECT 1
+                            FROM information_schema.tables
+                            WHERE table_schema = current_schema()
+                            AND table_name = '#{table_name}'
+                          )"
+                        ).to_a
+
+          next if result.first.has_value?("t")
+
+          migration_version = ActiveRecord::Migrator.current_version
+          tenants << { name: tenant, migration_version: migration_version }
+        end
+
+        tenants
+      end
+
       private
 
       def config_file
