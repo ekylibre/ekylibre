@@ -1405,6 +1405,7 @@ fra:
     replacements: "Remplacements"
     reporter: "Rapporteur"
     request: "Demande"
+    # request_compliant: "Request compliant"
     request_intervention: "Demande intervention"
     requests: "Demandes"
     required: "Obligatoire"

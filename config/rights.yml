@@ -1,4 +1,5 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
+#     - "api/v1/intervention_participations#create"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"

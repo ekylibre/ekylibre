@@ -1146,6 +1146,7 @@ cmn:
     replacements: "更换"
     reporter: "记者"
     request: "请求"
+    # request_compliant: "Request compliant"
     request_intervention: "请求干预"
     requests: "要求"
     required: "需要"

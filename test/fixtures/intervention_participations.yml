@@ -20,24 +20,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_working_periods
+# == Table: intervention_participations
 #
-#  created_at                    :datetime         not null
-#  creator_id                    :integer
-#  duration                      :integer          not null
-#  id                            :integer          not null, primary key
-#  intervention_id               :integer
-#  intervention_participation_id :integer
-#  lock_version                  :integer          default(0), not null
-#  nature                        :string
-#  started_at                    :datetime         not null
-#  stopped_at                    :datetime         not null
-#  updated_at                    :datetime         not null
-#  updater_id                    :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  id                :integer          not null, primary key
+#  intervention_id   :integer
+#  lock_version      :integer          default(0), not null
+#  product_id        :integer
+#  request_compliant :boolean          default(FALSE), not null
+#  state             :string
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
-require 'test_helper'
-
-class InterventionWorkingPeriodTest < ActiveSupport::TestCase
-  test_model_actions
-  # Add tests here...
-end
+---
+intervention_participations_001:
+  created_at: 2016-10-12 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  intervention_id: 29
+  lock_version: 2
+  product_id: 76
+  request_compliant: true
+  state: done
+  updated_at: 2016-10-12 17:39:32.000000000 Z
+  updater_id: 1

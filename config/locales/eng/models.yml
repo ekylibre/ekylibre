@@ -233,6 +233,7 @@ eng:
       intervention_output: "Intervention output"
       intervention_parameter: "Intervention parameter"
       intervention_parameter_reading: "Product reading task"
+      # intervention_participation: "Intervention participation"
       intervention_product_parameter: "Intervention product parameter"
       intervention_target: "Intervention target"
       intervention_tool: "Intervention tool"
@@ -768,6 +769,9 @@ eng:
     intervention_cast: "Intervention cast" #?
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
+    # intervention_participated_to: "Intervention participated to"
+    # intervention_participation: "Intervention participation"
+    # intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
@@ -1154,6 +1158,7 @@ eng:
     replacements: "Replacements" #?
     reporter: "Reporter" #?
     request: "Request"
+    request_compliant: "Request compliant"
     request_intervention: "Request intervention"
     requests: "Requests"
     required: "Required"

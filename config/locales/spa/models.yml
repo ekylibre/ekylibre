@@ -1150,6 +1150,7 @@ spa:
     replacements: "Reemplazos"
     reporter: "Reportero"
     request: "Solicitud"
+    # request_compliant: "Request compliant"
     request_intervention: "Solicitud de intervención"
     requests: "Peticiones"
     required: "Necesario"
