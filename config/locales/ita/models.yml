@@ -36,7 +36,10 @@ ita:
         population: "Quantità"
       plant:
         born_at: "piantato a"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Indirizzo per la stima"
         has_downpayment: "Anticipo ricevuti"
       sale_nature:

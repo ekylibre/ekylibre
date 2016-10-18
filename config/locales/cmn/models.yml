@@ -36,7 +36,10 @@ cmn:
         population: "数量"
       plant:
         born_at: "在种植"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "为估算地址"
         has_downpayment: "首付接收"
       sale_nature:

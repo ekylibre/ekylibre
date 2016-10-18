@@ -36,7 +36,10 @@ eng:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      purchase:
+        affair_balance: "Balance"
       sale:
+        affair_balance: "Balance"
         contact: "Address for the estimate"
         has_downpayment: "Downpayment received"
       sale_nature:

@@ -36,7 +36,10 @@ jpn:
         population: "量"
       plant:
         born_at: "で植え"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "見積もりの​​ための住所"
         has_downpayment: "頭金は、受信しました"
       sale_nature:

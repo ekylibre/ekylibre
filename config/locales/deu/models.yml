@@ -36,7 +36,10 @@ deu:
         population: "Menge"
       plant:
         born_at: "gepflanzt bei"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Adresse für die Schätzung"
         has_downpayment: "Anzahlung empfangenen"
       sale_nature:
