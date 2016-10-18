@@ -1028,6 +1028,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    # currency: "Currency"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
