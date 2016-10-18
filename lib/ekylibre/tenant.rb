@@ -329,6 +329,22 @@ module Ekylibre
         tenants
       end
 
+      def remove_last_migration_and_migrate!(tenant_name)
+
+        Ekylibre::Tenant::switch! tenant_name
+
+        ActiveRecord::Base.connection.execute(
+          "DELETE FROM schema_migrations
+           WHERE version IN (
+              SELECT version
+              FROM schema_migrations
+              ORDER BY version DESC
+              LIMIT 1
+          )")
+
+        ActiveRecord::Migrator.migrate "db/migrate"
+      end
+
       private
 
       def config_file
