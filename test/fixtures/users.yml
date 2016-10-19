@@ -220,7 +220,7 @@ users_004:
   lock_version: 1
   locked: false
   maximal_grantable_reduction_percentage: 5.0
-  person_id: 12
+  person_id: 11
   rights:
     accounts:
     - read

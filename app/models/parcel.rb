@@ -185,7 +185,7 @@ class Parcel < Ekylibre::Record::Base
     stock_journal = Journal.find_or_create_by!(nature: :stocks, currency: self.currency)
     return unless [:incoming, :outgoing].include? mode
     # for purchase_not_received or sale_not_emitted
-    journal = Journal.find_or_create_by!(nature: { incoming: :purchases, outgoing: :sales }[mode], currency: self.currency)
+    journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP', currency: self.currency)
     b.journal_entry(journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
       # for permanent stock inventory
       b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|

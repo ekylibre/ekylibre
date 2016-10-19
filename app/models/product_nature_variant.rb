@@ -200,19 +200,19 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def destroyable_accounts?
-    stock_movement_account.destroyable? && stock_account.destroyable?
+    !storable? || (stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?)
   end
 
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
     unless storable?
-      raise ArgumentError, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
+      errors.add :stock_account, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
     end
 
     category_account = category.send(account_key)
     unless category_account
-      raise ArgumentError, "Account is not configure for #{self.name.inspect}. You have to check category first"
+      errors.add :category_account, "Account is not configure for #{self.name.inspect}. You have to check category first"
     end
 
     options = {}
@@ -444,7 +444,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variants.reload
     end
 
-    Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
+    ItemStruct = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary
     # name, variety, derivative_od, abilities
@@ -453,7 +453,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         nature = Nomen::ProductNature[item.nature]
         f = (nature.frozen_indicators || []).map(&:to_sym)
         v = (nature.variable_indicators || []).map(&:to_sym)
-        Item.new(
+        ItemStruct.new(
           item.name,
           Nomen::Variety.find(item.variety || nature.variety),
           Nomen::Variety.find(item.derivative_of || nature.derivative_of),

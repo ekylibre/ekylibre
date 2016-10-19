@@ -85,7 +85,7 @@ module Backend
       return unless find_mode
       @deposit = Deposit.new(permitted_params)
       unless @deposit.nil?
-        return if save_and_redirect(@deposit)
+        return if save_and_redirect(@deposit, url: { action: :index })
         t3e mode: @deposit.mode.name
       end
     end

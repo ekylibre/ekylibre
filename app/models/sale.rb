@@ -219,12 +219,13 @@ class Sale < Ekylibre::Record::Base
       end
     end
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    ui_journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP')
     # 1 / for undelivered invoice
     # exchange undelivered invoice from parcel
     parcels.each do |pi|
       # 1 / for undelivered invoice
       next unless pi.undelivered_invoice_entry
-      b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+      b.journal_entry(ui_journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
         undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
         undelivered_items = pi.undelivered_invoice_entry.items
         undelivered_items.each do |undelivered_item|

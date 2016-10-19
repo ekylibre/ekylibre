@@ -30,6 +30,7 @@
 #  lock_version    :integer          default(0), not null
 #  name            :string           not null
 #  position        :integer
+#  sepa            :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null
@@ -39,5 +40,30 @@ require 'test_helper'
 
 class OutgoingPaymentModeTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'valid if sepa and  with iban and account owner present' do
+    outgoing_payment_mode = outgoing_payment_modes(:outgoing_payment_modes_003)
+    assert outgoing_payment_mode.valid?
+  end
+
+  test 'invalid if sepa and with iban missing' do
+    outgoing_payment_mode = outgoing_payment_modes(:outgoing_payment_modes_003)
+    outgoing_payment_mode.cash.iban = ''
+    assert_not outgoing_payment_mode.valid?
+  end
+
+  test 'invalid if sepa and with account owner missing' do
+    outgoing_payment_mode = outgoing_payment_modes(:outgoing_payment_modes_003)
+    outgoing_payment_mode.cash.bank_account_holder_name = ''
+    assert_not outgoing_payment_mode.valid?
+  end
+
+  test 'valid if not sepa with iban and account owner missing' do
+    outgoing_payment_mode = outgoing_payment_modes(:outgoing_payment_modes_003)
+    outgoing_payment_mode.sepa = false
+    outgoing_payment_mode.cash.iban = ''
+    outgoing_payment_mode.cash.bank_account_holder_name = ''
+
+    assert outgoing_payment_mode.valid?
+  end
 end

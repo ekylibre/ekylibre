@@ -1,4 +1,11 @@
 fra:
+  activemodel:  #?
+    errors: #?
+      models: #?
+        sepa/credit_transfer_transaction: #?
+          attributes: #?
+            amount: #?
+              greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
       activity:  #?
@@ -88,6 +95,9 @@ fra:
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
+        list: "Lot de décaissements"
+      outgoing_payment_list:
+        payments_sum: "Total"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
       parcel_item:
@@ -117,7 +127,8 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      purchase:  #?
+      purchase:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
         label: "Commande" #?
@@ -126,6 +137,7 @@ fra:
       purchase_item:  #?
         amount: "Montant TTC" #?
       sale:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
@@ -178,6 +190,7 @@ fra:
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
         not_a_number: "%{attribute} n’est pas un nombre"
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
@@ -193,7 +206,7 @@ fra:
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
-        unitary_in_parcel: "articles Unitaires ne peuvent être envoyés un par un"
+        unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
         activity:
@@ -490,6 +503,10 @@ fra:
     analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
     archive: "Archive"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archived_at: "Archivé le" #?
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
@@ -510,6 +527,7 @@ fra:
     balance: "Solde"
     balance_amount: "Solde" #?
     balances: "Balances de compte"
+    bank_account_holder_name: "Titulaire du compte"
     bank_account_key: "Clé RIB"
     bank_account_number: "Numéro de compte bancaire"
     bank_agency_address: "Adresse de l’agence bancaire"
@@ -802,7 +820,11 @@ fra:
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "Taille du fichier"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
@@ -929,6 +951,10 @@ fra:
     initiated_on: "Lancé le"
     inputs: "Intrants"
     inspection: "Agréage"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
@@ -1008,6 +1034,7 @@ fra:
     last_value: "Dernière valeur"
     last_year: "Dernière année"
     latest: "Dernier"
+    # leaves_parameters: "Leaves parameters"
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
@@ -1018,6 +1045,7 @@ fra:
     linked: "Tiers lié"
     linked_role: "Rôle du tiers lié"
     links: "Liens"
+    # list: "List"
     listing: "Extraction"
     loan: "Emprunt"
     local_balance: "Solde"
@@ -1352,6 +1380,10 @@ fra:
     reference: "Référence" #?
     reference_name: "Référence"
     reference_number: "N°Référence"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "Taxe de référence"
     reference_value: "Valeur de référence"
     reflected: "Changements reflétés"
@@ -1373,6 +1405,7 @@ fra:
     replacements: "Remplacements"
     reporter: "Rapporteur"
     request: "Demande"
+    # request_compliant: "Request compliant"
     request_intervention: "Demande intervention"
     requests: "Demandes"
     required: "Obligatoire"
@@ -1431,6 +1464,7 @@ fra:
     sensor: "Capteur"
     sensors: "Capteurs"
     sent_at: "Expédié le"
+    sepa: "SEPA"
     separated_stock: "Ne pas fusionner avec les stocks existants"
     serial: "N°Lot"
     serial_number: "Serial number"
@@ -1491,6 +1525,7 @@ fra:
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
     supplier_address: "Adresse du fournisseur"
+    supplier_payment_delay: "Délai de paiement fournisseur"
     suppliers: "Fournisseurs"
     support: "Support"
     support_nature: "Type de support"

@@ -197,6 +197,16 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    intervention_participation:
+      state:
+        # done: "Done"
+        # in_progress: "In progress"
+        # validated: "Validated"
+    intervention_working_period:
+      nature:
+        # intervention: "Intervention"
+        # preparation: "Preparation"
+        # travel: "Travel"
     journal:
       nature:
         bank: "Bank"
@@ -403,6 +413,7 @@ eng:
         interventions: "Numeration of interventions"
         inventories: "Numeration of inventories"
         opportunities: "Numeration of opportunities"
+        # outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Numeration of payments"
         parcels: "Numeration of parcels"
         plants: "Numeration of plants"

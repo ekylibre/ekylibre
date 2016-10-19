@@ -35,6 +35,7 @@
 #  downpayment       :boolean          default(TRUE), not null
 #  id                :integer          not null, primary key
 #  journal_entry_id  :integer
+#  list_id           :integer
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          not null
 #  number            :string
@@ -56,6 +57,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
+  belongs_to :list, class_name: 'OutgoingPaymentList', inverse_of: :payments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -88,6 +90,11 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   protect do
     (journal_entry && journal_entry.closed?)
+  end
+
+  def check_updateable_or_destroyable?
+    return false if list
+    self.updateable? || self.destroyable?
   end
 
   # This method permits to add journal entries corresponding to the payment

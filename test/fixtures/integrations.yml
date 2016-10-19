@@ -32,33 +32,4 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
----
-integrations_001:
-  ciphered_parameters:
-    api_key: |
-      8/7XQ0N/13L9YpRoyDP1QSRGEhTUjiImAK3MkKdmQcoTypfuY2RobJc62X3Y
-      dTHj
-  created_at: 2016-09-09 09:01:15.684299000 Z
-  creator_id: 1
-  id: 2
-  initialization_vectors:
-    api_key: |
-      fyquiHOoHy45N+Vj6E2sLQ==
-  lock_version: 0
-  nature: cap_trap
-  updated_at: 2016-09-09 09:01:15.684299000 Z
-  updater_id: 1
-integrations_002:
-  ciphered_parameters:
-    access_token: |
-      9TLzu91Ca9mt+dnL696UgA==
-  created_at: 2016-09-09 09:25:45.028382000 Z
-  creator_id: 1
-  id: 3
-  initialization_vectors:
-    access_token: |
-      OwNrAWVehCYPJwRnjLPncQ==
-  lock_version: 0
-  nature: navigeo
-  updated_at: 2016-09-09 09:25:45.028382000 Z
-  updater_id: 1
+--- {}

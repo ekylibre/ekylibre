@@ -207,7 +207,7 @@ L.Edit.Poly.include
 
     L.extend(L.Draw.Polyline.prototype.options, target: e.marker.getLatLng())
 
-    e.marker._map.reactiveMeasureControl.updateContent measure, {selection: true}
+    @_poly._map.reactiveMeasureControl.updateContent(measure, {selection: true}) if @_poly._map?
 
 
   addHooks: () ->
