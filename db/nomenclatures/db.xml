@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160930091201">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161019145441">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -876,6 +876,7 @@
   </nomenclature>
   <nomenclature name="countries" translateable="true">
     <properties>
+      <property name="ednotif_eu" type="boolean" default="false"/>
       <property name="number" type="string"/>
     </properties>
     <items>
@@ -891,7 +892,7 @@
       <item name="aq"/>
       <item name="ar"/>
       <item name="as"/>
-      <item name="at"/>
+      <item name="at" ednotif_eu="true"/>
       <item name="au"/>
       <item name="aw"/>
       <item name="ax"/>
@@ -899,9 +900,9 @@
       <item name="ba"/>
       <item name="bb"/>
       <item name="bd"/>
-      <item name="be"/>
+      <item name="be" ednotif_eu="true"/>
       <item name="bf"/>
-      <item name="bg"/>
+      <item name="bg" ednotif_eu="true"/>
       <item name="bh"/>
       <item name="bi"/>
       <item name="bj"/>
@@ -921,7 +922,7 @@
       <item name="cd"/>
       <item name="cf"/>
       <item name="cg"/>
-      <item name="ch"/>
+      <item name="ch" ednotif_eu="true"/>
       <item name="ci"/>
       <item name="ck"/>
       <item name="cl"/>
@@ -932,29 +933,29 @@
       <item name="cu"/>
       <item name="cv"/>
       <item name="cx"/>
-      <item name="cy"/>
-      <item name="cz"/>
-      <item name="de"/>
+      <item name="cy" ednotif_eu="true"/>
+      <item name="cz" ednotif_eu="true"/>
+      <item name="de" ednotif_eu="true"/>
       <item name="dj"/>
-      <item name="dk"/>
+      <item name="dk" ednotif_eu="true"/>
       <item name="dm"/>
       <item name="do"/>
       <item name="dz"/>
       <item name="ec"/>
-      <item name="ee"/>
+      <item name="ee" ednotif_eu="true"/>
       <item name="eg"/>
       <item name="eh"/>
       <item name="er"/>
-      <item name="es"/>
+      <item name="es" ednotif_eu="true"/>
       <item name="et"/>
-      <item name="fi"/>
+      <item name="fi" ednotif_eu="true"/>
       <item name="fj"/>
       <item name="fk"/>
       <item name="fm"/>
       <item name="fo"/>
-      <item name="fr"/>
+      <item name="fr" ednotif_eu="true"/>
       <item name="ga"/>
-      <item name="gb"/>
+      <item name="gb" ednotif_eu="true"/>
       <item name="gd"/>
       <item name="ge"/>
       <item name="gf"/>
@@ -966,7 +967,7 @@
       <item name="gn"/>
       <item name="gp"/>
       <item name="gq"/>
-      <item name="gr"/>
+      <item name="gr" ednotif_eu="true"/>
       <item name="gs"/>
       <item name="gt"/>
       <item name="gu"/>
@@ -975,11 +976,11 @@
       <item name="hk"/>
       <item name="hm"/>
       <item name="hn"/>
-      <item name="hr"/>
+      <item name="hr" ednotif_eu="true"/>
       <item name="ht"/>
-      <item name="hu"/>
+      <item name="hu" ednotif_eu="true"/>
       <item name="id"/>
-      <item name="ie"/>
+      <item name="ie" ednotif_eu="true"/>
       <item name="il"/>
       <item name="im"/>
       <item name="in"/>
@@ -987,7 +988,7 @@
       <item name="iq"/>
       <item name="ir"/>
       <item name="is"/>
-      <item name="it"/>
+      <item name="it" ednotif_eu="true"/>
       <item name="je"/>
       <item name="jm"/>
       <item name="jo"/>
@@ -1010,9 +1011,9 @@
       <item name="lk"/>
       <item name="lr"/>
       <item name="ls"/>
-      <item name="lt"/>
-      <item name="lu"/>
-      <item name="lv"/>
+      <item name="lt" ednotif_eu="true"/>
+      <item name="lu" ednotif_eu="true"/>
+      <item name="lv" ednotif_eu="true"/>
       <item name="ly"/>
       <item name="ma"/>
       <item name="mc"/>
@@ -1030,7 +1031,7 @@
       <item name="mq"/>
       <item name="mr"/>
       <item name="ms"/>
-      <item name="mt"/>
+      <item name="mt" ednotif_eu="true"/>
       <item name="mu"/>
       <item name="mv"/>
       <item name="mw"/>
@@ -1043,7 +1044,7 @@
       <item name="nf"/>
       <item name="ng"/>
       <item name="ni"/>
-      <item name="nl"/>
+      <item name="nl" ednotif_eu="true"/>
       <item name="no"/>
       <item name="np"/>
       <item name="nr"/>
@@ -1056,17 +1057,17 @@
       <item name="pg"/>
       <item name="ph"/>
       <item name="pk"/>
-      <item name="pl"/>
+      <item name="pl" ednotif_eu="true"/>
       <item name="pm"/>
       <item name="pn"/>
       <item name="pr"/>
       <item name="ps"/>
-      <item name="pt"/>
+      <item name="pt" ednotif_eu="true"/>
       <item name="pw"/>
       <item name="py"/>
       <item name="qa"/>
       <item name="re"/>
-      <item name="ro"/>
+      <item name="ro" ednotif_eu="true"/>
       <item name="rs"/>
       <item name="ru"/>
       <item name="rw"/>
@@ -1074,12 +1075,12 @@
       <item name="sb"/>
       <item name="sc"/>
       <item name="sd"/>
-      <item name="se"/>
+      <item name="se" ednotif_eu="true"/>
       <item name="sg"/>
       <item name="sh"/>
-      <item name="si"/>
+      <item name="si" ednotif_eu="true"/>
       <item name="sj"/>
-      <item name="sk"/>
+      <item name="sk" ednotif_eu="true"/>
       <item name="sl"/>
       <item name="sm"/>
       <item name="sn"/>
@@ -1605,6 +1606,7 @@
       <item name="average_wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="period"/>
       <item name="average_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="best_before_period" datatype="measure" unit="day"/>
+      <item name="birth_date" datatype="string"/>
       <item name="boron_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="calcium_concentration" datatype="measure" unit="mass_percent"/>
       <item name="calving_ease_index" datatype="measure" unit="unity"/>
@@ -1616,6 +1618,7 @@
       <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="consumption_period" datatype="measure" unit="day"/>
       <item name="copper_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="cpb_filiation_status" datatype="boolean"/>
       <item name="cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
       <item name="daily_average_working_time" datatype="measure" unit="hour"/>
       <item name="daily_nitrogen_production" datatype="measure" unit="kilogram"/>
@@ -1624,12 +1627,16 @@
       <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="economical_milk_index" datatype="measure" unit="unity"/>
+      <item name="end_of_life_witness" datatype="string"/>
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>
+      <item name="entry_reason" datatype="string"/>
+      <item name="exit_reason" datatype="string"/>
       <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
       <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
       <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
       <item name="fertility_index" datatype="measure" unit="unity"/>
       <item name="figure" datatype="choice" choices="figures"/>
+      <item name="first_calving_date" datatype="string"/>
       <item name="fodder_bales_count" datatype="integer"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="fresh_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -1694,6 +1701,8 @@
       <item name="nominal_storable_net_mass" datatype="measure" unit="kilogram"/>
       <item name="nominal_storable_net_volume" datatype="measure" unit="liter"/>
       <item name="organic_matter_concentration" datatype="measure" unit="mass_percent"/>
+      <item name="origin_country_code" datatype="string"/>
+      <item name="origin_identification_number" datatype="string"/>
       <item name="phosphate_concentration" datatype="measure" unit="mass_percent"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
       <item name="phosphorus_concentration" datatype="measure" unit="mass_percent"/>
@@ -1754,6 +1763,7 @@
       <item name="width" datatype="measure" unit="meter"/>
       <item name="wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="instant"/>
       <item name="wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="instant"/>
+      <item name="witness" datatype="string"/>
       <item name="woodstock_variety" datatype="choice" choices="varieties"/>
       <item name="working_lifespan" datatype="measure" unit="hour"/>
       <item name="zinc_concentration" datatype="measure" unit="parts_per_million"/>
