@@ -377,8 +377,8 @@ fra:
     sensor:
       retrieval_mode:
         integration: "Intégration"
-        listening: "Serveur"
-        requesting: "Client"
+        listening: "Automatique"
+        requesting: "Manuelle"
     sequence:
       period:
         cweek: "Semaine"
