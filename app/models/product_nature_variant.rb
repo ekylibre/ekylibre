@@ -135,7 +135,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || !destroyable_accounts?
+      parcel_items.any? || has_accounts?
   end
 
   before_validation on: :create do
@@ -199,8 +199,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
-  def destroyable_accounts?
-    !storable? || (stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?)
+  def has_accounts?
+    return false unless storable?
+    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
   end
 
   # create unique account for stock management in accountancy
