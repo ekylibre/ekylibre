@@ -34,7 +34,7 @@
 #  id                   :integer          not null, primary key
 #  last_transmission_at :datetime
 #  lock_version         :integer          default(0), not null
-#  model_euid           :string
+#  model_euid           :string           not null
 #  name                 :string           not null
 #  partner_url          :string
 #  product_id           :integer
@@ -42,7 +42,7 @@
 #  token                :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  vendor_euid          :string
+#  vendor_euid          :string           not null
 #
 require 'test_helper'
 

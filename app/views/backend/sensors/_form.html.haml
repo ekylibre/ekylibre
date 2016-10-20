@@ -2,7 +2,7 @@
 = field_set :sensor_model do
   = f.input :name
   = f.input :active
-  = f.input :retrieval_mode, as: :radio_buttons, show: "\#{{value}}-options"
+  = f.input :retrieval_mode, as: :radio_buttons
   -# = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, selected: @vendor_euid, include_blank: true, input_html: {data: {sensor_vendor: true, sensor_url: models_backend_sensors_path, sensor_target: '*[data-sensor-model]'}}
   #requesting-options
     = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, input_html: {data: {sensor_vendor: true, sensor_url: models_backend_sensors_path, sensor_target: '*[data-sensor-model]'}}

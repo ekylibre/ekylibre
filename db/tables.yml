@@ -6427,6 +6427,7 @@ sensors:
     required: true
   model_euid:
     type: string
+    required: true
   name:
     type: string
     required: true
@@ -6448,6 +6449,7 @@ sensors:
     references: user
   vendor_euid:
     type: string
+    required: true
 sequences:
   created_at:
     type: datetime
