@@ -7,6 +7,8 @@ module Api
         return render json: :unprocessable_entity if params.blank?
 
         intervention = Intervention.find(params[:request_intervention_id]).initialize_record
+        intervention.creator_id = current_user
+        intervention.created_at = Time.zone.now
         intervention.save!
 
         participation = intervention.participations.find_or_initialize_by(

@@ -326,8 +326,11 @@ class Intervention < Ekylibre::Record::Base
           { targets: :group },
           { tools: :group },
           :working_periods
-        ]
-    )
+        ],
+      use_dictionary: true
+    ) do |original, kopy|
+      kopy.intervention_id = nil if original.respond_to? :intervention_id
+    end
     new_record.request_intervention_id = id
     new_record.nature = :record
     new_record
