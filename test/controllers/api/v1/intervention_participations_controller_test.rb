@@ -10,7 +10,7 @@ module Api
         assert_nothing_raised { post(:create, {}) }
       end
 
-      test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns it id' do
+      test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
         add_auth_header
 
         part_id = JSON(post(:create, correct_payload).body)['id']
@@ -24,9 +24,10 @@ module Api
 
       test 'receiving a payload doesn\'t generate an InterventionParticipation if not needed' do
         add_auth_header
+        payload = correct_payload
 
-        part_id_una = JSON(post(:create, correct_payload).body)['id']
-        part_id_bis = JSON(post(:create, correct_payload).body)['id']
+        part_id_una = JSON(post(:create, payload).body)['id']
+        part_id_bis = JSON(post(:create, payload).body)['id']
 
         assert_equal part_id_una, part_id_bis
       end
@@ -37,27 +38,23 @@ module Api
         assert_nothing_raised { post(:create, { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 }) }
       end
 
-      # This test can only work if the intervention being created really is unique yet.
       test 'instantiate an intervention if it doesn\'t exist' do
         add_auth_header
 
-        # destroy_all to up our unicity chances
-        to_destroy = Intervention.where.not(id: Intervention.where(nature: :record).first).reject(&:with_undestroyable_products?).map(&:id)
-        Intervention.where(id: to_destroy).destroy_all
-        diff_state = Intervention.first.done? ? :in_progress : :done # Ensures we have a non already-existent intervention.
         original_count = Intervention.where(nature: :record).count
-        post(:create, correct_payload(state: diff_state))
+        post :create, correct_payload
 
         assert_equal original_count + 1, Intervention.where(nature: :record).count
       end
 
       test 'doesn\'t instantiate an intervention if a fitting one exists' do
         add_auth_header
+        payload = correct_payload
 
-        post(:create, body: correct_payload.to_json)
+        post(:create, body: payload.to_json)
         original_count = Intervention.count
 
-        post(:create, body: correct_payload.to_json)
+        post(:create, body: payload.to_json)
         new_count = Intervention.count
 
         assert_equal original_count, new_count

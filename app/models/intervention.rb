@@ -297,6 +297,42 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  def initialize_record
+    raise 'Can only generate record for an intervention request' unless request?
+    return record_interventions.first if record_interventions.any?
+    new_record = deep_clone(
+      only: [:actions, :custom_fields, :description, :event_id, :issue_id,
+             :nature, :number, :prescription_id, :procedure_name,
+             :request_intervention_id, :started_at, :state,
+             :stopped_at, :trouble_description, :trouble_encountered,
+             :whole_duration, :working_duration],
+      include:
+        [
+          { group_parameters: [
+            :parameters,
+            :group_parameters,
+            :doers,
+            :inputs,
+            :outputs,
+            :targets,
+            :tools
+          ] },
+          { root_parameters: :group },
+          { parameters: :group },
+          { product_parameters: [:readings, :group] },
+          { doers: :group },
+          { inputs: :group },
+          { outputs: :group },
+          { targets: :group },
+          { tools: :group },
+          :working_periods
+        ]
+    )
+    new_record.request_intervention_id = id
+    new_record.nature = :record
+    new_record
+  end
+
   def printed_at
     (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
   end
