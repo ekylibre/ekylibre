@@ -128,6 +128,7 @@ module Backend
       t.column :started_at
       t.column :stopped_at, hidden: true
       t.column :human_working_duration
+      t.status
       t.column :human_target_names
       t.column :human_working_zone_area
       t.column :total_cost, label_method: :human_total_cost, currency: true

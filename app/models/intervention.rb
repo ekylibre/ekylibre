@@ -532,7 +532,9 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    return :go if done?
+    return :go if done? || validated?
+    return :caution if in_progress?
+    return :stop if rejected?
   end
 
   def runnable?
