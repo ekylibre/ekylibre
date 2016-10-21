@@ -224,7 +224,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def initialize_land_parcel_support!
-    self.support_shape ||= cultivable_zone.shape if cultivable_zone
+    support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
       if support_shape
         land_parcels = LandParcel.shape_matching(support_shape)
