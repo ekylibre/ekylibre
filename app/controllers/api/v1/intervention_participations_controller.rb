@@ -19,6 +19,7 @@ module Api
         participation.state = params[:state]
         participation.save!
 
+        params[:working_periods] ||= []
         params[:working_periods].each do |wp_params|
           period = participation.working_periods.find_or_initialize_by(
             **wp_params
