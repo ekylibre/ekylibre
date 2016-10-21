@@ -297,7 +297,7 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def initialize_record
+  def initialize_record(state: :done)
     raise 'Can only generate record for an intervention request' unless request?
     return record_interventions.first if record_interventions.any?
     new_record = deep_clone(
@@ -333,6 +333,7 @@ class Intervention < Ekylibre::Record::Base
     end
     new_record.request_intervention_id = id
     new_record.nature = :record
+    new_record.state = state
     new_record
   end
 
