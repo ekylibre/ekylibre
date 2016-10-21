@@ -83,6 +83,7 @@ module Backend
       t.column :reference_number, hidden: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
+      t.column :given_at
       t.column :recipient, url: true
       t.column :sender, url: true
       t.status
