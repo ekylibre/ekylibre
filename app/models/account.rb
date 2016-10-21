@@ -124,7 +124,10 @@ class Account < Ekylibre::Record::Base
               :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
               :merchandising_stocks_variation, :adult_reproductor_animals_inventory_variations, :young_reproductor_animals_inventory_variations,
               :long_cycle_product_inventory_variations, :short_cycle_product_inventory_variations,
-              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation, :long_cycle_vegetals_inventory_variations, :short_cycle_vegetals_inventory_variations, :products_inventory_variations)
+              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation,
+              :long_cycle_vegetals_inventory_variations, :short_cycle_vegetals_inventory_variations,
+              :products_inventory_variations,
+              :short_cycle_animals_inventory_variations, :long_cycle_animals_inventory_variations)
   }
 
   # This method:allows to create the parent accounts if it is necessary.
