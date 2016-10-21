@@ -118,7 +118,7 @@ class Contract < Ekylibre::Record::Base
   after_create do
     supplier.add_event(:contract_creation, updater.person) if updater
   end
-  
+
   protect on: :destroy do
     has_content? || self.parcels.any? || self.purchases.any?
   end

@@ -28,6 +28,6 @@ module Backend
       t.column :name, url: true
       t.column :currency
     end
-    
+
   end
 end

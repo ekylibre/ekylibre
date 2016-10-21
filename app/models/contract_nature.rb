@@ -47,7 +47,7 @@ class ContractNature < Ekylibre::Record::Base
   before_validation(on: :create) do
     self.currency = Preference[:currency]
   end
-  
+
   protect on: :destroy do
     contracts.any?
   end
