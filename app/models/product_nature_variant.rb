@@ -213,7 +213,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     category_account = category.send(account_key)
     unless category_account
-      errors.add :category_account, "Account is not configure for #{self.name.inspect}. You have to check category first"
+      # We want to notice => raise.
+      raise :category_account, "Account is not configured for #{self.name.inspect}. You have to check category first"
     end
 
     options = {}
