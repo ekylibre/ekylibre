@@ -95,6 +95,8 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/entities#list_incoming_parcels"
+#     - "backend/entities#list_outgoing_parcels"
 #     - "backend/equipments#list_trackings"
 #     - "backend/equipments#take"
 #     - "backend/fungi#list_trackings"

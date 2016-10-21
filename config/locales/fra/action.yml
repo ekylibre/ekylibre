@@ -2108,6 +2108,10 @@ fra:
     x_hours_worked:
       one: "%{count}\_h travaillée"
       other: "%{count}\_h travaillées"
+    x_incoming_parcels:
+      one: "%{count} colis entrant"
+      other: "%{count} colis entrants"
+      zero: "Aucun colis entrant"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
@@ -2151,6 +2155,10 @@ fra:
     x_operations:  #?
       one: "%{count} travail" #?
       other: "%{count} travaux" #?
+    x_outgoing_parcels:
+      one: "%{count} colis sortant"
+      other: "%{count} colis sortants"
+      zero: "Aucun colis sortant"
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"

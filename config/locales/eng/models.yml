@@ -455,6 +455,7 @@ eng:
     codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "Collect account"
+    # collected_fixed_asset_taxes: "Collected fixed asset taxes"
     collected_taxes: "Collected taxes"
     color: "Color"
     column_name: "Column name"
@@ -535,6 +536,7 @@ eng:
     debtor: "Debtor"
     decimal_value: "Decimal value"
     declarant: "Declarant"
+    # deductible_fixed_asset_taxes: "Deductible fixed asset taxes"
     deduction_account: "Deduction account"
     default_computation_method: "Default computation method"
     # default_email_address: "Default email address"
@@ -725,7 +727,7 @@ eng:
     in_preparation_at: "In preparation at"
     included: "Included" #?
     incoming_parcel_item: "Incoming delivery item"
-    incoming_parcels: "Incoming deliveries" #?
+    incoming_parcels: "Incoming deliveries"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
@@ -961,7 +963,7 @@ eng:
     outcoming_product: "Outcoming product"
     outgoing_parcel_item: "Outgoing parcel item"
     outgoing_parcel_items: "Outgoing parcel items" #?
-    outgoing_parcels: "Outgoing parcels" #?
+    outgoing_parcels: "Outgoing parcels"
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payments: "Disbursements"
     outputs: "Outputs"
@@ -1249,6 +1251,7 @@ eng:
     stock_account: "Stock account"
     stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
+    # stocks_movement_categories: "Stocks movement categories"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Storable"
