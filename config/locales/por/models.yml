@@ -36,7 +36,10 @@ por:
         population: "Quantidade"
       plant:
         born_at: "Plantadas em"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Endereço para a estimativa"
         has_downpayment: "È recebido"
       sale_nature:
@@ -1145,6 +1148,7 @@ por:
     # replacements: "Replacements"
     reporter: "Repórter"
     request: "Pedido"
+    # request_compliant: "Request compliant"
     request_intervention: "Intervenção pedido"
     requests: "Pedidos"
     required: "Requeridos"

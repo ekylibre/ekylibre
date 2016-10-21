@@ -1043,6 +1043,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    # currency: "Currency"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1725,6 +1726,10 @@ eng:
     x_hours_worked:
       one: "%{count}\_h worked"
       other: "%{count}\_h worked"
+    x_incoming_parcels:
+      one: "%{count} incoming parcel"
+      other: "%{count} incoming parcels"
+      zero: "No incoming parcel"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1762,6 +1767,10 @@ eng:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} of %{y}"
+    x_outgoing_parcels:
+      one: "%{count} outgoing parcel"
+      other: "%{count} outgoing parcels"
+      zero: "No outgoing parcel"
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"

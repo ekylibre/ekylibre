@@ -36,7 +36,10 @@ deu:
         population: "Menge"
       plant:
         born_at: "gepflanzt bei"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Adresse für die Schätzung"
         has_downpayment: "Anzahlung empfangenen"
       sale_nature:
@@ -1145,6 +1148,7 @@ deu:
     replacements: "Ersatz"
     # reporter: "Reporter"
     request: "Anfordern"
+    # request_compliant: "Request compliant"
     request_intervention: "Antrag Intervention"
     requests: "Anfragen"
     required: "Erforderlich"

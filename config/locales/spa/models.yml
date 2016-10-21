@@ -36,7 +36,10 @@ spa:
         population: "Cantidad"
       plant:
         born_at: "Plantado en"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Dirección para la estimación"
         has_downpayment: "Pago Inicial recibida"
       sale_nature:
@@ -1149,6 +1152,7 @@ spa:
     replacements: "Reemplazos"
     reporter: "Reportero"
     request: "Solicitud"
+    # request_compliant: "Request compliant"
     request_intervention: "Solicitud de intervención"
     requests: "Peticiones"
     required: "Necesario"

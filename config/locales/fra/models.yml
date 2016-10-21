@@ -127,7 +127,8 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      purchase:  #?
+      purchase:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
         label: "Commande" #?
@@ -136,6 +137,7 @@ fra:
       purchase_item:  #?
         amount: "Montant TTC" #?
       sale:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
@@ -1405,6 +1407,7 @@ fra:
     replacements: "Remplacements"
     reporter: "Rapporteur"
     request: "Demande"
+    # request_compliant: "Request compliant"
     request_intervention: "Demande intervention"
     requests: "Demandes"
     required: "Obligatoire"

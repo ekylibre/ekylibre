@@ -1,6 +1,7 @@
 = kujaku do |k|
   - k.text
-  -# k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
+  - k.multi_choice :state, [:done, :in_progress, :validated, :rejected].map{ |s| [s.tl, s] }
+  - k.multi_choice :nature, [:request, :record].map{ |s| [s.tl, s] }
   - k.helper do
     %label= CultivableZone.model_name.human
     = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id), params[:cultivable_zone_id])

@@ -59,6 +59,9 @@ class Inspection < Ekylibre::Record::Base
   validates :activity, :product, presence: true
   # ]VALIDATORS]
   validates :product_net_surface_area, presence: true
+  validates :implanter_rows_number, presence: true
+  validates :implanter_application_width, presence: true
+  validates :sampling_distance, presence: true
 
   composed_of :product_net_surface_area, class_name: 'Measure',
                                          mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
@@ -80,46 +83,10 @@ class Inspection < Ekylibre::Record::Base
     where(product_id: products.map(&:id))
   }
 
-  before_validation :set_implanter_values, on: :create
-  before_validation :set_net_surface_area, on: :create
-
   before_validation do
     if implanter_application_width && implanter_rows_number && implanter_rows_number.nonzero?
       self.implanter_working_width = implanter_application_width / implanter_rows_number
     end
-  end
-
-  # SETTERS - before_validation
-  def set_net_surface_area
-    return unless product
-    area = product.net_surface_area if product.net_surface_area
-    area ||= product.shape.area if product.shape
-    self.product_net_surface_area_value ||= area.to_d(:hectare) if area
-    self.product_net_surface_area_unit ||= 'hectare' if area
-  end
-
-  def set_implanter_values
-    return unless product
-
-    # get sowing intervention of current plant
-    interventions = Intervention.real.with_outputs(product)
-    return if interventions.none?
-    # get abilities of each tool to grab sower or implanter
-    sower = interventions.first.tools.find do |tool|
-      equipment = tool.product
-      equipment.able_to?('sow') || equipment.able_to?('implant')
-    end
-
-    equipment = sower.product
-    return unless equipment
-
-    # get rows_count and application_width of sower or implanter
-    rows_count = equipment.variant.rows_count(sampled_at)
-    # rows_count = equipment.rows_count(self.sampled_at)
-    application_width = equipment.variant.application_width(sampled_at)
-    # set rows_count to implanter_application_width
-    self.implanter_rows_number ||= rows_count if rows_count
-    self.implanter_application_width ||= application_width.to_d(:meter) if application_width
   end
 
   # ORDERING

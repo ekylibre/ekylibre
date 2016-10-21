@@ -310,7 +310,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def payable?
-    (order? || invoice?) && sepable? && amount != 0.0
+    (order? || invoice?) && sepable? && amount != 0.0 && affair_balance != 0.0
   end
 
   def sepable?

@@ -75,13 +75,14 @@ module Backend
       t.column :payment_at
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
-      t.column :description
+      t.column :description, hidden: true
       t.column :supplier_payment_mode
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :affair_balance, currency: true, hidden: true
     end
 
     list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
