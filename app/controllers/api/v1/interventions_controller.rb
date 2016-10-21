@@ -36,6 +36,11 @@ module Api
           @interventions = @interventions.with_doers(user.worker)
         end
         if nature == 'request'
+          @interventions = @interventions
+                           .joins('LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id')
+                           .joins('LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id')
+                           .joins('LEFT JOIN products AS workers_included ON intervention_participations.product_id = workers_included.id')
+                           .where('workers_included.id IS NULL OR workers_included.id != ?', user.worker.id)
           if params[:with_interventions]
             if params[:with_interventions] == 'true'
               @interventions = @interventions.where(id: Intervention.select(:request_intervention_id))
