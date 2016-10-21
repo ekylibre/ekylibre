@@ -59,7 +59,25 @@ class InterventionAgent < InterventionProductParameter
   belongs_to :intervention, inverse_of: :agents
   validates :product, presence: true
 
-  delegate :working_duration, to: :intervention
+  delegate :working_duration, to: :intervention, prefix: true
+  
+  # return participation if exist
+  def participation
+    if product
+      participation = InterventionParticipation.find_by(product: product, intervention: intervention)
+    else
+      nil
+    end
+  end
+  
+  # compute working duration from participation if exist or from intervention directly
+  def working_duration
+    if participation
+      participation.working_periods.sum(:duration)
+    else
+      intervention_working_duration
+    end
+  end
 
   def cost_amount_computation
     return InterventionParameter::AmountComputation.failed unless product
