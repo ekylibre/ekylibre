@@ -36,7 +36,7 @@
 class InterventionParticipation < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :product
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod'
+  has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy
 
   validates :product_id, presence: true
   validates :intervention_id, uniqueness: { scope: [:product_id] }
