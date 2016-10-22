@@ -448,7 +448,8 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      purchase:  #?
+      purchase:
+        # affair_balance: "Balance"
         amount_with_taxes: "القيمة مع كل الضرائب" #?
         comment: "تعليق" #?
         created_at: "انشأت يوم" #?
@@ -473,6 +474,7 @@ arb:
         created_at: "انشأ في" #?
       sale:
         accounted_at: "تمت محاسبته في" #?
+        # affair_balance: "Balance"
         amount: "القيمة من دون تاضرائب" #?
         client_id: "عميل" #?
         contact: "عنوان للاقتياس"
@@ -2060,6 +2062,7 @@ arb:
     replacements: "بدلاء"
     reporter: "صحافي"
     request: "طلب"
+    # request_compliant: "Request compliant"
     request_intervention: "تدخل الطلب"
     requests: "طلبات"
     required: "الزامي"

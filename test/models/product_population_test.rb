@@ -24,7 +24,7 @@
 #
 #  created_at   :datetime
 #  creator_id   :integer
-#  id           :integer
+#  id           :integer          primary key
 #  lock_version :integer
 #  product_id   :integer
 #  started_at   :datetime

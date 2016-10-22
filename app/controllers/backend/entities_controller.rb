@@ -162,6 +162,24 @@ module Backend
       t.column :amount, currency: true, url: true
     end
 
+    list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :number, url: true
+      t.column :content_sentence, label: :contains
+      t.column :planned_at
+      t.column :created_at, hidden: true
+      t.column :state, label_method: :human_state_name
+      t.column :purchase, url: true
+    end
+
+    list(:outgoing_parcels, model: :parcels, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :number, url: true
+      t.column :content_sentence, label: :contains
+      t.column :planned_at
+      t.column :created_at,  hidden: true
+      t.column :state, label_method: :human_state_name
+      t.column :sale, url: true
+    end
+
     list(:purchases, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
       # t.action :show, url: {format: :pdf}, image: :print, hidden: true
       t.action :edit

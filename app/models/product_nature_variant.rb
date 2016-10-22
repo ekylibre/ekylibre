@@ -136,7 +136,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || !destroyable_accounts?
+      parcel_items.any? || has_accounts?
   end
 
   before_validation on: :create do
@@ -200,20 +200,22 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
-  def destroyable_accounts?
-    !storable? || (stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?)
+  def has_accounts?
+    return false unless storable?
+    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
   end
 
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
     unless storable?
-      raise ArgumentError, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
+      errors.add :stock_account, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
     end
 
     category_account = category.send(account_key)
     unless category_account
-      raise ArgumentError, "Account is not configure for #{self.name.inspect}. You have to check category first"
+      # We want to notice => raise.
+      raise :category_account, "Account is not configured for #{self.name.inspect}. You have to check category first"
     end
 
     options = {}

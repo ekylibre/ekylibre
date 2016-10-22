@@ -207,14 +207,19 @@ class InspectionPointTest < ActiveSupport::TestCase
       size_unit_name: 'millimeter'
     )
 
-    nature = @activity.inspection_calibration_scales.first.natures.create!(
+    c_nature = @activity.inspection_calibration_scales.first.natures.create!(
       marketable: true,
       minimal_value: 20,
       maximal_value: 30
     )
 
+    p_nature = @activity.inspection_point_natures.create!(
+      category: :disease,
+      name: "inspection_point_test"
+    )
+
     @inspection.calibrations.create!(
-      nature_id: nature.id,
+      nature_id: c_nature.id,
       items_count_value: 10,
       net_mass_value: 1,
       minimal_size_value: 5,
@@ -222,7 +227,7 @@ class InspectionPointTest < ActiveSupport::TestCase
     )
 
     point = @inspection.points.create!(
-      nature_id: nature.id,
+      nature_id: p_nature.id,
       net_mass_value: 1
     )
 

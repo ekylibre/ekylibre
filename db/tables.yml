@@ -3373,6 +3373,37 @@ intervention_parameters:
     limit:
       srid: 4326
       type: multi_polygon
+intervention_participations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+  request_compliant:
+    type: boolean
+    required: true
+    default: false
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_working_periods:
   created_at:
     type: datetime
@@ -3389,10 +3420,14 @@ intervention_working_periods:
   intervention_id:
     type: integer
     references: intervention
-    required: true
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
   started_at:
     type: datetime
     required: true
@@ -3448,6 +3483,8 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_compliant:
+    type: boolean
   request_intervention_id:
     type: integer
     references: intervention
@@ -4475,15 +4512,22 @@ observations:
 outgoing_payment_lists:
   created_at:
     type: datetime
-    required: true
+  creator_id:
+    type: integer
+    references: user
   id:
+    type: integer
+    required: true
+  lock_version:
     type: integer
     required: true
   number:
     type: string
   updated_at:
     type: datetime
-    required: true
+  updater_id:
+    type: integer
+    references: user
 outgoing_payment_modes:
   active:
     type: boolean

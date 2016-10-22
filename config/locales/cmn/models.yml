@@ -36,7 +36,10 @@ cmn:
         population: "数量"
       plant:
         born_at: "在种植"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "为估算地址"
         has_downpayment: "首付接收"
       sale_nature:
@@ -1146,6 +1149,7 @@ cmn:
     replacements: "更换"
     reporter: "记者"
     request: "请求"
+    # request_compliant: "Request compliant"
     request_intervention: "请求干预"
     requests: "要求"
     required: "需要"

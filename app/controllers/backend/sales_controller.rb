@@ -71,6 +71,7 @@ module Backend
       t.column :state_label
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :affair_balance, currency: true, hidden: true
     end
 
     # Displays the main page with the list of sales

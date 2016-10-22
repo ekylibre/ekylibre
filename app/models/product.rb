@@ -321,7 +321,7 @@ class Product < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any? || supports.any?
+    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any?
   end
 
   class << self

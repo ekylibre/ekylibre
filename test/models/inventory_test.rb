@@ -46,7 +46,16 @@ require 'test_helper'
 class InventoryTest < ActiveSupport::TestCase
   test_model_actions
   test 'refresh' do
-    inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15))
+    FinancialYear.destroy_all
+    year = FinancialYear.create!(
+      closed: false,
+      code: 'inventory_test',
+      currency: 'EUR',
+      currency_precision: 2,
+      started_on: Date.civil(2015, 1, 1),
+      stopped_on: Date.civil(2015, 12, 31)
+    )
+    inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15), financial_year: year)
     inventory.refresh!
     inventory.reflect
   end

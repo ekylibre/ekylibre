@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       resources :plant_density_abaci
       resources :plant_countings
       resources :plants
+      resources :intervention_participations, only: [:create]
     end
   end
 
@@ -410,11 +411,13 @@ Rails.application.routes.draw do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
         get :list_event_participations
         get :list_incoming_payments
+        get :list_incoming_parcels
         get :list_issues
         get :list_links
         get :list_purchases
         get :list_observations
         get :list_outgoing_payments
+        get :list_outgoing_parcels
         get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions

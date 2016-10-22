@@ -299,7 +299,54 @@ module Ekylibre
           puts (tenant[:name] + " : done").yellow
         end
 
+        load!
+
         puts 'Task done'.blue
+      end
+
+      def list_tenant_with_table_not_exist(table_name)
+
+        tenants = []
+
+        list.each do |tenant|
+
+          Ekylibre::Tenant::switch! tenant
+
+          connection = ActiveRecord::Base.connection
+          result = connection.execute(
+                          "SELECT EXISTS(
+                            SELECT 1
+                            FROM information_schema.tables
+                            WHERE table_schema = current_schema()
+                            AND table_name = '#{table_name}'
+                          )"
+                        ).to_a
+
+          next if result.first.has_value?("t")
+
+          migration_version = ActiveRecord::Migrator.current_version
+          tenants << { name: tenant, migration_version: migration_version }
+        end
+
+        tenants
+      end
+
+      def remove_last_migration_and_migrate!(tenant_name)
+
+        Ekylibre::Tenant::switch! tenant_name
+
+        ActiveRecord::Base.connection.execute(
+          "DELETE FROM schema_migrations
+           WHERE version IN (
+              SELECT version
+              FROM schema_migrations
+              ORDER BY version DESC
+              LIMIT 1
+          )")
+
+        ActiveRecord::Migrator.migrate "db/migrate"
+
+        load!
       end
 
       private

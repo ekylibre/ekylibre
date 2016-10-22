@@ -2200,6 +2200,10 @@ arb:
     x_hours_worked:
       # one: "%{count}\_h worked"
       # other: "%{count}\_h worked"
+    x_incoming_parcels:
+      # one: "%{count} incoming parcel"
+      # other: "%{count} incoming parcels"
+      # zero: "No incoming parcel"
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
@@ -2248,6 +2252,10 @@ arb:
       one: "عمل واحد" #?
       other: "%{count} اعمال اخرى" #?
       zero: "ولا اي عمل" #?
+    x_outgoing_parcels:
+      # one: "%{count} outgoing parcel"
+      # other: "%{count} outgoing parcels"
+      # zero: "No outgoing parcel"
     x_outgoing_payments:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"

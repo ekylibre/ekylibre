@@ -7905,7 +7905,7 @@ journal_entry_items_262:
   debit: 176.16
   entry_id: 87
   entry_number: BNK000011
-  financial_year_id: 26
+  financial_year_id: 25
   id: 480
   journal_id: 2
   lock_version: 0
@@ -7933,7 +7933,7 @@ journal_entry_items_263:
   debit: 0.0
   entry_id: 87
   entry_number: BNK000011
-  financial_year_id: 26
+  financial_year_id: 25
   id: 481
   journal_id: 2
   lock_version: 0
@@ -7961,7 +7961,7 @@ journal_entry_items_264:
   debit: 1850.0
   entry_id: 86
   entry_number: BNK000010
-  financial_year_id: 26
+  financial_year_id: 25
   id: 482
   journal_id: 2
   lock_version: 0
@@ -7989,7 +7989,7 @@ journal_entry_items_265:
   debit: 0.0
   entry_id: 86
   entry_number: BNK000010
-  financial_year_id: 26
+  financial_year_id: 25
   id: 483
   journal_id: 2
   lock_version: 0

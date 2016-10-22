@@ -21,12 +21,6 @@
   = f.input :born_at
   #dead_at= f.input :dead_at
   = f.picture
-  = f.nested_association(:emails)
-  = f.nested_association(:mails)
-  = f.nested_association(:phones)
-  = f.nested_association(:mobiles)
-  = f.nested_association(:faxes)
-  = f.nested_association(:websites)
 
 = field_set(:client_informations) do
   = f.input :prospect
