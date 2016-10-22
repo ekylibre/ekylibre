@@ -16,6 +16,9 @@
   <item-change item="accounts#vat" pt_snc="243"/>
   <item-change item="accounts#enterprise_deductible_vat" pt_snc="2432"/>
   <item-change item="accounts#enterprise_collected_vat" pt_snc="2433"/>
+  <item-change item="accounts#deductible_vat" pt_snc="2432"/>
+  <item-change item="accounts#collected_vat" pt_snc="2433"/>
+  <item-change item="accounts#deductible_asset_vat" pt_snc="24322"/>
   <item-change item="accounts#holding_company_and_associate_accounts" pt_snc="26"/>
   <item-change item="accounts#stocks" pt_snc="3"/>
   <item-change item="accounts#fixed_assets" pt_snc="4"/>
@@ -24,6 +27,7 @@
   <item-creation item="accounts#incorporeal_assets" fr_pcga="20" pt_snc="44"/>
   <item-change item="accounts#capitals" pt_snc="5"/>
   <item-change item="accounts#expenses" pt_snc="6"/>
+  <item-change item="accounts#stocks_variation" pt_snc="603"/>
   <item-change item="accounts#staff_expenses" pt_snc="63"/>
   <item-change item="accounts#depreciations_inputations_expenses" pt_snc="64"/>
   <item-change item="accounts#revenues" pt_snc="7"/>

@@ -137,7 +137,7 @@
       <item name="catalog_and_print_expenses" fr_pcg82="6236"/>
       <item name="clients" fr_pcg82="411" pt_snc="21"/>
       <item name="co_ownership_and_locative_expenses" fr_pcga="614"/>
-      <item name="collected_vat" fr_pcg82="44571"/>
+      <item name="collected_vat" fr_pcg82="44571" pt_snc="2433"/>
       <item name="collected_vat_to_resolve" fr_pcg82="44575"/>
       <item name="compensation_operations" fr_pcg82="472"/>
       <item name="concession_asset_depreciations" fr_pcg82="282"/>
@@ -154,8 +154,8 @@
       <item name="creditor_clients" fr_pcg82="419" pt_snc="219"/>
       <item name="debit_retained_earnings" fr_pcg82="119"/>
       <item name="debtor_suppliers" fr_pcg82="409"/>
-      <item name="deductible_asset_vat" fr_pcg82="44562"/>
-      <item name="deductible_vat" fr_pcg82="44566"/>
+      <item name="deductible_asset_vat" fr_pcg82="44562" pt_snc="24322"/>
+      <item name="deductible_vat" fr_pcg82="44566" pt_snc="2432"/>
       <item name="deductible_vat_to_resolve" fr_pcg82="44565"/>
       <item name="deferred_expense_accounts" fr_pcg82="481"/>
       <item name="deprecated_client_entity_accounts" fr_pcg82="491"/>
@@ -466,7 +466,7 @@
       <item name="state_and_other_public_entities" fr_pcg82="44" pt_snc="24"/>
       <item name="state_emission_quota_to_restitute" fr_pcg82="449"/>
       <item name="stocks" fr_pcg82="3" pt_snc="3"/>
-      <item name="stocks_variation" fr_pcga="603"/>
+      <item name="stocks_variation" fr_pcga="603" pt_snc="603"/>
       <item name="studies_and_research_expenses" fr_pcga="617"/>
       <item name="subcontracting_expenses" fr_pcg82="611"/>
       <item name="subsidies" fr_pcga="745"/>
