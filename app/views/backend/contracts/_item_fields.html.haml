@@ -1,9 +1,12 @@
 - item ||= f.object
+- variant = Maybe(item.variant)
+
 %tbody.nested-fields{ data: { trade_item: "purchasing" } }
   %tr
     %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, input_html: {data: {trade_component: "variant"}})
-    %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
+    %td.decimal
+      = f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
     %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
     %td.currency= f.object.currency
