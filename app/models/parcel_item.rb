@@ -109,7 +109,7 @@ class ParcelItem < Ekylibre::Record::Base
       # purchase contrat case
       if contract && contract.items.where(variant: variant).any?
         item = contract.items.where(variant_id: variant.id).first
-        self.unit_pretax_amount = item.unit_pretax_amount if item && item.unit_pretax_amount
+        self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
       end
     end
     read_at = parcel ? parcel_prepared_at : Time.zone.now
