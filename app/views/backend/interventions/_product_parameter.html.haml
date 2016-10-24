@@ -52,8 +52,12 @@
         %p
           - if product_parameter.is_population?
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
-          - elsif product_parameter.product.france_maaid
-            = lights(:caution)
+          - elsif product_parameter.product.france_maaid && product_parameter.is_a?(InterventionInput)
+            - product_parameter.reglementary_status.each do |key, h|
+              .details
+                = h[:name]
+                = h[:legal_dose].round(2).l(precision: 0)
+                = lights(h[:status])
             = product_parameter.quantity.round(2).l(precision: 0)
           - else
             = product_parameter.quantity.round(2).l(precision: 0)
