@@ -567,14 +567,16 @@ class Intervention < Ekylibre::Record::Base
 
   def update_state(additional_state = nil)
     return unless participations.any? || !additional_state.nil?
-    new_state = participations.pluck(:state).concat([additional_state]).compact.find { |s| s.to_sym == :in_progress }
-    update(state: new_state) if new_state.present?
+    states = participations.pluck(:state).concat([additional_state]).map(&:to_sym).compact
+    update(state: :in_progress) if states.index(:in_progress)
+    update(state: :done) if (states - [:done]).empty?
   end
 
   def update_compliance(additional_compliance = nil)
     return unless participations.any? || !additional_compliance.nil?
-    new_compliance = participations.pluck(:request_compliant).concat([additional_compliance]).compact.find(&:!)
-    update(request_compliant: new_compliance) unless new_compliance.nil?
+    compliances = participations.pluck(:request_compliant).concat([additional_compliance]).compact
+    update(request_compliant: false) if compliances.index(false)
+    update(request_compliant: true) if (states - [true]).empty?
   end
 
   class << self
