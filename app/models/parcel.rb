@@ -24,7 +24,6 @@
 #
 #  accounted_at                 :datetime
 #  address_id                   :integer
-#  contract_id                  :integer
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  currency                     :string
@@ -42,7 +41,6 @@
 #  planned_at                   :datetime         not null
 #  position                     :integer
 #  prepared_at                  :datetime
-#  pretax_amount                :decimal(19, 4)   default(0.0), not null
 #  purchase_id                  :integer
 #  recipient_id                 :integer
 #  reference_number             :string
@@ -86,7 +84,6 @@ class Parcel < Ekylibre::Record::Base
   validates :nature, presence: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
   validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true

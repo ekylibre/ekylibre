@@ -1459,133 +1459,6 @@ catalogs:
   usage:
     type: string
     required: true
-contract_items:
-  contract_id:
-    type: integer
-    references: ''
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: ''
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  unit_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: ''
-  variant_id:
-    type: integer
-    references: ''
-    required: true
-contract_natures:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: ''
-  currency:
-    type: string
-    required: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: ''
-contracts:
-  active:
-    type: boolean
-    required: true
-    default: false
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: ''
-  currency:
-    type: string
-    required: true
-  custom_fields:
-    type: jsonb
-  description:
-    type: string
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  nature_id:
-    type: integer
-    references: ''
-    required: true
-  number:
-    type: string
-  pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  reference_number:
-    type: string
-  responsible_id:
-    type: integer
-    references: ''
-    required: true
-  started_on:
-    type: date
-  state:
-    type: string
-  stopped_on:
-    type: date
-  supplier_id:
-    type: integer
-    references: ''
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: ''
 crumbs:
   accuracy:
     type: decimal
@@ -4670,11 +4543,6 @@ parcel_items:
     type: decimal
     precision: 19
     scale: 4
-  pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   product_enjoyment_id:
     type: integer
     references: product_enjoyment
@@ -4711,11 +4579,6 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
-  unit_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   unit_pretax_stock_amount:
     type: decimal
     precision: 19
@@ -4736,9 +4599,6 @@ parcels:
   address_id:
     type: integer
     references: entity_address
-  contract_id:
-    type: integer
-    references: ''
   created_at:
     type: datetime
     required: true
@@ -4782,11 +4642,6 @@ parcels:
     type: integer
   prepared_at:
     type: datetime
-  pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   purchase_id:
     type: integer
     references: purchase
@@ -6159,9 +6014,6 @@ purchases:
     required: true
   confirmed_at:
     type: datetime
-  contract_id:
-    type: integer
-    references: ''
   created_at:
     type: datetime
     required: true

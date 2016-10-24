@@ -1495,126 +1495,6 @@ ALTER SEQUENCE catalogs_id_seq OWNED BY catalogs.id;
 
 
 --
--- Name: contract_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE contract_items (
-    id integer NOT NULL,
-    contract_id integer NOT NULL,
-    variant_id integer NOT NULL,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
-    unit_pretax_amount numeric(19,4) NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: contract_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE contract_items_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: contract_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE contract_items_id_seq OWNED BY contract_items.id;
-
-
---
--- Name: contract_natures; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE contract_natures (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    currency character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: contract_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE contract_natures_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: contract_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE contract_natures_id_seq OWNED BY contract_natures.id;
-
-
---
--- Name: contracts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE contracts (
-    id integer NOT NULL,
-    nature_id integer NOT NULL,
-    active boolean DEFAULT false NOT NULL,
-    name character varying NOT NULL,
-    number character varying,
-    description character varying,
-    state character varying,
-    reference_number character varying,
-    started_on date,
-    stopped_on date,
-    custom_fields jsonb,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    currency character varying NOT NULL,
-    responsible_id integer NOT NULL,
-    supplier_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE contracts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE contracts_id_seq OWNED BY contracts.id;
-
-
---
 -- Name: crumbs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4173,9 +4053,7 @@ CREATE TABLE parcel_items (
     product_identification_number character varying,
     product_name character varying,
     currency character varying,
-    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -4235,9 +4113,7 @@ CREATE TABLE parcels (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    undelivered_invoice_entry_id integer,
-    contract_id integer,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    undelivered_invoice_entry_id integer
 );
 
 
@@ -5012,11 +4888,11 @@ CREATE TABLE product_nature_variants (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
+    france_maaid character varying,
     gtin character varying,
     number character varying NOT NULL,
     stock_account_id integer,
-    stock_movement_account_id integer,
-    france_maaid character varying
+    stock_movement_account_id integer
 );
 
 
@@ -5443,8 +5319,7 @@ CREATE TABLE purchases (
     undelivered_invoice_entry_id integer,
     quantity_gap_on_invoice_entry_id integer,
     payment_delay character varying,
-    payment_at timestamp without time zone,
-    contract_id integer
+    payment_at timestamp without time zone
 );
 
 
@@ -6481,27 +6356,6 @@ ALTER TABLE ONLY catalogs ALTER COLUMN id SET DEFAULT nextval('catalogs_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY contract_items ALTER COLUMN id SET DEFAULT nextval('contract_items_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_natures ALTER COLUMN id SET DEFAULT nextval('contract_natures_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contracts ALTER COLUMN id SET DEFAULT nextval('contracts_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY crumbs ALTER COLUMN id SET DEFAULT nextval('crumbs_id_seq'::regclass);
 
 
@@ -7493,30 +7347,6 @@ ALTER TABLE ONLY catalog_items
 
 ALTER TABLE ONLY catalogs
     ADD CONSTRAINT catalogs_pkey PRIMARY KEY (id);
-
-
---
--- Name: contract_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_items
-    ADD CONSTRAINT contract_items_pkey PRIMARY KEY (id);
-
-
---
--- Name: contract_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_natures
-    ADD CONSTRAINT contract_natures_pkey PRIMARY KEY (id);
-
-
---
--- Name: contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contracts
-    ADD CONSTRAINT contracts_pkey PRIMARY KEY (id);
 
 
 --
@@ -9724,139 +9554,6 @@ CREATE INDEX index_catalogs_on_updated_at ON catalogs USING btree (updated_at);
 --
 
 CREATE INDEX index_catalogs_on_updater_id ON catalogs USING btree (updater_id);
-
-
---
--- Name: index_contract_items_on_contract_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_items_on_contract_id ON contract_items USING btree (contract_id);
-
-
---
--- Name: index_contract_items_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_items_on_created_at ON contract_items USING btree (created_at);
-
-
---
--- Name: index_contract_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_items_on_creator_id ON contract_items USING btree (creator_id);
-
-
---
--- Name: index_contract_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_items_on_updated_at ON contract_items USING btree (updated_at);
-
-
---
--- Name: index_contract_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_items_on_updater_id ON contract_items USING btree (updater_id);
-
-
---
--- Name: index_contract_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_items_on_variant_id ON contract_items USING btree (variant_id);
-
-
---
--- Name: index_contract_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_created_at ON contract_natures USING btree (created_at);
-
-
---
--- Name: index_contract_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_creator_id ON contract_natures USING btree (creator_id);
-
-
---
--- Name: index_contract_natures_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_name ON contract_natures USING btree (name);
-
-
---
--- Name: index_contract_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_updated_at ON contract_natures USING btree (updated_at);
-
-
---
--- Name: index_contract_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_updater_id ON contract_natures USING btree (updater_id);
-
-
---
--- Name: index_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_created_at ON contracts USING btree (created_at);
-
-
---
--- Name: index_contracts_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_creator_id ON contracts USING btree (creator_id);
-
-
---
--- Name: index_contracts_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_name ON contracts USING btree (name);
-
-
---
--- Name: index_contracts_on_nature_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_nature_id ON contracts USING btree (nature_id);
-
-
---
--- Name: index_contracts_on_responsible_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_responsible_id ON contracts USING btree (responsible_id);
-
-
---
--- Name: index_contracts_on_supplier_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_supplier_id ON contracts USING btree (supplier_id);
-
-
---
--- Name: index_contracts_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_updated_at ON contracts USING btree (updated_at);
-
-
---
--- Name: index_contracts_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_updater_id ON contracts USING btree (updater_id);
 
 
 --
@@ -12884,13 +12581,6 @@ CREATE INDEX index_parcels_on_address_id ON parcels USING btree (address_id);
 
 
 --
--- Name: index_parcels_on_contract_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcels_on_contract_id ON parcels USING btree (contract_id);
-
-
---
 -- Name: index_parcels_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14620,13 +14310,6 @@ CREATE INDEX index_purchases_on_affair_id ON purchases USING btree (affair_id);
 
 
 --
--- Name: index_purchases_on_contract_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_purchases_on_contract_id ON purchases USING btree (contract_id);
-
-
---
 -- Name: index_purchases_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16135,8 +15818,7 @@ INSERT INTO schema_migrations (version) VALUES ('20161012145600');
 
 INSERT INTO schema_migrations (version) VALUES ('20161012145700');
 
-INSERT INTO schema_migrations (version) VALUES ('20161013235101');
-
 INSERT INTO schema_migrations (version) VALUES ('20161013023259');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018162500');
+

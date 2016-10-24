@@ -26,7 +26,6 @@
 #  affair_id                        :integer
 #  amount                           :decimal(19, 4)   default(0.0), not null
 #  confirmed_at                     :datetime
-#  contract_id                      :integer
 #  created_at                       :datetime         not null
 #  creator_id                       :integer
 #  currency                         :string           not null
