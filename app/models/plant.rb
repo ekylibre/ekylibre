@@ -67,6 +67,7 @@
 #  work_number           :string
 #
 class Plant < Bioproduct
+  has_many :plant_countings
   refers_to :variety, scope: :plant
 
   has_shape

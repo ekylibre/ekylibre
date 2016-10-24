@@ -1,0 +1,30 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :read_at
+    - l.attribute :sampling_area
+    - l.attribute :product_net_surface_area
+    - l.attribute :plant, url: true
+
+= cobbles do |c|
+  - c.cobble :general_infos do
+    %p= resource.plant_density_abacus_item.seeding_density
+    %p= "Comptage réalisé → Au semis ou à la levée, sélectionné avec l’appli Zero -- NOT STORED."
+    %p= resource.plant_density_abacus.germination_percentage
+
+  - c.cobble :observations do
+    %p= resource.comment
+
+  - c.cobble :totals do
+    %p= "État → Récupérer la « valeur » avec le calcul fait par Zero -- NOT STORED"
+    %p= resource.plant_density_abacus_item.seeding_density + " Densité théorique → Densité du semoir si comptage fait au semis ou (densité du semoir*taux de germination) si comptage fait à la levée"
+    %p= resource.average_value.to_s + " Densité réelle → Densité calculée à partir du comptage = (nb de graines comptées*nb rangs*10000)/largeur de l’outil (m), on obtient le résultat en unité/ha à afficher dans la même unité que la densité théorique, unité choisie dans le paramétrage des comptages de l’activité."
+    %p= resource.plant_density_abacus_item.plants_count
+    %p= "Nombre de graines comptées → Moyenne des comptages effectués, envoyée par Zero. -- NOT STORED"
+
+  - c.cobble :data do
+    %p= "Détail des comptages et moyennes obtenues."

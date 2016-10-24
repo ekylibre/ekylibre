@@ -705,6 +705,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :plant_countings, concerns: [:list]
+
     resources :product_groups, concerns: :products
 
     resources :product_localizations, except: [:index, :show]
