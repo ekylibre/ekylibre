@@ -1828,6 +1828,7 @@ arb:
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
     reconciled_total: "مجموعه التوفيق"
+    # record: "Record"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
     record_maintenance: "صيانة المسجلات"
@@ -1837,6 +1838,7 @@ arb:
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
     register_intervention_request: "تسجيل طلب تدخل"
+    # rejected: "Rejected"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     relationship: "صلة"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1852,6 +1854,7 @@ arb:
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
+    # request: "Request"
     request_maintenance: "صيانة الطلب"
     requests: "طلبات"
     reservoir: "الاحتياطي" #?

@@ -1456,12 +1456,14 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
+    record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
+    rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1474,6 +1476,7 @@ eng:
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
+    request: "Request" #?
     request_maintenance: "Request maintenance"
     requests: "Requests"
     reset: "Reset"
