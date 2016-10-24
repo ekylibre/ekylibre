@@ -1689,6 +1689,7 @@ fra:
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
     reconciled_total: "Total rapproché"
+    record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
@@ -1697,6 +1698,7 @@ fra:
     reflections: "Réflections"
     refresh: "Rafraîchir"
     register_intervention_request: "Enregistrer la demande d'intervention"
+    rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
     relationship_of_entity: "%{relationship} de %{entity}"
@@ -1718,6 +1720,7 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    request: "Demande"
     request_maintenance: "Demander une maintenance"
     requests: "Demandes"
     reservoir: "Réservoir" #?
@@ -2039,7 +2042,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validées"
+    validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"

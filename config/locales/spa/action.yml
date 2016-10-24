@@ -1453,6 +1453,7 @@ spa:
     received: "Recibido"
     recent_events: "Eventos recientes"
     reconciled_total: "total conciliado"
+    # record: "Record"
     record_maintenance: "El mantenimiento de registros"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
@@ -1460,6 +1461,7 @@ spa:
     refresh: "Refrescar"
     register: "Crear una nueva compañía" #?
     register_intervention_request: "Register solicitud de intervención"
+    # rejected: "Rejected"
     relations: "Relaciones clientos/abastecedores" #?
     relationship: "Relación"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1475,6 +1477,7 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
+    # request: "Request"
     request_maintenance: "Solicitud de mantenimiento"
     requests: "Peticiones"
     reservoir: "Deposito" #?

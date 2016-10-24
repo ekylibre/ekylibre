@@ -11,7 +11,7 @@
   - if senders.any?
     - k.helper do
       %label= Parcel.human_attribute_name(:sender)
-      = select_tag(:sender_id, options_for_select([[]] + senders.order(:name).collect{|u| [u.name, u.id]}, params[:sender_id]))    
+      = select_tag(:sender_id, options_for_select([[]] + senders.order(:name).collect{|u| [u.name, u.id]}, params[:sender_id]))
   -# - senders = Entity.all
   -# - if senders.any?
   -#   - k.helper do
