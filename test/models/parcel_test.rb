@@ -101,7 +101,7 @@ class ParcelTest < ActiveSupport::TestCase
     parcel.give!
     @variant.reload
 
-    assert_equal  2, @variant.products.count
+    assert_equal 2, @variant.products.count
     assert_equal 20, @variant.products.order(:created_at).last.population
   end
 
@@ -115,7 +115,7 @@ class ParcelTest < ActiveSupport::TestCase
 
     @variant.reload
 
-    assert_equal       1, @variant.products.count
+    assert_equal 1, @variant.products.count
     assert_equal 50 + 20, @variant.products.order(:created_at).first.population
   end
 

@@ -192,10 +192,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-
-    if support.is_a?(LandParcel)
-      support.destroy
-    end
+    support.destroy if support.is_a?(LandParcel)
 
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end

@@ -215,7 +215,7 @@ class InspectionPointTest < ActiveSupport::TestCase
 
     p_nature = @activity.inspection_point_natures.create!(
       category: :disease,
-      name: "inspection_point_test"
+      name: 'inspection_point_test'
     )
 
     @inspection.calibrations.create!(

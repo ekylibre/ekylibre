@@ -175,7 +175,7 @@ module Backend
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
-      t.column :created_at,  hidden: true
+      t.column :created_at, hidden: true
       t.column :state, label_method: :human_state_name
       t.column :sale, url: true
     end

@@ -35,7 +35,7 @@ module Api
       test 'handles completely wrong payload graciously' do
         add_auth_header
 
-        assert_nothing_raised { post(:create, { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 }) }
+        assert_nothing_raised { post(:create, yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441) }
       end
 
       test 'instantiate an intervention if it doesn\'t exist' do
