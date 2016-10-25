@@ -32,6 +32,8 @@ spa:
         # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
+      parcel:
+        # contract: "Contract"
       parcel_item:
         population: "Cantidad"
       plant:
@@ -486,6 +488,7 @@ spa:
     content_localizations: "Localizaciones de contenido"
     contents: "Contenido"
     # contract: "Contract"
+    # contracts: "Contracts"
     coordinate: "Coordinar"
     coordinate_columns: "Coordinar columnas"
     # costs_per_unit: "Costs per %{unit}"
@@ -1422,6 +1425,12 @@ spa:
       # name: "%{variant} %{amount}/%{unit}"
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        # lost: "Lost"
+        # negociation: "Negociation"
+        # price_quote: "Price quote"
+        # prospecting: "Prospecting"
+        # won: "Won"
     delivery:
       state_machine:
         states:

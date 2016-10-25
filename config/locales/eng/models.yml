@@ -32,6 +32,8 @@ eng:
         list: "Outgoing payment list"
       outgoing_payment_list:
         payments_sum: "Total"
+      parcel:
+        contract: "Contract"
       parcel_item:
         population: "Quantity"
       plant:
@@ -490,7 +492,7 @@ eng:
     contents: "Contents"
     contract: "Contract"
     # contract_items: "Contract items"
-    # contracts: "Contracts"
+    contracts: "Contracts"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
     costs_per_unit: "Costs per %{unit}" #?
@@ -1435,6 +1437,12 @@ eng:
       name: "%{variant} %{amount}/%{unit}"
     contract:
       label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        lost: "Lost"
+        negociation: "Negociation"
+        price_quote: "Price quote"
+        prospecting: "Prospecting"
+        won: "Won"
     delivery:
       state_machine:
         states:

@@ -32,6 +32,8 @@ jpn:
         # list: "Outgoing payment list"
       outgoing_payment_list:
         # payments_sum: "Total"
+      parcel:
+        # contract: "Contract"
       parcel_item:
         population: "量"
       plant:
@@ -483,6 +485,7 @@ jpn:
     content_localizations: "コンテンツのローカライズ"
     contents: "コンテンツ"
     # contract: "Contract"
+    # contracts: "Contracts"
     coordinate: "座標"
     coordinate_columns: "列の座標"
     # costs_per_unit: "Costs per %{unit}"
@@ -1418,6 +1421,12 @@ jpn:
       # name: "%{variant} %{amount}/%{unit}"
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        # lost: "Lost"
+        # negociation: "Negociation"
+        # price_quote: "Price quote"
+        # prospecting: "Prospecting"
+        # won: "Won"
     delivery:
       state_machine:
         states:

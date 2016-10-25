@@ -424,6 +424,7 @@ Rails.application.routes.draw do
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
+        get :list_contracts
         get :list_event_participations
         get :list_incoming_payments
         get :list_incoming_parcels

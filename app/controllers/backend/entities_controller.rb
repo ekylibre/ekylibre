@@ -100,6 +100,21 @@ module Backend
       # t.column :balance, currency: true, hidden: true
     end
 
+    list(:contracts, conditions: { supplier_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :reference_number, url: true
+      t.column :created_at
+      t.column :started_on
+      t.column :stopped_on, hidden: true
+      t.column :responsible, url: true, hidden: true
+      t.column :description, hidden: true
+      t.status
+      t.column :state_label
+      t.column :pretax_amount, currency: true
+    end
+
     list(:event_participations, conditions: { participant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.action :edit
       t.action :destroy

@@ -329,6 +329,8 @@ arb:
         updater_id: "التعديل" #?
       parameter:  #?
         updated_at: "تم تحديثها في" #?
+      parcel:
+        # contract: "Contract"
       parcel_item:
         population: "كمية"
       plant:
@@ -1186,6 +1188,7 @@ arb:
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
     # contract: "Contract"
+    # contracts: "Contracts"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
     # costs_per_unit: "Costs per %{unit}"
@@ -2601,6 +2604,12 @@ arb:
       error_modify_contact: "من المستحيل تعديل الاسماء" #?
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        # lost: "Lost"
+        # negociation: "Negociation"
+        # price_quote: "Price quote"
+        # prospecting: "Prospecting"
+        # won: "Won"
     custom_field:  #?
       natures: #?
         boolean: "صندوق للتحقق" #?

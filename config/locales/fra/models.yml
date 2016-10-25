@@ -100,6 +100,8 @@ fra:
         payments_sum: "Total"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel:
+        contract: "Contrat"
       parcel_item:
         population: "Quantité"
       plant:
@@ -641,6 +643,7 @@ fra:
     contents: "Contenu"
     contour: "Silhouette" #?
     # contract: "Contract"
+    # contracts: "Contracts"
     coordinate: "Coordonnée"
     coordinate_columns: "Colonnes de coordonnées"
     costs_per_unit: "Coût par %{unit}"
@@ -1694,6 +1697,12 @@ fra:
       name: "%{variant} %{amount}/%{unit}"
     contract:
       label: "Contrat %{nature} n° %{number} de %{supplier}"
+      states:
+        lost: "Perdu"
+        negociation: "Négociation"
+        price_quote: "Quotation"
+        prospecting: "Prospection"
+        won: "Gagné"
     delivery:
       state_machine:
         states:

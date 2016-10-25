@@ -120,7 +120,7 @@ class Contract < Ekylibre::Record::Base
   end
 
   protect on: :destroy do
-    has_content? || self.parcels.any? || self.purchases.any?
+    self.parcels.any? || self.purchases.any?
   end
 
   def has_content?

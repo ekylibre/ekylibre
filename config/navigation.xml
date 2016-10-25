@@ -1887,6 +1887,7 @@
         <page to="backend/buildings#list_trackings"/>
       </item>
       <item name="entities">
+        <page to="backend/entities#list_contracts"/>
         <page to="backend/entities#list_incoming_parcels"/>
         <page to="backend/entities#list_outgoing_parcels"/>
       </item>

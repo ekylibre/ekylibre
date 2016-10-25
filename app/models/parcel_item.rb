@@ -127,7 +127,7 @@ class ParcelItem < Ekylibre::Record::Base
     end
     true
   end
-  
+
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
       if parcel_incoming?

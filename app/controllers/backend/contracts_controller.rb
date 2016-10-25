@@ -46,6 +46,7 @@ module Backend
       t.column :started_on
       t.column :stopped_on, hidden: true
       t.column :supplier, url: true
+      t.column :responsible, url: true, hidden: true
       t.column :description, hidden: true
       t.status
       t.column :state_label
@@ -64,8 +65,9 @@ module Backend
       t.action :destroy, if: :draft?
       t.column :number, url: true
       t.column :reference_number, url: true
-      t.column :address, children: :product_name
-      t.column :given_at, children: false
+      t.column :content_sentence, label: :contains
+      t.column :address, hidden: true
+      t.column :given_at
       t.status
       t.column :pretax_amount, currency: true
     end
