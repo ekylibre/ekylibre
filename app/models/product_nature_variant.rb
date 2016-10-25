@@ -351,6 +351,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     list
   end
 
+  def contractual_prices
+    contract_items
+      .pluck(:contract_id, :unit_pretax_amount)
+      .to_h
+      .map { |contract_id, price| [Contract.find(contract_id), price] }
+      .to_h
+  end
+
   # Get indicator value
   # if option :at specify at which moment
   # if option :reading is true, it returns the ProductNatureVariantReading record
