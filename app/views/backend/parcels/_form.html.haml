@@ -14,6 +14,7 @@
     = f.input :reference_number
     = f.referenced_association :storage, source: :storage, required: true
     = f.input :separated_stock
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter

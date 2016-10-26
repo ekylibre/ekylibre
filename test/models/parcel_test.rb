@@ -47,6 +47,7 @@
 #  recipient_id                 :integer
 #  reference_number             :string
 #  remain_owner                 :boolean          default(FALSE), not null
+#  responsible_id               :integer
 #  sale_id                      :integer
 #  sender_id                    :integer
 #  separated_stock              :boolean

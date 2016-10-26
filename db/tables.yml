@@ -4802,6 +4802,9 @@ parcels:
     type: boolean
     required: true
     default: false
+  responsible_id:
+    type: integer
+    references: user
   sale_id:
     type: integer
     references: sale

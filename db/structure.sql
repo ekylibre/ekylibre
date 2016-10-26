@@ -4238,7 +4238,8 @@ CREATE TABLE parcels (
     journal_entry_id integer,
     undelivered_invoice_entry_id integer,
     contract_id integer,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    responsible_id integer
 );
 
 
@@ -12954,6 +12955,13 @@ CREATE INDEX index_parcels_on_recipient_id ON parcels USING btree (recipient_id)
 
 
 --
+-- Name: index_parcels_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_responsible_id ON parcels USING btree (responsible_id);
+
+
+--
 -- Name: index_parcels_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16147,4 +16155,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161013235101');
 INSERT INTO schema_migrations (version) VALUES ('20161014191401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018162500');
+
+INSERT INTO schema_migrations (version) VALUES ('20161026094401');
 
