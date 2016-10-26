@@ -7,24 +7,48 @@
     - l.attribute :number
     - l.attribute :read_at
     - l.attribute :sampling_area
-    - l.attribute :product_net_surface_area
+    - l.attribute :plant_net_surface_area
     - l.attribute :plant, url: true
 
 = cobbles do |c|
-  - c.cobble :general_infos do
-    %p= resource.plant_density_abacus_item.seeding_density
-    %p= "Comptage réalisé → Au semis ou à la levée, sélectionné avec l’appli Zero -- NOT STORED."
-    %p= resource.plant_density_abacus.germination_percentage
+  - c.cobble :general_informations do
+    = infos do
+      .med-info
+        %span.title= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
+        %span.value= resource.seeding_density_value
+      .med-info
+        %span.title= PlantCounting.human_attribute_name :nature
+        %span.value= resource.nature.tl
+      .med-info
+        %span.title= PlantDensityAbacus.human_attribute_name :germination_percentage
+        %span.value= resource.germination_percentage
 
   - c.cobble :observations do
-    %p= resource.comment
+    = infos do
+      .med-info= resource.comment
 
   - c.cobble :totals do
-    %p= resource.state
-    %p= resource.plant_density_abacus_item.seeding_density_value.to_s + " Densité théorique → Densité du semoir si comptage fait au semis ou (densité du semoir*taux de germination) si comptage fait à la levée"
-    %p= " Densité réelle → Densité calculée à partir du comptage = (nb de graines comptées*nb rangs*10000)/largeur de l’outil (m), on obtient le résultat en unité/ha à afficher dans la même unité que la densité théorique, unité choisie dans le paramétrage des comptages de l’activité. -- CALCUL A FAIRE"
-    %p= resource.plant_density_abacus_item.plants_count
-    %p= resource.average_value
+    = infos do
+      .big-info
+        %span.title= PlantCounting.human_attribute_name :status
+        %span.value= lights(resource.status)
+
+      - if resource.density_computable?
+        .med-info
+          %span.title= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
+          %span.value= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
+
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :seeding_density_value
+          %span.value= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
+
+      .med-info
+        %span.title= PlantDensityAbacus.human_attribute_name :plants_count
+        %span.value= resource.plant_density_abacus_item.plants_count
+
+      .med-info
+        %span.title= PlantCounting.human_attribute_name :plants_count
+        %span.value= resource.average_value
 
   - c.cobble :data do
     %p= "Détail des comptages et moyennes obtenues."

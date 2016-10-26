@@ -65,7 +65,7 @@
     - render 'inspection_cobbles', resource, resource
 
   - if resource.plant_countings.any?
-    - c.cobble :plant_countings do
+    - c.cobble :plant_countings, title: :x_countings.tl(count: resource.plant_countings.count) do
       = cobble_list :plant_countings
 
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do

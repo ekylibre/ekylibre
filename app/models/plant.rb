@@ -104,6 +104,23 @@ class Plant < Bioproduct
     end
   end
 
+  def last_sowing
+    Intervention
+      .real
+      .where(
+        procedure_name: :sowing,
+        id: InterventionOutput
+          .where(product: self)
+          .select(:intervention_id)
+      )
+      .order(started_at: :desc)
+      .first
+  end
+
+  def sower
+    last_sowing && last_sowing.parameters.select { |eq| eq.reference_name.to_sym == :sower }.first
+  end
+
   def ready_to_harvest?
     analysis = analyses.where(nature: 'plant_analysis').reorder(sampled_at: :desc).first
     return false unless analysis

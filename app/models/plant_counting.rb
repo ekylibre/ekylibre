@@ -43,7 +43,9 @@ class PlantCounting < Ekylibre::Record::Base
   belongs_to :plant_density_abacus
   belongs_to :plant_density_abacus_item
   has_many :items, class_name: 'PlantCountingItem', dependent: :delete_all, inverse_of: :plant_counting
+  enumerize :nature, in: [:sowing, :germination]
 
+  validates :number, :nature, presence: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :average_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
@@ -51,6 +53,10 @@ class PlantCounting < Ekylibre::Record::Base
   validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :plant, :plant_density_abacus, :plant_density_abacus_item, presence: true
   # ]VALIDATORS]
+
+  delegate :net_surface_area, :sower, :last_sowing, to: :plant, prefix: true
+  delegate :germination_percentage, :sampling_length_unit, :seeding_density_unit, to: :plant_density_abacus
+  delegate :seeding_density_value, to: :plant_density_abacus_item
 
   accepts_nested_attributes_for :items
 
@@ -64,12 +70,8 @@ class PlantCounting < Ekylibre::Record::Base
     1234
   end
 
-  def sampling_area
-    1
-  end
-
-  def product_net_surface_area
-    1
+  def status
+    values_expected? ? :go : :stop
   end
 
   def values_expected?(threshold = 23.0)
@@ -82,7 +84,44 @@ class PlantCounting < Ekylibre::Record::Base
     (-qt_threshold..qt_threshold).cover? (average_value - expected)
   end
 
-  def state
-    values_expected? ? :go : :stop
+  def sampling_area
+    (sampling_length.to_d(:meter) * implanter_working_width.to_d(:meter)).in(:square_meter)
+  end
+
+  def expected_seeding_density
+    case nature
+    when /sowing/      then seeding_density_value
+    when /germination/ then seeding_density_value * germination_percentage
+    end
+  end
+
+  def measured_seeding_density
+    density = average_value * rows_count * 10_000 / implanter_working_width.to_d(:meter)
+    density.in :unity_per_hectare
+  end
+
+  def density_computable?
+    plant_sower.present? &&
+      plant_sower.product.variant.has_indicator?(:application_width) &&
+      plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero? &&
+      plant_sower.product.variant.has_indicator?(:rows_count) &&
+      plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero? &&
+      plant_density_abacus.present? &&
+      plant_density_abacus.sampling_length_unit.present?
+  end
+
+  def implanter_working_width
+    raise 'Cannot fetch indicators because plant doesn\'t have any sower.' unless plant_sower.present?
+    plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
+  end
+
+  def rows_count
+    raise 'Cannot fetch indicators because plant doesn\'t have any sower.' unless plant_sower.present?
+    plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
+  end
+
+  def sampling_length
+    raise 'Cannot fetch unit without plant_density_abacus.' unless plant_density_abacus.present?
+    1.in sampling_length_unit
   end
 end

@@ -32,5 +32,11 @@ module Backend
       t.column :born_at
       t.column :dead_at
     end
+
+    list :plant_countings do |t|
+      t.column :number, url: true
+      t.status
+      t.column :read_at
+    end
   end
 end

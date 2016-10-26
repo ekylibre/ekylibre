@@ -687,7 +687,11 @@ Rails.application.routes.draw do
 
     resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
-    resources :plants, concerns: :products
+    resources :plants, concerns: :products do
+      member do
+        get :list_plant_countings
+      end
+    end
 
     resources :postal_zones, concerns: [:autocomplete, :list, :unroll]
 
