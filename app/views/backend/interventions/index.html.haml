@@ -1,5 +1,7 @@
 = kujaku do |k|
   - k.text
+  -# - k.choice *resource_model.state.values.map{ |s| [s.tl, s] }, label: Entity.human_attribute_name(:state), name: :state
+  -# - k.choice *resource_model.nature.values.map{ |s| [s.tl, s] }, label: Entity.human_attribute_name(:nature), name: :nature
   - k.multi_choice :state, [:done, :in_progress, :validated, :rejected].map{ |s| [s.tl, s] }
   - k.multi_choice :nature, [:request, :record].map{ |s| [s.tl, s] }
   - k.helper do
