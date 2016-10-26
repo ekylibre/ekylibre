@@ -713,7 +713,6 @@ entities:
     - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
-    - "backend/entities#list_outgoing_payment_lists" #?
     - "backend/entities#list_outgoing_payments"
     - "backend/entities#list_purchases"
     - "backend/entities#list_sale_opportunities"
@@ -1460,7 +1459,6 @@ outgoing_payment_lists:
     - "backend/outgoing_payment_lists#index"
     - "backend/outgoing_payment_lists#list"
     - "backend/outgoing_payment_lists#show"
-    - "backend/outgoing_payment_lists#unroll" #?
   write:
     dependencies:
     - read-outgoing_payment_lists
