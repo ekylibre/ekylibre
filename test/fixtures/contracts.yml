@@ -20,25 +20,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: plant_countings
+# == Table: contracts
 #
-#  average_value                :decimal(19, 4)
-#  comment                      :text
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  id                           :integer          not null, primary key
-#  lock_version                 :integer          default(0), not null
-#  nature                       :string
-#  number                       :string
-#  plant_density_abacus_id      :integer          not null
-#  plant_density_abacus_item_id :integer          not null
-#  plant_id                     :integer          not null
-#  read_at                      :datetime
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
+#  active           :boolean          default(FALSE), not null
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  currency         :string           not null
+#  custom_fields    :jsonb
+#  description      :string
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  name             :string           not null
+#  nature_id        :integer          not null
+#  number           :string
+#  pretax_amount    :decimal(19, 4)   default(0.0), not null
+#  reference_number :string
+#  responsible_id   :integer          not null
+#  started_on       :date
+#  state            :string
+#  stopped_on       :date
+#  supplier_id      :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
-require 'test_helper'
-
-class PlantCountingTest < ActiveSupport::TestCase
-  # Add tests here...
-end
+--- {}
