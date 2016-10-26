@@ -78,6 +78,7 @@ ita:
       items:
         fr_pcg82: "PCG82 Francese"
         fr_pcga: "PCGA Francese"
+        # pt_snc: "Portuguese SNC"
       name: "sistemi contabili"
     accounts:
       items:
@@ -242,6 +243,7 @@ ita:
         incorporeal_asset_depreciation_revenues: "I ricavi di asset di ammortamento incorporee"
         incorporeal_asset_depreciations: "svalutazioni di attività immateriali"
         incorporeal_asset_revenues: "I ricavi delle attività immateriali"
+        # incorporeal_assets: "Incorporeal assets"
         incorporeals_depreciations_inputations_expenses: "Incorporali Ammortamenti inputations spese"
         industrial_cooperative_participation_assets: "beni partecipazione cooperativa industriali"
         infirmity_and_death_insurance_expenses: "le spese di infermità e la morte di assicurazione"
@@ -511,6 +513,7 @@ ita:
         debtor: "Debitore"
         fr_pcg82: "PCG82 Francese"
         fr_pcga: "PCGA Francese"
+        # pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:

@@ -78,6 +78,7 @@ eng:
       items:
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+        pt_snc: "Portuguese SNC"
       name: "Accounting systems"
     accounts:
       items:
@@ -242,6 +243,7 @@ eng:
         incorporeal_asset_depreciation_revenues: "Incorporeal asset depreciation revenues"
         incorporeal_asset_depreciations: "Incorporeal asset depreciations"
         incorporeal_asset_revenues: "Incorporeal asset revenues"
+        incorporeal_assets: "Incorporeal assets"
         incorporeals_depreciations_inputations_expenses: "Incorporeals depreciations inputations expenses"
         industrial_cooperative_participation_assets: "Industrial cooperative participation assets"
         infirmity_and_death_insurance_expenses: "Infirmity and death insurance expenses"
@@ -511,6 +513,7 @@ eng:
         debtor: "Debtor"
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+        pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:

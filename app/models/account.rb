@@ -248,6 +248,7 @@ class Account < Ekylibre::Record::Base
     def find_or_import_from_nomenclature(usage)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
       account = find_in_nomenclature(usage)
       unless account
         account = create!(
@@ -298,7 +299,9 @@ class Account < Ekylibre::Record::Base
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          find_or_import_from_nomenclature(item.name)
+          if item.send(accounting_system)
+            find_or_import_from_nomenclature(item.name)
+          end
         end
       end
       true

@@ -1392,23 +1392,23 @@ por:
     zones: "Zonas"
   models:
     account:
-      # label: "%{number} - %{name}"
+      label: "%{number} - %{name}"
     activity_budget:
-      # name: "%{activity_name} %{campaign_name}"
+      name: "%{activity_name} %{campaign_name}"
     activity_inspection_calibration_nature:
-      # name: "%{minimum} → %{maximum}"
+      name: "%{minimum} → %{maximum}"
     activity_production:
-      # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
-      # name: "%{variant}/%{activity} %{campaign} (%{state})"
-      # name_without_variant: "%{activity} %{campaign} (%{state})"
+      bookkeep: "[%{resource} %{number}] %{products} para %{client} (%{sale})"
+      name: "%{variant}/%{activity} %{campaign} (%{state})"
+      name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         aborted: "Abortado"
         closed: "Fechadas"
         opened: "Aberto"
     affair:
-      # bookkeep: "[%{resource} %{number}] From %{third}"
+      bookkeep: "[%{resource} %{number}] de %{third}"
     cash_transfer:
-      # bookkeep: "[%{resource} %{number}] From %{emission} to %{reception} %{description}"
+      bookkeep: "[%{resource} %{number}] de %{emission} a %{reception} %{description}"
     catalog:
       cost:
         name: "Use catálogo preços de custo"
@@ -1419,7 +1419,7 @@ por:
       sale:
         name: "Catálogo dos preços de venda"
     catalog_item:
-      # name: "%{variant} %{amount}/%{unit}"
+      name: "%{variant} %{amount}/%{unit}"
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
       states:
@@ -1439,9 +1439,9 @@ por:
           started: "Começou"
     deposit:
       bookkeep:
-        # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
-        # other: "[%{resource} %{number}] %{count} payments %{mode} %{description}"
-        # zero: "[%{resource} %{number}] No payments %{mode} %{description}"
+        one: "[%{resource} %{number}] %{count} pagamento %{mode} %{description}"
+        other: "[%{resource} %{number}] %{count} pagamento %{mode} %{description}"
+        zero: "[%{resource} %{number}] No pagamento %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

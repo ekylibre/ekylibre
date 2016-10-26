@@ -78,6 +78,7 @@ cmn:
       items:
         fr_pcg82: "法国PCG82"
         fr_pcga: "法国PCGA"
+        # pt_snc: "Portuguese SNC"
       name: "会计制度"
     accounts:
       items:
@@ -242,6 +243,7 @@ cmn:
         incorporeal_asset_depreciation_revenues: "无形的资产减值收入"
         incorporeal_asset_depreciations: "无形的资产贬值"
         incorporeal_asset_revenues: "无形的资产收入"
+        # incorporeal_assets: "Incorporeal assets"
         incorporeals_depreciations_inputations_expenses: "Incorporeals贬值inputations费用"
         industrial_cooperative_participation_assets: "工业合作参与资产"
         infirmity_and_death_insurance_expenses: "虚弱和死亡保险费用"
@@ -511,6 +513,7 @@ cmn:
         debtor: "债务人"
         fr_pcg82: "法国PCG82"
         fr_pcga: "法国PCGA"
+        # pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:
