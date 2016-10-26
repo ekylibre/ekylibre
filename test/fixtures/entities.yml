@@ -66,6 +66,7 @@
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null

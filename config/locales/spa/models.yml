@@ -32,6 +32,8 @@ spa:
         list: "Lista de salida de pago"
       outgoing_payment_list:
         # payments_sum: "Total"
+      parcel:
+        # contract: "Contract"
       parcel_item:
         population: "Cantidad"
       plant:
@@ -188,6 +190,7 @@ spa:
       catalog: "Catalogar"
       catalog_item: "Precio de catálogo"
       company: "Compañía" #?
+      # contract: ""
       crumb: "Miga"
       cultivable_zone: "Zona cultivable"
       custom_field: "Campo personalizado"
@@ -484,6 +487,8 @@ spa:
     content: "Contenido"
     content_localizations: "Localizaciones de contenido"
     contents: "Contenido"
+    # contract: "Contract"
+    # contracts: "Contracts"
     coordinate: "Coordinar"
     coordinate_columns: "Coordinar columnas"
     # costs_per_unit: "Costs per %{unit}"
@@ -1264,6 +1269,8 @@ spa:
     supplier_account: "Cuenta de proveedor"
     supplier_address: "Dirección del proveedor"
     supplier_payment_delay: "Retraso en el pago de proveedores"
+    # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "Proveedores"
     support: "Apoyo"
     support_nature: "Tipo de soporte"
@@ -1417,6 +1424,14 @@ spa:
         name: "Catálogo de los precios de venta"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
+    contract:
+      # label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        # lost: "Lost"
+        # negociation: "Negociation"
+        # price_quote: "Price quote"
+        # prospecting: "Prospecting"
+        # won: "Won"
     delivery:
       state_machine:
         states:
@@ -1648,6 +1663,7 @@ spa:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
+        # contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"

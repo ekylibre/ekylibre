@@ -32,6 +32,8 @@ cmn:
         list: "付款清单"
       outgoing_payment_list:
         payments_sum: "总"
+      parcel:
+        # contract: "Contract"
       parcel_item:
         population: "数量"
       plant:
@@ -187,6 +189,7 @@ cmn:
       cash_transfer: "现金转移"
       catalog: "目录"
       catalog_item: "目录价格"
+      # contract: ""
       crumb: "屑"
       cultivable_zone: "可种植区"
       custom_field: "自定义字段"
@@ -481,6 +484,8 @@ cmn:
     content: "内容"
     content_localizations: "内容本地化"
     contents: "内容"
+    # contract: "Contract"
+    # contracts: "Contracts"
     coordinate: "坐标"
     coordinate_columns: "坐标列"
     # costs_per_unit: "Costs per %{unit}"
@@ -1260,6 +1265,8 @@ cmn:
     supplier_account: "供应商帐户"
     supplier_address: "供应商地址"
     supplier_payment_delay: "供应商延期支付"
+    # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "供应商"
     support: "支持"
     support_nature: "支持类型"
@@ -1413,6 +1420,14 @@ cmn:
         name: "销售价格目录"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
+    contract:
+      # label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        # lost: "Lost"
+        # negociation: "Negociation"
+        # price_quote: "Price quote"
+        # prospecting: "Prospecting"
+        # won: "Won"
     delivery:
       state_machine:
         states:
@@ -1644,6 +1659,7 @@ cmn:
         animals: "ANI [一年| 4] [数字| 4]"
         campaigns: "CAMP [数字| 4]"
         cash_transfers: "CT [一年| 4] [数字| 4]"
+        # contracts: "CN[year|4][number|4]"
         deliveries: "DL [一年| 4] [数字| 8]"
         deposits: "D [一年| 4] [数字| 4]"
         entities: "[数字| 8]"

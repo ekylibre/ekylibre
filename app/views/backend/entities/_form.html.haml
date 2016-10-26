@@ -42,7 +42,14 @@
   #supplier-informations
     = f.referenced_association :supplier_account, source: :suppliers, buttons: { new: { number: Account.find_or_import_from_nomenclature(:suppliers).number}}
   = f.input :supplier_payment_delay
+  = f.referenced_association :supplier_payment_mode
   = f.input :transporter
+
+- if f.object.organization?
+  = field_set(:bank_account) do
+    = f.input :bank_account_holder_name
+    = f.input :bank_identifier_code
+    = f.input :iban
 
 
 - if f.object.contact?
@@ -51,11 +58,6 @@
     #employee-informations
       = f.referenced_association :employee_account, source: :employees, buttons: {new: { number: Account.find_or_import_from_nomenclature(:staff_due_remunerations).number}}
 
-- if f.object.organization?
-  = field_set(:bank_account) do
-    = f.input :bank_account_holder_name
-    = f.input :bank_identifier_code
-    = f.input :iban
 
 = field_set(:coordinates) do
   = f.nested_association(:emails)

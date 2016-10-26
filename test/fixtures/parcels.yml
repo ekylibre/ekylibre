@@ -24,6 +24,7 @@
 #
 #  accounted_at                 :datetime
 #  address_id                   :integer
+#  contract_id                  :integer
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  currency                     :string
@@ -41,10 +42,12 @@
 #  planned_at                   :datetime         not null
 #  position                     :integer
 #  prepared_at                  :datetime
+#  pretax_amount                :decimal(19, 4)   default(0.0), not null
 #  purchase_id                  :integer
 #  recipient_id                 :integer
 #  reference_number             :string
 #  remain_owner                 :boolean          default(FALSE), not null
+#  responsible_id               :integer
 #  sale_id                      :integer
 #  sender_id                    :integer
 #  separated_stock              :boolean

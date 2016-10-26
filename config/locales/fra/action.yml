@@ -136,6 +136,21 @@ fra:
       index: "Contacts" #?
       new: "Nouveau contact" #?
       show: "Contact\_: %{full_name}" #?
+    backend/contract_natures:
+      edit: "Modifier le type de contrat\_: %{name}"
+      index: "Types de contrat"
+      new: "Nouveau type de contrat"
+      show: "Type de contrat\_: %{name}"
+    backend/contracts:
+      edit: "Modifier le contrat\_: %{name}"
+      index: "Contrats"
+      lose: "Contrat perdu"
+      negociate: "Contrat en négociation"
+      new: "Nouveau contrat"
+      prospect: "Prospection"
+      quote: "Quotation"
+      show: "Contrat\_: %{name}"
+      win: "Contrat gagné"
     backend/crumbs:
       index: "Miettes"
     backend/cultivable_zones:
