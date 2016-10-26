@@ -180,6 +180,10 @@ class Measure
     @value.zero?
   end
 
+  def nonzero?
+    zero? ? nil : self
+  end
+
   # Returns the dimension of a other
   def +(other)
     unless other.is_a?(Measure)
