@@ -1266,6 +1266,7 @@ deu:
     supplier_address: "Lieferant Adresse"
     # supplier_payment_delay: "Supplier payment delay"
     # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "Lieferanten"
     support: "Unterstützen"
     support_nature: "Unterstützung Art"

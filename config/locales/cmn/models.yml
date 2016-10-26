@@ -1266,6 +1266,7 @@ cmn:
     supplier_address: "供应商地址"
     # supplier_payment_delay: "Supplier payment delay"
     # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "供应商"
     support: "支持"
     support_nature: "支持类型"

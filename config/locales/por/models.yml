@@ -1266,6 +1266,7 @@ por:
     supplier_address: "Endereço de fornecedor"
     # supplier_payment_delay: "Supplier payment delay"
     # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "Fornecedores"
     support: "Apoio"
     support_nature: "Tipo de suporte"

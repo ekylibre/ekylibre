@@ -1285,7 +1285,7 @@ eng:
     supplier_address: "Supplier address"
     supplier_payment_delay: "Supplier payment delay"
     supplier_payment_mode: "Supplier payment mode"
-    # supplier_payment_modes: "Supplier payment modes"
+    supplier_payment_modes: "Supplier payment modes"
     suppliers: "Suppliers"
     support: "Support"
     support_nature: "Support type"

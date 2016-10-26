@@ -1270,6 +1270,7 @@ spa:
     supplier_address: "Dirección del proveedor"
     # supplier_payment_delay: "Supplier payment delay"
     # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "Proveedores"
     support: "Apoyo"
     support_nature: "Tipo de soporte"

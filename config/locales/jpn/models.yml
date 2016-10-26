@@ -1266,6 +1266,7 @@ jpn:
     supplier_address: "サプライヤーアドレス"
     # supplier_payment_delay: "Supplier payment delay"
     # supplier_payment_mode: "Supplier payment mode"
+    # supplier_payment_modes: "Supplier payment modes"
     suppliers: "サプライヤー"
     support: "サポート"
     support_nature: "サポートタイプ"
