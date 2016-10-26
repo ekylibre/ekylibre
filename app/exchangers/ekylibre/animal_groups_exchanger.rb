@@ -34,7 +34,7 @@ module Ekylibre
           campaign_year: row[12].to_i
         )
 
-        unless variant = ProductNatureVariant.find_by_number(r.nature)
+        unless variant = ProductNatureVariant.find_by(number: r.nature)
           unless variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
             w.error "#{prompt} #{r.nature} does not exist in NOMENCLATURE or in DB"
             valid = false
@@ -50,7 +50,7 @@ module Ekylibre
           valid = false
         end
 
-        unless animal_container = Product.find_by_work_number(r.place)
+        unless animal_container = Product.find_by(work_number: r.place)
           w.error "#{prompt} #{r.place} does not exist in DB"
           valid = false
         end
@@ -89,7 +89,7 @@ module Ekylibre
           campaign_year: row[12].to_i
         )
 
-        unless variant = ProductNatureVariant.find_by_work_number(r.nature)
+        unless variant = ProductNatureVariant.find_by(work_number: r.nature)
           variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
         end
 
@@ -101,7 +101,7 @@ module Ekylibre
         unless animal_variant
           animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature)
         end
-        animal_container = Product.find_by_work_number(r.place)
+        animal_container = Product.find_by(work_number: r.place)
 
         unless animal_group = AnimalGroup.find_by(work_number: r.code)
           animal_group = AnimalGroup.create!(

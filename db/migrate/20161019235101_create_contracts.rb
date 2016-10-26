@@ -1,6 +1,5 @@
 class CreateContracts < ActiveRecord::Migration
   def change
-
     create_table :contract_natures do |t|
       t.string :name, null: false, index: true
       t.string :currency, null: false

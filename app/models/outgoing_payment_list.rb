@@ -68,7 +68,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     )
 
     sct.message_identification =
-      "EKY-#{self.number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
+      "EKY-#{number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
 
     payments.each do |payment|
       credit_transfer_params = {
@@ -81,11 +81,11 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         batch_booking: false
       }
 
-      if payment.payee.bank_identifier_code.present?
-        credit_transfer_params[:bic] = payment.payee.bank_identifier_code
-      else
-        credit_transfer_params[:bic] = 'NOTPROVIDED'
-      end
+      credit_transfer_params[:bic] = if payment.payee.bank_identifier_code.present?
+                                       payment.payee.bank_identifier_code
+                                     else
+                                       'NOTPROVIDED'
+                                     end
 
       sct.add_transaction(credit_transfer_params)
     end

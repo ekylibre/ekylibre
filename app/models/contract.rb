@@ -120,7 +120,7 @@ class Contract < Ekylibre::Record::Base
   end
 
   protect on: :destroy do
-    self.parcels.any? || self.purchases.any?
+    parcels.any? || purchases.any?
   end
 
   def has_content?
@@ -143,9 +143,8 @@ class Contract < Ekylibre::Record::Base
   end
 
   def status
-    return :go  if self.won?
-    return :stop  if self.lost?
-    return :in_progress
+    return :go  if won?
+    return :stop if lost?
+    :in_progress
   end
-
 end

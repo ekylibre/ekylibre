@@ -63,5 +63,4 @@ class ContractItem < Ekylibre::Record::Base
   validate do
     errors.add(:quantity, :invalid) if self.quantity.zero?
   end
-
 end

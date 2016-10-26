@@ -77,6 +77,5 @@ module Backend
         fire_event(event.name)
       end
     end
-
   end
 end

@@ -295,9 +295,9 @@ class Parcel < Ekylibre::Record::Base
 
   def status
     if given?
-      return (issues? ? :caution : :go)
+      (issues? ? :caution : :go)
     else
-      return (issues? ? :stop : :caution)
+      (issues? ? :stop : :caution)
     end
   end
 
@@ -486,7 +486,7 @@ class Parcel < Ekylibre::Record::Base
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
-              unit_pretax_amount: ((item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero?) ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
+              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
               tax: item.variant.category.purchase_taxes.first || Tax.first,
               quantity: item.population
             )

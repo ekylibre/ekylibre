@@ -84,11 +84,11 @@ module Nomen
     def children(options = {})
       if options[:index].is_a?(FalseClass)
         if options[:recursively].is_a?(FalseClass)
-          return nomenclature.list.select do |item|
+          nomenclature.list.select do |item|
             (item.parent == self)
           end
         else
-          return children(index: false, recursive: false).each_with_object([]) do |item, list|
+          children(index: false, recursive: false).each_with_object([]) do |item, list|
             list << item
             list += item.children(index: false, recursive: true)
             list
@@ -96,12 +96,12 @@ module Nomen
         end
       else
         if options[:recursively].is_a?(FalseClass)
-          return nomenclature.list.select do |item|
+          nomenclature.list.select do |item|
             @left < item.left && item.right < @right && item.depth == @depth + 1
           end
         else
           # @children ||=
-          return nomenclature.list.select do |item|
+          nomenclature.list.select do |item|
             @left < item.left && item.right < @right
           end
         end

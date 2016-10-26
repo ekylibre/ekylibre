@@ -161,7 +161,7 @@ class Cash < Ekylibre::Record::Base
     case cc = country_code.lower.to_sym
     when :fr
       ban = (options['bank_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 89 + options['bank_agency_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 15 + options['bank_account_number'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 3)
-      return (options['bank_account_key'].to_i + ban.modulo(97) - 97).zero?
+      (options['bank_account_key'].to_i + ban.modulo(97) - 97).zero?
     else
       raise ArgumentError, "Unknown country code #{country_code.inspect}"
     end

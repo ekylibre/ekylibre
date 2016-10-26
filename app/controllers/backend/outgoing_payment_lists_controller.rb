@@ -51,8 +51,6 @@ module Backend
       else
         render :index
       end
-
     end
-
   end
 end

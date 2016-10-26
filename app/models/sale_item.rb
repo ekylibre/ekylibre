@@ -197,9 +197,9 @@ class SaleItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if sale.affair.balanced?
-      return 1.00
+      1.00
     elsif sale.affair.credit != 0.0
-      return (1 - (-sale.affair.balance / sale.affair.credit)).to_f
+      (1 - (-sale.affair.balance / sale.affair.credit)).to_f
     end
   end
 end

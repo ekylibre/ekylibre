@@ -279,9 +279,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # check if a variant has an indicator which is frozen or not
   def has_frozen_indicator?(indicator)
     if indicator.is_a?(Nomen::Item)
-      return frozen_indicators.include?(indicator)
+      frozen_indicators.include?(indicator)
     else
-      return frozen_indicators_list.include?(indicator)
+      frozen_indicators_list.include?(indicator)
     end
   end
 

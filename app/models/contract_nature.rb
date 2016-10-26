@@ -34,22 +34,20 @@
 
 class ContractNature < Ekylibre::Record::Base
   refers_to :currency
-  has_many :contracts, foreign_key: :nature_id
+  has_many :contracts, foreign_key: :nature_id, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, presence: true
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :currency, presence: true
   validates :name, uniqueness: true
 
   before_validation(on: :create) do
-    self.currency = Preference[:currency]
+    self.currency ||= Preference[:currency]
   end
 
   protect on: :destroy do
     contracts.any?
   end
-
 end
