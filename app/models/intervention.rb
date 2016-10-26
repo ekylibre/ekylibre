@@ -574,7 +574,7 @@ class Intervention < Ekylibre::Record::Base
     return unless participations.any? || !additional_compliance.nil?
     compliances = participations.pluck(:request_compliant).concat([additional_compliance]).compact
     update(request_compliant: false) if compliances.index(false)
-    update(request_compliant: true) if (states - [true]).empty?
+    update(request_compliant: true) if (compliances - [true]).empty?
   end
 
   class << self

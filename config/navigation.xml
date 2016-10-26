@@ -384,7 +384,6 @@
         <page to="backend/outgoing_payment_lists#destroy"/>
         <page to="backend/outgoing_payment_lists#list"/>
         <page to="backend/outgoing_payment_lists#show"/>
-        <page to="backend/outgoing_payment_lists#unroll" nonexistent="true"/>
       </item>
     </group>
   </part>

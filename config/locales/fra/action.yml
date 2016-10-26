@@ -2271,7 +2271,7 @@ fra:
       all_data_import_finished: "Toutes vos données ont été importées"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
-      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
+      all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."

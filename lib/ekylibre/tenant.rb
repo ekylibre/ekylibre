@@ -275,7 +275,7 @@ module Ekylibre
           Ekylibre::Tenant.switch! tenant
           migration_version = ActiveRecord::Migrator.current_version
 
-          next if migration_version != 0
+          next if migration_version.nonzero?
 
           tenants << { name: tenant, version: migration_version }
         end
