@@ -327,9 +327,9 @@ module Nomen
     # List all item names. Can filter on a given item name and its children
     def to_a(item_name = nil)
       if item_name.present? && @items[item_name]
-        return @items[item_name].self_and_children.map(&:name)
+        @items[item_name].self_and_children.map(&:name)
       else
-        return @items.keys.sort
+        @items.keys.sort
       end
     end
     alias all to_a

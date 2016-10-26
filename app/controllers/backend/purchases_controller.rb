@@ -55,6 +55,10 @@ module Backend
       code << "  c[0] += ' AND #{Purchase.table_name}.responsible_id = ?'\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:payment_mode_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Entity.table_name}.supplier_payment_mode_id = ?'\n"
+      code << "  c << params[:payment_mode_id]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -72,7 +76,7 @@ module Backend
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
       t.column :description, hidden: true
-      # t.column :shipped
+      t.column :supplier_payment_mode
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true

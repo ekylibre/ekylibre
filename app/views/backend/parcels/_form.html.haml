@@ -1,6 +1,7 @@
 - item_partial = f.object.nature.to_s + '_item_fields'
 = field_set :general_informations do
   = f.input :nature, as: :hidden
+  = f.input :contract_id, as: :hidden
   .delivery-item
     - if f.object.incoming?
       = f.referenced_association :sender, required: true
@@ -13,6 +14,7 @@
     = f.input :reference_number
     = f.referenced_association :storage, source: :storage, required: true
     = f.input :separated_stock
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter
@@ -35,6 +37,7 @@
           %th= ParcelItem.human_attribute_name(:product)
           -# %th= ParcelItem.human_attribute_name(:parted)
           %th= ParcelItem.human_attribute_name(:population)
+          %th= ParcelItem.human_attribute_name(:unit_pretax_amount)
           -# %th= ParcelItem.human_attribute_name(:shape)
           %th= ParcelItem.human_attribute_name(:analysis)
 

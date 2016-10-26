@@ -150,6 +150,12 @@
         - if resource.subscriptions.any?
           = cobble_list(:subscriptions)
 
+      - c.cobble(:contracts, title: :x_contracts.tl(count: resource.contracts.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :contracts, :supplier_id => resource.id})
+        - if resource.contracts.any?
+          = cobble_list(:contracts)
+
       - c.cobble(:purchases, title: :x_purchases.tl(count: resource.purchases.count)) do
         = cobble_toolbar do |t|
           = t.new(params: {controller: :purchases, :supplier_id => resource.id})

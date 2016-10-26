@@ -402,6 +402,7 @@ eng:
         animals: "Numeration of animals"
         campaigns: "Numeration of campaigns"
         cash_transfers: "Numeration of cash transfers"
+        # contracts: "Contracts"
         deliveries: "Numeration of deliveries"
         deposits: "Numeration of deposits"
         documents: "Numeration of documents"

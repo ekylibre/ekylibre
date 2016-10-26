@@ -109,7 +109,7 @@ module Ekylibre
           end
 
           container = nil
-          unless (container = Product.find_by_work_number(r.place_code))
+          unless (container = Product.find_by(work_number: r.place_code))
             container = building_division
           end
 

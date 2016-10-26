@@ -26,24 +26,24 @@ module EBP
             rescue
               break
             end
-            unless FinancialYear.find_by_started_on_and_stopped_on(started_on, stopped_on)
+            unless FinancialYear.find_by(started_on: started_on, stopped_on: stopped_on)
               FinancialYear.create!(started_on: started_on, stopped_on: stopped_on)
             end
             line = line.encode('utf-8').split(/\;/)
             if line[0] == 'C'
-              unless Account.find_by_number(line[1])
+              unless Account.find_by(number: line[1])
                 Account.create!(number: line[1], name: line[2])
               end
             elsif line[0] == 'E'
-              unless journal = Journal.find_by_code(line[3])
+              unless journal = Journal.find_by(code: line[3])
                 journal = Journal.create!(code: line[3], name: line[3], nature: :various, closed_on: (started_on - 1.day).end_of_day)
               end
               number = line[4].blank? ? '000000' : line[4]
               line[2] = Date.civil(line[2][4..7].to_i, line[2][2..3].to_i, line[2][0..1].to_i).to_datetime
-              unless entry = journal.entries.find_by_number_and_printed_on(number, line[2])
+              unless entry = journal.entries.find_by(number: number, printed_on: line[2])
                 entry = journal.entries.create!(number: number, printed_on: line[2])
               end
-              unless account = Account.find_by_number(line[1])
+              unless account = Account.find_by(number: line[1])
                 account = Account.create!(number: line[1], name: line[1])
               end
               line[8] = line[8].strip.to_f

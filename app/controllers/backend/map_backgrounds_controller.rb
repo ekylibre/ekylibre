@@ -14,7 +14,7 @@ module Backend
     end
 
     def toggle
-      if m = MapBackground.find_by_id(params[:id])
+      if m = MapBackground.find_by(id: params[:id])
 
         if !!m.enabled && MapBackground.availables.length == 1
           return head :forbidden
@@ -42,13 +42,13 @@ module Backend
     end
 
     def star
-      return unless m = MapBackground.find_by_id(params[:id])
+      return unless m = MapBackground.find_by(id: params[:id])
       m.update(by_default: !m.by_default)
       head :no_content
     end
 
     def destroy
-      return unless m = MapBackground.find_by_id(params[:id])
+      return unless m = MapBackground.find_by(id: params[:id])
       m.destroy
       head :no_content
     end
