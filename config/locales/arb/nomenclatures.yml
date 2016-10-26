@@ -78,7 +78,7 @@ arb:
       items:
         fr_pcg82: "PCG82 الفرنسية"
         fr_pcga: "PCGA الفرنسي"
-        # pt_snc: "Portuguese SNC"
+        pt_snc: "البرتغالي SNC"
       name: "نظم المحاسبة"
     accounts:
       items:
@@ -243,7 +243,7 @@ arb:
         incorporeal_asset_depreciation_revenues: "المعنوية إيرادات انخفاض قيمة الأصول"
         incorporeal_asset_depreciations: "انخفاض قيمة الأصول المعنوية"
         incorporeal_asset_revenues: "عائدات الأصول المعنوية"
-        # incorporeal_assets: "Incorporeal assets"
+        incorporeal_assets: "الأصول المعنوية"
         incorporeals_depreciations_inputations_expenses: "نفقات Incorporeals انخفاض قيمة inputations"
         industrial_cooperative_participation_assets: "أصول المشاركة التعاونية الصناعية"
         infirmity_and_death_insurance_expenses: "نفقات العجز والتأمين الموت"

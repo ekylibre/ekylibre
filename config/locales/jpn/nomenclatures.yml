@@ -78,7 +78,7 @@ jpn:
       items:
         fr_pcg82: "フランス語PCG82"
         fr_pcga: "フランス語PCGA"
-        # pt_snc: "Portuguese SNC"
+        pt_snc: "ポルトガルSNC"
       name: "会計システム"
     accounts:
       items:
@@ -243,7 +243,7 @@ jpn:
         incorporeal_asset_depreciation_revenues: "無形資産の減価償却費収入"
         incorporeal_asset_depreciations: "無形資産の減価償却"
         incorporeal_asset_revenues: "無形資産の収益"
-        # incorporeal_assets: "Incorporeal assets"
+        incorporeal_assets: "無形資産"
         incorporeals_depreciations_inputations_expenses: "Incorporeals減価償却inputations費"
         industrial_cooperative_participation_assets: "工業協同組合の参加資産"
         infirmity_and_death_insurance_expenses: "病弱および死亡保険費"

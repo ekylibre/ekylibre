@@ -33,7 +33,7 @@ por:
       outgoing_payment_list:
         # payments_sum: "Total"
       parcel:
-        # contract: "Contract"
+        contract: "Contrato"
       parcel_item:
         population: "Quantidade"
       plant:
@@ -189,7 +189,8 @@ por:
       cash_transfer: "Transferência de dinheiro"
       catalog: "Catálogo"
       catalog_item: "Preço de catálogo"
-      # contract: ""
+      contract: "Contrato"
+      contract_item: "Item do contrato"
       crumb: "Migalha"
       cultivable_zone: "Zona cultivável"
       custom_field: "Campo customizado"
@@ -236,6 +237,7 @@ por:
       intervention_output: "Saída de intervenção"
       intervention_parameter: "Parâmetro de intervenção"
       intervention_parameter_reading: "Tarefa de leitura produto"
+      intervention_participation: "Participação intervenção"
       intervention_product_parameter: "Intervenção elenco"
       intervention_target: "Alvo de intervenção"
       intervention_tool: "Ferramenta de intervenção"
@@ -261,6 +263,7 @@ por:
       notification: "Notificação"
       observation: "Observação"
       outgoing_payment: "Desembolso"
+      outgoing_payment_list: "Lista de contas a pagar"
       outgoing_payment_mode: "Modo de desembolso"
       parcel: "Parcela"
       parcel_item: "Artigo Parcel"
@@ -484,8 +487,8 @@ por:
     content: "Conteúdo"
     content_localizations: "Localizações conteúdo"
     contents: "Conteúdo"
-    # contract: "Contract"
-    # contracts: "Contracts"
+    contract: "Contrato"
+    contracts: "Contratos"
     coordinate: "Coordenada"
     coordinate_columns: "Coordenar colunas"
     # costs_per_unit: "Costs per %{unit}"
@@ -1265,8 +1268,8 @@ por:
     supplier_account: "Conta de fornecedor"
     supplier_address: "Endereço de fornecedor"
     supplier_payment_delay: "サプライヤーの支払い遅延"
-    # supplier_payment_mode: "Supplier payment mode"
-    # supplier_payment_modes: "Supplier payment modes"
+    supplier_payment_mode: "O modo de pagamento a fornecedores"
+    supplier_payment_modes: "Modos de pagamento a fornecedores"
     suppliers: "Fornecedores"
     support: "Apoio"
     support_nature: "Tipo de suporte"
@@ -1423,11 +1426,11 @@ por:
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
       states:
-        # lost: "Lost"
-        # negociation: "Negociation"
-        # price_quote: "Price quote"
-        # prospecting: "Prospecting"
-        # won: "Won"
+        lost: "Perdido"
+        negociation: "Negociação"
+        price_quote: "Cotação de preços"
+        prospecting: "Prospecção"
+        won: "Ganhou"
     delivery:
       state_machine:
         states:
@@ -1659,7 +1662,7 @@ por:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
-        # contracts: "CN[year|4][number|4]"
+        contracts: "CN [ano | 4] [número | 4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"

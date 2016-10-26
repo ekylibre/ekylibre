@@ -33,7 +33,7 @@ jpn:
       outgoing_payment_list:
         payments_sum: "合計"
       parcel:
-        # contract: "Contract"
+        contract: "契約する"
       parcel_item:
         population: "量"
       plant:
@@ -189,7 +189,8 @@ jpn:
       cash_transfer: "送金"
       catalog: "カタログ"
       catalog_item: "カタログ価格"
-      # contract: ""
+      contract: "契約する"
+      contract_item: "契約項目"
       crumb: "クラム"
       cultivable_zone: "耕作地帯"
       custom_field: "カスタムフィールド"
@@ -236,6 +237,7 @@ jpn:
       intervention_output: "介入出力"
       intervention_parameter: "介入パラメータ"
       intervention_parameter_reading: "製品読取タスク"
+      intervention_participation: "介入参加"
       intervention_product_parameter: "介入キャスト"
       intervention_target: "介入対象"
       intervention_tool: "介入ツール"
@@ -261,6 +263,7 @@ jpn:
       notification: "お知らせ"
       observation: "観察"
       outgoing_payment: "支出"
+      outgoing_payment_list: "支払一覧"
       outgoing_payment_mode: "支払いモード"
       parcel: "小包"
       parcel_item: "小包アイテム"
@@ -484,8 +487,8 @@ jpn:
     content: "コンテンツ"
     content_localizations: "コンテンツのローカライズ"
     contents: "コンテンツ"
-    # contract: "Contract"
-    # contracts: "Contracts"
+    contract: "契約する"
+    contracts: "契約"
     coordinate: "座標"
     coordinate_columns: "列の座標"
     # costs_per_unit: "Costs per %{unit}"
@@ -1265,8 +1268,8 @@ jpn:
     supplier_account: "サプライヤーアカウント"
     supplier_address: "サプライヤーアドレス"
     supplier_payment_delay: "サプライヤーの支払い遅延"
-    # supplier_payment_mode: "Supplier payment mode"
-    # supplier_payment_modes: "Supplier payment modes"
+    supplier_payment_mode: "サプライヤーの支払いモード"
+    supplier_payment_modes: "サプライヤーの支払いモード"
     suppliers: "サプライヤー"
     support: "サポート"
     support_nature: "サポートタイプ"
@@ -1423,11 +1426,11 @@ jpn:
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
       states:
-        # lost: "Lost"
-        # negociation: "Negociation"
-        # price_quote: "Price quote"
-        # prospecting: "Prospecting"
-        # won: "Won"
+        lost: "失われました"
+        negociation: "交渉"
+        price_quote: "価格見積り"
+        prospecting: "試掘"
+        won: "勝った"
     delivery:
       state_machine:
         states:
@@ -1659,7 +1662,7 @@ jpn:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
-        # contracts: "CN[year|4][number|4]"
+        contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"

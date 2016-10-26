@@ -34,8 +34,28 @@
 #  updater_id         :integer
 #  variant_id         :integer          not null
 #
-require 'test_helper'
-
-class ContractItemTest < ActiveSupport::TestCase
-  # Add tests here...
-end
+---
+contract_items_001:
+  contract_id: 1
+  created_at: 2016-10-26 15:22:28.851117000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  pretax_amount: 135.3
+  quantity: 110.0
+  unit_pretax_amount: 1.23
+  updated_at: 2016-10-26 15:22:28.851117000 Z
+  updater_id: 1
+  variant_id: 58
+contract_items_002:
+  contract_id: 2
+  created_at: 2016-10-26 15:28:41.028185000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  pretax_amount: 25000.0
+  quantity: 20.0
+  unit_pretax_amount: 1250.0
+  updated_at: 2016-10-26 15:28:41.028185000 Z
+  updater_id: 1
+  variant_id: 68

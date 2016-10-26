@@ -123,21 +123,11 @@ por:
       show: "Catalogo: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Células de administração: %{name}" #?
-    backend/contract_natures:
-      # edit: "Edit contract nature: %{name}"
-      # index: "Contract natures"
-      # new: "New contract nature"
-      # show: "Contract nature: %{name}"
     backend/contracts:
-      # edit: "Edit contract: %{name}"
-      # index: "Contracts"
-      # lose: "Lose contract: %{name}"
-      # negociate: "Negociate contract: %{name}"
-      # new: "New contract"
-      # prospect: "Prospect contract: %{name}"
-      # quote: "Quote contract: %{name}"
-      # show: "Contract: %{name}"
-      # win: "Win contract: %{name}"
+      # edit: "Edit contract %{number}"
+      index: "Contratos"
+      new: "Novo contrato"
+      # show: "Contract %{number}"
     backend/crumbs:
       index: "Migalhas"
     backend/cultivable_zones:

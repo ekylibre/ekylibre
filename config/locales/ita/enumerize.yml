@@ -208,6 +208,16 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    intervention_participation:
+      state:
+        done: "Fatto"
+        in_progress: "In corso"
+        validated: "Convalidato"
+    intervention_working_period:
+      nature:
+        intervention: "Intervento"
+        preparation: "Preparazione"
+        travel: "Viaggio"
     journal:
       nature:
         bank: "Banca"
@@ -215,6 +225,7 @@ ita:
         forward: "Portato avanti"
         purchases: "acquisti"
         sales: "Vendite"
+        stocks: "Riserve"
         various: "varie operazioni"
     listing_node:
       nature:
@@ -408,6 +419,7 @@ ita:
         animals: "Numerazione degli animali"
         campaigns: "Numerazione di campagne"
         cash_transfers: "Numerazione dei trasferimenti di denaro"
+        contracts: "Numerazione dei contratti"
         deliveries: "Le consegne"
         deposits: "Numerazione dei depositi"
         documents: "Numerazione dei documenti"
@@ -421,6 +433,7 @@ ita:
         inventories: "Rimanenze"
         opportunities: "Opportunità"
         outgoing_deliveries: "Numerazione delle consegne in uscita" #?
+        outgoing_payment_lists: "Numerazione di liste di pagamento in uscita"
         outgoing_payments: "Numerazione dei pagamenti"
         parcels: "Pacchi"
         plants: "Numerazione delle piante"

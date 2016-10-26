@@ -134,21 +134,11 @@ spa:
       index: "Hola, %{user}" #?
       listing_nodes: "Escoge las informaciones para extraer" #?
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
-    backend/contract_natures:
-      # edit: "Edit contract nature: %{name}"
-      # index: "Contract natures"
-      # new: "New contract nature"
-      # show: "Contract nature: %{name}"
     backend/contracts:
-      # edit: "Edit contract: %{name}"
-      # index: "Contracts"
-      # lose: "Lose contract: %{name}"
-      # negociate: "Negociate contract: %{name}"
-      # new: "New contract"
-      # prospect: "Prospect contract: %{name}"
-      # quote: "Quote contract: %{name}"
-      # show: "Contract: %{name}"
-      # win: "Win contract: %{name}"
+      # edit: "Edit contract %{number}"
+      index: "Contratos"
+      new: "Nuevo contrato"
+      # show: "Contract %{number}"
     backend/crumbs:
       index: "Migas"
     backend/cultivable_zones:

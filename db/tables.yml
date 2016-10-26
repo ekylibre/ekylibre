@@ -1501,36 +1501,7 @@ contract_items:
     type: integer
     references: product_nature_variant
     required: true
-contract_natures:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    required: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 contracts:
-  active:
-    type: boolean
-    required: true
-    default: false
   created_at:
     type: datetime
     required: true
@@ -1549,13 +1520,6 @@ contracts:
     required: true
   lock_version:
     type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  nature_id:
-    type: integer
-    references: contract_nature
     required: true
   number:
     type: string

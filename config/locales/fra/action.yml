@@ -131,26 +131,11 @@ fra:
       show: "Catalogue de prix\_: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
-    backend/contacts:  #?
-      edit: "Modifier le contact\_: %{full_name}" #?
-      index: "Contacts" #?
-      new: "Nouveau contact" #?
-      show: "Contact\_: %{full_name}" #?
-    backend/contract_natures:
-      edit: "Modifier le type de contrat\_: %{name}"
-      index: "Types de contrat"
-      new: "Nouveau type de contrat"
-      show: "Type de contrat\_: %{name}"
     backend/contracts:
-      edit: "Modifier le contrat\_: %{name}"
+      edit: "Modifier le contrat %{number}"
       index: "Contrats"
-      lose: "Contrat perdu"
-      negociate: "Contrat en négociation"
       new: "Nouveau contrat"
-      prospect: "Prospection"
-      quote: "Quotation"
-      show: "Contrat\_: %{name}"
-      win: "Contrat gagné"
+      show: "Contrat %{number}"
     backend/crumbs:
       index: "Miettes"
     backend/cultivable_zones:

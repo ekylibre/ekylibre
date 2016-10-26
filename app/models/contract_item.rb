@@ -28,7 +28,7 @@
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
 #  pretax_amount      :decimal(19, 4)   default(0.0), not null
-#  quantity           :decimal(19, 4)   default(1.0), not null
+#  quantity           :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount :decimal(19, 4)   not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
@@ -46,6 +46,7 @@ class ContractItem < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   delegate :currency, to: :contract
+  sums :contract, :items, :pretax_amount
 
   # return all contract items  between two dates
   scope :between, lambda { |started_on, stopped_on|

@@ -334,13 +334,10 @@ Rails.application.routes.draw do
 
     resources :cobblers, only: [:update]
 
-    resources :contract_natures, concerns: [:list, :unroll]
-
-    resources :contracts, concerns: [:list, :unroll] do
+    resources :contracts, concerns: [:list] do
       member do
         get :list_items
         get :list_parcels
-        get :list_purchases
         post :lose
         post :negociate
         post :prospect
@@ -670,7 +667,7 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
-    resources :outgoing_payment_lists, concerns: [:list, :unroll] do
+    resources :outgoing_payment_lists, concerns: [:list] do
       member do
         get :list_payments
         get :export_to_sepa

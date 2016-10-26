@@ -330,7 +330,7 @@ arb:
       parameter:  #?
         updated_at: "تم تحديثها في" #?
       parcel:
-        # contract: "Contract"
+        contract: "عقد"
       parcel_item:
         population: "كمية"
       plant:
@@ -792,7 +792,8 @@ arb:
       catalog_item: "سعر كتالوج"
       company: "الشركة" #?
       contact: "الاتصالات" #?
-      # contract: ""
+      contract: "عقد"
+      contract_item: "البند العقد"
       crumb: "كسرة خبز"
       cultivable_zone: "منطقة القابلة للزراعة"
       currency: "العملة" #?
@@ -853,6 +854,7 @@ arb:
       intervention_output: "الناتج تدخل"
       intervention_parameter: "معلمة تدخل"
       intervention_parameter_reading: "مهمة القراءة المنتج"
+      intervention_participation: "مشاركة التدخل"
       intervention_product_parameter: "تدخل الزهر"
       intervention_target: "هدف التدخل"
       intervention_tool: "أداة تدخل"
@@ -886,6 +888,7 @@ arb:
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
       outgoing_payment: "الدفعة"
+      outgoing_payment_list: "قائمة دفع المنتهية ولايته"
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
@@ -1187,8 +1190,8 @@ arb:
     content: "محتوى"
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
-    # contract: "Contract"
-    # contracts: "Contracts"
+    contract: "عقد"
+    contracts: "عقود"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
     # costs_per_unit: "Costs per %{unit}"
@@ -2224,8 +2227,8 @@ arb:
     supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?
     supplier_payment_delay: "تأخير دفع المورد"
-    # supplier_payment_mode: "Supplier payment mode"
-    # supplier_payment_modes: "Supplier payment modes"
+    supplier_payment_mode: "طريقة الدفع المورد"
+    supplier_payment_modes: "وسائل الدفع المورد"
     suppliers: "الممولين"
     support: "الدعم"
     support_nature: "نوع الدعم"
@@ -2532,68 +2535,6 @@ arb:
             public: "(الشعب (من دون حقوق" #?
         sale_nature_name: "مقياس البيع" #?
         sample_product_name: "عينة المنتج" #?
-        sequences: #?
-          management: #?
-            deposits: #?
-              name: "عدد الاقتطاعات البنكية" #?
-              number_format: "B[year|4][number|4]" #?
-              period: "السنة" #?
-            payments: #?
-              name: "عدد اللوائح" #?
-              number_format: "R[year|4][number|6]" #?
-              period: "السنة" #?
-            purchases: #?
-              name: "عدد المشتريات" #?
-              number_format: "A[year|4][month|2][number|6]" #?
-              period: "الشهر" #?
-            sales: #?
-              name: "عدد المبيعات" #?
-              number_format: "V[year|4][month|2][number|6]" #?
-              period: "الشهر" #?
-            sales_invoices: #?
-              name: "عدد الفواتير" #?
-              number_format: "F[year|4][number|6]" #?
-              period: "السنة" #?
-            subscriptions: #?
-              name: "عدد الاشتراكات" #?
-              number_format: "ABO[number|8]" #?
-          relations: #?
-            entities: #?
-              name: "عدد الاشخاص" #?
-              number_format: "[number|8]" #?
-        taxes: #?
-          tva0000: #?
-            amount: "0.0" #?
-            collected: "445710" #?
-            name: "TVA 0,00%" #?
-            paid: "445660" #?
-          tva0210: #?
-            amount: "0.021" #?
-            collected: "445711" #?
-            name: "TVA 2,10%" #?
-            paid: "445661" #?
-          tva0550: #?
-            amount: "0.055" #?
-            collected: "445712" #?
-            name: "TVA 5,50%" #?
-            paid: "445662" #?
-          tva1960: #?
-            amount: "0.196" #?
-            collected: "445713" #?
-            name: "TVA 19,60%" #?
-            paid: "445663" #?
-        units: #?
-          a: "و" #?
-          ca: "(m²) سنتميتر" #?
-          ha: "هكتار" #?
-          hl: "هيكتولتر" #?
-          kg: "كيلو غرام" #?
-          km: "كيلو متر" #?
-          l: "لتر" #?
-          m: "متر" #?
-          m3: "متر مكعب" #?
-          t: "طن" #?
-          u: "وحدة قياس" #?
       import: #?
         dont_use: "-- لعدم الاسعمال--" #?
         generate_string_custom_field: "--(انشاء حقل مخصص (للنص--" #?
@@ -2606,11 +2547,11 @@ arb:
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
       states:
-        # lost: "Lost"
-        # negociation: "Negociation"
-        # price_quote: "Price quote"
-        # prospecting: "Prospecting"
-        # won: "Won"
+        lost: "ضائع"
+        negociation: "مفاوضات"
+        price_quote: "عرض أسعار"
+        prospecting: "تنقيب"
+        won: "وون"
     custom_field:  #?
       natures: #?
         boolean: "صندوق للتحقق" #?
@@ -3012,7 +2953,7 @@ arb:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
-        # contracts: "CN[year|4][number|4]"
+        contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"
@@ -3031,50 +2972,14 @@ arb:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
-      periods:  #?
-        cweek: "اسبوع" #?
-        month: "شهر" #?
-        number: "-- لا شيء --" #?
-        year: "السنة" #?
-    stock:  #?
-      label: #?
-        with_tracking: "%{building} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
-        without_tracking: "%{building} : غير متتبع, %{quantity}%{unit} متاح" #?
-    stock_transfer:  #?
-      natures: #?
-        transfer: "التحويل" #?
-        waste: "الضائع" #?
-    subscription_nature:  #?
-      natures: #?
-        period: "الاشتراك وفق التاريخ" #?
-        quantity: "الاشتراك حسب الكمية" #?
     task:
       state_machine:
         states:
           doing: "فعل"
           done: "فعله"
           todo: "لكى يفعل"
-    tax:  #?
-      amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
-      natures: #?
-        amount: "القيمة" #?
-        percent: "النسبة المئوية" #?
-    tax_declaration:  #?
-      deferment: "تأجيل" #?
-      monthly: "شهريا" #?
-      normal: "طبيعي وحقيقي" #?
-      other: "مخصصة" #?
-      payback: "تسديد الدين" #?
-      quarterly: "فصلي" #?
-      simplified: "مبسط" #?
-      yearly: "سنوي" #?
     team:
       default: "فريق الرئيسي"
-    tool:  #?
-      natures: #?
-        other: "اخرى" #?
-        towed: "اقتران" #?
-        tractor: "تراكتور" #?
     user:
       invitation:
         accepted: "قبلت"

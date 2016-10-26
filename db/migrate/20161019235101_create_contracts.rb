@@ -1,15 +1,6 @@
 class CreateContracts < ActiveRecord::Migration
   def change
-    create_table :contract_natures do |t|
-      t.string :name, null: false, index: true
-      t.string :currency, null: false
-      t.stamps
-    end
-
     create_table :contracts do |t|
-      t.references :nature, null: false, index: true
-      t.boolean :active, null: false, default: false
-      t.string :name, null: false, index: true
       t.string :number
       t.string :description
       t.string :state
@@ -27,7 +18,7 @@ class CreateContracts < ActiveRecord::Migration
     create_table :contract_items do |t|
       t.references :contract, null: false, index: true
       t.references :variant, null: false, index: true
-      t.decimal :quantity, precision: 19, scale: 4, default: 1.0, null: false
+      t.decimal :quantity, precision: 19, scale: 4, default: 0.0, null: false
       t.decimal :unit_pretax_amount, precision: 19, scale: 4, null: false
       t.decimal :pretax_amount, precision: 19, scale: 4, default: 0.0, null: false
       t.stamps
