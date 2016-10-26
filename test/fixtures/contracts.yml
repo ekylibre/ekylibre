@@ -40,7 +40,6 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-
 ---
 contracts_001:
   created_at: 2016-10-26 15:22:28.827656000 Z
