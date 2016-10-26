@@ -31,10 +31,9 @@ deu:
         delivered: "Da an Empfänger"
         list: "Abgehende Zahlungsliste"
       outgoing_payment_list:
-        # payments_sum: "Total"
+        payments_sum: "Gesamt"
       parcel:
         # contract: "Contract"
-        payments_sum: "Gesamt"
       parcel_item:
         population: "Menge"
       plant:

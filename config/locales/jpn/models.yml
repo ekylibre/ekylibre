@@ -31,10 +31,9 @@ jpn:
         delivered: "受信者に与えられました"
         list: "支払一覧"
       outgoing_payment_list:
-        # payments_sum: "Total"
+        payments_sum: "合計"
       parcel:
         # contract: "Contract"
-        payments_sum: "合計"
       parcel_item:
         population: "量"
       plant:

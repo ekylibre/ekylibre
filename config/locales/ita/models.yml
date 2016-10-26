@@ -31,10 +31,9 @@ ita:
         delivered: "Dato al destinatario"
         list: "Lista pagamento in uscita"
       outgoing_payment_list:
-        # payments_sum: "Total"
+        payments_sum: "Totale"
       parcel:
         # contract: "Contract"
-        payments_sum: "Totale"
       parcel_item:
         population: "Quantità"
       plant:

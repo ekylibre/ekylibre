@@ -31,10 +31,9 @@ cmn:
         delivered: "给收件人"
         list: "付款清单"
       outgoing_payment_list:
-        # payments_sum: "Total"
+        payments_sum: "总"
       parcel:
         # contract: "Contract"
-        payments_sum: "总"
       parcel_item:
         population: "数量"
       plant:
