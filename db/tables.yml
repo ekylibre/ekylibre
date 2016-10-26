@@ -4729,6 +4729,10 @@ plant_countings:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+  number:
+    type: string
   plant_density_abacus_id:
     type: integer
     references: plant_density_abacus
