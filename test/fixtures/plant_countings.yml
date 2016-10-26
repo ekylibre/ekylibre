@@ -28,6 +28,8 @@
 #  creator_id                   :integer
 #  id                           :integer          not null, primary key
 #  lock_version                 :integer          default(0), not null
+#  nature                       :string
+#  number                       :string
 #  plant_density_abacus_id      :integer          not null
 #  plant_density_abacus_item_id :integer          not null
 #  plant_id                     :integer          not null
