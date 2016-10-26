@@ -576,9 +576,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_cultivation
     # get the first object with variety 'plant', availables
     if cultivation = support.contents.where(type: Plant).of_variety(variant.variety).availables.reorder(:born_at).first
-      return cultivation
-    else
-      return nil
+      cultivation
     end
   end
 

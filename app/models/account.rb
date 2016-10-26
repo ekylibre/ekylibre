@@ -156,7 +156,7 @@ class Account < Ekylibre::Record::Base
         number.gsub!(/0$/, '')
       end unless numbers.include?(number)
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      account = find_by_number(number)
+      account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''

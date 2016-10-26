@@ -65,19 +65,19 @@ module Nomen
     # Returns list of choices for a given property
     def choices
       if inline_choices?
-        return @source || []
+        @source || []
       elsif item_reference?
-        return @nomenclature.sibling(@source).all.map(&:to_sym)
+        @nomenclature.sibling(@source).all.map(&:to_sym)
       end
     end
 
     def selection
       if inline_choices?
-        return choices.collect do |c|
+        choices.collect do |c|
           ["nomenclatures.#{@nomenclature.name}.choices.#{name}.#{c}".t, c]
         end
       elsif item_reference?
-        return @nomenclature.sibling(@source).selection
+        @nomenclature.sibling(@source).selection
       end
     end
 

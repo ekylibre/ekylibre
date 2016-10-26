@@ -196,7 +196,7 @@ module Backend
 
       @intervention = Intervention.new(options)
 
-      from_request = Intervention.find_by_id(params[:request_intervention_id])
+      from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
       render(locals: { cancel_url: { action: :index } })

@@ -63,7 +63,7 @@ module AgroSystemes
           analysis.read!(:iron_concentration, r.fe_ppm_value) if r.fe_ppm_value
         end
         # if an lan_parcel exist , link to analysis
-        if land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
+        if land_parcel = LandParcel.find_by(work_number: r.land_parcel_work_number)
           analysis.product = land_parcel
           analysis.save!
           land_parcel.read!(:soil_nature, r.analyse_soil_nature, at: r.sampled_at) if r.analyse_soil_nature

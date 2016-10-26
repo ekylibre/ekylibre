@@ -7,13 +7,14 @@ module Api
       test 'receiving an empty payload doesn\'t blow up' do
         add_auth_header
 
-        assert_nothing_raised { post(:create, {}) }
+        assert_nothing_raised { post :create }
       end
 
       test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
         add_auth_header
+        payload = correct_payload
 
-        part_id = JSON(post(:create, correct_payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         assert_not_nil part_id
         assert_not_nil part = InterventionParticipation.find_by(id: part_id)
 
@@ -35,14 +36,15 @@ module Api
       test 'handles completely wrong payload graciously' do
         add_auth_header
 
-        assert_nothing_raised { post(:create, yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441) }
+        assert_nothing_raised { post :create, params: { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 } }
       end
 
       test 'instantiate an intervention if it doesn\'t exist' do
         add_auth_header
 
         original_count = Intervention.where(nature: :record).count
-        post :create, correct_payload
+        payload = correct_payload
+        post :create, payload
 
         assert_equal original_count + 1, Intervention.where(nature: :record).count
       end
@@ -51,10 +53,10 @@ module Api
         add_auth_header
         payload = correct_payload
 
-        post(:create, body: payload.to_json)
+        post(:create, payload)
         original_count = Intervention.count
 
-        post(:create, body: payload.to_json)
+        post(:create, payload)
         new_count = Intervention.count
 
         assert_equal original_count, new_count
@@ -62,13 +64,13 @@ module Api
 
       test 'ignores working periods that already exist' do
         add_auth_header
-
-        part_id = JSON(post(:create, repeating_payload).body)['id']
+        payload = repeating_payload
+        part_id = JSON(post(:create, payload).body)['id']
         original_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal 2, original_count
 
-        part_id = JSON(post(:create, repeating_payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         new_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal original_count, new_count
@@ -76,13 +78,15 @@ module Api
 
       test 'ignores overlapping working periods' do
         add_auth_header
+        payload = overlapping_payload
 
-        part_id = JSON(post(:create, overlapping_payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         original_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal 1, original_count
 
-        part_id = JSON(post(:create, overlapping_payload(only_overlap: true)).body)['id']
+        payload = overlapping_payload(only_overlap: true)
+        part_id = JSON(post(:create, payload).body)['id']
         new_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal original_count, new_count
@@ -91,7 +95,8 @@ module Api
       test 'created working_periods have the correct nature' do
         add_auth_header
 
-        part_id = JSON(post(:create, correct_payload).body)['id']
+        payload = correct_payload
+        part_id = JSON(post(:create, payload).body)['id']
         natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
 
         assert_equal [:preparation, :travel, :intervention, :travel, :preparation, :travel, :intervention, :travel, :preparation], natures

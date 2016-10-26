@@ -213,7 +213,7 @@ module Unrollable
         filter[:start_pattern] = infos.second || 'X%'
         filter[:column_name] = definition.name
         filter[:column_type] = definition.type
-        return filter
+        filter
       else
         raise "What a parameter? #{object.inspect}"
       end
@@ -223,18 +223,18 @@ module Unrollable
     def includify(object)
       if object.is_a?(Array)
         a = object.map { |o| includify(o) }.compact
-        return (a.size == 1 ? a.first : a)
+        (a.size == 1 ? a.first : a)
       elsif object.is_a?(Hash)
         n = object.each_with_object({}) do |pair, h|
           h[pair.first] = includify(pair.second)
           h
         end
-        return n.each_with_object([]) do |pair, a|
+        n.each_with_object([]) do |pair, a|
           a << (pair.second.nil? ? pair.first : { pair.first => pair.second })
           a
         end
       elsif object.is_a?(Symbol) || object.is_a?(String)
-        return nil
+        nil
       else
         raise "What a parameter? #{object.inspect}"
       end
@@ -244,11 +244,11 @@ module Unrollable
     def compactify(object)
       if object.is_a?(Array)
         a = object.map { |o| compactify(o) }.compact
-        return (a.empty? ? nil : a)
+        (a.empty? ? nil : a)
       elsif object.is_a?(Hash)
-        return (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
+        (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
       elsif object.is_a?(Symbol) || object.is_a?(String)
-        return object
+        object
       else
         raise "What a parameter? #{object.inspect}"
       end

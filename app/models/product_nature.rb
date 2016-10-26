@@ -349,7 +349,7 @@ class ProductNature < Ekylibre::Record::Base
       unless category_item = Nomen::ProductNatureCategory.find(item.category)
         raise ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
       end
-      if !force && nature = ProductNature.find_by_reference_name(reference_name)
+      if !force && nature = ProductNature.find_by(reference_name: reference_name)
         return nature
       end
       attributes = {

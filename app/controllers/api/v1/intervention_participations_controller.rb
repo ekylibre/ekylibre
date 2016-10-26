@@ -4,7 +4,7 @@ module Api
     class InterventionParticipationsController < Api::V1::BaseController
       def create
         params = permitted_params
-        return render json: :unprocessable_entity if params.blank?
+        return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank?
 
         intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
         intervention.creator_id = current_user

@@ -288,9 +288,9 @@ class Parcel < Ekylibre::Record::Base
 
   def status
     if given?
-      return (issues? ? :caution : :go)
+      (issues? ? :caution : :go)
     else
-      return (issues? ? :stop : :caution)
+      (issues? ? :stop : :caution)
     end
   end
 

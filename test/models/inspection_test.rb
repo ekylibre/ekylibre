@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -288,12 +289,14 @@ class InspectionTest < ActiveSupport::TestCase
       sampling_distance: 3,
       product_net_surface_area_value: 5,
       product_net_surface_area_unit: 'hectare',
+      implanter_rows_number: 4,
+      implanter_application_width: 20.5,
       comment: ''
     )
 
     assert_equal 4, inspection.implanter_rows_number
-    assert_equal 5.125, inspection.implanter_working_width
     assert_equal 20.5, inspection.implanter_application_width
+    assert_equal 5.125, inspection.implanter_working_width
   end
 
   test 'position is correctly computed' do
