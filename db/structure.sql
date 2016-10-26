@@ -4187,7 +4187,6 @@ CREATE TABLE plant_countings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
     number character varying,
     nature character varying
 );
@@ -15822,4 +15821,3 @@ INSERT INTO schema_migrations (version) VALUES ('20161013023259');
 INSERT INTO schema_migrations (version) VALUES ('20161018162500');
 
 INSERT INTO schema_migrations (version) VALUES ('20161026102134');
-

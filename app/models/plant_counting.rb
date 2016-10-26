@@ -59,4 +59,30 @@ class PlantCounting < Ekylibre::Record::Base
       self.plant_density_abacus = plant_density_abacus_item.plant_density_abacus
     end
   end
+
+  def number
+    1234
+  end
+
+  def sampling_area
+    1
+  end
+
+  def product_net_surface_area
+    1
+  end
+
+  def values_expected?(threshold = 23.0)
+    return false unless average_value.present?
+    expected = plant_density_abacus_item.seeding_density_value
+
+    pct_threshold = threshold / 100.0
+    qt_threshold = pct_threshold * expected
+
+    (-qt_threshold..qt_threshold).cover? (average_value - expected)
+  end
+
+  def state
+    values_expected? ? :go : :stop
+  end
 end
