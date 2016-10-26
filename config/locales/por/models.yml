@@ -1420,7 +1420,6 @@ por:
         name: "Catálogo dos preços de venda"
     catalog_item:
       name: "%{variant} %{amount}/%{unit}"
-      # name: "%{variant} %{amount}/%{unit}"
     contract:
       # label: "Contract %{nature} n° %{number} of %{supplier}"
       states:
