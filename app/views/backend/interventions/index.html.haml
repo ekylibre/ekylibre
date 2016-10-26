@@ -24,7 +24,7 @@
 - main_toolbar do |t|
   = t.new(nature: :request, label: :add_intervention_request.tl, params: { redirect: nil })
   = t.new(nature: :record, label: :add_intervention_record.tl, prams: { redirect: nil })
-  - if current_user.crumbs.unconverted.any?
+  -# if current_user.crumbs.unconverted.any?
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 

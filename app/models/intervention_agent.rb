@@ -65,8 +65,6 @@ class InterventionAgent < InterventionProductParameter
   def participation
     if product
       participation = InterventionParticipation.find_by(product: product, intervention: intervention)
-    else
-      nil
     end
   end
 

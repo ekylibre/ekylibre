@@ -334,6 +334,21 @@ Rails.application.routes.draw do
 
     resources :cobblers, only: [:update]
 
+    resources :contract_natures, concerns: [:list, :unroll]
+
+    resources :contracts, concerns: [:list, :unroll] do
+      member do
+        get :list_items
+        get :list_parcels
+        get :list_purchases
+        post :lose
+        post :negociate
+        post :prospect
+        post :quote
+        post :win
+      end
+    end
+
     resources :crumbs, only: [:index, :update, :destroy] do
       member do
         post :convert
@@ -409,6 +424,7 @@ Rails.application.routes.draw do
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
+        get :list_contracts
         get :list_event_participations
         get :list_incoming_payments
         get :list_incoming_parcels

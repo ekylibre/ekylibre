@@ -18,7 +18,7 @@ module BovinsCroissance
           fourth_weighting_value: row[62].blank? ? nil : row[62].to_d.in_kilogram
         )
         # if an animal exist , link to weight
-        if animal = Animal.find_by_work_number(r.animal_work_number)
+        if animal = Animal.find_by(work_number: r.animal_work_number)
           animal.read!(:net_mass, r.animal_weight_at_birth, at: animal.born_at, force: true) if r.animal_weight_at_birth
           animal.read!(:net_mass, r.first_weighting_value, at: r.first_weighting_at, force: true) if r.first_weighting_at
           animal.read!(:net_mass, r.second_weighting_value, at: r.second_weighting_at, force: true) if r.second_weighting_at

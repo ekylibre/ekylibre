@@ -662,7 +662,7 @@ module ApplicationHelper
         content_for(:main_title, value)
       end
     else
-      return (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
+      (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
     end
   end
 
@@ -909,9 +909,9 @@ module ApplicationHelper
     if condition =~ /^generic/
       klass = condition.split(/\-/)[1].pluralize.classify.constantize
       attribute = condition.split(/\-/)[2]
-      return tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
+      tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
     else
-      return tl("conditions.#{condition}")
+      tl("conditions.#{condition}")
     end
   end
 

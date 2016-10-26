@@ -1,5 +1,6 @@
 - recipients = Entity.where(id: Parcel.pluck(:recipient_id).compact.uniq)
 - senders = Entity.where(id: Parcel.pluck(:sender_id).compact.uniq)
+- responsibles = User.where(id: Parcel.select(:responsible_id).distinct)
 = kujaku do |k|
   - k.text
   - k.helper do
@@ -12,6 +13,12 @@
     - k.helper do
       %label= Parcel.human_attribute_name(:sender)
       = select_tag(:sender_id, options_for_select([[]] + senders.order(:name).collect{|u| [u.name, u.id]}, params[:sender_id]))
+
+  - if responsibles.any?
+    - k.helper do
+      %label= Parcel.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
+
   -# - senders = Entity.all
   -# - if senders.any?
   -#   - k.helper do

@@ -35,7 +35,7 @@ module Ekylibre
         end
 
         if zone
-          if container = Product.find_by_work_number(r.place_code)
+          if container = Product.find_by(work_number: r.place_code)
             zone.update_attributes(initial_container: container)
             zone.save!
           end

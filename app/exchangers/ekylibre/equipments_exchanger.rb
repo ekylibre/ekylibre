@@ -54,7 +54,7 @@ module Ekylibre
           owner = Entity.of_company
         end
 
-        container = r.place_code.present? ? Product.find_by_work_number(r.place_code) : nil
+        container = r.place_code.present? ? Product.find_by(work_number: r.place_code) : nil
 
         # create the equipment
         equipment = pmodel.create!(variant_id: variant.id, name: r.name, initial_born_at: r.born_at, initial_owner: owner, initial_container: container, default_storage: container, work_number: r.work_number)

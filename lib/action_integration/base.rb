@@ -116,7 +116,7 @@ module ActionIntegration
     def fetch(integration_params = nil)
       # Needed for #new Integrations
       integration = integration_params && ::Integration.new(integration_params)
-      integration ||= ::Integration.find_by_nature(self.class.integration_name.underscore)
+      integration ||= ::Integration.find_by(nature: self.class.integration_name.underscore)
 
       raise ServiceNotIntegrated unless integration
       self.class.parameters.each do |p|

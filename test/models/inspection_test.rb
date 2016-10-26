@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -47,20 +48,20 @@ class InspectionTest < ActiveSupport::TestCase
 
   SCALES_ATTRIBUTES = [
     [:diameter, :millimeter],
-    [  :height, :centimeter]
+    [:height, :centimeter]
   ].freeze
 
   SCALE_NATURES_ATTRIBUTES = [
     [
-      [false,  0,  20],
-      [ true, 20,  30],
-      [ true, 30,  35],
-      [ true, 35,  40],
+      [false, 0, 20],
+      [true, 20,  30],
+      [true, 30,  35],
+      [true, 35,  40],
       [false, 40, 150]
     ],
     [
       [false, 15, 25],
-      [ true, 25, 35],
+      [true, 25, 35],
       [false, 35, 45]
     ]
   ].freeze
@@ -72,27 +73,27 @@ class InspectionTest < ActiveSupport::TestCase
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
-    [  3, 0.21, nil, nil],
+    [3, 0.21, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
-    [  1,  0.1, nil, nil],
+    [1, 0.1, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil]
   ].freeze
 
   CALIBRATION_ATTRIBUTES = [
     [
-      [ 61,  0.8,   5,  15],
-      [ 82, 2.32,   5,  15],
-      [  2, 0.13,  15,  17],
+      [61, 0.8,   5, 15],
+      [82, 2.32, 5, 15],
+      [2, 0.13, 15, 17],
       [nil,  nil, nil, nil],
       [nil,  nil, nil, nil]
     ],
     [
-      [  4,    1, nil, nil],
-      [  9,    1, nil, nil],
-      [  10,   2, nil, nil]
+      [4,    1, nil, nil],
+      [9,    1, nil, nil],
+      [10,   2, nil, nil]
     ]
   ].freeze
 
@@ -141,7 +142,7 @@ class InspectionTest < ActiveSupport::TestCase
       grading_sizes_unit_name: 'centimeter'
     )
 
-    @scales = SCALES_ATTRIBUTES.map { |attrs| {size_indicator_name: attrs.first, size_unit_name: attrs.last} }
+    @scales = SCALES_ATTRIBUTES.map { |attrs| { size_indicator_name: attrs.first, size_unit_name: attrs.last } }
                                .map { |s_attrs| @activity.inspection_calibration_scales.create!(s_attrs) }
 
     SCALE_NATURES_ATTRIBUTES.each_with_index do |n_vals, index|
@@ -288,12 +289,14 @@ class InspectionTest < ActiveSupport::TestCase
       sampling_distance: 3,
       product_net_surface_area_value: 5,
       product_net_surface_area_unit: 'hectare',
+      implanter_rows_number: 4,
+      implanter_application_width: 20.5,
       comment: ''
     )
 
     assert_equal 4, inspection.implanter_rows_number
-    assert_equal 5.125, inspection.implanter_working_width
     assert_equal 20.5, inspection.implanter_application_width
+    assert_equal 5.125, inspection.implanter_working_width
   end
 
   test 'position is correctly computed' do

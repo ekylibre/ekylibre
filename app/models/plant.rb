@@ -95,11 +95,11 @@ class Plant < Bioproduct
 
   def status
     if dead_at?
-      return :stop
+      :stop
     elsif issues.any?
-      return (issues.where(state: :opened).any? ? :caution : :go)
+      (issues.where(state: :opened).any? ? :caution : :go)
     else
-      return :go
+      :go
     end
   end
 

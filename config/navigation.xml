@@ -323,6 +323,23 @@
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
       </item>
+      <item name="contracts">
+        <page to="backend/contracts#index"/>
+        <page to="backend/contracts#create"/>
+        <page to="backend/contracts#destroy"/>
+        <page to="backend/contracts#edit"/>
+        <page to="backend/contracts#list"/>
+        <page to="backend/contracts#list_items"/>
+        <page to="backend/contracts#list_parcels"/>
+        <page to="backend/contracts#lose"/>
+        <page to="backend/contracts#negociate"/>
+        <page to="backend/contracts#new"/>
+        <page to="backend/contracts#prospect"/>
+        <page to="backend/contracts#quote"/>
+        <page to="backend/contracts#show"/>
+        <page to="backend/contracts#update"/>
+        <page to="backend/contracts#win"/>
+      </item>
     </group>
     <group name="payments" icon="credit-card">
       <item name="incoming_payments">
@@ -367,7 +384,6 @@
         <page to="backend/outgoing_payment_lists#destroy"/>
         <page to="backend/outgoing_payment_lists#list"/>
         <page to="backend/outgoing_payment_lists#show"/>
-        <page to="backend/outgoing_payment_lists#unroll" nonexistent="true"/>
       </item>
     </group>
   </part>
@@ -1258,6 +1274,17 @@
         <page to="backend/purchase_natures#update"/>
         <page to="backend/purchase_natures#unroll"/>
       </item>
+      <item name="contract_natures">
+        <page to="backend/contract_natures#index"/>
+        <page to="backend/contract_natures#create"/>
+        <page to="backend/contract_natures#destroy"/>
+        <page to="backend/contract_natures#edit"/>
+        <page to="backend/contract_natures#list"/>
+        <page to="backend/contract_natures#new"/>
+        <page to="backend/contract_natures#show"/>
+        <page to="backend/contract_natures#unroll"/>
+        <page to="backend/contract_natures#update"/>
+      </item>
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
         <page to="backend/subscription_natures#create"/>
@@ -1859,6 +1886,7 @@
         <page to="backend/buildings#list_trackings"/>
       </item>
       <item name="entities">
+        <page to="backend/entities#list_contracts"/>
         <page to="backend/entities#list_incoming_parcels"/>
         <page to="backend/entities#list_outgoing_parcels"/>
       </item>
