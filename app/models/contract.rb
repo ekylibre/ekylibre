@@ -65,7 +65,7 @@ class Contract < Ekylibre::Record::Base
   validates :stopped_on, timeliness: { on_or_after: ->(contract) { contract.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
-  validates :created_at, :state, presence: true
+  validates :state, presence: true
   validates :number, uniqueness: true
   validates_associated :items
 

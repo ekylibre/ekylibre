@@ -39,6 +39,7 @@ class ContractItem < Ekylibre::Record::Base
   belongs_to :contract, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :contract_items
   has_one :product_nature_category, through: :variant, source: :category
+  has_many :purchases, through: :contract
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :pretax_amount, :quantity, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :contract, :variant, presence: true
@@ -48,12 +49,12 @@ class ContractItem < Ekylibre::Record::Base
 
   # return all contract items  between two dates
   scope :between, lambda { |started_on, stopped_on|
-    joins(:contract).merge(Purchase.invoiced_between(started_on, stopped_on))
+    where(contract_id: Purchase.invoiced_between(started_on, stopped_on).select(:contract_id))
   }
 
   # return all contract items for the consider product_nature_category
-  scope :by_product_nature_category, lambda { |product_nature_category|
-    joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
+  scope :of_product_nature_category, lambda { |product_nature_category|
+    where(variant_id: ProductNatureVariant.of_categories(product_nature_category))
   }
 
   before_validation do

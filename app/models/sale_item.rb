@@ -104,7 +104,7 @@ class SaleItem < Ekylibre::Record::Base
   }
 
   # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature|
+  scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
