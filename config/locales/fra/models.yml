@@ -107,6 +107,14 @@ fra:
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
         variety: "Variété" #?
+      plant_counting:
+        plants_count: "Nombre de plants"
+        seeding_density_value: "Densité de semis"
+      plant_counting_item:
+        value: "Nombre de plants"
+      plant_density_abacus_item:
+        plants_count: "Nombre théorique de plants"
+        seeding_density_value: "Densité théorique de semis"
       product_localization:  #?
         container: "Contenant" #?
         started_at: "Entrée" #?
@@ -384,10 +392,10 @@ fra:
       parcel: "Colis"
       parcel_item: "Élément de colis"
       plant: "Plante"
-      plant_counting: "Nombre de plants"
+      plant_counting: "Comptage"
       plant_counting_item: "Mesure du nombre de plants"
-      plant_density_abacus: "Densité de plants"
-      plant_density_abacus_item: "Mesure de la densité de plants"
+      plant_density_abacus: "Abaque de densité de plants"
+      plant_density_abacus_item: "Référence de densité"
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -1230,11 +1238,11 @@ fra:
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu sur"
     plant: "Plante"
-    plant_counting: "comptage des plantes"
-    plant_countings: "dénombrements des plantes"
-    plant_density_abaci: "Abaci densité végétale"
-    plant_density_abacus: "boulier densité végétale"
-    plant_density_abacus_item: "la densité des plantes article boulier"
+    plant_counting: "Comptage"
+    plant_countings: "Comptages"
+    plant_density_abaci: "Abaques de densité de plant"
+    plant_density_abacus: "Abaque de densité de plant"
+    plant_density_abacus_item: "Référence de densité"
     plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"

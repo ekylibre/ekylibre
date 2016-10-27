@@ -1,6 +1,6 @@
 module Backend
   class PlantCountingsController < Backend::BaseController
-    manage_restfully only: [:index, :show]
+    manage_restfully
 
     list do |t|
       t.action :edit

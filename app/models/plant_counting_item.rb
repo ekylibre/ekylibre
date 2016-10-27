@@ -43,6 +43,8 @@ class PlantCountingItem < Ekylibre::Record::Base
   validates :plant_counting, presence: true
   # ]VALIDATORS]
 
+  delegate :rows_count, :implanter_working_width, to: :plant_counting
+
   def update_average_value
     items = plant_counting.items
     average_value = items.any? ? items.average(:value) : nil
@@ -51,5 +53,10 @@ class PlantCountingItem < Ekylibre::Record::Base
 
   def siblings
     plant_counting.items
+  end
+
+  def measured_seeding_density
+    density = value * rows_count * 10_000 / implanter_working_width.to_d(:meter)
+    density.in :unity_per_hectare
   end
 end

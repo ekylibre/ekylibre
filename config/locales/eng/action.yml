@@ -495,6 +495,11 @@ eng:
       new: "New crop"
       show: "Crop: %{name}"
       # take: "Take plant: %{name}"
+    backend/plant_countings:
+      edit: "Edit plant counting #%{number}"
+      index: "Countings"
+      new: "New counting"
+      show: "Plant counting #%{number}"
     backend/postal_zones:
       # autocomplete: "Autocomplete postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
@@ -923,6 +928,7 @@ eng:
     automatic: "Auto" #?
     available: "Available" #?
     available_columns: "Available columns: %{columns}"
+    average: "Average"
     back: "Back to the previous page"
     balance: "Balance"
     bank_account: "Bank account"
@@ -1006,7 +1012,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
-    countings: "Countings" #?
+    countings: "Countings"
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -1395,6 +1401,8 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     plant: "Crop"
+    plant_counting: "Counting"
+    plant_countings: "Countings"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
@@ -1684,6 +1692,9 @@ eng:
     x_days:
       one: "%{count} day"
       other: "%{count} days"
+    x_countings:
+      one: "%{count} counting"
+      other: "%{count} countings"
     x_depositable_payments:
       one: "1 incoming payment to deposit"
       other: "%{count} incoming payments to deposit"

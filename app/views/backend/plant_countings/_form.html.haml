@@ -1,18 +1,21 @@
-= field_set class: "delivery-item" do
+= field_set class: 'delivery-item' do
+  = f.input :number
+  = f.input :nature
   = f.input :read_at
-  = f.referenced_association :activity, as: :hidden
-  = f.referenced_association :plant, source: {controller: 'backend/plants'}, input_html: { data: {product_of_delivery_item: {url: backend_plant_path("RECORD_ID", format: :json)}}}
-  = f.input(:implanter_application_width, wrapper: :append) do
-    = f.input_field :implanter_application_width, data: { "when-item": :application_width, "when-set-value": "RECORD_VALUE" }
-    %span.add-on{data: { when: {item: :application_width_unit, "set-value": "RECORD_VALUE" } } }= Nomen::Unit[:meter].l
-  = f.input :implanter_rows_number, input_html: { data: { "when-item": :rows_count, "when-set-value": "RECORD_VALUE" } }
-  = f.input(:sampling_distance, wrapper: :append) do
-    = f.input_field :sampling_distance, value: 1, disabled: true
-    %span.add-on= Nomen::Unit[:meter].l
-  = f.input(:product_net_surface_area, wrapper: :append) do
-    = f.input_field(:product_net_surface_area_value, data: { "when-item": :population, "when-set-value": "RECORD_VALUE" })
-    = f.input_field(:product_net_surface_area_unit, collection: Nomen::Unit.where(dimension: :surface_area).selection, data: { "when-item": :unit_name, "when-set-value": "RECORD_VALUE" })
+  = f.referenced_association :plant_density_abacus_item, source: {plant_density_abacus_id: f.object.plant_density_abacus }
   = f.input :comment, as: :text
 
-  .data
-    %p= "Le détail des données :"
+  = f.referenced_association :plant, as: :hidden
+  = f.referenced_association :plant_density_abacus, as: :hidden
+
+  = field_set f.object.class.human_attribute_name(:items) do
+    %table
+      %thead
+        %th= PlantCountingItem.model_name.human
+        %th= PlantCountingItem.human_attribute_name(:value)
+      %tbody.numbering-root#items-anchor
+        = f.simple_fields_for :items, f.object.items do |item|
+          = render 'item_fields', f: item
+      %tfoot
+        %tr
+          %td{colspan: 3}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-anchor', 'data-association-insertion-method' => :append, class: 'btn primary'

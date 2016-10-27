@@ -256,6 +256,10 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+    plant_counting:
+      nature:
+        sowing: "At sowing"
+        germination: "At germination"
     preference:
       nature:
         accounting_system: "Accounting system"

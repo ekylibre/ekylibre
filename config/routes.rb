@@ -687,6 +687,8 @@ Rails.application.routes.draw do
 
     resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
+    resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'
+
     resources :plants, concerns: :products do
       member do
         get :list_plant_countings

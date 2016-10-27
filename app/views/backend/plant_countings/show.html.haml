@@ -7,7 +7,7 @@
     - l.attribute :number
     - l.attribute :read_at
     - l.attribute :sampling_area
-    - l.attribute :plant_net_surface_area
+    - l.attribute :plant_activity, url: true
     - l.attribute :plant, url: true
 
 = cobbles do |c|
@@ -15,24 +15,25 @@
     = infos do
       .med-info
         %span.title= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
-        %span.value= resource.seeding_density_value
+        %span.value= resource.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2)
       .med-info
         %span.title= PlantCounting.human_attribute_name :nature
-        %span.value= resource.nature.tl
+        %span.value= resource.nature.l
       .med-info
         %span.title= PlantDensityAbacus.human_attribute_name :germination_percentage
-        %span.value= resource.germination_percentage
+        %span.value= "#{resource.germination_percentage}%"
 
   - c.cobble :observations do
     = infos do
       .med-info= resource.comment
 
   - c.cobble :totals do
-    = infos do
-      .big-info
+    .big-infos.full-height
+      .med-info
         %span.title= PlantCounting.human_attribute_name :status
         %span.value= lights(resource.status)
 
+    .big-infos.wrappable
       - if resource.density_computable?
         .med-info
           %span.title= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
@@ -43,7 +44,7 @@
           %span.value= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
 
       .med-info
-        %span.title= PlantDensityAbacus.human_attribute_name :plants_count
+        %span.title= PlantDensityAbacusItem.human_attribute_name :plants_count
         %span.value= resource.plant_density_abacus_item.plants_count
 
       .med-info
@@ -51,4 +52,25 @@
         %span.value= resource.average_value
 
   - c.cobble :data do
-    %p= "Détail des comptages et moyennes obtenues."
+    %table
+      %thead
+        %tr
+          %th= PlantCountingItem.human_attribute_name :number
+          %th= PlantCountingItem.human_attribute_name :value
+          %th= PlantDensityAbacusItem.human_attribute_name :plants_count
+          %th= PlantCountingItem.human_attribute_name :seeding_density_value
+          %th= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
+      %tbody
+        - resource.items.order(:id).each_with_index do |item, index|
+          %tr
+            %td= index + 1
+            %td.decimal= item.value
+            %td.decimal= resource.plant_density_abacus_item.plants_count
+            %td.decimal= item.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
+            %td.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2)
+      %tr.total
+        %th= :average.tl.capitalize
+        %th.decimal= resource.average_value
+        %th.decimal= resource.plant_density_abacus_item.plants_count
+        %th.decimal= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
+        %th.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2)

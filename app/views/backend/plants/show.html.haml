@@ -64,9 +64,13 @@
   - if resource.inspections.any?
     - render 'inspection_cobbles', resource, resource
 
-  - if resource.plant_countings.any?
-    - c.cobble :plant_countings, title: :x_countings.tl(count: resource.plant_countings.count) do
-      = cobble_list :plant_countings
+  - c.cobble :plant_countings, title: :x_countings.tl(count: resource.plant_countings.count) do
+    - if resource.activity.present?
+      = cobble_toolbar do |t|
+        = t.menu :new, icon: false do |menu|
+          - resource.activity.plant_density_abaci.each do |abacus|
+            - menu.item abacus.name, { action: :new, controller: :plant_countings, plant_id: resource.id, plant_density_abacus_id: abacus.id }, title: abacus.name
+    = cobble_list :plant_countings
 
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do
     -# FIXME Add activity in URL to get link working

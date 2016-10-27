@@ -137,6 +137,15 @@ i.icon {
 
 }
 
+.numbering-root{
+  counter-reset: numbers;
+}
+
+.numbered:before {
+  content: counter(numbers);
+  counter-increment: numbers;
+}
+
 
 
 li.dropdown {

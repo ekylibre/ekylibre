@@ -473,6 +473,11 @@ fra:
       index: "Cultures"
       new: "Nouvelle culture"
       show: "Culture\_: %{name}"
+    backend/plant_countings:
+      edit: "Modifier le comptage\_: %{number}"
+      index: "Comptage"
+      new: "Nouveau comptage"
+      show: "Comptage\_: %{number}"
     backend/postal_zones:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
@@ -902,6 +907,7 @@ fra:
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
+    average: "Moyenne"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
@@ -1601,6 +1607,8 @@ fra:
     planned_at: "Date prévisionnelle" #?
     plant: "Culture"
     plant_productions: "Productions végétales" #?
+    plant_counting: "Comptage"
+    plant_countings: "Comptages"
     plantation_density: "Densité de plantation"
     plants: "Plantes"
     please_wait: "Merci de patienter…"
@@ -2078,6 +2086,9 @@ fra:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
+    x_countings:
+      one: "%{count} comptage"
+      other: "%{count} comptages"
     x_days:
       one: "%{count} jour"
       other: "%{count} jours"

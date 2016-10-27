@@ -45,7 +45,7 @@ class PlantCounting < Ekylibre::Record::Base
   has_many :items, class_name: 'PlantCountingItem', dependent: :delete_all, inverse_of: :plant_counting
   enumerize :nature, in: [:sowing, :germination]
 
-  validates :number, :nature, presence: true
+  validates :nature, presence: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :average_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
@@ -53,21 +53,17 @@ class PlantCounting < Ekylibre::Record::Base
   validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :plant, :plant_density_abacus, :plant_density_abacus_item, presence: true
   # ]VALIDATORS]
+  # acts_as_numbered
 
-  delegate :net_surface_area, :sower, :last_sowing, to: :plant, prefix: true
+  delegate :activity, :sower, :last_sowing, to: :plant, prefix: true
   delegate :germination_percentage, :sampling_length_unit, :seeding_density_unit, to: :plant_density_abacus
   delegate :seeding_density_value, to: :plant_density_abacus_item
-
   accepts_nested_attributes_for :items
 
   before_validation do
     if plant_density_abacus_item
       self.plant_density_abacus = plant_density_abacus_item.plant_density_abacus
     end
-  end
-
-  def number
-    1234
   end
 
   def status

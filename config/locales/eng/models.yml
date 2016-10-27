@@ -36,6 +36,11 @@ eng:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      plant_counting_item:
+        value: "Plants count"
+      plant_density_abacus_item:
+        plants_count: "Expected plants count"
+        seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
       sale:
