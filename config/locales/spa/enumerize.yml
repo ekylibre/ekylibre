@@ -26,6 +26,7 @@ spa:
         none: "Ninguna"
     activity_production:
       support_nature:
+        animal_group: "Grupo de animales"
         border: "Frontera"
         # buffer: "Buffer"
         cultivation: "Cultivo"
@@ -57,6 +58,18 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    call_message:
+      nature:
+        incoming: "Entrante"
+        outgoing: "Extrovertida"
+    call_request:
+      nature:
+        incoming: "Entrante"
+        outgoing: "Extrovertida"
+    call_response:
+      nature:
+        incoming: "Entrante"
+        outgoing: "Extrovertida"
     cash:
       mode:
         bban: "Número de cuenta bancaria básica (BBAN)"
@@ -180,8 +193,10 @@ spa:
       state:
         done: "Hecho"
         in_progress: "En progreso"
-        squeezed: "Exprimido"
-        undone: "Deshecho"
+        rejected: "Rechazado"
+        squeezed: "Exprimido" #?
+        undone: "Deshecho" #?
+        validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boole"
@@ -193,6 +208,16 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    intervention_participation:
+      state:
+        done: "Hecho"
+        in_progress: "En progreso"
+        validated: "Validado"
+    intervention_working_period:
+      nature:
+        intervention: "Intervención"
+        preparation: "Preparación"
+        travel: "Viajar"
     journal:
       nature:
         bank: "Banco"
@@ -200,6 +225,7 @@ spa:
         forward: "A cargo de avance"
         purchases: "Las compras"
         sales: "Ventas"
+        stocks: "Cepo"
         various: "Diversas operaciones"
     listing_node:
       nature:
@@ -378,6 +404,7 @@ spa:
         supplier: "Proveedor"
     sensor:
       retrieval_mode:
+        integration: "Integración"
         listening: "Escuchando"
         requesting: "Solicitando"
     sequence:
@@ -392,6 +419,7 @@ spa:
         animals: "Numeración de los animales"
         campaigns: "La numeración de las campañas"
         cash_transfers: "Numeración de las transferencias de dinero"
+        contracts: "La numeración de los contratos"
         deliveries: "Las entregas"
         deposits: "La numeración de los depósitos"
         documents: "Numeración de documentos"
@@ -405,6 +433,7 @@ spa:
         inventories: "Los inventarios"
         opportunities: "Oportunidades"
         outgoing_deliveries: "Numeración de las entregas salientes" #?
+        outgoing_payment_lists: "La numeración de las listas de pago salientes"
         outgoing_payments: "Numeración de los pagos"
         parcels: "Parcelas"
         plants: "Numeración de las plantas"

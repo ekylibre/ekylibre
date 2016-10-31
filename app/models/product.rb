@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -99,17 +100,23 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
+  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles([:input, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
+  has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
+  has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
+  has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
+  has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
+  has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
@@ -122,6 +129,7 @@ class Product < Ekylibre::Record::Base
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
@@ -212,7 +220,7 @@ class Product < Ekylibre::Record::Base
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
-  scope :storage, -> { of_expression('is building or is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
+  scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
 
   scope :mine, -> { of_owner(:own) }
@@ -235,11 +243,12 @@ class Product < Ekylibre::Record::Base
   validates :nature, :variant, :name, :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
-  validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions.pluck(:started_at).any? }
+  validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    first_used_at = interventions.order(started_at: :asc).first.started_at
+    return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
+    first_used_at = first_intervention.started_at
     errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
 
@@ -252,6 +261,7 @@ class Product < Ekylibre::Record::Base
     !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
@@ -275,8 +285,7 @@ class Product < Ekylibre::Record::Base
     self.initial_born_at ||= Time.zone.now
     self.born_at ||= self.initial_born_at
     self.initial_born_at = self.born_at
-    self.dead_at ||= initial_dead_at
-    self.initial_dead_at = self.dead_at
+    self.initial_dead_at = dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 
@@ -312,7 +321,7 @@ class Product < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any? || supports.any?
+    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any?
   end
 
   class << self
@@ -329,8 +338,13 @@ class Product < Ekylibre::Record::Base
     def availables(**args)
       at = args[:at]
       return available if at.blank?
-      if at.is_a? String
-        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      if at.is_a?(String)
+        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+        else
+          logger.warn('Cannot parse: ' + at)
+          available
+        end
       else
         available.at(at)
       end
@@ -347,6 +361,10 @@ class Product < Ekylibre::Record::Base
 
   def activity_id
     activity ? activity.id : nil
+  end
+
+  def best_activity_production(_options = {})
+    ActivityProduction.where(support: self).order(id: :desc).first
   end
 
   # TODO: Removes this ASAP
@@ -557,12 +575,9 @@ class Product < Ekylibre::Record::Base
   end
 
   def population(options = {})
-    movements = self.movements.at(options[:at] || Time.zone.now)
-    if movements.any?
-      return movements.last.population
-    else
-      return 0.0
-    end
+    pops = populations.last_before(options[:at] || Time.zone.now)
+    return 0.0 if pops.none?
+    pops.first.value
   end
 
   # Moves population with given quantity

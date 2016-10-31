@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add transportation actions">
+  <item-creation item="procedure_actions#transportation"/>
+</migration>

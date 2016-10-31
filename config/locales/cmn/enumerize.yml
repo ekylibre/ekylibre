@@ -26,6 +26,7 @@ cmn:
         none: "没有"
     activity_production:
       support_nature:
+        animal_group: "动物群"
         border: "边境"
         buffer: "缓冲"
         cultivation: "养殖"
@@ -57,6 +58,18 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    call_message:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
+    call_request:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
+    call_response:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
     cash:
       mode:
         bban: "基本银行帐户号码（BBAN）"
@@ -180,8 +193,10 @@ cmn:
       state:
         done: "做"
         in_progress: "进行中"
-        squeezed: "挤压"
-        undone: "未完成"
+        rejected: "拒绝"
+        squeezed: "挤压" #?
+        undone: "未完成" #?
+        validated: "验证"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "布尔"
@@ -193,6 +208,16 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    intervention_participation:
+      state:
+        done: "做"
+        in_progress: "进行中"
+        validated: "验证"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "制备"
+        travel: "旅行"
     journal:
       nature:
         bank: "银行"
@@ -200,6 +225,7 @@ cmn:
         forward: "结转"
         purchases: "购买"
         sales: "销售"
+        stocks: "股票"
         various: "各种操作"
     listing_node:
       nature:
@@ -378,6 +404,7 @@ cmn:
         supplier: "供应商"
     sensor:
       retrieval_mode:
+        integration: "积分"
         listening: "听力"
         requesting: "请求"
     sequence:
@@ -392,6 +419,7 @@ cmn:
         animals: "动物记数"
         campaigns: "活动的记数"
         cash_transfers: "现金转移的记数"
+        contracts: "合同的记数"
         deliveries: "交付"
         deposits: "存款记数"
         documents: "文档记数"
@@ -405,6 +433,7 @@ cmn:
         inventories: "存货"
         opportunities: "机会"
         outgoing_deliveries: "即将离任的交货记数" #?
+        outgoing_payment_lists: "付款清单记数"
         outgoing_payments: "支付记数"
         parcels: "地块"
         plants: "植物的记数"

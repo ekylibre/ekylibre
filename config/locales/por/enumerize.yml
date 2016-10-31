@@ -27,6 +27,7 @@ por:
         none: "Nenhum"
     activity_production:
       support_nature:
+        animal_group: "Grupo de animais"
         border: "Fronteira"
         buffer: "Amortecedor"
         cultivation: "Cultivo"
@@ -58,6 +59,18 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    call_message:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
+    call_request:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
+    call_response:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"
@@ -182,8 +195,10 @@ por:
       state:
         done: "Finalizado"
         in_progress: "Em progresso"
-        squeezed: "Apertado"
-        undone: "Desfeito"
+        rejected: "Rejeitado"
+        squeezed: "Apertado" #?
+        undone: "Desfeito" #?
+        validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"
@@ -195,6 +210,16 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    intervention_participation:
+      state:
+        done: "Feito"
+        in_progress: "Em progresso"
+        validated: "Validado"
+    intervention_working_period:
+      nature:
+        intervention: "Intervenção"
+        preparation: "Preparação"
+        travel: "Viagem"
     journal:
       nature:
         bank: "Banco"
@@ -202,6 +227,7 @@ por:
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"
+        stocks: "Estoques"
         various: "Várias operações"
     listing_node:
       nature:
@@ -391,6 +417,7 @@ por:
         supplier: "Fornecedor"
     sensor:
       retrieval_mode:
+        integration: "Integração"
         listening: "Ouvindo"
         requesting: "Solicitando"
     sequence:
@@ -405,6 +432,7 @@ por:
         animals: "Numeração de animais"
         campaigns: "Numeração de campanhas"
         cash_transfers: "Numeração de transferências de dinheiro"
+        contracts: "Numeração de contratos"
         deliveries: "Entregas"
         deposits: "Numeração de depósitos"
         documents: "Numeração de documentos"
@@ -418,6 +446,7 @@ por:
         inventories: "Os estoques"
         opportunities: "Oportunidades"
         outgoing_deliveries: "Numeração de entregas" #?
+        outgoing_payment_lists: "Numeração de listas de pagamento a efectuar"
         outgoing_payments: "Numeraçaõ de pagamentos"
         parcels: "Parcelas"
         plants: "Numeração de plantação"

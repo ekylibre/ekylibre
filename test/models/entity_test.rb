@@ -25,9 +25,12 @@
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string
 #  authorized_payments_count :integer
+#  bank_account_holder_name  :string
+#  bank_identifier_code      :string
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
+#  codes                     :jsonb
 #  country                   :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -41,6 +44,7 @@
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
+#  iban                      :string
 #  id                        :integer          not null, primary key
 #  language                  :string           not null
 #  last_name                 :string           not null
@@ -61,6 +65,8 @@
 #  siret_number              :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null

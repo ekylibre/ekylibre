@@ -1,44 +1,4 @@
 fra:
-  procedo:  #?
-    actions: #?
-      assisted_reading_task: "%{reporter} mesure %{indicator} avec %{tool}" #?
-      attachment: "On attache %{carrier} et %{carried}" #?
-      birth: "Naissance de %{product}" #?
-      browsing: "%{browser} parcourt %{browsed}" #?
-      consumption: "%{absorber} consomme %{product}" #?
-      creation: "%{producer} produit %{product}" #?
-      death: "%{product} meurt" #?
-      detachment: "On détache %{carrier} et %{carried}" #?
-      direct_entering: "%{product} entre directement dans %{localizable}" #?
-      direct_movement: "%{product} va directement à l’emplacement de %{localizable}" #?
-      division: "%{product} est séparé de %{producer}" #?
-      enjoyer_change: "Changement d'usufruitier de %{product} pour %{enjoyer}" #?
-      enjoyment_loss: "Perte d'usufruit de %{product}" #?
-      entering: "%{product} entre dans %{localizable}" #?
-      evolution: "Evolution de %{product} en %{variant}" #?
-      given_home_coming: "%{product} va l’emplacement par défaut de  %{localizable}" #?
-      group_exclusion: "%{member} sort du groupe %{group}" #?
-      group_inclusion: "%{member} entre dans le groupe %{group}" #?
-      home_coming: "%{product} va à son emplacement par défaut" #?
-      identified_incoming_delivery: "%{product} est réceptionné du %{supplier}" #?
-      identified_outgoing_delivery: "%{product} est expédié à %{client}" #?
-      incoming_delivery: "%{product} est réceptionné" #?
-      merging: "%{absorber} fusionne avec %{product}" #?
-      mixing: "Mélange de %{first_producer} et %{second_producer} dans %{product}" #?
-      movement: "%{product} va à l’emplacement de %{localizable}" #?
-      nature_cast: "Transformation de %{product} en %{nature}" #?
-      out_going: "Sortie de %{product}" #?
-      outgoing_delivery: "%{product} est expédié" #?
-      owner_change: "%{product} change de propriétaire pour %{owner}" #?
-      ownership_loss: "%{product} perd son propriétaire" #?
-      quadruple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer} et %{fourth_producer} dans %{product}" #?
-      quintuple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer}, %{fourth_producer} et %{fifth_producer} dans %{product}" #?
-      reading_task: "%{reporter} mesure %{indicator}" #?
-      simple_attachment: "On attèle %{carrier} et %{carried}" #?
-      simple_detachment: "Détachement de %{carrier} du %{point}" #?
-      simple_reading_task: "%{indicator} est mesuré" #?
-      triple_mixing: "Mélange de %{first_producer}, %{second_producer} et %{third_producer} dans %{product}" #?
-      variant_cast: "Transformation de %{product} en %{variant}" #?
   procedure_handlers:
     dry_matter_mass: "Masse de matière sèche" #?
     dry_matter_mass_area_density: "Masse de matière sèche par surface" #?
@@ -81,7 +41,6 @@ fra:
     animal_medicine: "Produit vétérinaire"
     animal_medicine_to_give: "Produit vétérinaire à donner" #?
     baler: "Botteleuse"
-    baler_driver: "Conducteur (tracteur-botteleuse)"
     bird_band: "Bande d'oiseaux"
     bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
@@ -98,7 +57,7 @@ fra:
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
-    cover_implanter: "Plastifieuse"
+    cover_implanter: "Plastiqueuse"
     crop: "Culture"
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
@@ -157,8 +116,6 @@ fra:
     hive: "Ruche"
     hoe: "Bineuse"
     hoeing_weeder: "Désherbineuse" #?
-    implanter: "Planteuse"
-    implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
     implement: "Outil"
     insecticide: "Insecticide" #?
@@ -194,7 +151,7 @@ fra:
     mother_animal: "Mère" #?
     movement: "Mouvement"
     mower: "Faucheuse"
-    mower_driver: "Conducteur de faucheuse"
+    mulching_material: "Matériel de paillage"
     net_implanter: "Dérouleur de filet"
     net_roll: "Enrouleur de filet"
     new_animal_variant: "Nouveau variant de l'animal" #?
@@ -206,13 +163,11 @@ fra:
     oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
-    plant: "Culture végétale" #?
+    plant: "Culture"
     plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
     plants: "Plants"
     plants_to_fix: "Plants à implanter" #?
-    plastic: "Plastique"
-    plastic_sheet: "Bâche plastique" #?
     plastic_to_mulch: "Plastique à poser" #?
     plow: "Charrue"
     pollinating_insects: "Insectes pollinisateurs"
@@ -234,7 +189,8 @@ fra:
     second_seed_input: "Seconde semence" #?
     second_seed_input_to_use: "Seconde semence utilisée" #?
     seed_mix: "Mélange de graine" #?
-    seed_storage: "Seed storage" #?
+    seed_storage: "Stockage de semences" #?
+    seedbed_preparator: "Outil de préparation du lit de semence"
     seeder: "Semoir" #?
     seedlings: "Plants"
     seeds: "Semences"
@@ -274,7 +230,7 @@ fra:
     tool: "Outil"
     topper: "Effaneuse"
     tractor: "Tracteur"
-    trailer: "Remorque" #?
+    trailer: "Remorque"
     tunnel: "Tunnel/Chenille"
     tunnel_implanter: "Outil de pose de tunnel/chenille"
     tunnel_remover: "Outil de retrait de tunnel/chenille"
@@ -299,7 +255,7 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
-    work: "Travail"
+    work: "Opération sur équipement"
     worker: "Travailleur"
     zone: "Zone"
   procedures:
@@ -353,6 +309,7 @@ fra:
     group_inclusion: "Inclusion de groupe" #?
     hand_weeding: "Désherbage manuel"
     harvest_helping: "Aide à la récolte" #?
+    harvest_transportation: "Transport de récolte"
     harvesting: "Récolte"
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?
@@ -362,7 +319,7 @@ fra:
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
-    inter-row hoeing: "Binage inter-rangs"
+    inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
     lifting: "Soulevage"
@@ -384,6 +341,7 @@ fra:
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"
     pasturing: "Pâturage"
+    plant_cover_sowing: "Semis de couvert"
     plant_covering: "Bâchage"
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
@@ -400,6 +358,7 @@ fra:
     product_evolution: "Evolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
+    seedbed_preparing: "Préparation du lit de semences"
     seedling_sorting: "Triage de plants"
     sifting: "Tamisage"
     silage_transport: "Transport d'ensilage" #?

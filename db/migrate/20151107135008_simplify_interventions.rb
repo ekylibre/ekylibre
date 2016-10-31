@@ -376,18 +376,18 @@ class SimplifyInterventions < ActiveRecord::Migration
     add_reference :intervention_parameter_readings, :parameter, index: true
     reversible do |d|
       d.up do
-        puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
+        # puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
         # Try to find cast with cast as originator
         execute "UPDATE intervention_parameter_readings SET parameter_id = originator_id WHERE parameter_id IS NULL AND intervention_id IS NULL AND originator_type = 'InterventionCast'"
-        puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
+        # puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
 
         # Try to find cast within casts of same intervention
         execute 'UPDATE intervention_parameter_readings SET parameter_id = c.id FROM intervention_parameters AS c WHERE parameter_id IS NULL AND c.intervention_id = intervention_parameter_readings.intervention_id AND c.actor_id = intervention_parameter_readings.product_id'
-        puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
+        # puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
 
         # Try to find cast with intervention as originator
         execute "UPDATE intervention_parameter_readings SET parameter_id = c.id FROM intervention_parameters AS c WHERE parameter_id IS NULL AND c.intervention_id = intervention_parameter_readings.originator_id AND intervention_parameter_readings.originator_type = 'Intervention' AND c.actor_id = intervention_parameter_readings.product_id"
-        puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
+        # puts select_value('SELECT count(*) FROM intervention_parameter_readings WHERE parameter_id IS NULL').inspect.green
 
         # Try to find first cast within casts of intervention
         execute 'UPDATE intervention_parameter_readings SET parameter_id = c.id FROM intervention_parameters AS c WHERE parameter_id IS NULL AND c.intervention_id = intervention_parameter_readings.intervention_id'

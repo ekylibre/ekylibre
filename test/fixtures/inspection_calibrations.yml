@@ -26,7 +26,7 @@
 #  creator_id         :integer
 #  id                 :integer          not null, primary key
 #  inspection_id      :integer          not null
-#  items_count        :integer
+#  items_count_value  :integer
 #  lock_version       :integer          default(0), not null
 #  maximal_size_value :decimal(19, 4)
 #  minimal_size_value :decimal(19, 4)
@@ -41,7 +41,7 @@ inspection_calibrations_001:
   creator_id: 1
   id: 1
   inspection_id: 1
-  items_count: 13
+  items_count_value: 13
   lock_version: 0
   maximal_size_value: 16.0
   minimal_size_value: 15.0
@@ -54,7 +54,7 @@ inspection_calibrations_002:
   creator_id: 1
   id: 2
   inspection_id: 1
-  items_count: 9
+  items_count_value: 9
   lock_version: 0
   maximal_size_value: 12.0
   minimal_size_value: 11.0
@@ -67,7 +67,7 @@ inspection_calibrations_003:
   creator_id: 1
   id: 3
   inspection_id: 1
-  items_count: 5
+  items_count_value: 5
   lock_version: 0
   maximal_size_value: 8.0
   minimal_size_value: 7.0
@@ -80,7 +80,7 @@ inspection_calibrations_004:
   creator_id: 1
   id: 4
   inspection_id: 1
-  items_count: 1
+  items_count_value: 1
   lock_version: 0
   maximal_size_value: 4.0
   minimal_size_value: 3.0

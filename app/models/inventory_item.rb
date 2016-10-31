@@ -22,35 +22,50 @@
 #
 # == Table: inventory_items
 #
-#  actual_population   :decimal(19, 4)   not null
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  expected_population :decimal(19, 4)   not null
-#  id                  :integer          not null, primary key
-#  inventory_id        :integer          not null
-#  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
-#  product_movement_id :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  actual_population        :decimal(19, 4)   not null
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  expected_population      :decimal(19, 4)   not null
+#  id                       :integer          not null, primary key
+#  inventory_id             :integer          not null
+#  lock_version             :integer          default(0), not null
+#  product_id               :integer          not null
+#  product_movement_id      :integer
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
 
 class InventoryItem < Ekylibre::Record::Base
   belongs_to :inventory, inverse_of: :items
   belongs_to :product
   belongs_to :product_movement, dependent: :destroy
+  has_one :variant, class_name: 'ProductNatureVariant', through: :product
   has_one :container, through: :product
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :actual_population, :expected_population, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :actual_population, :expected_population, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :currency, length: { maximum: 500 }, allow_blank: true
   validates :inventory, :product, presence: true
   # ]VALIDATORS]
 
+  scope :of_variant, ->(variant) { joins(:product).merge(Product.of_variant(variant)) }
+
   delegate :name, :unit_name, :population_counting_unitary?, to: :product
   delegate :reflected?, :achieved_at, to: :inventory
+  delegate :storable?, to: :variant
+  delegate :currency, to: :inventory, prefix: true
 
   before_validation do
     self.actual_population = expected_population if population_counting_unitary?
+    self.currency = inventory_currency if inventory
+    if variant
+      catalog_item = variant.catalog_items.of_usage(:stock)
+      if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
+        self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
+      end
+    end
   end
 
   after_save do

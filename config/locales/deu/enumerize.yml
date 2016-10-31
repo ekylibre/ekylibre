@@ -26,6 +26,7 @@ deu:
         none: "Keiner"
     activity_production:
       support_nature:
+        animal_group: "Tiergruppe"
         border: "Rand"
         buffer: "Puffer"
         cultivation: "Anbau"
@@ -57,6 +58,18 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    call_message:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
+    call_request:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
+    call_response:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
     cash:
       mode:
         bban: "Grund Bank Account Number (BBAN)"
@@ -180,8 +193,10 @@ deu:
       state:
         done: "Erledigt"
         in_progress: "In Bearbeitung"
-        squeezed: "Eingezwängt"
-        undone: "unerledigt"
+        rejected: "Zurückgewiesen"
+        squeezed: "Eingezwängt" #?
+        undone: "unerledigt" #?
+        validated: "Validierte"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"
@@ -193,6 +208,16 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    intervention_participation:
+      state:
+        done: "Erledigt"
+        in_progress: "In Bearbeitung"
+        validated: "Validierte"
+    intervention_working_period:
+      nature:
+        # intervention: "Intervention"
+        preparation: "Vorbereitung"
+        travel: "Reise"
     journal:
       nature:
         # bank: "Bank"
@@ -200,6 +225,7 @@ deu:
         forward: "Vorwärts getragen"
         purchases: "Käufe"
         sales: "Der Umsatz"
+        stocks: "Bestände"
         various: "verschiedene Operationen"
     listing_node:
       nature:
@@ -378,6 +404,7 @@ deu:
         supplier: "Lieferant"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Hören"
         requesting: "Anfordern"
     sequence:
@@ -392,6 +419,7 @@ deu:
         animals: "Nummerierung der Tiere"
         campaigns: "Nummerierung der Kampagnen"
         cash_transfers: "Nummerierung der Geldtransfers"
+        contracts: "Numerierung von Verträgen"
         deliveries: "Lieferungen"
         deposits: "Nummerierung der Einlagen"
         documents: "Nummerierung der Dokumente"
@@ -405,6 +433,7 @@ deu:
         inventories: "Die Vorräte"
         opportunities: "Chancen"
         outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen" #?
+        outgoing_payment_lists: "Numeration abgehender Zahlungslisten"
         outgoing_payments: "Nummerierung der Zahlungen"
         parcels: "Parcels"
         plants: "Nummerierung der Pflanzen"

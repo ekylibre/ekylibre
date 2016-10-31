@@ -18,7 +18,3 @@
   = link_to t('.didn_t_receive_unlock_instructions', :default => "Didn't receive unlock instructions?"), new_unlock_path(resource_name)
   %br
 
-- if devise_mapping.omniauthable?
-  - resource_class.omniauth_providers.each do |provider|
-    = link_to t('.sign_in_with_provider', :provider => provider.to_s.titleize, :default => "Sign in with #{provider.to_s.titleize}"), omniauth_authorize_path(resource_name, provider)
-    %br

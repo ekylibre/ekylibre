@@ -70,6 +70,14 @@ module Visualization
       layer(name, serie, { colors: @categories_colors }.merge(options.merge(type: :points)))
     end
 
+    def point_group(name, serie, options = {})
+      layer(name, serie, options.merge(type: :point_group))
+    end
+
+    def sensor_group(name, serie, options = {})
+      layer(name, serie, options.merge(type: :sensor_group))
+    end
+
     # def multi_points(name, serie, options = {})
     #   layer(name, serie, options.merge(type: :multi_points))
     # end
@@ -109,7 +117,7 @@ module Visualization
         end
         compile_visualization_popup(hash, item)
       elsif object.is_a?(String)
-        return [{ type: :content, content: object }]
+        [{ type: :content, content: object }]
       elsif object.is_a?(Hash)
         blocks = []
         if header = object[:header]
@@ -160,7 +168,7 @@ module Visualization
         if footer = object[:footer]
           blocks << compile_block(footer, :footer, content: item[:name])
         end
-        return blocks
+        blocks
       else
         raise "Not implemented for #{object.class}"
       end

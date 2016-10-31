@@ -19,6 +19,7 @@ deu:
       month: "%DURCH"
       month_letter: "% D% B% Y"
       short: "%e. %b"
+      short_month: "%m.%Y"
     month_names: ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
   datetime:
     distance_in_words:
@@ -56,6 +57,11 @@ deu:
       x_seconds:
         one: "eine Sekunde"
         other: "%{count} Sekunden"
+    periods:
+      day: "Tag"
+      month: "Monat"
+      week: "Woche"
+      year: "Jahr"
     prompts:  #?
       day: "Tag" #?
       hour: "Stunden" #?
@@ -185,7 +191,9 @@ deu:
   time:
     am: "vormittags"
     formats:
+      compact: "% M /% d /% Y% H:% M"
       default: "%A, %d. %B %Y, %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
+      time: "%H:%M" #?
     pm: "nachmittags"

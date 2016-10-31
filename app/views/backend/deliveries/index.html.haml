@@ -4,14 +4,14 @@
 
 - main_toolbar do |t|
   -# waiting_transporters = Entity.necessary_transporters
-  = t.new
+  = t.new params: { redirect: nil }
   - count = Parcel.without_transporter.count
   - unless count.zero?
-    = t.new :label => :new_delivery_of_x_parcels.tl(count: count)
+    = t.new label: :new_delivery_of_x_parcels.tl(count: count), params: { redirect: nil }
   -# if waiting_transporters.count > 0
-    = t.new :variants => waiting_transporters.inject({}) {|h,t| h[:new_delivery_of_x_parcels_for_y.tl(count: t.waiting_deliveries.count, :transporter => t.last_name)] = {:transporter_id => transporter.id}; h }
+    = t.new :variants => waiting_transporters.inject({}) {|h,t| h[:new_delivery_of_x_parcels_for_y.tl(count: t.waiting_deliveries.count, :transporter => t.last_name)] = {:transporter_id => transporter.id}; h }, params: { redirect: nil }
   -#for transporter in waiting_transporters
-    = t.new :transporter_id => transporter.id, :new_delivery_of_x_parcels_for_y.tl(count: transporter.waiting_deliveries.count, :transporter => transporter.last_name)
+    = t.new :transporter_id => transporter.id, :new_delivery_of_x_parcels_for_y.tl(count: transporter.waiting_deliveries.count, :transporter => transporter.last_name), params: { redirect: nil }
 
 = main_list
 

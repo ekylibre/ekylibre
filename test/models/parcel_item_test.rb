@@ -25,11 +25,13 @@
 #  analysis_id                   :integer
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
+#  currency                      :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
+#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
 #  product_enjoyment_id          :integer
 #  product_id                    :integer
 #  product_identification_number :string
@@ -42,6 +44,8 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #  variant_id                    :integer

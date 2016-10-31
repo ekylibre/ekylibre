@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
   - year = FinancialYear.closables.first
   = t.close year if year
 = main_list

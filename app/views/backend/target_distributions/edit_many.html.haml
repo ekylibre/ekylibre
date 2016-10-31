@@ -1,0 +1,27 @@
+= form_tag backend_target_distributions_path, method: :patch do
+  = hidden_field_tag(:redirect, params[:redirect]) if params[:redirect]
+  = hidden_field_tag(:activity_id, params[:activity_id]) if params[:activity_id]
+  = field_set do
+    %table
+      %thead
+        %tr
+          %th= TargetDistribution.human_attribute_name(:target)
+          %th= TargetDistribution.human_attribute_name(:activity_production)
+      %tbody
+        :ruby
+          if params[:activity_id] && (activity = Activity.find_by(id: params[:activity_id]))
+            activity_productions = activity.productions
+          end
+          activity_productions ||= ActivityProduction
+          activity_productions = activity_productions.includes(:cultivable_zone, :activity).all.sort{ |a,b| a.name <=> b.name }
+        - @target_distributions.each_with_index do |distribution, i|
+          = simple_fields_for "target_distributions[]", distribution do |f|
+            %tr
+              %td
+                = link_to distribution.target.name, backend_product_path(distribution.target)
+                = f.association :target, as: :hidden
+              %td
+                = f.association :activity_production, wrapper: :nested, collection: activity_productions.map{ |p| [p.name, p.id] }, include_blank: true
+  = form_actions do
+    = submit_tag(:update.tl, data: {disable_with: :please_wait.tl}, class: 'btn btn-primary')
+    = link_to(:cancel.tl, (params[:redirect] || { controller: :activities, action: :index }), (params[:dialog] ? { class: 'btn', data: {close_dialog: params[:dialog]} } : { class: 'btn' }))

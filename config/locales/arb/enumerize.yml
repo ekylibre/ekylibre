@@ -26,6 +26,7 @@ arb:
         none: "لا شيء"
     activity_production:
       support_nature:
+        animal_group: "مجموعة الحيوانات"
         border: "الحدود"
         buffer: "عازلة"
         cultivation: "زراعة"
@@ -57,6 +58,18 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    call_message:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
+    call_request:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
+    call_response:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
     cash:
       mode:
         bban: "رقم الحساب المصرفي الأساسي (BBAN)"
@@ -179,8 +192,10 @@ arb:
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
-        squeezed: "تقلص"
-        undone: "غير مصنوع"
+        rejected: "مرفوض"
+        squeezed: "تقلص" #?
+        undone: "غير مصنوع" #?
+        validated: "التحقق من صحة"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "منطقية"
@@ -192,6 +207,16 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    intervention_participation:
+      state:
+        done: "فعله"
+        in_progress: "في تَقَدم"
+        validated: "التحقق من صحة"
+    intervention_working_period:
+      nature:
+        intervention: "تدخل"
+        preparation: "تجهيز"
+        travel: "سفر"
     journal:
       nature:
         bank: "بنك"
@@ -199,6 +224,7 @@ arb:
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
         sales: "مبيعات"
+        stocks: "مخازن"
         various: "عمليات مختلفة"
     listing_node:
       nature:
@@ -377,6 +403,7 @@ arb:
         supplier: "المورد"
     sensor:
       retrieval_mode:
+        integration: "دمج"
         listening: "استماع"
         requesting: "طلب"
     sequence:
@@ -391,6 +418,7 @@ arb:
         animals: "ترقيم الحيوانات"
         campaigns: "ترقيم الحملات"
         cash_transfers: "ترقيم التحويلات النقدية"
+        contracts: "ترقيم العقود"
         deliveries: "التسليم"
         deposits: "ترقيم الودائع"
         documents: "ترقيم الوثائق"
@@ -404,6 +432,7 @@ arb:
         inventories: "المخزونات"
         opportunities: "الفرص"
         outgoing_deliveries: "ترقيم شحنات الصادرة" #?
+        outgoing_payment_lists: "ترقيم القوائم دفع المنتهية ولايته"
         outgoing_payments: "ترقيم المدفوعات"
         parcels: "الطرود"
         plants: "ترقيم النباتات"

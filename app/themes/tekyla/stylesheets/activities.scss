@@ -122,6 +122,8 @@ $activity_border_size: 5px;
 
 $chronology-background-color: #EEE;
 .chronology {
+  overflow: hidden;
+
   .grades {
     display: flex;
     height: $lh-normal;
@@ -144,7 +146,7 @@ $chronology-background-color: #EEE;
   }
   .periods {
     position: relative;
-    height: $fs-normal;
+    height: $lh-large;
     background-color: $chronology-background-color;
     @include border-radius($default-border-radius);
     .period {
@@ -176,9 +178,7 @@ $chronology-background-color: #EEE;
         width: $lh-normal;
         @include border-radius($lh-normal);
         background-color: $white;
-        @include display(flex);
-        flex-direction: column;
-        justify-content: center;
+        @include flex-column(flex);
 
         .picto {
           min-width: 0;
@@ -201,6 +201,7 @@ $chronology-background-color: #EEE;
 
         .period {
           @include flex-row();
+          height: initial;
         }
 
         .marker {

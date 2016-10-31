@@ -38,7 +38,7 @@ module Ekylibre
           end
           animal.initial_population = animal.population
           animal.variety = r.variety if r.variety
-          if owner = Entity.find_by_full_name(r.initial_owner)
+          if owner = Entity.find_by(full_name: r.initial_owner)
             animal.initial_owner = owner
           end
           if r.group && animal_group = AnimalGroup.find_by(work_number: r.group)

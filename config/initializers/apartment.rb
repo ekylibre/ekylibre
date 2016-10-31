@@ -18,10 +18,10 @@ Apartment.configure do |config|
   config.excluded_models = %w()
 
   # use postgres schemas?
-  # config.use_schemas = true
+  config.use_schemas = true
 
-  # use raw SQL dumps for creating postgres schemas? (only appies with use_schemas set to true)
-  # config.use_sql = true
+  # use raw SQL dumps for creating postgres schemas? (only applies with use_schemas set to true)
+  config.use_sql = true
 
   # Postgis default Schema must be "postgis"
   config.persistent_schemas = %w(postgis)
@@ -40,7 +40,7 @@ module Apartment
       def parse_tenant_name(request)
         return nil unless request.env['HTTP_X_TENANT']
         request.env.each do |k, v|
-          puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
+          # puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
         end
         # puts request.env.keys.inspect.red
         request.env['HTTP_X_TENANT']

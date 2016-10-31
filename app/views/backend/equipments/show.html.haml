@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   = t.edit resource
 
-- main_campaign_selector
+- main_period_selector(:year)
 
 = main_informations attachment: true do
   = render 'picture'
@@ -49,6 +49,7 @@
       .med-info
         %span.title= Equipment.human_attribute_name(:description)
         %span.value= resource.description
+  = labels_info(resource.labels)
 
 = cobbles do |c|
 

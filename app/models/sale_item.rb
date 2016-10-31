@@ -23,8 +23,10 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
+#  codes                :jsonb
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
@@ -39,6 +41,7 @@
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
+#  team_id              :integer
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null
@@ -51,6 +54,8 @@ class SaleItem < Ekylibre::Record::Base
   attr_readonly :sale_id
   refers_to :currency
   belongs_to :account
+  belongs_to :activity_budget
+  belongs_to :team
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
   belongs_to :variant, class_name: 'ProductNatureVariant'
@@ -99,7 +104,7 @@ class SaleItem < Ekylibre::Record::Base
   }
 
   # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature|
+  scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
@@ -127,6 +132,18 @@ class SaleItem < Ekylibre::Record::Base
   validate do
     errors.add(:quantity, :invalid) if quantity.zero?
     # TODO: validates responsible can make reduction and reduction percentage is convenient
+  end
+
+  after_save do
+    if Preference[:catalog_price_item_addition_if_blank]
+      for usage in [:stock, :sale]
+        # set stock catalog price if blank
+        catalog = Catalog.by_default!(usage)
+        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        end
+      end
+    end
   end
 
   protect(on: :update) do
@@ -180,9 +197,9 @@ class SaleItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if sale.affair.balanced?
-      return 1.00
+      1.00
     elsif sale.affair.credit != 0.0
-      return (1 - (-sale.affair.balance / sale.affair.credit)).to_f
+      (1 - (-sale.affair.balance / sale.affair.credit)).to_f
     end
   end
 end

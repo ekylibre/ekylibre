@@ -45,6 +45,7 @@ ita:
     sessions:
       new:
         sign_in: "registrati"
+        sign_in_with_ekylibre: "Accedi con Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Non ha ricevuto istruzioni di conferma?"

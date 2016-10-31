@@ -1,5 +1,5 @@
 - main_toolbar do |t|
   = t.export :stocks
-  = t.new if Product.any?
+  = t.new params: { redirect: nil } if Product.any?
 
 = main_list

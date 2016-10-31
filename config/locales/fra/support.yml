@@ -19,6 +19,7 @@ fra:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%d %b"
+      short_month: "%m/%Y"
     month_names: ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
   datetime:
     distance_in_words:
@@ -58,6 +59,11 @@ fra:
       x_seconds:
         one: "1 seconde"
         other: "%{count} secondes"
+    periods:
+      day: "Journée"
+      month: "Mois"
+      week: "Semaine"
+      year: "Année"
     relative_distance_in_words:
       in_sometime: "dans %{distance}"
       sometime_ago: "il y a %{distance}"
@@ -99,7 +105,7 @@ fra:
   simple_form:
     hints:
       purchase:
-        reference_number: "Fournisseur numéro de facture"
+        reference_number: "Numéro de facture fournisseur"
     required:
       text: "Obligatoire"
   support:
@@ -111,7 +117,9 @@ fra:
   time:
     am: "am"
     formats:
+      compact: "%d/%m/%Y %H:%M"
       default: "%d/%m/%Y %H:%M"
       long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M" #?
     pm: "pm"

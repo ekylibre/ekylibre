@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -68,8 +69,15 @@
 
 class Worker < Product
   refers_to :variety, scope: :worker
+  belongs_to :team
+  has_one :user, through: :person
   include Attachable
   validates :person, presence: true
+  has_many :intervention_participations, inverse_of: :product, foreign_key: :product_id, dependent: :destroy
+
+  before_validation do
+    self.team_id = user.team_id if user && user.team
+  end
 
   # Returns working duration from interventions
   def working_duration(_options = {})

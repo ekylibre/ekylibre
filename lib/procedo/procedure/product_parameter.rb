@@ -32,7 +32,7 @@ module Procedo
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
         end
-        if input? && options[:component_of]
+        if (input? || target?) && options[:component_of]
           self.component_of = options[:component_of]
         end
         @handlers = {}
@@ -122,17 +122,15 @@ module Procedo
           return nil unless candidates.any?
           return candidates.first if candidates.count == 1
           best = candidates.select { |h| h.unit.name.to_s == quantity.unit.to_s }
-          return (best ? best : candidates.first)
+          (best ? best : candidates.first)
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?
-          return candidates.first
+          candidates.first
         elsif quantity.is_a?(Charta::Geometry)
           candidates = handlers.select { |h| h.indicator.datatype == :multi_polygon }
           return nil unless candidates.any?
-          return candidates.first
-        else
-          return nil
+          candidates.first
         end
       end
 
@@ -150,7 +148,7 @@ module Procedo
       def components
         procedure.product_parameters(true).select do |p|
           next unless p.component_of?
-          p.component_of? && p.component_of_with_parameter?(name)
+          p.component_of? && p.component_of_with_parameter?(name, p == self)
         end
       end
 

@@ -14,7 +14,7 @@ gem 'activerecord-postgis-adapter', '~> 4.0.0'
 gem 'apartment', '~> 1.2.0'
 gem 'apartment-sidekiq'
 
-# Ruby functionalities extension
+# Ruby syntax extensions
 gem 'possibly'
 
 # Code manipulation
@@ -24,6 +24,9 @@ gem 'charlock_holmes'
 gem 'browser'
 
 gem 'actionpack-xml_parser', '>= 2.0.0'
+
+# Manage env vars
+gem 'figaro'
 
 # Use SCSS for stylesheets
 gem 'sass-rails' # , '~> 5.0'
@@ -96,6 +99,8 @@ gem 'deep_cloneable', '~> 2.2.1'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-i18n-views'
+gem 'omniauth'
+gem 'omniauth-oauth2'
 
 # Attachments
 gem 'paperclip'
@@ -133,6 +138,9 @@ gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'
 gem 'roo'
+gem 'sepa_king'
+# gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
+gem 'rodf'
 
 # Demo data
 gem 'ffaker'# , '>= 2.0.0'
@@ -153,6 +161,7 @@ gem 'agric', '3.0.1'
 # Web services
 gem 'mechanize'
 gem 'savon'
+gem 'rubyntlm', '>= 0.3.2'
 gem 'rest-client', require: false
 
 gem 'luhn'

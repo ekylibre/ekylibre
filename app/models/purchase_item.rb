@@ -23,6 +23,7 @@
 # == Table: purchase_items
 #
 #  account_id           :integer          not null
+#  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
@@ -38,6 +39,7 @@
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  tax_id               :integer          not null
+#  team_id              :integer
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)   not null
 #  updated_at           :datetime         not null
@@ -49,6 +51,8 @@ class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
   refers_to :currency
   belongs_to :account
+  belongs_to :activity_budget
+  belongs_to :team
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
@@ -87,12 +91,12 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:purchase).merge(Purchase.invoiced_between(started_at, stopped_at))
   }
   # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature|
+  scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
   # return all sale items for the consider product_nature
-  scope :by_product_nature_category, lambda { |product_nature_category|
+  scope :of_product_nature_category, lambda { |product_nature_category|
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
@@ -150,6 +154,18 @@ class PurchaseItem < Ekylibre::Record::Base
     errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
+  after_save do
+    if Preference[:catalog_price_item_addition_if_blank]
+      for usage in [:stock, :purchase]
+        # set stock catalog price if blank
+        catalog = Catalog.by_default!(usage)
+        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        end
+      end
+    end
+  end
+
   def product_name
     variant.name
   end
@@ -172,9 +188,9 @@ class PurchaseItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if purchase.affair.balanced?
-      return 1.00
+      1.00
     elsif purchase.affair.debit != 0.0
-      return (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
+      (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
     end
   end
 end

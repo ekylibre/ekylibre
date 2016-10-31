@@ -12,6 +12,8 @@
 - activity_season
 - activity_tactic
 - affair
+- alert
+- alert_phase
 - analysis
 - analysis_item
 - animal
@@ -22,6 +24,10 @@
 - bioproduct
 - building
 - building_division
+- call
+- call_message
+- call_request
+- call_response
 - campaign
 - cap_islet
 - cap_land_parcel
@@ -31,6 +37,8 @@
 - cash_transfer
 - catalog
 - catalog_item
+- contract
+- contract_item
 - crumb
 - cultivable_zone
 - custom_field
@@ -47,6 +55,7 @@
 - entity_address
 - entity_link
 - equipment
+- equipment_fleet
 - event
 - event_participation
 - financial_year
@@ -66,14 +75,17 @@
 - inspection
 - inspection_calibration
 - inspection_point
+- integration
 - intervention
 - intervention_agent
 - intervention_doer
 - intervention_group_parameter
 - intervention_input
+- intervention_labelling
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
+- intervention_participation
 - intervention_product_parameter
 - intervention_target
 - intervention_tool
@@ -84,6 +96,7 @@
 - journal
 - journal_entry
 - journal_entry_item
+- label
 - land_parcel
 - listing
 - listing_node
@@ -98,6 +111,7 @@
 - notification
 - observation
 - outgoing_payment
+- outgoing_payment_list
 - outgoing_payment_mode
 - parcel
 - parcel_item
@@ -112,6 +126,7 @@
 - product
 - product_enjoyment
 - product_group
+- product_labelling
 - product_link
 - product_linkage
 - product_localization
@@ -125,6 +140,7 @@
 - product_nature_variant_reading
 - product_ownership
 - product_phase
+- product_population
 - product_reading
 - purchase
 - purchase_item
@@ -147,6 +163,7 @@
 - task
 - tax
 - team
+- token
 - tracking
 - user
 - version

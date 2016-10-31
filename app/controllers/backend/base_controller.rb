@@ -27,10 +27,14 @@ module Backend
     before_action :authorize_user!
     before_action :set_versioner
     before_action :set_current_campaign
+    before_action :set_current_period_interval
+    before_action :set_current_period
 
     include Userstamp
 
     helper_method :current_campaign
+    helper_method :current_period_interval
+    helper_method :current_period
 
     protected
 
@@ -45,6 +49,36 @@ module Backend
         if current_campaign != campaign
           @current_campaign = campaign
           current_user.current_campaign = @current_campaign
+        end
+      end
+    end
+
+    def current_period_interval
+      @current_period_interval ||= current_user.current_period_interval
+    end
+
+    def set_current_period_interval
+      if params[:current_period_interval]
+        period_interval = params[:current_period_interval].to_sym
+        current_period_interval = current_user.current_period_interval.to_sym
+        if period_interval != current_period_interval
+          @current_period_interval = period_interval
+          current_user.current_period_interval = @current_period_interval
+        end
+      end
+    end
+
+    def current_period
+      @current_period ||= current_user.current_period
+    end
+
+    def set_current_period
+      if params[:current_period]
+        period = params[:current_period].to_date
+        current_period = current_user.current_period.to_date
+        if period != current_period
+          @current_period = period
+          current_user.current_period = @current_period.to_s
         end
       end
     end

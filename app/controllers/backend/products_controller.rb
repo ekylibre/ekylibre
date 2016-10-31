@@ -39,11 +39,21 @@ module Backend
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
+
+      # State
       code << "if params[:s] == 'available'\n"
       code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NULL'\n"
       code << "elsif params[:s] == 'consume'\n"
       code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NOT NULL'\n"
       code << "end\n"
+
+      # Label
+      code << "if params[:label_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Product.table_name}.id IN (SELECT product_id FROM product_labellings WHERE label_id IN (?))'\n"
+      code << "  c << params[:label_id].to_i\n"
+      code << "end\n"
+
+      # Period
       code << "if params[:period].to_s != 'all'\n"
       code << "  started_on = params[:started_on]\n"
       code << "  stopped_on = params[:stopped_on]\n"
@@ -150,6 +160,15 @@ module Backend
       t.column :stopped_at
     end
 
+    # Lists parcel items of the current product
+    list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :parcel, url: true
+      t.column :nature, through: :parcel
+      t.column :given_at, through: :parcel, datatype: :datetime
+      t.column :population
+      t.column :product_identification_number
+    end
+
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.action :edit
@@ -165,6 +184,18 @@ module Backend
       t.column :indicator_name
       t.column :read_at
       t.column :value
+    end
+
+    # Lists readings of the current product
+    list(:trackings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :active
+      t.column :name, url: true
+      t.column :created_at
+      t.column :description
+      t.column :serial
+      t.column :producer, hidden: true
     end
 
     # Returns value of an indicator
@@ -193,7 +224,7 @@ module Backend
     def check_variant_availability
       unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
         redirect_to new_backend_product_nature_path
-        return false
+        false
       end
     end
 

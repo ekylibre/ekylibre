@@ -92,6 +92,7 @@ module Charta
           object_to_ewkt(feature)
         end.join(', ') + ')'
       end
+
       alias geometry_collection_to_ewkt feature_collection_to_ewkt
 
       def feature_to_ewkt(hash)
@@ -135,6 +136,18 @@ module Charta
         end.join(', ') + ')'
       end
 
+      def multipolygon_to_ewkt(hash)
+        return 'MULTIPOLYGON EMPTY' if hash['coordinates'].blank?
+        'MULTIPOLYGON(' + hash['coordinates'].collect do |polygon|
+          '(' + polygon.collect do |hole|
+            '(' + hole.collect do |point|
+              point.join(' ')
+            end.join(', ') + ')'
+          end.join(', ') + ')'
+        end.join(', ') + ')'
+      end
+
+      # for PostGIS ST_ASGeoJSON compatibility
       def multi_polygon_to_ewkt(hash)
         return 'MULTIPOLYGON EMPTY' if hash['coordinates'].blank?
         'MULTIPOLYGON(' + hash['coordinates'].collect do |polygon|

@@ -7,7 +7,7 @@ module Fixturing
     end
 
     def directory
-      Rails.root.join('test', 'fixtures')
+      Pathname.new(ActiveRecord::Tasks::DatabaseTasks.fixtures_path)
     end
 
     def migrations_file
@@ -38,12 +38,13 @@ module Fixturing
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
-      Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
+      Apartment.connection.execute("SET search_path TO '#{tenant}', postgis")
       Ekylibre::Tenant.migrate(tenant, to: version)
       table_names = tables_from_files(path: path)
       say 'Load fixtures' if verbose
       Ekylibre::Tenant.switch!(tenant)
       ActiveRecord::FixtureSet.reset_cache
+      ActiveRecord::Base.connection.schema_cache.clear!
       ActiveRecord::FixtureSet.create_fixtures(path, table_names)
       migrate(tenant, origin: version) unless up_to_date?(version: version)
     end
@@ -89,9 +90,9 @@ module Fixturing
       path = options[:path] || directory
       Ekylibre::Schema.tables.each do |table, columns|
         records = {}
-        for row in ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY id")
+        ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY id").each do |row|
           record = {}
-          for attribute, value in row.sort
+          row.sort.each do |attribute, value|
             if columns[attribute]
               unless value.nil?
                 type = columns[attribute].type
@@ -195,7 +196,7 @@ module Fixturing
           end
         end
         data[table.to_s].each do |record, attributes|
-          data[table.to_s][record] = attributes.sort { |a, b| a.first <=> b.first }.each_with_object({}) do |pair, hash|
+          data[table.to_s][record] = attributes.sort_by(&:first).each_with_object({}) do |pair, hash|
             hash[pair.first] = pair.second
             hash
           end
@@ -269,7 +270,7 @@ module Fixturing
 
       data.each do |table, records|
         records.each do |record, attributes|
-          data[table][record] = attributes.delete_if { |k, _v| k == 'id' }.sort { |a, b| a.first <=> b.first }.each_with_object({}) do |pair, hash|
+          data[table][record] = attributes.delete_if { |k, _v| k == 'id' }.sort_by(&:first).each_with_object({}) do |pair, hash|
             hash[pair.first] = pair.second
             hash
           end
@@ -310,7 +311,7 @@ module Fixturing
 
       data.each do |table, records|
         records.each do |record, attributes|
-          data[table][record] = attributes.sort { |a, b| a.first <=> b.first }.each_with_object({}) do |pair, hash|
+          data[table][record] = attributes.sort_by(&:first).each_with_object({}) do |pair, hash|
             hash[pair.first] = pair.second
             hash
           end

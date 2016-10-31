@@ -45,6 +45,13 @@ module Ekylibre
       @themes
     end
 
+    def load_integrations
+      Dir.glob(Rails.root.join('app', 'integrations', '**', '*.rb')).each do |file|
+        require file
+      end
+      Ekylibre::Plugin.load_integrations
+    end
+
     # Returns all helps files indexed by locale and controller-action
     @helps = nil
     def helps

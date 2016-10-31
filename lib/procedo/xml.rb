@@ -103,7 +103,7 @@ module Procedo
             parse_parameter(procedure, child, options)
           elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
-          else
+          elsif child.element?
             raise "Unexpected child: #{child.name}"
           end
         end

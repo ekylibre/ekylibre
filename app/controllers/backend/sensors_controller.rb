@@ -81,5 +81,20 @@ module Backend
       @sensor.retrieve(started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now)
       redirect_to params[:redirect] || { action: :show, id: params[:id] }
     end
+
+    def last_locations
+      @geolocations = Sensor
+                      .includes(:analyses)
+                      .find_each
+                      .map do |sensor|
+        last_analysis = sensor.analyses.last
+        if last_analysis.present? && (geoloc = last_analysis.geolocation)
+          [sensor.id, geoloc && JSON(geoloc.to_json)]
+        end
+      end
+                      .compact
+                      .to_h
+      render json: @geolocations.to_json
+    end
   end
 end

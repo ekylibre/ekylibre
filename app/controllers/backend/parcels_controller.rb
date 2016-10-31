@@ -57,6 +57,10 @@ module Backend
       code << "  c[0] << \" AND \#{Parcel.table_name}.transporter_id = ?\"\n"
       code << "  c << params[:transporter_id].to_i\n"
       code << "end\n"
+      code << "if params[:responsible_id].to_i > 0\n"
+      code << "  c[0] << \" AND \#{Parcel.table_name}.responsible_id = ?\"\n"
+      code << "  c << params[:responsible_id]\n"
+      code << "end\n"
       code << "if params[:delivery_mode].present? && params[:delivery_mode] != 'all'\n"
       code << "  if Parcel.delivery_mode.values.include?(params[:delivery_mode].to_sym)\n"
       code << "    c[0] << ' AND #{Parcel.table_name}.delivery_mode = ?'\n"
@@ -76,18 +80,20 @@ module Backend
     list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
       t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
-      t.action :edit,    on: :both, method: :get, if: :updateable?
+      t.action :edit, if: :updateable?
       t.action :destroy
       t.column :nature
       t.column :number, url: true
       t.column :reference_number, hidden: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
+      t.column :given_at
       t.column :recipient, url: true
       t.column :sender, url: true
       t.status
       t.column :state, label_method: :human_state_name
       t.column :delivery, url: true
+      t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
       # t.column :sent_at
       t.column :delivery_mode
@@ -99,7 +105,8 @@ module Backend
     list(:outgoing_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :source_product, url: true
       t.column :product, url: true, hidden: true
-      # t.column :product_work_number, through: :product, label_method: :work_number
+      t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
+      t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
       # t.column :variant, url: true
@@ -115,6 +122,7 @@ module Backend
       t.column :product_identification_number
       t.column :population
       t.column :unit_name, through: :variant
+      t.column :unit_pretax_amount, currency: true
       t.status
       # t.column :net_mass
       t.column :product, url: true
@@ -169,7 +177,7 @@ module Backend
 
         sale.items.each do |item|
           item.variant.take(item.quantity).each do |product, quantity|
-            @parcel.items.new(source_product: product, quantity: quantity)
+            @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
           end
         end
       end
@@ -184,10 +192,9 @@ module Backend
         @parcel.storage = preceding.storage if preceding
 
         purchase.items.each do |item|
-          @parcel.items.new(quantity: item.quantity, variant: item.variant)
+          @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
         end
       end
-
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
     end
 

@@ -26,6 +26,7 @@ fra:
         none: "Aucune"
     activity_production:
       support_nature:
+        animal_group: "Groupe d’animaux"
         border: "Bordure"
         buffer: "Zone tampon"
         cultivation: "Culture"
@@ -57,6 +58,18 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    call_message:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_request:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_response:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -171,10 +184,10 @@ fra:
         record: "Enregistrement"
         request: "Demande"
       state:
-        done: "Réalisée"
+        done: "Terminée"
         in_progress: "En cours"
-        squeezed: "Non réalisée"
-        undone: "Pas encore réalisée"
+        rejected: "Rejetée"
+        validated: "Validée"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booléen"
@@ -186,6 +199,16 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    intervention_participation:
+      state:
+        done: "Terminé"
+        in_progress: "En cours"
+        validated: "Validé"
+    intervention_working_period:
+      nature:
+        # intervention: "Intervention"
+        preparation: "Préparation"
+        travel: "Voyager"
     journal:
       nature:
         bank: "Banque"
@@ -193,6 +216,7 @@ fra:
         forward: "Report à nouveaux"
         purchases: "Achats"
         sales: "Ventes"
+        stocks: "Réserves"
         various: "Opérations diverses"
     listing_node:
       nature:
@@ -363,6 +387,7 @@ fra:
         supplier: "Fournisseur"
     sensor:
       retrieval_mode:
+        integration: "Intégration"
         listening: "Serveur"
         requesting: "Client"
     sequence:
@@ -377,6 +402,7 @@ fra:
         animals: "Numérotation des animaux"
         campaigns: "Numérotation des campagnes de productions"
         cash_transfers: "Numérotation des virements internes"
+        contracts: "Numération des contrats"
         deliveries: "Numérotation des livraisons"
         deposits: "Numérotation des remises en banque"
         documents: "Numérotation des documents"
@@ -388,6 +414,7 @@ fra:
         interventions: "Numérotation des interventions"
         inventories: "Numérotation des inventaires"
         opportunities: "Numérotation des opportunités"
+        outgoing_payment_lists: "Numération des listes de paiement sortants"
         outgoing_payments: "Numérotation des décaissements"
         parcels: "Numérotation des colis"
         plants: "Numérotation des cultures"

@@ -55,11 +55,16 @@ module Backend
       code << "  c[0] += ' AND #{Purchase.table_name}.responsible_id = ?'\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:payment_mode_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Entity.table_name}.supplier_payment_mode_id = ?'\n"
+      code << "  c << params[:payment_mode_id]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
 
     list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+      t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
@@ -67,15 +72,17 @@ module Backend
       t.column :created_at
       t.column :planned_at, hidden: true
       t.column :invoiced_at
+      t.column :payment_at, hidden: true
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
-      t.column :description
-      # t.column :shipped
+      t.column :description, hidden: true
+      t.column :supplier_payment_mode, hidden: true
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
-      t.column :pretax_amount, currency: true
+      t.column :pretax_amount, currency: true, hidden: true
       t.column :amount, currency: true
+      t.column :affair_balance, currency: true, hidden: true
     end
 
     list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -90,6 +97,8 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -125,12 +134,16 @@ module Backend
         redirect_to action: :index
         return
       end
-      @purchase = Purchase.new(nature: nature)
+      @purchase = if params[:intervention_ids]
+                    Intervention.convert_to_purchase(params[:intervention_ids])
+                  else
+                    Purchase.new(nature: nature)
+                  end
       @purchase.currency = @purchase.nature.currency
       @purchase.responsible = current_user
       @purchase.planned_at = Time.zone.now
       @purchase.invoiced_at = Time.zone.now
-      @purchase.supplier_id = params[:supplier_id] if params[:supplier_id]
+      @purchase.supplier_id ||= params[:supplier_id] if params[:supplier_id]
       if address = Entity.of_company.default_mail_address
         @purchase.delivery_address = address
       end
@@ -162,6 +175,47 @@ module Backend
       redirect_to action: :show, id: @purchase.id
     end
 
+    def payment_mode
+      # use view to select payment mode for mass payment on purchase
+    end
+
+    def pay
+      unless mode = OutgoingPaymentMode.find_by(id: params[:mode_id])
+        notify_error :need_a_valid_payment_mode
+        redirect_to action: :index
+        return
+      end
+      purchases = find_purchases
+      return unless purchases
+
+      unless purchases.all? { |purchase| purchase.order? || purchase.invoice? }
+        notify_error(:all_purchases_must_be_ordered_or_invoiced)
+        redirect_to(params[:redirect] || { action: :index })
+        return
+      end
+
+      if mode.sepa?
+        unless purchases.all?(&:sepable?)
+          notify_error(:purchases_invalid_for_sepa)
+          redirect_to(params[:redirect] || { action: :index })
+          return
+        end
+      end
+
+      payments_list = OutgoingPaymentList.build_from_purchases(
+        purchases,
+        mode,
+        current_user
+      )
+
+      if payments_list.save
+        redirect_to backend_outgoing_payment_lists_path
+      else
+        notify_error(payments_list.errors.full_messages.join(', '))
+        redirect_to(params[:redirect] || { action: :index })
+      end
+    end
+
     def propose
       return unless @purchase = find_and_check
       @purchase.propose
@@ -183,6 +237,19 @@ module Backend
       return unless @purchase = find_and_check
       @purchase.refuse
       redirect_to action: :show, id: @purchase.id
+    end
+
+    protected
+
+    def find_purchases
+      purchase_ids = params[:id].split(',')
+      purchases = purchase_ids.map { |id| Purchase.find_by(id: id) }.compact
+      unless purchases.any?
+        notify_error :no_purchases_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      purchases
     end
   end
 end
