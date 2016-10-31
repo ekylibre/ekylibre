@@ -13,7 +13,7 @@
       = select_tag(:nature_id, options_for_select([[]] + natures.order(:name).collect{|u| [u.name, u.id]}, params[:nature_id]))
 
 - main_toolbar do |t|
-  -# = t.new
+  -# t.new
   - if ProductNatureVariant.any_reference_available?
     = t.pick
 

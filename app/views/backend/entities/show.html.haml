@@ -41,7 +41,9 @@
       - l.side :observations, at: :observed_at
       - l.side :sale_opportunities, new: resource.client?, if: Proc.new {|r| r.sale_opportunities.any? || r.client?}
       - l.side :sales, new: resource.client?, if: Proc.new {|r| r.sales.any? || r.client? }
+      - l.side :outgoing_parcels, new: resource.client?, if: Proc.new {|r| r.outgoing_parcels.any? || r.client? }
       - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? || r.supplier? }
+      - l.side :incoming_parcels, new: resource.supplier?, if: Proc.new {|r| r.incoming_parcels.any? || r.supplier? }
       - l.side :incoming_payments, new: false, if: Proc.new {|r| r.incoming_payments.any? || r.client? }
       - l.side :outgoing_payments, new: false, if: Proc.new {|r| r.outgoing_payments.any? || r.supplier? }
       - l.side :tasks, at: :due_at, new: false
@@ -130,6 +132,12 @@
         - if resource.sales.any?
           = cobble_list(:sales)
 
+      - c.cobble(:outgoing_parcels, title: :x_outgoing_parcels.tl(count: resource.outgoing_parcels.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :parcels, recipient_id: resource.id, nature: :outgoing})
+        - if resource.outgoing_parcels.any?
+          = cobble_list(:outgoing_parcels)
+
       - c.cobble(:incoming_payments, title: :x_incoming_payments.tl(count: resource.incoming_payments.count)) do
         = cobble_toolbar do |t|
           = t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
@@ -147,6 +155,12 @@
           = t.new(params: {controller: :purchases, :supplier_id => resource.id})
         - if resource.purchases.any?
           = cobble_list(:purchases)
+
+      - c.cobble(:incoming_parcels, title: :x_incoming_parcels.tl(count: resource.incoming_parcels.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :parcels, recipient_id: resource.id, nature: :incoming})
+        - if resource.incoming_parcels.any?
+          = cobble_list(:incoming_parcels)
 
       - c.cobble(:outgoing_payments, title: :x_outgoing_payments.tl(count: resource.outgoing_payments.count)) do
         = cobble_toolbar do |t|

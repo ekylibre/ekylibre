@@ -331,6 +331,15 @@
           success: (data, status, request) ->
 
             instance._displayModalWithContent(data)
+            instance.getTaskboardModal().getModal().find('.dropup a').on('click', (event) ->
+
+              dropdown = $(this).closest('.dropup')
+              dropdown.removeClass('open')
+
+              dropdownButton = dropdown.find('.dropdown-toggle')
+              dropdownButton.text(dropdownButton.attr('data-disable-with'))
+              dropdownButton.attr('disabled', 'disabled')
+            )
       )
 
 
@@ -339,7 +348,6 @@
       @taskboardModal.removeModalContent()
       @taskboardModal.getModalContent().append(data)
       @taskboardModal.getModal().modal 'show'
-
 
   true
 ) ekylibre, jQuery

@@ -29,11 +29,17 @@ spa:
         born_at: "Creado en"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
+        # list: "Outgoing payment list"
+      outgoing_payment_list:
+        # payments_sum: "Total"
       parcel_item:
         population: "Cantidad"
       plant:
         born_at: "Plantado en"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Dirección para la estimación"
         has_downpayment: "Pago Inicial recibida"
       sale_nature:
@@ -65,6 +71,7 @@ spa:
         # is_at: "%{attribute} must be at %{restriction}"
         # less_than: "%{attribute} must be less than %{count}"
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
         # must_be_a_mail_address: "%{attribute} must be a mail address"
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
@@ -83,6 +90,7 @@ spa:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
           checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
         bank_statement:
           no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo"
@@ -367,6 +375,10 @@ spa:
     analysis_items: "Artículos de análisis"
     annotation: "Anotación"
     archive: "Archivo"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archiving: "El archivado"
     arguments: "Argumentos"
     assembly: "Asamblea"
@@ -379,6 +391,7 @@ spa:
     average_value: "Valor promedio"
     balance: "Equilibrar"
     balances: "Saldos"
+    # bank_account_holder_name: "Account owner"
     bank_account_key: "Clave de la cuenta bancaria"
     bank_account_number: "Número de cuenta bancaria"
     bank_agency_address: "Dirección de la agencia bancaria"
@@ -625,7 +638,11 @@ spa:
     faxes: "Faxes"
     fifth_producer: "En quinto productor" #?
     file: "Archivo"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "Tamaño del archivo"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "Páginas no se contabiliza"
     file_updated_at: "Actualizada a las"
     filtered_columns: "Columnas filtradas"
@@ -674,8 +691,12 @@ spa:
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
     gravity: "Gravedad"
-    gross_items: "recuento bruto"
-    gross_mass: "masa bruta"
+    gross_items: "recuento bruto" #?
+    gross_items_count: "Cuentan artículos brutas"
+    gross_items_count_yield: "Rendimiento bruto elemento"
+    gross_mass: "masa bruta" #?
+    gross_net_mass: "Masa bruta"
+    gross_net_mass_yield: "Rendimiento masa bruta"
     gross_yield_value: "Valor de rendimiento bruto"
     group: "Grupo"
     group_parameters: "Parámetros del grupo"
@@ -731,6 +752,10 @@ spa:
     initiated_on: "Iniciado el"
     inputs: "Entradas"
     inspection: "Inspección"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "inspecciones"
     insurance_amount: "El monto del seguro"
     insurance_percentage: "Porcentaje de Seguros"
@@ -745,6 +770,7 @@ spa:
     intervention_parameter: "Parámetro de la intervención"
     intervention_product_parameters: "Moldes de intervención"
     interventions: "Intervenciones"
+    # interventions_used_in: "Interventions used in"
     introduction: "Introducción"
     inventory: "Inventario"
     invitation_accepted_at: "Invitación aceptada en"
@@ -775,6 +801,7 @@ spa:
     item_value: "Valor del ítem"
     items: "Elementos"
     items_count: "Los productos que cuentan"
+    items_count_value: "Los productos que cuentan valor"
     journal: "Diario"
     journal_entries: "Las entradas de diario"
     journal_entry: "Entrada de diario"
@@ -802,6 +829,7 @@ spa:
     last_value: "Último valor"
     last_year: "El año pasado"
     latest: "Último"
+    # leaves_parameters: "Leaves parameters"
     lender: "Prestador"
     letter: "Carta"
     letter_format: "Formato carta"
@@ -812,6 +840,7 @@ spa:
     linked: "Vinculado"
     linked_role: "Entidad papel 2"
     links: "Campo de golf"
+    # list: "List"
     listing: "Listado"
     loan: "Préstamo"
     local_balance: "Equilibrio local"
@@ -849,6 +878,7 @@ spa:
     marketable_items_count: "cuentan artículos negociables"
     marketable_net_mass: "masa neta comercializable"
     marketable_net_yield: "rendimiento neto comercializable"
+    marketable_quantity: "Cantidad comercializable"
     marketable_yield: "rendimiento comercial"
     mass: "Masa (kg)"
     # max_zoom: "Max zoom"
@@ -1067,6 +1097,7 @@ spa:
     quantity_unit: "Unidad Cantidad"
     quantity_unit_name: "Nombre de la unidad Cantidad"
     quantity_value: "Cantidad valor"
+    quantity_yield: "Rendimiento neto comercializable"
     query: "Consulta"
     rank_number: "Número de rango"
     read_at: "Lea por lo"
@@ -1095,6 +1126,10 @@ spa:
     reduction_percentage: "Porcentaje de reducción"
     reference_name: "Nombre de referencia"
     reference_number: "Número de referencia"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "Impuesto de referencia"
     reference_value: "Valor de referencia"
     reflected: "Los cambios reflejados"
@@ -1116,6 +1151,7 @@ spa:
     replacements: "Reemplazos"
     reporter: "Reportero"
     request: "Solicitud"
+    # request_compliant: "Request compliant"
     request_intervention: "Solicitud de intervención"
     requests: "Peticiones"
     required: "Necesario"
@@ -1172,6 +1208,7 @@ spa:
     # sensor: "Sensor"
     sensors: "Sensores"
     sent_at: "Enviado a las"
+    # sepa: "SEPA"
     separated_stock: "No fusionarse con las reservas existentes"
     serial: "De serie"
     serial_number: "Número de serie"
@@ -1227,6 +1264,7 @@ spa:
     supplier: "Proveedor"
     supplier_account: "Cuenta de proveedor"
     supplier_address: "Dirección del proveedor"
+    # supplier_payment_delay: "Supplier payment delay"
     suppliers: "Proveedores"
     support: "Apoyo"
     support_nature: "Tipo de soporte"
@@ -1264,6 +1302,7 @@ spa:
     tool: "Herramienta"
     tools: "Instrumentos"
     total_cost: "Coste total"
+    total_items_count: "Cuentan artículos totales"
     total_net_mass: "masa neta total"
     town_number: "Número ciudad"
     tracking: "Rastreo"
@@ -1310,6 +1349,7 @@ spa:
     use_tactics: "Usar cultivos técnica de gestión"
     used_for_affairs: "Se utiliza para asuntos"
     used_for_gaps: "Se utiliza para huecos"
+    # used_intervention_parameters: "Used intervention parameters"
     useful_items: "Artículos útiles"
     user: "Usuario"
     users: "Usuarios"
@@ -1423,8 +1463,10 @@ spa:
         transfer:
           name: "Virement"
     inspection:
-      items: "Artículos"
-      mass: "Masa"
+      items: "Artículos" #?
+      items_count: "Artículos"
+      mass: "Masa" #?
+      net_mass: "Masa"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

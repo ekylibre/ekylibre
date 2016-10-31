@@ -29,11 +29,17 @@ por:
         born_at: "Criado em"
       outgoing_payment:
         delivered: "Dada a destinatário"
+        # list: "Outgoing payment list"
+      outgoing_payment_list:
+        # payments_sum: "Total"
       parcel_item:
         population: "Quantidade"
       plant:
         born_at: "Plantadas em"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Endereço para a estimativa"
         has_downpayment: "È recebido"
       sale_nature:
@@ -65,6 +71,7 @@ por:
         # is_at: "%{attribute} must be at %{restriction}"
         # less_than: "%{attribute} must be less than %{count}"
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
         # must_be_a_mail_address: "%{attribute} must be a mail address"
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
@@ -83,6 +90,7 @@ por:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          checked_off_with_inspections: "Inspeções já foram criados para esta atividade"
           checked_without_measures: "Pelo menos, um tipo de medida deve ser selecionada quando as inspecções são procurados"
         bank_statement:
           no_cash_match_ofx: "Nenhum dinheiro encontrado com o número da conta bancária dada no arquivo"
@@ -366,6 +374,10 @@ por:
     analysis_items: "Itens de análise"
     annotation: "Anotação"
     archive: "Arquivo"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archiving: "Arquivamento"
     arguments: "Argumentos"
     assembly: "Montagem"
@@ -378,6 +390,7 @@ por:
     average_value: "Valor médio"
     balance: "Equilibrar"
     balances: "Saldos"
+    # bank_account_holder_name: "Account owner"
     bank_account_key: "Chave de conta bancária"
     bank_account_number: "Número da conta bancária"
     bank_agency_address: "Endereço agência bancária"
@@ -621,7 +634,11 @@ por:
     faxes: "Faxes"
     fifth_producer: "Quinto produtor" #?
     file: "Arquivo"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "Tamanho do arquivo"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "Páginas contar"
     file_updated_at: "Atualizada às"
     filtered_columns: "Colunas filtradas"
@@ -670,8 +687,12 @@ por:
     grading_sizes_unit_name: "Grading tamanhos nome da unidade"
     gradings: "gradings"
     gravity: "Gravidade"
-    gross_items: "contagem bruta"
-    gross_mass: "massa bruta"
+    gross_items: "contagem bruta" #?
+    gross_items_count: "De itens brutos contar"
+    gross_items_count_yield: "Rendimento de produto bruto"
+    gross_mass: "massa bruta" #?
+    gross_net_mass: "Massa bruta"
+    gross_net_mass_yield: "Rendimento de massa bruta"
     gross_yield_value: "Valor do rendimento bruto"
     group: "Grupo"
     group_parameters: "Parâmetros do Grupo"
@@ -727,6 +748,10 @@ por:
     initiated_on: "Iniciado em"
     inputs: "Entradas"
     inspection: "Inspeção"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "inspeções"
     insurance_amount: "Valor do seguro"
     insurance_percentage: "Porcentagem de seguros"
@@ -741,6 +766,7 @@ por:
     intervention_parameter: "Parâmetro de intervenção"
     intervention_product_parameters: "Elencos de intervenção"
     interventions: "Intervenções"
+    # interventions_used_in: "Interventions used in"
     introduction: "Introdução"
     inventory: "Inventário"
     invitation_accepted_at: "Convite aceito em"
@@ -771,6 +797,7 @@ por:
     item_value: "Valor do item"
     items: "Itens"
     items_count: "itens contar"
+    items_count_value: "Itens contam valor"
     journal: "Diário"
     journal_entries: "Entradas de diário"
     journal_entry: "Entrada de diário"
@@ -798,6 +825,7 @@ por:
     last_value: "Último valor"
     last_year: "Ano passado"
     latest: "Mais recentes"
+    # leaves_parameters: "Leaves parameters"
     lender: "Emprestador"
     letter: "Carta"
     letter_format: "Formato de carta"
@@ -808,6 +836,7 @@ por:
     linked: "Ligado"
     linked_role: "Entidade 2 papel"
     links: "Ligações"
+    # list: "List"
     listing: "Listagem"
     loan: "Empréstimo"
     local_balance: "Equilíbrio local"
@@ -845,6 +874,7 @@ por:
     marketable_items_count: "itens comercializáveis ​​contar"
     marketable_net_mass: "massa líquida comercializável"
     marketable_net_yield: "rendimento líquido comercializável"
+    marketable_quantity: "Quantidade comercializável"
     marketable_yield: "A produtividade comercial"
     mass: "Massa (kg)"
     max_zoom: "zoom Max"
@@ -1063,6 +1093,7 @@ por:
     quantity_unit: "Unidade de quantidade"
     quantity_unit_name: "Nome da unidade Quantidade"
     quantity_value: "Valor de quantidade"
+    quantity_yield: "Produtividade comercial Net"
     query: "Pergunta"
     rank_number: "Número de classificação"
     read_at: "Leia pelo"
@@ -1091,6 +1122,10 @@ por:
     reduction_percentage: "Percentagem de redução"
     reference_name: "Nome de referencia"
     reference_number: "Número de referência"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "Fiscal de referência"
     reference_value: "Valor de referência"
     reflected: "Alterações refletidas"
@@ -1112,6 +1147,7 @@ por:
     # replacements: "Replacements"
     reporter: "Repórter"
     request: "Pedido"
+    # request_compliant: "Request compliant"
     request_intervention: "Intervenção pedido"
     requests: "Pedidos"
     required: "Requeridos"
@@ -1168,6 +1204,7 @@ por:
     # sensor: "Sensor"
     sensors: "Sensores"
     sent_at: "Enviada pelo"
+    # sepa: "SEPA"
     separated_stock: "Não se fundir com existências"
     # serial: "Serial"
     serial_number: "Número de série"
@@ -1223,6 +1260,7 @@ por:
     supplier: "Fornecedor"
     supplier_account: "Conta de fornecedor"
     supplier_address: "Endereço de fornecedor"
+    # supplier_payment_delay: "Supplier payment delay"
     suppliers: "Fornecedores"
     support: "Apoio"
     support_nature: "Tipo de suporte"
@@ -1260,6 +1298,7 @@ por:
     tool: "Ferramenta"
     tools: "Ferramentas"
     total_cost: "Custo total"
+    total_items_count: "Total de itens contar"
     total_net_mass: "massa líquida total"
     town_number: "Número cidade"
     tracking: "Rastreamento"
@@ -1306,6 +1345,7 @@ por:
     use_tactics: "Utilização de uma técnica manejo da cultura"
     used_for_affairs: "Usado para assuntos"
     used_for_gaps: "Usado para lacunas"
+    # used_intervention_parameters: "Used intervention parameters"
     useful_items: "Itens úteis"
     user: "Do utilizador"
     users: "Usuários"
@@ -1419,8 +1459,10 @@ por:
         transfer:
           name: "Virement"
     inspection:
-      items: "Unid"
-      mass: "Massa"
+      items: "Unid" #?
+      items_count: "Unid"
+      mass: "Massa" #?
+      net_mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

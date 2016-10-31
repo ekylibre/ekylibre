@@ -73,7 +73,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.5.0.1)
+    autoprefixer-rails (6.5.0.2)
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -142,7 +142,7 @@ GEM
     database_cleaner (1.5.3)
     dbf (3.0.7)
     debug_inspector (0.0.2)
-    deep_cloneable (2.2.1)
+    deep_cloneable (2.2.2)
       activerecord (>= 3.1.0, < 5.2.0)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -192,7 +192,7 @@ GEM
       tilt
     hashie (3.4.6)
     hpricot (0.8.6)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.0.5)
     httpi (2.4.2)
@@ -203,6 +203,7 @@ GEM
       i18n (>= 0.6)
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
+    iban-tools (1.1.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -262,9 +263,8 @@ GEM
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
     netrc (0.11.0)
-    nokogiri (1.6.8)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
     nori (2.6.0)
     ntlm-http (0.1.1)
     oauth2 (1.2.0)
@@ -292,7 +292,6 @@ GEM
     parser (2.3.1.4)
       ast (~> 2.2)
     pg (0.19.0)
-    pkg-config (1.1.7)
     polyglot (0.3.5)
     possibly (1.0.1)
     powerpack (0.1.1)
@@ -356,7 +355,7 @@ GEM
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
-    remotipart (1.3.0)
+    remotipart (1.3.1)
     require_all (1.3.3)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
@@ -377,6 +376,10 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
+    rodf (0.3.7)
+      activesupport (>= 3.0, < 6.0)
+      builder (~> 3.0)
+      rubyzip (~> 1.0)
     roo (2.5.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -406,13 +409,17 @@ GEM
       nori (~> 2.4)
       wasabi (~> 3.4)
     sax-machine (1.3.2)
-    sdoc (0.4.1)
+    sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     selenium-webdriver (2.53.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sepa_king (0.8.0)
+      activemodel (>= 3.0.0)
+      builder
+      iban-tools
     sexp_processor (4.7.0)
     shoulda-context (1.2.1)
     sidekiq (4.2.2)
@@ -436,7 +443,8 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     socksify (1.7.0)
-    spring (1.7.2)
+    spring (2.0.0)
+      activesupport (>= 4.2)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -573,6 +581,7 @@ DEPENDENCIES
   rest-client
   rgeo-geojson
   rgeo-shapefile
+  rodf
   roo
   rubocop
   rubyntlm (>= 0.3.2)
@@ -581,6 +590,7 @@ DEPENDENCIES
   savon
   sdoc (~> 0.4.0)
   selenium-webdriver
+  sepa_king
   shoulda-context
   sidekiq (>= 4.0)
   sidekiq-cron (>= 0.4.0)

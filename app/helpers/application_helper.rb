@@ -427,7 +427,7 @@ module ApplicationHelper
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
-                               data: { toggle: 'dropdown' },
+                               data: { toggle: 'dropdown', disable_with: options[:disable_with] },
                                aria: { haspopup: 'true', expanded: 'false' })
   end
 
@@ -482,7 +482,7 @@ module ApplicationHelper
                 (default_item.args.third || {}).merge(item_options),
                 &default_item.block)
       else
-        dropdown_toggle_button(name, icon: options[:icon]) +
+        dropdown_toggle_button(name, icon: options[:icon], disable_with: options[:disable_with]) +
           dropdown_menu(menu.list)
       end
     end
@@ -987,5 +987,69 @@ module ApplicationHelper
     else
       'datetime.relative_distance_in_words.sometime_ago'.t(distance: time_ago_in_words(time))
     end
+  end
+
+  def even_cells(*cells, **options)
+    options = default_evening_options(options)
+    filler = content_tag(
+      options[:filler_tag],
+      options[:filler_content],
+      class: options[:filler_class]
+    )
+    size = cells.size
+    # Number of depth levels we're going to need
+    # log2(number of elements)
+    # +1 here for proper handling of odds
+    n = Math.log(size + 1, 2).round
+
+    unbalanced = cells.count(nil).odd? && size.even?
+
+    # You can't balance a odd number of elements inside an odd numbered grid
+    cells.delete_at(cells.find_index(nil)) if unbalanced
+
+    empties = cells.count(nil)
+    filled = size - empties
+    return safe_join(cells.map { |_| filler }) if filled.zero?
+    return safe_join(cells.map { |cell| content_tag(options[:cell_tag], cell, class: options[:cell_class]) }) if empties.zero?
+
+    result = []
+    # We strive to put everything in the middle
+    # `filled <= (n - 1) * 2 - 1` tells us if there's
+    # enough roomin the inner levels to handle the elements
+    # or if we should take some of the burden.
+    if filled <= (n - 1) * 2 - 1
+      result << filler
+      result << even_cells(*(cells.compact + [nil] * (empties - 2)), **options)
+      result << filler
+    else
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.first,
+        class: options[:cell_class]
+      )
+      result << even_cells(*(cells.compact[1...-1] + [nil] * empties), **options)
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.last,
+        class: options[:cell_class]
+      )
+    end
+    # Continuation of the `odd in even` problem mentioned above.
+    result << filler if unbalanced
+
+    safe_join(result)
+  end
+
+  private
+
+  def default_evening_options(options)
+    defaults = {}
+    defaults[:filler_tag]     = options[:filler_tag]      || :div
+    defaults[:filler_class]   = options[:filler_class]    || :"even-filler"
+    defaults[:filler_content] = options[:filler_content]  || nil
+
+    defaults[:cell_tag]       = options[:cell_tag]        || :div
+    defaults[:cell_class]     = options[:cell_class]      || :"even-cell"
+    defaults
   end
 end

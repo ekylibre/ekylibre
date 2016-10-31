@@ -362,6 +362,13 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
+      <item name="outgoing_payment_lists">
+        <page to="backend/outgoing_payment_lists#index"/>
+        <page to="backend/outgoing_payment_lists#destroy"/>
+        <page to="backend/outgoing_payment_lists#list"/>
+        <page to="backend/outgoing_payment_lists#show"/>
+        <page to="backend/outgoing_payment_lists#unroll" nonexistent="true"/>
+      </item>
     </group>
   </part>
   <part name="stocks" icon="truck">
@@ -439,6 +446,8 @@
         <page to="backend/product_groups#take"/>
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
+      </item>
+      <item name="trackings">
         <page to="backend/trackings#index"/>
         <page to="backend/trackings#create"/>
         <page to="backend/trackings#destroy"/>
@@ -531,7 +540,6 @@
         <page to="backend/parcels#give"/>
         <page to="backend/parcels#order"/>
         <page to="backend/parcels#prepare"/>
-        <page to="backend/parcel_items#new"/>
       </item>
       <item name="deliveries">
         <page to="backend/deliveries#index"/>
@@ -766,6 +774,7 @@
         <page to="backend/inspections#create"/>
         <page to="backend/inspections#destroy"/>
         <page to="backend/inspections#edit"/>
+        <page to="backend/inspections#export"/>
         <page to="backend/inspections#list"/>
         <page to="backend/inspections#new"/>
         <page to="backend/inspections#show"/>
@@ -1833,6 +1842,65 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="intervention_participations">
+        <page to="api/v1/intervention_participations#create"/>
+      </item>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#list_trackings"/>
+      </item>
+      <item name="animals">
+        <page to="backend/animals#list_trackings"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_trackings"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_trackings"/>
+      </item>
+      <item name="entities">
+        <page to="backend/entities#list_incoming_parcels"/>
+        <page to="backend/entities#list_outgoing_parcels"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_trackings"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#list_trackings"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#list_trackings"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#list_trackings"/>
+      </item>
+      <item name="outgoing_payment_lists">
+        <page to="backend/outgoing_payment_lists#create"/>
+        <page to="backend/outgoing_payment_lists#edit"/>
+        <page to="backend/outgoing_payment_lists#export_to_sepa"/>
+        <page to="backend/outgoing_payment_lists#list_payments"/>
+        <page to="backend/outgoing_payment_lists#new"/>
+        <page to="backend/outgoing_payment_lists#update"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_trackings"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_trackings"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_trackings"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#pay"/>
+        <page to="backend/purchases#payment_mode"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#list_trackings"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_trackings"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -369,6 +369,9 @@ ita:
     backend/observations:
       edit: "Modifica osservazione"
       new: "Nuovo osservazione"
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "modalità di erogazione Edit"
       index: "modalità di erogazione"
@@ -442,6 +445,7 @@ ita:
       index: "acquisti"
       invoice: "ricevere fattura"
       new: "Nuovo acquisto"
+      # payment_mode: "Select payment mode"
       propose: "proporre ordine"
       propose_and_invoice: "fatturare direttamente"
       refuse: "ordine Refused"
@@ -1239,6 +1243,8 @@ ita:
     organic_matter_concentration: "la concentrazione di materia organica"
     original_component: "Originale"
     others: "Altri"
+    outgoing_parcel_quantities: "Le quantità (pacchi in uscita)"
+    outgoing_parcels: "Pacchi in uscita"
     outgoing_payment: "pagamento in uscita"
     outgoing_payments: "pagamenti in uscita"
     # page_title: "%{company_code} · %{menu} · %{action}"
@@ -1247,6 +1253,7 @@ ita:
     paid_amount: "Importo pagato"
     paid_at: "pagato a"
     parameters: "parametri"
+    parcel_items: "Articoli pacchi"
     parcels: "pacchi"
     participants: "I partecipanti"
     participations: "partecipazioni"
@@ -1365,6 +1372,7 @@ ita:
     sales: "Vendite"
     sales_conditions: "Condizioni di vendita"
     sales_invoice: "fatturazione"
+    sales_pretax_amount: "Importo lordo delle imposte (di vendita)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvare"
     save_in_draft: "Salva come bozza"
@@ -1510,6 +1518,7 @@ ita:
     undefined_activity: "L’attività non definita"
     undefined_container: "contenitore non definita"
     undelivered: "non consegnato"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "disfatto"
     unit: "Unità"
     # unit_and_indicator: "%{unit} (%{indicator})"
@@ -1592,6 +1601,10 @@ ita:
     x_hours_worked:
       # one: "%{count}\_h worked"
       # other: "%{count}\_h worked"
+    x_incoming_parcels:
+      # one: "%{count} incoming parcel"
+      # other: "%{count} incoming parcels"
+      # zero: "No incoming parcel"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1629,6 +1642,10 @@ ita:
       # one: "%{count} observation"
       # other: "%{count} observations"
     # x_of_y: "%{x} of %{y}"
+    x_outgoing_parcels:
+      # one: "%{count} outgoing parcel"
+      # other: "%{count} outgoing parcels"
+      # zero: "No outgoing parcel"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1664,6 +1681,10 @@ ita:
     x_times:
       # one: "%{count} time"
       # other: "%{count} times"
+    x_trackings:
+      # one: "%{count} tracking"
+      # other: "%{count} trackings"
+      # zero: "No tracking found"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1698,6 +1719,7 @@ ita:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "Tutti i tuoi dati sono stati importati"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "Un'attività deve essere definito"
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1763,6 +1785,7 @@ ita:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Nessuna produzione trovato. È possibile aggiungere nuovi o copiare alcuni dalla precedente campagna."
       no_reopenable_journal: "Non si può riaprire questa rivista."
       no_replacements_since_beginning: "Non ci sono sostituzioni fin dall’inizio"
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record già importati"
       record_cannot_be_removed: "Il record non può essere eliminato"
       record_has_been_correctly_removed: "Il record è stato rimosso con successo"
@@ -1832,6 +1855,7 @@ ita:
       edit_many: "Modificare molti"
       evaluate: "Valutare"
       export: "Esportare"
+      # export_to_sepa: "Export to SEPA"
       extract: "Estratto"
       family: "Famiglia"
       finish: "finire"
@@ -1854,6 +1878,8 @@ ita:
       new: "Nuovo"
       open: "aperto"
       order: "Ordine"
+      # pay: "Pay"
+      # payment_mode: "Payment mode"
       pick: "scegliere"
       picture: "Immagine"
       prepare: "Preparare"

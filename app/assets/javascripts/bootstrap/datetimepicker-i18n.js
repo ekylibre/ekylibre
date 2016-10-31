@@ -4,6 +4,7 @@
 */
 ;(function($){
 	$.fn.datetimepicker.dates['ar'] = {
+    clear: "Clear",
 		days: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
 		daysShort: ["أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت", "أحد"],
 		daysMin: ["أح", "إث", "ث", "أر", "خ", "ج", "س", "أح"],
@@ -21,6 +22,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['bg'] = {
+    clear: "Clear",
 		days: ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота", "Неделя"],
 		daysShort: ["Нед", "Пон", "Вто", "Сря", "Чет", "Пет", "Съб", "Нед"],
 		daysMin: ["Н", "П", "В", "С", "Ч", "П", "С", "Н"],
@@ -37,6 +39,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ca'] = {
+    clear: "Clear",
 		days: ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte", "Diumenge"],
 		daysShort: ["Diu",  "Dil", "Dmt", "Dmc", "Dij", "Div", "Dis", "Diu"],
 		daysMin: ["dg", "dl", "dt", "dc", "dj", "dv", "ds", "dg"],
@@ -54,6 +57,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['cs'] = {
+    clear: "Clear",
 		days: ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"],
 		daysShort: ["Ned", "Pon", "Úte", "Stř", "Čtv", "Pát", "Sob", "Ned"],
 		daysMin: ["Ne", "Po", "Út", "St", "Čt", "Pá", "So", "Ne"],
@@ -70,6 +74,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['da'] = {
+    clear: "Clear",
 		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
 		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
 		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],
@@ -85,6 +90,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['de'] = {
+    clear: "Clear",
 		days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
 		daysShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam", "Son"],
 		daysMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
@@ -103,6 +109,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ee'] = {
+    clear: "Clear",
 		days:        	["Pühapäev", "Esmaspäev", "Teisipäev", "Kolmapäev", "Neljapäev", "Reede", "Laupäev", "Pühapäev"],
 		daysShort:   	["P", "E", "T", "K", "N", "R", "L", "P"],
 		daysMin:     	["P", "E", "T", "K", "N", "R", "L", "P"],
@@ -119,6 +126,7 @@
 */
 ;(function($){
   $.fn.datetimepicker.dates['el'] = {
+    clear: "Clear",
 	    days: ["Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"],
 	    daysShort: ["Κυρ", "Δευ", "Τρι", "Τετ", "Πεμ", "Παρ", "Σαβ", "Κυρ"],
 	    daysMin: ["Κυ", "Δε", "Τρ", "Τε", "Πε", "Πα", "Σα", "Κυ"],
@@ -134,6 +142,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['es'] = {
+    clear: "Clear",
 		days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
 		daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
 		daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
@@ -150,6 +159,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['fi'] = {
+    clear: "Clear",
 		days: ["sunnuntai", "maanantai", "tiistai", "keskiviikko", "torstai", "perjantai", "lauantai", "sunnuntai"],
 		daysShort: ["sun", "maa", "tii", "kes", "tor", "per", "lau", "sun"],
 		daysMin: ["su", "ma", "ti", "ke", "to", "pe", "la", "su"],
@@ -166,6 +176,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['fr'] = {
+    clear: "Effacer",
 		days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
 		daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
 		daysMin: ["D", "L", "Ma", "Me", "J", "V", "S", "D"],
@@ -184,6 +195,7 @@
  */
 ;(function($){
   $.fn.datetimepicker.dates['he'] = {
+    clear: "Clear",
       days: ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת", "ראשון"],
       daysShort: ["א", "ב", "ג", "ד", "ה", "ו", "ש", "א"],
       daysMin: ["א", "ב", "ג", "ד", "ה", "ו", "ש", "א"],
@@ -200,6 +212,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['hr'] = {
+    clear: "Clear",
 		days: ["Nedjelja", "Ponedjelja", "Utorak", "Srijeda", "Četrtak", "Petak", "Subota", "Nedjelja"],
 		daysShort: ["Ned", "Pon", "Uto", "Srr", "Čet", "Pet", "Sub", "Ned"],
 		daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su", "Ne"],
@@ -216,6 +229,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['hu'] = {
+    clear: "Clear",
 		days: ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"],
 		daysShort: ["Vas", "Hét", "Ked", "Sze", "Csü", "Pén", "Szo", "Vas"],
 		daysMin: ["V", "H", "K", "Sze", "Cs", "P", "Szo", "V"],
@@ -233,6 +247,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['id'] = {
+    clear: "Clear",
 		days: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
 		daysShort: ["Mgu", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Mgu"],
 		daysMin: ["Mg", "Sn", "Sl", "Ra", "Ka", "Ju", "Sa", "Mg"],
@@ -248,6 +263,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['is'] = {
+    clear: "Clear",
 		days: ["Sunnudagur", "Mánudagur", "Þriðjudagur", "Miðvikudagur", "Fimmtudagur", "Föstudagur", "Laugardagur", "Sunnudagur"],
 		daysShort: ["Sun", "Mán", "Þri", "Mið", "Fim", "Fös", "Lau", "Sun"],
 		daysMin: ["Su", "Má", "Þr", "Mi", "Fi", "Fö", "La", "Su"],
@@ -264,6 +280,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['it'] = {
+    clear: "Clear",
 		days: ["Domenica", "Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica"],
 		daysShort: ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
 		daysMin: ["Do", "Lu", "Ma", "Me", "Gi", "Ve", "Sa", "Do"],
@@ -282,6 +299,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ja'] = {
+    clear: "Clear",
 		days: ["日曜", "月曜", "火曜", "水曜", "木曜", "金曜", "土曜", "日曜"],
 		daysShort: ["日", "月", "火", "水", "木", "金", "土", "日"],
 		daysMin: ["日", "月", "火", "水", "木", "金", "土", "日"],
@@ -299,6 +317,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['kr'] = {
+    clear: "Clear",
 		days: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"],
 		daysShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
 		daysMin: ["일", "월", "화", "수", "목", "금", "토", "일"],
@@ -316,6 +335,7 @@
 
 ;(function($){
     $.fn.datetimepicker.dates['lt'] = {
+      clear: "Clear",
         days: ["Sekmadienis", "Pirmadienis", "Antradienis", "Trečiadienis", "Ketvirtadienis", "Penktadienis", "Šeštadienis", "Sekmadienis"],
         daysShort: ["S", "Pr", "A", "T", "K", "Pn", "Š", "S"],
         daysMin: ["Sk", "Pr", "An", "Tr", "Ke", "Pn", "Št", "Sk"],
@@ -334,6 +354,7 @@
 
 ;(function($){
     $.fn.datetimepicker.dates['lv'] = {
+      clear: "Clear",
         days: ["Svētdiena", "Pirmdiena", "Otrdiena", "Trešdiena", "Ceturtdiena", "Piektdiena", "Sestdiena", "Svētdiena"],
         daysShort: ["Sv", "P", "O", "T", "C", "Pk", "S", "Sv"],
         daysMin: ["Sv", "Pr", "Ot", "Tr", "Ce", "Pk", "St", "Sv"],
@@ -350,6 +371,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ms'] = {
+    clear: "Clear",
 		days: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu", "Ahad"],
 		daysShort: ["Aha", "Isn", "Sel", "Rab", "Kha", "Jum", "Sab", "Aha"],
 		daysMin: ["Ah", "Is", "Se", "Ra", "Kh", "Ju", "Sa", "Ah"],
@@ -366,6 +388,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['nb'] = {
+    clear: "Clear",
 		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
 		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
 		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],
@@ -381,6 +404,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['nl'] = {
+    clear: "Clear",
 		days: ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"],
 		daysShort: ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"],
 		daysMin: ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"],
@@ -397,6 +421,7 @@
  */
 ;(function($){
 	$.fn.datetimepicker.dates['no'] = {
+    clear: "Clear",
 		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
 		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
 		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],
@@ -413,6 +438,7 @@
  */
 ;(function($){
 $.fn.datetimepicker.dates['pl'] = {
+  clear: "Clear",
         days: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
         daysShort: ["Nie", "Pn", "Wt", "Śr", "Czw", "Pt", "So", "Nie"],
         daysMin: ["N", "Pn", "Wt", "Śr", "Cz", "Pt", "So", "N"],
@@ -430,6 +456,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['pt-BR'] = {
+    clear: "Clear",
         format: 'dd/mm/yyyy',
 		days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
 		daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
@@ -448,6 +475,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['pt'] = {
+    clear: "Clear",
 		days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
 		daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
 		daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
@@ -464,6 +492,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ro'] = {
+    clear: "Clear",
 		days: ["Duminică", "Luni", "Marţi", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"],
 		daysShort: ["Dum", "Lun", "Mar", "Mie", "Joi", "Vin", "Sâm", "Dum"],
 		daysMin: ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ", "Du"],
@@ -481,6 +510,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['rs'] = {
+    clear: "Clear",
 		days: ["Недеља","Понедељак", "Уторак", "Среда", "Четвртак", "Петак", "Субота", "Недеља"],
 		daysShort: ["Нед", "Пон", "Уто", "Сре", "Чет", "Пет", "Суб", "Нед"],
 		daysMin: ["Н", "По", "У", "Ср", "Ч", "Пе", "Су", "Н"],
@@ -497,6 +527,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['rs'] = {
+    clear: "Clear",
 		days: ["Nedelja","Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota", "Nedelja"],
 		daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub", "Ned"],
 		daysMin: ["N", "Po", "U", "Sr", "Č", "Pe", "Su", "N"],
@@ -513,6 +544,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ru'] = {
+    clear: "Clear",
 		days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
 		daysShort: ["Вск", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Вск"],
 		daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
@@ -529,6 +561,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates["sk"] = {
+    clear: "Clear",
 		days: ["Nedeľa", "Pondelok", "Utorok", "Streda", "Štvrtok", "Piatok", "Sobota", "Nedeľa"],
 		daysShort: ["Ned", "Pon", "Uto", "Str", "Štv", "Pia", "Sob", "Ned"],
 		daysMin: ["Ne", "Po", "Ut", "St", "Št", "Pia", "So", "Ne"],
@@ -545,6 +578,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['sl'] = {
+    clear: "Clear",
 		days: ["Nedelja", "Ponedeljek", "Torek", "Sreda", "Četrtek", "Petek", "Sobota", "Nedelja"],
 		daysShort: ["Ned", "Pon", "Tor", "Sre", "Čet", "Pet", "Sob", "Ned"],
 		daysMin: ["Ne", "Po", "To", "Sr", "Če", "Pe", "So", "Ne"],
@@ -561,6 +595,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['sv'] = {
+    clear: "Clear",
 		days: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"],
 		daysShort: ["Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör", "Sön"],
 		daysMin: ["Sö", "Må", "Ti", "On", "To", "Fr", "Lö", "Sö"],
@@ -578,6 +613,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
     $.fn.datetimepicker.dates['sw'] = {
+      clear: "Clear",
         days: ["Jumapili", "Jumatatu", "Jumanne", "Jumatano", "Alhamisi", "Ijumaa", "Jumamosi", "Jumapili"],
         daysShort: ["J2", "J3", "J4", "J5", "Alh", "Ij", "J1", "J2"],
         daysMin: ["2", "3", "4", "5", "A", "I", "1", "2"],
@@ -594,6 +630,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['th'] = {
+    clear: "Clear",
 		days: ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์", "อาทิตย์"],
 		daysShort: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส", "อา"],
 		daysMin: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส", "อา"],
@@ -610,6 +647,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['tr'] = {
+    clear: "Clear",
 		days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
 		daysShort: ["Pz", "Pzt", "Sal", "Çrş", "Prş", "Cu", "Cts", "Pz"],
 		daysMin: ["Pz", "Pzt", "Sa", "Çr", "Pr", "Cu", "Ct", "Pz"],
@@ -627,6 +665,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['ua'] = {
+    clear: "Clear",
 		days: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четверг", "П'ятниця", "Субота", "Неділя"],
 		daysShort: ["Нед", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Нед"],
 		daysMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"],
@@ -642,6 +681,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['uk'] = {
+    clear: "Clear",
 		days: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"],
 		daysShort: ["Нед", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Нед"],
 		daysMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"],
@@ -657,6 +697,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['zh-CN'] = {
+    clear: "Clear",
 			days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
 			daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
 			daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
@@ -673,6 +714,7 @@ $.fn.datetimepicker.dates['pl'] = {
  */
 ;(function($){
 	$.fn.datetimepicker.dates['zh-TW'] = {
+    clear: "Clear",
 	days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
 	  daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
 		daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],

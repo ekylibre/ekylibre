@@ -29,11 +29,17 @@ ita:
         born_at: "creato a"
       outgoing_payment:
         delivered: "Dato al destinatario"
+        # list: "Outgoing payment list"
+      outgoing_payment_list:
+        # payments_sum: "Total"
       parcel_item:
         population: "Quantità"
       plant:
         born_at: "piantato a"
+      purchase:
+        # affair_balance: "Balance"
       sale:
+        # affair_balance: "Balance"
         contact: "Indirizzo per la stima"
         has_downpayment: "Anticipo ricevuti"
       sale_nature:
@@ -66,6 +72,7 @@ ita:
         # is_at: "%{attribute} must be at %{restriction}"
         less_than: "deve essere minore di %{count}"
         less_than_or_equal_to: "deve essere minore o uguale a %{count}"
+        # missing_bank_details_for_sepa: "Values for IBAN and/or Account owner are missing for the cash account selected."
         # must_be_a_mail_address: "%{attribute} must be a mail address"
         not_a_number: "non è un numero"
         # not_an_end_of_month: "%{attribute} must be an end of month"
@@ -92,6 +99,7 @@ ita:
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
       models:
         activity:
+          checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
         bank_statement:
           no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file"
@@ -397,6 +405,10 @@ ita:
     analysis_items: "articoli di analisi"
     annotation: "Annotazione"
     archive: "archivio"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archiving: "Archiviazione"
     arguments: "Argomenti"
     assembly: "Montaggio"
@@ -409,6 +421,7 @@ ita:
     average_value: "Valore medio"
     balance: "Equilibrio"
     balances: "saldi"
+    # bank_account_holder_name: "Account owner"
     bank_account_key: "chiave conto bancario"
     bank_account_number: "numero di conto bancario"
     bank_agency_address: "Banca indirizzo agenzia"
@@ -652,7 +665,11 @@ ita:
     faxes: "fax"
     fifth_producer: "Quinto produttore" #?
     # file: "File"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "Dimensione del file"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "Contano pagine"
     file_updated_at: "Aggiornati alle"
     filtered_columns: "colonne filtrati"
@@ -701,8 +718,12 @@ ita:
     grading_sizes_unit_name: "Grading dimensioni nome dell’unità"
     gradings: "classificazioni"
     gravity: "Gravità"
-    gross_items: "conteggio lordo"
-    gross_mass: "massa lorda"
+    gross_items: "conteggio lordo" #?
+    gross_items_count: "Contano articoli Gross"
+    gross_items_count_yield: "Rendimento lordo voce"
+    gross_mass: "massa lorda" #?
+    gross_net_mass: "Massa lorda"
+    gross_net_mass_yield: "Rendimento Massa lorda"
     gross_yield_value: "Valore di rendimento lordo"
     group: "Gruppo"
     group_parameters: "parametri del Gruppo"
@@ -758,6 +779,10 @@ ita:
     initiated_on: "Iniziato su"
     inputs: "ingressi"
     inspection: "ispezione"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "ispezioni"
     insurance_amount: "importo di assicurazione"
     insurance_percentage: "percentuale di assicurazione"
@@ -772,6 +797,7 @@ ita:
     intervention_parameter: "parametro intervento"
     intervention_product_parameters: "calchi di intervento"
     interventions: "interventi"
+    # interventions_used_in: "Interventions used in"
     introduction: "Introduzione"
     inventory: "Inventario"
     invitation_accepted_at: "Invito accettato a"
@@ -802,6 +828,7 @@ ita:
     item_value: "valore Articolo"
     items: "Elementi"
     items_count: "contano articoli"
+    items_count_value: "Articoli contano valore"
     journal: "rivista"
     journal_entries: "Le voci del diario"
     journal_entry: "annotazione"
@@ -829,6 +856,7 @@ ita:
     last_value: "Ultimo valore"
     last_year: "L'anno scorso"
     latest: "Più recente"
+    # leaves_parameters: "Leaves parameters"
     # lender: "Lender"
     letter: "Lettera"
     letter_format: "formato Letter"
@@ -839,6 +867,7 @@ ita:
     linked: "connesso"
     linked_role: "Entity 2 ruolo"
     links: "Collegamento"
+    # list: "List"
     listing: "listato"
     loan: "Prestito"
     local_balance: "equilibrio locale"
@@ -876,6 +905,7 @@ ita:
     marketable_items_count: "contano articoli negoziabili"
     marketable_net_mass: "massa netta commerciabile"
     marketable_net_yield: "rendimento netto commerciabile"
+    marketable_quantity: "Quantità commerciabile"
     marketable_yield: "resa commerciabile"
     mass: "Massa (kg)"
     # max_zoom: "Max zoom"
@@ -1094,6 +1124,7 @@ ita:
     quantity_unit: "unità Quantità"
     quantity_unit_name: "Quantità nome dell'unità"
     quantity_value: "valore Quantità"
+    quantity_yield: "Rendimento netto commerciabile"
     query: "domanda"
     rank_number: "numero Classifica"
     read_at: "Leggi a"
@@ -1122,6 +1153,10 @@ ita:
     reduction_percentage: "percentuale di riduzione"
     reference_name: "Nome di riferimento"
     reference_number: "Numero di riferimento"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "fiscale di riferimento"
     reference_value: "valore di riferimento"
     reflected: "modifiche riflessa"
@@ -1143,6 +1178,7 @@ ita:
     replacements: "Sostituzioni"
     # reporter: "Reporter"
     request: "Richiesta"
+    # request_compliant: "Request compliant"
     request_intervention: "Richiesta intervento"
     requests: "Richieste"
     required: "richiesto"
@@ -1199,6 +1235,7 @@ ita:
     sensor: "Sensore"
     sensors: "sensori"
     sent_at: "Trasmesso a"
+    # sepa: "SEPA"
     separated_stock: "Non fondersi con le scorte esistenti"
     serial: "Seriale"
     serial_number: "Numero di serie"
@@ -1254,6 +1291,7 @@ ita:
     supplier: "Fornitore"
     supplier_account: "conto del fornitore"
     supplier_address: "indirizzo del fornitore"
+    # supplier_payment_delay: "Supplier payment delay"
     suppliers: "fornitori"
     support: "Supporto"
     support_nature: "tipo di Supporto"
@@ -1291,6 +1329,7 @@ ita:
     tool: "Strumento"
     tools: "Utensili"
     total_cost: "Costo totale"
+    total_items_count: "Conteggio totale articoli"
     total_net_mass: "massa netta totale"
     town_number: "numero di Città"
     tracking: "puntamento"
@@ -1337,6 +1376,7 @@ ita:
     use_tactics: "Utilizzare tecnica di gestione delle colture"
     used_for_affairs: "Usato per gli affari"
     used_for_gaps: "Usato per le lacune"
+    # used_intervention_parameters: "Used intervention parameters"
     useful_items: "oggetti utili"
     user: "Utente"
     users: "utenti"
@@ -1450,8 +1490,10 @@ ita:
         transfer:
           name: "virement"
     inspection:
-      items: "Elementi"
-      mass: "Massa"
+      items: "Elementi" #?
+      items_count: "Elementi"
+      mass: "Massa" #?
+      net_mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

@@ -123,6 +123,7 @@ class ParcelItem < Ekylibre::Record::Base
     product_movement_id
     product_enjoyment_id
     product_ownership_id
+    unit_pretax_stock_amount
     purchase_item_id
     sale_item_id
     updated_at

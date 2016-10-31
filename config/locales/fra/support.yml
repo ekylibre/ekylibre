@@ -105,7 +105,7 @@ fra:
   simple_form:
     hints:
       purchase:
-        reference_number: "Fournisseur numéro de facture"
+        reference_number: "Numéro de facture fournisseur"
     required:
       text: "Obligatoire"
   support:

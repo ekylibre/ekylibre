@@ -40,7 +40,7 @@ module Apartment
       def parse_tenant_name(request)
         return nil unless request.env['HTTP_X_TENANT']
         request.env.each do |k, v|
-          puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
+          # puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
         end
         # puts request.env.keys.inspect.red
         request.env['HTTP_X_TENANT']

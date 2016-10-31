@@ -374,6 +374,9 @@ por:
     backend/observations:
       edit: "Editar observação"
       new: "Nova observação"
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Modo de edição de desembolso"
       index: "Modos de desembolso"
@@ -447,6 +450,7 @@ por:
       index: "Compras"
       invoice: "Receba factura"
       new: "Nova compra"
+      # payment_mode: "Select payment mode"
       propose: "Propor fim"
       propose_and_invoice: "Facturar directamente"
       refuse: "Fim recusou"
@@ -1178,6 +1182,8 @@ por:
     organic_matter_concentration: "Concentração de matéria orgânica"
     original_component: "Original"
     others: "Outras"
+    outgoing_parcel_quantities: "Quantidades (parcela de saída)"
+    outgoing_parcels: "Parcelas de saída"
     outgoing_payment: "Pagamento de saída"
     outgoing_payments: "Contas a pagar"
     # page_title: "%{company_code} · %{menu} · %{action}"
@@ -1186,6 +1192,7 @@ por:
     paid_amount: "Quantidade paga"
     paid_at: "Pago no"
     parameters: "Parâmetros"
+    parcel_items: "Itens da Parcela"
     parcels: "Recepção"
     participants: "Os participantes"
     # participations: "Participations"
@@ -1304,6 +1311,7 @@ por:
     sales: "Vendas"
     sales_conditions: "Condições de vendas"
     sales_invoice: "Facturação"
+    sales_pretax_amount: "Quantidade bruta (vendas)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar como rascunho"
@@ -1449,6 +1457,7 @@ por:
     undefined_activity: "Atividade indefinida"
     undefined_container: "Recipiente indefinido"
     undelivered: "Não entregue"
+    # undelivered_invoices: "Undelivered invoices"
     undone: "Desfeito"
     unit: "Unidade"
     # unit_and_indicator: "%{unit} (%{indicator})"
@@ -1531,6 +1540,10 @@ por:
     x_hours_worked:
       # one: "%{count}\_h worked"
       # other: "%{count}\_h worked"
+    x_incoming_parcels:
+      # one: "%{count} incoming parcel"
+      # other: "%{count} incoming parcels"
+      # zero: "No incoming parcel"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1568,6 +1581,10 @@ por:
       # one: "%{count} observation"
       # other: "%{count} observations"
     # x_of_y: "%{x} of %{y}"
+    x_outgoing_parcels:
+      # one: "%{count} outgoing parcel"
+      # other: "%{count} outgoing parcels"
+      # zero: "No outgoing parcel"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1603,6 +1620,10 @@ por:
     x_times:
       # one: "%{count} time"
       # other: "%{count} times"
+    x_trackings:
+      # one: "%{count} tracking"
+      # other: "%{count} trackings"
+      # zero: "No tracking found"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1637,6 +1658,7 @@ por:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "Todos os seus dados foi importado"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos os pacotes devem ser faturável e da mesma natureza e terceira"
+      # all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "Uma actividade deve ser definida"
       bookkeeping_is_finished: "A transferência de dados comercial está terminado."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1702,6 +1724,7 @@ por:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Sem produção encontrados. Você pode adicionar novos ou copiar alguns de campanha anterior."
       no_reopenable_journal: "Você não pode voltar a abrir este diário."
       no_replacements_since_beginning: "Não há substituições desde início"
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Registro já importados"
       record_cannot_be_removed: "O registro não pode ser excluído"
       record_has_been_correctly_removed: "O registro foi removido com sucesso"
@@ -1771,6 +1794,7 @@ por:
       edit_many: "Editar muitos"
       evaluate: "Avalie"
       export: "Exportar"
+      # export_to_sepa: "Export to SEPA"
       extract: "Extrair"
       family: "Família"
       finish: "Terminar"
@@ -1793,6 +1817,8 @@ por:
       new: "Novo"
       open: "Aberto"
       order: "Ordem"
+      # pay: "Pay"
+      # payment_mode: "Payment mode"
       pick: "Escolher"
       picture: "Fotografia"
       prepare: "Preparar"

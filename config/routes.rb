@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get :list_intervention_product_parameters
       get :list_issues
       get :list_readings
+      get :list_trackings
       get :list_members
       get :list_parcel_items
       get :list_places
@@ -93,6 +94,7 @@ Rails.application.routes.draw do
       resources :plant_density_abaci
       resources :plant_countings
       resources :plants
+      resources :intervention_participations, only: [:create]
     end
   end
 
@@ -405,11 +407,13 @@ Rails.application.routes.draw do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
         get :list_event_participations
         get :list_incoming_payments
+        get :list_incoming_parcels
         get :list_issues
         get :list_links
         get :list_purchases
         get :list_observations
         get :list_outgoing_payments
+        get :list_outgoing_parcels
         get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions
@@ -646,6 +650,13 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
+    resources :outgoing_payment_lists, concerns: [:list, :unroll] do
+      member do
+        get :list_payments
+        get :export_to_sepa
+      end
+    end
+
     resources :outgoing_payment_modes, concerns: [:list, :unroll] do
       member do
         post :up
@@ -670,8 +681,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :parcel_items, only: [:new], path: 'parcel-items'
-
     resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
     resources :plants, concerns: :products
@@ -686,7 +695,11 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
-    resources :inspections, concerns: [:list, :unroll]
+    resources :inspections, concerns: [:list, :unroll] do
+      member do
+        get :export, defaults: { format: 'ods' }
+      end
+    end
 
     resources :product_groups, concerns: :products
 
@@ -727,10 +740,12 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_parcels
+        get :payment_mode
         post :abort
         post :confirm
         post :correct
         post :invoice
+        post :pay
         post :propose
         post :propose_and_invoice
         post :refuse

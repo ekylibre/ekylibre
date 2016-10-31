@@ -26,7 +26,7 @@
 #  creator_id         :integer
 #  id                 :integer          not null, primary key
 #  inspection_id      :integer          not null
-#  items_count        :integer
+#  items_count_value  :integer
 #  lock_version       :integer          default(0), not null
 #  maximal_size_value :decimal(19, 4)
 #  minimal_size_value :decimal(19, 4)
@@ -41,6 +41,7 @@ class InspectionCalibration < Ekylibre::Record::Base
   belongs_to :inspection, inverse_of: :calibrations
   has_one :product, through: :inspection
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :items_count_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :inspection, :nature, presence: true
   # ]VALIDATORS]
@@ -55,21 +56,16 @@ class InspectionCalibration < Ekylibre::Record::Base
     nature.marketable
   end
 
-  [[:items_count, :items, [:unity, :hectare, :unity_per_hectare]], [:net_mass, :mass, [:kilogram, :square_meter, :kilogram_per_square_meter]]].each do |long_name, short_name, unit|
-    define_method "marketable_#{long_name}" do
-      return 0.in(unit.first) unless inspection.send("unmarketable_#{short_name}_rate")
-      send("total_#{long_name}") * (1 - inspection.send("unmarketable_#{short_name}_rate"))
-    end
+  def marketable_quantity(dimension)
+    return 0.in(quantity_unit(dimension)) unless inspection.unmarketable_rate(dimension)
 
-    define_method "marketable_#{short_name}_yield" do
-      unit_name = if respond_to?("grading_#{long_name}_unit")
-                    send("grading_#{long_name}_unit").name + '_per_' + product_net_surface_area.unit.to_s
-                  else
-                    ''
-                  end
-      unit_name = unit.last unless Nomen::Unit.find(unit_name)
-      y = (send("marketable_#{long_name}").to_d(unit.first) / product_net_surface_area.to_d(unit.second)).in(unit.last)
-      y.in(unit_name).round(0)
-    end
+    coeff = 1 - inspection.unmarketable_rate(dimension)
+    projected_total(dimension) * coeff
+  end
+
+  def marketable_yield(dimension)
+    market_quantity = marketable_quantity(dimension).to_d(quantity_unit(dimension))
+    y = (market_quantity / total_area).in(default_per_area_unit(dimension))
+    y.in(quantity_per_area_unit(dimension))
   end
 end

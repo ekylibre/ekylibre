@@ -38,8 +38,8 @@ module Backend
     end
 
     list(conditions: outgoing_payments_conditions, joins: :payee, order: { to_bank_at: :desc }) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
-      t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
+      t.action :edit, if: :check_updateable_or_destroyable?
+      t.action :destroy, if: :check_updateable_or_destroyable?
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at

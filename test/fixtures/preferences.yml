@@ -4248,6 +4248,7 @@ preferences_365:
   lock_version: 0
   name: activity_22_inspection_view_unit
   nature: string
+  string_value: items_count
   updated_at: 2016-08-05 14:55:10.249068000 Z
   updater_id: 1
   user_id: 1

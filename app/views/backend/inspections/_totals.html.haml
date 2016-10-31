@@ -1,31 +1,25 @@
-- if to_display == :items
-  - unit = Nomen::Unit[:thousand]
-  - yield_unit = Nomen::Unit[:thousand_per_hectare]
-  - short_name = "items"
-  - long_name = "items_count"
-- elsif to_display == :mass
-  - unit = Nomen::Unit[:ton]
-  - yield_unit = Nomen::Unit[:ton_per_hectare]
-  - short_name = "mass"
-  - long_name = "net_mass"
-- else
-  - raise "What are we trying to display totals for? #{to_display}"
+- dimension = resource.activity.unit_preference(current_user)
+- user_q_unit = resource.user_quantity_unit(dimension)
+- user_a_unit = resource.user_per_area_unit(dimension)
 
-- if resource.activity.send(:"measure_grading_#{long_name}")
+- if resource.quantity_statable? dimension
   - ActivityInspectionPointNature.unmarketable_categories.each do |category|
-    .med-info
-      %span.title= category.l
-      %span.value= resource.send("points_#{long_name}_percentage", category).round(2).l(precision: 2) + '%'
+    - if resource.points.of_category(category).any?
+      .med-info
+        %span.title= category.l
+        %span.value= resource.points_percentage(dimension, category).round(2).l(precision: 2) + '%'
   - if resource.activity.inspection_calibration_scales.any?
     :ruby
       totals_of = [
-        ["marketable_#{long_name}", unit],
-        ["marketable_#{short_name}_yield", yield_unit, :marketable_net_yield],
-        ["total_#{long_name}", unit, :"gross_#{short_name}"],
-        ["#{long_name}_yield", yield_unit, :gross_yield_value]
+        [:marketable_quantity, "marketable_DIMENSION", user_q_unit],
+        [:marketable_yield, "marketable_net_yield", user_a_unit],
+        [:projected_total, "gross_DIMENSION", user_q_unit],
+        [:quantity_yield, "gross_yield_value", user_a_unit]
       ]
-    - totals_of.each do |method, unit, title|
+    - totals_of.each do |config|
+      - method = config.first
+      - name = config.second
+      - unit = config.last
       .med-info
-        - total_title = (title || method)
-        %span.title= Inspection.human_attribute_name(total_title)
-        %span.value= resource.send(method).in(unit).round(2).l(precision: 0)
+        %span.title= (name && Inspection.human_attribute_name(name.gsub(/DIMENSION/, dimension.to_s).tl)) || Inspection.human_attribute_name(method)
+        %span.value= resource.send(method, dimension).in(unit).round(2).l(precision: 2)

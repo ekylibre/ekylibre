@@ -1306,6 +1306,8 @@ cashes:
     type: integer
     references: account
     required: true
+  bank_account_holder_name:
+    type: string
   bank_account_key:
     type: string
   bank_account_number:
@@ -1949,6 +1951,10 @@ entities:
     type: string
   authorized_payments_count:
     type: integer
+  bank_account_holder_name:
+    type: string
+  bank_identifier_code:
+    type: string
   born_at:
     type: datetime
   client:
@@ -1993,6 +1999,8 @@ entities:
   full_name:
     type: string
     required: true
+  iban:
+    type: string
   id:
     type: integer
     required: true
@@ -2051,6 +2059,8 @@ entities:
   supplier_account_id:
     type: integer
     references: account
+  supplier_payment_delay:
+    type: string
   title:
     type: string
   transporter:
@@ -2930,7 +2940,7 @@ inspection_calibrations:
     type: integer
     references: inspection
     required: true
-  items_count:
+  items_count_value:
     type: integer
   lock_version:
     type: integer
@@ -2971,7 +2981,7 @@ inspection_points:
     type: integer
     references: inspection
     required: true
-  items_count:
+  items_count_value:
     type: integer
   lock_version:
     type: integer
@@ -3265,6 +3275,37 @@ intervention_parameters:
     limit:
       srid: 4326
       type: multi_polygon
+intervention_participations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+  request_compliant:
+    type: boolean
+    required: true
+    default: false
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_working_periods:
   created_at:
     type: datetime
@@ -3281,10 +3322,14 @@ intervention_working_periods:
   intervention_id:
     type: integer
     references: intervention
-    required: true
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
   started_at:
     type: datetime
     required: true
@@ -3340,6 +3385,8 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_compliant:
+    type: boolean
   request_intervention_id:
     type: integer
     references: intervention
@@ -4364,6 +4411,25 @@ observations:
   updater_id:
     type: integer
     references: user
+outgoing_payment_lists:
+  created_at:
+    type: datetime
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  updated_at:
+    type: datetime
+  updater_id:
+    type: integer
+    references: user
 outgoing_payment_modes:
   active:
     type: boolean
@@ -4389,6 +4455,10 @@ outgoing_payment_modes:
     required: true
   position:
     type: integer
+  sepa:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -4441,6 +4511,9 @@ outgoing_payments:
   journal_entry_id:
     type: integer
     references: journal_entry
+  list_id:
+    type: integer
+    references: outgoing_payment_list
   lock_version:
     type: integer
     required: true
@@ -6004,6 +6077,10 @@ purchases:
   number:
     type: string
     required: true
+  payment_at:
+    type: datetime
+  payment_delay:
+    type: string
   planned_at:
     type: datetime
   pretax_amount:

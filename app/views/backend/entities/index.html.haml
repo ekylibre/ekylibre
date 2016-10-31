@@ -19,8 +19,8 @@
       .add-on= :days.tl
 
 - main_toolbar do |t|
-  = t.new params: {nature: :organization}, label: :new_organization.tl
-  = t.new params: {nature: :contact}, label: :new_contact.tl
+  = t.new params: {nature: :organization, redirect: nil}, label: :new_organization.tl
+  = t.new params: {nature: :contact, redirect: nil}, label: :new_contact.tl
   = t.merge
 
 = main_list

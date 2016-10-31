@@ -26,7 +26,7 @@
 #  creator_id         :integer
 #  id                 :integer          not null, primary key
 #  inspection_id      :integer          not null
-#  items_count        :integer
+#  items_count_value  :integer
 #  lock_version       :integer          default(0), not null
 #  maximal_size_value :decimal(19, 4)
 #  minimal_size_value :decimal(19, 4)
@@ -41,6 +41,7 @@ class InspectionPoint < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'ActivityInspectionPointNature'
   belongs_to :inspection, inverse_of: :points
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :items_count_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :inspection, :nature, presence: true
   # ]VALIDATORS]
@@ -54,16 +55,11 @@ class InspectionPoint < Ekylibre::Record::Base
   }
 
   scope :of_category, ->(category) { where(nature_id: ActivityInspectionPointNature.where(category: category)) }
-
   scope :unmarketable, -> { where(nature_id: ActivityInspectionPointNature.unmarketable) }
 
-  def net_mass_percentage
-    ratio = (net_mass_in_unit / inspection.net_mass)
-    100 * (ratio.nan? ? 0 : ratio)
-  end
-
-  def items_count_percentage
-    ratio = (items_count_in_unit / inspection.items_count)
+  def percentage(dimension)
+    return 0 if inspection.quantity(dimension).zero?
+    ratio = quantity_in_unit(dimension) / inspection.quantity(dimension)
     100 * (ratio.nan? ? 0 : ratio)
   end
 end

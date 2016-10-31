@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class EquipmentLifeProgressCheckJobTest < ActionJob::TestCase
+class EquipmentLifeProgressCheckJobTest < ActiveJob::TestCase
   # Add tests here...
 end

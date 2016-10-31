@@ -26,7 +26,7 @@
 #  creator_id         :integer
 #  id                 :integer          not null, primary key
 #  inspection_id      :integer          not null
-#  items_count        :integer
+#  items_count_value  :integer
 #  lock_version       :integer          default(0), not null
 #  maximal_size_value :decimal(19, 4)
 #  minimal_size_value :decimal(19, 4)
@@ -41,7 +41,7 @@ inspection_points_001:
   creator_id: 1
   id: 5
   inspection_id: 1
-  items_count: 1
+  items_count_value: 1
   lock_version: 1
   maximal_size_value: 10.0
   minimal_size_value: 8.0
@@ -54,7 +54,7 @@ inspection_points_002:
   creator_id: 1
   id: 6
   inspection_id: 1
-  items_count: 3
+  items_count_value: 3
   lock_version: 0
   maximal_size_value: 12.0
   minimal_size_value: 3.0
@@ -67,7 +67,7 @@ inspection_points_003:
   creator_id: 1
   id: 7
   inspection_id: 2
-  items_count: 25
+  items_count_value: 25
   lock_version: 0
   nature_id: 7
   updated_at: 2016-05-10 21:09:18.955612000 Z
@@ -77,7 +77,7 @@ inspection_points_004:
   creator_id: 1
   id: 8
   inspection_id: 1
-  items_count: 1
+  items_count_value: 1
   lock_version: 2
   maximal_size_value: 4.0
   minimal_size_value: 5.0

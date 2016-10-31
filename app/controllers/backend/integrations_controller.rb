@@ -12,6 +12,10 @@ module Backend
     end
 
     def new
+      unless params[:nature]
+        head :unprocessable_entity
+        return
+      end
       if existing = Integration.find_by_nature(params[:nature])
         redirect_to action: :edit, controller: :integrations, id: existing.id
         return
