@@ -272,29 +272,26 @@ class Intervention < Ekylibre::Record::Base
   # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
   # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory] && nature == :record
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
-      # inputs
-      if inputs.any?
-        for input in inputs
-          label = tc(:bookkeep, resource: name, name: input.product.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
-            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-          end
+    break unless Preference[:permanent_stock_inventory] && nature == :record
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+
+    write_journal_entry = lamba(parameter, input: true) do
+      label = tc(:bookkeep, resource: name, name: parameter.product.name)
+      b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: parameter.product_movement) do |entry|
+        variant     = parameter.variant
+        stock       = parameter.stock_amount.round(2)
+        debit_acc   = input ? variant.stock_movement_account_id : variant.stock_account_id
+        credit_acc  = input ? variant.stock_account_id : variant.stock_movement_account_id
+
+        unless stock.zero?
+          entry.add_debit(  label,  debit_acc, stock)
+          entry.add_credit( label, credit_acc, stock)
         end
       end
-      # outputs
-      if outputs.any?
-        for output in outputs
-          label = tc(:bookkeep, resource: name, name: output.variant.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
-            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-          end
-         end
-      end
     end
+
+    inputs.each   { |input|   write_journal_entry.call(input,  input: true ) }
+    outputs.each  { |output|  write_journal_entry.call(output, input: false) }
   end
 
   def initialize_record(state: :done)
