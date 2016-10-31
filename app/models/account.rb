@@ -197,7 +197,7 @@ class Account < Ekylibre::Record::Base
       (0..max).to_a.reverse.each do |i|
         n = number[0, i]
         items = Nomen::Account.where(fr_pcga: n)
-        parent_accounts = Account.find_with_regexp(n)
+        parent_accounts = Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
         break if parent_accounts.any?
       end
 
