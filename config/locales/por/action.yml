@@ -386,6 +386,7 @@ por:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "Notificações"
+      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "Editar observação"
       new: "Nova observação"
