@@ -371,6 +371,7 @@ cmn:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "通知"
+      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "编辑观察"
       new: "新观察"

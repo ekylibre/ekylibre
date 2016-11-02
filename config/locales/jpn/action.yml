@@ -371,6 +371,7 @@ jpn:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "お知らせ"
+      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "編集観測"
       new: "新しい観測"

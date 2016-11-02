@@ -371,6 +371,7 @@ ita:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "notifiche"
+      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "Modifica osservazione"
       new: "Nuovo osservazione"

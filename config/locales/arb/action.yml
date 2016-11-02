@@ -446,6 +446,7 @@ arb:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "الإشعارات"
+      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
