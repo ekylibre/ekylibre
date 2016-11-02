@@ -46,8 +46,9 @@ class PlantCountingItem < Ekylibre::Record::Base
   delegate :rows_count, :implanter_working_width, to: :plant_counting
 
   def update_average_value
+    plant_counting.reload
     items = plant_counting.items
-    average_value = items.any? ? items.average(:value) : nil
+    average_value = items.any? ? items.average(:value) : 0
     plant_counting.update_column(:average_value, average_value)
   end
 

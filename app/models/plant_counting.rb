@@ -57,13 +57,15 @@ class PlantCounting < Ekylibre::Record::Base
 
   delegate :activity, :sower, :last_sowing, to: :plant, prefix: true
   delegate :germination_percentage, :sampling_length_unit, :seeding_density_unit, to: :plant_density_abacus
-  delegate :seeding_density_value, to: :plant_density_abacus_item
+  delegate :seeding_density_value, :plants_count, to: :plant_density_abacus_item
   accepts_nested_attributes_for :items
 
   before_validation do
     if plant_density_abacus_item
       self.plant_density_abacus = plant_density_abacus_item.plant_density_abacus
     end
+
+    self.average_value ||= 0.0
   end
 
   def status
@@ -72,12 +74,11 @@ class PlantCounting < Ekylibre::Record::Base
 
   def values_expected?(threshold = 23.0)
     return false unless average_value.present?
-    expected = plant_density_abacus_item.seeding_density_value
 
     pct_threshold = threshold / 100.0
-    qt_threshold = pct_threshold * expected
+    qt_threshold = pct_threshold * expected_plants_count
 
-    (-qt_threshold..qt_threshold).cover? (average_value - expected)
+    (-qt_threshold..qt_threshold).cover? (average_value - expected_plants_count)
   end
 
   def sampling_area
@@ -87,7 +88,14 @@ class PlantCounting < Ekylibre::Record::Base
   def expected_seeding_density
     case nature
     when /sowing/      then seeding_density_value
-    when /germination/ then seeding_density_value * germination_percentage
+    when /germination/ then seeding_density_value * germination_percentage / 100
+    end
+  end
+
+  def expected_plants_count
+    case nature
+    when /sowing/      then plants_count
+    when /germination/ then plants_count * germination_percentage / 100
     end
   end
 
@@ -117,7 +125,6 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def sampling_length
-    raise 'Cannot fetch unit without plant_density_abacus.' unless plant_density_abacus.present?
     1.in sampling_length_unit
   end
 end
