@@ -70,6 +70,16 @@ class Tax < Ekylibre::Record::Base
   # selects_among_all :used_for_untaxed_deals, if: :null_amount?
 
   scope :current, -> { where(active: true).order(:country, :amount) }
+  
+  before_validation do
+    self.name = short_label if name.blank?
+    self.active = false if active.nil?
+    true
+  end
+
+  protect(on: :destroy) do
+    product_nature_category_taxations.any? || sale_items.any? || purchase_items.any?
+  end
 
   class << self
     def used_for_untaxed_deals
@@ -149,15 +159,6 @@ class Tax < Ekylibre::Record::Base
     def load_defaults
       import_all_from_nomenclature(country: Preference[:country].to_sym)
     end
-  end
-
-  before_validation do
-    self.active = false if active.nil?
-    true
-  end
-
-  protect(on: :destroy) do
-    product_nature_category_taxations.any? || sale_items.any? || purchase_items.any?
   end
 
   # Compute the tax amount

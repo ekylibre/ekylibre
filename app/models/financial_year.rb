@@ -50,6 +50,7 @@ class FinancialYear < Ekylibre::Record::Base
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
+  has_many :vat_declarations, class_name: 'VatDeclaration', foreign_key: :financial_year_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
@@ -148,6 +149,34 @@ class FinancialYear < Ekylibre::Record::Base
 
   def name
     code
+  end
+  
+  def vat_period_duration
+    if vat_period == :monthly
+      1.month
+    elsif vat_period == :quaterly
+      3.months
+    elsif vat_period == :yearly
+      12.months
+    elsif vat_period == :none
+      nil
+    else
+      nil
+    end
+  end
+  
+  def vat_end_period
+    if vat_period == :monthly
+      :end_of_month
+    elsif vat_period == :quaterly
+      :end_of_quater
+    elsif vat_period == :yearly
+      :end_of_year
+    elsif vat_period == :none
+      nil
+    else
+      nil
+    end
   end
 
   def default_code

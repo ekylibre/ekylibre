@@ -29,6 +29,8 @@ module Backend
       t.column :responsible
       t.column :reference_number, url: true
       t.column :created_at
+      t.column :started_on
+      t.column :stopped_on
       t.column :description, hidden: true
       t.status
     end

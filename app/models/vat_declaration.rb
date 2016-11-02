@@ -74,10 +74,22 @@ class VatDeclaration < Ekylibre::Record::Base
       transition validated: :sent, if: :has_content?
     end
   end
-
+  
   before_validation(on: :create) do
     self.state ||= :draft
     self.currency = financial_year.currency if financial_year
+    # if vat_declarations exists for current financial_year, then get the last to compute started_on
+    if self.financial_year && self.financial_year.vat_declarations.any?
+      self.started_on = self.financial_year.vat_declarations.reorder(:started_on).last.stopped_on + 1.day
+    # else compute started_on from financial_year
+    elsif self.financial_year
+      self.started_on = self.financial_year.started_on
+    end
+    # anyway, stopped_on is started_on + vat_period_duration
+    end_period = self.financial_year.vat_end_period
+    if end_period
+      self.stopped_on = self.started_on.send(end_period.to_s)
+    end
   end
 
   before_validation do

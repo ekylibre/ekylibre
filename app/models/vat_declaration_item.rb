@@ -48,8 +48,21 @@ class VatDeclarationItem < Ekylibre::Record::Base
 
   delegate :currency, to: :vat_declaration, prefix: true
 
+  before_validation(on: :create) do
+    if vat_declaration
+      self.currency = vat_declaration_currency
+      if tax && tax.collect_account && tax.deduction_account
+        self.deductible_vat_amount = tax.collect_account.journal_entry_items_calculate(:balance, vat_declaration.started_on.to_time, vat_declaration.stopped_on.to_time, :sum)
+        self.collected_vat_amount = tax.deduction_account.journal_entry_items_calculate(:balance, vat_declaration.started_on.to_time, vat_declaration.stopped_on.to_time, :sum)
+      end
+    end
+  end
+  
+  
   before_validation do
-    self.currency = vat_declaration_currency if vat_declaration
+    if vat_declaration
+      self.currency = vat_declaration_currency
+    end
   end
 
 end
