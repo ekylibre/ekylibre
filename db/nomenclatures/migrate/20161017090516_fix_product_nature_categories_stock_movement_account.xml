@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix product nature categories stock movement account">
+  <item-change item="product_nature_categories#land_parcel_construction" charge_account="redeemable_land_parcel_construction_assets" product_account="sales_assets_revenues" stock_account="other_materials_stock" purchasable="true" saleable="true" storable="false" pictogram="barn"/>
+  <item-change item="product_nature_categories#electronic_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="33.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="laptop" stock_movement_account="other_supply_stocks_variation" />
+</migration>

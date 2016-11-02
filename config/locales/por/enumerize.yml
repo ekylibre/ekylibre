@@ -210,6 +210,16 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    intervention_participation:
+      state:
+        done: "Feito"
+        in_progress: "Em progresso"
+        validated: "Validado"
+    intervention_working_period:
+      nature:
+        intervention: "Intervenção"
+        preparation: "Preparação"
+        travel: "Viagem"
     journal:
       nature:
         bank: "Banco"
@@ -217,6 +227,7 @@ por:
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"
+        stocks: "Estoques"
         various: "Várias operações"
     listing_node:
       nature:
@@ -421,6 +432,7 @@ por:
         animals: "Numeração de animais"
         campaigns: "Numeração de campanhas"
         cash_transfers: "Numeração de transferências de dinheiro"
+        contracts: "Numeração de contratos"
         deliveries: "Entregas"
         deposits: "Numeração de depósitos"
         documents: "Numeração de documentos"
@@ -434,6 +446,7 @@ por:
         inventories: "Os estoques"
         opportunities: "Oportunidades"
         outgoing_deliveries: "Numeração de entregas" #?
+        outgoing_payment_lists: "Numeração de listas de pagamento a efectuar"
         outgoing_payments: "Numeraçaõ de pagamentos"
         parcels: "Parcelas"
         plants: "Numeração de plantação"

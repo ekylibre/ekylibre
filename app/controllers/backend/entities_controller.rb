@@ -19,11 +19,13 @@
 module Backend
   class EntitiesController < Backend::BaseController
     manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
+                     language: 'Preference[:language]'.c,
+                     country: 'Preference[:country]'.c,
                      active: true,
                      t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
-    unroll
+    unroll fill_in: :full_name
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
@@ -98,6 +100,21 @@ module Backend
       # t.column :balance, currency: true, hidden: true
     end
 
+    list(:contracts, conditions: { supplier_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :reference_number, url: true
+      t.column :created_at
+      t.column :started_on
+      t.column :stopped_on, hidden: true
+      t.column :responsible, url: true, hidden: true
+      t.column :description, hidden: true
+      t.status
+      t.column :state_label
+      t.column :pretax_amount, currency: true
+    end
+
     list(:event_participations, conditions: { participant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.action :edit
       t.action :destroy
@@ -158,6 +175,24 @@ module Backend
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
+    end
+
+    list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :number, url: true
+      t.column :content_sentence, label: :contains
+      t.column :planned_at
+      t.column :created_at, hidden: true
+      t.column :state, label_method: :human_state_name
+      t.column :purchase, url: true
+    end
+
+    list(:outgoing_parcels, model: :parcels, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :number, url: true
+      t.column :content_sentence, label: :contains
+      t.column :planned_at
+      t.column :created_at, hidden: true
+      t.column :state, label_method: :human_state_name
+      t.column :sale, url: true
     end
 
     list(:purchases, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|

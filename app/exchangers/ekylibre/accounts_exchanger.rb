@@ -33,7 +33,7 @@ module Ekylibre
           nature: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
 
-        puts "line : #{line_number} - number : #{r.number}".inspect.red
+        # puts "line : #{line_number} - number : #{r.number}".inspect.red
 
         # get usage from parent account or import account from nomenclature
         usages = Account.find_parent_usage(r.number)
@@ -48,7 +48,7 @@ module Ekylibre
         account.attributes = attributes
         account.save!
 
-        puts "line : #{line_number} - account created/updated : #{account.name}".inspect.green
+        # puts "line : #{line_number} - account created/updated : #{account.name}".inspect.green
 
         w.check_point
       end

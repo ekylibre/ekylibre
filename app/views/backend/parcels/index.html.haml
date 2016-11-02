@@ -1,12 +1,24 @@
+- recipients = Entity.where(id: Parcel.pluck(:recipient_id).compact.uniq)
+- senders = Entity.where(id: Parcel.pluck(:sender_id).compact.uniq)
+- responsibles = User.where(id: Parcel.select(:responsible_id).distinct)
 = kujaku do |k|
   - k.text
   - k.helper do
     = journal_period_crit(label: Parcel.human_attribute_name(:planned_at))
-  -# - recipients = Entity.all
-  -# - if recipients.any?
-  -#   - k.helper do
-  -#     %label= Parcel.human_attribute_name(:recipient)
-  -#     = select_tag(:recipient_id, options_for_select([[]] + recipients.order(:name).collect{|u| [u.name, u.id]}, params[:recipient_id]))
+  - if recipients.any?
+    - k.helper do
+      %label= Parcel.human_attribute_name(:recipient)
+      = select_tag(:recipient_id, options_for_select([[]] + recipients.order(:name).collect{|u| [u.name, u.id]}, params[:recipient_id]))
+  - if senders.any?
+    - k.helper do
+      %label= Parcel.human_attribute_name(:sender)
+      = select_tag(:sender_id, options_for_select([[]] + senders.order(:name).collect{|u| [u.name, u.id]}, params[:sender_id]))
+
+  - if responsibles.any?
+    - k.helper do
+      %label= Parcel.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
+
   -# - senders = Entity.all
   -# - if senders.any?
   -#   - k.helper do
@@ -22,6 +34,6 @@
 
 - main_toolbar do |t|
   = t.new params: { nature: :incoming, redirect: nil }, label: :new_incoming_parcel.tl
-  = t.new params: { nature: :outgoing }, label: :new_outgoing_parcel.tl
+  = t.new params: { nature: :outgoing, redirect: nil }, label: :new_outgoing_parcel.tl
 
 = main_list

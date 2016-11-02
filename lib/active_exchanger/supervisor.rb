@@ -28,7 +28,7 @@ module ActiveExchanger
         @cursor += 1
       end
       if @block
-        value = (100.0 * (@cursor.to_f / @count.to_f)).to_i
+        value = (100.0 * (@cursor.to_f / @count.to_f))
         if value != @last_value
           if @block.arity == 1
             @block.call(value)

@@ -24,6 +24,7 @@
 #
 #  accounted_at                 :datetime
 #  address_id                   :integer
+#  contract_id                  :integer
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  currency                     :string
@@ -41,10 +42,12 @@
 #  planned_at                   :datetime         not null
 #  position                     :integer
 #  prepared_at                  :datetime
+#  pretax_amount                :decimal(19, 4)   default(0.0), not null
 #  purchase_id                  :integer
 #  recipient_id                 :integer
 #  reference_number             :string
 #  remain_owner                 :boolean          default(FALSE), not null
+#  responsible_id               :integer
 #  sale_id                      :integer
 #  sender_id                    :integer
 #  separated_stock              :boolean
@@ -72,8 +75,10 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
   belongs_to :recipient, class_name: 'Entity'
+  belongs_to :responsible, class_name: 'User'
   belongs_to :sender, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
+  belongs_to :contract
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items
   has_many :issues, as: :target
@@ -84,6 +89,7 @@ class Parcel < Ekylibre::Record::Base
   validates :nature, presence: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
   validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
@@ -142,6 +148,7 @@ class Parcel < Ekylibre::Record::Base
     self.planned_at ||= Time.zone.today
     self.state ||= :draft
     self.currency ||= Preference[:currency]
+    self.pretax_amount = items.sum(:pretax_amount)
   end
 
   validate do
@@ -176,58 +183,34 @@ class Parcel < Ekylibre::Record::Base
   # incoming parcel        |    stock(3X)                   |   stock_movement(603X/71X)   |
   # outgoing parcel        |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory]
-      purchase_not_received_acccount = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
-      mode = nature
-      entity = recipient || sender
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-      undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
-      sale_journal = Journal.find_or_create_by!(nature: :sales)
-      purchase_journal = Journal.find_or_create_by!(nature: :purchases)
-      if mode == :incoming
-        # for purchase_not_received
-        b.journal_entry(purchase_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
-          # for permanent stock inventory
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
-            for item in items
-              # compute amout on purchase or stock catalog
-              amount = if item.purchase_item
-                         item.purchase_item.pretax_amount
-                       else
-                         item.stock_amount
-                       end
-              # sale not emitted
-              entry.add_credit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
-              entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
-              # permanent stock inventory
-              next unless item.variant.storable?
-              stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-              stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            end
+    return unless Preference[:permanent_stock_inventory]
+    invoice_not_received_account = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
+    mode = nature.to_sym
+    entity = recipient || sender
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
+    undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
+    stock_journal = Journal.find_or_create_by!(nature: :stocks, currency: self.currency)
+    return unless [:incoming, :outgoing].include? mode
+    # for purchase_not_received or sale_not_emitted
+    journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP', currency: self.currency)
+    b.journal_entry(journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
+      # for permanent stock inventory
+      b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
+        items.each do |item|
+          next unless item.variant
+
+          transaction_item = (mode == :incoming ? item.purchase_item : item.sale_item)
+          # compute amout on purchase/sale or stock catalog
+          amount = (transaction_item && transaction_item.pretax_amount) || item.stock_amount
+          # purchase/sale not emitted
+          if item.variant.charge_account
+            entry.add_credit(undelivered_label, invoice_not_received_account.id, amount) unless amount.zero?
+            entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
           end
-        end
-      elsif mode == :outgoing
-        # for sale_not_emitted
-        b.journal_entry(sale_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
-          # for permanent stock inventory
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |_stock_entry|
-            for item in items
-              # compute amout on sale or stock catalog
-              amount = if item.sale_item
-                         item.sale_item.pretax_amount
-                       else
-                         item.stock_amount
-                       end
-              # sale not emitted
-              entry.add_debit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
-              entry.add_credit(undelivered_label, item.variant.product_account.id, amount) unless amount.zero?
-              # permanent stock inventory
-              next unless item.variant.storable?
-              entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-              entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-            end
-          end
+          # permanent stock inventory
+          next unless item.variant.storable?
+          stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
+          stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
         end
       end
     end
@@ -312,9 +295,9 @@ class Parcel < Ekylibre::Record::Base
 
   def status
     if given?
-      return (issues? ? :caution : :go)
+      (issues? ? :caution : :go)
     else
-      return (issues? ? :stop : :caution)
+      (issues? ? :stop : :caution)
     end
   end
 
@@ -503,7 +486,7 @@ class Parcel < Ekylibre::Record::Base
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
-              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
+              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
               tax: item.variant.category.purchase_taxes.first || Tax.first,
               quantity: item.population
             )

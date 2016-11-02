@@ -154,6 +154,16 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/contracts:
+      edit: "Edit contract %{number}"
+      index: "Contracts"
+      # lose: "Lose contract: %{name}"
+      # negociate: "Negociate contract: %{name}"
+      new: "New contract"
+      # prospect: "Prospect contract: %{name}"
+      # quote: "Quote contract: %{name}"
+      show: "Contract %{number}"
+      # win: "Win contract: %{name}"
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"
@@ -331,6 +341,7 @@ eng:
       show: "Incoming payment %{number} of %{entity}"
     backend/inspections:
       edit: "Edit product grading\_: %{number}"
+      # export: "Export inspections"
       index: "Product gradings"
       new: "New product grading"
       show: "Product grading\_: %{number}"
@@ -455,6 +466,12 @@ eng:
     backend/observations:
       edit: "Edit observation"
       new: "New observation"
+    backend/outgoing_payment_lists:
+      # edit: "Edit outgoing payment list: %{name}"
+      # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
+      index: "Outgoing payments batch list"
+      # new: "New outgoing payment list"
+      show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
@@ -465,8 +482,6 @@ eng:
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
-    backend/parcel_items:
-      # new: "New parcel item"
     backend/parcels:
       # cancel: "Cancel parcel: %{name}"
       # check: "Check parcel: %{name}"
@@ -554,6 +569,8 @@ eng:
       index: "Purchases"
       invoice: "Receive invoice"
       new: "New purchase"
+      # pay: "Pay purchase: %{name}"
+      payment_mode: "Select payment mode"
       propose: "Propose order"
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
@@ -1021,6 +1038,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    # currency: "Currency"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1260,7 +1278,7 @@ eng:
     map: "Map"
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
-    marketable_net_mass: "Marketable net mass"
+    marketable_net_mass: "Marketable net mass" #?!
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
@@ -1351,7 +1369,8 @@ eng:
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     others: "Others" #?
-    # outgoing_parcels: "Outgoing parcels"
+    outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
+    outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"
@@ -1360,7 +1379,7 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
     parameters: "Parameters"
-    # parcel_items: "Parcel items"
+    parcel_items: "Parcel items"
     parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
@@ -1375,6 +1394,7 @@ eng:
     payments_count: "Payments count"
     people: "People"
     percentage_by_calibration: "Percentage by calibration"
+    # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
     periods: "Periods" #?
     permute: "Permute" #?
@@ -1431,24 +1451,27 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
+    record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
+    rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remaining_amount_to_reconcile: "Remaining amount to reconcile"
-    remove: "Remove"
+    remove: "Remove" #?
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
+    request: "Request" #?
     request_maintenance: "Request maintenance"
     requests: "Requests"
     reset: "Reset"
@@ -1475,6 +1498,7 @@ eng:
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
+    sales_pretax_amount: "Pretax amount (Sales)"
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
     save_in_draft: "Save as draft"
@@ -1517,6 +1541,7 @@ eng:
     stock_container_map: "Stock map" #?
     stock_in_ground: "Stock in ground"
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
+    # stock_in_ground_by_calibration_x: "Stock in ground by calibration x"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
@@ -1615,6 +1640,7 @@ eng:
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
+    undelivered_invoices: "Undelivered invoices"
     undone: "Undone" #?
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
@@ -1665,6 +1691,7 @@ eng:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
+    # x_contracts: "X contracts"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
@@ -1698,6 +1725,10 @@ eng:
     x_hours_worked:
       one: "%{count}\_h worked"
       other: "%{count}\_h worked"
+    x_incoming_parcels:
+      one: "%{count} incoming parcel"
+      other: "%{count} incoming parcels"
+      zero: "No incoming parcel"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1735,6 +1766,10 @@ eng:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} of %{y}"
+    x_outgoing_parcels:
+      one: "%{count} outgoing parcel"
+      other: "%{count} outgoing parcels"
+      zero: "No outgoing parcel"
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
@@ -1770,6 +1805,10 @@ eng:
     x_times:
       one: "%{count} time"
       other: "%{count} times"
+    x_trackings:
+      one: "%{count} tracking"
+      other: "%{count} trackings"
+      zero: "No tracking found"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1790,7 +1829,8 @@ eng:
       one: "1 year"
       other: "%{count} years"
     yield: "Yield" #?
-    yield_by_calibration: "Yield by calibration"
+    yield_by_calibration: "Yield by calibration" #?
+    # yield_by_calibration_x: "Yield by calibration x"
     zones: "Zones"
     # }: "}"
   notifications:
@@ -1805,6 +1845,7 @@ eng:
       access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "All of your data was imported" #?
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
+      all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       an_activity_must_be_defined: "An activity must be defined" #?
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1848,6 +1889,7 @@ eng:
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_production_support: "Need a production support" #?
+      # need_a_valid_payment_mode: "Need a valid payment mode"
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
@@ -1864,13 +1906,16 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_inspections_given: "No inspections given"
       # no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      # no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
+      purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"
@@ -1948,7 +1993,8 @@ eng:
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
-      export: "Export" #?
+      export: "Export"
+      export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"
       family: "Family"
@@ -1979,6 +2025,8 @@ eng:
       open: "Open"
       order: "Order"
       # passthru: "Passthru"
+      pay: "Pay"
+      payment_mode: "Payment mode"
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"

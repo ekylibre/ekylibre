@@ -5,6 +5,7 @@ class ScheduleJob < ActiveJob::Base
   end
 
   def perform_on_each_tenant
+    Ekylibre::Tenant.load!
     Ekylibre::Tenant.switch_each do
       perform_on_tenant
     end

@@ -131,11 +131,11 @@ fra:
       show: "Catalogue de prix\_: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
-    backend/contacts:  #?
-      edit: "Modifier le contact\_: %{full_name}" #?
-      index: "Contacts" #?
-      new: "Nouveau contact" #?
-      show: "Contact\_: %{full_name}" #?
+    backend/contracts:
+      edit: "Modifier le contrat %{number}"
+      index: "Contrats"
+      new: "Nouveau contrat"
+      show: "Contrat %{number}"
     backend/crumbs:
       index: "Miettes"
     backend/cultivable_zones:
@@ -450,6 +450,9 @@ fra:
       new: "Nouveau colis à expédier" #?
       ship: "Expédier les colis" #?
       show: "Colis à expédier\_: %{number}" #?
+    backend/outgoing_payment_lists:
+      index: "Lots de décaissements"
+      show: "Lot de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -532,6 +535,7 @@ fra:
       index: "Achats"
       invoice: "Réception de la facture"
       new: "Nouvel achat"
+      payment_mode: "Selection du mode de paiement"
       propose: "Commande soumise au fournisseur"
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
@@ -1076,7 +1080,7 @@ fra:
     default_letter_introduction: "Suite à notre conversation, je vous communique les éléments du devis."
     default_subject: "[%{company}]"
     definition: "Définition"
-    deformity: "Déformation"
+    deformity: "Malformation"
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
@@ -1099,7 +1103,7 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
-    disease: "Maladies"
+    disease: "Maladie"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     disease_percentage: "Maladies (%)"
     disease_percentage_evolution: "Evolution des maladies"
@@ -1403,6 +1407,7 @@ fra:
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
+    marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse"
     max_level: "Niveau maximum" #?
@@ -1547,6 +1552,8 @@ fra:
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing: "Sortant" #?
+    outgoing_parcel_quantities: "Quantités (Colis sortant)"
+    outgoing_parcels: "Colis sortants"
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
@@ -1560,6 +1567,7 @@ fra:
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
     parameters: "Paramètres"
+    parcel_items: "Articles de colis"
     parcels: "Colis"
     part: "Pièce" #?
     participants: "Participants"
@@ -1577,7 +1585,8 @@ fra:
     payments: "Règlements"
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
-    percentage_by_calibration: "Pourcentage de stock en terre par calibre"
+    percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
+    percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
     period: "Période prédéfinie"
     periods: "Périodes"
     permute: "Permuter les fiches"
@@ -1680,6 +1689,7 @@ fra:
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
     reconciled_total: "Total rapproché"
+    record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
@@ -1688,6 +1698,7 @@ fra:
     reflections: "Réflections"
     refresh: "Rafraîchir"
     register_intervention_request: "Enregistrer la demande d'intervention"
+    rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
     relationship_of_entity: "%{relationship} de %{entity}"
@@ -1709,6 +1720,7 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    request: "Demande"
     request_maintenance: "Demander une maintenance"
     requests: "Demandes"
     reservoir: "Réservoir" #?
@@ -1767,6 +1779,7 @@ fra:
       cancelled: "Passées en avoir" #?
       credits: "Avoirs" #?
     sales_invoices_total: "Total factures" #?
+    sales_pretax_amount: "Montant HT (Ventes)"
     sales_states:  #?
       all: "Toutes" #?
       current: "En cours" #?
@@ -1837,7 +1850,8 @@ fra:
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
-    stock_in_ground_by_calibration: "Stock en terre par calibre"
+    stock_in_ground_by_calibration: "Stock en terre net par calibre"
+    stock_in_ground_by_calibration_x: "Stock en terre net par calibre - %{x}" #?
     stock_in_ground_by_calibres: "Stocks en terre par calibre" #?
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
@@ -1978,6 +1992,7 @@ fra:
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
+    undelivered_invoices: "Factures non parvenues"
     undone: "Non-fait"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
@@ -1991,7 +2006,7 @@ fra:
     unknown_variant: "Variante de produit inconnue"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
-    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de malformations et maladies"
+    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de maladies et malformations"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer" #?
     unpaid_days: "À payer depuis (jours)"
@@ -2027,7 +2042,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validées"
+    validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
@@ -2096,6 +2111,10 @@ fra:
     x_hours_worked:
       one: "%{count}\_h travaillée"
       other: "%{count}\_h travaillées"
+    x_incoming_parcels:
+      one: "%{count} colis entrant"
+      other: "%{count} colis entrants"
+      zero: "Aucun colis entrant"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
@@ -2139,6 +2158,10 @@ fra:
     x_operations:  #?
       one: "%{count} travail" #?
       other: "%{count} travaux" #?
+    x_outgoing_parcels:
+      one: "%{count} colis sortant"
+      other: "%{count} colis sortants"
+      zero: "Aucun colis sortant"
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
@@ -2187,6 +2210,10 @@ fra:
     x_times:
       one: "%{count} fois"
       other: "%{count} fois"
+    x_trackings:
+      one: "%{count} numéro de lot"
+      other: "%{count} numéros de lot"
+      zero: "Aucun numéro de lot"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
@@ -2212,7 +2239,8 @@ fra:
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement"
-    yield_by_calibration: "Rendement par calibre"
+    yield_by_calibration: "Rendement net par calibre"
+    yield_by_calibration_x: "Rendement net par calibre - %{x}" #?
     yield_by_calibrations: "Rendement par calibre" #?
     zones: "Zones"
   notifications:
@@ -2227,6 +2255,8 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       all_data_import_finished: "Toutes vos données ont été importées"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
+      all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
+      all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
@@ -2324,6 +2354,7 @@ fra:
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
+      purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
@@ -2409,6 +2440,7 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
+      export_to_sepa: "Export SEPA"
       extract: "Extraire"
       family: "Famille"
       finish: "Finir"
@@ -2431,6 +2463,8 @@ fra:
       new: "Nouveau"
       open: "Ouvrir"
       order: "Commander"
+      pay: "Payer"
+      payment_mode: "Payer (Mode)"
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"

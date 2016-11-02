@@ -189,7 +189,8 @@ fra:
     second_seed_input: "Seconde semence" #?
     second_seed_input_to_use: "Seconde semence utilisée" #?
     seed_mix: "Mélange de graine" #?
-    seed_storage: "Seed storage" #?
+    seed_storage: "Stockage de semences" #?
+    seedbed_preparator: "Outil de préparation du lit de semence"
     seeder: "Semoir" #?
     seedlings: "Plants"
     seeds: "Semences"
@@ -340,6 +341,7 @@ fra:
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"
     pasturing: "Pâturage"
+    plant_cover_sowing: "Semis de couvert"
     plant_covering: "Bâchage"
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
@@ -356,6 +358,7 @@ fra:
     product_evolution: "Evolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
+    seedbed_preparing: "Préparation du lit de semences"
     seedling_sorting: "Triage de plants"
     sifting: "Tamisage"
     silage_transport: "Transport d'ensilage" #?

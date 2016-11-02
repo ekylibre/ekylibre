@@ -89,3 +89,4 @@ Procfile.*
 *.sw?
 
 .byebug_history
+.gitconfig

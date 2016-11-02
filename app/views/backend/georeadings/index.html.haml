@@ -1,4 +1,4 @@
 - main_toolbar do |t|
-  = t.new variants: Georeading.nature.values.map{|n| [Georeading.nature.human_value_name(n), { nature: n }] }
+  = t.new variants: Georeading.nature.values.map{|n| [Georeading.nature.human_value_name(n), { nature: n }] }, params: { redirect: nil }
 
 = main_list

@@ -63,9 +63,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  belongs_to :stock_movement_account, class_name: 'Account'
-  belongs_to :stock_account, class_name: 'Account'
+  belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
+  belongs_to :stock_account, class_name: 'Account', dependent: :destroy
 
+  has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -134,7 +135,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :of_category, ->(category) { where(category: category) }
 
   protect(on: :destroy) do
-    products.any? || sale_items.any? || purchase_items.any? || parcel_items.any?
+    products.any? || sale_items.any? || purchase_items.any? ||
+      parcel_items.any? || has_accounts?
   end
 
   before_validation on: :create do
@@ -186,26 +188,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
       #  end
       # end
     end
-  end
-
-  # create unique account for stock management in accountancy
-  def create_unique_account(mode = :stock)
-    if mode == :stock || mode == :stock_movement
-      unless storable?
-        raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
-      end
-      account_key = mode.to_s + '_account'
-      category_account = category.send(account_key)
-
-      options = {}
-      options[:number] = category_account.number + number[-6, 6].rjust(6)
-      options[:name] = category_account.name + ' [' + self.name + ']'
-      options[:label] = options[:number] + ' - ' + options[:name]
-      options[:usages] = category_account.usages
-
-      return ac = Account.create!(options)
-
-    end
     if variety && products.any?
       if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
         errors.add(:variety, :invalid)
@@ -216,6 +198,33 @@ class ProductNatureVariant < Ekylibre::Record::Base
         errors.add(:derivative_of, :invalid)
       end
     end
+  end
+
+  def has_accounts?
+    return false unless storable?
+    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
+  end
+
+  # create unique account for stock management in accountancy
+  def create_unique_account(mode = :stock)
+    account_key = mode.to_s + '_account'
+    unless storable?
+      errors.add :stock_account, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
+    end
+
+    category_account = category.send(account_key)
+    unless category_account
+      # We want to notice => raise.
+      raise :category_account, "Account is not configured for #{self.name.inspect}. You have to check category first"
+    end
+
+    options = {}
+    options[:number] = category_account.number + number[-6, 6].rjust(6)
+    options[:name] = category_account.name + ' [' + self.name + ']'
+    options[:label] = options[:number] + ' - ' + options[:name]
+    options[:usages] = category_account.usages
+
+    Account.create!(options)
   end
 
   # add animals to new variant
@@ -270,9 +279,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # check if a variant has an indicator which is frozen or not
   def has_frozen_indicator?(indicator)
     if indicator.is_a?(Nomen::Item)
-      return frozen_indicators.include?(indicator)
+      frozen_indicators.include?(indicator)
     else
-      return frozen_indicators_list.include?(indicator)
+      frozen_indicators_list.include?(indicator)
     end
   end
 
@@ -340,6 +349,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
 
     list
+  end
+
+  def contractual_prices
+    contract_items
+      .pluck(:contract_id, :unit_pretax_amount)
+      .to_h
+      .map { |contract_id, price| [Contract.find(contract_id), price] }
+      .to_h
   end
 
   # Get indicator value
@@ -438,7 +455,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variants.reload
     end
 
-    Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
+    ItemStruct = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary
     # name, variety, derivative_od, abilities
@@ -447,7 +464,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         nature = Nomen::ProductNature[item.nature]
         f = (nature.frozen_indicators || []).map(&:to_sym)
         v = (nature.variable_indicators || []).map(&:to_sym)
-        Item.new(
+        ItemStruct.new(
           item.name,
           Nomen::Variety.find(item.variety || nature.variety),
           Nomen::Variety.find(item.derivative_of || nature.derivative_of),

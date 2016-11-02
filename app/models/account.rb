@@ -55,12 +55,16 @@ class Account < Ekylibre::Record::Base
                                                  foreign_key: :depositables_account_id
   has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
+  has_many :collected_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
+  has_many :deductible_fixed_asset_taxes,           class_name: 'Tax', foreign_key: :fixed_asset_deduction_account_id
   has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
   has_many :purchase_items,       class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,           class_name: 'SaleItem'
   has_many :products_categories,  class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
+  has_many :stocks_movement_categories, class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
+  has_many :employees,            class_name: 'Entity', foreign_key: :employee_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
@@ -76,7 +80,7 @@ class Account < Ekylibre::Record::Base
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
-    unless Nomen::Account[usage]
+    unless Nomen::Account.find(usage)
       raise ArgumentError, "Unknown usage #{usage.inspect}"
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
@@ -120,7 +124,10 @@ class Account < Ekylibre::Record::Base
               :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
               :merchandising_stocks_variation, :adult_reproductor_animals_inventory_variations, :young_reproductor_animals_inventory_variations,
               :long_cycle_product_inventory_variations, :short_cycle_product_inventory_variations,
-              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation)
+              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation,
+              :long_cycle_vegetals_inventory_variations, :short_cycle_vegetals_inventory_variations,
+              :products_inventory_variations,
+              :short_cycle_animals_inventory_variations, :long_cycle_animals_inventory_variations)
   }
 
   # This method:allows to create the parent accounts if it is necessary.
@@ -149,7 +156,7 @@ class Account < Ekylibre::Record::Base
         number.gsub!(/0$/, '')
       end unless numbers.include?(number)
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      account = find_by_number(number)
+      account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
@@ -170,10 +177,10 @@ class Account < Ekylibre::Record::Base
 
     # Find account with its usage among all existing account records
     def find_in_nomenclature(usage)
-      unless account = of_usage(usage).first
-        if item = Nomen::Account[usage]
-          account = find_by(number: item.send(accounting_system))
-        end
+      account = of_usage(usage).first
+      unless account
+        item = Nomen::Account[usage]
+        account = find_by(number: item.send(accounting_system)) if item
       end
       account
     end
@@ -239,14 +246,19 @@ class Account < Ekylibre::Record::Base
 
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage)
-      if account = find_in_nomenclature(usage)
-        return account
-      elsif item = Nomen::Account.find(usage)
-        account = create!(name: item.human_name, number: item.send(accounting_system), debtor: !!item.debtor, usages: item.name)
-        return account
-      else
-        raise ArgumentError, "The usage #{usage.inspect} is unknown"
+      item = Nomen::Account.find(usage)
+      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
+      account = find_in_nomenclature(usage)
+      unless account
+        account = create!(
+          name: item.human_name,
+          number: item.send(accounting_system),
+          debtor: !!item.debtor,
+          usages: item.name
+        )
       end
+      account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
 
@@ -287,7 +299,9 @@ class Account < Ekylibre::Record::Base
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          find_or_import_from_nomenclature(item.name)
+          if item.send(accounting_system)
+            find_or_import_from_nomenclature(item.name)
+          end
         end
       end
       true

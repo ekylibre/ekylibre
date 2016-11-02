@@ -37,7 +37,6 @@ module Unrollable
         order = filters.map { |f| f[:search] }.compact
         order ||= :id
       end
-
       roots = filters.select { |f| f[:root] }
       fill_in = (options.key?(:fill_in) ? options[:fill_in] : roots.any? ? roots.first[:column_name] : nil)
       fill_in = fill_in.to_sym unless fill_in.nil?
@@ -152,6 +151,20 @@ module Unrollable
       code << "    end\n"
       code << "    conditions[0] << ')'\n"
       code << "    items = items.where(conditions)\n"
+
+      code << "    ordering = ['(']\n"
+      code << "    keys.each_with_index do |key, index|\n"
+      code << "      ordering[0] << ') AND (' if index > 0\n"
+      code << '      ordering[0] << ' + searchable_filters.collect do |column|
+        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
+      end.join(' OR ').inspect + "\n"
+      code << '      ordering += [' + searchable_filters.collect do |column|
+        column[:start_pattern].inspect.gsub('X', '" + key + "')
+                              .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
+      end.join(', ') + "]\n"
+      code << "    end\n"
+      code << "    ordering[0] << ')'\n"
+      code << "    items = items.reorder(ActiveRecord::Base.send(:sanitize_sql_array, ordering)).order(#{order.inspect})\n"
       code << "  end\n"
 
       code << "  respond_to do |format|\n"
@@ -197,9 +210,10 @@ module Unrollable
         end
         filter[:search]  = "#{model.table_name}.#{infos.first}"
         filter[:pattern] = infos.second || '%X%'
+        filter[:start_pattern] = infos.second || 'X%'
         filter[:column_name] = definition.name
         filter[:column_type] = definition.type
-        return filter
+        filter
       else
         raise "What a parameter? #{object.inspect}"
       end
@@ -209,18 +223,18 @@ module Unrollable
     def includify(object)
       if object.is_a?(Array)
         a = object.map { |o| includify(o) }.compact
-        return (a.size == 1 ? a.first : a)
+        (a.size == 1 ? a.first : a)
       elsif object.is_a?(Hash)
         n = object.each_with_object({}) do |pair, h|
           h[pair.first] = includify(pair.second)
           h
         end
-        return n.each_with_object([]) do |pair, a|
+        n.each_with_object([]) do |pair, a|
           a << (pair.second.nil? ? pair.first : { pair.first => pair.second })
           a
         end
       elsif object.is_a?(Symbol) || object.is_a?(String)
-        return nil
+        nil
       else
         raise "What a parameter? #{object.inspect}"
       end
@@ -230,11 +244,11 @@ module Unrollable
     def compactify(object)
       if object.is_a?(Array)
         a = object.map { |o| compactify(o) }.compact
-        return (a.empty? ? nil : a)
+        (a.empty? ? nil : a)
       elsif object.is_a?(Hash)
-        return (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
+        (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
       elsif object.is_a?(Symbol) || object.is_a?(String)
-        return object
+        object
       else
         raise "What a parameter? #{object.inspect}"
       end

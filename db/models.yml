@@ -37,6 +37,8 @@
 - cash_transfer
 - catalog
 - catalog_item
+- contract
+- contract_item
 - crumb
 - cultivable_zone
 - custom_field
@@ -83,6 +85,7 @@
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
+- intervention_participation
 - intervention_product_parameter
 - intervention_target
 - intervention_tool
@@ -108,6 +111,7 @@
 - notification
 - observation
 - outgoing_payment
+- outgoing_payment_list
 - outgoing_payment_mode
 - parcel
 - parcel_item

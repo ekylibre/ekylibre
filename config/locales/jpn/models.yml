@@ -29,11 +29,19 @@ jpn:
         born_at: "で作成されました"
       outgoing_payment:
         delivered: "受信者に与えられました"
+        list: "支払一覧"
+      outgoing_payment_list:
+        payments_sum: "合計"
+      parcel:
+        contract: "契約する"
       parcel_item:
         population: "量"
       plant:
         born_at: "で植え"
+      purchase:
+        affair_balance: "バランス"
       sale:
+        affair_balance: "バランス"
         contact: "見積もりの​​ための住所"
         has_downpayment: "頭金は、受信しました"
       sale_nature:
@@ -65,6 +73,7 @@ jpn:
         # is_at: "%{attribute} must be at %{restriction}"
         # less_than: "%{attribute} must be less than %{count}"
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        missing_bank_details_for_sepa: "IBANの値および/またはアカウントの所有者が選択された現金勘定のために不足しています。"
         # must_be_a_mail_address: "%{attribute} must be a mail address"
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
@@ -83,6 +92,7 @@ jpn:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          checked_off_with_inspections: "検査は既にこの活動のために作成されています"
           checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
         bank_statement:
           no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
@@ -179,6 +189,8 @@ jpn:
       cash_transfer: "送金"
       catalog: "カタログ"
       catalog_item: "カタログ価格"
+      contract: "契約する"
+      contract_item: "契約項目"
       crumb: "クラム"
       cultivable_zone: "耕作地帯"
       custom_field: "カスタムフィールド"
@@ -225,6 +237,7 @@ jpn:
       intervention_output: "介入出力"
       intervention_parameter: "介入パラメータ"
       intervention_parameter_reading: "製品読取タスク"
+      intervention_participation: "介入参加"
       intervention_product_parameter: "介入キャスト"
       intervention_target: "介入対象"
       intervention_tool: "介入ツール"
@@ -250,6 +263,7 @@ jpn:
       notification: "お知らせ"
       observation: "観察"
       outgoing_payment: "支出"
+      outgoing_payment_list: "支払一覧"
       outgoing_payment_mode: "支払いモード"
       parcel: "小包"
       parcel_item: "小包アイテム"
@@ -366,6 +380,10 @@ jpn:
     analysis_items: "分析項目"
     annotation: "注釈"
     archive: "アーカイブ"
+    archive_content_type: "アーカイブコンテンツタイプ"
+    archive_file_name: "アーカイブファイル名"
+    archive_file_size: "アーカイブファイルのサイズ"
+    archive_updated_at: "アーカイブで更新"
     archiving: "アーカイブ"
     arguments: "引数"
     assembly: "アセンブリ"
@@ -378,6 +396,7 @@ jpn:
     average_value: "平均値"
     balance: "バランス"
     balances: "残高"
+    bank_account_holder_name: "アカウントの所有者"
     bank_account_key: "銀行口座キー"
     bank_account_number: "銀行の口座番号"
     bank_agency_address: "銀行代理アドレス"
@@ -468,6 +487,8 @@ jpn:
     content: "コンテンツ"
     content_localizations: "コンテンツのローカライズ"
     contents: "コンテンツ"
+    contract: "契約する"
+    contracts: "契約"
     coordinate: "座標"
     coordinate_columns: "列の座標"
     # costs_per_unit: "Costs per %{unit}"
@@ -621,7 +642,11 @@ jpn:
     faxes: "ファックス"
     fifth_producer: "フィフスプロデューサー" #?
     file: "ファイル"
+    file_content_text: "ファイル内容のテキスト"
+    file_content_type: "ファイルのコンテンツタイプ"
+    file_file_name: "ファイルのファイル名"
     file_file_size: "ファイルサイズ"
+    file_fingerprint: "ファイルフィンガープリント"
     file_pages_count: "ページカウント"
     file_updated_at: "で更新"
     filtered_columns: "フィルタリングされた列"
@@ -670,8 +695,12 @@ jpn:
     grading_sizes_unit_name: "グレーディングサイズのユニット名"
     gradings: "グレーディング"
     gravity: "重力"
-    gross_items: "総カウント数"
-    gross_mass: "総質量"
+    gross_items: "総カウント数" #?
+    gross_items_count: "総アイテムがカウント"
+    gross_items_count_yield: "総アイテム収率"
+    gross_mass: "総質量" #?
+    gross_net_mass: "総質量"
+    gross_net_mass_yield: "総質量収率"
     gross_yield_value: "総降伏値"
     group: "グループ"
     group_parameters: "グループパラメータ"
@@ -727,6 +756,10 @@ jpn:
     initiated_on: "で開始"
     inputs: "入力"
     inspection: "検査"
+    inspection_calibration_natures: "検査校正性質"
+    inspection_calibration_scales: "検査校正スケール"
+    inspection_point_natures: "検査ポイントの性質"
+    inspection_points: "検査ポイント"
     inspections: "検査"
     insurance_amount: "保険金額"
     insurance_percentage: "保険の割合"
@@ -741,6 +774,7 @@ jpn:
     intervention_parameter: "介入パラメータ"
     intervention_product_parameters: "介入キャスト"
     interventions: "介入"
+    interventions_used_in: "介入に使用されます"
     introduction: "導入"
     inventory: "インベントリ"
     invitation_accepted_at: "招待で受け付け"
@@ -771,6 +805,7 @@ jpn:
     item_value: "アイテムの値"
     items: "アイテム"
     items_count: "アイテム数"
+    items_count_value: "アイテムは、カウント値"
     journal: "ジャーナル"
     journal_entries: "仕訳"
     journal_entry: "仕訳記入"
@@ -798,6 +833,7 @@ jpn:
     last_value: "最終値"
     last_year: "昨年"
     latest: "最新"
+    leaves_parameters: "パラメータの葉"
     lender: "貸手"
     letter: "文字"
     letter_format: "レター形式"
@@ -808,6 +844,7 @@ jpn:
     linked: "連結されました"
     linked_role: "エンティティ2役割"
     links: "リンクス"
+    list: "リスト"
     listing: "リスト"
     loan: "ローン"
     local_balance: "地元のバランス"
@@ -845,6 +882,7 @@ jpn:
     marketable_items_count: "有価項目はカウント"
     marketable_net_mass: "有価正味質量"
     marketable_net_yield: "有価純利回り"
+    marketable_quantity: "有価量"
     marketable_yield: "有価収量"
     mass: "質量（キログラム）"
     max_zoom: "最大ズーム"
@@ -1062,6 +1100,7 @@ jpn:
     quantity_unit: "数量単位"
     quantity_unit_name: "数量ユニット名"
     quantity_value: "数量値"
+    quantity_yield: "ネットの市場利回り"
     query: "クエリー"
     rank_number: "ランク番号"
     read_at: "読みます"
@@ -1090,6 +1129,10 @@ jpn:
     reduction_percentage: "縮小率"
     reference_name: "参照名"
     reference_number: "参照番号"
+    reference_source_content_type: "基準ソースコンテンツタイプ"
+    reference_source_file_name: "リファレンスソースファイル名"
+    reference_source_file_size: "リファレンスソースファイルのサイズ"
+    reference_source_updated_at: "リファレンスソースがで更新します"
     reference_tax: "リファレンス税"
     reference_value: "基準値"
     reflected: "変更の反映"
@@ -1111,6 +1154,7 @@ jpn:
     replacements: "リプレイスメント"
     reporter: "レポーター"
     request: "要求"
+    request_compliant: "要求に準拠"
     request_intervention: "リクエスト介入"
     requests: "リクエスト"
     required: "必須"
@@ -1167,6 +1211,7 @@ jpn:
     sensor: "センサー"
     sensors: "センサー"
     sent_at: "で送信"
+    # sepa: "SEPA"
     separated_stock: "既存の株式と合併しないでください"
     serial: "シリアル"
     serial_number: "シリアルナンバー"
@@ -1222,6 +1267,9 @@ jpn:
     supplier: "サプライヤー"
     supplier_account: "サプライヤーアカウント"
     supplier_address: "サプライヤーアドレス"
+    supplier_payment_delay: "サプライヤーの支払い遅延"
+    supplier_payment_mode: "サプライヤーの支払いモード"
+    supplier_payment_modes: "サプライヤーの支払いモード"
     suppliers: "サプライヤー"
     support: "サポート"
     support_nature: "サポートタイプ"
@@ -1259,6 +1307,7 @@ jpn:
     tool: "ツール"
     tools: "ツール"
     total_cost: "総費用"
+    total_items_count: "合計項目カウント"
     total_net_mass: "合計正味質量"
     town_number: "タウン番号"
     tracking: "追跡"
@@ -1305,6 +1354,7 @@ jpn:
     use_tactics: "作物管理技術を使用して、"
     used_for_affairs: "業務用に使用されます"
     used_for_gaps: "ギャップのために使用"
+    used_intervention_parameters: "中古介入パラメータ"
     useful_items: "便利なアイテム"
     user: "ユーザー"
     users: "ユーザー"
@@ -1373,6 +1423,14 @@ jpn:
         name: "販売価格カタログ"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
+    contract:
+      # label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        lost: "失われました"
+        negociation: "交渉"
+        price_quote: "価格見積り"
+        prospecting: "試掘"
+        won: "勝った"
     delivery:
       state_machine:
         states:
@@ -1418,8 +1476,10 @@ jpn:
         transfer:
           name: "費目変更"
     inspection:
-      items: "アイテム"
-      mass: "質量"
+      items: "アイテム" #?
+      items_count: "アイテム"
+      mass: "質量" #?
+      net_mass: "質量"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
@@ -1602,6 +1662,7 @@ jpn:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
+        contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"

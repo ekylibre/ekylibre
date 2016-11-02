@@ -39,7 +39,7 @@ module Backend
 
         doers_count = intervention.doers.count
 
-        if doers_count > 0
+        if doers_count > 0 && !intervention.doers[0].product.nil?
 
           doers_text = intervention.doers[0].product.name
           doers_text << ' +' + (doers_count - 1).to_s if doers_count > 1

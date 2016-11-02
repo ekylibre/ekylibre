@@ -38,6 +38,7 @@
 #  number                  :string
 #  prescription_id         :integer
 #  procedure_name          :string           not null
+#  request_compliant       :boolean
 #  request_intervention_id :integer
 #  started_at              :datetime
 #  state                   :string           not null
@@ -72,6 +73,7 @@ class Intervention < Ekylibre::Record::Base
   has_and_belongs_to_many :campaigns
 
   with_options inverse_of: :intervention do
+    has_many :participations, class_name: 'InterventionParticipation', dependent: :destroy
     has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
@@ -89,6 +91,7 @@ class Intervention < Ekylibre::Record::Base
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
+  validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
@@ -253,6 +256,11 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  after_save do
+    participations.update_all(state: state) unless state == :in_progress
+    participations.update_all(request_compliant: request_compliant) if request_compliant
+  end
+
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?
@@ -271,8 +279,8 @@ class Intervention < Ekylibre::Record::Base
         for input in inputs
           label = tc(:bookkeep, resource: name, name: input.product.name)
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
-            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount) unless input.stock_amount.zero?
-            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount) unless input.stock_amount.zero?
+            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
+            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
           end
         end
       end
@@ -281,20 +289,56 @@ class Intervention < Ekylibre::Record::Base
         for output in outputs
           label = tc(:bookkeep, resource: name, name: output.variant.name)
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
-            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount) unless output.stock_amount.zero?
-            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount) unless output.stock_amount.zero?
+            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
+            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
           end
          end
       end
     end
   end
 
-  def printed_at
-    (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
+  def initialize_record(state: :done)
+    raise 'Can only generate record for an intervention request' unless request?
+    return record_interventions.first if record_interventions.any?
+    new_record = deep_clone(
+      only: [:actions, :custom_fields, :description, :event_id, :issue_id,
+             :nature, :number, :prescription_id, :procedure_name,
+             :request_intervention_id, :started_at, :state,
+             :stopped_at, :trouble_description, :trouble_encountered,
+             :whole_duration, :working_duration],
+      include:
+        [
+          { group_parameters: [
+            :parameters,
+            :group_parameters,
+            :doers,
+            :inputs,
+            :outputs,
+            :targets,
+            :tools
+          ] },
+          { root_parameters: :group },
+          { parameters: :group },
+          { product_parameters: [:readings, :group] },
+          { doers: :group },
+          { inputs: :group },
+          { outputs: :group },
+          { targets: :group },
+          { tools: :group },
+          :working_periods
+        ],
+      use_dictionary: true
+    ) do |original, kopy|
+      kopy.intervention_id = nil if original.respond_to? :intervention_id
+    end
+    new_record.request_intervention_id = id
+    new_record.nature = :record
+    new_record.state = state
+    new_record
   end
 
-  def activity_productions
-    ActivityProduction.of_intervention(self)
+  def printed_at
+    (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
   end
 
   def with_undestroyable_products?
@@ -449,9 +493,7 @@ class Intervention < Ekylibre::Record::Base
 
   def total_cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
-      return (total_cost / working_zone_area(area_unit).to_d)
-    else
-      return nil
+      (total_cost / working_zone_area(area_unit).to_d)
     end
   end
 
@@ -488,7 +530,9 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    return :go if done?
+    return :go if done? || validated?
+    return :caution if in_progress?
+    return :stop if rejected?
   end
 
   def runnable?
@@ -517,6 +561,20 @@ class Intervention < Ekylibre::Record::Base
 
   def add_working_period!(started_at, stopped_at)
     working_periods.create!(started_at: started_at, stopped_at: stopped_at)
+  end
+
+  def update_state(additional_state = nil)
+    return unless participations.any? || !additional_state.nil?
+    states = participations.pluck(:state).concat([additional_state]).map(&:to_sym).compact
+    update(state: :in_progress) if states.index(:in_progress)
+    update(state: :done) if (states - [:done]).empty?
+  end
+
+  def update_compliance(additional_compliance = nil)
+    return unless participations.any? || !additional_compliance.nil?
+    compliances = participations.pluck(:request_compliant).concat([additional_compliance]).compact
+    update(request_compliant: false) if compliances.index(false)
+    update(request_compliant: true) if (compliances - [true]).empty?
   end
 
   class << self
@@ -695,7 +753,7 @@ class Intervention < Ekylibre::Record::Base
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               purchase.items.new(
                 variant: item.variant,
@@ -756,7 +814,7 @@ class Intervention < Ekylibre::Record::Base
         # Adds items
         interventions.each do |intervention|
           hourly_params = {
-            catalog: Catalog.by_default!(:purchase),
+            catalog: Catalog.by_default!(:cost),
             quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
           }
           components = {
@@ -770,7 +828,7 @@ class Intervention < Ekylibre::Record::Base
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               sale.items.new(
                 variant: item.variant,

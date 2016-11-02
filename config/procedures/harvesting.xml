@@ -28,7 +28,7 @@
       </output>
       <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
       <tool name="cropper" filter="can harvest(plant)" cardinality="*"/>
-      <tool name="implement" filter="is portable_equipment" cardinality="*"/>
+      <tool name="implement" filter="is portable_equipment or can store(raw_matter) or can store_liquid" cardinality="*"/>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>

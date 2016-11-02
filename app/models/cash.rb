@@ -22,32 +22,33 @@
 #
 # == Table: cashes
 #
-#  account_id           :integer          not null
-#  bank_account_key     :string
-#  bank_account_number  :string
-#  bank_agency_address  :text
-#  bank_agency_code     :string
-#  bank_code            :string
-#  bank_identifier_code :string
-#  bank_name            :string
-#  container_id         :integer
-#  country              :string
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  currency             :string           not null
-#  custom_fields        :jsonb
-#  iban                 :string
-#  id                   :integer          not null, primary key
-#  journal_id           :integer          not null
-#  last_number          :integer
-#  lock_version         :integer          default(0), not null
-#  mode                 :string           default("iban"), not null
-#  name                 :string           not null
-#  nature               :string           default("bank_account"), not null
-#  owner_id             :integer
-#  spaced_iban          :string
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  account_id               :integer          not null
+#  bank_account_holder_name :string
+#  bank_account_key         :string
+#  bank_account_number      :string
+#  bank_agency_address      :text
+#  bank_agency_code         :string
+#  bank_code                :string
+#  bank_identifier_code     :string
+#  bank_name                :string
+#  container_id             :integer
+#  country                  :string
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string           not null
+#  custom_fields            :jsonb
+#  iban                     :string
+#  id                       :integer          not null, primary key
+#  journal_id               :integer          not null
+#  last_number              :integer
+#  lock_version             :integer          default(0), not null
+#  mode                     :string           default("iban"), not null
+#  name                     :string           not null
+#  nature                   :string           default("bank_account"), not null
+#  owner_id                 :integer
+#  spaced_iban              :string
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
 
 class Cash < Ekylibre::Record::Base
@@ -79,7 +80,7 @@ class Cash < Ekylibre::Record::Base
   # refers_to :currency
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
+  validates :bank_account_holder_name, :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
   validates :bank_agency_address, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :journal, :mode, :nature, presence: true
   validates :last_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -89,7 +90,7 @@ class Cash < Ekylibre::Record::Base
   validates :currency, length: { allow_blank: true, maximum: 3 }
   validates :bank_identifier_code, length: { allow_blank: true, maximum: 11 }
   validates :nature, length: { allow_blank: true, maximum: 20 }
-  validates :iban, length: { allow_blank: true, maximum: 34 }
+  validates :iban, iban: true, allow_blank: true, if: :bank_account?
   validates :spaced_iban, length: { allow_blank: true, maximum: 42 }
   validates :bank_name, length: { allow_blank: true, maximum: 50 }
   validates :mode, inclusion: { in: mode.values }
@@ -109,6 +110,7 @@ class Cash < Ekylibre::Record::Base
   before_validation do
     mode.lower! unless mode.blank?
     self.mode = self.class.mode.default_value if mode.blank?
+    self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
     if currency.blank?
       if journal
         self.currency = journal_currency
@@ -139,9 +141,6 @@ class Cash < Ekylibre::Record::Base
           errors.add(:bank_account_key, :unvalid_bban) unless self.class.valid_bban?(country, attributes)
         end
       end
-      unless iban.blank?
-        errors.add(:iban, :invalid) unless self.class.valid_iban?(iban)
-      end
     end
   end
 
@@ -162,24 +161,10 @@ class Cash < Ekylibre::Record::Base
     case cc = country_code.lower.to_sym
     when :fr
       ban = (options['bank_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 89 + options['bank_agency_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 15 + options['bank_account_number'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 3)
-      return (options['bank_account_key'].to_i + ban.modulo(97) - 97).zero?
+      (options['bank_account_key'].to_i + ban.modulo(97) - 97).zero?
     else
       raise ArgumentError, "Unknown country code #{country_code.inspect}"
     end
-  end
-
-  # Checks if the IBAN is valid.
-  def self.valid_iban?(iban)
-    iban = iban.to_s
-    return false unless iban.length > 4
-    str = iban[4..iban.length] + iban[0..1] + '00'
-
-    # Test the iban key
-    str.each_char do |c|
-      str.gsub!(c, c.to_i(36).to_s) if c =~ /\D/
-    end
-    iban_key = 98 - (str.to_i.modulo 97)
-    (iban_key.to_i == iban[2..3].to_i)
   end
 
   # Generates the IBAN key.

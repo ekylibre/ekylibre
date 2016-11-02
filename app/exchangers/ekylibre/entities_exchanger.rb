@@ -29,7 +29,8 @@ module Ekylibre
           siren_number: row[18].blank? ? nil : row[18].to_s.strip,
           vat_number: row[19].blank? ? nil : row[19].to_s,
           ape_number: row[20].blank? ? nil : row[20].to_s,
-          number: row[21].blank? ? nil : row[21].to_s
+          number: row[21].blank? ? nil : row[21].to_s,
+          supplier: row[22].blank? ? false : true
         }.to_struct
 
         person = Entity.find_by(number: r.number) if r.number
@@ -57,6 +58,10 @@ module Ekylibre
         if r.supplier_account_number
           person.supplier = true
           person.supplier_account = Account.find_or_create_by_number(r.supplier_account_number, name: person.full_name)
+          person.save!
+        end
+        if r.supplier
+          person.supplier = true
           person.save!
         end
 
