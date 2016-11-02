@@ -201,7 +201,7 @@ class Account < Ekylibre::Record::Base
         break if parent_accounts.any?
       end
 
-      usages = if parent_accounts && parent_accounts.any?
+      usages = if parent_accounts && parent_accounts.any? && parent_accounts.first.usages
                  parent_accounts.first.usages
                elsif items.any?
                  items.first.name
