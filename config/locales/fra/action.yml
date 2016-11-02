@@ -430,6 +430,7 @@ fra:
       show: "Service en ligne\_: %{name}"
     backend/notifications:
       index: "Notifications"
+      no_worker_account: "Pas d'ouvrier associé au compte"
     backend/observations:
       edit: "Modifier une observation"
       new: "Nouvelle observation"
