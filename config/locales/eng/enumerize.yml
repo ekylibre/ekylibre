@@ -133,6 +133,16 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
+    financial_year:
+      vat_mode:
+        debit: "Debit"
+        none: "None"
+        payment: "Payment"
+      vat_period:
+        monthly: "Monthly"
+        none: "None"
+        quaterly: "Quaterly"
+        yearly: "Yearly"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
@@ -426,6 +436,7 @@ eng:
         sales: "Numeration of sales"
         sales_invoices: "Numeration of sales invoices"
         subscriptions: "Numeration of subscriptions"
+        vat_declarations: "Vat declarations"
     task:
       nature:
         incoming_call: "Incoming call"

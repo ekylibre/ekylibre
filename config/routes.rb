@@ -907,6 +907,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :vat_declarations, concerns: [:list, :unroll] do
+      member do
+        get :list_items
+        post :propose
+        post :confirm
+      end
+    end
+
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
     end

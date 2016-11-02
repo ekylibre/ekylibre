@@ -2373,6 +2373,10 @@ financial_years:
   updater_id:
     type: integer
     references: user
+  vat_mode:
+    type: string
+  vat_period:
+    type: string
 fixed_asset_depreciations:
   accountable:
     type: boolean
@@ -3725,6 +3729,9 @@ journal_entries:
   updater_id:
     type: integer
     references: user
+  vat_declaration_item_id:
+    type: integer
+    references: vat_declaration_item
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -7102,6 +7109,92 @@ users:
     type: string
   unlock_token:
     type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+vat_declaration_items:
+  collected_vat_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  deductible_vat_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  tax_id:
+    type: integer
+    references: tax
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vat_declaration_id:
+    type: integer
+    references: vat_declaration
+    required: true
+vat_declarations:
+  accounted_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  description:
+    type: text
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: user
+  started_on:
+    type: date
+    required: true
+  state:
+    type: string
+  stopped_on:
+    type: date
+    required: true
   updated_at:
     type: datetime
     required: true

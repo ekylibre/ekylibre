@@ -157,6 +157,20 @@
         <page to="backend/fixed_assets#update"/>
       </item>
     </group>
+    <group name="vat" icon="legal">
+      <item name="vat_declarations">
+        <page to="backend/vat_declarations#index"/>
+        <page to="backend/vat_declarations#create"/>
+        <page to="backend/vat_declarations#destroy"/>
+        <page to="backend/vat_declarations#edit"/>
+        <page to="backend/vat_declarations#list"/>
+        <page to="backend/vat_declarations#list_items"/>
+        <page to="backend/vat_declarations#new"/>
+        <page to="backend/vat_declarations#show"/>
+        <page to="backend/vat_declarations#unroll"/>
+        <page to="backend/vat_declarations#update"/>
+      </item>
+    </group>
     <group name="cash" icon="money">
       <item name="cashes">
         <page to="backend/cashes#index"/>
@@ -1839,6 +1853,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="vat_declarations">
+        <page to="backend/vat_declarations#confirm"/>
+        <page to="backend/vat_declarations#propose"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

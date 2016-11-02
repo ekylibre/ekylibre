@@ -20,41 +20,36 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_years
+# == Table: vat_declaration_items
 #
-#  closed                :boolean          default(FALSE), not null
-#  code                  :string           not null
+#  collected_vat_amount  :decimal(19, 4)
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string           not null
-#  currency_precision    :integer
-#  custom_fields         :jsonb
+#  deductible_vat_amount :decimal(19, 4)
 #  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
-#  started_on            :date             not null
-#  stopped_on            :date             not null
+#  tax_id                :integer          not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
-#  vat_mode              :string
-#  vat_period            :string
+#  vat_declaration_id    :integer          not null
 #
 
-require 'test_helper'
+class VatDeclarationItem < Ekylibre::Record::Base
+  refers_to :currency
+  belongs_to :tax
+  belongs_to :vat_declaration
+  has_many :journal_entries, foreign_key: :vat_declaration_item_id, class_name: 'JournalEntry', inverse_of: :vat_declaration_item
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :collected_vat_amount, :deductible_vat_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :currency, :tax, :vat_declaration, presence: true
+  # ]VALIDATORS]
+  validates :currency, length: { allow_nil: true, maximum: 3 }
 
-class FinancialYearTest < ActiveSupport::TestCase
-  test_model_actions
-  test 'chronology' do
-    first_year = financial_years(:financial_years_001)
-    assert_not_nil first_year
+  delegate :currency, to: :vat_declaration, prefix: true
 
-    assert_nil first_year.previous, 'No previous financial year expected'
-
-    assert_not_nil first_year.next, "No next financial year found... #{first_year.attributes.inspect}"
-
-    assert_not_nil first_year.next.previous
-    assert_equal first_year, first_year.next.previous
-
-    assert_not_nil FinancialYear.at(Time.now + 49.years)
+  before_validation do
+    self.currency = vat_declaration_currency if vat_declaration
   end
+
 end

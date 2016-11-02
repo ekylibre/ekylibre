@@ -967,6 +967,8 @@ arb:
       transfer: "التحويل" #?
       unit: "الوحدة" #?
       user: "المستخدم"
+      # vat_declaration: "Vat declaration"
+      # vat_declaration_item: "Vat declaration item"
       version: "الإصدار"
       worker: "عامل"
       zone: "منطقة"
@@ -2357,7 +2359,11 @@ arb:
     variants: "المتغيرات"
     variety: "تشكيلة"
     variety_name: "اسم متنوعة"
+    # vat_declaration: "Vat declaration"
+    # vat_declaration_item: "Vat declaration item"
+    # vat_mode: "Vat mode"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
+    # vat_period: "Vat period"
     vat_subjected: "ضريبة القيمة المضافة تعرض"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     vendor_euid: "بائع"

@@ -552,6 +552,13 @@ cmn:
       new: "新用户"
       # show: "User: %{first_name} %{last_name}"
       unlock: "用户解锁"
+    backend/vat_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "酒罐"
     backend/workers:

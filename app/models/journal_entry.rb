@@ -22,31 +22,32 @@
 #
 # == Table: journal_entries
 #
-#  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4)   default(0.0), not null
-#  balance            :decimal(19, 4)   default(0.0), not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  financial_year_id  :integer
-#  id                 :integer          not null, primary key
-#  journal_id         :integer          not null
-#  lock_version       :integer          default(0), not null
-#  number             :string           not null
-#  printed_on         :date             not null
-#  real_balance       :decimal(19, 4)   default(0.0), not null
-#  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string           not null
-#  real_currency_rate :decimal(19, 10)  default(0.0), not null
-#  real_debit         :decimal(19, 4)   default(0.0), not null
-#  resource_id        :integer
-#  resource_type      :string
-#  state              :string           not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
+#  absolute_credit         :decimal(19, 4)   default(0.0), not null
+#  absolute_currency       :string           not null
+#  absolute_debit          :decimal(19, 4)   default(0.0), not null
+#  balance                 :decimal(19, 4)   default(0.0), not null
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  credit                  :decimal(19, 4)   default(0.0), not null
+#  currency                :string           not null
+#  debit                   :decimal(19, 4)   default(0.0), not null
+#  financial_year_id       :integer
+#  id                      :integer          not null, primary key
+#  journal_id              :integer          not null
+#  lock_version            :integer          default(0), not null
+#  number                  :string           not null
+#  printed_on              :date             not null
+#  real_balance            :decimal(19, 4)   default(0.0), not null
+#  real_credit             :decimal(19, 4)   default(0.0), not null
+#  real_currency           :string           not null
+#  real_currency_rate      :decimal(19, 10)  default(0.0), not null
+#  real_debit              :decimal(19, 4)   default(0.0), not null
+#  resource_id             :integer
+#  resource_type           :string
+#  state                   :string           not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  vat_declaration_item_id :integer
 #
 
 # There is 3 types of set of values (debit, credit...). These types
@@ -62,6 +63,7 @@ class JournalEntry < Ekylibre::Record::Base
   refers_to :absolute_currency, class_name: 'Currency'
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
+  belongs_to :vat_declaration_item, inverse_of: :journal_entries
   belongs_to :resource, polymorphic: true
   has_many :affairs, dependent: :nullify
   has_many :fixed_asset_depreciations, dependent: :nullify

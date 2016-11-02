@@ -137,6 +137,16 @@ por:
         informative: "Informativo"
         refused: "Recusado"
         waiting: "Esperando"
+    financial_year:
+      vat_mode:
+        # debit: "Debit"
+        # none: "None"
+        # payment: "Payment"
+      vat_period:
+        # monthly: "Monthly"
+        # none: "None"
+        # quaterly: "Quaterly"
+        # yearly: "Yearly"
     fixed_asset:
       depreciation_method:
         graduated: "Gradual" #?
@@ -459,6 +469,7 @@ por:
         sales_invoices: "Numeração de faturas de venda"
         subscriptions: "Numeração de subscrições"
         transports: "Numeração de transportes" #?
+        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidirecional" #?

@@ -135,6 +135,16 @@ ita:
         informative: "Informativo"
         refused: "rifiutato"
         waiting: "In attesa"
+    financial_year:
+      vat_mode:
+        # debit: "Debit"
+        # none: "None"
+        # payment: "Payment"
+      vat_period:
+        # monthly: "Monthly"
+        # none: "None"
+        # quaterly: "Quaterly"
+        # yearly: "Yearly"
     fixed_asset:
       depreciation_method:
         graduated: "Laureato" #?
@@ -446,6 +456,7 @@ ita:
         sales_invoices: "Numerazione di fatture di vendita"
         subscriptions: "Numerazione degli abbonamenti"
         transports: "Numerazione dei trasporti" #?
+        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirezionale" #?

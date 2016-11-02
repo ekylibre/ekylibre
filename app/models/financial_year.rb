@@ -36,6 +36,8 @@
 #  stopped_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  vat_mode              :string
+#  vat_period            :string
 #
 
 class FinancialYear < Ekylibre::Record::Base
@@ -43,6 +45,8 @@ class FinancialYear < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
   refers_to :currency
+  enumerize :vat_period, in: [:monthly, :quaterly, :yearly, :none], default: :none
+  enumerize :vat_mode, in: [:debit, :payment, :none], default: :none
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'

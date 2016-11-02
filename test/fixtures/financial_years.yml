@@ -36,6 +36,8 @@
 #  stopped_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  vat_mode              :string
+#  vat_period            :string
 #
 ---
 financial_years_001:

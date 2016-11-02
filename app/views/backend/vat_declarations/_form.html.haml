@@ -1,0 +1,28 @@
+= field_set do
+  = f.input :currency, as: :hidden
+  = f.input :reference_number
+  = f.input :started_on, as: :date
+  = f.input :stopped_on, as: :date
+  = f.referenced_association :financial_year
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :description
+
+= field_set Purchase.human_attribute_name(:items) do
+  .items
+    %table#items-table
+      %thead
+        %tr
+          %th= VatDeclarationItem.human_attribute_name(:tax)
+          %th= VatDeclarationItem.human_attribute_name(:deductible_vat_amount)
+          %th= VatDeclarationItem.human_attribute_name(:collected_vat_amount)
+          %th
+      %tfoot
+        %tr.total
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          %th{colspan: 4}= :total.tl
+          %td= f.object.currency
+          %th
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render 'item_fields', f: item
+
+= f.attachments_field_set

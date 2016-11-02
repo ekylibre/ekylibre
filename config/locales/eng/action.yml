@@ -720,6 +720,13 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/vat_declarations:
+      confirm: "Confirm vat declaration: %{number}"
+      edit: "Edit vat declaration: %{number}"
+      index: "Vat declarations"
+      new: "New vat declaration"
+      propose: "Propose vat declaration: %{number}"
+      show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
@@ -1674,6 +1681,7 @@ eng:
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
+    # vat: "Vat"
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
@@ -1892,6 +1900,7 @@ eng:
       # need_a_valid_payment_mode: "Need a valid payment mode"
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
+      # need_an_opened_financial_year_to_start_new_vat_declaration: "Need an opened financial year to start new vat declaration"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_cash_to_record_statements: "You must be at least create a bank account to enter a statement." #?
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"

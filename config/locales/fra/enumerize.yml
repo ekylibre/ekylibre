@@ -133,6 +133,16 @@ fra:
         informative: "Pour information"
         refused: "Refusé"
         waiting: "En attente de réponse"
+    financial_year:
+      vat_mode:
+        debit: "Débits"
+        none: "Aucun"
+        payment: "Encaissements"
+      vat_period:
+        monthly: "Mensuelle"
+        none: "Aucune"
+        quaterly: "Trimestrielle"
+        yearly: "Annuelle"
     fixed_asset:
       depreciation_method:
         graduated: "Dégressive" #?
@@ -426,6 +436,7 @@ fra:
         sales: "Numérotation des ventes"
         sales_invoices: "Numérotation des factures"
         subscriptions: "Numérotation des abonnements"
+        # vat_declarations: "Vat declarations"
     task:
       nature:
         incoming_call: "Appel entrant"

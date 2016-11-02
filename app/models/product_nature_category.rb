@@ -129,11 +129,11 @@ class ProductNatureCategory < Ekylibre::Record::Base
   def label
     name # tc('label', :product_nature_category => self["name"])
   end
-  
+
   def natures_count
     natures.count
   end
-  
+
   def variants_count
     variants.count
   end

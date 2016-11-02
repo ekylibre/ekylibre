@@ -135,6 +135,16 @@ arb:
         informative: "إعلامي"
         refused: "رفض"
         waiting: "انتظار"
+    financial_year:
+      vat_mode:
+        # debit: "Debit"
+        # none: "None"
+        # payment: "Payment"
+      vat_period:
+        # monthly: "Monthly"
+        # none: "None"
+        # quaterly: "Quaterly"
+        # yearly: "Yearly"
     fixed_asset:
       depreciation_method:
         graduated: "تخرج" #?
@@ -445,6 +455,7 @@ arb:
         sales_invoices: "ترقيم فواتير المبيعات"
         subscriptions: "ترقيم الاشتراكات"
         transports: "ترقيم وسائل النقل" #?
+        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "ثنائي الاتجاه" #?

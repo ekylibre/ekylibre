@@ -729,6 +729,13 @@ arb:
       show: "المستخدم : %{first_name} %{last_name}"
       statistics: "احصائياتي" #?
       unlock: "فتح المستخدم"
+    backend/vat_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "الدبابات النبيذ"
     backend/workers:

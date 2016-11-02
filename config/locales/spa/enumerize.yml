@@ -135,6 +135,16 @@ spa:
         informative: "Informativo"
         refused: "Negado"
         waiting: "Esperando"
+    financial_year:
+      vat_mode:
+        # debit: "Debit"
+        # none: "None"
+        # payment: "Payment"
+      vat_period:
+        # monthly: "Monthly"
+        # none: "None"
+        # quaterly: "Quaterly"
+        # yearly: "Yearly"
     fixed_asset:
       depreciation_method:
         graduated: "Graduado" #?
@@ -446,6 +456,7 @@ spa:
         sales_invoices: "La numeración de las facturas de venta"
         subscriptions: "Numeración de las suscripciones"
         transports: "Numeración de los transportes" #?
+        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidireccional" #?

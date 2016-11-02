@@ -135,6 +135,16 @@ cmn:
         informative: "信息化"
         refused: "拒绝"
         waiting: "等候"
+    financial_year:
+      vat_mode:
+        # debit: "Debit"
+        # none: "None"
+        # payment: "Payment"
+      vat_period:
+        # monthly: "Monthly"
+        # none: "None"
+        # quaterly: "Quaterly"
+        # yearly: "Yearly"
     fixed_asset:
       depreciation_method:
         graduated: "毕业" #?
@@ -446,6 +456,7 @@ cmn:
         sales_invoices: "销售发票的记数"
         subscriptions: "订阅记数"
         transports: "运输的记数" #?
+        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "双向" #?

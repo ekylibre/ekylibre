@@ -20,41 +20,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_years
+# == Table: vat_declaration_items
 #
-#  closed                :boolean          default(FALSE), not null
-#  code                  :string           not null
+#  collected_vat_amount  :decimal(19, 4)
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string           not null
-#  currency_precision    :integer
-#  custom_fields         :jsonb
+#  deductible_vat_amount :decimal(19, 4)
 #  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
-#  started_on            :date             not null
-#  stopped_on            :date             not null
+#  tax_id                :integer          not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
-#  vat_mode              :string
-#  vat_period            :string
+#  vat_declaration_id    :integer          not null
 #
-
 require 'test_helper'
 
-class FinancialYearTest < ActiveSupport::TestCase
-  test_model_actions
-  test 'chronology' do
-    first_year = financial_years(:financial_years_001)
-    assert_not_nil first_year
-
-    assert_nil first_year.previous, 'No previous financial year expected'
-
-    assert_not_nil first_year.next, "No next financial year found... #{first_year.attributes.inspect}"
-
-    assert_not_nil first_year.next.previous
-    assert_equal first_year, first_year.next.previous
-
-    assert_not_nil FinancialYear.at(Time.now + 49.years)
-  end
+class VatDeclarationItemTest < ActiveSupport::TestCase
+  # Add tests here...
 end

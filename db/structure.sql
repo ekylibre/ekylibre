@@ -2292,7 +2292,9 @@ CREATE TABLE financial_years (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    vat_period character varying,
+    vat_mode character varying
 );
 
 
@@ -3350,7 +3352,8 @@ CREATE TABLE journal_entries (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    vat_declaration_item_id integer
 );
 
 
@@ -6190,6 +6193,88 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: vat_declaration_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE vat_declaration_items (
+    id integer NOT NULL,
+    vat_declaration_id integer NOT NULL,
+    tax_id integer NOT NULL,
+    collected_vat_amount numeric(19,4),
+    deductible_vat_amount numeric(19,4),
+    currency character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: vat_declaration_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE vat_declaration_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: vat_declaration_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE vat_declaration_items_id_seq OWNED BY vat_declaration_items.id;
+
+
+--
+-- Name: vat_declarations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE vat_declarations (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    journal_entry_id integer,
+    responsible_id integer,
+    description text,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    accounted_at timestamp without time zone,
+    currency character varying NOT NULL,
+    number character varying,
+    reference_number character varying,
+    state character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: vat_declarations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE vat_declarations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: vat_declarations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE vat_declarations_id_seq OWNED BY vat_declarations.id;
+
+
+--
 -- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7196,6 +7281,20 @@ ALTER TABLE ONLY trackings ALTER COLUMN id SET DEFAULT nextval('trackings_id_seq
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vat_declaration_items ALTER COLUMN id SET DEFAULT nextval('vat_declaration_items_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vat_declarations ALTER COLUMN id SET DEFAULT nextval('vat_declarations_id_seq'::regclass);
 
 
 --
@@ -8315,6 +8414,22 @@ ALTER TABLE ONLY trackings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vat_declaration_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vat_declaration_items
+    ADD CONSTRAINT vat_declaration_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vat_declarations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY vat_declarations
+    ADD CONSTRAINT vat_declarations_pkey PRIMARY KEY (id);
 
 
 --
@@ -15564,6 +15679,83 @@ CREATE INDEX index_users_on_updater_id ON users USING btree (updater_id);
 
 
 --
+-- Name: index_vat_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declaration_items_on_created_at ON vat_declaration_items USING btree (created_at);
+
+
+--
+-- Name: index_vat_declaration_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declaration_items_on_creator_id ON vat_declaration_items USING btree (creator_id);
+
+
+--
+-- Name: index_vat_declaration_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declaration_items_on_tax_id ON vat_declaration_items USING btree (tax_id);
+
+
+--
+-- Name: index_vat_declaration_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declaration_items_on_updated_at ON vat_declaration_items USING btree (updated_at);
+
+
+--
+-- Name: index_vat_declaration_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declaration_items_on_updater_id ON vat_declaration_items USING btree (updater_id);
+
+
+--
+-- Name: index_vat_declaration_items_on_vat_declaration_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declaration_items_on_vat_declaration_id ON vat_declaration_items USING btree (vat_declaration_id);
+
+
+--
+-- Name: index_vat_declarations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declarations_on_created_at ON vat_declarations USING btree (created_at);
+
+
+--
+-- Name: index_vat_declarations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declarations_on_creator_id ON vat_declarations USING btree (creator_id);
+
+
+--
+-- Name: index_vat_declarations_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declarations_on_financial_year_id ON vat_declarations USING btree (financial_year_id);
+
+
+--
+-- Name: index_vat_declarations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declarations_on_updated_at ON vat_declarations USING btree (updated_at);
+
+
+--
+-- Name: index_vat_declarations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vat_declarations_on_updater_id ON vat_declarations USING btree (updater_id);
+
+
+--
 -- Name: index_versions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16059,4 +16251,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161020191401');
 INSERT INTO schema_migrations (version) VALUES ('20161026094401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161026102134');
+
+INSERT INTO schema_migrations (version) VALUES ('20161026202001');
+
+INSERT INTO schema_migrations (version) VALUES ('20161102073801');
 
