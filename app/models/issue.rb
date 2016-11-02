@@ -135,9 +135,9 @@ class Issue < Ekylibre::Record::Base
 
   def status
     if opened?
-      return (has_intervention? ? :caution : :stop)
+      (has_intervention? ? :caution : :stop)
     else
-      return :go
+      :go
     end
   end
 

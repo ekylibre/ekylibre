@@ -16,7 +16,7 @@ module Backend
         head :unprocessable_entity
         return
       end
-      if existing = Integration.find_by_nature(params[:nature])
+      if existing = Integration.find_by(nature: params[:nature])
         redirect_to action: :edit, controller: :integrations, id: existing.id
         return
       end
@@ -32,7 +32,7 @@ module Backend
     end
 
     def destroy
-      return unless existing = Integration.find_by_nature(params[:nature])
+      return unless existing = Integration.find_by(nature: params[:nature])
       redirect_to action: :index, controller: :integrations if existing.destroy!
     end
 

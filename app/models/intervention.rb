@@ -493,9 +493,7 @@ class Intervention < Ekylibre::Record::Base
 
   def total_cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
-      return (total_cost / working_zone_area(area_unit).to_d)
-    else
-      return nil
+      (total_cost / working_zone_area(area_unit).to_d)
     end
   end
 
@@ -576,7 +574,7 @@ class Intervention < Ekylibre::Record::Base
     return unless participations.any? || !additional_compliance.nil?
     compliances = participations.pluck(:request_compliant).concat([additional_compliance]).compact
     update(request_compliant: false) if compliances.index(false)
-    update(request_compliant: true) if (states - [true]).empty?
+    update(request_compliant: true) if (compliances - [true]).empty?
   end
 
   class << self
@@ -755,7 +753,7 @@ class Intervention < Ekylibre::Record::Base
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               purchase.items.new(
                 variant: item.variant,
@@ -830,7 +828,7 @@ class Intervention < Ekylibre::Record::Base
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               sale.items.new(
                 variant: item.variant,

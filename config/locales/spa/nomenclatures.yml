@@ -78,6 +78,7 @@ spa:
       items:
         fr_pcg82: "PCG82 francés"
         fr_pcga: "PCGA francés"
+        pt_snc: "SNC portugués"
       name: "Los sistemas de contabilidad"
     accounts:
       items:
@@ -242,6 +243,7 @@ spa:
         incorporeal_asset_depreciation_revenues: "Los ingresos de depreciación de activos inmateriales"
         incorporeal_asset_depreciations: "Amortizaciones de activos inmateriales"
         incorporeal_asset_revenues: "Los ingresos de activos incorpóreos"
+        incorporeal_assets: "Activos incorpóreos"
         incorporeals_depreciations_inputations_expenses: "Los gastos incorpóreos depreciaciones inputations"
         industrial_cooperative_participation_assets: "Activos de participación cooperativa industrial"
         infirmity_and_death_insurance_expenses: "Los gastos de seguro de enfermedad y muerte"
@@ -511,6 +513,7 @@ spa:
         debtor: "Deudor"
         fr_pcg82: "PCG82 francés"
         fr_pcga: "PCGA francés"
+        # pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:

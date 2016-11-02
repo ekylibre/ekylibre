@@ -67,6 +67,7 @@
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
@@ -92,6 +93,7 @@ class Entity < Ekylibre::Record::Base
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
+  belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
   with_options class_name: 'EntityAddress', inverse_of: :entity do
     has_many :all_addresses, dependent: :destroy
@@ -104,6 +106,7 @@ class Entity < Ekylibre::Record::Base
     has_many :websites,  -> { actives.websites }
     has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
   end
+  has_many :contracts, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error

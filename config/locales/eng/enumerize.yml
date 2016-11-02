@@ -199,14 +199,14 @@ eng:
         string: "String"
     intervention_participation:
       state:
-        # done: "Done"
-        # in_progress: "In progress"
-        # validated: "Validated"
+        done: "Done"
+        in_progress: "In progress"
+        validated: "Validated"
     intervention_working_period:
       nature:
-        # intervention: "Intervention"
-        # preparation: "Preparation"
-        # travel: "Travel"
+        intervention: "Intervention"
+        preparation: "Preparation"
+        travel: "Travel"
     journal:
       nature:
         bank: "Bank"
@@ -214,7 +214,7 @@ eng:
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"
-        # stocks: "Stocks"
+        stocks: "Stocks"
         various: "Various operations"
     listing_node:
       nature:
@@ -406,6 +406,7 @@ eng:
         animals: "Numeration of animals"
         campaigns: "Numeration of campaigns"
         cash_transfers: "Numeration of cash transfers"
+        contracts: "Numeration of contracts"
         deliveries: "Numeration of deliveries"
         deposits: "Numeration of deposits"
         documents: "Numeration of documents"
@@ -417,7 +418,7 @@ eng:
         interventions: "Numeration of interventions"
         inventories: "Numeration of inventories"
         opportunities: "Numeration of opportunities"
-        # outgoing_payment_lists: "Outgoing payment lists"
+        outgoing_payment_lists: "Numeration of outgoing payment lists"
         outgoing_payments: "Numeration of payments"
         parcels: "Numeration of parcels"
         plants: "Numeration of plants"

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add portuguese chart of account">
+  <item-creation item="accounting_systems#pt_snc"/>
+  <property-creation property="accounts.pt_snc" type="string"/>
+  <item-change item="accounts#finances" pt_snc="1"/>
+  <item-change item="accounts#cashes" pt_snc="11"/>
+  <item-change item="accounts#banks_and_similar" pt_snc="12"/>
+  <item-change item="accounts#third_party" pt_snc="2"/>
+  <item-change item="accounts#clients" pt_snc="21"/>
+  <item-change item="accounts#creditor_clients" pt_snc="219"/>
+  <item-change item="accounts#suppliers" pt_snc="221"/>
+  <item-change item="accounts#suppliers_invoices_not_received" pt_snc="225"/>
+  <item-change item="accounts#staff_due_remunerations" pt_snc="231"/>
+  <item-change item="accounts#state_and_other_public_entities" pt_snc="24"/>
+  <item-change item="accounts#income_taxes" pt_snc="241"/>
+  <item-change item="accounts#vat" pt_snc="243"/>
+  <item-change item="accounts#enterprise_deductible_vat" pt_snc="2432"/>
+  <item-change item="accounts#enterprise_collected_vat" pt_snc="2433"/>
+  <item-change item="accounts#deductible_vat" pt_snc="2432"/>
+  <item-change item="accounts#collected_vat" pt_snc="2433"/>
+  <item-change item="accounts#deductible_asset_vat" pt_snc="24322"/>
+  <item-change item="accounts#holding_company_and_associate_accounts" pt_snc="26"/>
+  <item-change item="accounts#stocks" pt_snc="3"/>
+  <item-change item="accounts#fixed_assets" pt_snc="4"/>
+  <item-change item="accounts#participations" pt_snc="41"/>
+  <item-change item="accounts#corporeal_assets" pt_snc="43"/>
+  <item-creation item="accounts#incorporeal_assets" fr_pcga="20" pt_snc="44"/>
+  <item-change item="accounts#capitals" pt_snc="5"/>
+  <item-change item="accounts#expenses" pt_snc="6"/>
+  <item-change item="accounts#stocks_variation" pt_snc="603"/>
+  <item-change item="accounts#staff_expenses" pt_snc="63"/>
+  <item-change item="accounts#depreciations_inputations_expenses" pt_snc="64"/>
+  <item-change item="accounts#revenues" pt_snc="7"/>
+</migration>
