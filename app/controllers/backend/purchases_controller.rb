@@ -55,6 +55,10 @@ module Backend
       code << "  c[0] += ' AND #{Purchase.table_name}.responsible_id = ?'\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:payment_mode_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Entity.table_name}.supplier_payment_mode_id = ?'\n"
+      code << "  c << params[:payment_mode_id]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -68,16 +72,17 @@ module Backend
       t.column :created_at
       t.column :planned_at, hidden: true
       t.column :invoiced_at
-      t.column :payment_at
+      t.column :payment_at, hidden: true
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
-      t.column :description
-      # t.column :shipped
+      t.column :description, hidden: true
+      t.column :supplier_payment_mode, hidden: true
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
-      t.column :pretax_amount, currency: true
+      t.column :pretax_amount, currency: true, hidden: true
       t.column :amount, currency: true
+      t.column :affair_balance, currency: true, hidden: true
     end
 
     list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|

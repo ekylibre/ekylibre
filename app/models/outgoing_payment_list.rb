@@ -22,12 +22,18 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at :datetime         not null
-#  id         :integer          not null, primary key
-#  number     :string
-#  updated_at :datetime         not null
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  number       :string
+#  updated_at   :datetime
+#  updater_id   :integer
 #
 class OutgoingPaymentList < Ekylibre::Record::Base
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :number, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
 
   delegate :name, to: :mode, prefix: true
@@ -62,7 +68,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     )
 
     sct.message_identification =
-      "EKY-#{self.number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
+      "EKY-#{number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
 
     payments.each do |payment|
       credit_transfer_params = {
@@ -75,11 +81,11 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         batch_booking: false
       }
 
-      if payment.payee.bank_identifier_code.present?
-        credit_transfer_params[:bic] = payment.payee.bank_identifier_code
-      else
-        credit_transfer_params[:bic] = 'NOTPROVIDED'
-      end
+      credit_transfer_params[:bic] = if payment.payee.bank_identifier_code.present?
+                                       payment.payee.bank_identifier_code
+                                     else
+                                       'NOTPROVIDED'
+                                     end
 
       sct.add_transaction(credit_transfer_params)
     end

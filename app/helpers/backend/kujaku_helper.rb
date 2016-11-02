@@ -197,9 +197,9 @@ module Backend
 
         def to_html
           if @block
-            return @template.capture(&@block)
+            @template.capture(&@block)
           else
-            return @template.send(@name, *@args)
+            @template.send(@name, *@args)
           end
         end
       end

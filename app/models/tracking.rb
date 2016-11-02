@@ -62,7 +62,7 @@ class Tracking < Ekylibre::Record::Base
   def outgoing_parcel_quantity(unit = :kilogram)
     if parcel_items.any?
       qty = parcel_items.map(&:population).sum
-      return qty.in(unit)
+      qty.in(unit)
     end
   end
 

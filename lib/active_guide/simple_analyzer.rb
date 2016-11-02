@@ -39,13 +39,13 @@ module ActiveGuide
 
     def analyze_item(item, env, depth = 0)
       if item.is_a? ActiveGuide::Group
-        return analyze_group(item, env, depth)
+        analyze_group(item, env, depth)
       elsif item.is_a? ActiveGuide::Test
-        return analyze_test(item, env, depth)
+        analyze_test(item, env, depth)
       elsif item.is_a? ActiveGuide::Question
-        return analyze_question(item, env, depth)
+        analyze_question(item, env, depth)
       elsif item.is_a? ActiveGuide::Result
-        return analyze_result(item, env)
+        analyze_result(item, env)
       else
         raise "Unknown item type: #{item.class.name}"
       end

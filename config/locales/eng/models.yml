@@ -32,11 +32,16 @@ eng:
         list: "Outgoing payment list"
       outgoing_payment_list:
         payments_sum: "Total"
+      parcel:
+        contract: "Contract"
       parcel_item:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      purchase:
+        affair_balance: "Balance"
       sale:
+        affair_balance: "Balance"
         contact: "Address for the estimate"
         has_downpayment: "Downpayment received"
       sale_nature:
@@ -184,6 +189,8 @@ eng:
       cash_transfer: "Cash transfer"
       catalog: "Catalog"
       catalog_item: "Catalog price"
+      contract: "Contract"
+      contract_item: "Contract item"
       crumb: "Crumb"
       cultivable_zone: "Cultivable zone"
       custom_field: "Custom field"
@@ -230,6 +237,7 @@ eng:
       intervention_output: "Intervention output"
       intervention_parameter: "Intervention parameter"
       intervention_parameter_reading: "Product reading task"
+      intervention_participation: "Intervention participation"
       intervention_product_parameter: "Intervention product parameter"
       intervention_target: "Intervention target"
       intervention_tool: "Intervention tool"
@@ -255,7 +263,7 @@ eng:
       notification: "Notification"
       observation: "Observation"
       outgoing_payment: "Disbursement"
-      # outgoing_payment_list: "Outgoing payment list"
+      outgoing_payment_list: "Outgoing payment list"
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
       parcel_item: "Parcel item"
@@ -451,6 +459,7 @@ eng:
     codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "Collect account"
+    # collected_fixed_asset_taxes: "Collected fixed asset taxes"
     collected_taxes: "Collected taxes"
     color: "Color"
     column_name: "Column name"
@@ -480,6 +489,9 @@ eng:
     content: "Content"
     content_localizations: "Content localizations"
     contents: "Contents"
+    contract: "Contract"
+    # contract_items: "Contract items"
+    contracts: "Contracts"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
     costs_per_unit: "Costs per %{unit}" #?
@@ -531,6 +543,7 @@ eng:
     debtor: "Debtor"
     decimal_value: "Decimal value"
     declarant: "Declarant"
+    # deductible_fixed_asset_taxes: "Deductible fixed asset taxes"
     deduction_account: "Deduction account"
     default_computation_method: "Default computation method"
     # default_email_address: "Default email address"
@@ -721,7 +734,7 @@ eng:
     in_preparation_at: "In preparation at"
     included: "Included" #?
     incoming_parcel_item: "Incoming delivery item"
-    incoming_parcels: "Incoming deliveries" #?
+    incoming_parcels: "Incoming deliveries"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
@@ -765,6 +778,9 @@ eng:
     intervention_cast: "Intervention cast" #?
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
+    # intervention_participated_to: "Intervention participated to"
+    # intervention_participation: "Intervention participation"
+    # intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
@@ -954,7 +970,7 @@ eng:
     outcoming_product: "Outcoming product"
     outgoing_parcel_item: "Outgoing parcel item"
     outgoing_parcel_items: "Outgoing parcel items" #?
-    outgoing_parcels: "Outgoing parcels" #?
+    outgoing_parcels: "Outgoing parcels"
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payments: "Disbursements"
     outputs: "Outputs"
@@ -1151,6 +1167,7 @@ eng:
     replacements: "Replacements" #?
     reporter: "Reporter" #?
     request: "Request"
+    request_compliant: "Request compliant"
     request_intervention: "Request intervention"
     requests: "Requests"
     required: "Required"
@@ -1241,6 +1258,7 @@ eng:
     stock_account: "Stock account"
     stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
+    # stocks_movement_categories: "Stocks movement categories"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Storable"
@@ -1265,6 +1283,8 @@ eng:
     supplier_account: "Supplier account"
     supplier_address: "Supplier address"
     supplier_payment_delay: "Supplier payment delay"
+    supplier_payment_mode: "Supplier payment mode"
+    supplier_payment_modes: "Supplier payment modes"
     suppliers: "Suppliers"
     support: "Support"
     support_nature: "Support type"
@@ -1414,6 +1434,14 @@ eng:
         name: "Sales prices catalog"
     catalog_item:
       name: "%{variant} %{amount}/%{unit}"
+    contract:
+      label: "Contract %{nature} n° %{number} of %{supplier}"
+      states:
+        lost: "Lost"
+        negociation: "Negociation"
+        price_quote: "Price quote"
+        prospecting: "Prospecting"
+        won: "Won"
     delivery:
       state_machine:
         states:
@@ -1643,6 +1671,7 @@ eng:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "CT[year|4][number|4]"
+        contracts: "CN[year|4][number|4]"
         deliveries: "DL[year|4][number|8]"
         deposits: "D[year|4][number|4]"
         entities: "[number|8]"

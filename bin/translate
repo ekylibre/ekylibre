@@ -178,7 +178,7 @@ class Translator
       hash = YAML.load(IO.read(path).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
       deep_symbolize_keys(hash)[locale] || {}
     else
-      return {}
+      {}
     end
   end
 

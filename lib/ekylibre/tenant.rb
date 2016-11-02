@@ -269,15 +269,13 @@ module Ekylibre
       end
 
       def list_tenants_with_migration_problem
-
         tenants = []
 
         list.each do |tenant|
-
-          Ekylibre::Tenant::switch! tenant
+          Ekylibre::Tenant.switch! tenant
           migration_version = ActiveRecord::Migrator.current_version
 
-          next if migration_version != 0
+          next if migration_version.nonzero?
 
           tenants << { name: tenant, version: migration_version }
         end
@@ -286,20 +284,63 @@ module Ekylibre
       end
 
       def correct_tenants_with_migration_problem!
-
         tenants = list_tenants_with_migration_problem
 
         tenants.each do |tenant|
-
-          Ekylibre::Tenant::switch! tenant[:name]
+          Ekylibre::Tenant.switch! tenant[:name]
 
           connection = ActiveRecord::Base.connection
-          connection.execute("INSERT INTO schema_migrations SELECT * FROM public.schema_migrations")
+          connection.execute('INSERT INTO schema_migrations SELECT * FROM public.schema_migrations')
 
-          puts (tenant[:name] + " : done").yellow
+          puts (tenant[:name] + ' : done').yellow
         end
 
+        load!
+
         puts 'Task done'.blue
+      end
+
+      def list_tenant_with_table_not_exist(table_name)
+        tenants = []
+
+        list.each do |tenant|
+          Ekylibre::Tenant.switch! tenant
+
+          connection = ActiveRecord::Base.connection
+          result = connection.execute(
+            "SELECT EXISTS(
+              SELECT 1
+              FROM information_schema.tables
+              WHERE table_schema = current_schema()
+              AND table_name = '#{table_name}'
+            )"
+          ).to_a
+
+          next if result.first.value?('t')
+
+          migration_version = ActiveRecord::Migrator.current_version
+          tenants << { name: tenant, migration_version: migration_version }
+        end
+
+        tenants
+      end
+
+      def remove_last_migration_and_migrate!(tenant_name)
+        Ekylibre::Tenant.switch! tenant_name
+
+        ActiveRecord::Base.connection.execute(
+          "DELETE FROM schema_migrations
+           WHERE version IN (
+              SELECT version
+              FROM schema_migrations
+              ORDER BY version DESC
+              LIMIT 1
+          )"
+        )
+
+        ActiveRecord::Migrator.migrate 'db/migrate'
+
+        load!
       end
 
       private

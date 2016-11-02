@@ -1,0 +1,32 @@
+= field_set do
+  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+  = f.input :reference_number
+  = f.input :started_on
+  = f.input :stopped_on
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :description, as: :text
+  = f.custom_fields
+
+= field_set Contract.human_attribute_name(:items) do
+  .items
+    %table#items-table
+      %thead
+        %tr
+          %th= ContractItem.human_attribute_name(:variant)
+          %th= ContractItem.human_attribute_name(:quantity)
+          %th= ContractItem.human_attribute_name(:unit_pretax_amount)
+          %th= ContractItem.human_attribute_name(:pretax_amount)
+          %th= ContractItem.human_attribute_name(:currency)
+          %th
+      - precision = Nomen::Currency[f.object.currency].precision
+      %tfoot
+        %tr.total
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          %th{colspan: 2}= :total.tl
+          %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
+          %td.currency= f.object.currency
+          %th
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render 'item_fields', f: item
+
+= f.attachments_field_set

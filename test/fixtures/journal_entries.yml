@@ -2079,7 +2079,7 @@ journal_entries_079:
   credit: 1850.0
   currency: EUR
   debit: 1850.0
-  financial_year_id: 26
+  financial_year_id: 25
   id: 86
   journal_id: 2
   lock_version: 7
@@ -2105,7 +2105,7 @@ journal_entries_080:
   credit: 176.16
   currency: EUR
   debit: 176.16
-  financial_year_id: 26
+  financial_year_id: 25
   id: 87
   journal_id: 2
   lock_version: 7
@@ -2120,4 +2120,30 @@ journal_entries_080:
   resource_type: OutgoingPayment
   state: draft
   updated_at: 2016-10-04 07:17:54.436178000 Z
+  updater_id: 1
+journal_entries_081:
+  absolute_credit: 20520.0
+  absolute_currency: EUR
+  absolute_debit: 20520.0
+  balance: 0.0
+  created_at: 2016-10-26 15:31:44.251316000 Z
+  creator_id: 1
+  credit: 20520.0
+  currency: EUR
+  debit: 20520.0
+  financial_year_id: 26
+  id: 88
+  journal_id: 6
+  lock_version: 2
+  number: CUN000003
+  printed_on: 2016-10-26
+  real_balance: 0.0
+  real_credit: 20520.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 20520.0
+  resource_id: 8
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-10-26 15:31:44.306561000 Z
   updater_id: 1

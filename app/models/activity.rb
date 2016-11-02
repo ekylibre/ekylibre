@@ -331,7 +331,7 @@ class Activity < Ekylibre::Record::Base
       if activity_family <= :plant_farming
         list = COLORS['varieties']
         return 'Gray' unless list
-        variety.rise { |i| list[i.name] }
+        variety.rise { |i| list[i.name] } unless variety.nil?
       elsif activity_family <= :animal_farming
         'Brown'
       elsif activity_family <= :administering

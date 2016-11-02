@@ -26,6 +26,7 @@
 #  affair_id                        :integer
 #  amount                           :decimal(19, 4)   default(0.0), not null
 #  confirmed_at                     :datetime
+#  contract_id                      :integer
 #  created_at                       :datetime         not null
 #  creator_id                       :integer
 #  currency                         :string           not null
@@ -73,11 +74,11 @@ purchases_001:
   updater_id: 1
 purchases_002:
   accounted_at: 2014-11-05 10:46:06.149701000 Z
-  affair_id: 16
+  affair_id: 17
   amount: 1850.0
   created_at: 2014-11-05 10:46:06.121855000 Z
   creator_id: 1
-  currency: USD
+  currency: EUR
   description: ''
   id: 7
   lock_version: 0

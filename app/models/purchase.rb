@@ -26,6 +26,7 @@
 #  affair_id                        :integer
 #  amount                           :decimal(19, 4)   default(0.0), not null
 #  confirmed_at                     :datetime
+#  contract_id                      :integer
 #  created_at                       :datetime         not null
 #  creator_id                       :integer
 #  currency                         :string           not null
@@ -65,11 +66,13 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
+  belongs_to :contract
   has_many :parcels
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, as: :resource
   has_many :products, -> { uniq }, through: :items
   has_many :fixed_assets, through: :items
+  has_one :supplier_payment_mode, through: :supplier
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :invoiced_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -136,7 +139,7 @@ class Purchase < Ekylibre::Record::Base
   before_validation do
     self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
-    self.payment_delay = self.supplier.supplier_payment_delay if self.payment_delay.blank?
+    self.payment_delay = supplier.supplier_payment_delay if payment_delay.blank?
     self.pretax_amount = items.sum(:pretax_amount)
     self.amount = items.sum(:amount)
   end
@@ -268,7 +271,7 @@ class Purchase < Ekylibre::Record::Base
     return false unless can_invoice?
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
-    self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
+    self.payment_at ||= Delay.new(payment_delay).compute(self.invoiced_at)
     save!
     super
   end
@@ -307,7 +310,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def payable?
-    (order? || invoice?) && sepable? && amount != 0.0
+    (order? || invoice?) && sepable? && amount != 0.0 && affair_balance != 0.0
   end
 
   def sepable?

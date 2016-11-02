@@ -14,7 +14,7 @@ module Backend
       ]
       attributes = activity_production.attributes.symbolize_keys
                                       .slice(attribute_names)
-      post :create, activity_production: attributes.merge(activity_id: 1, campaign_id: 6), locale: @locale
+      post :create, params: { activity_production: attributes.merge(activity_id: 1, campaign_id: 6), locale: @locale }
     end
   end
 end

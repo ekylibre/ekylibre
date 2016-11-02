@@ -224,7 +224,7 @@ module Backend
     def check_variant_availability
       unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
         redirect_to new_backend_product_nature_path
-        return false
+        false
       end
     end
 

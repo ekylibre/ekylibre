@@ -4384,3 +4384,79 @@ preferences_377:
   updated_at: 2016-09-09 09:26:41.102015000 Z
   updater_id: 1
   user_id: 1
+preferences_378:
+  boolean_value: true
+  created_at: 2016-10-26 15:20:46.234052000 Z
+  creator_id: 1
+  id: 378
+  lock_version: 0
+  name: interface.kujakus.backend-contracts-index-1.collapsed
+  nature: boolean
+  updated_at: 2016-10-26 15:20:46.234052000 Z
+  updater_id: 1
+  user_id: 1
+preferences_379:
+  created_at: 2016-10-26 15:20:46.256853000 Z
+  creator_id: 1
+  id: 379
+  lock_version: 0
+  name: kujaku.feathers.backend-contracts-index-1:0.default
+  nature: string
+  updated_at: 2016-10-26 15:20:46.256853000 Z
+  updater_id: 1
+  user_id: 1
+preferences_380:
+  created_at: 2016-10-26 15:20:46.270155000 Z
+  creator_id: 1
+  id: 380
+  lock_version: 0
+  name: list._contracts_list_contracts_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-10-26 15:20:46.270155000 Z
+  updater_id: 1
+  user_id: 1
+preferences_381:
+  created_at: 2016-10-26 15:22:52.799050000 Z
+  creator_id: 1
+  id: 381
+  lock_version: 0
+  name: cobbler.contracts-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-10-26 15:22:52.799050000 Z
+  updater_id: 1
+  user_id: 1
+preferences_382:
+  created_at: 2016-10-26 15:22:52.806563000 Z
+  creator_id: 1
+  id: 382
+  lock_version: 0
+  name: list._contracts_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-10-26 15:22:52.806563000 Z
+  updater_id: 1
+  user_id: 1
+preferences_383:
+  created_at: 2016-10-26 15:22:52.820590000 Z
+  creator_id: 1
+  id: 383
+  lock_version: 0
+  name: list._contracts_list_parcels_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-10-26 15:22:52.820590000 Z
+  updater_id: 1
+  user_id: 1
+preferences_384:
+  created_at: 2016-10-26 15:31:35.335207000 Z
+  creator_id: 1
+  id: 384
+  lock_version: 0
+  name: list._outgoing_payment_lists_list_outgoing_payment_lists_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-10-26 15:31:35.335207000 Z
+  updater_id: 1
+  user_id: 1
