@@ -1502,7 +1502,7 @@ CREATE TABLE contract_items (
     id integer NOT NULL,
     contract_id integer NOT NULL,
     variant_id integer NOT NULL,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    quantity numeric(19,4) DEFAULT 0.0 NOT NULL,
     unit_pretax_amount numeric(19,4) NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -1533,49 +1533,11 @@ ALTER SEQUENCE contract_items_id_seq OWNED BY contract_items.id;
 
 
 --
--- Name: contract_natures; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE contract_natures (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    currency character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: contract_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE contract_natures_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: contract_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE contract_natures_id_seq OWNED BY contract_natures.id;
-
-
---
 -- Name: contracts; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE contracts (
     id integer NOT NULL,
-    nature_id integer NOT NULL,
-    active boolean DEFAULT false NOT NULL,
-    name character varying NOT NULL,
     number character varying,
     description character varying,
     state character varying,
@@ -6491,13 +6453,6 @@ ALTER TABLE ONLY contract_items ALTER COLUMN id SET DEFAULT nextval('contract_it
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY contract_natures ALTER COLUMN id SET DEFAULT nextval('contract_natures_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY contracts ALTER COLUMN id SET DEFAULT nextval('contracts_id_seq'::regclass);
 
 
@@ -7504,14 +7459,6 @@ ALTER TABLE ONLY catalogs
 
 ALTER TABLE ONLY contract_items
     ADD CONSTRAINT contract_items_pkey PRIMARY KEY (id);
-
-
---
--- Name: contract_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY contract_natures
-    ADD CONSTRAINT contract_natures_pkey PRIMARY KEY (id);
 
 
 --
@@ -9772,41 +9719,6 @@ CREATE INDEX index_contract_items_on_variant_id ON contract_items USING btree (v
 
 
 --
--- Name: index_contract_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_created_at ON contract_natures USING btree (created_at);
-
-
---
--- Name: index_contract_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_creator_id ON contract_natures USING btree (creator_id);
-
-
---
--- Name: index_contract_natures_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_name ON contract_natures USING btree (name);
-
-
---
--- Name: index_contract_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_updated_at ON contract_natures USING btree (updated_at);
-
-
---
--- Name: index_contract_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contract_natures_on_updater_id ON contract_natures USING btree (updater_id);
-
-
---
 -- Name: index_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9818,20 +9730,6 @@ CREATE INDEX index_contracts_on_created_at ON contracts USING btree (created_at)
 --
 
 CREATE INDEX index_contracts_on_creator_id ON contracts USING btree (creator_id);
-
-
---
--- Name: index_contracts_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_name ON contracts USING btree (name);
-
-
---
--- Name: index_contracts_on_nature_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_contracts_on_nature_id ON contracts USING btree (nature_id);
 
 
 --

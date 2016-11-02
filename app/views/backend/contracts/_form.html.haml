@@ -1,6 +1,5 @@
 = field_set do
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
-  = f.association :nature, as: :hidden
   = f.input :reference_number
   = f.input :started_on
   = f.input :stopped_on
@@ -16,16 +15,16 @@
           %th= ContractItem.human_attribute_name(:variant)
           %th= ContractItem.human_attribute_name(:quantity)
           %th= ContractItem.human_attribute_name(:unit_pretax_amount)
-          %th= PurchaseItem.human_attribute_name(:pretax_amount)
-          %th= PurchaseItem.human_attribute_name(:currency)
+          %th= ContractItem.human_attribute_name(:pretax_amount)
+          %th= ContractItem.human_attribute_name(:currency)
           %th
       - precision = Nomen::Currency[f.object.currency].precision
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-          %th{colspan: 4}= :total.tl
+          %th{colspan: 2}= :total.tl
           %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
-          %td= f.object.currency
+          %td.currency= f.object.currency
           %th
       = f.simple_fields_for :items, f.object.items do |item|
         = render 'item_fields', f: item

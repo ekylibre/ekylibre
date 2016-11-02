@@ -22,7 +22,6 @@
 #
 # == Table: contracts
 #
-#  active           :boolean          default(FALSE), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  currency         :string           not null
@@ -30,8 +29,6 @@
 #  description      :string
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  nature_id        :integer          not null
 #  number           :string
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  reference_number :string

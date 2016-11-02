@@ -72,15 +72,15 @@ module Backend
       t.column :created_at
       t.column :planned_at, hidden: true
       t.column :invoiced_at
-      t.column :payment_at
+      t.column :payment_at, hidden: true
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
       t.column :description, hidden: true
-      t.column :supplier_payment_mode
+      t.column :supplier_payment_mode, hidden: true
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
-      t.column :pretax_amount, currency: true
+      t.column :pretax_amount, currency: true, hidden: true
       t.column :amount, currency: true
       t.column :affair_balance, currency: true, hidden: true
     end

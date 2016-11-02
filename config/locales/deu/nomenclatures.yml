@@ -78,7 +78,7 @@ deu:
       items:
         fr_pcg82: "Französisch PCG82"
         fr_pcga: "Französisch PCGA"
-        # pt_snc: "Portuguese SNC"
+        pt_snc: "Portugiesisch SNC"
       name: "Buchhaltungssysteme"
     accounts:
       items:
@@ -243,7 +243,7 @@ deu:
         incorporeal_asset_depreciation_revenues: "Incorporeal Abschreibung des Anlagevermögens Erträge"
         incorporeal_asset_depreciations: "Incorporeal Asset Abschreibungen"
         incorporeal_asset_revenues: "Incorporeal Asset Umsatz"
-        # incorporeal_assets: "Incorporeal assets"
+        incorporeal_assets: "Incorporeal Vermögenswerte"
         incorporeals_depreciations_inputations_expenses: "Incorporeals Abschreibungen inputations Kosten"
         industrial_cooperative_participation_assets: "Arbeitsgemeinschaft industrieller Beteiligung Vermögen"
         infirmity_and_death_insurance_expenses: "Kosten Siechtum und Tod Versicherung"

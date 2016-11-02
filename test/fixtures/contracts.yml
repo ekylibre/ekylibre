@@ -22,7 +22,6 @@
 #
 # == Table: contracts
 #
-#  active           :boolean          default(FALSE), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  currency         :string           not null
@@ -30,8 +29,6 @@
 #  description      :string
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  nature_id        :integer          not null
 #  number           :string
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  reference_number :string
@@ -43,4 +40,34 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
---- {}
+---
+contracts_001:
+  created_at: 2016-10-26 15:22:28.827656000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 1
+  lock_version: 2
+  number: CT20160001
+  pretax_amount: 135.3
+  reference_number: FDG45645460001
+  responsible_id: 1
+  state: price_quote
+  supplier_id: 4
+  updated_at: 2016-10-26 15:24:17.907809000 Z
+  updater_id: 1
+contracts_002:
+  created_at: 2016-10-26 15:28:41.014500000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 2
+  lock_version: 0
+  number: CT20160003
+  pretax_amount: 25000.0
+  reference_number: ''
+  responsible_id: 2
+  state: prospecting
+  supplier_id: 5
+  updated_at: 2016-10-26 15:28:41.026472000 Z
+  updater_id: 1

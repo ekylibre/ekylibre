@@ -85,30 +85,6 @@
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
-#     - "backend/contract_natures#create"
-#     - "backend/contract_natures#destroy"
-#     - "backend/contract_natures#edit"
-#     - "backend/contract_natures#index"
-#     - "backend/contract_natures#list"
-#     - "backend/contract_natures#new"
-#     - "backend/contract_natures#show"
-#     - "backend/contract_natures#unroll"
-#     - "backend/contract_natures#update"
-#     - "backend/contracts#create"
-#     - "backend/contracts#destroy"
-#     - "backend/contracts#edit"
-#     - "backend/contracts#index"
-#     - "backend/contracts#list"
-#     - "backend/contracts#list_items"
-#     - "backend/contracts#list_parcels"
-#     - "backend/contracts#lose"
-#     - "backend/contracts#negociate"
-#     - "backend/contracts#new"
-#     - "backend/contracts#prospect"
-#     - "backend/contracts#quote"
-#     - "backend/contracts#show"
-#     - "backend/contracts#update"
-#     - "backend/contracts#win"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
 #     - "backend/dashboards#production"
@@ -119,7 +95,6 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/entities#list_contracts"
 #     - "backend/entities#list_incoming_parcels"
 #     - "backend/entities#list_outgoing_parcels"
 #     - "backend/equipments#list_trackings"
@@ -144,12 +119,6 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
-#     - "backend/outgoing_payment_lists#create"
-#     - "backend/outgoing_payment_lists#edit"
-#     - "backend/outgoing_payment_lists#export_to_sepa"
-#     - "backend/outgoing_payment_lists#list_payments"
-#     - "backend/outgoing_payment_lists#new"
-#     - "backend/outgoing_payment_lists#update"
 #     - "backend/plants#list_trackings"
 #     - "backend/plants#take"
 #     - "backend/product_groups#list_trackings"
@@ -606,6 +575,30 @@ catalogs:
     - "backend/catalogs#edit"
     - "backend/catalogs#new"
     - "backend/catalogs#update"
+
+contracts:
+  read:
+    actions:
+    - "backend/contracts#index"
+    - "backend/contracts#list"
+    - "backend/contracts#list_items"
+    - "backend/contracts#list_parcels"
+    - "backend/contracts#show"
+    - "backend/entities#list_contracts"
+  write:
+    dependencies:
+    - read-contracts
+    actions:
+    - "backend/contracts#create"
+    - "backend/contracts#destroy"
+    - "backend/contracts#edit"
+    - "backend/contracts#lose"
+    - "backend/contracts#negociate"
+    - "backend/contracts#new"
+    - "backend/contracts#prospect"
+    - "backend/contracts#quote"
+    - "backend/contracts#update"
+    - "backend/contracts#win"
 
 cultivable_zones:
   read:
@@ -1488,7 +1481,13 @@ outgoing_payment_lists:
     dependencies:
     - read-outgoing_payment_lists
     actions:
+    - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
+    - "backend/outgoing_payment_lists#edit"
+    - "backend/outgoing_payment_lists#export_to_sepa"
+    - "backend/outgoing_payment_lists#list_payments"
+    - "backend/outgoing_payment_lists#new"
+    - "backend/outgoing_payment_lists#update"
 
 outgoing_payment_modes:
   read:

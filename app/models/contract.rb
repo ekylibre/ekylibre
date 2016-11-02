@@ -22,7 +22,6 @@
 #
 # == Table: contracts
 #
-#  active           :boolean          default(FALSE), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  currency         :string           not null
@@ -30,8 +29,6 @@
 #  description      :string
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  nature_id        :integer          not null
 #  number           :string
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  reference_number :string
@@ -51,15 +48,12 @@ class Contract < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
-  belongs_to :nature, class_name: 'ContractNature'
   has_many :parcels
   has_many :purchases
   has_many :items, class_name: 'ContractItem', dependent: :destroy, inverse_of: :contract
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, inclusion: { in: [true, false] }
-  validates :currency, :nature, :responsible, :supplier, presence: true
+  validates :currency, :responsible, :supplier, presence: true
   validates :description, :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
-  validates :name, presence: true, length: { maximum: 500 }
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :stopped_on, timeliness: { on_or_after: ->(contract) { contract.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
@@ -110,7 +104,6 @@ class Contract < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.name ||= label
     self.created_at ||= Time.zone.now
     self.pretax_amount = items.sum(:pretax_amount)
   end
@@ -127,10 +120,6 @@ class Contract < Ekylibre::Record::Base
     items.any?
   end
 
-  def label
-    tc(:label, nature: nature.name, supplier: supplier.name, number: number)
-  end
-
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
@@ -143,8 +132,8 @@ class Contract < Ekylibre::Record::Base
   end
 
   def status
-    return :go  if won?
+    return :go if won?
     return :stop if lost?
-    :in_progress
+    :caution
   end
 end
