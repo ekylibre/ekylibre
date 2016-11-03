@@ -58,19 +58,19 @@
           %th= PlantCountingItem.human_attribute_name :number
           %th= PlantCountingItem.human_attribute_name :value
           %th= PlantDensityAbacusItem.human_attribute_name :plants_count
-          %th= PlantCountingItem.human_attribute_name :seeding_density_value
-          %th= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
+          %th= PlantCountingItem.human_attribute_name :seeding_density_value if resource.density_computable?
+          %th= PlantDensityAbacusItem.human_attribute_name :seeding_density_value if resource.density_computable?
       %tbody
         - resource.items.order(:id).each_with_index do |item, index|
           %tr
             %td= index + 1
             %td.decimal= item.value
             %td.decimal= resource.plant_density_abacus_item.plants_count
-            %td.decimal= item.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
-            %td.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2)
+            %td.decimal= item.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
+            %td.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
       %tr.total
         %th= :average.tl.capitalize
         %th.decimal= resource.average_value
         %th.decimal= resource.plant_density_abacus_item.plants_count
-        %th.decimal= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
-        %th.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2)
+        %th.decimal= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
+        %th.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?

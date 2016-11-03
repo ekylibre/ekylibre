@@ -258,8 +258,8 @@ eng:
         outgoing: "Outgoing"
     plant_counting:
       nature:
-        sowing: "At sowing"
         germination: "At germination"
+        sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Accounting system"

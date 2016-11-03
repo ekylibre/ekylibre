@@ -275,6 +275,10 @@ jpn:
         in_preparation: "準備中" #?
         ordered: "順序付けられました" #?
         prepared: "準備" #?
+    plant_counting:
+      nature:
+        # germination: "At germination"
+        # sowing: "At sowing"
     preference:
       nature:
         accounting_system: "会計システム"

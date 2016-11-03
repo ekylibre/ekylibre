@@ -275,6 +275,10 @@ ita:
         in_preparation: "In preparazione" #?
         ordered: "Ordinato" #?
         prepared: "Preparato" #?
+    plant_counting:
+      nature:
+        # germination: "At germination"
+        # sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Sistema di contabilità"

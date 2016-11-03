@@ -398,6 +398,11 @@ por:
       new: "Novo pacote"
       ship: "Encomendas de navios"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Culturas"
@@ -751,6 +756,7 @@ por:
     # automatic: "Auto"
     available: "Disponível"
     # available_columns: "Available columns: %{columns}"
+    # average: "Average"
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
     bank_account: "Conta bancária"
@@ -1224,6 +1230,8 @@ por:
     placeholder: "Espaço reservado"
     places: "Locais"
     plant: "Plantar"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "Densidade de plantação"
     plants: "Culturas"
     please_wait: "Por favor, espere…"
@@ -1516,6 +1524,9 @@ por:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

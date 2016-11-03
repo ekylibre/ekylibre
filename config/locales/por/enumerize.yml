@@ -277,6 +277,10 @@ por:
         in_preparation: "Em preparação" #?
         ordered: "Pedido" #?
         prepared: "Preparado" #?
+    plant_counting:
+      nature:
+        # germination: "At germination"
+        # sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Sistema de contabilidade"

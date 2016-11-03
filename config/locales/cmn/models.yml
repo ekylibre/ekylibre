@@ -38,6 +38,11 @@ cmn:
         population: "数量"
       plant:
         born_at: "在种植"
+      plant_counting_item:
+        # value: "Plants count"
+      plant_density_abacus_item:
+        # plants_count: "Expected plants count"
+        # seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "平衡"
       sale:

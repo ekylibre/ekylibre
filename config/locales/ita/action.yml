@@ -393,6 +393,11 @@ ita:
       new: "Nuovo pacco"
       ship: "pacchi nave"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Piante"
@@ -812,6 +817,7 @@ ita:
     # automatic: "Auto"
     available: "A disposizione"
     # available_columns: "Available columns: %{columns}"
+    # average: "Average"
     back: "torna alla PAGINA precedente"
     balance: "Equilibrio"
     bank_account: "conto bancario"
@@ -1285,6 +1291,8 @@ ita:
     placeholder: "segnaposto"
     places: "posti"
     plant: "pianta"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "densità d'impianto"
     plants: "Piante"
     please_wait: "Attendere prego…"
@@ -1577,6 +1585,9 @@ ita:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

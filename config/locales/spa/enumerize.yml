@@ -275,6 +275,10 @@ spa:
         in_preparation: "En la preparación de" #?
         ordered: "Ordenado" #?
         prepared: "Preparado" #?
+    plant_counting:
+      nature:
+        # germination: "At germination"
+        # sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Sistema de contabilidad"

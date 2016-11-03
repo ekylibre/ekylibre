@@ -335,6 +335,11 @@ arb:
         population: "كمية"
       plant:
         born_at: "زرعت في"
+      plant_counting_item:
+        # value: "Plants count"
+      plant_density_abacus_item:
+        # plants_count: "Expected plants count"
+        # seeding_density_value: "Expected seeding density"
       postal_zone:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?

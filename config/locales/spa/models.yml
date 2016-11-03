@@ -38,6 +38,11 @@ spa:
         population: "Cantidad"
       plant:
         born_at: "Plantado en"
+      plant_counting_item:
+        # value: "Plants count"
+      plant_density_abacus_item:
+        # plants_count: "Expected plants count"
+        # seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Equilibrar"
       sale:

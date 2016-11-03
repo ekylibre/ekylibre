@@ -393,6 +393,11 @@ jpn:
       new: "新小包"
       ship: "船の小包"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "植物"
@@ -813,6 +818,7 @@ jpn:
     automatic: "オート"
     available: "利用できます"
     # available_columns: "Available columns: %{columns}"
+    # average: "Average"
     back: "前のページに戻ります"
     balance: "バランス"
     bank_account: "銀行口座"
@@ -1292,6 +1298,8 @@ jpn:
     placeholder: "プレースホルダー"
     places: "場所"
     plant: "工場"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "プランテーション密度"
     plants: "植物"
     please_wait: "お待ちください…"
@@ -1585,6 +1593,9 @@ jpn:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

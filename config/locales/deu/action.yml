@@ -393,6 +393,11 @@ deu:
       new: "neue Paket"
       ship: "Schiffs-Pakete"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Pflanzen"
@@ -746,6 +751,7 @@ deu:
     # automatic: "Auto"
     available: "Erhältlich"
     # available_columns: "Available columns: %{columns}"
+    # average: "Average"
     back: "Zurück zur vorherigen Seite"
     # balance: "Balance"
     bank_account: "Bank Konto"
@@ -1219,6 +1225,8 @@ deu:
     placeholder: "Platzhalter"
     places: "Setzt"
     plant: "Pflanze"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "Pflanzdichte"
     plants: "Pflanzen"
     please_wait: "Warten Sie mal…"
@@ -1511,6 +1519,9 @@ deu:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

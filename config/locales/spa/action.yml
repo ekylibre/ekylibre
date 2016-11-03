@@ -430,6 +430,11 @@ spa:
       new: "Nueva parcela"
       ship: "Parcelas de la nave"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Plantas"
@@ -819,6 +824,7 @@ spa:
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
+    # average: "Average"
     back: "Volver a la página anterior"
     backup: "Salvaguardiar" #?
     backups: "Salvaguardias" #?
@@ -1402,6 +1408,8 @@ spa:
     placeholder: "Marcador de posición"
     places: "Lugares"
     plant: "Planta"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "La densidad de plantación"
     plants: "Plantas"
     please_wait: "Por favor espera…"
@@ -1755,6 +1763,9 @@ spa:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

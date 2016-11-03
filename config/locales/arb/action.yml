@@ -487,6 +487,11 @@ arb:
       new: "قطعة جديدة"
       ship: "الطرود سفينة"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "النباتات"
@@ -1028,6 +1033,7 @@ arb:
     automatic: "السيارات"
     available: "متاح"
     available_columns: "الحقول المتاحة : %{columns}"
+    # average: "Average"
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
     backup: "نسخ احتياطية" #?
     backups: "النسخ الاحتياطية" #?
@@ -1747,6 +1753,8 @@ arb:
     places: "الأماكن"
     planned_at: "قرر يوم" #?
     plant: "نبات"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "كثافة المزارع"
     plants: "النباتات"
     please_wait: "أرجو الإنتظار…"
@@ -2174,6 +2182,9 @@ arb:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
       zero: "ولا مشترك" #?
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

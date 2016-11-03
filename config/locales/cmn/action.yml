@@ -393,6 +393,11 @@ cmn:
       new: "新地块"
       ship: "船舶包裹"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      # new: "New counting"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "植物"
@@ -746,6 +751,7 @@ cmn:
     automatic: "汽车"
     available: "可用的"
     # available_columns: "Available columns: %{columns}"
+    # average: "Average"
     back: "回到以前的页"
     balance: "平衡"
     bank_account: "银行账户"
@@ -1220,6 +1226,8 @@ cmn:
     placeholder: "占位符"
     places: "地方"
     plant: "厂"
+    # plant_counting: "Counting"
+    # plant_countings: "Countings"
     plantation_density: "种植密度"
     plants: "植物"
     please_wait: "请稍候…"
@@ -1512,6 +1520,9 @@ cmn:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"

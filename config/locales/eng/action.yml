@@ -495,22 +495,24 @@ eng:
       # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      edit: "Edit plant counting #%{number}"
+      index: "Countings"
+      new: "New counting"
+      show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
       # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
+    backend/plant_density_abacus_items:
+      # new: "New plant density abacus item"
     backend/plants:
       edit: "Edit crop: %{name}"
       index: "Crops"
       new: "New crop"
       show: "Crop: %{name}"
       # take: "Take plant: %{name}"
-    backend/plant_countings:
-      edit: "Edit plant counting #%{number}"
-      index: "Countings"
-      new: "New counting"
-      show: "Plant counting #%{number}"
     backend/postal_zones:
       # autocomplete: "Autocomplete postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
@@ -1023,7 +1025,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
-    countings: "Countings"
+    countings: "Countings" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -1364,6 +1366,7 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
+    # observations: "Observations"
     on_account: "On account" #?
     one_condition: "One condition" #??
     open_a_production: "Open a production"
@@ -1413,8 +1416,8 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     plant: "Crop"
-    plant_counting: "Counting"
-    plant_countings: "Countings"
+    plant_counting: "Counting" #?
+    plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
@@ -1702,12 +1705,12 @@ eng:
       one: "%{count} contact"
       other: "%{count} contacts"
     # x_contracts: "X contracts"
-    x_days:
-      one: "%{count} day"
-      other: "%{count} days"
     x_countings:
       one: "%{count} counting"
       other: "%{count} countings"
+    x_days:
+      one: "%{count} day"
+      other: "%{count} days"
     x_depositable_payments:
       one: "1 incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
@@ -1873,6 +1876,7 @@ eng:
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
+      density_is_not_computable_in_counting: "Could not compute the density for this counting. The sowing equipment involved might be missing indicators."
       draft_journal_entries_have_been_validated:
         one: "One entry has been validated"
         other: "%{count} entries have been validated"

@@ -1849,6 +1849,14 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="plant_density_abacus_items">
+        <page to="backend/plant_density_abacus_items#new"/>
+        <page to="backend/plant_density_abacus_items#unroll"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_plant_countings"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
