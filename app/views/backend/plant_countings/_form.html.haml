@@ -1,7 +1,8 @@
 = field_set class: 'delivery-item' do
-  = f.input :number
-  = f.input :nature
+  = f.input :nature, as: :radio_buttons
   = f.input :read_at
+  = f.input :working_width_value
+  = f.input :rows_count_value
   = f.referenced_association :plant_density_abacus_item, source: {plant_density_abacus_id: f.object.plant_density_abacus }
   = f.input :comment, as: :text
 

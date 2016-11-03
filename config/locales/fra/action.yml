@@ -471,7 +471,7 @@ fra:
       show: "Colis %{nature}\_: %{number}"
     backend/plant_countings:
       edit: "Modifier le comptage\_: %{number}"
-      index: "Comptage"
+      index: "Comptages"
       new: "Nouveau comptage"
       show: "Comptage\_: %{number}"
     backend/plants:
@@ -2287,7 +2287,7 @@ fra:
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
-      density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Vérifiez que le semoir impliqué a bien les indicateurs correspondants."
+      density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Veuillez compléter les infos manquantes dans le comptage ou dans les informations du comptoir."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"

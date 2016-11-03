@@ -53,7 +53,7 @@ class PlantCounting < Ekylibre::Record::Base
   validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :plant, :plant_density_abacus, :plant_density_abacus_item, presence: true
   # ]VALIDATORS]
-  # acts_as_numbered
+  acts_as_numbered
 
   delegate :activity, :sower, :last_sowing, to: :plant, prefix: true
   delegate :germination_percentage, :sampling_length_unit, :seeding_density_unit, to: :plant_density_abacus
@@ -105,23 +105,22 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def density_computable?
-    plant_sower.present? &&
-      plant_sower.product.variant.has_indicator?(:application_width) &&
-      plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero? &&
-      plant_sower.product.variant.has_indicator?(:rows_count) &&
-      plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero? &&
-      plant_density_abacus.present? &&
-      plant_density_abacus.sampling_length_unit.present?
+    (working_width_value.present? && rows_count_value.present?) ||
+      plant_sower.present? &&
+        plant_sower.product.variant.has_indicator?(:application_width) &&
+        plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero? &&
+        plant_sower.product.variant.has_indicator?(:rows_count) &&
+        plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero?
   end
 
   def implanter_working_width
-    raise 'Cannot fetch indicators because plant doesn\'t have any sower.' unless plant_sower.present?
-    plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
+    raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless working_width_value || plant_sower.present?
+    (working_width_value && working_width_value.in(:meter)) || plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
   def rows_count
-    raise 'Cannot fetch indicators because plant doesn\'t have any sower.' unless plant_sower.present?
-    plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
+    raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless rows_count_value || plant_sower.present?
+    rows_count_value || plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
   def sampling_length
