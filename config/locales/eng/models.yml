@@ -38,6 +38,9 @@ eng:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      plant_counting:
+        rows_count_value: "Rows count"
+        working_width_value: "Implanter application width"
       plant_counting_item:
         value: "Plants count"
       plant_density_abacus_item:

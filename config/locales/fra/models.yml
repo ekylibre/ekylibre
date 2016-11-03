@@ -109,9 +109,11 @@ fra:
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
         variety: "Variété" #?
-      plant_counting:  #?
+      plant_counting:
         plants_count: "Nombre de plants" #?
+        rows_count_value: "Nombre de rangs"
         seeding_density_value: "Densité de semis" #?
+        working_width_value: "Largeur de l'outil de semis"
       plant_counting_item:
         value: "Nombre de plants"
       plant_density_abacus_item:
