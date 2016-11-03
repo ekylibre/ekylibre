@@ -37,7 +37,7 @@
           %th= ParcelItem.human_attribute_name(:product)
           -# %th= ParcelItem.human_attribute_name(:parted)
           %th= ParcelItem.human_attribute_name(:population)
-          %th= ParcelItem.human_attribute_name(:unit_pretax_amount)
+          %th= ParcelItem.human_attribute_name(:unit_pretax_amount) if f.object.incoming?
           -# %th= ParcelItem.human_attribute_name(:shape)
           %th= ParcelItem.human_attribute_name(:analysis)
 
@@ -46,7 +46,7 @@
       - if f.object.allow_items_update?
         %tfoot#items_anchor
           %tr.total
-            %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
+            %th{colspan: 4 + (f.object.incoming? ? 1 : 0)}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
 / -else
 /   = field_set f.object.class.human_attribute_name(:items) do
 /     = "Items cannot be edited in current parcel state."
