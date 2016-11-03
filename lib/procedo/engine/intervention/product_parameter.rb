@@ -215,6 +215,7 @@ module Procedo
         # Test if a handler is usable
         def usable_handler?(handler)
           return true unless handler.condition?
+          return false if handler.condition_variables.any? { |dependency| intervention.interpret(dependency, env).nil? }
           intervention.interpret(handler.condition_tree, env)
         end
 

@@ -115,7 +115,6 @@ module Procedo
             raise 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
           product = run(node.object)
-          # TODO: Manage when no product...
           unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value
             # raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value
@@ -128,7 +127,7 @@ module Procedo
           value = value.to_f(unit.name) if unit
           value
         elsif node.nil?
-          null
+          nil
         else
           raise 'Dont known how to manage node: ' + node.class.name
         end
