@@ -35,7 +35,7 @@ module Procedo
             end
 
             define_method "#{snippet}_variables" do |tree = instance_variable_get(instance_var)|
-              return false unless tree.present?
+              return [] unless tree.present?
               variable_test = tree.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) ||
                               tree.is_a?(Procedo::Formula::Nodes::Variable)
               return tree if variable_test
