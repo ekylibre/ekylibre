@@ -563,18 +563,20 @@ class Intervention < Ekylibre::Record::Base
     working_periods.create!(started_at: started_at, stopped_at: stopped_at)
   end
 
-  def update_state(additional_state = nil)
-    return unless participations.any? || !additional_state.nil?
-    states = participations.pluck(:state).concat([additional_state]).map(&:to_sym).compact
-    update(state: :in_progress) if states.index(:in_progress)
-    update(state: :done) if (states - [:done]).empty?
+  def update_state(modifier = {})
+    return unless participations.any? || modifier.present?
+    states = participations.pluck(:id, :state).to_h
+    states[modifier.keys.first] = modifier.values.first
+    update(state: :in_progress) if states.values.index(:in_progress)
+    update(state: :done) if (states.values - [:done]).empty?
   end
 
-  def update_compliance(additional_compliance = nil)
+  def update_compliance(modifier = {})
     return unless participations.any? || !additional_compliance.nil?
-    compliances = participations.pluck(:request_compliant).concat([additional_compliance]).compact
-    update(request_compliant: false) if compliances.index(false)
-    update(request_compliant: true) if (compliances - [true]).empty?
+    compliances = participations.pluck(:id, :request_compliant).to_h
+    compliances[modifier.keys.first] = modifier.values.first
+    update(request_compliant: false) if compliances.values.index(false)
+    update(request_compliant: true) if (compliances.values - [true]).empty?
   end
 
   class << self
