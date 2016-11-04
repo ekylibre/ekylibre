@@ -21,6 +21,12 @@
   = f.input :born_at
   #dead_at= f.input :dead_at
   = f.picture
+  = f.nested_association(:emails)
+  = f.nested_association(:mails)
+  = f.nested_association(:phones)
+  = f.nested_association(:mobiles)
+  = f.nested_association(:faxes)
+  = f.nested_association(:websites)
 
 = field_set(:client_informations) do
   = f.input :prospect
@@ -57,14 +63,5 @@
     = f.input :employee, show: '#employee-informations'
     #employee-informations
       = f.referenced_association :employee_account, source: :employees, buttons: {new: { number: Account.find_or_import_from_nomenclature(:staff_due_remunerations).number}}
-
-
-= field_set(:coordinates) do
-  = f.nested_association(:emails)
-  = f.nested_association(:mails)
-  = f.nested_association(:phones)
-  = f.nested_association(:mobiles)
-  = f.nested_association(:faxes)
-  = f.nested_association(:websites)
 
 = f.attachments_field_set
