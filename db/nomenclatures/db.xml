@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161022103401">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161103111303">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2161,6 +2161,7 @@
       <item name="plant_uncovering"/>
       <item name="plantation_unfixing"/>
       <item name="planting"/>
+      <item name="plants_sorting"/>
       <item name="plowing"/>
       <item name="pollinate"/>
       <item name="preventive_maintenance"/>
