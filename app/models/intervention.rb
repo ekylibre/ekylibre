@@ -564,11 +564,12 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def update_state(modifier = {})
+    byebug
     return unless participations.any? || modifier.present?
     states = participations.pluck(:id, :state).to_h
     states[modifier.keys.first] = modifier.values.first
-    update(state: :in_progress) if states.values.index(:in_progress)
-    update(state: :done) if (states.values - [:done]).empty?
+    update(state: :in_progress) if states.values.map(&:to_sym).index(:in_progress)
+    update(state: :done) if (states.values.map(&:to_sym) - [:done]).empty?
   end
 
   def update_compliance(modifier = {})
