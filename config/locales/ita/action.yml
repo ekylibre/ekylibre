@@ -881,6 +881,8 @@ ita:
     container: "Contenitore"
     convert_balance_into_loss: "Convertire equilibrio in perdita"
     convert_balance_into_profit: "Convertire equilibrio in profitto"
+    convert_into_contact: "Convertire in contatto"
+    convert_into_organization: "Convertire in organizzazione"
     convert_to_cultivable_zone: "Conversione in zone coltivabili"
     cooperative_cartodb: "Cooperativa cartodb"
     coordinates: "coordinate"

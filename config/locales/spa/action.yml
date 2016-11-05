@@ -912,6 +912,8 @@ spa:
     container: "Envase"
     convert_balance_into_loss: "Convertir el equilibrio en la pérdida de"
     convert_balance_into_profit: "Convertir el equilibrio en beneficios"
+    convert_into_contact: "Convertir en contacto"
+    convert_into_organization: "Convertir en la organización"
     convert_to_cultivable_zone: "Convertir a la zona cultivable"
     cooperative_cartodb: "Cooperativa CartoDB"
     coordinates: "Coordenadas"

@@ -241,6 +241,7 @@ eng:
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
+      # toggle: "Toggle entity: %{name}"
     backend/entity_addresses:
       edit: "Edit address: %{name}"
       # index: "Entity addresses"
@@ -1006,6 +1007,8 @@ eng:
     container: "Container"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
+    convert_into_contact: "Convert into contact"
+    convert_into_organization: "Convert into organization"
     convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates" #?

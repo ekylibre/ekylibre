@@ -756,6 +756,7 @@ entities:
     - "backend/entities#import"
     - "backend/entities#merge"
     - "backend/entities#new"
+    - "backend/entities#toggle"
     - "backend/entities#update"
     - "backend/entity_addresses#create"
     - "backend/entity_addresses#destroy"

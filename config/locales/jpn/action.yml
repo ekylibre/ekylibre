@@ -883,6 +883,8 @@ jpn:
     container: "コンテナ"
     convert_balance_into_loss: "損失にバランスを変換します"
     convert_balance_into_profit: "利益にバランスを変換します"
+    convert_into_contact: "接触に変換"
+    convert_into_organization: "組織に変換します"
     convert_to_cultivable_zone: "耕作ゾーンに変換"
     cooperative_cartodb: "共同CartoDB"
     coordinates: "座標"

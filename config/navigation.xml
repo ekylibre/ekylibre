@@ -30,6 +30,7 @@
         <page to="backend/entities#merge"/>
         <page to="backend/entities#new"/>
         <page to="backend/entities#show"/>
+        <page to="backend/entities#toggle"/>
         <page to="backend/entities#update"/>
         <page to="backend/entity_links#create"/>
         <page to="backend/entity_links#destroy"/>

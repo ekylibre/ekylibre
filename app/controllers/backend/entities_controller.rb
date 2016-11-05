@@ -258,6 +258,12 @@ module Backend
       t.column :executor, url: true
     end
 
+    def toggle
+      @entity = Entity.find_by!(id: params[:id])
+      @entity.toggle!
+      redirect_to params[:redirect] || { action: :show, id: @entity.id }
+    end
+
     def import
       @step = begin
                 params[:id].to_sym

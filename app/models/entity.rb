@@ -277,6 +277,11 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
+  # Convert a contact into organization or inverse
+  def toggle!
+    update_attributes!(nature: contact? ? :organization : :contact)
+  end
+
   # Returns an entity scope for.all other entities
   def others
     self.class.where('id != ?', (id || 0))

@@ -820,6 +820,8 @@ por:
     container: "Recipiente"
     convert_balance_into_loss: "Converter equilíbrio em perda de"
     convert_balance_into_profit: "Converter equilíbrio em lucro"
+    convert_into_contact: "Converter em contato"
+    convert_into_organization: "Converter em organização"
     convert_to_cultivable_zone: "Converter para zona cultivável"
     cooperative_cartodb: "Cooperativa CartoDB"
     coordinates: "Coordenadas"
