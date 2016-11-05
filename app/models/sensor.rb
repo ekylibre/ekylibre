@@ -34,7 +34,7 @@
 #  id                   :integer          not null, primary key
 #  last_transmission_at :datetime
 #  lock_version         :integer          default(0), not null
-#  model_euid           :string           not null
+#  model_euid           :string
 #  name                 :string           not null
 #  partner_url          :string
 #  product_id           :integer
@@ -42,7 +42,7 @@
 #  token                :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  vendor_euid          :string           not null
+#  vendor_euid          :string
 #
 
 class Sensor < Ekylibre::Record::Base
@@ -57,13 +57,14 @@ class Sensor < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :embedded, inclusion: { in: [true, false] }
   validates :battery_level, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :euid, :partner_url, :token, length: { maximum: 500 }, allow_blank: true
+  validates :euid, :model_euid, :partner_url, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
   validates :last_transmission_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :model_euid, :name, :vendor_euid, presence: true, length: { maximum: 500 }
+  validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :token, presence: { if: :listening? }
+  validates :vendor_euid, :model_euid, presence: { unless: :listening? }
 
   # TODO: Check parameters presence
 

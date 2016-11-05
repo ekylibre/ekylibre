@@ -5655,8 +5655,8 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE sensors (
     id integer NOT NULL,
-    vendor_euid character varying NOT NULL,
-    model_euid character varying NOT NULL,
+    vendor_euid character varying,
+    model_euid character varying,
     name character varying NOT NULL,
     retrieval_mode character varying NOT NULL,
     access_parameters json,
@@ -16052,8 +16052,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161013023259');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018162500');
 
-INSERT INTO schema_migrations (version) VALUES ('20161019151711');
-
 INSERT INTO schema_migrations (version) VALUES ('20161019235101');
 
 INSERT INTO schema_migrations (version) VALUES ('20161020191401');
@@ -16061,3 +16059,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161020191401');
 INSERT INTO schema_migrations (version) VALUES ('20161026094401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161026102134');
+
