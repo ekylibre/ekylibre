@@ -185,6 +185,7 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
+    # CAUTION: params[:nature] is not used as in controller list filter
     unless params[:nature].blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
