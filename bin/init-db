@@ -4,6 +4,7 @@
 user=$1
 dbname=$2
 password=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32`
+extensions_schema="postgis"
 
 # Create User
 count=`psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename='${user}'"`
@@ -23,14 +24,30 @@ fi
 psql -q -c "GRANT ALL ON DATABASE ${dbname} TO ${user}"
 
 # Create Postgis extension
-postgis="postgis"
-count=`psql -d ${dbname} -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_namespace WHERE nspname='${postgis}'"`
+count=`psql -d ${dbname} -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_namespace WHERE nspname='${extensions_schema}'"`
 if [ "${count}" = "0" ]; then
-    psql -d ${dbname} -q -c "CREATE SCHEMA ${postgis} AUTHORIZATION %{user}"
+    psql -d ${dbname} -q -c "CREATE SCHEMA ${extensions_schema} AUTHORIZATION %{user}"
 else
-    psql -d ${dbname} -q -c "ALTER SCHEMA ${postgis} OWNER TO %{user}"
+    psql -d ${dbname} -q -c "ALTER SCHEMA ${extensions_schema} OWNER TO %{user}"
 fi
-psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA ${postgis};"
+psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA ${extensions_schema};"
 
+# Create UUID OSSP extension
+count=`psql -d ${dbname} -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_namespace WHERE nspname='${extensions_schema}'"`
+if [ "${count}" = "0" ]; then
+    psql -d ${dbname} -q -c "CREATE SCHEMA ${extensions_schema} AUTHORIZATION %{user}"
+else
+    psql -d ${dbname} -q -c "ALTER SCHEMA ${extensions_schema} OWNER TO %{user}"
+fi
+psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\" WITH SCHEMA ${extensions_schema};"
+
+# Create Unaccent extension
+count=`psql -d ${dbname} -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_namespace WHERE nspname='${extensions_schema}'"`
+if [ "${count}" = "0" ]; then
+    psql -d ${dbname} -q -c "CREATE SCHEMA ${extensions_schema} AUTHORIZATION %{user}"
+else
+    psql -d ${dbname} -q -c "ALTER SCHEMA ${extensions_schema} OWNER TO %{user}"
+fi
+psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA ${extensions_schema};"
 
 echo ${password}
