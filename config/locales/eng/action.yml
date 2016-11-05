@@ -764,7 +764,7 @@ eng:
     template:
       body: "There were problems with the following fields:"
       header:
-        one: "1 error prohibited this %{model} from being saved"
+        one: "%{count} error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -1267,7 +1267,6 @@ eng:
     mails:
       one: "%{count} email"
       other: "%{count} emails"
-      zero: "No emails"
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
@@ -1318,9 +1317,8 @@ eng:
       one: "New transport for %{transporter} (%{count} delivery)"
       other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      one: "Make a deposit %{mode}: 1 available payment"
+      one: "Make a deposit %{mode}: %{count} available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
-      zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
@@ -1480,10 +1478,6 @@ eng:
     rest: "Rest"
     restore: "Restore" #?
     result: "Result" #?
-    results: #?
-      one: "1 result" #?
-      other: "%{count} results" #?
-      zero: "No results" #?
     revenues: "Revenues" #?
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
@@ -1696,13 +1690,11 @@ eng:
       one: "%{count} day"
       other: "%{count} days"
     x_depositable_payments:
-      one: "1 incoming payment to deposit"
+      one: "%{count} incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
-      zero: "No incoming payments to deposit"
     x_deposits_to_validate:
       one: "%{count} deposit to validate"
       other: "%{count} deposits to validate"
-      zero: "No deposits to validate"
     x_entities:
       one: "%{count} person"
       other: "%{count} people"
@@ -1710,12 +1702,11 @@ eng:
       one: "%{count} link"
       other: "%{count} links"
     x_events:
-      one: "1 event"
+      one: "%{count} event"
       other: "%{count} events"
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      zero: "No events %{nature}"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1728,7 +1719,6 @@ eng:
     x_incoming_parcels:
       one: "%{count} incoming parcel"
       other: "%{count} incoming parcels"
-      zero: "No incoming parcel"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1745,7 +1735,7 @@ eng:
       one: "%{count} intervention"
       other: "%{count} interventions"
     x_issues:
-      one: "1 issue"
+      one: "%{count} issue"
       other: "%{count} issues"
     x_items_remain:
       one: "%{count} item remains"
@@ -1769,12 +1759,11 @@ eng:
     x_outgoing_parcels:
       one: "%{count} outgoing parcel"
       other: "%{count} outgoing parcels"
-      zero: "No outgoing parcel"
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
     x_purchases:
-      one: "1 purchase"
+      one: "%{count} purchase"
       other: "%{count} purchases"
     x_readings:
       one: "%{count} reading"
@@ -1782,7 +1771,6 @@ eng:
     x_results:
       one: "%{count} result found"
       other: "%{count} results found"
-      zero: "No results found"
     x_sale_opportunities:
       one: "%{count} opportunity"
       other: "%{count} opportunities"
@@ -1808,7 +1796,6 @@ eng:
     x_trackings:
       one: "%{count} tracking"
       other: "%{count} trackings"
-      zero: "No tracking found"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1826,7 +1813,7 @@ eng:
       one: "%{count} waiting outgoing parcel"
       other: "%{count} waiting outgoing parcels"
     x_years:
-      one: "1 year"
+      one: "%{count} year"
       other: "%{count} years"
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
@@ -1857,9 +1844,8 @@ eng:
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       draft_journal_entries_have_been_validated:
-        one: "One entry has been validated"
+        one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
-        zero: "No entries has been validated"
       entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
       equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
@@ -1921,9 +1907,8 @@ eng:
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
       x_unpointed_journal_entry_items:
-        one: "There is one entry to point"
+        one: "There is %{count} entry to point"
         other: "There are %{count} entries to point"
-        zero: "There are no entries to point at the moment"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
   preferences:

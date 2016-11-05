@@ -1387,7 +1387,6 @@ fra:
     mails:
       one: "%{count} courriel"
       other: "%{count} courriels"
-      zero: "Aucun courriels"
     main_settings: "Principaux paramètres"
     make_your_production_support: "Faire l’assolement ou le prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
@@ -1468,7 +1467,6 @@ fra:
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
-      zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
     new_document: "Nouveau document" #?
     new_email: "Nouveau courriel"
     new_family: "Nouvelle famille" #?
@@ -1731,10 +1729,9 @@ fra:
     rest_to_pay: "Reste à payer" #?
     restore: "Restaurer"
     result: "Résultat"
-    results:
-      one: "%{count} résultat"
-      other: "%{count} résultats"
-      zero: "Aucun résultat"
+    results:  #?
+      one: "%{count} résultat" #?
+      other: "%{count} résultats" #?
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
@@ -2083,11 +2080,9 @@ fra:
     x_depositable_payments:
       one: "%{count} encaissement à encaisser depuis au moins 15 j."
       other: "%{count} encaissement à encaisser depuis au moins 15 j."
-      zero: "Aucun encaissement à encaisser depuis au moins 15 j."
     x_deposits_to_validate:
       one: "%{count} remise en banque à valider"
       other: "%{count} remises en banque à valider"
-      zero: "Aucune remise en banque à valider"
     x_entities:
       one: "%{count} fiche client/fournisseur"
       other: "%{count} fiches clients/fournisseurs"
@@ -2098,9 +2093,8 @@ fra:
       one: "%{count} évènement"
       other: "%{count} évènements"
     x_events_of_nature_y:
-      one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
-      other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
-      zero: " Aucun événement de type %{nature}"
+      one: "%{count} évènement de type %{nature} d’une durée de %{duration} minutes"
+      other: "%{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
@@ -2113,7 +2107,6 @@ fra:
     x_incoming_parcels:
       one: "%{count} colis entrant"
       other: "%{count} colis entrants"
-      zero: "Aucun colis entrant"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
@@ -2160,7 +2153,6 @@ fra:
     x_outgoing_parcels:
       one: "%{count} colis sortant"
       other: "%{count} colis sortants"
-      zero: "Aucun colis sortant"
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
@@ -2170,7 +2162,6 @@ fra:
     x_performed_operations:  #?
       one: "%{count} travail à réaliser" #?
       other: "%{count} travaux à réaliser" #?
-      zero: "Aucun travail à réaliser" #?
     x_prices:  #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
@@ -2183,7 +2174,6 @@ fra:
     x_results:
       one: "%{count} résultat trouvé"
       other: "%{count} résultats trouvés"
-      zero: "Aucun résultat trouvé"
     x_sale_opportunities:
       one: "%{count} opportunité"
       other: "%{count} opportunités"
@@ -2212,7 +2202,6 @@ fra:
     x_trackings:
       one: "%{count} numéro de lot"
       other: "%{count} numéros de lot"
-      zero: "Aucun numéro de lot"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
@@ -2232,7 +2221,6 @@ fra:
     x_years:
       one: "%{count} an"
       other: "%{count} ans"
-      zero: "0" #?
     y: "Oui" #?
     yearly: "Annuelle" #?
     years: "Années" #?
@@ -2273,7 +2261,6 @@ fra:
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
-        zero: "Aucune écriture du brouillard validée"
       entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
       equipment_component_is_at_end_of_life: "Le composant %{component_name} de l'équipement %{equipment_name} approche la fin de sa vie. Temps restant: %{remaining_time}."
       equipment_component_is_worn_out: "Le composant %{component_name} de l'équipement %{equipment_name} est usé. Temps de travail restant: %{remaining_time}."
@@ -2375,7 +2362,6 @@ fra:
       x_unpointed_journal_entry_items:
         one: "Il y a une écriture à pointer"
         other: "Il y a %{count} écritures à pointer"
-        zero: "Il n’y a pas d’écritures à pointer pour l’instant"
       you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"

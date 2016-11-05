@@ -578,7 +578,7 @@ por:
     template:
       body: "Houve problemas com os seguintes campos:"
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -1082,7 +1082,6 @@ por:
     mails:
       # one: "%{count} email"
       # other: "%{count} emails"
-      zero: "Nenhum e-mail"
     main_settings: "Configurações principais"
     make_your_production_support: "Faça o seu apoio à produção"
     manage_activities: "Gerenciar as atividades"
@@ -1134,9 +1133,8 @@ por:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Novo Email"
     new_group: "Novo grupo"
     new_incoming_parcel: "Novo pacote de entrada"
@@ -1300,10 +1298,8 @@ por:
     rest: "Descansar"
     restore: "Restaurar"
     result: "Resultado"
-    results:
-      one: "1 resultado"
-      # other: "%{count} results"
-      zero: "Nenhum resultado"
+    results:  #?
+      one: "1 resultado" #?
     revenues: "Faturamento"
     revenues_by_product_nature: "As receitas por tipo de produto"
     reverse: "Condição inversa"
@@ -1520,11 +1516,9 @@ por:
     x_depositable_payments:
       one: "1 entrada de pagamento para depositar"
       # other: "%{count} incoming payments to deposit"
-      zero: "Nenhum pagamento de entrada para depositar"
     x_deposits_to_validate:
       # one: "%{count} deposit to validate"
       # other: "%{count} deposits to validate"
-      zero: "Nenhum depósito para validar"
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
@@ -1537,7 +1531,6 @@ por:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1550,7 +1543,6 @@ por:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "Nenhum lote de entrada"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1567,7 +1559,7 @@ por:
       # one: "%{count} intervention"
       # other: "%{count} interventions"
     x_issues:
-      # one: "1 issue"
+      # one: "%{count} issue"
       # other: "%{count} issues"
     x_items_remain:
       # one: "%{count} item remains"
@@ -1591,7 +1583,6 @@ por:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "Nenhum lote de saída"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1604,7 +1595,6 @@ por:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "Nenhum resultado encontrado"
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -1630,7 +1620,6 @@ por:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "Nenhum seguimento encontrados"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1679,7 +1668,6 @@ por:
       draft_journal_entries_have_been_validated:
         one: "Uma entrada foi validada"
         # other: "%{count} entries have been validated"
-        zero: "Nenhuma entrada foi validada"
       entity_columns_are_needed: "Você precisa especificar pelo menos uma coluna para a pessoa e em particular o seu nome de família."
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -1742,7 +1730,6 @@ por:
       x_unpointed_journal_entry_items:
         one: "Há uma entrada para apontar"
         # other: "There are %{count} entries to point"
-        zero: "Não existem entradas para apontar para o momento"
       you_must_have_an_email_column: "Você deve ter um endereço de e-mail na sua extracção"
       you_need_to_review_your_application_configuration: "Você precisa rever a sua configuração do aplicativo"
   preferences:

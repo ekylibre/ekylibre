@@ -1722,7 +1722,6 @@ fra:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
         other: "[%{resource} %{number}] %{count} encaissements %{mode} %{description}"
-        zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
       document_name: "%{nature} %{key}"

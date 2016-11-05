@@ -573,7 +573,7 @@ cmn:
     template:
       body: "有以下字段的问题："
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -1078,7 +1078,6 @@ cmn:
     mails:
       # one: "%{count} email"
       # other: "%{count} emails"
-      zero: "无电子邮件"
     main_settings: "主要设置"
     make_your_production_support: "使您的生产支持"
     manage_activities: "管理活动"
@@ -1130,9 +1129,8 @@ cmn:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新邮件"
     new_group: "新建组"
     new_incoming_parcel: "新进​​入的包裹"
@@ -1296,10 +1294,8 @@ cmn:
     rest: "休息"
     restore: "恢复"
     result: "结果"
-    results:
-      one: "1结果"
-      # other: "%{count} results"
-      zero: "没有结果"
+    results:  #?
+      one: "1结果" #?
     revenues: "收入"
     revenues_by_product_nature: "按产品类型的收入"
     reverse: "反转条件"
@@ -1516,11 +1512,9 @@ cmn:
     x_depositable_payments:
       one: "1收款存"
       # other: "%{count} incoming payments to deposit"
-      zero: "没有收款存入"
     x_deposits_to_validate:
       # one: "%{count} deposit to validate"
       # other: "%{count} deposits to validate"
-      zero: "没有存款验证"
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
@@ -1533,7 +1527,6 @@ cmn:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1546,7 +1539,6 @@ cmn:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "没有进入的包裹"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1587,7 +1579,6 @@ cmn:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "没有传出包裹"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1600,7 +1591,6 @@ cmn:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "未找到结果"
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -1626,7 +1616,6 @@ cmn:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "没有发现跟踪"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1675,7 +1664,6 @@ cmn:
       draft_journal_entries_have_been_validated:
         one: "一个条目已被证实"
         # other: "%{count} entries have been validated"
-        zero: "任何条目已被证实"
       entity_columns_are_needed: "你需要指定的人，特别是其姓氏至少有一列。"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -1738,7 +1726,6 @@ cmn:
       x_unpointed_journal_entry_items:
         one: "有一个入口点"
         # other: "There are %{count} entries to point"
-        zero: "没有条目的时刻点"
       you_must_have_an_email_column: "您必须在提取有电子邮件地址"
       you_need_to_review_your_application_configuration: "您需要检查您的应用程序配置"
   preferences:

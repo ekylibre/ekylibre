@@ -1446,7 +1446,6 @@ por:
       bookkeep:
         one: "[%{resource} %{number}] %{count} pagamento %{mode} %{description}"
         other: "[%{resource} %{number}] %{count} pagamento %{mode} %{description}"
-        zero: "[%{resource} %{number}] No pagamento %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

@@ -573,7 +573,7 @@ deu:
     template:
       body: "Es gab Probleme mit den folgenden Bereichen:"
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -1077,7 +1077,6 @@ deu:
     mails:
       # one: "%{count} email"
       # other: "%{count} emails"
-      zero: "Keine E-Mails"
     main_settings: "Die wichtigsten Einstellungen"
     make_your_production_support: "Machen Sie Ihre Produktionsbegleitung"
     manage_activities: "verwalten Aktivitäten"
@@ -1129,9 +1128,8 @@ deu:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Neue e-mail"
     new_group: "Neue Gruppe"
     new_incoming_parcel: "Neu eingehende Paket"
@@ -1295,10 +1293,8 @@ deu:
     rest: "Sich ausruhen"
     restore: "Wiederherstellen"
     result: "Ergebnis"
-    results:
-      one: "1 Ergebnis"
-      # other: "%{count} results"
-      zero: "Keine Ergebnisse"
+    results:  #?
+      one: "1 Ergebnis" #?
     revenues: "Die Umsatzerlöse"
     revenues_by_product_nature: "Umsatz nach Produkttyp"
     reverse: "Reverse-Zustand"
@@ -1515,11 +1511,9 @@ deu:
     x_depositable_payments:
       one: "1 Eingangszahlung zu hinterlegen"
       # other: "%{count} incoming payments to deposit"
-      zero: "Keine Zahlungseingänge zu hinterlegen"
     x_deposits_to_validate:
       # one: "%{count} deposit to validate"
       # other: "%{count} deposits to validate"
-      zero: "Keine Ablagerungen zu validieren"
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
@@ -1532,7 +1526,6 @@ deu:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1545,7 +1538,6 @@ deu:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "Keine eingehenden Paket"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1586,7 +1578,6 @@ deu:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "Keine abgehende Paket"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1599,7 +1590,6 @@ deu:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "keine Ergebnisse gefunden"
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -1625,7 +1615,6 @@ deu:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "Keine Tracking gefunden"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1674,7 +1663,6 @@ deu:
       draft_journal_entries_have_been_validated:
         one: "Ein Eintrag wurde validiert"
         # other: "%{count} entries have been validated"
-        zero: "Keine Einträge wurde validiert"
       entity_columns_are_needed: "Sie müssen mindestens eine Spalte für die Person, und insbesondere dessen Familiennamen anzugeben."
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -1737,7 +1725,6 @@ deu:
       x_unpointed_journal_entry_items:
         one: "Es gibt einen Eintrag hinzuweisen"
         # other: "There are %{count} entries to point"
-        zero: "Es sind keine Einträge im Moment hinzuweisen"
       you_must_have_an_email_column: "Sie müssen eine E-Mail-Adresse in Ihrem Extraktion haben"
       you_need_to_review_your_application_configuration: "Sie müssen Ihre Anwendungskonfiguration zu überprüfen"
   preferences:

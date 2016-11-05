@@ -1446,7 +1446,6 @@ cmn:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
         # other: "[%{resource} %{number}] %{count} payments %{mode} %{description}"
-        # zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"
