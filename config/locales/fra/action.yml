@@ -2401,7 +2401,7 @@ fra:
     sales_conditions: "Conditions de vente"
     supplier_account_radix: "Radical comptable du compte fournisseur"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
-    use_global_search: "Utilisez la recherche globale"
+    use_global_search: "Utiliser la recherche globale"
   rest:
     actions:
       abort: "Annuler"
