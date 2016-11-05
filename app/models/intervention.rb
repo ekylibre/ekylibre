@@ -574,7 +574,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def update_compliance(modifier = {})
-    return unless participations.any? || !additional_compliance.nil?
+    return unless participations.any? || !modifier.nil?
     compliances = participations.pluck(:id, :request_compliant).to_h
     compliances[modifier.keys.first] = modifier.values.first
     update(request_compliant: false) if compliances.values.index(false)
