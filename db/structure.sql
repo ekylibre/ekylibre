@@ -15706,7 +15706,7 @@ ALTER TABLE ONLY intervention_participations
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis", "extensions";
+SET search_path TO "public", "postgis";
 
 INSERT INTO schema_migrations (version) VALUES ('20121212122000');
 
@@ -16040,8 +16040,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161007151444');
 
 INSERT INTO schema_migrations (version) VALUES ('20161010205901');
 
-INSERT INTO schema_migrations (version) VALUES ('20161011195724');
-
 INSERT INTO schema_migrations (version) VALUES ('20161012145400');
 
 INSERT INTO schema_migrations (version) VALUES ('20161012145500');
@@ -16061,3 +16059,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161020191401');
 INSERT INTO schema_migrations (version) VALUES ('20161026094401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161026102134');
+

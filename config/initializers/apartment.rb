@@ -24,7 +24,7 @@ Apartment.configure do |config|
   config.use_sql = true
 
   # Postgis default Schema must be "postgis"
-  config.persistent_schemas = %w(postgis extensions)
+  config.persistent_schemas = %w(postgis)
 
   # add the Rails environment to database names?
   # config.prepend_environment = false

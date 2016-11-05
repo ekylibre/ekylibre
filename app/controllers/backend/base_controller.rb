@@ -270,12 +270,12 @@ module Backend
         code << "#{variable}.to_s.lower.split(/\\s+/).each do |kw|\n"
         code << "  kw = '%'+kw+'%'\n"
         filters = columns.collect do |x|
-          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) ILIKE ?'
+          'unaccent(' + x.to_s + '::VARCHAR) ILIKE unaccent(?)'
         end
         exp_count = columns.size
         if options[:expressions]
           filters += options[:expressions].collect do |x|
-            x.to_s + ' ILIKE ?'
+            'unaccent(' + x.to_s + ') ILIKE unaccent(?)'
           end
           exp_count += options[:expressions].count
         end

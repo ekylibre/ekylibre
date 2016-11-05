@@ -143,9 +143,9 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
       code << '      conditions[0] << ' + searchable_filters.collect do |column|
-        "LOWER(unaccent(CAST(#{column[:search]} AS VARCHAR))) ILIKE E? OR LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
+        "unaccent(CAST(#{column[:search]} AS VARCHAR)) ILIKE unaccent(?)"
       end.join(' OR ').inspect + "\n"
-      code << '      conditions += [' + searchable_filters.zip(searchable_filters).flatten(1).collect do |column|
+      code << '      conditions += [' + searchable_filters.collect do |column|
         column[:pattern].inspect.gsub('X', '" + key + "')
                         .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
       end.join(', ') + "]\n"
@@ -157,7 +157,7 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      ordering[0] << ') AND (' if index > 0\n"
       code << '      ordering[0] << ' + searchable_filters.collect do |column|
-        "LOWER(unaccent(CAST(#{column[:search]} AS VARCHAR))) ILIKE E?"
+        "unaccent(CAST(#{column[:search]} AS VARCHAR)) ILIKE unaccent(?)"
       end.join(' OR ').inspect + "\n"
       code << '      ordering += [' + searchable_filters.collect do |column|
         column[:start_pattern].inspect.gsub('X', '" + key + "')

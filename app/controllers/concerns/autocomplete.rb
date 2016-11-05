@@ -19,10 +19,10 @@ module Autocomplete
         end
         pattern = '%' + params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%') + '%'
         start_pattern = params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%') + '%'
-        start_ordering = 'CASE WHEN ' + model.send(:sanitize_sql_array, ["unaccent(#{column}) ILIKE E?", start_pattern]) + ' THEN -1 ELSE 1 END'
+        start_ordering = 'CASE WHEN ' + model.send(:sanitize_sql_array, ["unaccent(#{column}) ILIKE unaccent(?)", start_pattern]) + ' THEN -1 ELSE 1 END'
         items = model
                 .select("DISTINCT #{column}, #{start_ordering}")
-                .where("unaccent(#{column}) ILIKE ? OR #{column} ILIKE ?", pattern, pattern)
+                .where("unaccent(#{column}) ILIKE unaccent(?)", pattern)
                 .group(column)
                 .reorder(start_ordering)
                 .order(column => :asc)
