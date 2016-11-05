@@ -1764,6 +1764,7 @@ por:
     sales_conditions: "Condições de venda"
     supplier_account_radix: "Radix conta com fornecedor"
     use_entity_codes_for_account_numbers: "Use o código para a criação de números de contas"
+    use_global_search: "Use pesquisa global"
   rest:
     actions:
       abort: "Abortar"

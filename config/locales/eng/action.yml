@@ -1944,6 +1944,7 @@ eng:
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
+    use_global_search: "Use global search"
   rest:
     actions:
       abort: "Abort"

@@ -1836,6 +1836,7 @@ jpn:
     sales_conditions: "販売条件"
     supplier_account_radix: "サプライヤアカウントの基数"
     use_entity_codes_for_account_numbers: "口座番号を作成するためのコードを使用します"
+    use_global_search: "グローバル検索を使用します"
   rest:
     actions:
       abort: "アボート"

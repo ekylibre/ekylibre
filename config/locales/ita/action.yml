@@ -1825,6 +1825,7 @@ ita:
     sales_conditions: "condizioni di vendita"
     supplier_account_radix: "Radix conto Fornitore"
     use_entity_codes_for_account_numbers: "Usa il codice per la creazione di numeri di conto"
+    use_global_search: "Utilizzare ricerca globale"
   rest:
     actions:
       abort: "interrompe"

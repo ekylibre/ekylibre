@@ -621,6 +621,7 @@ html.exception {
 .snippet {
   .snippet-title {
     display: block;
+    padding-top: $fs-normal;
     outline: none;
     &, * {
       color: $text-color;

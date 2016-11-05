@@ -2537,6 +2537,7 @@ arb:
     sales_conditions: "شروط البيع"
     supplier_account_radix: "جذر حساب المورد"
     use_entity_codes_for_account_numbers: "استخدام رمز لخلق أرقام الحسابات"
+    use_global_search: "استخدام البحث العالمية"
   rest:
     actions:
       abort: "إحباط"

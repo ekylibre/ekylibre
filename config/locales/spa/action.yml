@@ -2060,6 +2060,7 @@ spa:
     sales_conditions: "Condiciones de ventas"
     supplier_account_radix: "Radix de la cuenta del proveedor"
     use_entity_codes_for_account_numbers: "Utilice el código para la creación de números de cuenta"
+    use_global_search: "Usar la búsqueda mundial"
   rest:
     actions:
       abort: "Abortar"
