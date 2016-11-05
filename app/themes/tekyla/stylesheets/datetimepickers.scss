@@ -74,14 +74,14 @@
   }
 
   .timepicker-hour, .timepicker-minute, .timepicker-second {
-    width: 54px;
+    width: 4 * $fs-normal;
     font-weight: bold;
     font-size: 1.2em;
     margin: 0;
   }
 
   button[data-action] {
-    padding: 6px;
+    padding: $default-gap;
   }
 
   .picker-switch {
@@ -180,9 +180,13 @@
     }
 
     td {
-      height: 54px;
-      line-height: 54px;
-      width: 54px;
+      height: 4 * $fs-normal;
+      line-height: 4 * $fs-normal;
+      width: 4 * $fs-normal;
+      
+      &.separator {
+        width: 2 * $fs-normal;
+      }
 
       &.cw {
         font-size: .8em;
@@ -257,16 +261,12 @@
 
       span {
         display: inline-block;
-        width: 54px;
-        height: 54px;
-        line-height: 54px;
+        height: 4 * $fs-normal;
+        line-height: 4 * $fs-normal;
+        width: 4 * $fs-normal;
         margin: 2px 1.5px;
         cursor: pointer;
         border-radius: $default-border-radius;
-
-        &:hover {
-          background: background-hover($white);
-        }
 
         &.active {
           background-color: $active-color;
@@ -327,17 +327,6 @@
 
 .input-group.date .input-group-addon {
   cursor: pointer;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
 }
 
 .bootstrap-datetimepicker-widget {

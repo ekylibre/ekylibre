@@ -33,6 +33,8 @@
             today: 'icon icon-screenshot'
             clear: 'icon icon-trash'
             close: 'icon icon-remove'
+          showClear: true
+          showClose: true
           showTodayButton: true
         element.attr "autocomplete", "off"
       return
