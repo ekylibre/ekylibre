@@ -1826,6 +1826,7 @@ ita:
     permanent_stock_inventory: "Modalità di inventario di magazzino permanente"
     sales_conditions: "condizioni di vendita"
     supplier_account_radix: "Radix conto Fornitore"
+    use_contextual_help: "Utilizzare aiuto contestuale"
     use_entity_codes_for_account_numbers: "Usa il codice per la creazione di numeri di conto"
     use_global_search: "Utilizzare ricerca globale"
   rest:

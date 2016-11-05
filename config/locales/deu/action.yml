@@ -1760,6 +1760,7 @@ deu:
     permanent_stock_inventory: "Permanent Lagerbestand Modus"
     sales_conditions: "Verkaufsbedingungen"
     supplier_account_radix: "Lieferant Konto radix"
+    use_contextual_help: "Verwenden Sie Kontexthilfe"
     use_entity_codes_for_account_numbers: "Benutzen Sie den Code für die Erstellung von Kontonummern"
     use_global_search: "Verwenden Sie globale Suche"
   rest:

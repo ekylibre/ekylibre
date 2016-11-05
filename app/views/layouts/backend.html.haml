@@ -39,6 +39,7 @@
           = notifications_tag
           = main_state_bar_tag
           #core= yield
-      #help
-        .inner= render(partial: "backend/helps/search", object: @article)
+      - if Preference[:use_contextual_help]
+        #help
+          .inner= render(partial: "backend/helps/search", object: @article)
     = yield :popover

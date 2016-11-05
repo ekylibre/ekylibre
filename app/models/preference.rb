@@ -174,6 +174,7 @@ class Preference < Ekylibre::Record::Base
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :host, :string, 'erp.example.com'
   prefer :use_global_search, :boolean, false
+  prefer :use_contextual_help, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
   prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default
