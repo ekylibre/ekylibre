@@ -427,10 +427,12 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: (stopped_at && started_at ? (stopped_at - started_at).to_i : 0)
     )
-    event.update_columns(
-      started_at: self.started_at,
-      stopped_at: self.stopped_at
-    ) if event
+    if event
+      event.update_columns(
+        started_at: self.started_at,
+        stopped_at: self.stopped_at
+      )
+    end
     outputs.find_each do |output|
       product = output.product
       next unless product
@@ -743,14 +745,14 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:purchase),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
@@ -818,14 +820,14 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:sale),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
