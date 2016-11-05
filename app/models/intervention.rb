@@ -566,7 +566,6 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def update_state(modifier = {})
-    byebug
     return unless participations.any? || modifier.present?
     states = participations.pluck(:id, :state).to_h
     states[modifier.keys.first] = modifier.values.first
