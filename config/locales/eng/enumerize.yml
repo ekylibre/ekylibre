@@ -388,8 +388,8 @@ eng:
     sensor:
       retrieval_mode:
         integration: "Integration"
-        listening: "Listening"
-        requesting: "Requesting"
+        listening: "Direct"
+        requesting: "Automatic"
     sequence:
       period:
         cweek: "Commercial week"
