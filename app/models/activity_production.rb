@@ -192,10 +192,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-
-    if support.is_a?(LandParcel)
-      support.destroy
-    end
+    support.destroy if support.is_a?(LandParcel)
 
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
@@ -224,7 +221,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def initialize_land_parcel_support!
-    self.support_shape ||= cultivable_zone.shape if cultivable_zone
+    support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
       if support_shape
         land_parcels = LandParcel.shape_matching(support_shape)
@@ -579,9 +576,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_cultivation
     # get the first object with variety 'plant', availables
     if cultivation = support.contents.where(type: Plant).of_variety(variant.variety).availables.reorder(:born_at).first
-      return cultivation
-    else
-      return nil
+      cultivation
     end
   end
 

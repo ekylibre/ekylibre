@@ -9,7 +9,7 @@ module Unicoque
       end
 
       # create entity corresponding to the cooperative
-      cooperative = Entity.find_by_last_name('Unicoque')
+      cooperative = Entity.find_by(last_name: 'Unicoque')
       unless cooperative = Entity.where('LOWER(full_name) ILIKE ?', '%Unicoque%'.mb_chars.downcase).first
         cooperative = Entity.create!(
           last_name: 'Unicoque',

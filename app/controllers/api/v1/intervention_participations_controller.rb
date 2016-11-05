@@ -4,12 +4,12 @@ module Api
     class InterventionParticipationsController < Api::V1::BaseController
       def create
         params = permitted_params
-        return render json: :unprocessable_entity if params.blank?
+        return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank?
 
-        intervention = Intervention.create_with(actions: params[:actions]).find_or_create_by!(
-          request_intervention_id:  params[:request_intervention_id],
-          procedure_name:           params[:procedure_name]
-        )
+        intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
+        intervention.creator_id = current_user
+        intervention.created_at = Time.zone.now
+        intervention.save!
 
         participation = intervention.participations.find_or_initialize_by(
           product_id: current_user.worker.id
@@ -19,6 +19,7 @@ module Api
         participation.state = params[:state]
         participation.save!
 
+        params[:working_periods] ||= []
         params[:working_periods].each do |wp_params|
           period = participation.working_periods.find_or_initialize_by(
             **wp_params

@@ -208,6 +208,16 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    intervention_participation:
+      state:
+        done: "Erledigt"
+        in_progress: "In Bearbeitung"
+        validated: "Validierte"
+    intervention_working_period:
+      nature:
+        # intervention: "Intervention"
+        preparation: "Vorbereitung"
+        travel: "Reise"
     journal:
       nature:
         # bank: "Bank"
@@ -215,6 +225,7 @@ deu:
         forward: "Vorwärts getragen"
         purchases: "Käufe"
         sales: "Der Umsatz"
+        stocks: "Bestände"
         various: "verschiedene Operationen"
     listing_node:
       nature:
@@ -408,6 +419,7 @@ deu:
         animals: "Nummerierung der Tiere"
         campaigns: "Nummerierung der Kampagnen"
         cash_transfers: "Nummerierung der Geldtransfers"
+        contracts: "Numerierung von Verträgen"
         deliveries: "Lieferungen"
         deposits: "Nummerierung der Einlagen"
         documents: "Nummerierung der Dokumente"
@@ -421,6 +433,7 @@ deu:
         inventories: "Die Vorräte"
         opportunities: "Chancen"
         outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen" #?
+        outgoing_payment_lists: "Numeration abgehender Zahlungslisten"
         outgoing_payments: "Nummerierung der Zahlungen"
         parcels: "Parcels"
         plants: "Nummerierung der Pflanzen"

@@ -16,6 +16,10 @@ arb:
         instruction_2: "إذا كنت لم تطلب هذا، الرجاء تجاهل هذا البريد الإلكتروني."
         instruction_3: "لن تغيير كلمة المرور الخاصة بك حتى يمكنك وصول إلى الرابط أعلاه وإنشاء واحدة جديدة."
         subject: "إعادة تعيين كلمة المرور تعليمات"
+      signed_up:
+        confirm: "يرجى تأكيد ذلك في لوحة الإدارة."
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "علامة جديدة تصل"
       unlock_instructions:
         action: "فتح حسابي"
         # greeting: "Hello %{recipient}!"

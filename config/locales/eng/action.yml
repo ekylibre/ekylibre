@@ -154,6 +154,16 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/contracts:
+      edit: "Edit contract %{number}"
+      index: "Contracts"
+      # lose: "Lose contract: %{name}"
+      # negociate: "Negociate contract: %{name}"
+      new: "New contract"
+      # prospect: "Prospect contract: %{name}"
+      # quote: "Quote contract: %{name}"
+      show: "Contract %{number}"
+      # win: "Win contract: %{name}"
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"
@@ -451,6 +461,7 @@ eng:
       show: "Net service: %{name}"
     backend/notifications:
       index: "Notifications"
+      no_worker_account: "No worker associate to this account" #?
       # show: "Notification: %{name}"
       # unread: "Unread notification: %{name}"
     backend/observations:
@@ -998,7 +1009,7 @@ eng:
     convert_balance_into_profit: "Convert balance into profit"
     convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
-    coordinates: "Coordinates"
+    coordinates: "Coordinates" #?
     copy_from_another_activity: "Copy from another activity"
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
@@ -1335,6 +1346,7 @@ eng:
     no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
+    # no_worker_account: "No worker account"
     nominal_storable_easement_area: "Nominal storable easement area"
     none: "None"
     normal: "Normal" #?
@@ -1441,12 +1453,14 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
+    record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     register_intervention_request: "Register intervention request" #?!
+    rejected: "Rejected" #?
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1459,6 +1473,7 @@ eng:
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
+    request: "Request" #?
     request_maintenance: "Request maintenance"
     requests: "Requests"
     reset: "Reset"
@@ -1678,6 +1693,7 @@ eng:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
+    # x_contracts: "X contracts"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
@@ -1711,6 +1727,10 @@ eng:
     x_hours_worked:
       one: "%{count}\_h worked"
       other: "%{count}\_h worked"
+    x_incoming_parcels:
+      one: "%{count} incoming parcel"
+      other: "%{count} incoming parcels"
+      zero: "No incoming parcel"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1748,6 +1768,10 @@ eng:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} of %{y}"
+    x_outgoing_parcels:
+      one: "%{count} outgoing parcel"
+      other: "%{count} outgoing parcels"
+      zero: "No outgoing parcel"
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"

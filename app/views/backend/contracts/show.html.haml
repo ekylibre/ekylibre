@@ -1,0 +1,31 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy if resource.destroyable?
+
+= main_state_bar(resource)
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :supplier, :label => :label, url: true
+    - l.attribute :number
+    - l.attribute :reference_number unless resource.reference_number.blank?
+    - l.attribute :state
+    - l.attribute :responsible, :label => :full_name
+    - l.attribute :created_at
+    - l.attribute :started_on
+    - l.attribute :stopped_on
+    - l.attribute :currency unless resource.currency == Preference[:currency]
+    - l.attribute :description unless resource.description.blank?
+
+= cobbles do |c|
+
+  - c.cobble :items, title: Contract.human_attribute_name(:items) do
+    = cobble_list :items do
+      %tr.total
+        %th{colspan: 5}
+        %td= resource.pretax_amount.l(currency: resource.currency)
+
+  - c.cobble :parcels, title: Purchase.human_attribute_name(:parcels) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :parcels, nature: :incoming, contract_id: resource.id, sender_id: resource.supplier_id})
+    = cobble_list :parcels

@@ -61,7 +61,7 @@ module Viniteca
             variety: variety,
             initial_born_at: initial_born_at,
             initial_owner: Entity.of_company,
-            default_storage: CultivableZone.find_by_work_number(zc_work_number) || CultivableZone.first,
+            default_storage: CultivableZone.find_by(work_number: zc_work_number) || CultivableZone.first,
             identification_number: record.attributes['N_PARCELLE'].to_s
           )
 

@@ -66,6 +66,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
   belongs_to :stock_account, class_name: 'Account', dependent: :destroy
 
+  has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -135,7 +136,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || !destroyable_accounts?
+      parcel_items.any? || has_accounts?
   end
 
   before_validation on: :create do
@@ -199,8 +200,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
-  def destroyable_accounts?
-    !storable? || (stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?)
+  def has_accounts?
+    return false unless storable?
+    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
   end
 
   # create unique account for stock management in accountancy
@@ -212,7 +214,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     category_account = category.send(account_key)
     unless category_account
-      errors.add :category_account, "Account is not configure for #{self.name.inspect}. You have to check category first"
+      # We want to notice => raise.
+      raise :category_account, "Account is not configured for #{self.name.inspect}. You have to check category first"
     end
 
     options = {}
@@ -276,9 +279,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # check if a variant has an indicator which is frozen or not
   def has_frozen_indicator?(indicator)
     if indicator.is_a?(Nomen::Item)
-      return frozen_indicators.include?(indicator)
+      frozen_indicators.include?(indicator)
     else
-      return frozen_indicators_list.include?(indicator)
+      frozen_indicators_list.include?(indicator)
     end
   end
 
@@ -346,6 +349,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
 
     list
+  end
+
+  def contractual_prices
+    contract_items
+      .pluck(:contract_id, :unit_pretax_amount)
+      .to_h
+      .map { |contract_id, price| [Contract.find(contract_id), price] }
+      .to_h
   end
 
   # Get indicator value

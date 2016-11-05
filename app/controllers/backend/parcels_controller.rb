@@ -57,6 +57,10 @@ module Backend
       code << "  c[0] << \" AND \#{Parcel.table_name}.transporter_id = ?\"\n"
       code << "  c << params[:transporter_id].to_i\n"
       code << "end\n"
+      code << "if params[:responsible_id].to_i > 0\n"
+      code << "  c[0] << \" AND \#{Parcel.table_name}.responsible_id = ?\"\n"
+      code << "  c << params[:responsible_id]\n"
+      code << "end\n"
       code << "if params[:delivery_mode].present? && params[:delivery_mode] != 'all'\n"
       code << "  if Parcel.delivery_mode.values.include?(params[:delivery_mode].to_sym)\n"
       code << "    c[0] << ' AND #{Parcel.table_name}.delivery_mode = ?'\n"
@@ -83,11 +87,13 @@ module Backend
       t.column :reference_number, hidden: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
+      t.column :given_at
       t.column :recipient, url: true
       t.column :sender, url: true
       t.status
       t.column :state, label_method: :human_state_name
       t.column :delivery, url: true
+      t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
       # t.column :sent_at
       t.column :delivery_mode
@@ -116,6 +122,7 @@ module Backend
       t.column :product_identification_number
       t.column :population
       t.column :unit_name, through: :variant
+      t.column :unit_pretax_amount, currency: true
       t.status
       # t.column :net_mass
       t.column :product, url: true

@@ -36,7 +36,7 @@
 class InterventionParticipation < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :product
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod'
+  has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy
 
   validates :product_id, presence: true
   validates :intervention_id, uniqueness: { scope: [:product_id] }
@@ -47,7 +47,7 @@ class InterventionParticipation < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_save do
-    intervention.update_state(state)
-    intervention.update_compliance(request_compliant)
+    intervention.update_state(id => state)
+    intervention.update_compliance(id => request_compliant)
   end
 end

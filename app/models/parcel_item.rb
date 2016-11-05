@@ -31,6 +31,7 @@
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
+#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
 #  product_enjoyment_id          :integer
 #  product_id                    :integer
 #  product_identification_number :string
@@ -43,6 +44,7 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
@@ -67,12 +69,13 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :nature, through: :variant
   has_one :delivery, through: :parcel
   has_one :storage, through: :parcel
+  has_one :contract, through: :parcel
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :parcel, presence: true
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
@@ -103,9 +106,16 @@ class ParcelItem < Ekylibre::Record::Base
       if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
         self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
       end
+      # purchase contrat case
+      if contract && contract.items.where(variant: variant).any?
+        item = contract.items.where(variant_id: variant.id).first
+        self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
+      end
     end
     read_at = parcel ? parcel_prepared_at : Time.zone.now
     self.population ||= product_is_unitary? ? 1 : 0
+    self.unit_pretax_amount ||= 0.0
+    self.pretax_amount = population * self.unit_pretax_amount
     next if parcel_incoming?
 
     if sale_item
@@ -118,11 +128,28 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
+  after_save do
+    if Preference[:catalog_price_item_addition_if_blank]
+      if parcel_incoming?
+        for usage in [:stock, :purchase]
+          # set stock catalog price if blank
+          catalog = Catalog.by_default!(usage)
+          unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+          end
+        end
+      end
+    end
+  end
+
   ALLOWED = %w(
     product_localization_id
     product_movement_id
     product_enjoyment_id
     product_ownership_id
+    unit_pretax_stock_amount
+    unit_pretax_amount
+    pretax_amount
     purchase_item_id
     sale_item_id
     updated_at

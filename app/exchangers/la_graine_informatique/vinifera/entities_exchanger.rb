@@ -172,7 +172,7 @@ module LaGraineInformatique
 
       def create_custom_field(name, customized_type, options = {})
         # create custom field if not exist
-        unless cf = CustomField.find_by_name(name)
+        unless cf = CustomField.find_by(name: name)
           # create custom field
           cf = CustomField.create!(name: name, customized_type: customized_type,
                                    nature: options[:nature] || :string,

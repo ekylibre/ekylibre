@@ -208,6 +208,16 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    intervention_participation:
+      state:
+        done: "終わりました"
+        in_progress: "進行中"
+        validated: "有効な"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "準備"
+        travel: "旅行"
     journal:
       nature:
         bank: "バンク"
@@ -215,6 +225,7 @@ jpn:
         forward: "実施フォワード"
         purchases: "購入"
         sales: "セールス"
+        stocks: "ストック"
         various: "さまざまな操作"
     listing_node:
       nature:
@@ -408,6 +419,7 @@ jpn:
         animals: "動物の記数"
         campaigns: "キャンペーンの記数"
         cash_transfers: "送金の記数"
+        contracts: "契約の記数"
         deliveries: "出荷"
         deposits: "預金の記数"
         documents: "文書の記数"
@@ -421,6 +433,7 @@ jpn:
         inventories: "棚卸"
         opportunities: "機会"
         outgoing_deliveries: "発信配達の記数" #?
+        outgoing_payment_lists: "支払リストの記数"
         outgoing_payments: "支払いの記数"
         parcels: "小包"
         plants: "植物の記数"

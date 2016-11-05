@@ -44,9 +44,11 @@ module WorkingSet
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
-          ps.other_parameters.elements.each do |other_parameter|
-            parameters << other_parameter.parameter
-          end if ps.other_parameters
+          if ps.other_parameters
+            ps.other_parameters.elements.each do |other_parameter|
+              parameters << other_parameter.parameter
+            end
+          end
         end
         if ability_item.parameters
           if parameters.any?

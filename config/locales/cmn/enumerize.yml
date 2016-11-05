@@ -208,6 +208,16 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    intervention_participation:
+      state:
+        done: "做"
+        in_progress: "进行中"
+        validated: "验证"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "制备"
+        travel: "旅行"
     journal:
       nature:
         bank: "银行"
@@ -215,6 +225,7 @@ cmn:
         forward: "结转"
         purchases: "购买"
         sales: "销售"
+        stocks: "股票"
         various: "各种操作"
     listing_node:
       nature:
@@ -408,6 +419,7 @@ cmn:
         animals: "动物记数"
         campaigns: "活动的记数"
         cash_transfers: "现金转移的记数"
+        contracts: "合同的记数"
         deliveries: "交付"
         deposits: "存款记数"
         documents: "文档记数"
@@ -421,6 +433,7 @@ cmn:
         inventories: "存货"
         opportunities: "机会"
         outgoing_deliveries: "即将离任的交货记数" #?
+        outgoing_payment_lists: "付款清单记数"
         outgoing_payments: "支付记数"
         parcels: "地块"
         plants: "植物的记数"
