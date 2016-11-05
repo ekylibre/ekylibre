@@ -30,9 +30,11 @@ module ActiveGuide
       # Display report if wanted
       if env.verbose
         puts "#{report[:failed].to_s.red} tests failed, #{report[:passed].to_s.green} tests passed"
-        report[:results].each do |r|
-          puts " > #{r[:item].name.to_s.humanize}: #{r[:value].to_s.yellow}"
-        end if report[:results]
+        if report[:results]
+          report[:results].each do |r|
+            puts " > #{r[:item].name.to_s.humanize}: #{r[:value].to_s.yellow}"
+          end
+        end
       end
       report
     end

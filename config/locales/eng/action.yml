@@ -1009,7 +1009,7 @@ eng:
     convert_balance_into_profit: "Convert balance into profit"
     convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
-    coordinates: "Coordinates"
+    coordinates: "Coordinates" #?
     copy_from_another_activity: "Copy from another activity"
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
