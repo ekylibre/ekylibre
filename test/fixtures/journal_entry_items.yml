@@ -8003,3 +8003,63 @@ journal_entry_items_265:
   real_debit: 0.0
   state: draft
   updated_at: 2016-10-04 08:22:23.934717000 Z
+journal_entry_items_266:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 20520.0
+  account_id: 211
+  balance: 20520.0
+  created_at: 2016-10-26 15:31:44.268955000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 22368.0
+  cumulated_absolute_debit: 20696.16
+  currency: EUR
+  debit: 20520.0
+  entry_id: 88
+  entry_number: CUN000003
+  financial_year_id: 26
+  id: 484
+  journal_id: 6
+  lock_version: 0
+  name: "[Décaissement D20160002] En espèce  pour Coop Ain Coop'In"
+  position: 1
+  printed_on: 2016-10-26
+  real_balance: 20520.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 20520.0
+  state: draft
+  updated_at: 2016-10-26 15:31:44.268955000 Z
+  updater_id: 1
+journal_entry_items_267:
+  absolute_credit: 20520.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 213
+  balance: -20520.0
+  created_at: 2016-10-26 15:31:44.294980000 Z
+  creator_id: 1
+  credit: 20520.0
+  cumulated_absolute_credit: 20632.07
+  cumulated_absolute_debit: 28.3
+  currency: EUR
+  debit: 0.0
+  entry_id: 88
+  entry_number: CUN000003
+  financial_year_id: 26
+  id: 485
+  journal_id: 6
+  lock_version: 0
+  name: "[Décaissement D20160002] En espèce  pour Coop Ain Coop'In"
+  position: 2
+  printed_on: 2016-10-26
+  real_balance: -20520.0
+  real_credit: 20520.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-10-26 15:31:44.294980000 Z
+  updater_id: 1

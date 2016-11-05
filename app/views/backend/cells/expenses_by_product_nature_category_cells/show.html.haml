@@ -11,7 +11,7 @@
     # to small to be interesting
     # data for bar chart expenses by product_nature_category and by month
     #ProductNatureCategory.availables.find_each do |category|
-    #  purchase_items = PurchaseItem.by_product_nature_category(category).between(@started_at, @stopped_at)
+    #  purchase_items = PurchaseItem.of_product_nature_category(category).between(@started_at, @stopped_at)
     #  if purchase_items.count > 0
     #    item_h = purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
     #     hash[pair.expr.to_i.to_s] = pair.sum.to_d
@@ -34,7 +34,7 @@
     # Expenses by product_nature_category
     data = []
     ProductNatureCategory.availables.find_each do |category|
-      purchase_items = PurchaseItem.by_product_nature_category(category).between(@started_at, @stopped_at)
+      purchase_items = PurchaseItem.of_product_nature_category(category).between(@started_at, @stopped_at)
       if purchase_items.any?
         sum_expenses = purchase_items.sum(:pretax_amount)
         data << {name: category.name, y: sum_expenses.to_s.to_f, url: backend_product_nature_category_path(category)}

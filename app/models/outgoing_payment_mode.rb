@@ -40,6 +40,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   belongs_to :cash
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
+  has_many :supplier_payment_modes, class_name: 'Entity', foreign_key: :supplier_payment_mode_id, inverse_of: :supplier_payment_mode, dependent: :restrict_with_error
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :sepa, :with_accounting, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
@@ -52,11 +53,11 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   delegate :currency, to: :cash
 
   protect(on: :destroy) do
-    payments.any?
+    payments.any? || supplier_payment_modes.any?
   end
 
-  scope :mode_sepa,    -> { where(sepa: true) }
-  scope :active,  -> { where(active: true) }
+  scope :mode_sepa, -> { where(sepa: true) }
+  scope :active, -> { where(active: true) }
 
   def self.load_defaults
     %w(cash check transfer).each do |nature|

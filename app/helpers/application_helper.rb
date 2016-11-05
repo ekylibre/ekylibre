@@ -554,39 +554,43 @@ module ApplicationHelper
     content_tag(:div, class: :search) do
       # Show results
       html = ''.html_safe
-      html << content_tag(:ul, class: :results) do
-        counter = 'a'
-        search[:records].collect do |result|
-          id = 'result-' + counter
-          counter.succ!
-          content_tag(:li, class: 'result', id: id) do
-            (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
-          end
-        end.join.html_safe
-      end if search[:records]
+      if search[:records]
+        html << content_tag(:ul, class: :results) do
+          counter = 'a'
+          search[:records].collect do |result|
+            id = 'result-' + counter
+            counter.succ!
+            content_tag(:li, class: 'result', id: id) do
+              (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
+            end
+          end.join.html_safe
+        end
+      end
 
       # Pagination
-      html << content_tag(:span, class: :pagination) do
-        padding = 9
-        gap = 4
-        page_min = params[:page].to_i - padding
-        page_min = 1 if page_min < gap
-        page_max = params[:page].to_i + padding
-        page_max = search[:last_page] if page_max > search[:last_page]
+      if search[:last_page] && search[:last_page] > 1
+        html << content_tag(:span, class: :pagination) do
+          padding = 9
+          gap = 4
+          page_min = params[:page].to_i - padding
+          page_min = 1 if page_min < gap
+          page_max = params[:page].to_i + padding
+          page_max = search[:last_page] if page_max > search[:last_page]
 
-        pagination = ''
-        if page_min > 1
-          pagination << link_to(content_tag(:i) + tl(:beginning), { q: params[:q], page: 1 }, class: :beginning)
-          pagination << content_tag(:span, '&hellip;'.html_safe) if page_min >= gap
+          pagination = ''
+          if page_min > 1
+            pagination << link_to(content_tag(:i) + tl(:beginning), { q: params[:q], page: 1 }, class: :beginning)
+            pagination << content_tag(:span, '&hellip;'.html_safe) if page_min >= gap
+          end
+          for p in page_min..page_max
+            attrs = {}
+            attrs[:class] = 'active' if p == params[:page]
+            pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
+          end
+          pagination << content_tag(:span, '&hellip;'.html_safe) if page_max < search[:last_page]
+          pagination.html_safe
         end
-        for p in page_min..page_max
-          attrs = {}
-          attrs[:class] = 'active' if p == params[:page]
-          pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
-        end
-        pagination << content_tag(:span, '&hellip;'.html_safe) if page_max < search[:last_page]
-        pagination.html_safe
-      end if search[:last_page] && search[:last_page] > 1
+      end
 
       # Return HTML
       html
@@ -662,7 +666,7 @@ module ApplicationHelper
         content_for(:main_title, value)
       end
     else
-      return (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
+      (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
     end
   end
 
@@ -909,9 +913,9 @@ module ApplicationHelper
     if condition =~ /^generic/
       klass = condition.split(/\-/)[1].pluralize.classify.constantize
       attribute = condition.split(/\-/)[2]
-      return tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
+      tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
     else
-      return tl("conditions.#{condition}")
+      tl("conditions.#{condition}")
     end
   end
 

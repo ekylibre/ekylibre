@@ -40,17 +40,16 @@ module Backend
       code = search_conditions({ interventions: [:state, :procedure_name, :number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
-      code << "  c << params[:state].flatten\n"
+      code << "  c << params[:state]\n"
+      code << "end\n"
+      code << "unless params[:nature].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.nature IN (?)'\n"
+      code << "  c << params[:nature]\n"
       code << "end\n"
       code << "unless params[:procedure_name].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"
       code << "  c << params[:procedure_name]\n"
       code << "end\n"
-      code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
-      code << "c[0] << ' AND #{Intervention.table_name}.request_intervention_id IS NULL'\n"
-      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
-      code << "  c << 'rejected'\n"
-
       # select the interventions according to the user current period
       code << "unless current_period_interval.blank? && current_period.blank?\n"
 
@@ -129,6 +128,7 @@ module Backend
       t.column :started_at
       t.column :stopped_at, hidden: true
       t.column :human_working_duration
+      t.status
       t.column :human_target_names
       t.column :human_working_zone_area
       t.column :total_cost, label_method: :human_total_cost, currency: true
@@ -196,10 +196,8 @@ module Backend
 
       @intervention = Intervention.new(options)
 
-      from_request = Intervention.find_by_id(params[:request_intervention_id])
-      if from_request
-        @intervention = from_request.initialize_record
-      end
+      from_request = Intervention.find_by(id: params[:request_intervention_id])
+      @intervention = from_request.initialize_record if from_request
 
       render(locals: { cancel_url: { action: :index } })
     end

@@ -275,7 +275,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   #
   def resource
     if entry
-      return entry.resource_type
+      entry.resource_type
     else
       :none.tl
     end
@@ -284,7 +284,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # This method returns the name of journal which the entries are saved.
   def journal_name
     if entry
-      return entry.journal.name
+      entry.journal.name
     else
       :none.tl
     end

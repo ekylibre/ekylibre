@@ -7,7 +7,7 @@ module Milklic
         analyser = Entity.create!(analyser_attributes)
       end
 
-      cattling_number = Identifier.find_by_nature(:cattling_number).value if Identifier.find_by_nature(:cattling_number)
+      cattling_number = Identifier.find_by(nature: :cattling_number).value if Identifier.find_by(nature: :cattling_number)
 
       begin
         rows = CSV.read(file, encoding: 'CP1252', col_sep: ';', headers: true)
@@ -25,7 +25,7 @@ module Milklic
         )
 
         # if an animal exist
-        if animal = Animal.find_by_work_number(r.animal_work_number)
+        if animal = Animal.find_by(work_number: r.animal_work_number)
           for i in 4..25
             next unless row[i] && row.headers[i]
             milk_daily_production_measure = row[i].tr(',', '.').to_d.in_kilogram_per_day

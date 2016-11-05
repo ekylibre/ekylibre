@@ -29,8 +29,8 @@ Math.round2 = (number, round = 1) ->
 Math.humanize = (value, power = 0) ->
   return Math.round(value)
   # return Math.round(value / Math.pow(10, power)) + "e#{power}"
-  size = Math.round(power / 3)
-  return Math.round(value / Math.pow(10, 3 * size)) + "pnµm KMGTPE"[size + 4]
+  # size = Math.round(power / 3)
+  # return Math.round(value / Math.pow(10, 3 * size)) + "pnµm KMGTPE"[size + 4]
 
 Math.ceil2 = (number, round = 1) ->
   return round * Math.ceil(number / round)

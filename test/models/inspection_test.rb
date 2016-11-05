@@ -47,20 +47,20 @@ class InspectionTest < ActiveSupport::TestCase
 
   SCALES_ATTRIBUTES = [
     [:diameter, :millimeter],
-    [  :height, :centimeter]
+    [:height, :centimeter]
   ].freeze
 
   SCALE_NATURES_ATTRIBUTES = [
     [
-      [false,  0,  20],
-      [ true, 20,  30],
-      [ true, 30,  35],
-      [ true, 35,  40],
+      [false, 0, 20],
+      [true, 20,  30],
+      [true, 30,  35],
+      [true, 35,  40],
       [false, 40, 150]
     ],
     [
       [false, 15, 25],
-      [ true, 25, 35],
+      [true, 25, 35],
       [false, 35, 45]
     ]
   ].freeze
@@ -72,27 +72,27 @@ class InspectionTest < ActiveSupport::TestCase
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
-    [  3, 0.21, nil, nil],
+    [3, 0.21, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
-    [  1,  0.1, nil, nil],
+    [1, 0.1, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil]
   ].freeze
 
   CALIBRATION_ATTRIBUTES = [
     [
-      [ 61,  0.8,   5,  15],
-      [ 82, 2.32,   5,  15],
-      [  2, 0.13,  15,  17],
+      [61, 0.8,   5, 15],
+      [82, 2.32, 5, 15],
+      [2, 0.13, 15, 17],
       [nil,  nil, nil, nil],
       [nil,  nil, nil, nil]
     ],
     [
-      [  4,    1, nil, nil],
-      [  9,    1, nil, nil],
-      [  10,   2, nil, nil]
+      [4,    1, nil, nil],
+      [9,    1, nil, nil],
+      [10,   2, nil, nil]
     ]
   ].freeze
 
@@ -141,7 +141,7 @@ class InspectionTest < ActiveSupport::TestCase
       grading_sizes_unit_name: 'centimeter'
     )
 
-    @scales = SCALES_ATTRIBUTES.map { |attrs| {size_indicator_name: attrs.first, size_unit_name: attrs.last} }
+    @scales = SCALES_ATTRIBUTES.map { |attrs| { size_indicator_name: attrs.first, size_unit_name: attrs.last } }
                                .map { |s_attrs| @activity.inspection_calibration_scales.create!(s_attrs) }
 
     SCALE_NATURES_ATTRIBUTES.each_with_index do |n_vals, index|
@@ -203,97 +203,6 @@ class InspectionTest < ActiveSupport::TestCase
         maximal_size_value: p_attrs[3]
       )
     end
-  end
-
-  test 'implanter values are properly set when not specified' do
-    category = ProductNatureCategory.create!(
-      name: 'ÉquipementInspectionTest',
-      number: '00000024',
-      reference_name: 'equipment',
-      pictogram: 'tractor'
-    )
-
-    nature = ProductNature.create!(
-      category_id: category.id,
-      name: 'SemoirInspectionTest',
-      number: '00000058',
-      variety: 'trailed_equipment',
-      reference_name: 'sower',
-      abilities_list: ['sow'],
-      population_counting: 'unitary',
-      variable_indicators_list: [:geolocation],
-      frozen_indicators_list: [:nominal_storable_net_volume, :application_width, :rows_count, :theoretical_working_speed]
-    )
-
-    variant = ProductNatureVariant.create!(
-      category_id: category.id,
-      nature_id: nature.id,
-      name: 'SemoirInspectionTest',
-      work_number: nil,
-      variety: 'trailed_equipment',
-      derivative_of: nil,
-      reference_name: 'sower',
-      unit_name: 'Équipement'
-    )
-
-    variant.readings.create!(
-      indicator_name: 'rows_count',
-      indicator_datatype: 'integer',
-      integer_value: 4
-    )
-
-    variant.readings.create!(
-      indicator_name: 'application_width',
-      indicator_datatype: 'measure',
-      absolute_measure_value_value: 2.05,
-      absolute_measure_value_unit: 'meter',
-      measure_value_value: 2.05E1,
-      measure_value_unit: 'meter'
-    )
-
-    equipment = variant.products.create!(
-      type: 'Equipment',
-      name: 'Semoir Agricola neuf',
-      number: 'P00000000087',
-      initial_population: 0.0,
-      variety: 'trailed_equipment',
-      born_at: Time.zone.now
-    )
-
-    intervention = Intervention.create!(
-      procedure_name: 'sowing',
-      state: 'done',
-      started_at: Time.zone.now,
-      stopped_at: Time.zone.now,
-      number: '50',
-      nature: 'record'
-    )
-
-    intervention.outputs.create!(
-      quantity_population: @plant.net_surface_area,
-      variant_id: @variant.id,
-      reference_name: 'plant',
-      position: 3
-    )
-
-    intervention.tools.create!(
-      product_id: equipment.id,
-      reference_name: 'sower',
-      position: 5
-    )
-
-    inspection = @activity.inspections.create!(
-      product_id: intervention.outputs.first.product.id,
-      sampled_at: Time.zone.now,
-      sampling_distance: 3,
-      product_net_surface_area_value: 5,
-      product_net_surface_area_unit: 'hectare',
-      comment: ''
-    )
-
-    assert_equal 4, inspection.implanter_rows_number
-    assert_equal 5.125, inspection.implanter_working_width
-    assert_equal 20.5, inspection.implanter_application_width
   end
 
   test 'position is correctly computed' do

@@ -126,7 +126,7 @@ class Delay
     elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit.to_sym)
       Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).to_s)
     else
-      raise ArgumentError, "Cannot sum #{delay.to_s} [#{delay.class.name}] to a #{self.class.name}"
+      raise ArgumentError, "Cannot sum #{delay} [#{delay.class.name}] to a #{self.class.name}"
     end
   end
 
@@ -141,7 +141,7 @@ class Delay
     elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit.to_sym)
       Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).invert.to_s)
     else
-      raise ArgumentError, "Cannot subtract #{delay.to_s} [#{delay.class.name}] from a #{self.class.name}"
+      raise ArgumentError, "Cannot subtract #{delay} [#{delay.class.name}] from a #{self.class.name}"
     end
   end
 

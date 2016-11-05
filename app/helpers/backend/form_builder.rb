@@ -536,9 +536,11 @@ module Backend
         end
         if object.new_record? && indicators.any?
 
-          indicators.each do |indicator|
-            @object.readings.build(indicator_name: indicator.name)
-          end if @object.readings.empty?
+          if @object.readings.empty?
+            indicators.each do |indicator|
+              @object.readings.build(indicator_name: indicator.name)
+            end
+          end
 
           html << @template.field_set(:indicators) do
             fs = ''.html_safe

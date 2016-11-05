@@ -95,6 +95,8 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/entities#list_incoming_parcels"
+#     - "backend/entities#list_outgoing_parcels"
 #     - "backend/equipments#list_trackings"
 #     - "backend/equipments#take"
 #     - "backend/fungi#list_trackings"
@@ -117,12 +119,6 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
-#     - "backend/outgoing_payment_lists#create"
-#     - "backend/outgoing_payment_lists#edit"
-#     - "backend/outgoing_payment_lists#export_to_sepa"
-#     - "backend/outgoing_payment_lists#list_payments"
-#     - "backend/outgoing_payment_lists#new"
-#     - "backend/outgoing_payment_lists#update"
 #     - "backend/plants#list_trackings"
 #     - "backend/plants#take"
 #     - "backend/product_groups#list_trackings"
@@ -580,6 +576,30 @@ catalogs:
     - "backend/catalogs#new"
     - "backend/catalogs#update"
 
+contracts:
+  read:
+    actions:
+    - "backend/contracts#index"
+    - "backend/contracts#list"
+    - "backend/contracts#list_items"
+    - "backend/contracts#list_parcels"
+    - "backend/contracts#show"
+    - "backend/entities#list_contracts"
+  write:
+    dependencies:
+    - read-contracts
+    actions:
+    - "backend/contracts#create"
+    - "backend/contracts#destroy"
+    - "backend/contracts#edit"
+    - "backend/contracts#lose"
+    - "backend/contracts#negociate"
+    - "backend/contracts#new"
+    - "backend/contracts#prospect"
+    - "backend/contracts#quote"
+    - "backend/contracts#update"
+    - "backend/contracts#win"
+
 cultivable_zones:
   read:
     actions:
@@ -711,7 +731,6 @@ entities:
     - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
-    - "backend/entities#list_outgoing_payment_lists" #?
     - "backend/entities#list_outgoing_payments"
     - "backend/entities#list_purchases"
     - "backend/entities#list_sale_opportunities"
@@ -1458,12 +1477,17 @@ outgoing_payment_lists:
     - "backend/outgoing_payment_lists#index"
     - "backend/outgoing_payment_lists#list"
     - "backend/outgoing_payment_lists#show"
-    - "backend/outgoing_payment_lists#unroll" #?
   write:
     dependencies:
     - read-outgoing_payment_lists
     actions:
+    - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
+    - "backend/outgoing_payment_lists#edit"
+    - "backend/outgoing_payment_lists#export_to_sepa"
+    - "backend/outgoing_payment_lists#list_payments"
+    - "backend/outgoing_payment_lists#new"
+    - "backend/outgoing_payment_lists#update"
 
 outgoing_payment_modes:
   read:
