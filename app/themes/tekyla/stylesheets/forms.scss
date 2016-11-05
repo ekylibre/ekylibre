@@ -188,6 +188,7 @@ $large-controls-margin-left: round($large-label-width * 1.1);
   }
   width: auto;
   .controls {
+    position: relative;
     @include margin-left($controls-margin-left);
     max-width: 100% - $controls-margin-left;
     input, select, textarea {
