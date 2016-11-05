@@ -36,7 +36,7 @@ module Api
           @interventions = @interventions.with_doers(user.worker)
         end
 
-        return render json: { message: :no_worker_account.tl }, status: :precondition_required if user && user.worker.nil?
+        return render json: { message: :no_worker_associated_with_user_account.tn }, status: :precondition_required if user && user.worker.nil?
 
         if nature == 'request'
           @interventions = @interventions

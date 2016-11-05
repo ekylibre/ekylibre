@@ -201,6 +201,8 @@ group :test do
 
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
+  gem 'codacy-coverage', require: false
+
   gem 'minitest-reporters'
 end
 

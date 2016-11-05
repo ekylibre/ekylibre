@@ -398,8 +398,8 @@ fra:
     sensor:
       retrieval_mode:
         integration: "Intégration"
-        listening: "Serveur"
-        requesting: "Client"
+        listening: "Direct"
+        requesting: "Automatique"
     sequence:
       period:
         cweek: "Semaine"

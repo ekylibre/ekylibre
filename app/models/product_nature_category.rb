@@ -130,13 +130,9 @@ class ProductNatureCategory < Ekylibre::Record::Base
     name # tc('label', :product_nature_category => self["name"])
   end
 
-  def natures_count
-    natures.count
-  end
+  delegate :count, to: :natures, prefix: true
 
-  def variants_count
-    variants.count
-  end
+  delegate :count, to: :variants, prefix: true
 
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
