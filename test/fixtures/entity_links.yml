@@ -139,3 +139,18 @@ entity_links_007:
   started_at: 2015-06-13 17:04:15.289088000 Z
   updated_at: 2015-06-13 17:07:59.573090000 Z
   updater_id: 1
+entity_links_008:
+  created_at: 2016-11-05 09:10:14.920769000 Z
+  creator_id: 1
+  entity_id: 19
+  entity_role: member
+  id: 8
+  linked_id: 18
+  linked_role: organization
+  lock_version: 0
+  main: true
+  nature: membership
+  post: ''
+  started_at: 2016-11-05 09:10:14.910656000 Z
+  updated_at: 2016-11-05 09:10:14.920769000 Z
+  updater_id: 1
