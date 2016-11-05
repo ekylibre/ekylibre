@@ -146,9 +146,6 @@ spa:
       index: "Zonas cultivables"
       new: "Nueva zona cultivable"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "Nueva opción para obtener una lista decisiones"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "Campos Personalizados"

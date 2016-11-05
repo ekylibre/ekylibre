@@ -1043,14 +1043,9 @@
         <page to="backend/custom_fields#sort"/>
         <page to="backend/custom_fields#up"/>
         <page to="backend/custom_fields#update"/>
-        <page to="backend/custom_field_choices#create"/>
-        <page to="backend/custom_field_choices#destroy"/>
-        <page to="backend/custom_field_choices#down"/>
-        <page to="backend/custom_field_choices#edit"/>
-        <page to="backend/custom_field_choices#new"/>
-        <page to="backend/custom_field_choices#up"/>
-        <page to="backend/custom_field_choices#update"/>
         <page to="backend/custom_fields#unroll"/>
+        <page to="backend/custom_field_choices#down"/>
+        <page to="backend/custom_field_choices#up"/>
         <page to="backend/custom_field_choices#unroll"/>
       </item>
       <item name="document_templates">

@@ -130,9 +130,6 @@ jpn:
       index: "耕作地帯"
       new: "新耕作地帯"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "選択肢のリストのための新しいオプション"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "カスタムフィールド"

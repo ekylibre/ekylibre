@@ -151,9 +151,6 @@ arb:
       index: "المناطق الصالحة للزراعة"
       new: "منطقة زراعة جديدة"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      edit: "تعديل الخيار : %{name}"
-      new: " انشاء خيار واحد للحصول على قائمة الخيارات"
     backend/custom_fields:
       edit: "تعديل الحقل المخصص : %{name}"
       index: "الحقول المخصصة"

@@ -130,9 +130,6 @@ ita:
       index: "zone coltivabili"
       new: "Nuova zona coltivabile"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "Nuova opzione per un elenco delle scelte"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "Campi personalizzati"

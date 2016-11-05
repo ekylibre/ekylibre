@@ -632,13 +632,8 @@ custom_fields:
     dependencies:
     - read-custom_fields
     actions:
-    - "backend/custom_field_choices#create"
-    - "backend/custom_field_choices#destroy"
     - "backend/custom_field_choices#down"
-    - "backend/custom_field_choices#edit"
-    - "backend/custom_field_choices#new"
     - "backend/custom_field_choices#up"
-    - "backend/custom_field_choices#update"
     - "backend/custom_fields#create"
     - "backend/custom_fields#destroy"
     - "backend/custom_fields#down"

@@ -367,7 +367,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :custom_field_choices, except: [:index, :show], concerns: [:unroll], path: 'custom-field-choices' do
+    resources :custom_field_choices, only: [], concerns: [:unroll], path: 'custom-field-choices' do
       member do
         post :up
         post :down

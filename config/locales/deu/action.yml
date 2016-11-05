@@ -130,9 +130,6 @@ deu:
       index: "Anbauzonen"
       new: "Neue Anbauzone"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "Neue Option für eine Auswahlliste"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "Benutzerdefinierte Felder"

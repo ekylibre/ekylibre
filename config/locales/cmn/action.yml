@@ -130,9 +130,6 @@ cmn:
       index: "可种植区"
       new: "新耕种区"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "对于选择列表的新选项"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "自定义字段"

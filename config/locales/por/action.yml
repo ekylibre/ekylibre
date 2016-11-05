@@ -135,9 +135,6 @@ por:
       index: "Zonas cultiváveis"
       new: "Nova zona cultivável"
       show: "Zona cultivável: %{name}"
-    backend/custom_field_choices:
-      edit: "Editar opção: %{name}"
-      new: "Nova opção para a lista"
     backend/custom_fields:
       edit: "Editar campo customizado: %{name}"
       index: "Campos customizados"

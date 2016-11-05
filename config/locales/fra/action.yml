@@ -143,9 +143,6 @@ fra:
       index: "Zones cultivables"
       new: "Nouvelle zone cultivable"
       show: "Zone cultivable %{name}"
-    backend/custom_field_choices:
-      edit: "Modifier l’option\_: %{name}"
-      new: "Nouvelle option pour une liste de choix"
     backend/custom_fields:
       edit: "Modifier le champ personnalisé\_: %{name}"
       index: "Champs personnalisés"

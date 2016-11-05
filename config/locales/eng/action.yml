@@ -172,9 +172,6 @@ eng:
       index: "Cultivable zones"
       new: "New cultivable zone"
       show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      edit: "Edit option: %{name}"
-      new: "New option for a choices list"
     backend/custom_fields:
       edit: "Edit custom field: %{name}"
       index: "Custom fields"
