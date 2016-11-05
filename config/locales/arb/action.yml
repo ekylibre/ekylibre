@@ -139,6 +139,11 @@ arb:
     backend/contacts:  #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
+    backend/contracts:
+      # edit: "Edit contract %{number}"
+      index: "عقود"
+      new: "عقد جديد"
+      # show: "Contract %{number}"
     backend/crumbs:
       index: "فتات"
     backend/cultivable_zones:
@@ -441,6 +446,7 @@ arb:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "الإشعارات"
+      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
@@ -461,6 +467,9 @@ arb:
     backend/outgoing_parcels:  #?
       edit: "تعديل التسليم" #?
       new: "اضافة تسليم" #?
+    backend/outgoing_payment_lists:
+      index: "المدفوعات الصادرة قائمة دفعة"
+      show: "المدفوعات الصادرة دفعة"
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
@@ -580,6 +589,7 @@ arb:
       index: "المستريات"
       invoice: "تلقي فاتورة"
       new: "شراء جديد"
+      payment_mode: "طريقة الدفع حدد"
       propose: "اقتراح ترتيب"
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
@@ -1809,6 +1819,7 @@ arb:
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
     reconciled_total: "مجموعه التوفيق"
+    record: "سجل"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
     record_maintenance: "صيانة المسجلات"
@@ -1818,6 +1829,7 @@ arb:
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
     register_intervention_request: "تسجيل طلب تدخل"
+    rejected: "مرفوض"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     relationship: "صلة"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1833,6 +1845,7 @@ arb:
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
+    request: "طلب"
     request_maintenance: "صيانة الطلب"
     requests: "طلبات"
     reservoir: "الاحتياطي" #?
@@ -2083,7 +2096,7 @@ arb:
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
-    # undelivered_invoices: "Undelivered invoices"
+    undelivered_invoices: "الفواتير التي لم يتم تسليمها"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
     undone: "غير مصنوع"
     uninvoiced_amount: "قيمة غير مفوترة" #?
@@ -2196,6 +2209,10 @@ arb:
     x_hours_worked:
       # one: "%{count}\_h worked"
       # other: "%{count}\_h worked"
+    x_incoming_parcels:
+      # one: "%{count} incoming parcel"
+      # other: "%{count} incoming parcels"
+      zero: "لا يتجزأ واردة"
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
@@ -2244,6 +2261,10 @@ arb:
       one: "عمل واحد" #?
       other: "%{count} اعمال اخرى" #?
       zero: "ولا اي عمل" #?
+    x_outgoing_parcels:
+      # one: "%{count} outgoing parcel"
+      # other: "%{count} outgoing parcels"
+      zero: "لا يتجزأ المنتهية ولايته"
     x_outgoing_payments:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"
@@ -2285,6 +2306,10 @@ arb:
     x_times:
       # one: "%{count} time"
       # other: "%{count} times"
+    x_trackings:
+      # one: "%{count} tracking"
+      # other: "%{count} trackings"
+      zero: "لم يتم العثور على تتبع"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -2322,6 +2347,7 @@ arb:
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
       all_data_import_finished: "تم استيراد جميع البيانات الخاصة بك"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
+      all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
       an_activity_must_be_defined: "يجب تعريف النشاط"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
@@ -2416,6 +2442,7 @@ arb:
       password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
+      purchases_invalid_for_sepa: "الشراء المحددة غير صالحة لنقل المصلحة (الوضع صرف العملة غير صالح أو خاطئة أو مفقودة المستفيد IBAN أو صاحب حساب مصرفي الاسم)"
       record_already_imported: "سجل استيراد بالفعل"
       record_cannot_be_removed: "لا يمكن حذف السجل"
       record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
@@ -2549,6 +2576,7 @@ arb:
       edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
+      export_to_sepa: "تصدير إلى المصلحة"
       extract: "استخراج"
       family: "أسرة"
       finish: "إنهاء"
@@ -2571,6 +2599,8 @@ arb:
       new: "جديد"
       open: "فتح"
       order: "طلب"
+      pay: "دفع"
+      payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"
       prepare: "إعداد"

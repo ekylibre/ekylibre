@@ -79,6 +79,7 @@ fra:
         fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
         ifrs: "Normes internationales d’information financière (IFRS)" #?
+        pt_snc: "Plan comptable Portugais - (SNC)"
       name: "Plans de comptes"
     accounts:
       items:
@@ -243,6 +244,7 @@ fra:
         incorporeal_asset_depreciation_revenues: "Reprises sur amortissements et provisions (à inscrire dans les produits d'exploitation)"
         incorporeal_asset_depreciations: "Ammortissements des immobilisations incorporelles"
         incorporeal_asset_revenues: "Immobilisations incorporelles"
+        incorporeal_assets: "Immobilisations incorporelles"
         incorporeals_depreciations_inputations_expenses: "Dotat. aux amort. des biens incorporels"
         industrial_cooperative_participation_assets: "SICA"
         infirmity_and_death_insurance_expenses: "Charges des intérêts des dettes diverses"
@@ -514,6 +516,7 @@ fra:
         debtor: "Compte de débit"
         fr_pcg82: "Numéro dans le PCG1982"
         fr_pcga: "Numéro dans le PCGA"
+        pt_snc: "Numéoro dans le SNC (pt)"
     activity_families:
       choices:
         nature:

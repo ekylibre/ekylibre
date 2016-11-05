@@ -104,7 +104,7 @@ class SaleItem < Ekylibre::Record::Base
   }
 
   # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature|
+  scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
@@ -139,7 +139,7 @@ class SaleItem < Ekylibre::Record::Base
       for usage in [:stock, :sale]
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any?
+        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
           variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
         end
       end
@@ -197,9 +197,9 @@ class SaleItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if sale.affair.balanced?
-      return 1.00
+      1.00
     elsif sale.affair.credit != 0.0
-      return (1 - (-sale.affair.balance / sale.affair.credit)).to_f
+      (1 - (-sale.affair.balance / sale.affair.credit)).to_f
     end
   end
 end

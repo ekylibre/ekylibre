@@ -285,7 +285,7 @@ class Product < Ekylibre::Record::Base
     self.initial_born_at ||= Time.zone.now
     self.born_at ||= self.initial_born_at
     self.initial_born_at = self.born_at
-    self.initial_dead_at = self.dead_at
+    self.initial_dead_at = dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 
@@ -321,7 +321,7 @@ class Product < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any? || supports.any?
+    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any?
   end
 
   class << self

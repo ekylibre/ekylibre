@@ -131,11 +131,11 @@ fra:
       show: "Catalogue de prix\_: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
-    backend/contacts:  #?
-      edit: "Modifier le contact\_: %{full_name}" #?
-      index: "Contacts" #?
-      new: "Nouveau contact" #?
-      show: "Contact\_: %{full_name}" #?
+    backend/contracts:
+      edit: "Modifier le contrat %{number}"
+      index: "Contrats"
+      new: "Nouveau contrat"
+      show: "Contrat %{number}"
     backend/crumbs:
       index: "Miettes"
     backend/cultivable_zones:
@@ -430,6 +430,7 @@ fra:
       show: "Service en ligne\_: %{name}"
     backend/notifications:
       index: "Notifications"
+      no_worker_account: "Pas d'ouvrier associé au compte"
     backend/observations:
       edit: "Modifier une observation"
       new: "Nouvelle observation"
@@ -450,6 +451,9 @@ fra:
       new: "Nouveau colis à expédier" #?
       ship: "Expédier les colis" #?
       show: "Colis à expédier\_: %{number}" #?
+    backend/outgoing_payment_lists:
+      index: "Lots de décaissements"
+      show: "Lot de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -532,6 +536,7 @@ fra:
       index: "Achats"
       invoice: "Réception de la facture"
       new: "Nouvel achat"
+      payment_mode: "Selection du mode de paiement"
       propose: "Commande soumise au fournisseur"
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
@@ -1685,6 +1690,7 @@ fra:
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
     reconciled_total: "Total rapproché"
+    record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     record_maintenance: "Enregistrer une maintenance"
@@ -1693,6 +1699,7 @@ fra:
     reflections: "Réflections"
     refresh: "Rafraîchir"
     register_intervention_request: "Enregistrer la demande d'intervention"
+    rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
     relationship_of_entity: "%{relationship} de %{entity}"
@@ -1714,6 +1721,7 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    request: "Demande"
     request_maintenance: "Demander une maintenance"
     requests: "Demandes"
     reservoir: "Réservoir" #?
@@ -2035,7 +2043,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    validated: "Validées"
+    validated: "Validé"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
@@ -2104,6 +2112,10 @@ fra:
     x_hours_worked:
       one: "%{count}\_h travaillée"
       other: "%{count}\_h travaillées"
+    x_incoming_parcels:
+      one: "%{count} colis entrant"
+      other: "%{count} colis entrants"
+      zero: "Aucun colis entrant"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
@@ -2147,6 +2159,10 @@ fra:
     x_operations:  #?
       one: "%{count} travail" #?
       other: "%{count} travaux" #?
+    x_outgoing_parcels:
+      one: "%{count} colis sortant"
+      other: "%{count} colis sortants"
+      zero: "Aucun colis sortant"
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
@@ -2195,6 +2211,10 @@ fra:
     x_times:
       one: "%{count} fois"
       other: "%{count} fois"
+    x_trackings:
+      one: "%{count} numéro de lot"
+      other: "%{count} numéros de lot"
+      zero: "Aucun numéro de lot"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
@@ -2236,6 +2256,8 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       all_data_import_finished: "Toutes vos données ont été importées"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
+      all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
+      all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
@@ -2333,6 +2355,7 @@ fra:
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
+      purchases_invalid_for_sepa: "Achats sélectionnés invalides pour un transfert SEPA (mode de décaissement invalide ou devise différente de celle du mode de décaissement ou IBAN ou Titulaire du compte du créditeur manquant.)"
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
@@ -2418,6 +2441,7 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
+      export_to_sepa: "Export SEPA"
       extract: "Extraire"
       family: "Famille"
       finish: "Finir"
@@ -2440,6 +2464,8 @@ fra:
       new: "Nouveau"
       open: "Ouvrir"
       order: "Commander"
+      pay: "Payer"
+      payment_mode: "Payer (Mode)"
       pick: "Piocher"
       picture: "Image"
       prepare: "Préparer"

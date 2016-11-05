@@ -1301,6 +1301,8 @@ cashes:
     type: integer
     references: account
     required: true
+  bank_account_holder_name:
+    type: string
   bank_account_key:
     type: string
   bank_account_number:
@@ -1457,6 +1459,97 @@ catalogs:
   usage:
     type: string
     required: true
+contract_items:
+  contract_id:
+    type: integer
+    references: contract
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  unit_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+contracts:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  custom_fields:
+    type: jsonb
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: user
+    required: true
+  started_on:
+    type: date
+  state:
+    type: string
+  stopped_on:
+    type: date
+  supplier_id:
+    type: integer
+    references: entity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 crumbs:
   accuracy:
     type: decimal
@@ -1920,6 +2013,10 @@ entities:
     type: string
   authorized_payments_count:
     type: integer
+  bank_account_holder_name:
+    type: string
+  bank_identifier_code:
+    type: string
   born_at:
     type: datetime
   client:
@@ -1964,6 +2061,8 @@ entities:
   full_name:
     type: string
     required: true
+  iban:
+    type: string
   id:
     type: integer
     required: true
@@ -2022,6 +2121,11 @@ entities:
   supplier_account_id:
     type: integer
     references: account
+  supplier_payment_delay:
+    type: string
+  supplier_payment_mode_id:
+    type: integer
+    references: outgoing_payment_mode
   title:
     type: string
   transporter:
@@ -3236,6 +3340,37 @@ intervention_parameters:
     limit:
       srid: 4326
       type: multi_polygon
+intervention_participations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+  request_compliant:
+    type: boolean
+    required: true
+    default: false
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_working_periods:
   created_at:
     type: datetime
@@ -3252,10 +3387,14 @@ intervention_working_periods:
   intervention_id:
     type: integer
     references: intervention
-    required: true
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
   started_at:
     type: datetime
     required: true
@@ -3311,6 +3450,8 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_compliant:
+    type: boolean
   request_intervention_id:
     type: integer
     references: intervention
@@ -4335,6 +4476,25 @@ observations:
   updater_id:
     type: integer
     references: user
+outgoing_payment_lists:
+  created_at:
+    type: datetime
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  updated_at:
+    type: datetime
+  updater_id:
+    type: integer
+    references: user
 outgoing_payment_modes:
   active:
     type: boolean
@@ -4360,6 +4520,10 @@ outgoing_payment_modes:
     required: true
   position:
     type: integer
+  sepa:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -4412,6 +4576,9 @@ outgoing_payments:
   journal_entry_id:
     type: integer
     references: journal_entry
+  list_id:
+    type: integer
+    references: outgoing_payment_list
   lock_version:
     type: integer
     required: true
@@ -4470,6 +4637,11 @@ parcel_items:
     type: decimal
     precision: 19
     scale: 4
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   product_enjoyment_id:
     type: integer
     references: product_enjoyment
@@ -4506,6 +4678,11 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  unit_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   unit_pretax_stock_amount:
     type: decimal
     precision: 19
@@ -4526,6 +4703,9 @@ parcels:
   address_id:
     type: integer
     references: entity_address
+  contract_id:
+    type: integer
+    references: contract
   created_at:
     type: datetime
     required: true
@@ -4569,6 +4749,11 @@ parcels:
     type: integer
   prepared_at:
     type: datetime
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   purchase_id:
     type: integer
     references: purchase
@@ -4581,6 +4766,9 @@ parcels:
     type: boolean
     required: true
     default: false
+  responsible_id:
+    type: integer
+    references: user
   sale_id:
     type: integer
     references: sale
@@ -4656,6 +4844,10 @@ plant_countings:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+  number:
+    type: string
   plant_density_abacus_id:
     type: integer
     references: plant_density_abacus
@@ -5939,6 +6131,9 @@ purchases:
     required: true
   confirmed_at:
     type: datetime
+  contract_id:
+    type: integer
+    references: contract
   created_at:
     type: datetime
     required: true
@@ -5972,6 +6167,10 @@ purchases:
   number:
     type: string
     required: true
+  payment_at:
+    type: datetime
+  payment_delay:
+    type: string
   planned_at:
     type: datetime
   pretax_amount:

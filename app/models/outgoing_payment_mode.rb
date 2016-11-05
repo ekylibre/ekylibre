@@ -30,6 +30,7 @@
 #  lock_version    :integer          default(0), not null
 #  name            :string           not null
 #  position        :integer
+#  sepa            :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null
@@ -39,18 +40,24 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   belongs_to :cash
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
+  has_many :supplier_payment_modes, class_name: 'Entity', foreign_key: :supplier_payment_mode_id, inverse_of: :supplier_payment_mode, dependent: :restrict_with_error
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :with_accounting, inclusion: { in: [true, false] }
+  validates :active, :sepa, :with_accounting, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, length: { allow_nil: true, maximum: 50 }
   validates :cash, presence: true
 
+  validate :bank_details_for_sepa
+
   delegate :currency, to: :cash
 
   protect(on: :destroy) do
-    payments.any?
+    payments.any? || supplier_payment_modes.any?
   end
+
+  scope :mode_sepa, -> { where(sepa: true) }
+  scope :active, -> { where(active: true) }
 
   def self.load_defaults
     %w(cash check transfer).each do |nature|
@@ -62,6 +69,14 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
         with_accounting: true,
         cash: cash
       )
+    end
+  end
+
+  private
+
+  def bank_details_for_sepa
+    if sepa && (cash.bank_account_holder_name.blank? || cash.iban.blank?)
+      errors.add(:sepa, :missing_bank_details_for_sepa)
     end
   end
 end

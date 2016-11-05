@@ -26,6 +26,7 @@
 #  affair_id                        :integer
 #  amount                           :decimal(19, 4)   default(0.0), not null
 #  confirmed_at                     :datetime
+#  contract_id                      :integer
 #  created_at                       :datetime         not null
 #  creator_id                       :integer
 #  currency                         :string           not null
@@ -38,6 +39,8 @@
 #  lock_version                     :integer          default(0), not null
 #  nature_id                        :integer
 #  number                           :string           not null
+#  payment_at                       :datetime
+#  payment_delay                    :string
 #  planned_at                       :datetime
 #  pretax_amount                    :decimal(19, 4)   default(0.0), not null
 #  quantity_gap_on_invoice_entry_id :integer

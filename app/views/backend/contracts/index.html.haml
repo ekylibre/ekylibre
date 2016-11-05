@@ -1,0 +1,12 @@
+= kujaku do |k|
+  - k.text
+  - sm = Contract.state_machine.states
+  - k.multi_choice :state, [:prospecting, :price_quote, :negociation, :won, :lost].map{|s| [sm[s].human_name, s] }, label: Contract.human_attribute_name(:state)
+  - responsibles = User.where(id: Contract.select(:responsible_id).distinct)
+  - if responsibles.any?
+    - k.helper do
+      %label= Contract.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
+- main_toolbar do |t|
+  = t.new
+= main_list

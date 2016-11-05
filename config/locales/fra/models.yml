@@ -1,4 +1,11 @@
 fra:
+  activemodel:  #?
+    errors: #?
+      models: #?
+        sepa/credit_transfer_transaction: #?
+          attributes: #?
+            amount: #?
+              greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
       activity:  #?
@@ -88,8 +95,13 @@ fra:
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
+        list: "Lot de décaissements"
+      outgoing_payment_list:
+        payments_sum: "Total"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel:
+        contract: "Contrat"
       parcel_item:
         population: "Quantité"
       plant:
@@ -117,7 +129,8 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      purchase:  #?
+      purchase:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
         label: "Commande" #?
@@ -126,6 +139,7 @@ fra:
       purchase_item:  #?
         amount: "Montant TTC" #?
       sale:
+        affair_balance: "Solde"
         amount: "Montant TTC" #?
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
@@ -178,6 +192,7 @@ fra:
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+        missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
         not_a_number: "%{attribute} n’est pas un nombre"
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
@@ -295,6 +310,8 @@ fra:
       cash_transfer: "Virement interne"
       catalog: "Liste de prix"
       catalog_item: "Prix"
+      contract: "Contrat"
+      contract_item: "Élément du contrat"
       crumb: "Miette"
       cultivable_zone: "Zone cultivable"
       custom_field: "Champ complémentaire"
@@ -342,6 +359,7 @@ fra:
       intervention_output: "Extrant d’intervention"
       intervention_parameter: "Paramètre d’intervention"
       intervention_parameter_reading: "Relevé d’indicateur d’intervention"
+      intervention_participation: "Participation d’intervention"
       intervention_product_parameter: "Paramètre produit d’intervention"
       intervention_target: "Cible d’intervention"
       intervention_tool: "Outil d’intervention"
@@ -367,6 +385,7 @@ fra:
       notification: "Notification"
       observation: "Observation"
       outgoing_payment: "Décaissement"
+      outgoing_payment_list: "Liste de décaissements"
       outgoing_payment_mode: "Mode de décaissement"
       parcel: "Colis"
       parcel_item: "Élément de colis"
@@ -490,6 +509,10 @@ fra:
     analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
     archive: "Archive"
+    archive_content_type: "Archive type de contenu"
+    archive_file_name: "Nom de fichier Archive"
+    archive_file_size: "Taille du fichier Archive"
+    archive_updated_at: "Archive mis à jour à"
     archived_at: "Archivé le" #?
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
@@ -510,6 +533,7 @@ fra:
     balance: "Solde"
     balance_amount: "Solde" #?
     balances: "Balances de compte"
+    bank_account_holder_name: "Titulaire du compte"
     bank_account_key: "Clé RIB"
     bank_account_number: "Numéro de compte bancaire"
     bank_agency_address: "Adresse de l’agence bancaire"
@@ -621,6 +645,8 @@ fra:
     content_nature: "Nature du contenu" #?
     contents: "Contenu"
     contour: "Silhouette" #?
+    contract: "Contrat"
+    contracts: "Contrats"
     coordinate: "Coordonnée"
     coordinate_columns: "Colonnes de coordonnées"
     costs_per_unit: "Coût par %{unit}"
@@ -802,7 +828,11 @@ fra:
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
+    file_content_text: "Fichier texte contenu"
+    file_content_type: "Fichier type de contenu"
+    file_file_name: "Nom de fichier du fichier"
     file_file_size: "Taille du fichier"
+    file_fingerprint: "Empreinte du fichier"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
@@ -929,6 +959,10 @@ fra:
     initiated_on: "Lancé le"
     inputs: "Intrants"
     inspection: "Agréage"
+    inspection_calibration_natures: "Natures d’étalonnage d’inspection"
+    inspection_calibration_scales: "Échelles d’étalonnage d’inspection"
+    inspection_point_natures: "Point d’inspection des natures"
+    inspection_points: "Les points d’inspection"
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
@@ -943,7 +977,7 @@ fra:
     intervention_parameter: "Paramètre d’intervention"
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
-    # interventions_used_in: "Interventions used in"
+    interventions_used_in: "Interventions utilisées dans"
     introduction: "Introduction"
     inventory: "Inventaire"
     invitation_accepted_at: "Invitation acceptée à"
@@ -1008,6 +1042,7 @@ fra:
     last_value: "Dernière valeur"
     last_year: "Dernière année"
     latest: "Dernier"
+    leaves_parameters: "Feuilles paramètres"
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
@@ -1018,6 +1053,7 @@ fra:
     linked: "Tiers lié"
     linked_role: "Rôle du tiers lié"
     links: "Liens"
+    list: "Liste"
     listing: "Extraction"
     loan: "Emprunt"
     local_balance: "Solde"
@@ -1352,6 +1388,10 @@ fra:
     reference: "Référence" #?
     reference_name: "Référence"
     reference_number: "N°Référence"
+    reference_source_content_type: "Référence type de contenu source"
+    reference_source_file_name: "Référence Nom du fichier source"
+    reference_source_file_size: "Taille Référence du fichier source"
+    reference_source_updated_at: "Source de référence mis à jour"
     reference_tax: "Taxe de référence"
     reference_value: "Valeur de référence"
     reflected: "Changements reflétés"
@@ -1373,6 +1413,7 @@ fra:
     replacements: "Remplacements"
     reporter: "Rapporteur"
     request: "Demande"
+    request_compliant: "Demande conforme"
     request_intervention: "Demande intervention"
     requests: "Demandes"
     required: "Obligatoire"
@@ -1431,6 +1472,7 @@ fra:
     sensor: "Capteur"
     sensors: "Capteurs"
     sent_at: "Expédié le"
+    sepa: "SEPA"
     separated_stock: "Ne pas fusionner avec les stocks existants"
     serial: "N°Lot"
     serial_number: "Serial number"
@@ -1491,6 +1533,9 @@ fra:
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
     supplier_address: "Adresse du fournisseur"
+    supplier_payment_delay: "Délai de paiement fournisseur"
+    supplier_payment_mode: "Mode de paiement du fournisseur"
+    supplier_payment_modes: "Modes de paiement du fournisseur"
     suppliers: "Fournisseurs"
     support: "Support"
     support_nature: "Type de support"
@@ -1581,7 +1626,7 @@ fra:
     use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
-    # used_intervention_parameters: "Used intervention parameters"
+    used_intervention_parameters: "Paramètres d’intervention d’occasion"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
@@ -1654,6 +1699,14 @@ fra:
         name: "Catalogue de vente"
     catalog_item:
       name: "%{variant} %{amount}/%{unit}"
+    contract:
+      label: "Contrat %{nature} n° %{number} de %{supplier}"
+      states:
+        lost: "Perdu"
+        negociation: "Négociation"
+        price_quote: "Quotation"
+        prospecting: "Prospection"
+        won: "Gagné"
     delivery:
       state_machine:
         states:
@@ -1894,6 +1947,7 @@ fra:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "VI[year|4][number|4]"
+        contracts: "CT[year|4][number|4]"
         deliveries: "BL[year|4][number|6]"
         deposits: "B[year|4][number|4]"
         entities: "[number|8]"

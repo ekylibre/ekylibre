@@ -94,7 +94,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
     execute 'DROP VIEW activities_interventions'
     execute 'DROP VIEW activity_productions_interventions'
     execute 'DROP VIEW activity_productions_campaigns'
-    execute 'DROP VIEW activities_campains'
+    execute 'DROP VIEW activities_campaigns'
     execute 'DROP VIEW campaigns_interventions'
   end
 end

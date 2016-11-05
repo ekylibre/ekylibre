@@ -26,9 +26,9 @@ module Ekylibre
               return c.references
             end
           end
-          return nil
+          nil
         else
-          return @references ||= tables.each_with_object({}) do |table, h|
+          @references ||= tables.each_with_object({}) do |table, h|
             h[table.first] = table.second
             h
           end.freeze

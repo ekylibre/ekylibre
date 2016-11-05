@@ -12,6 +12,8 @@ More details can be found on the official website http://ekylibre.org.
 [![Gem Dependency Status](https://gemnasium.com/ekylibre/ekylibre.svg)](https://gemnasium.com/ekylibre/ekylibre)
 [![Code Metrics](https://codeclimate.com/github/ekylibre/ekylibre.svg)](https://codeclimate.com/github/ekylibre/ekylibre)
 [![Code Coverage](https://coveralls.io/repos/github/ekylibre/ekylibre/badge.svg?branch=2-0-stable)](https://coveralls.io/r/ekylibre/ekylibre)
+[![Codacy Grade Badge](https://api.codacy.com/project/badge/Grade/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ekylibre/ekylibre&amp;utm_campaign=Badge_Grade)
+[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ekylibre/ekylibre&amp;utm_campaign=Badge_Coverage)
 
 ## Guides
 

@@ -130,7 +130,7 @@ module Backend
       end
       if request.post?
         if params[:node]
-          session[:listing_coordinate_column] = ListingNode.find_by_key(params[:node][:mail]).id
+          session[:listing_coordinate_column] = ListingNode.find_by(key: params[:node][:mail]).id
           redirect_to_back
         else
           session[:mail] = params.dup

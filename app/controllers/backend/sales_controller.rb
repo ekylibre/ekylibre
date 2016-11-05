@@ -71,6 +71,7 @@ module Backend
       t.column :state_label
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :affair_balance, currency: true, hidden: true
     end
 
     # Displays the main page with the list of sales
@@ -178,7 +179,7 @@ module Backend
                 Sale.new(nature: nature)
               end
       @sale.currency = @sale.nature.currency
-      if client = Entity.find_by_id(@sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
+      if client = Entity.find_by(id: @sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
         if client.default_mail_address
           cid = client.default_mail_address.id
           @sale.attributes = { address_id: cid, delivery_address_id: cid, invoice_address_id: cid }
@@ -221,16 +222,16 @@ module Backend
       if request.xhr?
         client = nil
         address_id = nil
-        client = if params[:selected] && address = EntityAddress.find_by_id(params[:selected])
+        client = if params[:selected] && address = EntityAddress.find_by(id: params[:selected])
                    address.entity
                  else
-                   Entity.find_by_id(params[:client_id])
+                   Entity.find_by(id: params[:client_id])
                  end
         if client
           session[:current_entity_id] = client.id
           address_id = (address ? address.id : client.default_mail_address.id)
         end
-        @sale = Sale.find_by_id(params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
+        @sale = Sale.find_by(id: params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
         render partial: 'addresses_form', locals: { client: client, object: @sale }
       else
         redirect_to action: :index

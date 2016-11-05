@@ -122,17 +122,15 @@ module Procedo
           return nil unless candidates.any?
           return candidates.first if candidates.count == 1
           best = candidates.select { |h| h.unit.name.to_s == quantity.unit.to_s }
-          return (best ? best : candidates.first)
+          (best ? best : candidates.first)
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?
-          return candidates.first
+          candidates.first
         elsif quantity.is_a?(Charta::Geometry)
           candidates = handlers.select { |h| h.indicator.datatype == :multi_polygon }
           return nil unless candidates.any?
-          return candidates.first
-        else
-          return nil
+          candidates.first
         end
       end
 

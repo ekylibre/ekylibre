@@ -186,6 +186,18 @@ module Backend
       t.column :value
     end
 
+    # Lists readings of the current product
+    list(:trackings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :active
+      t.column :name, url: true
+      t.column :created_at
+      t.column :description
+      t.column :serial
+      t.column :producer, hidden: true
+    end
+
     # Returns value of an indicator
     def take
       return unless @product = find_and_check
@@ -212,14 +224,16 @@ module Backend
     def check_variant_availability
       unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
         redirect_to new_backend_product_nature_path
-        return false
+        false
       end
     end
 
     def clean_attachments
-      permitted_params['attachments_attributes'].each do |k, v|
-        permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
-      end if permitted_params.include?('attachments_attributes')
+      if permitted_params.include?('attachments_attributes')
+        permitted_params['attachments_attributes'].each do |k, v|
+          permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+        end
+      end
     end
   end
 end

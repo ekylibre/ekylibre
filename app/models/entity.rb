@@ -26,6 +26,8 @@
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string
 #  authorized_payments_count :integer
+#  bank_account_holder_name  :string
+#  bank_identifier_code      :string
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
@@ -43,6 +45,7 @@
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
+#  iban                      :string
 #  id                        :integer          not null, primary key
 #  language                  :string           not null
 #  last_name                 :string           not null
@@ -63,6 +66,8 @@
 #  siret_number              :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
@@ -88,6 +93,7 @@ class Entity < Ekylibre::Record::Base
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
+  belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
   with_options class_name: 'EntityAddress', inverse_of: :entity do
     has_many :all_addresses, dependent: :destroy
@@ -100,6 +106,7 @@ class Entity < Ekylibre::Record::Base
     has_many :websites,  -> { actives.websites }
     has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
   end
+  has_many :contracts, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
@@ -115,6 +122,8 @@ class Entity < Ekylibre::Record::Base
   has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id
+  has_many :incoming_parcels, class_name: 'Parcel', foreign_key: :sender_id
+  has_many :outgoing_parcels, class_name: 'Parcel', foreign_key: :recipient_id
   has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
            class_name: 'Sale', foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
@@ -144,7 +153,7 @@ class Entity < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
-  validates :activity_code, :deliveries_conditions, :first_name, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :supplier_payment_delay, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -157,7 +166,9 @@ class Entity < Ekylibre::Record::Base
   validates :vat_number, length: { allow_nil: true, maximum: 20 }
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
+  validates :iban, iban: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
+  validates_delay_format_of :supplier_payment_delay
 
   alias_attribute :name, :full_name
 
@@ -202,6 +213,11 @@ class Entity < Ekylibre::Record::Base
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
+    self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
+    self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '')
+    self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
+    self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
+    self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
   end
 
   validate do
@@ -223,7 +239,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || incoming_parcels.any? || outgoing_parcels.any?
   end
 
   class << self

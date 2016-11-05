@@ -51,7 +51,7 @@ module Tele
               return attributes
             end
           else
-            return node.content.to_s
+            node.content.to_s
           end
         end
       end

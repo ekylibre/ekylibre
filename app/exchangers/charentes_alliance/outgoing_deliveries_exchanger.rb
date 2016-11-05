@@ -25,7 +25,7 @@ module CharentesAlliance
       end
 
       cooperative = Entity.where('last_name ILIKE ?', 'CHARENTES ALLIANCE').first ||
-                    Entity.find_by_last_name('Charentes Alliance')
+                    Entity.find_by(last_name: 'Charentes Alliance')
 
       rows = CSV.read(outgoing_deliveries_file, encoding: 'UTF-8', col_sep: ';', headers: true)
       w.count = rows.size

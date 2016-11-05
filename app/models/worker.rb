@@ -73,6 +73,7 @@ class Worker < Product
   has_one :user, through: :person
   include Attachable
   validates :person, presence: true
+  has_many :intervention_participations, inverse_of: :product, foreign_key: :product_id, dependent: :destroy
 
   before_validation do
     self.team_id = user.team_id if user && user.team

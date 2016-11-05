@@ -323,7 +323,8 @@ CREATE TABLE interventions (
     trouble_description text,
     accounted_at timestamp without time zone,
     currency character varying,
-    journal_entry_id integer
+    journal_entry_id integer,
+    request_compliant boolean
 );
 
 
@@ -1387,7 +1388,8 @@ CREATE TABLE cashes (
     container_id integer,
     last_number integer,
     owner_id integer,
-    custom_fields jsonb
+    custom_fields jsonb,
+    bank_account_holder_name character varying
 );
 
 
@@ -1490,6 +1492,88 @@ CREATE SEQUENCE catalogs_id_seq
 --
 
 ALTER SEQUENCE catalogs_id_seq OWNED BY catalogs.id;
+
+
+--
+-- Name: contract_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE contract_items (
+    id integer NOT NULL,
+    contract_id integer NOT NULL,
+    variant_id integer NOT NULL,
+    quantity numeric(19,4) DEFAULT 0.0 NOT NULL,
+    unit_pretax_amount numeric(19,4) NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: contract_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE contract_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: contract_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE contract_items_id_seq OWNED BY contract_items.id;
+
+
+--
+-- Name: contracts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE contracts (
+    id integer NOT NULL,
+    number character varying,
+    description character varying,
+    state character varying,
+    reference_number character varying,
+    started_on date,
+    stopped_on date,
+    custom_fields jsonb,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    currency character varying NOT NULL,
+    responsible_id integer NOT NULL,
+    supplier_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE contracts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE contracts_id_seq OWNED BY contracts.id;
 
 
 --
@@ -1990,7 +2074,12 @@ CREATE TABLE entities (
     custom_fields jsonb,
     employee boolean DEFAULT false NOT NULL,
     employee_account_id integer,
-    codes jsonb
+    codes jsonb,
+    supplier_payment_delay character varying,
+    bank_account_holder_name character varying,
+    bank_identifier_code character varying,
+    iban character varying,
+    supplier_payment_mode_id integer
 );
 
 
@@ -3006,12 +3095,49 @@ ALTER SEQUENCE intervention_parameters_id_seq OWNED BY intervention_parameters.i
 
 
 --
+-- Name: intervention_participations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_participations (
+    id integer NOT NULL,
+    intervention_id integer,
+    product_id integer,
+    state character varying,
+    request_compliant boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_participations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_participations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_participations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_participations.id;
+
+
+--
 -- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE intervention_working_periods (
     id integer NOT NULL,
-    intervention_id integer NOT NULL,
+    intervention_id integer,
     started_at timestamp without time zone NOT NULL,
     stopped_at timestamp without time zone NOT NULL,
     duration integer NOT NULL,
@@ -3019,7 +3145,9 @@ CREATE TABLE intervention_working_periods (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    intervention_participation_id integer,
+    nature character varying
 );
 
 
@@ -3857,6 +3985,40 @@ ALTER SEQUENCE observations_id_seq OWNED BY observations.id;
 
 
 --
+-- Name: outgoing_payment_lists; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE outgoing_payment_lists (
+    id integer NOT NULL,
+    number character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: outgoing_payment_lists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE outgoing_payment_lists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: outgoing_payment_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE outgoing_payment_lists_id_seq OWNED BY outgoing_payment_lists.id;
+
+
+--
 -- Name: outgoing_payment_modes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3871,7 +4033,8 @@ CREATE TABLE outgoing_payment_modes (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    sepa boolean DEFAULT false NOT NULL
 );
 
 
@@ -3920,7 +4083,8 @@ CREATE TABLE outgoing_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    list_id integer
 );
 
 
@@ -3972,7 +4136,9 @@ CREATE TABLE parcel_items (
     product_identification_number character varying,
     product_name character varying,
     currency character varying,
-    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -4032,7 +4198,10 @@ CREATE TABLE parcels (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    undelivered_invoice_entry_id integer
+    undelivered_invoice_entry_id integer,
+    contract_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    responsible_id integer
 );
 
 
@@ -4106,7 +4275,9 @@ CREATE TABLE plant_countings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    number character varying,
+    nature character varying
 );
 
 
@@ -5235,7 +5406,10 @@ CREATE TABLE purchases (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer
+    quantity_gap_on_invoice_entry_id integer,
+    payment_delay character varying,
+    payment_at timestamp without time zone,
+    contract_id integer
 );
 
 
@@ -6272,6 +6446,20 @@ ALTER TABLE ONLY catalogs ALTER COLUMN id SET DEFAULT nextval('catalogs_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY contract_items ALTER COLUMN id SET DEFAULT nextval('contract_items_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contracts ALTER COLUMN id SET DEFAULT nextval('contracts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY crumbs ALTER COLUMN id SET DEFAULT nextval('crumbs_id_seq'::regclass);
 
 
@@ -6524,6 +6712,13 @@ ALTER TABLE ONLY intervention_parameters ALTER COLUMN id SET DEFAULT nextval('in
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval('intervention_participations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY intervention_working_periods ALTER COLUMN id SET DEFAULT nextval('intervention_working_periods_id_seq'::regclass);
 
 
@@ -6658,6 +6853,13 @@ ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notification
 --
 
 ALTER TABLE ONLY observations ALTER COLUMN id SET DEFAULT nextval('observations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_lists ALTER COLUMN id SET DEFAULT nextval('outgoing_payment_lists_id_seq'::regclass);
 
 
 --
@@ -7252,6 +7454,22 @@ ALTER TABLE ONLY catalogs
 
 
 --
+-- Name: contract_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contract_items
+    ADD CONSTRAINT contract_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY contracts
+    ADD CONSTRAINT contracts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: crumbs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7540,6 +7758,14 @@ ALTER TABLE ONLY intervention_parameters
 
 
 --
+-- Name: intervention_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_working_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7697,6 +7923,14 @@ ALTER TABLE ONLY notifications
 
 ALTER TABLE ONLY observations
     ADD CONSTRAINT observations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: outgoing_payment_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payment_lists
+    ADD CONSTRAINT outgoing_payment_lists_pkey PRIMARY KEY (id);
 
 
 --
@@ -9443,6 +9677,90 @@ CREATE INDEX index_catalogs_on_updater_id ON catalogs USING btree (updater_id);
 
 
 --
+-- Name: index_contract_items_on_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contract_items_on_contract_id ON contract_items USING btree (contract_id);
+
+
+--
+-- Name: index_contract_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contract_items_on_created_at ON contract_items USING btree (created_at);
+
+
+--
+-- Name: index_contract_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contract_items_on_creator_id ON contract_items USING btree (creator_id);
+
+
+--
+-- Name: index_contract_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contract_items_on_updated_at ON contract_items USING btree (updated_at);
+
+
+--
+-- Name: index_contract_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contract_items_on_updater_id ON contract_items USING btree (updater_id);
+
+
+--
+-- Name: index_contract_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contract_items_on_variant_id ON contract_items USING btree (variant_id);
+
+
+--
+-- Name: index_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contracts_on_created_at ON contracts USING btree (created_at);
+
+
+--
+-- Name: index_contracts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contracts_on_creator_id ON contracts USING btree (creator_id);
+
+
+--
+-- Name: index_contracts_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contracts_on_responsible_id ON contracts USING btree (responsible_id);
+
+
+--
+-- Name: index_contracts_on_supplier_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contracts_on_supplier_id ON contracts USING btree (supplier_id);
+
+
+--
+-- Name: index_contracts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contracts_on_updated_at ON contracts USING btree (updated_at);
+
+
+--
+-- Name: index_contracts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contracts_on_updater_id ON contracts USING btree (updater_id);
+
+
+--
 -- Name: index_crumbs_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9979,6 +10297,13 @@ CREATE INDEX index_entities_on_responsible_id ON entities USING btree (responsib
 --
 
 CREATE INDEX index_entities_on_supplier_account_id ON entities USING btree (supplier_account_id);
+
+
+--
+-- Name: index_entities_on_supplier_payment_mode_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entities_on_supplier_payment_mode_id ON entities USING btree (supplier_payment_mode_id);
 
 
 --
@@ -11200,6 +11525,48 @@ CREATE INDEX index_intervention_parameters_on_variant_id ON intervention_paramet
 
 
 --
+-- Name: index_intervention_participations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_created_at ON intervention_participations USING btree (created_at);
+
+
+--
+-- Name: index_intervention_participations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_creator_id ON intervention_participations USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_participations_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_intervention_id ON intervention_participations USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_participations_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_product_id ON intervention_participations USING btree (product_id);
+
+
+--
+-- Name: index_intervention_participations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_updated_at ON intervention_participations USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_participations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
+
+
+--
 -- Name: index_intervention_working_periods_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12187,6 +12554,20 @@ CREATE INDEX index_observations_on_updater_id ON observations USING btree (updat
 
 
 --
+-- Name: index_outgoing_payment_lists_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payment_lists_on_creator_id ON outgoing_payment_lists USING btree (creator_id);
+
+
+--
+-- Name: index_outgoing_payment_lists_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payment_lists_on_updater_id ON outgoing_payment_lists USING btree (updater_id);
+
+
+--
 -- Name: index_outgoing_payment_modes_on_cash_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12411,6 +12792,13 @@ CREATE INDEX index_parcels_on_address_id ON parcels USING btree (address_id);
 
 
 --
+-- Name: index_parcels_on_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_contract_id ON parcels USING btree (contract_id);
+
+
+--
 -- Name: index_parcels_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12464,6 +12852,13 @@ CREATE INDEX index_parcels_on_purchase_id ON parcels USING btree (purchase_id);
 --
 
 CREATE INDEX index_parcels_on_recipient_id ON parcels USING btree (recipient_id);
+
+
+--
+-- Name: index_parcels_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_responsible_id ON parcels USING btree (responsible_id);
 
 
 --
@@ -14140,6 +14535,13 @@ CREATE INDEX index_purchases_on_affair_id ON purchases USING btree (affair_id);
 
 
 --
+-- Name: index_purchases_on_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchases_on_contract_id ON purchases USING btree (contract_id);
+
+
+--
 -- Name: index_purchases_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15269,11 +15671,35 @@ ALTER TABLE ONLY alert_phases
 
 
 --
+-- Name: fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES interventions(id);
+
+
+--
 -- Name: fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY alerts
     ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
+-- Name: fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_working_periods
+    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -15612,5 +16038,26 @@ INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 
 INSERT INTO schema_migrations (version) VALUES ('20161007151444');
 
+INSERT INTO schema_migrations (version) VALUES ('20161010205901');
+
 INSERT INTO schema_migrations (version) VALUES ('20161011195724');
 
+INSERT INTO schema_migrations (version) VALUES ('20161012145400');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145500');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145600');
+
+INSERT INTO schema_migrations (version) VALUES ('20161012145700');
+
+INSERT INTO schema_migrations (version) VALUES ('20161013023259');
+
+INSERT INTO schema_migrations (version) VALUES ('20161018162500');
+
+INSERT INTO schema_migrations (version) VALUES ('20161019235101');
+
+INSERT INTO schema_migrations (version) VALUES ('20161020191401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161026094401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161026102134');
