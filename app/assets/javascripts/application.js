@@ -33,6 +33,16 @@
 //= require i18n/locale
 //= require i18n/ext
 //= require ekylibre
+//= require moment
+//= require moment/ar
+//= require moment/de
+//= require moment/es
+//= require moment/fr
+//= require moment/it
+//= require moment/ja
+//= require moment/pt
+//= require moment/zh-cn
+//= require bootstrap-datetimepicker
 //= require form/behave
 //= require form/dialog
 //= require form/observe

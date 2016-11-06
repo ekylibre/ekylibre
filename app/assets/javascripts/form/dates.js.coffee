@@ -20,11 +20,25 @@
       if element.attr("autocomplete") isnt "off"
         locale = element.attr("lang")
         element.datetimepicker
-          format: "yyyy-mm-dd hh:ii"
-          language: locale
-          autoclose: true
-          minuteStep: 5
-          todayBtn: true
+          format: "YYYY-MM-DD HH:mm"
+          locale: locale
+          sideBySide: true
+          icons:
+            time: 'icon icon-time'
+            date: 'icon icon-calendar'
+            up: 'icon icon-chevron-up'
+            down: 'icon icon-chevron-down'
+            previous: 'icon icon-chevron-left'
+            next: 'icon icon-chevron-right'
+            today: 'icon icon-screenshot'
+            clear: 'icon icon-trash'
+            close: 'icon icon-remove'
+          showClear: true
+          showClose: true
+          showTodayButton: true
+          widgetPositioning:
+            horizontal: 'auto'
+            vertical: 'bottom'
         element.attr "autocomplete", "off"
       return
 

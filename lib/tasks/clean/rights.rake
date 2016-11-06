@@ -6,19 +6,20 @@ namespace :clean do
     # Load list of all actions of all controllers
     ref = Clean::Support.actions_hash
 
-    # Lecture du fichier existant
+    # Reading of existing file
     old_rights = YAML.load_file(Ekylibre::Access.config_file).deep_symbolize_keys
 
     read_exp = /\#(list(\_\w+)*|index|show|unroll|picture)$/
 
     rights = {}
-    for resource, interactions in Ekylibre::Access.resources.sort
+    Ekylibre::Access.resources.sort.each do |resource, interactions|
       rights[resource] ||= {}
-      for access in interactions.keys
+      interactions.keys.each do |access|
         old_rights[resource] ||= {}
         old_rights[resource][access] ||= {}
         rights[resource][access] ||= {}
         rights[resource][access][:dependencies] = old_rights[resource][access][:dependencies] || (access == :read ? [] : ["read-#{resource}"])
+        rights[resource][access][:deprecated] = true if old_rights[resource][access][:deprecated]
         actions = (ref["backend/#{resource}"] || []).collect { |a| "backend/#{resource}##{a}" }
         read_actions = actions.select { |x| x.to_s =~ read_exp }
         rights[resource][access][:actions] = old_rights[resource][access][:actions] || (actions.nil? ? [] : access == :read ? read_actions : (actions - read_actions))
@@ -30,29 +31,30 @@ namespace :clean do
     unused_actions     = all_actions - used_actions
     unexistent_actions = used_actions - all_actions
 
-    # Enregistrement du nouveau fichier
+    # Writing of new file
     yaml = ''
     if unused_actions.any?
       yaml << "# THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE\n"
-      for action in unused_actions.sort
+      unused_actions.sort.each do |action|
         yaml << "#     - \"#{action}\"\n"
       end
     end
-    for resource, accesses in rights
+    rights.each do |resource, accesses|
       yaml << "\n"
       yaml << "#{resource}:\n"
-      for access, details in accesses
+      accesses.each do |access, details|
         next unless details[:dependencies].any? || details[:actions].any?
         yaml << "  #{access}:\n"
+        yaml << "    deprecated: true\n" if details[:deprecated]
         if details[:dependencies].any?
           yaml << "    dependencies:\n"
-          for dependency in details[:dependencies].sort
+          details[:dependencies].sort.each do |dependency|
             yaml << "    - #{dependency}\n"
           end
         end
         next unless details[:actions].any?
         yaml << "    actions:\n"
-        for action in details[:actions].sort
+        details[:actions].sort.each do |action|
           yaml << "    - \"#{action}\""
           yaml << ' #?' if unexistent_actions.include?(action)
           yaml << "\n"
