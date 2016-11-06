@@ -4523,3 +4523,19 @@ preferences_391:
   nature: boolean
   updated_at: 2016-11-05 21:32:46.073108000 Z
   updater_id: 1
+preferences_392:
+  boolean_value: false
+  created_at: 2016-11-06 17:57:39.680824000 Z
+  id: 392
+  lock_version: 0
+  name: distribute_sales_and_purchases_on_activities
+  nature: boolean
+  updated_at: 2016-11-06 17:57:39.680824000 Z
+preferences_393:
+  boolean_value: false
+  created_at: 2016-11-06 17:57:39.680824000 Z
+  id: 393
+  lock_version: 0
+  name: distribute_sales_and_purchases_on_teams
+  nature: boolean
+  updated_at: 2016-11-06 17:57:39.680824000 Z
