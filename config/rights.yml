@@ -1088,6 +1088,10 @@ integrations:
   read:
     actions:
     - "backend/integrations#index"
+    - "backend/net_services#index"
+    - "backend/net_services#list"
+    - "backend/net_services#list_identifiers"
+    - "backend/net_services#show"
   write:
     dependencies:
     - read-integrations
@@ -1097,6 +1101,11 @@ integrations:
     - "backend/integrations#edit"
     - "backend/integrations#new"
     - "backend/integrations#update"
+    - "backend/net_services#create"
+    - "backend/net_services#destroy"
+    - "backend/net_services#edit"
+    - "backend/net_services#new"
+    - "backend/net_services#update"
 
 interventions:
   read:
@@ -1418,6 +1427,7 @@ myselves:
 net_services:
   read:
     actions:
+    - "backend/integrations#index"
     - "backend/net_services#index"
     - "backend/net_services#list"
     - "backend/net_services#list_identifiers"
@@ -1426,6 +1436,11 @@ net_services:
     dependencies:
     - read-net_services
     actions:
+    - "backend/integrations#create"
+    - "backend/integrations#destroy"
+    - "backend/integrations#edit"
+    - "backend/integrations#new"
+    - "backend/integrations#update"
     - "backend/net_services#create"
     - "backend/net_services#destroy"
     - "backend/net_services#edit"

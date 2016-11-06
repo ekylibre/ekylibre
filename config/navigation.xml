@@ -1006,6 +1006,15 @@
         <page to="backend/integrations#create"/>
         <page to="backend/integrations#update"/>
         <page to="backend/integrations#destroy"/>
+        <page to="backend/net_services#index"/>
+        <page to="backend/net_services#create"/>
+        <page to="backend/net_services#destroy"/>
+        <page to="backend/net_services#edit"/>
+        <page to="backend/net_services#list"/>
+        <page to="backend/net_services#list_identifiers"/>
+        <page to="backend/net_services#new"/>
+        <page to="backend/net_services#show"/>
+        <page to="backend/net_services#update"/>
       </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
@@ -1082,17 +1091,6 @@
         <page to="backend/teams#show"/>
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
-      </item>
-      <item name="net_services">
-        <page to="backend/net_services#index"/>
-        <page to="backend/net_services#create"/>
-        <page to="backend/net_services#destroy"/>
-        <page to="backend/net_services#edit"/>
-        <page to="backend/net_services#list"/>
-        <page to="backend/net_services#list_identifiers"/>
-        <page to="backend/net_services#new"/>
-        <page to="backend/net_services#show"/>
-        <page to="backend/net_services#update"/>
       </item>
       <item name="identifiers">
         <page to="backend/identifiers#index"/>

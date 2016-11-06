@@ -1,6 +1,6 @@
+.introduction-message
+  = :integrate_tools_you_are_using_every_day.tn
 .integrations-container
-  .introduction-message
-    = :integrate_tools_you_are_using_every_day.tn
   - unless ActionIntegration.config.cipher_key.blank?
     - @integration_types.each do |type|
       - integration_exists = Integration.find_by_nature(type.integration_name.underscore)
@@ -15,3 +15,7 @@
             .integration-description
               %h3= type.integration_name
               %p= "#{type.integration_name.underscore}_short_description".tl
+.footnote
+  %p= :net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release.tn
+  .toolbar
+    = link_to('actions.backend/net_services.index'.t, { controller: :net_services, action: :index }, class: 'btn')

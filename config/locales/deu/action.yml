@@ -1698,6 +1698,7 @@ deu:
       need_entries_to_reconciliate: "Keine Einträge auf Kontoauszug Zeit in Einklang zu bringen"
       need_payment_mode_to_create_deposit: "Sie müssen eine Art der Bezahlung angeben, um Ablagerungen machen"
       need_stocks_to_create_inventories: "Sie haben einige Bestände zu verwalten, um Lagerbestände zu verwalten"
+      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Net Services sind immer verfügbar, aber sind veraltet und wird in der nächsten Major-Release entfernt werden"
       no_archived_prints: "Keine archivierten Drucke"
       no_budget_defined_for_current_campaign: "Kein Budget für aktuelle Kampagne definiert"
       no_closable_journal: "Kein verschließbaren Zeitschrift"

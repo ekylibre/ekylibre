@@ -1961,6 +1961,7 @@ spa:
       need_quantities_to_cancel_an_sales_invoice: "Se debe especifiar una quantidad para hacer un haber" #?
       need_stocks_building_to_create_products: "Se debe crear un lugar de almacenamiento para crear un producto" #?
       need_stocks_to_create_inventories: "Se debe administrar los depositos a lo menos de un producto para hacer un inventario"
+      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servicios de red están siempre disponibles, pero están en desuso y se eliminará en la siguiente versión importante"
       no_archived_prints: "No hay huellas archivadas"
       no_balance_template: "No hay modelo de documento para este equilibrio" #?
       no_budget_defined_for_current_campaign: "No hay presupuesto definido para la actual campaña"
