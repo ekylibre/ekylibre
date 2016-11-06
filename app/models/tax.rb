@@ -70,7 +70,7 @@ class Tax < Ekylibre::Record::Base
   # selects_among_all :used_for_untaxed_deals, if: :null_amount?
 
   scope :current, -> { where(active: true).order(:country, :amount) }
-  
+
   before_validation do
     self.name = short_label if name.blank?
     self.active = false if active.nil?

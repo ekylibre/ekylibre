@@ -74,7 +74,7 @@ class VatDeclaration < Ekylibre::Record::Base
       transition validated: :sent, if: :has_content?
     end
   end
-  
+
   before_validation(on: :create) do
     self.state ||= :draft
     self.currency = financial_year.currency if financial_year
@@ -112,11 +112,11 @@ class VatDeclaration < Ekylibre::Record::Base
   end
 
   def deductible_vat_amount_balance
-    return 0.0
+    return items.map(&:deductible_vat_amount).compact.sum
   end
 
   def collected_vat_amount_balance
-    return 0.0
+    return items.map(&:collected_vat_amount).compact.sum
   end
 
 end

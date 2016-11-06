@@ -150,7 +150,7 @@ class FinancialYear < Ekylibre::Record::Base
   def name
     code
   end
-  
+
   def vat_period_duration
     if vat_period == :monthly
       1.month
@@ -164,12 +164,12 @@ class FinancialYear < Ekylibre::Record::Base
       nil
     end
   end
-  
+
   def vat_end_period
     if vat_period == :monthly
       :end_of_month
     elsif vat_period == :quaterly
-      :end_of_quater
+      :end_of_quarter
     elsif vat_period == :yearly
       :end_of_year
     elsif vat_period == :none

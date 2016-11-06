@@ -31,6 +31,8 @@ module Backend
       t.column :created_at
       t.column :started_on
       t.column :stopped_on
+      t.column :deductible_vat_amount_balance
+      t.column :collected_vat_amount_balance
       t.column :description, hidden: true
       t.status
     end

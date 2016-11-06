@@ -1385,6 +1385,7 @@ eng:
     variety_name: "Variety name"
     vat_declaration: "Vat declaration"
     vat_declaration_item: "Vat declaration item"
+    # vat_declarations: "Vat declarations"
     vat_mode: "Vat mode"
     vat_number: "VAT number"
     vat_period: "Vat period"
