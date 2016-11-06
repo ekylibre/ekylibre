@@ -159,10 +159,12 @@ module Ekylibre
         end
         converters = options.delete(:converters) || {}
         default_values = options[:default_values] || {}
-        options[:rename].each do |old_column, new_column|
-          raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
-          renamings[old_column] = new_column
-        end if options[:rename]
+        if options[:rename]
+          options[:rename].each do |old_column, new_column|
+            raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+            renamings[old_column] = new_column
+          end
+        end
         model = options[:model] || backup_model
         klass = model.to_s.camelcase.constantize
 

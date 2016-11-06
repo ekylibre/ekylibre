@@ -321,3 +321,16 @@ entity_addresses_016:
   thread: AAAA
   updated_at: 2015-06-13 16:50:36.734107000 Z
   updater_id: 1
+entity_addresses_017:
+  by_default: true
+  canal: email
+  coordinate: ezezkiel@moebius.abc
+  created_at: 2016-11-05 08:55:21.247359000 Z
+  creator_id: 1
+  entity_id: 18
+  id: 17
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAA
+  updated_at: 2016-11-05 08:55:21.247359000 Z
+  updater_id: 1

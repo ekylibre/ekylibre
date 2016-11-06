@@ -172,6 +172,7 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
+  scope :normal, -> { where(of_company: false) }
   scope :necessary_transporters, -> { where("transporter OR id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
@@ -275,6 +276,15 @@ class Entity < Ekylibre::Record::Base
       end
       company
     end
+  end
+
+  # Convert a contact into organization or inverse
+  def toggle!
+    if contact? && self.first_name.present?
+      self.last_name = self.first_name + ' ' + self.last_name
+    end
+    self.nature = contact? ? :organization : :contact
+    self.save!
   end
 
   # Returns an entity scope for.all other entities

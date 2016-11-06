@@ -1,0 +1,3 @@
+- list.each do |name|
+  - preference = Preference.global.find_by(name: name)
+  = field "preferences.#{preference.name}".t, {datatype: preference.nature.to_sym, value: preference.value, name: "preferences[#{preference.name}][value]"}, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}

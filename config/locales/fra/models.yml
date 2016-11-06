@@ -1338,6 +1338,7 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
+    purchase_natures: "Types d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
     purchased_on: "Acheté le"
@@ -1443,6 +1444,7 @@ fra:
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_nature: "Type de vente"
+    sale_natures: "Types de vente"
     sale_opportunities: "Opportunités de vente"
     sale_opportunity: "Opportunité"
     sale_taxations: "Taxations de vente"
@@ -1720,7 +1722,6 @@ fra:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
         other: "[%{resource} %{number}] %{count} encaissements %{mode} %{description}"
-        zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
       document_name: "%{nature} %{key}"

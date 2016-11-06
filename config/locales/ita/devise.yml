@@ -45,10 +45,6 @@ ita:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "Accedi qui."
           subject: "Il tuo account è stato approvato!"
-        signed_up:
-          confirm: "Si prega di confermare nel pannello di amministrazione."
-          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "Nuova iscrizione"
       reset_password_instructions:
         subject: "Ripristinare le istruzioni di password"
       unlock_instructions:
