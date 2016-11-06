@@ -1699,7 +1699,7 @@ cmn:
       need_entries_to_reconciliate: "没有条目reconciliate银行对帐单周期"
       need_payment_mode_to_create_deposit: "你必须为了使存款指定付款方式"
       need_stocks_to_create_inventories: "你必须为了管理库存管理部分个股"
-      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "网络服务始终可用，但被取消，并将在下一主要版本中删除"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "网络服务和标识符始终可用，但被取消，并将在下一主要版本中删除"
       no_archived_prints: "没有打印存档"
       no_budget_defined_for_current_campaign: "没有当前活动定义预算"
       no_closable_journal: "没有关闭的日记"

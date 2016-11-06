@@ -1775,7 +1775,7 @@ jpn:
       need_entries_to_reconciliate: "銀行取引明細書の期間にreconciliateするエントリはありません"
       need_payment_mode_to_create_deposit: "あなたが預金を作るために支払いのモードを指定する必要があります"
       need_stocks_to_create_inventories: "あなたは在庫を管理するためにいくつかの株式を管理する必要が"
-      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "ネットのサービスが常に利用可能ですが、推奨されていませんし、次のメジャーリリースでは削除されます"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "ネットサービスや識別子は常に利用可能ですが、推奨されていませんし、次のメジャーリリースでは削除されます"
       no_archived_prints: "いいえアーカイブプリントはありません"
       no_budget_defined_for_current_campaign: "現在のキャンペーンのために定義された予算がありません"
       no_closable_journal: "いいえ開閉可能なジャーナルません"

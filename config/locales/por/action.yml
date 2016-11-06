@@ -1703,7 +1703,7 @@ por:
       need_entries_to_reconciliate: "Nenhuma entrada para reconciliar no período de extrato bancário"
       need_payment_mode_to_create_deposit: "Você deve especificar um modo de pagamento, a fim de fazer depósitos"
       need_stocks_to_create_inventories: "Você tem que gerir algumas ações a fim de gerir inventários"
-      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Líquida de serviços estão sempre disponíveis, mas são obsoleto e será removido em próximo grande lançamento"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Líquida de serviços e identificadores estão sempre disponíveis, mas são obsoleto e será removido em próximo grande lançamento"
       no_archived_prints: "Nenhuma digital arquivados"
       no_budget_defined_for_current_campaign: "Sem orçamento definido para a campanha atual"
       no_closable_journal: "No jornal closable"

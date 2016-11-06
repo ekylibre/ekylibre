@@ -2405,7 +2405,7 @@ arb:
       need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
       need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج" #?
       need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
-      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "صافي الخدمات متوفرة دائما ولكن تم إيقاف وسيتم إزالتها في الافراج الرئيسي القادم"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "صافي الخدمات والمعرفات هي دائما موجودة، ولكن تم إيقاف وسيتم إزالتها في الافراج الرئيسي القادم"
       no_archived_prints: "لا يطبع المحفوظة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
       no_budget_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية الميزانية"

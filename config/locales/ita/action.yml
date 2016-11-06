@@ -1764,7 +1764,7 @@ ita:
       need_entries_to_reconciliate: "Nessuna voce di riconciliare il periodo di estratto conto bancario"
       need_payment_mode_to_create_deposit: "È necessario specificare una modalità di pagamento, al fine di effettuare depositi"
       need_stocks_to_create_inventories: "È necessario gestire alcune azioni al fine di gestire le scorte"
-      net_services_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servizi di rete sono sempre disponibili, ma sono obsolete e saranno rimossi in prossima major release"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servizi di rete e gli identificatori sono sempre disponibili, ma sono obsolete e saranno rimossi in prossima major release"
       no_archived_prints: "Non ci sono impronte archiviati"
       no_budget_defined_for_current_campaign: "Nessun bilancio definito per la campagna in corso"
       no_closable_journal: "Nessun ufficiale chiudibile"
