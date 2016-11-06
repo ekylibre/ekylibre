@@ -2539,6 +2539,7 @@ jpn:
         # reductible: "Reductible"
         # saleable: "Saleable"
         stock_account: "資本勘定"
+        stock_movement_account: "在庫移動アカウント"
         storable: "Storableが"
     product_nature_variants:
       choices:
@@ -2981,6 +2982,7 @@ jpn:
         howard_walnut: "ハワードクルミ"
         hydraulic_oil: "油圧オイル"
         ichn_subsidies: "Ichn補助金"
+        implanter: "注入"
         infirmity_and_death_insurance: "病弱および死亡保険"
         ink_cartridge: "インクカートリッジ"
         insecticide: "殺虫剤"
@@ -3432,6 +3434,7 @@ jpn:
         honey: "蜂蜜"
         horse_herd: "馬の群れ"
         hydraulic_oil: "油圧オイル"
+        implanter: "注入"
         infirmity_and_death_insurance: "病弱および死亡保険"
         insecticide: "殺虫剤"
         inseminator: "人工受精を施す人"

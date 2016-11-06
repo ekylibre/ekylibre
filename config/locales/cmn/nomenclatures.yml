@@ -2528,6 +2528,7 @@ cmn:
         # reductible: "Reductible"
         saleable: "可销售"
         stock_account: "股票账户"
+        stock_movement_account: "股票的走势帐户"
         storable: "可收纳"
     product_nature_variants:
       choices:
@@ -2970,6 +2971,7 @@ cmn:
         howard_walnut: "霍华德核桃"
         hydraulic_oil: "液压油"
         ichn_subsidies: "Ichn补贴"
+        implanter: "注入"
         infirmity_and_death_insurance: "虚弱和死亡保险"
         ink_cartridge: "墨盒"
         insecticide: "杀虫剂"
@@ -3421,6 +3423,7 @@ cmn:
         honey: "蜂蜜"
         horse_herd: "马畜群"
         hydraulic_oil: "液压油"
+        implanter: "注入"
         infirmity_and_death_insurance: "虚弱和死亡保险"
         insecticide: "杀虫剂"
         # inseminator: "Inseminator"

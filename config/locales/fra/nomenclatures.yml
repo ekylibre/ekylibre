@@ -2680,6 +2680,7 @@ fra:
         reductible: "Peut présenter des réductions"
         saleable: "Vendable"
         stock_account: "Compte de stock"
+        stock_movement_account: "Compte mouvement de stock"
         storable: "Stockable"
     product_nature_variants:
       choices:
@@ -3124,6 +3125,7 @@ fra:
         howard_walnut: "Noix Howard"
         hydraulic_oil: "Fluide hydraulique"
         ichn_subsidies: "Subventions ICHN"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "Assurance décès-invalidité (ADI)"
         ink_cartridge: "Cartouche d’encre"
         insecticide: "Insecticide"
@@ -3579,6 +3581,7 @@ fra:
         honey: "Miel"
         horse_herd: "Troupeau de chevaux"
         hydraulic_oil: "Huile hydraulique"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "Assurance décès-invalidité (ADI)"
         insecticide: "Insecticide"
         inseminator: "Inséminateur"

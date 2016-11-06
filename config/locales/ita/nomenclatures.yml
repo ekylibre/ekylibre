@@ -2528,6 +2528,7 @@ ita:
         # reductible: "Reductible"
         saleable: "Vendibile"
         stock_account: "conto della"
+        stock_movement_account: "Conto movimento Archivio"
         storable: "riponibile"
     product_nature_variants:
       choices:
@@ -2970,6 +2971,7 @@ ita:
         howard_walnut: "Howard noce"
         hydraulic_oil: "Olio idraulico"
         ichn_subsidies: "sussidi Ichn"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "assicurazione infermità e la morte"
         ink_cartridge: "Cartuccia d'inchiostro"
         insecticide: "Insetticida"
@@ -3421,6 +3423,7 @@ ita:
         honey: "Miele"
         horse_herd: "mandria di cavalli"
         hydraulic_oil: "Olio idraulico"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "assicurazione infermità e la morte"
         insecticide: "Insetticida"
         inseminator: "inseminator"

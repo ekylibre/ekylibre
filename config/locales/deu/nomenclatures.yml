@@ -2528,6 +2528,7 @@ deu:
         # reductible: "Reductible"
         saleable: "Verkaufsfähig"
         stock_account: "Auf Rechnung"
+        stock_movement_account: "Auf Bewegungskonto"
         storable: "Lagerfähig"
     product_nature_variants:
       choices:
@@ -2970,6 +2971,7 @@ deu:
         howard_walnut: "Howard Nussbaum"
         hydraulic_oil: "Hydraulisches Öl"
         ichn_subsidies: "Ichn Subventionen"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "Siechtum und Tod Versicherung"
         ink_cartridge: "Tintenpatrone"
         insecticide: "Insektizid"
@@ -3421,6 +3423,7 @@ deu:
         honey: "Honig"
         horse_herd: "Pferdeherde"
         hydraulic_oil: "Hydraulisches Öl"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "Siechtum und Tod Versicherung"
         insecticide: "Insektizid"
         inseminator: "Besamungs"

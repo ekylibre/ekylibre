@@ -2537,6 +2537,7 @@ arb:
         # reductible: "Reductible"
         saleable: "رائج"
         stock_account: "حساب الأسهم"
+        stock_movement_account: "حساب حركة الأسهم"
         storable: "القابل للتخزين"
     product_nature_variants:
       choices:
@@ -2979,6 +2980,7 @@ arb:
         howard_walnut: "هوارد الجوز"
         hydraulic_oil: "الزيت الهيدروليكي"
         ichn_subsidies: "الدعم Ichn"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "العجز والوفاة والتأمين"
         ink_cartridge: "خرطوشة الحبر"
         insecticide: "مبيد الحشرات"
@@ -3430,6 +3432,7 @@ arb:
         honey: "عسل"
         horse_herd: "قطيع الحصان"
         hydraulic_oil: "الزيت الهيدروليكي"
+        # implanter: "Implanter"
         infirmity_and_death_insurance: "العجز والوفاة والتأمين"
         insecticide: "مبيد الحشرات"
         # inseminator: "Inseminator"
