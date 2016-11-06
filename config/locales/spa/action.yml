@@ -794,6 +794,7 @@ spa:
     amount_with_taxes: "Total de la entrega TTC" #?
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Análisis"
+    analytic_preferences: "Preferencias analíticas"
     animal_details: "Detalles de los animales"
     animal_productions: "Producciones animales" #?
     animals: "Animales"
@@ -2042,6 +2043,8 @@ spa:
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
+    distribute_sales_and_purchases_on_activities: "Distribuir las ventas y compras a las actividades"
+    distribute_sales_and_purchases_on_teams: "Distribuir las ventas y compras a los equipos"
     employee_account_radix: "Radix de la cuenta del empleado"
     language: "Idioma"
     map_measure_srs: "SRS Mapa de medida"

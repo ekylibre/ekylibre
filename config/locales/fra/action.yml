@@ -865,6 +865,7 @@ fra:
     amounts_in_currency: "Montants (%{currency})"
     analyses: "Analyses"
     analysis: "Analyse" #?
+    analytic_preferences: "Préférences analytiques"
     analytics: "Analytiques" #?
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
@@ -2383,6 +2384,8 @@ fra:
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
+    distribute_sales_and_purchases_on_activities: "Répartir les ventes et les achats sur les activités"
+    distribute_sales_and_purchases_on_teams: "Répartir les ventes et les achats sur les équipes"
     employee_account_radix: "Radical comptable du compte salarié"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"

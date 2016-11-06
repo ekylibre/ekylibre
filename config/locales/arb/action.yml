@@ -997,6 +997,7 @@ arb:
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب" #?
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "تحليلات"
+    analytic_preferences: "تفضيلات التحليلية"
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"
@@ -2513,6 +2514,8 @@ arb:
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
     detail_payments_in_deposit_bookkeeping: "التفاصيل جميع المدفوعات في مسك الدفاتر وديعة"
+    distribute_sales_and_purchases_on_activities: "توزيع البيع والشراء على الأنشطة"
+    distribute_sales_and_purchases_on_teams: "توزيع البيع والشراء على فرق"
     employee_account_radix: "جذر حساب الموظف"
     general:  #?
       language: "اللغة المفترضة" #?

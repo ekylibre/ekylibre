@@ -726,6 +726,7 @@ cmn:
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "分析"
+    analytic_preferences: "喜好分析"
     animal_details: "动物细节"
     animal_productions: "动物生产" #?
     animals: "动物"
@@ -1749,6 +1750,8 @@ cmn:
     create_activities_from_telepac: "Telepac导入过程中创建活动"
     currency: "货币"
     detail_payments_in_deposit_bookkeeping: "详细所有存款簿记支付"
+    distribute_sales_and_purchases_on_activities: "分布在活动的销售和采购"
+    distribute_sales_and_purchases_on_teams: "分布在团队销售和采购"
     employee_account_radix: "员工帐户基数"
     language: "语言"
     map_measure_srs: "地图措施SRS"

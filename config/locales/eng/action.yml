@@ -916,6 +916,7 @@ eng:
     amount_per_unit: "%{amount}/%{unit}" #??
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
+    analytic_preferences: "Analytic preferences"
     animal_details: "Animal details" #?
     animals: "Animals"
     archives: "Archives"
@@ -1932,6 +1933,8 @@ eng:
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
+    distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
+    distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
     language: "Language"
     map_measure_srs: "Map measure SRS"

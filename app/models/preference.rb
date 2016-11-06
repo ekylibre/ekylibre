@@ -187,6 +187,9 @@ class Preference < Ekylibre::Record::Base
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
 
+  prefer :distribute_sales_and_purchases_on_activities, :boolean, false
+  prefer :distribute_sales_and_purchases_on_teams, :boolean, false
+
   # Returns the name of the column used to store preference data
   def value_attribute
     nature + '_value'

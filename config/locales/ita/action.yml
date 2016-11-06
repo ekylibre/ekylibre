@@ -792,6 +792,7 @@ ita:
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analisi"
+    analytic_preferences: "Preferenze analitiche"
     animal_details: "dettagli animali"
     animal_productions: "produzioni animali" #?
     animals: "Animali"
@@ -1814,6 +1815,8 @@ ita:
     create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
+    distribute_sales_and_purchases_on_activities: "Distribuire le vendite e gli acquisti a attività"
+    distribute_sales_and_purchases_on_teams: "Distribuire le vendite e gli acquisti a squadre"
     employee_account_radix: "Radix conto dei dipendenti"
     language: "Lingua"
     map_measure_srs: "SRS Mappa misura"
