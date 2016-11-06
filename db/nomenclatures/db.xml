@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161022103401">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161030174001">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -9635,6 +9635,7 @@
       <item name="canidae" parent="mammalia" itis_tsn="180594"/>
       <item name="cannabaceae" parent="plant" itis_tsn="19118"/>
       <item name="cannabis" parent="cannabaceae" itis_tsn="19108"/>
+      <item name="cannabis_antal" parent="cannabis"/>
       <item name="cannabis_sativa" parent="cannabis" itis_tsn="19109"/>
       <item name="cannabis_sativa_armanca" parent="cannabis_sativa"/>
       <item name="cannabis_sativa_benico" parent="cannabis_sativa"/>
@@ -10025,6 +10026,8 @@
       <item name="gallus_gallus_domesticus_gournay" parent="gallus_gallus_domesticus"/>
       <item name="gas" parent="raw_matter"/>
       <item name="gastropoda" parent="animal" itis_tsn="69459"/>
+      <item name="geraniaceae" parent="plant" itis_tsn="29103"/>
+      <item name="geranium" parent="geraniaceae" itis_tsn="29104"/>
       <item name="gleditsia" parent="fabaceae" itis_tsn="26711"/>
       <item name="glycine" parent="fabaceae" itis_tsn="26715"/>
       <item name="glycine_max" parent="glycine" itis_tsn="26716"/>
@@ -11624,6 +11627,7 @@
       <item name="triticum_durum_babylone" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_biensur" parent="triticum_durum"/>
       <item name="triticum_durum_byblos" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_byzance" parent="triticum_durum"/>
       <item name="triticum_durum_casteldoux" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_catervo" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_cesare" parent="triticum_durum" itis_tsn="42240"/>
@@ -11646,6 +11650,7 @@
       <item name="triticum_durum_gainsur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_gibus" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_grazia" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_haristide" parent="triticum_durum"/>
       <item name="triticum_durum_isildur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_ismur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_joyau" parent="triticum_durum" itis_tsn="42240"/>
@@ -11656,6 +11661,7 @@
       <item name="triticum_durum_latinur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_lemur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_levante" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_lg_boris" parent="triticum_durum"/>
       <item name="triticum_durum_liberdur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_lloyd" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_luminur" parent="triticum_durum" itis_tsn="42240"/>
@@ -11689,10 +11695,13 @@
       <item name="triticum_durum_relief" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_albiozur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_fabionur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_fiertimur" parent="triticum_durum"/>
       <item name="triticum_durum_rgt_izaldur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_musclur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_nomur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_voilur" parent="triticum_durum"/>
       <item name="triticum_durum_sachem" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_santur" parent="triticum_durum"/>
       <item name="triticum_durum_saragolla" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_sculptur" parent="triticum_durum"/>
       <item name="triticum_durum_sorriso" parent="triticum_durum" itis_tsn="42240"/>
@@ -11703,6 +11712,7 @@
       <item name="triticum_durum_sy_esperto" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_tablur" parent="triticum_durum"/>
       <item name="triticum_durum_tiziana" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_toscadou" parent="triticum_durum"/>
       <item name="triticum_durum_virgilio" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_vivadur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_yelodur" parent="triticum_durum" itis_tsn="42240"/>
