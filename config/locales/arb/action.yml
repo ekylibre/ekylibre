@@ -124,7 +124,8 @@ arb:
       index: "كتالوجات"
       new: "الكتالوج الجديد"
       # show: "Catalog: %{name}"
-    backend/companies:  #?
+    backend/companies:
+      edit: "تعديل الإعدادات شركة"
       register: "تسجيل شركة" #?
     backend/company:  #?
       about: "وحول ايكيليبغ" #?
@@ -639,10 +640,6 @@ arb:
       new: "الدخول" #?
     backend/settings:
       about: "وحول ايكيليبغ"
-      backups: "النسخ الاحتياطية" #?
-      configure: "التكوين" #?
-      edit: "ترتيب"
-      import: "الاستيراد" #?
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "المستوطنات"
@@ -911,6 +908,7 @@ arb:
     account_value_previous: "القيمة السابقة" #?
     accountancy: "المحاسبة"
     accountancy_balance: "ميزان المحاسبة"
+    accountancy_preferences: "تفضيلات المحاسبة"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
@@ -1356,6 +1354,7 @@ arb:
     generate_parcel: "تولد لا يتجزأ"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
+    global_preferences: "تفضيلات العالمية"
     go: "صلاحية"
     gradings: "الى التصنيف"
     grain_yield: "محصول الحبوب"
@@ -1410,6 +1409,7 @@ arb:
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     inspections: "عمليات التفتيش"
+    interface_preferences: "تفضيلات واجهة"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
     international_reduce_vat_collected: "معدل ضريبة القيمة المضافة الدولية المخفضة %2.1" #?
@@ -1519,6 +1519,7 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     manure_management_plan_chart: "السماد خطة إدارة التخطيط"
     map: "رسم خريطة"
+    map_preferences: "تفضيلات خريطة"
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
@@ -1905,6 +1906,7 @@ arb:
     sales_invoices: "الفواتير" #?
     sales_invoices_total: "مجموع قيمة الفاتورة" #?
     sales_number: "" #?
+    sales_preferences: "تفضيلات المبيعات"
     sales_pretax_amount: "كمية قبل خصم الضرائب (مبيعات)"
     sales_price_create: "اضافة سعر البيع" #?
     # same_variant_as_x: "Same variant as %{x}"
@@ -2509,7 +2511,6 @@ arb:
     employee_account_radix: "جذر حساب الموظف"
     general:  #?
       language: "اللغة المفترضة" #?
-    host: "مضيف"
     language: "لغة"
     management:  #?
       deposits: #?

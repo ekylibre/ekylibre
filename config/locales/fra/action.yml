@@ -131,6 +131,8 @@ fra:
       show: "Catalogue de prix\_: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
+    backend/companies:
+      edit: "Société"
     backend/contracts:
       edit: "Modifier le contrat %{number}"
       index: "Contrats"
@@ -589,11 +591,6 @@ fra:
       new: "Nouvelle séquence"
     backend/settings:
       about: "À propos…"
-      backup: "Faire une copie de sauvegarde" #?
-      backups: "Sauvegardes" #?
-      edit: "Configuration"
-      import: "Importer des données" #?
-      restore: "Restaurer une sauvegarde" #?
     backend/settlements:
       edit: "Modifier l’installation\_: %{name}"
       index: "Installations"
@@ -776,6 +773,7 @@ fra:
     account_value_previous: "Brut N-1" #?
     accountancy: "Comptabilité"
     accountancy_balance: "Soldes intermédiaires de gestion et ratios"
+    accountancy_preferences: "Préférences Accountancy"
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
@@ -1225,6 +1223,7 @@ fra:
     generate_parcel: "Générer bon de préparation"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
+    global_preferences: "Préférences générales"
     go: "Valider"
     gradings: "Agréages"
     grain_yield: "Rendement grain"
@@ -1291,6 +1290,7 @@ fra:
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     inspections: "Agréages"
+    interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
@@ -1401,6 +1401,7 @@ fra:
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
+    map_preferences: "Préférences Carte"
     margins: "Marges" #?
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
@@ -1775,6 +1776,7 @@ fra:
       cancelled: "Passées en avoir" #?
       credits: "Avoirs" #?
     sales_invoices_total: "Total factures" #?
+    sales_preferences: "Préférences de vente"
     sales_pretax_amount: "Montant HT (Ventes)"
     sales_states:  #?
       all: "Toutes" #?
@@ -2377,7 +2379,6 @@ fra:
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     employee_account_radix: "Radical comptable du compte salarié"
-    host: "Adresse hôte"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"
     permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"

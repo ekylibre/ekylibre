@@ -154,6 +154,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/companies:
+      edit: "Company settings"
     backend/contracts:
       edit: "Edit contract %{number}"
       index: "Contracts"
@@ -646,7 +648,6 @@ eng:
       # show: "Sequence: %{name}"
     backend/settings:
       about: "About Ekylibre"
-      edit: "Configuration"
     backend/settlements:
       edit: "Edit settlement: %{name}"
       index: "Settlements"
@@ -837,6 +838,7 @@ eng:
     access_parameters: "Access parameters"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
+    accountancy_preferences: "Accountancy preferences"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -991,7 +993,7 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    company: "Society" #?
+    company: "Society"
     complete: "Complete"
     completed: "Completed"
     # components: "Components"
@@ -1155,12 +1157,13 @@ eng:
     fungi: "Fungi" #?
     future_events: "Future events"
     genealogy: "Genealogy"
-    general: "General"
+    general: "General" #?
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
     geolocation: "Geolocation" #?
+    global_preferences: "Global preferences"
     go: "Go" #?
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
@@ -1204,6 +1207,7 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
+    interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
     intervention: "Intervention"
@@ -1274,6 +1278,7 @@ eng:
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
+    map_preferences: "Map preferences"
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
@@ -1492,6 +1497,7 @@ eng:
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
+    sales_preferences: "Sales preferences"
     sales_pretax_amount: "Pretax amount (Sales)"
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
@@ -1922,7 +1928,6 @@ eng:
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     employee_account_radix: "Employee account radix"
-    host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
     permanent_stock_inventory: "Permanent stock inventory mode"

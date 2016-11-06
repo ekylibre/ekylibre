@@ -123,6 +123,8 @@ por:
       show: "Catalogo: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Células de administração: %{name}" #?
+    backend/companies:
+      edit: "Editar configurações de empresa"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "Contratos"
@@ -495,7 +497,6 @@ por:
       new: "Nova sequência"
     backend/settings:
       about: "Sobre Ekylibre"
-      edit: "Configuração"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "Assentamentos"
@@ -651,6 +652,7 @@ por:
     access_parameters: "Parâmetros de acesso"
     accountancy: "Contabilidade"
     accountancy_balance: "Contabilidade do balanço de"
+    accountancy_preferences: "Preferências de contabilidade"
     accounts: "Contas"
     accounts_only_used_at: "Contas utilizada apenas na"
     accounts_to_load: "Contas para carregar"
@@ -976,6 +978,7 @@ por:
     generate_last_journal_entry: "Gerar última entrada do diário"
     generate_parcel: "gerar parcel"
     # geolocation: "Geolocation"
+    global_preferences: "Preferências globais"
     go: "Ir"
     gradings: "gradings"
     grain_yield: "O rendimento de grãos"
@@ -1018,6 +1021,7 @@ por:
     input_cost_per_hectare: "Custo de insumos por hectare" #?
     inputs: "Entradas"
     inspections: "inspeções"
+    interface_preferences: "Preferências de interface"
     internal_error: "Opa, algo aconteceu."
     interval: "Intervalo personalizado"
     intervention: "Intervenção"
@@ -1089,6 +1093,7 @@ por:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Gráfico de plano de manejo de dejetos"
     map: "Mapa"
+    map_preferences: "Preferências Mapa"
     mark_all_as_read: "Marcar tudo como lido"
     mark_as_read: "Marcar como Lido"
     marketable_net_mass: "massa líquida comercializável"
@@ -1314,6 +1319,7 @@ por:
     sales: "Vendas"
     sales_conditions: "Condições de vendas"
     sales_invoice: "Facturação"
+    sales_preferences: "Preferências de vendas"
     sales_pretax_amount: "Quantidade bruta (vendas)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
@@ -1743,7 +1749,6 @@ por:
     currency: "Moeda"
     detail_payments_in_deposit_bookkeeping: "Detalhe todos os pagamentos em contabilidade depósito"
     employee_account_radix: "Radix conta empregado"
-    host: "Anfitrião"
     language: "Língua"
     map_measure_srs: "SRS medida Mapa"
     permanent_stock_inventory: "Modo de inventário de estoque permanente"

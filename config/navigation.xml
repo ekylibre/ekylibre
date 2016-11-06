@@ -996,8 +996,8 @@
     </group>
     <group name="parameters" icon="wrench">
       <item name="settings">
-        <page to="backend/settings#edit"/>
-        <page to="backend/settings#update"/>
+        <page to="backend/companies#edit"/>
+        <page to="backend/companies#update"/>
       </item>
       <item name="integrations">
         <page to="backend/integrations#index"/>

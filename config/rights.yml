@@ -1921,13 +1921,13 @@ sequences:
 settings:
   read:
     actions:
+    - "backend/companies#edit"
     - "backend/settings#about"
-    - "backend/settings#edit"
   write:
     dependencies:
     - read-settings
     actions:
-    - "backend/settings#update"
+    - "backend/companies#update"
 
 settlements:
   read:

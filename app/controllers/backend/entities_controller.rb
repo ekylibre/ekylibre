@@ -22,10 +22,12 @@ module Backend
                      language: 'Preference[:language]'.c,
                      country: 'Preference[:country]'.c,
                      active: true,
+                     scope: :normal,
                      t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
-    unroll fill_in: :full_name
+    unroll fill_in: :full_name, scope: :normal
+
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 

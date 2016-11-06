@@ -113,7 +113,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :settings, only: [:edit, :update] do
+    resource :settings, only: [] do
       member do
         get :about
       end
@@ -333,6 +333,8 @@ Rails.application.routes.draw do
     end
 
     resources :cobblers, only: [:update]
+
+    resource :company, only: [:edit, :update]
 
     resources :contracts, concerns: [:list] do
       member do

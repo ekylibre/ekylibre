@@ -118,6 +118,8 @@ ita:
       index: "cataloghi"
       new: "Nuovo catalogo"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "Modifica impostazioni aziendali"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "Contratti"
@@ -490,7 +492,6 @@ ita:
       new: "nuova sequenza"
     backend/settings:
       about: "A proposito di Ekylibre"
-      edit: "Configurazione"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "insediamenti"
@@ -712,6 +713,7 @@ ita:
     access_parameters: "parametri di accesso"
     accountancy: "Contabilità"
     accountancy_balance: "equilibrio Contabilità"
+    accountancy_preferences: "Preferenze di contabilità"
     accounts: "conti"
     accounts_only_used_at: "Conti utilizzati solo a"
     accounts_to_load: "Conti per caricare"
@@ -1037,6 +1039,7 @@ ita:
     generate_last_journal_entry: "Generare ultima voce di diario"
     generate_parcel: "genera pacchi"
     geolocation: "geolocalizzazione"
+    global_preferences: "Preferenze globali"
     go: "Partire"
     gradings: "classificazioni"
     grain_yield: "La resa in granella"
@@ -1079,6 +1082,7 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
+    interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"
     intervention: "Intervento"
@@ -1150,6 +1154,7 @@ ita:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "chart piano di gestione del letame"
     map: "Carta geografica"
+    map_preferences: "Preferenze Mappa"
     mark_all_as_read: "Segna tutti come letti"
     mark_as_read: "segna come letto"
     marketable_net_mass: "massa netta commerciabile"
@@ -1375,6 +1380,7 @@ ita:
     sales: "Vendite"
     sales_conditions: "Condizioni di vendita"
     sales_invoice: "fatturazione"
+    sales_preferences: "Preferenze di vendita"
     sales_pretax_amount: "Importo lordo delle imposte (di vendita)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvare"
@@ -1804,7 +1810,6 @@ ita:
     currency: "Moneta"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
     employee_account_radix: "Radix conto dei dipendenti"
-    host: "Ospite"
     language: "Lingua"
     map_measure_srs: "SRS Mappa misura"
     permanent_stock_inventory: "Modalità di inventario di magazzino permanente"
