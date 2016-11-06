@@ -9,6 +9,8 @@ module Backend
       # Update company
       @company = Entity.of_company
       @company.update_attributes(permitted_params[:entity])
+      @company.nature = :organization
+      @company.save
       # Update preferences
       ActiveRecord::Base.transaction do
         params[:preferences].each do |key, data|
