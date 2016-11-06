@@ -280,11 +280,11 @@ class Entity < Ekylibre::Record::Base
 
   # Convert a contact into organization or inverse
   def toggle!
-    if contact? && self.first_name.present?
-      self.last_name = self.first_name + ' ' + self.last_name
+    if contact? && first_name.present?
+      self.last_name = first_name + ' ' + last_name
     end
     self.nature = contact? ? :organization : :contact
-    self.save!
+    save!
   end
 
   # Returns an entity scope for.all other entities
