@@ -2181,7 +2181,7 @@ spa:
         plant_uncovering: "Descubrimiento de plantas"
         plantation_unfixing: "Unfixing plantación"
         planting: "La siembra"
-        # plants_sorting: "Plants sorting"
+        plants_sorting: "Plantas de selección"
         plowing: "Arada"
         pollinate: "Polinizar"
         preventive_maintenance: "Mantenimiento preventivo"

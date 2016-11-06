@@ -2186,7 +2186,7 @@ jpn:
         plant_uncovering: "植物暴きます"
         plantation_unfixing: "プランテーションunfixing"
         planting: "植付"
-        # plants_sorting: "Plants sorting"
+        plants_sorting: "並べ替え植物"
         plowing: "耕起"
         pollinate: "受粉します"
         preventive_maintenance: "予防保守"
