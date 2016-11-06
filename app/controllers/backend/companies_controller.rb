@@ -1,6 +1,5 @@
 module Backend
   class CompaniesController < Backend::BaseController
-
     def edit
       Preference.check!
       @company = Entity.of_company

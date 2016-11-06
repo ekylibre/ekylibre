@@ -28,7 +28,6 @@ module Backend
 
     unroll fill_in: :full_name, scope: :normal
 
-
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
     # params:
