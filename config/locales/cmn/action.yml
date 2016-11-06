@@ -118,6 +118,8 @@ cmn:
       index: "目录"
       new: "新目录"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "编辑公司设置"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "合同"
@@ -490,7 +492,6 @@ cmn:
       new: "新序列"
     backend/settings:
       about: "关于Ekylibre"
-      edit: "组态"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "住区"
@@ -646,6 +647,7 @@ cmn:
     access_parameters: "访问参数"
     accountancy: "会计"
     accountancy_balance: "会计平衡"
+    accountancy_preferences: "会计偏好"
     accounts: "帐号"
     accounts_only_used_at: "账户仅用于在"
     accounts_to_load: "账户加载"
@@ -971,6 +973,7 @@ cmn:
     generate_last_journal_entry: "最后生成日记帐分录"
     generate_parcel: "生成包裹"
     geolocation: "地理位置"
+    global_preferences: "全球首"
     go: "走"
     gradings: "放坡"
     grain_yield: "籽粒产量"
@@ -1013,6 +1016,7 @@ cmn:
     input_cost_per_hectare: "每公顷投入成本" #?
     inputs: "输入"
     inspections: "检查"
+    interface_preferences: "界面首"
     internal_error: "哎呀，事情发生了。"
     interval: "个性化间隔"
     intervention: "介入"
@@ -1085,6 +1089,7 @@ cmn:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "粪便管理计划图"
     map: "地图"
+    map_preferences: "图偏好"
     mark_all_as_read: "标记为已读"
     mark_as_read: "标记为已读"
     marketable_net_mass: "适销对路的净质量"
@@ -1310,6 +1315,7 @@ cmn:
     sales: "销售"
     sales_conditions: "销售条件"
     sales_invoice: "进销存"
+    sales_preferences: "销售偏好"
     sales_pretax_amount: "税前金额（销售部）"
     # same_variant_as_x: "Same variant as %{x}"
     save: "保存"
@@ -1739,7 +1745,6 @@ cmn:
     currency: "货币"
     detail_payments_in_deposit_bookkeeping: "详细所有存款簿记支付"
     employee_account_radix: "员工帐户基数"
-    host: "主办"
     language: "语言"
     map_measure_srs: "地图措施SRS"
     permanent_stock_inventory: "永久现货库存模式"

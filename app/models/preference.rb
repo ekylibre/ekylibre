@@ -172,7 +172,6 @@ class Preference < Ekylibre::Record::Base
   prefer :permanent_stock_inventory, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
-  prefer :host, :string, 'erp.example.com'
   prefer :use_global_search, :boolean, false
   prefer :use_contextual_help, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
@@ -181,7 +180,6 @@ class Preference < Ekylibre::Record::Base
   prefer :language, :language, Nomen::Language.default
   prefer :country,  :country, Nomen::Country.default
   prefer :currency, :currency, Nomen::Currency.default
-  # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true

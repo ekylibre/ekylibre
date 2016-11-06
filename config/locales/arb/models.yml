@@ -2576,7 +2576,7 @@ arb:
       bookkeep:
         one: "[%{resource} %{number}] %{count} دفعة %{mode} %{comment}"
         other: "[%{resource} %{number}] %{count} دفعات اخرى %{mode} %{comment}"
-        zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}"
+        zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}" #?
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

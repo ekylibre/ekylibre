@@ -118,6 +118,8 @@ deu:
       index: "Kataloge"
       new: "Neuer Katalog"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "Bearbeiten Firmeneinstellungen"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "Verträge"
@@ -490,7 +492,6 @@ deu:
       new: "neue Folge"
     backend/settings:
       about: "Über Ekylibre"
-      edit: "Konfiguration"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "Siedlungen"
@@ -646,6 +647,7 @@ deu:
     access_parameters: "Zugangsparameter"
     accountancy: "Buchhaltung"
     accountancy_balance: "Rechnungswesen Balance"
+    accountancy_preferences: "Accountancy Präferenzen"
     # accounts: "Accounts"
     accounts_only_used_at: "Konten nur verwendet, um"
     accounts_to_load: "Konten zu laden"
@@ -971,6 +973,7 @@ deu:
     generate_last_journal_entry: "Generieren letzten Tagebucheintrag"
     generate_parcel: "generieren Sie Paket"
     geolocation: "Geolokalisierung"
+    global_preferences: "Globale Einstellungen"
     go: "Gehen"
     gradings: "Sortierungen"
     grain_yield: "Kornertrag"
@@ -1013,6 +1016,7 @@ deu:
     input_cost_per_hectare: "Inputkosten pro Hektar" #?
     inputs: "Eingänge"
     inspections: "Inspektionen"
+    interface_preferences: "Interface-Einstellungen"
     internal_error: "Hoppla, was passiert ist."
     interval: "Personalisierte Interval"
     # intervention: "Intervention"
@@ -1084,6 +1088,7 @@ deu:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Gülle-Management-Plan-Chart"
     map: "Karte"
+    map_preferences: "Kartendarstellung"
     mark_all_as_read: "Alles als gelesen markieren"
     mark_as_read: "als gelesen markieren"
     marketable_net_mass: "Marktgängige Nettomasse"
@@ -1309,6 +1314,7 @@ deu:
     sales: "Der Umsatz"
     sales_conditions: "AGB Vertrieb"
     sales_invoice: "Fakturierung"
+    sales_preferences: "Der Umsatz Präferenzen"
     sales_pretax_amount: "Vor Steuern in Höhe (Verkäufe)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "sparen"
@@ -1738,7 +1744,6 @@ deu:
     currency: "Währung"
     detail_payments_in_deposit_bookkeeping: "Detail alle Zahlungen im Einlagen Buchhaltung"
     employee_account_radix: "Mitarbeiterkonto radix"
-    host: "Gastgeber"
     language: "Sprache"
     map_measure_srs: "Karte Maßnahme SRS"
     permanent_stock_inventory: "Permanent Lagerbestand Modus"

@@ -118,6 +118,8 @@ jpn:
       index: "カタログ"
       new: "新カタログ"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "編集会社の設定"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "契約"
@@ -490,7 +492,6 @@ jpn:
       new: "新しいシーケンス"
     backend/settings:
       about: "Ekylibreについて"
-      edit: "コンフィギュレーション"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "決済"
@@ -712,6 +713,7 @@ jpn:
     access_parameters: "アクセス・パラメータ"
     accountancy: "会計学"
     accountancy_balance: "会計収支"
+    accountancy_preferences: "会計の好み"
     accounts: "アカウント"
     accounts_only_used_at: "のみで使用するアカウント"
     accounts_to_load: "ロードするアカウント"
@@ -1040,6 +1042,7 @@ jpn:
     generate_last_journal_entry: "最後の仕訳を生成します"
     generate_parcel: "小包を生成します"
     geolocation: "ジオロケーション"
+    global_preferences: "グローバル環境設定"
     go: "行きます"
     gradings: "グレーディング"
     grain_yield: "穀粒収量"
@@ -1082,6 +1085,7 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
+    interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
     intervention: "介入"
@@ -1153,6 +1157,7 @@ jpn:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "肥料管理計画チャート"
     map: "地図"
+    map_preferences: "地図の好み"
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
     marketable_net_mass: "有価正味質量"
@@ -1382,6 +1387,7 @@ jpn:
     sales: "セールス"
     sales_conditions: "販売の条件"
     sales_invoice: "請求書発行"
+    sales_preferences: "販売の好み"
     sales_pretax_amount: "税引前金額（売上高）"
     # same_variant_as_x: "Same variant as %{x}"
     save: "セーブ"
@@ -1815,7 +1821,6 @@ jpn:
     currency: "通貨"
     detail_payments_in_deposit_bookkeeping: "詳細預金簿記内のすべての支払い"
     employee_account_radix: "従業員のアカウントの基数"
-    host: "ホスト"
     language: "言語"
     map_measure_srs: "地図対策SRS"
     permanent_stock_inventory: "永久在庫棚卸モード"

@@ -124,6 +124,8 @@ spa:
       index: "Catálogos"
       new: "Nuevo catálogo"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "Editar la configuración de la empresa"
     backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -528,10 +530,6 @@ spa:
       new: "Creación de une nueva sequencia"
     backend/settings:
       about: "A propocito de Ekylibre"
-      backups: "Salvaguardia" #?
-      configure: "Configuracion" #?
-      edit: "Configuración"
-      import: "Importacion" #?
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "Asentamientos"
@@ -709,6 +707,7 @@ spa:
     account_value_previous: "BRUT N-1" #?
     accountancy: "contabilidad"
     accountancy_balance: "Balance de contabilidad"
+    accountancy_preferences: "Preferencias de contabilidad"
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
@@ -1101,6 +1100,7 @@ spa:
     generate_last_journal_entry: "Generar última entrada en el diario"
     generate_parcel: "generar parcela"
     geolocation: "Geolocalización"
+    global_preferences: "Preferencias globales"
     go: "Ir"
     gradings: "gradaciones"
     grain_yield: "El rendimiento de grano"
@@ -1145,6 +1145,7 @@ spa:
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
     inspections: "inspecciones"
+    interface_preferences: "Preferencias de la interfaz"
     internal_error: "Vaya, algo sucedió."
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
     international_reduce_vat_collected: "Tasa réducida a 2,1%" #?
@@ -1240,6 +1241,7 @@ spa:
     manual_period: "del %{start} al %{finish}"
     manure_management_plan_chart: "Gráfico de plan de manejo del estiércol"
     map: "Mapa"
+    map_preferences: "Preferencias mapa"
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
@@ -1526,6 +1528,7 @@ spa:
     sales_invoice: "Facturas"
     sales_invoice_items: "Lineas de factura" #?
     sales_invoice_print: "Imprimir la factura" #?
+    sales_preferences: "Preferencias de ventas"
     sales_pretax_amount: "Cantidad antes de impuestos (Ventas)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
@@ -2035,7 +2038,6 @@ spa:
     currency: "Moneda"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
     employee_account_radix: "Radix de la cuenta del empleado"
-    host: "Anfitrión"
     language: "Idioma"
     map_measure_srs: "SRS Mapa de medida"
     permanent_stock_inventory: "Modo de inventario de existencias permanentes"
