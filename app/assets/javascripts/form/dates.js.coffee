@@ -36,6 +36,9 @@
           showClear: true
           showClose: true
           showTodayButton: true
+          widgetPositioning:
+            horizontal: 'auto'
+            vertical: 'bottom'
         element.attr "autocomplete", "off"
       return
 
