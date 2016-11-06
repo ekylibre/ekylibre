@@ -2529,6 +2529,7 @@ deu:
         # reductible: "Reductible"
         saleable: "Verkaufsfähig"
         stock_account: "Auf Rechnung"
+        stock_movement_account: "Auf Bewegungskonto"
         storable: "Lagerfähig"
     product_nature_variants:
       choices:

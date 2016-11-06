@@ -2529,6 +2529,7 @@ ita:
         # reductible: "Reductible"
         saleable: "Vendibile"
         stock_account: "conto della"
+        stock_movement_account: "Conto movimento Archivio"
         storable: "riponibile"
     product_nature_variants:
       choices:

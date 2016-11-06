@@ -2531,7 +2531,7 @@ eng:
         reductible: "Reductible"
         saleable: "Saleable"
         stock_account: "Stock account"
-        # stock_movement_account: "Stock movement account"
+        stock_movement_account: "Stock movement account"
         storable: "Storable"
     product_nature_variants:
       choices:

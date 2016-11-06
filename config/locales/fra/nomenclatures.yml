@@ -2681,6 +2681,7 @@ fra:
         reductible: "Peut présenter des réductions"
         saleable: "Vendable"
         stock_account: "Compte de stock"
+        stock_movement_account: "Compte mouvement de stock"
         storable: "Stockable"
     product_nature_variants:
       choices:

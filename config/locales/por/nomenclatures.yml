@@ -2529,6 +2529,7 @@ por:
         reductible: "Irredutível"
         saleable: "Vendável"
         stock_account: "Da conta"
+        stock_movement_account: "Conta da circulação"
         storable: "Armazenável"
     product_nature_variants:
       choices:
@@ -2971,7 +2972,7 @@ por:
         howard_walnut: "Howard noz"
         hydraulic_oil: "Óleo hidráulico"
         ichn_subsidies: "Subsídios Ichn"
-        # implanter: "Implanter"
+        implanter: "Implantador"
         infirmity_and_death_insurance: "Seguro de enfermidade e morte"
         ink_cartridge: "Carga de tinta"
         insecticide: "Inseticida"
@@ -3423,7 +3424,7 @@ por:
         honey: "Mel"
         horse_herd: "Rebanho do cavalo"
         hydraulic_oil: "Óleo hidráulico"
-        # implanter: "Implanter"
+        implanter: "Implantador"
         infirmity_and_death_insurance: "Seguro de enfermidade e morte"
         insecticide: "Inseticida"
         inseminator: "Inseminador"

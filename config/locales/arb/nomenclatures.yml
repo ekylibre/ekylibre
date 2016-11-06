@@ -2538,6 +2538,7 @@ arb:
         # reductible: "Reductible"
         saleable: "رائج"
         stock_account: "حساب الأسهم"
+        stock_movement_account: "حساب حركة الأسهم"
         storable: "القابل للتخزين"
     product_nature_variants:
       choices:
