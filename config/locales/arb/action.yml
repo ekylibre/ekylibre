@@ -815,7 +815,7 @@ arb:
     template:
       body: "كانت هناك مشاكل مع الحقول التالية:"
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -1508,7 +1508,7 @@ arb:
     mails:
       one: "البريد الالكتروني"
       other: "%{count} بريد الكتروني اخر"
-      zero: "ولا بريد الكتروني "
+      zero: "ولا بريد الكتروني " #?
     main_settings: "الضبط الرئيسي"
     make_your_production_support: "جعل دعم الإنتاج الخاص"
     manage_activities: "إدارة الأنشطة"
@@ -1604,9 +1604,8 @@ arb:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "بريد إلكتروني جديد"
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
@@ -1856,10 +1855,10 @@ arb:
     rest_to_pay: "القيمة المتبقية" #?
     restore: "تجديد"
     result: "الناتج"
-    results:
-      one: "نتيجة واحدة"
-      other: "%{count} نتائج"
-      zero: "ولا نتيجة"
+    results:  #?
+      one: "نتيجة واحدة" #?
+      other: "%{count} نتائج" #?
+      zero: "ولا نتيجة" #?
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
@@ -2178,11 +2177,11 @@ arb:
     x_depositable_payments:
       one: "1 دفع الواردة إلى الودائع"
       # other: "%{count} incoming payments to deposit"
-      zero: "لا المدفوعات الواردة إلى الودائع"
+      zero: "لا المدفوعات الواردة إلى الودائع" #?
     x_deposits_to_validate:
       one: "التحقق من صحة البيان البنكي"
       other: "%{count} التحقق من صحة البيانات البنكية الاخرى"
-      zero: "عدم التحقق من اي بيان"
+      zero: "عدم التحقق من اي بيان" #?
     x_entities:
       one: "تسجيل سجل واحد"
       other: "%{count} تسجيل سجلات اخرى"
@@ -2197,7 +2196,6 @@ arb:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -2210,7 +2208,7 @@ arb:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "لا يتجزأ واردة"
+      zero: "لا يتجزأ واردة" #?
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
@@ -2262,7 +2260,7 @@ arb:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "لا يتجزأ المنتهية ولايته"
+      zero: "لا يتجزأ المنتهية ولايته" #?
     x_outgoing_payments:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"
@@ -2280,7 +2278,7 @@ arb:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "لا توجد نتائج"
+      zero: "لا توجد نتائج" #?
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -2307,7 +2305,7 @@ arb:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "لم يتم العثور على تتبع"
+      zero: "لم يتم العثور على تتبع" #?
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -2361,7 +2359,7 @@ arb:
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
-        zero: "لم يتم التحقق من صحة اي ملف"
+        zero: "لم يتم التحقق من صحة اي ملف" #?
       entity_columns_are_needed: ".يجب عليك تحديد عامود واحد كحد ادنى للفرد بما في ذلك اسمه"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -2464,7 +2462,7 @@ arb:
       x_unpointed_journal_entry_items:
         one: "يوجد مدخل واحد مشار اليه"
         other: "%{count} يوجد مدخلات اخرى مشار اليه"
-        zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة"
+        zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة" #?
       you_must_have_an_email_column: "يجب ان يكون لديك عمود خاص بالبريد الالكتروني"
       you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد" #?
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
