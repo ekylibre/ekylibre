@@ -22,10 +22,11 @@ module Backend
                      language: 'Preference[:language]'.c,
                      country: 'Preference[:country]'.c,
                      active: true,
+                     scope: :normal,
                      t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
-    unroll fill_in: :full_name
+    unroll fill_in: :full_name, scope: :normal
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
@@ -256,6 +257,12 @@ module Backend
       t.column :due_at
       t.column :sale_opportunity, url: true
       t.column :executor, url: true
+    end
+
+    def toggle
+      @entity = Entity.find_by!(id: params[:id])
+      @entity.toggle!
+      redirect_to params[:redirect] || { action: :show, id: @entity.id }
     end
 
     def import

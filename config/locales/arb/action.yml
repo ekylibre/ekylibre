@@ -124,7 +124,8 @@ arb:
       index: "كتالوجات"
       new: "الكتالوج الجديد"
       # show: "Catalog: %{name}"
-    backend/companies:  #?
+    backend/companies:
+      edit: "تعديل الإعدادات شركة"
       register: "تسجيل شركة" #?
     backend/company:  #?
       about: "وحول ايكيليبغ" #?
@@ -151,9 +152,6 @@ arb:
       index: "المناطق الصالحة للزراعة"
       new: "منطقة زراعة جديدة"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      edit: "تعديل الخيار : %{name}"
-      new: " انشاء خيار واحد للحصول على قائمة الخيارات"
     backend/custom_fields:
       edit: "تعديل الحقل المخصص : %{name}"
       index: "الحقول المخصصة"
@@ -446,7 +444,6 @@ arb:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "الإشعارات"
-      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
@@ -643,10 +640,6 @@ arb:
       new: "الدخول" #?
     backend/settings:
       about: "وحول ايكيليبغ"
-      backups: "النسخ الاحتياطية" #?
-      configure: "التكوين" #?
-      edit: "ترتيب"
-      import: "الاستيراد" #?
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "المستوطنات"
@@ -819,7 +812,7 @@ arb:
     template:
       body: "كانت هناك مشاكل مع الحقول التالية:"
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -915,6 +908,7 @@ arb:
     account_value_previous: "القيمة السابقة" #?
     accountancy: "المحاسبة"
     accountancy_balance: "ميزان المحاسبة"
+    accountancy_preferences: "تفضيلات المحاسبة"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
@@ -946,6 +940,7 @@ arb:
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
     add_grading_check: "إضافة الاختيار الدرجات"
+    add_incoming_payment: "إضافة دفع الواردة"
     add_inspection_calibration_nature: "إضافة تفتيش معايرة الطبيعة"
     add_inspection_calibration_scale: "إضافة تفتيش على نطاق والمعايرة"
     add_inspection_point_nature: "إضافة نقطة تفتيش الطبيعة"
@@ -958,6 +953,7 @@ arb:
     add_mail: "إضافة عنوان البريدي"
     add_mobile: "إضافة رقم الهاتف المحمول"
     add_new_record: "إضافة قياسيا جديدا"
+    add_outgoing_payment: "إضافة دفع المنتهية ولايته"
     add_participation: "إضافة مشاركة"
     add_payment: "اضافة دفعة"
     add_phone: "إضافة رقم الهاتف"
@@ -965,10 +961,12 @@ arb:
     add_point: "إضافة نقطة"
     add_polygon: "إضافة مضلع"
     add_production: "إضافة الانتاج"
+    add_purchase: "إضافة شراء"
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"
     add_reading: "إضافة قيمة للمؤشر"
     add_revenue: "إضافة الإيرادات"
+    add_sale: "إضافة بيع"
     add_sale_taxation: "إضافة بيع الضرائب"
     add_season: "إضافة الموسم"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
@@ -999,6 +997,7 @@ arb:
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب" #?
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "تحليلات"
+    analytic_preferences: "تفضيلات التحليلية"
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"
@@ -1133,6 +1132,8 @@ arb:
     container: "وعاء"
     convert_balance_into_loss: "تحويل الرصيد إلى فقدان"
     convert_balance_into_profit: "تحويل الرصيد إلى أرباح"
+    convert_into_contact: "تحويل إلى الاتصال"
+    convert_into_organization: "تحويل إلى منظمة"
     convert_to_cultivable_zone: "تحويل إلى منطقة صالحة للزراعة"
     cooperative_cartodb: "تعاونية CartoDB"
     coordinates: "تنسيق"
@@ -1358,6 +1359,7 @@ arb:
     generate_parcel: "تولد لا يتجزأ"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
+    global_preferences: "تفضيلات العالمية"
     go: "صلاحية"
     gradings: "الى التصنيف"
     grain_yield: "محصول الحبوب"
@@ -1412,6 +1414,7 @@ arb:
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     inspections: "عمليات التفتيش"
+    interface_preferences: "تفضيلات واجهة"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
     international_reduce_vat_collected: "معدل ضريبة القيمة المضافة الدولية المخفضة %2.1" #?
@@ -1510,7 +1513,7 @@ arb:
     mails:
       one: "البريد الالكتروني"
       other: "%{count} بريد الكتروني اخر"
-      zero: "ولا بريد الكتروني "
+      zero: "ولا بريد الكتروني " #?
     main_settings: "الضبط الرئيسي"
     make_your_production_support: "جعل دعم الإنتاج الخاص"
     manage_activities: "إدارة الأنشطة"
@@ -1521,6 +1524,7 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     manure_management_plan_chart: "السماد خطة إدارة التخطيط"
     map: "رسم خريطة"
+    map_preferences: "تفضيلات خريطة"
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
@@ -1606,9 +1610,8 @@ arb:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "بريد إلكتروني جديد"
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
@@ -1858,10 +1861,10 @@ arb:
     rest_to_pay: "القيمة المتبقية" #?
     restore: "تجديد"
     result: "الناتج"
-    results:
-      one: "نتيجة واحدة"
-      other: "%{count} نتائج"
-      zero: "ولا نتيجة"
+    results:  #?
+      one: "نتيجة واحدة" #?
+      other: "%{count} نتائج" #?
+      zero: "ولا نتيجة" #?
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
@@ -1908,6 +1911,7 @@ arb:
     sales_invoices: "الفواتير" #?
     sales_invoices_total: "مجموع قيمة الفاتورة" #?
     sales_number: "" #?
+    sales_preferences: "تفضيلات المبيعات"
     sales_pretax_amount: "كمية قبل خصم الضرائب (مبيعات)"
     sales_price_create: "اضافة سعر البيع" #?
     # same_variant_as_x: "Same variant as %{x}"
@@ -2180,11 +2184,11 @@ arb:
     x_depositable_payments:
       one: "1 دفع الواردة إلى الودائع"
       # other: "%{count} incoming payments to deposit"
-      zero: "لا المدفوعات الواردة إلى الودائع"
+      zero: "لا المدفوعات الواردة إلى الودائع" #?
     x_deposits_to_validate:
       one: "التحقق من صحة البيان البنكي"
       other: "%{count} التحقق من صحة البيانات البنكية الاخرى"
-      zero: "عدم التحقق من اي بيان"
+      zero: "عدم التحقق من اي بيان" #?
     x_entities:
       one: "تسجيل سجل واحد"
       other: "%{count} تسجيل سجلات اخرى"
@@ -2199,7 +2203,6 @@ arb:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -2212,7 +2215,7 @@ arb:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "لا يتجزأ واردة"
+      zero: "لا يتجزأ واردة" #?
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
@@ -2264,7 +2267,7 @@ arb:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "لا يتجزأ المنتهية ولايته"
+      zero: "لا يتجزأ المنتهية ولايته" #?
     x_outgoing_payments:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"
@@ -2282,7 +2285,7 @@ arb:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "لا توجد نتائج"
+      zero: "لا توجد نتائج" #?
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -2309,7 +2312,7 @@ arb:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "لم يتم العثور على تتبع"
+      zero: "لم يتم العثور على تتبع" #?
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -2342,13 +2345,9 @@ arb:
       success: "استكملت العملية بنجاح"
       warning: "!تحذير"
     messages:
-      a_campaign_must_be_opened: "يجب فتح حملة"
-      a_production_must_be_opened: "يجب فتح الإنتاج"
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
-      all_data_import_finished: "تم استيراد جميع البيانات الخاصة بك"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
-      an_activity_must_be_defined: "يجب تعريف النشاط"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
@@ -2367,7 +2366,7 @@ arb:
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
-        zero: "لم يتم التحقق من صحة اي ملف"
+        zero: "لم يتم التحقق من صحة اي ملف" #?
       entity_columns_are_needed: ".يجب عليك تحديد عامود واحد كحد ادنى للفرد بما في ذلك اسمه"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -2382,8 +2381,6 @@ arb:
       import_succeeded: "نم استيراد بياناتك بشكل صحيح" #?
       importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد" #?
       importation_finished: "انتهاء الاستيراد"
-      impossible_to_add_items: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب"
-      impossible_to_add_items_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك"
       incompatible_browser: "المتصفح غير متوافق"
       # informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
       integrate_tools_you_are_using_every_day: "دمج الأدوات التي تستخدم كل يوم"
@@ -2398,28 +2395,23 @@ arb:
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       merge_is_done: "ويتم دمج"
-      need_a_production_support: "تحتاج إلى دعم الإنتاج"
+      need_a_valid_payment_mode: "تحتاج إلى وضع دفع صالح"
       need_a_valid_purchase_nature_to_start_new_purchase: "تحتاج إلى نوع شراء ساري المفعول لبدء شراء جديدة"
       need_a_valid_sale_nature_to_start_new_sale: "تحتاج إلى نوع بيع صالحة لبدء بيع جديد"
       need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ" #?
       need_building_to_create_purchase_item: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
       need_building_to_create_sale_item: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
       need_building_to_record_stock_moves: "يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك"
-      need_cash_to_record_statements: "يجب عليك مشاء حساب مصرفي واحد كحد ادنى لاستلاء على بيانات الحساب"
       need_closed_financial_year_to_declaration: "يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة" #?
       need_company_code_to_login: "يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم" #?
       need_entries_to_reconciliate: "لا إدخالات إلى مصالحة بين في الفترة بيان البنك"
       need_journal_to_manage_tax_declaration: "يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب" #?
       need_payment_mode_to_create_deposit: "يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي"
-      need_quantities_to_cancel_an_sale: "يجب تحديد كمية من أجل إلغاء فاتورة المبيعات"
       need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
       need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج" #?
       need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
-      need_to_create_productions: "تحتاج إلى إنشاء الإنتاج"
-      need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
-      new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "صافي الخدمات والمعرفات هي دائما موجودة، ولكن تم إيقاف وسيتم إزالتها في الافراج الرئيسي القادم"
       no_archived_prints: "لا يطبع المحفوظة"
-      no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
       no_budget_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية الميزانية"
       no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك" #?
@@ -2428,11 +2420,14 @@ arb:
       no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
       no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر" #?
       no_financial_year: "لم يتم تسجيل اي سنة مالية" #?
+      no_inspections_given: "لا عمليات التفتيش الممنوحة"
+      no_interventions_given: "لا تدخلات الممنوحة"
       no_items_found: "لم يتم اضافة اي منتج الى الطلب" #?
       no_parcels_given: "لا الطرود الممنوحة"
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
       no_production_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية إنتاج"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
+      no_purchases_given: "لا مشتريات الممنوحة"
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_replacements_since_beginning: "لا البدلاء منذ بداية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
@@ -2475,12 +2470,11 @@ arb:
       x_unpointed_journal_entry_items:
         one: "يوجد مدخل واحد مشار اليه"
         other: "%{count} يوجد مدخلات اخرى مشار اليه"
-        zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة"
+        zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة" #?
       you_must_have_an_email_column: "يجب ان يكون لديك عمود خاص بالبريد الالكتروني"
       you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد" #?
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
-      your_data_are_being_imported: "يتم استيراد البيانات الخاصة بك"
   preferences:
     accountancy:  #?
       accounts: #?
@@ -2520,10 +2514,11 @@ arb:
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
     detail_payments_in_deposit_bookkeeping: "التفاصيل جميع المدفوعات في مسك الدفاتر وديعة"
+    distribute_sales_and_purchases_on_activities: "توزيع البيع والشراء على الأنشطة"
+    distribute_sales_and_purchases_on_teams: "توزيع البيع والشراء على فرق"
     employee_account_radix: "جذر حساب الموظف"
     general:  #?
       language: "اللغة المفترضة" #?
-    host: "مضيف"
     language: "لغة"
     management:  #?
       deposits: #?
@@ -2547,7 +2542,9 @@ arb:
         numeration: "احصاء ملفات العملاء / الممولين" #?
     sales_conditions: "شروط البيع"
     supplier_account_radix: "جذر حساب المورد"
+    use_contextual_help: "استخدام المساعدة السياقية"
     use_entity_codes_for_account_numbers: "استخدام رمز لخلق أرقام الحسابات"
+    use_global_search: "استخدام البحث العالمية"
   rest:
     actions:
       abort: "إحباط"

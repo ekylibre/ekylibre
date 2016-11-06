@@ -1087,6 +1087,7 @@ deu:
     purchase_invoices: "Eingangsrechnungen"
     purchase_item: "Kaufsache"
     purchase_items: "Kauf von Gegenständen"
+    purchase_natures: "Kauftypen"
     purchase_taxations: "Kauf Besteuerungen"
     purchase_taxes: "Umsatzsteuern"
     purchased_on: "erworben auf"
@@ -1183,6 +1184,7 @@ deu:
     sale_item: "Verkauf Artikel"
     sale_items: "Verkaufsobjekte"
     sale_nature: "Verkauf Art"
+    sale_natures: "Verkauf Arten"
     sale_opportunities: "Verkauf Chancen"
     sale_opportunity: "Verkauf Gelegenheit"
     sale_taxations: "Verkauf Besteuerungen"
@@ -1443,7 +1445,6 @@ deu:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
         # other: "[%{resource} %{number}] %{count} payments %{mode} %{description}"
-        # zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

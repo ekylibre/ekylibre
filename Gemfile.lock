@@ -97,6 +97,8 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap3-datetimepicker-rails (4.17.42)
+      momentjs-rails (>= 2.8.1)
     browser (2.3.0)
     builder (3.2.2)
     burisu-docsplit (0.7.9)
@@ -260,6 +262,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    momentjs-rails (2.15.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -530,6 +534,7 @@ DEPENDENCIES
   beardley-open_sans
   beardley-xml
   bootstrap-sass (~> 3.1)
+  bootstrap3-datetimepicker-rails
   browser
   capybara
   capybara-webkit
@@ -567,6 +572,7 @@ DEPENDENCIES
   luhn
   mechanize
   minitest-reporters
+  momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.6.0)
   ofx-parser!
   omniauth
@@ -618,4 +624,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.13.3
+   1.13.6

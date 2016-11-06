@@ -632,13 +632,8 @@ custom_fields:
     dependencies:
     - read-custom_fields
     actions:
-    - "backend/custom_field_choices#create"
-    - "backend/custom_field_choices#destroy"
     - "backend/custom_field_choices#down"
-    - "backend/custom_field_choices#edit"
-    - "backend/custom_field_choices#new"
     - "backend/custom_field_choices#up"
-    - "backend/custom_field_choices#update"
     - "backend/custom_fields#create"
     - "backend/custom_fields#destroy"
     - "backend/custom_fields#down"
@@ -756,6 +751,7 @@ entities:
     - "backend/entities#import"
     - "backend/entities#merge"
     - "backend/entities#new"
+    - "backend/entities#toggle"
     - "backend/entities#update"
     - "backend/entity_addresses#create"
     - "backend/entity_addresses#destroy"
@@ -990,11 +986,13 @@ guides:
 
 identifiers:
   read:
+    deprecated: true
     actions:
     - "backend/identifiers#index"
     - "backend/identifiers#list"
     - "backend/identifiers#show"
   write:
+    deprecated: true
     dependencies:
     - read-identifiers
     actions:
@@ -1091,16 +1089,33 @@ incoming_payments:
 integrations:
   read:
     actions:
+    - "backend/identifiers#index"
+    - "backend/identifiers#list"
+    - "backend/identifiers#show"
     - "backend/integrations#index"
+    - "backend/net_services#index"
+    - "backend/net_services#list"
+    - "backend/net_services#list_identifiers"
+    - "backend/net_services#show"
   write:
     dependencies:
     - read-integrations
     actions:
+    - "backend/identifiers#create"
+    - "backend/identifiers#destroy"
+    - "backend/identifiers#edit"
+    - "backend/identifiers#new"
+    - "backend/identifiers#update"
     - "backend/integrations#create"
     - "backend/integrations#destroy"
     - "backend/integrations#edit"
     - "backend/integrations#new"
     - "backend/integrations#update"
+    - "backend/net_services#create"
+    - "backend/net_services#destroy"
+    - "backend/net_services#edit"
+    - "backend/net_services#new"
+    - "backend/net_services#update"
 
 interventions:
   read:
@@ -1421,15 +1436,23 @@ myselves:
 
 net_services:
   read:
+    deprecated: true
     actions:
+    - "backend/integrations#index"
     - "backend/net_services#index"
     - "backend/net_services#list"
     - "backend/net_services#list_identifiers"
     - "backend/net_services#show"
   write:
+    deprecated: true
     dependencies:
     - read-net_services
     actions:
+    - "backend/integrations#create"
+    - "backend/integrations#destroy"
+    - "backend/integrations#edit"
+    - "backend/integrations#new"
+    - "backend/integrations#update"
     - "backend/net_services#create"
     - "backend/net_services#destroy"
     - "backend/net_services#edit"
@@ -1925,13 +1948,13 @@ sequences:
 settings:
   read:
     actions:
+    - "backend/companies#edit"
     - "backend/settings#about"
-    - "backend/settings#edit"
   write:
     dependencies:
     - read-settings
     actions:
-    - "backend/settings#update"
+    - "backend/companies#update"
 
 settlements:
   read:

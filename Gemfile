@@ -46,6 +46,8 @@ gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 gem 'jquery-scrollto-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
