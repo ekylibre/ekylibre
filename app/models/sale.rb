@@ -224,7 +224,9 @@ class Sale < Ekylibre::Record::Base
         end
       end
     end
+    # FIXME: We can't select a journal with pure random
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    # FIXME: We can't select a journal with pure random
     ui_journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP')
     # 1 / for undelivered invoice
     # exchange undelivered invoice from parcel

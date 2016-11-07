@@ -118,6 +118,8 @@ jpn:
       index: "カタログ"
       new: "新カタログ"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "編集会社の設定"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "契約"
@@ -130,9 +132,6 @@ jpn:
       index: "耕作地帯"
       new: "新耕作地帯"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "選択肢のリストのための新しいオプション"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "カスタムフィールド"
@@ -493,7 +492,6 @@ jpn:
       new: "新しいシーケンス"
     backend/settings:
       about: "Ekylibreについて"
-      edit: "コンフィギュレーション"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "決済"
@@ -649,7 +647,7 @@ jpn:
     template:
       body: "次のフィールドに問題がありました："
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -722,6 +720,7 @@ jpn:
     access_parameters: "アクセス・パラメータ"
     accountancy: "会計学"
     accountancy_balance: "会計収支"
+    accountancy_preferences: "会計の好み"
     accounts: "アカウント"
     accounts_only_used_at: "のみで使用するアカウント"
     accounts_to_load: "ロードするアカウント"
@@ -749,6 +748,7 @@ jpn:
     add_fax: "ファックスを追加"
     add_filter: "フィルタを追加します。"
     add_grading_check: "グレーディングチェックを追加"
+    add_incoming_payment: "入金を追加"
     add_inspection_calibration_nature: "検査校正性質を追加"
     add_inspection_calibration_scale: "検査校正スケールを追加します。"
     add_inspection_point_nature: "検査ポイントの性質を追加します。"
@@ -761,6 +761,7 @@ jpn:
     add_mail: "郵便アドレスを追加します。"
     add_mobile: "携帯電話番号を追加します。"
     add_new_record: "新しいレコードを追加します。"
+    add_outgoing_payment: "支払を追加"
     add_participation: "参加を追加"
     add_payment: "支払いを追加"
     add_phone: "電話番号を追加します。"
@@ -768,10 +769,12 @@ jpn:
     add_point: "ポイントを追加"
     add_polygon: "ポリゴンを追加"
     add_production: "生産を追加"
+    add_purchase: "購入を追加"
     add_purchase_taxation: "購入課税を追加します。"
     add_quickly_an_item: "素早く製品の行を追加します。"
     add_reading: "指標の値を追加します。"
     add_revenue: "収益を追加"
+    add_sale: "売却を追加"
     add_sale_taxation: "販売課税を追加します。"
     add_season: "シーズンを追加"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
@@ -796,6 +799,7 @@ jpn:
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "解析"
+    analytic_preferences: "アナリ好み"
     animal_details: "動物の詳細"
     animal_productions: "動物プロダクション" #?
     animals: "動物"
@@ -890,6 +894,8 @@ jpn:
     container: "コンテナ"
     convert_balance_into_loss: "損失にバランスを変換します"
     convert_balance_into_profit: "利益にバランスを変換します"
+    convert_into_contact: "接触に変換"
+    convert_into_organization: "組織に変換します"
     convert_to_cultivable_zone: "耕作ゾーンに変換"
     cooperative_cartodb: "共同CartoDB"
     coordinates: "座標"
@@ -1048,6 +1054,7 @@ jpn:
     generate_last_journal_entry: "最後の仕訳を生成します"
     generate_parcel: "小包を生成します"
     geolocation: "ジオロケーション"
+    global_preferences: "グローバル環境設定"
     go: "行きます"
     gradings: "グレーディング"
     grain_yield: "穀粒収量"
@@ -1090,6 +1097,7 @@ jpn:
     input_cost_per_hectare: "ヘクタール当たりの入力コスト" #?
     inputs: "入力"
     inspections: "検査"
+    interface_preferences: "インターフェースのプリファレンス"
     internal_error: "おっと、何かが起こりました。"
     interval: "パーソナライズされた間隔"
     intervention: "介入"
@@ -1154,7 +1162,6 @@ jpn:
     mails:
       # one: "%{count} email"
       # other: "%{count} emails"
-      zero: "いいえメールません"
     main_settings: "メイン設定"
     make_your_production_support: "あなたの生産支援を行います"
     manage_activities: "活動を管理します"
@@ -1162,6 +1169,7 @@ jpn:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "肥料管理計画チャート"
     map: "地図"
+    map_preferences: "地図の好み"
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
     marketable_net_mass: "有価正味質量"
@@ -1210,9 +1218,8 @@ jpn:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新しい電子メール"
     new_group: "新しいグループ"
     new_incoming_parcel: "新しい着信小包"
@@ -1376,10 +1383,8 @@ jpn:
     rest: "残り"
     restore: "リストア"
     result: "結果"
-    results:
-      one: "1の結果"
-      # other: "%{count} results"
-      zero: "結果がありません"
+    results:  #?
+      one: "1の結果" #?
     revenues: "収入"
     revenues_by_product_nature: "製品タイプ別収益"
     reverse: "リバース条件"
@@ -1394,6 +1399,7 @@ jpn:
     sales: "セールス"
     sales_conditions: "販売の条件"
     sales_invoice: "請求書発行"
+    sales_preferences: "販売の好み"
     sales_pretax_amount: "税引前金額（売上高）"
     # same_variant_as_x: "Same variant as %{x}"
     save: "セーブ"
@@ -1597,11 +1603,9 @@ jpn:
     x_depositable_payments:
       one: "預金に1入金"
       # other: "%{count} incoming payments to deposit"
-      zero: "預金への着信の支払いはありません"
     x_deposits_to_validate:
       # one: "%{count} deposit to validate"
       # other: "%{count} deposits to validate"
-      zero: "検証するために、預金いいえ"
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
@@ -1614,7 +1618,6 @@ jpn:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1627,7 +1630,6 @@ jpn:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "着信小包ありません"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1668,7 +1670,6 @@ jpn:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "いいえ発信小包はありません"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1681,7 +1682,6 @@ jpn:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "結果が見つかりません"
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -1707,7 +1707,6 @@ jpn:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "追跡見つかりません"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1759,7 +1758,6 @@ jpn:
       draft_journal_entries_have_been_validated:
         one: "1つのエントリが検証されています"
         # other: "%{count} entries have been validated"
-        zero: "いいえエントリは検証されていません"
       entity_columns_are_needed: "あなたは、その家族の名前の人のために、特に少なくとも1つの列を指定する必要があります。"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -1789,6 +1787,7 @@ jpn:
       need_entries_to_reconciliate: "銀行取引明細書の期間にreconciliateするエントリはありません"
       need_payment_mode_to_create_deposit: "あなたが預金を作るために支払いのモードを指定する必要があります"
       need_stocks_to_create_inventories: "あなたは在庫を管理するためにいくつかの株式を管理する必要が"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "ネットサービスや識別子は常に利用可能ですが、推奨されていませんし、次のメジャーリリースでは削除されます"
       no_archived_prints: "いいえアーカイブプリントはありません"
       no_budget_defined_for_current_campaign: "現在のキャンペーンのために定義された予算がありません"
       no_closable_journal: "いいえ開閉可能なジャーナルません"
@@ -1822,7 +1821,6 @@ jpn:
       x_unpointed_journal_entry_items:
         one: "ポイントに1つのエントリがあります"
         # other: "There are %{count} entries to point"
-        zero: "現時点でポイントするエントリがありません"
       you_must_have_an_email_column: "あなたの抽出にメールアドレスを持っている必要があります"
       you_need_to_review_your_application_configuration: "あなたは、アプリケーションの構成を確認する必要があります"
   preferences:
@@ -1835,14 +1833,17 @@ jpn:
     create_activities_from_telepac: "Telepacインポート時に活動を作成します。"
     currency: "通貨"
     detail_payments_in_deposit_bookkeeping: "詳細預金簿記内のすべての支払い"
+    distribute_sales_and_purchases_on_activities: "活動の売買を配布"
+    distribute_sales_and_purchases_on_teams: "チームでの売買を配布"
     employee_account_radix: "従業員のアカウントの基数"
-    host: "ホスト"
     language: "言語"
     map_measure_srs: "地図対策SRS"
     permanent_stock_inventory: "永久在庫棚卸モード"
     sales_conditions: "販売条件"
     supplier_account_radix: "サプライヤアカウントの基数"
+    use_contextual_help: "コンテキストヘルプを使用します"
     use_entity_codes_for_account_numbers: "口座番号を作成するためのコードを使用します"
+    use_global_search: "グローバル検索を使用します"
   rest:
     actions:
       abort: "アボート"

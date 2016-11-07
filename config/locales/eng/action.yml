@@ -154,6 +154,8 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/companies:
+      edit: "Company settings"
     backend/contracts:
       edit: "Edit contract %{number}"
       index: "Contracts"
@@ -172,9 +174,6 @@ eng:
       index: "Cultivable zones"
       new: "New cultivable zone"
       show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      edit: "Edit option: %{name}"
-      new: "New option for a choices list"
     backend/custom_fields:
       edit: "Edit custom field: %{name}"
       index: "Custom fields"
@@ -241,6 +240,7 @@ eng:
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
+      # toggle: "Toggle entity: %{name}"
     backend/entity_addresses:
       edit: "Edit address: %{name}"
       # index: "Entity addresses"
@@ -648,7 +648,6 @@ eng:
       # show: "Sequence: %{name}"
     backend/settings:
       about: "About Ekylibre"
-      edit: "Configuration"
     backend/settlements:
       edit: "Edit settlement: %{name}"
       index: "Settlements"
@@ -773,7 +772,7 @@ eng:
     template:
       body: "There were problems with the following fields:"
       header:
-        one: "1 error prohibited this %{model} from being saved"
+        one: "%{count} error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -846,6 +845,7 @@ eng:
     access_parameters: "Access parameters"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
+    accountancy_preferences: "Accountancy preferences"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -873,6 +873,7 @@ eng:
     add_fax: "Add fax"
     add_filter: "Add filter"
     add_grading_check: "Add grading check"
+    add_incoming_payment: "Add incoming payment"
     add_inspection_calibration_nature: "Add inspection calibration nature"
     add_inspection_calibration_scale: "Add inspection calibration scale"
     add_inspection_point_nature: "Add inspection point nature"
@@ -885,6 +886,7 @@ eng:
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
     add_new_record: "Add new record"
+    add_outgoing_payment: "Add outgoing payment"
     add_participation: "Add participation"
     add_payment: "Add payment"
     add_phone: "Add phone number"
@@ -892,10 +894,12 @@ eng:
     add_point: "Add point"
     add_polygon: "Add polygon"
     add_production: "Add production"
+    add_purchase: "Add purchase"
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
     add_revenue: "Add revenue"
+    add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
     add_season: "Add season"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
@@ -919,6 +923,7 @@ eng:
     amount_per_unit: "%{amount}/%{unit}" #??
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
+    analytic_preferences: "Analytic preferences"
     animal_details: "Animal details" #?
     animals: "Animals"
     archives: "Archives"
@@ -1000,7 +1005,7 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    company: "Society" #?
+    company: "Society"
     complete: "Complete"
     completed: "Completed"
     # components: "Components"
@@ -1013,6 +1018,8 @@ eng:
     container: "Container"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
+    convert_into_contact: "Convert into contact"
+    convert_into_organization: "Convert into organization"
     convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates" #?
@@ -1045,7 +1052,6 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
-    # currency: "Currency"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1163,12 +1169,13 @@ eng:
     fungi: "Fungi" #?
     future_events: "Future events"
     genealogy: "Genealogy"
-    general: "General"
+    general: "General" #?
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
     geolocation: "Geolocation" #?
+    global_preferences: "Global preferences"
     go: "Go" #?
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
@@ -1212,6 +1219,7 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
+    interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
     intervention: "Intervention"
@@ -1275,7 +1283,6 @@ eng:
     mails:
       one: "%{count} email"
       other: "%{count} emails"
-      zero: "No emails"
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
@@ -1283,6 +1290,7 @@ eng:
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
+    map_preferences: "Map preferences"
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
@@ -1326,9 +1334,8 @@ eng:
       one: "New transport for %{transporter} (%{count} delivery)"
       other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      one: "Make a deposit %{mode}: 1 available payment"
+      one: "Make a deposit %{mode}: %{count} available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
-      zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
@@ -1488,10 +1495,6 @@ eng:
     rest: "Rest"
     restore: "Restore" #?
     result: "Result" #?
-    results: #?
-      one: "1 result" #?
-      other: "%{count} results" #?
-      zero: "No results" #?
     revenues: "Revenues" #?
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
@@ -1506,6 +1509,7 @@ eng:
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
+    sales_preferences: "Sales preferences"
     sales_pretax_amount: "Pretax amount (Sales)"
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
@@ -1705,13 +1709,11 @@ eng:
       one: "%{count} day"
       other: "%{count} days"
     x_depositable_payments:
-      one: "1 incoming payment to deposit"
+      one: "%{count} incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
-      zero: "No incoming payments to deposit"
     x_deposits_to_validate:
       one: "%{count} deposit to validate"
       other: "%{count} deposits to validate"
-      zero: "No deposits to validate"
     x_entities:
       one: "%{count} person"
       other: "%{count} people"
@@ -1719,12 +1721,11 @@ eng:
       one: "%{count} link"
       other: "%{count} links"
     x_events:
-      one: "1 event"
+      one: "%{count} event"
       other: "%{count} events"
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      zero: "No events %{nature}"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1737,7 +1738,6 @@ eng:
     x_incoming_parcels:
       one: "%{count} incoming parcel"
       other: "%{count} incoming parcels"
-      zero: "No incoming parcel"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1754,7 +1754,7 @@ eng:
       one: "%{count} intervention"
       other: "%{count} interventions"
     x_issues:
-      one: "1 issue"
+      one: "%{count} issue"
       other: "%{count} issues"
     x_items_remain:
       one: "%{count} item remains"
@@ -1778,12 +1778,11 @@ eng:
     x_outgoing_parcels:
       one: "%{count} outgoing parcel"
       other: "%{count} outgoing parcels"
-      zero: "No outgoing parcel"
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
     x_purchases:
-      one: "1 purchase"
+      one: "%{count} purchase"
       other: "%{count} purchases"
     x_readings:
       one: "%{count} reading"
@@ -1791,7 +1790,6 @@ eng:
     x_results:
       one: "%{count} result found"
       other: "%{count} results found"
-      zero: "No results found"
     x_sale_opportunities:
       one: "%{count} opportunity"
       other: "%{count} opportunities"
@@ -1817,7 +1815,6 @@ eng:
     x_trackings:
       one: "%{count} tracking"
       other: "%{count} trackings"
-      zero: "No tracking found"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1835,7 +1832,7 @@ eng:
       one: "%{count} waiting outgoing parcel"
       other: "%{count} waiting outgoing parcels"
     x_years:
-      one: "1 year"
+      one: "%{count} year"
       other: "%{count} years"
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
@@ -1866,9 +1863,8 @@ eng:
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       draft_journal_entries_have_been_validated:
-        one: "One entry has been validated"
+        one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
-        zero: "No entries has been validated"
       entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
       equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
@@ -1899,6 +1895,7 @@ eng:
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Net services and identifiers are always available but are deprecated and will be removed in next major release"
       no_archived_prints: "No archived prints"
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
@@ -1931,9 +1928,8 @@ eng:
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
       x_unpointed_journal_entry_items:
-        one: "There is one entry to point"
+        one: "There is %{count} entry to point"
         other: "There are %{count} entries to point"
-        zero: "There are no entries to point at the moment"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
   preferences:
@@ -1946,14 +1942,17 @@ eng:
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
+    distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
+    distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
-    host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
     permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
+    use_contextual_help: "Use contextual help"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
+    use_global_search: "Use global search"
   rest:
     actions:
       abort: "Abort"

@@ -113,7 +113,9 @@ module Backend
         notify_error(:unexpected_resource_type, type: klass.model_name)
         return false
       end
-      unless record = klass.find_by(id: id)
+      list = options[:scope] ? klass.send(options[:scope]) : klass
+      record = list.find_by(id: id)
+      unless record
         notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
         redirect_to_back
         return false

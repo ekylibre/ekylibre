@@ -118,6 +118,8 @@ ita:
       index: "cataloghi"
       new: "Nuovo catalogo"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "Modifica impostazioni aziendali"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "Contratti"
@@ -130,9 +132,6 @@ ita:
       index: "zone coltivabili"
       new: "Nuova zona coltivabile"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "Nuova opzione per un elenco delle scelte"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "Campi personalizzati"
@@ -493,7 +492,6 @@ ita:
       new: "nuova sequenza"
     backend/settings:
       about: "A proposito di Ekylibre"
-      edit: "Configurazione"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "insediamenti"
@@ -649,7 +647,7 @@ ita:
     template:
       body: "Ci sono stati problemi con i seguenti campi:"
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -722,6 +720,7 @@ ita:
     access_parameters: "parametri di accesso"
     accountancy: "Contabilità"
     accountancy_balance: "equilibrio Contabilità"
+    accountancy_preferences: "Preferenze di contabilità"
     accounts: "conti"
     accounts_only_used_at: "Conti utilizzati solo a"
     accounts_to_load: "Conti per caricare"
@@ -749,6 +748,7 @@ ita:
     add_fax: "Aggiungere fax"
     add_filter: "Aggiungi filtro"
     add_grading_check: "Aggiungere controllo di classificazione"
+    add_incoming_payment: "Aggiungere pagamento in entrata"
     add_inspection_calibration_nature: "Aggiungere ispezione natura calibrazione"
     add_inspection_calibration_scale: "Aggiungere scala di taratura ispezione"
     add_inspection_point_nature: "Aggiungere ispezione punto natura"
@@ -761,6 +761,7 @@ ita:
     add_mail: "Aggiungere indirizzo postale"
     add_mobile: "Aggiungere il numero di telefono cellulare"
     add_new_record: "Aggiungi nuovo record"
+    add_outgoing_payment: "Aggiungere il pagamento in uscita"
     add_participation: "Aggiungere partecipazione"
     add_payment: "Aggiungere pagamento"
     add_phone: "Aggiungere il numero di telefono"
@@ -768,10 +769,12 @@ ita:
     add_point: "Aggiungi punto"
     add_polygon: "Aggiungere poligono"
     add_production: "Aggiungere la produzione"
+    add_purchase: "Aggiungere acquisto"
     add_purchase_taxation: "Aggiungere tassazione acquisto"
     add_quickly_an_item: "Aggiungere rapidamente una linea di prodotti"
     add_reading: "Aggiungere un valore per un indicatore"
     add_revenue: "Aggiungere entrate"
+    add_sale: "Aggiungere vendita"
     add_sale_taxation: "Aggiungere vendita tassazione"
     add_season: "Aggiungere stagione"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
@@ -796,6 +799,7 @@ ita:
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analisi"
+    analytic_preferences: "Preferenze analitiche"
     animal_details: "dettagli animali"
     animal_productions: "produzioni animali" #?
     animals: "Animali"
@@ -888,6 +892,8 @@ ita:
     container: "Contenitore"
     convert_balance_into_loss: "Convertire equilibrio in perdita"
     convert_balance_into_profit: "Convertire equilibrio in profitto"
+    convert_into_contact: "Convertire in contatto"
+    convert_into_organization: "Convertire in organizzazione"
     convert_to_cultivable_zone: "Conversione in zone coltivabili"
     cooperative_cartodb: "Cooperativa cartodb"
     coordinates: "coordinate"
@@ -1045,6 +1051,7 @@ ita:
     generate_last_journal_entry: "Generare ultima voce di diario"
     generate_parcel: "genera pacchi"
     geolocation: "geolocalizzazione"
+    global_preferences: "Preferenze globali"
     go: "Partire"
     gradings: "classificazioni"
     grain_yield: "La resa in granella"
@@ -1087,6 +1094,7 @@ ita:
     input_cost_per_hectare: "costo di ingresso per ettaro" #?
     inputs: "ingressi"
     inspections: "ispezioni"
+    interface_preferences: "Preferenze di interfaccia"
     internal_error: "Ops, qualcosa è successo."
     interval: "Intervallo personalizzato"
     intervention: "Intervento"
@@ -1151,7 +1159,6 @@ ita:
     mails:
       # one: "%{count} email"
       # other: "%{count} emails"
-      zero: "Non ci sono messaggi di posta elettronica"
     main_settings: "impostazioni principali"
     make_your_production_support: "Fai la tua supporto alla produzione"
     manage_activities: "gestire le attività"
@@ -1159,6 +1166,7 @@ ita:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "chart piano di gestione del letame"
     map: "Carta geografica"
+    map_preferences: "Preferenze Mappa"
     mark_all_as_read: "Segna tutti come letti"
     mark_as_read: "segna come letto"
     marketable_net_mass: "massa netta commerciabile"
@@ -1203,9 +1211,8 @@ ita:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuova email"
     new_group: "Nuovo gruppo"
     new_incoming_parcel: "Nuovo pacco in arrivo"
@@ -1369,10 +1376,8 @@ ita:
     rest: "riposo"
     restore: "Ripristinare"
     result: "Risultato"
-    results:
-      one: "1 risultato"
-      # other: "%{count} results"
-      zero: "Nessun risultato"
+    results:  #?
+      one: "1 risultato" #?
     revenues: "ricavi"
     revenues_by_product_nature: "Ricavi per tipologia di prodotto"
     reverse: "condizione di inversione"
@@ -1387,6 +1392,7 @@ ita:
     sales: "Vendite"
     sales_conditions: "Condizioni di vendita"
     sales_invoice: "fatturazione"
+    sales_preferences: "Preferenze di vendita"
     sales_pretax_amount: "Importo lordo delle imposte (di vendita)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvare"
@@ -1589,11 +1595,9 @@ ita:
     x_depositable_payments:
       one: "1 pagamento in entrata per depositare"
       # other: "%{count} incoming payments to deposit"
-      zero: "Non ci sono pagamenti in entrata per depositare"
     x_deposits_to_validate:
       # one: "%{count} deposit to validate"
       # other: "%{count} deposits to validate"
-      zero: "Nessun deposito per convalidare"
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
@@ -1606,7 +1610,6 @@ ita:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1619,7 +1622,6 @@ ita:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "Nessun terreno in entrata"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1660,7 +1662,6 @@ ita:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "Nessun terreno in uscita"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1673,7 +1674,6 @@ ita:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "nessun risultato trovato"
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -1699,7 +1699,6 @@ ita:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "Nessun inseguimento trovato"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1748,7 +1747,6 @@ ita:
       draft_journal_entries_have_been_validated:
         one: "Una voce è stata convalidata"
         # other: "%{count} entries have been validated"
-        zero: "Nessuna voce è stato convalidato"
       entity_columns_are_needed: "È necessario specificare almeno una colonna per la persona e in particolare il suo nome di famiglia."
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -1778,6 +1776,7 @@ ita:
       need_entries_to_reconciliate: "Nessuna voce di riconciliare il periodo di estratto conto bancario"
       need_payment_mode_to_create_deposit: "È necessario specificare una modalità di pagamento, al fine di effettuare depositi"
       need_stocks_to_create_inventories: "È necessario gestire alcune azioni al fine di gestire le scorte"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Servizi di rete e gli identificatori sono sempre disponibili, ma sono obsolete e saranno rimossi in prossima major release"
       no_archived_prints: "Non ci sono impronte archiviati"
       no_budget_defined_for_current_campaign: "Nessun bilancio definito per la campagna in corso"
       no_closable_journal: "Nessun ufficiale chiudibile"
@@ -1811,7 +1810,6 @@ ita:
       x_unpointed_journal_entry_items:
         one: "C'è una voce per indicare"
         # other: "There are %{count} entries to point"
-        zero: "Non ci sono voci per puntare in questo momento"
       you_must_have_an_email_column: "È necessario disporre di un indirizzo email nella vostra estrazione"
       you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell'applicazione"
   preferences:
@@ -1824,14 +1822,17 @@ ita:
     create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
+    distribute_sales_and_purchases_on_activities: "Distribuire le vendite e gli acquisti a attività"
+    distribute_sales_and_purchases_on_teams: "Distribuire le vendite e gli acquisti a squadre"
     employee_account_radix: "Radix conto dei dipendenti"
-    host: "Ospite"
     language: "Lingua"
     map_measure_srs: "SRS Mappa misura"
     permanent_stock_inventory: "Modalità di inventario di magazzino permanente"
     sales_conditions: "condizioni di vendita"
     supplier_account_radix: "Radix conto Fornitore"
+    use_contextual_help: "Utilizzare aiuto contestuale"
     use_entity_codes_for_account_numbers: "Usa il codice per la creazione di numeri di conto"
+    use_global_search: "Utilizzare ricerca globale"
   rest:
     actions:
       abort: "interrompe"

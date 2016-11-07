@@ -51,7 +51,7 @@
           - headers_actions = [edit_icon, delete_icon]
 
 
-          - search_params = params.except(:controller, :action)
+          - search_params = params.deep_dup.except(:controller, :action)
           - search_params[:period_interval] = current_period_interval
           - search_params[:period] = current_period
 
@@ -63,12 +63,12 @@
             - add_taskboard_tasks(requested_interventions, column)
 
           - board.column :current do |column|
-            - interventions_in_progress = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :in_progress }))
+            - interventions_in_progress = Intervention.with_unroll(search_params.merge(nature: :record, state: :in_progress))
             - column.header :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(interventions_in_progress, column)
 
           - board.column :finished do |column|
-            - interventions_done = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :done }))
+            - interventions_done = Intervention.with_unroll(search_params.merge(nature: :record, state: :done))
             - column.header :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(interventions_done, column)
 

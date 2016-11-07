@@ -217,7 +217,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def printed_at
-    (given? ? given_at : created_at? ? created_at : Time.zone.now)
+    given_at || created_at || Time.zone.now
   end
 
   def content_sentence(limit = 30)

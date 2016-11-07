@@ -1985,6 +1985,7 @@ arb:
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
     purchase_items: "طرق طلب الشراء"
+    purchase_natures: "أنواع شراء"
     purchase_taxations: "الأنظمة الضريبية شراء"
     purchase_taxes: "ضرائب الشراء"
     purchased_on: "شراء على"
@@ -2105,7 +2106,7 @@ arb:
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
     sale_nature: "بيع الطبيعة"
-    sale_natures: "انواع البيع" #?
+    sale_natures: "انواع البيع"
     sale_opportunities: "فرص بيع"
     sale_opportunity: "فرصة بيع"
     sale_taxations: "الأنظمة الضريبية بيع"
@@ -2581,7 +2582,7 @@ arb:
       bookkeep:
         one: "[%{resource} %{number}] %{count} دفعة %{mode} %{comment}"
         other: "[%{resource} %{number}] %{count} دفعات اخرى %{mode} %{comment}"
-        zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}"
+        zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}" #?
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"
