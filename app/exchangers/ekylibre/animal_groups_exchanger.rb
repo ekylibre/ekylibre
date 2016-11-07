@@ -103,7 +103,7 @@ module Ekylibre
         end
 
         # get animal default container
-        animal_container = BuildingDivision.find_by_work_number(r.place)
+        animal_container = BuildingDivision.find_by(work_number: r.place)
 
         # find or create animal_group
         if animal_group = AnimalGroup.find_by(work_number: r.code)

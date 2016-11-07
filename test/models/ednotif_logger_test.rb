@@ -33,9 +33,8 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-class EdnotifLogger < Ekylibre::Record::Base
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :operation_name, :state, presence: true, length: { maximum: 500 }
-  # ]VALIDATORS]
-  has_many :calls, as: :source
+require 'test_helper'
+
+class EdnotifLoggerTest < ActiveSupport::TestCase
+  # Add tests here...
 end

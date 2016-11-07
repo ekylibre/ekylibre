@@ -1,4 +1,3 @@
-
 eng:
   nomenclatures:
     abilities:
@@ -528,7 +527,7 @@ eng:
         processing: "Processing"
         service_delivering: "Service delivering"
         tool_maintaining: "Tool maintaining"
-        wine_making: "Wine making"
+        wine_making: "Wine making"                         #< processing
       name: "Activity families"
       property_natures:
         cultivation_variety: "Cultivation variety"
@@ -536,8 +535,8 @@ eng:
         support_variety: "Support variety"
     administrative_area_natures:
       items:
-        france_commune: "France commune"
-        france_department: "France department"
+        france_commune: "France commune"                   #< france_department
+        france_department: "France department"             #< france_region
         france_region: "France region"
       name: "Administrative area natures"
       property_natures:
@@ -1118,6 +1117,7 @@ eng:
         zw: "Zimbabwe"
       name: "Countries"
       property_natures:
+        # ednotif_eu: "Ednotif eu"
         number: "Number"
     crop_sets:
       items:
@@ -1502,27 +1502,27 @@ eng:
       items:
         absence: "Absence"
         administrative_intervention: "Administrative intervention"
-        appointment: "Appointment"
-        business_meal: "Business meal"
-        incoming_delivery_creation: "Incoming delivery creation"
-        leave: "Leave"
-        mailing: "Mailing"
-        maternity_leave: "Maternity leave"
+        appointment: "Appointment"                         #< meeting
+        business_meal: "Business meal"                     #< meeting
+        incoming_delivery_creation: "Incoming delivery creation" #< administrative_intervention
+        leave: "Leave"                                     #< absence
+        mailing: "Mailing"                                 #< administrative_intervention
+        maternity_leave: "Maternity leave"                 #< leave
         meeting: "Meeting"
-        outgoing_delivery_creation: "Outgoing delivery creation"
-        overtime_recovery: "Overtime recovery"
-        paid_leave: "Paid leave"
-        parental_leave: "Parental leave"
-        paternity_leave: "Paternity leave"
+        outgoing_delivery_creation: "Outgoing delivery creation" #< administrative_intervention
+        overtime_recovery: "Overtime recovery"             #< leave
+        paid_leave: "Paid leave"                           #< leave
+        parental_leave: "Parental leave"                   #< leave
+        paternity_leave: "Paternity leave"                 #< leave
         production_intervention: "Production intervention"
-        sale_creation: "Sale creation"
-        sale_invoice_creation: "Sale invoice creation"
-        sickness: "Sickness"
-        sickness_leave: "Sickness leave"
-        staff_meeting: "Staff meeting"
-        unpaid_leave: "Unpaid leave"
-        working_group: "Working group"
-        working_time_recovery: "Working time recovery"
+        sale_creation: "Sale creation"                     #< administrative_intervention
+        sale_invoice_creation: "Sale invoice creation"     #< administrative_intervention
+        sickness: "Sickness"                               #< absence
+        sickness_leave: "Sickness leave"                   #< leave
+        staff_meeting: "Staff meeting"                     #< meeting
+        unpaid_leave: "Unpaid leave"                       #< leave
+        working_group: "Working group"                     #< meeting
+        working_time_recovery: "Working time recovery"     #< leave
       name: "Event natures"
       property_natures:
         default_duration: "Default duration"
@@ -1623,6 +1623,8 @@ eng:
         average_wind_direction: "Average wind direction"
         average_wind_speed: "Average wind speed"
         best_before_period: "Best before period"
+        # birth_date: "Birth date"
+        # birth_farm_number: "Birth farm number"
         boron_concentration: "Boron concentration"
         calcium_concentration: "Calcium concentration"
         calving_ease_index: "Calving ease index"
@@ -1634,6 +1636,8 @@ eng:
         clostridial_spores_concentration: "Clostridial spores concentration"
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
+        # country_code: "Country code"
+        # cpb_filiation_status: "Cpb filiation status"
         cumulated_rainfall: "Cumulated rainfall"
         daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
@@ -1642,12 +1646,21 @@ eng:
         dry_matter_rate: "Dry matter rate"
         easement_area: "Easement area"
         economical_milk_index: "Economical milk index"
+        # end_of_life_witness: "End of life witness"
         energy: "Energy"
+        # entry_date: "Entry date"
+        # entry_reason: "Entry reason"
+        # exit_date: "Exit date"
+        # exit_reason: "Exit reason"
         fat_matter_concentration_index: "Fat matter concentration index"
         fat_matters_concentration: "Fat matters concentration"
+        # father_country_code: "Father country code"
+        # father_identification_number: "Father identification number"
+        # father_race_code: "Father race code"
         fence_perimeter: "Fence perimeter"
         fertility_index: "Fertility index"
         figure: "Figure"
+        # first_calving_date: "First calving date"
         fodder_bales_count: "Fodder bales count"
         freezing_point_temperature: "Freezing point temperature"
         fresh_mass: "Fresh mass"
@@ -1701,6 +1714,9 @@ eng:
         minimal_temperature: "Minimal temperature"
         minimal_wind_speed: "Minimal wind speed"
         molybdenum_concentration: "Molybdenum concentration"
+        # mother_country_code: "Mother country code"
+        # mother_identification_number: "Mother identification number"
+        # mother_race_code: "Mother race code"
         motor_power: "Motor power"
         net_length: "Net length"
         net_mass: "Net mass"
@@ -1712,6 +1728,8 @@ eng:
         nominal_storable_net_mass: "Nominal storable net mass"
         nominal_storable_net_volume: "Nominal storable net volume"
         organic_matter_concentration: "Organic matter concentration"
+        # origin_country_code: "Origin country code"
+        # origin_identification_number: "Origin identification number"
         phosphate_concentration: "Phosphate concentration (P₂O₅)"
         phosphorus_analysis_method: "Phosphorus analysis method"
         phosphorus_concentration: "Phosphorus concentration"
@@ -1772,6 +1790,7 @@ eng:
         width: "Width"
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
+        # witness: "Witness"
         woodstock_variety: "Woodstock variety"
         working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
@@ -1789,68 +1808,68 @@ eng:
         unit: "Unit"
     issue_natures:
       items:
-        acarine_gall_mite: "Acarine gall mite"
-        accident: "Accident"
-        anthracnose: "Anthracnose"
-        aphid: "Aphid"
-        bacteria_disease: "Bacteria disease"
-        bacterial_leaf_blight: "Bacterial leaf blight"
-        bacterial_streak: "Bacterial streak"
-        bacteriosis: "Bacteriosis"
-        bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
-        black_rust: "Black rust"
-        chenopodium_album: "Chenopodium album"
-        climate_issue: "Climate issue"
-        codling_moth: "Codling moth"
-        common_bunt: "Common bunt"
-        cough: "Cough"
-        croesus_septentrionalis: "Croesus septentrionalis"
-        defoliant_caterpillar: "Defoliant caterpillar"
-        diarrhea: "Diarrhea"
-        disease: "Disease"
-        drought: "Drought"
-        edema: "Edema"
-        empoasca_vitis_leafhopper: "Empoasca vitis leafhopper"
-        empty_fuel_tank: "Empty fuel tank"
-        equipment_crash: "Equipment crash"
-        escape: "Escape"
-        fecondity_problem: "Fecondity problem"
-        fever: "Fever"
-        field_edge_male_seed_corn_defect: "Field edge male seed corn default"
-        flooding: "Flooding"
-        fomitiporia: "Fomitiporia"
-        fungus_disease: "Fungus disease"
-        fusarium_head_blight: "Fusarium head blight"
-        grapevine_yellows: "Grapevine yellows"
-        husk_fly: "Husk fly"
-        insecta_disease: "Insecta disease"
+        acarine_gall_mite: "Acarine gall mite"             #< insecta_disease
+        accident: "Accident"                               #< issue
+        anthracnose: "Anthracnose"                         #< fungus_disease
+        aphid: "Aphid"                                     #< insecta_disease
+        bacteria_disease: "Bacteria disease"               #< disease
+        bacterial_leaf_blight: "Bacterial leaf blight"     #< bacteria_disease
+        bacterial_streak: "Bacterial streak"               #< bacteria_disease
+        bacteriosis: "Bacteriosis"                         #< bacteria_disease
+        bad_vegetative_growth_conditions: "Bad vegetative growth conditions" #< disease
+        black_rust: "Black rust"                           #< fungus_disease
+        chenopodium_album: "Chenopodium album"             #< plant_disease
+        climate_issue: "Climate issue"                     #< issue
+        codling_moth: "Codling moth"                       #< insecta_disease
+        common_bunt: "Common bunt"                         #< fungus_disease
+        cough: "Cough"                                     #< disease
+        croesus_septentrionalis: "Croesus septentrionalis" #< insecta_disease
+        defoliant_caterpillar: "Defoliant caterpillar"     #< insecta_disease
+        diarrhea: "Diarrhea"                               #< disease
+        disease: "Disease"                                 #< issue
+        drought: "Drought"                                 #< climate_issue
+        edema: "Edema"                                     #< disease
+        empoasca_vitis_leafhopper: "Empoasca vitis leafhopper" #< insecta_disease
+        empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
+        equipment_crash: "Equipment crash"                 #< accident
+        escape: "Escape"                                   #< issue
+        fecondity_problem: "Fecondity problem"             #< disease
+        fever: "Fever"                                     #< disease
+        field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
+        flooding: "Flooding"                               #< climate_issue
+        fomitiporia: "Fomitiporia"                         #< fungus_disease
+        fungus_disease: "Fungus disease"                   #< disease
+        fusarium_head_blight: "Fusarium head blight"       #< fungus_disease
+        grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
+        husk_fly: "Husk fly"                               #< insecta_disease
+        insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
-        limping: "Limping"
-        longhorn_beetle: "Longhorn beetle"
-        mammite: "Mammite"
-        mechanical_issue: "Mechanical issue"
-        nematoda_disease: "Nematoda disease"
-        noble_rot: "Noble rot"
-        nut_weevil: "Nut weevil"
-        phytophthora: "Phytophthora"
-        piece_breakdown: "Piece breakdown"
-        plant_disease: "Plant disease"
+        limping: "Limping"                                 #< disease
+        longhorn_beetle: "Longhorn beetle"                 #< insecta_disease
+        mammite: "Mammite"                                 #< bacteria_disease
+        mechanical_issue: "Mechanical issue"               #< issue
+        nematoda_disease: "Nematoda disease"               #< disease
+        noble_rot: "Noble rot"                             #< fungus_disease
+        nut_weevil: "Nut weevil"                           #< insecta_disease
+        phytophthora: "Phytophthora"                       #< fungus_disease
+        piece_breakdown: "Piece breakdown"                 #< mechanical_issue
+        plant_disease: "Plant disease"                     #< disease
         plant_issue: "Plant issue"
-        pourridie_rot: "Pourridie rot"
-        protozoa_disease: "Protozoa disease"
-        respiratory_problem: "Respiratory problem"
-        scale_insect: "Scale insect"
-        scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper"
-        seed_corn_castration_defect: "Seed corn castration default"
-        septoria_blotch: "Septoria blotch"
-        support_issue: "Support issue"
-        vine_mildew: "Vine mildew"
-        vine_powdery_mildew: "Vine powdery mildew"
-        wheat_powdery_mildew: "Wheat powdery mildew"
-        wild_animal_ravage: "Wild animal ravage"
-        wood_leopard_moth: "Wood leopard moth"
-        yellow_acarine: "Yellow acarine"
-        yellow_rust: "Yellow rust"
+        pourridie_rot: "Pourridie rot"                     #< fungus_disease
+        protozoa_disease: "Protozoa disease"               #< disease
+        respiratory_problem: "Respiratory problem"         #< disease
+        scale_insect: "Scale insect"                       #< insecta_disease
+        scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
+        septoria_blotch: "Septoria blotch"                 #< fungus_disease
+        support_issue: "Support issue"                     #< issue
+        vine_mildew: "Vine mildew"                         #< fungus_disease
+        vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
+        wheat_powdery_mildew: "Wheat powdery mildew"       #< fungus_disease
+        wild_animal_ravage: "Wild animal ravage"           #< issue
+        wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
+        yellow_acarine: "Yellow acarine"                   #< insecta_disease
+        yellow_rust: "Yellow rust"                         #< fungus_disease
       name: "Issue natures"
       property_natures:
         cause: "Cause"
@@ -2255,43 +2274,43 @@ eng:
         activity_family: "Activity family"
     procedure_natures:
       items:
-        addition: "Addition"
+        addition: "Addition"                               #< transformation
         administrative_task: "Administrative task"
         animal_care: "Animal care"
         animal_changing: "Animal changing"
-        animal_curative_medicine_admission: "Animal curative medicine admission"
+        animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_evolution: "Animal evolution"
         animal_fecondation: "Animal fecondation"
         animal_group_changing: "Animal group changing"
-        animal_housing_cleaning: "Animal housing cleaning"
-        animal_housing_treatment: "Animal housing treatment"
-        animal_illness_treatment: "Animal illness treatment"
+        animal_housing_cleaning: "Animal housing cleaning" #< animal_care
+        animal_housing_treatment: "Animal housing treatment" #< animal_care
+        animal_illness_treatment: "Animal illness treatment" #< animal_care
         animal_moving: "Animal moving"
         animal_nutrition: "Animal nutrition"
-        animal_preventive_medicine_admission: "Animal preventive medicine admission"
+        animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
-        automatic_soil_enrichment: "Automatic soil enrichment"
-        blending: "Blending"
-        bottling: "Bottling"
-        chemical_weed_killing: "Chemical weed killing"
-        consummables_addition: "Consummables addition"
+        automatic_soil_enrichment: "Automatic soil enrichment" #< soil_enrichment
+        blending: "Blending"                               #< transformation
+        bottling: "Bottling"                               #< transformation
+        chemical_weed_killing: "Chemical weed killing"     #< weed_killing
+        consummables_addition: "Consummables addition"     #< maintenance_task
         coupling: "Coupling"
-        cultipacking: "Cultipacking"
+        cultipacking: "Cultipacking"                       #< tillage
         cutting: "Cutting"
-        egg_production: "Egg production"
+        egg_production: "Egg production"                   #< animal_production
         enclosing: "Enclosing"
-        fermentation: "Fermentation"
+        fermentation: "Fermentation"                       #< transformation
         filling: "Filling"
-        filtration: "Filtration"
-        food_mixing: "Food mixing"
-        food_supply: "Food supply"
-        fruits_harvest: "Fruits harvest"
-        garden_human_working: "Garden human working"
-        gardening_harvest: "Gardening harvest"
-        grain_transport: "Grain transport"
-        grains_harvest: "Grains harvest"
-        grape_harvest: "Grape harvest"
-        grape_transport: "Grape transport"
+        filtration: "Filtration"                           #< transformation
+        food_mixing: "Food mixing"                         #< animal_nutrition
+        food_supply: "Food supply"                         #< animal_nutrition
+        fruits_harvest: "Fruits harvest"                   #< harvest
+        garden_human_working: "Garden human working"       #< manual_working
+        gardening_harvest: "Gardening harvest"             #< harvest
+        grain_transport: "Grain transport"                 #< transport
+        grains_harvest: "Grains harvest"                   #< harvest
+        grape_harvest: "Grape harvest"                     #< harvest
+        grape_transport: "Grape transport"                 #< transport
         grinding: "Grinding"
         ground_arrangement: "Ground arrangement"
         group_exclusion: "Group exclusion"
@@ -2299,48 +2318,48 @@ eng:
         growth_control: "Growth control"
         harvest: "Harvest"
         haymaking: "Haymaking"
-        hoeing: "Hoeing"
+        hoeing: "Hoeing"                                   #< tillage
         implantation: "Implantation"
-        implanting: "Implanting"
+        implanting: "Implanting"                           #< implantation
         maintenance_task: "Maintenance task"
-        manual_food_supply: "Manual food supply"
-        manual_soil_enrichment: "Manual soil enrichment"
+        manual_food_supply: "Manual food supply"           #< animal_nutrition
+        manual_soil_enrichment: "Manual soil enrichment"   #< soil_enrichment
         manual_working: "Manual working"
-        milk_production: "Milk production"
-        mixing: "Mixing"
+        milk_production: "Milk production"                 #< animal_production
+        mixing: "Mixing"                                   #< transformation
         moving: "Moving"
-        mulching: "Mulching"
-        nuts_harvest: "Nuts harvest"
-        nuts_transport: "Nuts transport"
+        mulching: "Mulching"                               #< implantation
+        nuts_harvest: "Nuts harvest"                       #< harvest
+        nuts_transport: "Nuts transport"                   #< transport
         oviparous_birth: "Oviparous birth"
-        pasturing: "Pasturing"
-        physical_weed_killing: "Physical weed killing"
-        piece_replacement: "Piece replacement"
+        pasturing: "Pasturing"                             #< animal_nutrition
+        physical_weed_killing: "Physical weed killing"     #< weed_killing
+        piece_replacement: "Piece replacement"             #< maintenance_task
         plant_care: "Plant care"
-        plant_chemical_mixing: "Plant chemical mixing"
-        plant_fertilisation: "Plant fertilisation"
-        plant_illness_treatment: "Plant illness treatment"
-        plant_irrigation: "Plant irrigation"
+        plant_chemical_mixing: "Plant chemical mixing"     #< plant_care
+        plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
+        plant_illness_treatment: "Plant illness treatment" #< plant_care
+        plant_irrigation: "Plant irrigation"               #< plant_nutrition
         plant_nutrition: "Plant nutrition"
-        plowing: "Plowing"
-        pressing: "Pressing"
+        plowing: "Plowing"                                 #< tillage
+        pressing: "Pressing"                               #< transformation
         product_evolution: "Product evolution"
         product_moving: "Product moving"
         pruning: "Pruning"
-        raking: "Raking"
-        remontage: "Remontage"
-        seed_mixing: "Seed mixing"
-        seedling_sorting: "Seedling sorting"
-        silage: "Silage"
+        raking: "Raking"                                   #< tillage
+        remontage: "Remontage"                             #< transformation
+        seed_mixing: "Seed mixing"                         #< implantation
+        seedling_sorting: "Seedling sorting"               #< transformation
+        silage: "Silage"                                   #< harvest
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"
-        sowing: "Sowing"
-        straw_processing: "Straw processing"
-        straw_transport: "Straw transport"
+        sowing: "Sowing"                                   #< implantation
+        straw_processing: "Straw processing"               #< harvest
+        straw_transport: "Straw transport"                 #< transport
         technical_task: "Technical task"
-        thermal_weed_killing: "Thermal weed killing"
+        thermal_weed_killing: "Thermal weed killing"       #< weed_killing
         tillage: "Tillage"
-        transfer: "Transfer"
+        transfer: "Transfer"                               #< transformation
         transformation: "Transformation"
         transport: "Transport"
         viviparous_birth: "Viviparous birth"
@@ -2397,10 +2416,12 @@ eng:
           phone: "Phone"
           pill: "Pill"
           plane: "Plane"
+          plane: "Plane"
           road: "Road"
           subscription: "Subscription"
           tasks: "Tasks"
           tractor: "Tractor"
+          truck: "Truck"
           truck: "Truck"
           umbrella: "Umbrella"
           undefined: "Undefined"

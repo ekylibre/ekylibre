@@ -19,7 +19,7 @@ module ActionIntegration
         client = ::Savon.client(options[:globals])
 
         request_log = CallRequest.create_from_savon_httpi_request!(
-            client.build_request(operation, options[:locals].merge(message: message)),
+          client.build_request(operation, options[:locals].merge(message: message)),
           @format
         )
         messages << request_log
@@ -28,7 +28,7 @@ module ActionIntegration
 
         messages << CallResponse.create_from_savon_httpi_response!(
           response.http,
-          request_log,
+          request_log
         )
 
         res = ActionIntegration::Response.new_from_savon(response)

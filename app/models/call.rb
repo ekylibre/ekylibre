@@ -49,7 +49,6 @@ class Call < Ekylibre::Record::Base
 
   # Sync
   def execute_now(source = nil)
-
     self.source = source if source
 
     save!
@@ -120,7 +119,7 @@ class Call < Ekylibre::Record::Base
   def state_is?(state)
     resp = @response.state.to_s.split('_')
     state_array = state.to_s.split('_')
-    state_array.all?{ |s| resp.include?(s) }
+    state_array.all? { |s| resp.include?(s) }
   end
 
   # Returns false for a nil/false code.

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_housing_mulching" categories="habitat_maintenance" actions="hygiene">
-  	<parameters>
+    <parameters>
       <target name="animal_housing" filter="is building_division and can store(animal) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="straw" filter="is straw">
-      	<handler name="population"/>
-      	<handler indicator="net_mass" unit="kilogram"
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
                  if="PRODUCT..net_mass?"
                  backward="VALUE * PRODUCT..net_mass(kilogram)"
                  forward="VALUE / PRODUCT..net_mass(kilogram)"/>

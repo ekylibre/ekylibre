@@ -278,13 +278,13 @@ class Intervention < Ekylibre::Record::Base
 
   after_create do
     ACTIONS = {
-        parturition: :create_new_birth,
-        animal_artificial_insemination: :create_insemination
-    }
+      parturition: :create_new_birth,
+      animal_artificial_insemination: :create_insemination
+    }.freeze
 
     actions.each do |action|
       next unless ACTIONS.key? action
-      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action].to_s}", self
+      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
     end
   end
 
