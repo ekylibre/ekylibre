@@ -1,9 +1,19 @@
+require 'codacy-coverage'
 require 'coveralls'
-Coveralls.wear!('rails') unless ENV['COVERALL'] == 'off'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+
+Coveralls.setup!
+
+SimpleCov.formatters = [
+  Codacy::Formatter,
+  Coveralls::SimpleCov::Formatter
+]
+
+Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
+SimpleCov.start
 
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
@@ -59,17 +69,17 @@ class FixtureRetriever
       unless name = @@truc[@table][value]
         raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
       end
-      return name
+      name
     elsif value.is_a?(Symbol)
       if ROLES.include?(value.to_s)
-        return "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
+        "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
       elsif value.to_s =~ /^\d+$/
-        return "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
+        "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
       else
-        return value
+        value
       end
     elsif value.is_a?(CodeString)
-      return value
+      value
     else
       raise "What kind of value (#{value.class.name}:#{value.inspect})"
     end

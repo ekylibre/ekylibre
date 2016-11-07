@@ -38,8 +38,6 @@ module Backend
     list(:choices, model: :custom_field_choices, conditions: { custom_field_id: 'params[:id]'.c }, order: 'position') do |t|
       t.action :up, unless: :first?, method: :post
       t.action :down, unless: :last?, method: :post
-      t.action :edit
-      t.action :destroy, if: :destroyable?
       t.column :name
       t.column :value
     end

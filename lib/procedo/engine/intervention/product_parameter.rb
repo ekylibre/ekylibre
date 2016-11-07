@@ -17,7 +17,8 @@ module Procedo
             @working_zone = Charta.from_geojson(attributes[:working_zone])
           end
           if intervention && intervention.working_periods.present?
-            @read_at = intervention.working_periods['0'].started_at
+            first_period_key = intervention.working_periods.keys.sort_by(&:to_i).first
+            @read_at = intervention.working_periods[first_period_key].started_at
           end
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
@@ -226,6 +227,7 @@ module Procedo
         # Test if a handler is usable
         def usable_handler?(handler)
           return true unless handler.condition?
+          return false if handler.condition_variables.any? { |dependency| intervention.interpret(dependency, env).nil? }
           intervention.interpret(handler.condition_tree, env)
         end
 

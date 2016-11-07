@@ -94,7 +94,7 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   def check_updateable_or_destroyable?
     return false if list
-    self.updateable? || self.destroyable?
+    updateable? || destroyable?
   end
 
   # This method permits to add journal entries corresponding to the payment

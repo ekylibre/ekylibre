@@ -74,7 +74,7 @@ module FIEA
 
         end
         # if an animal exist , link to analysis
-        if animal = Animal.find_by_work_number(r.animal_work_number)
+        if animal = Animal.find_by(work_number: r.animal_work_number)
           analysis.product = animal
           analysis.save!
           animal.read!(:healthy, true, at: r.at, force: true) if r.animal_state == :good

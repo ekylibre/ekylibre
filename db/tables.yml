@@ -1464,6 +1464,97 @@ catalogs:
   usage:
     type: string
     required: true
+contract_items:
+  contract_id:
+    type: integer
+    references: contract
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  unit_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+contracts:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  custom_fields:
+    type: jsonb
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: user
+    required: true
+  started_on:
+    type: date
+  state:
+    type: string
+  stopped_on:
+    type: date
+  supplier_id:
+    type: integer
+    references: entity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 crumbs:
   accuracy:
     type: decimal
@@ -2061,6 +2152,9 @@ entities:
     references: account
   supplier_payment_delay:
     type: string
+  supplier_payment_mode_id:
+    type: integer
+    references: outgoing_payment_mode
   title:
     type: string
   transporter:
@@ -4572,6 +4666,11 @@ parcel_items:
     type: decimal
     precision: 19
     scale: 4
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   product_enjoyment_id:
     type: integer
     references: product_enjoyment
@@ -4608,6 +4707,11 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  unit_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   unit_pretax_stock_amount:
     type: decimal
     precision: 19
@@ -4628,6 +4732,9 @@ parcels:
   address_id:
     type: integer
     references: entity_address
+  contract_id:
+    type: integer
+    references: contract
   created_at:
     type: datetime
     required: true
@@ -4671,6 +4778,11 @@ parcels:
     type: integer
   prepared_at:
     type: datetime
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   purchase_id:
     type: integer
     references: purchase
@@ -4683,6 +4795,9 @@ parcels:
     type: boolean
     required: true
     default: false
+  responsible_id:
+    type: integer
+    references: user
   sale_id:
     type: integer
     references: sale
@@ -4758,6 +4873,10 @@ plant_countings:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+  number:
+    type: string
   plant_density_abacus_id:
     type: integer
     references: plant_density_abacus
@@ -6044,6 +6163,9 @@ purchases:
     required: true
   confirmed_at:
     type: datetime
+  contract_id:
+    type: integer
+    references: contract
   created_at:
     type: datetime
     required: true

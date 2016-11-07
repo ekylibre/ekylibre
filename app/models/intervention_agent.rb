@@ -60,16 +60,14 @@ class InterventionAgent < InterventionProductParameter
   validates :product, presence: true
 
   delegate :working_duration, to: :intervention, prefix: true
-  
+
   # return participation if exist
   def participation
     if product
       participation = InterventionParticipation.find_by(product: product, intervention: intervention)
-    else
-      nil
     end
   end
-  
+
   # compute working duration from participation if exist or from intervention directly
   def working_duration
     if participation

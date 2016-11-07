@@ -9,8 +9,7 @@ module Authentication
     end
 
     def sign_up_request
-      post :create,
-           user:
+      post :create, params: { user:
              {
                first_name: 'Robert',
                last_name: 'Tee',
@@ -18,7 +17,7 @@ module Authentication
                password: 'robert00',
                password_confirmation: 'robert00',
                language: 'eng'
-             }
+             } }
     end
 
     test 'should create a User with signup_at value' do

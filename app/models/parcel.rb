@@ -24,6 +24,7 @@
 #
 #  accounted_at                 :datetime
 #  address_id                   :integer
+#  contract_id                  :integer
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  currency                     :string
@@ -41,10 +42,12 @@
 #  planned_at                   :datetime         not null
 #  position                     :integer
 #  prepared_at                  :datetime
+#  pretax_amount                :decimal(19, 4)   default(0.0), not null
 #  purchase_id                  :integer
 #  recipient_id                 :integer
 #  reference_number             :string
 #  remain_owner                 :boolean          default(FALSE), not null
+#  responsible_id               :integer
 #  sale_id                      :integer
 #  sender_id                    :integer
 #  separated_stock              :boolean
@@ -72,8 +75,10 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
   belongs_to :recipient, class_name: 'Entity'
+  belongs_to :responsible, class_name: 'User'
   belongs_to :sender, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
+  belongs_to :contract
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items
   has_many :issues, as: :target
@@ -84,6 +89,7 @@ class Parcel < Ekylibre::Record::Base
   validates :nature, presence: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
   validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
@@ -142,6 +148,7 @@ class Parcel < Ekylibre::Record::Base
     self.planned_at ||= Time.zone.today
     self.state ||= :draft
     self.currency ||= Preference[:currency]
+    self.pretax_amount = items.sum(:pretax_amount)
   end
 
   validate do
@@ -210,7 +217,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def printed_at
-    (given? ? given_at : created_at? ? created_at : Time.zone.now)
+    given_at || created_at || Time.zone.now
   end
 
   def content_sentence(limit = 30)
@@ -288,9 +295,9 @@ class Parcel < Ekylibre::Record::Base
 
   def status
     if given?
-      return (issues? ? :caution : :go)
+      (issues? ? :caution : :go)
     else
-      return (issues? ? :stop : :caution)
+      (issues? ? :stop : :caution)
     end
   end
 
@@ -479,7 +486,7 @@ class Parcel < Ekylibre::Record::Base
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
-              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
+              unit_pretax_amount: (item.unit_pretax_amount.nil? || item.unit_pretax_amount.zero? ? (catalog_item ? catalog_item.amount : 0.0) : item.unit_pretax_amount),
               tax: item.variant.category.purchase_taxes.first || Tax.first,
               quantity: item.population
             )

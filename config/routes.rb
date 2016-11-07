@@ -113,7 +113,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :settings, only: [:edit, :update] do
+    resource :settings, only: [] do
       member do
         get :about
       end
@@ -330,6 +330,20 @@ Rails.application.routes.draw do
 
     resources :cobblers, only: [:update]
 
+    resource :company, only: [:edit, :update]
+
+    resources :contracts, concerns: [:list] do
+      member do
+        get :list_items
+        get :list_parcels
+        post :lose
+        post :negociate
+        post :prospect
+        post :quote
+        post :win
+      end
+    end
+
     resources :crumbs, only: [:index, :update, :destroy] do
       member do
         post :convert
@@ -351,7 +365,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :custom_field_choices, except: [:index, :show], concerns: [:unroll], path: 'custom-field-choices' do
+    resources :custom_field_choices, only: [], concerns: [:unroll], path: 'custom-field-choices' do
       member do
         post :up
         post :down
@@ -405,6 +419,8 @@ Rails.application.routes.draw do
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
+        post :toggle
+        get :list_contracts
         get :list_event_participations
         get :list_incoming_payments
         get :list_incoming_parcels
@@ -650,7 +666,7 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
-    resources :outgoing_payment_lists, concerns: [:list, :unroll] do
+    resources :outgoing_payment_lists, concerns: [:list] do
       member do
         get :list_payments
         get :export_to_sepa

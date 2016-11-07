@@ -34,6 +34,14 @@ module Procedo
               instance_variable_get(instance_var).present?
             end
 
+            define_method "#{snippet}_variables" do |tree = instance_variable_get(instance_var)|
+              return [] unless tree.present?
+              variable_test = tree.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) ||
+                              tree.is_a?(Procedo::Formula::Nodes::Variable)
+              return tree if variable_test
+              tree.elements.present? ? tree.elements.map { |child| send("#{snippet}_variables", child) }.flatten : []
+            end
+
             # Check if given env variable is used
             define_method "#{snippet}_with_environment_variable?" do |*names|
               tree = instance_variable_get(instance_var)

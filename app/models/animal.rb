@@ -81,11 +81,11 @@ class Animal < Bioproduct
 
   def status
     if dead_at?
-      return :stop
+      :stop
     elsif indicators_list.include? :healthy
-      return (healthy ? :go : :caution)
+      (healthy ? :go : :caution)
     else
-      return :go
+      :go
     end
   end
 

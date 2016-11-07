@@ -16,6 +16,10 @@ eng:
         instruction_2: "If you didn't request this, please ignore this email."
         instruction_3: "Your password won't change until you access the link above and create a new one."
         subject: "Reset password instructions"
+      signed_up:
+        confirm: "Please confirm it in the administration panel."
+        details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "New sign up"
       unlock_instructions:
         action: "Unlock my account"
         greeting: "Hello %{recipient}!"

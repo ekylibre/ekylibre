@@ -186,6 +186,7 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
+    # CAUTION: params[:nature] is not used as in controller list filter
     unless params[:nature].blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
@@ -453,10 +454,12 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: (stopped_at && started_at ? (stopped_at - started_at).to_i : 0)
     )
-    event.update_columns(
-      started_at: self.started_at,
-      stopped_at: self.stopped_at
-    ) if event
+    if event
+      event.update_columns(
+        started_at: self.started_at,
+        stopped_at: self.stopped_at
+      )
+    end
     outputs.find_each do |output|
       product = output.product
       next unless product
@@ -519,9 +522,7 @@ class Intervention < Ekylibre::Record::Base
 
   def total_cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
-      return (total_cost / working_zone_area(area_unit).to_d)
-    else
-      return nil
+      (total_cost / working_zone_area(area_unit).to_d)
     end
   end
 
@@ -591,16 +592,20 @@ class Intervention < Ekylibre::Record::Base
     working_periods.create!(started_at: started_at, stopped_at: stopped_at)
   end
 
-  def update_state(additional_state = nil)
-    return unless participations.any? || !additional_state.nil?
-    new_state = participations.pluck(:state).concat([additional_state]).compact.find { |s| s.to_sym == :in_progress }
-    update(state: new_state) if new_state.present?
+  def update_state(modifier = {})
+    return unless participations.any? || modifier.present?
+    states = participations.pluck(:id, :state).to_h
+    states[modifier.keys.first] = modifier.values.first
+    update(state: :in_progress) if states.values.map(&:to_sym).index(:in_progress)
+    update(state: :done) if (states.values.map(&:to_sym) - [:done]).empty?
   end
 
-  def update_compliance(additional_compliance = nil)
-    return unless participations.any? || !additional_compliance.nil?
-    new_compliance = participations.pluck(:request_compliant).concat([additional_compliance]).compact.find(&:!)
-    update(request_compliant: new_compliance) unless new_compliance.nil?
+  def update_compliance(modifier = {})
+    return unless participations.any? || !modifier.nil?
+    compliances = participations.pluck(:id, :request_compliant).to_h
+    compliances[modifier.keys.first] = modifier.values.first
+    update(request_compliant: false) if compliances.values.index(false)
+    update(request_compliant: true) if (compliances.values - [true]).empty?
   end
 
   class << self
@@ -766,20 +771,20 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:purchase),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               purchase.items.new(
                 variant: item.variant,
@@ -841,20 +846,20 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:sale),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               sale.items.new(
                 variant: item.variant,

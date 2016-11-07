@@ -22,10 +22,11 @@ module Backend
                      language: 'Preference[:language]'.c,
                      country: 'Preference[:country]'.c,
                      active: true,
+                     scope: :normal,
                      t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
-    unroll fill_in: :full_name
+    unroll fill_in: :full_name, scope: :normal
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
@@ -98,6 +99,21 @@ module Backend
       t.column :mobile, label_method: :coordinate, through: :default_mobile_address, hidden: true
       # Deactivated for performance reason, need to store it in one column
       # t.column :balance, currency: true, hidden: true
+    end
+
+    list(:contracts, conditions: { supplier_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :reference_number, url: true
+      t.column :created_at
+      t.column :started_on
+      t.column :stopped_on, hidden: true
+      t.column :responsible, url: true, hidden: true
+      t.column :description, hidden: true
+      t.status
+      t.column :state_label
+      t.column :pretax_amount, currency: true
     end
 
     list(:event_participations, conditions: { participant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
@@ -175,7 +191,7 @@ module Backend
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
-      t.column :created_at,  hidden: true
+      t.column :created_at, hidden: true
       t.column :state, label_method: :human_state_name
       t.column :sale, url: true
     end
@@ -241,6 +257,12 @@ module Backend
       t.column :due_at
       t.column :sale_opportunity, url: true
       t.column :executor, url: true
+    end
+
+    def toggle
+      @entity = Entity.find_by!(id: params[:id])
+      @entity.toggle!
+      redirect_to params[:redirect] || { action: :show, id: @entity.id }
     end
 
     def import

@@ -7,9 +7,11 @@ module Ekylibre
           element.xpath('page').each do |page|
             node.add_page(page.attr('to'), default: (page.attr('default').to_s == 'true'))
           end
-          element.xpath((levels[1]).to_s).each do |item|
-            node.add_child(browse_element(item, levels[1..-1]))
-          end if levels[1]
+          if levels[1]
+            element.xpath((levels[1]).to_s).each do |item|
+              node.add_child(browse_element(item, levels[1..-1]))
+            end
+          end
           node
         end
       end

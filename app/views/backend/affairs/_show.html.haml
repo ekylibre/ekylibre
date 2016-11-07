@@ -11,34 +11,26 @@
         %th= Gap.human_attribute_name(:amount)
     %tfoot
       %tr
-        %td{colspan: 4}
+        %td{colspan: 5}
           - if affair && affair.gaps.none?
             - unless affair.closed?
-              %span.action-intro= :attach_deal.tl
-            %span.btn-group<
-              - third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
-              - for type in (Affair.affairable_types - %w(Gap))
-                - model = type.underscore
-                = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn btn-link") do
-                  %i
-                  = Ekylibre::Record.human_name(model)
-        %td.total
-          - if affair
-            - if affair.closed?
-              = :balance.tl
-            - else
-              - unless affair.balance.zero?
-                %span.btn-group<
-                  = link_to({controller: :affairs, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn btn-check primary") do
-                    %i
-                    = "convert_balance_into_#{affair.losing? ? :loss : :profit}".tl
+              - model  = default_type.underscore
+              = link_to("add_#{model}".tl, {action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn primary")
+              = " &nbsp;&nbsp;&nbsp;&nbsp; ".html_safe
+              %span.btn-group<
+                - other_types.each do |type|
+                  - model = type.underscore
+                  = link_to("add_#{model}".tl, {action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn")
+              = " &nbsp;&nbsp;&nbsp;&nbsp; ".html_safe
+              = link_to("convert_balance_into_#{affair.losing? ? :loss : :profit}".tl, {controller: :affairs, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn")
         - if affair
-          %td.total.amount.sum{class: (affair.balance == 0 ? "debit" : "credit")}= affair.balance.l(currency: affair.currency)
+          %td.total.amount.sum{class: (affair.balance.zero? ? "debit" : "credit")}
+            = affair.balance.l(currency: affair.currency)
         - else
           %td.total.amount.sum
     - if affair
       %tbody
-        - for deal in affair.deals.sort{|a,b| a.dealt_at <=> b.dealt_at and a.created_at <=> b.created_at }
+        - affair.deals.sort_by{ |a| a.dealt_at || a.created_at }.each do |deal|
           %tr
             %td.act
               - if !current_deal or (deal != current_deal and deal.detachable?)
