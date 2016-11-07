@@ -2033,7 +2033,7 @@ ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
 CREATE TABLE ednotif_loggers (
     id integer NOT NULL,
     operation_name character varying NOT NULL,
-    state character varying,
+    state character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -16100,13 +16100,9 @@ INSERT INTO schema_migrations (version) VALUES ('20160825161606');
 
 INSERT INTO schema_migrations (version) VALUES ('20160826125039');
 
-INSERT INTO schema_migrations (version) VALUES ('20160829091835');
-
 INSERT INTO schema_migrations (version) VALUES ('20160831144010');
 
 INSERT INTO schema_migrations (version) VALUES ('20160906112630');
-
-INSERT INTO schema_migrations (version) VALUES ('20160906131401');
 
 INSERT INTO schema_migrations (version) VALUES ('20160910200730');
 
@@ -16140,8 +16136,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 
 INSERT INTO schema_migrations (version) VALUES ('20160928121727');
 
-INSERT INTO schema_migrations (version) VALUES ('20160928132858');
-
 INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160930142110');
@@ -16162,8 +16156,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161013023259');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018162500');
 
-INSERT INTO schema_migrations (version) VALUES ('20161019125818');
-
 INSERT INTO schema_migrations (version) VALUES ('20161019235101');
 
 INSERT INTO schema_migrations (version) VALUES ('20161020191401');
@@ -16175,3 +16167,12 @@ INSERT INTO schema_migrations (version) VALUES ('20161026102134');
 INSERT INTO schema_migrations (version) VALUES ('20161105212807');
 
 INSERT INTO schema_migrations (version) VALUES ('20161106140253');
+
+INSERT INTO schema_migrations (version) VALUES ('20161107091835');
+
+INSERT INTO schema_migrations (version) VALUES ('20161107101401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161107112858');
+
+INSERT INTO schema_migrations (version) VALUES ('20161107125818');
+

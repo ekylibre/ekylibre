@@ -2025,8 +2025,13 @@ ednotif_loggers:
   operation_name:
     type: string
     required: true
+  request:
+    type: jsonb
+  response:
+    type: jsonb
   state:
     type: string
+    required: true
   updated_at:
     type: datetime
     required: true
