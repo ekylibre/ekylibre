@@ -71,7 +71,8 @@ module Backend
     end
 
     def help_shown?
-      !current_user.preference('interface.helps.collapsed', true, :boolean).value
+      Preference[:use_contextual_help] &&
+        !current_user.preference('interface.helps.collapsed', true, :boolean).value
     end
 
     # Open an help file and returns corresponding HTML

@@ -6,7 +6,7 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = controller_name
       path = controller_path
-      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url)
+      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -56,6 +56,10 @@ module RestfullyManageable
       end
       t3e_code << ')'
 
+      find_and_check_code = "  return unless @#{record_name} = find_and_check(:#{record_name}"
+      find_and_check_code << ", scope: #{options[:scope].inspect}" if options[:scope]
+      find_and_check_code << ")\n"
+
       creation_t3e = options[:creation_t3e].is_a?(TrueClass)
 
       code = ''
@@ -75,7 +79,7 @@ module RestfullyManageable
 
       if actions.include?(:show)
         code << "def show\n"
-        code << "  return unless @#{record_name} = find_and_check\n"
+        code << find_and_check_code
         parents = [self]
         while parents.last.superclass < ActionController::Base
           parents << parents.last.superclass
@@ -158,7 +162,7 @@ module RestfullyManageable
 
       if actions.include?(:edit)
         code << "def edit\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << find_and_check_code
         code << "  #{t3e_code}\n"
         code << "  #{render_form}\n"
         code << "end\n"
@@ -166,7 +170,7 @@ module RestfullyManageable
 
       if actions.include?(:update)
         code << "def update\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << find_and_check_code
         code << "  #{t3e_code}\n"
         code << "  @#{record_name}.attributes = permitted_params\n"
         code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
@@ -186,7 +190,7 @@ module RestfullyManageable
 
         # this action deletes or hides an existing record.
         code << "def destroy\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << find_and_check_code
         if model.instance_methods.include?(:destroyable?)
           code << "  if @#{record_name}.destroyable?\n"
           # code << "    resource_model.destroy(@#{record_name}.id)\n"
@@ -302,9 +306,9 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       code = ''
       code << "def picture\n"
-      code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-      code << "  if @#{record_name}.picture.file?\n"
-      code << "    send_file(@#{record_name}.picture.path(params[:style] || :original))\n"
+      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+      code << "  if #{record_name}.picture.file?\n"
+      code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
       code << "  else\n"
       code << "    head :not_found\n"
       code << "  end\n"

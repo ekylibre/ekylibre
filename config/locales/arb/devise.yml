@@ -45,10 +45,6 @@ arb:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "تسجيل الدخول هنا."
           subject: "وقد تمت الموافقة على حسابك!"
-        signed_up:
-          confirm: "يرجى تأكيد ذلك في لوحة الإدارة."
-          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "علامة جديدة تصل"
       reset_password_instructions:
         subject: "إعادة تعيين كلمة المرور تعليمات"
       unlock_instructions:

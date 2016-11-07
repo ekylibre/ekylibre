@@ -106,9 +106,10 @@ module Ekylibre
             plugin.themes_assets.each do |name, addons|
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
               stylesheet << "// #{plugin.name}\n"
+              next unless addons[:stylesheets]
               addons[:stylesheets].each do |file|
                 stylesheet << "@import \"#{file}\";\n"
-              end if addons[:stylesheets]
+              end
             end
           end
           # <base_dir>/themes/<theme>/plugins.scss

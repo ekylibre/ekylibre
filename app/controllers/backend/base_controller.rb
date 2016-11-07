@@ -113,7 +113,9 @@ module Backend
         notify_error(:unexpected_resource_type, type: klass.model_name)
         return false
       end
-      unless record = klass.find_by(id: id)
+      list = options[:scope] ? klass.send(options[:scope]) : klass
+      record = list.find_by(id: id)
+      unless record
         notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
         redirect_to_back
         return false
@@ -270,12 +272,12 @@ module Backend
         code << "#{variable}.to_s.lower.split(/\\s+/).each do |kw|\n"
         code << "  kw = '%'+kw+'%'\n"
         filters = columns.collect do |x|
-          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) ILIKE ?'
+          'unaccent(' + x.to_s + '::VARCHAR) ILIKE unaccent(?)'
         end
         exp_count = columns.size
         if options[:expressions]
           filters += options[:expressions].collect do |x|
-            x.to_s + ' ILIKE ?'
+            'unaccent(' + x.to_s + ') ILIKE unaccent(?)'
           end
           exp_count += options[:expressions].count
         end
