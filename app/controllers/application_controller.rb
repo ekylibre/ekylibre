@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
     return true if url_options == '#' || current_user.administrator?
     if url_options.is_a?(Hash)
       url_options[:controller] ||= controller_path
-      url_options[:action] ||= :index
+      url_options[:action] ||= action_name
     elsif url_options.is_a?(String) && url_options.match(/\#/)
       action = url_options.split('#')
       url_options = { controller: action[0].to_sym, action: action[1].to_sym }

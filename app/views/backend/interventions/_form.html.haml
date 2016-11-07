@@ -57,6 +57,6 @@
         - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
           = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
             - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-              - menu.item procedure.human_name, { action: :new, procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
+              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
   - f.clear_actions!
