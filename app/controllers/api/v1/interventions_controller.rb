@@ -35,6 +35,9 @@ module Api
           end
           @interventions = @interventions.with_doers(user.worker)
         end
+
+        return render json: { message: :no_worker_associated_with_user_account.tn }, status: :precondition_required if user && user.worker.nil?
+
         if nature == 'request'
           @interventions = @interventions
                            .joins('LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id')

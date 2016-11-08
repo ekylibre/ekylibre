@@ -210,6 +210,16 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    intervention_participation:
+      state:
+        done: "Feito"
+        in_progress: "Em progresso"
+        validated: "Validado"
+    intervention_working_period:
+      nature:
+        intervention: "Intervenção"
+        preparation: "Preparação"
+        travel: "Viagem"
     journal:
       nature:
         bank: "Banco"
@@ -217,6 +227,7 @@ por:
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"
+        stocks: "Estoques"
         various: "Várias operações"
     listing_node:
       nature:
@@ -416,36 +427,34 @@ por:
         number: "Sem periodicidade"
         year: "Ano"
       usage:
-        affairs: "Numeração de negociações"
-        analyses: "Numeração de análises"
-        animals: "Numeração de animais"
-        campaigns: "Numeração de campanhas"
-        cash_transfers: "Numeração de transferências de dinheiro"
+        affairs: "Romances"
+        analyses: "Análises"
+        animals: "Animais"
+        cash_transfers: "As transferências de dinheiro"
+        contracts: "Contratos"
         deliveries: "Entregas"
-        deposits: "Numeração de depósitos"
-        documents: "Numeração de documentos"
-        entities: "Numeration of people"
-        fixed_assets: "Numeration of fixed assets"
-        gaps: "Numeração de lacunas"
-        incoming_parcels: "Numeração de entradas" #?
-        incoming_payments: "Numeração de pagamentos"
+        deposits: "Depósitos"
+        documents: "Documentos"
+        entities: "Terços"
+        fixed_assets: "Ativo permanente"
+        gaps: "Lacunas"
+        incoming_payments: "Pagamentos recebidos"
         inspections: "Inspeções"
-        interventions: "Numeração de intervenções"
+        interventions: "Intervenções"
         inventories: "Os estoques"
         opportunities: "Oportunidades"
-        outgoing_deliveries: "Numeração de entregas" #?
-        outgoing_payments: "Numeraçaõ de pagamentos"
+        outgoing_payment_lists: "Listas de pagamento a efectuar"
+        outgoing_payments: "Contas a pagar"
         parcels: "Parcelas"
-        plants: "Numeração de plantação"
-        product_nature_categories: "Numeração das categorias de produtos naturais"
-        product_nature_variants: "Numeração das variantes de natureza do produto"
-        product_natures: "Numeração dos produtos naturais"
-        products: "Numeração de produtos"
-        purchases: "Numeração de compras"
-        sales: "Numeração de vendas"
-        sales_invoices: "Numeração de faturas de venda"
-        subscriptions: "Numeração de subscrições"
-        transports: "Numeração de transportes" #?
+        plants: "Plantas"
+        product_nature_categories: "Categorias natureza do produto"
+        product_nature_variants: "Natureza do produto variantes"
+        product_natures: "Naturezas produtos"
+        products: "Produtos"
+        purchases: "Compras"
+        sales: "Vendas"
+        sales_invoices: "Facturas de vendas"
+        subscriptions: "Assinaturas"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidirecional" #?

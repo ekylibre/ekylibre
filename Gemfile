@@ -46,6 +46,8 @@ gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 gem 'jquery-scrollto-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -201,6 +203,8 @@ group :test do
 
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
+  gem 'codacy-coverage', require: false
+
   gem 'minitest-reporters'
 end
 

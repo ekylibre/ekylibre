@@ -87,7 +87,7 @@ class Plant < Bioproduct
       if variable_indicators_list.include?(:net_surface_area)
         read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
       end
-      if frozen_indicators_list.include?(:net_surface_area)
+      if frozen_indicators_list.include?(:net_surface_area) && variant.net_surface_area.nonzero?
         self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
       end
     end
@@ -95,11 +95,11 @@ class Plant < Bioproduct
 
   def status
     if dead_at?
-      return :stop
+      :stop
     elsif issues.any?
-      return (issues.where(state: :opened).any? ? :caution : :go)
+      (issues.where(state: :opened).any? ? :caution : :go)
     else
-      return :go
+      :go
     end
   end
 

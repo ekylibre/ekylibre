@@ -199,6 +199,16 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    intervention_participation:
+      state:
+        done: "Terminé"
+        in_progress: "En cours"
+        validated: "Validé"
+    intervention_working_period:
+      nature:
+        # intervention: "Intervention"
+        preparation: "Préparation"
+        travel: "Voyager"
     journal:
       nature:
         bank: "Banque"
@@ -206,6 +216,7 @@ fra:
         forward: "Report à nouveaux"
         purchases: "Achats"
         sales: "Ventes"
+        stocks: "Réserves"
         various: "Opérations diverses"
     listing_node:
       nature:
@@ -377,8 +388,8 @@ fra:
     sensor:
       retrieval_mode:
         integration: "Intégration"
-        listening: "Serveur"
-        requesting: "Client"
+        listening: "Direct"
+        requesting: "Automatique"
     sequence:
       period:
         cweek: "Semaine"
@@ -386,33 +397,35 @@ fra:
         number: "Pas de périodicité"
         year: "Année"
       usage:
-        affairs: "Numérotation des affaires"
-        analyses: "Numérotation des analyses"
-        animals: "Numérotation des animaux"
-        campaigns: "Numérotation des campagnes de productions"
-        cash_transfers: "Numérotation des virements internes"
-        deliveries: "Numérotation des livraisons"
-        deposits: "Numérotation des remises en banque"
-        documents: "Numérotation des documents"
-        entities: "Numérotation des tiers"
-        fixed_assets: "Numérotation des immobilisations"
-        gaps: "Numérotation des écarts"
-        incoming_payments: "Numérotation des encaissements"
-        inspections: "Numérotation des agréages"
-        interventions: "Numérotation des interventions"
-        inventories: "Numérotation des inventaires"
-        opportunities: "Numérotation des opportunités"
-        outgoing_payments: "Numérotation des décaissements"
-        parcels: "Numérotation des colis"
-        plants: "Numérotation des cultures"
-        product_nature_categories: "Numérotation des catégories de types de produits"
-        product_nature_variants: "Numérotation des variantes de types de produits"
-        product_natures: "Numérotation des types de produits"
-        products: "Numérotation des produits"
-        purchases: "Numérotation des achats"
-        sales: "Numérotation des ventes"
-        sales_invoices: "Numérotation des factures"
-        subscriptions: "Numérotation des abonnements"
+        affairs: "Affaires"
+        analyses: "Analyses"
+        animals: "Animaux"
+        campaigns: "Campagnes de productions" #?
+        cash_transfers: "Virements internes"
+        contracts: "Contrats"
+        deliveries: "Livraisons"
+        deposits: "Remises en banque"
+        documents: "Documents"
+        entities: "Tiers"
+        fixed_assets: "Immobilisations"
+        gaps: "Écarts"
+        incoming_payments: "Encaissements"
+        inspections: "Agréages"
+        interventions: "Interventions"
+        inventories: "Inventaires"
+        opportunities: "Opportunités"
+        outgoing_payment_lists: "Listes de paiement sortant"
+        outgoing_payments: "Décaissements"
+        parcels: "Colis"
+        plants: "Cultures"
+        product_nature_categories: "Catégories de types de produits"
+        product_nature_variants: "Variantes de types de produits"
+        product_natures: "Types de produits"
+        products: "Produits"
+        purchases: "Achats"
+        sales: "Ventes"
+        sales_invoices: "Factures"
+        subscriptions: "Abonnements"
     task:
       nature:
         incoming_call: "Appel entrant"

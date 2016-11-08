@@ -121,7 +121,7 @@ class ListingNode < Ekylibre::Record::Base
       self.name = attribute_name.to_s + '_0'
     else
       if nature == 'custom'
-        self.sql_type = convert_sql_type(parent.model.custom_fields.find_by_column_name(attribute_name).nature.to_s)
+        self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
         self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
       elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
@@ -250,39 +250,39 @@ class ListingNode < Ekylibre::Record::Base
   def convert_sql_type(type)
     # raise StandardError.new type.inspect
     if type == 'decimal' || type == 'integer'
-      return 'numeric'
+      'numeric'
     elsif type == 'string' || type == 'text'
-      return 'string'
+      'string'
     elsif type == 'date' || type == 'datetime'
-      return 'date'
+      'date'
     elsif type == 'boolean'
-      return type
+      type
     else
-      return 'unknown'
+      'unknown'
     end
   end
 
   def default_comparison_value
     if sql_type == 'numeric'
-      return 0
+      0
     elsif sql_type == 'string' || sql_type == 'text'
-      return ''
+      ''
     elsif sql_type == 'date' || sql_type == 'datetime'
-      return Time.zone.today
+      Time.zone.today
     else
-      return ''
+      ''
     end
   end
 
   def comparison
     if condition_operator && condition_operator != 'any'
       if condition_value
-        return tc('comparison.with_value', comparator: tc('comparators.' + condition_operator), value: (sql_type == 'date' ? I18n.localize(condition_value.to_date) : condition_value.to_s))
+        tc('comparison.with_value', comparator: tc('comparators.' + condition_operator), value: (sql_type == 'date' ? I18n.localize(condition_value.to_date) : condition_value.to_s))
       else
-        return tc('comparison.without_value', comparator: tc('comparators.' + condition_operator))
+        tc('comparison.without_value', comparator: tc('comparators.' + condition_operator))
       end
     else
-      return tc(:add_filter)
+      tc(:add_filter)
     end
   end
 

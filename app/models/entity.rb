@@ -67,6 +67,7 @@
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
@@ -92,6 +93,7 @@ class Entity < Ekylibre::Record::Base
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
+  belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
   with_options class_name: 'EntityAddress', inverse_of: :entity do
     has_many :all_addresses, dependent: :destroy
@@ -104,13 +106,14 @@ class Entity < Ekylibre::Record::Base
     has_many :websites,  -> { actives.websites }
     has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
   end
+  has_many :contracts, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
-  has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id
+  has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
@@ -169,6 +172,7 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
+  scope :normal, -> { where(of_company: false) }
   scope :necessary_transporters, -> { where("transporter OR id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
@@ -272,6 +276,15 @@ class Entity < Ekylibre::Record::Base
       end
       company
     end
+  end
+
+  # Convert a contact into organization or inverse
+  def toggle!
+    if contact? && first_name.present?
+      self.last_name = first_name + ' ' + last_name
+    end
+    self.nature = contact? ? :organization : :contact
+    save!
   end
 
   # Returns an entity scope for.all other entities

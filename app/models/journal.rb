@@ -45,6 +45,9 @@ class Journal < Ekylibre::Record::Base
   has_many :cashes, dependent: :restrict_with_exception
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
+  has_many :incoming_payment_modes, foreign_key: :depositables_journal_id, dependent: :restrict_with_exception
+  has_many :purchase_natures, dependent: :restrict_with_exception
+  has_many :sale_natures, dependent: :restrict_with_exception
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -108,7 +111,8 @@ class Journal < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    entries.any? || entry_items.any? || cashes.any?
+    entries.any? || entry_items.any? || cashes.any? || sale_natures.any? ||
+      purchase_natures.any? || incoming_payment_modes.any?
   end
 
   class << self
@@ -119,7 +123,7 @@ class Journal < Ekylibre::Record::Base
       pref_name = "#{name}_journal"
       raise ArgumentError, "Unvalid journal name: #{name.inspect}" unless self.class.preferences_reference.key? pref_name
       unless journal = preferred(pref_name)
-        journal = journals.find_by_nature(name)
+        journal = journals.find_by(nature: name)
         journal = journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency) unless journal
         prefer!(pref_name, journal)
       end

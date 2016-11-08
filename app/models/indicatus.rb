@@ -23,9 +23,7 @@ class Indicatus
 
   def actor
     if cast = @intervention.product_parameters.find_by(reference_name: @varicator.stakeholder.name)
-      return cast.actor
-    else
-      return nil
+      cast.actor
     end
   end
 

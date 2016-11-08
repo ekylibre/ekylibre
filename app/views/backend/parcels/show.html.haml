@@ -13,6 +13,8 @@
     - l.attribute :nature
     - if resource.incoming?
       - l.attribute :sender, url: true
+      - if resource.contract
+        - l.attribute :contract, url: true
     - if resource.outgoing?
       - l.attribute :recipient, url: true
     - l.attribute :separated_stock

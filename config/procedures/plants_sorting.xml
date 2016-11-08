@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="plants_sorting" categories="plants_transformation" actions="plants_sorting">
+    <parameters>
+      <input name="product_to_sort" filter="derives from plant">
+        <handler name="population"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+      </input>
+      <output name="sorted_product" filter="derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <attribute name="new_name"/>
+        <handler name="population"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(kilogram)"
+                 forward="VALUE / VARIANT.net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
+      </output>
+      <output name="sorting_differential" filter="derives from plant" cardinality="*" default-name="{{variant}} {{born_at}} ({{container}})">
+        <attribute name="new_name"/>
+        <handler name="population"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(kilogram)"
+                 forward="VALUE / VARIANT.net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
+      </output>
+      <input name="plant_medicine" filter="is preparation and can care(plant)" cardinality="*">
+        <handler name="population"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler name="net_volume_in_liter" indicator="net_volume" unit="liter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
+                 backward="POPULATION * PRODUCT..net_volume(liter)"
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+      </input>
+      <tool name="equipment" filter="is equipment" cardinality="*"/>
+      <doer name="doer" filter="is worker and can move" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

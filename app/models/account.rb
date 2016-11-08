@@ -55,14 +55,14 @@ class Account < Ekylibre::Record::Base
                                                  foreign_key: :depositables_account_id
   has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
-  has_many :collected_fixed_asset_taxes,           class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
+  has_many :collected_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
   has_many :deductible_fixed_asset_taxes,           class_name: 'Tax', foreign_key: :fixed_asset_deduction_account_id
   has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
   has_many :purchase_items,       class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,           class_name: 'SaleItem'
   has_many :products_categories,  class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
-  has_many :stocks_movement_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
+  has_many :stocks_movement_categories, class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
   has_many :employees,            class_name: 'Entity', foreign_key: :employee_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -151,12 +151,14 @@ class Account < Ekylibre::Record::Base
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
       numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
-      while number =~ /0$/
-        break if numbers.include?(number)
-        number.gsub!(/0$/, '')
-      end unless numbers.include?(number)
+      unless numbers.include?(number)
+        while number =~ /0$/
+          break if numbers.include?(number)
+          number.gsub!(/0$/, '')
+        end
+      end
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      account = find_by_number(number)
+      account = find_by(number: number)
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
@@ -196,14 +198,14 @@ class Account < Ekylibre::Record::Base
       # get usages of nearest existing account by number
       (0..max).to_a.reverse.each do |i|
         n = number[0, i]
-        items = Nomen::Account.where(fr_pcga: n)
-        parent_accounts = Account.find_with_regexp(n)
+        items = Nomen::Account.where(accounting_system.to_sym => n)
+        parent_accounts = Account.find_with_regexp(n).where('LENGTH("accounts"."number") <= ?', i).reorder(:number)
         break if parent_accounts.any?
       end
 
-      usages = if parent_accounts && parent_accounts.any?
+      usages = if parent_accounts && parent_accounts.any? && parent_accounts.first.usages
                  parent_accounts.first.usages
-               elsif items.any?
+               elsif items.present?
                  items.first.name
                end
 
@@ -248,6 +250,7 @@ class Account < Ekylibre::Record::Base
     def find_or_import_from_nomenclature(usage)
       item = Nomen::Account.find(usage)
       raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      raise ArgumentError, "The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}" unless item.send(accounting_system)
       account = find_in_nomenclature(usage)
       unless account
         account = create!(
@@ -267,6 +270,7 @@ class Account < Ekylibre::Record::Base
       Preference[:accounting_system]
     end
 
+    # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
       %w(fr_pcg82 fr_pcga).include?(accounting_system)
     end
@@ -298,7 +302,9 @@ class Account < Ekylibre::Record::Base
           account.destroy if account.destroyable?
         end
         Nomen::Account.find_each do |item|
-          find_or_import_from_nomenclature(item.name)
+          if item.send(accounting_system)
+            find_or_import_from_nomenclature(item.name)
+          end
         end
       end
       true

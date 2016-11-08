@@ -78,6 +78,7 @@ eng:
       items:
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+        pt_snc: "Portuguese SNC"
       name: "Accounting systems"
     accounts:
       items:
@@ -242,6 +243,7 @@ eng:
         incorporeal_asset_depreciation_revenues: "Incorporeal asset depreciation revenues"
         incorporeal_asset_depreciations: "Incorporeal asset depreciations"
         incorporeal_asset_revenues: "Incorporeal asset revenues"
+        incorporeal_assets: "Incorporeal assets"
         incorporeals_depreciations_inputations_expenses: "Incorporeals depreciations inputations expenses"
         industrial_cooperative_participation_assets: "Industrial cooperative participation assets"
         infirmity_and_death_insurance_expenses: "Infirmity and death insurance expenses"
@@ -511,6 +513,7 @@ eng:
         debtor: "Debtor"
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+        pt_snc: "Protuguese SNC"
     activity_families:
       choices:
         nature:
@@ -2172,6 +2175,7 @@ eng:
         plant_uncovering: "Plant uncovering"
         plantation_unfixing: "Plantation unfixing"
         planting: "Planting"
+        plants_sorting: "Plants sorting"
         plowing: "Plowing"
         pollinate: "Pollinate"
         preventive_maintenance: "Preventive maintenance"
@@ -2527,7 +2531,7 @@ eng:
         reductible: "Reductible"
         saleable: "Saleable"
         stock_account: "Stock account"
-        # stock_movement_account: "Stock movement account"
+        stock_movement_account: "Stock movement account"
         storable: "Storable"
     product_nature_variants:
       choices:
@@ -2970,7 +2974,7 @@ eng:
         howard_walnut: "Howard walnut"
         hydraulic_oil: "Hydraulic oil"
         ichn_subsidies: "Ichn subsidies"
-        # implanter: "Implanter"
+        implanter: "Implanter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         ink_cartridge: "Ink cartridge"
         insecticide: "Insecticide"
@@ -3422,7 +3426,7 @@ eng:
         honey: "Honey"
         horse_herd: "Horse herd"
         hydraulic_oil: "Hydraulic oil"
-        # implanter: "Implanter"
+        implanter: "Implanter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         insecticide: "Insecticide"
         inseminator: "Inseminator"
@@ -4184,6 +4188,7 @@ eng:
         canidae: "Canidae"                                 #< mammalia
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
+        cannabis_antal: "Hemp Antal"                       #< cannabis
         cannabis_sativa: "Hemp"                            #< cannabis
         cannabis_sativa_armanca: "Hemp Armanca"            #< cannabis_sativa
         cannabis_sativa_benico: "Hemp Benico"              #< cannabis_sativa
@@ -4574,6 +4579,8 @@ eng:
         gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay" #< gallus_gallus_domesticus
         gas: "Gas"                                         #< raw_matter
         gastropoda: "Gastropoda"                           #< animal
+        geraniaceae: "Geraniaceae"                         #< plant
+        geranium: "Geranium"                               #< geraniaceae
         gleditsia: "Gleditsia"                             #< fabaceae
         glycine: "Glycine"                                 #< fabaceae
         glycine_max: "Soy bean"                            #< glycine
@@ -6173,6 +6180,7 @@ eng:
         triticum_durum_babylone: "Durum wheat Babylone"    #< triticum_durum
         triticum_durum_biensur: "Durum wheat Biensur"      #< triticum_durum
         triticum_durum_byblos: "Durum wheat Byblos"        #< triticum_durum
+        triticum_durum_byzance: "Durum wheat Byzance"      #< triticum_durum
         triticum_durum_casteldoux: "Durum wheat Casteldoux" #< triticum_durum
         triticum_durum_catervo: "Durum wheat Catervo"      #< triticum_durum
         triticum_durum_cesare: "Durum wheat Cesare"        #< triticum_durum
@@ -6195,6 +6203,7 @@ eng:
         triticum_durum_gainsur: "Durum wheat Gainsur"      #< triticum_durum
         triticum_durum_gibus: "Durum wheat Gibus"          #< triticum_durum
         triticum_durum_grazia: "Durum wheat Grazia"        #< triticum_durum
+        triticum_durum_haristide: "Durum wheat Haristide"  #< triticum_durum
         triticum_durum_isildur: "Durum wheat Isildur"      #< triticum_durum
         triticum_durum_ismur: "Durum wheat Ismur"          #< triticum_durum
         triticum_durum_joyau: "Durum wheat Joyau"          #< triticum_durum
@@ -6205,6 +6214,7 @@ eng:
         triticum_durum_latinur: "Durum wheat Latinur"      #< triticum_durum
         triticum_durum_lemur: "Durum wheat Lemur"          #< triticum_durum
         triticum_durum_levante: "Durum wheat Levante"      #< triticum_durum
+        triticum_durum_lg_boris: "Durum wheat LG Boris"    #< triticum_durum
         triticum_durum_liberdur: "Durum wheat Liberdur"    #< triticum_durum
         triticum_durum_lloyd: "Durum wheat Lloyd"          #< triticum_durum
         triticum_durum_luminur: "Durum wheat Luminur"      #< triticum_durum
@@ -6238,10 +6248,13 @@ eng:
         triticum_durum_relief: "Durum wheat Relief"        #< triticum_durum
         triticum_durum_rgt_albiozur: "Durum wheat RGT Albiozur" #< triticum_durum
         triticum_durum_rgt_fabionur: "Durum wheat RGT Fabionur" #< triticum_durum
+        triticum_durum_rgt_fiertimur: "Durum wheat RGT Fiertimur" #< triticum_durum
         triticum_durum_rgt_izaldur: "Durum wheat RGT Izaldur" #< triticum_durum
         triticum_durum_rgt_musclur: "Durum wheat RGT Musclur" #< triticum_durum
         triticum_durum_rgt_nomur: "Durum wheat RGT Nomur"  #< triticum_durum
+        triticum_durum_rgt_voilur: "Durum wheat RGT Voilur" #< triticum_durum
         triticum_durum_sachem: "Durum wheat Sachem"        #< triticum_durum
+        triticum_durum_santur: "Durum wheat Santur"        #< triticum_durum
         triticum_durum_saragolla: "Durum wheat Saragolla"  #< triticum_durum
         triticum_durum_sculptur: "Durum wheat Sculptur"    #< triticum_durum
         triticum_durum_sorriso: "Durum wheat Sorriso"      #< triticum_durum
@@ -6252,6 +6265,7 @@ eng:
         triticum_durum_sy_esperto: "Durum wheat SY Esperto" #< triticum_durum
         triticum_durum_tablur: "Durum wheat Tablur"        #< triticum_durum
         triticum_durum_tiziana: "Durum wheat Tiziana"      #< triticum_durum
+        triticum_durum_toscadou: "Durum wheat Toscadou"    #< triticum_durum
         triticum_durum_virgilio: "Durum wheat Virgilio"    #< triticum_durum
         triticum_durum_vivadur: "Durum wheat Vivadur"      #< triticum_durum
         triticum_durum_yelodur: "Durum wheat Yelodur"      #< triticum_durum

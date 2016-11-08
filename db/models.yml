@@ -37,6 +37,8 @@
 - cash_transfer
 - catalog
 - catalog_item
+- contract
+- contract_item
 - crumb
 - cultivable_zone
 - custom_field

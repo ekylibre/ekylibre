@@ -1,10 +1,11 @@
 - main_toolbar do |t|
-  = t.edit @purchase_nature
-= attributes_list do |l|
-  - l.attribute :name
-  - l.attribute :active
-  - l.attribute :currency
-  - l.attribute :with_accounting
-  - if @purchase_nature.with_accounting?
-    - l.attribute :journal
-  - l.attribute :description
+  = t.edit resource
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :name
+    - l.attribute :active
+    - l.attribute :currency
+    - l.attribute :with_accounting
+    - if resource.with_accounting?
+      - l.attribute :journal, url: true
+    - l.attribute :description

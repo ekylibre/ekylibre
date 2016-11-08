@@ -40,12 +40,12 @@ module Backend
       code = search_conditions({ interventions: [:state, :procedure_name, :number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
-      code << "  c << params[:state].flatten\n"
+      code << "  c << params[:state]\n"
       code << "end\n"
 
       code << "unless params[:nature].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.nature IN (?)'\n"
-      code << "  c << params[:nature].flatten\n"
+      code << "  c << params[:nature]\n"
       code << "end\n"
 
       code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?)'\n"
@@ -204,10 +204,8 @@ module Backend
 
       @intervention = Intervention.new(options)
 
-      from_request = Intervention.find_by_id(params[:request_intervention_id])
-      if from_request
-        @intervention = from_request.initialize_record
-      end
+      from_request = Intervention.find_by(id: params[:request_intervention_id])
+      @intervention = from_request.initialize_record if from_request
 
       render(locals: { cancel_url: { action: :index } })
     end
