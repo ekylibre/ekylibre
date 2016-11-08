@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       resources :plant_countings
       resources :plants
       resources :intervention_participations, only: [:create]
+      resources :intervention_targets, only: [:show]
     end
   end
 
