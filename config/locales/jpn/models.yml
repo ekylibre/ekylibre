@@ -1092,6 +1092,7 @@ jpn:
     purchase_invoices: "請求書を購入"
     purchase_item: "購入アイテム"
     purchase_items: "アイテムを購入します"
+    purchase_natures: "購入タイプ"
     purchase_taxations: "購入taxations"
     purchase_taxes: "税金を購入"
     purchased_on: "で購入"
@@ -1188,6 +1189,7 @@ jpn:
     sale_item: "販売アイテム"
     sale_items: "特売商品"
     sale_nature: "セールの性質"
+    sale_natures: "販売タイプ"
     sale_opportunities: "販売の機会"
     sale_opportunity: "販売機会"
     sale_taxations: "販売taxations"
@@ -1449,7 +1451,6 @@ jpn:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
         # other: "[%{resource} %{number}] %{count} payments %{mode} %{description}"
-        # zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

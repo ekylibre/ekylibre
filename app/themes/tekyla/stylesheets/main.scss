@@ -182,6 +182,7 @@ ul.dropdown-menu {
 .introduction-message {
   padding: $lh-huge;
   @include text-align(center);
+
   &, * {
     font-size: $fs-huge;
     line-height: $lh-huge;
@@ -189,6 +190,11 @@ ul.dropdown-menu {
   .modal & {
     padding: $lh-large;
   }
+}
+
+.footnote {
+  padding: $lh-large;
+  @include text-align(center);
 }
 
 a[data-toggle='side'] {
@@ -630,6 +636,7 @@ html.exception {
 .snippet {
   .snippet-title {
     display: block;
+    padding-top: $fs-normal;
     outline: none;
     &, * {
       color: $text-color;

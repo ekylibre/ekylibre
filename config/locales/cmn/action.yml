@@ -118,6 +118,8 @@ cmn:
       index: "目录"
       new: "新目录"
       # show: "Catalog: %{name}"
+    backend/companies:
+      edit: "编辑公司设置"
     backend/contracts:
       # edit: "Edit contract %{number}"
       index: "合同"
@@ -130,9 +132,6 @@ cmn:
       index: "可种植区"
       new: "新耕种区"
       # show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      # edit: "Edit option: %{name}"
-      new: "对于选择列表的新选项"
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       index: "自定义字段"
@@ -371,7 +370,6 @@ cmn:
       # show: "Net service: %{name}"
     backend/notifications:
       index: "通知"
-      # no_worker_account: "No worker associate to this account"
     backend/observations:
       edit: "编辑观察"
       new: "新观察"
@@ -499,7 +497,6 @@ cmn:
       new: "新序列"
     backend/settings:
       about: "关于Ekylibre"
-      edit: "组态"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       index: "住区"
@@ -582,7 +579,7 @@ cmn:
     template:
       body: "有以下字段的问题："
       header:
-        # one: "1 error prohibited this %{model} from being saved"
+        # one: "%{count} error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   front-end:
     leaflet:
@@ -655,6 +652,7 @@ cmn:
     access_parameters: "访问参数"
     accountancy: "会计"
     accountancy_balance: "会计平衡"
+    accountancy_preferences: "会计偏好"
     accounts: "帐号"
     accounts_only_used_at: "账户仅用于在"
     accounts_to_load: "账户加载"
@@ -682,6 +680,7 @@ cmn:
     add_fax: "添加传真"
     add_filter: "添加过滤器"
     add_grading_check: "添加分级检查"
+    add_incoming_payment: "添加收款"
     add_inspection_calibration_nature: "添加检查校准性质"
     add_inspection_calibration_scale: "添加检查校准规模"
     add_inspection_point_nature: "添加检测点的性质"
@@ -694,6 +693,7 @@ cmn:
     add_mail: "添加邮政ADRESS"
     add_mobile: "添加手机号码"
     add_new_record: "添加新记录"
+    add_outgoing_payment: "添加付款"
     add_participation: "加入参与"
     add_payment: "添加付款"
     add_phone: "添加电话号码"
@@ -701,10 +701,12 @@ cmn:
     add_point: "添加点"
     add_polygon: "添加多边形"
     add_production: "添加生产"
+    add_purchase: "添加购买"
     add_purchase_taxation: "添加购买税收"
     add_quickly_an_item: "添加快速线产品"
     add_reading: "添加值的指标"
     add_revenue: "添加收入"
+    add_sale: "添加销售"
     add_sale_taxation: "添加销售税收"
     add_season: "添加赛季"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
@@ -729,6 +731,7 @@ cmn:
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "分析"
+    analytic_preferences: "喜好分析"
     animal_details: "动物细节"
     animal_productions: "动物生产" #?
     animals: "动物"
@@ -822,6 +825,8 @@ cmn:
     container: "容器"
     convert_balance_into_loss: "转换成平衡损失"
     convert_balance_into_profit: "转换成平衡利润"
+    convert_into_contact: "转换成触点"
+    convert_into_organization: "转换成组织"
     convert_to_cultivable_zone: "转换成可耕种区"
     cooperative_cartodb: "合作CartoDB"
     coordinates: "坐标"
@@ -979,6 +984,7 @@ cmn:
     generate_last_journal_entry: "最后生成日记帐分录"
     generate_parcel: "生成包裹"
     geolocation: "地理位置"
+    global_preferences: "全球首"
     go: "走"
     gradings: "放坡"
     grain_yield: "籽粒产量"
@@ -1021,6 +1027,7 @@ cmn:
     input_cost_per_hectare: "每公顷投入成本" #?
     inputs: "输入"
     inspections: "检查"
+    interface_preferences: "界面首"
     internal_error: "哎呀，事情发生了。"
     interval: "个性化间隔"
     intervention: "介入"
@@ -1086,7 +1093,6 @@ cmn:
     mails:
       # one: "%{count} email"
       # other: "%{count} emails"
-      zero: "无电子邮件"
     main_settings: "主要设置"
     make_your_production_support: "使您的生产支持"
     manage_activities: "管理活动"
@@ -1094,6 +1100,7 @@ cmn:
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "粪便管理计划图"
     map: "地图"
+    map_preferences: "图偏好"
     mark_all_as_read: "标记为已读"
     mark_as_read: "标记为已读"
     marketable_net_mass: "适销对路的净质量"
@@ -1138,9 +1145,8 @@ cmn:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
-      # one: "Make a deposit %{mode}: 1 available payment"
+      # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
-      # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新邮件"
     new_group: "新建组"
     new_incoming_parcel: "新进​​入的包裹"
@@ -1306,10 +1312,8 @@ cmn:
     rest: "休息"
     restore: "恢复"
     result: "结果"
-    results:
-      one: "1结果"
-      # other: "%{count} results"
-      zero: "没有结果"
+    results:  #?
+      one: "1结果" #?
     revenues: "收入"
     revenues_by_product_nature: "按产品类型的收入"
     reverse: "反转条件"
@@ -1324,6 +1328,7 @@ cmn:
     sales: "销售"
     sales_conditions: "销售条件"
     sales_invoice: "进销存"
+    sales_preferences: "销售偏好"
     sales_pretax_amount: "税前金额（销售部）"
     # same_variant_as_x: "Same variant as %{x}"
     save: "保存"
@@ -1529,11 +1534,9 @@ cmn:
     x_depositable_payments:
       one: "1收款存"
       # other: "%{count} incoming payments to deposit"
-      zero: "没有收款存入"
     x_deposits_to_validate:
       # one: "%{count} deposit to validate"
       # other: "%{count} deposits to validate"
-      zero: "没有存款验证"
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
@@ -1546,7 +1549,6 @@ cmn:
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      # zero: "No events %{nature}"
     # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1559,7 +1561,6 @@ cmn:
     x_incoming_parcels:
       # one: "%{count} incoming parcel"
       # other: "%{count} incoming parcels"
-      zero: "没有进入的包裹"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1600,7 +1601,6 @@ cmn:
     x_outgoing_parcels:
       # one: "%{count} outgoing parcel"
       # other: "%{count} outgoing parcels"
-      zero: "没有传出包裹"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
@@ -1613,7 +1613,6 @@ cmn:
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
-      zero: "未找到结果"
     x_sale_opportunities:
       # one: "%{count} opportunity"
       # other: "%{count} opportunities"
@@ -1639,7 +1638,6 @@ cmn:
     x_trackings:
       # one: "%{count} tracking"
       # other: "%{count} trackings"
-      zero: "没有发现跟踪"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1669,13 +1667,9 @@ cmn:
       success: "成功！"
       warning: "警告！"
     messages:
-      a_campaign_must_be_opened: "广告活动必须打开"
-      a_production_must_be_opened: "一个生产必须打开"
       # access_denied: "Access denied. %{reason} (%{url})"
-      all_data_import_finished: "您的所有数据被导入"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "所有包裹必须开发票和同一性质和第三位"
       all_purchases_must_be_ordered_or_invoiced: "所有购买必须订购或开具发票。"
-      an_activity_must_be_defined: "一个活动必须被定义"
       bookkeeping_is_finished: "商业数据传送已完成。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "找不到处理附加"
@@ -1692,7 +1686,6 @@ cmn:
       draft_journal_entries_have_been_validated:
         one: "一个条目已被证实"
         # other: "%{count} entries have been validated"
-        zero: "任何条目已被证实"
       entity_columns_are_needed: "你需要指定的人，特别是其姓氏至少有一列。"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
@@ -1704,8 +1697,6 @@ cmn:
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
       importation_finished: "导入完成。"
-      impossible_to_add_items: "您不能添加更多的产品到您的销售，估计是为了通过"
-      impossible_to_add_items_to_purchase: "你不能产品添加到您的购买"
       incompatible_browser: "浏览器不兼容"
       # informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
       integrate_tools_you_are_using_every_day: "整合您每天都在使用的工具"
@@ -1717,27 +1708,25 @@ cmn:
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "这些电子邮件被送到"
       merge_is_done: "合并完成"
-      need_a_production_support: "需要生产支持"
+      need_a_valid_payment_mode: "需要有效的支付模式"
       need_a_valid_purchase_nature_to_start_new_purchase: "需要一个有效的购买类型，开始新的采购"
       need_a_valid_sale_nature_to_start_new_sale: "需要一个有效的销售类型，开始新的销售"
       need_building_to_record_stock_moves: "您必须创建一个建筑能够管理的股票。"
-      need_cash_to_record_statements: "你必须至少建立一个银行账号输入一个声明。"
       need_entries_to_reconciliate: "没有条目reconciliate银行对帐单周期"
       need_payment_mode_to_create_deposit: "你必须为了使存款指定付款方式"
-      need_quantities_to_cancel_an_sale: "您必须在取消销售发票指定一个数量"
       need_stocks_to_create_inventories: "你必须为了管理库存管理部分个股"
-      need_to_create_productions: "需要建立生产"
-      need_to_create_subscription_nature: "您必须创建一个订阅类型来管理您的订阅"
-      # new_actual_number: "The new number is being %{actual_number}"
+      net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "网络服务和标识符始终可用，但被取消，并将在下一主要版本中删除"
       no_archived_prints: "没有打印存档"
-      no_authenticated: "你无法确定。用户名或密码必须是不正确的。"
       no_budget_defined_for_current_campaign: "没有当前活动定义预算"
       no_closable_journal: "没有关闭的日记"
       no_depositable_payments: "有没有支付存款"
+      no_inspections_given: "没有给出检查"
+      no_interventions_given: "没有给予干预"
       no_parcels_given: "没有给出包裹"
       no_payment_to_deposit: "有没有支付存款"
       no_production_defined_for_current_campaign: "没有当前活动定义生产"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "没有生产中。您可以添加新的或复制一些从以前的运动。"
+      no_purchases_given: "没有给出购买"
       no_reopenable_journal: "你不能重新打开该杂志。"
       no_replacements_since_beginning: "年初以来没有更换"
       purchases_invalid_for_sepa: "国家环保总局为转移（支付无效模式或错误的货币或丢失收款人的IBAN或银行账户持有人名称）选择采购无效"
@@ -1760,10 +1749,8 @@ cmn:
       x_unpointed_journal_entry_items:
         one: "有一个入口点"
         # other: "There are %{count} entries to point"
-        zero: "没有条目的时刻点"
       you_must_have_an_email_column: "您必须在提取有电子邮件地址"
       you_need_to_review_your_application_configuration: "您需要检查您的应用程序配置"
-      your_data_are_being_imported: "您的数据正在导入"
   preferences:
     accounting_system: "科目表"
     bookkeep_automatically: "激活自动簿记"
@@ -1774,14 +1761,17 @@ cmn:
     create_activities_from_telepac: "Telepac导入过程中创建活动"
     currency: "货币"
     detail_payments_in_deposit_bookkeeping: "详细所有存款簿记支付"
+    distribute_sales_and_purchases_on_activities: "分布在活动的销售和采购"
+    distribute_sales_and_purchases_on_teams: "分布在团队销售和采购"
     employee_account_radix: "员工帐户基数"
-    host: "主办"
     language: "语言"
     map_measure_srs: "地图措施SRS"
     permanent_stock_inventory: "永久现货库存模式"
     sales_conditions: "销售条件"
     supplier_account_radix: "供应商帐户基数"
+    use_contextual_help: "使用上下文帮助"
     use_entity_codes_for_account_numbers: "使用代码来创建帐号"
+    use_global_search: "使用全局搜索"
   rest:
     actions:
       abort: "退出"

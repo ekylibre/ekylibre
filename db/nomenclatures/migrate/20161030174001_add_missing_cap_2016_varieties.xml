@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing cap 2016 varieties">
+  <item-creation item="varieties#geraniaceae" parent="plant" itis_tsn="29103"/>
+  <item-creation item="varieties#geranium" parent="geraniaceae" itis_tsn="29104"/>
+  <item-creation item="varieties#triticum_durum_byzance" parent="triticum_durum"/>
+  <item-creation item="varieties#triticum_durum_haristide" parent="triticum_durum"/>
+  <item-creation item="varieties#triticum_durum_lg_boris" parent="triticum_durum"/>
+  <item-creation item="varieties#triticum_durum_rgt_fiertimur" parent="triticum_durum"/>
+  <item-creation item="varieties#triticum_durum_rgt_voilur" parent="triticum_durum"/>
+  <item-creation item="varieties#triticum_durum_santur" parent="triticum_durum"/>
+  <item-creation item="varieties#triticum_durum_toscadou" parent="triticum_durum"/>
+  <item-creation item="varieties#cannabis_antal" parent="cannabis"/>
+</migration>

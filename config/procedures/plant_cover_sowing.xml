@@ -2,9 +2,9 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_cover_sowing" categories="crop_protection" actions="sowing, soil_structure_stabilisation">
     <parameters>
-        <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape" cardinality="1">
-          <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
-        </target>
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
       <input name="seeds" filter="is seed and derives from plant and can grow">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"

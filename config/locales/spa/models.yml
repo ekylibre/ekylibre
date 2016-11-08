@@ -1096,6 +1096,7 @@ spa:
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artículo de la compra"
     purchase_items: "Artículos de la compra"
+    purchase_natures: "Tipos de compra"
     purchase_taxations: "Tasaciones de compra"
     purchase_taxes: "Impuestos sobre las compras"
     purchased_on: "Comprado en"
@@ -1192,6 +1193,7 @@ spa:
     sale_item: "Artículo de la venta"
     sale_items: "Artículos a la venta"
     sale_nature: "Naturaleza venta"
+    sale_natures: "Tipos de venta"
     sale_opportunities: "Oportunidades de venta"
     sale_opportunity: "Oportunidad venta"
     sale_taxations: "Tasaciones de venta"
@@ -1453,7 +1455,6 @@ spa:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
         # other: "[%{resource} %{number}] %{count} payments %{mode} %{description}"
-        # zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

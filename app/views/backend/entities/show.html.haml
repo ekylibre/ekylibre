@@ -6,6 +6,7 @@
     = t.menu :add_a_worker.tl, icon: false do |menu|
       - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
         - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, born_at: resource.born_at, redirect: request.fullpath}
+  = t.toggle resource, method: :post, label: resource.contact? ? :convert_into_organization.tl : :convert_into_contact.tl, data: { confirm: :are_you_sure.tl }, icon: false
 
 = main_informations attachment: true do
   = render 'coordinates'

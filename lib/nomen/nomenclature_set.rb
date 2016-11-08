@@ -82,16 +82,20 @@ module Nomen
         xml.nomenclatures(xmlns: Nomen::XMLNS, version: @version) do
           @nomenclatures.values.sort.each do |nomenclature|
             xml.nomenclature(nomenclature.to_xml_attrs) do
-              xml.properties do
-                nomenclature.properties.values.sort.each do |property|
-                  xml.property(property.to_xml_attrs)
+              if nomenclature.properties.any?
+                xml.properties do
+                  nomenclature.properties.values.sort.each do |property|
+                    xml.property(property.to_xml_attrs)
+                  end
                 end
-              end if nomenclature.properties.any?
-              xml.items do
-                nomenclature.items.values.sort_by(&:name).each do |item|
-                  xml.item(item.to_xml_attrs)
+              end
+              if nomenclature.items.any?
+                xml.items do
+                  nomenclature.items.values.sort_by(&:name).each do |item|
+                    xml.item(item.to_xml_attrs)
+                  end
                 end
-              end if nomenclature.items.any?
+              end
             end
           end
         end

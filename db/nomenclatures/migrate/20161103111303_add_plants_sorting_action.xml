@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add plants sorting action">
+  <item-creation item="procedure_actions#plants_sorting"/>
+</migration>

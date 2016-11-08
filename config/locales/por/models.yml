@@ -1092,6 +1092,7 @@ por:
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artigo da compra"
     purchase_items: "Itens de compra"
+    purchase_natures: "Tipos de compra"
     purchase_taxations: "Taxations de compra"
     purchase_taxes: "Os impostos de compra"
     purchased_on: "Comprado em"
@@ -1188,6 +1189,7 @@ por:
     sale_item: "Item de venda"
     sale_items: "Itens à venda"
     sale_nature: "Venda natureza"
+    sale_natures: "Tipos venda"
     sale_opportunities: "Oportunidades de venda"
     sale_opportunity: "Venda oportunidade"
     sale_taxations: "Taxations venda"
@@ -1449,7 +1451,6 @@ por:
       bookkeep:
         one: "[%{resource} %{number}] %{count} pagamento %{mode} %{description}"
         other: "[%{resource} %{number}] %{count} pagamento %{mode} %{description}"
-        zero: "[%{resource} %{number}] No pagamento %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       # document_name: "%{nature} %{key}"

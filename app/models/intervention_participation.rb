@@ -47,7 +47,7 @@ class InterventionParticipation < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_save do
-    intervention.update_state(state)
-    intervention.update_compliance(request_compliant)
+    intervention.update_state(id => state)
+    intervention.update_compliance(id => request_compliant)
   end
 end

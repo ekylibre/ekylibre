@@ -4,10 +4,6 @@
       = f.input :first_name
       = f.input :last_name
       = f.input :language, collection: available_languages
-      .control-group.select
-        = label_tag "user[currency]", 'currency'.tl, class: 'control-label select'
-        .controls
-          = select_tag "user[currency]", options_for_select(Nomen::Currency.items.collect{|c| [c.second.name.t(scope:[:nomenclatures, :currencies, :items]), c.first]}.sort{|a, b| a.first <=> b.first}, Preference.get('currency').value)
       = f.input :theme, as: :radio_buttons, collection: ['tekyla', 'tekyla-sunrise', 'margarita'].sort.map{|t| [t.humanize, t] }
       = form_actions do
         = f.submit :update.ta, class: 'primary'

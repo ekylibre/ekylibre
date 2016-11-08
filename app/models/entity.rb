@@ -113,7 +113,7 @@ class Entity < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
-  has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id
+  has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
@@ -172,6 +172,7 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
+  scope :normal, -> { where(of_company: false) }
   scope :necessary_transporters, -> { where("transporter OR id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
@@ -275,6 +276,15 @@ class Entity < Ekylibre::Record::Base
       end
       company
     end
+  end
+
+  # Convert a contact into organization or inverse
+  def toggle!
+    if contact? && first_name.present?
+      self.last_name = first_name + ' ' + last_name
+    end
+    self.nature = contact? ? :organization : :contact
+    save!
   end
 
   # Returns an entity scope for.all other entities

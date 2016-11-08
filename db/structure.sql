@@ -16062,7 +16062,13 @@ INSERT INTO schema_migrations (version) VALUES ('20161026094401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161026102134');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20161028155003');
 
 INSERT INTO schema_migrations (version) VALUES ('20161103141646');
+=======
+INSERT INTO schema_migrations (version) VALUES ('20161105212807');
+
+INSERT INTO schema_migrations (version) VALUES ('20161106140253');
+>>>>>>> 3dc820a5cc196ad015f4a8a50896feb2ec4461d0
 

@@ -139,7 +139,7 @@ class Purchase < Ekylibre::Record::Base
   before_validation do
     self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
-    self.payment_delay = supplier.supplier_payment_delay if payment_delay.blank?
+    self.payment_delay = supplier.supplier_payment_delay if payment_delay.blank? && supplier && supplier.supplier_payment_delay
     self.pretax_amount = items.sum(:pretax_amount)
     self.amount = items.sum(:amount)
   end
