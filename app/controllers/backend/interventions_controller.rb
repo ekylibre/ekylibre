@@ -49,14 +49,13 @@ module Backend
       code << "end\n"
 
       code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?)'\n"
-      code << "c << '#{:request}'\n"
-      code << "c << '#{:record}'\n"
+      code << "c << 'request'\n"
+      code << "c << 'record'\n"
 
       code << "unless params[:procedure_name].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"
       code << "  c << params[:procedure_name]\n"
       code << "end\n"
-
 
       # select the interventions according to the user current period
       code << "unless current_period_interval.blank? && current_period.blank?\n"
