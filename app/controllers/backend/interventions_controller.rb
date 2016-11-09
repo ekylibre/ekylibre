@@ -48,7 +48,7 @@ module Backend
       code << "  c << params[:nature]\n"
       code << "end\n"
 
-      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?)'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
       code << "c << 'request'\n"
       code << "c << 'record'\n"
 
