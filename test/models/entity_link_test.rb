@@ -44,5 +44,17 @@ require 'test_helper'
 
 class EntityLinkTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'link end' do
+    e = Entity.create!(nature: :contact, first_name: 'Gerard', last_name: 'MARTIN')
+    l = Entity.create!(nature: :organization, last_name: 'MARTIN LTD')
+    el = EntityLink.create!(entity: e, linked: l, nature: :membership)
+
+    l.destroy!
+
+    e.reload
+
+    assert_equal 0, e.direct_links.count
+    assert_equal 0, e.indirect_links.count
+  end
 end

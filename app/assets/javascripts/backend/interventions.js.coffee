@@ -140,6 +140,12 @@
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
+    hideKujakuFilters: (hideFilters) ->
+      if hideFilters
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
+      else
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
+
 
   ##############################################################################
   # Triggers
@@ -177,7 +183,13 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
+  $(document).on "click", '.view-toolbar a', (event) ->
+    E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
+
+
   $(document).ready ->
+
+    E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
     if $('.taskboard').length > 0
 

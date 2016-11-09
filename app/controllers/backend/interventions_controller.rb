@@ -42,14 +42,21 @@ module Backend
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
       code << "  c << params[:state]\n"
       code << "end\n"
+
       code << "unless params[:nature].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.nature IN (?)'\n"
       code << "  c << params[:nature]\n"
       code << "end\n"
+
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?)'\n"
+      code << "c << 'request'\n"
+      code << "c << 'record'\n"
+
       code << "unless params[:procedure_name].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"
       code << "  c << params[:procedure_name]\n"
       code << "end\n"
+
       # select the interventions according to the user current period
       code << "unless current_period_interval.blank? && current_period.blank?\n"
 
@@ -76,7 +83,7 @@ module Backend
 
       # Cultivable zones
       code << "  if params[:cultivable_zone_id].to_i > 0\n"
-      code << "    c[0] << ' AND #{Intervention.table_name}.id IN (SELECT #{Intervention.table_name}.id FROM #{Intervention.table_name} INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id INNER JOIN #{TargetDistribution.table_name} ON #{TargetDistribution.table_name}.target_id = #{InterventionParameter.table_name}.product_id INNER JOIN #{ActivityProduction.table_name} ON #{TargetDistribution.table_name}.activity_production_id = #{ActivityProduction.table_name}.id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'\n"
+      code << "    c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'\n"
       code << "    c \n"
       code << "  end\n"
 
@@ -285,6 +292,7 @@ module Backend
           if intervention.nature == :request
             new_intervention = intervention.dup
             new_intervention.parameters = intervention.parameters
+            new_intervention.request_intervention_id = intervention.id
           end
 
           new_intervention.state = new_state
@@ -292,11 +300,6 @@ module Backend
 
           next unless new_intervention.valid?
           new_intervention.save!
-
-          if intervention.nature == :request
-            intervention.request_intervention_id = new_intervention.id
-            intervention.save!
-          end
         end
       end
 
