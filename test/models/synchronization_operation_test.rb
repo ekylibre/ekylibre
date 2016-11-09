@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: ednotif_loggers
+# == Table: synchronization_operations
 #
 #  created_at     :datetime         not null
 #  creator_id     :integer
@@ -35,6 +35,6 @@
 #
 require 'test_helper'
 
-class EdnotifLoggerTest < ActiveSupport::TestCase
+class SynchronizationOperationTest < ActiveSupport::TestCase
   # Add tests here...
 end

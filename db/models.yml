@@ -51,7 +51,6 @@
 - document
 - document_template
 - easement
-- ednotif_logger
 - entity
 - entity_address
 - entity_link
@@ -160,6 +159,7 @@
 - subscription_nature
 - supervision
 - supervision_item
+- synchronization_operation
 - target_distribution
 - task
 - tax

@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: ednotif_loggers
+# == Table: synchronization_operations
 #
 #  created_at     :datetime         not null
 #  creator_id     :integer
@@ -33,7 +33,7 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-class EdnotifLogger < Ekylibre::Record::Base
+class SynchronizationOperation < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :operation_name, :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]

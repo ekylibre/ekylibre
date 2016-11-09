@@ -1,8 +1,10 @@
-class CreateEdnotifLogger < ActiveRecord::Migration
+class CreateSynchronizationOperation < ActiveRecord::Migration
   def change
-    create_table :ednotif_loggers do |t|
+    create_table :synchronization_operations do |t|
       t.string :operation_name, null: false, index: true
       t.string :state, null: false
+      t.jsonb :request
+      t.jsonb :response
       t.stamps
     end
 

@@ -2009,35 +2009,6 @@ documents:
     type: boolean
     required: true
     default: false
-ednotif_loggers:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  operation_name:
-    type: string
-    required: true
-  request:
-    type: jsonb
-  response:
-    type: jsonb
-  state:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 entities:
   active:
     type: boolean
@@ -6789,6 +6760,35 @@ supervisions:
     references: user
   view_parameters:
     type: json
+synchronization_operations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  operation_name:
+    type: string
+    required: true
+  request:
+    type: jsonb
+  response:
+    type: jsonb
+  state:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 target_distributions:
   activity_id:
     type: integer

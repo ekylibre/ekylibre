@@ -914,6 +914,7 @@ eng:
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
     animal_details: "Animal details" #?!
+    # animal_management: "Animal management"
     animals: "Animals"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"

@@ -2027,43 +2027,6 @@ ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
 
 
 --
--- Name: ednotif_loggers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE ednotif_loggers (
-    id integer NOT NULL,
-    operation_name character varying NOT NULL,
-    state character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    request jsonb,
-    response jsonb
-);
-
-
---
--- Name: ednotif_loggers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE ednotif_loggers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ednotif_loggers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE ednotif_loggers_id_seq OWNED BY ednotif_loggers.id;
-
-
---
 -- Name: entities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5935,6 +5898,43 @@ ALTER SEQUENCE supervisions_id_seq OWNED BY supervisions.id;
 
 
 --
+-- Name: synchronization_operations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE synchronization_operations (
+    id integer NOT NULL,
+    operation_name character varying NOT NULL,
+    state character varying NOT NULL,
+    request jsonb,
+    response jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: synchronization_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE synchronization_operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: synchronization_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE synchronization_operations_id_seq OWNED BY synchronization_operations.id;
+
+
+--
 -- Name: target_distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -6577,13 +6577,6 @@ ALTER TABLE ONLY documents ALTER COLUMN id SET DEFAULT nextval('documents_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ednotif_loggers ALTER COLUMN id SET DEFAULT nextval('ednotif_loggers_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY entities ALTER COLUMN id SET DEFAULT nextval('entities_id_seq'::regclass);
 
 
@@ -7200,6 +7193,13 @@ ALTER TABLE ONLY supervisions ALTER COLUMN id SET DEFAULT nextval('supervisions_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY synchronization_operations ALTER COLUMN id SET DEFAULT nextval('synchronization_operations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY target_distributions ALTER COLUMN id SET DEFAULT nextval('target_distributions_id_seq'::regclass);
 
 
@@ -7602,14 +7602,6 @@ ALTER TABLE ONLY document_templates
 
 ALTER TABLE ONLY documents
     ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
-
-
---
--- Name: ednotif_loggers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ednotif_loggers
-    ADD CONSTRAINT ednotif_loggers_pkey PRIMARY KEY (id);
 
 
 --
@@ -8314,6 +8306,14 @@ ALTER TABLE ONLY supervision_items
 
 ALTER TABLE ONLY supervisions
     ADD CONSTRAINT supervisions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: synchronization_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT synchronization_operations_pkey PRIMARY KEY (id);
 
 
 --
@@ -10289,41 +10289,6 @@ CREATE INDEX index_documents_on_updated_at ON documents USING btree (updated_at)
 --
 
 CREATE INDEX index_documents_on_updater_id ON documents USING btree (updater_id);
-
-
---
--- Name: index_ednotif_loggers_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ednotif_loggers_on_created_at ON ednotif_loggers USING btree (created_at);
-
-
---
--- Name: index_ednotif_loggers_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ednotif_loggers_on_creator_id ON ednotif_loggers USING btree (creator_id);
-
-
---
--- Name: index_ednotif_loggers_on_operation_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ednotif_loggers_on_operation_name ON ednotif_loggers USING btree (operation_name);
-
-
---
--- Name: index_ednotif_loggers_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ednotif_loggers_on_updated_at ON ednotif_loggers USING btree (updated_at);
-
-
---
--- Name: index_ednotif_loggers_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_ednotif_loggers_on_updater_id ON ednotif_loggers USING btree (updater_id);
 
 
 --
@@ -15283,6 +15248,41 @@ CREATE INDEX index_supervisions_on_updater_id ON supervisions USING btree (updat
 
 
 --
+-- Name: index_synchronization_operations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_created_at ON synchronization_operations USING btree (created_at);
+
+
+--
+-- Name: index_synchronization_operations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_creator_id ON synchronization_operations USING btree (creator_id);
+
+
+--
+-- Name: index_synchronization_operations_on_operation_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_operation_name ON synchronization_operations USING btree (operation_name);
+
+
+--
+-- Name: index_synchronization_operations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_updated_at ON synchronization_operations USING btree (updated_at);
+
+
+--
+-- Name: index_synchronization_operations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_updater_id ON synchronization_operations USING btree (updater_id);
+
+
+--
 -- Name: index_target_distributions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16173,6 +16173,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161107091835');
 INSERT INTO schema_migrations (version) VALUES ('20161107101401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161107112858');
-
-INSERT INTO schema_migrations (version) VALUES ('20161107125818');
 
