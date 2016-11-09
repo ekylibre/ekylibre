@@ -1723,6 +1723,8 @@ deu:
       record_has_been_correctly_removed: "Die Aufzeichnung wurde erfolgreich entfernt"
       record_has_been_imported: "Die Bilanz wurde importiert"
       record_not_found: "Aufnahme nicht gefunden"
+      record_x_created: "%{record} %{name} erstellt"
+      record_x_updated: "%{record} %{name} aktualisiert"
       sale_is_not_duplicatable: "Verkauf ist nicht duplizierbar"
       select_entry_items_to_mark_together: "Eintrag auswählen Elemente zu kennzeichnen zusammen"
       # sensor_has_been_fixed: "Sensor %{name} has been fixed"

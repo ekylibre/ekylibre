@@ -123,32 +123,27 @@ module Backend
       record
     end
 
-    def save_and_redirect(record, options = {}, &_block)
+    def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
       ActiveRecord::Base.transaction do
         if options[:saved] || record.send(:save)
-          yield record if block_given?
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
             head :ok
-          else
-            # TODO: notify if success
-            if options[:url] == :back
-              redirect_to_back
-            elsif params[:redirect]
-              redirect_to params[:redirect]
-            else
-              url = options[:url]
-              record.reload
-              if url.is_a? Hash
-                url.each do |k, v|
-                  url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
-                end
-              end
-              redirect_to(url)
+            return true
+          end
+
+          notify_success options[:notify] if options[:notify]
+
+          url = options[:url]
+          record.reload
+          if url.is_a? Hash
+            url.each do |k, v|
+              url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
             end
           end
+          redirect_to(url)
           return true
         end
       end

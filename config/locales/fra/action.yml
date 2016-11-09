@@ -2346,6 +2346,8 @@ fra:
       record_has_been_imported: "L’enregistrement a été importé"
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_not_found: "Enregistrement introuvable"
+      record_x_created: "%{record} %{name} créé"
+      record_x_updated: "%{record} %{name} mise à jour"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?
