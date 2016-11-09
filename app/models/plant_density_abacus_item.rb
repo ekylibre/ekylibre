@@ -42,7 +42,7 @@ class PlantDensityAbacusItem < Ekylibre::Record::Base
   validates :plant_density_abacus, presence: true
   # ]VALIDATORS]
 
-  scope :of_abacus, -> (id) { where(plant_density_abacus_id: id) }
+  scope :of_abacus, ->(id) { where(plant_density_abacus_id: id) }
 
   protect on: :destroy do
     plant_countings.any?

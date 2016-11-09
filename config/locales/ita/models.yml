@@ -38,6 +38,9 @@ ita:
         population: "Quantità"
       plant:
         born_at: "piantato a"
+      plant_counting:
+        # rows_count_value: "Rows count"
+        # working_width_value: "Implanter application width"
       plant_counting_item:
         # value: "Plants count"
       plant_density_abacus_item:

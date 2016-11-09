@@ -15,7 +15,7 @@ module Backend
       notify_now :density_is_not_computable_in_counting unless @plant_counting.density_computable?
       respond_to do |format|
         format.html { t3e(@plant_counting.attributes) }
-        format.xml  { render xml:  @plant_counting }
+        format.xml  { render xml: @plant_counting }
         format.json
       end
     end

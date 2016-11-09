@@ -38,6 +38,9 @@ cmn:
         population: "数量"
       plant:
         born_at: "在种植"
+      plant_counting:
+        # rows_count_value: "Rows count"
+        # working_width_value: "Implanter application width"
       plant_counting_item:
         # value: "Plants count"
       plant_density_abacus_item:

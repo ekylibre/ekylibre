@@ -34,24 +34,26 @@
 #  plant_density_abacus_item_id :integer          not null
 #  plant_id                     :integer          not null
 #  read_at                      :datetime
+#  rows_count_value             :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
+#  working_width_value          :decimal(19, 4)
 #
 require 'test_helper'
 
 class PlantCountingTest < ActiveSupport::TestCase
   ABACI_ITEM_ATTRIBUTES = [
-      [ 1.2, 70],
-      [1.25, 72],
-      [ 1.3, 75],
-      [1.35, 78],
-      [ 1.4, 81],
-      [1.45, 84],
-      [ 1.4, 87],
-      [1.45, 90],
-      [ 1.4, 92],
-      [1.45, 95],
-      [ 1.7, 98]
+    [1.2, 70],
+    [1.25, 72],
+    [1.3, 75],
+    [1.35, 78],
+    [1.4, 81],
+    [1.45, 84],
+    [1.4, 87],
+    [1.45, 90],
+    [1.4, 92],
+    [1.45, 95],
+    [1.7, 98]
   ].freeze
 
   setup do
@@ -107,7 +109,7 @@ class PlantCountingTest < ActiveSupport::TestCase
     plant = sow_plant
     counting = new_counting plant: plant
 
-    assert_equal               4, counting.rows_count
+    assert_equal 4, counting.rows_count
     assert_equal 20.5.in(:meter), counting.implanter_working_width
   end
 
