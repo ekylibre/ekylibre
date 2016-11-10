@@ -23,9 +23,9 @@ module ActionIntegration
         singleton_class.instance_exec(method) do
           define_method(method) do |*args|
             ::Call.new(
-              integration_name: self,
-              name: method,
-              arguments:   args
+                integration_name: self,
+                name: method,
+                arguments: args
             )
           end
         end
@@ -126,15 +126,22 @@ module ActionIntegration
       integration
     end
 
-    def self.fetch
-      integration ||= ::Integration.find_by(nature: integration_name.underscore)
+    class << self
 
-      raise ServiceNotIntegrated unless integration
-      parameters.each do |p|
-        raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
+      # TODO: fetch shouldn't raise exceptions, fetch! does
+      def fetch
+        integration ||= ::Integration.find_by(nature: integration_name.underscore)
+
+        raise ServiceNotIntegrated unless integration
+        parameters.each do |p|
+          raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
+        end
+
+        integration
       end
 
-      integration
+      alias :fetch! :fetch
     end
+
   end
 end
