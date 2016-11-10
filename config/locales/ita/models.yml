@@ -985,6 +985,7 @@ ita:
     old_password: "Vecchia Password"
     opened_at: "aperto a"
     operation: "operazione"
+    # operation_name: "Operation name"
     operations: "operazioni" #?
     ordered_at: "ordinato a"
     organic_fertilizer_mineral_fraction: "frazione minerale fertilizzante organico"

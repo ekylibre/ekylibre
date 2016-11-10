@@ -954,6 +954,7 @@ jpn:
     old_password: "以前のパスワード"
     opened_at: "開かれました"
     operation: "操作"
+    # operation_name: "Operation name"
     operations: "オペレーション" #?
     ordered_at: "で注文"
     organic_fertilizer_mineral_fraction: "有機肥料ミネラル分画"

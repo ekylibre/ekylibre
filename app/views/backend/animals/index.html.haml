@@ -1,11 +1,12 @@
 - main_toolbar do |t|
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
   = t.menu :new.tl do |menu|
-    - menu.item :new.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
-    - menu.item Parcel.model_name.human, { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
-    - menu.item AnimalGroup.model_name.human, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
-    - menu.item BuildingDivision.model_name.human, { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
-    - menu.item Parcel.model_name.human, { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_entrance.tl, { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_exit.tl, { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
+    - menu.separator
+    - menu.item :add_animal.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_animal_group.tl, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item :add_building_division.tl, { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
 
 
   - family = Nomen::ActivityFamily[:animal_farming]

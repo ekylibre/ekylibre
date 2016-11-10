@@ -1794,6 +1794,7 @@ arb:
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
+    # operation_name: "Operation name"
     operation_natures: "انواع العمل" #?
     operation_uses: "استخدامات الاداة" #?
     operations: "الاعمال" #?

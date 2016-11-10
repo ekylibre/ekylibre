@@ -965,7 +965,7 @@ eng:
     old_password: "Old password"
     opened_at: "Opened at"
     operation: "Operation"
-    # operation_name: "Operation name"
+    operation_name: "Operation name"
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"

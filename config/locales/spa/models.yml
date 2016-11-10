@@ -958,6 +958,7 @@ spa:
     old_password: "Contraseña anterior"
     opened_at: "Inaugurado a"
     operation: "Operación"
+    # operation_name: "Operation name"
     operations: "Operaciones" #?
     ordered_at: "Ordenados en"
     organic_fertilizer_mineral_fraction: "Fracción mineral fertilizante orgánico"

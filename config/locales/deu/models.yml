@@ -954,6 +954,7 @@ deu:
     old_password: "Altes Passwort"
     opened_at: "geöffnet an"
     operation: "Betrieb"
+    # operation_name: "Operation name"
     operations: "Geschäftstätigkeit" #?
     ordered_at: "bestellt auf"
     organic_fertilizer_mineral_fraction: "Organische Dünger Mineralfraktion"

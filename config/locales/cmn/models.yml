@@ -954,6 +954,7 @@ cmn:
     old_password: "旧密码"
     opened_at: "在开业"
     operation: "手术"
+    # operation_name: "Operation name"
     operations: "操作" #?
     ordered_at: "在有序"
     organic_fertilizer_mineral_fraction: "有机肥矿物质成分"

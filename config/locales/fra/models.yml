@@ -1177,6 +1177,7 @@ fra:
     old_password: "Mot de passe actuel"
     opened_at: "Ouvert le"
     operation: "Travail"
+    # operation_name: "Operation name"
     operations: "Travaux" #?
     ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"

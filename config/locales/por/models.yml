@@ -954,6 +954,7 @@ por:
     old_password: "Senha Antiga"
     opened_at: "Inaugurado no"
     operation: "Operação"
+    # operation_name: "Operation name"
     operations: "Operações" #?
     ordered_at: "Pedidos no"
     organic_fertilizer_mineral_fraction: "Fração mineral fertilizante orgânico"
