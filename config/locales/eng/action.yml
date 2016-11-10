@@ -1068,8 +1068,8 @@ eng:
     deformity_percentage: "Deformity (%)" #?
     deformity_percentage_evolution: "Deformity percentage evolution"
     delete: "Delete"
-    delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?"
-    delete_request: "Delete also the request associate to the selected intervention(s)"
+    delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
+    delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?

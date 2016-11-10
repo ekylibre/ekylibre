@@ -1087,12 +1087,12 @@ fra:
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
-    delete_only_record:
-      one: "Ou supprimer uniquement l'intervention"
-      other: "Ou supprimer uniquement les interventions"
-    delete_request:
-      one: "Supprimer l'intervention et la demande associée"
-      other: "Supprimer les interventions et les demandes associées"
+    delete_only_record:  #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
+      one: "Ou supprimer uniquement l'intervention" #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
+      other: "Ou supprimer uniquement les interventions" #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
+    delete_request:  #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
+      one: "Supprimer l'intervention et la demande associée" #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
+      other: "Supprimer les interventions et les demandes associées" #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
     delete_selected_interventions: "Supprimer les interventions sélectionnées"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
