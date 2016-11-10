@@ -62,7 +62,7 @@
     = cobble_list(:issues)
 
   - if resource.inspections.any?
-    - render 'inspection_cobbles', resource, resource
+    - render 'inspection_cobbles', c: c, resource: resource
 
   - c.cobble :plant_countings, title: :x_countings.tl(count: resource.plant_countings.count) do
     - if resource.activity.present?
