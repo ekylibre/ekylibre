@@ -5905,6 +5905,7 @@ CREATE TABLE synchronization_operations (
     id integer NOT NULL,
     operation_name character varying NOT NULL,
     state character varying NOT NULL,
+    status character varying,
     request jsonb,
     response jsonb,
     created_at timestamp without time zone NOT NULL,

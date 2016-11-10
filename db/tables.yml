@@ -6783,6 +6783,8 @@ synchronization_operations:
   state:
     type: string
     required: true
+  status:
+    type: string
   updated_at:
     type: datetime
     required: true

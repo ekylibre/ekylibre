@@ -30,12 +30,23 @@
 #  request        :jsonb
 #  response       :jsonb
 #  state          :string           not null
+#  status         :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
 class SynchronizationOperation < Ekylibre::Record::Base
+  enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
+  enumerize :operation_name, in: [:get_inventory, :authenticate, :get_urls], predicates: true
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :operation_name, :state, presence: true, length: { maximum: 500 }
+  validates :operation_name, presence: true, length: { maximum: 500 }
+  validates :state, presence: true
+  validates :status, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   has_many :calls, as: :source
+
+  scope :operation, lambda {|name, options={}|
+    options[:state] ||= :finished
+    order(created_at: :desc).where(operation_name: name, state: options[:state])
+  }
 end

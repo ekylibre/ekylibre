@@ -30,6 +30,7 @@
 #  request        :jsonb
 #  response       :jsonb
 #  state          :string           not null
+#  status         :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
