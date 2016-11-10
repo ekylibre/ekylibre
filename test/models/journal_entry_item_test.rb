@@ -57,6 +57,7 @@
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  vat_declaration_item_id   :integer
 #
 
 require 'test_helper'

@@ -51,6 +51,7 @@
 #  undelivered_invoice_entry_id     :integer
 #  updated_at                       :datetime         not null
 #  updater_id                       :integer
+#  vat_declaration_item_id          :integer
 #
 ---
 purchases_001:

@@ -2995,6 +2995,9 @@ incoming_payments:
   updater_id:
     type: integer
     references: user
+  vat_declaration_id:
+    type: integer
+    references: vat_declaration
 inspection_calibrations:
   created_at:
     type: datetime
@@ -3729,9 +3732,6 @@ journal_entries:
   updater_id:
     type: integer
     references: user
-  vat_declaration_item_id:
-    type: integer
-    references: vat_declaration_item
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -3860,6 +3860,9 @@ journal_entry_items:
   updater_id:
     type: integer
     references: user
+  vat_declaration_item_id:
+    type: integer
+    references: vat_declaration_item
 journals:
   closed_on:
     type: date
@@ -4614,6 +4617,9 @@ outgoing_payments:
   updater_id:
     type: integer
     references: user
+  vat_declaration_id:
+    type: integer
+    references: vat_declaration
 parcel_items:
   analysis_id:
     type: integer
@@ -6081,6 +6087,9 @@ purchase_items:
     type: integer
     references: product_nature_variant
     required: true
+  vat_declaration_item_id:
+    type: integer
+    references: vat_declaration_item
 purchase_natures:
   active:
     type: boolean
@@ -6208,6 +6217,9 @@ purchases:
   updater_id:
     type: integer
     references: user
+  vat_declaration_item_id:
+    type: integer
+    references: vat_declaration_item
 roles:
   created_at:
     type: datetime
@@ -6320,6 +6332,9 @@ sale_items:
     type: integer
     references: product_nature_variant
     required: true
+  vat_declaration_item_id:
+    type: integer
+    references: vat_declaration_item
 sale_natures:
   active:
     type: boolean
@@ -6518,6 +6533,9 @@ sales:
   updater_id:
     type: integer
     references: user
+  vat_declaration_item_id:
+    type: integer
+    references: vat_declaration_item
 sensors:
   access_parameters:
     type: json
@@ -7116,6 +7134,10 @@ users:
     type: integer
     references: user
 vat_declaration_items:
+  collected_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   collected_vat_amount:
     type: decimal
     precision: 19
@@ -7129,6 +7151,10 @@ vat_declaration_items:
   currency:
     type: string
     required: true
+  deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   deductible_vat_amount:
     type: decimal
     precision: 19

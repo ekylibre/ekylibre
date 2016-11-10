@@ -410,6 +410,7 @@ eng:
         affairs: "Affairs"
         analyses: "Analyses"
         animals: "Animals"
+        # campaigns: "Campaigns"
         cash_transfers: "Cash transfers"
         contracts: "Contracts"
         deliveries: "Deliveries"

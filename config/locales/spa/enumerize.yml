@@ -453,7 +453,7 @@ spa:
         sales_invoices: "Facturas de venta"
         subscriptions: "Suscripciones"
         transports: "Numeración de los transportes" #?
-        #  vat_declarations: "Vat declarations"
+        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidireccional" #?

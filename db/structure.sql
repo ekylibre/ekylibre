@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2813,7 +2813,8 @@ CREATE TABLE incoming_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    vat_declaration_id integer
 );
 
 
@@ -3352,8 +3353,7 @@ CREATE TABLE journal_entries (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    vat_declaration_item_id integer
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -3415,7 +3415,8 @@ CREATE TABLE journal_entry_items (
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
     bank_statement_letter character varying,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    vat_declaration_item_id integer
 );
 
 
@@ -4087,7 +4088,8 @@ CREATE TABLE outgoing_payments (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    list_id integer
+    list_id integer,
+    vat_declaration_id integer
 );
 
 
@@ -5315,7 +5317,8 @@ CREATE TABLE purchase_items (
     fixed boolean DEFAULT false NOT NULL,
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    vat_declaration_item_id integer
 );
 
 
@@ -5412,7 +5415,8 @@ CREATE TABLE purchases (
     quantity_gap_on_invoice_entry_id integer,
     payment_delay character varying,
     payment_at timestamp without time zone,
-    contract_id integer
+    contract_id integer,
+    vat_declaration_item_id integer
 );
 
 
@@ -5500,7 +5504,8 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb
+    codes jsonb,
+    vat_declaration_item_id integer
 );
 
 
@@ -5620,7 +5625,8 @@ CREATE TABLE sales (
     custom_fields jsonb,
     codes jsonb,
     undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer
+    quantity_gap_on_invoice_entry_id integer,
+    vat_declaration_item_id integer
 );
 
 
@@ -6207,7 +6213,9 @@ CREATE TABLE vat_declaration_items (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    deductible_pretax_amount numeric(19,4),
+    collected_pretax_amount numeric(19,4)
 );
 
 
@@ -16261,4 +16269,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161106140253');
 INSERT INTO schema_migrations (version) VALUES ('20161107065331');
 
 INSERT INTO schema_migrations (version) VALUES ('20161108140009');
+
+INSERT INTO schema_migrations (version) VALUES ('20161110111901');
 

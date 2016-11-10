@@ -57,6 +57,7 @@
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  vat_declaration_item_id   :integer
 #
 
 # What are the differents columns:
@@ -74,6 +75,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :team
   belongs_to :journal, inverse_of: :entry_items
+  belongs_to :vat_declaration_item, inverse_of: :journal_entry_items
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement
 

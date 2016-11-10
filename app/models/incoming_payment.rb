@@ -50,6 +50,7 @@
 #  to_bank_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  vat_declaration_id    :integer
 #
 
 class IncomingPayment < Ekylibre::Record::Base

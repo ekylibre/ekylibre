@@ -63,6 +63,8 @@ class VatDeclaration < Ekylibre::Record::Base
   acts_as_numbered
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:tax_id].blank? && item[:tax].blank? }, allow_destroy: true
 
+  delegate :vat_mode, :vat_period, to: :financial_year
+
   state_machine :state, initial: :draft do
     state :draft
     state :validated

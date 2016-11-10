@@ -22,17 +22,19 @@
 #
 # == Table: vat_declaration_items
 #
-#  collected_vat_amount  :decimal(19, 4)
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  currency              :string           not null
-#  deductible_vat_amount :decimal(19, 4)
-#  id                    :integer          not null, primary key
-#  lock_version          :integer          default(0), not null
-#  tax_id                :integer          not null
-#  updated_at            :datetime         not null
-#  updater_id            :integer
-#  vat_declaration_id    :integer          not null
+#  collected_pretax_amount  :decimal(19, 4)
+#  collected_vat_amount     :decimal(19, 4)
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string           not null
+#  deductible_pretax_amount :decimal(19, 4)
+#  deductible_vat_amount    :decimal(19, 4)
+#  id                       :integer          not null, primary key
+#  lock_version             :integer          default(0), not null
+#  tax_id                   :integer          not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  vat_declaration_id       :integer          not null
 #
 require 'test_helper'
 
