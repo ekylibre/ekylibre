@@ -2019,6 +2019,9 @@ spa:
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
       subscription_is_not_renewable: "La suscripción no es renovable"
+      # synchronization_operation_failed: "Operation %{operation_name} failed: %{message}"
+      # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
+      # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"

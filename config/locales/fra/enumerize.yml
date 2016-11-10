@@ -428,8 +428,8 @@ fra:
         subscriptions: "Abonnements"
     synchronization_operation:
       operation_name:
-        get_inventory: "Récupération de l'inventaire"
         authenticate: "Authentification"
+        get_inventory: "Récupération de l'inventaire"
         get_urls: "Récupération des URL"
       state:
         aborted: "Avorté"
