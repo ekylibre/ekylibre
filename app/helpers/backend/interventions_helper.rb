@@ -49,9 +49,12 @@ module Backend
 
         intervention_datas = { id: intervention.id, name: intervention.name }
 
+        request_intervention_id = ''
+        request_intervention_id = intervention.request_intervention_id unless intervention.request_intervention_id.nil?
+
         column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
                     task_datas, [], can_select, colors,
-                    params: { class: '', data: { intervention: intervention_datas.to_json } })
+                    params: { class: '', data: { intervention: intervention_datas.to_json, request_intervention_id: request_intervention_id } })
       end
     end
 

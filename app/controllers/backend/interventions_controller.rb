@@ -265,7 +265,12 @@ module Backend
 
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
-        render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+
+        if params[:modal_type] == "delete"
+          render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
+        else
+          render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+        end
       end
     end
 
@@ -282,7 +287,20 @@ module Backend
 
       Intervention.transaction do
         @interventions.each do |intervention|
+
           if intervention.nature == :record && new_state == :rejected
+
+            unless intervention.request_intervention_id.nil?
+              intervention_request = Intervention.find(intervention.request_intervention_id)
+
+              if state_change_permitted_params[:delete_option].to_sym == :delete_request
+                intervention_request.destroy!
+              else
+                intervention_request.parameters = intervention.parameters
+                intervention_request.save!
+              end
+            end
+
             intervention.destroy!
             next
           end
@@ -320,7 +338,7 @@ module Backend
     end
 
     def state_change_permitted_params
-      params.require(:intervention).permit(:interventions_ids, :state)
+      params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
     end
   end
 end
