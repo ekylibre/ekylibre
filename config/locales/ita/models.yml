@@ -46,6 +46,11 @@ ita:
         has_downpayment: "Anticipo ricevuti"
       sale_nature:
         downpayment: "richiesta acconto"
+      synchronization_operation:
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "Valore"
     errors:

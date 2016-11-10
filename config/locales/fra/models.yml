@@ -150,6 +150,11 @@ fra:
         price: "Prix" #?
       sale_nature:
         downpayment: "Avec acompte"
+      synchronization_operation:
+        operation_name: "Nom de l'opération"
+        status: 'Statut'
+        request: 'Requête'
+        response: 'Réponse'
       tax:
         amount: "Valeur"
       tax_declaration:  #?

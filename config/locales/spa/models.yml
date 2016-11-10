@@ -46,6 +46,11 @@ spa:
         has_downpayment: "Pago Inicial recibida"
       sale_nature:
         downpayment: "Solicitud de pago inicial"
+      synchronization_operation:
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "Valor"
     errors:

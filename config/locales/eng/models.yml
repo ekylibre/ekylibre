@@ -46,6 +46,11 @@ eng:
         has_downpayment: "Downpayment received"
       sale_nature:
         downpayment: "Request downpayment"
+      synchronization_operation:
+        operation_name: "Operation name"
+        request: "Request"
+        response: "Response"
+        status: "Status"
       tax:
         amount: "Value"
     errors:

@@ -46,6 +46,11 @@ deu:
         has_downpayment: "Anzahlung empfangenen"
       sale_nature:
         downpayment: "Anfrage Anzahlung"
+      synchronization_operation:
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "Wert"
     errors:

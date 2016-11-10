@@ -46,6 +46,11 @@ jpn:
         has_downpayment: "頭金は、受信しました"
       sale_nature:
         downpayment: "リクエスト頭金"
+      synchronization_operation:
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "値"
     errors:

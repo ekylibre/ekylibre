@@ -39,8 +39,7 @@ class SynchronizationOperation < Ekylibre::Record::Base
   enumerize :operation_name, in: [:get_inventory, :authenticate, :get_urls], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :operation_name, presence: true, length: { maximum: 500 }
-  validates :state, presence: true
+  validates :operation_name, :state, presence: true
   validates :status, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   has_many :calls, as: :source

@@ -565,6 +565,11 @@ arb:
         nature: "النوع" #?
         nature_label: "النوع" #?
         subscriptions: "ملاحظة" #?
+      synchronization_operation:
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "القيمة المالية"
         nature_label: "النوع" #?
