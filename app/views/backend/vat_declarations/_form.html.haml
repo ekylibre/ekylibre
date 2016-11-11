@@ -1,6 +1,7 @@
 = field_set do
   = f.input :currency, as: :hidden
   = f.input :reference_number
+  = f.input :accounted_at, as: :datetime
   = f.input :started_on, as: :date
   = f.input :stopped_on, as: :date
   = f.referenced_association :financial_year
@@ -14,7 +15,9 @@
         %tr
           %th= VatDeclarationItem.human_attribute_name(:tax)
           %th= VatDeclarationItem.human_attribute_name(:deductible_vat_amount)
+          %th= VatDeclarationItem.human_attribute_name(:deductible_pretax_amount)
           %th= VatDeclarationItem.human_attribute_name(:collected_vat_amount)
+          %th= VatDeclarationItem.human_attribute_name(:collected_pretax_amount)
           %th
       %tfoot
         %tr.total

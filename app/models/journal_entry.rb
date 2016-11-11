@@ -47,6 +47,7 @@
 #  state              :string           not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
+#  vat_declaration_id :integer
 #
 
 # There is 3 types of set of values (debit, credit...). These types

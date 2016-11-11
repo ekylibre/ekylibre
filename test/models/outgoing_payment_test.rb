@@ -22,30 +22,29 @@
 #
 # == Table: outgoing_payments
 #
-#  accounted_at       :datetime
-#  affair_id          :integer
-#  amount             :decimal(19, 4)   default(0.0), not null
-#  bank_check_number  :string
-#  cash_id            :integer          not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  currency           :string           not null
-#  custom_fields      :jsonb
-#  delivered          :boolean          default(TRUE), not null
-#  downpayment        :boolean          default(TRUE), not null
-#  id                 :integer          not null, primary key
-#  journal_entry_id   :integer
-#  list_id            :integer
-#  lock_version       :integer          default(0), not null
-#  mode_id            :integer          not null
-#  number             :string
-#  paid_at            :datetime
-#  payee_id           :integer          not null
-#  responsible_id     :integer          not null
-#  to_bank_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  vat_declaration_id :integer
+#  accounted_at      :datetime
+#  affair_id         :integer
+#  amount            :decimal(19, 4)   default(0.0), not null
+#  bank_check_number :string
+#  cash_id           :integer          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string           not null
+#  custom_fields     :jsonb
+#  delivered         :boolean          default(TRUE), not null
+#  downpayment       :boolean          default(TRUE), not null
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer
+#  list_id           :integer
+#  lock_version      :integer          default(0), not null
+#  mode_id           :integer          not null
+#  number            :string
+#  paid_at           :datetime
+#  payee_id          :integer          not null
+#  responsible_id    :integer          not null
+#  to_bank_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 require 'test_helper'

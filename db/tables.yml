@@ -2995,9 +2995,6 @@ incoming_payments:
   updater_id:
     type: integer
     references: user
-  vat_declaration_id:
-    type: integer
-    references: vat_declaration
 inspection_calibrations:
   created_at:
     type: datetime
@@ -3732,6 +3729,9 @@ journal_entries:
   updater_id:
     type: integer
     references: user
+  vat_declaration_id:
+    type: integer
+    references: vat_declaration
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -4617,9 +4617,6 @@ outgoing_payments:
   updater_id:
     type: integer
     references: user
-  vat_declaration_id:
-    type: integer
-    references: vat_declaration
 parcel_items:
   analysis_id:
     type: integer
@@ -6217,9 +6214,6 @@ purchases:
   updater_id:
     type: integer
     references: user
-  vat_declaration_item_id:
-    type: integer
-    references: vat_declaration_item
 roles:
   created_at:
     type: datetime
@@ -6533,9 +6527,6 @@ sales:
   updater_id:
     type: integer
     references: user
-  vat_declaration_item_id:
-    type: integer
-    references: vat_declaration_item
 sensors:
   access_parameters:
     type: json
@@ -7156,6 +7147,14 @@ vat_declaration_items:
     precision: 19
     scale: 4
   deductible_vat_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  fixed_asset_deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  fixed_asset_deductible_vat_amount:
     type: decimal
     precision: 19
     scale: 4

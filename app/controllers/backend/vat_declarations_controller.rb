@@ -40,7 +40,9 @@ module Backend
     list(:items, model: :vat_declaration_items, conditions: { vat_declaration_id: 'params[:id]'.c }) do |t|
       t.column :tax, url: true
       t.column :deductible_vat_amount, currency: true
+      t.column :deductible_pretax_amount, currency: true
       t.column :collected_vat_amount, currency: true
+      t.column :collected_pretax_amount, currency: true
     end
 
     # Displays details of one vat declaration selected with +params[:id]+
