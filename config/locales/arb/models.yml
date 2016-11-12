@@ -1438,6 +1438,7 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
+    # finished_at: "Finished at"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1785,6 +1786,7 @@ arb:
     nodes: "عقد الاستخراج"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
+    # notification: "Notification"
     notifications: "الإشعارات"
     number: "الرقم"
     number_format: "التصميم"

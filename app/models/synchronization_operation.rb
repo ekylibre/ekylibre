@@ -22,30 +22,47 @@
 #
 # == Table: synchronization_operations
 #
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  operation_name :string           not null
-#  request        :jsonb
-#  response       :jsonb
-#  state          :string           not null
-#  status         :string
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  finished_at     :datetime
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  notification_id :integer
+#  operation_name  :string           not null
+#  request         :jsonb
+#  response        :jsonb
+#  state           :string           not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 class SynchronizationOperation < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   enumerize :operation_name, in: [:get_inventory, :authenticate, :get_urls], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :finished_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :operation_name, :state, presence: true
-  validates :status, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   has_many :calls, as: :source
+  belongs_to :notification
 
-  scope :operation, lambda {|name, options={}|
+  delegate :human_message, to: :notification, allow_nil: true
+
+  scope :operation, lambda { |name, options={}|
     options[:state] ||= :finished
     order(created_at: :desc).where(operation_name: name, state: options[:state])
   }
+
+  def notify(message, interpolations = {}, options = {})
+    if creator
+      creator.notify(message, interpolations.merge(operation_name: "enumerize.synchronization_operation.operation_name.#{operation_name}".t), options.merge(target: self))
+    end
+  end
+
+  class << self
+    def run(operation, options = {})
+      so = create!(operation_name: operation, state: :undone)
+      Ekylibre::Hook.publish operation, options.merge(synchronization_operation_id: so.id)
+    end
+  end
 end

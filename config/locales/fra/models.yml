@@ -846,6 +846,7 @@ fra:
     finish: "Fin"
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
+    finished_at: "Terminé à"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -1170,6 +1171,7 @@ fra:
     nodes: "Nœuds d’extraction"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
+    notification: "Notification"
     notifications: "Notifications"
     number: "Numéro"
     number_format: "Format du numéro"

@@ -2463,10 +2463,11 @@ arb:
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
       subscription_is_not_renewable: "الاشتراك ليست قابلة للتجديد"
-      # synchronization_operation_failed: "Operation %{operation_name} failed: %{message}"
+      # synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
+      # this_service_is_not_activated: "This service is not activated"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"

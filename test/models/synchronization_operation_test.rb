@@ -22,17 +22,18 @@
 #
 # == Table: synchronization_operations
 #
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  operation_name :string           not null
-#  request        :jsonb
-#  response       :jsonb
-#  state          :string           not null
-#  status         :string
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  finished_at     :datetime
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  notification_id :integer
+#  operation_name  :string           not null
+#  request         :jsonb
+#  response        :jsonb
+#  state           :string           not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 require 'test_helper'
 

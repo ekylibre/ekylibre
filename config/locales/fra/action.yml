@@ -2364,10 +2364,11 @@ fra:
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
       subscription_is_not_renewable: "L’abonnement est non renouvelable"
-      synchronization_operation_failed: "L'opération %{operation_name} a échoué: %{message}"
+      synchronization_operation_failed: "L'opération %{operation_name} a échoué: %{target} %{message}"
       synchronization_operation_finished_successfully: "L'opération %{operation_name} s’est finie correctement"
       synchronization_operation_in_progress: "L'opération %{operation_name} est en cours"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
+      this_service_is_not_activated: "Ce service n'est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?
