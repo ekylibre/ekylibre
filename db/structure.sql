@@ -6258,7 +6258,10 @@ CREATE TABLE vat_declarations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    affair_id integer,
+    tax_office_id integer,
+    invoiced_at timestamp without time zone
 );
 
 

@@ -1,7 +1,10 @@
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
+
 = field_set do
   = f.input :currency, as: :hidden
+  = f.referenced_association :tax_office, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
-  = f.input :accounted_at, as: :datetime
+  = f.input :invoiced_at
   = f.input :started_on, as: :date
   = f.input :stopped_on, as: :date
   = f.referenced_association :financial_year

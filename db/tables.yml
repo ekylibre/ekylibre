@@ -7181,6 +7181,9 @@ vat_declaration_items:
 vat_declarations:
   accounted_at:
     type: datetime
+  affair_id:
+    type: integer
+    references: affair
   created_at:
     type: datetime
     required: true
@@ -7199,6 +7202,8 @@ vat_declarations:
   id:
     type: integer
     required: true
+  invoiced_at:
+    type: datetime
   journal_entry_id:
     type: integer
     references: journal_entry
@@ -7220,6 +7225,9 @@ vat_declarations:
   stopped_on:
     type: date
     required: true
+  tax_office_id:
+    type: integer
+    references: entity
   updated_at:
     type: datetime
     required: true

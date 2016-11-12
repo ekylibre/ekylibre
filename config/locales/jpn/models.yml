@@ -1373,6 +1373,7 @@ jpn:
     variety_name: "バラエティ名"
     # vat_declaration: "Vat declaration"
     # vat_declaration_item: "Vat declaration item"
+    # vat_declarations: "Vat declarations"
     # vat_mode: "Vat mode"
     vat_number: "VAT番号"
     # vat_period: "Vat period"

@@ -23,12 +23,14 @@
 # == Table: vat_declarations
 #
 #  accounted_at      :datetime
+#  affair_id         :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string           not null
 #  description       :text
 #  financial_year_id :integer          not null
 #  id                :integer          not null, primary key
+#  invoiced_at       :datetime
 #  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
 #  number            :string
@@ -37,6 +39,7 @@
 #  started_on        :date             not null
 #  state             :string
 #  stopped_on        :date             not null
+#  tax_office_id     :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #

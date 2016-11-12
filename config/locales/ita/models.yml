@@ -1404,6 +1404,7 @@ ita:
     variety_name: "Nomi di varietà"
     # vat_declaration: "Vat declaration"
     # vat_declaration_item: "Vat declaration item"
+    # vat_declarations: "Vat declarations"
     # vat_mode: "Vat mode"
     vat_number: "Partita IVA"
     # vat_period: "Vat period"

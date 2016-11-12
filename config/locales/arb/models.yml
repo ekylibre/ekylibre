@@ -2362,6 +2362,7 @@ arb:
     variety_name: "اسم متنوعة"
     # vat_declaration: "Vat declaration"
     # vat_declaration_item: "Vat declaration item"
+    # vat_declarations: "Vat declarations"
     # vat_mode: "Vat mode"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_period: "Vat period"

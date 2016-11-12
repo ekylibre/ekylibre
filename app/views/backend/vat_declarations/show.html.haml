@@ -24,3 +24,6 @@
         %th{colspan: 5}
         %td= resource.deductible_vat_amount_balance.l(currency: resource.currency)
         %td= resource.collected_vat_amount_balance.l(currency: resource.currency)
+
+  -# c.cobble :affair do
+    = affair_of(resource, default: 'OutgoingPayment')

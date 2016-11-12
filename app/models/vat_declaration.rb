@@ -23,12 +23,14 @@
 # == Table: vat_declarations
 #
 #  accounted_at      :datetime
+#  affair_id         :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string           not null
 #  description       :text
 #  financial_year_id :integer          not null
 #  id                :integer          not null, primary key
+#  invoiced_at       :datetime
 #  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
 #  number            :string
@@ -37,6 +39,7 @@
 #  started_on        :date             not null
 #  state             :string
 #  stopped_on        :date             not null
+#  tax_office_id     :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
@@ -48,9 +51,10 @@ class VatDeclaration < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :responsible, class_name: 'User'
+  belongs_to :tax_office, class_name: 'Entity'
   has_many :items, class_name: 'VatDeclarationItem', dependent: :destroy, inverse_of: :vat_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :invoiced_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :financial_year, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
@@ -61,6 +65,7 @@ class VatDeclaration < Ekylibre::Record::Base
   validates_associated :items
 
   acts_as_numbered
+  # acts_as_affairable :tax_office
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:tax_id].blank? && item[:tax].blank? }, allow_destroy: true
 
   delegate :vat_mode, :vat_period, to: :financial_year
@@ -109,10 +114,13 @@ class VatDeclaration < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
+    # FIXME : add vat journal in default journal
     vat_journal = Journal.create_with(name: :vat.tl).find_or_create_by!(nature: 'various', code: 'VAT', currency: self.currency)
+    # FIXME : put account in tax_office entity
     credit_vat_account = Account.find_or_create_by_number(45567)
     debit_vat_account = Account.find_or_create_by_number(44551)
-    b.journal_entry(vat_journal, printed_on: accounted_at.to_date, if: (has_content? && validated?)) do |entry|
+    b.journal_entry(vat_journal, printed_on: invoiced_on, if: (has_content? && validated?)) do |entry|
+      # FIXME add correct label on bookkeep
       label = tc(:bookkeep, resource: state_label, number: number)
       items.each do |item|
         entry.add_debit(label, item.tax.collect_account.id, item.collected_vat_amount.round(2)) unless item.collected_vat_amount.zero?
@@ -122,6 +130,14 @@ class VatDeclaration < Ekylibre::Record::Base
       vat_balance = items.map(&:balance).compact.sum.round(2)
       entry.add_credit(label, (vat_balance < 0 ? credit_vat_account : debit_vat_account), vat_balance) unless vat_balance.zero?
     end
+  end
+  
+  def invoiced_on
+    dealt_at.to_date
+  end
+
+  def dealt_at
+    (validated? ? invoiced_at : created_at? ? self.created_at : Time.zone.now)
   end
 
   def status
