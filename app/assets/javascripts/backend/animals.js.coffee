@@ -146,6 +146,11 @@
 
   $(document).on 'click', 'a[data-toggle=dialog]', (e) =>
 
+    dropdown = $(e.currentTarget).closest('.dropdown-menu').siblings('.dropdown-toggle')
+
+    if dropdown?
+      dropdown.dropdown('toggle')
+
     E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters'), reference_name: $(e.currentTarget).data('reference-name')}),
       returns:
         success: (frame, data, status, request) ->
