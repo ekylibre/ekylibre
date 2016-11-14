@@ -4,11 +4,10 @@
 = backend_form_for(resource, options) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
-  - if with_continue && params[:continue]
+  - if local_assigns[:with_continue] && params[:continue]
     - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
-
   - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
-  - if with_continue && !params[:continue]
+  - if local_assigns[:with_continue] && !params[:continue]
     - f.add(:submit, :create_and_continue.tl, data: { disable_with: :please_wait.tl }, class: 'primary', name: :create_and_continue)
 
   = f.fields

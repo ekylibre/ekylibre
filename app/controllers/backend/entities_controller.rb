@@ -23,7 +23,7 @@ module Backend
                      country: 'Preference[:country]'.c,
                      active: true,
                      scope: :normal,
-                     continue: true,
+                     continue: [:nature],
                      t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 

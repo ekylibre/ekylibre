@@ -26,10 +26,10 @@ module RestfullyManageable
         end
       end
 
-      notify = true
+      notify_after_save = true
       if after_save_url == :show
         after_save_url = "{ action: :show, id: 'id'.c }".c
-        notify = false
+        notify_after_save = false
       elsif after_save_url == :index
         after_save_url = '{ action: :index }'.c
       elsif after_save_url.is_a?(CodeString)
@@ -50,7 +50,7 @@ module RestfullyManageable
                                  :back
                                end
       locals = ["cancel_url: #{options[:cancel_url].inspect}"]
-      locals << 'with_continue: ' + (options[:continue].is_a?(TrueClass) ? 'true' : 'false')
+      locals << 'with_continue: ' + (options[:continue] ? 'true' : 'false')
       render_form_options << 'locals: { ' + locals.join(', ') + ' }'
       render_form = 'render(' + render_form_options.join(', ') + ')'
 
@@ -162,9 +162,15 @@ module RestfullyManageable
         code << "def create\n"
         # code << "  raise params.inspect.red\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
-        code << "  return if save_and_redirect(@#{record_name}, url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || (#{after_save_url})))"
+        continue_url_options = { action: :new, continue: true }
+        if options[:continue].is_a?(Array)
+          options[:continue].each do |d|
+            continue_url_options[d] = "@#{record_name}.#{d}".c
+          end
+        end
+        code << "  return if save_and_redirect(@#{record_name}, url: (params[:create_and_continue] ? #{continue_url_options.inspect} : (params[:redirect] || (#{after_save_url})))"
         notification_message = ':record_x_created'
-        code << if notify
+        code << if notify_after_save
                   ", notify: #{notification_message}"
                 else
                   ", notify: ((params[:create_and_continue] || params[:redirect]) ? #{notification_message} : false)"
@@ -191,7 +197,7 @@ module RestfullyManageable
         code << "  @#{record_name}.attributes = permitted_params\n"
         code << "  return if save_and_redirect(@#{record_name}, url: params[:redirect] || (#{after_save_url})"
         notification_message = ':record_x_updated'
-        code << if notify
+        code << if notify_after_save
                   ", notify: #{notification_message}"
                 else
                   ", notify: (params[:redirect] ? #{notification_message} : false)"
