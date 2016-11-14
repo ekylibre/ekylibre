@@ -59,6 +59,17 @@ module CobblesHelper
     def each(&block)
       @items.each(&block)
     end
+
+    def view_addons(options = {})
+      return nil unless options[:controller].present?
+
+      options[:action] ||= :index
+      options[:context] = :cobble
+
+      Ekylibre::Plugin.find_addons(options).each do |addon|
+        @template.render partial: addon, locals: { c: self }
+      end
+    end
   end
 
   # Cobbles are a simple layout with all cobble in one list.
@@ -68,6 +79,9 @@ module CobblesHelper
     config = YAML.load(current_user.preference("cobbler.#{name}", {}.to_yaml).value).deep_symbolize_keys
     cobbler = Cobbler.new(self, name, order: config[:order])
     yield cobbler
+
+    cobbler.view_addons controller: controller_name, action: action_name
+
     if cobbler.any?
       cobbler.sort!
       render 'cobbles', cobbler: cobbler
