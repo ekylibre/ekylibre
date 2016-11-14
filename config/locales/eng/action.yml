@@ -1943,6 +1943,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    # host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
     permanent_stock_inventory: "Permanent stock inventory mode"
