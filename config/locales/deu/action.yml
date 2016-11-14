@@ -836,6 +836,7 @@ deu:
     counts: "zählt"
     counts_by_nature: "Anzahl der Dokumente pro Typ zu berücksichtigen"
     create: "Erstellen"
+    create_and_continue: "Erstellen und weiter"
     create_journal: "Erstellen Zeitschrift - -"
     create_or_import_equipments: "Erstellen oder importieren Ausrüstungen"
     create_or_import_incoming_parcels: "Erstellen oder importieren eingehenden Pakete"

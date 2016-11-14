@@ -902,6 +902,7 @@ ita:
     counts: "Conti"
     counts_by_nature: "Numero di documenti per conto per tipo"
     create: "Creare"
+    create_and_continue: "Creare e continuare"
     create_journal: "- Creare Journal -"
     create_or_import_equipments: "Creare o apparecchiature di importazione"
     create_or_import_incoming_parcels: "Creare o importare i pacchi in arrivo"

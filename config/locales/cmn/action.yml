@@ -836,6 +836,7 @@ cmn:
     counts: "计数"
     counts_by_nature: "文档每个类型账户号码"
     create: "创建"
+    create_and_continue: "创造并延续"
     create_journal: "- 创建日记 -"
     create_or_import_equipments: "创建或进口设备"
     create_or_import_incoming_parcels: "创建或导入进来的包裹"

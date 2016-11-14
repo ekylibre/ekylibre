@@ -932,6 +932,7 @@ spa:
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     create: "Crear"
+    create_and_continue: "Crear y seguir"
     create_journal: "-- Crear el periodico --"
     create_or_import_equipments: "Crear o equipos de importación"
     create_or_import_incoming_parcels: "Crear o importar los paquetes entrantes"

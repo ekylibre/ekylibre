@@ -841,6 +841,7 @@ por:
     # counts: "Counts"
     counts_by_nature: "Número de documentos a conta por tipo"
     create: "Crio"
+    create_and_continue: "Criar e continuar"
     create_journal: "- Criar diário -"
     create_or_import_equipments: "Criar ou equipamentos de importação"
     create_or_import_incoming_parcels: "Criar ou importar encomendas recebidas"

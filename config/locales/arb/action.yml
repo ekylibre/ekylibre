@@ -1151,6 +1151,7 @@ arb:
     counts: "التهم"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
+    create_and_continue: "إنشاء ومتابعة"
     create_journal: "-- انشاء دفتر يومي --"
     create_or_import_equipments: "إنشاء أو المعدات استيراد"
     create_or_import_incoming_parcels: "إنشاء أو استيراد الطرود الواردة"
@@ -2444,6 +2445,8 @@ arb:
       record_has_been_imported: "تم استيراد سجل"
       record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح" #?
       record_not_found: "سجل لم يتم العثور"
+      # record_x_created: "%{record} %{name} created"
+      # record_x_updated: "%{record} %{name} updated"
       restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}" #?
       sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
       sale_cannot_be_updated: "الطلب غير قابل للتعديل" #?

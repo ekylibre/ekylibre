@@ -1030,6 +1030,7 @@ fra:
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
+    create_and_continue: "Créer et saisir suivant"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"

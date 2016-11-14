@@ -133,9 +133,13 @@ module Backend
             head :ok
             return true
           end
-
-          notify_success options[:notify] if options[:notify]
-
+          if options[:notify]
+            model = record.class
+            notify_success(options[:notify],
+                           record: model.model_name.human,
+                           column: model.human_attribute_name(options[:identifier]),
+                           name: record.send(options[:identifier]))
+          end
           url = options[:url]
           record.reload
           if url.is_a? Hash

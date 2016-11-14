@@ -6,7 +6,7 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = controller_name
       path = controller_path
-      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier)
+      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -49,7 +49,9 @@ module RestfullyManageable
                                else
                                  :back
                                end
-      render_form_options << "locals: { cancel_url: #{options[:cancel_url].inspect} }"
+      locals = ["cancel_url: #{options[:cancel_url].inspect}"]
+      locals << 'with_continue: ' + (options[:continue].is_a?(TrueClass) ? 'true' : 'false')
+      render_form_options << 'locals: { ' + locals.join(', ') + ' }'
       render_form = 'render(' + render_form_options.join(', ') + ')'
 
       after_save_url ||= options[:cancel_url].inspect
@@ -160,13 +162,14 @@ module RestfullyManageable
         code << "def create\n"
         # code << "  raise params.inspect.red\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
-        code << "  return if save_and_redirect(@#{record_name}, url: params[:redirect] || (#{after_save_url})"
-        notification_message = ":record_x_created.tn(record: #{model.name}.model_name.human, name: @#{record_name}.#{options[:identifier]}, column: #{model.name}.human_attribute_name(#{options[:identifier].inspect}))"
+        code << "  return if save_and_redirect(@#{record_name}, url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || (#{after_save_url})))"
+        notification_message = ':record_x_created'
         code << if notify
                   ", notify: #{notification_message}"
                 else
-                  ", notify: (params[:redirect] ? #{notification_message} : false)"
+                  ", notify: ((params[:create_and_continue] || params[:redirect]) ? #{notification_message} : false)"
                 end
+        code << ", identifier: :#{options[:identifier]}"
         code << ")\n"
         code << "  #{t3e_code}\n" if creation_t3e
         code << "  #{render_form}\n"
@@ -187,12 +190,13 @@ module RestfullyManageable
         code << "  #{t3e_code}\n"
         code << "  @#{record_name}.attributes = permitted_params\n"
         code << "  return if save_and_redirect(@#{record_name}, url: params[:redirect] || (#{after_save_url})"
-        notification_message = ":record_x_updated.tn(record: #{model.name}.model_name.human, name: @#{record_name}.#{options[:identifier]}, column: #{model.name}.human_attribute_name(#{options[:identifier].inspect}))"
+        notification_message = ':record_x_updated'
         code << if notify
                   ", notify: #{notification_message}"
                 else
                   ", notify: (params[:redirect] ? #{notification_message} : false)"
                 end
+        code << ", identifier: :#{options[:identifier]}"
         code << ")\n"
         code << "  #{render_form}\n"
         code << "end\n"
