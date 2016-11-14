@@ -35,7 +35,7 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
                     '         CURRENT_TIMESTAMP,' \
                     '         CURRENT_TIMESTAMP'
           end
-          account_id = execute("SELECT * FROM accounts WHERE accounts.name = '#{account_number}'").to_a.first["id"]
+          account_id = execute("SELECT * FROM accounts WHERE accounts.name = '#{account_number}'").to_a.first['id']
 
           # Find storable categories w/o accounts
           execute 'UPDATE product_nature_categories' \
