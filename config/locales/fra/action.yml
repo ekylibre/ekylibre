@@ -959,6 +959,7 @@ fra:
     choices: "Choix"
     choose_a_type_of_product: "Choisissez un type de produit"
     choose_creation_mode: "Choisissez un mode de création"
+    choose_delete_interventions_options: "Vous souhaitez :"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
     choose_options_is_needed: "Veuillez choisir le statut sur lequel les interventions suivantes vont être affectées :"
     city_name: "Ville" #?
@@ -1030,6 +1031,7 @@ fra:
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
+    create_and_continue: "Créer et saisir suivant"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -1086,6 +1088,12 @@ fra:
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
+    delete_only_record:  #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
+      one: "Ou supprimer uniquement l'intervention" #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
+      other: "Ou supprimer uniquement les interventions" #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
+    delete_request:  #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
+      one: "Supprimer l'intervention et la demande associée" #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
+      other: "Supprimer les interventions et les demandes associées" #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
     delete_selected_interventions: "Supprimer les interventions sélectionnées"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
@@ -1262,7 +1270,7 @@ fra:
     import_backup: "Import de fichier de sauvegarde" #?
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
-    in_progress: "En cours" #?
+    in_progress: "En cours"
     inactive: "Inactif"
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
@@ -2346,6 +2354,8 @@ fra:
       record_has_been_imported: "L’enregistrement a été importé"
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       record_not_found: "Enregistrement introuvable"
+      record_x_created: "%{record} %{name} créé"
+      record_x_updated: "%{record} %{name} mise à jour"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?

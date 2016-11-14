@@ -161,6 +161,10 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
+    unless params[:cultivable_zone_id].blank?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
+    end
+
     unless params[:period_interval].blank? && params[:period].blank?
 
       period_interval = params[:period_interval]
@@ -189,7 +193,7 @@ class Intervention < Ekylibre::Record::Base
     unless params[:nature].blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.request_intervention_id IS NULL"
+        search_params << "#{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
       end
     end
 
@@ -224,7 +228,7 @@ class Intervention < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
-      self.actions = procedure.actions.map(&:name) if actions && actions.empty?
+      self.actions = procedure.mandatory_actions.map(&:name) if actions && actions.empty?
     end
     true
   end
@@ -273,27 +277,27 @@ class Intervention < Ekylibre::Record::Base
   # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
   # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory] && nature == :record
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
-      # inputs
-      if inputs.any?
-        for input in inputs
-          label = tc(:bookkeep, resource: name, name: input.product.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
-            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-          end
-        end
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+
+    list = []
+    if Preference[:permanent_stock_inventory] && record?
+      write_parameter_entry_items = lambda do |parameter, input|
+        variant      = parameter.variant
+        stock_amount = parameter.stock_amount.round(2)
+        next unless parameter.product_movement && stock_amount.nonzero?
+        label = tc(:bookkeep, resource: name, name: parameter.product.name)
+        debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
+        credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
+        list << [:add_debit, label, debit_account, stock_amount]
+        list << [:add_credit, label, credit_account, stock_amount]
       end
-      # outputs
-      if outputs.any?
-        for output in outputs
-          label = tc(:bookkeep, resource: name, name: output.variant.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
-            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-          end
-         end
+      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
+      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
+    end
+
+    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
+      list.each do |item|
+        entry.send(*item)
       end
     end
   end
