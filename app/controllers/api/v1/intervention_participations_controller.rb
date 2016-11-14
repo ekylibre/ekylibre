@@ -6,11 +6,7 @@ module Api
         params = permitted_params
         return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank?
 
-        if params[:request_intervention_id]
-          intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
-        else
-          # intervention = InterventionOutline.create!(state: :done, procedure_name: params[:procedure_name])
-        end
+        intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
         intervention.creator_id = current_user
         intervention.created_at = Time.zone.now
         intervention.save!
