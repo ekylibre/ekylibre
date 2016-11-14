@@ -129,8 +129,9 @@ module ActionIntegration
     class << self
 
       # TODO: fetch shouldn't raise exceptions, fetch! does
-      def fetch
-        integration ||= ::Integration.find_by(nature: integration_name.underscore)
+      def fetch(local_name = nil)
+
+        integration ||= ::Integration.find_by(nature: (local_name || integration_name).underscore)
 
         raise ServiceNotIntegrated unless integration
         parameters.each do |p|
