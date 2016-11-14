@@ -168,6 +168,9 @@ module Backend
     # Show one animal with params_id
     def show
       return unless @animal = find_and_check
+      #TODO: remove it. On animal show dialog (Golumn), add issue. Break redirect on submit.
+      params.delete('dialog')
+
       t3e @animal, nature: @animal.nature_name
       respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
                                                                                           { readings: {} },

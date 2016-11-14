@@ -160,6 +160,9 @@
         invalid: (frame, data, status, request) ->
           frame.html request.responseText
           return
+
+    window.app.resetSelectedItems()
+
     false
 
   @onLoad = ->
