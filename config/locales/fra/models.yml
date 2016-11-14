@@ -151,6 +151,7 @@ fra:
       sale_nature:
         downpayment: "Avec acompte"
       synchronization_operation:
+        human_message: "Message d'erreur"
         operation_name: "Nom de l'opération"
         request: "Requête"
         response: "Réponse"

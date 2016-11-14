@@ -47,6 +47,7 @@ spa:
       sale_nature:
         downpayment: "Solicitud de pago inicial"
       synchronization_operation:
+        # human_message: "Error message"
         # operation_name: "Operation name"
         # request: "Request"
         # response: "Response"

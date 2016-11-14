@@ -47,6 +47,7 @@ cmn:
       sale_nature:
         downpayment: "首期申请"
       synchronization_operation:
+        # human_message: "Error message"
         # operation_name: "Operation name"
         # request: "Request"
         # response: "Response"
