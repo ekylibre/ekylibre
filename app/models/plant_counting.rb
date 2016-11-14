@@ -44,10 +44,12 @@ class PlantCounting < Ekylibre::Record::Base
   belongs_to :plant
   belongs_to :plant_density_abacus
   belongs_to :plant_density_abacus_item
+  has_one :activity, through: :plant_density_abacus
   has_many :items, class_name: 'PlantCountingItem', dependent: :delete_all, inverse_of: :plant_counting
   enumerize :nature, in: [:sowing, :germination]
 
   validates :nature, presence: true
+  validates :rows_count, numericality: { greater_than: 0 }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :average_value, :working_width_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
@@ -58,7 +60,7 @@ class PlantCounting < Ekylibre::Record::Base
   # ]VALIDATORS]
   acts_as_numbered
 
-  delegate :activity, :sower, :last_sowing, to: :plant, prefix: true
+  delegate :sower, :last_sowing, to: :plant, prefix: true
   delegate :germination_percentage, :sampling_length_unit, :seeding_density_unit, to: :plant_density_abacus
   delegate :seeding_density_value, :plants_count, to: :plant_density_abacus_item
   accepts_nested_attributes_for :items
@@ -118,7 +120,8 @@ class PlantCounting < Ekylibre::Record::Base
 
   def implanter_working_width
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless working_width_value || plant_sower.present?
-    (working_width_value && working_width_value.in(:meter)) || plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
+    width = (working_width_value && working_width_value.in(:meter)) || plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
+    width / rows_count
   end
 
   def rows_count

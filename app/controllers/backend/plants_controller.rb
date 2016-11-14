@@ -35,8 +35,8 @@ module Backend
 
     list :plant_countings do |t|
       t.column :number, url: true
-      t.status
-      t.column :read_at
+      t.status label: :state
+      t.column :read_at, label: :date
     end
   end
 end

@@ -110,15 +110,18 @@ fra:
         reproductor: "Multiplication" #?
         variety: "Variété" #?
       plant_counting:
-        plants_count: "Nombre de plants" #?
+        nature: "Comptage réalisé"
+        plant: "Produit"
+        plant_activity: "Activité"
+        plants_count: "Nombre de graines comptées" #?
         rows_count_value: "Nombre de rangs"
-        seeding_density_value: "Densité de semis" #?
+        seeding_density_value: "Densité réelle" #?
         working_width_value: "Largeur de l'outil de semis"
       plant_counting_item:
         value: "Nombre de plants"
       plant_density_abacus_item:
-        plants_count: "Nombre théorique de plants"
-        seeding_density_value: "Densité théorique de semis"
+        plants_count: "Nombre théorique de graines"
+        seeding_density_value: "Densité théorique"
       product_localization:  #?
         container: "Contenant" #?
         started_at: "Entrée" #?
@@ -1252,7 +1255,7 @@ fra:
     plant_countings: "Comptages"
     plant_density_abaci: "Abaques de densité de plant"
     plant_density_abacus: "Abaque de densité de plant"
-    plant_density_abacus_item: "Référence de densité"
+    plant_density_abacus_item: "Densité théorique de semis"
     plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"

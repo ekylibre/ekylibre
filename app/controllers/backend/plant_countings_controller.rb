@@ -7,7 +7,8 @@ module Backend
       t.action :destroy
       t.column :number, url: true
       t.column :plant, url: true
-      t.column :read_at, datatype: :datetime
+      t.column :activity, url: true
+      t.column :read_at, label: :date, datatype: :datetime
     end
 
     def show
