@@ -1577,6 +1577,9 @@ crumbs:
   intervention_parameter_id:
     type: integer
     references: intervention_parameter
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
@@ -4862,12 +4865,18 @@ plant_countings:
     required: true
   read_at:
     type: datetime
+  rows_count_value:
+    type: integer
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+  working_width_value:
+    type: decimal
+    precision: 19
+    scale: 4
 plant_density_abaci:
   activity_id:
     type: integer

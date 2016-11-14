@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1594,7 +1594,8 @@ CREATE TABLE crumbs (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_parameter_id integer,
-    device_uid character varying NOT NULL
+    device_uid character varying NOT NULL,
+    intervention_participation_id integer
 );
 
 
@@ -9782,6 +9783,13 @@ CREATE INDEX index_crumbs_on_intervention_parameter_id ON crumbs USING btree (in
 
 
 --
+-- Name: index_crumbs_on_intervention_participation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crumbs_on_intervention_participation_id ON crumbs USING btree (intervention_participation_id);
+
+
+--
 -- Name: index_crumbs_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16067,4 +16075,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161106140253');
 INSERT INTO schema_migrations (version) VALUES ('20161107065331');
 
 INSERT INTO schema_migrations (version) VALUES ('20161108140009');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114090612');
 

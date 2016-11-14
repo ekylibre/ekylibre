@@ -36,10 +36,12 @@
 class InterventionParticipation < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :product
+
   has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy
+  has_many :crumbs, dependent: :destroy
 
   validates :product_id, presence: true
-  validates :intervention_id, uniqueness: { scope: [:product_id] }
+  validates :intervention_id, uniqueness: { scope: [:product_id] }, unless: -> { intervention_id.blank? }
   validates :state, presence: true
   enumerize :state, in: [:in_progress, :done, :validated]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -47,7 +49,11 @@ class InterventionParticipation < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_save do
-    intervention.update_state(id => state)
-    intervention.update_compliance(id => request_compliant)
+    if intervention.present?
+      intervention.update_state(id => state)
+      intervention.update_compliance(id => request_compliant)
+    end
   end
+
+  scope :unprompted, -> { where(intervention_id: nil) }
 end

@@ -22,25 +22,27 @@
 #
 # == Table: crumbs
 #
-#  accuracy                  :decimal(19, 4)   not null
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  device_uid                :string           not null
-#  geolocation               :geometry({:srid=>4326, :type=>"point"}) not null
-#  id                        :integer          not null, primary key
-#  intervention_parameter_id :integer
-#  lock_version              :integer          default(0), not null
-#  metadata                  :text
-#  nature                    :string           not null
-#  read_at                   :datetime         not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  user_id                   :integer
+#  accuracy                      :decimal(19, 4)   not null
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  device_uid                    :string           not null
+#  geolocation                   :geometry({:srid=>4326, :type=>"point"}) not null
+#  id                            :integer          not null, primary key
+#  intervention_parameter_id     :integer
+#  intervention_participation_id :integer
+#  lock_version                  :integer          default(0), not null
+#  metadata                      :text
+#  nature                        :string           not null
+#  read_at                       :datetime         not null
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
+#  user_id                       :integer
 #
 
 class Crumb < Ekylibre::Record::Base
   enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop], predicates: true
   belongs_to :user
+  belongs_to :intervention_participation
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'
   has_one :worker, through: :user
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
