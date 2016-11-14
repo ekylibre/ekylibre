@@ -289,13 +289,13 @@ class Intervention < Ekylibre::Record::Base
         credit_acc  = input ? variant.stock_account_id : variant.stock_movement_account_id
 
         unless stock.zero?
-          entry.add_debit(  label,  debit_acc, stock)
-          entry.add_credit( label, credit_acc, stock)
+          entry.add_debit(label, debit_acc, stock)
+          entry.add_credit(label, credit_acc, stock)
         end
       end
     end
 
-    inputs.each   { |input|   write_journal_entry.call(input,  input: true ) }
+    inputs.each   { |input|   write_journal_entry.call(input,  input: true) }
     outputs.each  { |output|  write_journal_entry.call(output, input: false) }
   end
 

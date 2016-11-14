@@ -266,7 +266,7 @@ module Backend
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
 
-        if params[:modal_type] == "delete"
+        if params[:modal_type] == 'delete'
           render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
         else
           render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
@@ -287,7 +287,6 @@ module Backend
 
       Intervention.transaction do
         @interventions.each do |intervention|
-
           if intervention.nature == :record && new_state == :rejected
 
             unless intervention.request_intervention_id.nil?
