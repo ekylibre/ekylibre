@@ -41,7 +41,7 @@ module ToolbarHelper
           modal_id = nature.name.to_s + '-exporting'
           if Document.of(nature.name, key).any?
             @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id)
-            menu.item nature.human_name, '#' + modal_id, data: {toggle: 'modal'}
+            menu.item nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
           else
             DocumentTemplate.of_nature(nature.name).each do |template|
               menu.item(template.name, @template.params.merge(format: :pdf, template: template.id, key: key))
@@ -78,10 +78,10 @@ module ToolbarHelper
     def destroy(options = {})
       if @template.resource
         if @template.resource.destroyable?
-          tool(options[:label] || :destroy.ta, {action: :destroy, id: @template.resource.id, redirect: options[:redirect]}, method: :delete, data: {confirm: :are_you_sure_you_want_to_delete.tl})
+          tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
         end
       else
-        tool(options[:label] || :destroy.ta, {action: :destroy, redirect: options[:redirect]}, {method: :delete}.merge(options.except(:redirect, :label)))
+        tool(options[:label] || :destroy.ta, { action: :destroy, redirect: options[:redirect] }, { method: :delete }.merge(options.except(:redirect, :label)))
       end
     end
 
@@ -119,7 +119,7 @@ module ToolbarHelper
       options[:context] = :toolbar
 
       Ekylibre::Plugin.find_addons(options).collect do |addon|
-        @template.render partial: addon, locals: {t: self}
+        @template.render partial: addon, locals: { t: self }
       end
     end
 

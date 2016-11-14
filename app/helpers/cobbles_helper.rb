@@ -60,7 +60,6 @@ module CobblesHelper
       @items.each(&block)
     end
 
-
     def view_addons(options = {})
       return nil unless options[:controller].present?
 
@@ -68,10 +67,9 @@ module CobblesHelper
       options[:context] = :cobble
 
       Ekylibre::Plugin.find_addons(options).each do |addon|
-        @template.render partial: addon, locals: {c: self}
+        @template.render partial: addon, locals: { c: self }
       end
     end
-
   end
 
   # Cobbles are a simple layout with all cobble in one list.
