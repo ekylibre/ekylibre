@@ -179,7 +179,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on "keyup change", ".nested-fields.working-period:first-child input.intervention-started-at", ->
+  $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 

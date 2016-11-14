@@ -18,7 +18,8 @@
 
 module Backend
   class PurchasesController < Backend::BaseController
-    manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
+    manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
+                     except: :new, continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -147,6 +148,7 @@ module Backend
       if address = Entity.of_company.default_mail_address
         @purchase.delivery_address = address
       end
+      render locals: { with_continue: true }
     end
 
     def abort

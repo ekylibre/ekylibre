@@ -933,6 +933,7 @@ spa:
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     create: "Crear"
+    create_and_continue: "Crear y seguir"
     create_journal: "-- Crear el periodico --"
     create_or_import_equipments: "Crear o equipos de importación"
     create_or_import_incoming_parcels: "Crear o importar los paquetes entrantes"
@@ -2004,6 +2005,8 @@ spa:
       record_has_been_imported: "El registro ha sido importado"
       record_has_not_been_removed: "El registro no puede ser suprimido" #?
       record_not_found: "Registro no encontrado"
+      record_x_created: "%{record} %{name} creado"
+      record_x_updated: "%{record} %{name} actualizado"
       restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}" #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "El presupuesto ya no esta modificable." #?
