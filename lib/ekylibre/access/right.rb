@@ -10,12 +10,16 @@ module Ekylibre
         @actions      = []
         @dependencies = []
         @origin = options[:origin] || :unknown
-        options[:dependencies].each do |dependency|
-          add_dependency(dependency)
-        end if options[:dependencies]
-        options[:actions].each do |action|
-          add_action(action)
-        end if options[:actions]
+        if options[:dependencies]
+          options[:dependencies].each do |dependency|
+            add_dependency(dependency)
+          end
+        end
+        if options[:actions]
+          options[:actions].each do |action|
+            add_action(action)
+          end
+        end
       end
 
       # Add an access right action

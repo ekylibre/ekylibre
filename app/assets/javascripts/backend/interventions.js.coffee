@@ -140,6 +140,12 @@
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
+    hideKujakuFilters: (hideFilters) ->
+      if hideFilters
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
+      else
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
+
 
   ##############################################################################
   # Triggers
@@ -177,7 +183,13 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
+  $(document).on "click", '.view-toolbar a', (event) ->
+    E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
+
+
   $(document).ready ->
+
+    E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
     if $('.taskboard').length > 0
 
@@ -242,30 +254,74 @@
 
       instance = this
 
-      $(document).on('confirm:complete', (event, answer) ->
+      $('.delete-tasks').on('click', (event) ->
 
-        if ($(event.target).find('.delete-tasks').length == 0 || !answer)
+        ekylibre.stopEvent(event)
+
+        confirmMessage = $(event.target).attr('data-confirm')
+        answer = confirm(confirmMessage);
+
+        if !answer
           return
 
-
+        displayDeleteModal = true
         columnSelector = event.target
         interventionsIds = instance._getSelectedInterventionsIds(columnSelector)
 
-        $.ajax
-          method: 'POST'
-          url: "/backend/interventions/change_state",
-          data: {
-            'intervention': {
-              interventions_ids: JSON.stringify(interventionsIds),
-              state: 'rejected'
-            }
-          }
-          success: (data, status, request) ->
+        tasksWithAttribute = instance.getTaskboard().getColumnTasksFilledDataAttribute(columnSelector, 'data-request-intervention-id')
 
-            selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
-            selectedTasks.remove()
+        if (!tasksWithAttribute || tasksWithAttribute.length == 0)
+          displayDeleteModal = false
+        else
+          tasksWithAttribute.each((index, taskWithAttribute) ->
+
+            attributeValue = $(taskWithAttribute).attr('data-request-intervention-id')
+            tasksWithThisAttributeValue = instance.getTaskboard().getColumnTasksByDataAttributeValue(columnSelector, 'data-request-intervention-id', attributeValue)
+
+            if (tasksWithThisAttributeValue && tasksWithThisAttributeValue.length > 1)
+              displayDeleteModal = false
+          )
+
+        if (displayDeleteModal)
+          $.ajax
+            url: "/backend/interventions/modal",
+            data: {modal_type: "delete", interventions_ids: interventionsIds}
+            success: (data, status, request) ->
+
+              instance._displayModalWithContent(data)
+        else
+          instance._removeInterventions(columnSelector, interventionsIds)
 
       )
+
+    _removeInterventions: (columnSelector, interventionsIds) ->
+
+      instance = this
+
+      $.ajax
+        method: 'POST'
+        url: "/backend/interventions/change_state",
+        data: {
+          'intervention': {
+            interventions_ids: JSON.stringify(interventionsIds),
+            state: 'rejected'
+          }
+        }
+        success: (data, status, request) ->
+
+          selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
+          selectedTasks.remove()
+
+          titleElement = $(columnSelector).closest('.taskboard-header').find('.title')
+          columnTitle = titleElement.text()
+          beginInterventionCount = columnTitle.indexOf("(") + 1
+          columnInterventionCount = columnTitle.slice(beginInterventionCount, -1)
+          newInterventionCount = parseInt(columnInterventionCount) - interventionsIds.length
+          newColumnTitle = columnTitle.slice(0, beginInterventionCount) + newInterventionCount+")"
+          titleElement.text(newColumnTitle)
+
+          if newInterventionCount == 0
+            $(columnSelector).closest('.taskboard-column').find('.tasks').remove()
 
 
     _getSelectedInterventionsIds: (columnSelector) ->

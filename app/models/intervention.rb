@@ -161,6 +161,10 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
+    unless params[:cultivable_zone_id].blank?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
+    end
+
     unless params[:period_interval].blank? && params[:period].blank?
 
       period_interval = params[:period_interval]
@@ -185,10 +189,11 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
+    # CAUTION: params[:nature] is not used as in controller list filter
     unless params[:nature].blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.request_intervention_id IS NULL"
+        search_params << "#{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
       end
     end
 
@@ -424,10 +429,12 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: (stopped_at && started_at ? (stopped_at - started_at).to_i : 0)
     )
-    event.update_columns(
-      started_at: self.started_at,
-      stopped_at: self.stopped_at
-    ) if event
+    if event
+      event.update_columns(
+        started_at: self.started_at,
+        stopped_at: self.stopped_at
+      )
+    end
     outputs.find_each do |output|
       product = output.product
       next unless product
@@ -560,18 +567,20 @@ class Intervention < Ekylibre::Record::Base
     working_periods.create!(started_at: started_at, stopped_at: stopped_at)
   end
 
-  def update_state(additional_state = nil)
-    return unless participations.any? || !additional_state.nil?
-    states = participations.pluck(:state).concat([additional_state]).map(&:to_sym).compact
-    update(state: :in_progress) if states.index(:in_progress)
-    update(state: :done) if (states - [:done]).empty?
+  def update_state(modifier = {})
+    return unless participations.any? || modifier.present?
+    states = participations.pluck(:id, :state).to_h
+    states[modifier.keys.first] = modifier.values.first
+    update(state: :in_progress) if states.values.map(&:to_sym).index(:in_progress)
+    update(state: :done) if (states.values.map(&:to_sym) - [:done]).empty?
   end
 
-  def update_compliance(additional_compliance = nil)
-    return unless participations.any? || !additional_compliance.nil?
-    compliances = participations.pluck(:request_compliant).concat([additional_compliance]).compact
-    update(request_compliant: false) if compliances.index(false)
-    update(request_compliant: true) if (compliances - [true]).empty?
+  def update_compliance(modifier = {})
+    return unless participations.any? || !modifier.nil?
+    compliances = participations.pluck(:id, :request_compliant).to_h
+    compliances[modifier.keys.first] = modifier.values.first
+    update(request_compliant: false) if compliances.values.index(false)
+    update(request_compliant: true) if (compliances.values - [true]).empty?
   end
 
   class << self
@@ -737,14 +746,14 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:purchase),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
@@ -812,14 +821,14 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:sale),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 

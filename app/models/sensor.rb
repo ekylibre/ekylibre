@@ -64,6 +64,7 @@ class Sensor < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :token, presence: { if: :listening? }
+  validates :vendor_euid, :model_euid, presence: { unless: :listening? }
 
   # TODO: Check parameters presence
 

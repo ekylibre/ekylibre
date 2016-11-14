@@ -208,14 +208,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
-    unless storable?
-      errors.add :stock_account, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
-    end
 
     category_account = category.send(account_key)
     unless category_account
       # We want to notice => raise.
-      raise :category_account, "Account is not configured for #{self.name.inspect}. You have to check category first"
+      raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
 
     options = {}

@@ -37,30 +37,6 @@ module Backend
       !find_article(name).nil?
     end
 
-    # def search_article(article = nil)
-    #   session[:help_history] = [] unless session[:help_history].is_a? [].class
-    #   article ||= "#{controller.controller_path}-#{self.action_name}"
-    #   file = nil
-    #   for locale in [I18n.locale, I18n.default_locale]
-    #     for f, attrs in Ekylibre.helps
-    #       next if attrs[:locale].to_s != locale.to_s
-    #       kontroller, aktion = article.to_s.split("-")[0..1]
-    #       possibilities = [article]
-    #       possibilities << kontroller + "-edit" if action == "update"
-    #       possibilities << kontroller + "-new" if ["create", "update", "edit"].include?(action)
-    #       possibilities << kontroller + "-index"
-    #       file_name = possibilities.detect{|name| attrs[:name]==name}
-    #       file = f and break unless file_name.blank?
-    #     end
-    #     break unless file.nil?
-    #   end
-    #   if file and session[:side] and article != session[:help_history].last
-    #     session[:help_history] << file
-    #   end
-    #   file ||= article.to_sym
-    #   return file
-    # end
-
     def article(name, options = {})
       return unless file = find_article(name)
       content = nil
@@ -71,7 +47,8 @@ module Backend
     end
 
     def help_shown?
-      !current_user.preference('interface.helps.collapsed', true, :boolean).value
+      Preference[:use_contextual_help] &&
+        !current_user.preference('interface.helps.collapsed', true, :boolean).value
     end
 
     # Open an help file and returns corresponding HTML
@@ -144,7 +121,7 @@ module Backend
         link_to(link.html_safe, url, { :remote => true, 'data-type' => :html }.merge(options)) # REMOTE
       end
 
-      for x in 1..6
+      (1..6).each do |x|
         n = 7 - x
         content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\=*/, "<h#{x}>\\1</h#{x}>")
       end
@@ -164,28 +141,8 @@ module Backend
 
       content.strip!
 
-      # raise StandardError.new content
       content.html_safe
     end
 
-    #   name = name.to_s
-    #   content = ''
-    #   file_name, locale = '', nil
-    #   for locale in [I18n.locale, I18n.default_locale]
-    #     help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
-    #     file_name = [name, name.split("-")[0].to_s << "-index"].detect do |pattern|
-    #       File.exists? help_dir.join(pattern << ".txt")
-    #     end
-    #     break unless file_name.blank?
-    #   end
-    #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s << ".txt")
-    #   if File.exists?(file_text)
-    #     File.open(file_text, 'r') do |file|
-    #       content = file.read
-    #     end
-    #     content = wikize(content, options)
-    #   end
-    #   return content
-    # end
   end
 end
