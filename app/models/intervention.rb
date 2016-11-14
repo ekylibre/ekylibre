@@ -277,26 +277,29 @@ class Intervention < Ekylibre::Record::Base
   # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
   # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
-    break unless Preference[:permanent_stock_inventory] && nature == :record
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
 
-    write_journal_entry = lamba(parameter, input: true) do
-      label = tc(:bookkeep, resource: name, name: parameter.product.name)
-      b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: parameter.product_movement) do |entry|
-        variant     = parameter.variant
-        stock       = parameter.stock_amount.round(2)
-        debit_acc   = input ? variant.stock_movement_account_id : variant.stock_account_id
-        credit_acc  = input ? variant.stock_account_id : variant.stock_movement_account_id
-
-        unless stock.zero?
-          entry.add_debit(label, debit_acc, stock)
-          entry.add_credit(label, credit_acc, stock)
-        end
+    list = []
+    if Preference[:permanent_stock_inventory] && record?
+      write_parameter_entry_items = lambda do |parameter, input|
+        variant      = parameter.variant
+        stock_amount = parameter.stock_amount.round(2)
+        next unless parameter.product_movement && stock_amount.nonzero?
+        label = tc(:bookkeep, resource: name, name: parameter.product.name)
+        debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
+        credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
+        list << [:add_debit, label, debit_account, stock_amount]
+        list << [:add_credit, label, credit_account, stock_amount]
       end
+      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
+      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
     end
 
-    inputs.each   { |input|   write_journal_entry.call(input,  input: true) }
-    outputs.each  { |output|  write_journal_entry.call(output, input: false) }
+    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
+      list.each do |item|
+        entry.send(*item)
+      end
+    end
   end
 
   def initialize_record(state: :done)
