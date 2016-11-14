@@ -46,8 +46,7 @@
 
 
           - edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :change_status_of_selected_interventions.tl })
-          - delete_icon = link_to(nil, data: {confirm: :are_you_sure.tl} ) do
-            = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :delete_selected_interventions.tl })
+          - delete_icon = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :delete_selected_interventions.tl, data: {confirm: :are_you_sure.tl} })
           - headers_actions = [edit_icon, delete_icon]
 
 

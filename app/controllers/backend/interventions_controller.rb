@@ -50,7 +50,7 @@ module Backend
       code << "  c << params[:nature]\n"
       code << "end\n"
 
-      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?)'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
       code << "c << 'request'\n"
       code << "c << 'record'\n"
 
@@ -267,7 +267,12 @@ module Backend
 
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
-        render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+
+        if params[:modal_type] == 'delete'
+          render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
+        else
+          render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+        end
       end
     end
 
@@ -285,6 +290,18 @@ module Backend
       Intervention.transaction do
         @interventions.each do |intervention|
           if intervention.nature == :record && new_state == :rejected
+
+            unless intervention.request_intervention_id.nil?
+              intervention_request = Intervention.find(intervention.request_intervention_id)
+
+              if state_change_permitted_params[:delete_option].to_sym == :delete_request
+                intervention_request.destroy!
+              else
+                intervention_request.parameters = intervention.parameters
+                intervention_request.save!
+              end
+            end
+
             intervention.destroy!
             next
           end
@@ -322,7 +339,7 @@ module Backend
     end
 
     def state_change_permitted_params
-      params.require(:intervention).permit(:interventions_ids, :state)
+      params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
     end
   end
 end
