@@ -985,7 +985,8 @@ eng:
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
-    choose_creation_mode: "Choose creation mode" #?!
+    choose_creation_mode: "Choose creation mode"
+    choose_delete_interventions_options: "Would you :"
     choose_mail_column: "Choose email column"
     choose_options_is_needed: "You must choose the status for the following interventions:"
     clear: "Clear"
@@ -1069,6 +1070,8 @@ eng:
     deformity_percentage: "Deformity (%)" #?
     deformity_percentage_evolution: "Deformity percentage evolution"
     delete: "Delete"
+    delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
+    delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
@@ -1196,6 +1199,7 @@ eng:
     implanted_at: "Implanted at" #?
     import: "Import"
     importation_explanation: "Importation explanation"
+    in_progress: "In progress" #?
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?

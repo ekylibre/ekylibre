@@ -85,6 +85,18 @@
 
       return this.getCheckedTasks(columnTasks)
 
+    getColumnTasksFilledDataAttribute: (selector, dataAttribute) ->
+      columnIndex = this.getColumnIndex(selector)
+      columnTasks = this.getTasksByIndex(columnIndex)
+
+      return columnTasks.find(".task").not('['+dataAttribute+'=""]')
+
+    getColumnTasksByDataAttributeValue: (selector, dataAttribute, dataAttributeValue) ->
+      columnIndex = this.getColumnIndex(selector)
+      columnTasks = this.getTasksByIndex(columnIndex)
+
+      return columnTasks.find(".task").filter('['+dataAttribute+'="'+dataAttributeValue+'"]')
+
     getTaskColors: (taskSelector) ->
       return $(taskSelector).find('.task-colors')
 

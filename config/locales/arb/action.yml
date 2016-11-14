@@ -1098,6 +1098,7 @@ arb:
     choices: "خيارات"
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
+    # choose_delete_interventions_options: "Would you :"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
     choose_options_is_needed: "يجب عليك اختيار الحالة لالتدخلات التالية:"
     city_name: "المدينة" #?
@@ -1207,6 +1208,8 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
+    # delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?"
+    # delete_request: "Delete also the request associate to the selected intervention(s)"
     delete_selected_interventions: "حذف التدخلات المنتقاة"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
@@ -1394,6 +1397,7 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
+    # in_progress: "In progress"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
