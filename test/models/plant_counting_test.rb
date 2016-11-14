@@ -34,8 +34,10 @@
 #  plant_density_abacus_item_id :integer          not null
 #  plant_id                     :integer          not null
 #  read_at                      :datetime
+#  rows_count_value             :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
+#  working_width_value          :decimal(19, 4)
 #
 require 'test_helper'
 
