@@ -55,8 +55,18 @@
         options = Array.from(arguments).shift()
         options['reference_name'] ||= 'animal'
         options['targets_attributes'] ||= []
-        options['targets_attributes'] = ko.utils.arrayMap Object.keys(@selectedItemsIndex), (id) ->
-          { product_id: id, reference_name: options['reference_name'], new_container_id: options['container'], new_group_id: options['group'] }
+
+        building_division_procedures = ['animal_housing']
+
+        unless building_division_procedures.indexOf(options['reference_name']) == -1
+          # set container instead of animals
+          for id, item of @selectedItemsIndex
+            if item.parent isnt undefined
+              options['targets_attributes'].push { product_id: item.parent.id, reference_name: options['reference_name'] }
+
+        else
+          options['targets_attributes'] = ko.utils.arrayMap Object.keys(@selectedItemsIndex), (id) ->
+            { product_id: id, reference_name: options['reference_name'], new_container_id: options['container'], new_group_id: options['group'] }
 
         parameters = options['parameters'] || false
         base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
