@@ -438,6 +438,9 @@ GEM
       redis-namespace (>= 1.5.2)
       rufus-scheduler (>= 2.0.24)
       sidekiq (>= 4.2.1)
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
     simple_calendar (2.2.0)
       rails (>= 3.0)
     simple_form (3.2.1)
@@ -604,6 +607,7 @@ DEPENDENCIES
   shoulda-context
   sidekiq (>= 4.0)
   sidekiq-cron (>= 0.4.0)
+  sidekiq-unique-jobs
   simple_calendar
   simple_form (~> 3.2.0)
   spring
