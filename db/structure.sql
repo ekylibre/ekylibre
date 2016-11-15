@@ -1097,7 +1097,9 @@ CREATE TABLE calls (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    source_id integer,
+    source_type character varying
 );
 
 
@@ -5262,7 +5264,8 @@ CREATE TABLE products (
     uuid uuid,
     initial_movement_id integer,
     custom_fields jsonb,
-    team_id integer
+    team_id integer,
+    member_variant_id integer
 );
 
 
@@ -5892,6 +5895,45 @@ CREATE SEQUENCE supervisions_id_seq
 --
 
 ALTER SEQUENCE supervisions_id_seq OWNED BY supervisions.id;
+
+
+--
+-- Name: synchronization_operations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE synchronization_operations (
+    id integer NOT NULL,
+    operation_name character varying NOT NULL,
+    state character varying NOT NULL,
+    finished_at timestamp without time zone,
+    notification_id integer,
+    request jsonb,
+    response jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: synchronization_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE synchronization_operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: synchronization_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE synchronization_operations_id_seq OWNED BY synchronization_operations.id;
 
 
 --
@@ -7153,6 +7195,13 @@ ALTER TABLE ONLY supervisions ALTER COLUMN id SET DEFAULT nextval('supervisions_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY synchronization_operations ALTER COLUMN id SET DEFAULT nextval('synchronization_operations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY target_distributions ALTER COLUMN id SET DEFAULT nextval('target_distributions_id_seq'::regclass);
 
 
@@ -8262,6 +8311,14 @@ ALTER TABLE ONLY supervisions
 
 
 --
+-- Name: synchronization_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT synchronization_operations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: target_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9268,6 +9325,13 @@ CREATE INDEX index_calls_on_created_at ON calls USING btree (created_at);
 --
 
 CREATE INDEX index_calls_on_creator_id ON calls USING btree (creator_id);
+
+
+--
+-- Name: index_calls_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_calls_on_source_type_and_source_id ON calls USING btree (source_type, source_id);
 
 
 --
@@ -14325,6 +14389,13 @@ CREATE INDEX index_products_on_initial_owner_id ON products USING btree (initial
 
 
 --
+-- Name: index_products_on_member_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_member_variant_id ON products USING btree (member_variant_id);
+
+
+--
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15176,6 +15247,41 @@ CREATE INDEX index_supervisions_on_updated_at ON supervisions USING btree (updat
 --
 
 CREATE INDEX index_supervisions_on_updater_id ON supervisions USING btree (updater_id);
+
+
+--
+-- Name: index_synchronization_operations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_created_at ON synchronization_operations USING btree (created_at);
+
+
+--
+-- Name: index_synchronization_operations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_creator_id ON synchronization_operations USING btree (creator_id);
+
+
+--
+-- Name: index_synchronization_operations_on_operation_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_operation_name ON synchronization_operations USING btree (operation_name);
+
+
+--
+-- Name: index_synchronization_operations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_updated_at ON synchronization_operations USING btree (updated_at);
+
+
+--
+-- Name: index_synchronization_operations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_updater_id ON synchronization_operations USING btree (updater_id);
 
 
 --
@@ -16067,4 +16173,10 @@ INSERT INTO schema_migrations (version) VALUES ('20161106140253');
 INSERT INTO schema_migrations (version) VALUES ('20161107065331');
 
 INSERT INTO schema_migrations (version) VALUES ('20161108140009');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114091835');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114101401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114112858');
 

@@ -371,10 +371,6 @@ animals:
     - "backend/animals#destroy"
     - "backend/animals#edit"
     - "backend/animals#load_animals"
-    - "backend/animals#load_containers"
-    - "backend/animals#load_natures"
-    - "backend/animals#load_production_supports"
-    - "backend/animals#load_workers"
     - "backend/animals#new"
     - "backend/animals#update"
 

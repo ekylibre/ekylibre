@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add ednotif animal indicators">
+  <item-creation item="indicators#witness" datatype="string" />
+  <item-creation item="indicators#country_code" datatype="string" />
+  <item-creation item="indicators#birth_date" datatype="string" />
+  <item-creation item="indicators#birth_farm_number" datatype="string" />
+  <item-creation item="indicators#cpb_filiation_status" datatype="boolean" />
+  <item-creation item="indicators#first_calving_date" datatype="string" />
+  <item-creation item="indicators#origin_country_code" datatype="string" />
+  <item-creation item="indicators#origin_identification_number" datatype="string" />
+  <item-creation item="indicators#end_of_life_witness" datatype="string" />
+  <item-creation item="indicators#entry_reason" datatype="string" />
+  <item-creation item="indicators#entry_date" datatype="string" />
+  <item-creation item="indicators#exit_reason" datatype="string" />
+  <item-creation item="indicators#exit_date" datatype="string" />
+  <item-creation item="indicators#mother_country_code" datatype="string" />
+  <item-creation item="indicators#mother_identification_number" datatype="string" />
+  <item-creation item="indicators#mother_race_code" datatype="string" />
+  <item-creation item="indicators#father_country_code" datatype="string" />
+  <item-creation item="indicators#father_identification_number" datatype="string" />
+  <item-creation item="indicators#father_race_code" datatype="string" />
+</migration>

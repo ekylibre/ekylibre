@@ -1032,6 +1032,11 @@ calls:
     required: true
   name:
     type: string
+  source_id:
+    type: integer
+    references: "~source_type"
+  source_type:
+    type: string
   state:
     type: string
   updated_at:
@@ -5941,6 +5946,9 @@ products:
   lock_version:
     type: integer
     required: true
+  member_variant_id:
+    type: integer
+    references: product_nature_variant
   name:
     type: string
     required: true
@@ -6752,6 +6760,40 @@ supervisions:
     references: user
   view_parameters:
     type: json
+synchronization_operations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  finished_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  notification_id:
+    type: integer
+    references: notification
+  operation_name:
+    type: string
+    required: true
+  request:
+    type: jsonb
+  response:
+    type: jsonb
+  state:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 target_distributions:
   activity_id:
     type: integer
