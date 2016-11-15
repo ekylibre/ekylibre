@@ -228,7 +228,13 @@ class Intervention < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
-      self.actions = procedure.mandatory_actions.map(&:name) if actions && actions.empty?
+      if actions && actions.empty?
+        if procedure.mandatory_actions.any?
+          self.actions = procedure.mandatory_actions.map(&:name)
+        else
+          self.actions = procedure.optional_actions.map(&:name)
+        end
+      end
     end
     true
   end
