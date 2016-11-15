@@ -452,7 +452,7 @@ ita:
         sales: "Vendite"
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
-        # vat_declarations: "Vat declarations"
+        # tax_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirezionale" #?

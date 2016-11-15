@@ -452,8 +452,8 @@ spa:
         sales: "Ventas"
         sales_invoices: "Facturas de venta"
         subscriptions: "Suscripciones"
+        # tax_declarations: "Vat declarations"
         transports: "Numeración de los transportes" #?
-        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidireccional" #?

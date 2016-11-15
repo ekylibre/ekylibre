@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: vat_declarations
+# == Table: tax_declarations
 #
 #  accounted_at      :datetime
 #  affair_id         :integer
@@ -44,7 +44,7 @@
 #  updater_id        :integer
 #
 
-class VatDeclaration < Ekylibre::Record::Base
+class TaxDeclaration < Ekylibre::Record::Base
   include Attachable
   attr_readonly :currency
   refers_to :currency
@@ -52,14 +52,14 @@ class VatDeclaration < Ekylibre::Record::Base
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :responsible, class_name: 'User'
   belongs_to :tax_office, class_name: 'Entity'
-  has_many :items, class_name: 'VatDeclarationItem', dependent: :destroy, inverse_of: :vat_declaration
+  has_many :items, class_name: 'TaxDeclarationItem', dependent: :destroy, inverse_of: :tax_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :invoiced_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :financial_year, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(vat_declaration) { vat_declaration.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(tax_declaration) { tax_declaration.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
   validates :number, uniqueness: true
   validates_associated :items
@@ -85,18 +85,16 @@ class VatDeclaration < Ekylibre::Record::Base
   before_validation(on: :create) do
     self.state ||= :draft
     self.currency = financial_year.currency if financial_year
-    # if vat_declarations exists for current financial_year, then get the last to compute started_on
-    if self.financial_year && self.financial_year.vat_declarations.any?
-      self.started_on = self.financial_year.vat_declarations.reorder(:started_on).last.stopped_on + 1.day
+    # if tax_declarations exists for current financial_year, then get the last to compute started_on
+    if financial_year && financial_year.tax_declarations.any?
+      self.started_on = financial_year.tax_declarations.reorder(:started_on).last.stopped_on + 1.day
     # else compute started_on from financial_year
-    elsif self.financial_year
-      self.started_on = self.financial_year.started_on
+    elsif financial_year
+      self.started_on = financial_year.started_on
     end
     # anyway, stopped_on is started_on + vat_period_duration
-    end_period = self.financial_year.vat_end_period
-    if end_period
-      self.stopped_on = self.started_on.send(end_period.to_s)
-    end
+    end_period = financial_year.vat_end_period
+    self.stopped_on = started_on.send(end_period.to_s) if end_period
   end
 
   before_validation do
@@ -115,12 +113,12 @@ class VatDeclaration < Ekylibre::Record::Base
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
     # FIXME : add vat journal in default journal
-    vat_journal = Journal.create_with(name: :vat.tl).find_or_create_by!(nature: 'various', code: 'VAT', currency: self.currency)
+    vat_journal = Journal.create_with(name: :vat.tl).find_or_create_by!(nature: 'various', code: 'VAT', currency: currency)
     # FIXME : put account in tax_office entity
-    credit_vat_account = Account.find_or_create_by_number(45567)
-    debit_vat_account = Account.find_or_create_by_number(44551)
+    credit_vat_account = Account.find_or_create_by_number(45_567)
+    debit_vat_account = Account.find_or_create_by_number(44_551)
     b.journal_entry(vat_journal, printed_on: invoiced_on, if: (has_content? && validated?)) do |entry|
-      # FIXME add correct label on bookkeep
+      # FIXME: add correct label on bookkeep
       label = tc(:bookkeep, resource: state_label, number: number)
       items.each do |item|
         entry.add_debit(label, item.tax.collect_account.id, item.collected_vat_amount.round(2)) unless item.collected_vat_amount.zero?
@@ -131,7 +129,7 @@ class VatDeclaration < Ekylibre::Record::Base
       entry.add_credit(label, (vat_balance < 0 ? credit_vat_account : debit_vat_account), vat_balance) unless vat_balance.zero?
     end
   end
-  
+
   def invoiced_on
     dealt_at.to_date
   end
@@ -147,11 +145,10 @@ class VatDeclaration < Ekylibre::Record::Base
   end
 
   def deductible_vat_amount_balance
-    return items.map(&:deductible_vat_amount).compact.sum
+    items.map(&:deductible_vat_amount).compact.sum
   end
 
   def collected_vat_amount_balance
-    return items.map(&:collected_vat_amount).compact.sum
+    items.map(&:collected_vat_amount).compact.sum
   end
-
 end

@@ -451,8 +451,8 @@ arb:
         sales: "مبيعات"
         sales_invoices: "فواتير المبيعات"
         subscriptions: "الاشتراكات"
+        # tax_declarations: "Vat declarations"
         transports: "ترقيم وسائل النقل" #?
-        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "ثنائي الاتجاه" #?

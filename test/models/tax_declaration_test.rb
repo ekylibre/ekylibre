@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: vat_declarations
+# == Table: tax_declarations
 #
 #  accounted_at      :datetime
 #  affair_id         :integer
@@ -45,6 +45,6 @@
 #
 require 'test_helper'
 
-class VatDeclarationTest < ActiveSupport::TestCase
+class TaxDeclarationTest < ActiveSupport::TestCase
   # Add tests here...
 end

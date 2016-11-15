@@ -564,6 +564,13 @@ spa:
       index: "Tareas"
       new: "Nueva tarea"
       # show: "Task: %{name}"
+    backend/tax_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/taxes:
       edit: "Modificar la tasa\_: %{name}"
       index: "Tasas"
@@ -588,13 +595,6 @@ spa:
       new: "Creación de nuevo utilizador"
       show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
       unlock: "Desbloquear usuario"
-    backend/vat_declarations:
-      # confirm: "Confirm vat declaration: %{number}"
-      # edit: "Edit vat declaration: %{number}"
-      # index: "Vat declarations"
-      # new: "New vat declaration"
-      # propose: "Propose vat declaration: %{number}"
-      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "Tanques del vino"
     backend/workers:

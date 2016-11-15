@@ -1,7 +1,7 @@
 = kujaku do |k|
   - k.text
-  - sm = VatDeclaration.state_machine.states
-  - k.multi_choice :state, [:draft, :validated,:sent].map{|s| [sm[s].human_name, s] }, label: VatDeclaration.human_attribute_name(:state)
+  - sm = TaxDeclaration.state_machine.states
+  - k.multi_choice :state, [:draft, :validated,:sent].map{|s| [sm[s].human_name, s] }, label: TaxDeclaration.human_attribute_name(:state)
   - k.helper :journal_period_crit
   - responsibles = User.where(id: Purchase.select(:responsible_id).distinct)
   - if responsibles.any?

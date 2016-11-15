@@ -1032,6 +1032,11 @@ calls:
     required: true
   name:
     type: string
+  source_id:
+    type: integer
+    references: "~source_type"
+  source_type:
+    type: string
   state:
     type: string
   updated_at:
@@ -2367,16 +2372,16 @@ financial_years:
   stopped_on:
     type: date
     required: true
+  tax_mode:
+    type: string
+  tax_period:
+    type: string
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
-  vat_mode:
-    type: string
-  vat_period:
-    type: string
 fixed_asset_depreciations:
   accountable:
     type: boolean
@@ -3723,15 +3728,15 @@ journal_entries:
   state:
     type: string
     required: true
+  tax_declaration_id:
+    type: integer
+    references: tax_declaration
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
-  vat_declaration_id:
-    type: integer
-    references: vat_declaration
 journal_entry_items:
   absolute_credit:
     type: decimal
@@ -3851,6 +3856,9 @@ journal_entry_items:
   state:
     type: string
     required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
   team_id:
     type: integer
     references: team
@@ -3860,9 +3868,6 @@ journal_entry_items:
   updater_id:
     type: integer
     references: user
-  vat_declaration_item_id:
-    type: integer
-    references: vat_declaration_item
 journals:
   closed_on:
     type: date
@@ -5951,6 +5956,9 @@ products:
   lock_version:
     type: integer
     required: true
+  member_variant_id:
+    type: integer
+    references: product_nature_variant
   name:
     type: string
     required: true
@@ -6057,6 +6065,9 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
   tax_id:
     type: integer
     references: tax
@@ -6084,9 +6095,6 @@ purchase_items:
     type: integer
     references: product_nature_variant
     required: true
-  vat_declaration_item_id:
-    type: integer
-    references: vat_declaration_item
 purchase_natures:
   active:
     type: boolean
@@ -6301,6 +6309,9 @@ sale_items:
     type: integer
     references: sale
     required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
   tax_id:
     type: integer
     references: tax
@@ -6326,9 +6337,6 @@ sale_items:
     type: integer
     references: product_nature_variant
     required: true
-  vat_declaration_item_id:
-    type: integer
-    references: vat_declaration_item
 sale_natures:
   active:
     type: boolean
@@ -6768,6 +6776,40 @@ supervisions:
     references: user
   view_parameters:
     type: json
+synchronization_operations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  finished_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  notification_id:
+    type: integer
+    references: notification
+  operation_name:
+    type: string
+    required: true
+  request:
+    type: jsonb
+  response:
+    type: jsonb
+  state:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 target_distributions:
   activity_id:
     type: integer
@@ -6842,6 +6884,116 @@ tasks:
   state:
     type: string
     required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declaration_items:
+  collected_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  collected_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  deductible_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  fixed_asset_deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  fixed_asset_deductible_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  tax_declaration_id:
+    type: integer
+    references: tax_declaration
+    required: true
+  tax_id:
+    type: integer
+    references: tax
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declarations:
+  accounted_at:
+    type: datetime
+  affair_id:
+    type: integer
+    references: affair
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  description:
+    type: text
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  invoiced_at:
+    type: datetime
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: user
+  started_on:
+    type: date
+    required: true
+  state:
+    type: string
+  stopped_on:
+    type: date
+    required: true
+  tax_office_id:
+    type: integer
+    references: entity
   updated_at:
     type: datetime
     required: true
@@ -7118,116 +7270,6 @@ users:
     type: string
   unlock_token:
     type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-vat_declaration_items:
-  collected_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  collected_vat_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    required: true
-  deductible_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  deductible_vat_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  fixed_asset_deductible_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  fixed_asset_deductible_vat_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  tax_id:
-    type: integer
-    references: tax
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  vat_declaration_id:
-    type: integer
-    references: vat_declaration
-    required: true
-vat_declarations:
-  accounted_at:
-    type: datetime
-  affair_id:
-    type: integer
-    references: affair
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    required: true
-  description:
-    type: text
-  financial_year_id:
-    type: integer
-    references: financial_year
-    required: true
-  id:
-    type: integer
-    required: true
-  invoiced_at:
-    type: datetime
-  journal_entry_id:
-    type: integer
-    references: journal_entry
-  lock_version:
-    type: integer
-    required: true
-  number:
-    type: string
-  reference_number:
-    type: string
-  responsible_id:
-    type: integer
-    references: user
-  started_on:
-    type: date
-    required: true
-  state:
-    type: string
-  stopped_on:
-    type: date
-    required: true
-  tax_office_id:
-    type: integer
-    references: entity
   updated_at:
     type: datetime
     required: true

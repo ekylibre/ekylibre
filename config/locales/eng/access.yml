@@ -32,6 +32,7 @@ eng:
       districts: "Districts"
       document_templates: "Document templates"
       documents: "Documents"
+      # tax_declarations: "Tax declarations"
       entities: "Entities"
       equipments: "Equipment"
       events: "Events"

@@ -54,10 +54,10 @@
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
+#  tax_declaration_item_id   :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
-#  vat_declaration_item_id   :integer
 #
 ---
 journal_entry_items_001:

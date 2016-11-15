@@ -136,18 +136,6 @@
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
-#     - "backend/vat_declarations#confirm"
-#     - "backend/vat_declarations#create"
-#     - "backend/vat_declarations#destroy"
-#     - "backend/vat_declarations#edit"
-#     - "backend/vat_declarations#index"
-#     - "backend/vat_declarations#list"
-#     - "backend/vat_declarations#list_items"
-#     - "backend/vat_declarations#new"
-#     - "backend/vat_declarations#propose"
-#     - "backend/vat_declarations#show"
-#     - "backend/vat_declarations#unroll"
-#     - "backend/vat_declarations#update"
 #     - "backend/visuals#picture"
 #     - "backend/workers#list_trackings"
 #     - "backend/workers#take"
@@ -2067,6 +2055,26 @@ tasks:
     - "backend/tasks#reset"
     - "backend/tasks#start"
     - "backend/tasks#update"
+
+tax_declarations:
+  read:
+    actions:
+    - "backend/tax_declarations#index"
+    - "backend/tax_declarations#list"
+    - "backend/tax_declarations#list_items"
+    - "backend/tax_declarations#show"
+    - "backend/tax_declarations#unroll"
+  write:
+    dependencies:
+    - read-tax_declarations
+    actions:
+    - "backend/tax_declarations#confirm"
+    - "backend/tax_declarations#create"
+    - "backend/tax_declarations#destroy"
+    - "backend/tax_declarations#edit"
+    - "backend/tax_declarations#new"
+    - "backend/tax_declarations#propose"
+    - "backend/tax_declarations#update"
 
 taxes:
   read:

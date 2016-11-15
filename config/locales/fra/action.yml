@@ -627,6 +627,13 @@ fra:
       index: "Tâches"
       new: "Nouvelle tâche"
       show: "Tâche\_: %{name}"
+    backend/tax_declarations:
+      confirm: "Confirmer la déclaration TVA: %{number}"
+      edit: "Modifier la déclaration TVA\_: %{number}"
+      index: "Déclarations TVA"
+      new: "Nouvelle déclaration TVA"
+      propose: "Proposer la déclaration TVA: %{number}"
+      show: "Déclaration TVA\_: %{number}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -653,13 +660,6 @@ fra:
       new: "Nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
-    backend/vat_declarations:
-      confirm: "Confirmer la déclaration TVA: %{number}"
-      edit: "Modifier la déclaration TVA\_: %{number}"
-      index: "Déclarations TVA"
-      new: "Nouvelle déclaration TVA"
-      propose: "Proposer la déclaration TVA: %{number}"
-      show: "Déclaration TVA\_: %{number}"
     backend/wine_tanks:
       index: "Cuverie"
     backend/wine_transformers:  #?

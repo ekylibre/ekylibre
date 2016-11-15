@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class VatDeclarationsController < Backend::BaseController
+  class TaxDeclarationsController < Backend::BaseController
     manage_restfully
 
     unroll
@@ -37,7 +37,7 @@ module Backend
       t.status
     end
 
-    list(:items, model: :vat_declaration_items, conditions: { vat_declaration_id: 'params[:id]'.c }) do |t|
+    list(:items, model: :tax_declaration_items, conditions: { tax_declaration_id: 'params[:id]'.c }) do |t|
       t.column :tax, url: true
       t.column :deductible_vat_amount, currency: true
       t.column :deductible_pretax_amount, currency: true
@@ -47,35 +47,34 @@ module Backend
 
     # Displays details of one vat declaration selected with +params[:id]+
     def show
-      return unless @vat_declaration = find_and_check
-      respond_with(@vat_declaration, methods: [],
-                              include: {}) do |format|
+      return unless @tax_declaration = find_and_check
+      respond_with(@tax_declaration, methods: [],
+                                     include: {}) do |format|
         format.html do
-          t3e @vat_declaration.attributes
+          t3e @tax_declaration.attributes
         end
       end
     end
 
     def new
       unless financial_year = FinancialYear.current || FinancialYear.opened.first
-        notify_error :need_an_opened_financial_year_to_start_new_vat_declaration
+        notify_error :need_an_opened_financial_year_to_start_new_tax_declaration
         redirect_to action: :index
         return
       end
-      @vat_declaration = VatDeclaration.new(financial_year: financial_year, currency: financial_year.currency)
+      @tax_declaration = TaxDeclaration.new(financial_year: financial_year, currency: financial_year.currency)
     end
 
     def propose
-      return unless @vat_declaration = find_and_check
-      @vat_declaration.propose
-      redirect_to action: :show, id: @vat_declaration.id
+      return unless @tax_declaration = find_and_check
+      @tax_declaration.propose
+      redirect_to action: :show, id: @tax_declaration.id
     end
 
     def confirm
-      return unless @vat_declaration = find_and_check
-      @vat_declaration.confirm
-      redirect_to action: :show, id: @vat_declaration.id
+      return unless @tax_declaration = find_and_check
+      @tax_declaration.confirm
+      redirect_to action: :show, id: @tax_declaration.id
     end
-
   end
 end

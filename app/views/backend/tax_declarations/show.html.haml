@@ -18,7 +18,7 @@
 
 = cobbles do |c|
 
-  - c.cobble :items, title: VatDeclaration.human_attribute_name(:items) do
+  - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
         %th{colspan: 5}

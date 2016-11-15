@@ -20,26 +20,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: vat_declaration_items
+# == Table: tax_declaration_items
 #
 #  collected_pretax_amount              :decimal(19, 4)
-#  collected_vat_amount                 :decimal(19, 4)
+#  collected_tax_amount                 :decimal(19, 4)
 #  created_at                           :datetime         not null
 #  creator_id                           :integer
 #  currency                             :string           not null
 #  deductible_pretax_amount             :decimal(19, 4)
-#  deductible_vat_amount                :decimal(19, 4)
+#  deductible_tax_amount                :decimal(19, 4)
 #  fixed_asset_deductible_pretax_amount :decimal(19, 4)
-#  fixed_asset_deductible_vat_amount    :decimal(19, 4)
+#  fixed_asset_deductible_tax_amount    :decimal(19, 4)
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
+#  tax_declaration_id                   :integer          not null
 #  tax_id                               :integer          not null
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
-#  vat_declaration_id                   :integer          not null
 #
 require 'test_helper'
 
-class VatDeclarationItemTest < ActiveSupport::TestCase
+class TaxDeclarationItemTest < ActiveSupport::TestCase
   # Add tests here...
 end

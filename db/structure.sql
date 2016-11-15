@@ -2295,8 +2295,8 @@ CREATE TABLE financial_years (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    vat_period character varying,
-    vat_mode character varying
+    tax_period character varying,
+    tax_mode character varying
 );
 
 
@@ -3355,7 +3355,7 @@ CREATE TABLE journal_entries (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    vat_declaration_id integer
+    tax_declaration_id integer
 );
 
 
@@ -3418,7 +3418,7 @@ CREATE TABLE journal_entry_items (
     bank_statement_letter character varying,
     activity_budget_id integer,
     team_id integer,
-    vat_declaration_item_id integer
+    tax_declaration_item_id integer
 );
 
 
@@ -5320,7 +5320,7 @@ CREATE TABLE purchase_items (
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
     team_id integer,
-    vat_declaration_item_id integer
+    tax_declaration_item_id integer
 );
 
 
@@ -5506,7 +5506,7 @@ CREATE TABLE sale_items (
     activity_budget_id integer,
     team_id integer,
     codes jsonb,
-    vat_declaration_item_id integer
+    tax_declaration_item_id integer
 );
 
 
@@ -6004,6 +6004,95 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
+-- Name: tax_declaration_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declaration_items (
+    id integer NOT NULL,
+    tax_declaration_id integer NOT NULL,
+    tax_id integer NOT NULL,
+    currency character varying NOT NULL,
+    collected_tax_amount numeric(19,4),
+    deductible_tax_amount numeric(19,4),
+    deductible_pretax_amount numeric(19,4),
+    collected_pretax_amount numeric(19,4),
+    fixed_asset_deductible_pretax_amount numeric(19,4),
+    fixed_asset_deductible_tax_amount numeric(19,4),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_declaration_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declaration_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declaration_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declaration_items_id_seq OWNED BY tax_declaration_items.id;
+
+
+--
+-- Name: tax_declarations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declarations (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    journal_entry_id integer,
+    responsible_id integer,
+    description text,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    accounted_at timestamp without time zone,
+    currency character varying NOT NULL,
+    number character varying,
+    reference_number character varying,
+    state character varying,
+    affair_id integer,
+    tax_office_id integer,
+    invoiced_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_declarations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declarations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declarations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declarations_id_seq OWNED BY tax_declarations.id;
+
+
+--
 -- Name: taxes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6235,95 +6324,6 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
-
-
---
--- Name: vat_declaration_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE vat_declaration_items (
-    id integer NOT NULL,
-    vat_declaration_id integer NOT NULL,
-    tax_id integer NOT NULL,
-    collected_vat_amount numeric(19,4),
-    deductible_vat_amount numeric(19,4),
-    currency character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    deductible_pretax_amount numeric(19,4),
-    collected_pretax_amount numeric(19,4),
-    fixed_asset_deductible_pretax_amount numeric(19,4),
-    fixed_asset_deductible_vat_amount numeric(19,4)
-);
-
-
---
--- Name: vat_declaration_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE vat_declaration_items_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: vat_declaration_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE vat_declaration_items_id_seq OWNED BY vat_declaration_items.id;
-
-
---
--- Name: vat_declarations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE vat_declarations (
-    id integer NOT NULL,
-    financial_year_id integer NOT NULL,
-    journal_entry_id integer,
-    responsible_id integer,
-    description text,
-    started_on date NOT NULL,
-    stopped_on date NOT NULL,
-    accounted_at timestamp without time zone,
-    currency character varying NOT NULL,
-    number character varying,
-    reference_number character varying,
-    state character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    affair_id integer,
-    tax_office_id integer,
-    invoiced_at timestamp without time zone
-);
-
-
---
--- Name: vat_declarations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE vat_declarations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: vat_declarations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE vat_declarations_id_seq OWNED BY vat_declarations.id;
 
 
 --
@@ -7311,6 +7311,20 @@ ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY tax_declaration_items ALTER COLUMN id SET DEFAULT nextval('tax_declaration_items_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations ALTER COLUMN id SET DEFAULT nextval('tax_declarations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY taxes ALTER COLUMN id SET DEFAULT nextval('taxes_id_seq'::regclass);
 
 
@@ -7340,20 +7354,6 @@ ALTER TABLE ONLY trackings ALTER COLUMN id SET DEFAULT nextval('trackings_id_seq
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY vat_declaration_items ALTER COLUMN id SET DEFAULT nextval('vat_declaration_items_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY vat_declarations ALTER COLUMN id SET DEFAULT nextval('vat_declarations_id_seq'::regclass);
 
 
 --
@@ -8444,6 +8444,22 @@ ALTER TABLE ONLY tasks
 
 
 --
+-- Name: tax_declaration_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items
+    ADD CONSTRAINT tax_declaration_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_declarations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT tax_declarations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: taxes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8481,22 +8497,6 @@ ALTER TABLE ONLY trackings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: vat_declaration_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY vat_declaration_items
-    ADD CONSTRAINT vat_declaration_items_pkey PRIMARY KEY (id);
-
-
---
--- Name: vat_declarations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY vat_declarations
-    ADD CONSTRAINT vat_declarations_pkey PRIMARY KEY (id);
 
 
 --
@@ -12071,6 +12071,13 @@ CREATE INDEX index_journal_entries_on_resource_type_and_resource_id ON journal_e
 
 
 --
+-- Name: index_journal_entries_on_tax_declaration_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entries_on_tax_declaration_id ON journal_entries USING btree (tax_declaration_id);
+
+
+--
 -- Name: index_journal_entries_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12159,6 +12166,13 @@ CREATE INDEX index_journal_entry_items_on_letter ON journal_entry_items USING bt
 --
 
 CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btree (name);
+
+
+--
+-- Name: index_journal_entry_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_entry_items USING btree (tax_declaration_item_id);
 
 
 --
@@ -14640,6 +14654,13 @@ CREATE INDEX index_purchase_items_on_purchase_id ON purchase_items USING btree (
 
 
 --
+-- Name: index_purchase_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_tax_declaration_item_id ON purchase_items USING btree (tax_declaration_item_id);
+
+
+--
 -- Name: index_purchase_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14889,6 +14910,13 @@ CREATE INDEX index_sale_items_on_credited_item_id ON sale_items USING btree (cre
 --
 
 CREATE INDEX index_sale_items_on_sale_id ON sale_items USING btree (sale_id);
+
+
+--
+-- Name: index_sale_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_tax_declaration_item_id ON sale_items USING btree (tax_declaration_item_id);
 
 
 --
@@ -15508,6 +15536,111 @@ CREATE INDEX index_tasks_on_updater_id ON tasks USING btree (updater_id);
 
 
 --
+-- Name: index_tax_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_created_at ON tax_declaration_items USING btree (created_at);
+
+
+--
+-- Name: index_tax_declaration_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_creator_id ON tax_declaration_items USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declaration_items_on_tax_declaration_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_tax_declaration_id ON tax_declaration_items USING btree (tax_declaration_id);
+
+
+--
+-- Name: index_tax_declaration_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_tax_id ON tax_declaration_items USING btree (tax_id);
+
+
+--
+-- Name: index_tax_declaration_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_updated_at ON tax_declaration_items USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declaration_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_updater_id ON tax_declaration_items USING btree (updater_id);
+
+
+--
+-- Name: index_tax_declarations_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_affair_id ON tax_declarations USING btree (affair_id);
+
+
+--
+-- Name: index_tax_declarations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_created_at ON tax_declarations USING btree (created_at);
+
+
+--
+-- Name: index_tax_declarations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_creator_id ON tax_declarations USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declarations_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_financial_year_id ON tax_declarations USING btree (financial_year_id);
+
+
+--
+-- Name: index_tax_declarations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_journal_entry_id ON tax_declarations USING btree (journal_entry_id);
+
+
+--
+-- Name: index_tax_declarations_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_responsible_id ON tax_declarations USING btree (responsible_id);
+
+
+--
+-- Name: index_tax_declarations_on_tax_office_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_tax_office_id ON tax_declarations USING btree (tax_office_id);
+
+
+--
+-- Name: index_tax_declarations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_updated_at ON tax_declarations USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declarations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_updater_id ON tax_declarations USING btree (updater_id);
+
+
+--
 -- Name: index_taxes_on_collect_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15792,83 +15925,6 @@ CREATE INDEX index_users_on_updated_at ON users USING btree (updated_at);
 --
 
 CREATE INDEX index_users_on_updater_id ON users USING btree (updater_id);
-
-
---
--- Name: index_vat_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declaration_items_on_created_at ON vat_declaration_items USING btree (created_at);
-
-
---
--- Name: index_vat_declaration_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declaration_items_on_creator_id ON vat_declaration_items USING btree (creator_id);
-
-
---
--- Name: index_vat_declaration_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declaration_items_on_tax_id ON vat_declaration_items USING btree (tax_id);
-
-
---
--- Name: index_vat_declaration_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declaration_items_on_updated_at ON vat_declaration_items USING btree (updated_at);
-
-
---
--- Name: index_vat_declaration_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declaration_items_on_updater_id ON vat_declaration_items USING btree (updater_id);
-
-
---
--- Name: index_vat_declaration_items_on_vat_declaration_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declaration_items_on_vat_declaration_id ON vat_declaration_items USING btree (vat_declaration_id);
-
-
---
--- Name: index_vat_declarations_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declarations_on_created_at ON vat_declarations USING btree (created_at);
-
-
---
--- Name: index_vat_declarations_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declarations_on_creator_id ON vat_declarations USING btree (creator_id);
-
-
---
--- Name: index_vat_declarations_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declarations_on_financial_year_id ON vat_declarations USING btree (financial_year_id);
-
-
---
--- Name: index_vat_declarations_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declarations_on_updated_at ON vat_declarations USING btree (updated_at);
-
-
---
--- Name: index_vat_declarations_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_vat_declarations_on_updater_id ON vat_declarations USING btree (updater_id);
 
 
 --
@@ -16368,8 +16424,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161026094401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161026102134');
 
-INSERT INTO schema_migrations (version) VALUES ('20161102073801');
-
 INSERT INTO schema_migrations (version) VALUES ('20161105212807');
 
 INSERT INTO schema_migrations (version) VALUES ('20161106140253');
@@ -16378,10 +16432,11 @@ INSERT INTO schema_migrations (version) VALUES ('20161107065331');
 
 INSERT INTO schema_migrations (version) VALUES ('20161108140009');
 
-INSERT INTO schema_migrations (version) VALUES ('20161110111901');
-
 INSERT INTO schema_migrations (version) VALUES ('20161114091835');
 
 INSERT INTO schema_migrations (version) VALUES ('20161114101401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161114112858');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115073801');
+

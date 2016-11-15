@@ -526,6 +526,13 @@ deu:
       index: "Aufgaben"
       new: "Neue Aufgabe"
       # show: "Task: %{name}"
+    backend/tax_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/taxes:
       # edit: "Edit tax: %{name}"
       index: "Steuern"
@@ -550,13 +557,6 @@ deu:
       new: "Neuer Benutzer"
       # show: "User: %{first_name} %{last_name}"
       unlock: "Schalte Benutzer"
-    backend/vat_declarations:
-      # confirm: "Confirm vat declaration: %{number}"
-      # edit: "Edit vat declaration: %{number}"
-      # index: "Vat declarations"
-      # new: "New vat declaration"
-      # propose: "Propose vat declaration: %{number}"
-      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "Weintanks"
     backend/workers:

@@ -526,6 +526,13 @@ jpn:
       index: "タスク"
       new: "新しい仕事"
       # show: "Task: %{name}"
+    backend/tax_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/taxes:
       # edit: "Edit tax: %{name}"
       index: "税金"
@@ -550,13 +557,6 @@ jpn:
       new: "新しいユーザー"
       # show: "User: %{first_name} %{last_name}"
       unlock: "ユーザーのロックを解除"
-    backend/vat_declarations:
-      # confirm: "Confirm vat declaration: %{number}"
-      # edit: "Edit vat declaration: %{number}"
-      # index: "Vat declarations"
-      # new: "New vat declaration"
-      # propose: "Propose vat declaration: %{number}"
-      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "ワインタンク"
     backend/workers:

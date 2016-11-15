@@ -531,6 +531,13 @@ por:
       index: "Tarefas"
       new: "Nova tarefa"
       # show: "Task: %{name}"
+    backend/tax_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/taxes:
       # edit: "Edit tax: %{name}"
       index: "Impostos"
@@ -555,13 +562,6 @@ por:
       new: "Novo usuário"
       # show: "User: %{first_name} %{last_name}"
       unlock: "Desbloquear usuário"
-    backend/vat_declarations:
-      # confirm: "Confirm vat declaration: %{number}"
-      # edit: "Edit vat declaration: %{number}"
-      # index: "Vat declarations"
-      # new: "New vat declaration"
-      # propose: "Propose vat declaration: %{number}"
-      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "Tanques do vinho"
     backend/workers:

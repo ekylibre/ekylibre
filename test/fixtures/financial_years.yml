@@ -34,10 +34,10 @@
 #  lock_version          :integer          default(0), not null
 #  started_on            :date             not null
 #  stopped_on            :date             not null
+#  tax_mode              :string
+#  tax_period            :string
 #  updated_at            :datetime         not null
 #  updater_id            :integer
-#  vat_mode              :string
-#  vat_period            :string
 #
 ---
 financial_years_001:

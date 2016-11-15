@@ -159,17 +159,19 @@
       </item>
     </group>
     <group name="vat" icon="legal">
-      <item name="vat_declarations">
-        <page to="backend/vat_declarations#index"/>
-        <page to="backend/vat_declarations#create"/>
-        <page to="backend/vat_declarations#destroy"/>
-        <page to="backend/vat_declarations#edit"/>
-        <page to="backend/vat_declarations#list"/>
-        <page to="backend/vat_declarations#list_items"/>
-        <page to="backend/vat_declarations#new"/>
-        <page to="backend/vat_declarations#show"/>
-        <page to="backend/vat_declarations#unroll"/>
-        <page to="backend/vat_declarations#update"/>
+      <item name="tax_declarations">
+        <page to="backend/tax_declarations#index"/>
+        <page to="backend/tax_declarations#create"/>
+        <page to="backend/tax_declarations#destroy"/>
+        <page to="backend/tax_declarations#edit"/>
+        <page to="backend/tax_declarations#list"/>
+        <page to="backend/tax_declarations#list_items"/>
+        <page to="backend/tax_declarations#confirm"/>
+        <page to="backend/tax_declarations#propose"/>
+        <page to="backend/tax_declarations#new"/>
+        <page to="backend/tax_declarations#show"/>
+        <page to="backend/tax_declarations#unroll"/>
+        <page to="backend/tax_declarations#update"/>
       </item>
     </group>
     <group name="cash" icon="money">
@@ -820,7 +822,6 @@
         <page to="backend/animals#add_to_container"/>
         <page to="backend/animals#add_to_variant"/>
         <page to="backend/animals#add_group"/>
-        <page to="backend/animals#load_production_supports" nonexistent="true"/>
         <page to="backend/animals#create"/>
         <page to="backend/animals#destroy"/>
         <page to="backend/animals#edit"/>
@@ -846,9 +847,6 @@
         <page to="backend/animals#unroll"/>
         <page to="backend/animals#change"/>
         <page to="backend/animals#load_animals"/>
-        <page to="backend/animals#load_containers" nonexistent="true"/>
-        <page to="backend/animals#load_natures" nonexistent="true"/>
-        <page to="backend/animals#load_workers" nonexistent="true"/>
       </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#index"/>
@@ -1849,11 +1847,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="vat_declarations">
-        <page to="backend/vat_declarations#confirm"/>
-        <page to="backend/vat_declarations#propose"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

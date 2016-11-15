@@ -20,41 +20,41 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: vat_declaration_items
+# == Table: tax_declaration_items
 #
 #  collected_pretax_amount              :decimal(19, 4)
-#  collected_vat_amount                 :decimal(19, 4)
+#  collected_tax_amount                 :decimal(19, 4)
 #  created_at                           :datetime         not null
 #  creator_id                           :integer
 #  currency                             :string           not null
 #  deductible_pretax_amount             :decimal(19, 4)
-#  deductible_vat_amount                :decimal(19, 4)
+#  deductible_tax_amount                :decimal(19, 4)
 #  fixed_asset_deductible_pretax_amount :decimal(19, 4)
-#  fixed_asset_deductible_vat_amount    :decimal(19, 4)
+#  fixed_asset_deductible_tax_amount    :decimal(19, 4)
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
+#  tax_declaration_id                   :integer          not null
 #  tax_id                               :integer          not null
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
-#  vat_declaration_id                   :integer          not null
 #
 
-class VatDeclarationItem < Ekylibre::Record::Base
+class TaxDeclarationItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :tax
-  belongs_to :vat_declaration
-  has_many :journal_entry_items, foreign_key: :vat_declaration_item_id, class_name: 'JournalEntryItem', inverse_of: :vat_declaration_item
+  belongs_to :tax_declaration, class_name: 'TaxDeclaration'
+  has_many :journal_entry_items, foreign_key: :tax_declaration_item_id, class_name: 'JournalEntryItem', inverse_of: :tax_declaration_item
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :collected_pretax_amount, :collected_vat_amount, :deductible_pretax_amount, :deductible_vat_amount, :fixed_asset_deductible_pretax_amount, :fixed_asset_deductible_vat_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :currency, :tax, :vat_declaration, presence: true
+  validates :collected_pretax_amount, :collected_tax_amount, :deductible_pretax_amount, :deductible_tax_amount, :fixed_asset_deductible_pretax_amount, :fixed_asset_deductible_tax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :currency, :tax, :tax_declaration, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
 
-  delegate :vat_mode, :vat_period, :currency, to: :vat_declaration, prefix: true
+  delegate :vat_mode, :vat_period, :currency, to: :tax_declaration, prefix: true
 
   before_validation(on: :create) do
-    if vat_declaration
-      self.currency = vat_declaration_currency
+    if tax_declaration
+      self.currency = tax_declaration_currency
       if tax && tax.collect_account && tax.deduction_account
         v = prefill
         self.deductible_vat_amount = v[:deductible_vat_amount]
@@ -66,11 +66,8 @@ class VatDeclarationItem < Ekylibre::Record::Base
     end
   end
 
-
   before_validation do
-    if vat_declaration
-      self.currency = vat_declaration_currency
-    end
+    self.currency = tax_declaration_currency if tax_declaration
   end
 
   def balance
@@ -78,15 +75,14 @@ class VatDeclarationItem < Ekylibre::Record::Base
   end
 
   def prefill(tax = self.tax)
-
     # vat declaration period
-    started_at = vat_declaration.started_on.to_time
-    stopped_at = vat_declaration.stopped_on.to_time
+    started_at = tax_declaration.started_on.to_time
+    stopped_at = tax_declaration.stopped_on.to_time
 
     attributes = {}
 
     # get journal entry (unmark_je) unmark for vat for the period
-    unmark_je = JournalEntry.between(started_at, stopped_at).where(vat_declaration_id: nil)
+    unmark_je = JournalEntry.between(started_at, stopped_at).where(tax_declaration_id: nil)
 
     ## for debit mode & payment mode
     # get all vat unmark sales from the current period
@@ -102,7 +98,7 @@ class VatDeclarationItem < Ekylibre::Record::Base
     # get all vat unmark outgoing payment from the current period
     unmark_outgoing_payments = OutgoingPayment.where(journal_entry_id: unmark_je.pluck(:id).uniq)
 
-    if vat_declaration_vat_mode == :payment
+    if tax_declaration_vat_mode == :payment
 
       ## case deductible_vat
 
@@ -118,9 +114,8 @@ class VatDeclarationItem < Ekylibre::Record::Base
 
       purchase_item_ids_to_mark = purchase_items.pluck(:id)
       purchase_journal_entry_ids_to_mark = JournalEntry.where(id: Purchase.where(id: purchase_ids_to_mark).pluck(:journal_entry_id))
-      deductible_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, vat_declaration_item_id: nil)
+      deductible_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, tax_declaration_item_id: nil)
       fixed_asset_deduction_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, account_id: tax.fixed_asset_deduction_account.id).pluck(:id).uniq if tax.fixed_asset_deduction_account
-
 
       # compute ratio for the consider tax to know the ratio to apply to the outgoing payment global amount
       sum_tax = purchase_items.map(&:amount).compact.sum
@@ -147,9 +142,8 @@ class VatDeclarationItem < Ekylibre::Record::Base
 
       sale_item_ids_to_mark = sale_items.pluck(:id)
       sale_journal_entry_ids_to_mark = JournalEntry.where(id: Sale.where(id: sale_item_ids_to_mark).pluck(:journal_entry_id))
-      collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, vat_declaration_item_id: nil)
+      collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, tax_declaration_item_id: nil)
       fixed_asset_collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, account_id: tax.fixed_asset_collect_account.id).pluck(:id).uniq if tax.fixed_asset_collect_account
-
 
       # compute ratio for the consider tax to know the ratio to apply to the outgoing payment global amount
       sale_sum_tax = sale_items.map(&:amount).compact.sum
@@ -179,12 +173,11 @@ class VatDeclarationItem < Ekylibre::Record::Base
                      deductible_tax_journal_entry_item_ids_to_mark: deductible_tax_journal_entry_item_ids_to_mark,
                      fixed_asset_deduction_tax_journal_entry_item_ids_to_mark: fixed_asset_deduction_tax_journal_entry_item_ids_to_mark,
                      outgoing_payment_ids_to_mark: outgoing_payment_ids_to_mark,
-                     outgoing_payment_journal_entry_ids_to_mark: outgoing_payment_journal_entry_ids_to_mark
-                    }
+                     outgoing_payment_journal_entry_ids_to_mark: outgoing_payment_journal_entry_ids_to_mark }
 
-    elsif vat_declaration_vat_mode == :debit
+    elsif tax_declaration_vat_mode == :debit
 
-      # mark with D1 (id of vat declaration) for purchase_ids_to_mark and purchase_journal_entry_ids_to_mark
+      #  mark with D1 (id of vat declaration) for purchase_ids_to_mark and purchase_journal_entry_ids_to_mark
       # mark with LD1 (id of vat declaration item) for purchase_item_ids_to_mark and deductible_tax_journal_entry_item_ids_to_mark
 
       ## case deductible_vat
@@ -196,12 +189,11 @@ class VatDeclarationItem < Ekylibre::Record::Base
       deductible_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, account_id: tax.deduction_account.id).pluck(:id).uniq
       fixed_asset_deduction_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, account_id: tax.fixed_asset_deduction_account.id).pluck(:id).uniq if tax.fixed_asset_deduction_account
 
+      # FIXME: what about manual line input directly in journal ?
+      # unmark_jei.where(account_id: tax.deduction_account.id).pluck(:id).compact.uniq
+      # tax.deduction_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
 
-      #FIXME what about manual line input directly in journal ?
-      #unmark_jei.where(account_id: tax.deduction_account.id).pluck(:id).compact.uniq
-      #tax.deduction_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
-
-      # mark with D1 (id of vat declaration) for sale_ids_to_mark and sale_journal_entry_ids_to_mark
+      #  mark with D1 (id of vat declaration) for sale_ids_to_mark and sale_journal_entry_ids_to_mark
       # mark with LD1 (id of vat declaration item) for sale_item_ids_to_mark and collected_tax_journal_entry_item_ids_to_mark
 
       ## case collected_vat
@@ -213,9 +205,9 @@ class VatDeclarationItem < Ekylibre::Record::Base
       collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, account_id: tax.collect_account.id).pluck(:id).uniq
       fixed_asset_collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, account_id: tax.fixed_asset_collect_account.id).pluck(:id).uniq if tax.fixed_asset_collect_account
 
-      #FIXME what about manual line input directly in journal ?
-      #unmark_jei.where(account_id: tax.collected_account.id).pluck(:id).compact.uniq
-      #tax.collected_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
+      # FIXME: what about manual line input directly in journal ?
+      # unmark_jei.where(account_id: tax.collected_account.id).pluck(:id).compact.uniq
+      # tax.collected_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
 
       attributes = { collected_pretax_amount: collected_base_amount,
                      collected_vat_amount: collected_tax_amount,
@@ -230,12 +222,9 @@ class VatDeclarationItem < Ekylibre::Record::Base
                      purchase_item_ids_to_mark: purchase_item_ids_to_mark,
                      purchase_journal_entry_ids_to_mark: purchase_journal_entry_ids_to_mark,
                      deductible_tax_journal_entry_item_ids_to_mark: deductible_tax_journal_entry_item_ids_to_mark,
-                     fixed_asset_deduction_tax_journal_entry_item_ids_to_mark: fixed_asset_deduction_tax_journal_entry_item_ids_to_mark
-                    }
+                     fixed_asset_deduction_tax_journal_entry_item_ids_to_mark: fixed_asset_deduction_tax_journal_entry_item_ids_to_mark }
     end
 
-    return attributes
-
+    attributes
   end
-
 end

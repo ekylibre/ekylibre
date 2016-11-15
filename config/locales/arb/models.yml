@@ -965,7 +965,8 @@ arb:
       target_distribution: "توزيع هدف"
       task: "مهمة"
       tax: "الضريبة"
-      tax_declaration: "تصريح الضرائب" #?
+      tax_declaration: "تصريح الضرائب"
+      # tax_declaration_item: "Vat declaration item"
       team: "الخجمة"
       token: "رمز"
       tool: "الاداة" #?
@@ -973,8 +974,6 @@ arb:
       transfer: "التحويل" #?
       unit: "الوحدة" #?
       user: "المستخدم"
-      # vat_declaration: "Vat declaration"
-      # vat_declaration_item: "Vat declaration item"
       version: "الإصدار"
       worker: "عامل"
       zone: "منطقة"
@@ -2265,7 +2264,9 @@ arb:
     targets: "أهداف"
     tasks: "المهام"
     tax: "الضريبة"
-    tax_declarations: "الاعلان عن الضرائب" #?
+    # tax_declaration: "Vat declaration"
+    # tax_declaration_item: "Vat declaration item"
+    tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
@@ -2370,9 +2371,6 @@ arb:
     variants: "المتغيرات"
     variety: "تشكيلة"
     variety_name: "اسم متنوعة"
-    # vat_declaration: "Vat declaration"
-    # vat_declaration_item: "Vat declaration item"
-    # vat_declarations: "Vat declarations"
     # vat_mode: "Vat mode"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_period: "Vat period"

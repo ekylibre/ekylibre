@@ -465,8 +465,8 @@ por:
         sales: "Vendas"
         sales_invoices: "Facturas de vendas"
         subscriptions: "Assinaturas"
+        # tax_declarations: "Vat declarations"
         transports: "Numeração de transportes" #?
-        # vat_declarations: "Vat declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidirecional" #?

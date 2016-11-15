@@ -34,10 +34,10 @@
 #  lock_version          :integer          default(0), not null
 #  started_on            :date             not null
 #  stopped_on            :date             not null
+#  tax_mode              :string
+#  tax_period            :string
 #  updated_at            :datetime         not null
 #  updater_id            :integer
-#  vat_mode              :string
-#  vat_period            :string
 #
 
 class FinancialYear < Ekylibre::Record::Base
@@ -50,7 +50,7 @@ class FinancialYear < Ekylibre::Record::Base
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
-  has_many :vat_declarations, class_name: 'VatDeclaration', foreign_key: :financial_year_id
+  has_many :tax_declarations, class_name: 'TaxDeclaration', foreign_key: :financial_year_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
@@ -58,6 +58,7 @@ class FinancialYear < Ekylibre::Record::Base
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :tax_mode, :tax_period, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :code, length: { allow_nil: true, maximum: 20 }
@@ -160,8 +161,6 @@ class FinancialYear < Ekylibre::Record::Base
       12.months
     elsif vat_period == :none
       nil
-    else
-      nil
     end
   end
 
@@ -173,8 +172,6 @@ class FinancialYear < Ekylibre::Record::Base
     elsif vat_period == :yearly
       :end_of_year
     elsif vat_period == :none
-      nil
-    else
       nil
     end
   end

@@ -163,12 +163,12 @@
 - target_distribution
 - task
 - tax
+- tax_declaration
+- tax_declaration_item
 - team
 - token
 - tracking
 - user
-- vat_declaration
-- vat_declaration_item
 - version
 - worker
 - zone

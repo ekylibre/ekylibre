@@ -906,7 +906,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :vat_declarations, concerns: [:list, :unroll] do
+    resources :tax_declarations, concerns: [:list, :unroll] do
       member do
         get :list_items
         post :propose

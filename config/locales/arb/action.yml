@@ -684,11 +684,13 @@ arb:
       index: "المهام"
       new: "مهمة جديدة"
       # show: "Task: %{name}"
-    backend/tax_declarations:  #?
-      edit: "انشاء تصريح" #?
-      index: "تصريح عن قيمة الضريبة الاضافية" #?
-      new: "Créer une déclaration" #?
-      show: "%{nature} للمدة الزمنية من %{started_at} الى %{stopped_at}" #?
+    backend/tax_declarations:
+      # confirm: "Confirm vat declaration: %{number}"
+      # edit: "Edit vat declaration: %{number}"
+      # index: "Vat declarations"
+      # new: "New vat declaration"
+      # propose: "Propose vat declaration: %{number}"
+      # show: "Vat declaration: %{number}"
     backend/taxes:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
@@ -723,13 +725,6 @@ arb:
       show: "المستخدم : %{first_name} %{last_name}"
       statistics: "احصائياتي" #?
       unlock: "فتح المستخدم"
-    backend/vat_declarations:
-      # confirm: "Confirm vat declaration: %{number}"
-      # edit: "Edit vat declaration: %{number}"
-      # index: "Vat declarations"
-      # new: "New vat declaration"
-      # propose: "Propose vat declaration: %{number}"
-      # show: "Vat declaration: %{number}"
     backend/wine_tanks:
       index: "الدبابات النبيذ"
     backend/workers:
