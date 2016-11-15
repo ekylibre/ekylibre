@@ -2,14 +2,14 @@
   = f.input :nature, as: :radio_buttons
   = f.input :read_at
   = f.input :working_width_value, wrapper: :append do
-    - placeholder = f.object.density_computable? ? f.object.implanter_working_width.to_d(:meter).to_s : nil
+    - placeholder = f.object.density_computable? ? f.object.indicator_working_width.to_d(:meter).to_s : nil
     = f.input_field :working_width_value, placeholder: placeholder
     %span.add-on= Nomen::Unit[:meter].l
-  - placeholder = f.object.density_computable? ? f.object.rows_count.to_s : nil
+  - placeholder = f.object.density_computable? ? f.object.indicator_rows_count.to_s : nil
   = f.input :rows_count_value, placeholder: placeholder
   = f.input :working_width_value, wrapper: :append do
     = f.input_field :sampling_length, value: 1, disabled: true
-    %span.add-on= Nomen::Unit[:meter].l
+    %span.add-on= f.object.sampling_length.nomenclature_unit.l
   = f.referenced_association :plant_density_abacus_item, source: { plant_density_abacus_id: f.object.plant_density_abacus }
   = f.input :comment, as: :text
 

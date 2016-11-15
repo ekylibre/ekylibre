@@ -9,7 +9,6 @@
     - l.attribute :sampling_area
     - l.attribute :activity, url: true
     - l.attribute :plant, url: true
-    - l.attribute :creator
 
 = cobbles do |c|
   - c.cobble :general_informations do
@@ -37,7 +36,7 @@
     .big-infos.wrappable
       - if resource.density_computable?
         .med-info
-          %span.title= PlantDensityAbacusItem.human_attribute_name :seeding_density_value
+          %span.title= PlantCounting.human_attribute_name :expected_seeding_density
           %span.value= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
 
         .med-info
@@ -45,7 +44,7 @@
           %span.value= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
 
       .med-info
-        %span.title= PlantDensityAbacusItem.human_attribute_name :plants_count
+        %span.title= PlantCounting.human_attribute_name :expected_plants_count
         %span.value= resource.expected_plants_count.floor
 
       .med-info
@@ -57,18 +56,18 @@
       %thead
         %tr
           %th= PlantCountingItem.human_attribute_name :number
-          %th= PlantCounting.human_attribute_name :plants_count
-          %th= PlantDensityAbacusItem.human_attribute_name :plants_count
-          %th= PlantCounting.human_attribute_name :seeding_density_value if resource.density_computable?
-          %th= PlantDensityAbacusItem.human_attribute_name :seeding_density_value if resource.density_computable?
+          %th.decimal= PlantCounting.human_attribute_name :plants_count
+          %th.decimal= PlantCounting.human_attribute_name :expected_plants_count
+          %th.decimal= PlantCounting.human_attribute_name :seeding_density_value if resource.density_computable?
+          %th.decimal= PlantCounting.human_attribute_name :expected_seeding_density if resource.density_computable?
       %tbody
         - resource.items.order(:id).each_with_index do |item, index|
           %tr
             %td= index + 1
             %td.decimal= item.value
-            %td.decimal= resource.plant_density_abacus_item.plants_count
+            %td.decimal= resource.expected_plants_count
             %td.decimal= item.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
-            %td.decimal= resource.plant_density_abacus_item.seeding_density_value.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
+            %td.decimal= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
       %tr.total
         %th= :average.tl.capitalize
         %th.decimal= resource.average_value.round(2)

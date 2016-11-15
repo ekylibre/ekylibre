@@ -105,7 +105,7 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def measured_seeding_density
-    density = average_value * rows_count * 10_000 / implanter_working_width.to_d(:meter)
+    density = average_value * 10_000 / implanter_working_width.to_d(:meter)
     density.in :unity_per_hectare
   end
 
@@ -120,13 +120,23 @@ class PlantCounting < Ekylibre::Record::Base
 
   def implanter_working_width
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless working_width_value || plant_sower.present?
-    width = (working_width_value && working_width_value.in(:meter)) || plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
+    width = (working_width_value && working_width_value.in(:meter)) || indicator_working_width
     width / rows_count
+  end
+
+  def indicator_working_width
+    return nil unless plant_sower.present?
+    plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
   def rows_count
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless rows_count_value || plant_sower.present?
-    rows_count_value || plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
+    rows_count_value || indicator_rows_count
+  end
+
+  def indicator_rows_count
+    return nil unless plant_sower.present?
+    plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
   def sampling_length
