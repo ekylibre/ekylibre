@@ -229,11 +229,11 @@ class Intervention < Ekylibre::Record::Base
     self.state ||= self.class.state.default_value
     if procedure
       if actions && actions.empty?
-        if procedure.mandatory_actions.any?
-          self.actions = procedure.mandatory_actions.map(&:name)
-        else
-          self.actions = procedure.optional_actions.map(&:name)
-        end
+        self.actions = if procedure.mandatory_actions.any?
+                         procedure.mandatory_actions.map(&:name)
+                       else
+                         procedure.optional_actions.map(&:name)
+                       end
       end
     end
     true
