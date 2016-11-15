@@ -41,7 +41,7 @@ class PurchaseNature < Ekylibre::Record::Base
   enumerize :nature, in: [:purchase, :payslip], default: :purchase, predicates: true
   refers_to :currency
   belongs_to :journal
-  has_many :purchases, foreign_key: :nature_id
+  has_many :purchases, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :with_accounting, inclusion: { in: [true, false] }
   validates :currency, :nature, presence: true
