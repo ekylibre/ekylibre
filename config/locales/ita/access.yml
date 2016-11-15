@@ -90,6 +90,7 @@ ita:
       subscriptions: "Sottoscrizioni"
       supervisions: "supervisioni"
       tasks: "Compiti"
+      # tax_declarations: "Tax declarations"
       taxes: "Le tasse"
       teams: "squadre"
       trackings: "tracking"

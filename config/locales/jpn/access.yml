@@ -90,6 +90,7 @@ jpn:
       subscriptions: "サブスクリプション"
       # supervisions: "Supervisions"
       tasks: "タスク"
+      # tax_declarations: "Tax declarations"
       taxes: "税金"
       teams: "チーム"
       # trackings: "Trackings"
