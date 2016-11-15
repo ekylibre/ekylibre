@@ -806,7 +806,6 @@
         <page to="backend/animals#add_to_container"/>
         <page to="backend/animals#add_to_variant"/>
         <page to="backend/animals#add_group"/>
-        <page to="backend/animals#load_production_supports" nonexistent="true"/>
         <page to="backend/animals#create"/>
         <page to="backend/animals#destroy"/>
         <page to="backend/animals#edit"/>
@@ -832,9 +831,6 @@
         <page to="backend/animals#unroll"/>
         <page to="backend/animals#change"/>
         <page to="backend/animals#load_animals"/>
-        <page to="backend/animals#load_containers" nonexistent="true"/>
-        <page to="backend/animals#load_natures" nonexistent="true"/>
-        <page to="backend/animals#load_workers" nonexistent="true"/>
       </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#index"/>
