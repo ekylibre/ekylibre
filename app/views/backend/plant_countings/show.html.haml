@@ -33,6 +33,15 @@
         %span.title= PlantCounting.human_attribute_name :status
         %span.value= lights(resource.status)
 
+      - unless resource.density_computable?
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :expected_plants_count
+          %span.value= resource.expected_plants_count.floor
+
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :plants_count
+          %span.value= resource.average_value.round(1)
+
     .big-infos.wrappable
       - if resource.density_computable?
         .med-info
@@ -43,13 +52,13 @@
           %span.title= PlantCounting.human_attribute_name :seeding_density_value
           %span.value= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2)
 
-      .med-info
-        %span.title= PlantCounting.human_attribute_name :expected_plants_count
-        %span.value= resource.expected_plants_count.floor
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :expected_plants_count
+          %span.value= resource.expected_plants_count.floor
 
-      .med-info
-        %span.title= PlantCounting.human_attribute_name :plants_count
-        %span.value= resource.average_value.round(1)
+        .med-info
+          %span.title= PlantCounting.human_attribute_name :plants_count
+          %span.value= resource.average_value.round(1)
 
   - c.cobble :data do
     %table
