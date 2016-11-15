@@ -49,7 +49,7 @@ class PlantCounting < Ekylibre::Record::Base
   enumerize :nature, in: [:sowing, :germination]
 
   validates :nature, presence: true
-  validates :rows_count, numericality: { greater_than: 0 }
+  validates :rows_count, numericality: { greater_than: 0 }, allow_blank: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :average_value, :working_width_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
