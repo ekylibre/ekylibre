@@ -1,13 +1,12 @@
 = field_set class: 'delivery-item' do
   = f.input :nature, as: :radio_buttons
   = f.input :read_at
-  - required = !f.object.density_computable?
-  = f.input :working_width_value, wrapper: :append, required: required do
+  = f.input :working_width_value, wrapper: :append do
     - placeholder = f.object.density_computable? ? f.object.indicator_working_width.to_d(:meter).to_s : nil
     = f.input_field :working_width_value, placeholder: placeholder
     %span.add-on= Nomen::Unit[:meter].l
   - placeholder = f.object.density_computable? ? f.object.indicator_rows_count.to_s : nil
-  = f.input :rows_count_value, placeholder: placeholder, required: required
+  = f.input :rows_count_value, placeholder: placeholder
   = f.input :working_width_value, wrapper: :append do
     = f.input_field :sampling_length, value: 1, disabled: true
     %span.add-on= f.object.sampling_length.nomenclature_unit.l
