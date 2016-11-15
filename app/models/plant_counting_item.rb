@@ -42,6 +42,7 @@ class PlantCountingItem < Ekylibre::Record::Base
   validates :value, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :plant_counting, presence: true
   # ]VALIDATORS]
+  validates :value, numericality: { only_integer: true, greater_than: 0, less_than: 2_147_483_648 }
 
   delegate :rows_count, :implanter_working_width, to: :plant_counting
 

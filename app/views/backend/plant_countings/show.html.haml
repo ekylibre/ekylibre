@@ -6,7 +6,7 @@
   = attributes_list do |l|
     - l.attribute :number
     - l.attribute :read_at
-    - l.attribute :sampling_area
+    - l.attribute :sampling_area if resource.density_computable?
     - l.attribute :activity, url: true
     - l.attribute :plant, url: true
 
@@ -49,7 +49,7 @@
 
       .med-info
         %span.title= PlantCounting.human_attribute_name :plants_count
-        %span.value= resource.average_value.round(2)
+        %span.value= resource.average_value.round(1)
 
   - c.cobble :data do
     %table
@@ -70,7 +70,7 @@
             %td.decimal= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
       %tr.total
         %th= :average.tl.capitalize
-        %th.decimal= resource.average_value.round(2)
+        %th.decimal= resource.average_value.round(1)
         %th.decimal= resource.expected_plants_count
         %th.decimal= resource.measured_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
         %th.decimal= resource.expected_seeding_density.in(resource.seeding_density_unit).round(2).l(precision: 2) if resource.density_computable?
