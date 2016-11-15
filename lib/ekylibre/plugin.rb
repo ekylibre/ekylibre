@@ -143,9 +143,23 @@ module Ekylibre
       def after_login_path(resource)
         after_login_plugin.name.to_s.camelize.constantize.after_login_path(resource)
       end
+
+      def find_addons(options = {})
+        return unless options[:context]
+
+        view_addons = []
+        search_path = "backend/#{options[:controller]}##{options[:action]}"
+
+        each do |plugin|
+          availables_addons = plugin.view_addons
+          view_addons << availables_addons[options[:context]][search_path] if availables_addons.key?(options[:context]) && availables_addons[options[:context]].key?(search_path)
+        end
+
+        view_addons
+      end
     end
 
-    attr_reader :root, :themes_assets, :routes, :javascripts, :initializers
+    attr_reader :root, :themes_assets, :routes, :javascripts, :initializers, :view_addons
     field_accessor :name, :summary, :description, :url, :author, :author_url, :version
 
     # Links plugin into app
@@ -155,6 +169,7 @@ module Ekylibre
       @themes_assets = {}.with_indifferent_access
       @javascripts = []
       @initializers = {}
+      @view_addons = {}
 
       lib = @root.join('lib')
       if File.directory?(lib)
@@ -313,6 +328,20 @@ module Ekylibre
     # Adds routes to access controllers
     def add_routes(&block)
       @routes = block
+    end
+
+    def add_toolbar_addon(partial_path, options = {})
+      return unless options[:to]
+      context = :toolbar
+      @view_addons[context] ||= {}
+      @view_addons[context][options[:to]] = partial_path
+    end
+
+    def add_cobble_addon(partial_path, options = {})
+      return unless options[:to]
+      context = :cobble
+      @view_addons[context] ||= {}
+      @view_addons[context][options[:to]] = partial_path
     end
 
     # Adds menus with DSL in Ekylibre backend nav

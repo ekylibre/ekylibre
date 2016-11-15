@@ -1,4 +1,4 @@
 %p= t(".details", first_name: @resource.first_name, last_name: @resource.last_name, email: @resource.email)
 
-%p= link_to(t(".confirm"), edit_backend_registration_url(@resource))
+%p= link_to(t(".confirm"), edit_backend_registration_url(@resource.id))
 

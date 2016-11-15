@@ -729,9 +729,12 @@ spa:
     activity_productions: "Producciones de actividad"
     add: "Añadir"
     add_a_worker: "Añadir un trabajador"
+    # add_animal: "Add animal"
+    # add_animal_group: "Add animal group"
     add_annotation: "Añadir anotación"
     add_attachment: "Añadir un adjunto"
     add_bank_statement: "Añadir estado de cuenta bancaria"
+    # add_building_division: "Add building division"
     add_catalog_price: "Añadir precio de catálogo"
     add_child: "Añadir un componente secundario"
     add_choice: "Añadir elección"
@@ -741,7 +744,9 @@ spa:
     add_delivery: "Añadir la entrega"
     add_distribution: "Añadir la distribución"
     add_email: "Añadir correo electrónico"
+    # add_entrance: "Add entrance"
     add_entry: "Añadir entrada"
+    # add_exit: "Add exit"
     add_expense: "Añadir expensas"
     add_fax: "Añadir fax"
     add_filter: "Añadir filtro"
@@ -891,6 +896,7 @@ spa:
     choices: "Elecciones"
     choose_a_type_of_product: "Elija un tipo de producto"
     choose_creation_mode: "Elige el modo de creación"
+    choose_delete_interventions_options: "¿Quieres que:"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
     choose_options_is_needed: "Debe elegir el estado de las siguientes intervenciones:"
     clear: "Claro"
@@ -939,6 +945,7 @@ spa:
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     create: "Crear"
+    create_and_continue: "Crear y seguir"
     create_journal: "-- Crear el periodico --"
     create_or_import_equipments: "Crear o equipos de importación"
     create_or_import_incoming_parcels: "Crear o importar los paquetes entrantes"
@@ -983,6 +990,8 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
+    delete_only_record: "O eliminar sólo la intervención (s) seleccionado y mostrará la solicitud de asociación?"
+    delete_request: "Eliminar también la solicitud de asociación a la intervención seleccionada (s)"
     delete_selected_interventions: "Eliminar las intervenciones seleccionadas"
     deliver: "Entregado en"
     deliveries: "Entregas"
@@ -1136,6 +1145,7 @@ spa:
     implanted_at: "Implantado en"
     import: "Importación de un  fichero de salvaguardia"
     importation_explanation: "Explicación importación"
+    in_progress: "En progreso"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
     income_statement: "cuentos de résultos"
@@ -2007,6 +2017,8 @@ spa:
       record_has_been_imported: "El registro ha sido importado"
       record_has_not_been_removed: "El registro no puede ser suprimido" #?
       record_not_found: "Registro no encontrado"
+      record_x_created: "%{record} %{name} creado"
+      record_x_updated: "%{record} %{name} actualizado"
       restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}" #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "El presupuesto ya no esta modificable." #?
@@ -2021,7 +2033,11 @@ spa:
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
       subscription_is_not_renewable: "La suscripción no es renovable"
+      # synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
+      # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
+      # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
+      # this_service_is_not_activated: "This service is not activated"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"

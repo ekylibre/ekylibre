@@ -615,7 +615,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     I18n.locale = ENV['LOCALE'] || I18n.default_locale
     user = users(:users_001)
     user.language = I18n.locale
-    visit("/authentication/sign_in?locale=#{I18n.locale}")
+    visit("/sign-in?locale=#{I18n.locale}")
     resize_window(1366, 768)
     # shoot_screen 'authentication/sign_in'
     login_as(user, scope: :user) # , run_callbacks: false

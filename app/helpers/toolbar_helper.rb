@@ -112,6 +112,17 @@ module ToolbarHelper
       end
     end
 
+    def view_addons(options = {})
+      return nil unless options[:controller].present?
+
+      options[:action] ||= :index
+      options[:context] = :toolbar
+
+      Ekylibre::Plugin.find_addons(options).collect do |addon|
+        @template.render partial: addon, locals: { t: self }
+      end
+    end
+
     def method_missing(method_name, *args)
       raise ArgumentError, 'Block can not be accepted' if block_given?
       options = args.extract_options!
@@ -135,6 +146,10 @@ module ToolbarHelper
         end
       end
     end
+    html << capture(toolbar) do |t|
+      t.view_addons(controller: controller_name, action: action_name).join.html_safe
+    end
+
     unless options[:wrap].is_a?(FalseClass)
       html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
     end

@@ -462,6 +462,17 @@ jpn:
       nature: #?
         period: "日付別のサブスクリプション" #?
         quantity: "番号で購読" #?
+    synchronization_operation:
+      operation_name:
+        # authenticate: "Authentication"
+        # get_inventory: "Get inventory"
+        # get_urls: "Get urls"
+      state:
+        # aborted: "Aborted"
+        # errored: "Errored"
+        # finished: "Finished"
+        # in_progress: "In progress"
+        # undone: "Undone"
     task:
       nature:
         document: "書き込み" #?

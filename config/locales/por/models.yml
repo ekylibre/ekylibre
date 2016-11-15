@@ -46,6 +46,12 @@ por:
         has_downpayment: "È recebido"
       sale_nature:
         downpayment: "Pedido downpayment"
+      synchronization_operation:
+        # human_message: "Error message"
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "Valor"
     errors:
@@ -655,6 +661,7 @@ por:
     financial_year: "Ano financeiro"
     financial_year_as_last: "Exercício (com a última entrada do diário)"
     finish: "Terminar"
+    # finished_at: "Finished at"
     first_met_at: "Encontraram pela primeira vez em"
     first_name: "Primeiro nome"
     first_number: "Primeiro número"
@@ -903,6 +910,7 @@ por:
     measure_value_value: "Valor Valor medida"
     meeting_origin: "Origem Reunião"
     member: "Membro"
+    member_variant: "Variante membro"
     members: "Membros"
     members_count: "Membros contar"
     memberships: "Associações"
@@ -944,6 +952,7 @@ por:
     # nodes: "Nodes"
     noticed_start_amount: "Montante início notado"
     noticed_stop_amount: "Montante parada notado"
+    # notification: "Notification"
     notifications: "Notificações"
     number: "Número"
     number_format: "Formato de número"
@@ -955,6 +964,7 @@ por:
     old_password: "Senha Antiga"
     opened_at: "Inaugurado no"
     operation: "Operação"
+    # operation_name: "Operation name"
     operations: "Operações" #?
     ordered_at: "Pedidos no"
     organic_fertilizer_mineral_fraction: "Fração mineral fertilizante orgânico"

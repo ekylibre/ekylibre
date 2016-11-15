@@ -70,7 +70,7 @@ class InventoryItem < Ekylibre::Record::Base
 
   after_save do
     if reflected?
-      movement = build_product_movement unless product_movement
+      movement = product_movement || build_product_movement
       movement.product = product
       movement.delta = delta
       movement.started_at = achieved_at

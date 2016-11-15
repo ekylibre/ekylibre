@@ -437,6 +437,17 @@ eng:
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         vat_declarations: "Vat declarations"
+    synchronization_operation:
+      operation_name:
+        authenticate: "Authentication"
+        get_inventory: "Get inventory"
+        get_urls: "Get urls"
+      state:
+        aborted: "Aborted"
+        errored: "Errored"
+        finished: "Finished"
+        in_progress: "In progress"
+        undone: "Undone"
     task:
       nature:
         incoming_call: "Incoming call"

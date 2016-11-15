@@ -46,6 +46,12 @@ ita:
         has_downpayment: "Anticipo ricevuti"
       sale_nature:
         downpayment: "richiesta acconto"
+      synchronization_operation:
+        # human_message: "Error message"
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "Valore"
     errors:
@@ -686,6 +692,7 @@ ita:
     financial_year: "Anno finanziario"
     financial_year_as_last: "Esercizio (come ultima voce di diario)"
     finish: "finire"
+    # finished_at: "Finished at"
     first_met_at: "In primo luogo si è riunito il"
     first_name: "Nome"
     first_number: "primo numero"
@@ -934,6 +941,7 @@ ita:
     measure_value_value: "valore valore di misura"
     meeting_origin: "origine Meeting"
     member: "Membro"
+    member_variant: "Variante membro"
     members: "Utenti"
     members_count: "Numero dei membri"
     memberships: "Adesioni"
@@ -975,6 +983,7 @@ ita:
     nodes: "nodi"
     noticed_start_amount: "importo inizio Notato"
     noticed_stop_amount: "importo fermata Notato"
+    # notification: "Notification"
     notifications: "notifiche"
     number: "Numero"
     number_format: "formato numero"
@@ -986,6 +995,7 @@ ita:
     old_password: "Vecchia Password"
     opened_at: "aperto a"
     operation: "operazione"
+    # operation_name: "Operation name"
     operations: "operazioni" #?
     ordered_at: "ordinato a"
     organic_fertilizer_mineral_fraction: "frazione minerale fertilizzante organico"

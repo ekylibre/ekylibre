@@ -565,6 +565,12 @@ arb:
         nature: "النوع" #?
         nature_label: "النوع" #?
         subscriptions: "ملاحظة" #?
+      synchronization_operation:
+        # human_message: "Error message"
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "القيمة المالية"
         nature_label: "النوع" #?
@@ -1435,6 +1441,7 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
+    # finished_at: "Finished at"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1729,6 +1736,7 @@ arb:
     measure_value_value: "قيمة قياس القيمة"
     meeting_origin: "أصل لقاء"
     member: "عضو"
+    member_variant: "البديل الأعضاء"
     members: "أعضاء"
     members_count: "عد الأعضاء"
     memberships: "عضوية"
@@ -1781,6 +1789,7 @@ arb:
     nodes: "عقد الاستخراج"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
+    # notification: "Notification"
     notifications: "الإشعارات"
     number: "الرقم"
     number_format: "التصميم"
@@ -1795,6 +1804,7 @@ arb:
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
+    # operation_name: "Operation name"
     operation_natures: "انواع العمل" #?
     operation_uses: "استخدامات الاداة" #?
     operations: "الاعمال" #?

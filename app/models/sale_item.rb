@@ -117,11 +117,15 @@ class SaleItem < Ekylibre::Record::Base
     self.quantity = -1 * credited_quantity if sale_credit
 
     if tax && unit_pretax_amount
-      item = Nomen::Currency.find(currency)
-      precision = item ? item.precision : 2
-      self.unit_amount   = unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      self.pretax_amount = (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
-      self.amount        = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      if sale.reference_number.blank?
+        self.unit_amount = nil
+        self.pretax_amount = nil
+        self.amount = nil
+      end
+      self.unit_amount   ||= unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      self.pretax_amount ||= (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
+      self.amount        ||= (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
     end
 
     if variant
