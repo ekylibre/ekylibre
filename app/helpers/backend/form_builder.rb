@@ -673,6 +673,7 @@ module Backend
                   else
                     @template.send(action[:type], *action[:args])
                   end
+          html += ' '.html_safe
         end
         html
       end

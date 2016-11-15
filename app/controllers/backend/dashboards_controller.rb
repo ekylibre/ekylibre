@@ -65,7 +65,7 @@ module Backend
     # This action permits to search across all the main data of the application
     # TODO: Clean this!!!
     def search
-      self.class.build_centralizing_query unless @@centralizing_query
+      self.class.build_centralizing_query unless self.class.class_variables.include?(:@@centralizing_query) && @@centralizing_query.present?
       per_page = 10
       page = params[:page].to_i
       page = 1 if page.zero?

@@ -890,6 +890,7 @@ spa:
     choices: "Elecciones"
     choose_a_type_of_product: "Elija un tipo de producto"
     choose_creation_mode: "Elige el modo de creación"
+    choose_delete_interventions_options: "¿Quieres que:"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
     choose_options_is_needed: "Debe elegir el estado de las siguientes intervenciones:"
     clear: "Claro"
@@ -938,6 +939,7 @@ spa:
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     create: "Crear"
+    create_and_continue: "Crear y seguir"
     create_journal: "-- Crear el periodico --"
     create_or_import_equipments: "Crear o equipos de importación"
     create_or_import_incoming_parcels: "Crear o importar los paquetes entrantes"
@@ -982,6 +984,8 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
+    delete_only_record: "O eliminar sólo la intervención (s) seleccionado y mostrará la solicitud de asociación?"
+    delete_request: "Eliminar también la solicitud de asociación a la intervención seleccionada (s)"
     delete_selected_interventions: "Eliminar las intervenciones seleccionadas"
     deliver: "Entregado en"
     deliveries: "Entregas"
@@ -1135,6 +1139,7 @@ spa:
     implanted_at: "Implantado en"
     import: "Importación de un  fichero de salvaguardia"
     importation_explanation: "Explicación importación"
+    in_progress: "En progreso"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
     income_statement: "cuentos de résultos"
@@ -2012,6 +2017,8 @@ spa:
       record_has_been_imported: "El registro ha sido importado"
       record_has_not_been_removed: "El registro no puede ser suprimido" #?
       record_not_found: "Registro no encontrado"
+      record_x_created: "%{record} %{name} creado"
+      record_x_updated: "%{record} %{name} actualizado"
       restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}" #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "El presupuesto ya no esta modificable." #?

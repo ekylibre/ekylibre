@@ -18,7 +18,7 @@
 
 module Backend
   class SalesController < Backend::BaseController
-    manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c
+    manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c, continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -192,6 +192,7 @@ module Backend
       @sale.function_title = :default_letter_function_title.tl
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
+      render locals: { with_continue: true }
     end
 
     def duplicate
