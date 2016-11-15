@@ -143,6 +143,5 @@ module Backend
 
       content.html_safe
     end
-
   end
 end

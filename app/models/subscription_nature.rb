@@ -33,8 +33,8 @@
 #
 
 class SubscriptionNature < Ekylibre::Record::Base
-  has_many :product_natures
-  has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature
+  has_many :product_natures, dependent: :restrict_with_exception
+  has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true

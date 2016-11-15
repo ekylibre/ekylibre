@@ -18,7 +18,8 @@
 
 module Backend
   class ParcelsController < Backend::BaseController
-    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new
+    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new,
+                     continue: [:nature]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -196,6 +197,7 @@ module Backend
         end
       end
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
+      render locals: { with_continue: true }
     end
 
     # Converts parcel to trade

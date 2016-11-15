@@ -190,6 +190,9 @@ class Preference < Ekylibre::Record::Base
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false
 
+  # DEPRECATED PREFERENCES
+  prefer :host, :string, 'erp.example.com'
+
   # Returns the name of the column used to store preference data
   def value_attribute
     nature + '_value'

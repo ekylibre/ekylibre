@@ -1,5 +1,42 @@
 # Change Log
 
+## [2.18.0](https://github.com/ekylibre/ekylibre/tree/2.18.0) (2016-11-15)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.17.0...2.18.0)
+
+**Implemented enhancements:**
+
+- Button "Save and continue" [\#1316](https://github.com/ekylibre/ekylibre/issues/1316)
+- Add notifications on create/update success when redirection is made to another view than \#show [\#1315](https://github.com/ekylibre/ekylibre/issues/1315)
+
+**Merged pull requests:**
+
+- Inject view fragments from plugins [\#1332](https://github.com/ekylibre/ekylibre/pull/1332) ([burisu](https://github.com/burisu))
+- Creation flow optimization [\#1331](https://github.com/ekylibre/ekylibre/pull/1331) ([burisu](https://github.com/burisu))
+- Stock accountancy fixes [\#1290](https://github.com/ekylibre/ekylibre/pull/1290) ([Aquaj](https://github.com/Aquaj))
+
+## [2.17.0](https://github.com/ekylibre/ekylibre/tree/2.17.0) (2016-11-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.16.0...2.17.0)
+
+**Implemented enhancements:**
+
+- Improve the search bar in parcels index [\#1215](https://github.com/ekylibre/ekylibre/issues/1215)
+
+**Fixed bugs:**
+
+- dashboards\#search \(NameError\) "uninitialized class variable @@centralizing\_query in Backend::DashboardsContr... [\#1327](https://github.com/ekylibre/ekylibre/issues/1327)
+- telepac\_files\#map \(NoMethodError\) "undefined method `key?' for nil:NilClass" [\#1299](https://github.com/ekylibre/ekylibre/issues/1299)
+- New bad link in help file that make fail wikize [\#1320](https://github.com/ekylibre/ekylibre/issues/1320)
+- EntityLink can exist with deleted entities [\#1308](https://github.com/ekylibre/ekylibre/issues/1308)
+
+**Closed issues:**
+
+- Label name error [\#1312](https://github.com/ekylibre/ekylibre/issues/1312)
+
+**Merged pull requests:**
+
+- Adds migration that cleans dead entity links [\#1319](https://github.com/ekylibre/ekylibre/pull/1319) ([burisu](https://github.com/burisu))
+- Hide intervention filters state and nature [\#1269](https://github.com/ekylibre/ekylibre/pull/1269) ([igkyab](https://github.com/igkyab))
+
 ## [2.16.0](https://github.com/ekylibre/ekylibre/tree/2.16.0) (2016-11-06)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.15.1...2.16.0)
 

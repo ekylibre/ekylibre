@@ -45,6 +45,8 @@ eng:
           hello: "Hello %{first_name} %{last_name},"
           sign_in: "Sign in here."
           subject: "Your account has been approved!"
+        signed_up:
+          subject: "New registration"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:

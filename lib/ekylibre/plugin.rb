@@ -106,9 +106,10 @@ module Ekylibre
             plugin.themes_assets.each do |name, addons|
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
               stylesheet << "// #{plugin.name}\n"
+              next unless addons[:stylesheets]
               addons[:stylesheets].each do |file|
                 stylesheet << "@import \"#{file}\";\n"
-              end if addons[:stylesheets]
+              end
             end
           end
           # <base_dir>/themes/<theme>/plugins.scss
@@ -151,13 +152,11 @@ module Ekylibre
 
         each do |plugin|
           availables_addons = plugin.view_addons
-          view_addons << availables_addons[options[:context]][search_path] if availables_addons.key? options[:context] and availables_addons[options[:context]].key? search_path
+          view_addons << availables_addons[options[:context]][search_path] if availables_addons.key?(options[:context]) && availables_addons[options[:context]].key?(search_path)
         end
 
         view_addons
-
       end
-
     end
 
     attr_reader :root, :themes_assets, :routes, :javascripts, :initializers, :view_addons

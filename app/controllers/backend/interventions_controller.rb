@@ -20,7 +20,10 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []', targets_attributes: 'params[:targets_attributes] || []'.c
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
+                     group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c,
+                     targets_attributes: 'params[:targets_attributes] || []'.c,
+                     continue: [:nature, :procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -210,7 +213,7 @@ module Backend
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
-      render(locals: { cancel_url: { action: :index } })
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
     def sell
@@ -270,7 +273,7 @@ module Backend
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
 
-        if params[:modal_type] == "delete"
+        if params[:modal_type] == 'delete'
           render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
         else
           render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
@@ -291,7 +294,6 @@ module Backend
 
       Intervention.transaction do
         @interventions.each do |intervention|
-
           if intervention.nature == :record && new_state == :rejected
 
             unless intervention.request_intervention_id.nil?

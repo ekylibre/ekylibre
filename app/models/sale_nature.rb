@@ -51,7 +51,7 @@ class SaleNature < Ekylibre::Record::Base
   belongs_to :catalog
   belongs_to :journal
   belongs_to :payment_mode, class_name: 'IncomingPaymentMode'
-  has_many :sales, foreign_key: :nature_id
+  has_many :sales, foreign_key: :nature_id, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :downpayment, :with_accounting, inclusion: { in: [true, false] }

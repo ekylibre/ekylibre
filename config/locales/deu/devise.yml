@@ -45,6 +45,8 @@ deu:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "Hier anmelden."
           subject: "Ihr Konto wurde genehmigt!"
+        signed_up:
+          subject: "Neue Registrierung"
       reset_password_instructions:
         subject: "Passwort zurücksetzen Anweisungen"
       unlock_instructions:

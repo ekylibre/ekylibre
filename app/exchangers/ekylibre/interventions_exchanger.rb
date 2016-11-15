@@ -637,7 +637,7 @@ module Ekylibre
         end
       end
 
-      # # impact
+      ## impact
       intervention = Procedo::Engine.new_intervention(attributes)
       updaters.each do |updater|
         intervention.impact_with!(updater)
