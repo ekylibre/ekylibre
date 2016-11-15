@@ -168,7 +168,7 @@ module Backend
     # Show one animal with params_id
     def show
       return unless @animal = find_and_check
-      #TODO: remove it. On animal show dialog (Golumn), add issue. Break redirect on submit.
+      # TODO: remove it. On animal show dialog (Golumn), add issue. Break redirect on submit.
       params.delete('dialog')
 
       t3e @animal, nature: @animal.nature_name

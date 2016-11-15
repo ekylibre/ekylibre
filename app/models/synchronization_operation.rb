@@ -48,7 +48,7 @@ class SynchronizationOperation < Ekylibre::Record::Base
 
   delegate :human_message, to: :notification, allow_nil: true
 
-  scope :operation, lambda { |name, options={}|
+  scope :operation, lambda { |name, options = {}|
     options[:state] ||= :finished
     order(created_at: :desc).where(operation_name: name, state: options[:state])
   }
