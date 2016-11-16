@@ -118,6 +118,7 @@ fra:
         read_at: "Date"
         plants_count: "Nombre de graines comptées" #?
         rows_count_value: "Nombre de rangs"
+        sampling_length: "Distance d'échantillonnage"
         seeding_density_value: "Densité réelle" #?
         working_width_value: "Largeur de l'outil de semis"
       plant_counting_item:

@@ -105,7 +105,7 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def measured_seeding_density
-    density = average_value * 10_000 / implanter_working_width.to_d(:meter)
+    density = average_value * 10_000 / (implanter_working_width.to_d(:meter) * sampling_length.to_d(:meter))
     density.in :unity_per_hectare
   end
 
