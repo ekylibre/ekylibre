@@ -105,12 +105,12 @@ class PlantCountingTest < ActiveSupport::TestCase
     )
   end
 
-  test 'countings use their plant\'s sower\'s readings to do the calculations' do
+  test 'countings use their plant\'s sower\'s readings to do the calculations when not overridden' do
     plant = sow_plant
     counting = new_counting plant: plant
 
     assert_equal 4, counting.rows_count
-    assert_equal 20.5.in(:meter), counting.implanter_working_width
+    assert_equal 20.5.in(:meter), counting.indicator_working_width
   end
 
   test 'sower-related data methods raise errors when plant hasn\'t been sowed and data isn\'t filled out' do
@@ -118,7 +118,7 @@ class PlantCountingTest < ActiveSupport::TestCase
     assert_raises { counting.implanter_working_width }
     assert_raises { counting.rows_count              }
 
-    counting = new_counting rows_count: 4, working_width: 2.05
+    counting = new_counting rows_count_value: 4, working_width_value: 2.05
     assert_nothing_raised { counting.implanter_working_width }
     assert_nothing_raised { counting.rows_count              }
 
@@ -198,7 +198,7 @@ class PlantCountingTest < ActiveSupport::TestCase
 
   protected
 
-  def new_counting(nature: :sowing, plant: nil, working_width: nil, rows_count: nil, plant_density_abacus: nil, plant_density_abacus_item: nil, average_value: nil, item_values: [])
+  def new_counting(nature: :sowing, plant: nil, working_width_value: nil, rows_count_value: nil, plant_density_abacus: nil, plant_density_abacus_item: nil, average_value: nil, item_values: [])
     plant_density_abacus      ||= @abacus
     plant_density_abacus_item ||= @abacus.items.order(:seeding_density_value).first
     plant ||= @plant
@@ -207,8 +207,8 @@ class PlantCountingTest < ActiveSupport::TestCase
       plant_density_abacus_id: plant_density_abacus.id,
       plant_density_abacus_item_id: plant_density_abacus_item.id,
       average_value: average_value,
-      working_width_value: working_width,
-      rows_count_value: rows_count,
+      working_width_value: working_width_value,
+      rows_count_value: rows_count_value,
       items_attributes: item_values.map { |item_value| { value: item_value } }
     )
   end
