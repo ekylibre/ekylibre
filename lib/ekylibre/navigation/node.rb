@@ -24,6 +24,7 @@ module Ekylibre
         @icon = options[:icon] || @name
         @children = []
         @pages = []
+        @index = {}.with_indifferent_access
         @default_page = nil
         @parent = nil
       end

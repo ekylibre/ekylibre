@@ -1,6 +1,8 @@
 module Procedo
   module Engine
     class Interpreter
+      RESERVED_VARIABLES = [:working_periods].freeze
+
       def self.interpret(intervention, tree, env = {})
         new(intervention, env).interpret(tree)
       end
@@ -22,7 +24,15 @@ module Procedo
       protected
 
       def run(node)
-        if node.is_a?(Procedo::Formula::Language::Expression)
+        if node.is_a?(Procedo::Formula::Language::StringExpression)
+          node.string_body.elements.collect do |element|
+            run(element)
+          end.compact.join('')
+        elsif node.is_a?(Procedo::Formula::Language::Text)
+          node.text_value
+        elsif node.is_a?(Procedo::Formula::Language::Interpolation)
+          run(node.expression)
+        elsif node.is_a?(Procedo::Formula::Language::Expression)
           run(node.expression)
         elsif node.is_a?(Procedo::Formula::Language::BooleanExpression)
           run(node.boolean_expression)
@@ -77,7 +87,12 @@ module Procedo
           @env[node.text_value]
         elsif node.is_a?(Procedo::Formula::Language::Variable)
           @variables << node.text_value.to_sym
-          @intervention.parameter_set(node.text_value)
+          if RESERVED_VARIABLES.include?(node.text_value.to_sym)
+            @intervention.send("#{node.text_value}_parameter")
+          else
+            @intervention.parameter_set(node.text_value)
+          end
+
         elsif node.is_a?(Procedo::Formula::Language::Numeric)
           node.text_value.to_d
         elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)

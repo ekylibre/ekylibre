@@ -130,6 +130,7 @@ class Product < Ekylibre::Record::Base
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
+  belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
@@ -417,7 +418,7 @@ class Product < Ekylibre::Record::Base
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
       movement.product = self
-      movement.delta = initial_population
+      movement.delta = !initial_population && variant.population_counting_unitary? ? 1 : initial_population
       movement.started_at = born_at
       movement.save!
       update_column(:initial_movement_id, movement.id)

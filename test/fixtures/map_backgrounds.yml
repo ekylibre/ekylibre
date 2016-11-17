@@ -51,6 +51,7 @@ map_backgrounds_001:
   id: 1
   lock_version: 1
   managed: true
+  max_zoom: 19
   name: OpenStreetMap Mapnik
   reference_name: open_street_map.mapnik
   tms: false
@@ -67,6 +68,7 @@ map_backgrounds_002:
   id: 2
   lock_version: 0
   managed: true
+  max_zoom: 18
   name: OpenStreetMap Black and white
   reference_name: open_street_map.black_and_white
   tms: false
@@ -83,6 +85,7 @@ map_backgrounds_003:
   id: 3
   lock_version: 0
   managed: true
+  max_zoom: 18
   name: OpenStreetMap De
   reference_name: open_street_map.de
   tms: false
@@ -101,6 +104,7 @@ map_backgrounds_004:
   id: 4
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: OpenStreetMap Hot
   reference_name: open_street_map.hot
   tms: false
@@ -151,6 +155,7 @@ map_backgrounds_007:
   id: 7
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: Thunderforest Transport
   reference_name: thunderforest.transport
   subdomains: abc
@@ -168,6 +173,7 @@ map_backgrounds_008:
   id: 8
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: Thunderforest Transport dark
   reference_name: thunderforest.transport_dark
   subdomains: abc
@@ -203,6 +209,7 @@ map_backgrounds_010:
   id: 10
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: OpenMapSurfer Roads
   reference_name: open_map_surfer.roads
   tms: false
@@ -220,6 +227,7 @@ map_backgrounds_011:
   id: 11
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: OpenMapSurfer Grayscale
   reference_name: open_map_surfer.grayscale
   tms: false
@@ -354,6 +362,7 @@ map_backgrounds_018:
   id: 18
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: Esri World street map
   reference_name: esri.world_street_map
   tms: false
@@ -388,6 +397,7 @@ map_backgrounds_020:
   id: 20
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: Esri World topo map
   reference_name: esri.world_topo_map
   tms: false
@@ -404,6 +414,7 @@ map_backgrounds_021:
   id: 21
   lock_version: 0
   managed: true
+  max_zoom: 19
   name: Esri World imagery
   reference_name: esri.world_imagery
   tms: false

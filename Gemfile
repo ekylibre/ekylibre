@@ -69,6 +69,7 @@ gem 'foreman'
 # Background jobs
 gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
+gem 'sidekiq-unique-jobs'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -150,6 +150,12 @@ fra:
         price: "Prix" #?
       sale_nature:
         downpayment: "Avec acompte"
+      synchronization_operation:
+        human_message: "Message d'erreur"
+        operation_name: "Nom de l'opération"
+        request: "Requête"
+        response: "Réponse"
+        status: "Statut"
       tax:
         amount: "Valeur"
       tax_declaration:  #?
@@ -841,6 +847,7 @@ fra:
     finish: "Fin"
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
+    finished_at: "Terminé à"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -1115,6 +1122,7 @@ fra:
     meat_withdrawal_period: "Délai d’attente (viande)" #?
     meeting_origin: "Origine de la rencontre"
     member: "Membre"
+    member_variant: "Variante de membre"
     members: "Membres"
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
@@ -1164,6 +1172,7 @@ fra:
     nodes: "Nœuds d’extraction"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
+    notification: "Notification"
     notifications: "Notifications"
     number: "Numéro"
     number_format: "Format du numéro"
@@ -1176,6 +1185,7 @@ fra:
     old_password: "Mot de passe actuel"
     opened_at: "Ouvert le"
     operation: "Travail"
+    # operation_name: "Operation name"
     operations: "Travaux" #?
     ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"

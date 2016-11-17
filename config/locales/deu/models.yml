@@ -46,6 +46,12 @@ deu:
         has_downpayment: "Anzahlung empfangenen"
       sale_nature:
         downpayment: "Anfrage Anzahlung"
+      synchronization_operation:
+        # human_message: "Error message"
+        # operation_name: "Operation name"
+        # request: "Request"
+        # response: "Response"
+        # status: "Status"
       tax:
         amount: "Wert"
     errors:
@@ -653,6 +659,7 @@ deu:
     financial_year: "Geschäftsjahr"
     financial_year_as_last: "Geschäftsjahr (zuletzt Journaleintrag)"
     finish: "Fertig"
+    # finished_at: "Finished at"
     first_met_at: "Zunächst trafen sich am"
     first_name: "Vorname"
     first_number: "erste Reihe"
@@ -901,6 +908,7 @@ deu:
     measure_value_value: "Messwert Wert"
     meeting_origin: "Treffen Herkunft"
     member: "Mitglied"
+    member_variant: "Mitglied Variante"
     members: "Mitglieder"
     members_count: "Mitglieder zählen"
     memberships: "Mitgliedschaften"
@@ -942,6 +950,7 @@ deu:
     nodes: "Knoten"
     noticed_start_amount: "Bemerkt Start Menge"
     noticed_stop_amount: "Bemerkt Anschlag Menge"
+    # notification: "Notification"
     notifications: "Benachrichtigungen"
     number: "Nummer"
     number_format: "Zahlenformat"
@@ -953,6 +962,7 @@ deu:
     old_password: "Altes Passwort"
     opened_at: "geöffnet an"
     operation: "Betrieb"
+    # operation_name: "Operation name"
     operations: "Geschäftstätigkeit" #?
     ordered_at: "bestellt auf"
     organic_fertilizer_mineral_fraction: "Organische Dünger Mineralfraktion"

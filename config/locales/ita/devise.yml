@@ -45,6 +45,8 @@ ita:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "Accedi qui."
           subject: "Il tuo account è stato approvato!"
+        signed_up:
+          subject: "Nuova registrazione"
       reset_password_instructions:
         subject: "Ripristinare le istruzioni di password"
       unlock_instructions:

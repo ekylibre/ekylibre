@@ -474,71 +474,288 @@ module Procedo
             r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
             r0 = r2
           else
-            r3 = _nt_object
+            r3 = _nt_string_expression
             if r3
               r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
               r0 = r3
             else
-              i4, s4 = index, []
-              if (match_len = has_terminal?("(", false, index))
-                r5 = true
-                @index += match_len
-              else
-                terminal_parse_failure('"("')
-                r5 = nil
-              end
-              s4 << r5
-              if r5
-                r7 = _nt_space
-                if r7
-                  r6 = r7
-                else
-                  r6 = instantiate_node(SyntaxNode,input, index...index)
-                end
-                s4 << r6
-                if r6
-                  r8 = _nt_expression
-                  s4 << r8
-                  if r8
-                    r10 = _nt_space
-                    if r10
-                      r9 = r10
-                    else
-                      r9 = instantiate_node(SyntaxNode,input, index...index)
-                    end
-                    s4 << r9
-                    if r9
-                      if (match_len = has_terminal?(")", false, index))
-                        r11 = true
-                        @index += match_len
-                      else
-                        terminal_parse_failure('")"')
-                        r11 = nil
-                      end
-                      s4 << r11
-                    end
-                  end
-                end
-              end
-              if s4.last
-                r4 = instantiate_node(Expression,input, i4...index, s4)
-                r4.extend(Primary0)
-              else
-                @index = i4
-                r4 = nil
-              end
+              r4 = _nt_object
               if r4
                 r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
                 r0 = r4
               else
-                @index = i0
-                r0 = nil
+                r5 = _nt_interpolation
+                if r5
+                  r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
+                  r0 = r5
+                else
+                  i6, s6 = index, []
+                  if (match_len = has_terminal?("(", false, index))
+                    r7 = true
+                    @index += match_len
+                  else
+                    terminal_parse_failure('"("')
+                    r7 = nil
+                  end
+                  s6 << r7
+                  if r7
+                    r9 = _nt_space
+                    if r9
+                      r8 = r9
+                    else
+                      r8 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s6 << r8
+                    if r8
+                      r10 = _nt_expression
+                      s6 << r10
+                      if r10
+                        r12 = _nt_space
+                        if r12
+                          r11 = r12
+                        else
+                          r11 = instantiate_node(SyntaxNode,input, index...index)
+                        end
+                        s6 << r11
+                        if r11
+                          if (match_len = has_terminal?(")", false, index))
+                            r13 = true
+                            @index += match_len
+                          else
+                            terminal_parse_failure('")"')
+                            r13 = nil
+                          end
+                          s6 << r13
+                        end
+                      end
+                    end
+                  end
+                  if s6.last
+                    r6 = instantiate_node(Expression,input, i6...index, s6)
+                    r6.extend(Primary0)
+                  else
+                    @index = i6
+                    r6 = nil
+                  end
+                  if r6
+                    r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
+                    r0 = r6
+                  else
+                    @index = i0
+                    r0 = nil
+                  end
+                end
               end
             end
           end
         end
 
         node_cache[:primary][start_index] = r0
+
+        r0
+      end
+
+      module StringExpression0
+        def string_body
+          elements[1]
+        end
+
+      end
+
+      def _nt_string_expression
+        start_index = index
+        if node_cache[:string_expression].has_key?(index)
+          cached = node_cache[:string_expression][index]
+          if cached
+            node_cache[:string_expression][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+            @index = cached.interval.end
+          end
+          return cached
+        end
+
+        i0, s0 = index, []
+        if (match_len = has_terminal?("'", false, index))
+          r1 = true
+          @index += match_len
+        else
+          terminal_parse_failure('"\'"')
+          r1 = nil
+        end
+        s0 << r1
+        if r1
+          s2, i2 = [], index
+          loop do
+            r3 = _nt_string_part
+            if r3
+              s2 << r3
+            else
+              break
+            end
+          end
+          r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+          s0 << r2
+          if r2
+            if (match_len = has_terminal?("'", false, index))
+              r4 = true
+              @index += match_len
+            else
+              terminal_parse_failure('"\'"')
+              r4 = nil
+            end
+            s0 << r4
+          end
+        end
+        if s0.last
+          r0 = instantiate_node(StringExpression,input, i0...index, s0)
+          r0.extend(StringExpression0)
+        else
+          @index = i0
+          r0 = nil
+        end
+
+        node_cache[:string_expression][start_index] = r0
+
+        r0
+      end
+
+      def _nt_string_part
+        start_index = index
+        if node_cache[:string_part].has_key?(index)
+          cached = node_cache[:string_part][index]
+          if cached
+            node_cache[:string_part][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+            @index = cached.interval.end
+          end
+          return cached
+        end
+
+        i0 = index
+        r1 = _nt_interpolation
+        if r1
+          r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
+          r0 = r1
+        else
+          r2 = _nt_text
+          if r2
+            r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
+            r0 = r2
+          else
+            @index = i0
+            r0 = nil
+          end
+        end
+
+        node_cache[:string_part][start_index] = r0
+
+        r0
+      end
+
+      def _nt_text
+        start_index = index
+        if node_cache[:text].has_key?(index)
+          cached = node_cache[:text][index]
+          if cached
+            node_cache[:text][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+            @index = cached.interval.end
+          end
+          return cached
+        end
+
+        s0, i0 = [], index
+        loop do
+          if has_terminal?(@regexps[gr = '\A["_"a-zA-Z0-9\\s\\n]'] ||= Regexp.new(gr), :regexp, index)
+            r1 = true
+            @index += 1
+          else
+            terminal_parse_failure('["_"a-zA-Z0-9\\s\\n]')
+            r1 = nil
+          end
+          if r1
+            s0 << r1
+          else
+            break
+          end
+        end
+        if s0.empty?
+          @index = i0
+          r0 = nil
+        else
+          r0 = instantiate_node(Text,input, i0...index, s0)
+        end
+
+        node_cache[:text][start_index] = r0
+
+        r0
+      end
+
+      module Interpolation0
+        def expression
+          elements[2]
+        end
+
+      end
+
+      def _nt_interpolation
+        start_index = index
+        if node_cache[:interpolation].has_key?(index)
+          cached = node_cache[:interpolation][index]
+          if cached
+            node_cache[:interpolation][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+            @index = cached.interval.end
+          end
+          return cached
+        end
+
+        i0, s0 = index, []
+        if (match_len = has_terminal?("%\{", false, index))
+          r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
+        else
+          terminal_parse_failure('"%\\{"')
+          r1 = nil
+        end
+        s0 << r1
+        if r1
+          r3 = _nt_space
+          if r3
+            r2 = r3
+          else
+            r2 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s0 << r2
+          if r2
+            r4 = _nt_expression
+            s0 << r4
+            if r4
+              r6 = _nt_space
+              if r6
+                r5 = r6
+              else
+                r5 = instantiate_node(SyntaxNode,input, index...index)
+              end
+              s0 << r5
+              if r5
+                if (match_len = has_terminal?("\}", false, index))
+                  r7 = true
+                  @index += match_len
+                else
+                  terminal_parse_failure('"\\}"')
+                  r7 = nil
+                end
+                s0 << r7
+              end
+            end
+          end
+        end
+        if s0.last
+          r0 = instantiate_node(Interpolation,input, i0...index, s0)
+          r0.extend(Interpolation0)
+        else
+          @index = i0
+          r0 = nil
+        end
+
+        node_cache[:interpolation][start_index] = r0
 
         r0
       end

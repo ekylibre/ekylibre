@@ -450,6 +450,17 @@ cmn:
       nature: #?
         period: "认购日期" #?
         quantity: "认购按编号" #?
+    synchronization_operation:
+      operation_name:
+        # authenticate: "Authentication"
+        # get_inventory: "Get inventory"
+        # get_urls: "Get urls"
+      state:
+        # aborted: "Aborted"
+        # errored: "Errored"
+        # finished: "Finished"
+        # in_progress: "In progress"
+        # undone: "Undone"
     task:
       nature:
         document: "写作" #?

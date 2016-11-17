@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add ednotif eu country code">
+  <property-creation property="countries.ednotif_eu" type="boolean" default="false"/>
+  <item-change item="countries#de" ednotif_eu="true"/>
+  <item-change item="countries#at" ednotif_eu="true"/>
+  <item-change item="countries#be" ednotif_eu="true"/>
+  <item-change item="countries#bg" ednotif_eu="true"/>
+  <item-change item="countries#cy" ednotif_eu="true"/>
+  <item-change item="countries#dk" ednotif_eu="true"/>
+  <item-change item="countries#es" ednotif_eu="true"/>
+  <item-change item="countries#ee" ednotif_eu="true"/>
+  <item-change item="countries#fi" ednotif_eu="true"/>
+  <item-change item="countries#fr" ednotif_eu="true"/>
+  <item-change item="countries#gr" ednotif_eu="true"/>
+  <item-change item="countries#hu" ednotif_eu="true"/>
+  <item-change item="countries#ie" ednotif_eu="true"/>
+  <item-change item="countries#it" ednotif_eu="true"/>
+  <item-change item="countries#lv" ednotif_eu="true"/>
+  <item-change item="countries#lt" ednotif_eu="true"/>
+  <item-change item="countries#lu" ednotif_eu="true"/>
+  <item-change item="countries#mt" ednotif_eu="true"/>
+  <item-change item="countries#nl" ednotif_eu="true"/>
+  <item-change item="countries#pl" ednotif_eu="true"/>
+  <item-change item="countries#pt" ednotif_eu="true"/>
+  <item-change item="countries#ro" ednotif_eu="true"/>
+  <item-change item="countries#cz" ednotif_eu="true"/>
+  <item-change item="countries#sk" ednotif_eu="true"/>
+  <item-change item="countries#si" ednotif_eu="true"/>
+  <item-change item="countries#se" ednotif_eu="true"/>
+  <item-change item="countries#gb" ednotif_eu="true"/>
+  <item-change item="countries#hr" ednotif_eu="true"/>
+  <item-change item="countries#ch" ednotif_eu="true"/>
+</migration>

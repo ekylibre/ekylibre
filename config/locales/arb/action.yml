@@ -923,9 +923,12 @@ arb:
     activity_productions: "إنتاجات آخر"
     add: "اضافة"
     add_a_worker: "إضافة عامل"
+    # add_animal: "Add animal"
+    # add_animal_group: "Add animal group"
     add_annotation: "إضافة تعليق توضيحي"
     add_attachment: "إضافة مرفق"
     add_bank_statement: "إضافة كشف حساب بنكي"
+    # add_building_division: "Add building division"
     add_catalog_price: "إضافة سعر كتالوج"
     add_child: "إضافة عنصر الطفل"
     add_choice: "إضافة خيار"
@@ -935,7 +938,9 @@ arb:
     add_delivery: "اضافة وسيلة نقل"
     add_distribution: "إضافة التوزيع"
     add_email: "إضافة البريد الإلكتروني"
+    # add_entrance: "Add entrance"
     add_entry: "إضافة إدخال"
+    # add_exit: "Add exit"
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
@@ -1093,6 +1098,7 @@ arb:
     choices: "خيارات"
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
+    choose_delete_interventions_options: "سيكون لك:"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
     choose_options_is_needed: "يجب عليك اختيار الحالة لالتدخلات التالية:"
     city_name: "المدينة" #?
@@ -1151,6 +1157,7 @@ arb:
     counts: "التهم"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
+    create_and_continue: "إنشاء ومتابعة"
     create_journal: "-- انشاء دفتر يومي --"
     create_or_import_equipments: "إنشاء أو المعدات استيراد"
     create_or_import_incoming_parcels: "إنشاء أو استيراد الطرود الواردة"
@@ -1202,6 +1209,8 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
+    delete_only_record: "أو حذف فقط تدخل مختارة (ق) وعرض طلب الزميلة؟"
+    delete_request: "حذف أيضا على طلب المنتسبين إلى تدخل مختارة (ق)"
     delete_selected_interventions: "حذف التدخلات المنتقاة"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
@@ -1389,6 +1398,7 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
+    in_progress: "في تَقَدم"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
@@ -2444,6 +2454,8 @@ arb:
       record_has_been_imported: "تم استيراد سجل"
       record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح" #?
       record_not_found: "سجل لم يتم العثور"
+      # record_x_created: "%{record} %{name} created"
+      # record_x_updated: "%{record} %{name} updated"
       restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}" #?
       sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
       sale_cannot_be_updated: "الطلب غير قابل للتعديل" #?
@@ -2458,7 +2470,11 @@ arb:
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
       subscription_is_not_renewable: "الاشتراك ليست قابلة للتجديد"
+      # synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
+      # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
+      # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
+      # this_service_is_not_activated: "This service is not activated"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"

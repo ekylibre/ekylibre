@@ -185,6 +185,9 @@ module Procedo
           options[:default_value] = element.attr('default-value')
         end
         options[:if] = element.attr('if') if element.has_attribute?('if')
+
+        options[:compute_filter] = element.attr('compute-filter') if element.has_attribute?('compute-filter')
+        options[:filter] = element.attr('filter') if element.has_attribute?('filter')
         setter = parameter.send("add_#{type}", name, options)
         parse_computations(setter, element)
       end

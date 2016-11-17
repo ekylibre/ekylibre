@@ -463,6 +463,17 @@ por:
       nature: #?
         period: "Subscrição por data" #?
         quantity: "Subscrição por número" #?
+    synchronization_operation:
+      operation_name:
+        # authenticate: "Authentication"
+        # get_inventory: "Get inventory"
+        # get_urls: "Get urls"
+      state:
+        # aborted: "Aborted"
+        # errored: "Errored"
+        # finished: "Finished"
+        # in_progress: "In progress"
+        # undone: "Undone"
     task:
       nature:
         document: "Documento" #?
