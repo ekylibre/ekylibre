@@ -22,4 +22,6 @@ json.array! @contacts do |contact|
     end
   end
 
+  json.picture contact.id if contact.picture.file?
+
 end

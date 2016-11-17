@@ -95,7 +95,9 @@ Rails.application.routes.draw do
       resources :plant_countings
       resources :plants
       resources :intervention_participations, only: [:create]
-      resources :contacts, only: [:index]
+      resources :contacts, only: [:index] do
+        match 'picture(/:style)', via: :get, action: :picture, as: :picture
+      end
     end
   end
 
