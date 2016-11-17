@@ -897,7 +897,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :trial_balance, only: [:show], path: 'trial-balance'
+    resource :trial_balance, only: [:show], path: 'trial-balance' do
+      member do
+        get :export, defaults: { format: 'ods' }
+      end
+    end
 
     resources :users, concerns: [:list, :unroll] do
       member do

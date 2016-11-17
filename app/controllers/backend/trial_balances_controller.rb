@@ -23,5 +23,35 @@ module Backend
     def show
       @balance = Journal.trial_balance(params) if params[:period]
     end
+
+    def export
+      return unless params[:period]
+      balance = Journal.trial_balance(params)
+      respond_to do |format|
+        format.html
+        format.ods do
+          send_data(
+              trial_balance_to_ods_export(balance).bytes,
+              filename: "[#{Time.zone.now.l}] #{Journal.model_name.human}.ods".underscore
+          )
+        end
+      end
+    end
+
+    def trial_balance_to_ods_export(balance)
+      require 'odf/spreadsheet'
+      output = ODF::Spreadsheet.new
+      output.instance_eval do
+        office_style :important, family: :cell do
+          property :text, 'font-weight': :bold, 'font-size': '11px'
+        end
+        office_style :bold, family: :cell do
+          property :text, 'font-weight': :bold
+        end
+
+      end
+      output
+    end
+
   end
 end
