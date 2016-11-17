@@ -1,9 +1,15 @@
 json.ignore_nil!
 json.array! @contacts do |contact|
   json.call contact, :last_name, :first_name
-  json.emails contact.emails, :coordinate unless contact.emails.empty?
-  json.phones contact.phones, :coordinate unless contact.phones.empty?
-  json.mobiles contact.mobiles, :coordinate unless contact.mobiles.empty?
-  json.websites contact.websites, :coordinate unless contact.websites.empty?
-  json.mails contact.mails, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_postal_code, :mail_mail_line_6_city, :mail_country  unless contact.emails.empty?
+  [contact.emails, contact.phones, contact.mobiles, contact.websites].each do |addresses|
+    next if addresses.empty?
+    json.set! "#{addresses.first.canal}", addresses.collect(&:coordinate).compact
+  end
+
+  json.mails contact.mails do |address|
+    json.mail_lines address.mail_lines(with_city: false, with_country: false)
+    json.postal_code address.mail_postal_code
+    json.city address.mail_mail_line_6_city
+    json.country address.mail_country
+  end
 end
