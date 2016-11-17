@@ -12,4 +12,14 @@ json.array! @contacts do |contact|
     json.city address.mail_mail_line_6_city
     json.country address.mail_country
   end
+
+  organization = contact.direct_links.select{|l| l.entity_role == 'member' and l.linked_role == 'organization'}.first
+
+  if organization
+    json.organization do
+      json.name organization.linked.full_name unless organization.linked.full_name.blank?
+      json.post organization.post unless organization.post.blank?
+    end
+  end
+
 end

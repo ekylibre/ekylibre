@@ -3,8 +3,7 @@ module Api
     # Contacts API permits to access contacts
     class ContactsController < Api::V1::BaseController
       def index
-        @contacts = Entity.contacts
-
+        @contacts = Entity.includes(direct_links: :linked)
       end
     end
   end
