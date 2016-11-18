@@ -32,7 +32,7 @@ module Backend
         format.ods do
           send_data(
               trial_balance_to_ods_export(balance).bytes,
-              filename: "[#{Time.zone.now.l}] #{Journal.model_name.human}.ods".underscore
+              filename: "[#{Time.zone.now.l}] #{:balance.tl}.ods".underscore
           )
         end
       end
@@ -41,17 +41,90 @@ module Backend
     def trial_balance_to_ods_export(balance)
       require 'odf/spreadsheet'
       output = ODF::Spreadsheet.new
+      view = view_context
+
       output.instance_eval do
-        office_style :important, family: :cell do
+        office_style :head, family: :cell do
           property :text, 'font-weight': :bold, 'font-size': '11px'
+          property :paragraph, 'text-align': :center
         end
+
+        office_style :right, family: :cell do
+          property :paragraph, 'text-align': :right
+        end
+
         office_style :bold, family: :cell do
           property :text, 'font-weight': :bold
         end
 
+        office_style :italic, family: :cell do
+          property :text, 'font-style': :italic
+        end
+
+        currency = Preference[:currency]
+
+        table :trial_balance.tl do
+          row do
+            cell JournalEntryItem.human_attribute_name(:account_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:account_name), style: :head
+            cell :total.tl, style: :head, span: 2
+            cell :balance.tl, style: :head, span: 2
+          end
+
+          row do
+            cell ''
+            cell ''
+            cell JournalEntry.human_attribute_name(:debit), style: :head
+            cell JournalEntry.human_attribute_name(:credit), style: :head
+            cell JournalEntry.human_attribute_name(:debit), style: :head
+            cell JournalEntry.human_attribute_name(:credit), style: :head
+          end
+
+          balance.each do |item|
+
+            if item[1].to_i > 0
+              account = Account.find(item[1])
+              row do
+                cell account.number
+                cell account.name
+                cell view.number_to_accountancy(item[2], currency)
+                cell view.number_to_accountancy(item[3], currency)
+                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency)
+                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency)
+              end
+
+            elsif item[1].to_i == -1
+              row do
+                cell ''
+                cell :total.tl, style: :bold
+                cell view.number_to_accountancy(item[2], currency) , style: :bold
+                cell view.number_to_accountancy(item[3], currency) , style: :bold
+                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency) , style: :bold
+                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency), style: :bold
+              end
+            elsif item[1].to_i == -2
+              row do
+                cell
+                cell :subtotal.tl(name: item[0]), style: :right
+                cell view.number_to_accountancy(item[2], currency) , style: :bold
+                cell view.number_to_accountancy(item[3], currency) , style: :bold
+                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency) , style: :bold
+                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency) , style: :bold
+              end
+            elsif item[1].to_i == -3
+              row do
+                cell item[0], style: :italic
+                cell :centralized_account.tl(name: item[0]), style: :italic
+                cell view.number_to_accountancy(item[2], currency), style: :italic
+                cell view.number_to_accountancy(item[3], currency), style: :italic
+                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency), style: :italic
+                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency), style: :italic
+              end
+            end
+          end
+        end
       end
       output
     end
-
   end
 end
