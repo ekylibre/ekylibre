@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -5500,7 +5500,8 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb
+    codes jsonb,
+    amount_reference character varying
 );
 
 
@@ -16181,4 +16182,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161114101401');
 INSERT INTO schema_migrations (version) VALUES ('20161114112858');
 
 INSERT INTO schema_migrations (version) VALUES ('20161115163443');
+
+INSERT INTO schema_migrations (version) VALUES ('20161118152710');
 
