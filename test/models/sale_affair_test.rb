@@ -51,7 +51,12 @@
 #
 require 'test_helper'
 
-class SaleOpportunityTest < ActiveSupport::TestCase
-  test_model_actions
-  # Add tests here...
+class SaleAffairTest < ActiveSupport::TestCase
+  test 'homogeneousity' do
+    sale = Sale.order(:id)
+    assert_equal SaleAffair, sale.affair.class
+    assert_raise Exception do
+      sale.affair.deal_with! Purchase.first
+    end
+  end
 end

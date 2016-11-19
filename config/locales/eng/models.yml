@@ -301,10 +301,14 @@ eng:
       product_population: "Product population"
       product_reading: "Product reading"
       purchase: "Purchase"
+      # purchase_affair: "Purchase affair"
+      purchase_gap: ""
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
       role: "Role"
       sale: "Sale"
+      # sale_affair: "Sale affair"
+      sale_gap: ""
       sale_item: "Sale item"
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"
@@ -1108,6 +1112,7 @@ eng:
     provisional_intervention: "Provisional intervention" #?
     purchasable: "Purchasable"
     purchase: "Purchase"
+    purchase_affair: "Purchase affair" #?
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"
     purchase_item: "Purchase item"
@@ -1326,7 +1331,7 @@ eng:
     template: "Template"
     theme: "Theme"
     third: "Third"
-    third_role: "Third role"
+    third_role: "Third role" #?
     thread: "Thread"
     time_window: "Time window (in seconds)"
     title: "Title"
@@ -1622,6 +1627,8 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused order"
+    purchase_gap:
+      bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1660,6 +1667,8 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused estimate"
+    sale_gap:
+      bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"

@@ -80,7 +80,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :commission_account, presence: { if: :with_commission? }
 
   acts_as_numbered
-  acts_as_affairable :payer, dealt_at: :to_bank_at, role: 'client'
+  acts_as_affairable :payer, dealt_at: :to_bank_at, class_name: 'SaleAffair'
 
   alias status affair_status
 

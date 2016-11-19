@@ -223,7 +223,7 @@ Rails.application.routes.draw do
 
     resources :activity_seasons, concerns: [:unroll]
 
-    resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
+    # resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 
     resources :analyses, concerns: [:list, :unroll] do
       member do
@@ -478,11 +478,11 @@ Rails.application.routes.draw do
 
     resources :fungi, concerns: :products
 
-    resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
-      member do
-        get :list_items
-      end
-    end
+    # resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
+    #   member do
+    #     get :list_items
+    #   end
+    # end
 
     resource :general_ledger, only: [:show], path: 'general-ledger' do
       member do
@@ -750,6 +750,14 @@ Rails.application.routes.draw do
     resources :product_nature_variant_components, only: [],
                                                   concerns: [:autocomplete, :unroll]
 
+    resources :purchase_affairs, concerns: [:list, :affairs], only: [:show, :index], path: 'purchase-affairs'
+
+    resources :purchase_gaps, concerns: [:list], except: [:new, :create, :edit, :update], path: 'purchase-gaps' do
+      member do
+        get :list_items
+      end
+    end
+
     resources :purchase_natures, concerns: [:list, :unroll]
 
     resources :purchases, concerns: [:list, :unroll] do
@@ -776,7 +784,15 @@ Rails.application.routes.draw do
 
     resources :sale_credits, only: [:new, :create], path: 'sale-credits'
 
+    resources :sale_gaps, concerns: [:list], except: [:new, :create, :edit, :update], path: 'sale-gaps' do
+      member do
+        get :list_items
+      end
+    end
+
     resources :sale_natures, concerns: [:list, :unroll], path: 'sale-natures'
+
+    resources :sale_affairs, concerns: [:list, :affairs], only: [:show, :index], path: 'sale-affairs'
 
     resources :sale_opportunities, concerns: [:list, :affairs], path: 'sale-opportunities' do
       member do

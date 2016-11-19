@@ -552,6 +552,17 @@ eng:
       new: "New product"
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
+    backend/purchase_affairs:
+      # attach: "Attach purchase affair: %{name}"
+      # detach: "Detach purchase affair: %{name}"
+      # detach_gaps: "Detach gaps purchase affair: %{name}"
+      # finish: "Finish purchase affair: %{name}"
+      # index: "Purchase affairs"
+      # select: "Select purchase affair: %{name}"
+      # show: "Purchase affair: %{name}"
+    backend/purchase_gaps:
+      # index: "Purchase gaps"
+      # show: "Purchase gap: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -581,8 +592,19 @@ eng:
       new: "New role"
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
+    backend/sale_affairs:
+      # attach: "Attach sale affair: %{name}"
+      # detach: "Detach sale affair: %{name}"
+      # detach_gaps: "Detach gaps sale affair: %{name}"
+      # finish: "Finish sale affair: %{name}"
+      # index: "Sale affairs"
+      # select: "Select sale affair: %{name}"
+      # show: "Sale affair: %{name}"
     backend/sale_credits:
       new: "Cancel sales invoice %{number}"
+    backend/sale_gaps:
+      # index: "Sale gaps"
+      # show: "Sale gap: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"

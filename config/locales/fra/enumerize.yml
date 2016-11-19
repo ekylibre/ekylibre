@@ -36,10 +36,6 @@ fra:
       mode:
         harvested: "Date de récolte prévisionnelle"
         sowed: "Date de semis prévisionnelle"
-    affair:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
     analysis:
       retrieval_status:
         controller_error: "Erreur de contrôleur"
@@ -141,10 +137,7 @@ fra:
     gap:
       direction:
         loss: "Perte"
-        profit: "Le profit"
-      entity_role:
-        # client: "Client"
-        supplier: "Fournisseur"
+        profit: "Profit"
     georeading:
       nature:
         line: "Ligne" #?
@@ -377,14 +370,6 @@ fra:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
-    sale_opportunity:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
-    sale_ticket:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
     sensor:
       retrieval_mode:
         integration: "Intégration"

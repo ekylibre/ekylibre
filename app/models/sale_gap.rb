@@ -40,9 +40,16 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-require 'test_helper'
+class SaleGap < Gap
+  belongs_to :client, foreign_key: :entity_id, class_name: 'Entity'
 
-class GapTest < ActiveSupport::TestCase
-  test_model_actions
-  # Add tests here...
+  acts_as_affairable :client, good: :profit?, class_name: 'SaleAffair'
+
+  bookkeep do |b|
+    b.journal_entry(Journal.used_for_gaps, printed_on: printed_on, unless: amount.zero?) do |entry|
+      label = tc(:bookkeep, resource: direction.l, number: number, client: client.full_name)
+      entry.add_debit(label, client.account(:client).id, amount)
+      add_entry_credit_items(entry, label)
+    end
+  end
 end

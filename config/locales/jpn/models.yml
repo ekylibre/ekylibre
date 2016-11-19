@@ -301,10 +301,12 @@ jpn:
       product_population: "製品の人口"
       product_reading: "製品のリーディング"
       purchase: "購入"
+      # purchase_gap: ""
       purchase_item: "購入アイテム"
       purchase_nature: "購入タイプ"
       role: "役割"
       sale: "販売"
+      # sale_gap: ""
       sale_item: "販売アイテム"
       sale_nature: "販売タイプ"
       sale_opportunity: "販売機会"
@@ -1093,6 +1095,7 @@ jpn:
     provisional_intervention: "暫定介入"
     purchasable: "購入"
     purchase: "購入"
+    # purchase_affair: "Purchase affair"
     purchase_amount: "購入金額"
     purchase_invoices: "請求書を購入"
     purchase_item: "購入アイテム"
@@ -1609,6 +1612,8 @@ jpn:
         invoice: "請求書"
         order: "注文"
         refused: "拒否したため"
+    purchase_gap:
+      # bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       # name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1647,6 +1652,8 @@ jpn:
         invoice: "請求書"
         order: "注文"
         refused: "拒否した推定値"
+    sale_gap:
+      # bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       # building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       # can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"

@@ -45,7 +45,6 @@
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -56,18 +55,9 @@ class AffairTest < ActiveSupport::TestCase
   test_model_actions
   # check that every model that can be affairable
   test 'affairables classes' do
-    for type in Affair.affairable_types
+    Affair.affairable_types.each do |type|
       model = type.constantize
       assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
     end
   end
-
-  # test "deals attachment" do
-  #   affair = affairs(:affairs_003)
-  #   deals = [incoming_payments(:incoming_payments_001), sales(:sales_001)]
-  #   for deal in deals
-  #     affair.attach(deal)
-  #   end
-  #   assert_equal (deals.size + 1), affair.deals_count, "The deals count is invalid"
-  # end
 end

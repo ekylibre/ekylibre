@@ -620,9 +620,6 @@ affairs:
     type: integer
     references: entity
     required: true
-  third_role:
-    type: string
-    required: true
   type:
     type: string
   updated_at:
@@ -2596,9 +2593,6 @@ gaps:
     type: integer
     references: entity
     required: true
-  entity_role:
-    type: string
-    required: true
   id:
     type: integer
     required: true
@@ -2619,6 +2613,8 @@ gaps:
   printed_at:
     type: datetime
     required: true
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true

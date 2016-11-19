@@ -1,4 +1,7 @@
 = field_set do
+  - if f.object.new_record? && params[:affair_id]
+    - f.object.affair = PurchaseAffair.find(params[:affair_id])
+    = f.association :affair, as: :hidden
   = f.referenced_association :payee
   = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
   = f.input :to_bank_at

@@ -1,4 +1,7 @@
 = field_set do
+  - if f.object.new_record? && params[:affair_id]
+    - f.object.affair = PurchaseAffair.find(params[:affair_id])
+    = f.association :affair, as: :hidden
   - if f.object.nature.payslip?
     = f.referenced_association :supplier, source: :employees, new: { employee: 1 }, label: Purchase.human_attribute_name(:employee)
   - else

@@ -301,10 +301,12 @@ cmn:
       product_population: "产品群"
       product_reading: "产品阅读"
       purchase: "采购"
+      # purchase_gap: ""
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
       role: "角色"
       sale: "拍卖"
+      # sale_gap: ""
       sale_item: "出售项目"
       sale_nature: "销售型"
       sale_opportunity: "销售机会"
@@ -1093,6 +1095,7 @@ cmn:
     provisional_intervention: "临时干预"
     purchasable: "购买"
     purchase: "采购"
+    # purchase_affair: "Purchase affair"
     purchase_amount: "购买量"
     purchase_invoices: "购买发票"
     purchase_item: "采购项目"
@@ -1609,6 +1612,8 @@ cmn:
         invoice: "发票"
         order: "订购"
         refused: "为了拒绝"
+    purchase_gap:
+      # bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       # name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1647,6 +1652,8 @@ cmn:
         invoice: "发票"
         order: "订购"
         refused: "拒绝估计"
+    sale_gap:
+      # bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       # building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       # can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"

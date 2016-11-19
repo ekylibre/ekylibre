@@ -36,10 +36,6 @@ spa:
       mode:
         harvested: "Cosecha fecha de siembra"
         sowed: "fecha de siembra provisional"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     analysis:
       retrieval_status:
         controller_error: "Error de controlador"
@@ -144,9 +140,6 @@ spa:
       direction:
         loss: "Pérdida"
         profit: "Lucro"
-      entity_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     georeading:
       nature:
         line: "Línea" #?
@@ -394,14 +387,6 @@ spa:
       nature:
         payslip: "Recibo de sueldo"
         purchase: "Compra"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     sensor:
       retrieval_mode:
         integration: "Integración"

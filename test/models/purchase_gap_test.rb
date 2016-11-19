@@ -42,7 +42,6 @@
 #
 require 'test_helper'
 
-class GapTest < ActiveSupport::TestCase
-  test_model_actions
+class PurchaseGapTest < ActiveSupport::TestCase
   # Add tests here...
 end

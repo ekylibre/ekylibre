@@ -243,6 +243,20 @@
         <page to="backend/sales#update"/>
         <page to="backend/sale_credits#new"/>
         <page to="backend/sale_credits#create"/>
+        <page to="backend/sale_affairs#index"/>
+        <page to="backend/sale_affairs#attach"/>
+        <page to="backend/sale_affairs#detach"/>
+        <page to="backend/sale_affairs#detach_gaps"/>
+        <page to="backend/sale_affairs#finish"/>
+        <page to="backend/sale_affairs#list"/>
+        <page to="backend/sale_affairs#select"/>
+        <page to="backend/sale_affairs#show"/>
+        <page to="backend/sale_affairs#unroll"/>
+        <page to="backend/sale_gaps#index"/>
+        <page to="backend/sale_gaps#destroy"/>
+        <page to="backend/sale_gaps#list"/>
+        <page to="backend/sale_gaps#list_items"/>
+        <page to="backend/sale_gaps#show"/>
       </item>
       <item name="opportunities">
         <page to="backend/sale_opportunities#index"/>
@@ -328,6 +342,20 @@
         <page to="backend/purchases#new"/>
         <page to="backend/purchases#pay"/>
         <page to="backend/purchases#payment_mode"/>
+        <page to="backend/purchase_affairs#index"/>
+        <page to="backend/purchase_affairs#attach"/>
+        <page to="backend/purchase_affairs#detach"/>
+        <page to="backend/purchase_affairs#detach_gaps"/>
+        <page to="backend/purchase_affairs#finish"/>
+        <page to="backend/purchase_affairs#list"/>
+        <page to="backend/purchase_affairs#select"/>
+        <page to="backend/purchase_affairs#show"/>
+        <page to="backend/purchase_affairs#unroll"/>
+        <page to="backend/purchase_gaps#index"/>
+        <page to="backend/purchase_gaps#destroy"/>
+        <page to="backend/purchase_gaps#list"/>
+        <page to="backend/purchase_gaps#list_items"/>
+        <page to="backend/purchase_gaps#show"/>
       </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>

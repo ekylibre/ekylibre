@@ -45,12 +45,11 @@
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-class SaleTicket < Affair
+class SaleTicket < SaleAffair
   # scope :tickets, -> { where(ticket: true) }
   scope :openeds, -> { joins(:cash_session).where('cash_sessions.stopped_at IS NULL') }
 end

@@ -49,9 +49,18 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-require 'test_helper'
+class PurchaseAffair < Affair
+  belongs_to :supplier, class_name: 'Entity', foreign_key: :third_id
 
-class SaleOpportunityTest < ActiveSupport::TestCase
-  test_model_actions
-  # Add tests here...
+  # Permit to attach a deal from affair
+  def attach(deal)
+    unless deal.deal_third == supplier
+      raise "Cannot deal with a different supplier in this PurchaseAffair (ID=#{id})"
+    end
+    deal.deal_with!(self)
+  end
+
+  def gap_class
+    PurchaseGap
+  end
 end

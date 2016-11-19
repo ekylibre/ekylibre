@@ -928,11 +928,21 @@ gaps:
     - "backend/gaps#list"
     - "backend/gaps#list_items"
     - "backend/gaps#show"
+    - "backend/purchase_gaps#index"
+    - "backend/purchase_gaps#list"
+    - "backend/purchase_gaps#list_items"
+    - "backend/purchase_gaps#show"
+    - "backend/sale_gaps#index"
+    - "backend/sale_gaps#list"
+    - "backend/sale_gaps#list_items"
+    - "backend/sale_gaps#show"
   write:
     dependencies:
     - read-gaps
     actions:
     - "backend/gaps#destroy"
+    - "backend/purchase_gaps#destroy"
+    - "backend/sale_gaps#destroy"
 
 georeadings:
   read:
@@ -1778,6 +1788,10 @@ purchase_natures:
 purchases:
   read:
     actions:
+    - "backend/purchase_affairs#index"
+    - "backend/purchase_affairs#list"
+    - "backend/purchase_affairs#show"
+    - "backend/purchase_affairs#unroll"
     - "backend/purchases#index"
     - "backend/purchases#list"
     - "backend/purchases#list_items"
@@ -1790,6 +1804,11 @@ purchases:
     actions:
     - "backend/interventions#purchase"
     - "backend/parcels#invoice"
+    - "backend/purchase_affairs#attach"
+    - "backend/purchase_affairs#detach"
+    - "backend/purchase_affairs#detach_gaps"
+    - "backend/purchase_affairs#finish"
+    - "backend/purchase_affairs#select"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1843,6 +1862,10 @@ sale_natures:
 sales:
   read:
     actions:
+    - "backend/sale_affairs#index"
+    - "backend/sale_affairs#list"
+    - "backend/sale_affairs#show"
+    - "backend/sale_affairs#unroll"
     - "backend/sale_opportunities#index"
     - "backend/sale_opportunities#list"
     - "backend/sale_opportunities#list_tasks"
@@ -1862,6 +1885,11 @@ sales:
     actions:
     - "backend/interventions#sell"
     - "backend/parcels#invoice"
+    - "backend/sale_affairs#attach"
+    - "backend/sale_affairs#detach"
+    - "backend/sale_affairs#detach_gaps"
+    - "backend/sale_affairs#finish"
+    - "backend/sale_affairs#select"
     - "backend/sale_opportunities#attach"
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
