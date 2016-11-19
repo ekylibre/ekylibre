@@ -1951,10 +1951,10 @@ eng:
       synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}" #?
       synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully" #?
       synchronization_operation_in_progress: "Operation %{operation_name} in progress" #?
-      # the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
-      # the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "The automatic lettering cannot be done in accountancy because it was already done by an user"
-      # the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "The automatic lettering cannot be done in accountancy because some deals are not accounted yet"
-      # the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
+      the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "The automatic lettering cannot be done in accountancy because it was already done by an user"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "The automatic lettering cannot be done in accountancy because some deals are not accounted yet"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
