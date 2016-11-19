@@ -23,9 +23,22 @@ module Ekylibre
           @draft = draft
         end
 
-        def journal_entry(journal, options = {}, &_block)
+        def journal_entry(journal, options = {})
           column = options.delete(:column) || :journal_entry_id
-          condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
+          if (options.keys & [:if, :unless, :list]).size > 1
+            raise ArgumentError, 'Options :if, :unless and :list are incompatible.'
+          end
+          if options.key?(:list)
+            if block_given?
+              raise ArgumentError, 'No block acceptable with :list option'
+            end
+            unless options[:list].is_a?(Array) && !options[:list].detect { |i| !i.is_a?(Array) }
+              raise ArgumentError, ':list option must be an Array of Array. Got: ' + options[:list].inspect
+            end
+            condition = options[:list].any?
+          else
+            condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
+          end
 
           attributes = options
           attributes[:resource] ||= @resource
@@ -55,9 +68,18 @@ module Ekylibre
             end
 
             # Add journal items
-            if block_given? && condition && @action != :destroy
+            if condition && @action != :destroy
               journal_entry ||= JournalEntry.create!(attributes)
-              yield(journal_entry)
+              if options[:list]
+                options[:list].each do |cmd|
+                  unless [:add_debit, :add_credit].include?(cmd.first)
+                    raise 'Can accept only add_debit and add_credit commands'
+                  end
+                  journal_entry.send(*cmd)
+                end
+              elsif block_given?
+                yield(journal_entry)
+              end
               journal_entry.reload.confirm unless @draft
             end
 
