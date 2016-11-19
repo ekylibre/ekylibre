@@ -46,10 +46,11 @@ class PurchaseGap < Gap
   acts_as_affairable :supplier, good: :profit?, class_name: 'PurchaseAffair'
 
   bookkeep do |b|
-    b.journal_entry(Journal.used_for_gaps, printed_on: printed_on, unless: amount.zero?) do |entry|
+    b.journal_entry(Journal.used_for_gaps!(currency: self.currency),
+                    printed_on: printed_on, unless: amount.zero?) do |entry|
       label = tc(:bookkeep, resource: direction.l, number: number, supplier: supplier.full_name)
-      entry.add_debit(label, supplier.account(:supplier).id, amount)
-      add_entry_credit_items(entry, label)
+      entry.add_credit(label, supplier.account(:supplier).id, amount)
+      add_entry_items(entry, label)
     end
   end
 end

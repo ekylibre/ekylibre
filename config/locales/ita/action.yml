@@ -1293,6 +1293,7 @@ ita:
     percentage_by_calibration: "Percentuale in calibrazione"
     period: "Periodo"
     periods: "periodi"
+    permanent_stock_inventory: "Permanente inventario di magazzino"
     permute: "permute"
     personalized_mail: "Invia una mail personalizzata"
     # pertinence: "%{value}%"
@@ -1332,6 +1333,7 @@ ita:
     productions: "produzioni"
     products: "Prodotti"
     profile: "Profilo"
+    profits_and_losses: "Gli utili e le perdite"
     provisionnal_budget: "budget Provisionnal" #?
     purchase: "Acquista"
     purchase_items: "articoli di acquisto"
@@ -1539,6 +1541,7 @@ ita:
     transfer: "Trasferimento"
     transformations: "trasformazioni" #?
     transport: "Trasporto"
+    unbilled_payables: "I debiti non ancora fatturate"
     undefined_activity: "L’attività non definita"
     undefined_container: "contenitore non definita"
     undelivered: "non consegnato"

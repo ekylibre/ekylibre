@@ -1227,6 +1227,7 @@ deu:
     percentage_by_calibration: "Prozentual durch Kalibrierung"
     period: "Periode"
     periods: "Zeiten"
+    permanent_stock_inventory: "Permanent Lagerbestand"
     permute: "Permutieren"
     personalized_mail: "Senden Sie eine personalisierte E-Mail"
     # pertinence: "%{value}%"
@@ -1266,6 +1267,7 @@ deu:
     # productions: "Productions"
     products: "Produkte"
     profile: "Profil"
+    profits_and_losses: "Gewinne und Verluste"
     provisionnal_budget: "Provisionnal Budget" #?
     purchase: "Kauf"
     purchase_items: "Kauf von Gegenständen"
@@ -1473,6 +1475,7 @@ deu:
     transfer: "Übertragung"
     transformations: "Transformationen" #?
     # transport: "Transport"
+    unbilled_payables: "Nicht abgerechnete Verbindlichkeiten"
     undefined_activity: "Nicht definierte Aktivität"
     undefined_container: "undefined Behälter"
     undelivered: "Nicht gesendet"

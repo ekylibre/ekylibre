@@ -159,7 +159,7 @@ class JournalEntry < Ekylibre::Record::Base
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.real_currency = journal.currency if journal
-    if self.financial_year = FinancialYear.at(printed_on)
+    if printed_on? && (self.financial_year = FinancialYear.at(printed_on))
       self.currency = financial_year.currency
     end
     if real_currency && financial_year

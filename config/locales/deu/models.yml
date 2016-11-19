@@ -1370,6 +1370,8 @@ deu:
     use_tactics: "Verwenden Sie Ernte-Management-Technik"
     used_for_affairs: "Wird für die Angelegenheiten"
     used_for_gaps: "Wird für die Lücken"
+    used_for_permanent_stock_inventory: "Wird für die permanente Lagerhaltung"
+    used_for_unbilled_payables: "Wird für die noch nicht abgerechneten Leistungen"
     used_intervention_parameters: "Gebrauchte Interventionsparameter"
     useful_items: "Nützliches"
     user: "Benutzer"

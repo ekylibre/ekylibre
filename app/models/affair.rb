@@ -337,16 +337,20 @@ class Affair < Ekylibre::Record::Base
     raise NotImplementedError
   end
 
-  class AlreadyLettered < StandardError
-  end
-
-  class NotBalanced < StandardError
-  end
-
   before_save :letter_journal_entries!
 
   def letterable?
-    !(unbalanced? || multi_thirds? || journal_entry_items_already_lettered? || journal_entry_items_unbalanced?)
+    !unletterable?
+  end
+
+  def unletterable?
+    self.credit.zero? || unbalanced? || multi_thirds? ||
+      journal_entry_items_already_lettered? || journal_entry_items_unbalanced? ||
+      !match_with_accountancy?
+  end
+
+  def lettered?
+    letter? && journal_entry_items_balanced?
   end
 
   def letter_journal_entries
@@ -372,8 +376,19 @@ class Affair < Ekylibre::Record::Base
   end
 
   # Returns true if a part of items are already lettered by outside
+  def journal_entry_items_balanced?
+    letterable_journal_entry_items.sum('debit - credit').zero?
+  end
+
+  # Returns true if a part of items are already lettered by outside
   def journal_entry_items_unbalanced?
-    letterable_journal_entry_items.sum('debit - credit').nonzero?
+    !journal_entry_items_balanced?
+  end
+
+  # Returns true if debit/credit are the same for third in journal entry items
+  def match_with_accountancy?
+    letterable_journal_entry_items.sum(:debit) == credit &&
+      letterable_journal_entry_items.sum(:credit) == debit
   end
 
   # Returns true if many thirds are involved in this affair

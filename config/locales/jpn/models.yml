@@ -1371,6 +1371,8 @@ jpn:
     use_tactics: "作物管理技術を使用して、"
     used_for_affairs: "業務用に使用されます"
     used_for_gaps: "ギャップのために使用"
+    used_for_permanent_stock_inventory: "永久在庫棚卸のために使用"
+    used_for_unbilled_payables: "未請求債務のために使用"
     used_intervention_parameters: "中古介入パラメータ"
     useful_items: "便利なアイテム"
     user: "ユーザー"

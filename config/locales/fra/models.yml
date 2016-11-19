@@ -1643,6 +1643,8 @@ fra:
     use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
+    used_for_permanent_stock_inventory: "Utilisé pour l’inventaire de stock permanent"
+    used_for_unbilled_payables: "Utilisé pour factures non parvenues"
     used_intervention_parameters: "Paramètres d’intervention d’occasion"
     useful_items: "Lignes utiles"
     user: "Utilisateur"

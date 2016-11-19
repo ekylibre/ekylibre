@@ -52,9 +52,9 @@
 #
 require 'test_helper'
 
-class PurchaseAffairTest < ActiveSupport::TestCase
+class PurchaseAffairTest < AffairTest
   test 'homogeneousity' do
-    purchase = Purchase.order(:id)
+    purchase = Purchase.order(:id).first
     assert_equal PurchaseAffair, purchase.affair.class
     assert_raise Exception do
       purchase.affair.deal_with! Sale.first

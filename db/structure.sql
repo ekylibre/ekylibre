@@ -3455,7 +3455,9 @@ CREATE TABLE journals (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
+    used_for_unbilled_payables boolean DEFAULT false NOT NULL
 );
 
 

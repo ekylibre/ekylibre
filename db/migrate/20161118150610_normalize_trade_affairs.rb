@@ -1,12 +1,14 @@
 class NormalizeTradeAffairs < ActiveRecord::Migration
   def change
     add_column :affairs, :letter, :string
+    add_column :journals, :used_for_permanent_stock_inventory, :boolean, null: false, default: false
+    add_column :journals, :used_for_unbilled_payables, :boolean, null: false, default: false
 
     reversible do |d|
       d.up do
         execute "UPDATE affairs SET third_role = 'client' WHERE third_role != 'client' AND (id IN (SELECT affair_id FROM sales) OR id IN (SELECT affair_id FROM incoming_payments)) AND NOT (id IN (SELECT affair_id FROM purchases) OR id IN (SELECT affair_id FROM outgoing_payments))"
         execute "UPDATE affairs SET third_role = 'supplier' WHERE third_role != 'supplier' AND NOT (id IN (SELECT affair_id FROM sales) OR id IN (SELECT affair_id FROM incoming_payments)) AND (id IN (SELECT affair_id FROM purchases) OR id IN (SELECT affair_id FROM outgoing_payments))"
-        execute "UPDATE affairs SET type = 'SaleAffair' WHERE third_role = 'client'"
+        execute "UPDATE affairs SET type = 'SaleAffair' WHERE third_role = 'client' AND COALESCE(type, 'Affair') NOT IN ('SaleOpportunity', 'SaleTicket')"
         execute "UPDATE affairs SET type = 'PurchaseAffair' WHERE third_role = 'supplier'"
       end
       d.down do

@@ -36,14 +36,14 @@
 #
 ---
 gap_items_001:
-  amount: -11.23
+  amount: 11.23
   created_at: 2014-11-05 13:35:14.450417000 Z
   creator_id: 1
   currency: EUR
   gap_id: 3
   id: 1
   lock_version: 0
-  pretax_amount: -9.36
+  pretax_amount: 9.36
   tax_id: 3
   updated_at: 2014-11-05 13:35:14.450417000 Z
   updater_id: 1

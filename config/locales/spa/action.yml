@@ -1405,6 +1405,7 @@ spa:
     percentage_by_calibration: "Porcentaje de calibración"
     period: "Intervalo de periodo"
     periods: "Periodos"
+    permanent_stock_inventory: "Inventario de existencias permanentes"
     permute: "Permutar"
     personalized_mail: "Enviar un correo electronico personalizado"
     pertinence: "%{value}%"
@@ -1447,6 +1448,7 @@ spa:
     productions: "Producciones"
     products: "Productos"
     profile: "Perfil"
+    profits_and_losses: "Las pérdidas y ganancias"
     provisionnal_budget: "Presupuesto Provisionnal" #?
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
@@ -1703,6 +1705,7 @@ spa:
     transfer: "Transferir"
     transformations: "Transformaciones" #?
     transport: "Transporte"
+    unbilled_payables: "Cuentas a pagar no facturadas"
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
     undelivered: "No entregado"

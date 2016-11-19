@@ -76,10 +76,10 @@ class Gap < Ekylibre::Record::Base
   end
 
   # These method is used for bookkeeping
-  def add_entry_credit_items(entry, label)
+  def add_entry_items(entry, label)
     items.each do |item|
-      entry.add_credit(label, Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses), item.pretax_amount)
-      entry.add_credit(label, profit? ? item.tax.collect_account_id : item.tax.deduction_account_id, item.taxes_amount)
+      entry.add_debit(label, Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses), item.pretax_amount)
+      entry.add_debit(label, profit? ? item.tax.collect_account_id : item.tax.deduction_account_id, item.taxes_amount)
     end
   end
 end

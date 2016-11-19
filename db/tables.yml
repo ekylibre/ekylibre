@@ -3900,6 +3900,14 @@ journals:
     type: boolean
     required: true
     default: false
+  used_for_permanent_stock_inventory:
+    type: boolean
+    required: true
+    default: false
+  used_for_unbilled_payables:
+    type: boolean
+    required: true
+    default: false
 labels:
   color:
     type: string

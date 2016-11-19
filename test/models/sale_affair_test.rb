@@ -52,12 +52,100 @@
 #
 require 'test_helper'
 
-class SaleAffairTest < ActiveSupport::TestCase
+class SaleAffairTest < AffairTest
   test 'homogeneousity' do
-    sale = Sale.order(:id)
+    sale = Sale.order(:id).first
     assert_equal SaleAffair, sale.affair.class
     assert_raise Exception do
       sale.affair.deal_with! Purchase.first
     end
+  end
+
+  test 'finishing with gap' do
+    sale = new_valid_sales_invoice
+    assert_equal 1, sale.affair.deals.count
+    assert sale.affair.finishable?
+    assert_equal 1, sale.affair.deals.count
+    sale.affair.finish
+    assert_equal 2, sale.affair.deals.count
+
+    assert sale.affair.balanced?,
+           "Affair should be balanced:\n" +
+           sale.affair.attributes.sort_by(&:first).map { |k, v| " - #{k}: #{v}" }.join("\n")
+    assert sale.affair.letterable_journal_entry_items.any?,
+           "Affair should have letterable journal entry items:\n" +
+           sale.affair.deals.map { |d| " - #{d.class.name}: #{d.journal_entry.inspect}" }.join("\n")
+    assert sale.affair.journal_entry_items_balanced?,
+           "Journal entry items should be balanced:\n" +
+           sale.affair.letterable_journal_entry_items.map { |i| " - #{i.id.to_s.rjust(4)}: #{i.account_number.ljust(14)} | #{i.debit.to_s.rjust(10)} | #{i.credit.to_s.rjust(10)}" }.join("\n")
+    assert !sale.affair.multi_thirds?
+    assert !sale.affair.journal_entry_items_already_lettered?
+
+    assert sale.affair.letterable?
+    check_closed_state(sale.affair)
+  end
+
+  test 'balancing with payment' do
+    sale = new_valid_sales_invoice
+
+    payment = IncomingPayment.create!(
+      payer: sale.client,
+      amount: sale.amount,
+      mode: IncomingPaymentMode.where(
+        with_accounting: true,
+        cash: Cash.where(currency: sale.currency)
+      ).first
+    )
+
+    sale.deal_with! payment.affair
+
+    assert_equal sale.affair, payment.affair
+
+    check_closed_state(sale.affair)
+  end
+
+  # Creates a sale and check affair informations
+  def new_valid_sales_invoice
+    client = entities(:entities_005)
+    journal = Journal.find_by(nature: :sales)
+    nature = SaleNature.find_or_initialize_by(
+      with_accounting: true,
+      journal: journal,
+      currency: journal.currency,
+      catalog: Catalog.by_default!(:sale)
+    )
+    nature.name ||= 'Sales baby!'
+    nature.save!
+    items = (0..4).to_a.map do |index|
+      SaleItem.new(
+        quantity: 1 + rand(20),
+        unit_pretax_amount: 10 + (100 * rand).round(2),
+        variant: ProductNatureVariant.where(
+          category: ProductNatureCategory.where(saleable: true)
+        ).offset(index).first,
+        tax: Tax.all.sample
+      )
+    end
+    sale = Sale.create!(client: client, nature: nature, items: items)
+    assert sale.amount > 0, "Sale amount should be greater than 0. Got: #{sale.amount.inspect}"
+    assert_equal sale.affair.credit, sale.amount, 'Sale amount should match exactly affair credit'
+    sale.invoice!
+    sale.reload
+    assert sale.journal_entry, 'A journal entry should exists after sale invoicing'
+    assert_equal sale.affair.credit, sale.amount, 'Sale amount should match exactly affair credit'
+    assert sale.affair.unbalanced?,
+           "Affair should not be balanced:\n" +
+           sale.affair.attributes.sort_by(&:first).map { |k, v| " - #{k}: #{v}" }.join("\n")
+    assert sale.affair.letterable_journal_entry_items.any?,
+           "Affair should have letterable journal entry items:\n" +
+           sale.affair.deals.map { |d| " - #{d.class.name}: #{d.journal_entry.inspect}" }.join("\n")
+    assert sale.affair.journal_entry_items_unbalanced?,
+           "Journal entry items should be unbalanced:\n" +
+           sale.affair.letterable_journal_entry_items.map { |i| " - #{i.account_number.ljust(14)} | #{i.debit.to_s.rjust(10)} | #{i.credit.to_s.rjust(10)}" }.join("\n")
+    assert !sale.affair.multi_thirds?
+    assert !sale.affair.journal_entry_items_already_lettered?
+
+    assert !sale.affair.letterable?
+    sale
   end
 end

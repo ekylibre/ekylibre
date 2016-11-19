@@ -1402,6 +1402,8 @@ ita:
     use_tactics: "Utilizzare tecnica di gestione delle colture"
     used_for_affairs: "Usato per gli affari"
     used_for_gaps: "Usato per le lacune"
+    used_for_permanent_stock_inventory: "Usato per inventario di magazzino permanente"
+    used_for_unbilled_payables: "Usato per debiti non fatturate"
     used_intervention_parameters: "Parametri di intervento utilizzato"
     useful_items: "oggetti utili"
     user: "Utente"

@@ -346,8 +346,8 @@ eng:
     access_parameters: "Access parameters"
     account: "Account"
     account_balances: "Account balances"
-    account_name: "Account name" #?
-    account_number: "Account number" #?
+    account_name: "Account name"
+    account_number: "Account number"
     accountable: "Accountable"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
@@ -1387,6 +1387,8 @@ eng:
     use_tactics: "Use cropping techniques"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
+    used_for_permanent_stock_inventory: "Used for permanent stock inventory"
+    used_for_unbilled_payables: "Used for unbilled payables"
     used_intervention_parameters: "Used intervention parameters"
     useful_items: "Useful items"
     user: "User"

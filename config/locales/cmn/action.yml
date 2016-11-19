@@ -1228,6 +1228,7 @@ cmn:
     percentage_by_calibration: "百分比校准"
     period: "期"
     periods: "期"
+    permanent_stock_inventory: "永久现货库存"
     permute: "置换"
     personalized_mail: "发送个性化的邮件"
     # pertinence: "%{value}%"
@@ -1267,6 +1268,7 @@ cmn:
     productions: "制作"
     products: "制品"
     profile: "轮廓"
+    profits_and_losses: "利润和亏损"
     provisionnal_budget: "Provisionnal预算" #?
     purchase: "采购"
     purchase_items: "购买物品"
@@ -1474,6 +1476,7 @@ cmn:
     transfer: "转让"
     transformations: "转换" #?
     transport: "运输"
+    unbilled_payables: "未开票应付账款"
     undefined_activity: "未定义活动"
     undefined_container: "未定义的容器"
     undelivered: "未送达"

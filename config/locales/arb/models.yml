@@ -2357,6 +2357,8 @@ arb:
     use_tactics: "استخدام تقنيات إدارة المحاصيل"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
+    used_for_permanent_stock_inventory: "تستخدم لجرد مخزون دائم"
+    used_for_unbilled_payables: "تستخدم لالدائنة غير المفوترة"
     used_intervention_parameters: "المعلمات تدخل مستعملة"
     useful_items: "المواد المفيدة"
     user: "المستخدم"

@@ -1371,6 +1371,8 @@ por:
     use_tactics: "Utilização de uma técnica manejo da cultura"
     used_for_affairs: "Usado para assuntos"
     used_for_gaps: "Usado para lacunas"
+    used_for_permanent_stock_inventory: "Usado para inventário de estoque permanente"
+    used_for_unbilled_payables: "Usado para pagar a faturar"
     used_intervention_parameters: "Parâmetros de intervenção usados"
     useful_items: "Itens úteis"
     user: "Do utilizador"

@@ -1300,6 +1300,7 @@ jpn:
     percentage_by_calibration: "キャリブレーションによるパーセント"
     period: "期間"
     periods: "期間"
+    permanent_stock_inventory: "永久的な在庫目録"
     permute: "並べ替えます"
     personalized_mail: "パーソナライズされたメールを送信します"
     # pertinence: "%{value}%"
@@ -1339,6 +1340,7 @@ jpn:
     productions: "プロダクション"
     products: "プロダクト"
     profile: "プロフィール"
+    profits_and_losses: "利益および損失"
     provisionnal_budget: "Provisionnal予算" #?
     purchase: "購入"
     purchase_items: "アイテムを購入します"
@@ -1546,6 +1548,7 @@ jpn:
     transfer: "転送"
     transformations: "変換" #?
     transport: "輸送"
+    unbilled_payables: "未請求の支払債務"
     undefined_activity: "未定義の活動"
     undefined_container: "未定義のコンテナ"
     undelivered: "未配達の"

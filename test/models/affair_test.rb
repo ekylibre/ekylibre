@@ -54,11 +54,26 @@ require 'test_helper'
 
 class AffairTest < ActiveSupport::TestCase
   test_model_actions
+
   # check that every model that can be affairable
   test 'affairables classes' do
     Affair.affairable_types.each do |type|
       model = type.constantize
       assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
     end
+  end
+
+  # Check that affair of given sale is actually closed perfectly
+  def check_closed_state(affair)
+    letter = affair.letter
+    assert letter.present?, 'After lettering, letter should be saved in affair'
+
+    affair.letterable_journal_entry_items.each do |item|
+      assert_equal letter, item.letter, "Journal entry item (account: #{item.account_number}, debit: #{item.debit}, debit: #{item.credit}) should be lettered with: #{letter}. Got: #{item.letter.inspect}"
+    end
+
+    debit = affair.letterable_journal_entry_items.sum(:debit)
+    credit = affair.letterable_journal_entry_items.sum(:debit)
+    assert_equal debit, credit
   end
 end

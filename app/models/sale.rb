@@ -224,38 +224,37 @@ class Sale < Ekylibre::Record::Base
         end
       end
     end
-    # FIXME: We can't select a journal with pure random
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
-    # FIXME: We can't select a journal with pure random
-    ui_journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP')
-    # 1 / for undelivered invoice
+
+    # For undelivered invoice
     # exchange undelivered invoice from parcel
-    parcels.each do |pi|
-      # 1 / for undelivered invoice
-      next unless pi.undelivered_invoice_entry
-      b.journal_entry(ui_journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
-        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
-        undelivered_items = pi.undelivered_invoice_entry.items
+    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
+    b.journal_entry(journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+      parcels.each do |parcel|
+        next unless parcel.undelivered_invoice_entry
+        label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
+        undelivered_items = parcel.undelivered_invoice_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
+          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance)
         end
       end
     end
-    # 2 / for gap between parcel item quantity and sale item quantity
+
+    # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
-    b.journal_entry(stock_journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
+    b.journal_entry(journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+      label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
-        next unless item.variant.storable?
+        next unless item.variant && item.variant.storable?
         parcel_items_qty = item.parcel_items.map(&:population).compact.sum
         gap = item.quantity - parcel_items_qty
         next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
         qty = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * qty
         next if gap_value.zero?
-        entry.add_credit(gap_label, item.variant.stock_account_id, gap_value)
-        entry.add_debit(gap_label, item.variant.stock_movement_account_id, gap_value)
+        entry.add_credit(label, item.variant.stock_account_id, gap_value)
+        entry.add_debit(label, item.variant.stock_movement_account_id, gap_value)
       end
     end
   end

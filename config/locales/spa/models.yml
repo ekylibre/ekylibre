@@ -1375,6 +1375,8 @@ spa:
     use_tactics: "Usar cultivos técnica de gestión"
     used_for_affairs: "Se utiliza para asuntos"
     used_for_gaps: "Se utiliza para huecos"
+    used_for_permanent_stock_inventory: "Se utiliza para inventario de existencias permanentes"
+    used_for_unbilled_payables: "Se utiliza para pagar no facturadas"
     used_intervention_parameters: "Parámetros de intervención utilizadas"
     useful_items: "Artículos útiles"
     user: "Usuario"

@@ -1371,6 +1371,8 @@ cmn:
     use_tactics: "利用农作物管理技术"
     used_for_affairs: "用于事务"
     used_for_gaps: "用于差距"
+    used_for_permanent_stock_inventory: "用于永久现货库存"
+    used_for_unbilled_payables: "用于应付未付款的"
     used_intervention_parameters: "二手干预参数"
     useful_items: "有用的物品"
     user: "用户"
