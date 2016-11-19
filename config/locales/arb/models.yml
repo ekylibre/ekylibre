@@ -941,12 +941,14 @@ arb:
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       purchase: "الشراء"
-      # purchase_gap: ""
+      purchase_affair: "قضية شراء"
+      purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
       role: "الدور"
       sale: "البيع"
-      # sale_gap: ""
+      sale_affair: "بيع القضية"
+      sale_gap: "الفجوة بيع"
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
       sale_opportunity: "فرصة بيع"
@@ -1991,7 +1993,7 @@ arb:
     published: "تم نشره" #?
     purchasable: "للشراء"
     purchase: "شراء"
-    # purchase_affair: "Purchase affair"
+    purchase_affair: "قضية شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
