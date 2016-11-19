@@ -1498,8 +1498,8 @@ spa:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
