@@ -452,15 +452,15 @@ cmn:
         quantity: "认购按编号" #?
     synchronization_operation:
       operation_name:
-        # authenticate: "Authentication"
-        # get_inventory: "Get inventory"
-        # get_urls: "Get urls"
+        authenticate: "认证"
+        get_inventory: "拿到盘点"
+        get_urls: "获取网址"
       state:
-        # aborted: "Aborted"
-        # errored: "Errored"
-        # finished: "Finished"
-        # in_progress: "In progress"
-        # undone: "Undone"
+        aborted: "中止"
+        errored: "误码"
+        finished: "完"
+        in_progress: "进行中"
+        undone: "未完成"
     task:
       nature:
         document: "写作" #?
