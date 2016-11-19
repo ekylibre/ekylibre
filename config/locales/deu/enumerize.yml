@@ -437,15 +437,15 @@ deu:
         quantity: "Abonnement von Nummer" #?
     synchronization_operation:
       operation_name:
-        # authenticate: "Authentication"
-        # get_inventory: "Get inventory"
-        # get_urls: "Get urls"
+        authenticate: "Beglaubigung"
+        get_inventory: "Erhalten Sie Inventar"
+        get_urls: "Erhalten Sie Urls"
       state:
-        # aborted: "Aborted"
+        aborted: "Abgebrochen"
         # errored: "Errored"
-        # finished: "Finished"
-        # in_progress: "In progress"
-        # undone: "Undone"
+        finished: "Fertig"
+        in_progress: "In Bearbeitung"
+        undone: "Unerledigt"
     task:
       nature:
         document: "Schreiben" #?
