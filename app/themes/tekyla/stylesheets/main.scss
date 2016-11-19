@@ -183,6 +183,16 @@ ul.dropdown-menu {
   }
 }
 
+.inline-message {
+  padding: $default-gap;
+  line-height: $lh-ratio * 1em;
+  &.warning {
+    &, * {
+      color: $caution-color;
+    }
+  }
+}
+
 .footnote {
   padding: $lh-large;
   @include text-align(center);

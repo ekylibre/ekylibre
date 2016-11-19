@@ -1,5 +1,7 @@
 class NormalizeTradeAffairs < ActiveRecord::Migration
   def change
+    add_column :affairs, :letter, :string
+
     reversible do |d|
       d.up do
         execute "UPDATE affairs SET third_role = 'client' WHERE third_role != 'client' AND (id IN (SELECT affair_id FROM sales) OR id IN (SELECT affair_id FROM incoming_payments)) AND NOT (id IN (SELECT affair_id FROM purchases) OR id IN (SELECT affair_id FROM outgoing_payments))"

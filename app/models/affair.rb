@@ -36,6 +36,7 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
 #  number                 :string           not null
@@ -54,10 +55,10 @@
 #       Deal      |  Debit  |  Credit |
 # Sale            |         |    X    |
 # SaleCredit      |    X    |         |
-# SaleGap         |  Loss   | Profit  |
+# SaleGap         |  Loss!  | Profit! |
 # Purchase        |    X    |         |
 # PurchaseCredit  |         |    X    |
-# PurchaseGap     |  Loss   | Profit  |
+# PurchaseGap     |  Loss!  | Profit! |
 # OutgoingPayment |         |    X    |
 # IncomingPayment |    X    |         |
 #
@@ -81,7 +82,7 @@ class Affair < Ekylibre::Record::Base
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :third, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
+  validates :letter, :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
@@ -172,8 +173,13 @@ class Affair < Ekylibre::Record::Base
   end
 
   # Check if debit is equal to credit
+  def unbalanced?
+    !(self.debit == self.credit)
+  end
+
+  # Check if debit is equal to credit
   def balanced?
-    !!(self.debit == self.credit)
+    !unbalanced?
   end
 
   def status
@@ -192,7 +198,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   def finishable?
-    thirds.count == 1 && balance.nonzero?
+    !multi_thirds? && unbalanced?
   end
 
   # Adds a gap to close the affair
@@ -205,7 +211,7 @@ class Affair < Ekylibre::Record::Base
   # proportional to the VAT %s amounts in the debit/credit.
   def finish
     return false if balance.zero?
-    raise 'Cannot finish anymore multi-thirds affairs' if thirds.count > 1
+    raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
@@ -325,5 +331,65 @@ class Affair < Ekylibre::Record::Base
   # Returns the currency precision to use in affair
   def currency_precision(default = 2)
     FinancialYear.at.currency_precision || default
+  end
+
+  def third_role
+    raise NotImplementedError
+  end
+
+  class AlreadyLettered < StandardError
+  end
+
+  class NotBalanced < StandardError
+  end
+
+  before_save :letter_journal_entries!
+
+  def letterable?
+    !(unbalanced? || multi_thirds? || journal_entry_items_already_lettered? || journal_entry_items_unbalanced?)
+  end
+
+  def letter_journal_entries
+    letter_journal_entries! if letterable?
+  end
+
+  def letterable_account
+    third.account(third_role)
+  end
+
+  def letterable_journal_entry_items
+    JournalEntryItem.where(account: letterable_account, entry: deals.map(&:journal_entry))
+  end
+
+  # Returns true if a part of items are already lettered by outside
+  def journal_entry_items_already_lettered?
+    letters = letterable_journal_entry_items.pluck(:letter)
+    if (letter? && letters.detect { |x| x != letter }) ||
+       (!letter? && letters.detect(&:present?))
+      return true
+    end
+    false
+  end
+
+  # Returns true if a part of items are already lettered by outside
+  def journal_entry_items_unbalanced?
+    letterable_journal_entry_items.sum('debit - credit').nonzero?
+  end
+
+  # Returns true if many thirds are involved in this affair
+  def multi_thirds?
+    thirds.count > 1
+  end
+
+  # Adds a letter on journal
+  def letter_journal_entries!
+    journal_entry_items = letterable_journal_entry_items
+    account = letterable_account
+
+    # Update letters
+    account.unmark(letter) if journal_entry_items.any?
+    self.letter = nil if letter.blank?
+    self.letter = account.mark(journal_entry_items.pluck(:id), letter)
+    true
   end
 end

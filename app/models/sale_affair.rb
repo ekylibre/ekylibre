@@ -36,6 +36,7 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
 #  number                 :string           not null
@@ -62,5 +63,9 @@ class SaleAffair < Affair
 
   def gap_class
     SaleGap
+  end
+
+  def third_role
+    :client
   end
 end

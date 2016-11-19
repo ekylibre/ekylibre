@@ -1331,7 +1331,7 @@ eng:
     template: "Template"
     theme: "Theme"
     third: "Third"
-    third_role: "Third role" #?
+    third_role: "Third role"
     thread: "Thread"
     time_window: "Time window (in seconds)"
     title: "Title"

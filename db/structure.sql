@@ -720,7 +720,8 @@ CREATE TABLE affairs (
     origin character varying,
     type character varying,
     state character varying,
-    probability_percentage numeric(19,4) DEFAULT 0.0
+    probability_percentage numeric(19,4) DEFAULT 0.0,
+    letter character varying
 );
 
 

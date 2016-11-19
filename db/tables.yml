@@ -593,6 +593,8 @@ affairs:
   journal_entry_id:
     type: integer
     references: journal_entry
+  letter:
+    type: string
   lock_version:
     type: integer
     required: true
