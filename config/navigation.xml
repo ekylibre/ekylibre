@@ -418,12 +418,8 @@
         <page to="backend/outgoing_payment_lists#destroy"/>
         <page to="backend/outgoing_payment_lists#list"/>
         <page to="backend/outgoing_payment_lists#show"/>
-        <page to="backend/outgoing_payment_lists#create"/>
-        <page to="backend/outgoing_payment_lists#edit"/>
         <page to="backend/outgoing_payment_lists#export_to_sepa"/>
         <page to="backend/outgoing_payment_lists#list_payments"/>
-        <page to="backend/outgoing_payment_lists#new"/>
-        <page to="backend/outgoing_payment_lists#update"/>
       </item>
     </group>
   </part>
@@ -875,11 +871,11 @@
         <page to="backend/animal_groups#list_carrier_linkages"/>
         <page to="backend/animal_groups#list_contained_products"/>
         <page to="backend/animal_groups#list_groups"/>
-        <page to="backend/animal_groups#list_parcel_items"/>
         <page to="backend/animal_groups#list_inspections"/>
         <page to="backend/animal_groups#list_intervention_product_parameters"/>
         <page to="backend/animal_groups#list_issues"/>
         <page to="backend/animal_groups#list_members"/>
+        <page to="backend/animal_groups#list_parcel_items"/>
         <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#list_trackings"/>
         <page to="backend/animal_groups#unroll"/>

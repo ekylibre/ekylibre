@@ -463,10 +463,8 @@ eng:
       edit: "Edit observation"
       new: "New observation"
     backend/outgoing_payment_lists:
-      # edit: "Edit outgoing payment list: %{name}"
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
-      # new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
