@@ -340,6 +340,7 @@ eng:
     absolute_measure_value: "Absolute measure value"
     absolute_measure_value_unit: "Absolute measure value unit"
     absolute_measure_value_value: "Absolute measure value value"
+    # absolute_pretax_amount: "Absolute pretax amount"
     absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     absorber: "Absorber" #?
     acceptance_status: "Acceptance status"
@@ -1142,6 +1143,7 @@ eng:
     real_currency: "Original currency"
     real_currency_rate: "Original currency rate"
     real_debit: "Original debit"
+    # real_pretax_amount: "Real pretax amount"
     receipt: "Receipt"
     received: "Received"
     received_at: "Received at" #?

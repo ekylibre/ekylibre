@@ -25,6 +25,7 @@
 #  absolute_credit           :decimal(19, 4)   default(0.0), not null
 #  absolute_currency         :string           not null
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
+#  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
@@ -47,13 +48,16 @@
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
 #  position                  :integer
+#  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
+#  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
+#  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
