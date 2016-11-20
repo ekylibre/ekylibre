@@ -60,4 +60,109 @@ class PurchaseAffairTest < AffairTest
       purchase.affair.deal_with! Sale.first
     end
   end
+
+  test 'balancing with payment' do
+    purchase = new_valid_purchases_invoice
+
+    payment = OutgoingPayment.create!(
+      payee: purchase.supplier,
+      amount: purchase.amount,
+      to_bank_at: Time.zone.now,
+      responsible: User.first,
+      delivered: true,
+      mode: OutgoingPaymentMode.where(
+        with_accounting: true,
+        cash: Cash.where(currency: purchase.currency)
+      ).first
+    )
+
+    purchase.deal_with! payment.affair
+
+    assert_equal purchase.affair, payment.affair
+
+    check_closed_state(purchase.affair)
+  end
+
+  test 'finishing with profit gap' do
+    purchase = new_valid_purchases_invoice
+    assert_equal 1, purchase.affair.deals.count
+    assert purchase.affair.finishable?
+    assert_equal 1, purchase.affair.deals.count
+    purchase.affair.finish
+    assert_equal 2, purchase.affair.deals.count
+
+    check_closed_state(purchase.affair)
+  end
+
+  test 'balancing with payment and a loss gap' do
+    purchase = new_valid_purchases_invoice
+
+    payment = OutgoingPayment.create!(
+      payee: purchase.supplier,
+      amount: purchase.amount + 5,
+      to_bank_at: Time.zone.now,
+      responsible: User.first,
+      delivered: true,
+      mode: OutgoingPaymentMode.where(
+        with_accounting: true,
+        cash: Cash.where(currency: purchase.currency)
+      ).first
+    )
+
+    purchase.deal_with! payment.affair
+
+    assert_equal purchase.affair, payment.affair
+
+    assert_equal 2, purchase.affair.deals.count
+    assert purchase.affair.finishable?
+    assert_equal 2, purchase.affair.deals.count
+    purchase.affair.finish
+    assert_equal 3, purchase.affair.deals.count
+
+    check_closed_state(purchase.affair)
+  end
+
+  # Creates a purchase and check affair informations
+  def new_valid_purchases_invoice
+    supplier = entities(:entities_005)
+    journal = Journal.find_by(nature: :purchases)
+    nature = PurchaseNature.find_or_initialize_by(
+      with_accounting: true,
+      journal: journal,
+      currency: journal.currency
+    )
+    nature.name ||= 'Purchases baby!'
+    nature.save!
+    items = (0..4).to_a.map do |index|
+      PurchaseItem.new(
+        quantity: 1 + rand(20),
+        unit_pretax_amount: 10 + (100 * rand).round(2),
+        variant: ProductNatureVariant.where(
+          category: ProductNatureCategory.where(purchasable: true)
+        ).offset(index).first,
+        tax: Tax.all.sample
+      )
+    end
+    purchase = Purchase.create!(supplier: supplier, nature: nature, items: items)
+    assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
+    assert_equal purchase.affair.debit, purchase.amount, 'Purchase amount should match exactly affair debit'
+    purchase.invoice!
+    purchase.reload
+    assert purchase.journal_entry, 'A journal entry should exists after purchase invoicing'
+    assert_equal purchase.affair.debit, purchase.amount, 'Purchase amount should match exactly affair debit'
+    assert purchase.affair.unbalanced?,
+           "Affair should not be balanced:\n" +
+           purchase.affair.attributes.sort_by(&:first).map { |k, v| " - #{k}: #{v}" }.join("\n")
+    assert purchase.affair.letterable_journal_entry_items.any?,
+           "Affair should have letterable journal entry items:\n" +
+           purchase.affair.deals.map { |d| " - #{d.class.name}: #{d.journal_entry.inspect}" }.join("\n")
+    assert purchase.affair.journal_entry_items_unbalanced?,
+           "Journal entry items should be unbalanced:\n" +
+           purchase.affair.letterable_journal_entry_items.map { |i| " - #{i.account_number.ljust(14)} | #{i.debit.to_s.rjust(10)} | #{i.credit.to_s.rjust(10)}" }.join("\n")
+    assert !purchase.affair.multi_thirds?
+    assert !purchase.affair.journal_entry_items_already_lettered?
+
+    assert !purchase.affair.letterable?
+    purchase
+  end
 end

@@ -581,3 +581,63 @@ event_participations_055:
   state: accepted
   updated_at: 2016-07-01 20:46:56.151430000 Z
   updater_id: 1
+event_participations_056:
+  created_at: 2016-11-20 01:43:15.081354000 Z
+  creator_id: 1
+  event_id: 52
+  id: 62
+  lock_version: 0
+  participant_id: 14
+  state: informative
+  updated_at: 2016-11-20 01:43:15.081354000 Z
+  updater_id: 1
+event_participations_057:
+  created_at: 2016-11-20 01:43:15.082468000 Z
+  creator_id: 1
+  event_id: 52
+  id: 63
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2016-11-20 01:43:15.082468000 Z
+  updater_id: 1
+event_participations_058:
+  created_at: 2016-11-20 01:44:09.583994000 Z
+  creator_id: 1
+  event_id: 53
+  id: 64
+  lock_version: 0
+  participant_id: 14
+  state: informative
+  updated_at: 2016-11-20 01:44:09.583994000 Z
+  updater_id: 1
+event_participations_059:
+  created_at: 2016-11-20 01:44:09.585033000 Z
+  creator_id: 1
+  event_id: 53
+  id: 65
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2016-11-20 01:44:09.585033000 Z
+  updater_id: 1
+event_participations_060:
+  created_at: 2016-11-20 02:06:31.420263000 Z
+  creator_id: 1
+  event_id: 54
+  id: 66
+  lock_version: 0
+  participant_id: 14
+  state: informative
+  updated_at: 2016-11-20 02:06:31.420263000 Z
+  updater_id: 1
+event_participations_061:
+  created_at: 2016-11-20 02:06:31.421499000 Z
+  creator_id: 1
+  event_id: 54
+  id: 67
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2016-11-20 02:06:31.421499000 Z
+  updater_id: 1

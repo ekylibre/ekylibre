@@ -1677,7 +1677,7 @@ eng:
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices"
+    undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"

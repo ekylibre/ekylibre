@@ -467,6 +467,7 @@ entities_014:
   active: true
   activity_code: ''
   client: true
+  client_account_id: 572
   country: fr
   created_at: 2015-04-21 08:27:39.814863000 Z
   creator_id: 1

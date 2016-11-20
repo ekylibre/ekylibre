@@ -241,7 +241,7 @@ class Affair < Ekylibre::Record::Base
                        .to_h
 
       total_debit = grouped_debit.values.sum
-      total_credit = grouped_credit.values.flatten.sum
+      total_credit = grouped_credit.values.sum
 
       gap_amount = (total_debit - total_credit).abs
 
@@ -260,7 +260,7 @@ class Affair < Ekylibre::Record::Base
         # Apply that percentage to the gap to get a proportional amount
         taxed_amount_in_gap = percentage_at_vat * gap_amount
         # Get that amount +/- depending if we're crediting or debiting
-        # taxed_amount_in_gap *= -1 unless gap_is_credit
+        taxed_amount_in_gap *= -1 unless gap_is_credit
         # Get the pre-tax value
         pretaxed_amount_in_gap = tax.pretax_amount_of(taxed_amount_in_gap)
 
@@ -277,6 +277,7 @@ class Affair < Ekylibre::Record::Base
         amount: gap_amount,
         currency: currency,
         entity: third,
+        direction: (gap_is_credit ? :profit : :loss),
         items: gap_items
       )
       refresh!

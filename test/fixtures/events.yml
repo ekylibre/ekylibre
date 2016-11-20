@@ -569,3 +569,42 @@ events_041:
   stopped_at: 2016-08-10 14:33:00.000000000 Z
   updated_at: 2016-08-10 14:33:28.785502000 Z
   updater_id: 1
+events_042:
+  created_at: 2016-11-20 01:43:15.079964000 Z
+  creator_id: 1
+  duration: 10
+  id: 52
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-11-20 01:43:15.066805000 Z
+  stopped_at: 2016-11-20 01:43:25.066805000 Z
+  updated_at: 2016-11-20 01:43:15.079964000 Z
+  updater_id: 1
+events_043:
+  created_at: 2016-11-20 01:44:09.582711000 Z
+  creator_id: 1
+  duration: 10
+  id: 53
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-11-20 01:44:09.577873000 Z
+  stopped_at: 2016-11-20 01:44:19.577873000 Z
+  updated_at: 2016-11-20 01:44:09.582711000 Z
+  updater_id: 1
+events_044:
+  created_at: 2016-11-20 02:06:31.418935000 Z
+  creator_id: 1
+  duration: 10
+  id: 54
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-11-20 02:06:31.402542000 Z
+  stopped_at: 2016-11-20 02:06:41.402542000 Z
+  updated_at: 2016-11-20 02:06:31.418935000 Z
+  updater_id: 1

@@ -216,3 +216,28 @@ incoming_payments_007:
   to_bank_at: 2014-11-01 23:00:00.000000000 Z
   updated_at: 2014-11-05 13:36:45.639839000 Z
   updater_id: 1
+incoming_payments_008:
+  accounted_at: 2016-11-20 01:44:42.921112000 Z
+  affair_id: 44
+  amount: 2341.87
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2016-11-20 01:44:42.843520000 Z
+  creator_id: 1
+  currency: EUR
+  downpayment: true
+  id: 8
+  journal_entry_id: 90
+  lock_version: 0
+  mode_id: 2
+  number: R2016000001
+  paid_at: 2016-11-19 23:00:00.000000000 Z
+  payer_id: 14
+  received: true
+  responsible_id: 1
+  scheduled: false
+  to_bank_at: 2016-11-19 23:00:00.000000000 Z
+  updated_at: 2016-11-20 01:44:42.843520000 Z
+  updater_id: 1

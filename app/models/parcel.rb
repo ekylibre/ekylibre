@@ -201,12 +201,8 @@ class Parcel < Ekylibre::Record::Base
         list << [:add_debit, label, item.variant.charge_account.id, amount]
       end
     end
-    b.journal_entry(journal, printed_on: printed_on, if: list.any?,
-                             column: :undelivered_invoice_entry_id) do |entry|
-      list.each do |item|
-        entry.send(*item)
-      end
-    end
+    b.journal_entry(journal, printed_on: printed_on, list: list,
+                             column: :undelivered_invoice_entry_id)
 
     # For permanent stock inventory
     journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
@@ -221,11 +217,7 @@ class Parcel < Ekylibre::Record::Base
         list << [:add_debit, label, variant.stock_account_id, item.stock_amount]
       end
     end
-    b.journal_entry(journal, printed_on: printed_on, if: list.any?) do |entry|
-      list.each do |item|
-        entry.send(*item)
-      end
-    end
+    b.journal_entry(journal, printed_on: printed_on, list: list)
   end
 
   def entity

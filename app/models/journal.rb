@@ -102,7 +102,7 @@ class Journal < Ekylibre::Record::Base
     elsif code.blank?
       self.code = nature.l
     end
-    self.code = self.code.codeize.gsub(/[^\d[A-Z]]+/, '')[0..3]
+    self.code = code.codeize.gsub(/[^\d[A-Z]]+/, '')[0..3]
   end
 
   validate do

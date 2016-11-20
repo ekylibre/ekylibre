@@ -190,3 +190,94 @@ catalog_items_011:
   updated_at: 2016-07-01 20:48:38.739313000 Z
   updater_id: 1
   variant_id: 26
+catalog_items_012:
+  all_taxes_included: false
+  amount: 150.0
+  catalog_id: 6
+  created_at: 2016-11-20 01:43:15.053558000 Z
+  creator_id: 1
+  currency: EUR
+  id: 24
+  lock_version: 0
+  name: Vin
+  updated_at: 2016-11-20 01:43:15.053558000 Z
+  updater_id: 1
+  variant_id: 49
+catalog_items_013:
+  all_taxes_included: false
+  amount: 150.0
+  catalog_id: 1
+  created_at: 2016-11-20 01:43:15.059248000 Z
+  creator_id: 1
+  currency: EUR
+  id: 25
+  lock_version: 0
+  name: Vin
+  updated_at: 2016-11-20 01:43:15.059248000 Z
+  updater_id: 1
+  variant_id: 49
+catalog_items_014:
+  all_taxes_included: false
+  amount: 1.56
+  catalog_id: 6
+  created_at: 2016-11-20 01:44:09.569976000 Z
+  creator_id: 1
+  currency: EUR
+  id: 26
+  lock_version: 0
+  name: Lait de vache
+  updated_at: 2016-11-20 01:44:09.569976000 Z
+  updater_id: 1
+  variant_id: 18
+catalog_items_015:
+  all_taxes_included: false
+  amount: 10.0
+  catalog_id: 6
+  created_at: 2016-11-20 01:45:41.127547000 Z
+  creator_id: 1
+  currency: EUR
+  id: 27
+  lock_version: 0
+  name: Acide lactique ‒ 25kg
+  updated_at: 2016-11-20 01:45:41.127547000 Z
+  updater_id: 1
+  variant_id: 57
+catalog_items_016:
+  all_taxes_included: false
+  amount: 10.0
+  catalog_id: 5
+  created_at: 2016-11-20 01:45:41.133022000 Z
+  creator_id: 1
+  currency: EUR
+  id: 28
+  lock_version: 0
+  name: Acide lactique ‒ 25kg
+  updated_at: 2016-11-20 01:45:41.133022000 Z
+  updater_id: 1
+  variant_id: 57
+catalog_items_017:
+  all_taxes_included: false
+  amount: 10.0
+  catalog_id: 6
+  created_at: 2016-11-20 02:06:31.390645000 Z
+  creator_id: 1
+  currency: EUR
+  id: 29
+  lock_version: 0
+  name: Bâtiment d’accueil pour les animaux
+  updated_at: 2016-11-20 02:06:31.390645000 Z
+  updater_id: 1
+  variant_id: 12
+catalog_items_018:
+  all_taxes_included: false
+  amount: 10.0
+  catalog_id: 1
+  created_at: 2016-11-20 02:06:31.395417000 Z
+  creator_id: 1
+  currency: EUR
+  id: 30
+  lock_version: 0
+  name: Bâtiment d’accueil pour les animaux
+  updated_at: 2016-11-20 02:06:31.395417000 Z
+  updater_id: 1
+  variant_id: 12

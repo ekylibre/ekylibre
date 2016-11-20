@@ -220,3 +220,25 @@ outgoing_payments_008:
   to_bank_at: 2016-10-25 22:00:00.000000000 Z
   updated_at: 2016-10-26 15:31:44.113817000 Z
   updater_id: 1
+outgoing_payments_009:
+  accounted_at: 2016-11-20 01:46:16.892188000 Z
+  affair_id: 45
+  amount: 10.55
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2016-11-20 01:46:16.814809000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 9
+  journal_entry_id: 92
+  lock_version: 0
+  mode_id: 1
+  number: D20160005
+  paid_at: 2016-11-19 23:00:00.000000000 Z
+  payee_id: 8
+  responsible_id: 1
+  to_bank_at: 2016-11-19 23:00:00.000000000 Z
+  updated_at: 2016-11-20 01:46:16.814809000 Z
+  updater_id: 1

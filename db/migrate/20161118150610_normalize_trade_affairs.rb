@@ -24,14 +24,8 @@ class NormalizeTradeAffairs < ActiveRecord::Migration
     reversible do |d|
       d.up do
         execute "UPDATE gaps SET type = CASE WHEN entity_role = 'client' THEN 'SaleGap' ELSE 'PurchaseGap' END"
-        # Sets losses as negative value
-        execute "UPDATE gaps SET amount = -amount, pretax_amount = -pretax_amount WHERE direction = 'loss'"
-        execute "UPDATE gap_items AS gi SET amount = -gi.amount, pretax_amount = -gi.pretax_amount FROM gaps AS g WHERE g.id = gap_id AND g.direction = 'loss'"
       end
       d.down do
-        # Sets losses as positive value
-        execute "UPDATE gaps SET amount = -amount, pretax_amount = -pretax_amount WHERE direction = 'loss'"
-        execute "UPDATE gap_items AS gi SET amount = -gi.amount, pretax_amount = -gi.pretax_amount FROM gaps AS g WHERE g.id = gap_id AND g.direction = 'loss'"
         # Re-set entity_role
         execute "UPDATE gaps SET entity_role = CASE WHEN type = 'SaleGap' THEN 'client' ELSE 'supplier' END"
         change_column_null :gaps, :entity_role, false

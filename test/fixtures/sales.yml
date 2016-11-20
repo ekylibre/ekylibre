@@ -504,3 +504,116 @@ sales_013:
   subject: ''
   updated_at: 2016-07-01 20:12:48.702437000 Z
   updater_id: 1
+sales_014:
+  accounted_at: 2016-11-20 01:43:20.261828000 Z
+  address_id: 14
+  affair_id: 43
+  amount: 4500.0
+  client_id: 14
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 01:43:20.207244000 Z
+  created_at: 2016-11-20 01:43:14.995589000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 14
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 20
+  initial_number: SO000000000015
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 14
+  invoiced_at: 2016-11-20 01:43:20.207244000 Z
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000004
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 3750.0
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 01:43:20.253353000 Z
+  updater_id: 1
+sales_015:
+  accounted_at: 2016-11-20 01:44:13.440406000 Z
+  address_id: 14
+  affair_id: 44
+  amount: 2341.87
+  client_id: 14
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 01:44:13.281011000 Z
+  created_at: 2016-11-20 01:44:09.539653000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 14
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 21
+  initial_number: SO000000000016
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 14
+  invoiced_at: 2016-11-20 01:44:13.281011000 Z
+  journal_entry_id: 89
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000005
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 1951.56
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 01:44:13.330404000 Z
+  updater_id: 1
+sales_016:
+  accounted_at: 2016-11-20 02:06:41.373967000 Z
+  address_id: 14
+  affair_id: 46
+  amount: 126.6
+  client_id: 14
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 02:06:41.244044000 Z
+  created_at: 2016-11-20 02:06:31.294010000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 14
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 22
+  initial_number: SO000000000017
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 14
+  invoiced_at: 2016-11-20 02:06:41.244044000 Z
+  journal_entry_id: 94
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000006
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 120.0
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 02:06:41.294627000 Z
+  updater_id: 1

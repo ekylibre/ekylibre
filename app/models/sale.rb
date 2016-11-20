@@ -210,7 +210,7 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.detect { |i| i.pretax_amount > 0 })) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       unless amount.zero?
         entry.add_debit(label, client.account(:client).id, amount)
@@ -228,35 +228,39 @@ class Sale < Ekylibre::Record::Base
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = Journal.used_for_unbilled_payables!(currency: self.currency)
-    b.journal_entry(journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+    list = []
+    if with_accounting && invoice?
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
         undelivered_items = parcel.undelivered_invoice_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance)
+          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance]
         end
       end
     end
+    b.journal_entry(journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, list: list)
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
     journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
-    b.journal_entry(journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+    list = []
+    if with_accounting && invoice? && items.any?
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
         next unless item.variant && item.variant.storable?
-        parcel_items_qty = item.parcel_items.map(&:population).compact.sum
-        gap = item.quantity - parcel_items_qty
+        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
+        gap = item.quantity - parcel_items_quantity
         next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        qty = item.parcel_items.first.unit_pretax_stock_amount
-        gap_value = gap * qty
+        quantity = item.parcel_items.first.unit_pretax_stock_amount
+        gap_value = gap * quantity
         next if gap_value.zero?
-        entry.add_credit(label, item.variant.stock_account_id, gap_value)
-        entry.add_debit(label, item.variant.stock_movement_account_id, gap_value)
+        list << [:add_credit, label, item.variant.stock_account_id, gap_value]
+        list << [:add_debit, label, item.variant.stock_movement_account_id, gap_value]
       end
     end
+    b.journal_entry(journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, list: list)
   end
 
   def invoiced_on

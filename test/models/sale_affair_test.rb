@@ -61,36 +61,13 @@ class SaleAffairTest < AffairTest
     end
   end
 
-  test 'finishing with gap' do
-    sale = new_valid_sales_invoice
-    assert_equal 1, sale.affair.deals.count
-    assert sale.affair.finishable?
-    assert_equal 1, sale.affair.deals.count
-    sale.affair.finish
-    assert_equal 2, sale.affair.deals.count
-
-    assert sale.affair.balanced?,
-           "Affair should be balanced:\n" +
-           sale.affair.attributes.sort_by(&:first).map { |k, v| " - #{k}: #{v}" }.join("\n")
-    assert sale.affair.letterable_journal_entry_items.any?,
-           "Affair should have letterable journal entry items:\n" +
-           sale.affair.deals.map { |d| " - #{d.class.name}: #{d.journal_entry.inspect}" }.join("\n")
-    assert sale.affair.journal_entry_items_balanced?,
-           "Journal entry items should be balanced:\n" +
-           sale.affair.letterable_journal_entry_items.map { |i| " - #{i.id.to_s.rjust(4)}: #{i.account_number.ljust(14)} | #{i.debit.to_s.rjust(10)} | #{i.credit.to_s.rjust(10)}" }.join("\n")
-    assert !sale.affair.multi_thirds?
-    assert !sale.affair.journal_entry_items_already_lettered?
-
-    assert sale.affair.letterable?
-    check_closed_state(sale.affair)
-  end
-
   test 'balancing with payment' do
     sale = new_valid_sales_invoice
 
     payment = IncomingPayment.create!(
       payer: sale.client,
       amount: sale.amount,
+      received: true,
       mode: IncomingPaymentMode.where(
         with_accounting: true,
         cash: Cash.where(currency: sale.currency)
@@ -100,6 +77,43 @@ class SaleAffairTest < AffairTest
     sale.deal_with! payment.affair
 
     assert_equal sale.affair, payment.affair
+
+    check_closed_state(sale.affair)
+  end
+
+  test 'finishing with loss gap' do
+    sale = new_valid_sales_invoice
+    assert_equal 1, sale.affair.deals.count
+    assert sale.affair.finishable?
+    assert_equal 1, sale.affair.deals.count
+    sale.affair.finish
+    assert_equal 2, sale.affair.deals.count
+
+    check_closed_state(sale.affair)
+  end
+
+  test 'finishing with payment and a profit gap' do
+    sale = new_valid_sales_invoice
+
+    payment = IncomingPayment.create!(
+      payer: sale.client,
+      amount: sale.amount + 2,
+      received: true,
+      mode: IncomingPaymentMode.where(
+        with_accounting: true,
+        cash: Cash.where(currency: sale.currency)
+      ).first
+    )
+
+    sale.deal_with! payment.affair
+
+    assert_equal sale.affair, payment.affair
+
+    assert_equal 2, sale.affair.deals.count
+    assert sale.affair.finishable?
+    assert_equal 2, sale.affair.deals.count
+    sale.affair.finish
+    assert_equal 3, sale.affair.deals.count
 
     check_closed_state(sale.affair)
   end

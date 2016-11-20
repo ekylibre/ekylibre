@@ -8063,3 +8063,492 @@ journal_entry_items_267:
   state: draft
   updated_at: 2016-10-26 15:31:44.294980000 Z
   updater_id: 1
+journal_entry_items_268:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2341.87
+  account_id: 572
+  balance: 2341.87
+  created_at: 2016-11-20 01:44:13.374276000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2341.87
+  currency: EUR
+  debit: 2341.87
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 486
+  journal_id: 3
+  letter: AAA
+  lock_version: 0
+  name: "[Facture F2016000005] Lait de vache pour M.  Περικλῆς (SO000000000016)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 2341.87
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2341.87
+  state: draft
+  updated_at: 2016-11-20 01:44:13.374276000 Z
+  updater_id: 1
+journal_entry_items_269:
+  absolute_credit: 1951.56
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 15
+  balance: -1951.56
+  created_at: 2016-11-20 01:44:13.396579000 Z
+  creator_id: 1
+  credit: 1951.56
+  cumulated_absolute_credit: 1951.56
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 487
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000005] Lait de vache pour M.  Περικλῆς (SO000000000016)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -1951.56
+  real_credit: 1951.56
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 01:44:13.396579000 Z
+  updater_id: 1
+journal_entry_items_270:
+  absolute_credit: 390.31
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: -390.31
+  created_at: 2016-11-20 01:44:13.416712000 Z
+  creator_id: 1
+  credit: 390.31
+  cumulated_absolute_credit: 394.39
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 488
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000005] Lait de vache pour M.  Περικλῆς (SO000000000016)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -390.31
+  real_credit: 390.31
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 01:44:13.416712000 Z
+  updater_id: 1
+journal_entry_items_271:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2341.87
+  account_id: 212
+  balance: 2341.87
+  created_at: 2016-11-20 01:44:42.884476000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 32350.46
+  cumulated_absolute_debit: 2826.94
+  currency: EUR
+  debit: 2341.87
+  entry_id: 90
+  entry_number: BNK000012
+  financial_year_id: 26
+  id: 489
+  journal_id: 2
+  lock_version: 0
+  name: "[Encaissement R2016000001] By check  de M.  Περικλῆς"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 2341.87
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2341.87
+  state: draft
+  updated_at: 2016-11-20 01:44:42.884476000 Z
+  updater_id: 1
+journal_entry_items_272:
+  absolute_credit: 2341.87
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 572
+  balance: -2341.87
+  created_at: 2016-11-20 01:44:42.906519000 Z
+  creator_id: 1
+  credit: 2341.87
+  cumulated_absolute_credit: 2341.87
+  cumulated_absolute_debit: 2341.87
+  currency: EUR
+  debit: 0.0
+  entry_id: 90
+  entry_number: BNK000012
+  financial_year_id: 26
+  id: 490
+  journal_id: 2
+  letter: AAA
+  lock_version: 0
+  name: "[Encaissement R2016000001] By check  de M.  Περικλῆς"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -2341.87
+  real_credit: 2341.87
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 01:44:42.906519000 Z
+  updater_id: 1
+journal_entry_items_273:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 10.0
+  account_id: 147
+  balance: 10.0
+  created_at: 2016-11-20 01:45:46.840374000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 10.0
+  currency: EUR
+  debit: 10.0
+  entry_id: 91
+  entry_number: PUR000004
+  financial_year_id: 26
+  id: 491
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000002] Acide lactique ‒ 25kg de Yuey LTD"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 10.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 10.0
+  state: draft
+  updated_at: 2016-11-20 01:45:46.840374000 Z
+  updater_id: 1
+journal_entry_items_274:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.55
+  account_id: 583
+  balance: 0.55
+  created_at: 2016-11-20 01:45:46.858729000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.55
+  currency: EUR
+  debit: 0.55
+  entry_id: 91
+  entry_number: PUR000004
+  financial_year_id: 26
+  id: 492
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000002] Acide lactique ‒ 25kg de Yuey LTD"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 0.55
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.55
+  state: draft
+  updated_at: 2016-11-20 01:45:46.858729000 Z
+  updater_id: 1
+journal_entry_items_275:
+  absolute_credit: 10.55
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 207
+  balance: -10.55
+  created_at: 2016-11-20 01:45:46.878844000 Z
+  creator_id: 1
+  credit: 10.55
+  cumulated_absolute_credit: 15658.17
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 91
+  entry_number: PUR000004
+  financial_year_id: 26
+  id: 493
+  journal_id: 4
+  letter: AAA
+  lock_version: 0
+  name: "[Achat A201611000002] Acide lactique ‒ 25kg de Yuey LTD"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -10.55
+  real_credit: 10.55
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 01:45:46.878844000 Z
+  updater_id: 1
+journal_entry_items_276:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 10.55
+  account_id: 207
+  balance: 10.55
+  created_at: 2016-11-20 01:46:16.855006000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 15658.17
+  cumulated_absolute_debit: 37.55
+  currency: EUR
+  debit: 10.55
+  entry_id: 92
+  entry_number: BNK000013
+  financial_year_id: 26
+  id: 494
+  journal_id: 2
+  letter: AAA
+  lock_version: 0
+  name: "[Décaissement D20160005] Par chèque  pour Yuey LTD"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 10.55
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 10.55
+  state: draft
+  updated_at: 2016-11-20 01:46:16.855006000 Z
+  updater_id: 1
+journal_entry_items_277:
+  absolute_credit: 10.55
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: -10.55
+  created_at: 2016-11-20 01:46:16.876771000 Z
+  creator_id: 1
+  credit: 10.55
+  cumulated_absolute_credit: 32361.01
+  cumulated_absolute_debit: 2826.94
+  currency: EUR
+  debit: 0.0
+  entry_id: 92
+  entry_number: BNK000013
+  financial_year_id: 26
+  id: 495
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement D20160005] Par chèque  pour Yuey LTD"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -10.55
+  real_credit: 10.55
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 01:46:16.876771000 Z
+  updater_id: 1
+journal_entry_items_278:
+  absolute_credit: 126.6
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 572
+  balance: -126.6
+  created_at: 2016-11-20 02:06:36.520053000 Z
+  creator_id: 1
+  credit: 126.6
+  cumulated_absolute_credit: 2468.47
+  cumulated_absolute_debit: 2341.87
+  currency: EUR
+  debit: 0.0
+  entry_id: 93
+  entry_number: XYZ0015
+  financial_year_id: 26
+  id: 496
+  journal_id: 1
+  letter: AAB
+  lock_version: 0
+  name: "[Perte E000000000004] M.  Περικλῆς"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: -126.6
+  real_credit: 126.6
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 02:06:36.520053000 Z
+  updater_id: 1
+journal_entry_items_279:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 120.0
+  account_id: 131
+  balance: 120.0
+  created_at: 2016-11-20 02:06:36.546388000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 9.36
+  cumulated_absolute_debit: 120.0
+  currency: EUR
+  debit: 120.0
+  entry_id: 93
+  entry_number: XYZ0015
+  financial_year_id: 26
+  id: 497
+  journal_id: 1
+  lock_version: 0
+  name: "[Perte E000000000004] M.  Περικλῆς"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 120.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 120.0
+  state: draft
+  updated_at: 2016-11-20 02:06:36.546388000 Z
+  updater_id: 1
+journal_entry_items_280:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 6.6
+  account_id: 583
+  balance: 6.6
+  created_at: 2016-11-20 02:06:36.569501000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 7.15
+  currency: EUR
+  debit: 6.6
+  entry_id: 93
+  entry_number: XYZ0015
+  financial_year_id: 26
+  id: 498
+  journal_id: 1
+  lock_version: 0
+  name: "[Perte E000000000004] M.  Περικλῆς"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: 6.6
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 6.6
+  state: draft
+  updated_at: 2016-11-20 02:06:36.569501000 Z
+  updater_id: 1
+journal_entry_items_281:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 126.6
+  account_id: 572
+  balance: 126.6
+  created_at: 2016-11-20 02:06:41.315343000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 2468.47
+  cumulated_absolute_debit: 2468.47
+  currency: EUR
+  debit: 126.6
+  entry_id: 94
+  entry_number: SAL000002
+  financial_year_id: 26
+  id: 499
+  journal_id: 3
+  letter: AAB
+  lock_version: 0
+  name: "[Facture F2016000006] Bâtiment d’accueil pour les animaux pour M.  Περικλῆς
+    (SO000000000017)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 126.6
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 126.6
+  state: draft
+  updated_at: 2016-11-20 02:06:41.315343000 Z
+  updater_id: 1
+journal_entry_items_282:
+  absolute_credit: 120.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 153
+  balance: -120.0
+  created_at: 2016-11-20 02:06:41.336942000 Z
+  creator_id: 1
+  credit: 120.0
+  cumulated_absolute_credit: 120.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 94
+  entry_number: SAL000002
+  financial_year_id: 26
+  id: 500
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000006] Bâtiment d’accueil pour les animaux pour M.  Περικλῆς
+    (SO000000000017)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -120.0
+  real_credit: 120.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 02:06:41.336942000 Z
+  updater_id: 1
+journal_entry_items_283:
+  absolute_credit: 6.6
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 584
+  balance: -6.6
+  created_at: 2016-11-20 02:06:41.355727000 Z
+  creator_id: 1
+  credit: 6.6
+  cumulated_absolute_credit: 6.6
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 94
+  entry_number: SAL000002
+  financial_year_id: 26
+  id: 501
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000006] Bâtiment d’accueil pour les animaux pour M.  Περικλῆς
+    (SO000000000017)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -6.6
+  real_credit: 6.6
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 02:06:41.355727000 Z
+  updater_id: 1

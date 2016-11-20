@@ -204,6 +204,25 @@ purchase_affairs_008:
   type: PurchaseAffair
   updated_at: 2016-07-01 20:22:49.220701000 Z
   updater_id: 1
+purchase_affairs_009:
+  closed: true
+  closed_at: 2016-11-20 01:46:16.824322000 Z
+  created_at: 2016-11-20 01:45:41.170720000 Z
+  creator_id: 1
+  credit: 10.55
+  currency: EUR
+  deals_count: 2
+  debit: 10.55
+  id: 45
+  letter: AAA
+  lock_version: 2
+  number: A000000000038
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 8
+  type: PurchaseAffair
+  updated_at: 2016-11-20 01:46:16.916179000 Z
+  updater_id: 1
 sale_affairs_001:
   accounted_at: 2014-11-05 09:30:00.003467000 Z
   closed: false
@@ -496,6 +515,61 @@ sale_affairs_016:
   third_id: 10
   type: SaleAffair
   updated_at: 2016-07-01 20:12:41.393208000 Z
+  updater_id: 1
+sale_affairs_017:
+  closed: false
+  created_at: 2016-11-20 01:43:15.160554000 Z
+  creator_id: 1
+  credit: 4500.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 43
+  lock_version: 0
+  number: A000000000036
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  type: SaleAffair
+  updated_at: 2016-11-20 01:43:15.160554000 Z
+  updater_id: 1
+sale_affairs_018:
+  closed: true
+  closed_at: 2016-11-20 01:44:42.852960000 Z
+  created_at: 2016-11-20 01:44:09.618706000 Z
+  creator_id: 1
+  credit: 2341.87
+  currency: EUR
+  deals_count: 2
+  debit: 2341.87
+  id: 44
+  letter: AAA
+  lock_version: 2
+  number: A000000000037
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  type: SaleAffair
+  updated_at: 2016-11-20 01:44:42.941706000 Z
+  updater_id: 1
+sale_affairs_019:
+  closed: true
+  closed_at: 2016-11-20 02:06:36.443433000 Z
+  created_at: 2016-11-20 02:06:32.258838000 Z
+  creator_id: 1
+  credit: 126.6
+  currency: EUR
+  deals_count: 2
+  debit: 126.6
+  id: 46
+  letter: AAB
+  lock_version: 2
+  number: A000000000039
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  type: SaleAffair
+  updated_at: 2016-11-20 02:06:41.394538000 Z
   updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z

@@ -57,13 +57,11 @@ class Gap < Ekylibre::Record::Base
   validates :printed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
 
-  accepts_nested_attributes_for :items
   acts_as_numbered
   alias_attribute :label, :number
 
   before_validation do
     self.printed_at ||= Time.zone.now
-    self.direction = amount >= 0 ? :profit : :loss
   end
 
   validate do
@@ -73,13 +71,5 @@ class Gap < Ekylibre::Record::Base
 
   def printed_on
     printed_at.to_date
-  end
-
-  # These method is used for bookkeeping
-  def add_entry_items(entry, label)
-    items.each do |item|
-      entry.add_debit(label, Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses), item.pretax_amount)
-      entry.add_debit(label, profit? ? item.tax.collect_account_id : item.tax.deduction_account_id, item.taxes_amount)
-    end
   end
 end
