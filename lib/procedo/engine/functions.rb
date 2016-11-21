@@ -9,7 +9,7 @@ module Procedo
         end
 
         def derivative_of(product_or_set)
-          return nil if product_or_set.blank?
+          return nil if product_or_set.compact.blank?
           return product_or_set.derivative_of if product_or_set.respond_to? :derivative_of
           set = product_or_set.to_a
           set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:derivative_of)).name : nil
@@ -18,7 +18,7 @@ module Procedo
         end
 
         def variety_of(product_or_set)
-          return nil if product_or_set.blank?
+          return nil if product_or_set.compact.blank?
           return product_or_set.variety if product_or_set.respond_to? :variety
           set = product_or_set.to_a
           set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:variety)).name : nil
