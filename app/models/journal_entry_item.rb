@@ -148,7 +148,7 @@ class JournalEntryItem < Ekylibre::Record::Base
       unless closed?
         self.debit  = entry.real_currency.to_currency.round(self.real_debit * real_currency_rate)
         self.credit = entry.real_currency.to_currency.round(self.real_credit * real_currency_rate)
-        self.pretax_amount = entry.real_currency.to_currency.round(self.real_pretax_amount * real_currency_rate)
+        self.pretax_amount = entry.real_currency.to_currency.round(real_pretax_amount * real_currency_rate)
       end
     end
 
@@ -160,7 +160,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     elsif absolute_currency == real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
-      self.absolute_pretax_amount = self.real_pretax_amount
+      self.absolute_pretax_amount = real_pretax_amount
     else
       # FIXME: We need to do something better when currencies don't match
       raise "You create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"

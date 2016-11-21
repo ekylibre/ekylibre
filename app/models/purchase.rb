@@ -167,7 +167,7 @@ class Purchase < Ekylibre::Record::Base
       items.each do |item|
         entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
         account = item.fixed? ? item.tax.fixed_asset_deduction_account_id : nil
-        account ||= item.tax.deduction_account_id # TODO Check if it is good to do that
+        account ||= item.tax.deduction_account_id # TODO: Check if it is good to do that
         entry.add_debit(label, account, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount)
       end
       entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount)

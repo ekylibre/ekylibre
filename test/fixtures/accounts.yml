@@ -509,6 +509,7 @@ accounts_037:
   debtor: false
   id: 203
   label: 401EI00000001 - Taurus Plus
+  last_letter: A
   lock_version: 0
   name: Taurus Plus
   number: 401EI00000001
@@ -2965,6 +2966,7 @@ accounts_226:
   debtor: false
   id: 572
   label: 411P00000004 - Περικλῆς
+  last_letter: A
   lock_version: 0
   name: "Περικλῆς"
   number: 411P00000004
@@ -4074,6 +4076,7 @@ accounts_325:
   debtor: false
   id: 671
   label: 411193 - M. Gendo IKARI
+  last_letter: B
   lock_version: 0
   name: M. Gendo IKARI
   number: '411193'
@@ -4086,6 +4089,7 @@ accounts_326:
   debtor: false
   id: 672
   label: 411196 - Mohandas Karamchand Gandhi
+  last_letter: A
   lock_version: 0
   name: Mohandas Karamchand Gandhi
   number: '411196'
