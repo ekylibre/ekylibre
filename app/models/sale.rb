@@ -210,18 +210,12 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.detect { |i| i.pretax_amount > 0 })) do |entry|
+    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
-      unless amount.zero?
-        entry.add_debit(label, client.account(:client).id, amount)
-      end
+      entry.add_debit(label, client.account(:client).id, amount)
       items.each do |item|
-        unless item.pretax_amount.zero?
-          entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
-        end
-        unless item.taxes_amount.zero?
-          entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount)
-        end
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
+        entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount)
       end
     end
 

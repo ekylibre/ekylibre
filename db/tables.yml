@@ -3742,6 +3742,11 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  absolute_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   account_id:
     type: integer
     references: account
@@ -3818,6 +3823,11 @@ journal_entry_items:
     required: true
   position:
     type: integer
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   printed_on:
     type: date
     required: true
@@ -3844,9 +3854,17 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  real_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   state:
     type: string
     required: true
+  tax_id:
+    type: integer
+    references: tax
   team_id:
     type: integer
     references: team

@@ -3414,7 +3414,11 @@ CREATE TABLE journal_entry_items (
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
     bank_statement_letter character varying,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    tax_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -12039,6 +12043,13 @@ CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btre
 
 
 --
+-- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_id ON journal_entry_items USING btree (tax_id);
+
+
+--
 -- Name: index_journal_entry_items_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16185,4 +16196,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161114112858');
 INSERT INTO schema_migrations (version) VALUES ('20161115163443');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118150610');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120153801');
 

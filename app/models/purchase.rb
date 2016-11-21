@@ -162,11 +162,13 @@ class Purchase < Ekylibre::Record::Base
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.detect { |i| i.pretax_amount > 0 })) do |entry|
+    b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       items.each do |item|
-        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team) unless item.pretax_amount.zero?
-        entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
+        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
+        account = item.fixed? ? item.tax.fixed_asset_deduction_account_id : nil
+        account ||= item.tax.deduction_account_id # TODO: Check if it is good to do that
+        entry.add_debit(label, account, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount)
       end
       entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
     end
