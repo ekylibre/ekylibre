@@ -12,10 +12,12 @@ module Procedo
                   :procedure, :producer_name, :roles, :type, :value
 
       attr_accessor :variety, :derivative_of
+      attr_accessor :computed_filter, :filter
 
       TYPES = [:target, :tool, :doer, :input, :output].freeze
 
       code_trees :component_of
+      code_trees :compute_filter
 
       def initialize(procedure, name, type, options = {})
         super(procedure, name, options)
@@ -27,6 +29,9 @@ module Procedo
           @filter = options[:filter]
           # # Check filter syntax
           # WorkingSet.parse(@filter)
+        end
+        if options[:compute_filter]
+          self.compute_filter = options[:compute_filter]
         end
         if output?
           self.variety = options[:variety]
@@ -195,6 +200,7 @@ module Procedo
         hash = {}
         hash[:of_expression] = @filter unless @filter.blank?
         # hash[:can_each] = @abilities.join(',') unless @abilities.empty?
+        hash[:of_expression] = @computed_filter unless @computed_filter.nil?
         hash[:of_variety] = computed_variety if computed_variety
         hash[:derivative_of] = computed_derivative_of if computed_derivative_of
         hash

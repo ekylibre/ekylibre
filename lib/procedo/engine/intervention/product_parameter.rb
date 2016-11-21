@@ -120,14 +120,14 @@ module Procedo
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
-          reference.attributes.each do |attribute|
-            next unless attribute.compute_filter?
+          reference.attributes.select(&:compute_filter?).each do |attribute|
             hash[:attributes] ||= {}
             hash[:attributes][attribute.name] ||= {}
             hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
           end
           hash[:assembly_id] = assembly_id if assembly?
           hash[:component_id] = component_id if component?
+          hash[:dynascope] = reference.scope_hash
           hash
         end
 
@@ -188,7 +188,7 @@ module Procedo
           end
         end
 
-        def impact_on_parameters(_field)
+        def impact_on_parameters(field)
           procedure.product_parameters(true).each do |parameter|
             (intervention.parameters_of_name(parameter.name) - [self]).each do |ip|
               # Impact handlers
@@ -211,7 +211,11 @@ module Procedo
                 ip.reading(reading.name).assign(:value, ip.compute_reading(reading))
               end
               # Impact components
-              ip.impact_on_components(_field)
+              ip.impact_on_components(field)
+            end
+
+            if parameter.compute_filter? && parameter.compute_filter_with_environment_variable?(field, :self)
+              parameter.computed_filter = intervention.interpret(parameter.compute_filter_tree, env)
             end
           end
         end

@@ -4,14 +4,26 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
+        def derives_from(value)
+          value.blank? ? '(false)' : "derives from #{value}"
+        end
+
         def derivative_of(set)
+          return nil if set.blank?
+          return set.derivative_of if set.respond_to? :derivative_of
           product = first_product_of(set)
           product ? product.derivative_of : nil
+        rescue
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def variety_of(set)
+          return nil if set.blank?
+          return set.variety if set.respond_to? :variety
           product = first_product_of(set)
           product ? product.variety : nil
+        rescue
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         # Test if population counting is as specified for given product
@@ -79,8 +91,8 @@ module Procedo
           set.first
         end
 
-        def first_product_of(set)
-          set.parameters.first.product if set.parameters.first
+        def first_product_of(set_or_product)
+          set_or_product.respond_to?(:product) ? set_or_product.parameters.product : (set_or_product.parameters.first.product if set_or_product.parameters.first)
         end
 
         def parent(parameter)
@@ -140,29 +152,32 @@ module Procedo
           "#{name} n°#{ordered} #{born_at}"
         end
 
-        def variety_of(product)
-          return product.variety
+        def variant_of(product_or_set)
+          if product_or_set.respond_to? :parameters
+            set = product_or_set
+            if set.parameters.length == 1
+              parameter = set.parameters.first
+              return parameter.respond_to?(:variant) ? parameter.variant : (parameter.product && parameter.product.variant)
+            end
+            raise Procedo::Errors::FailedFunctionCall
+          else
+            product = product_or_set
+            return product.member_variant unless product.nil?
+          end
         rescue
-          raise Procedo::FailedFunctionCall
-        end
-
-        def variant_of(product)
-          return product.member_variant unless product.nil?
-          nil
-        rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def father_of(vial)
           return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def mother_of(vial)
           return vial.mother.last_transplantation.input.mother || vial.mother
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         # return first date as Datetime object

@@ -112,6 +112,7 @@ module Procedo
       # Parse <parameter>
       def parse_parameter(procedure, element, options = {})
         locals = {}
+        options = options.dup
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
@@ -132,6 +133,10 @@ module Procedo
             locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
+
+        options[:compute_filter] = element.attr('compute-filter') if element.has_attribute?('compute-filter')
+        options[:filter] = element.attr('filter') if element.has_attribute?('filter')
+
         parent = options[:group] || procedure
         parameter = parent.add_product_parameter(name, type, options.merge(locals))
         # Handlers
