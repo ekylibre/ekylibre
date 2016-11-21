@@ -136,3 +136,31 @@ journals_007:
   updater_id: 1
   used_for_affairs: false
   used_for_gaps: false
+journals_008:
+  closed_on: 1992-11-16
+  code: RESE
+  created_at: 2016-11-20 22:08:58.338278000 Z
+  creator_id: 1
+  currency: EUR
+  id: 8
+  lock_version: 0
+  name: Réserves
+  nature: stocks
+  updated_at: 2016-11-20 22:08:58.338278000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+journals_009:
+  closed_on: 1992-11-16
+  code: FNOP
+  created_at: 2016-11-20 22:08:58.347492000 Z
+  creator_id: 1
+  currency: EUR
+  id: 9
+  lock_version: 0
+  name: Factures non parvenues
+  nature: various
+  updated_at: 2016-11-20 22:08:58.347492000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false

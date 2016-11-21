@@ -566,11 +566,11 @@ arb:
         nature_label: "النوع" #?
         subscriptions: "ملاحظة" #?
       synchronization_operation:
-        # human_message: "Error message"
-        # operation_name: "Operation name"
-        # request: "Request"
-        # response: "Response"
-        # status: "Status"
+        human_message: "رسالة خطأ"
+        operation_name: "اسم العملية"
+        request: "طلب"
+        response: "استجابة"
+        status: "الحالة"
       tax:
         amount: "القيمة المالية"
         nature_label: "النوع" #?
@@ -1440,7 +1440,7 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
-    # finished_at: "Finished at"
+    finished_at: "انتهت في"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1788,7 +1788,7 @@ arb:
     nodes: "عقد الاستخراج"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
-    # notification: "Notification"
+    notification: "إعلام"
     notifications: "الإشعارات"
     number: "الرقم"
     number_format: "التصميم"
@@ -1803,7 +1803,7 @@ arb:
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
-    # operation_name: "Operation name"
+    operation_name: "اسم العملية"
     operation_natures: "انواع العمل" #?
     operation_uses: "استخدامات الاداة" #?
     operations: "الاعمال" #?
@@ -2675,8 +2675,8 @@ arb:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     inventory_item:  #?
       inventory: "عملية الجرد" #?
     issue:

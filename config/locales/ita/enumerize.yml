@@ -463,15 +463,15 @@ ita:
         quantity: "Abbonamento per numero" #?
     synchronization_operation:
       operation_name:
-        # authenticate: "Authentication"
-        # get_inventory: "Get inventory"
-        # get_urls: "Get urls"
+        authenticate: "Autenticazione"
+        get_inventory: "Ottenere l’inventario"
+        get_urls: "Ottenere gli URL"
       state:
-        # aborted: "Aborted"
+        aborted: "Abortito"
         # errored: "Errored"
-        # finished: "Finished"
-        # in_progress: "In progress"
-        # undone: "Undone"
+        finished: "Finito"
+        in_progress: "In corso"
+        undone: "Disfatto"
     task:
       nature:
         document: "scrittura" #?

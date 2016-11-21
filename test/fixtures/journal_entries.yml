@@ -2148,3 +2148,497 @@ journal_entries_081:
   state: draft
   updated_at: 2016-10-26 15:31:44.306561000 Z
   updater_id: 1
+journal_entries_082:
+  absolute_credit: 447.12
+  absolute_currency: EUR
+  absolute_debit: 447.12
+  balance: 0.0
+  created_at: 2016-11-20 22:09:02.969190000 Z
+  creator_id: 1
+  credit: 447.12
+  currency: EUR
+  debit: 447.12
+  financial_year_id: 26
+  id: 89
+  journal_id: 3
+  lock_version: 5
+  number: SAL000001
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 447.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 447.12
+  resource_id: 20
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:09:03.091650000 Z
+  updater_id: 1
+journal_entries_083:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:09:03.103634000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 90
+  journal_id: 8
+  lock_version: 0
+  number: RESE000001
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 20
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:09:03.103634000 Z
+  updater_id: 1
+journal_entries_084:
+  absolute_credit: 447.12
+  absolute_currency: EUR
+  absolute_debit: 447.12
+  balance: 0.0
+  created_at: 2016-11-20 22:09:40.170383000 Z
+  creator_id: 1
+  credit: 447.12
+  currency: EUR
+  debit: 447.12
+  financial_year_id: 26
+  id: 91
+  journal_id: 2
+  lock_version: 2
+  number: BNK000012
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 447.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 447.12
+  resource_id: 8
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2016-11-20 22:09:40.215123000 Z
+  updater_id: 1
+journal_entries_085:
+  absolute_credit: 37.44
+  absolute_currency: EUR
+  absolute_debit: 37.44
+  balance: 0.0
+  created_at: 2016-11-20 22:10:43.180886000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 37.44
+  financial_year_id: 26
+  id: 92
+  journal_id: 3
+  lock_version: 3
+  number: SAL000002
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 37.44
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 37.44
+  resource_id: 21
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:10:43.241520000 Z
+  updater_id: 1
+journal_entries_086:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:10:43.253901000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 93
+  journal_id: 8
+  lock_version: 0
+  number: RESE000002
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 21
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:10:43.253901000 Z
+  updater_id: 1
+journal_entries_087:
+  absolute_credit: 37.44
+  absolute_currency: EUR
+  absolute_debit: 37.44
+  balance: 0.0
+  created_at: 2016-11-20 22:10:52.953882000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  debit: 37.44
+  financial_year_id: 26
+  id: 94
+  journal_id: 2
+  lock_version: 2
+  number: BNK000013
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 37.44
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 37.44
+  resource_id: 9
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2016-11-20 22:10:52.997052000 Z
+  updater_id: 1
+journal_entries_088:
+  absolute_credit: 3.74
+  absolute_currency: EUR
+  absolute_debit: 3.74
+  balance: 0.0
+  created_at: 2016-11-20 22:11:28.741808000 Z
+  creator_id: 1
+  credit: 3.74
+  currency: EUR
+  debit: 3.74
+  financial_year_id: 26
+  id: 95
+  journal_id: 3
+  lock_version: 3
+  number: SAL000003
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 3.74
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3.74
+  resource_id: 22
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:11:28.841590000 Z
+  updater_id: 1
+journal_entries_089:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:11:28.853995000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 96
+  journal_id: 8
+  lock_version: 0
+  number: RESE000003
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 22
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:11:28.853995000 Z
+  updater_id: 1
+journal_entries_090:
+  absolute_credit: 3.74
+  absolute_currency: EUR
+  absolute_debit: 3.74
+  balance: 0.0
+  created_at: 2016-11-20 22:11:32.624556000 Z
+  creator_id: 1
+  credit: 3.74
+  currency: EUR
+  debit: 3.74
+  financial_year_id: 26
+  id: 97
+  journal_id: 1
+  lock_version: 3
+  number: XYZ0015
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 3.74
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3.74
+  resource_id: 5
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-11-20 22:11:32.693088000 Z
+  updater_id: 1
+journal_entries_091:
+  absolute_credit: 2676.0
+  absolute_currency: EUR
+  absolute_debit: 2676.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:19.123886000 Z
+  creator_id: 1
+  credit: 2676.0
+  currency: EUR
+  debit: 2676.0
+  financial_year_id: 26
+  id: 98
+  journal_id: 3
+  lock_version: 3
+  number: SAL000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 2676.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2676.0
+  resource_id: 23
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:19.180760000 Z
+  updater_id: 1
+journal_entries_092:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:19.193081000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 99
+  journal_id: 8
+  lock_version: 0
+  number: RESE000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 23
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:19.193081000 Z
+  updater_id: 1
+journal_entries_093:
+  absolute_credit: 2676.0
+  absolute_currency: EUR
+  absolute_debit: 2676.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:46.231703000 Z
+  creator_id: 1
+  credit: 2676.0
+  currency: EUR
+  debit: 2676.0
+  financial_year_id: 26
+  id: 100
+  journal_id: 3
+  lock_version: 3
+  number: SAL000005
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 2676.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2676.0
+  resource_id: 24
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:46.291136000 Z
+  updater_id: 1
+journal_entries_094:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:12:46.302626000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 101
+  journal_id: 8
+  lock_version: 0
+  number: RESE000005
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 24
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-11-20 22:12:46.302626000 Z
+  updater_id: 1
+journal_entries_095:
+  absolute_credit: 717.12
+  absolute_currency: EUR
+  absolute_debit: 717.12
+  balance: 0.0
+  created_at: 2016-11-20 22:14:42.356302000 Z
+  creator_id: 1
+  credit: 717.12
+  currency: EUR
+  debit: 717.12
+  financial_year_id: 26
+  id: 102
+  journal_id: 4
+  lock_version: 3
+  number: PUR000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 717.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 717.12
+  resource_id: 14
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:14:42.421543000 Z
+  updater_id: 1
+journal_entries_096:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:14:42.434401000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 103
+  journal_id: 8
+  lock_version: 0
+  number: RESE000006
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 14
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:14:42.434401000 Z
+  updater_id: 1
+journal_entries_097:
+  absolute_credit: 717.12
+  absolute_currency: EUR
+  absolute_debit: 717.12
+  balance: 0.0
+  created_at: 2016-11-20 22:14:52.583687000 Z
+  creator_id: 1
+  credit: 717.12
+  currency: EUR
+  debit: 717.12
+  financial_year_id: 26
+  id: 104
+  journal_id: 6
+  lock_version: 2
+  number: CUN000004
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 717.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 717.12
+  resource_id: 9
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-11-20 22:14:52.627126000 Z
+  updater_id: 1
+journal_entries_098:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  balance: 0.0
+  created_at: 2016-11-20 22:15:24.362602000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  financial_year_id: 26
+  id: 105
+  journal_id: 4
+  lock_version: 3
+  number: PUR000005
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  resource_id: 15
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:15:24.420971000 Z
+  updater_id: 1
+journal_entries_099:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  balance: 0.0
+  created_at: 2016-11-20 22:15:24.432378000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 0.0
+  financial_year_id: 26
+  id: 106
+  journal_id: 8
+  lock_version: 0
+  number: RESE000007
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  resource_id: 15
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-11-20 22:15:24.432378000 Z
+  updater_id: 1
+journal_entries_100:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  balance: 0.0
+  created_at: 2016-11-20 22:15:36.421053000 Z
+  creator_id: 1
+  credit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  financial_year_id: 26
+  id: 107
+  journal_id: 1
+  lock_version: 3
+  number: XYZ0016
+  printed_on: 2016-11-20
+  real_balance: 0.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  resource_id: 6
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-11-20 22:15:36.524128000 Z
+  updater_id: 1

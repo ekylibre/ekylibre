@@ -477,15 +477,15 @@ por:
         quantity: "Subscrição por número" #?
     synchronization_operation:
       operation_name:
-        # authenticate: "Authentication"
-        # get_inventory: "Get inventory"
-        # get_urls: "Get urls"
+        authenticate: "Autenticação"
+        get_inventory: "Obter inventário"
+        get_urls: "Obter urls"
       state:
-        # aborted: "Aborted"
+        aborted: "Abortado"
         # errored: "Errored"
-        # finished: "Finished"
-        # in_progress: "In progress"
-        # undone: "Undone"
+        finished: "Acabado"
+        in_progress: "Em progresso"
+        undone: "Desfeito"
     task:
       nature:
         document: "Documento" #?
