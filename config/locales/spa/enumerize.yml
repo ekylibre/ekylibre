@@ -132,15 +132,15 @@ spa:
         refused: "Negado"
         waiting: "Esperando"
     financial_year:
-      vat_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
-      vat_period:
+      tax_declaration_frequency:
         # monthly: "Monthly"
         # none: "None"
         # quaterly: "Quaterly"
         # yearly: "Yearly"
+      tax_declaration_mode:
+        # debit: "Debit"
+        # none: "None"
+        # payment: "Payment"
     fixed_asset:
       depreciation_method:
         graduated: "Graduado" #?

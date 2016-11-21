@@ -130,15 +130,15 @@ fra:
         refused: "Refusé"
         waiting: "En attente de réponse"
     financial_year:
-      vat_mode:
-        debit: "Débits"
-        none: "Aucun"
-        payment: "Encaissements"
-      vat_period:
+      tax_declaration_frequency:
         monthly: "Mensuelle"
         none: "Aucune"
         quaterly: "Trimestrielle"
         yearly: "Annuelle"
+      tax_declaration_mode:
+        debit: "Débits"
+        none: "Aucun"
+        payment: "Encaissements"
     fixed_asset:
       depreciation_method:
         graduated: "Dégressive" #?

@@ -68,7 +68,7 @@ class TaxDeclaration < Ekylibre::Record::Base
   # acts_as_affairable :tax_office
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:tax_id].blank? && item[:tax].blank? }, allow_destroy: true
 
-  delegate :vat_mode, :vat_period, to: :financial_year
+  delegate :tax_declaration_mode, :tax_declaration_frequency, to: :financial_year
 
   state_machine :state, initial: :draft do
     state :draft
@@ -92,7 +92,7 @@ class TaxDeclaration < Ekylibre::Record::Base
     elsif financial_year
       self.started_on = financial_year.started_on
     end
-    # anyway, stopped_on is started_on + vat_period_duration
+    # anyway, stopped_on is started_on + tax_declaration_frequency_duration
     end_period = financial_year.vat_end_period
     self.stopped_on = started_on.send(end_period.to_s) if end_period
   end

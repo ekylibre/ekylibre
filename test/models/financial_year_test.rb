@@ -22,22 +22,22 @@
 #
 # == Table: financial_years
 #
-#  closed                :boolean          default(FALSE), not null
-#  code                  :string           not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  currency              :string           not null
-#  currency_precision    :integer
-#  custom_fields         :jsonb
-#  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer
-#  lock_version          :integer          default(0), not null
-#  started_on            :date             not null
-#  stopped_on            :date             not null
-#  tax_mode              :string
-#  tax_period            :string
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  closed                    :boolean          default(FALSE), not null
+#  code                      :string           not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  currency                  :string           not null
+#  currency_precision        :integer
+#  custom_fields             :jsonb
+#  id                        :integer          not null, primary key
+#  last_journal_entry_id     :integer
+#  lock_version              :integer          default(0), not null
+#  started_on                :date             not null
+#  stopped_on                :date             not null
+#  tax_declaration_frequency :string
+#  tax_declaration_mode      :string
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 require 'test_helper'

@@ -2371,9 +2371,9 @@ financial_years:
   stopped_on:
     type: date
     required: true
-  tax_mode:
+  tax_declaration_frequency:
     type: string
-  tax_period:
+  tax_declaration_mode:
     type: string
   updated_at:
     type: datetime

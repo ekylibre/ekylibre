@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -48,9 +49,9 @@ class TaxDeclarationItem < Ekylibre::Record::Base
   validates :collected_pretax_amount, :collected_tax_amount, :deductible_pretax_amount, :deductible_tax_amount, :fixed_asset_deductible_pretax_amount, :fixed_asset_deductible_tax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :currency, :tax, :tax_declaration, presence: true
   # ]VALIDATORS]
-  validates :currency, length: { allow_nil: true, maximum: 3 }
 
-  delegate :vat_mode, :vat_period, :currency, to: :tax_declaration, prefix: true
+  delegate :tax_declaration_mode, :tax_declaration_frequency, to: :tax_declaration
+  delegate :currency, to: :tax_declaration, prefix: true
 
   before_validation(on: :create) do
     if tax_declaration
@@ -98,7 +99,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
     # get all vat unmark outgoing payment from the current period
     unmark_outgoing_payments = OutgoingPayment.where(journal_entry_id: unmark_je.pluck(:id).uniq)
 
-    if tax_declaration_vat_mode == :payment
+    if tax_declaration_mode == :payment
 
       ## case deductible_vat
 
@@ -175,9 +176,9 @@ class TaxDeclarationItem < Ekylibre::Record::Base
                      outgoing_payment_ids_to_mark: outgoing_payment_ids_to_mark,
                      outgoing_payment_journal_entry_ids_to_mark: outgoing_payment_journal_entry_ids_to_mark }
 
-    elsif tax_declaration_vat_mode == :debit
+    elsif tax_declaration_mode == :debit
 
-      #  mark with D1 (id of vat declaration) for purchase_ids_to_mark and purchase_journal_entry_ids_to_mark
+      # mark with D1 (id of vat declaration) for purchase_ids_to_mark and purchase_journal_entry_ids_to_mark
       # mark with LD1 (id of vat declaration item) for purchase_item_ids_to_mark and deductible_tax_journal_entry_item_ids_to_mark
 
       ## case deductible_vat
@@ -193,7 +194,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       # unmark_jei.where(account_id: tax.deduction_account.id).pluck(:id).compact.uniq
       # tax.deduction_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
 
-      #  mark with D1 (id of vat declaration) for sale_ids_to_mark and sale_journal_entry_ids_to_mark
+      # mark with D1 (id of vat declaration) for sale_ids_to_mark and sale_journal_entry_ids_to_mark
       # mark with LD1 (id of vat declaration item) for sale_item_ids_to_mark and collected_tax_journal_entry_item_ids_to_mark
 
       ## case collected_vat

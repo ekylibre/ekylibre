@@ -22,22 +22,22 @@
 #
 # == Table: financial_years
 #
-#  closed                :boolean          default(FALSE), not null
-#  code                  :string           not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  currency              :string           not null
-#  currency_precision    :integer
-#  custom_fields         :jsonb
-#  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer
-#  lock_version          :integer          default(0), not null
-#  started_on            :date             not null
-#  stopped_on            :date             not null
-#  tax_mode              :string
-#  tax_period            :string
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  closed                    :boolean          default(FALSE), not null
+#  code                      :string           not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  currency                  :string           not null
+#  currency_precision        :integer
+#  custom_fields             :jsonb
+#  id                        :integer          not null, primary key
+#  last_journal_entry_id     :integer
+#  lock_version              :integer          default(0), not null
+#  started_on                :date             not null
+#  stopped_on                :date             not null
+#  tax_declaration_frequency :string
+#  tax_declaration_mode      :string
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 class FinancialYear < Ekylibre::Record::Base
@@ -45,8 +45,8 @@ class FinancialYear < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
   refers_to :currency
-  enumerize :vat_period, in: [:monthly, :quaterly, :yearly, :none], default: :none
-  enumerize :vat_mode, in: [:debit, :payment, :none], default: :none
+  enumerize :tax_declaration_frequency, in: [:monthly, :quaterly, :yearly, :none], default: :none
+  enumerize :tax_declaration_mode, in: [:debit, :payment, :none], default: :none
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
@@ -58,7 +58,6 @@ class FinancialYear < Ekylibre::Record::Base
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :tax_mode, :tax_period, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :code, length: { allow_nil: true, maximum: 20 }
@@ -152,26 +151,26 @@ class FinancialYear < Ekylibre::Record::Base
     code
   end
 
-  def vat_period_duration
-    if vat_period == :monthly
+  def tax_declaration_frequency_duration
+    if tax_declaration_frequency == :monthly
       1.month
-    elsif vat_period == :quaterly
+    elsif tax_declaration_frequency == :quaterly
       3.months
-    elsif vat_period == :yearly
+    elsif tax_declaration_frequency == :yearly
       12.months
-    elsif vat_period == :none
+    elsif tax_declaration_frequency == :none
       nil
     end
   end
 
   def vat_end_period
-    if vat_period == :monthly
+    if tax_declaration_frequency == :monthly
       :end_of_month
-    elsif vat_period == :quaterly
+    elsif tax_declaration_frequency == :quaterly
       :end_of_quarter
-    elsif vat_period == :yearly
+    elsif tax_declaration_frequency == :yearly
       :end_of_year
-    elsif vat_period == :none
+    elsif tax_declaration_frequency == :none
       nil
     end
   end

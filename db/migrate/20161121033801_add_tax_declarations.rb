@@ -31,8 +31,8 @@ class AddTaxDeclarations < ActiveRecord::Migration
       t.stamps
     end
 
-    add_column :financial_years, :tax_period, :string
-    add_column :financial_years, :tax_mode, :string
+    add_column :financial_years, :tax_declaration_frequency, :string
+    add_column :financial_years, :tax_declaration_mode, :string
 
     add_reference :journal_entry_items, :tax_declaration_item, index: true
 

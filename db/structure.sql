@@ -2295,8 +2295,8 @@ CREATE TABLE financial_years (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    tax_period character varying,
-    tax_mode character varying
+    tax_declaration_frequency character varying,
+    tax_declaration_mode character varying
 );
 
 
@@ -3418,11 +3418,11 @@ CREATE TABLE journal_entry_items (
     bank_statement_letter character varying,
     activity_budget_id integer,
     team_id integer,
-    tax_declaration_item_id integer
     tax_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    tax_declaration_item_id integer
 );
 
 
@@ -16453,10 +16453,9 @@ INSERT INTO schema_migrations (version) VALUES ('20161114112858');
 
 INSERT INTO schema_migrations (version) VALUES ('20161115163443');
 
-INSERT INTO schema_migrations (version) VALUES ('20161115173801');
-
 INSERT INTO schema_migrations (version) VALUES ('20161118150610');
 
 INSERT INTO schema_migrations (version) VALUES ('20161120153801');
 
+INSERT INTO schema_migrations (version) VALUES ('20161121033801');
 
