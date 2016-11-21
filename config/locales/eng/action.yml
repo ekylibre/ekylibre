@@ -1738,7 +1738,9 @@ eng:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-    # x_contracts: "X contracts"
+    x_contracts:
+      one: "%{count} contract"
+      other: "%{count} contracts"
     x_days:
       one: "%{count} day"
       other: "%{count} days"

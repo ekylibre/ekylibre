@@ -2196,6 +2196,9 @@ arb:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
       zero: "ولا مشترك" #?
+    x_contracts:
+      # one: "%{count} contract"
+      # other: "%{count} contracts"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
