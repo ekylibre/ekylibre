@@ -84,6 +84,8 @@ class SaleItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :subscription, reject_if: :all_blank, allow_destroy: true
   sums :sale, :items, :pretax_amount, :amount
 
+  enumerize :amount_reference, in: [:unitary, :total]
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
@@ -115,16 +117,25 @@ class SaleItem < Ekylibre::Record::Base
 
     self.quantity = -1 * credited_quantity if sale_credit
 
-    if tax && unit_pretax_amount
+    self.amount_reference ||= :unitary
+
+    if tax && (unit_pretax_amount || pretax_amount)
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
       if sale.reference_number.blank?
         self.unit_amount = nil
-        self.pretax_amount = nil
         self.amount = nil
       end
-      self.unit_amount   ||= unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      self.pretax_amount ||= (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
-      self.amount        ||= (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+
+      if amount_reference == :unitary
+        self.pretax_amount = (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0)
+      else
+        self.unit_pretax_amount = (self.pretax_amount / (quantity * (100.0 - reduction_percentage))) * 100
+      end
+
+      self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+
+      self.pretax_amount = self.pretax_amount.round(precision)
     end
 
     if variant
