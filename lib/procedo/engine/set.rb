@@ -29,6 +29,10 @@ module Procedo
         sub([@list.first])
       end
 
+      def to_a
+        parameters
+      end
+
       private
 
       def sub(items)
