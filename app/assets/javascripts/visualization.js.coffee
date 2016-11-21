@@ -150,8 +150,6 @@
           fillOpacity: 1
           radius: 5
       map:
-        maxZoom: 25
-        minZoom:2
         scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
@@ -164,6 +162,8 @@
       view:
         center:[]
         zoom : 13
+        maxZoom: 25
+        minZoom:2
       colors: V.colors
 
     _create: ->
@@ -175,8 +175,8 @@
       if @options.map.setDefaultBackground
         opts = {}
         opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
-        opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
-        opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+        opts['minZoom'] = @options.backgrounds.minZoom || @options.view.minZoom
+        opts['maxZoom'] = @options.backgrounds.maxZoom || @options.view.maxZoom
         opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
         opts['tms'] = true if @options.backgrounds.tms
 
@@ -275,8 +275,8 @@
         for layer, index in @options.backgrounds
           opts = {}
           opts['attribution'] = layer.attribution if layer.attribution?
-          opts['minZoom'] = layer.minZoom if layer.minZoom?
-          opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+          opts['minZoom'] = layer.minZoom || @options.view.minZoom
+          opts['maxZoom'] = layer.maxZoom || @options.view.maxZoom
           opts['subdomains'] = layer.subdomains if layer.subdomains?
           opts['tms'] = true if layer.tms
 
@@ -292,6 +292,7 @@
           backgroundLayer = L.tileLayer.provider(layer)
           baseLayers[layer] = backgroundLayer
           @map.addLayer(backgroundLayer) if index == 0
+        @map.fitWorld( { maxZoom: @options.view.maxZoom } )
 
 
       for layer in @options.overlays

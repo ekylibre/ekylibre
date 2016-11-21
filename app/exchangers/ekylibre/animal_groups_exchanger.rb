@@ -101,15 +101,26 @@ module Ekylibre
         unless animal_variant
           animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature)
         end
-        animal_container = Product.find_by(work_number: r.place)
 
-        unless animal_group = AnimalGroup.find_by(work_number: r.code)
+        # get animal default container
+        animal_container = BuildingDivision.find_by(work_number: r.place)
+
+        # find or create animal_group
+        if animal_group = AnimalGroup.find_by(work_number: r.code)
+          animal_group.name = r.name
+          animal_group.member_variant ||= animal_variant
+          animal_group.initial_container ||= animal_container
+          animal_group.default_storage ||= animal_container
+          animal_group.save!
+        else
           animal_group = AnimalGroup.create!(
             name: r.name,
             work_number: r.code,
             initial_born_at: r.indicators_at,
+            initial_population: 1.0,
             variant: variant,
-            default_storage: BuildingDivision.find_by(work_number: r.place)
+            initial_container: animal_container,
+            default_storage: animal_container
           )
           # create indicators linked to animal group
           r.indicators.each do |indicator, value|
@@ -128,6 +139,7 @@ module Ekylibre
           max_born_at = Time.zone.now - r.minimum_age.days if r.minimum_age
           min_born_at = Time.zone.now - r.maximum_age.days if r.maximum_age
           animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
+
           # find support for intervention changing or create it
           unless ap = ActivityProduction.where(support_id: animal_group.id).first
             # campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
@@ -159,14 +171,18 @@ module Ekylibre
               )
             end
           end
+
           # if animals and production_support, add animals to the target distribution
           if animals.any? && ap.present?
             animals.each do |animal|
-              td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: animal)
+              td = TargetDistribution.where(activity: activity, activity_production: ap, target: animal).first_or_create!
+              animal.memberships.where(group: animal_group, started_at: animal.born_at + r.minimum_age, nature: :interior).first_or_create!
+              animal.localizations.where(started_at: animal.born_at + r.minimum_age, nature: :interior, container: animal_container).first_or_create!
             end
             # TODO: how to add animals to a group
             # animal_group.add_animals(animals, started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
           end
+
         end
 
         w.check_point

@@ -454,6 +454,17 @@ ita:
       nature: #?
         period: "Abbonamento per data" #?
         quantity: "Abbonamento per numero" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticazione"
+        get_inventory: "Ottenere l’inventario"
+        get_urls: "Ottenere gli URL"
+      state:
+        aborted: "Abortito"
+        # errored: "Errored"
+        finished: "Finito"
+        in_progress: "In corso"
+        undone: "Disfatto"
     task:
       nature:
         document: "scrittura" #?

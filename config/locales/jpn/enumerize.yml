@@ -454,6 +454,17 @@ jpn:
       nature: #?
         period: "日付別のサブスクリプション" #?
         quantity: "番号で購読" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "認証"
+        get_inventory: "インベントリを取得"
+        get_urls: "URLを取得します"
+      state:
+        aborted: "中止されました"
+        errored: "エラーの発生しました"
+        finished: "完成しました"
+        in_progress: "進行中"
+        undone: "元に戻します"
     task:
       nature:
         document: "書き込み" #?

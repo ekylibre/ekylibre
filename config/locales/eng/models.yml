@@ -56,6 +56,12 @@ eng:
         has_downpayment: "Downpayment received"
       sale_nature:
         downpayment: "Request downpayment"
+      synchronization_operation:
+        human_message: "Error message"
+        operation_name: "Operation name"
+        request: "Request"
+        response: "Response"
+        status: "Status"
       tax:
         amount: "Value"
     errors:
@@ -321,6 +327,7 @@ eng:
       subscription_nature: "Subscription type"
       supervision: "Supervision"
       supervision_item: "Supervision item"
+      # synchronization_operation: "Synchronization operation"
       target_distribution: "Target distribution"
       task: "Task"
       tax: "Tax"
@@ -428,6 +435,7 @@ eng:
     buildings: "Buildings"
     by_default: "By default"
     calibrations: "Calibrations"
+    # calls: "Calls"
     campaign: "Campaign"
     campaigns: "Campaigns"
     canal: "Canal"
@@ -671,6 +679,7 @@ eng:
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
     finish: "Finish"
+    finished_at: "Finished at"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -920,6 +929,7 @@ eng:
     measure_value_value: "Measure value value"
     meeting_origin: "Meeting origin"
     member: "Member"
+    member_variant: "Member variant"
     members: "Members"
     members_count: "Members count" #?
     memberships: "Memberships"
@@ -961,6 +971,7 @@ eng:
     nodes: "Nodes"
     noticed_start_amount: "Noticed start amount"
     noticed_stop_amount: "Noticed stop amount"
+    notification: "Notification"
     notifications: "Notifications"
     number: "Number"
     number_format: "Number format"
@@ -972,6 +983,7 @@ eng:
     old_password: "Old password"
     opened_at: "Opened at"
     operation: "Operation"
+    operation_name: "Operation name"
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"
@@ -1186,6 +1198,7 @@ eng:
     reset_password_token: "Reset password token"
     resource: "Resource"
     resource_type: "Resource type"
+    # response: "Response"
     responses: "Responses"
     responsible: "Responsible"
     restricted: "Restricted"
@@ -1259,6 +1272,7 @@ eng:
     source: "Source"
     source_product: "Source product"
     # source_product_movement: "Source product movement"
+    # source_type: "Source type"
     spaced_iban: "Spaced IBAN"
     sql_type: "SQL type"
     ssl: "SSL"
@@ -1505,8 +1519,8 @@ eng:
     intervention:
       name: "%{intervention} #%{number}"
     inventory:
-      bookkeep: "Physical inventory - [%{resource}] %{number}"
-      bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      bookkeep: "[%{resource}] %{number}"
+      bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       name_with_target: "%{nature} on %{target}"
       name_without_target: "%{nature}"

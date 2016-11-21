@@ -454,6 +454,17 @@ deu:
       nature: #?
         period: "Abonnement von Datum" #?
         quantity: "Abonnement von Nummer" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Beglaubigung"
+        get_inventory: "Erhalten Sie Inventar"
+        get_urls: "Erhalten Sie Urls"
+      state:
+        aborted: "Abgebrochen"
+        # errored: "Errored"
+        finished: "Fertig"
+        in_progress: "In Bearbeitung"
+        undone: "Unerledigt"
     task:
       nature:
         document: "Schreiben" #?

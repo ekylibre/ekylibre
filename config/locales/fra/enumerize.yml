@@ -430,6 +430,17 @@ fra:
         sales: "Ventes"
         sales_invoices: "Factures"
         subscriptions: "Abonnements"
+    synchronization_operation:
+      operation_name:
+        authenticate: "Authentification"
+        get_inventory: "Récupération de l'inventaire"
+        get_urls: "Récupération des URL"
+      state:
+        aborted: "Avorté"
+        errored: "Erroné"
+        finished: "Fini"
+        in_progress: "En cours"
+        undone: "En attente"
     task:
       nature:
         incoming_call: "Appel entrant"

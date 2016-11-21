@@ -54,6 +54,12 @@ por:
         has_downpayment: "È recebido"
       sale_nature:
         downpayment: "Pedido downpayment"
+      synchronization_operation:
+        human_message: "Mensagem de erro"
+        operation_name: "Nome da Operação"
+        request: "Pedido"
+        response: "Resposta"
+        status: "Estado"
       tax:
         amount: "Valor"
     errors:
@@ -661,6 +667,7 @@ por:
     financial_year: "Ano financeiro"
     financial_year_as_last: "Exercício (com a última entrada do diário)"
     finish: "Terminar"
+    finished_at: "Terminou em"
     first_met_at: "Encontraram pela primeira vez em"
     first_name: "Primeiro nome"
     first_number: "Primeiro número"
@@ -909,6 +916,7 @@ por:
     measure_value_value: "Valor Valor medida"
     meeting_origin: "Origem Reunião"
     member: "Membro"
+    member_variant: "Variante membro"
     members: "Membros"
     members_count: "Membros contar"
     memberships: "Associações"
@@ -950,6 +958,7 @@ por:
     # nodes: "Nodes"
     noticed_start_amount: "Montante início notado"
     noticed_stop_amount: "Montante parada notado"
+    notification: "Notificação"
     notifications: "Notificações"
     number: "Número"
     number_format: "Formato de número"
@@ -961,6 +970,7 @@ por:
     old_password: "Senha Antiga"
     opened_at: "Inaugurado no"
     operation: "Operação"
+    operation_name: "Nome da Operação"
     operations: "Operações" #?
     ordered_at: "Pedidos no"
     organic_fertilizer_mineral_fraction: "Fração mineral fertilizante orgânico"
@@ -1492,8 +1502,8 @@ por:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"

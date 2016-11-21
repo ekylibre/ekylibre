@@ -454,6 +454,17 @@ spa:
       nature: #?
         period: "Suscripción por fecha" #?
         quantity: "Suscripción por número" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticación"
+        get_inventory: "Obtener inventario"
+        get_urls: "Obtener direcciones URL"
+      state:
+        aborted: "Abortado"
+        errored: "Con error"
+        finished: "Terminado"
+        in_progress: "En progreso"
+        undone: "Deshecho"
     task:
       nature:
         document: "Escritura" #?

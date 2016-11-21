@@ -8063,3 +8063,1059 @@ journal_entry_items_267:
   state: draft
   updated_at: 2016-10-26 15:31:44.294980000 Z
   updater_id: 1
+journal_entry_items_268:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 447.12
+  account_id: 572
+  balance: 447.12
+  created_at: 2016-11-20 22:09:02.992237000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 447.12
+  currency: EUR
+  debit: 447.12
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 486
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000004] Lait de vache et Lait de vache pour M.  Περικλῆς (SO000000000015)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 447.12
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 447.12
+  state: draft
+  updated_at: 2016-11-20 22:09:02.992237000 Z
+  updater_id: 1
+journal_entry_items_269:
+  absolute_credit: 327.6
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 15
+  balance: -327.6
+  created_at: 2016-11-20 22:09:03.015012000 Z
+  creator_id: 1
+  credit: 327.6
+  cumulated_absolute_credit: 327.6
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 487
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000004] Lait de vache et Lait de vache pour M.  Περικλῆς (SO000000000015)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -327.6
+  real_credit: 327.6
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:09:03.015012000 Z
+  updater_id: 1
+journal_entry_items_270:
+  absolute_credit: 65.52
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: -65.52
+  created_at: 2016-11-20 22:09:03.036303000 Z
+  creator_id: 1
+  credit: 65.52
+  cumulated_absolute_credit: 69.6
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 488
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000004] Lait de vache et Lait de vache pour M.  Περικλῆς (SO000000000015)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -65.52
+  real_credit: 65.52
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:09:03.036303000 Z
+  updater_id: 1
+journal_entry_items_271:
+  absolute_credit: 45.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 15
+  balance: -45.0
+  created_at: 2016-11-20 22:09:03.058777000 Z
+  creator_id: 1
+  credit: 45.0
+  cumulated_absolute_credit: 372.6
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 489
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000004] Lait de vache et Lait de vache pour M.  Περικλῆς (SO000000000015)"
+  position: 4
+  printed_on: 2016-11-20
+  real_balance: -45.0
+  real_credit: 45.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:09:03.058777000 Z
+  updater_id: 1
+journal_entry_items_272:
+  absolute_credit: 9.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: -9.0
+  created_at: 2016-11-20 22:09:03.081393000 Z
+  creator_id: 1
+  credit: 9.0
+  cumulated_absolute_credit: 78.6
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 89
+  entry_number: SAL000001
+  financial_year_id: 26
+  id: 490
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000004] Lait de vache et Lait de vache pour M.  Περικλῆς (SO000000000015)"
+  position: 5
+  printed_on: 2016-11-20
+  real_balance: -9.0
+  real_credit: 9.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:09:03.081393000 Z
+  updater_id: 1
+journal_entry_items_273:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 447.12
+  account_id: 212
+  balance: 447.12
+  created_at: 2016-11-20 22:09:40.181753000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 32350.46
+  cumulated_absolute_debit: 932.19
+  currency: EUR
+  debit: 447.12
+  entry_id: 91
+  entry_number: BNK000012
+  financial_year_id: 26
+  id: 491
+  journal_id: 2
+  lock_version: 0
+  name: "[Encaissement R2016000001] By check  de M.  Περικλῆς"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 447.12
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 447.12
+  state: draft
+  updated_at: 2016-11-20 22:09:40.181753000 Z
+  updater_id: 1
+journal_entry_items_274:
+  absolute_credit: 447.12
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 572
+  balance: -447.12
+  created_at: 2016-11-20 22:09:40.203854000 Z
+  creator_id: 1
+  credit: 447.12
+  cumulated_absolute_credit: 447.12
+  cumulated_absolute_debit: 447.12
+  currency: EUR
+  debit: 0.0
+  entry_id: 91
+  entry_number: BNK000012
+  financial_year_id: 26
+  id: 492
+  journal_id: 2
+  lock_version: 0
+  name: "[Encaissement R2016000001] By check  de M.  Περικλῆς"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -447.12
+  real_credit: 447.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:09:40.203854000 Z
+  updater_id: 1
+journal_entry_items_275:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 37.44
+  account_id: 671
+  balance: 37.44
+  created_at: 2016-11-20 22:10:43.189937000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 37.44
+  currency: EUR
+  debit: 37.44
+  entry_id: 92
+  entry_number: SAL000002
+  financial_year_id: 26
+  id: 493
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000005] Lait de vache pour M. Gendo IKARI (SO000000000016)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 37.44
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 37.44
+  state: draft
+  updated_at: 2016-11-20 22:10:43.189937000 Z
+  updater_id: 1
+journal_entry_items_276:
+  absolute_credit: 31.2
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 15
+  balance: -31.2
+  created_at: 2016-11-20 22:10:43.210834000 Z
+  creator_id: 1
+  credit: 31.2
+  cumulated_absolute_credit: 403.8
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 92
+  entry_number: SAL000002
+  financial_year_id: 26
+  id: 494
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000005] Lait de vache pour M. Gendo IKARI (SO000000000016)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -31.2
+  real_credit: 31.2
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:10:43.210834000 Z
+  updater_id: 1
+journal_entry_items_277:
+  absolute_credit: 6.24
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: -6.24
+  created_at: 2016-11-20 22:10:43.231298000 Z
+  creator_id: 1
+  credit: 6.24
+  cumulated_absolute_credit: 84.84
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 92
+  entry_number: SAL000002
+  financial_year_id: 26
+  id: 495
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000005] Lait de vache pour M. Gendo IKARI (SO000000000016)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -6.24
+  real_credit: 6.24
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:10:43.231298000 Z
+  updater_id: 1
+journal_entry_items_278:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 37.44
+  account_id: 212
+  balance: 37.44
+  created_at: 2016-11-20 22:10:52.964727000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 32350.46
+  cumulated_absolute_debit: 969.63
+  currency: EUR
+  debit: 37.44
+  entry_id: 94
+  entry_number: BNK000013
+  financial_year_id: 26
+  id: 496
+  journal_id: 2
+  lock_version: 0
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 37.44
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 37.44
+  state: draft
+  updated_at: 2016-11-20 22:10:52.964727000 Z
+  updater_id: 1
+journal_entry_items_279:
+  absolute_credit: 37.44
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 671
+  balance: -37.44
+  created_at: 2016-11-20 22:10:52.986877000 Z
+  creator_id: 1
+  credit: 37.44
+  cumulated_absolute_credit: 37.44
+  cumulated_absolute_debit: 37.44
+  currency: EUR
+  debit: 0.0
+  entry_id: 94
+  entry_number: BNK000013
+  financial_year_id: 26
+  id: 497
+  journal_id: 2
+  lock_version: 0
+  name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -37.44
+  real_credit: 37.44
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:10:52.986877000 Z
+  updater_id: 1
+journal_entry_items_280:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 3.74
+  account_id: 671
+  balance: 3.74
+  created_at: 2016-11-20 22:11:28.750943000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 37.44
+  cumulated_absolute_debit: 41.18
+  currency: EUR
+  debit: 3.74
+  entry_id: 95
+  entry_number: SAL000003
+  financial_year_id: 26
+  id: 498
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000006] Lait de vache pour M. Gendo IKARI (SO000000000017)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 3.74
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3.74
+  state: draft
+  updated_at: 2016-11-20 22:11:28.750943000 Z
+  updater_id: 1
+journal_entry_items_281:
+  absolute_credit: 3.12
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 15
+  balance: -3.12
+  created_at: 2016-11-20 22:11:28.770490000 Z
+  creator_id: 1
+  credit: 3.12
+  cumulated_absolute_credit: 406.92
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 95
+  entry_number: SAL000003
+  financial_year_id: 26
+  id: 499
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000006] Lait de vache pour M. Gendo IKARI (SO000000000017)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -3.12
+  real_credit: 3.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:11:28.770490000 Z
+  updater_id: 1
+journal_entry_items_282:
+  absolute_credit: 0.62
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: -0.62
+  created_at: 2016-11-20 22:11:28.830255000 Z
+  creator_id: 1
+  credit: 0.62
+  cumulated_absolute_credit: 85.46
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 95
+  entry_number: SAL000003
+  financial_year_id: 26
+  id: 500
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000006] Lait de vache pour M. Gendo IKARI (SO000000000017)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -0.62
+  real_credit: 0.62
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:11:28.830255000 Z
+  updater_id: 1
+journal_entry_items_283:
+  absolute_credit: 3.74
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 671
+  balance: -3.74
+  created_at: 2016-11-20 22:11:32.637212000 Z
+  creator_id: 1
+  credit: 3.74
+  cumulated_absolute_credit: 41.18
+  cumulated_absolute_debit: 41.18
+  currency: EUR
+  debit: 0.0
+  entry_id: 97
+  entry_number: XYZ0015
+  financial_year_id: 26
+  id: 501
+  journal_id: 1
+  lock_version: 0
+  name: "[Le profit E000000000004] M. Gendo IKARI"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: -3.74
+  real_credit: 3.74
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:11:32.637212000 Z
+  updater_id: 1
+journal_entry_items_284:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 3.12
+  account_id: 132
+  balance: 3.12
+  created_at: 2016-11-20 22:11:32.661799000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 113.72
+  cumulated_absolute_debit: 3.12
+  currency: EUR
+  debit: 3.12
+  entry_id: 97
+  entry_number: XYZ0015
+  financial_year_id: 26
+  id: 502
+  journal_id: 1
+  lock_version: 0
+  name: "[Le profit E000000000004] M. Gendo IKARI"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 3.1167
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3.1167
+  state: draft
+  updated_at: 2016-11-20 22:11:32.661799000 Z
+  updater_id: 1
+journal_entry_items_285:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.62
+  account_id: 33
+  balance: 0.62
+  created_at: 2016-11-20 22:11:32.683635000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 85.46
+  cumulated_absolute_debit: 0.62
+  currency: EUR
+  debit: 0.62
+  entry_id: 97
+  entry_number: XYZ0015
+  financial_year_id: 26
+  id: 503
+  journal_id: 1
+  lock_version: 0
+  name: "[Le profit E000000000004] M. Gendo IKARI"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: 0.6233
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.6233
+  state: draft
+  updated_at: 2016-11-20 22:11:32.683635000 Z
+  updater_id: 1
+journal_entry_items_286:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2676.0
+  account_id: 672
+  balance: 2676.0
+  created_at: 2016-11-20 22:12:19.132147000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2676.0
+  currency: EUR
+  debit: 2676.0
+  entry_id: 98
+  entry_number: SAL000004
+  financial_year_id: 26
+  id: 504
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000007] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
+    (SO000000000018)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 2676.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2676.0
+  state: draft
+  updated_at: 2016-11-20 22:12:19.132147000 Z
+  updater_id: 1
+journal_entry_items_287:
+  absolute_credit: 2230.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 152
+  balance: -2230.0
+  created_at: 2016-11-20 22:12:19.151058000 Z
+  creator_id: 1
+  credit: 2230.0
+  cumulated_absolute_credit: 2230.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 98
+  entry_number: SAL000004
+  financial_year_id: 26
+  id: 505
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000007] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
+    (SO000000000018)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -2230.0
+  real_credit: 2230.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:12:19.151058000 Z
+  updater_id: 1
+journal_entry_items_288:
+  absolute_credit: 446.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: -446.0
+  created_at: 2016-11-20 22:12:19.171004000 Z
+  creator_id: 1
+  credit: 446.0
+  cumulated_absolute_credit: 531.46
+  cumulated_absolute_debit: 0.62
+  currency: EUR
+  debit: 0.0
+  entry_id: 98
+  entry_number: SAL000004
+  financial_year_id: 26
+  id: 506
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000007] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
+    (SO000000000018)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -446.0
+  real_credit: 446.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:12:19.171004000 Z
+  updater_id: 1
+journal_entry_items_289:
+  absolute_credit: 2676.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 672
+  balance: -2676.0
+  created_at: 2016-11-20 22:12:46.241975000 Z
+  creator_id: 1
+  credit: 2676.0
+  cumulated_absolute_credit: 2676.0
+  cumulated_absolute_debit: 2676.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 100
+  entry_number: SAL000005
+  financial_year_id: 26
+  id: 507
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000008] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
+    (SO000000000019)"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: -2676.0
+  real_credit: 2676.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:12:46.241975000 Z
+  updater_id: 1
+journal_entry_items_290:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2230.0
+  account_id: 152
+  balance: 2230.0
+  created_at: 2016-11-20 22:12:46.261368000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 2230.0
+  cumulated_absolute_debit: 2230.0
+  currency: EUR
+  debit: 2230.0
+  entry_id: 100
+  entry_number: SAL000005
+  financial_year_id: 26
+  id: 508
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000008] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
+    (SO000000000019)"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 2230.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2230.0
+  state: draft
+  updated_at: 2016-11-20 22:12:46.261368000 Z
+  updater_id: 1
+journal_entry_items_291:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 446.0
+  account_id: 33
+  balance: 446.0
+  created_at: 2016-11-20 22:12:46.281731000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 531.46
+  cumulated_absolute_debit: 446.62
+  currency: EUR
+  debit: 446.0
+  entry_id: 100
+  entry_number: SAL000005
+  financial_year_id: 26
+  id: 509
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000008] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
+    (SO000000000019)"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: 446.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 446.0
+  state: draft
+  updated_at: 2016-11-20 22:12:46.281731000 Z
+  updater_id: 1
+journal_entry_items_292:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 597.6
+  account_id: 154
+  balance: 597.6
+  created_at: 2016-11-20 22:14:42.366131000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 17697.6
+  currency: EUR
+  debit: 597.6
+  entry_id: 102
+  entry_number: PUR000004
+  financial_year_id: 26
+  id: 510
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000002] Semence mixte de Taurus Plus"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 597.6
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 597.6
+  state: draft
+  updated_at: 2016-11-20 22:14:42.366131000 Z
+  updater_id: 1
+journal_entry_items_293:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 119.52
+  account_id: 39
+  balance: 119.52
+  created_at: 2016-11-20 22:14:42.388681000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 4136.95
+  currency: EUR
+  debit: 119.52
+  entry_id: 102
+  entry_number: PUR000004
+  financial_year_id: 26
+  id: 511
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000002] Semence mixte de Taurus Plus"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 119.52
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 119.52
+  state: draft
+  updated_at: 2016-11-20 22:14:42.388681000 Z
+  updater_id: 1
+journal_entry_items_294:
+  absolute_credit: 717.12
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 203
+  balance: -717.12
+  created_at: 2016-11-20 22:14:42.410753000 Z
+  creator_id: 1
+  credit: 717.12
+  cumulated_absolute_credit: 2453.69
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 102
+  entry_number: PUR000004
+  financial_year_id: 26
+  id: 512
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000002] Semence mixte de Taurus Plus"
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -717.12
+  real_credit: 717.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:14:42.410753000 Z
+  updater_id: 1
+journal_entry_items_295:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 717.12
+  account_id: 203
+  balance: 717.12
+  created_at: 2016-11-20 22:14:52.594179000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 2453.69
+  cumulated_absolute_debit: 717.12
+  currency: EUR
+  debit: 717.12
+  entry_id: 104
+  entry_number: CUN000004
+  financial_year_id: 26
+  id: 513
+  journal_id: 6
+  lock_version: 0
+  name: "[Décaissement D20160005] En espèce  pour Taurus Plus"
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 717.12
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 717.12
+  state: draft
+  updated_at: 2016-11-20 22:14:52.594179000 Z
+  updater_id: 1
+journal_entry_items_296:
+  absolute_credit: 717.12
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 213
+  balance: -717.12
+  created_at: 2016-11-20 22:14:52.616584000 Z
+  creator_id: 1
+  credit: 717.12
+  cumulated_absolute_credit: 21349.19
+  cumulated_absolute_debit: 28.3
+  currency: EUR
+  debit: 0.0
+  entry_id: 104
+  entry_number: CUN000004
+  financial_year_id: 26
+  id: 514
+  journal_id: 6
+  lock_version: 0
+  name: "[Décaissement D20160005] En espèce  pour Taurus Plus"
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: -717.12
+  real_credit: 717.12
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:14:52.616584000 Z
+  updater_id: 1
+journal_entry_items_297:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1000.0
+  account_id: 147
+  balance: 1000.0
+  created_at: 2016-11-20 22:15:24.370236000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1000.0
+  currency: EUR
+  debit: 1000.0
+  entry_id: 105
+  entry_number: PUR000005
+  financial_year_id: 26
+  id: 515
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000003] Acide lactique ‒ 25kg de BAKTOUBI Inc."
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: 1000.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1000.0
+  state: draft
+  updated_at: 2016-11-20 22:15:24.370236000 Z
+  updater_id: 1
+journal_entry_items_298:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 200.0
+  account_id: 39
+  balance: 200.0
+  created_at: 2016-11-20 22:15:24.389889000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 4336.95
+  currency: EUR
+  debit: 200.0
+  entry_id: 105
+  entry_number: PUR000005
+  financial_year_id: 26
+  id: 516
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000003] Acide lactique ‒ 25kg de BAKTOUBI Inc."
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 200.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 200.0
+  state: draft
+  updated_at: 2016-11-20 22:15:24.389889000 Z
+  updater_id: 1
+journal_entry_items_299:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 204
+  balance: -1200.0
+  created_at: 2016-11-20 22:15:24.409784000 Z
+  creator_id: 1
+  credit: 1200.0
+  cumulated_absolute_credit: 1200.0
+  cumulated_absolute_debit: 1850.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 105
+  entry_number: PUR000005
+  financial_year_id: 26
+  id: 517
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201611000003] Acide lactique ‒ 25kg de BAKTOUBI Inc."
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: -1200.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:15:24.409784000 Z
+  updater_id: 1
+journal_entry_items_300:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 204
+  balance: -1200.0
+  created_at: 2016-11-20 22:15:36.435318000 Z
+  creator_id: 1
+  credit: 1200.0
+  cumulated_absolute_credit: 2400.0
+  cumulated_absolute_debit: 1850.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 107
+  entry_number: XYZ0016
+  financial_year_id: 26
+  id: 518
+  journal_id: 1
+  lock_version: 0
+  name: "[Perte E000000000005] BAKTOUBI Inc."
+  position: 1
+  printed_on: 2016-11-20
+  real_balance: -1200.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-11-20 22:15:36.435318000 Z
+  updater_id: 1
+journal_entry_items_301:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1000.0
+  account_id: 131
+  balance: 1000.0
+  created_at: 2016-11-20 22:15:36.472819000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 9.36
+  cumulated_absolute_debit: 1000.0
+  currency: EUR
+  debit: 1000.0
+  entry_id: 107
+  entry_number: XYZ0016
+  financial_year_id: 26
+  id: 519
+  journal_id: 1
+  lock_version: 0
+  name: "[Perte E000000000005] BAKTOUBI Inc."
+  position: 2
+  printed_on: 2016-11-20
+  real_balance: 1000.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1000.0
+  state: draft
+  updated_at: 2016-11-20 22:15:36.472819000 Z
+  updater_id: 1
+journal_entry_items_302:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 200.0
+  account_id: 39
+  balance: 200.0
+  created_at: 2016-11-20 22:15:36.508727000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 4536.95
+  currency: EUR
+  debit: 200.0
+  entry_id: 107
+  entry_number: XYZ0016
+  financial_year_id: 26
+  id: 520
+  journal_id: 1
+  lock_version: 0
+  name: "[Perte E000000000005] BAKTOUBI Inc."
+  position: 3
+  printed_on: 2016-11-20
+  real_balance: 200.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 200.0
+  state: draft
+  updated_at: 2016-11-20 22:15:36.508727000 Z
+  updater_id: 1

@@ -95,12 +95,12 @@ class CallResponse < CallMessage
   end
 
   def self.create_from_savon_httpi_response!(response, request)
-    r.new(
+    r = new(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
-      format: response.headers.split(';').first,
+      format: response.headers['content-type'].split(';').first,
       request: request
     )
     r.save!
@@ -112,7 +112,7 @@ class CallResponse < CallMessage
       status: response.code,
       headers: response.headers,
       body: 'Body too long to be saved.',
-      format: response.headers.split(';').first,
+      format: response.headers['content-type'].split(';').first,
       request: request
     )
   end

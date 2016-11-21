@@ -69,6 +69,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant

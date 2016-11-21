@@ -37,6 +37,32 @@
               $(input).val('')
 
 
+    handleDynascope: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.handleDynascope(form, attrs, subprefix + '_' + id + '_')
+        else
+          if name is 'attributes' and value?
+            # for each attribute
+            for k, v of value
+              input = form.find("##{prefix}#{k}")
+              unrollPath = input.attr('data-selector')
+              if unrollPath
+                # for each scope
+                for scopeKey, scopeValue of v.dynascope
+
+                  scopeReg = ///
+                  (.* #root
+                  unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope
+                  = ([^&]*) # current value to change
+                  (&?.*)
+                  ///
+                  unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
+
+                input.attr('data-selector', unrollPath)
+
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes
         subprefix = prefix + name
@@ -62,6 +88,7 @@
         else if /\w+_attributes$/.test(name)
           E.interventions.unserializeList(form, value, subprefix + '_', updater_id)
         else
+#          console.log subprefix
           form.find("##{subprefix}").each (index) ->
             element = $(this)
             if element.is(':ui-selector')
@@ -135,6 +162,7 @@
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
+            E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             computing.prop 'state', 'ready'
             options.success.call(this, data, status, request) if options.success?

@@ -453,6 +453,17 @@ arb:
       nature: #?
         period: "الاشتراك عن طريق التاريخ" #?
         quantity: "الاشتراك عن طريق رقم" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "المصادقة"
+        get_inventory: "الحصول على المخزون"
+        get_urls: "الحصول على عناوين المواقع"
+      state:
+        aborted: "أجهض"
+        # errored: "Errored"
+        finished: "تم الانتهاء من"
+        in_progress: "في تَقَدم"
+        undone: "غير مصنوع"
     task:
       nature:
         document: "جاري الكتابة" #?

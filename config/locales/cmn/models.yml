@@ -54,6 +54,12 @@ cmn:
         has_downpayment: "首付接收"
       sale_nature:
         downpayment: "首期申请"
+      synchronization_operation:
+        human_message: "错误信息"
+        operation_name: "操作名称"
+        request: "请求"
+        response: "响应"
+        status: "状态"
       tax:
         amount: "值"
     errors:
@@ -661,6 +667,7 @@ cmn:
     financial_year: "财政年度"
     financial_year_as_last: "财政年度（截至去年日记帐分录）"
     finish: "完"
+    finished_at: "在成品"
     first_met_at: "第一次会议于"
     first_name: "名字"
     first_number: "第一个数字"
@@ -909,6 +916,7 @@ cmn:
     measure_value_value: "测量值值"
     meeting_origin: "会议的起源"
     member: "会员"
+    member_variant: "会员变种"
     members: "会员"
     members_count: "会员数"
     memberships: "成员"
@@ -950,6 +958,7 @@ cmn:
     nodes: "节点"
     noticed_start_amount: "注意到启动量"
     noticed_stop_amount: "注意止损金额"
+    notification: "通知"
     notifications: "通知"
     number: "数"
     number_format: "数字格式"
@@ -961,6 +970,7 @@ cmn:
     old_password: "旧密码"
     opened_at: "在开业"
     operation: "手术"
+    operation_name: "操作名称"
     operations: "操作" #?
     ordered_at: "在有序"
     organic_fertilizer_mineral_fraction: "有机肥矿物质成分"
@@ -1492,8 +1502,8 @@ cmn:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
