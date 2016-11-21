@@ -38,7 +38,7 @@ module Backend
     def trial_balance_to_ods_export(balance)
       require 'odf/spreadsheet'
       output = ODF::Spreadsheet.new
-      view = view_context
+      action_name = human_action_name
 
       output.instance_eval do
         office_style :head, family: :cell do
@@ -58,9 +58,7 @@ module Backend
           property :text, 'font-style': :italic
         end
 
-        currency = Preference[:currency]
-
-        table human_action_name do
+        table action_name do
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
@@ -85,8 +83,8 @@ module Backend
                 cell account.name
                 cell (item[2]).l, type: :float
                 cell (item[3]).l, type: :float
-                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, type: :float
-                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, type: :float
+                cell (item[4].to_f > 0 ? item[4] : 0).l, type: :float
+                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, type: :float
               end
 
             elsif item[1].to_i == -1
@@ -95,8 +93,8 @@ module Backend
                 cell :total.tl, style: :bold
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
-                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :bold, type: :float
-                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :bold, type: :float
+                cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -2
               row do
@@ -104,8 +102,8 @@ module Backend
                 cell :subtotal.tl(name: item[0]).l, style: :right
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
-                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :bold, type: :float
-                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :bold, type: :float
+                cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -3
               row do
@@ -113,8 +111,8 @@ module Backend
                 cell :centralized_account.tl(name: item[0]).l, style: :italic
                 cell (item[2]).l, style: :italic, type: :float
                 cell (item[3]).l, style: :italic, type: :float
-                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :italic, type: :float
-                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :italic, type: :float
+                cell (item[4].to_f > 0 ? item[4] : 0).l, style: :italic, type: :float
+                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, style: :italic, type: :float
               end
             end
           end
