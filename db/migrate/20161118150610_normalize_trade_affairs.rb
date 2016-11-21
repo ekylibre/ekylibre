@@ -80,8 +80,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
 
-        execute "CREATE OR REPLACE VIEW letterable_deals AS
-  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.client_id AS third_id, 'sales' AS source, d.id, CASE WHEN d.state IN ('aborted', 'refused') THEN 0 WHEN d.credit THEN -d.amount ELSE 0 END AS debit_amount, CASE WHEN d.state IN ('aborted', 'refused') THEN 0 WHEN NOT d.credit THEN d.amount ELSE 0 END AS credit_amount
+        execute "SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.client_id AS third_id, 'sales' AS source, d.id, CASE WHEN d.state IN ('aborted', 'refused') THEN 0 WHEN d.credit THEN -d.amount ELSE 0 END AS debit_amount, CASE WHEN d.state IN ('aborted', 'refused') THEN 0 WHEN NOT d.credit THEN d.amount ELSE 0 END AS credit_amount
+    INTO TEMPORARY TABLE letterable_deals
     FROM sales AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
@@ -112,6 +112,9 @@ $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
     WHERE d.type = 'PurchaseGap';".gsub(/\s*\n\s*/, ' ')
+        %w(affair_id account_id journal_entry_id third_id id).each do |col|
+          execute "CREATE INDEX letterable_deals_#{col} ON letterable_deals (#{col})"
+        end
 
         # Synchronize affairs for some exception
         execute 'UPDATE affairs SET debit = debit_amount, credit = credit_amount FROM (select affair_id, sum(debit_amount) AS debit_amount, sum(credit_amount) AS credit_amount FROM letterable_deals group by 1) AS sums WHERE sums.affair_id = affairs.id;'
@@ -129,12 +132,17 @@ $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
        JOIN affairs AS a ON (a.id = lcg.affair_id)
      GROUP BY a.id, jei.account_id;".gsub(/\s*\n\s*/, ' ')
 
-        execute "CREATE OR REPLACE VIEW letterable_groups AS
+        execute "
   SELECT lcg.*
+    INTO TEMPORARY TABLE letterable_groups
     FROM letterable_deals AS lcg
     WHERE lcg.affair_id NOT IN (SELECT affair_id FROM letterable_multi_thirds WHERE count != 1)
       AND lcg.affair_id IN (SELECT affair_id FROM letterable_sum WHERE balanced)
 ;".gsub(/\s*\n\s*/, ' ')
+
+        %w(affair_id account_id journal_entry_id third_id id).each do |col|
+          execute "CREATE INDEX letterable_groups_#{col} ON letterable_groups (#{col})"
+        end
 
         execute "CREATE OR REPLACE FUNCTION letter_affair(IN letterable_affair_id BIGINT, IN letterable_account_id BIGINT) RETURNS VARCHAR AS $$
 DECLARE
@@ -167,10 +175,10 @@ $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
   WHERE account_id IS NOT NULL AND affair_id IS NOT NULL;'
 
         execute 'DROP FUNCTION letter_affair(BIGINT, BIGINT);'
-        execute 'DROP VIEW letterable_groups;'
+        execute 'DROP TABLE letterable_groups CASCADE;'
         execute 'DROP VIEW letterable_sum;'
         execute 'DROP VIEW letterable_multi_thirds;'
-        execute 'DROP VIEW letterable_deals;'
+        execute 'DROP TABLE letterable_deals CASCADE;'
         execute 'DROP FUNCTION succ(VARCHAR);'
       end
     end
