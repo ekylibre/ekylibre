@@ -22,21 +22,18 @@ module Backend
   class TrialBalancesController < Backend::BaseController
     def show
       @balance = Journal.trial_balance(params) if params[:period]
-    end
-
-    def export
-      return unless params[:period]
-      balance = Journal.trial_balance(params)
       respond_to do |format|
         format.html
         format.ods do
           send_data(
-              trial_balance_to_ods_export(balance).bytes,
-              filename: "[#{Time.zone.now.l}] #{:balance.tl}.ods".underscore
+            trial_balance_to_ods_export(@balance).bytes,
+            filename: "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}.ods"
           )
         end
       end
     end
+
+    protected
 
     def trial_balance_to_ods_export(balance)
       require 'odf/spreadsheet'
@@ -45,7 +42,7 @@ module Backend
 
       output.instance_eval do
         office_style :head, family: :cell do
-          property :text, 'font-weight': :bold, 'font-size': '11px'
+          property :text, 'font-weight': :bold
           property :paragraph, 'text-align': :center
         end
 
@@ -63,7 +60,7 @@ module Backend
 
         currency = Preference[:currency]
 
-        table :trial_balance.tl do
+        table human_action_name do
           row do
             cell JournalEntryItem.human_attribute_name(:account_number), style: :head
             cell JournalEntryItem.human_attribute_name(:account_name), style: :head
@@ -81,44 +78,43 @@ module Backend
           end
 
           balance.each do |item|
-
             if item[1].to_i > 0
               account = Account.find(item[1])
               row do
                 cell account.number
                 cell account.name
-                cell view.number_to_accountancy(item[2], currency)
-                cell view.number_to_accountancy(item[3], currency)
-                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency)
-                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency)
+                cell (item[2]).l, type: :float
+                cell (item[3]).l, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, type: :float
               end
 
             elsif item[1].to_i == -1
               row do
                 cell ''
                 cell :total.tl, style: :bold
-                cell view.number_to_accountancy(item[2], currency) , style: :bold
-                cell view.number_to_accountancy(item[3], currency) , style: :bold
-                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency) , style: :bold
-                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency), style: :bold
+                cell (item[2]).l, style: :bold, type: :float
+                cell (item[3]).l, style: :bold, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -2
               row do
                 cell
-                cell :subtotal.tl(name: item[0]), style: :right
-                cell view.number_to_accountancy(item[2], currency) , style: :bold
-                cell view.number_to_accountancy(item[3], currency) , style: :bold
-                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency) , style: :bold
-                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency) , style: :bold
+                cell :subtotal.tl(name: item[0]).l, style: :right
+                cell (item[2]).l, style: :bold, type: :float
+                cell (item[3]).l, style: :bold, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -3
               row do
                 cell item[0], style: :italic
-                cell :centralized_account.tl(name: item[0]), style: :italic
-                cell view.number_to_accountancy(item[2], currency), style: :italic
-                cell view.number_to_accountancy(item[3], currency), style: :italic
-                cell view.number_to_accountancy(item[4].to_f > 0 ? item[4].to_f : 0, currency), style: :italic
-                cell view.number_to_accountancy(item[4].to_f < 0 ? -item[4].to_f : 0, currency), style: :italic
+                cell :centralized_account.tl(name: item[0]).l, style: :italic
+                cell (item[2]).l, style: :italic, type: :float
+                cell (item[3]).l, style: :italic, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :italic, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :italic, type: :float
               end
             end
           end
