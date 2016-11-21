@@ -47,6 +47,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
       .includes(journal_entry: :items)
       .map(&:journal_entry)
       .flatten
+      .compact
       .map(&:items)
       .flatten
       .any? { |i| i.bank_statement_letter.present? }
