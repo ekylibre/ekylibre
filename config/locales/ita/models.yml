@@ -39,6 +39,8 @@ ita:
       plant:
         born_at: "piantato a"
       plant_counting:
+        # plant: "Product"
+        # plant_activity: "Activity"
         # rows_count_value: "Rows count"
         # working_width_value: "Implanter application width"
       plant_counting_item:
