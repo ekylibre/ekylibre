@@ -84,7 +84,7 @@ module Backend
                 cell (item[2]).l, type: :float
                 cell (item[3]).l, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, type: :float
-                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, type: :float
+                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, type: :float
               end
 
             elsif item[1].to_i == -1
@@ -94,7 +94,7 @@ module Backend
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
-                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -2
               row do
@@ -103,7 +103,7 @@ module Backend
                 cell (item[2]).l, style: :bold, type: :float
                 cell (item[3]).l, style: :bold, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :bold, type: :float
-                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :bold, type: :float
               end
             elsif item[1].to_i == -3
               row do
@@ -112,7 +112,7 @@ module Backend
                 cell (item[2]).l, style: :italic, type: :float
                 cell (item[3]).l, style: :italic, type: :float
                 cell (item[4].to_f > 0 ? item[4] : 0).l, style: :italic, type: :float
-                cell (item[4].to_f < 0 ? (-(item[4].to_f)).to_s : 0).l, style: :italic, type: :float
+                cell (item[4].to_f < 0 ? (-item[4].to_f).to_s : 0).l, style: :italic, type: :float
               end
             end
           end

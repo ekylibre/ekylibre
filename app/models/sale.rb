@@ -393,7 +393,7 @@ class Sale < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    self.class.state_machine.state(state.to_sym).human_name
   end
 
   # Returns true if there is some products to deliver
@@ -405,7 +405,7 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc("label.#{credit? && invoice? ? :credit : self.state}", number: number)
+    tc("label.#{credit? && invoice? ? :credit : state}", number: number)
   end
   alias label name
 
