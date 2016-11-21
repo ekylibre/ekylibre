@@ -36,10 +36,6 @@ deu:
       mode:
         harvested: "Ernte Saattermin"
         sowed: "Vorläufige Saattermin"
-    affair:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
     analysis:
       retrieval_status:
         controller_error: "Controller-Fehler"
@@ -144,9 +140,6 @@ deu:
       direction:
         loss: "Verlust"
         profit: "Profitieren"
-      entity_role:
-        client: "Klient"
-        supplier: "Lieferant"
     georeading:
       nature:
         line: "Linie" #?
@@ -394,14 +387,6 @@ deu:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
-    sale_opportunity:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
-    sale_ticket:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
     sensor:
       retrieval_mode:
         # integration: "Integration"

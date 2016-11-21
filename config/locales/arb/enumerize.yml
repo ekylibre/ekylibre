@@ -36,10 +36,6 @@ arb:
       mode:
         harvested: "حصاد تاريخ البذر"
         sowed: "مواعيد الزراعة المؤقت"
-    affair:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     analysis:
       retrieval_status:
         controller_error: "خطأ تحكم"
@@ -144,9 +140,6 @@ arb:
       direction:
         loss: "خسارة"
         profit: "ربح"
-      entity_role:
-        client: "زبون"
-        supplier: "المورد"
     georeading:
       nature:
         line: "خط" #?
@@ -393,14 +386,6 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_opportunity:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
-    sale_ticket:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     sensor:
       retrieval_mode:
         integration: "دمج"

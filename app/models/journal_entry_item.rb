@@ -94,6 +94,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # validates :letter, uniqueness: { scope: :account_id }, if: Proc.new {|x| !x.letter.blank? }
 
   delegate :balanced?, to: :entry, prefix: true
+  delegate :name, :number, to: :account, prefix: true
 
   acts_as_list scope: :entry
 
@@ -135,7 +136,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.real_credit ||= 0
     if entry
       self.entry_number = entry.number
-      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
+      [:financial_year_id, :printed_on, :journal_id, :state, :currency,
+       :absolute_currency, :real_currency, :real_currency_rate].each do |replicated|
         send("#{replicated}=", entry.send(replicated))
       end
       unless closed?
@@ -182,6 +184,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     #   return
     # end
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
+    errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
+    errors.add(:absolute_credit, :unvalid_amounts) if absolute_debit.nonzero? && absolute_credit.nonzero?
   end
 
   after_save do

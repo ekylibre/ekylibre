@@ -721,7 +721,7 @@ CREATE TABLE affairs (
     type character varying,
     state character varying,
     probability_percentage numeric(19,4) DEFAULT 0.0,
-    third_role character varying NOT NULL
+    letter character varying
 );
 
 
@@ -2467,7 +2467,6 @@ CREATE TABLE gaps (
     direction character varying NOT NULL,
     affair_id integer,
     entity_id integer NOT NULL,
-    entity_role character varying NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     currency character varying NOT NULL,
@@ -2477,7 +2476,8 @@ CREATE TABLE gaps (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    type character varying
 );
 
 
@@ -3455,7 +3455,9 @@ CREATE TABLE journals (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
+    used_for_unbilled_payables boolean DEFAULT false NOT NULL
 );
 
 
@@ -16181,4 +16183,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161114101401');
 INSERT INTO schema_migrations (version) VALUES ('20161114112858');
 
 INSERT INTO schema_migrations (version) VALUES ('20161115163443');
+
+INSERT INTO schema_migrations (version) VALUES ('20161118150610');
 

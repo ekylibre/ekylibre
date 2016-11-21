@@ -286,12 +286,12 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(request_compliant: request_compliant) if request_compliant
   end
 
-  after_create do
-    ACTIONS = {
-      parturition: :create_new_birth,
-      animal_artificial_insemination: :create_insemination
-    }.freeze
+  ACTIONS = {
+    parturition: :create_new_birth,
+    animal_artificial_insemination: :create_insemination
+  }.freeze
 
+  after_create do
     actions.each do |action|
       next unless ACTIONS.key? action
       Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
@@ -303,11 +303,14 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
-  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
-  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
-  #       Mode Intervention      |     Debit                      |            Credit            |
-  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  # This method permits to add stock journal entries corresponding to the
+  # interventions which consume or produce products.
+  # It depends on the preferences which permit to activate the "permanent stock
+  # inventory" and "automatic bookkeeping".
+  #
+  # | Intervention mode      | Debit                      | Credit                    |
+  # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
+  # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
 

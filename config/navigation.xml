@@ -243,6 +243,20 @@
         <page to="backend/sales#update"/>
         <page to="backend/sale_credits#new"/>
         <page to="backend/sale_credits#create"/>
+        <page to="backend/sale_affairs#index"/>
+        <page to="backend/sale_affairs#attach"/>
+        <page to="backend/sale_affairs#detach"/>
+        <page to="backend/sale_affairs#detach_gaps"/>
+        <page to="backend/sale_affairs#finish"/>
+        <page to="backend/sale_affairs#list"/>
+        <page to="backend/sale_affairs#select"/>
+        <page to="backend/sale_affairs#show"/>
+        <page to="backend/sale_affairs#unroll"/>
+        <page to="backend/sale_gaps#index"/>
+        <page to="backend/sale_gaps#destroy"/>
+        <page to="backend/sale_gaps#list"/>
+        <page to="backend/sale_gaps#list_items"/>
+        <page to="backend/sale_gaps#show"/>
       </item>
       <item name="opportunities">
         <page to="backend/sale_opportunities#index"/>
@@ -328,6 +342,20 @@
         <page to="backend/purchases#new"/>
         <page to="backend/purchases#pay"/>
         <page to="backend/purchases#payment_mode"/>
+        <page to="backend/purchase_affairs#index"/>
+        <page to="backend/purchase_affairs#attach"/>
+        <page to="backend/purchase_affairs#detach"/>
+        <page to="backend/purchase_affairs#detach_gaps"/>
+        <page to="backend/purchase_affairs#finish"/>
+        <page to="backend/purchase_affairs#list"/>
+        <page to="backend/purchase_affairs#select"/>
+        <page to="backend/purchase_affairs#show"/>
+        <page to="backend/purchase_affairs#unroll"/>
+        <page to="backend/purchase_gaps#index"/>
+        <page to="backend/purchase_gaps#destroy"/>
+        <page to="backend/purchase_gaps#list"/>
+        <page to="backend/purchase_gaps#list_items"/>
+        <page to="backend/purchase_gaps#show"/>
       </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>
@@ -390,12 +418,8 @@
         <page to="backend/outgoing_payment_lists#destroy"/>
         <page to="backend/outgoing_payment_lists#list"/>
         <page to="backend/outgoing_payment_lists#show"/>
-        <page to="backend/outgoing_payment_lists#create"/>
-        <page to="backend/outgoing_payment_lists#edit"/>
         <page to="backend/outgoing_payment_lists#export_to_sepa"/>
         <page to="backend/outgoing_payment_lists#list_payments"/>
-        <page to="backend/outgoing_payment_lists#new"/>
-        <page to="backend/outgoing_payment_lists#update"/>
       </item>
     </group>
   </part>
@@ -847,11 +871,11 @@
         <page to="backend/animal_groups#list_carrier_linkages"/>
         <page to="backend/animal_groups#list_contained_products"/>
         <page to="backend/animal_groups#list_groups"/>
-        <page to="backend/animal_groups#list_parcel_items"/>
         <page to="backend/animal_groups#list_inspections"/>
         <page to="backend/animal_groups#list_intervention_product_parameters"/>
         <page to="backend/animal_groups#list_issues"/>
         <page to="backend/animal_groups#list_members"/>
+        <page to="backend/animal_groups#list_parcel_items"/>
         <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#list_trackings"/>
         <page to="backend/animal_groups#unroll"/>

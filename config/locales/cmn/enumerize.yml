@@ -36,10 +36,6 @@ cmn:
       mode:
         harvested: "嘉实播种期"
         sowed: "临时播种期"
-    affair:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
     analysis:
       retrieval_status:
         controller_error: "控制器错误"
@@ -144,9 +140,6 @@ cmn:
       direction:
         loss: "失利"
         profit: "利润"
-      entity_role:
-        client: "客户"
-        supplier: "供应商"
     georeading:
       nature:
         line: "线" #?
@@ -394,14 +387,6 @@ cmn:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale_opportunity:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
-    sale_ticket:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
     sensor:
       retrieval_mode:
         integration: "积分"

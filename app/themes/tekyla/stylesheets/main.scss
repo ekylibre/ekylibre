@@ -183,6 +183,16 @@ ul.dropdown-menu {
   }
 }
 
+.inline-message {
+  padding: $default-gap;
+  line-height: $lh-ratio * 1em;
+  &.warning {
+    &, * {
+      color: $caution-color;
+    }
+  }
+}
+
 .footnote {
   padding: $lh-large;
   @include text-align(center);
@@ -1695,58 +1705,60 @@ a[data-remove-closest], a[data-remove] {
 
 
 .affair {
-  overflow: auto;
   .deals {
-    // @include padding-left(4em);
-    width: 100%;
-    border-collapse: collapse;
-    border: none;
-    padding: 0;
-    margin: 0;
-    tr {
-      list-style-type: decimal;
-      &, & * {
-        font-size: $fs-normal;
-        line-height: $lh-normal;
-        vertical-align: middle;
-      }
-      .dealt-on { width: 16ex; }
-      .amount {
-        @include text-align(right);
-        &.credit {
-          &, & * { color: $invalid-color }
-        }
-        &.debit {
-          &, & * { color: green }
-        }
+    overflow: auto;
+    & > table {
+      // @include padding-left(4em);
+      width: 100%;
+      border-collapse: collapse;
+      border: none;
+      padding: 0;
+      margin: 0;
+      tr {
+        list-style-type: decimal;
         &, & * {
-          font-weight: bold;
+          font-size: $fs-normal;
+          line-height: $lh-normal;
+          vertical-align: middle;
         }
-      }
-      .act {
-        text-align: center;
-        width: 3ex;
-        .remove {
-          font-size: 0;
-          i {
-            @include is-icon;
-            @include use-icon(clear);
+        .dealt-on { width: 16ex; }
+        .act {
+          text-align: center;
+          width: 3ex;
+          .remove, .unlink {
+            font-size: 0;
+            i {
+              @include is-icon;
+              @include use-icon(clear);
+            }
+          }
+        }
+        td, th {
+          &.total {
+            @include text-align(right);
+          }
+          &.sum {
+            border-top: 1px solid #777;
           }
         }
       }
-      td, th {
-        &.total {
-          @include text-align(right);
-        }
-        &.sum {
-          border-top: 1px solid #777;
-        }
-      }
-
     }
   }
-
+  .amount {
+    @include text-align(right);
+    &.credit {
+      &, & * { color: $invalid-color }
+    }
+    &.debit {
+      &, & * { color: green }
+    }
+    &, & * {
+      font-weight: bold;
+    }
+  }
 }
+
+
 
 #cell-date {
   display: block;
