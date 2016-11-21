@@ -31,6 +31,8 @@ module WorkingSet
     class AbilityName < Base; end
     class AbilityArgument < Base; end
     class VarietyName < Base; end
+    class False < Base; end
+    class True < Base; end
   end
 
   class << self

@@ -105,6 +105,10 @@ module WorkingSet
         end
       elsif object.nil?
         'NULL'
+      elsif object.is_a?(WorkingSet::QueryLanguage::False)
+        '1=0'
+      elsif object.is_a?(WorkingSet::QueryLanguage::True)
+        '1=1'
       else
         '(' + object.class.name + ')'
       end
