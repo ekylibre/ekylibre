@@ -133,14 +133,14 @@ arb:
         waiting: "انتظار"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
+        monthly: "شهريا"
+        none: "لا شيء"
         # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        yearly: "سنوي"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "دين"
+        none: "لا شيء"
+        payment: "دفع"
     fixed_asset:
       depreciation_method:
         graduated: "تخرج" #?
@@ -436,7 +436,7 @@ arb:
         sales: "مبيعات"
         sales_invoices: "فواتير المبيعات"
         subscriptions: "الاشتراكات"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "الإقرارات الضريبية"
         transports: "ترقيم وسائل النقل" #?
     subscription_nature:  #?
       entity_link_direction: #?

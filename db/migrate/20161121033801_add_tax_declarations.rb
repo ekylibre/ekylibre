@@ -3,18 +3,16 @@ class AddTaxDeclarations < ActiveRecord::Migration
     create_table :tax_declarations do |t|
       t.references :financial_year, null: false, index: true
       t.references :journal_entry, index: true
+      t.datetime :accounted_at
       t.references :responsible, index: true
       t.string :mode, null: false
       t.text :description
       t.date :started_on, null: false
       t.date :stopped_on, null: false
-      t.datetime :accounted_at
       t.string :currency, null: false
       t.string :number
       t.string :reference_number
       t.string :state
-      t.references :affair, index: true
-      t.references :tax_office, index: true
       t.date :invoiced_on
       t.stamps
     end
@@ -44,5 +42,7 @@ class AddTaxDeclarations < ActiveRecord::Migration
     change_column_null :financial_years, :tax_declaration_mode, false
 
     add_reference :journal_entry_items, :tax_declaration_item, index: true
+
+    add_column :journals, :used_for_tax_declarations, :boolean, null: false, default: false
   end
 end

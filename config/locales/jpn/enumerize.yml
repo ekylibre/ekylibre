@@ -133,14 +133,14 @@ jpn:
         waiting: "待っています"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
+        monthly: "毎月"
+        none: "なし"
         # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        yearly: "毎年"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "借方"
+        none: "なし"
+        payment: "支払い"
     fixed_asset:
       depreciation_method:
         graduated: "目盛り付きの" #?
@@ -437,7 +437,7 @@ jpn:
         sales: "セールス"
         sales_invoices: "売上請求書"
         subscriptions: "サブスクリプション"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "税務申告"
         transports: "トランスポートの記数" #?
     subscription_nature:  #?
       entity_link_direction: #?

@@ -135,14 +135,14 @@ por:
         waiting: "Esperando"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
+        monthly: "Por mês"
+        none: "Nenhum"
         # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        yearly: "Anual"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "Débito"
+        none: "Nenhum"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Gradual" #?
@@ -450,7 +450,7 @@ por:
         sales: "Vendas"
         sales_invoices: "Facturas de vendas"
         subscriptions: "Assinaturas"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "Declarações fiscais"
         transports: "Numeração de transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?

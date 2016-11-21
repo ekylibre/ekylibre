@@ -3930,6 +3930,10 @@ journals:
     type: boolean
     required: true
     default: false
+  used_for_tax_declarations:
+    type: boolean
+    required: true
+    default: false
   used_for_unbilled_payables:
     type: boolean
     required: true
@@ -6979,9 +6983,6 @@ tax_declaration_items:
 tax_declarations:
   accounted_at:
     type: datetime
-  affair_id:
-    type: integer
-    references: affair
   created_at:
     type: datetime
     required: true
@@ -7026,9 +7027,6 @@ tax_declarations:
   stopped_on:
     type: date
     required: true
-  tax_office_id:
-    type: integer
-    references: entity
   updated_at:
     type: datetime
     required: true

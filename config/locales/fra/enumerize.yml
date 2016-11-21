@@ -421,7 +421,7 @@ fra:
         sales: "Ventes"
         sales_invoices: "Factures"
         subscriptions: "Abonnements"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "Déclarations fiscales"
     synchronization_operation:
       operation_name:
         authenticate: "Authentification"

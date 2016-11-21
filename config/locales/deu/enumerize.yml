@@ -133,14 +133,14 @@ deu:
         waiting: "Warten"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
-        # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        monthly: "Monatlich"
+        none: "Keiner"
+        quaterly: "Vierteljährlich"
+        yearly: "Jährlich"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "Soll"
+        none: "Keiner"
+        payment: "Zahlung"
     fixed_asset:
       depreciation_method:
         graduated: "abgestufte" #?
@@ -437,7 +437,7 @@ deu:
         sales: "Der Umsatz"
         sales_invoices: "Verkaufsrechnungen"
         subscriptions: "Abonnements"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "Steuererklärungen"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirektionale" #?

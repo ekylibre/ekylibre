@@ -133,14 +133,14 @@ ita:
         waiting: "In attesa"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
+        monthly: "Mensile"
+        none: "Nessuna"
         # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        yearly: "Annuale"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "Addebito"
+        none: "Nessuna"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Laureato" #?
@@ -437,7 +437,7 @@ ita:
         sales: "Vendite"
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "Dichiarazioni fiscali"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirezionale" #?

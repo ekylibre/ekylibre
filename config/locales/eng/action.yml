@@ -1366,6 +1366,7 @@ eng:
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
@@ -1609,7 +1610,7 @@ eng:
     tasks: "Tasks" #?
     # tax_declarations: "Tax declarations"
     taxations: "Taxations"
-    taxes: "Taxes" #?
+    taxes: "Taxes"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1632,8 +1633,8 @@ eng:
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
-    # to_pay: "To pay"
-    # to_reclaim: "To reclaim"
+    to_pay: "To pay"
+    to_reclaim: "To reclaim"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"

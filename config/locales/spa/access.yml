@@ -90,7 +90,7 @@ spa:
       subscriptions: "Suscripciones"
       supervisions: "Supervisiones"
       tasks: "Tareas"
-      # tax_declarations: "Tax declarations"
+      tax_declarations: "Declaraciones de impuestos"
       taxes: "Impuestos"
       teams: "Equipos"
       trackings: "Trackings"

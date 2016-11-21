@@ -23,7 +23,6 @@
 # == Table: tax_declarations
 #
 #  accounted_at      :datetime
-#  affair_id         :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string           not null
@@ -40,7 +39,6 @@
 #  started_on        :date             not null
 #  state             :string
 #  stopped_on        :date             not null
-#  tax_office_id     :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #

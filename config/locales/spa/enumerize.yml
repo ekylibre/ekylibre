@@ -133,14 +133,14 @@ spa:
         waiting: "Esperando"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
-        # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        monthly: "Mensual"
+        none: "Ninguna"
+        quaterly: "Trimestral"
+        yearly: "Anual"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "Débito"
+        none: "Ninguna"
+        payment: "Pago"
     fixed_asset:
       depreciation_method:
         graduated: "Graduado" #?
@@ -437,7 +437,7 @@ spa:
         sales: "Ventas"
         sales_invoices: "Facturas de venta"
         subscriptions: "Suscripciones"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "Declaraciones de impuestos"
         transports: "Numeración de los transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?

@@ -37,6 +37,7 @@
 #  used_for_affairs                   :boolean          default(FALSE), not null
 #  used_for_gaps                      :boolean          default(FALSE), not null
 #  used_for_permanent_stock_inventory :boolean          default(FALSE), not null
+#  used_for_tax_declarations          :boolean          default(FALSE), not null
 #  used_for_unbilled_payables         :boolean          default(FALSE), not null
 #
 ---

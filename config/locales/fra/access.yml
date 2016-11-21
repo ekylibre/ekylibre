@@ -90,7 +90,7 @@ fra:
       subscriptions: "Abonnements"
       # supervisions: "Supervisions"
       tasks: "Tâches"
-      # tax_declarations: "Tax declarations"
+      tax_declarations: "Déclarations fiscales"
       taxes: "Taxes"
       teams: "Équipes"
       trackings: "Lots tracés"

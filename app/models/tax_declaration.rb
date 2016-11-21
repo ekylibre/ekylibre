@@ -23,7 +23,6 @@
 # == Table: tax_declarations
 #
 #  accounted_at      :datetime
-#  affair_id         :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string           not null
@@ -40,7 +39,6 @@
 #  started_on        :date             not null
 #  state             :string
 #  stopped_on        :date             not null
-#  tax_office_id     :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
@@ -53,7 +51,7 @@ class TaxDeclaration < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :responsible, class_name: 'User'
-  belongs_to :tax_office, class_name: 'Entity'
+  # belongs_to :tax_office, class_name: 'Entity'
   has_many :items, class_name: 'TaxDeclarationItem', dependent: :destroy, inverse_of: :tax_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -74,6 +72,10 @@ class TaxDeclaration < Ekylibre::Record::Base
   delegate :tax_declaration_mode, :tax_declaration_frequency,
            :tax_declaration_mode_payment?, :tax_declaration_mode_debit?,
            to: :financial_year
+
+  protect on: :destroy do
+    (validated? || sent?)
+  end
 
   state_machine :state, initial: :draft do
     state :draft
@@ -119,21 +121,19 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    # FIXME : add vat journal in default journal
-    vat_journal = Journal.create_with(name: :vat.tl).find_or_create_by!(nature: 'various', code: 'VAT', currency: currency)
-    # FIXME : put account in tax_office entity
-    credit_vat_account = Account.find_or_create_by_number(45_567)
-    debit_vat_account = Account.find_or_create_by_number(44_551)
-    b.journal_entry(vat_journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
-      # FIXME: add correct label on bookkeep
-      label = tc(:bookkeep, resource: state_label, number: number)
+    journal = Journal.used_for_tax_declarations!(currency: currency)
+    b.journal_entry(journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, started_on: started_on.l, stopped_on: stopped_on.l)
       items.each do |item|
         entry.add_debit(label, item.tax.collect_account.id, item.collected_tax_amount.round(2)) unless item.collected_tax_amount.zero?
         entry.add_credit(label, item.tax.deduction_account.id, item.deductible_tax_amount.round(2)) unless item.deductible_tax_amount.zero?
         entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_tax_amount.round(2)) unless item.fixed_asset_deductible_tax_amount.zero?
       end
-      vat_balance = items.sum(:balance_tax_amount).round(2)
-      entry.add_credit(label, (vat_balance < 0 ? credit_vat_account : debit_vat_account), vat_balance) unless vat_balance.zero?
+      balance = items.sum(:balance_tax_amount).round(2)
+      unless balance.zero?
+        account = Account.find_or_create_by(number: balance < 0 ? '45567' : '44551')
+        entry.add_credit(label, account, balance)
+      end
     end
   end
 

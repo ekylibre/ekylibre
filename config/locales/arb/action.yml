@@ -688,7 +688,7 @@ arb:
       # confirm: "Confirm tax declaration: %{number}"
       # edit: "Edit tax declaration: %{number}"
       index: "تصريح عن قيمة الضريبة الاضافية"
-      # new: "New tax declaration"
+      new: "الإقرار الضريبي الجديد"
       # propose: "Propose tax declaration: %{number}"
       # show: "Tax declaration: %{number}"
     backend/taxes:
@@ -1628,6 +1628,7 @@ arb:
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
+    new_inventory: "جرد جديدة"
     new_issue: "مشكلة جديدة"
     new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
@@ -2050,6 +2051,8 @@ arb:
     to_deposit: "لإيداع"
     to_deposit_later: "على أن تودع في وقت لاحق"
     to_deposit_now: "إيداع الآن"
+    to_pay: "لدفع"
+    to_reclaim: "لاستعادة"
     today: "اليوم"
     tool_cost: "تكلفة أداة"
     tool_create: "اضافة مادة" #?

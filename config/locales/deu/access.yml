@@ -90,7 +90,7 @@ deu:
       subscriptions: "Abonnements"
       supervisions: "Betreuungen"
       tasks: "Aufgaben"
-      # tax_declarations: "Tax declarations"
+      tax_declarations: "Steuererklärungen"
       taxes: "Steuern"
       # teams: "Teams"
       trackings: "trackings"

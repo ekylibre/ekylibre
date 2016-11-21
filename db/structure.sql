@@ -3464,7 +3464,8 @@ CREATE TABLE journals (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
-    used_for_unbilled_payables boolean DEFAULT false NOT NULL
+    used_for_unbilled_payables boolean DEFAULT false NOT NULL,
+    used_for_tax_declarations boolean DEFAULT false NOT NULL
 );
 
 
@@ -6058,18 +6059,16 @@ CREATE TABLE tax_declarations (
     id integer NOT NULL,
     financial_year_id integer NOT NULL,
     journal_entry_id integer,
+    accounted_at timestamp without time zone,
     responsible_id integer,
     mode character varying NOT NULL,
     description text,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
-    accounted_at timestamp without time zone,
     currency character varying NOT NULL,
     number character varying,
     reference_number character varying,
     state character varying,
-    affair_id integer,
-    tax_office_id integer,
     invoiced_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -15570,13 +15569,6 @@ CREATE INDEX index_tax_declaration_items_on_updater_id ON tax_declaration_items 
 
 
 --
--- Name: index_tax_declarations_on_affair_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_tax_declarations_on_affair_id ON tax_declarations USING btree (affair_id);
-
-
---
 -- Name: index_tax_declarations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15609,13 +15601,6 @@ CREATE INDEX index_tax_declarations_on_journal_entry_id ON tax_declarations USIN
 --
 
 CREATE INDEX index_tax_declarations_on_responsible_id ON tax_declarations USING btree (responsible_id);
-
-
---
--- Name: index_tax_declarations_on_tax_office_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_tax_declarations_on_tax_office_id ON tax_declarations USING btree (tax_office_id);
 
 
 --

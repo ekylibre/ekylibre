@@ -133,14 +133,14 @@ cmn:
         waiting: "等候"
     financial_year:
       tax_declaration_frequency:
-        # monthly: "Monthly"
-        # none: "None"
-        # quaterly: "Quaterly"
-        # yearly: "Yearly"
+        monthly: "每月一次"
+        none: "没有"
+        quaterly: "季刊"
+        yearly: "每年"
       tax_declaration_mode:
-        # debit: "Debit"
-        # none: "None"
-        # payment: "Payment"
+        debit: "借方"
+        none: "没有"
+        payment: "付款"
     fixed_asset:
       depreciation_method:
         graduated: "毕业" #?
@@ -437,7 +437,7 @@ cmn:
         sales: "销售"
         sales_invoices: "销售发票"
         subscriptions: "订阅"
-        # tax_declarations: "Tax declarations"
+        tax_declarations: "纳税申报"
         transports: "运输的记数" #?
     subscription_nature:  #?
       entity_link_direction: #?
