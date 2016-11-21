@@ -47,11 +47,11 @@ spa:
       sale_nature:
         downpayment: "Solicitud de pago inicial"
       synchronization_operation:
-        # human_message: "Error message"
-        # operation_name: "Operation name"
-        # request: "Request"
-        # response: "Response"
-        # status: "Status"
+        human_message: "Mensaje de error"
+        operation_name: "Nombre de la operación"
+        request: "Solicitud"
+        response: "Respuesta"
+        status: "Estado"
       tax:
         amount: "Valor"
     errors:
@@ -663,7 +663,7 @@ spa:
     financial_year: "Año financiero"
     financial_year_as_last: "Ejercicio (en su última entrada en el diario)"
     finish: "Acabado"
-    # finished_at: "Finished at"
+    finished_at: "Terminado en"
     first_met_at: "En primer lugar se reunió el"
     first_name: "Nombre de pila"
     first_number: "Primer número"
@@ -954,7 +954,7 @@ spa:
     nodes: "Los nodos"
     noticed_start_amount: "Cantidad inicio notado"
     noticed_stop_amount: "Cantidad notado parada"
-    # notification: "Notification"
+    notification: "Notificación"
     notifications: "Notificaciones"
     number: "Número"
     number_format: "Formato numérico"
@@ -966,7 +966,7 @@ spa:
     old_password: "Contraseña anterior"
     opened_at: "Inaugurado a"
     operation: "Operación"
-    # operation_name: "Operation name"
+    operation_name: "Nombre de la operación"
     operations: "Operaciones" #?
     ordered_at: "Ordenados en"
     organic_fertilizer_mineral_fraction: "Fracción mineral fertilizante orgánico"
@@ -1498,8 +1498,8 @@ spa:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"

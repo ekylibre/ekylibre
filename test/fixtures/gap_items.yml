@@ -59,3 +59,27 @@ gap_items_002:
   tax_id: 2
   updated_at: 2014-11-05 13:36:51.333086000 Z
   updater_id: 1
+gap_items_003:
+  amount: -3.74
+  created_at: 2016-11-20 22:11:32.584482000 Z
+  creator_id: 1
+  currency: EUR
+  gap_id: 5
+  id: 3
+  lock_version: 0
+  pretax_amount: -3.1167
+  tax_id: 3
+  updated_at: 2016-11-20 22:11:32.584482000 Z
+  updater_id: 1
+gap_items_004:
+  amount: 1200.0
+  created_at: 2016-11-20 22:15:36.374164000 Z
+  creator_id: 1
+  currency: EUR
+  gap_id: 6
+  id: 4
+  lock_version: 0
+  pretax_amount: 1000.0
+  tax_id: 3
+  updated_at: 2016-11-20 22:15:36.374164000 Z
+  updater_id: 1

@@ -47,10 +47,10 @@ deu:
       sale_nature:
         downpayment: "Anfrage Anzahlung"
       synchronization_operation:
-        # human_message: "Error message"
-        # operation_name: "Operation name"
-        # request: "Request"
-        # response: "Response"
+        human_message: "Fehlermeldung"
+        operation_name: "Vorgangsname"
+        request: "Anfordern"
+        response: "Antwort"
         # status: "Status"
       tax:
         amount: "Wert"
@@ -659,7 +659,7 @@ deu:
     financial_year: "Geschäftsjahr"
     financial_year_as_last: "Geschäftsjahr (zuletzt Journaleintrag)"
     finish: "Fertig"
-    # finished_at: "Finished at"
+    finished_at: "Fertige auf"
     first_met_at: "Zunächst trafen sich am"
     first_name: "Vorname"
     first_number: "erste Reihe"
@@ -950,7 +950,7 @@ deu:
     nodes: "Knoten"
     noticed_start_amount: "Bemerkt Start Menge"
     noticed_stop_amount: "Bemerkt Anschlag Menge"
-    # notification: "Notification"
+    notification: "Benachrichtigung"
     notifications: "Benachrichtigungen"
     number: "Nummer"
     number_format: "Zahlenformat"
@@ -962,7 +962,7 @@ deu:
     old_password: "Altes Passwort"
     opened_at: "geöffnet an"
     operation: "Betrieb"
-    # operation_name: "Operation name"
+    operation_name: "Vorgangsname"
     operations: "Geschäftstätigkeit" #?
     ordered_at: "bestellt auf"
     organic_fertilizer_mineral_fraction: "Organische Dünger Mineralfraktion"
@@ -1493,8 +1493,8 @@ deu:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"

@@ -514,6 +514,120 @@ affairs_024:
   third_role: supplier
   updated_at: 2016-07-01 20:22:49.220701000 Z
   updater_id: 1
+affairs_025:
+  accounted_at: 2016-11-20 22:09:41.973523000 Z
+  closed: true
+  closed_at: 2016-11-20 22:09:41.959614000 Z
+  created_at: 2016-11-20 22:08:58.365769000 Z
+  creator_id: 1
+  credit: 447.12
+  currency: EUR
+  deals_count: 2
+  debit: 447.12
+  id: 43
+  lock_version: 1
+  number: A000000000036
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  third_role: client
+  updated_at: 2016-11-20 22:09:41.962729000 Z
+  updater_id: 1
+affairs_026:
+  accounted_at: 2016-11-20 22:10:54.310940000 Z
+  closed: true
+  closed_at: 2016-11-20 22:10:54.296374000 Z
+  created_at: 2016-11-20 22:10:17.248311000 Z
+  creator_id: 1
+  credit: 37.44
+  currency: EUR
+  deals_count: 2
+  debit: 37.44
+  id: 45
+  lock_version: 1
+  number: A000000000038
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  third_role: client
+  updated_at: 2016-11-20 22:10:54.300286000 Z
+  updater_id: 1
+affairs_027:
+  accounted_at: 2016-11-20 22:11:32.734020000 Z
+  closed: true
+  closed_at: 2016-11-20 22:11:32.599261000 Z
+  created_at: 2016-11-20 22:11:25.147532000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 2
+  debit: 0.0
+  id: 47
+  lock_version: 1
+  number: A000000000040
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 9
+  third_role: client
+  updated_at: 2016-11-20 22:11:32.603592000 Z
+  updater_id: 1
+affairs_028:
+  accounted_at: 2016-11-20 22:12:46.325801000 Z
+  closed: true
+  closed_at: 2016-11-20 22:12:25.327869000 Z
+  created_at: 2016-11-20 22:12:15.483952000 Z
+  creator_id: 1
+  credit: 2676.0
+  currency: EUR
+  deals_count: 2
+  debit: 2676.0
+  id: 48
+  lock_version: 1
+  number: A000000000041
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 2
+  third_role: client
+  updated_at: 2016-11-20 22:12:25.331521000 Z
+  updater_id: 1
+affairs_029:
+  accounted_at: 2016-11-20 22:14:53.938564000 Z
+  closed: true
+  closed_at: 2016-11-20 22:14:53.924839000 Z
+  created_at: 2016-11-20 22:14:38.808315000 Z
+  creator_id: 1
+  credit: 717.12
+  currency: EUR
+  deals_count: 2
+  debit: 717.12
+  id: 49
+  lock_version: 1
+  number: A000000000042
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 5
+  third_role: supplier
+  updated_at: 2016-11-20 22:14:53.928938000 Z
+  updater_id: 1
+affairs_030:
+  accounted_at: 2016-11-20 22:15:36.596230000 Z
+  closed: true
+  closed_at: 2016-11-20 22:15:36.392007000 Z
+  created_at: 2016-11-20 22:15:20.572284000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  deals_count: 2
+  debit: 0.0
+  id: 51
+  lock_version: 1
+  number: A000000000044
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 4
+  third_role: supplier
+  updated_at: 2016-11-20 22:15:36.396067000 Z
+  updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
   closed: true

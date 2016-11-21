@@ -452,15 +452,15 @@ spa:
         quantity: "Suscripción por número" #?
     synchronization_operation:
       operation_name:
-        # authenticate: "Authentication"
-        # get_inventory: "Get inventory"
-        # get_urls: "Get urls"
+        authenticate: "Autenticación"
+        get_inventory: "Obtener inventario"
+        get_urls: "Obtener direcciones URL"
       state:
-        # aborted: "Aborted"
-        # errored: "Errored"
-        # finished: "Finished"
-        # in_progress: "In progress"
-        # undone: "Undone"
+        aborted: "Abortado"
+        errored: "Con error"
+        finished: "Terminado"
+        in_progress: "En progreso"
+        undone: "Deshecho"
     task:
       nature:
         document: "Escritura" #?

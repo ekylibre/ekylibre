@@ -47,11 +47,11 @@ jpn:
       sale_nature:
         downpayment: "リクエスト頭金"
       synchronization_operation:
-        # human_message: "Error message"
-        # operation_name: "Operation name"
-        # request: "Request"
-        # response: "Response"
-        # status: "Status"
+        human_message: "エラーメッセージ"
+        operation_name: "オペレーション名"
+        request: "要求"
+        response: "応答"
+        status: "状態"
       tax:
         amount: "値"
     errors:
@@ -659,7 +659,7 @@ jpn:
     financial_year: "会計年度"
     financial_year_as_last: "会計年度（最後の仕訳など）"
     finish: "仕上げ"
-    # finished_at: "Finished at"
+    finished_at: "で終了"
     first_met_at: "最初に会いました"
     first_name: "ファーストネーム"
     first_number: "先頭番号"
@@ -950,7 +950,7 @@ jpn:
     nodes: "ノード"
     noticed_start_amount: "気づい開始量"
     noticed_stop_amount: "気づいストップ量"
-    # notification: "Notification"
+    notification: "お知らせ"
     notifications: "お知らせ"
     number: "番号"
     number_format: "数値形式"
@@ -962,7 +962,7 @@ jpn:
     old_password: "以前のパスワード"
     opened_at: "開かれました"
     operation: "操作"
-    # operation_name: "Operation name"
+    operation_name: "オペレーション名"
     operations: "オペレーション" #?
     ordered_at: "で注文"
     organic_fertilizer_mineral_fraction: "有機肥料ミネラル分画"
@@ -1494,8 +1494,8 @@ jpn:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
