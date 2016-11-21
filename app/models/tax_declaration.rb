@@ -121,9 +121,9 @@ class TaxDeclaration < Ekylibre::Record::Base
       # FIXME: add correct label on bookkeep
       label = tc(:bookkeep, resource: state_label, number: number)
       items.each do |item|
-        entry.add_debit(label, item.tax.collect_account.id, item.collected_vat_amount.round(2)) unless item.collected_vat_amount.zero?
-        entry.add_credit(label, item.tax.deduction_account.id, item.deductible_vat_amount.round(2)) unless item.deductible_vat_amount.zero?
-        entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_vat_amount.round(2)) unless item.fixed_asset_deductible_vat_amount.zero?
+        entry.add_debit(label, item.tax.collect_account.id, item.collected_tax_amount.round(2)) unless item.collected_tax_amount.zero?
+        entry.add_credit(label, item.tax.deduction_account.id, item.deductible_tax_amount.round(2)) unless item.deductible_tax_amount.zero?
+        entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_tax_amount.round(2)) unless item.fixed_asset_deductible_tax_amount.zero?
       end
       vat_balance = items.map(&:balance).compact.sum.round(2)
       entry.add_credit(label, (vat_balance < 0 ? credit_vat_account : debit_vat_account), vat_balance) unless vat_balance.zero?
@@ -144,11 +144,11 @@ class TaxDeclaration < Ekylibre::Record::Base
     :stop
   end
 
-  def deductible_vat_amount_balance
-    items.map(&:deductible_vat_amount).compact.sum
+  def deductible_tax_amount_balance
+    items.map(&:deductible_tax_amount).compact.sum
   end
 
-  def collected_vat_amount_balance
-    items.map(&:collected_vat_amount).compact.sum
+  def collected_tax_amount_balance
+    items.map(&:collected_tax_amount).compact.sum
   end
 end

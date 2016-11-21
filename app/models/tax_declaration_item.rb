@@ -58,11 +58,11 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       self.currency = tax_declaration_currency
       if tax && tax.collect_account && tax.deduction_account
         v = prefill
-        self.deductible_vat_amount = v[:deductible_vat_amount]
-        self.collected_vat_amount = v[:collected_vat_amount]
+        self.deductible_tax_amount = v[:deductible_tax_amount]
+        self.collected_tax_amount = v[:collected_tax_amount]
         self.deductible_pretax_amount = v[:deductible_pretax_amount]
         self.collected_pretax_amount = v[:collected_pretax_amount]
-        self.fixed_asset_deductible_vat_amount ||= 0.0
+        self.fixed_asset_deductible_tax_amount ||= 0.0
       end
     end
   end
@@ -72,7 +72,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
   end
 
   def balance
-    collected_vat_amount - (deductible_vat_amount + fixed_asset_deductible_vat_amount)
+    collected_tax_amount - (deductible_tax_amount + fixed_asset_deductible_tax_amount)
   end
 
   def prefill(tax = self.tax)
@@ -158,7 +158,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       incoming_payment_journal_entry_ids_to_mark = JournalEntry.where(id: unmark_incoming_payments.pluck(:journal_entry_id))
 
       attributes = { collected_pretax_amount: collected_base_amount,
-                     collected_vat_amount: collected_tax_amount,
+                     collected_tax_amount: collected_tax_amount,
                      sale_ids_to_mark: sale_ids_to_mark,
                      sale_item_ids_to_mark: sale_item_ids_to_mark,
                      sale_journal_entry_ids_to_mark: sale_journal_entry_ids_to_mark,
@@ -167,7 +167,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
                      incoming_payment_ids_to_mark: incoming_payment_ids_to_mark,
                      incoming_payment_journal_entry_ids_to_mark: incoming_payment_journal_entry_ids_to_mark,
                      deductible_pretax_amount: deduction_base_amount,
-                     deductible_vat_amount: deduction_tax_amount,
+                     deductible_tax_amount: deduction_tax_amount,
                      purchase_ids_to_mark: purchase_ids_to_mark,
                      purchase_item_ids_to_mark: purchase_item_ids_to_mark,
                      purchase_journal_entry_ids_to_mark: purchase_journal_entry_ids_to_mark,
@@ -211,14 +211,14 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       # tax.collected_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
 
       attributes = { collected_pretax_amount: collected_base_amount,
-                     collected_vat_amount: collected_tax_amount,
+                     collected_tax_amount: collected_tax_amount,
                      sale_ids_to_mark: sale_ids_to_mark,
                      sale_item_ids_to_mark: sale_item_ids_to_mark,
                      sale_journal_entry_ids_to_mark: sale_journal_entry_ids_to_mark,
                      collected_tax_journal_entry_item_ids_to_mark: collected_tax_journal_entry_item_ids_to_mark,
                      fixed_asset_collected_tax_journal_entry_item_ids_to_mark: fixed_asset_collected_tax_journal_entry_item_ids_to_mark,
                      deductible_pretax_amount: deduction_base_amount,
-                     deductible_vat_amount: deduction_tax_amount,
+                     deductible_tax_amount: deduction_tax_amount,
                      purchase_ids_to_mark: purchase_ids_to_mark,
                      purchase_item_ids_to_mark: purchase_item_ids_to_mark,
                      purchase_journal_entry_ids_to_mark: purchase_journal_entry_ids_to_mark,

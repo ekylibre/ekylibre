@@ -22,8 +22,8 @@
     = cobble_list :items do
       %tr.total
         %th{colspan: 5}
-        %td= resource.deductible_vat_amount_balance.l(currency: resource.currency)
-        %td= resource.collected_vat_amount_balance.l(currency: resource.currency)
+        %td= resource.deductible_tax_amount_balance.l(currency: resource.currency)
+        %td= resource.collected_tax_amount_balance.l(currency: resource.currency)
 
   -# c.cobble :affair do
     = affair_of(resource, default: 'OutgoingPayment')
