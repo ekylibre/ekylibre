@@ -689,12 +689,12 @@ eng:
       show: "Task: %{name}"
       # start: "Start task: %{name}"
     backend/tax_declarations:
-      confirm: "Confirm vat declaration: %{number}"
-      edit: "Edit vat declaration: %{number}"
-      index: "Vat declarations"
-      new: "New vat declaration"
-      propose: "Propose vat declaration: %{number}"
-      show: "Vat declaration: %{number}"
+      confirm: "Confirm tax declaration: %{number}"
+      edit: "Edit tax declaration: %{number}"
+      index: "Tax declarations"
+      new: "New tax declaration"
+      propose: "Propose tax declaration: %{number}"
+      show: "Tax declaration: %{number}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -1693,7 +1693,7 @@ eng:
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
-    # vat: "Vat"
+    vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?

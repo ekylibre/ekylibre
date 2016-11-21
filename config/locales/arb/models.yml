@@ -966,7 +966,7 @@ arb:
       task: "مهمة"
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب"
-      # tax_declaration_item: "Vat declaration item"
+      # tax_declaration_item: "Tax declaration item"
       team: "الخجمة"
       token: "رمز"
       tool: "الاداة" #?
@@ -2264,8 +2264,8 @@ arb:
     targets: "أهداف"
     tasks: "المهام"
     tax: "الضريبة"
-    # tax_declaration: "Vat declaration"
-    # tax_declaration_item: "Vat declaration item"
+    # tax_declaration: "Tax declaration"
+    # tax_declaration_item: "Tax declaration item"
     tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
     taxations: "الأنظمة الضريبية"
@@ -2371,9 +2371,9 @@ arb:
     variants: "المتغيرات"
     variety: "تشكيلة"
     variety_name: "اسم متنوعة"
-    # vat_mode: "Vat mode"
+    # vat_mode: "VAT mode"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
-    # vat_period: "Vat period"
+    # vat_period: "VAT period"
     vat_subjected: "ضريبة القيمة المضافة تعرض"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     vendor_euid: "بائع"

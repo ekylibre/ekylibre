@@ -685,12 +685,12 @@ arb:
       new: "مهمة جديدة"
       # show: "Task: %{name}"
     backend/tax_declarations:
-      # confirm: "Confirm vat declaration: %{number}"
-      # edit: "Edit vat declaration: %{number}"
-      # index: "Vat declarations"
-      # new: "New vat declaration"
-      # propose: "Propose vat declaration: %{number}"
-      # show: "Vat declaration: %{number}"
+      # confirm: "Confirm tax declaration: %{number}"
+      # edit: "Edit tax declaration: %{number}"
+      # index: "Tax declarations"
+      # new: "New tax declaration"
+      # propose: "Propose tax declaration: %{number}"
+      # show: "Tax declaration: %{number}"
     backend/taxes:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
@@ -2165,7 +2165,7 @@ arb:
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
-    vat: "الضريبة المستحقة" #?
+    vat: "الضريبة المستحقة"
     vat_acquisitions: "المكاسب الداخلية" #?
     vat_amount: "الضرائب المستحقة" #?
     vat_collected: "صافي قيمة الضريبة المضافة" #?
