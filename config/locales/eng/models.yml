@@ -1339,7 +1339,7 @@ eng:
     tax_declaration: "Tax declaration"
     tax_declaration_frequency: "Tax declaration frequency"
     tax_declaration_item: "Tax declaration item"
-    tax_declaration_mode: "VAT mode"
+    tax_declaration_mode: "Tax declaration  mode"
     tax_declarations: "Tax declarations"
     # tax_office: "Tax office"
     taxations: "Taxations"

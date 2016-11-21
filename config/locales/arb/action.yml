@@ -687,7 +687,7 @@ arb:
     backend/tax_declarations:
       # confirm: "Confirm tax declaration: %{number}"
       # edit: "Edit tax declaration: %{number}"
-      # index: "Tax declarations"
+      index: "تصريح عن قيمة الضريبة الاضافية"
       # new: "New tax declaration"
       # propose: "Propose tax declaration: %{number}"
       # show: "Tax declaration: %{number}"

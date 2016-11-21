@@ -450,7 +450,7 @@ por:
         sales: "Vendas"
         sales_invoices: "Facturas de vendas"
         subscriptions: "Assinaturas"
-        # tax_declarations: "Vat declarations"
+        # tax_declarations: "Tax declarations"
         transports: "Numeração de transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?

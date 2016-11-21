@@ -437,7 +437,7 @@ jpn:
         sales: "セールス"
         sales_invoices: "売上請求書"
         subscriptions: "サブスクリプション"
-        # tax_declarations: "Vat declarations"
+        # tax_declarations: "Tax declarations"
         transports: "トランスポートの記数" #?
     subscription_nature:  #?
       entity_link_direction: #?

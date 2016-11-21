@@ -437,7 +437,7 @@ deu:
         sales: "Der Umsatz"
         sales_invoices: "Verkaufsrechnungen"
         subscriptions: "Abonnements"
-        # tax_declarations: "Vat declarations"
+        # tax_declarations: "Tax declarations"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirektionale" #?

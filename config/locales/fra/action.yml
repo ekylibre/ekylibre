@@ -2072,7 +2072,7 @@ fra:
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    vat: "Taxe à payer"
+    vat: "TVA"
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?

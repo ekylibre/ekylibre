@@ -437,7 +437,7 @@ cmn:
         sales: "销售"
         sales_invoices: "销售发票"
         subscriptions: "订阅"
-        # tax_declarations: "Vat declarations"
+        # tax_declarations: "Tax declarations"
         transports: "运输的记数" #?
     subscription_nature:  #?
       entity_link_direction: #?

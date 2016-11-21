@@ -437,7 +437,7 @@ spa:
         sales: "Ventas"
         sales_invoices: "Facturas de venta"
         subscriptions: "Suscripciones"
-        # tax_declarations: "Vat declarations"
+        # tax_declarations: "Tax declarations"
         transports: "Numeración de los transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?
