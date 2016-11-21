@@ -73,7 +73,7 @@ class Affair < Ekylibre::Record::Base
   has_many :events
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
-  has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
+  # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
