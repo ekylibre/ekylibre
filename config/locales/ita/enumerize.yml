@@ -131,6 +131,16 @@ ita:
         informative: "Informativo"
         refused: "rifiutato"
         waiting: "In attesa"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensile"
+        none: "Nessuna"
+        # quaterly: "Quaterly"
+        yearly: "Annuale"
+      tax_declaration_mode:
+        debit: "Addebito"
+        none: "Nessuna"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Laureato" #?
@@ -427,6 +437,7 @@ ita:
         sales: "Vendite"
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
+        tax_declarations: "Dichiarazioni fiscali"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirezionale" #?

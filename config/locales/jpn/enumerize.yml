@@ -131,6 +131,16 @@ jpn:
         informative: "有益な"
         refused: "拒否されました"
         waiting: "待っています"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "毎月"
+        none: "なし"
+        # quaterly: "Quaterly"
+        yearly: "毎年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "なし"
+        payment: "支払い"
     fixed_asset:
       depreciation_method:
         graduated: "目盛り付きの" #?
@@ -427,6 +437,8 @@ jpn:
         sales: "セールス"
         sales_invoices: "売上請求書"
         subscriptions: "サブスクリプション"
+        tax_declarations: "税務申告"
+        transports: "トランスポートの記数" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "双方向の" #?

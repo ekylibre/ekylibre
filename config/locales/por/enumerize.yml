@@ -133,6 +133,16 @@ por:
         informative: "Informativo"
         refused: "Recusado"
         waiting: "Esperando"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Por mês"
+        none: "Nenhum"
+        # quaterly: "Quaterly"
+        yearly: "Anual"
+      tax_declaration_mode:
+        debit: "Débito"
+        none: "Nenhum"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Gradual" #?
@@ -440,6 +450,8 @@ por:
         sales: "Vendas"
         sales_invoices: "Facturas de vendas"
         subscriptions: "Assinaturas"
+        tax_declarations: "Declarações fiscais"
+        transports: "Numeração de transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidirecional" #?

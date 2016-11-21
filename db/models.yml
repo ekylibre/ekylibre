@@ -167,6 +167,8 @@
 - target_distribution
 - task
 - tax
+- tax_declaration
+- tax_declaration_item
 - team
 - token
 - tracking

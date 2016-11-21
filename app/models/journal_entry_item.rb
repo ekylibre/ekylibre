@@ -57,6 +57,7 @@
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
+#  tax_declaration_item_id   :integer
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
@@ -78,6 +79,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :team
   belongs_to :journal, inverse_of: :entry_items
+  belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement
   belongs_to :tax

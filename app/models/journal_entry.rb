@@ -91,6 +91,10 @@ class JournalEntry < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items
 
+  scope :between, lambda { |started_on, stopped_on|
+    where(printed_on: started_on..stopped_on)
+  }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed
@@ -361,7 +365,8 @@ class JournalEntry < Ekylibre::Record::Base
     attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
     attributes[:team_id] = options[:team].id if options[:team]
     attributes[:tax_id] = options[:tax].id if options[:tax]
-    # attributes[:real_currency] = self.journal.currency
+    attributes[:real_pretax_amount] = options[:pretax_amount] if options[:pretax_amount]
+
     if credit
       attributes[:real_credit] = amount.abs
       attributes[:real_debit]  = 0.0

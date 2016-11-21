@@ -627,6 +627,13 @@ fra:
       index: "Tâches"
       new: "Nouvelle tâche"
       show: "Tâche\_: %{name}"
+    backend/tax_declarations:
+      confirm: "Confirmer la déclaration TVA: %{number}"
+      edit: "Modifier la déclaration TVA\_: %{number}"
+      index: "Déclarations TVA"
+      new: "Nouvelle déclaration TVA"
+      propose: "Proposer la déclaration TVA: %{number}"
+      show: "Déclaration TVA\_: %{number}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -1492,6 +1499,7 @@ fra:
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
+    new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
     new_organization: "Nouvelle organisation"
@@ -1941,6 +1949,8 @@ fra:
     to_deposit: "À encaisser"
     to_deposit_later: "À encaisser plus tard"
     to_deposit_now: "À encaisser maintenant"
+    to_pay: "Payer"
+    to_reclaim: "Réclamer"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?
@@ -2065,7 +2075,7 @@ fra:
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    vat: "Taxe à payer" #?
+    vat: "TVA"
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?

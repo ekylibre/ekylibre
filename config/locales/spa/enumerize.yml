@@ -131,6 +131,16 @@ spa:
         informative: "Informativo"
         refused: "Negado"
         waiting: "Esperando"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensual"
+        none: "Ninguna"
+        quaterly: "Trimestral"
+        yearly: "Anual"
+      tax_declaration_mode:
+        debit: "Débito"
+        none: "Ninguna"
+        payment: "Pago"
     fixed_asset:
       depreciation_method:
         graduated: "Graduado" #?
@@ -427,6 +437,8 @@ spa:
         sales: "Ventas"
         sales_invoices: "Facturas de venta"
         subscriptions: "Suscripciones"
+        tax_declarations: "Declaraciones de impuestos"
+        transports: "Numeración de los transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidireccional" #?

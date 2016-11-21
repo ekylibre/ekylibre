@@ -72,6 +72,16 @@ class Tax < Ekylibre::Record::Base
 
   scope :current, -> { where(active: true).order(:country, :amount) }
 
+  before_validation do
+    self.name = short_label if name.blank?
+    self.active = false if active.nil?
+    true
+  end
+
+  protect(on: :destroy) do
+    product_nature_category_taxations.any? || sale_items.any? || purchase_items.any?
+  end
+
   class << self
     def used_for_untaxed_deals
       where(amount: 0).reorder(:id).first

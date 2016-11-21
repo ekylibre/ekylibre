@@ -158,6 +158,22 @@
         <page to="backend/fixed_assets#update"/>
       </item>
     </group>
+    <group name="vat" icon="legal">
+      <item name="tax_declarations">
+        <page to="backend/tax_declarations#index"/>
+        <page to="backend/tax_declarations#create"/>
+        <page to="backend/tax_declarations#destroy"/>
+        <page to="backend/tax_declarations#edit"/>
+        <page to="backend/tax_declarations#list"/>
+        <page to="backend/tax_declarations#list_items"/>
+        <page to="backend/tax_declarations#confirm"/>
+        <page to="backend/tax_declarations#propose"/>
+        <page to="backend/tax_declarations#new"/>
+        <page to="backend/tax_declarations#show"/>
+        <page to="backend/tax_declarations#unroll"/>
+        <page to="backend/tax_declarations#update"/>
+      </item>
+    </group>
     <group name="cash" icon="money">
       <item name="cashes">
         <page to="backend/cashes#index"/>

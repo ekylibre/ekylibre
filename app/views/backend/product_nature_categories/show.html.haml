@@ -1,5 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
+  = t.new_inventory params: { controller: :inventories, action: :new, product_nature_category_id: resource.id }, icon: false, label: :new_inventory.tl
 
 = cobbles do |c|
   - c.cobble :general_informations do

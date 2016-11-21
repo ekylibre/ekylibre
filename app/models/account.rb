@@ -130,6 +130,14 @@ class Account < Ekylibre::Record::Base
               :short_cycle_animals_inventory_variations, :long_cycle_animals_inventory_variations)
   }
 
+  scope :collected_vat, -> {
+    of_usages(:collected_vat, :enterprise_collected_vat)
+  }
+
+  scope :deductible_vat, -> {
+    of_usages(:deductible_vat, :enterprise_deductible_vat)
+  }
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?

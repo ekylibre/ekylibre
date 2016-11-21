@@ -57,6 +57,7 @@
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
+#  tax_declaration_item_id   :integer
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null

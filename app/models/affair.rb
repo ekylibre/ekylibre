@@ -72,10 +72,11 @@ class Affair < Ekylibre::Record::Base
   # FIXME: Gap#affair_id MUST NOT be mandatory
   has_many :events
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
-  has_many :sales,             inverse_of: :affair, dependent: :nullify
-  has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
+  has_many :purchases,         inverse_of: :affair, dependent: :nullify
+  has_many :sales,             inverse_of: :affair, dependent: :nullify
+  # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :closed, inclusion: { in: [true, false] }

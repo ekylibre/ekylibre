@@ -969,7 +969,8 @@ arb:
       target_distribution: "توزيع هدف"
       task: "مهمة"
       tax: "الضريبة"
-      tax_declaration: "تصريح الضرائب" #?
+      tax_declaration: "تصريح الضرائب"
+      tax_declaration_item: "الضرائب البند إعلان"
       team: "الخجمة"
       token: "رمز"
       tool: "الاداة" #?
@@ -1072,6 +1073,8 @@ arb:
     average_value: "متوسط ​​القيمة"
     balance: "توازن"
     balance_amount: "الرصيد" #?
+    balance_pretax_amount: "تحقيق التوازن بين كمية قبل خصم الضرائب"
+    balance_tax_amount: "مبلغ الضريبة التوازن"
     balances: "ارصدة الحساب"
     bank: "البنك" #?
     bank_account_holder_name: "صاحب حساب"
@@ -1161,6 +1164,8 @@ arb:
     collected_account: "جمع قيمة الضريبة الاضافية" #?
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية" #?
+    collected_pretax_amount: "كمية قبل خصم الضرائب التي تم جمعها"
+    collected_tax_amount: "مقدار الضريبة المحصلة"
     collected_taxes: "الضرائب التي تم جمعها"
     color: "اللون"
     column_name: "اسم العمود"
@@ -1271,6 +1276,8 @@ arb:
     decimal_value: "القيمة العشرية"
     declarant: "الإقرار"
     declared_at: "صرح يوم" #?
+    deductible_pretax_amount: "كمية قبل خصم الضرائب للخصم"
+    deductible_tax_amount: "مبلغ الضريبة اقتطاع"
     deduction_account: "حساب خصم"
     default_computation_method: "افتراضي طريقة حساب"
     default_contact: "الشخص المتوقع الاتصال به" #?
@@ -1453,6 +1460,8 @@ arb:
     fixed_asset_account: "حساب الأصول الثابتة"
     fixed_asset_allocation_account: "ثابت حساب انخفاض قيمة الأصول"
     fixed_asset_collect_account: "الأصول الثابتة جمع الحساب"
+    fixed_asset_deductible_pretax_amount: "الأصول الثابتة مبلغ قبل خصم الضرائب للخصم"
+    fixed_asset_deductible_tax_amount: "الأصول الثابتة مبلغ الضريبة القابلة للحسم"
     fixed_asset_deduction_account: "حساب خصم الأصول الثابتة"
     fixed_asset_depreciation_method: "الأصول الثابتة طريقة الاستهلاك"
     fixed_asset_depreciation_percentage: "نسبة انخفاض قيمة الأصول الثابتة"
@@ -1596,6 +1605,7 @@ arb:
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
     invoiced_at: "فواتير على"
+    invoiced_on: "فواتير على"
     ip_address: "عنوان بروتوكول الإنترنت"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
@@ -2268,7 +2278,11 @@ arb:
     targets: "أهداف"
     tasks: "المهام"
     tax: "الضريبة"
-    tax_declarations: "الاعلان عن الضرائب" #?
+    tax_declaration: "الإقرار الضريبي"
+    tax_declaration_frequency: "تردد الإقرار الضريبي"
+    tax_declaration_item: "الضرائب البند إعلان"
+    tax_declaration_mode: "وضع الإقرار الضريبي"
+    tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
@@ -2358,6 +2372,7 @@ arb:
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
     used_for_permanent_stock_inventory: "تستخدم لجرد مخزون دائم"
+    used_for_tax_declarations: "تستخدم لالإقرارات الضريبية"
     used_for_unbilled_payables: "تستخدم لالدائنة غير المفوترة"
     used_intervention_parameters: "المعلمات تدخل مستعملة"
     useful_items: "المواد المفيدة"
@@ -3000,6 +3015,8 @@ arb:
           doing: "فعل"
           done: "فعله"
           todo: "لكى يفعل"
+    tax_declaration:
+      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
     team:
       default: "فريق الرئيسي"
     user:

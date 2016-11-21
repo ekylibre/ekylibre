@@ -2371,6 +2371,11 @@ financial_years:
   stopped_on:
     type: date
     required: true
+  tax_declaration_frequency:
+    type: string
+  tax_declaration_mode:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -3862,6 +3867,9 @@ journal_entry_items:
   state:
     type: string
     required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
   tax_id:
     type: integer
     references: tax
@@ -3919,6 +3927,10 @@ journals:
     required: true
     default: false
   used_for_permanent_stock_inventory:
+    type: boolean
+    required: true
+    default: false
+  used_for_tax_declarations:
     type: boolean
     required: true
     default: false
@@ -6891,6 +6903,129 @@ tasks:
     references: sale_opportunity
   state:
     type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declaration_items:
+  balance_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  balance_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  collected_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  collected_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  deductible_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  fixed_asset_deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  fixed_asset_deductible_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  tax_declaration_id:
+    type: integer
+    references: tax_declaration
+    required: true
+  tax_id:
+    type: integer
+    references: tax
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declarations:
+  accounted_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  description:
+    type: text
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  invoiced_on:
+    type: date
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  mode:
+    type: string
+    required: true
+  number:
+    type: string
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: user
+  started_on:
+    type: date
+    required: true
+  state:
+    type: string
+  stopped_on:
+    type: date
     required: true
   updated_at:
     type: datetime

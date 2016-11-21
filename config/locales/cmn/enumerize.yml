@@ -131,6 +131,16 @@ cmn:
         informative: "信息化"
         refused: "拒绝"
         waiting: "等候"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "每月一次"
+        none: "没有"
+        quaterly: "季刊"
+        yearly: "每年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "没有"
+        payment: "付款"
     fixed_asset:
       depreciation_method:
         graduated: "毕业" #?
@@ -427,6 +437,8 @@ cmn:
         sales: "销售"
         sales_invoices: "销售发票"
         subscriptions: "订阅"
+        tax_declarations: "纳税申报"
+        transports: "运输的记数" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "双向" #?

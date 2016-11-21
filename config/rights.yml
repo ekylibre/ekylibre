@@ -2080,6 +2080,26 @@ tasks:
     - "backend/tasks#start"
     - "backend/tasks#update"
 
+tax_declarations:
+  read:
+    actions:
+    - "backend/tax_declarations#index"
+    - "backend/tax_declarations#list"
+    - "backend/tax_declarations#list_items"
+    - "backend/tax_declarations#show"
+    - "backend/tax_declarations#unroll"
+  write:
+    dependencies:
+    - read-tax_declarations
+    actions:
+    - "backend/tax_declarations#confirm"
+    - "backend/tax_declarations#create"
+    - "backend/tax_declarations#destroy"
+    - "backend/tax_declarations#edit"
+    - "backend/tax_declarations#new"
+    - "backend/tax_declarations#propose"
+    - "backend/tax_declarations#update"
+
 taxes:
   read:
     actions:

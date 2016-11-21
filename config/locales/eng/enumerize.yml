@@ -129,6 +129,16 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Monthly"
+        none: "None"
+        quaterly: "Quaterly"
+        yearly: "Yearly"
+      tax_declaration_mode:
+        debit: "Debit"
+        none: "None"
+        payment: "Payment"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
@@ -393,6 +403,7 @@ eng:
         affairs: "Affairs"
         analyses: "Analyses"
         animals: "Animals"
+        # campaigns: "Campaigns"
         cash_transfers: "Cash transfers"
         contracts: "Contracts"
         deliveries: "Deliveries"
@@ -418,6 +429,7 @@ eng:
         sales: "Sales"
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
+        tax_declarations: "Tax declarations"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"
@@ -441,6 +453,10 @@ eng:
         doing: "Doing"
         done: "Done"
         todo: "Todo"
+    tax_declaration:
+      mode:
+        # debit: "Debit"
+        # payment: "Payment"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"
