@@ -1199,6 +1199,7 @@ por:
     root_model_name: "Nome do modelo raiz"
     root_node: "Nó raiz"
     root_parameters: "Parâmetros de raiz"
+    # rows_count_value: "Rows count"
     sale: "Venda"
     sale_credit: "Crédito venda"
     sale_item: "Item de venda"
@@ -1411,6 +1412,7 @@ por:
     working_duration: "Duração de trabalho"
     working_periods: "Períodos de trabalho"
     working_shape: "Forma de trabalho" #?
+    # working_width_value: "Implanter application width"
     working_zone: "Zona de trabalho"
     working_zone_area: "área de zona de trabalho"
     zone_memberships: "Associações da zona"

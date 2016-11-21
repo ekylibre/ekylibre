@@ -1199,6 +1199,7 @@ jpn:
     root_model_name: "ルートモデル名"
     root_node: "ルートノード"
     root_parameters: "ルート・パラメータ"
+    # rows_count_value: "Rows count"
     sale: "販売"
     sale_credit: "販売信用"
     sale_item: "販売アイテム"
@@ -1411,6 +1412,7 @@ jpn:
     working_duration: "作業期間"
     working_periods: "作業期間"
     working_shape: "作業形状" #?
+    # working_width_value: "Implanter application width"
     working_zone: "ワーキングゾーン"
     working_zone_area: "ワーキングゾーン領域"
     zone_memberships: "ゾーンメンバーシップ"

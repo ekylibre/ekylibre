@@ -1230,6 +1230,7 @@ ita:
     root_model_name: "Root nome del modello"
     root_node: "nodo principale"
     root_parameters: "parametri Root"
+    # rows_count_value: "Rows count"
     sale: "Vendita"
     sale_credit: "vendita di credito"
     sale_item: "punto vendita"
@@ -1442,6 +1443,7 @@ ita:
     working_duration: "durata di funzionamento"
     working_periods: "periodi di lavoro"
     working_shape: "forma di lavoro" #?
+    # working_width_value: "Implanter application width"
     working_zone: "zona di lavoro"
     working_zone_area: "zona zona di lavoro"
     zone_memberships: "appartenenze Zone"

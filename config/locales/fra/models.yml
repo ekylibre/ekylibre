@@ -1466,6 +1466,7 @@ fra:
     root_model_name: "Racine"
     root_node: "Nœud racine"
     root_parameters: "Paramètres Root"
+    rows_count_value: "Nombre de rangs"
     sale: "Vente"
     sale_credit: "Avoir"
     sale_item: "Ligne de vente"
@@ -1694,6 +1695,7 @@ fra:
     working_periods: "Périodes de travail"
     working_shape: "Forme de travail" #?
     working_unit: "Unité d’œuvre" #?
+    working_width_value: "Largeur de l'outil de semis"
     working_zone: "Zone travaillée"
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"

@@ -2117,6 +2117,7 @@ arb:
     root_model_name: "جذر"
     root_node: "عقدة الجذر"
     root_parameters: "المعلمات الجذر"
+    # rows_count_value: "Rows count"
     sale: "طلب البيع"
     sale_credit: "الائتمان بيع"
     sale_id: "طلب بيع" #?
@@ -2406,6 +2407,7 @@ arb:
     working_duration: "مدة العمل"
     working_periods: "فترات العمل"
     working_shape: "شكل العمل" #?
+    # working_width_value: "Implanter application width"
     working_zone: "منطقة العمل"
     working_zone_area: "منطقة منطقة العمل"
     zone_memberships: "عضوية منطقة"

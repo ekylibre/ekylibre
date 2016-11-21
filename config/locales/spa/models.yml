@@ -1203,6 +1203,7 @@ spa:
     root_model_name: "Raíz nombre del modelo"
     root_node: "Nodo raíz"
     root_parameters: "Parámetros de raíz"
+    # rows_count_value: "Rows count"
     sale: "Venta"
     sale_credit: "Venta de crédito"
     sale_item: "Artículo de la venta"
@@ -1415,6 +1416,7 @@ spa:
     working_duration: "Duración de trabajo"
     working_periods: "Periodos de trabajo"
     working_shape: "La forma de trabajar" #?
+    # working_width_value: "Implanter application width"
     working_zone: "Zona de trabajo"
     working_zone_area: "área de la zona de trabajo"
     zone_memberships: "Zona de miembro"
