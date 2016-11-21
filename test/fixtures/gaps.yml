@@ -41,6 +41,24 @@
 #  updater_id       :integer
 #
 ---
+purchase_gaps_001:
+  accounted_at: 2016-11-20 22:15:36.529707000 Z
+  affair_id: 51
+  amount: 1200.0
+  created_at: 2016-11-20 22:15:36.371988000 Z
+  creator_id: 1
+  currency: EUR
+  direction: profit
+  entity_id: 4
+  id: 6
+  journal_entry_id: 107
+  lock_version: 0
+  number: E000000000005
+  pretax_amount: 1000.0
+  printed_at: 2016-11-20 22:15:36.363682000 Z
+  type: PurchaseGap
+  updated_at: 2016-11-20 22:15:36.371988000 Z
+  updater_id: 1
 sale_gaps_001:
   accounted_at: 2014-11-05 13:35:14.587933000 Z
   affair_id: 14
@@ -78,20 +96,20 @@ sale_gaps_002:
   updated_at: 2014-11-05 13:36:51.329768000 Z
   updater_id: 1
 sale_gaps_003:
-  accounted_at: 2016-11-20 02:06:36.583320000 Z
-  affair_id: 46
-  amount: -126.6
-  created_at: 2016-11-20 02:06:36.426468000 Z
+  accounted_at: 2016-11-20 22:11:32.696576000 Z
+  affair_id: 47
+  amount: -3.74
+  created_at: 2016-11-20 22:11:32.582746000 Z
   creator_id: 1
   currency: EUR
   direction: loss
-  entity_id: 14
+  entity_id: 9
   id: 5
-  journal_entry_id: 93
+  journal_entry_id: 97
   lock_version: 0
   number: E000000000004
-  pretax_amount: -120.0
-  printed_at: 2016-11-20 02:06:36.420219000 Z
+  pretax_amount: -3.1167
+  printed_at: 2016-11-20 22:11:32.575531000 Z
   type: SaleGap
-  updated_at: 2016-11-20 02:06:36.426468000 Z
+  updated_at: 2016-11-20 22:11:32.582746000 Z
   updater_id: 1

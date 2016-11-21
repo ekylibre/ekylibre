@@ -509,6 +509,7 @@ accounts_037:
   debtor: false
   id: 203
   label: 401EI00000001 - Taurus Plus
+  last_letter: A
   lock_version: 0
   name: Taurus Plus
   number: 401EI00000001
@@ -559,7 +560,6 @@ accounts_041:
   debtor: false
   id: 207
   label: 4013 - Yuey LTD
-  last_letter: AAA
   lock_version: 0
   name: Yuey LTD
   number: '4013'
@@ -2966,7 +2966,7 @@ accounts_226:
   debtor: false
   id: 572
   label: 411P00000004 - Περικλῆς
-  last_letter: AAB
+  last_letter: A
   lock_version: 0
   name: "Περικλῆς"
   number: 411P00000004
@@ -4070,3 +4070,29 @@ accounts_324:
   reconcilable: false
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
+accounts_325:
+  created_at: 2016-11-20 22:10:17.285394000 Z
+  creator_id: 1
+  debtor: false
+  id: 671
+  label: 411193 - M. Gendo IKARI
+  last_letter: B
+  lock_version: 0
+  name: M. Gendo IKARI
+  number: '411193'
+  reconcilable: true
+  updated_at: 2016-11-20 22:10:17.285394000 Z
+  updater_id: 1
+accounts_326:
+  created_at: 2016-11-20 22:12:15.511964000 Z
+  creator_id: 1
+  debtor: false
+  id: 672
+  label: 411196 - Mohandas Karamchand Gandhi
+  last_letter: A
+  lock_version: 0
+  name: Mohandas Karamchand Gandhi
+  number: '411196'
+  reconcilable: true
+  updated_at: 2016-11-20 22:12:15.511964000 Z
+  updater_id: 1

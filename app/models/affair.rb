@@ -345,9 +345,8 @@ class Affair < Ekylibre::Record::Base
   end
 
   def unletterable?
-    self.credit.zero? || unbalanced? || multi_thirds? ||
-      journal_entry_items_already_lettered? || journal_entry_items_unbalanced? ||
-      !match_with_accountancy?
+    unbalanced? || multi_thirds? || journal_entry_items_unbalanced? ||
+      journal_entry_items_already_lettered? || !match_with_accountancy?
   end
 
   def lettered?

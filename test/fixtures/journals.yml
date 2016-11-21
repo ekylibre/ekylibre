@@ -154,33 +154,33 @@ journals_007:
   used_for_unbilled_payables: false
 journals_008:
   closed_on: 1992-11-16
-  code: OP
-  created_at: 2016-11-20 01:43:15.104628000 Z
+  code: RESE
+  created_at: 2016-11-20 22:08:58.338278000 Z
   creator_id: 1
   currency: EUR
   id: 8
   lock_version: 0
-  name: Factures non parvenues
-  nature: various
-  updated_at: 2016-11-20 01:43:15.104628000 Z
+  name: Réserves
+  nature: stocks
+  updated_at: 2016-11-20 22:08:58.338278000 Z
   updater_id: 1
   used_for_affairs: false
   used_for_gaps: false
   used_for_permanent_stock_inventory: false
-  used_for_unbilled_payables: true
+  used_for_unbilled_payables: false
 journals_009:
   closed_on: 1992-11-16
-  code: RE
-  created_at: 2016-11-20 01:43:15.115107000 Z
+  code: FNOP
+  created_at: 2016-11-20 22:08:58.347492000 Z
   creator_id: 1
   currency: EUR
   id: 9
   lock_version: 0
-  name: Inventaire des stocks permanent
-  nature: stocks
-  updated_at: 2016-11-20 01:43:15.115107000 Z
+  name: Factures non parvenues
+  nature: various
+  updated_at: 2016-11-20 22:08:58.347492000 Z
   updater_id: 1
   used_for_affairs: false
   used_for_gaps: false
-  used_for_permanent_stock_inventory: true
+  used_for_permanent_stock_inventory: false
   used_for_unbilled_payables: false

@@ -63,7 +63,7 @@ sale_natures_001:
   name: Classical sale
   payment_delay: 12 days, eom, 1 week ago
   payment_mode_complement: ''
-  updated_at: 2016-11-20 01:43:46.552148000 Z
+  updated_at: 2016-11-20 22:08:08.307178000 Z
   updater_id: 1
   with_accounting: true
 sale_natures_002:

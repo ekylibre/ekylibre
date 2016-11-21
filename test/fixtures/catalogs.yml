@@ -110,12 +110,12 @@ catalogs_006:
   all_taxes_included: false
   by_default: true
   code: STOCK
-  created_at: 2016-11-20 01:43:15.040031000 Z
+  created_at: 2016-11-20 22:08:58.278176000 Z
   creator_id: 1
   currency: EUR
   id: 6
   lock_version: 0
   name: Stock
-  updated_at: 2016-11-20 01:43:15.040031000 Z
+  updated_at: 2016-11-20 22:08:58.278176000 Z
   updater_id: 1
   usage: stock

@@ -23,9 +23,16 @@ class NormalizeTradeAffairs < ActiveRecord::Migration
 
     reversible do |d|
       d.up do
+        # Set gaps type
         execute "UPDATE gaps SET type = CASE WHEN entity_role = 'client' THEN 'SaleGap' ELSE 'PurchaseGap' END"
+        # Normalize loss and profit values
+        execute "UPDATE gaps SET direction = 'loss' WHERE amount < 0 AND direction = 'profit'"
+        execute "UPDATE gaps SET direction = 'profit' WHERE amount > 0 AND direction = 'loss'"
+        # Round gaps
       end
       d.down do
+        # De-normalize loss and profit values
+        # No need to de-normalize because it doesn't change bookkeeping result
         # Re-set entity_role
         execute "UPDATE gaps SET entity_role = CASE WHEN type = 'SaleGap' THEN 'client' ELSE 'supplier' END"
         change_column_null :gaps, :entity_role, false
@@ -39,98 +46,75 @@ class NormalizeTradeAffairs < ActiveRecord::Migration
     # Letters every account when possible like affair are doing that now
     reversible do |d|
       d.up do
-        # Adds string functions for manipulating letters
-        execute "CREATE OR REPLACE FUNCTION base26_decode(IN string VARCHAR) RETURNS bigint AS $$
-DECLARE
-		a char[];
-		digits bigint;
-		i int;
-		val int;
-		chars varchar;
-BEGIN
-		chars := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-		FOR i IN REVERSE char_length(string)..1 LOOP
-			a := a || substring(upper(string) FROM i FOR 1)::char;
-		END LOOP;
-		i := 0;
-		digits := 0;
-		WHILE i < (array_length(a,1)) LOOP
-			val := position(a[i+1] IN chars)-1;
-			digits := digits + (val * (26 ^ i));
-			i := i + 1;
-		END LOOP;
-    RETURN digits;
-END;
-$$ LANGUAGE plpgsql IMMUTABLE;".gsub(/\s*\n\s*/, ' ')
-
-        execute "CREATE OR REPLACE FUNCTION base26_encode(IN digits bigint) RETURNS varchar AS $$
-DECLARE
-    chars char[];
-    string varchar;
-    val bigint;
-BEGIN
-    chars := ARRAY['A','B','C','D','E','F','G','H','I','J','K','L','M',
-                   'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    val := digits;
-    string := '';
-    IF val < 0 THEN
-        val := val * -1;
-    END IF;
-    WHILE val != 0 LOOP
-        string := chars[(val % 26)+1] || string;
-        val := val / 26;
-    END LOOP;
-    RETURN string;
-END;
-$$ LANGUAGE plpgsql IMMUTABLE;".gsub(/\s*\n\s*/, ' ')
-
         execute "CREATE OR REPLACE FUNCTION succ(IN string VARCHAR) RETURNS VARCHAR AS $$
 DECLARE
+    chars varchar;
     successor VARCHAR;
     account_id INT;
+    i int;
+    shift INT;
+    letter CHAR;
 BEGIN
   IF LENGTH(TRIM(string)) > 0 THEN
-    successor := base26_encode(base26_decode(string) + 1);
+    chars := 'ABCDEFGHIJKLMNOPQRSTUVWXYZA';
+    shift := 1;
+    successor := '';
+    FOR i IN REVERSE char_length(string)..1 LOOP
+      letter = upper(substring(string FROM i FOR 1))::char;
+      IF shift > 0 THEN
+        IF letter != 'Z' THEN
+          shift := 0;
+        END IF;
+        successor := substring(chars FROM position(letter in chars) + 1 FOR 1) || successor;
+      ELSE
+        successor := letter || successor;
+      END IF;
+    END LOOP;
+    IF shift > 0 THEN
+      successor := substring(chars FROM 1 FOR 1) || successor;
+    END IF;
   ELSE
-    successor := 'AAA';
+    successor := 'A';
   END IF;
   RETURN successor;
 END;
 $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
 
         execute "CREATE OR REPLACE VIEW letterable_deals AS
-  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.client_id AS third_id, 'sales' AS source, d.id
+  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.client_id AS third_id, 'sales' AS source, d.id, CASE WHEN d.state IN ('aborted', 'refused') THEN 0 WHEN d.credit THEN -d.amount ELSE 0 END AS debit_amount, CASE WHEN d.state IN ('aborted', 'refused') THEN 0 WHEN NOT d.credit THEN d.amount ELSE 0 END AS credit_amount
     FROM sales AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
   UNION ALL
-  SELECT d.affair_id, e.supplier_account_id AS account_id, d.journal_entry_id, d.supplier_id AS third_id, 'purchases' AS source, d.id
+  SELECT d.affair_id, e.supplier_account_id AS account_id, d.journal_entry_id, d.supplier_id AS third_id, 'purchases' AS source, d.id, d.amount AS debit_amount, 0 AS credit_amount
     FROM purchases AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
   UNION ALL
-  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.payer_id AS third_id, 'incoming_payments' AS source, d.id
+  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.payer_id AS third_id, 'incoming_payments' AS source, d.id, d.amount AS debit_amount, 0 AS credit_amount
     FROM incoming_payments AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
   UNION ALL
-  SELECT d.affair_id, e.supplier_account_id AS account_id, d.journal_entry_id, d.payee_id AS third_id, 'outgoing_payments' AS source, d.id
+  SELECT d.affair_id, e.supplier_account_id AS account_id, d.journal_entry_id, d.payee_id AS third_id, 'outgoing_payments' AS source, d.id, 0 AS debit_amount, d.amount AS credit_amount
     FROM outgoing_payments AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
   UNION ALL
-  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.entity_id AS third_id, 'sale_gaps' AS source, d.id
+  SELECT d.affair_id, e.client_account_id AS account_id, d.journal_entry_id, d.entity_id AS third_id, 'sale_gaps' AS source, d.id, CASE WHEN d.direction = 'loss' THEN -d.amount ELSE 0 END AS debit_amount, CASE WHEN d.direction = 'profit' THEN d.amount ELSE 0 END AS credit_amount
     FROM gaps AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
     WHERE d.type = 'SaleGap'
   UNION ALL
-  SELECT d.affair_id, e.supplier_account_id AS account_id, d.journal_entry_id, d.entity_id AS third_id, 'purchase_gaps' AS source, d.id
+  SELECT d.affair_id, e.supplier_account_id AS account_id, d.journal_entry_id, d.entity_id AS third_id, 'purchase_gaps' AS source, d.id, CASE WHEN d.direction = 'loss' THEN -d.amount ELSE 0 END AS debit_amount, CASE WHEN d.direction = 'profit' THEN d.amount ELSE 0 END AS credit_amount
     FROM gaps AS d
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
     WHERE d.type = 'PurchaseGap';".gsub(/\s*\n\s*/, ' ')
+
+        # Synchronize affairs for some exception
+        execute 'UPDATE affairs SET debit = debit_amount, credit = credit_amount FROM (select affair_id, sum(debit_amount) AS debit_amount, sum(credit_amount) AS credit_amount FROM letterable_deals group by 1) AS sums WHERE sums.affair_id = affairs.id;'
 
         execute "CREATE OR REPLACE VIEW letterable_multi_thirds AS
   SELECT affair_id, count(DISTINCT third_id)
@@ -162,6 +146,9 @@ BEGIN
     UPDATE accounts
       SET last_letter = new_letter
       WHERE id = letterable_account_id;
+    UPDATE affairs
+      SET letter = new_letter
+      WHERE id = letterable_affair_id;
     UPDATE journal_entry_items AS jei
       SET letter = new_letter
       WHERE jei.account_id = letterable_account_id
@@ -184,9 +171,7 @@ $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
         execute 'DROP VIEW letterable_sum;'
         execute 'DROP VIEW letterable_multi_thirds;'
         execute 'DROP VIEW letterable_deals;'
-        execute 'DROP FUNCTION IF EXISTS succ(VARCHAR);'
-        execute 'DROP FUNCTION IF EXISTS base26_decode(VARCHAR);'
-        execute 'DROP FUNCTION IF EXISTS base26_encode(BIGINT);'
+        execute 'DROP FUNCTION succ(VARCHAR);'
       end
     end
   end

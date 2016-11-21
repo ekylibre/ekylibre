@@ -113,6 +113,7 @@ entities_001:
 entities_002:
   active: false
   client: false
+  client_account_id: 672
   country: in
   created_at: 2014-10-31 19:28:25.976860000 Z
   creator_id: 1
@@ -308,6 +309,7 @@ entities_008:
 entities_009:
   active: true
   client: true
+  client_account_id: 671
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
