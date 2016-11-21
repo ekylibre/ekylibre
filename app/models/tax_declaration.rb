@@ -30,9 +30,10 @@
 #  description       :text
 #  financial_year_id :integer          not null
 #  id                :integer          not null, primary key
-#  invoiced_at       :datetime
+#  invoiced_on       :date
 #  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
+#  mode              :string           not null
 #  number            :string
 #  reference_number  :string
 #  responsible_id    :integer
@@ -48,15 +49,17 @@ class TaxDeclaration < Ekylibre::Record::Base
   include Attachable
   attr_readonly :currency
   refers_to :currency
+  enumerize :mode, in: [:debit, :payment], predicates: true
   belongs_to :financial_year
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :responsible, class_name: 'User'
   belongs_to :tax_office, class_name: 'Entity'
   has_many :items, class_name: 'TaxDeclarationItem', dependent: :destroy, inverse_of: :tax_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :invoiced_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :currency, :financial_year, presence: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :currency, :financial_year, :mode, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :invoiced_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(tax_declaration) { tax_declaration.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -68,7 +71,9 @@ class TaxDeclaration < Ekylibre::Record::Base
   # acts_as_affairable :tax_office
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:tax_id].blank? && item[:tax].blank? }, allow_destroy: true
 
-  delegate :tax_declaration_mode, :tax_declaration_frequency, to: :financial_year
+  delegate :tax_declaration_mode, :tax_declaration_frequency,
+           :tax_declaration_mode_payment?, :tax_declaration_mode_debit?,
+           to: :financial_year
 
   state_machine :state, initial: :draft do
     state :draft
@@ -84,22 +89,24 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state ||= :draft
-    self.currency = financial_year.currency if financial_year
-    # if tax_declarations exists for current financial_year, then get the last to compute started_on
-    if financial_year && financial_year.tax_declarations.any?
-      self.started_on = financial_year.tax_declarations.reorder(:started_on).last.stopped_on + 1.day
-    # else compute started_on from financial_year
-    elsif financial_year
-      self.started_on = financial_year.started_on
+    self.invoiced_on ||= Date.today
+    if financial_year
+      self.mode = financial_year.tax_declaration_mode
+      self.currency = financial_year.currency
+      # if tax_declarations exists for current financial_year, then get the last to compute started_on
+      self.started_on = financial_year.next_tax_declaration_on
+      # anyway, stopped_on is started_on + tax_declaration_frequency_duration
     end
-    # anyway, stopped_on is started_on + tax_declaration_frequency_duration
-    end_period = financial_year.vat_end_period
-    self.stopped_on = started_on.send(end_period.to_s) if end_period
+    if started_on
+      self.stopped_on ||= financial_year.tax_declaration_end_date(started_on)
+    end
   end
 
   before_validation do
     self.created_at ||= Time.zone.now
   end
+
+  after_save :compute!, if: :draft?
 
   def has_content?
     items.any?
@@ -117,7 +124,7 @@ class TaxDeclaration < Ekylibre::Record::Base
     # FIXME : put account in tax_office entity
     credit_vat_account = Account.find_or_create_by_number(45_567)
     debit_vat_account = Account.find_or_create_by_number(44_551)
-    b.journal_entry(vat_journal, printed_on: invoiced_on, if: (has_content? && validated?)) do |entry|
+    b.journal_entry(vat_journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
       # FIXME: add correct label on bookkeep
       label = tc(:bookkeep, resource: state_label, number: number)
       items.each do |item|
@@ -125,17 +132,13 @@ class TaxDeclaration < Ekylibre::Record::Base
         entry.add_credit(label, item.tax.deduction_account.id, item.deductible_tax_amount.round(2)) unless item.deductible_tax_amount.zero?
         entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_tax_amount.round(2)) unless item.fixed_asset_deductible_tax_amount.zero?
       end
-      vat_balance = items.map(&:balance).compact.sum.round(2)
+      vat_balance = items.sum(:balance_tax_amount).round(2)
       entry.add_credit(label, (vat_balance < 0 ? credit_vat_account : debit_vat_account), vat_balance) unless vat_balance.zero?
     end
   end
 
-  def invoiced_on
-    dealt_at.to_date
-  end
-
   def dealt_at
-    (validated? ? invoiced_at : created_at? ? self.created_at : Time.zone.now)
+    (validated? ? invoiced_on : created_at? ? self.created_at : Time.zone.now)
   end
 
   def status
@@ -150,5 +153,16 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   def collected_tax_amount_balance
     items.map(&:collected_tax_amount).compact.sum
+  end
+
+  # Compute tax declaration with its items
+  def compute!
+    taxes = Tax.order(:name)
+    # Removes unwanted tax declaration item
+    items.where.not(tax: taxes).find_each(&:destroy)
+    # Create or update other items
+    taxes.find_each do |tax|
+      items.find_or_initialize_by(tax: tax).compute!
+    end
   end
 end

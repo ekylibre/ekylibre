@@ -30,9 +30,10 @@
 #  description       :text
 #  financial_year_id :integer          not null
 #  id                :integer          not null, primary key
-#  invoiced_at       :datetime
+#  invoiced_on       :date
 #  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
+#  mode              :string           not null
 #  number            :string
 #  reference_number  :string
 #  responsible_id    :integer

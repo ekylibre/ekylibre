@@ -1003,6 +1003,7 @@ fra:
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
+    # invoiced_on: "Invoiced on"
     invoices_count: "Nombre de factures" #?
     ip_address: "Adresse IP"
     irrigated: "Irrigué"

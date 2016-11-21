@@ -1607,6 +1607,7 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
+    # tax_declarations: "Tax declarations"
     taxations: "Taxations"
     taxes: "Taxes" #?
     thumb: "Thumb" #?
@@ -1631,6 +1632,8 @@ eng:
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
+    # to_pay: "To pay"
+    # to_reclaim: "To reclaim"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"
@@ -1920,7 +1923,6 @@ eng:
       need_a_valid_payment_mode: "Need a valid payment mode"
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
-      # need_an_opened_financial_year_to_start_new_tax_declaration: "Need an opened financial year to start new tax declaration"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"

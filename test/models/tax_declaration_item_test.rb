@@ -22,15 +22,17 @@
 #
 # == Table: tax_declaration_items
 #
-#  collected_pretax_amount              :decimal(19, 4)
-#  collected_tax_amount                 :decimal(19, 4)
+#  balance_pretax_amount                :decimal(19, 4)   default(0.0), not null
+#  balance_tax_amount                   :decimal(19, 4)   default(0.0), not null
+#  collected_pretax_amount              :decimal(19, 4)   default(0.0), not null
+#  collected_tax_amount                 :decimal(19, 4)   default(0.0), not null
 #  created_at                           :datetime         not null
 #  creator_id                           :integer
 #  currency                             :string           not null
-#  deductible_pretax_amount             :decimal(19, 4)
-#  deductible_tax_amount                :decimal(19, 4)
-#  fixed_asset_deductible_pretax_amount :decimal(19, 4)
-#  fixed_asset_deductible_tax_amount    :decimal(19, 4)
+#  deductible_pretax_amount             :decimal(19, 4)   default(0.0), not null
+#  deductible_tax_amount                :decimal(19, 4)   default(0.0), not null
+#  fixed_asset_deductible_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  fixed_asset_deductible_tax_amount    :decimal(19, 4)   default(0.0), not null
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
 #  tax_declaration_id                   :integer          not null

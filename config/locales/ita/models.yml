@@ -830,6 +830,7 @@ ita:
     invited_by: "Invitato da"
     invoice_address: "Indirizzo di fatturazione"
     invoiced_at: "fatturato su"
+    # invoiced_on: "Invoiced on"
     ip_address: "Indirizzo IP"
     irrigated: "Irrigato"
     irrigation_water_nitrogen: "azoto Irrigazione"

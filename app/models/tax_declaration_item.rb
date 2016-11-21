@@ -23,15 +23,17 @@
 #
 # == Table: tax_declaration_items
 #
-#  collected_pretax_amount              :decimal(19, 4)
-#  collected_tax_amount                 :decimal(19, 4)
+#  balance_pretax_amount                :decimal(19, 4)   default(0.0), not null
+#  balance_tax_amount                   :decimal(19, 4)   default(0.0), not null
+#  collected_pretax_amount              :decimal(19, 4)   default(0.0), not null
+#  collected_tax_amount                 :decimal(19, 4)   default(0.0), not null
 #  created_at                           :datetime         not null
 #  creator_id                           :integer
 #  currency                             :string           not null
-#  deductible_pretax_amount             :decimal(19, 4)
-#  deductible_tax_amount                :decimal(19, 4)
-#  fixed_asset_deductible_pretax_amount :decimal(19, 4)
-#  fixed_asset_deductible_tax_amount    :decimal(19, 4)
+#  deductible_pretax_amount             :decimal(19, 4)   default(0.0), not null
+#  deductible_tax_amount                :decimal(19, 4)   default(0.0), not null
+#  fixed_asset_deductible_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  fixed_asset_deductible_tax_amount    :decimal(19, 4)   default(0.0), not null
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
 #  tax_declaration_id                   :integer          not null
@@ -44,188 +46,66 @@ class TaxDeclarationItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :tax
   belongs_to :tax_declaration, class_name: 'TaxDeclaration'
-  has_many :journal_entry_items, foreign_key: :tax_declaration_item_id, class_name: 'JournalEntryItem', inverse_of: :tax_declaration_item
+  has_many :journal_entry_items, foreign_key: :tax_declaration_item_id, class_name: 'JournalEntryItem', inverse_of: :tax_declaration_item, dependent: :nullify
+  has_one :financial_year, through: :tax_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :collected_pretax_amount, :collected_tax_amount, :deductible_pretax_amount, :deductible_tax_amount, :fixed_asset_deductible_pretax_amount, :fixed_asset_deductible_tax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :balance_pretax_amount, :balance_tax_amount, :collected_pretax_amount, :collected_tax_amount, :deductible_pretax_amount, :deductible_tax_amount, :fixed_asset_deductible_pretax_amount, :fixed_asset_deductible_tax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :tax, :tax_declaration, presence: true
   # ]VALIDATORS]
 
-  delegate :tax_declaration_mode, :tax_declaration_frequency, to: :tax_declaration
+  delegate :tax_declaration_mode, :tax_declaration_frequency, :started_on, :stopped_on, to: :tax_declaration
+  delegate :tax_declaration_mode_payment?, :tax_declaration_mode_debit?, to: :financial_year
   delegate :currency, to: :tax_declaration, prefix: true
-
-  before_validation(on: :create) do
-    if tax_declaration
-      self.currency = tax_declaration_currency
-      if tax && tax.collect_account && tax.deduction_account
-        v = prefill
-        self.deductible_tax_amount = v[:deductible_tax_amount]
-        self.collected_tax_amount = v[:collected_tax_amount]
-        self.deductible_pretax_amount = v[:deductible_pretax_amount]
-        self.collected_pretax_amount = v[:collected_pretax_amount]
-        self.fixed_asset_deductible_tax_amount ||= 0.0
-      end
-    end
-  end
+  delegate :name, to: :tax, prefix: true
 
   before_validation do
     self.currency = tax_declaration_currency if tax_declaration
+    self.balance_pretax_amount = collected_pretax_amount - (deductible_pretax_amount + fixed_asset_deductible_pretax_amount)
+    self.balance_tax_amount = collected_tax_amount - (deductible_tax_amount + fixed_asset_deductible_tax_amount)
   end
 
-  def balance
-    collected_tax_amount - (deductible_tax_amount + fixed_asset_deductible_tax_amount)
-  end
-
-  def prefill(tax = self.tax)
-    # vat declaration period
-    started_at = tax_declaration.started_on.to_time
-    stopped_at = tax_declaration.stopped_on.to_time
-
-    attributes = {}
-
-    # get journal entry (unmark_je) unmark for vat for the period
-    unmark_je = JournalEntry.between(started_at, stopped_at).where(tax_declaration_id: nil)
-
-    ## for debit mode & payment mode
-    # get all vat unmark sales from the current period
-    unmark_sales = Sale.where(journal_entry_id: unmark_je.pluck(:id).uniq)
-    unmark_sale_items = SaleItem.where(sale_id: unmark_sales.pluck(:id).uniq)
-    # get all vat unmark purchases from the current period
-    unmark_purchases = Purchase.where(journal_entry_id: unmark_je.pluck(:id).uniq)
-    unmark_purchase_items = PurchaseItem.where(purchase_id: unmark_purchases.pluck(:id).uniq)
-
-    ## for payment mode
-    # get all vat unmark incoming payment from the current period
-    unmark_incoming_payments = IncomingPayment.where(journal_entry_id: unmark_je.pluck(:id).uniq)
-    # get all vat unmark outgoing payment from the current period
-    unmark_outgoing_payments = OutgoingPayment.where(journal_entry_id: unmark_je.pluck(:id).uniq)
-
-    if tax_declaration_mode == :payment
-
-      ## case deductible_vat
-
-      # get all purchase item link to unmark_outgoing_payments
-      affair_ids = unmark_outgoing_payments.pluck(:affair_id).uniq
-
-      # closed_affair_ids = Affair.where(id: affair_ids, closed: true).pluck(:id)
-
-      purchase_ids_to_mark = Purchase.where(affair_id: affair_ids).pluck(:id).uniq
-
-      all_taxes_purchase_items = PurchaseItem.where(purchase_id: purchase_ids_to_mark)
-      purchase_items = all_taxes_purchase_items.where(tax_id: tax.id)
-
-      purchase_item_ids_to_mark = purchase_items.pluck(:id)
-      purchase_journal_entry_ids_to_mark = JournalEntry.where(id: Purchase.where(id: purchase_ids_to_mark).pluck(:journal_entry_id))
-      deductible_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, tax_declaration_item_id: nil)
-      fixed_asset_deduction_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, account_id: tax.fixed_asset_deduction_account.id).pluck(:id).uniq if tax.fixed_asset_deduction_account
-
-      # compute ratio for the consider tax to know the ratio to apply to the outgoing payment global amount
-      sum_tax = purchase_items.map(&:amount).compact.sum
-      sum_all_tax = all_taxes_purchase_items.map(&:amount).compact.sum
-      ratio = (sum_tax / sum_all_tax).to_f if sum_all_tax != 0.0
-
-      deduction_base_amount = (unmark_outgoing_payments.map(&:amount).compact.sum * ratio) / (1 + (tax.amount / 100))
-      deduction_tax_amount = deduction_base_amount * (tax.amount / 100)
-
-      outgoing_payment_ids_to_mark = unmark_outgoing_payments.pluck(:id)
-      outgoing_payment_journal_entry_ids_to_mark = JournalEntry.where(id: unmark_outgoing_payments.pluck(:journal_entry_id))
-
-      ## case collected_vat
-
-      # get all purchase item link to unmark_outgoing_payments
-      affair_ids = unmark_incoming_payments.pluck(:affair_id).uniq
-
-      # closed_affair_ids = Affair.where(id: affair_ids, closed: true).pluck(:id)
-
-      sale_ids_to_mark = Sale.where(affair_id: affair_ids).pluck(:id).uniq
-
-      all_taxes_sale_items = SaleItem.where(sale_id: sale_ids_to_mark)
-      sale_items = all_taxes_sale_items.where(tax_id: tax.id)
-
-      sale_item_ids_to_mark = sale_items.pluck(:id)
-      sale_journal_entry_ids_to_mark = JournalEntry.where(id: Sale.where(id: sale_item_ids_to_mark).pluck(:journal_entry_id))
-      collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, tax_declaration_item_id: nil)
-      fixed_asset_collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, account_id: tax.fixed_asset_collect_account.id).pluck(:id).uniq if tax.fixed_asset_collect_account
-
-      # compute ratio for the consider tax to know the ratio to apply to the outgoing payment global amount
-      sale_sum_tax = sale_items.map(&:amount).compact.sum
-      sale_sum_all_tax = all_taxes_sale_items.map(&:amount).compact.sum
-      sale_ratio = (sale_sum_tax / sale_sum_all_tax).to_f if sale_sum_all_tax != 0.0
-
-      collected_base_amount = (unmark_incoming_payments.map(&:amount).compact.sum * sale_ratio) / (1 + (tax.amount / 100))
-      collected_tax_amount = collected_base_amount * (tax.amount / 100)
-
-      incoming_payment_ids_to_mark = unmark_incoming_payments.pluck(:id)
-      incoming_payment_journal_entry_ids_to_mark = JournalEntry.where(id: unmark_incoming_payments.pluck(:journal_entry_id))
-
-      attributes = { collected_pretax_amount: collected_base_amount,
-                     collected_tax_amount: collected_tax_amount,
-                     sale_ids_to_mark: sale_ids_to_mark,
-                     sale_item_ids_to_mark: sale_item_ids_to_mark,
-                     sale_journal_entry_ids_to_mark: sale_journal_entry_ids_to_mark,
-                     collected_tax_journal_entry_item_ids_to_mark: collected_tax_journal_entry_item_ids_to_mark,
-                     fixed_asset_collected_tax_journal_entry_item_ids_to_mark: fixed_asset_collected_tax_journal_entry_item_ids_to_mark,
-                     incoming_payment_ids_to_mark: incoming_payment_ids_to_mark,
-                     incoming_payment_journal_entry_ids_to_mark: incoming_payment_journal_entry_ids_to_mark,
-                     deductible_pretax_amount: deduction_base_amount,
-                     deductible_tax_amount: deduction_tax_amount,
-                     purchase_ids_to_mark: purchase_ids_to_mark,
-                     purchase_item_ids_to_mark: purchase_item_ids_to_mark,
-                     purchase_journal_entry_ids_to_mark: purchase_journal_entry_ids_to_mark,
-                     deductible_tax_journal_entry_item_ids_to_mark: deductible_tax_journal_entry_item_ids_to_mark,
-                     fixed_asset_deduction_tax_journal_entry_item_ids_to_mark: fixed_asset_deduction_tax_journal_entry_item_ids_to_mark,
-                     outgoing_payment_ids_to_mark: outgoing_payment_ids_to_mark,
-                     outgoing_payment_journal_entry_ids_to_mark: outgoing_payment_journal_entry_ids_to_mark }
-
-    elsif tax_declaration_mode == :debit
-
-      # mark with D1 (id of vat declaration) for purchase_ids_to_mark and purchase_journal_entry_ids_to_mark
-      # mark with LD1 (id of vat declaration item) for purchase_item_ids_to_mark and deductible_tax_journal_entry_item_ids_to_mark
-
-      ## case deductible_vat
-      deduction_base_amount = unmark_purchase_items.where(tax_id: tax.id).sum(:pretax_amount)
-      deduction_tax_amount = unmark_purchase_items.where(tax_id: tax.id).sum(:amount) - deduction_base_amount
-      purchase_ids_to_mark = unmark_purchase_items.where(tax_id: tax.id).pluck(:purchase_id).uniq
-      purchase_item_ids_to_mark = unmark_purchase_items.where(tax_id: tax.id).pluck(:id).uniq
-      purchase_journal_entry_ids_to_mark = Purchase.where(id: purchase_ids_to_mark).pluck(:journal_entry_id).uniq
-      deductible_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, account_id: tax.deduction_account.id).pluck(:id).uniq
-      fixed_asset_deduction_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: purchase_journal_entry_ids_to_mark, account_id: tax.fixed_asset_deduction_account.id).pluck(:id).uniq if tax.fixed_asset_deduction_account
-
-      # FIXME: what about manual line input directly in journal ?
-      # unmark_jei.where(account_id: tax.deduction_account.id).pluck(:id).compact.uniq
-      # tax.deduction_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
-
-      # mark with D1 (id of vat declaration) for sale_ids_to_mark and sale_journal_entry_ids_to_mark
-      # mark with LD1 (id of vat declaration item) for sale_item_ids_to_mark and collected_tax_journal_entry_item_ids_to_mark
-
-      ## case collected_vat
-      collected_base_amount = unmark_sale_items.where(tax_id: tax.id).sum(:pretax_amount)
-      collected_tax_amount = unmark_sale_items.where(tax_id: tax.id).sum(:amount) - collected_base_amount
-      sale_ids_to_mark = unmark_sale_items.where(tax_id: tax.id).pluck(:sale_id).uniq
-      sale_item_ids_to_mark = unmark_sale_items.where(tax_id: tax.id).pluck(:id).uniq
-      sale_journal_entry_ids_to_mark = Sale.where(id: sale_ids_to_mark).pluck(:journal_entry_id).uniq
-      collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, account_id: tax.collect_account.id).pluck(:id).uniq
-      fixed_asset_collected_tax_journal_entry_item_ids_to_mark = JournalEntryItem.where(entry_id: sale_journal_entry_ids_to_mark, account_id: tax.fixed_asset_collect_account.id).pluck(:id).uniq if tax.fixed_asset_collect_account
-
-      # FIXME: what about manual line input directly in journal ?
-      # unmark_jei.where(account_id: tax.collected_account.id).pluck(:id).compact.uniq
-      # tax.collected_account.journal_entry_items_calculate(:balance, started_at, stopped_at, :sum)
-
-      attributes = { collected_pretax_amount: collected_base_amount,
-                     collected_tax_amount: collected_tax_amount,
-                     sale_ids_to_mark: sale_ids_to_mark,
-                     sale_item_ids_to_mark: sale_item_ids_to_mark,
-                     sale_journal_entry_ids_to_mark: sale_journal_entry_ids_to_mark,
-                     collected_tax_journal_entry_item_ids_to_mark: collected_tax_journal_entry_item_ids_to_mark,
-                     fixed_asset_collected_tax_journal_entry_item_ids_to_mark: fixed_asset_collected_tax_journal_entry_item_ids_to_mark,
-                     deductible_pretax_amount: deduction_base_amount,
-                     deductible_tax_amount: deduction_tax_amount,
-                     purchase_ids_to_mark: purchase_ids_to_mark,
-                     purchase_item_ids_to_mark: purchase_item_ids_to_mark,
-                     purchase_journal_entry_ids_to_mark: purchase_journal_entry_ids_to_mark,
-                     deductible_tax_journal_entry_item_ids_to_mark: deductible_tax_journal_entry_item_ids_to_mark,
-                     fixed_asset_deduction_tax_journal_entry_item_ids_to_mark: fixed_asset_deduction_tax_journal_entry_item_ids_to_mark }
+  def compute!
+    raise 'Cannot compute item without its tax' unless tax
+    if tax_declaration_mode_payment?
+      compute_in_payment_mode!
+    elsif tax_declaration_mode_debit?
+      compute_in_debit_mode!
+    else
+      raise 'No declaration mode given'
     end
+  end
 
-    attributes
+  def compute_in_payment_mode!
+    journal_entry_items = targeted_journal_entry_items(lettered: true)
+    compute_with_journal_entry_items! journal_entry_items
+  end
+
+  def compute_in_debit_mode!
+    journal_entry_items = targeted_journal_entry_items
+    compute_with_journal_entry_items! journal_entry_items
+  end
+
+  def compute_with_journal_entry_items!(journal_entry_items)
+    self.deductible_tax_amount = journal_entry_items.where(account: tax.deduction_account).sum('debit - credit')
+    self.deductible_pretax_amount = journal_entry_items.where(account: tax.deduction_account).sum(:pretax_amount)
+    self.fixed_asset_deductible_tax_amount = journal_entry_items.where(account: tax.fixed_asset_deduction_account).sum('debit - credit')
+    self.fixed_asset_deductible_pretax_amount = journal_entry_items.where(account: tax.fixed_asset_deduction_account).sum(:pretax_amount)
+    self.collected_tax_amount = journal_entry_items.where(account: tax.collect_account).sum('credit - debit')
+    self.collected_pretax_amount = journal_entry_items.where(account: tax.collect_account).sum(:pretax_amount)
+    save!
+    self.journal_entry_items.where(tax_declaration_item_id: id).update_all(tax_declaration_item_id: nil)
+    journal_entry_items.update_all(tax_declaration_item_id: id)
+  end
+
+  protected
+
+  def targeted_journal_entry_items(options = {})
+    relation = JournalEntryItem.where(tax: tax)
+                               .where(printed_on: started_on..stopped_on)
+                               .where('tax_declaration_item_id IS NULL OR tax_declaration_item_id = ?', id || 0)
+    if options[:lettered].is_a?(TrueClass)
+      relation = relation.where(entry_id: JournalEntryItem.select(:entry_id).where('LENGTH(TRIM(letter)) > 0'))
+    end
+    relation
   end
 end

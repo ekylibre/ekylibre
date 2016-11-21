@@ -2375,6 +2375,7 @@ financial_years:
     type: string
   tax_declaration_mode:
     type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -3726,9 +3727,6 @@ journal_entries:
   state:
     type: string
     required: true
-  tax_declaration_id:
-    type: integer
-    references: tax_declaration
   updated_at:
     type: datetime
     required: true
@@ -6089,9 +6087,6 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
-  tax_declaration_item_id:
-    type: integer
-    references: tax_declaration_item
   tax_id:
     type: integer
     references: tax
@@ -6333,9 +6328,6 @@ sale_items:
     type: integer
     references: sale
     required: true
-  tax_declaration_item_id:
-    type: integer
-    references: tax_declaration_item
   tax_id:
     type: integer
     references: tax
@@ -6915,14 +6907,26 @@ tasks:
     type: integer
     references: user
 tax_declaration_items:
+  balance_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  balance_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   collected_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   collected_tax_amount:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   created_at:
     type: datetime
     required: true
@@ -6936,18 +6940,22 @@ tax_declaration_items:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   deductible_tax_amount:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   fixed_asset_deductible_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   fixed_asset_deductible_tax_amount:
     type: decimal
     precision: 19
     scale: 4
+    required: true
   id:
     type: integer
     required: true
@@ -6992,13 +7000,16 @@ tax_declarations:
   id:
     type: integer
     required: true
-  invoiced_at:
-    type: datetime
+  invoiced_on:
+    type: date
   journal_entry_id:
     type: integer
     references: journal_entry
   lock_version:
     type: integer
+    required: true
+  mode:
+    type: string
     required: true
   number:
     type: string

@@ -803,6 +803,7 @@ spa:
     invited_by: "Invitado por"
     invoice_address: "Dirección de facturación"
     invoiced_at: "Facturado sobre"
+    # invoiced_on: "Invoiced on"
     ip_address: "Dirección IP"
     irrigated: "Regadío"
     irrigation_water_nitrogen: "Irrigación de nitrógeno del agua"

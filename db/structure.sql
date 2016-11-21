@@ -2296,7 +2296,7 @@ CREATE TABLE financial_years (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     tax_declaration_frequency character varying,
-    tax_declaration_mode character varying
+    tax_declaration_mode character varying NOT NULL
 );
 
 
@@ -3354,8 +3354,7 @@ CREATE TABLE journal_entries (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    tax_declaration_id integer
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -5325,8 +5324,7 @@ CREATE TABLE purchase_items (
     fixed boolean DEFAULT false NOT NULL,
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
-    team_id integer,
-    tax_declaration_item_id integer
+    team_id integer
 );
 
 
@@ -5511,8 +5509,7 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb,
-    tax_declaration_item_id integer
+    codes jsonb
 );
 
 
@@ -6018,12 +6015,14 @@ CREATE TABLE tax_declaration_items (
     tax_declaration_id integer NOT NULL,
     tax_id integer NOT NULL,
     currency character varying NOT NULL,
-    collected_tax_amount numeric(19,4),
-    deductible_tax_amount numeric(19,4),
-    deductible_pretax_amount numeric(19,4),
-    collected_pretax_amount numeric(19,4),
-    fixed_asset_deductible_pretax_amount numeric(19,4),
-    fixed_asset_deductible_tax_amount numeric(19,4),
+    collected_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    deductible_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    deductible_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    collected_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    fixed_asset_deductible_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    fixed_asset_deductible_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    balance_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    balance_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -6060,6 +6059,7 @@ CREATE TABLE tax_declarations (
     financial_year_id integer NOT NULL,
     journal_entry_id integer,
     responsible_id integer,
+    mode character varying NOT NULL,
     description text,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
@@ -6070,7 +6070,7 @@ CREATE TABLE tax_declarations (
     state character varying,
     affair_id integer,
     tax_office_id integer,
-    invoiced_at timestamp without time zone,
+    invoiced_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -12077,13 +12077,6 @@ CREATE INDEX index_journal_entries_on_resource_type_and_resource_id ON journal_e
 
 
 --
--- Name: index_journal_entries_on_tax_declaration_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_journal_entries_on_tax_declaration_id ON journal_entries USING btree (tax_declaration_id);
-
-
---
 -- Name: index_journal_entries_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14667,13 +14660,6 @@ CREATE INDEX index_purchase_items_on_purchase_id ON purchase_items USING btree (
 
 
 --
--- Name: index_purchase_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_purchase_items_on_tax_declaration_item_id ON purchase_items USING btree (tax_declaration_item_id);
-
-
---
 -- Name: index_purchase_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14923,13 +14909,6 @@ CREATE INDEX index_sale_items_on_credited_item_id ON sale_items USING btree (cre
 --
 
 CREATE INDEX index_sale_items_on_sale_id ON sale_items USING btree (sale_id);
-
-
---
--- Name: index_sale_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sale_items_on_tax_declaration_item_id ON sale_items USING btree (tax_declaration_item_id);
 
 
 --

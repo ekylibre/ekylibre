@@ -1597,6 +1597,7 @@ arb:
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
     invoiced_at: "فواتير على"
+    # invoiced_on: "Invoiced on"
     ip_address: "عنوان بروتوكول الإنترنت"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"

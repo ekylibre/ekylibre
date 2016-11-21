@@ -43,9 +43,10 @@ module Backend
       t.column :deductible_pretax_amount, currency: true
       t.column :collected_tax_amount, currency: true
       t.column :collected_pretax_amount, currency: true
+      t.column :balance, currency: true
     end
 
-    # Displays details of one vat declaration selected with +params[:id]+
+    # Displays details of one tax declaration selected with +params[:id]+
     def show
       return unless @tax_declaration = find_and_check
       respond_with(@tax_declaration, methods: [],
@@ -57,12 +58,24 @@ module Backend
     end
 
     def new
-      unless financial_year = FinancialYear.current || FinancialYear.opened.first
-        notify_error :need_an_opened_financial_year_to_start_new_tax_declaration
-        redirect_to action: :index
-        return
+      financial_year = FinancialYear.find(params[:financial_year_id])
+      if financial_year.tax_declaration_mode_none?
+        redirect_to params[:redirect] || { action: :index }
+      else
+        if financial_year.tax_declaration_frequency_none?
+          started_on = financial_year.next_tax_declaration_on
+          @tax_declaration = TaxDeclaration.new(
+            financial_year_id: financial_year.id,
+            invoiced_on: Date.today,
+            started_on: started_on,
+            stopped_on: started_on.end_of_month,
+            currency: financial_year.currency
+          )
+        else
+          tax_declaration = TaxDeclaration.create!(financial_year: financial_year)
+          redirect_to action: :show, id: tax_declaration.id
+        end
       end
-      @tax_declaration = TaxDeclaration.new(financial_year: financial_year, currency: financial_year.currency)
     end
 
     def propose

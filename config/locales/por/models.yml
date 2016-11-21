@@ -799,6 +799,7 @@ por:
     invited_by: "Convidado por"
     invoice_address: "Endereço de fatura"
     invoiced_at: "Facturado"
+    # invoiced_on: "Invoiced on"
     ip_address: "Endereço de IP"
     irrigated: "Irrigada"
     irrigation_water_nitrogen: "Azoto água de irrigação"

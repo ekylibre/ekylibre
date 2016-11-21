@@ -453,6 +453,10 @@ eng:
         doing: "Doing"
         done: "Done"
         todo: "Todo"
+    tax_declaration:
+      mode:
+        # debit: "Debit"
+        # payment: "Payment"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"

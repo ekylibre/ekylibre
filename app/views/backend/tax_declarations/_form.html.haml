@@ -2,16 +2,16 @@
 
 = field_set do
   = f.input :currency, as: :hidden
-  = f.referenced_association :tax_office, source: :suppliers, new: { supplier: 1 }
+  -# = f.referenced_association :tax_office, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
-  = f.input :invoiced_at
-  = f.input :started_on, as: :date
-  = f.input :stopped_on, as: :date
-  = f.referenced_association :financial_year
-  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
-  = f.input :description
+  = f.input :invoiced_on
+  = f.input :started_on
+  = f.input :stopped_on
+  = f.association :financial_year, as: :hidden
+  -# = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  -# = f.input :description
 
-= field_set Purchase.human_attribute_name(:items) do
+-#= field_set TaxDeclaration.human_attribute_name(:items) do
   .items
     %table#items-table
       %thead

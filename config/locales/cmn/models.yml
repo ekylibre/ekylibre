@@ -799,6 +799,7 @@ cmn:
     invited_by: "通过邀请"
     invoice_address: "发票地址"
     invoiced_at: "开具发票的上"
+    # invoiced_on: "Invoiced on"
     ip_address: "IP地址"
     irrigated: "灌溉"
     irrigation_water_nitrogen: "灌溉水氮"

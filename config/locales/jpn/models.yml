@@ -799,6 +799,7 @@ jpn:
     invited_by: "によって招待"
     invoice_address: "請求書の住所"
     invoiced_at: "上の請求済み"
+    # invoiced_on: "Invoiced on"
     ip_address: "IPアドレス"
     irrigated: "灌漑"
     irrigation_water_nitrogen: "灌漑水の窒素"

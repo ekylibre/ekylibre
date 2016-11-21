@@ -35,7 +35,7 @@
 #  started_on                :date             not null
 #  stopped_on                :date             not null
 #  tax_declaration_frequency :string
-#  tax_declaration_mode      :string
+#  tax_declaration_mode      :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #
