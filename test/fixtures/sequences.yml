@@ -46,15 +46,15 @@ sequences_001:
   id: 1
   last_cweek: 46
   last_month: 11
-  last_number: 17
+  last_number: 19
   last_year: 2016
-  lock_version: 18
+  lock_version: 20
   name: Sales
   number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 02:06:31.357633000 Z
+  updated_at: 2016-11-20 22:12:25.306687000 Z
   updater_id: 1
   usage: sales
 sequences_002:
@@ -195,15 +195,15 @@ sequences_010:
   id: 10
   last_cweek: 46
   last_month: 11
-  last_number: 39
+  last_number: 44
   last_year: 2016
-  lock_version: 42
+  lock_version: 47
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 02:06:32.213857000 Z
+  updated_at: 2016-11-20 22:15:20.570612000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -238,15 +238,15 @@ sequences_013:
   id: 13
   last_cweek: 46
   last_month: 11
-  last_number: 4
+  last_number: 5
   last_year: 2016
-  lock_version: 5
+  lock_version: 6
   name: Perte ou profit
   number_format: E[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 02:06:36.424711000 Z
+  updated_at: 2016-11-20 22:15:36.369440000 Z
   updater_id: 1
   usage: gaps
 sequences_014:
@@ -255,15 +255,15 @@ sequences_014:
   id: 14
   last_cweek: 46
   last_month: 11
-  last_number: 1
+  last_number: 2
   last_year: 2016
-  lock_version: 4
+  lock_version: 5
   name: Encaissement
   number_format: R[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 01:44:42.841586000 Z
+  updated_at: 2016-11-20 22:10:52.938338000 Z
   updater_id: 1
   usage: incoming_payments
 sequences_015:
@@ -314,7 +314,7 @@ sequences_017:
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 01:46:16.813183000 Z
+  updated_at: 2016-11-20 22:14:52.571197000 Z
   updater_id: 1
   usage: outgoing_payments
 sequences_018:
@@ -336,15 +336,15 @@ sequences_019:
   id: 19
   last_cweek: 46
   last_month: 11
-  last_number: 2
+  last_number: 3
   last_year: 2016
-  lock_version: 7
+  lock_version: 8
   name: Achat
   number_format: A[year|4][month|2][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 01:45:41.111261000 Z
+  updated_at: 2016-11-20 22:15:20.524282000 Z
   updater_id: 1
   usage: purchases
 sequences_020:
@@ -353,15 +353,15 @@ sequences_020:
   id: 20
   last_cweek: 46
   last_month: 11
-  last_number: 6
+  last_number: 8
   last_year: 2016
-  lock_version: 10
+  lock_version: 12
   name: sales_invoices
   number_format: F[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 02:06:41.249411000 Z
+  updated_at: 2016-11-20 22:12:46.176646000 Z
   updater_id: 1
   usage: sales_invoices
 sequences_021:

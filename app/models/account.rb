@@ -382,10 +382,8 @@ class Account < Ekylibre::Record::Base
 
   def new_letter
     letter = last_letter
-    letter = letter.blank? ? 'AAA' : letter.succ
+    letter = letter.blank? ? 'A' : letter.succ
     update_column(:last_letter, letter)
-    # item = self.journal_entry_items.where("LENGTH(TRIM(letter)) > 0").order("letter DESC").first
-    # return (item ? item.letter.succ : "AAA")
     letter
   end
 

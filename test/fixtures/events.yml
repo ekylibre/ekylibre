@@ -570,7 +570,7 @@ events_041:
   updated_at: 2016-08-10 14:33:28.785502000 Z
   updater_id: 1
 events_042:
-  created_at: 2016-11-20 01:43:15.079964000 Z
+  created_at: 2016-11-20 22:08:58.322028000 Z
   creator_id: 1
   duration: 10
   id: 52
@@ -578,12 +578,12 @@ events_042:
   name: Enregistrement d’une vente
   nature: meeting
   restricted: false
-  started_at: 2016-11-20 01:43:15.066805000 Z
-  stopped_at: 2016-11-20 01:43:25.066805000 Z
-  updated_at: 2016-11-20 01:43:15.079964000 Z
+  started_at: 2016-11-20 22:08:58.307888000 Z
+  stopped_at: 2016-11-20 22:09:08.307888000 Z
+  updated_at: 2016-11-20 22:08:58.322028000 Z
   updater_id: 1
 events_043:
-  created_at: 2016-11-20 01:44:09.582711000 Z
+  created_at: 2016-11-20 22:10:17.219957000 Z
   creator_id: 1
   duration: 10
   id: 53
@@ -591,12 +591,12 @@ events_043:
   name: Enregistrement d’une vente
   nature: meeting
   restricted: false
-  started_at: 2016-11-20 01:44:09.577873000 Z
-  stopped_at: 2016-11-20 01:44:19.577873000 Z
-  updated_at: 2016-11-20 01:44:09.582711000 Z
+  started_at: 2016-11-20 22:10:17.214438000 Z
+  stopped_at: 2016-11-20 22:10:27.214438000 Z
+  updated_at: 2016-11-20 22:10:17.219957000 Z
   updater_id: 1
 events_044:
-  created_at: 2016-11-20 02:06:31.418935000 Z
+  created_at: 2016-11-20 22:11:25.120257000 Z
   creator_id: 1
   duration: 10
   id: 54
@@ -604,7 +604,33 @@ events_044:
   name: Enregistrement d’une vente
   nature: meeting
   restricted: false
-  started_at: 2016-11-20 02:06:31.402542000 Z
-  stopped_at: 2016-11-20 02:06:41.402542000 Z
-  updated_at: 2016-11-20 02:06:31.418935000 Z
+  started_at: 2016-11-20 22:11:25.115045000 Z
+  stopped_at: 2016-11-20 22:11:35.115045000 Z
+  updated_at: 2016-11-20 22:11:25.120257000 Z
+  updater_id: 1
+events_045:
+  created_at: 2016-11-20 22:12:15.459472000 Z
+  creator_id: 1
+  duration: 10
+  id: 55
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-11-20 22:12:15.454893000 Z
+  stopped_at: 2016-11-20 22:12:25.454893000 Z
+  updated_at: 2016-11-20 22:12:15.459472000 Z
+  updater_id: 1
+events_046:
+  created_at: 2016-11-20 22:12:25.349787000 Z
+  creator_id: 1
+  duration: 10
+  id: 56
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-11-20 22:12:25.345774000 Z
+  stopped_at: 2016-11-20 22:12:35.345774000 Z
+  updated_at: 2016-11-20 22:12:25.349787000 Z
   updater_id: 1

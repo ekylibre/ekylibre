@@ -2868,11 +2868,11 @@ preferences_241:
   created_at: 2015-05-30 19:58:55.614160000 Z
   creator_id: 1
   id: 241
-  lock_version: 7
+  lock_version: 8
   name: kujaku.feathers.backend-entities-index-1:0.default
   nature: string
-  string_value: ecekiel
-  updated_at: 2016-11-05 09:00:37.908511000 Z
+  string_value: ''
+  updated_at: 2016-11-20 22:09:53.340436000 Z
   updater_id: 1
   user_id: 1
 preferences_242:
@@ -4541,117 +4541,32 @@ preferences_393:
   updated_at: 2016-11-06 17:57:39.680824000 Z
 preferences_394:
   boolean_value: true
-  created_at: 2016-11-20 01:43:15.034215000 Z
+  created_at: 2016-11-20 22:08:58.272185000 Z
   creator_id: 1
   id: 394
   lock_version: 0
   name: catalog_price_item_addition_if_blank
   nature: boolean
-  updated_at: 2016-11-20 01:43:15.034215000 Z
+  updated_at: 2016-11-20 22:08:58.272185000 Z
   updater_id: 1
 preferences_395:
-  created_at: 2016-11-20 01:43:15.142479000 Z
+  created_at: 2016-11-20 22:08:58.389623000 Z
   creator_id: 1
   id: 395
   lock_version: 0
   name: client_account_radix
   nature: string
   string_value: ''
-  updated_at: 2016-11-20 01:43:15.142479000 Z
+  updated_at: 2016-11-20 22:08:58.389623000 Z
   updater_id: 1
 preferences_396:
-  created_at: 2016-11-20 01:44:56.506020000 Z
+  created_at: 2016-11-20 22:10:24.492281000 Z
   creator_id: 1
   id: 396
-  lock_version: 0
-  name: list._entities_list_incoming_parcels_tag
+  lock_version: 1
+  name: interface.janus.backend-entities-show-18.current_face
   nature: string
-  string_value: {}
-  updated_at: 2016-11-20 01:44:56.506020000 Z
-  updater_id: 1
-  user_id: 1
-preferences_397:
-  created_at: 2016-11-20 01:44:58.385873000 Z
-  creator_id: 1
-  id: 397
-  lock_version: 0
-  name: cobbler.accounts-show
-  nature: string
-  string_value: {}
-  updated_at: 2016-11-20 01:44:58.385873000 Z
-  updater_id: 1
-  user_id: 1
-preferences_398:
-  boolean_value: true
-  created_at: 2016-11-20 01:44:58.411712000 Z
-  creator_id: 1
-  id: 398
-  lock_version: 0
-  name: interface.kujakus.backend-accounts-show-17.collapsed
-  nature: boolean
-  updated_at: 2016-11-20 01:44:58.411712000 Z
-  updater_id: 1
-  user_id: 1
-preferences_399:
-  created_at: 2016-11-20 01:44:58.421598000 Z
-  creator_id: 1
-  id: 399
-  lock_version: 0
-  name: kujaku.feathers.backend-accounts-show-17:0.default
-  nature: string
-  updated_at: 2016-11-20 01:44:58.421598000 Z
-  updater_id: 1
-  user_id: 1
-preferences_400:
-  created_at: 2016-11-20 01:46:22.992379000 Z
-  creator_id: 1
-  id: 400
-  lock_version: 0
-  name: list._entities_list_outgoing_parcels_tag
-  nature: string
-  string_value: {}
-  updated_at: 2016-11-20 01:46:22.992379000 Z
-  updater_id: 1
-  user_id: 1
-preferences_401:
-  created_at: 2016-11-20 01:47:19.932343000 Z
-  creator_id: 1
-  id: 401
-  lock_version: 0
-  name: kujaku.feathers.backend-incoming_payments-index-1:0.default
-  nature: string
-  updated_at: 2016-11-20 01:47:19.932343000 Z
-  updater_id: 1
-  user_id: 1
-preferences_402:
-  created_at: 2016-11-20 01:47:24.407034000 Z
-  creator_id: 1
-  id: 402
-  lock_version: 0
-  name: kujaku.feathers.backend-outgoing_payments-index-1:0.default
-  nature: string
-  updated_at: 2016-11-20 01:47:24.407034000 Z
-  updater_id: 1
-  user_id: 1
-preferences_403:
-  created_at: 2016-11-20 02:02:37.204076000 Z
-  creator_id: 1
-  id: 403
-  lock_version: 0
-  name: cobbler.purchase_affairs-show
-  nature: string
-  string_value: {}
-  updated_at: 2016-11-20 02:02:37.204076000 Z
-  updater_id: 1
-  user_id: 1
-preferences_404:
-  created_at: 2016-11-20 02:02:44.443344000 Z
-  creator_id: 1
-  id: 404
-  lock_version: 0
-  name: cobbler.sale_affairs-show
-  nature: string
-  string_value: {}
-  updated_at: 2016-11-20 02:02:44.443344000 Z
+  string_value: cobbles
+  updated_at: 2016-11-20 22:10:24.498917000 Z
   updater_id: 1
   user_id: 1

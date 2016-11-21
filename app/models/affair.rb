@@ -345,9 +345,8 @@ class Affair < Ekylibre::Record::Base
   end
 
   def unletterable?
-    self.credit.zero? || unbalanced? || multi_thirds? ||
-      journal_entry_items_already_lettered? || journal_entry_items_unbalanced? ||
-      !match_with_accountancy?
+    unbalanced? || multi_thirds? || journal_entry_items_unbalanced? ||
+      journal_entry_items_already_lettered? || !match_with_accountancy?
   end
 
   def lettered?
@@ -388,8 +387,8 @@ class Affair < Ekylibre::Record::Base
 
   # Returns true if debit/credit are the same for third in journal entry items
   def match_with_accountancy?
-    letterable_journal_entry_items.sum(:debit) == credit &&
-      letterable_journal_entry_items.sum(:credit) == debit
+    letterable_journal_entry_items.sum(:real_debit) == credit &&
+      letterable_journal_entry_items.sum(:real_credit) == debit
   end
 
   # Returns true if many thirds are involved in this affair
