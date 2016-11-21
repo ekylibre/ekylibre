@@ -60,30 +60,31 @@ module Ekylibre
             code << "validate do\n"
             code << "  if self.#{reflection_name}\n"
             code << "    unless self.#{reflection_name}.currency == self.#{currency}\n"
+            code << "      raise 'Invalid currency in affair'\n"
             code << "      errors.add(:#{reflection_name}, :invalid_currency, got: self.#{currency}, expected: self.#{reflection_name}.currency)\n"
             code << "      errors.add(:#{foreign_key}, :invalid_currency, got: self.#{currency}, expected: self.#{reflection_name}.currency)\n"
             code << "    end\n"
             code << "  end\n"
-            # code << "  return true\n"
+            # code << "  true\n"
             code << "end\n"
 
-            # Updates affair if already given
-            code << "after_create do\n"
-            code << "  if self.#{reflection_name}\n"
-            code << "    self.#{reflection_name}.refresh!\n"
-            code << "  end\n"
-            # code << "  return true\n"
-            code << "end\n"
+            # # Updates affair if already given
+            # code << "after_create do\n"
+            # code << "  if self.#{reflection_name}\n"
+            # code << "    self.#{reflection_name}.refresh!\n"
+            # code << "  end\n"
+            # code << "  true\n"
+            # code << "end\n"
 
             # Create "empty" affair if missing before every save
             code << "after_save do\n"
             code << "  if self.#{reflection_name}\n"
             code << "    self.#{reflection_name}.refresh!\n"
             code << "  else\n"
-            code << "    #{reflection_name} = #{class_name}.create!(currency: self.#{currency}, third: self.deal_third)\n"
-            code << "    self.deal_with!(#{reflection_name})\n"
+            code << "    new_affair = #{class_name}.create!(currency: self.#{currency}, third: self.deal_third)\n"
+            code << "    self.deal_with!(new_affair)\n"
             code << "  end\n"
-            # code << "  return true\n"
+            # code << "  true\n"
             code << "end\n"
 
             # Refresh after each save

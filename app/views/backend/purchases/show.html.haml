@@ -38,8 +38,9 @@
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
 
-  - c.cobble :affair do
-    = affair_of(resource, default: 'OutgoingPayment')
+  - if resource.affair
+    - c.cobble :affair do
+      = affair_of(resource, default: 'OutgoingPayment')
 
   - if resource.parcels.any?
     - c.cobble :parcels, title: Purchase.human_attribute_name(:parcels) do

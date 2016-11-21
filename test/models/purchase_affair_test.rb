@@ -145,9 +145,11 @@ class PurchaseAffairTest < AffairTest
     end
     purchase = Purchase.create!(supplier: supplier, nature: nature, items: items)
     assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
+    assert purchase.affair, 'An affair should be present'
     assert_equal purchase.affair.debit, purchase.amount, 'Purchase amount should match exactly affair debit'
     purchase.invoice!
     purchase.reload
+    assert purchase.affair, 'An affair should be present after invoicing'
     assert purchase.journal_entry, 'A journal entry should exists after purchase invoicing'
     assert_equal purchase.affair.debit, purchase.amount, 'Purchase amount should match exactly affair debit'
     assert purchase.affair.unbalanced?,

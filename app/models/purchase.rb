@@ -144,15 +144,15 @@ class Purchase < Ekylibre::Record::Base
     self.amount = items.sum(:amount)
   end
 
-  after_update do
-    affair.reload_gaps if affair
-    true
-  end
-
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
+  end
+
+  after_update do
+    affair.reload_gaps if affair
+    true
   end
 
   after_create do

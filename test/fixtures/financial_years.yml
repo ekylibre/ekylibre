@@ -50,6 +50,7 @@ financial_years_001:
   lock_version: 0
   started_on: 1992-11-17
   stopped_on: 1993-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_002:
@@ -62,6 +63,7 @@ financial_years_002:
   lock_version: 0
   started_on: 2050-09-01
   stopped_on: 2051-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_003:
@@ -74,6 +76,7 @@ financial_years_003:
   lock_version: 0
   started_on: 1993-09-01
   stopped_on: 1994-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_004:
@@ -86,6 +89,7 @@ financial_years_004:
   lock_version: 0
   started_on: 1994-09-01
   stopped_on: 1995-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_005:
@@ -98,6 +102,7 @@ financial_years_005:
   lock_version: 0
   started_on: 1995-09-01
   stopped_on: 1996-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_006:
@@ -110,6 +115,7 @@ financial_years_006:
   lock_version: 0
   started_on: 1996-09-01
   stopped_on: 1997-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_007:
@@ -122,6 +128,7 @@ financial_years_007:
   lock_version: 0
   started_on: 1997-09-01
   stopped_on: 1998-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_008:
@@ -134,6 +141,7 @@ financial_years_008:
   lock_version: 0
   started_on: 1998-09-01
   stopped_on: 1999-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_009:
@@ -146,6 +154,7 @@ financial_years_009:
   lock_version: 0
   started_on: 1999-09-01
   stopped_on: 2000-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_010:
@@ -158,6 +167,7 @@ financial_years_010:
   lock_version: 0
   started_on: 2000-09-01
   stopped_on: 2001-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_011:
@@ -170,6 +180,7 @@ financial_years_011:
   lock_version: 0
   started_on: 2001-09-01
   stopped_on: 2002-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_012:
@@ -182,6 +193,7 @@ financial_years_012:
   lock_version: 0
   started_on: 2002-09-01
   stopped_on: 2003-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_013:
@@ -194,6 +206,7 @@ financial_years_013:
   lock_version: 0
   started_on: 2003-09-01
   stopped_on: 2004-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_014:
@@ -206,6 +219,7 @@ financial_years_014:
   lock_version: 0
   started_on: 2004-09-01
   stopped_on: 2005-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_015:
@@ -218,6 +232,7 @@ financial_years_015:
   lock_version: 0
   started_on: 2005-09-01
   stopped_on: 2006-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_016:
@@ -230,6 +245,7 @@ financial_years_016:
   lock_version: 0
   started_on: 2006-09-01
   stopped_on: 2007-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_017:
@@ -242,6 +258,7 @@ financial_years_017:
   lock_version: 0
   started_on: 2007-09-01
   stopped_on: 2008-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_018:
@@ -254,6 +271,7 @@ financial_years_018:
   lock_version: 0
   started_on: 2008-09-01
   stopped_on: 2009-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_019:
@@ -266,6 +284,7 @@ financial_years_019:
   lock_version: 0
   started_on: 2009-09-01
   stopped_on: 2010-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_020:
@@ -278,6 +297,7 @@ financial_years_020:
   lock_version: 0
   started_on: 2010-09-01
   stopped_on: 2011-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_021:
@@ -290,6 +310,7 @@ financial_years_021:
   lock_version: 0
   started_on: 2011-09-01
   stopped_on: 2012-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_022:
@@ -302,6 +323,7 @@ financial_years_022:
   lock_version: 0
   started_on: 2012-09-01
   stopped_on: 2013-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_023:
@@ -314,6 +336,7 @@ financial_years_023:
   lock_version: 0
   started_on: 2013-09-01
   stopped_on: 2014-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_024:
@@ -326,6 +349,7 @@ financial_years_024:
   lock_version: 0
   started_on: 2014-09-01
   stopped_on: 2015-08-31
+  tax_declaration_mode: payment
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_025:
@@ -339,6 +363,7 @@ financial_years_025:
   lock_version: 0
   started_on: 2015-09-01
   stopped_on: 2016-08-31
+  tax_declaration_mode: payment
   updated_at: 2016-01-22 13:21:22.066344000 Z
   updater_id: 1
 financial_years_026:
@@ -352,5 +377,6 @@ financial_years_026:
   lock_version: 0
   started_on: 2016-09-01
   stopped_on: 2017-08-31
+  tax_declaration_mode: payment
   updated_at: 2016-10-26 15:31:38.071593000 Z
   updater_id: 1
