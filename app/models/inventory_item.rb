@@ -42,6 +42,8 @@ class InventoryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :product_movement, dependent: :destroy
   has_one :variant, class_name: 'ProductNatureVariant', through: :product
+  has_one :nature, class_name: 'ProductNature', through: :product
+  has_one :category, class_name: 'ProductNatureCategory', through: :product
   has_one :container, through: :product
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

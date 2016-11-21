@@ -1,5 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
+  = t.new_inventory params: { controller: :inventories, action: :new, product_nature_variant_id: resource.id }, icon: false, label: :new_inventory.tl
 
 = main_informations attachment: true do
   = infos do
