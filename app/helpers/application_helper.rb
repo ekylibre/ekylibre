@@ -303,7 +303,7 @@ module ApplicationHelper
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
           options[:url][:id] ||= record.id
-          #  raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
+          # raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
       elsif value.is_a? Nomen::Item
@@ -373,7 +373,7 @@ module ApplicationHelper
     code = ''
     items = attribute_list.items # .delete_if { |x| x[0] == :custom_fields }
     if items.any?
-      for item in items
+      items.each do |item|
         label, value = if item[0] == :custom
                          attribute_item(*item[1])
                        elsif item[0] == :attribute
@@ -424,6 +424,7 @@ module ApplicationHelper
 
   def dropdown_toggle_button(name = nil, options = {})
     class_attribute = 'btn btn-default dropdown-toggle'
+    class_attribute << ' ' + options[:class].to_s unless options[:class].blank?
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
@@ -464,8 +465,15 @@ module ApplicationHelper
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
+    if options[:class]
+      if item_options[:class]
+        item_options[:class] << ' ' + options[:class].to_s
+      else
+        item_options[:class] = options[:class].to_s
+      end
+    end
     item_options[:tool] = options[:icon] if options.key?(:icon)
-    html_options = { class: 'btn-group' }
+    html_options = { class: 'btn-group' + (options[:dropup] ? ' dropup' : '') }
     html_options[:class] << ' ' + options[:class].to_s if options[:class]
     html_options[:id] = options[:id] if options[:id]
     content_tag(:div, html_options) do
@@ -482,7 +490,7 @@ module ApplicationHelper
                 (default_item.args.third || {}).merge(item_options),
                 &default_item.block)
       else
-        dropdown_toggle_button(name, icon: options[:icon], disable_with: options[:disable_with]) +
+        dropdown_toggle_button(name, options.slice(:icon, :disable_with, :class)) +
           dropdown_menu(menu.list)
       end
     end

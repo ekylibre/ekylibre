@@ -73,7 +73,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :purchases, dependent: :nullify
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
-  has_many :bank_statement, through: :useful_items
+  has_many :bank_statements, through: :useful_items
   accepts_nested_attributes_for :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -164,7 +164,7 @@ class JournalEntry < Ekylibre::Record::Base
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.real_currency = journal.currency if journal
-    if self.financial_year = FinancialYear.at(printed_on)
+    if printed_on? && (self.financial_year = FinancialYear.at(printed_on))
       self.currency = financial_year.currency
     end
     if real_currency && financial_year
@@ -266,8 +266,8 @@ class JournalEntry < Ekylibre::Record::Base
     self.class.state_label(self.state)
   end
 
-  def main_bank_statement_number
-    bank_statement.first.number if bank_statement.count > 0
+  def bank_statement_number
+    bank_statements.first.number if bank_statements.first
   end
 
   # determines if the entry is balanced or not.
@@ -365,6 +365,7 @@ class JournalEntry < Ekylibre::Record::Base
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
     attributes[:team_id] = options[:team].id if options[:team]
+    attributes[:tax_id] = options[:tax].id if options[:tax]
     # attributes[:real_currency] = self.journal.currency
     if credit
       attributes[:real_credit] = amount.abs

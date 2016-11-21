@@ -941,10 +941,14 @@ arb:
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       purchase: "الشراء"
+      purchase_affair: "قضية شراء"
+      purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
       role: "الدور"
       sale: "البيع"
+      sale_affair: "بيع القضية"
+      sale_gap: "الفجوة بيع"
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
       sale_opportunity: "فرصة بيع"
@@ -1990,6 +1994,7 @@ arb:
     published: "تم نشره" #?
     purchasable: "للشراء"
     purchase: "شراء"
+    purchase_affair: "قضية شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
@@ -2355,6 +2360,8 @@ arb:
     use_tactics: "استخدام تقنيات إدارة المحاصيل"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
+    used_for_permanent_stock_inventory: "تستخدم لجرد مخزون دائم"
+    used_for_unbilled_payables: "تستخدم لالدائنة غير المفوترة"
     used_intervention_parameters: "المعلمات تدخل مستعملة"
     useful_items: "المواد المفيدة"
     user: "المستخدم"
@@ -2890,6 +2897,8 @@ arb:
         invoice: "فاتورة"
         order: "طلب"
         refused: "أجل رفض"
+    purchase_gap:
+      # bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
@@ -2935,6 +2944,8 @@ arb:
         invoice: "فاتورة"
         order: "طلب"
         refused: "تقدير رفض"
+    sale_gap:
+      # bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{building}, هذا ويحتوي %{contained_product} "
       can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "

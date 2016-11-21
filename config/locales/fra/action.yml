@@ -1612,6 +1612,7 @@ fra:
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
     period: "Période prédéfinie"
     periods: "Périodes"
+    permanent_stock_inventory: "Inventaire des stocks permanent"
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
@@ -1677,6 +1678,7 @@ fra:
     products: "Produits"
     profile: "Profil"
     profitability: "Rentabilité" #?
+    profits_and_losses: "Les profits et pertes"
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
@@ -2012,6 +2014,7 @@ fra:
       waiting: "En attente" #?
     treatment: "Traitement" #?
     true: "Vrai" #?
+    unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
@@ -2384,6 +2387,10 @@ fra:
       synchronization_operation_failed: "L'opération %{operation_name} a échoué: %{target} %{message}"
       synchronization_operation_finished_successfully: "L'opération %{operation_name} s’est finie correctement"
       synchronization_operation_in_progress: "L'opération %{operation_name} est en cours"
+      the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "Le lettrage automatique ne peut pas être fait en comptabilité parce qu’il a déjà été fait par un utilisateur"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "Le lettrage automatique ne peut pas être fait en comptabilité parce que certaines transactions ne sont pas encore comptabilisées"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       this_service_is_not_activated: "Ce service n'est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"

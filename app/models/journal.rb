@@ -22,20 +22,22 @@
 #
 # == Table: journals
 #
-#  closed_on        :date             not null
-#  code             :string           not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  currency         :string           not null
-#  custom_fields    :jsonb
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  nature           :string           not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  used_for_affairs :boolean          default(FALSE), not null
-#  used_for_gaps    :boolean          default(FALSE), not null
+#  closed_on                          :date             not null
+#  code                               :string           not null
+#  created_at                         :datetime         not null
+#  creator_id                         :integer
+#  currency                           :string           not null
+#  custom_fields                      :jsonb
+#  id                                 :integer          not null, primary key
+#  lock_version                       :integer          default(0), not null
+#  name                               :string           not null
+#  nature                             :string           not null
+#  updated_at                         :datetime         not null
+#  updater_id                         :integer
+#  used_for_affairs                   :boolean          default(FALSE), not null
+#  used_for_gaps                      :boolean          default(FALSE), not null
+#  used_for_permanent_stock_inventory :boolean          default(FALSE), not null
+#  used_for_unbilled_payables         :boolean          default(FALSE), not null
 #
 
 class Journal < Ekylibre::Record::Base
@@ -53,16 +55,15 @@ class Journal < Ekylibre::Record::Base
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
   validates :currency, :nature, presence: true
-  validates :used_for_affairs, :used_for_gaps, inclusion: { in: [true, false] }
+  validates :used_for_affairs, :used_for_gaps, :used_for_permanent_stock_inventory, :used_for_unbilled_payables, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :code, length: { allow_nil: true, maximum: 4 }
   validates :nature, length: { allow_nil: true, maximum: 30 }
-  validates :code, uniqueness: true
+  validates :code, uniqueness: true, format: { with: /\A[A-Z0-9]+\z/ }, length: { maximum: 4 }
   validates :name, uniqueness: true
-  validates :code, format: { with: /\A[\dA-Z]+\z/ }
 
-  selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
+  selects_among_all :used_for_affairs, :used_for_gaps, :used_for_unbilled_payables, if: :various?, scope: :currency
+  selects_among_all :used_for_permanent_stock_inventory, if: :stocks?, scope: :currency
 
   scope :used_for, lambda { |nature|
     unless Journal.nature.values.include?(nature.to_s)
@@ -95,8 +96,13 @@ class Journal < Ekylibre::Record::Base
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = nature.l if code.blank?
-    self.code = code.codeize[0..3]
+    if code =~ /\A\?+\z/
+      self.code = nature.l.codeize.gsub(/[^\d[A-Z]]+/, '')[0..[3, code.size - 1].min]
+      code.succ! while Journal.where('code = ? AND id != ?', code, id || 0).any?
+    elsif code.blank?
+      self.code = nature.l
+    end
+    self.code = code.codeize.gsub(/[^\d[A-Z]]+/, '')[0..3]
   end
 
   validate do
@@ -132,6 +138,27 @@ class Journal < Ekylibre::Record::Base
 
     def used_for_affairs
       find_by(used_for_affairs: true)
+    end
+
+    def used_for_gaps!(attributes = {})
+      attributes[:name] ||= :profits_and_losses.tl
+      attributes[:code] ||= '??'
+      attributes[:nature] ||= :various
+      Journal.create_with(attributes).find_or_create_by!(used_for_gaps: true)
+    end
+
+    def used_for_permanent_stock_inventory!(attributes = {})
+      attributes[:name] ||= :permanent_stock_inventory.tl
+      attributes[:code] ||= '??'
+      attributes[:nature] ||= :stocks
+      Journal.create_with(attributes).find_or_create_by!(used_for_permanent_stock_inventory: true)
+    end
+
+    def used_for_unbilled_payables!(attributes = {})
+      attributes[:name] ||= :unbilled_payables.tl
+      attributes[:code] ||= '??'
+      attributes[:nature] ||= :various
+      Journal.create_with(attributes).find_or_create_by!(used_for_unbilled_payables: true)
     end
 
     # Load default journal if not exist

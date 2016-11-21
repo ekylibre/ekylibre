@@ -5,14 +5,26 @@ module Backend
     end
 
     def affair_deals(affair, options = {})
+      types = if affair.is_a?(SaleAffair)
+                %w(Sale IncomingPayment)
+              elsif affair.is_a?(PurchaseAffair)
+                %w(Purchase OutgoingPayment)
+              else
+                (Affair.affairable_types - %w(Gap PurchaseGap SaleGap))
+              end
+      current_deal = options[:current_deal]
+      if current_deal && (current_deal.is_a?(Sale) || current_deal.is_a?(Purchase))
+        types.reverse!
+      end
       locals = {
-        current_deal: options[:current_deal],
+        current_deal: current_deal,
         affair: affair,
-        types: (Affair.affairable_types - %w(Gap))
+        types: types
       }
       if options[:default]
         unless locals[:types].include? options[:default]
-          raise 'Invalid default deal type: #{options[:default].inspect}. Expecting one of: ' + locals[:types].to_sentence
+          locals[:types] << options[:default]
+          # raise 'Invalid default deal type: ' + options[:default].inspect + '. Expecting one of: ' + locals[:types].to_sentence
         end
         locals[:default_type] = options[:default]
       else

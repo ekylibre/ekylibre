@@ -143,10 +143,14 @@
 - product_population
 - product_reading
 - purchase
+- purchase_affair
+- purchase_gap
 - purchase_item
 - purchase_nature
 - role
 - sale
+- sale_affair
+- sale_gap
 - sale_item
 - sale_nature
 - sale_opportunity

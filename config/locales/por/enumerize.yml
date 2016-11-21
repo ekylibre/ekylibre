@@ -37,10 +37,6 @@ por:
       mode:
         harvested: "Colheita época de semeadura"
         sowed: "semeadura provisória"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     analysis:
       retrieval_status:
         controller_error: "Erro de controlador"
@@ -156,9 +152,6 @@ por:
       direction:
         loss: "Perda"
         profit: "Lucro"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     georeading:
       nature:
         line: "Linha" #?
@@ -417,14 +410,6 @@ por:
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     sensor:
       retrieval_mode:
         integration: "Integração"

@@ -36,10 +36,6 @@ eng:
       mode:
         harvested: "From harvesting date"
         sowed: "From sowing date"
-    affair:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
@@ -151,9 +147,6 @@ eng:
       direction:
         loss: "Loss"
         profit: "Profit"
-      entity_role:
-        client: "Client"
-        supplier: "Supplier"
     georeading:
       nature:
         linestring: "Linestring"
@@ -383,18 +376,18 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    sale_opportunity:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
-    sale_ticket:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
+    sale_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     sensor:
       retrieval_mode:
         integration: "Integration"

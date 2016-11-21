@@ -157,11 +157,15 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      for usage in [:stock, :purchase]
+      [:stock, :purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        unless catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
+               unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          variant.catalog_items.create!(
+            catalog: catalog,
+            amount: unit_pretax_amount, currency: currency
+          )
         end
       end
     end

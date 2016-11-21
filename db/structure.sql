@@ -721,7 +721,7 @@ CREATE TABLE affairs (
     type character varying,
     state character varying,
     probability_percentage numeric(19,4) DEFAULT 0.0,
-    third_role character varying NOT NULL
+    letter character varying
 );
 
 
@@ -2469,7 +2469,6 @@ CREATE TABLE gaps (
     direction character varying NOT NULL,
     affair_id integer,
     entity_id integer NOT NULL,
-    entity_role character varying NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     currency character varying NOT NULL,
@@ -2479,7 +2478,8 @@ CREATE TABLE gaps (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    type character varying
 );
 
 
@@ -3419,6 +3419,10 @@ CREATE TABLE journal_entry_items (
     activity_budget_id integer,
     team_id integer,
     tax_declaration_item_id integer
+    tax_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -3459,7 +3463,9 @@ CREATE TABLE journals (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
+    used_for_unbilled_payables boolean DEFAULT false NOT NULL
 );
 
 
@@ -12176,6 +12182,13 @@ CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_ent
 
 
 --
+-- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_id ON journal_entry_items USING btree (tax_id);
+
+
+--
 -- Name: index_journal_entry_items_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16441,4 +16454,9 @@ INSERT INTO schema_migrations (version) VALUES ('20161114112858');
 INSERT INTO schema_migrations (version) VALUES ('20161115163443');
 
 INSERT INTO schema_migrations (version) VALUES ('20161115173801');
+
+INSERT INTO schema_migrations (version) VALUES ('20161118150610');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120153801');
+
 

@@ -22,6 +22,105 @@ module Backend
   class TrialBalancesController < Backend::BaseController
     def show
       @balance = Journal.trial_balance(params) if params[:period]
+      respond_to do |format|
+        format.html
+        format.ods do
+          send_data(
+            trial_balance_to_ods_export(@balance).bytes,
+            filename: "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}.ods"
+          )
+        end
+      end
+    end
+
+    protected
+
+    def trial_balance_to_ods_export(balance)
+      require 'odf/spreadsheet'
+      output = ODF::Spreadsheet.new
+      view = view_context
+
+      output.instance_eval do
+        office_style :head, family: :cell do
+          property :text, 'font-weight': :bold
+          property :paragraph, 'text-align': :center
+        end
+
+        office_style :right, family: :cell do
+          property :paragraph, 'text-align': :right
+        end
+
+        office_style :bold, family: :cell do
+          property :text, 'font-weight': :bold
+        end
+
+        office_style :italic, family: :cell do
+          property :text, 'font-style': :italic
+        end
+
+        currency = Preference[:currency]
+
+        table human_action_name do
+          row do
+            cell JournalEntryItem.human_attribute_name(:account_number), style: :head
+            cell JournalEntryItem.human_attribute_name(:account_name), style: :head
+            cell :total.tl, style: :head, span: 2
+            cell :balance.tl, style: :head, span: 2
+          end
+
+          row do
+            cell ''
+            cell ''
+            cell JournalEntry.human_attribute_name(:debit), style: :head
+            cell JournalEntry.human_attribute_name(:credit), style: :head
+            cell JournalEntry.human_attribute_name(:debit), style: :head
+            cell JournalEntry.human_attribute_name(:credit), style: :head
+          end
+
+          balance.each do |item|
+            if item[1].to_i > 0
+              account = Account.find(item[1])
+              row do
+                cell account.number
+                cell account.name
+                cell (item[2]).l, type: :float
+                cell (item[3]).l, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, type: :float
+              end
+
+            elsif item[1].to_i == -1
+              row do
+                cell ''
+                cell :total.tl, style: :bold
+                cell (item[2]).l, style: :bold, type: :float
+                cell (item[3]).l, style: :bold, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :bold, type: :float
+              end
+            elsif item[1].to_i == -2
+              row do
+                cell
+                cell :subtotal.tl(name: item[0]).l, style: :right
+                cell (item[2]).l, style: :bold, type: :float
+                cell (item[3]).l, style: :bold, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :bold, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :bold, type: :float
+              end
+            elsif item[1].to_i == -3
+              row do
+                cell item[0], style: :italic
+                cell :centralized_account.tl(name: item[0]).l, style: :italic
+                cell (item[2]).l, style: :italic, type: :float
+                cell (item[3]).l, style: :italic, type: :float
+                cell (item[4].to_f > 0 ? item[4].to_f : 0).l, style: :italic, type: :float
+                cell (item[4].to_f < 0 ? -item[4].to_f : 0).l, style: :italic, type: :float
+              end
+            end
+          end
+        end
+      end
+      output
     end
   end
 end

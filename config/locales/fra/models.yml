@@ -424,10 +424,14 @@ fra:
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       purchase: "Achat"
+      purchase_affair: "Affaire d’achat"
+      purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
       role: "Rôle"
       sale: "Vente"
+      sale_affair: "Affaire de vente"
+      sale_gap: "Écart sur vente"
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
@@ -1346,6 +1350,7 @@ fra:
     provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
+    purchase_affair: "Affaire d’achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
@@ -1643,6 +1648,8 @@ fra:
     use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
+    used_for_permanent_stock_inventory: "Utilisé pour l’inventaire de stock permanent"
+    used_for_unbilled_payables: "Utilisé pour factures non parvenues"
     used_intervention_parameters: "Paramètres d’intervention d’occasion"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
@@ -1901,6 +1908,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
+    purchase_gap:
+      bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -1939,6 +1948,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"
+    sale_gap:
+      bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "

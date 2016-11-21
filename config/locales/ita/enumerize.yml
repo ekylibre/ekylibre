@@ -36,10 +36,6 @@ ita:
       mode:
         harvested: "Harvest data di semina"
         sowed: "Data provvisoria di semina"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     analysis:
       retrieval_status:
         controller_error: "Errore del controller"
@@ -154,9 +150,6 @@ ita:
       direction:
         loss: "Perdita"
         profit: "Profitto"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     georeading:
       nature:
         line: "linea" #?
@@ -404,14 +397,6 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     sensor:
       retrieval_mode:
         integration: "Integrazione"

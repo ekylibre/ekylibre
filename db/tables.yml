@@ -593,6 +593,8 @@ affairs:
   journal_entry_id:
     type: integer
     references: journal_entry
+  letter:
+    type: string
   lock_version:
     type: integer
     required: true
@@ -619,9 +621,6 @@ affairs:
   third_id:
     type: integer
     references: entity
-    required: true
-  third_role:
-    type: string
     required: true
   type:
     type: string
@@ -2600,9 +2599,6 @@ gaps:
     type: integer
     references: entity
     required: true
-  entity_role:
-    type: string
-    required: true
   id:
     type: integer
     required: true
@@ -2623,6 +2619,8 @@ gaps:
   printed_at:
     type: datetime
     required: true
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -3751,6 +3749,11 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  absolute_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   account_id:
     type: integer
     references: account
@@ -3827,6 +3830,11 @@ journal_entry_items:
     required: true
   position:
     type: integer
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   printed_on:
     type: date
     required: true
@@ -3853,12 +3861,20 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  real_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   state:
     type: string
     required: true
   tax_declaration_item_id:
     type: integer
     references: tax_declaration_item
+  tax_id:
+    type: integer
+    references: tax
   team_id:
     type: integer
     references: team
@@ -3909,6 +3925,14 @@ journals:
     required: true
     default: false
   used_for_gaps:
+    type: boolean
+    required: true
+    default: false
+  used_for_permanent_stock_inventory:
+    type: boolean
+    required: true
+    default: false
+  used_for_unbilled_payables:
     type: boolean
     required: true
     default: false

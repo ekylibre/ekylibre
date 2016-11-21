@@ -36,6 +36,9 @@ module Backend
     def self.entities_conditions
       code = ''
       code = search_conditions(entities: [:number, :full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+
+      code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
+
       code << "unless params[:state].blank?\n"
       code << "  if params[:state].include?('client')\n"
       code << "    c[0] << ' AND #{Entity.table_name}.client IS TRUE'\n"

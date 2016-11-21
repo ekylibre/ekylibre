@@ -301,10 +301,14 @@ eng:
       product_population: "Product population"
       product_reading: "Product reading"
       purchase: "Purchase"
+      purchase_affair: "Purchase affair"
+      purchase_gap: "Purchase gap"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
       role: "Role"
       sale: "Sale"
+      sale_affair: "Sale affair"
+      sale_gap: "Sale gap"
       sale_item: "Sale item"
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"
@@ -338,14 +342,15 @@ eng:
     absolute_measure_value: "Absolute measure value"
     absolute_measure_value_unit: "Absolute measure value unit"
     absolute_measure_value_value: "Absolute measure value value"
+    # absolute_pretax_amount: "Absolute pretax amount"
     absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     absorber: "Absorber" #?
     acceptance_status: "Acceptance status"
     access_parameters: "Access parameters"
     account: "Account"
     account_balances: "Account balances"
-    account_name: "Account name" #?
-    account_number: "Account number" #?
+    account_name: "Account name"
+    account_number: "Account number"
     accountable: "Accountable"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
@@ -1116,6 +1121,7 @@ eng:
     provisional_intervention: "Provisional intervention" #?
     purchasable: "Purchasable"
     purchase: "Purchase"
+    purchase_affair: "Purchase affair" #?
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"
     purchase_item: "Purchase item"
@@ -1145,6 +1151,7 @@ eng:
     real_currency: "Original currency"
     real_currency_rate: "Original currency rate"
     real_debit: "Original debit"
+    # real_pretax_amount: "Real pretax amount"
     receipt: "Receipt"
     received: "Received"
     received_at: "Received at" #?
@@ -1396,6 +1403,8 @@ eng:
     use_tactics: "Use cropping techniques"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
+    used_for_permanent_stock_inventory: "Used for permanent stock inventory"
+    used_for_unbilled_payables: "Used for unbilled payables"
     used_intervention_parameters: "Used intervention parameters"
     useful_items: "Useful items"
     user: "User"
@@ -1638,6 +1647,8 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused order"
+    purchase_gap:
+      bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1676,6 +1687,8 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused estimate"
+    sale_gap:
+      bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"

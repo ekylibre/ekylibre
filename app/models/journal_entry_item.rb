@@ -25,6 +25,7 @@
 #  absolute_credit           :decimal(19, 4)   default(0.0), not null
 #  absolute_currency         :string           not null
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
+#  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
 #  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
@@ -47,14 +48,17 @@
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
 #  position                  :integer
+#  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
+#  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -78,9 +82,10 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement
+  belongs_to :tax
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
   validates :bank_statement_letter, :letter, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -96,6 +101,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # validates :letter, uniqueness: { scope: :account_id }, if: Proc.new {|x| !x.letter.blank? }
 
   delegate :balanced?, to: :entry, prefix: true
+  delegate :name, :number, to: :account, prefix: true
 
   acts_as_list scope: :entry
 
@@ -137,12 +143,14 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.real_credit ||= 0
     if entry
       self.entry_number = entry.number
-      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
+      [:financial_year_id, :printed_on, :journal_id, :state, :currency,
+       :absolute_currency, :real_currency, :real_currency_rate].each do |replicated|
         send("#{replicated}=", entry.send(replicated))
       end
       unless closed?
         self.debit  = entry.real_currency.to_currency.round(self.real_debit * real_currency_rate)
         self.credit = entry.real_currency.to_currency.round(self.real_credit * real_currency_rate)
+        self.pretax_amount = entry.real_currency.to_currency.round(real_pretax_amount * real_currency_rate)
       end
     end
 
@@ -150,9 +158,11 @@ class JournalEntryItem < Ekylibre::Record::Base
     if absolute_currency == currency
       self.absolute_debit = debit
       self.absolute_credit = credit
+      self.absolute_pretax_amount = pretax_amount
     elsif absolute_currency == real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
+      self.absolute_pretax_amount = real_pretax_amount
     else
       # FIXME: We need to do something better when currencies don't match
       raise "You create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
@@ -184,6 +194,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     #   return
     # end
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
+    errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
+    errors.add(:absolute_credit, :unvalid_amounts) if absolute_debit.nonzero? && absolute_credit.nonzero?
   end
 
   after_save do
