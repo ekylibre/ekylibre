@@ -8081,7 +8081,6 @@ journal_entry_items_268:
   financial_year_id: 26
   id: 486
   journal_id: 3
-  letter: A
   lock_version: 0
   name: "[Facture F2016000004] Lait de vache et Lait de vache pour M.  Περικλῆς (SO000000000015)"
   position: 1
@@ -8262,7 +8261,6 @@ journal_entry_items_274:
   financial_year_id: 26
   id: 492
   journal_id: 2
-  letter: A
   lock_version: 0
   name: "[Encaissement R2016000001] By check  de M.  Περικλῆς"
   position: 2
@@ -8293,7 +8291,6 @@ journal_entry_items_275:
   financial_year_id: 26
   id: 493
   journal_id: 3
-  letter: A
   lock_version: 0
   name: "[Facture F2016000005] Lait de vache pour M. Gendo IKARI (SO000000000016)"
   position: 1
@@ -8414,7 +8411,6 @@ journal_entry_items_279:
   financial_year_id: 26
   id: 497
   journal_id: 2
-  letter: A
   lock_version: 0
   name: "[Encaissement R2016000002] By check  de M. Gendo IKARI"
   position: 2
@@ -8445,7 +8441,6 @@ journal_entry_items_280:
   financial_year_id: 26
   id: 498
   journal_id: 3
-  letter: B
   lock_version: 0
   name: "[Facture F2016000006] Lait de vache pour M. Gendo IKARI (SO000000000017)"
   position: 1
@@ -8536,7 +8531,6 @@ journal_entry_items_283:
   financial_year_id: 26
   id: 501
   journal_id: 1
-  letter: B
   lock_version: 0
   name: "[Le profit E000000000004] M. Gendo IKARI"
   position: 1
@@ -8627,7 +8621,6 @@ journal_entry_items_286:
   financial_year_id: 26
   id: 504
   journal_id: 3
-  letter: A
   lock_version: 0
   name: "[Facture F2016000007] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
     (SO000000000018)"
@@ -8721,7 +8714,6 @@ journal_entry_items_289:
   financial_year_id: 26
   id: 507
   journal_id: 3
-  letter: A
   lock_version: 0
   name: "[Facture F2016000008] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
     (SO000000000019)"
@@ -8875,7 +8867,6 @@ journal_entry_items_294:
   financial_year_id: 26
   id: 512
   journal_id: 4
-  letter: A
   lock_version: 0
   name: "[Achat A201611000002] Semence mixte de Taurus Plus"
   position: 3
@@ -8906,7 +8897,6 @@ journal_entry_items_295:
   financial_year_id: 26
   id: 513
   journal_id: 6
-  letter: A
   lock_version: 0
   name: "[Décaissement D20160005] En espèce  pour Taurus Plus"
   position: 1
