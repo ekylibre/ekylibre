@@ -202,6 +202,7 @@ class Sale < Ekylibre::Record::Base
 
   after_create do
     client.add_event(:sale_creation, updater.person) if updater && updater.person
+    true
   end
 
   protect on: :destroy do
@@ -221,7 +222,7 @@ class Sale < Ekylibre::Record::Base
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     list = []
     if with_accounting && invoice?
       parcels.each do |parcel|
