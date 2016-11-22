@@ -50,12 +50,12 @@ class PurchaseGap < Gap
   end
 
   bookkeep do |b|
-    b.journal_entry(Journal.used_for_gaps!(currency: currency),
+    b.journal_entry(unsuppress { Journal.used_for_gaps!(currency: currency) },
                     printed_on: printed_on, unless: amount.zero?) do |entry|
       label = tc(:bookkeep, resource: direction.l, number: number, supplier: supplier.full_name)
       entry.add_debit(label, supplier.account(:supplier).id, amount)
       items.each do |item|
-        entry.add_credit(label, Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses), item.pretax_amount)
+        entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses) }, item.pretax_amount)
         entry.add_credit(label, profit? ? item.tax.collect_account_id : item.tax.deduction_account_id, item.taxes_amount)
       end
     end

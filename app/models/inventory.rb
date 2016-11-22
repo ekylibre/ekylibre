@@ -77,7 +77,7 @@ class Inventory < Ekylibre::Record::Base
   bookkeep do |b|
     if financial_year
 
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
+      stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
       first_started_at = stock_journal.entries.reorder(:printed_on).first.printed_on.to_time if stock_journal.entries.any?
       fy_started_at = first_started_at || financial_year.started_on.to_time
       fy_stopped_at = financial_year.stopped_on.to_time

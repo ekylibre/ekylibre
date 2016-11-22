@@ -187,7 +187,7 @@ class Parcel < Ekylibre::Record::Base
   # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     # For purchase_not_received or sale_not_emitted
-    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     list = []
     if Preference[:permanent_stock_inventory] && given?
       label = tc(:undelivered_invoice,
@@ -205,7 +205,7 @@ class Parcel < Ekylibre::Record::Base
                              column: :undelivered_invoice_entry_id)
 
     # For permanent stock inventory
-    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
     list = []
     if Preference[:permanent_stock_inventory] && given?
       label = tc(:bookkeep, resource: self.class.model_name.human,

@@ -202,6 +202,7 @@ class Sale < Ekylibre::Record::Base
 
   after_create do
     client.add_event(:sale_creation, updater.person) if updater && updater.person
+    true
   end
 
   protect on: :destroy do
@@ -221,7 +222,7 @@ class Sale < Ekylibre::Record::Base
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     list = []
     if with_accounting && invoice?
       parcels.each do |parcel|
@@ -238,7 +239,7 @@ class Sale < Ekylibre::Record::Base
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
     list = []
     if with_accounting && invoice? && items.any?
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)

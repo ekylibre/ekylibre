@@ -312,7 +312,7 @@ class Intervention < Ekylibre::Record::Base
   # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
 
     list = []
     if Preference[:permanent_stock_inventory] && record?
