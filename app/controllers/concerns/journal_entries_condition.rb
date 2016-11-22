@@ -20,10 +20,6 @@ module JournalEntriesCondition
         code << "[0] += ' AND (#{JournalEntry.table_name}.journal_id=?)'\n"
         code << "c << params[:id]\n"
       end
-      if options[:tax_declaration_item_id]
-        code << "[0] += ' AND (#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE tax_declaration_item_id=?))'\n"
-        code << "c << '#{options[:tax_declaration_item_id]}'\n"
-      end
       if options[:state]
         code << "c[0] += ' AND (#{JournalEntry.table_name}.state=?)'\n"
         code << "c << '#{options[:state]}'\n"
