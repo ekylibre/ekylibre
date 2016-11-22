@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -289,7 +289,8 @@ CREATE TABLE intervention_parameters (
     component_id integer,
     assembly_id integer,
     currency character varying,
-    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    dead boolean DEFAULT false
 );
 
 
@@ -5510,7 +5511,8 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb
+    codes jsonb,
+    amount_reference character varying
 );
 
 
@@ -16419,9 +16421,13 @@ INSERT INTO schema_migrations (version) VALUES ('20161115163443');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118150610');
 
+INSERT INTO schema_migrations (version) VALUES ('20161118152710');
+
 INSERT INTO schema_migrations (version) VALUES ('20161120153801');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121033801');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121171401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122143751');
 

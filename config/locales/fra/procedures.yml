@@ -1,4 +1,6 @@
 fra:
+  killables:
+    is_plant_destroyed_by_this_intervention: "La culture est détruite par cette intervention ?"
   procedure_handlers:
     dry_matter_mass: "Masse de matière sèche" #?
     dry_matter_mass_area_density: "Masse de matière sèche par surface" #?

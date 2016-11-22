@@ -552,6 +552,7 @@ spa:
     customized_type: "Tipo personalizado"
     daily_nitrogen_production: "La producción diaria de nitrógeno"
     dashboards: "Cuadros de mando"
+    # dead: "Dead"
     dead_at: "Muerto en"
     dead_line_at: "Línea de muertos en"
     deals_count: "Ofertas cuentan"

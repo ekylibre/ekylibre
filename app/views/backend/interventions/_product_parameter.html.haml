@@ -55,6 +55,7 @@
             = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
           - else
             = product_parameter.quantity.round(2).l(precision: 0)
+      %p= 'DESTROYED' if product_parameter.dead
   - elsif variant
     .picture
       - if variant.picture.file?

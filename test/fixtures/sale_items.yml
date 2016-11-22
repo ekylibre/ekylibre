@@ -25,6 +25,7 @@
 #  account_id           :integer
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
+#  amount_reference     :string
 #  annotation           :text
 #  codes                :jsonb
 #  created_at           :datetime         not null

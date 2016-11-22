@@ -3274,6 +3274,9 @@ intervention_parameters:
     references: user
   currency:
     type: string
+  dead:
+    type: boolean
+    default: false
   event_participation_id:
     type: integer
     references: event_participation
@@ -6283,6 +6286,8 @@ sale_items:
     precision: 19
     scale: 4
     required: true
+  amount_reference:
+    type: string
   annotation:
     type: text
   codes:
