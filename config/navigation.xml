@@ -1871,6 +1871,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="journal_entry_items">
+        <page to="backend/journal_entry_items#index"/>
+        <page to="backend/journal_entry_items#list"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

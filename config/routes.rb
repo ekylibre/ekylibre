@@ -594,7 +594,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :journal_entry_items, only: [:new, :show], concerns: [:unroll]
+    resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
 
     resources :kujakus, only: [] do
       member do

@@ -386,6 +386,7 @@ eng:
       new: "New entry"
       show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      # index: "Journal entry items"
       new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:

@@ -108,6 +108,8 @@
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
 #     - "backend/januses#toggle"
+#     - "backend/journal_entry_items#index"
+#     - "backend/journal_entry_items#list"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#list_trackings"
 #     - "backend/land_parcels#take"

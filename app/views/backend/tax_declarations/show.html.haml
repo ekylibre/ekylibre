@@ -51,7 +51,7 @@
             %td.decimal= number_to_percentage(item.tax.amount)
             - columns.each do |column|
               %td.decimal
-                .tax-amount= item.send("#{column}_tax_amount").l(currency: item.currency)
+                .tax-amount= link_to(item.send("#{column}_tax_amount").l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id})
                 %small.pretax-amount= item.send("#{column}_pretax_amount").l(currency: item.currency)
 
   -# c.cobble :affair do
