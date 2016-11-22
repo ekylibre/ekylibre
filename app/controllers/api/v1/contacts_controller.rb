@@ -2,7 +2,6 @@ module Api
   module V1
     # Contacts API permits to access contacts
     class ContactsController < Api::V1::BaseController
-      skip_after_action :log_response
 
       def index
         @contacts = Entity.includes(direct_links: :linked)
@@ -17,7 +16,8 @@ module Api
             contact.picture.reprocess! :contact
           end
 
-          send_file(contact.picture.path(:contact))
+          f = File.read(contact.picture.path(:contact))
+          render json: { picture: Base64::strict_encode64(f) }
         else
           head :not_found
         end
