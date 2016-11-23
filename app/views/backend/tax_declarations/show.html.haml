@@ -90,7 +90,7 @@
             %td.decimal= item.real_credit.l(currency: item.real_currency)
             %td
               - if item.tax
-                = link_to(item.tax.label, { controller: :taxes, action: :show, id: item.tax_id })
+                = link_to(item.tax.name, { controller: :taxes, action: :show, id: item.tax_id })
               - else
                 = "-"
 
