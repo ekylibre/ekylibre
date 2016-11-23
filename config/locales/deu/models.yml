@@ -1215,6 +1215,7 @@ deu:
     root_model_name: "Root-Modellnamen"
     root_node: "Wurzelknoten"
     root_parameters: "root-Parameter"
+    # rows_count_value: "Rows count"
     sale: "Verkauf"
     sale_credit: "Verkauf Kredit"
     sale_item: "Verkauf Artikel"
@@ -1434,6 +1435,7 @@ deu:
     working_duration: "Arbeitsdauer"
     working_periods: "Arbeitszeiten"
     working_shape: "Arbeitsform" #?
+    # working_width_value: "Implanter application width"
     working_zone: "Arbeitszone"
     working_zone_area: "Arbeitszonenbereich"
     zone_memberships: "Zone Mitgliedschaften"
