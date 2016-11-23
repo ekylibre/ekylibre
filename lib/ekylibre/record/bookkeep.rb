@@ -24,7 +24,14 @@ module Ekylibre
         end
 
         def journal_entry(journal, options = {})
-          column = options.delete(:column) || :journal_entry_id
+          prism = options.delete(:as)
+          column = options.delete(:column)
+          if prism.blank?
+            prism ||= resource.class.name.underscore
+            column ||= :journal_entry_id
+          else
+            column ||= "#{prism}_journal_entry_id".to_sym
+          end
           if (options.keys & [:if, :unless, :list]).size > 1
             raise ArgumentError, 'Options :if, :unless and :list are incompatible.'
           end

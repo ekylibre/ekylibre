@@ -1130,6 +1130,15 @@ ita:
     journal_entries: "voci di diario"
     journal_entries_states: "Stati di voci"
     journal_entry_items: "articoli voce di diario"
+    journal_entry_items_with_undeclared_taxes:
+      # other: "%{count} journal entry items with undeclared taxes"
+      # zero: "%{count} journal entry item with undeclared taxes"
+    journal_entry_items_with_unidentified_expenses:
+      # other: "%{count} journal entry items with unidentified expenses"
+      # zero: "%{count} journal entry item with unidentified expenses"
+    journal_entry_items_with_unidentified_revenues:
+      # other: "%{count} journal entry items with unidentified revenues"
+      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "Inserimenti"

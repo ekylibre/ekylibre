@@ -22,9 +22,10 @@ module Backend
 
     def self.journal_entry_items_conditions
       code = ''
-      code << search_conditions() + ';'
+      code << search_conditions + ';'
       code << "if params[:tax_declaration_item_id]\n"
-      code << "  c[0] += ' AND (#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE tax_declaration_item_id=?))'\n"
+      # code << "  c[0] += ' AND (#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE tax_declaration_item_id=?))'\n"
+      code << "  c[0] += ' AND tax_declaration_item_id = ?'\n"
       code << "  c << params[:tax_declaration_item_id]\n"
       code << "end\n"
       code << "unless params[:period].blank? or params[:period]='all'\n"
@@ -47,10 +48,11 @@ module Backend
       t.column :debit,  currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
       t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
+      t.column :pretax_amount, currency: true
+      t.column :tax, url: true
     end
 
     def index
-
     end
 
     def new

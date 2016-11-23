@@ -65,4 +65,8 @@ class LoanRepayment < Ekylibre::Record::Base
       entry.add_credit(label, cash.account_id, amount)
     end
   end
+
+  def number
+    loan.name + ' ' + position.to_s
+  end
 end

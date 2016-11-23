@@ -147,6 +147,21 @@ class TaxDeclaration < Ekylibre::Record::Base
     :stop
   end
 
+  # FIXME: Too french
+  def undeclared_tax_journal_entry_items
+    JournalEntryItem.includes(:entry, account: [:collected_taxes, :paid_taxes]).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on, tax_declaration_item: nil).where('accounts.number LIKE ?', '445%')
+  end
+
+  # FIXME: Too french
+  def unidentified_revenues_journal_entry_items
+    JournalEntryItem.includes(:entry, :account).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on).where('accounts.number LIKE ? AND journal_entry_items.resource_id is null', '7%')
+  end
+
+  # FIXME: Too french
+  def unidentified_expenses_journal_entry_items
+    JournalEntryItem.includes(:entry, :account).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on).where('accounts.number LIKE ? AND journal_entry_items.resource_id is null', '6%')
+  end
+
   def deductible_tax_amount_balance
     items.map(&:deductible_tax_amount).compact.sum
   end

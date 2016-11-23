@@ -2016,7 +2016,7 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
-    quantity_gap_on_invoice_entry: "دخول الفجوة كمية الأسهم"
+    quantity_gap_on_invoice_journal_entry: "دخول الفجوة كمية الأسهم"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
     quantity_indicator_name: "الكمية اسم المؤشر"
@@ -2102,6 +2102,7 @@ arb:
     reset_password_token: "رمز إعادة تعيين كلمة المرور"
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
+    # resource_prism: "Resource prism"
     resource_type: "نوع المصدر"
     responses: "الردود"
     responsible: "المسؤول"
@@ -2333,7 +2334,7 @@ arb:
     type: "النوع"
     # uid: "UID"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
-    undelivered_invoice_entry: "دخول فاتورة غير المسلمة"
+    undelivered_invoice_journal_entry: "دخول فاتورة غير المسلمة"
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
     unit_amount: "كمية وحدة"

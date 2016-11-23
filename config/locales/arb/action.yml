@@ -1459,6 +1459,15 @@ arb:
     journal_entries_states: "الولايات إدخالات"
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
+    journal_entry_items_with_undeclared_taxes:
+      # other: "%{count} journal entry items with undeclared taxes"
+      # zero: "%{count} journal entry item with undeclared taxes"
+    journal_entry_items_with_unidentified_expenses:
+      # other: "%{count} journal entry items with unidentified expenses"
+      # zero: "%{count} journal entry item with unidentified expenses"
+    journal_entry_items_with_unidentified_revenues:
+      # other: "%{count} journal entry items with unidentified revenues"
+      # zero: "%{count} journal entry item with unidentified revenues"
     journal_name: "%{name}"
     journal_record_update: "تعديل العينات" #?
     journal_update: "تعديل الفاتر اليومية" #?

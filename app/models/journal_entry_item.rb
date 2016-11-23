@@ -56,6 +56,9 @@
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  resource_id               :integer
+#  resource_prism            :string
+#  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
 #  tax_id                    :integer
@@ -87,7 +90,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
-  validates :bank_statement_letter, :letter, length: { maximum: 500 }, allow_blank: true
+  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -148,9 +151,9 @@ class JournalEntryItem < Ekylibre::Record::Base
         send("#{replicated}=", entry.send(replicated))
       end
       unless closed?
-        self.debit  = entry.real_currency.to_currency.round(self.real_debit * real_currency_rate)
-        self.credit = entry.real_currency.to_currency.round(self.real_credit * real_currency_rate)
-        self.pretax_amount = entry.real_currency.to_currency.round(real_pretax_amount * real_currency_rate)
+        self.debit  = entry.currency.to_currency.round(self.real_debit * real_currency_rate)
+        self.credit = entry.currency.to_currency.round(self.real_credit * real_currency_rate)
+        self.pretax_amount = entry.currency.to_currency.round(real_pretax_amount * real_currency_rate)
       end
     end
 

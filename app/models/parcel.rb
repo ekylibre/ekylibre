@@ -70,7 +70,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
@@ -202,7 +202,7 @@ class Parcel < Ekylibre::Record::Base
       end
     end
     b.journal_entry(journal, printed_on: printed_on, list: list,
-                             column: :undelivered_invoice_entry_id)
+                             column: :undelivered_invoice_journal_entry_id)
 
     # For permanent stock inventory
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }

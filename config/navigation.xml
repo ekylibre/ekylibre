@@ -119,6 +119,8 @@
         <page to="backend/journal_entries#list"/>
         <page to="backend/journal_entries#unroll"/>
         <page to="backend/journal_entry_items#new"/>
+        <page to="backend/journal_entry_items#index"/>
+        <page to="backend/journal_entry_items#list"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
       </item>
@@ -1871,11 +1873,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="journal_entry_items">
-        <page to="backend/journal_entry_items#index"/>
-        <page to="backend/journal_entry_items#list"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
