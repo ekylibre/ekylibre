@@ -29,7 +29,7 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
           account_number = ACCOUNT_LABELS[accounting_system][@type][:number]
           label = ACCOUNT_LABELS[accounting_system][@type][:label]
           if concerned_categories_count.nonzero?
-            fitting_account = find_account(account_number)['id']
+            fitting_account = find_account(account_number)
             create_account(account_number, label) unless fitting_account.present?
             new_account_id = find_account(account_number)['id']
 
@@ -48,7 +48,7 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
   end
 
   def find_account(number)
-    select_one("SELECT * FROM accounts WHERE accounts.name = '#{number}'")
+    select_one("SELECT * FROM accounts WHERE accounts.number = '#{number}'")
   end
 
   def concerned_categories_count
