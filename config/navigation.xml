@@ -652,6 +652,8 @@
         <page to="backend/plant_density_abaci#new"/>
         <page to="backend/plant_density_abaci#show"/>
         <page to="backend/plant_density_abaci#update"/>
+        <page to="backend/plant_density_abacus_items#new"/>
+        <page to="backend/plant_density_abacus_items#unroll"/>
         <page to="backend/wine_tanks#index"/>
         <page to="backend/wine_tanks#list"/>
         <page to="backend/fungi#index"/>
@@ -835,6 +837,7 @@
         <page to="backend/plants#list_inspections"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_parcel_items"/>
+        <page to="backend/plants#list_plant_countings"/>
         <page to="backend/plants#list_readings"/>
         <page to="backend/plants#list_intervention_product_parameters"/>
         <page to="backend/plants#list_issues"/>
@@ -1881,14 +1884,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="plant_density_abacus_items">
-        <page to="backend/plant_density_abacus_items#new"/>
-        <page to="backend/plant_density_abacus_items#unroll"/>
-      </item>
-      <item name="plants">
-        <page to="backend/plants#list_plant_countings"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

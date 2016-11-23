@@ -280,8 +280,8 @@ spa:
         prepared: "Preparado" #?
     plant_counting:
       nature:
-        # germination: "At germination"
-        # sowing: "At sowing"
+        germination: "En la germinación"
+        sowing: "En la siembra"
     preference:
       nature:
         accounting_system: "Sistema de contabilidad"

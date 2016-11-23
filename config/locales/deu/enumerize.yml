@@ -280,8 +280,8 @@ deu:
         prepared: "Bereit" #?
     plant_counting:
       nature:
-        # germination: "At germination"
-        # sowing: "At sowing"
+        germination: "Bei der Keimung"
+        sowing: "Bei Aussaat"
     preference:
       nature:
         accounting_system: "Abrechnungssystem"

@@ -280,8 +280,8 @@ ita:
         prepared: "Preparato" #?
     plant_counting:
       nature:
-        # germination: "At germination"
-        # sowing: "At sowing"
+        germination: "A germinazione"
+        sowing: "Alla semina"
     preference:
       nature:
         accounting_system: "Sistema di contabilità"

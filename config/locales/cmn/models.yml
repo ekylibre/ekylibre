@@ -39,15 +39,15 @@ cmn:
       plant:
         born_at: "在种植"
       plant_counting:
-        # plant: "Product"
-        # plant_activity: "Activity"
-        # rows_count_value: "Rows count"
-        # working_width_value: "Implanter application width"
+        plant: "产品"
+        plant_activity: "活动"
+        rows_count_value: "行数"
+        working_width_value: "注入的应用宽度"
       plant_counting_item:
-        # value: "Plants count"
+        value: "植物计数"
       plant_density_abacus_item:
-        # plants_count: "Expected plants count"
-        # seeding_density_value: "Expected seeding density"
+        plants_count: "预计算的植物"
+        seeding_density_value: "预计播种密度"
       purchase:
         affair_balance: "平衡"
       sale:

@@ -39,15 +39,15 @@ spa:
       plant:
         born_at: "Plantado en"
       plant_counting:
-        # plant: "Product"
-        # plant_activity: "Activity"
-        # rows_count_value: "Rows count"
-        # working_width_value: "Implanter application width"
+        plant: "Producto"
+        plant_activity: "Actividad"
+        rows_count_value: "Las filas cuentan"
+        working_width_value: "Anchura de aplicación implantador"
       plant_counting_item:
-        # value: "Plants count"
+        value: "Las plantas cuentan"
       plant_density_abacus_item:
-        # plants_count: "Expected plants count"
-        # seeding_density_value: "Expected seeding density"
+        plants_count: "Instalaciones que se espera contar"
+        seeding_density_value: "Densidad de siembra esperado"
       purchase:
         affair_balance: "Equilibrar"
       sale:

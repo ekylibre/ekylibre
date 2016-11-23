@@ -2115,12 +2115,12 @@ fra:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-    x_countings:
-      one: "%{count} comptage"
-      other: "%{count} comptages"
     x_contracts:
       one: "%{count} contrat"
       other: "%{count} contrats"
+    x_countings:
+      one: "%{count} comptage"
+      other: "%{count} comptages"
     x_days:
       one: "%{count} jour"
       other: "%{count} jours"

@@ -1749,12 +1749,12 @@ eng:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-    x_countings:
-      one: "%{count} counting"
-      other: "%{count} countings"
     x_contracts:
       one: "%{count} contract"
       other: "%{count} contracts"
+    x_countings:
+      one: "%{count} counting"
+      other: "%{count} countings"
     x_days:
       one: "%{count} day"
       other: "%{count} days"

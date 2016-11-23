@@ -282,8 +282,8 @@ por:
         prepared: "Preparado" #?
     plant_counting:
       nature:
-        # germination: "At germination"
-        # sowing: "At sowing"
+        germination: "Na germinação"
+        sowing: "Na semeadura"
     preference:
       nature:
         accounting_system: "Sistema de contabilidade"

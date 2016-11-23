@@ -393,8 +393,8 @@ deu:
       # show: "%{nature} parcel: %{number}"
     backend/plant_countings:
       # edit: "Edit plant counting #%{number}"
-      # index: "Countings"
-      # new: "New counting"
+      index: "Zählungen"
+      new: "Neue Zählen"
       # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
@@ -766,7 +766,7 @@ deu:
     # automatic: "Auto"
     available: "Erhältlich"
     # available_columns: "Available columns: %{columns}"
-    # average: "Average"
+    average: "Durchschnittlich"
     back: "Zurück zur vorherigen Seite"
     # balance: "Balance"
     bank_account: "Bank Konto"
@@ -1250,8 +1250,8 @@ deu:
     placeholder: "Platzhalter"
     places: "Setzt"
     plant: "Pflanze"
-    # plant_counting: "Counting"
-    # plant_countings: "Countings"
+    plant_counting: "Zählen"
+    plant_countings: "Zählungen"
     plantation_density: "Pflanzdichte"
     plants: "Pflanzen"
     please_wait: "Warten Sie mal…"
@@ -1548,12 +1548,12 @@ deu:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
-    x_countings:
-      # one: "%{count} counting"
-      # other: "%{count} countings"
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1709,7 +1709,7 @@ deu:
       closed_financial_years: "Das Geschäftsjahr wurde erfolgreich abgeschlossen"
       columns_are_already_uses: "oft werden eine oder mehrere Spalten ausgewählt"
       dashboard_is_being_developed: "Dashboard ist stark in der Entwicklung"
-      # density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      density_is_not_computable_in_counting: "Konnte die Dichte für diese Zählung berechnen. Die fehlenden Werte sollten bei der Auszählung der Eigenschaften oder der Sämann der Indikatoren abgeschlossen sein."
       draft_journal_entries_have_been_validated:
         one: "Ein Eintrag wurde validiert"
         # other: "%{count} entries have been validated"

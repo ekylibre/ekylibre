@@ -430,8 +430,8 @@ spa:
       # show: "%{nature} parcel: %{number}"
     backend/plant_countings:
       # edit: "Edit plant counting #%{number}"
-      # index: "Countings"
-      # new: "New counting"
+      index: "Los recuentos"
+      new: "Nuevo recuento"
       # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
@@ -836,7 +836,7 @@ spa:
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
-    # average: "Average"
+    average: "Promedio"
     back: "Volver a la página anterior"
     backup: "Salvaguardiar" #?
     backups: "Salvaguardias" #?
@@ -1428,8 +1428,8 @@ spa:
     placeholder: "Marcador de posición"
     places: "Lugares"
     plant: "Planta"
-    # plant_counting: "Counting"
-    # plant_countings: "Countings"
+    plant_counting: "Contando"
+    plant_countings: "Los recuentos"
     plantation_density: "La densidad de plantación"
     plants: "Plantas"
     please_wait: "Por favor espera…"
@@ -1788,12 +1788,12 @@ spa:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
-    x_countings:
-      # one: "%{count} counting"
-      # other: "%{count} countings"
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1953,7 +1953,7 @@ spa:
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
-      # density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
       draft_entries_are_validated:  #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?

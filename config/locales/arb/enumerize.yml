@@ -279,8 +279,8 @@ arb:
         prepared: "أعدت" #?
     plant_counting:
       nature:
-        # germination: "At germination"
-        # sowing: "At sowing"
+        germination: "في إنبات"
+        sowing: "في البذر"
     preference:
       nature:
         accounting_system: "نظام المحاسبة"

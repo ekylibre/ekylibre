@@ -398,8 +398,8 @@ por:
       # show: "%{nature} parcel: %{number}"
     backend/plant_countings:
       # edit: "Edit plant counting #%{number}"
-      # index: "Countings"
-      # new: "New counting"
+      index: "Contagens"
+      new: "Nova contagem"
       # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
@@ -771,7 +771,7 @@ por:
     # automatic: "Auto"
     available: "Disponível"
     # available_columns: "Available columns: %{columns}"
-    # average: "Average"
+    average: "Média"
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
     bank_account: "Conta bancária"
@@ -1255,8 +1255,8 @@ por:
     placeholder: "Espaço reservado"
     places: "Locais"
     plant: "Plantar"
-    # plant_counting: "Counting"
-    # plant_countings: "Countings"
+    plant_counting: "Contando"
+    plant_countings: "Contagens"
     plantation_density: "Densidade de plantação"
     plants: "Culturas"
     please_wait: "Por favor, espere…"
@@ -1553,12 +1553,12 @@ por:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
-    x_countings:
-      # one: "%{count} counting"
-      # other: "%{count} countings"
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1714,7 +1714,7 @@ por:
       closed_financial_years: "O exercício foi encerrado com sucesso"
       columns_are_already_uses: "Uma ou várias colunas são selecionadas muitas vezes"
       dashboard_is_being_developed: "Painel está sob forte desenvolvimento"
-      # density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      density_is_not_computable_in_counting: "Não foi possível calcular a densidade para esta contagem. Os valores em falta deve ser concluída nas propriedades da contagem ou indicadores do semeador."
       draft_journal_entries_have_been_validated:
         one: "Uma entrada foi validada"
         # other: "%{count} entries have been validated"

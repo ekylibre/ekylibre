@@ -39,15 +39,15 @@ jpn:
       plant:
         born_at: "で植え"
       plant_counting:
-        # plant: "Product"
-        # plant_activity: "Activity"
-        # rows_count_value: "Rows count"
-        # working_width_value: "Implanter application width"
+        plant: "製品"
+        plant_activity: "アクティビティ"
+        rows_count_value: "行はカウント"
+        working_width_value: "注入の塗布幅"
       plant_counting_item:
-        # value: "Plants count"
+        value: "植物は数えます"
       plant_density_abacus_item:
-        # plants_count: "Expected plants count"
-        # seeding_density_value: "Expected seeding density"
+        plants_count: "期待される植物は数えます"
+        seeding_density_value: "予想播種密度"
       purchase:
         affair_balance: "バランス"
       sale:
