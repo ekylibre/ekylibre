@@ -77,7 +77,7 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
             '  WHERE pnca.number IS NOT NULL' \
             '    AND pnc.storable = TRUE' \
             "    AND COALESCE(pnv.#{@type}_account_id, 0) NOT IN (SELECT id FROM accounts)" \
-            "    AND pnca.number || pnv.number NOT IN (SELECT number FROM accounts)"
+            '    AND pnca.number || pnv.number NOT IN (SELECT number FROM accounts)'
   end
 
   def reference_new_account_in_concerned_variants

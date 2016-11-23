@@ -63,8 +63,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
-  belongs_to :stock_account, class_name: 'Account', dependent: :destroy
+  belongs_to :stock_movement_account, class_name: 'Account'
+  belongs_to :stock_account, class_name: 'Account'
 
   has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
@@ -137,15 +137,22 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || has_accounts?
+      parcel_items.any?
   end
 
   before_validation on: :create do
-    self.number = if ProductNatureVariant.any?
-                    ProductNatureVariant.order(number: :desc).first.number.succ
-                  else
-                    '00000001'
-                  end
+    if ProductNatureVariant.any?
+      self.category = nature.category if nature
+      if category
+        num = ProductNatureVariant.order('number::INTEGER DESC').first.number.to_i.to_s.rjust(6, '0').succ
+        while Account.where(number: [category.stock_movement_account.number + num, category.stock_account.number + num]).any? || ProductNatureVariant.where(number: num).any?
+          num.succ!
+        end
+        self.number = num
+      end
+    else
+      self.number = '000001'
+    end
   end
 
   before_validation do # on: :create
@@ -199,11 +206,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
         errors.add(:derivative_of, :invalid)
       end
     end
-  end
-
-  def has_accounts?
-    return false unless storable?
-    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
   end
 
   # create unique account for stock management in accountancy
