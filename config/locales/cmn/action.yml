@@ -313,6 +313,7 @@ cmn:
       new: "新条目"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "日记条目项目"
       new: "新的入口项"
       # show: "Journal entry item: %{name}"
     backend/journals:

@@ -1198,7 +1198,7 @@ jpn:
     reset_password_sent_at: "で送信されたパスワードをリセット"
     reset_password_token: "パスワードトークンをリセット"
     resource: "リソース"
-    # resource_prism: "Resource prism"
+    resource_prism: "リソースプリズム"
     resource_type: "リソースタイプ"
     responses: "反応"
     responsible: "責任"

@@ -1229,7 +1229,7 @@ ita:
     reset_password_sent_at: "Reimpostare la password inviata a"
     reset_password_token: "Token reimpostazione della password"
     resource: "Risorsa"
-    # resource_prism: "Resource prism"
+    resource_prism: "Prisma delle risorse"
     resource_type: "tipo di risorsa"
     responses: "Risposte"
     responsible: "Responsabile"

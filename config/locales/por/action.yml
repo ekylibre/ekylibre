@@ -318,6 +318,7 @@ por:
       new: "Nova entrada"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "Itens de entrada de diário"
       new: "Item de nova entrada"
       # show: "Journal entry item: %{name}"
     backend/journals:

@@ -339,6 +339,7 @@ spa:
       new: "Añadir una pieza"
       show: "Pieza contable N°%{number}"
     backend/journal_entry_items:
+      index: "Artículos entrada de diario"
       new: "Nuevo elemento de la entrada"
       # show: "Journal entry item: %{name}"
     backend/journals:

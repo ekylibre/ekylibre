@@ -313,6 +313,7 @@ deu:
       new: "Neuer Eintrag"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "Journaleintrag Artikel"
       new: "Neuer Eintrag Artikel"
       # show: "Journal entry item: %{name}"
     backend/journals:

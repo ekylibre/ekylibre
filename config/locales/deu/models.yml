@@ -1198,7 +1198,7 @@ deu:
     reset_password_sent_at: "Passwort zurücksetzen gesendet an"
     reset_password_token: "Reset Password Token"
     resource: "Ressource"
-    # resource_prism: "Resource prism"
+    resource_prism: "Ressourcen Prisma"
     resource_type: "Ressourcentyp"
     responses: "Antworten"
     responsible: "Verantwortlich"

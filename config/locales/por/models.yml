@@ -1198,7 +1198,7 @@ por:
     reset_password_sent_at: "Redefinir a senha enviada pelo"
     reset_password_token: "Token de redefinição de senha"
     resource: "Recurso"
-    # resource_prism: "Resource prism"
+    resource_prism: "Prisma de recursos"
     resource_type: "Tipo de recurso"
     responses: "Respostas"
     responsible: "Responsável"

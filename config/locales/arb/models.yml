@@ -2112,7 +2112,7 @@ arb:
     reset_password_token: "رمز إعادة تعيين كلمة المرور"
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
-    # resource_prism: "Resource prism"
+    resource_prism: "منظور الموارد"
     resource_type: "نوع المصدر"
     responses: "الردود"
     responsible: "المسؤول"

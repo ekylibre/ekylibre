@@ -1464,7 +1464,7 @@ fra:
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
     resource: "Ressource"
-    # resource_prism: "Resource prism"
+    resource_prism: "Prisme de ressources"
     resource_type: "Type de ressource"
     responses: "Réponses"
     responsible: "Responsable"

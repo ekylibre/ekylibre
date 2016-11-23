@@ -313,6 +313,7 @@ ita:
       new: "Nuovo arrivato"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "Articoli voce di diario"
       new: "Nuova voce di entrata"
       # show: "Journal entry item: %{name}"
     backend/journals:

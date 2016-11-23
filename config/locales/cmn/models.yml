@@ -1198,7 +1198,7 @@ cmn:
     reset_password_sent_at: "在重置密码发送"
     reset_password_token: "重置密码令牌"
     resource: "资源"
-    # resource_prism: "Resource prism"
+    resource_prism: "资源棱镜"
     resource_type: "资源类型"
     responses: "回复"
     responsible: "主管"

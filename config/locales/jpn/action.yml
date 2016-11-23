@@ -313,6 +313,7 @@ jpn:
       new: "新規参入"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "仕訳項目"
       new: "新しいエントリ項目"
       # show: "Journal entry item: %{name}"
     backend/journals:

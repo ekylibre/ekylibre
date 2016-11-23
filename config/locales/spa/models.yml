@@ -1202,7 +1202,7 @@ spa:
     reset_password_sent_at: "Restablecer la contraseña enviada al"
     reset_password_token: "Contador de restablecimiento de contraseña"
     resource: "Recurso"
-    # resource_prism: "Resource prism"
+    resource_prism: "Prisma de recursos"
     resource_type: "Tipo de recurso"
     responses: "Respuestas"
     responsible: "Responsable"

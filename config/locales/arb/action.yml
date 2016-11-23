@@ -373,6 +373,7 @@ arb:
       new: "اضافة سجل"
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
+      index: "البنود إدخال دفتر اليومية"
       new: "البند قيد جديد"
       # show: "Journal entry item: %{name}"
     backend/journals:
