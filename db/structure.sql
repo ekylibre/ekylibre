@@ -8575,6 +8575,13 @@ CREATE INDEX index_accounts_on_creator_id ON accounts USING btree (creator_id);
 
 
 --
+-- Name: index_accounts_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_accounts_on_number ON accounts USING btree (number);
+
+
+--
 -- Name: index_accounts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16438,10 +16445,9 @@ INSERT INTO schema_migrations (version) VALUES ('20161121033801');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121171401');
 
-INSERT INTO schema_migrations (version) VALUES ('20161122203438');
-
 INSERT INTO schema_migrations (version) VALUES ('20161122155003');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122161646');
 
+INSERT INTO schema_migrations (version) VALUES ('20161122203438');
 

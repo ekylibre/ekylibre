@@ -69,7 +69,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '  WHERE je.id = jei.entry_id' \
                 '    AND jei.account_id = e.supplier_account_id'
 
-        execute "UPDATE journal_entries SET resource_prism = 'purchase' WHERE resource_type = 'Purchase' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('supplier', 'item_product', 'item_tax'))"
+        execute "UPDATE journal_entries AS je SET resource_prism = 'purchase' WHERE resource_type = 'Purchase' AND je.id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('supplier', 'item_product', 'item_tax'))"
 
         # purchase_gap
         execute 'UPDATE journal_entry_items AS jei' \
@@ -104,7 +104,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 "  WHERE je.id = jei.entry_id AND g.type = 'PurchaseGap'" \
                 '    AND jei.account_id = e.supplier_account_id'
 
-        execute "UPDATE journal_entries SET resource_prism = 'purchase_gap' FROM gaps AS g WHERE resource_type = 'Gap' AND resource_id = g.id AND g.type = 'SaleGap' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('supplier', 'item_product', 'item_tax'))"
+        execute "UPDATE journal_entries AS je SET resource_prism = 'purchase_gap' FROM gaps AS g WHERE resource_type = 'Gap' AND resource_id = g.id AND g.type = 'SaleGap' AND je.id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('supplier', 'item_product', 'item_tax'))"
 
         # sale
         execute 'UPDATE journal_entry_items AS jei' \
@@ -139,7 +139,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '  WHERE je.id = jei.entry_id' \
                 '    AND jei.account_id = e.client_account_id'
 
-        execute "UPDATE journal_entries SET resource_prism = 'sale' WHERE resource_type = 'Sale' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('client', 'item_product', 'item_tax'))"
+        execute "UPDATE journal_entries AS je SET resource_prism = 'sale' WHERE resource_type = 'Sale' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('client', 'item_product', 'item_tax'))"
 
         # sale_gap
         execute 'UPDATE journal_entry_items AS jei' \
@@ -174,7 +174,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 "  WHERE je.id = jei.entry_id AND g.type = 'SaleGap'" \
                 '    AND jei.account_id = e.client_account_id'
 
-        execute "UPDATE journal_entries SET resource_prism = 'sale_gap' FROM gaps AS g WHERE resource_type = 'Gap' AND resource_id = g.id AND g.type = 'SaleGap' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('client', 'item_product', 'item_tax'))"
+        execute "UPDATE journal_entries AS je SET resource_prism = 'sale_gap' FROM gaps AS g WHERE resource_type = 'Gap' AND resource_id = g.id AND g.type = 'SaleGap' AND je.id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('client', 'item_product', 'item_tax'))"
 
         # tax_declaration
 
