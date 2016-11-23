@@ -199,7 +199,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '    JOIN journal_entries AS je ON s.journal_entry_id = je.id' \
                 '    JOIN taxes AS t ON si.tax_id = t.id' \
                 '  WHERE si.amount = si.pretax_amount' \
-                '    AND si.amount <> 0'
+                '    AND si.amount <> 0 AND t.collect_account_id IS NOT NULL'
 
         # Add missing null tax items for purchases
         execute 'INSERT INTO journal_entry_items' \
@@ -222,7 +222,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '    JOIN journal_entries AS je ON p.journal_entry_id = je.id' \
                 '    JOIN taxes AS t ON pi.tax_id = t.id' \
                 '  WHERE pi.amount = pi.pretax_amount' \
-                '    AND pi.amount <> 0'
+                '    AND pi.amount <> 0 AND CASE WHEN fixed THEN t.fixed_asset_deduction_account_id ELSE t.deduction_account_id END IS NOT NULL'
 
         # Add missing null tax items for profit gaps
         execute 'INSERT INTO journal_entry_items' \
@@ -245,7 +245,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '    JOIN journal_entries AS je ON p.journal_entry_id = je.id' \
                 '    JOIN taxes AS t ON gi.tax_id = t.id' \
                 '  WHERE gi.amount = gi.pretax_amount' \
-                '    AND gi.amount <> 0'
+                "    AND gi.amount <> 0 AND CASE WHEN direction = 'profit' THEN t.collect_account_id ELSE t.deduction_account_id END IS NOT NULL"
 
         # Updates conversion
         execute 'UPDATE journal_entry_items AS jei SET pretax_amount = real_pretax_amount * real_currency_rate WHERE tax_id IS NOT NULL'
