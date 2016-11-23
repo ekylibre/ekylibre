@@ -268,6 +268,13 @@ eng:
     backend/exports:
       index: "Exports"
       show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      # close: "Close financial year exchange: %{name}"
+      # journal_entries_export: "Journal entries export financial year exchange: %{name}"
+      journal_entries_import: "Financial year exchange import"
+      new: "New exchange"
+      # notify_accountant: "Notify accountant financial year exchange: %{name}"
+      show: "Exchange: %{stopped_on}"
     backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
@@ -779,6 +786,9 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    public/financial_year_exchange_exports:
+      # csv: "Csv financial year exchange export: %{name}"
+      # show: "Financial year exchange export: %{name}"
     public:
       index: "Home"
   errors:
@@ -1179,6 +1189,7 @@ eng:
     example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "Exchanges"
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
     expenses: "Expenses"
@@ -1382,6 +1393,7 @@ eng:
       one: "Make a deposit %{mode}: %{count} available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "New email"
+    new_financial_year_exchange: "New exchange"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_inventory: "New inventory"
@@ -1907,6 +1919,8 @@ eng:
       warning: "Warning!"
     messages:
       access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "The accountant has been notified"
+      accountant_without_email: "Please set the accountant email"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -1919,6 +1933,7 @@ eng:
       cannot_merge_entities: "It's impossible to merge these people."
       changes_have_been_reflected: "The changes have been reflected in the stocks state"
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
+      closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
@@ -1942,6 +1957,7 @@ eng:
       integrate_tools_you_are_using_every_day: "Integrate tools you are using every day"
       invalid_reference_name: "Invalid reference name"
       journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "The journal entries have been imported."
       journal_entry_already_validated: "The record has already been validated and can not be changed"
       journal_entry_has_been_saved: "The record %{number} has been successfully saved"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
@@ -2049,6 +2065,7 @@ eng:
       convert: "Convert"
       correct: "Correct"
       create: "Create"
+      # csv: "Csv"
       # current: "Current"
       destroy: "Destroy"
       detach: "Detach"
@@ -2072,6 +2089,9 @@ eng:
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
+      journal_entries_csv_export: "Download CSV" #?
+      # journal_entries_export: "Journal entries export"
+      journal_entries_import: "Import CSV"
       # last_locations: "Last locations"
       list: "List"
       load: "Load"
@@ -2085,6 +2105,7 @@ eng:
       # models: "Models"
       negociate: "Negociate"
       new: "New"
+      notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
       # passthru: "Passthru"

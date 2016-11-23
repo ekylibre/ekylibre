@@ -144,4 +144,42 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert item.valid?
     assert_nil item.bank_statement_letter
   end
+  test 'third party is the account client when the account has one client but neither supplier nor employee' do
+    item = journal_entry_items(:journal_entry_items_016)
+    assert_equal item.account.clients.count, 1
+    assert_equal item.account.suppliers.count, 0
+    assert_equal item.account.employees.count, 0
+    assert_equal item.third_party, entities(:entities_010)
+  end
+  test 'third party is the account supplier when the account has one supplier but neither client nor employee' do
+    item = journal_entry_items(:journal_entry_items_042)
+    assert_equal item.account.suppliers.count, 1
+    assert_equal item.account.clients.count, 0
+    assert_equal item.account.employees.count, 0
+    assert_equal item.third_party, entities(:entities_013)
+  end
+  test 'third party is the account employee when the account has one employee but neither client nor supplier' do
+    # TODO fixtures
+    # item = journal_entry_items(:journal_entry_items_XXX)
+    # assert_equal item.account.employees.count, 1
+    # assert_equal item.account.suppliers.count, 0
+    # assert_equal item.account.clients.count, 0
+    # assert_equal item.third_party, entities(:entities_XXX)
+  end
+  test 'third party is set when the account has client, supplier or employee but targets the same entity' do
+    # TODO fixtures
+    # item = journal_entry_items(:journal_entry_items_XXX)
+    # assert_equal item.account.clients.count, 1
+    # assert_equal item.account.suppliers.count, 1
+    # assert_equal item.account.clients.take, item.account.suppliers.take
+    # assert_equal item.third_party, entities(:entities_XXX)
+  end
+  test 'third party is not set when the account has more than one client, supplier or employee' do
+    # TODO fixtures
+    # item = journal_entry_items(:journal_entry_items_XXX)
+    # assert_equal item.account.employees.count, 1
+    # assert_equal item.account.suppliers.count, 1
+    # assert_equal item.account.clients.count, 0
+    # refute item.third_party
+  end
 end

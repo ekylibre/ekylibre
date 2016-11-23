@@ -473,6 +473,18 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
+        get :list_exchanges
+      end
+    end
+
+    resources :financial_year_exchanges, concerns: [:list], path: 'financial-year-exchanges', only: [:new, :create, :show] do
+      member do
+        get :list_journal_entries
+        get :journal_entries_export
+        get :journal_entries_import
+        post :journal_entries_import
+        get :notify_accountant
+        get :close
       end
     end
 
@@ -956,6 +968,12 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
+  end
+
+  namespace :public do
+    resources :financial_year_exchange_exports, path: 'financial-year-exchange-exports', only: [:show] do
+      get :csv, on: :member
+    end
   end
 
   root to: 'public#index'

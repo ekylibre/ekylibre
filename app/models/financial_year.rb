@@ -22,6 +22,7 @@
 #
 # == Table: financial_years
 #
+#  accountant_id             :integer
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -48,7 +49,9 @@ class FinancialYear < Ekylibre::Record::Base
   enumerize :tax_declaration_frequency, in: [:monthly, :quaterly, :yearly, :none], default: :monthly, predicates: { prefix: true }
   enumerize :tax_declaration_mode, in: [:debit, :payment, :none], default: :none, predicates: { prefix: true }
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
+  belongs_to :accountant, class_name: 'Entity'
   has_many :account_balances, dependent: :delete_all
+  has_many :exchanges, class_name: 'FinancialYearExchange', dependent: :destroy
   has_many :fixed_asset_depreciations, dependent: :restrict_with_exception
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
@@ -146,6 +149,8 @@ class FinancialYear < Ekylibre::Record::Base
         errors.add(:stopped_on, :overlap) if others.where('? BETWEEN started_on AND stopped_on', stopped_on).any?
       end
     end
+    errors.add(:accountant, :frozen) if accountant_id_changed? && opened_exchange?
+    errors.add(:started_on, :frozen) if started_on_changed? && exchanges.any?
   end
 
   def journal_entries(conditions = nil)
@@ -397,5 +402,19 @@ class FinancialYear < Ekylibre::Record::Base
       end
     end
     self
+  end
+
+  def can_create_exchange?
+    accountant_with_booked_journal? && !opened_exchange?
+  end
+
+  def opened_exchange?
+    exchanges.opened.any?
+  end
+
+  private
+
+  def accountant_with_booked_journal?
+    accountant && accountant.booked_journals.any?
   end
 end
