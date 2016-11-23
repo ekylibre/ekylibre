@@ -20,6 +20,41 @@ module Backend
   class JournalEntryItemsController < Backend::BaseController
     unroll :entry_number, :name, :real_debit, :real_credit, :currency, account: :number
 
+    def self.journal_entry_items_conditions
+      code = ''
+      code << search_conditions + ';'
+      code << "if params[:tax_declaration_item_id]\n"
+      # code << "  c[0] += ' AND (#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE tax_declaration_item_id=?))'\n"
+      code << "  c[0] += ' AND tax_declaration_item_id = ?'\n"
+      code << "  c << params[:tax_declaration_item_id]\n"
+      code << "end\n"
+      code << "unless params[:period].blank? or params[:period]='all'\n"
+      code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
+
+    list(conditions: journal_entry_items_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :entry_number, url: true
+      t.column :printed_on, through: :entry, datatype: :date
+      t.column :account, url: true
+      t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+      t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
+      t.column :name
+      t.column :state_label
+      t.column :real_debit,  currency: :real_currency
+      t.column :real_credit, currency: :real_currency
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
+      t.column :pretax_amount, currency: true
+      t.column :tax, url: true
+    end
+
+    def index
+    end
+
     def new
       @journal_entry_item = JournalEntryItem.new
       @journal_entry_item.name = params[:name] if params[:name]

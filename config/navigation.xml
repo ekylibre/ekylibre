@@ -119,6 +119,8 @@
         <page to="backend/journal_entries#list"/>
         <page to="backend/journal_entries#unroll"/>
         <page to="backend/journal_entry_items#new"/>
+        <page to="backend/journal_entry_items#index"/>
+        <page to="backend/journal_entry_items#list"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
       </item>

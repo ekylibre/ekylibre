@@ -3722,6 +3722,8 @@ journal_entries:
   resource_id:
     type: integer
     references: "~resource_type"
+  resource_prism:
+    type: string
   resource_type:
     type: string
   state:
@@ -3864,6 +3866,13 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  resource_id:
+    type: integer
+    references: "~resource_type"
+  resource_prism:
+    type: string
+  resource_type:
+    type: string
   state:
     type: string
     required: true
@@ -4827,7 +4836,7 @@ parcels:
   transporter_id:
     type: integer
     references: entity
-  undelivered_invoice_entry_id:
+  undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   updated_at:
@@ -6228,7 +6237,7 @@ purchases:
     precision: 19
     scale: 4
     required: true
-  quantity_gap_on_invoice_entry_id:
+  quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   reference_number:
@@ -6242,7 +6251,7 @@ purchases:
     type: integer
     references: entity
     required: true
-  undelivered_invoice_entry_id:
+  undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   updated_at:
@@ -6536,7 +6545,7 @@ sales:
     precision: 19
     scale: 4
     required: true
-  quantity_gap_on_invoice_entry_id:
+  quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   reference_number:
@@ -6552,7 +6561,7 @@ sales:
   transporter_id:
     type: integer
     references: entity
-  undelivered_invoice_entry_id:
+  undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   updated_at:

@@ -354,8 +354,9 @@ fra:
       new: "Nouvelle écriture"
       show: "Écriture comptable\_: %{number}"
     backend/journal_entry_items:
+      index: "Lignes d’écritures"
       new: "Nouvelle ligne d’écriture"
-      show: "ligne d’écriture: %{name}"
+      show: "Ligne d’écriture: %{name}"
     backend/journals:
       bookkeep: "Bascule comptable"
       close: "Clôturer le journal\_: %{name}"
@@ -1356,6 +1357,15 @@ fra:
     journal_entries: "Écritures"
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
+    journal_entry_items_with_undeclared_taxes:
+      other: "%{count} lignes d'écriture avec des taxes non déclarées"
+      zero: "%{count} ligne d'écriture avec des taxes non déclarées"
+    journal_entry_items_with_unidentified_expenses:
+      other: "%{count} lignes d'écriture avec des charges non identifiées"
+      zero: "%{count} ligne d'écriture avec des charges non identifiées"
+    journal_entry_items_with_unidentified_revenues:
+      other: "%{count} lignes d'écriture avec des produits non identifiés"
+      zero: "%{count} ligne d'écriture avec des produits non identifiés"
     journal_name: "%{name}"
     journal_view:
       entries: "Écritures"

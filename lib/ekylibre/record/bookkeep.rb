@@ -24,7 +24,14 @@ module Ekylibre
         end
 
         def journal_entry(journal, options = {})
-          column = options.delete(:column) || :journal_entry_id
+          prism = options.delete(:as)
+          column = options.delete(:column)
+          if prism.blank?
+            prism ||= resource.class.name.underscore
+            column ||= :journal_entry_id
+          else
+            column ||= "#{prism}_journal_entry_id".to_sym
+          end
           if (options.keys & [:if, :unless, :list]).size > 1
             raise ArgumentError, 'Options :if, :unless and :list are incompatible.'
           end
@@ -44,6 +51,7 @@ module Ekylibre
 
           attributes = options
           attributes[:resource] ||= @resource
+          attributes[:resource_prism] ||= prism
           # attributes[:state]      ||= @state
           attributes[:printed_on] ||= @resource.created_at.to_date if @resource.respond_to? :created_at
           unless attributes[:printed_on].is_a?(Date)
@@ -119,7 +127,7 @@ module Ekylibre
           code << "end\n"
 
           configuration[:on] = [configuration[:on]].flatten
-          for action in Ekylibre::Record::Bookkeep.actions
+          Ekylibre::Record::Bookkeep.actions.each do |action|
             next unless configuration[:on].include? action
             code << "after_#{action} do \n"
             code << "  if ::Preference[:bookkeep_automatically]\n"

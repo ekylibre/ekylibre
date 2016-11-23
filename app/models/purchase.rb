@@ -22,35 +22,35 @@
 #
 # == Table: purchases
 #
-#  accounted_at                     :datetime
-#  affair_id                        :integer
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  confirmed_at                     :datetime
-#  contract_id                      :integer
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  currency                         :string           not null
-#  custom_fields                    :jsonb
-#  delivery_address_id              :integer
-#  description                      :text
-#  id                               :integer          not null, primary key
-#  invoiced_at                      :datetime
-#  journal_entry_id                 :integer
-#  lock_version                     :integer          default(0), not null
-#  nature_id                        :integer
-#  number                           :string           not null
-#  payment_at                       :datetime
-#  payment_delay                    :string
-#  planned_at                       :datetime
-#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_entry_id :integer
-#  reference_number                 :string
-#  responsible_id                   :integer
-#  state                            :string
-#  supplier_id                      :integer          not null
-#  undelivered_invoice_entry_id     :integer
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  accounted_at                             :datetime
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  confirmed_at                             :datetime
+#  contract_id                              :integer
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  id                                       :integer          not null, primary key
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string
+#  planned_at                               :datetime
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string
+#  supplier_id                              :integer          not null
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 
 class Purchase < Ekylibre::Record::Base
@@ -60,8 +60,8 @@ class Purchase < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
-  belongs_to :quantity_gap_on_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :nature, class_name: 'PurchaseNature'
   belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
   belongs_to :supplier, class_name: 'Entity'
@@ -165,12 +165,12 @@ class Purchase < Ekylibre::Record::Base
     b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       items.each do |item|
-        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
+        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
         account = item.fixed? ? item.tax.fixed_asset_deduction_account_id : nil
         account ||= item.tax.deduction_account_id # TODO: Check if it is good to do that
-        entry.add_debit(label, account, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount)
+        entry.add_debit(label, account, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
       end
-      entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
+      entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount, as: :supplier)
     end
 
     # For undelivered invoice
@@ -179,16 +179,16 @@ class Purchase < Ekylibre::Record::Base
     list = []
     if with_accounting && invoice?
       parcels.each do |parcel|
-        next unless parcel.undelivered_invoice_entry
+        next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.l)
-        undelivered_items = parcel.undelivered_invoice_entry.items
+        undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance]
+          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item]
         end
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, list: list)
+    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, list: list)
 
     # For gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
@@ -204,11 +204,11 @@ class Purchase < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        list << [:add_debit, label, item.variant.stock_account_id, gap_value]
-        list << [:add_credit, label, item.variant.stock_movement_account_id, gap_value]
+        list << [:add_debit, label, item.variant.stock_account_id, gap_value, resource: item, as: :stock]
+        list << [:add_credit, label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement]
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, list: list)
+    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
   end
 
   def invoiced_on

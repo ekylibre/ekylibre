@@ -1388,7 +1388,7 @@ fra:
     purchases: "Achats"
     quality_criterion: "Critère qualité" #?
     quantity: "Quantité"
-    quantity_gap_on_invoice_entry: "Ecriture d'ecart de quantité de stock"
+    quantity_gap_on_invoice_journal_entry: "Ecriture d'ecart de quantité de stock"
     quantity_handler: "Macro-unité Quantité"
     quantity_indicator: "Indicateur Quantité"
     quantity_indicator_name: "Quantité nom de l’indicateur"
@@ -1464,6 +1464,7 @@ fra:
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
     resource: "Ressource"
+    resource_prism: "Prisme de ressources"
     resource_type: "Type de ressource"
     responses: "Réponses"
     responsible: "Responsable"
@@ -1647,7 +1648,7 @@ fra:
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
-    undelivered_invoice_entry: "Ecriture Facture non parvenue (FNP)"
+    undelivered_invoice_journal_entry: "Ecriture Facture non parvenue (FNP)"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité" #?
     unit_amount: "PU TTC"

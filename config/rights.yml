@@ -1208,6 +1208,8 @@ journal_entries:
     - "backend/journal_entries#list_items"
     - "backend/journal_entries#show"
     - "backend/journal_entries#unroll"
+    - "backend/journal_entry_items#index"
+    - "backend/journal_entry_items#list"
     - "backend/journal_entry_items#show"
     - "backend/journal_entry_items#unroll"
   write:
