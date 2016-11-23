@@ -371,7 +371,8 @@ class JournalEntry < Ekylibre::Record::Base
     attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
     attributes[:team_id] = options[:team].id if options[:team]
     attributes[:tax_id] = options[:tax].id if options[:tax]
-    attributes[:real_pretax_amount] = options[:pretax_amount] if options[:pretax_amount]
+    attributes[:real_pretax_amount] = attributes.delete(:pretax_amount) if attributes[:pretax_amount]
+    attributes[:resource_prism] = attributes.delete(:as) if options[:as]
 
     if credit
       attributes[:real_credit] = amount.abs

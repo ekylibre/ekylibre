@@ -145,8 +145,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
       self.category = nature.category if nature
       if category
         num = ProductNatureVariant.order('number::INTEGER DESC').first.number.to_i.to_s.rjust(6, '0').succ
-        while Account.where(number: [category.stock_movement_account.number + num, category.stock_account.number + num]).any? || ProductNatureVariant.where(number: num).any?
-          num.succ!
+        if category.storable?
+          while Account.where(number: [category.stock_movement_account.number + num, category.stock_account.number + num]).any? || ProductNatureVariant.where(number: num).any?
+            num.succ!
+          end
         end
         self.number = num
       end

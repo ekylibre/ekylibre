@@ -561,7 +561,7 @@ fra:
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
-    balance_pretax_amount: "Solde montant avant impôts"
+    balance_pretax_amount: "Solde montant HT"
     balance_tax_amount: "Montant de la taxe d’équilibre"
     balances: "Balances de compte"
     bank_account_holder_name: "Titulaire du compte"
@@ -639,7 +639,7 @@ fra:
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute" #?
-    collected_pretax_amount: "Montant avant impôts collectées"
+    collected_pretax_amount: "Montant HT collectées"
     collected_tax_amount: "Montant de la taxe perçue"
     collected_taxes: "TVA collectées"
     color: "Couleur"
@@ -738,7 +738,7 @@ fra:
     decimal_value: "Valeur décimale"
     declarant: "Declarant"
     declared_at: "Déclarée le" #?
-    deductible_pretax_amount: "Montant avant impôts Franchise"
+    deductible_pretax_amount: "Montant HT déductible"
     deductible_tax_amount: "Montant de la taxe déductible"
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
@@ -887,8 +887,8 @@ fra:
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
     fixed_asset_collect_account: "TVA collectée sur les immobilisations"
-    fixed_asset_deductible_pretax_amount: "Actif fixe montant avant impôts déductibles"
-    fixed_asset_deductible_tax_amount: "Actif fixe le montant de taxe déductible"
+    fixed_asset_deductible_pretax_amount: "Montant HT déductibles sur immobilisation"
+    fixed_asset_deductible_tax_amount: "Montant taxes déductibles sur immobilisation"
     fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"

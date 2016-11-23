@@ -74,18 +74,19 @@
 #   * cumulated_absolute_(credit|debit) are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   attr_readonly :entry_id, :journal_id, :state
+  refers_to :absolute_currency, class_name: 'Currency'
   refers_to :currency
   refers_to :real_currency, class_name: 'Currency'
-  refers_to :absolute_currency, class_name: 'Currency'
   belongs_to :account
-  belongs_to :financial_year
   belongs_to :activity_budget
-  belongs_to :team
-  belongs_to :journal, inverse_of: :entry_items
-  belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
-  belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement
+  belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
+  belongs_to :financial_year
+  belongs_to :journal, inverse_of: :entry_items
+  belongs_to :resource, polymorphic: true
   belongs_to :tax
+  belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
+  belongs_to :team
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
