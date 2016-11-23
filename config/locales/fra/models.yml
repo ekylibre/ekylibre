@@ -441,10 +441,14 @@ fra:
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       purchase: "Achat"
+      purchase_affair: "Affaire d’achat"
+      purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
       role: "Rôle"
       sale: "Vente"
+      sale_affair: "Affaire de vente"
+      sale_gap: "Écart sur vente"
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
@@ -460,6 +464,8 @@ fra:
       target_distribution: "Répartition de cible"
       task: "Tâche"
       tax: "Taxe"
+      tax_declaration: "Déclaration d’impôts"
+      tax_declaration_item: "Tax élément de déclaration"
       team: "Service"
       token: "Jeton"
       tracking: "Lot traçable"
@@ -555,6 +561,8 @@ fra:
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
+    balance_pretax_amount: "Solde montant avant impôts"
+    balance_tax_amount: "Montant de la taxe d’équilibre"
     balances: "Balances de compte"
     bank_account_holder_name: "Titulaire du compte"
     bank_account_key: "Clé RIB"
@@ -631,6 +639,8 @@ fra:
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute" #?
+    collected_pretax_amount: "Montant avant impôts collectées"
+    collected_tax_amount: "Montant de la taxe perçue"
     collected_taxes: "TVA collectées"
     color: "Couleur"
     column_name: "Nom de colonne"
@@ -728,6 +738,8 @@ fra:
     decimal_value: "Valeur décimale"
     declarant: "Declarant"
     declared_at: "Déclarée le" #?
+    deductible_pretax_amount: "Montant avant impôts Franchise"
+    deductible_tax_amount: "Montant de la taxe déductible"
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
     default_computation_method: "Méthode de calcul par défaut"
@@ -875,6 +887,8 @@ fra:
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
     fixed_asset_collect_account: "TVA collectée sur les immobilisations"
+    fixed_asset_deductible_pretax_amount: "Actif fixe montant avant impôts déductibles"
+    fixed_asset_deductible_tax_amount: "Actif fixe le montant de taxe déductible"
     fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
@@ -1014,6 +1028,7 @@ fra:
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
+    invoiced_on: "Facturé sur"
     invoices_count: "Nombre de factures" #?
     ip_address: "Adresse IP"
     irrigated: "Irrigué"
@@ -1361,6 +1376,7 @@ fra:
     provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
+    purchase_affair: "Affaire d’achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
@@ -1584,6 +1600,11 @@ fra:
     targets: "Cibles"
     tasks: "Tâches"
     tax: "Taxe"
+    tax_declaration: "Déclaration d’impôts"
+    tax_declaration_frequency: "Fréquence de déclaration d’impôt"
+    tax_declaration_item: "Tax élément de déclaration"
+    tax_declaration_mode: "Mode de déclaration d’impôt"
+    tax_declarations: "Déclarations fiscales"
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
@@ -1655,6 +1676,9 @@ fra:
     use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
+    used_for_permanent_stock_inventory: "Utilisé pour l’inventaire de stock permanent"
+    used_for_tax_declarations: "Utilisé pour les déclarations fiscales"
+    used_for_unbilled_payables: "Utilisé pour factures non parvenues"
     used_intervention_parameters: "Paramètres d’intervention d’occasion"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
@@ -1911,6 +1935,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
+    purchase_gap:
+      bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -1949,6 +1975,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"
+    sale_gap:
+      bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
@@ -2000,6 +2028,8 @@ fra:
           doing: "En cours"
           done: "Fini"
           todo: "À faire"
+    tax_declaration:
+      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
     team:
       default: "Général"
     user:

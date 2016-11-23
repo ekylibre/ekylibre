@@ -531,6 +531,13 @@ ita:
       index: "Compiti"
       new: "Nuovo compito"
       # show: "Task: %{name}"
+    backend/tax_declarations:
+      # confirm: "Confirm tax declaration: %{number}"
+      # edit: "Edit tax declaration: %{number}"
+      index: "Dichiarazioni fiscali"
+      new: "Dichiarazione dei redditi Nuovo"
+      # propose: "Propose tax declaration: %{number}"
+      # show: "Tax declaration: %{number}"
     backend/taxes:
       # edit: "Edit tax: %{name}"
       index: "Le tasse"
@@ -1225,6 +1232,7 @@ ita:
     new_email: "Nuova email"
     new_group: "Nuovo gruppo"
     new_incoming_parcel: "Nuovo pacco in arrivo"
+    new_inventory: "Nuovo inventario"
     new_issue: "Nuovo problema"
     new_listing: "Nuova lista"
     new_organization: "nuova organizzazione"
@@ -1299,6 +1307,7 @@ ita:
     percentage_by_calibration: "Percentuale in calibrazione"
     period: "Periodo"
     periods: "periodi"
+    permanent_stock_inventory: "Permanente inventario di magazzino"
     permute: "permute"
     personalized_mail: "Invia una mail personalizzata"
     # pertinence: "%{value}%"
@@ -1340,6 +1349,7 @@ ita:
     productions: "produzioni"
     products: "Prodotti"
     profile: "Profilo"
+    profits_and_losses: "Gli utili e le perdite"
     provisionnal_budget: "budget Provisionnal" #?
     purchase: "Acquista"
     purchase_items: "articoli di acquisto"
@@ -1496,6 +1506,8 @@ ita:
     to_deposit: "Depositare"
     to_deposit_later: "Per depositare successivamente"
     to_deposit_now: "Per depositare ora"
+    to_pay: "Pagare"
+    to_reclaim: "Per recuperare"
     today: "Oggi"
     tool_cost: "costo strumento"
     tools: "Utensili"
@@ -1547,6 +1559,7 @@ ita:
     transfer: "Trasferimento"
     transformations: "trasformazioni" #?
     transport: "Trasporto"
+    unbilled_payables: "I debiti non ancora fatturate"
     undefined_activity: "L’attività non definita"
     undefined_container: "contenitore non definita"
     undelivered: "non consegnato"
@@ -1585,6 +1598,7 @@ ita:
     values: "Valori"
     variable_indicators: "indicatori variabili"
     variants: "varianti"
+    vat: "I.V.A."
     view: "vista"
     watering_concentration: "L’uso dell’acqua"
     weather: "Tempo"
@@ -1603,6 +1617,9 @@ ita:
     x_countings:
       # one: "%{count} counting"
       # other: "%{count} countings"
+    x_contracts:
+      # one: "%{count} contract"
+      # other: "%{count} contracts"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1823,6 +1840,10 @@ ita:
       # synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
+      the_automatic_lettering_cannot_be_done_in_accountancy: "La scritta automatica non può essere fatto in contabilità"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "La scritta automatica non può essere realizzata in contabilità perché è stato già fatto dall’utente"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "La scritta automatica non può essere fatto in contabilità perché alcune offerte non sono ancora contabilizzati"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "La scritta automatica non può essere fatto in contabilità perché troppi terzi sono presenti"
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
       this_service_is_not_activated: "Questo servizio non è attivato"
       # unavailable_resource: "Nonexistent %{type} #%{id}"

@@ -40,6 +40,9 @@ a.btn, button.btn {
   }
   &.dropdown-toggle {
     @include icon-after(caret-down, $font-size: 14px);
+    .dropup > & {
+      @include icon-after(caret-up, $font-size: 14px);
+    }
     &.sr-only::after {
       @include padding-left(0);
     }

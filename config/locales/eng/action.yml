@@ -463,10 +463,8 @@ eng:
       edit: "Edit observation"
       new: "New observation"
     backend/outgoing_payment_lists:
-      # edit: "Edit outgoing payment list: %{name}"
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
-      # new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -559,6 +557,17 @@ eng:
       new: "New product"
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
+    backend/purchase_affairs:
+      # attach: "Attach purchase affair: %{name}"
+      # detach: "Detach purchase affair: %{name}"
+      # detach_gaps: "Detach gaps purchase affair: %{name}"
+      # finish: "Finish purchase affair: %{name}"
+      # index: "Purchase affairs"
+      # select: "Select purchase affair: %{name}"
+      # show: "Purchase affair: %{name}"
+    backend/purchase_gaps:
+      # index: "Purchase gaps"
+      # show: "Purchase gap: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -588,8 +597,19 @@ eng:
       new: "New role"
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
+    backend/sale_affairs:
+      # attach: "Attach sale affair: %{name}"
+      # detach: "Detach sale affair: %{name}"
+      # detach_gaps: "Detach gaps sale affair: %{name}"
+      # finish: "Finish sale affair: %{name}"
+      # index: "Sale affairs"
+      # select: "Select sale affair: %{name}"
+      # show: "Sale affair: %{name}"
     backend/sale_credits:
       new: "Cancel sales invoice %{number}"
+    backend/sale_gaps:
+      # index: "Sale gaps"
+      # show: "Sale gap: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -695,6 +715,13 @@ eng:
       # reset: "Reset task: %{name}"
       show: "Task: %{name}"
       # start: "Start task: %{name}"
+    backend/tax_declarations:
+      confirm: "Confirm tax declaration: %{number}"
+      edit: "Edit tax declaration: %{number}"
+      index: "Tax declarations"
+      new: "New tax declaration"
+      propose: "Propose tax declaration: %{number}"
+      show: "Tax declaration: %{number}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -1347,6 +1374,7 @@ eng:
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
@@ -1421,6 +1449,7 @@ eng:
     # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
     periods: "Periods" #?
+    permanent_stock_inventory: "Permanent stock inventory"
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
@@ -1462,6 +1491,7 @@ eng:
     productions: "Productions"
     products: "Products"
     profile: "Profile"
+    profits_and_losses: "Profits and losses"
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
@@ -1589,8 +1619,9 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
+    # tax_declarations: "Tax declarations"
     taxations: "Taxations"
-    taxes: "Taxes" #?
+    taxes: "Taxes"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1613,6 +1644,8 @@ eng:
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
+    to_pay: "To pay"
+    to_reclaim: "To reclaim"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"
@@ -1660,10 +1693,11 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
+    unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices"
+    undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
@@ -1697,6 +1731,7 @@ eng:
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
+    vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
@@ -1714,10 +1749,12 @@ eng:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-    # x_contracts: "X contracts"
     x_countings:
       one: "%{count} counting"
       other: "%{count} countings"
+    x_contracts:
+      one: "%{count} contract"
+      other: "%{count} contracts"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
@@ -1941,6 +1978,10 @@ eng:
       synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}" #?
       synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully" #?
       synchronization_operation_in_progress: "Operation %{operation_name} in progress" #?
+      the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "The automatic lettering cannot be done in accountancy because it was already done by an user"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "The automatic lettering cannot be done in accountancy because some deals are not accounted yet"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"

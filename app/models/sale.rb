@@ -155,7 +155,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    self.state ||= :draft
+    self.state = :draft
     self.currency = nature.currency if nature
     self.created_at = Time.zone.now
   end
@@ -202,6 +202,7 @@ class Sale < Ekylibre::Record::Base
 
   after_create do
     client.add_event(:sale_creation, updater.person) if updater && updater.person
+    true
   end
 
   protect on: :destroy do
@@ -210,54 +211,51 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
-      unless amount.zero?
-        entry.add_debit(label, client.account(:client).id, amount)
-      end
+      entry.add_debit(label, client.account(:client).id, amount)
       items.each do |item|
-        unless item.pretax_amount.zero?
-          entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
-        end
-        unless item.taxes_amount.zero?
-          entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount)
-        end
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
+        entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount)
       end
     end
-    # FIXME: We can't select a journal with pure random
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
-    # FIXME: We can't select a journal with pure random
-    ui_journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP')
-    # 1 / for undelivered invoice
+
+    # For undelivered invoice
     # exchange undelivered invoice from parcel
-    parcels.each do |pi|
-      # 1 / for undelivered invoice
-      next unless pi.undelivered_invoice_entry
-      b.journal_entry(ui_journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
-        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
-        undelivered_items = pi.undelivered_invoice_entry.items
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    list = []
+    if with_accounting && invoice?
+      parcels.each do |parcel|
+        next unless parcel.undelivered_invoice_entry
+        label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
+        undelivered_items = parcel.undelivered_invoice_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
+          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance]
         end
       end
     end
-    # 2 / for gap between parcel item quantity and sale item quantity
+    b.journal_entry(journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, list: list)
+
+    # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
-    b.journal_entry(stock_journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
+    list = []
+    if with_accounting && invoice? && items.any?
+      label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
-        next unless item.variant.storable?
-        parcel_items_qty = item.parcel_items.map(&:population).compact.sum
-        gap = item.quantity - parcel_items_qty
+        next unless item.variant && item.variant.storable?
+        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
+        gap = item.quantity - parcel_items_quantity
         next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        qty = item.parcel_items.first.unit_pretax_stock_amount
-        gap_value = gap * qty
+        quantity = item.parcel_items.first.unit_pretax_stock_amount
+        gap_value = gap * quantity
         next if gap_value.zero?
-        entry.add_credit(gap_label, item.variant.stock_account_id, gap_value)
-        entry.add_debit(gap_label, item.variant.stock_movement_account_id, gap_value)
+        list << [:add_credit, label, item.variant.stock_account_id, gap_value]
+        list << [:add_debit, label, item.variant.stock_movement_account_id, gap_value]
       end
     end
+    b.journal_entry(journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, list: list)
   end
 
   def invoiced_on
@@ -396,7 +394,7 @@ class Sale < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    self.class.state_machine.state(state.to_sym).human_name
   end
 
   # Returns true if there is some products to deliver
@@ -408,7 +406,7 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc("label.#{credit? && invoice? ? :credit : self.state}", number: number)
+    tc("label.#{credit? && invoice? ? :credit : state}", number: number)
   end
   alias label name
 

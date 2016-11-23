@@ -36,10 +36,6 @@ deu:
       mode:
         harvested: "Ernte Saattermin"
         sowed: "Vorläufige Saattermin"
-    affair:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
     analysis:
       retrieval_status:
         controller_error: "Controller-Fehler"
@@ -135,6 +131,16 @@ deu:
         informative: "Informativ"
         refused: "Verweigert"
         waiting: "Warten"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Monatlich"
+        none: "Keiner"
+        quaterly: "Vierteljährlich"
+        yearly: "Jährlich"
+      tax_declaration_mode:
+        debit: "Soll"
+        none: "Keiner"
+        payment: "Zahlung"
     fixed_asset:
       depreciation_method:
         graduated: "abgestufte" #?
@@ -144,9 +150,6 @@ deu:
       direction:
         loss: "Verlust"
         profit: "Profitieren"
-      entity_role:
-        client: "Klient"
-        supplier: "Lieferant"
     georeading:
       nature:
         line: "Linie" #?
@@ -398,14 +401,6 @@ deu:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
-    sale_opportunity:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
-    sale_ticket:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
     sensor:
       retrieval_mode:
         # integration: "Integration"
@@ -446,6 +441,7 @@ deu:
         sales: "Der Umsatz"
         sales_invoices: "Verkaufsrechnungen"
         subscriptions: "Abonnements"
+        tax_declarations: "Steuererklärungen"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirektionale" #?

@@ -689,11 +689,13 @@ arb:
       index: "المهام"
       new: "مهمة جديدة"
       # show: "Task: %{name}"
-    backend/tax_declarations:  #?
-      edit: "انشاء تصريح" #?
-      index: "تصريح عن قيمة الضريبة الاضافية" #?
-      new: "Créer une déclaration" #?
-      show: "%{nature} للمدة الزمنية من %{started_at} الى %{stopped_at}" #?
+    backend/tax_declarations:
+      # confirm: "Confirm tax declaration: %{number}"
+      # edit: "Edit tax declaration: %{number}"
+      index: "تصريح عن قيمة الضريبة الاضافية"
+      new: "الإقرار الضريبي الجديد"
+      # propose: "Propose tax declaration: %{number}"
+      # show: "Tax declaration: %{number}"
     backend/taxes:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
@@ -1632,6 +1634,7 @@ arb:
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
+    new_inventory: "جرد جديدة"
     new_issue: "مشكلة جديدة"
     new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
@@ -1757,6 +1760,7 @@ arb:
     percentage_by_calibration: "النسبة المئوية من المعايرة"
     period: "المدة المحددة مسبقا"
     periods: "فترات"
+    permanent_stock_inventory: "جرد مخزون دائم"
     permute: "مقايضة الملفات"
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
@@ -1810,6 +1814,7 @@ arb:
     productions: "المنتجات"
     products: "فئة المنتج"
     profile: "الملف الشخصي"
+    profits_and_losses: "الأرباح والخسائر"
     provisionnal_budget: "الميزانية Provisionnal" #?
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
@@ -2054,6 +2059,8 @@ arb:
     to_deposit: "لإيداع"
     to_deposit_later: "على أن تودع في وقت لاحق"
     to_deposit_now: "إيداع الآن"
+    to_pay: "لدفع"
+    to_reclaim: "لاستعادة"
     today: "اليوم"
     tool_cost: "تكلفة أداة"
     tool_create: "اضافة مادة" #?
@@ -2115,6 +2122,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    unbilled_payables: "دائنة غير المفوترة"
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
@@ -2171,7 +2179,7 @@ arb:
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
-    vat: "الضريبة المستحقة" #?
+    vat: "الضريبة المستحقة"
     vat_acquisitions: "المكاسب الداخلية" #?
     vat_amount: "الضرائب المستحقة" #?
     vat_collected: "صافي قيمة الضريبة المضافة" #?
@@ -2199,6 +2207,9 @@ arb:
     x_countings:
       # one: "%{count} counting"
       # other: "%{count} countings"
+    x_contracts:
+      # one: "%{count} contract"
+      # other: "%{count} contracts"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -2485,6 +2496,10 @@ arb:
       # synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
+      the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأنه تم بالفعل من قبل المستخدم"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لبعض الصفقات لم يتم الكشف حتى الآن"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?

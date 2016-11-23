@@ -92,6 +92,7 @@ eng:
       subscriptions: "Subscriptions"
       supervisions: "Supervisions"
       tasks: "Tasks"
+      tax_declarations: "Tax declarations"
       taxes: "Taxes"
       teams: "Teams"
       trackings: "Trackings"

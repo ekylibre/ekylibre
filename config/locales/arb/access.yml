@@ -90,6 +90,7 @@ arb:
       subscriptions: "الاشتراكات"
       supervisions: "الاشراف"
       tasks: "المهام"
+      tax_declarations: "الإقرارات الضريبية"
       taxes: "الضرائب"
       teams: "فرق"
       # trackings: "Trackings"

@@ -64,7 +64,7 @@ module Backend
       code.c
     end
 
-    list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+    list(conditions: purchases_conditions, line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
       t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?

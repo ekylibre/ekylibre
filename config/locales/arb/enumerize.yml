@@ -36,10 +36,6 @@ arb:
       mode:
         harvested: "حصاد تاريخ البذر"
         sowed: "مواعيد الزراعة المؤقت"
-    affair:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     analysis:
       retrieval_status:
         controller_error: "خطأ تحكم"
@@ -135,6 +131,16 @@ arb:
         informative: "إعلامي"
         refused: "رفض"
         waiting: "انتظار"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "شهريا"
+        none: "لا شيء"
+        # quaterly: "Quaterly"
+        yearly: "سنوي"
+      tax_declaration_mode:
+        debit: "دين"
+        none: "لا شيء"
+        payment: "دفع"
     fixed_asset:
       depreciation_method:
         graduated: "تخرج" #?
@@ -144,9 +150,6 @@ arb:
       direction:
         loss: "خسارة"
         profit: "ربح"
-      entity_role:
-        client: "زبون"
-        supplier: "المورد"
     georeading:
       nature:
         line: "خط" #?
@@ -397,14 +400,6 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_opportunity:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
-    sale_ticket:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     sensor:
       retrieval_mode:
         integration: "دمج"
@@ -445,6 +440,8 @@ arb:
         sales: "مبيعات"
         sales_invoices: "فواتير المبيعات"
         subscriptions: "الاشتراكات"
+        tax_declarations: "الإقرارات الضريبية"
+        transports: "ترقيم وسائل النقل" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "ثنائي الاتجاه" #?

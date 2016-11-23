@@ -36,10 +36,6 @@ spa:
       mode:
         harvested: "Cosecha fecha de siembra"
         sowed: "fecha de siembra provisional"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     analysis:
       retrieval_status:
         controller_error: "Error de controlador"
@@ -135,6 +131,16 @@ spa:
         informative: "Informativo"
         refused: "Negado"
         waiting: "Esperando"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensual"
+        none: "Ninguna"
+        quaterly: "Trimestral"
+        yearly: "Anual"
+      tax_declaration_mode:
+        debit: "Débito"
+        none: "Ninguna"
+        payment: "Pago"
     fixed_asset:
       depreciation_method:
         graduated: "Graduado" #?
@@ -144,9 +150,6 @@ spa:
       direction:
         loss: "Pérdida"
         profit: "Lucro"
-      entity_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     georeading:
       nature:
         line: "Línea" #?
@@ -398,14 +401,6 @@ spa:
       nature:
         payslip: "Recibo de sueldo"
         purchase: "Compra"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     sensor:
       retrieval_mode:
         integration: "Integración"
@@ -446,6 +441,8 @@ spa:
         sales: "Ventas"
         sales_invoices: "Facturas de venta"
         subscriptions: "Suscripciones"
+        tax_declarations: "Declaraciones de impuestos"
+        transports: "Numeración de los transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidireccional" #?
