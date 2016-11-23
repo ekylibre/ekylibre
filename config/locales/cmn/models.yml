@@ -1215,7 +1215,7 @@ cmn:
     root_model_name: "根模型名称"
     root_node: "根节点"
     root_parameters: "根参数"
-    # rows_count_value: "Rows count"
+    rows_count_value: "行数"
     sale: "拍卖"
     sale_credit: "信用销售"
     sale_item: "出售项目"
@@ -1436,7 +1436,7 @@ cmn:
     working_duration: "工作时间"
     working_periods: "工作周期"
     working_shape: "工作形状" #?
-    # working_width_value: "Implanter application width"
+    working_width_value: "注入的应用宽度"
     working_zone: "工作区"
     working_zone_area: "工作区区域"
     zone_memberships: "会员区"

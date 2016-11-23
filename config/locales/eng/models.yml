@@ -1234,7 +1234,7 @@ eng:
     root_model_name: "Root model name"
     root_node: "Root node"
     root_parameters: "Root parameters"
-    rows_count_value: "Rows count" #?
+    rows_count_value: "Rows count"
     sale: "Sale"
     sale_credit: "Sale credit"
     sale_item: "Sale item"
@@ -1454,7 +1454,7 @@ eng:
     worker: "Worker"
     working_duration: "Working duration"
     working_periods: "Working periods"
-    working_width_value: "Implanter application width" #?
+    working_width_value: "Implanter application width"
     working_zone: "Working zone"
     working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?
