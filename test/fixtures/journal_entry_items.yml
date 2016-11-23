@@ -596,6 +596,7 @@ journal_entry_items_016:
   real_currency_rate: 1.0
   real_debit: 11.23
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2014-11-05 13:35:14.532588000 Z
   updater_id: 1
@@ -629,6 +630,9 @@ journal_entry_items_017:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_id: 1
+  resource_prism: item_product
+  resource_type: GapItem
   state: draft
   updated_at: 2014-11-05 13:35:14.554188000 Z
   updater_id: 1
@@ -695,6 +699,7 @@ journal_entry_items_019:
   real_currency_rate: 1.0
   real_debit: 0.8
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2014-11-05 13:36:51.398622000 Z
   updater_id: 1
@@ -1384,6 +1389,9 @@ journal_entry_items_040:
   real_currency_rate: 1.0
   real_debit: 1540.0
   real_pretax_amount: 0.0
+  resource_id: 11
+  resource_prism: item_product
+  resource_type: PurchaseItem
   state: draft
   updated_at: 2014-11-07 15:58:47.198797000 Z
   updater_id: 1
@@ -1417,6 +1425,9 @@ journal_entry_items_041:
   real_currency_rate: 1.0
   real_debit: 308.0
   real_pretax_amount: 1540.0
+  resource_id: 11
+  resource_prism: item_tax
+  resource_type: PurchaseItem
   state: draft
   tax_id: 3
   updated_at: 2014-11-07 15:58:47.220632000 Z
@@ -1451,6 +1462,7 @@ journal_entry_items_042:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2014-11-07 15:58:47.241674000 Z
   updater_id: 1
@@ -1618,6 +1630,9 @@ journal_entry_items_047:
   real_currency_rate: 1.0
   real_debit: 17100.0
   real_pretax_amount: 0.0
+  resource_id: 12
+  resource_prism: item_product
+  resource_type: PurchaseItem
   state: draft
   updated_at: 2014-11-07 16:52:57.630615000 Z
   updater_id: 1
@@ -1651,6 +1666,9 @@ journal_entry_items_048:
   real_currency_rate: 1.0
   real_debit: 3420.0
   real_pretax_amount: 17100.0
+  resource_id: 12
+  resource_prism: item_tax
+  resource_type: PurchaseItem
   state: draft
   tax_id: 3
   updated_at: 2014-11-07 16:52:57.654541000 Z
@@ -1685,6 +1703,7 @@ journal_entry_items_049:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2014-11-07 16:52:57.675741000 Z
   updater_id: 1
@@ -1718,6 +1737,9 @@ journal_entry_items_050:
   real_currency_rate: 0.9397
   real_debit: 1540.0
   real_pretax_amount: 0.0
+  resource_id: 13
+  resource_prism: item_product
+  resource_type: PurchaseItem
   state: draft
   updated_at: 2015-03-19 17:18:59.959437000 Z
   updater_id: 1
@@ -1751,6 +1773,9 @@ journal_entry_items_051:
   real_currency_rate: 0.9397
   real_debit: 308.0
   real_pretax_amount: 1540.0
+  resource_id: 13
+  resource_prism: item_tax
+  resource_type: PurchaseItem
   state: draft
   tax_id: 3
   updated_at: 2015-03-19 17:18:59.988683000 Z
@@ -1785,6 +1810,7 @@ journal_entry_items_052:
   real_currency_rate: 0.9397
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2015-03-19 17:19:00.010334000 Z
   updater_id: 1
@@ -2082,6 +2108,9 @@ journal_entry_items_061:
   real_currency_rate: 0.8977
   real_debit: 15754.2
   real_pretax_amount: 0.0
+  resource_id: 14
+  resource_prism: item_product
+  resource_type: PurchaseItem
   state: draft
   updated_at: 2016-07-01 20:22:55.336640000 Z
   updater_id: 1
@@ -2115,6 +2144,9 @@ journal_entry_items_062:
   real_currency_rate: 0.8977
   real_debit: 1575.42
   real_pretax_amount: 15754.2
+  resource_id: 14
+  resource_prism: item_tax
+  resource_type: PurchaseItem
   state: draft
   tax_id: 8
   updated_at: 2016-07-01 20:22:55.359090000 Z
@@ -2149,6 +2181,7 @@ journal_entry_items_063:
   real_currency_rate: 0.8977
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2016-07-01 20:22:55.379509000 Z
   updater_id: 1
@@ -8907,6 +8940,7 @@ journal_entry_items_268:
   real_currency_rate: 1.0
   real_debit: 447.12
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2016-11-20 22:09:02.992237000 Z
   updater_id: 1
@@ -8940,6 +8974,9 @@ journal_entry_items_269:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_id: 23
+  resource_prism: item_product
+  resource_type: SaleItem
   state: draft
   updated_at: 2016-11-20 22:09:03.015012000 Z
   updater_id: 1
@@ -8973,6 +9010,9 @@ journal_entry_items_270:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 327.6
+  resource_id: 23
+  resource_prism: item_tax
+  resource_type: SaleItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:09:03.036303000 Z
@@ -9007,6 +9047,9 @@ journal_entry_items_271:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_id: 24
+  resource_prism: item_product
+  resource_type: SaleItem
   state: draft
   updated_at: 2016-11-20 22:09:03.058777000 Z
   updater_id: 1
@@ -9040,6 +9083,9 @@ journal_entry_items_272:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 45.0
+  resource_id: 24
+  resource_prism: item_tax
+  resource_type: SaleItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:09:03.081393000 Z
@@ -9142,6 +9188,7 @@ journal_entry_items_275:
   real_currency_rate: 1.0
   real_debit: 37.44
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2016-11-20 22:10:43.189937000 Z
   updater_id: 1
@@ -9175,6 +9222,9 @@ journal_entry_items_276:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_id: 25
+  resource_prism: item_product
+  resource_type: SaleItem
   state: draft
   updated_at: 2016-11-20 22:10:43.210834000 Z
   updater_id: 1
@@ -9208,6 +9258,9 @@ journal_entry_items_277:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 31.2
+  resource_id: 25
+  resource_prism: item_tax
+  resource_type: SaleItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:10:43.231298000 Z
@@ -9310,6 +9363,7 @@ journal_entry_items_280:
   real_currency_rate: 1.0
   real_debit: 3.74
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2016-11-20 22:11:28.750943000 Z
   updater_id: 1
@@ -9343,6 +9397,9 @@ journal_entry_items_281:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_id: 26
+  resource_prism: item_product
+  resource_type: SaleItem
   state: draft
   updated_at: 2016-11-20 22:11:28.770490000 Z
   updater_id: 1
@@ -9376,6 +9433,9 @@ journal_entry_items_282:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 3.12
+  resource_id: 26
+  resource_prism: item_tax
+  resource_type: SaleItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:11:28.830255000 Z
@@ -9411,6 +9471,7 @@ journal_entry_items_283:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2016-11-20 22:11:32.637212000 Z
   updater_id: 1
@@ -9512,6 +9573,7 @@ journal_entry_items_286:
   real_currency_rate: 1.0
   real_debit: 2676.0
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2016-11-20 22:12:19.132147000 Z
   updater_id: 1
@@ -9546,6 +9608,9 @@ journal_entry_items_287:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_id: 27
+  resource_prism: item_product
+  resource_type: SaleItem
   state: draft
   updated_at: 2016-11-20 22:12:19.151058000 Z
   updater_id: 1
@@ -9580,6 +9645,9 @@ journal_entry_items_288:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 2230.0
+  resource_id: 27
+  resource_prism: item_tax
+  resource_type: SaleItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:12:19.171004000 Z
@@ -9616,6 +9684,7 @@ journal_entry_items_289:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: client
   state: draft
   updated_at: 2016-11-20 22:12:46.241975000 Z
   updater_id: 1
@@ -9650,6 +9719,9 @@ journal_entry_items_290:
   real_currency_rate: 1.0
   real_debit: 2230.0
   real_pretax_amount: 0.0
+  resource_id: 28
+  resource_prism: item_product
+  resource_type: SaleItem
   state: draft
   updated_at: 2016-11-20 22:12:46.261368000 Z
   updater_id: 1
@@ -9657,7 +9729,7 @@ journal_entry_items_291:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 446.0
-  absolute_pretax_amount: 0.0
+  absolute_pretax_amount: -2230.0
   account_id: 33
   balance: 446.0
   created_at: 2016-11-20 22:12:46.281731000 Z
@@ -9676,15 +9748,19 @@ journal_entry_items_291:
   name: "[Facture F2016000008] Ammonitre 33,5%  Big Bag pour Mohandas Karamchand Gandhi
     (SO000000000019)"
   position: 3
-  pretax_amount: 0.0
+  pretax_amount: -2230.0
   printed_on: 2016-11-20
   real_balance: 446.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 446.0
-  real_pretax_amount: 0.0
+  real_pretax_amount: -2230.0
+  resource_id: 28
+  resource_prism: item_tax
+  resource_type: SaleItem
   state: draft
+  tax_id: 3
   updated_at: 2016-11-20 22:12:46.281731000 Z
   updater_id: 1
 journal_entry_items_292:
@@ -9717,6 +9793,9 @@ journal_entry_items_292:
   real_currency_rate: 1.0
   real_debit: 597.6
   real_pretax_amount: 0.0
+  resource_id: 15
+  resource_prism: item_product
+  resource_type: PurchaseItem
   state: draft
   updated_at: 2016-11-20 22:14:42.366131000 Z
   updater_id: 1
@@ -9750,6 +9829,9 @@ journal_entry_items_293:
   real_currency_rate: 1.0
   real_debit: 119.52
   real_pretax_amount: 597.6
+  resource_id: 15
+  resource_prism: item_tax
+  resource_type: PurchaseItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:14:42.388681000 Z
@@ -9785,6 +9867,7 @@ journal_entry_items_294:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2016-11-20 22:14:42.410753000 Z
   updater_id: 1
@@ -9885,6 +9968,9 @@ journal_entry_items_297:
   real_currency_rate: 1.0
   real_debit: 1000.0
   real_pretax_amount: 0.0
+  resource_id: 16
+  resource_prism: item_product
+  resource_type: PurchaseItem
   state: draft
   updated_at: 2016-11-20 22:15:24.370236000 Z
   updater_id: 1
@@ -9918,6 +10004,9 @@ journal_entry_items_298:
   real_currency_rate: 1.0
   real_debit: 200.0
   real_pretax_amount: 1000.0
+  resource_id: 16
+  resource_prism: item_tax
+  resource_type: PurchaseItem
   state: draft
   tax_id: 3
   updated_at: 2016-11-20 22:15:24.389889000 Z
@@ -9952,6 +10041,7 @@ journal_entry_items_299:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2016-11-20 22:15:24.409784000 Z
   updater_id: 1
@@ -9985,6 +10075,7 @@ journal_entry_items_300:
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
+  resource_prism: supplier
   state: draft
   updated_at: 2016-11-20 22:15:36.435318000 Z
   updater_id: 1
@@ -10053,4 +10144,41 @@ journal_entry_items_302:
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2016-11-20 22:15:36.508727000 Z
+  updater_id: 1
+journal_entry_items_303:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.8
+  account_id: 33
+  balance: 0.0
+  created_at: 2014-11-05 13:36:51.383516000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 19
+  entry_number: XYZ0013
+  financial_year_id: 24
+  id: 521
+  journal_id: 1
+  lock_version: 0
+  name: Null tax
+  position: 19
+  pretax_amount: 0.8
+  printed_on: 2014-11-05
+  real_balance: 0.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.8
+  resource_id: 2
+  resource_prism: item_tax
+  resource_type: GapItem
+  state: draft
+  tax_id: 2
+  updated_at: 2014-11-05 13:36:51.433690000 Z
   updater_id: 1

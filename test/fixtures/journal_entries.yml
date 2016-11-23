@@ -326,6 +326,7 @@ journal_entries_011:
   real_currency_rate: 1.0
   real_debit: 11.23
   resource_id: 3
+  resource_prism: sale_gap
   resource_type: Gap
   state: draft
   updated_at: 2014-11-05 13:35:14.585292000 Z
@@ -352,6 +353,7 @@ journal_entries_012:
   real_currency_rate: 1.0
   real_debit: 0.8
   resource_id: 4
+  resource_prism: sale_gap
   resource_type: Gap
   state: draft
   updated_at: 2014-11-05 13:36:51.433690000 Z
@@ -534,6 +536,7 @@ journal_entries_019:
   real_currency_rate: 1.0
   real_debit: 1848.0
   resource_id: 8
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2014-11-07 15:58:47.252934000 Z
@@ -584,6 +587,7 @@ journal_entries_021:
   real_currency_rate: 1.0
   real_debit: 20520.0
   resource_id: 11
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2014-11-07 16:52:57.686178000 Z
@@ -610,6 +614,7 @@ journal_entries_022:
   real_currency_rate: 0.9397
   real_debit: 1848.0
   resource_id: 12
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2015-03-19 17:19:00.022540000 Z
@@ -1702,6 +1707,7 @@ journal_entries_064:
   real_currency_rate: 0.8977
   real_debit: 17329.62
   resource_id: 13
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2016-07-01 20:22:55.389621000 Z
@@ -2170,6 +2176,7 @@ journal_entries_082:
   real_currency_rate: 1.0
   real_debit: 447.12
   resource_id: 20
+  resource_prism: sale
   resource_type: Sale
   state: draft
   updated_at: 2016-11-20 22:09:03.091650000 Z
@@ -2248,6 +2255,7 @@ journal_entries_085:
   real_currency_rate: 1.0
   real_debit: 37.44
   resource_id: 21
+  resource_prism: sale
   resource_type: Sale
   state: draft
   updated_at: 2016-11-20 22:10:43.241520000 Z
@@ -2326,6 +2334,7 @@ journal_entries_088:
   real_currency_rate: 1.0
   real_debit: 3.74
   resource_id: 22
+  resource_prism: sale
   resource_type: Sale
   state: draft
   updated_at: 2016-11-20 22:11:28.841590000 Z
@@ -2378,6 +2387,7 @@ journal_entries_090:
   real_currency_rate: 1.0
   real_debit: 3.74
   resource_id: 5
+  resource_prism: sale_gap
   resource_type: Gap
   state: draft
   updated_at: 2016-11-20 22:11:32.693088000 Z
@@ -2404,6 +2414,7 @@ journal_entries_091:
   real_currency_rate: 1.0
   real_debit: 2676.0
   resource_id: 23
+  resource_prism: sale
   resource_type: Sale
   state: draft
   updated_at: 2016-11-20 22:12:19.180760000 Z
@@ -2456,6 +2467,7 @@ journal_entries_093:
   real_currency_rate: 1.0
   real_debit: 2676.0
   resource_id: 24
+  resource_prism: sale
   resource_type: Sale
   state: draft
   updated_at: 2016-11-20 22:12:46.291136000 Z
@@ -2508,6 +2520,7 @@ journal_entries_095:
   real_currency_rate: 1.0
   real_debit: 717.12
   resource_id: 14
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2016-11-20 22:14:42.421543000 Z
@@ -2586,6 +2599,7 @@ journal_entries_098:
   real_currency_rate: 1.0
   real_debit: 1200.0
   resource_id: 15
+  resource_prism: purchase
   resource_type: Purchase
   state: draft
   updated_at: 2016-11-20 22:15:24.420971000 Z

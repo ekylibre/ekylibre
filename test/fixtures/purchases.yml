@@ -202,7 +202,7 @@ purchases_007:
   payment_delay: ''
   planned_at: 2016-11-20 22:13:00.000000000 Z
   pretax_amount: 597.6
-  quantity_gap_on_invoice_entry_id: 103
+  quantity_gap_on_invoice_journal_entry_id: 103
   reference_number: ''
   responsible_id: 1
   state: invoice
@@ -228,7 +228,7 @@ purchases_008:
   payment_delay: ''
   planned_at: 2016-11-20 22:15:00.000000000 Z
   pretax_amount: 1000.0
-  quantity_gap_on_invoice_entry_id: 106
+  quantity_gap_on_invoice_journal_entry_id: 106
   reference_number: ''
   responsible_id: 1
   state: invoice
