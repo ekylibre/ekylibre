@@ -19,7 +19,6 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
   YAML
 
   def change
-    add_index :accounts, :number, unique: true
     reversible do |dir|
       dir.up do
         # Find out what accounting plan we're using
