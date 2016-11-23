@@ -168,6 +168,11 @@ gem 'rest-client', require: false
 
 gem 'luhn'
 
+gem 'hajimari', git: 'https://alecuelle@forge.ekylibre.com/hajimari.git', branch: 'gemify'
+# gem 'cap', git: 'https://alecuelle@forge.ekylibre.com/cap.git', branch: 'gemify'
+gem 'cap', path: '../cap'
+#gem 'weather', path: '../weather'
+
 group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
