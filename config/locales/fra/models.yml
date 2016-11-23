@@ -109,6 +109,23 @@ fra:
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
         variety: "Variété" #?
+      plant_counting:
+        expected_plants_count: "Nombre de graines théorique" #?
+        expected_seeding_density: "Densité théorique" #?
+        nature: "Comptage réalisé" #?
+        plant: "Produit"
+        plant_activity: "Activité"
+        plants_count: "Nombre de graines comptées" #?
+        read_at: "Date" #?
+        rows_count_value: "Nombre de rangs"
+        sampling_length: "Distance d'échantillonnage" #?
+        seeding_density_value: "Densité réelle" #?
+        working_width_value: "Largeur de l'outil de semis"
+      plant_counting_item:
+        value: "Nombre de plants"
+      plant_density_abacus_item:
+        plants_count: "Nombre théorique de graines"
+        seeding_density_value: "Densité théorique de semis"
       product_localization:  #?
         container: "Contenant" #?
         started_at: "Entrée" #?
@@ -396,10 +413,10 @@ fra:
       parcel: "Colis"
       parcel_item: "Élément de colis"
       plant: "Plante"
-      plant_counting: "Nombre de plants"
+      plant_counting: "Comptage"
       plant_counting_item: "Mesure du nombre de plants"
-      plant_density_abacus: "Densité de plants"
-      plant_density_abacus_item: "Mesure de la densité de plants"
+      plant_density_abacus: "Abaque de densité de plants"
+      plant_density_abacus_item: "Référence de densité"
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -1263,11 +1280,11 @@ fra:
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu sur"
     plant: "Plante"
-    plant_counting: "comptage des plantes"
-    plant_countings: "dénombrements des plantes"
-    plant_density_abaci: "Abaci densité végétale"
-    plant_density_abacus: "boulier densité végétale"
-    plant_density_abacus_item: "la densité des plantes article boulier"
+    plant_counting: "Comptage"
+    plant_countings: "Comptages"
+    plant_density_abaci: "Abaques de densité de plant"
+    plant_density_abacus: "Abaque de densité de plant"
+    plant_density_abacus_item: "Densité théorique de semis"
     plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"
@@ -1466,6 +1483,7 @@ fra:
     root_model_name: "Racine"
     root_node: "Nœud racine"
     root_parameters: "Paramètres Root"
+    rows_count_value: "Nombre de rangs"
     sale: "Vente"
     sale_credit: "Avoir"
     sale_item: "Ligne de vente"
@@ -1702,6 +1720,7 @@ fra:
     working_periods: "Périodes de travail"
     working_shape: "Forme de travail" #?
     working_unit: "Unité d’œuvre" #?
+    working_width_value: "Largeur de l'outil de semis"
     working_zone: "Zone travaillée"
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"

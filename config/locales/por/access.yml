@@ -26,6 +26,7 @@ por:
       cashes: "Dinheiro"
       catalogs: "Catalogos"
       contacts: "Pessoas" #?
+      contracts: "Contratos"
       cultivable_zones: "Zonas cultiváveis"
       custom_fields: "Campos customizados"
       deposits: "Depositos"
@@ -72,8 +73,10 @@ por:
       observations: "Observações"
       organizations: "Entidades Legais" #?
       outgoing_deliveries: "Entregas a fazer"
+      outgoing_payment_lists: "Listas de pagamento a efectuar"
       outgoing_payment_modes: "Modos de pagameto a fazer"
       outgoing_payments: "Pagamentos a fazer"
+      plant_countings: "Contagens de plantas"
       plants: "Plantas"
       postal_zones: "Zonas postais"
       prescriptions: "Prescrições"

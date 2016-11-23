@@ -396,6 +396,11 @@ por:
       new: "Novo pacote"
       ship: "Encomendas de navios"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      index: "Contagens"
+      new: "Nova contagem"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Culturas"
@@ -766,6 +771,7 @@ por:
     # automatic: "Auto"
     available: "Disponível"
     # available_columns: "Available columns: %{columns}"
+    average: "Média"
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
     bank_account: "Conta bancária"
@@ -1258,6 +1264,8 @@ por:
     placeholder: "Espaço reservado"
     places: "Locais"
     plant: "Plantar"
+    plant_counting: "Contando"
+    plant_countings: "Contagens"
     plantation_density: "Densidade de plantação"
     plants: "Culturas"
     please_wait: "Por favor, espere…"
@@ -1557,6 +1565,9 @@ por:
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1712,6 +1723,7 @@ por:
       closed_financial_years: "O exercício foi encerrado com sucesso"
       columns_are_already_uses: "Uma ou várias colunas são selecionadas muitas vezes"
       dashboard_is_being_developed: "Painel está sob forte desenvolvimento"
+      density_is_not_computable_in_counting: "Não foi possível calcular a densidade para esta contagem. Os valores em falta deve ser concluída nas propriedades da contagem ou indicadores do semeador."
       draft_journal_entries_have_been_validated:
         one: "Uma entrada foi validada"
         # other: "%{count} entries have been validated"
@@ -1921,6 +1933,7 @@ por:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} %{payee_full_name} %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

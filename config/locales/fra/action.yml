@@ -467,6 +467,11 @@ fra:
       new: "Nouveau colis"
       ship: "Expédier les colis"
       show: "Colis %{nature}\_: %{number}"
+    backend/plant_countings:
+      edit: "Modifier le comptage\_: %{number}"
+      index: "Comptages"
+      new: "Nouveau comptage"
+      show: "Comptage\_: %{number}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"
@@ -914,6 +919,7 @@ fra:
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
+    average: "Moyenne"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
@@ -1634,6 +1640,8 @@ fra:
     places: "Lieux"
     planned_at: "Date prévisionnelle" #?
     plant: "Culture"
+    plant_counting: "Comptage"
+    plant_countings: "Comptages"
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
@@ -2119,6 +2127,9 @@ fra:
     x_contracts:
       one: "%{count} contrat"
       other: "%{count} contrats"
+    x_countings:
+      one: "%{count} comptage"
+      other: "%{count} comptages"
     x_days:
       one: "%{count} jour"
       other: "%{count} jours"
@@ -2303,6 +2314,7 @@ fra:
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
+      density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
@@ -2558,6 +2570,7 @@ fra:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

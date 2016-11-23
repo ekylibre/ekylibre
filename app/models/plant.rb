@@ -68,6 +68,7 @@
 #  work_number           :string
 #
 class Plant < Bioproduct
+  has_many :plant_countings
   refers_to :variety, scope: :plant
 
   has_shape
@@ -102,6 +103,23 @@ class Plant < Bioproduct
     else
       :go
     end
+  end
+
+  def last_sowing
+    Intervention
+      .real
+      .where(
+        procedure_name: :sowing,
+        id: InterventionOutput
+          .where(product: self)
+          .select(:intervention_id)
+      )
+      .order(started_at: :desc)
+      .first
+  end
+
+  def sower
+    last_sowing && last_sowing.parameters.select { |eq| eq.reference_name.to_sym == :sower }.first
   end
 
   def ready_to_harvest?

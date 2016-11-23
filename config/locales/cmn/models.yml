@@ -38,6 +38,16 @@ cmn:
         population: "数量"
       plant:
         born_at: "在种植"
+      plant_counting:
+        plant: "产品"
+        plant_activity: "活动"
+        rows_count_value: "行数"
+        working_width_value: "注入的应用宽度"
+      plant_counting_item:
+        value: "植物计数"
+      plant_density_abacus_item:
+        plants_count: "预计算的植物"
+        seeding_density_value: "预计播种密度"
       purchase:
         affair_balance: "平衡"
       sale:
@@ -1206,6 +1216,7 @@ cmn:
     root_model_name: "根模型名称"
     root_node: "根节点"
     root_parameters: "根参数"
+    rows_count_value: "行数"
     sale: "拍卖"
     sale_credit: "信用销售"
     sale_item: "出售项目"
@@ -1426,6 +1437,7 @@ cmn:
     working_duration: "工作时间"
     working_periods: "工作周期"
     working_shape: "工作形状" #?
+    working_width_value: "注入的应用宽度"
     working_zone: "工作区"
     working_zone_area: "工作区区域"
     zone_memberships: "会员区"

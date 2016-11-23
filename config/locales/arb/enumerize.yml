@@ -277,6 +277,10 @@ arb:
         in_preparation: "قيد التحضير" #?
         ordered: "أمر" #?
         prepared: "أعدت" #?
+    plant_counting:
+      nature:
+        germination: "في إنبات"
+        sowing: "في البذر"
     preference:
       nature:
         accounting_system: "نظام المحاسبة"

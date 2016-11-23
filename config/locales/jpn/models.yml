@@ -38,6 +38,16 @@ jpn:
         population: "量"
       plant:
         born_at: "で植え"
+      plant_counting:
+        plant: "製品"
+        plant_activity: "アクティビティ"
+        rows_count_value: "行はカウント"
+        working_width_value: "注入の塗布幅"
+      plant_counting_item:
+        value: "植物は数えます"
+      plant_density_abacus_item:
+        plants_count: "期待される植物は数えます"
+        seeding_density_value: "予想播種密度"
       purchase:
         affair_balance: "バランス"
       sale:
@@ -1206,6 +1216,7 @@ jpn:
     root_model_name: "ルートモデル名"
     root_node: "ルートノード"
     root_parameters: "ルート・パラメータ"
+    rows_count_value: "行はカウント"
     sale: "販売"
     sale_credit: "販売信用"
     sale_item: "販売アイテム"
@@ -1426,6 +1437,7 @@ jpn:
     working_duration: "作業期間"
     working_periods: "作業期間"
     working_shape: "作業形状" #?
+    working_width_value: "注入の塗布幅"
     working_zone: "ワーキングゾーン"
     working_zone_area: "ワーキングゾーン領域"
     zone_memberships: "ゾーンメンバーシップ"

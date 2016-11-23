@@ -484,6 +484,11 @@ arb:
       new: "قطعة جديدة"
       ship: "الطرود سفينة"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      index: "فرزان"
+      new: "العد الجديد"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "النباتات"
@@ -1034,6 +1039,7 @@ arb:
     automatic: "السيارات"
     available: "متاح"
     available_columns: "الحقول المتاحة : %{columns}"
+    average: "متوسط"
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
     backup: "نسخ احتياطية" #?
     backups: "النسخ الاحتياطية" #?
@@ -1773,6 +1779,8 @@ arb:
     places: "الأماكن"
     planned_at: "قرر يوم" #?
     plant: "نبات"
+    plant_counting: "عد"
+    plant_countings: "فرزان"
     plantation_density: "كثافة المزارع"
     plants: "النباتات"
     please_wait: "أرجو الإنتظار…"
@@ -2208,6 +2216,9 @@ arb:
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -2393,6 +2404,7 @@ arb:
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
+      density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
@@ -2695,6 +2707,7 @@ arb:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"

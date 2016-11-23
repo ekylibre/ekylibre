@@ -428,6 +428,11 @@ spa:
       new: "Nueva parcela"
       ship: "Parcelas de la nave"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      index: "Los recuentos"
+      new: "Nuevo recuento"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Plantas"
@@ -831,6 +836,7 @@ spa:
     # automatic: "Auto"
     available: "Disponible"
     available_columns: "Campos disponibles\_: %{columns}"
+    average: "Promedio"
     back: "Volver a la página anterior"
     backup: "Salvaguardiar" #?
     backups: "Salvaguardias" #?
@@ -1431,6 +1437,8 @@ spa:
     placeholder: "Marcador de posición"
     places: "Lugares"
     plant: "Planta"
+    plant_counting: "Contando"
+    plant_countings: "Los recuentos"
     plantation_density: "La densidad de plantación"
     plants: "Plantas"
     please_wait: "Por favor espera…"
@@ -1792,6 +1800,9 @@ spa:
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1951,6 +1962,7 @@ spa:
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
+      density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
       draft_entries_are_validated:  #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
@@ -2210,6 +2222,7 @@ spa:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"
