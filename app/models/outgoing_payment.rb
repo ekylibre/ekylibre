@@ -71,7 +71,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates :to_bank_at, presence: true
 
   acts_as_numbered
-  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, role: 'supplier'
+  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, class_name: 'PurchaseAffair'
 
   scope :between, lambda { |started_at, stopped_at|
     where(paid_at: started_at..stopped_at)

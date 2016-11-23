@@ -684,11 +684,13 @@ arb:
       index: "المهام"
       new: "مهمة جديدة"
       # show: "Task: %{name}"
-    backend/tax_declarations:  #?
-      edit: "انشاء تصريح" #?
-      index: "تصريح عن قيمة الضريبة الاضافية" #?
-      new: "Créer une déclaration" #?
-      show: "%{nature} للمدة الزمنية من %{started_at} الى %{stopped_at}" #?
+    backend/tax_declarations:
+      # confirm: "Confirm tax declaration: %{number}"
+      # edit: "Edit tax declaration: %{number}"
+      index: "تصريح عن قيمة الضريبة الاضافية"
+      new: "الإقرار الضريبي الجديد"
+      # propose: "Propose tax declaration: %{number}"
+      # show: "Tax declaration: %{number}"
     backend/taxes:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
@@ -923,9 +925,12 @@ arb:
     activity_productions: "إنتاجات آخر"
     add: "اضافة"
     add_a_worker: "إضافة عامل"
+    add_animal: "إضافة الحيوانية"
+    add_animal_group: "إضافة مجموعة الحيوانات"
     add_annotation: "إضافة تعليق توضيحي"
     add_attachment: "إضافة مرفق"
     add_bank_statement: "إضافة كشف حساب بنكي"
+    add_building_division: "إضافة قسم بناء"
     add_catalog_price: "إضافة سعر كتالوج"
     add_child: "إضافة عنصر الطفل"
     add_choice: "إضافة خيار"
@@ -935,7 +940,9 @@ arb:
     add_delivery: "اضافة وسيلة نقل"
     add_distribution: "إضافة التوزيع"
     add_email: "إضافة البريد الإلكتروني"
+    add_entrance: "إضافة مدخل"
     add_entry: "إضافة إدخال"
+    add_exit: "إضافة الخروج"
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
@@ -1093,7 +1100,7 @@ arb:
     choices: "خيارات"
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
-    # choose_delete_interventions_options: "Would you :"
+    choose_delete_interventions_options: "سيكون لك:"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
     choose_options_is_needed: "يجب عليك اختيار الحالة لالتدخلات التالية:"
     city_name: "المدينة" #?
@@ -1152,6 +1159,7 @@ arb:
     counts: "التهم"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
+    create_and_continue: "إنشاء ومتابعة"
     create_journal: "-- انشاء دفتر يومي --"
     create_or_import_equipments: "إنشاء أو المعدات استيراد"
     create_or_import_incoming_parcels: "إنشاء أو استيراد الطرود الواردة"
@@ -1203,8 +1211,8 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
-    # delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?"
-    # delete_request: "Delete also the request associate to the selected intervention(s)"
+    delete_only_record: "أو حذف فقط تدخل مختارة (ق) وعرض طلب الزميلة؟"
+    delete_request: "حذف أيضا على طلب المنتسبين إلى تدخل مختارة (ق)"
     delete_selected_interventions: "حذف التدخلات المنتقاة"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
@@ -1392,7 +1400,7 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
-    # in_progress: "In progress"
+    in_progress: "في تَقَدم"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
@@ -1620,6 +1628,7 @@ arb:
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
+    new_inventory: "جرد جديدة"
     new_issue: "مشكلة جديدة"
     new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
@@ -1745,6 +1754,7 @@ arb:
     percentage_by_calibration: "النسبة المئوية من المعايرة"
     period: "المدة المحددة مسبقا"
     periods: "فترات"
+    permanent_stock_inventory: "جرد مخزون دائم"
     permute: "مقايضة الملفات"
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
@@ -1796,6 +1806,7 @@ arb:
     productions: "المنتجات"
     products: "فئة المنتج"
     profile: "الملف الشخصي"
+    profits_and_losses: "الأرباح والخسائر"
     provisionnal_budget: "الميزانية Provisionnal" #?
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
@@ -2040,6 +2051,8 @@ arb:
     to_deposit: "لإيداع"
     to_deposit_later: "على أن تودع في وقت لاحق"
     to_deposit_now: "إيداع الآن"
+    to_pay: "لدفع"
+    to_reclaim: "لاستعادة"
     today: "اليوم"
     tool_cost: "تكلفة أداة"
     tool_create: "اضافة مادة" #?
@@ -2101,6 +2114,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    unbilled_payables: "دائنة غير المفوترة"
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
@@ -2157,7 +2171,7 @@ arb:
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
-    vat: "الضريبة المستحقة" #?
+    vat: "الضريبة المستحقة"
     vat_acquisitions: "المكاسب الداخلية" #?
     vat_amount: "الضرائب المستحقة" #?
     vat_collected: "صافي قيمة الضريبة المضافة" #?
@@ -2182,6 +2196,9 @@ arb:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
       zero: "ولا مشترك" #?
+    x_contracts:
+      # one: "%{count} contract"
+      # other: "%{count} contracts"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -2448,6 +2465,8 @@ arb:
       record_has_been_imported: "تم استيراد سجل"
       record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح" #?
       record_not_found: "سجل لم يتم العثور"
+      # record_x_created: "%{record} %{name} created"
+      # record_x_updated: "%{record} %{name} updated"
       restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}" #?
       sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
       sale_cannot_be_updated: "الطلب غير قابل للتعديل" #?
@@ -2462,7 +2481,15 @@ arb:
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
       subscription_is_not_renewable: "الاشتراك ليست قابلة للتجديد"
+      # synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}"
+      # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
+      # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
+      the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأنه تم بالفعل من قبل المستخدم"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لبعض الصفقات لم يتم الكشف حتى الآن"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
+      this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"

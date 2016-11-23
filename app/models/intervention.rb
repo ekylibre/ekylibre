@@ -52,6 +52,7 @@
 #
 
 class Intervention < Ekylibre::Record::Base
+  include Ekylibre::Ednotif if defined? Ekylibre::Ednotif
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
@@ -228,7 +229,13 @@ class Intervention < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
-      self.actions = procedure.actions.map(&:name) if actions && actions.empty?
+      if actions && actions.empty?
+        self.actions = if procedure.mandatory_actions.any?
+                         procedure.mandatory_actions.map(&:name)
+                       else
+                         procedure.optional_actions.map(&:name)
+                       end
+      end
     end
     true
   end
@@ -262,8 +269,33 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
+    targets.find_each do |target|
+      if target.new_container_id
+        ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+
+      if target.new_group_id
+        ProductMembership.find_or_create_by(member: target.product, group: Product.find(target.new_group_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+
+      if target.new_variant_id
+        ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+    end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+  end
+
+  ACTIONS = {
+    parturition: :create_new_birth,
+    animal_artificial_insemination: :create_insemination
+  }.freeze
+
+  after_create do
+    actions.each do |action|
+      next unless ACTIONS.key? action
+      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
+    end
   end
 
   # Prevents from deleting an intervention that was executed
@@ -271,13 +303,16 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
-  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
-  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
-  #       Mode Intervention      |     Debit                      |            Credit            |
-  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  # This method permits to add stock journal entries corresponding to the
+  # interventions which consume or produce products.
+  # It depends on the preferences which permit to activate the "permanent stock
+  # inventory" and "automatic bookkeeping".
+  #
+  # | Intervention mode      | Debit                      | Credit                    |
+  # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
+  # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
 
     list = []
     if Preference[:permanent_stock_inventory] && record?

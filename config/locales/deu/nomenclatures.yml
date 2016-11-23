@@ -5338,7 +5338,7 @@ deu:
         # poa: "Poa"
         poa_trivialis: "gewöhnliches Rispengras"
         # poaceae: "Poaceae"
-        pollen: "Blütenstaub staub~~POS=HEADCOMP"
+        pollen: "Blütenstaub staub"
         # polygonaceae: "Polygonaceae"
         pomace: "Trester"
         poncirus: "Feigenzitronenbaum"

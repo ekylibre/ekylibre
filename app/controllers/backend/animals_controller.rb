@@ -18,6 +18,7 @@
 
 module Backend
   class AnimalsController < Backend::MattersController
+    respond_to :json
     # params:
     #   :q Text search
     #   :s State search
@@ -75,66 +76,20 @@ module Backend
     end
 
     def load_animals
-      @grouped_animals = []
-      AnimalGroup.all.select(:id, :name).each do |group|
-        @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
-      end
+      @read_at = params[:scope] == 'now' ? { at: Time.zone.now } : @read_at = { at: false }
 
-      preference = current_user.preference("golumn.#{params[:golumn_id]}", {}.to_yaml)
-      user_pref = YAML.load(preference.value)
-
-      @sorted = []
-      user_pref.deep_symbolize_keys!
-      if user_pref[:positions].present?
-        user_pref[:positions].each do |g|
-          @grouped_animals.each do |h|
-            @sorted << h if h[:group].id == g[:id]
-          end
-        end
-      else
-        @sorted = @grouped_animals
-      end
-
-      without_container = []
-      Animal.of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
-        if a.container.nil? || a.memberships.empty?
-          without_container << { animal: a.to_json(methods: [:picture_path, :sex_text, :status]) }
-        end
-      end
-      @sorted << { others: without_container } if without_container.any?
-      render json: @sorted.to_json
-    end
-
-    def load_containers
-      @containers = Product.select(:id, :name).of_expression('can store(animal)')
-      render json: @containers
-    end
-
-    def load_workers
-      @workers = Worker.select(:id, :name).all
-      render json: @workers
-    end
-
-    def load_natures
-      @natures = ProductNatureVariant.of_variety(:animal).select(:id, :name).all
-      render json: @natures
-    end
-
-    def load_production_supports
-      prod = {}
-      arr = []
-      ActivityProduction.where(support: params[:group_id]).each do |p|
-        prod[:id] = p.id
-        prod[:name] = p.production.name + " (#{p.production.campaign.name})"
-        arr << prod
-      end
-      render json: arr, status: 200
+      @animal_groups = AnimalGroup.availables(@read_at).order(:name)
+      @animals = Animal.availables(@read_at).order(:name)
     end
 
     def change
       # params[:animals_id]
-      # params[:container_id]
-      # params[:group_id]
+      # params[:container]
+      # params[:group]
+      # params[:worker]
+      # params[:variant]
+      # params[:started_at]
+      # params[:stopped_at]
       # check animal exist
       if params[:animals_id]
         animals = params[:animals_id].split(',').collect do |animal_id|
@@ -142,43 +97,45 @@ module Backend
         end.compact
       end
 
-      procedure_natures = []
+      errors = []
 
-      procedure_natures << :animal_moving if params[:container_id].present?
-      procedure_natures << :animal_group_changing if params[:group_id].present?
-      procedure_natures << :animal_evolution if params[:variant_id].present?
-
-      Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ActivityProduction.find_by(id: params[:production_support_id])) do |i|
-        i.cast :caregiver, Product.find_by(id: params[:worker_id]), role: 'animal_moving-doer', position: 1
-        ah = nil
-        ag = nil
-        av = nil
-        if procedure_natures.include?(:animal_moving)
-          ah = i.cast :animal_housing, Product.find_by(id: params[:container_id]), role: ['animal_moving-target'], position: 2
-        end
-        if procedure_natures.include?(:animal_group_changing)
-          ag = i.cast :herd, Product.find_by(id: params[:group_id]), role: ['animal_group_changing-target'], position: 3
-        end
-        if procedure_natures.include?(:animal_evolution)
-          av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: params[:variant_id]), role: ['animal_evolution-variant'], position: 4, variant: true
-        end
-        animals.each_with_index do |a, index|
-          ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input', 'animal_evolution-target'], position: index + 5
-          if procedure_natures.include?(:animal_moving)
-            i.task :entering, product: ac, localizable: ah
-          end
-          if procedure_natures.include?(:animal_group_changing)
-            i.task :group_inclusion, member: ac, group: ag
-            # i.group_inclusion :animal, :herd
-          end
-          if procedure_natures.include?(:animal_evolution)
-            i.task :variant_cast, product: ac, variant: av
-            # i.variant_cast :animal, :new_animal_variant
-          end
-        end
+      begin
+        started_at = Date.parse(params[:started_at])
+      rescue StandardError => e
+        errors = notify_error(e.message.parameterize('_').to_sym.tn, type: :started_at)
       end
 
-      render json: { result: 'ok' }
+      begin
+        stopped_at = Date.parse(params[:stopped_at])
+      rescue StandardError => e
+        errors = notify_error(e.message.parameterize('_').to_sym.tn, type: :stopped_at)
+      end
+
+      group = AnimalGroup.find_by(id: params[:group])
+
+      if group.nil? || params[:group].blank?
+        errors = notify_error(:unavailable_resource, type: AnimalGroup.model_name.human, id: params[:group].to_s)
+      end
+
+      container = Product.find_by(id: params[:container])
+
+      if container.nil? || params[:container].blank?
+        errors = notify_error(:unavailable_resource, type: Product.human_attribute_name(:container), id: params[:container].to_s)
+      end
+
+      procedure_natures = []
+
+      # massive assignment
+      procedure_natures << :animal_moving if params[:container].present?
+      procedure_natures << :animal_evolution if params[:variant].present?
+
+      procedure_natures << :animal_group_changing if params[:group].present?
+
+      if errors.any?
+        render json: { errors: errors }, status: :unprocessable_entity
+      else
+        render json: { result: 'ok' }, status: :created
+      end
     end
 
     # Insert a group
@@ -211,6 +168,9 @@ module Backend
     # Show one animal with params_id
     def show
       return unless @animal = find_and_check
+      # TODO: remove it. On animal show dialog (Golumn), add issue. Break redirect on submit.
+      params.delete('dialog')
+
       t3e @animal, nature: @animal.nature_name
       respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
                                                                                           { readings: {} },

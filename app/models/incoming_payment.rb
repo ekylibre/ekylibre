@@ -64,6 +64,8 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :payer, class_name: 'Entity', inverse_of: :incoming_payments
   belongs_to :mode, class_name: 'IncomingPaymentMode', inverse_of: :payments
+  has_many :journal_entry_items, through: :journal_entry
+  has_one :bank_statement, -> { first }, through: :journal_entry_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :commission_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -80,7 +82,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :commission_account, presence: { if: :with_commission? }
 
   acts_as_numbered
-  acts_as_affairable :payer, dealt_at: :to_bank_at, role: 'client'
+  acts_as_affairable :payer, dealt_at: :to_bank_at, class_name: 'SaleAffair'
 
   alias status affair_status
 

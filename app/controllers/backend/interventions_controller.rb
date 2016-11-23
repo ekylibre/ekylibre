@@ -20,7 +20,10 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
+                     group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c,
+                     targets_attributes: 'params[:targets_attributes] || []'.c,
+                     continue: [:nature, :procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -199,14 +202,18 @@ module Backend
        :whole_duration, :working_duration].each do |param|
         options[param] = params[param]
       end
-      options[:group_parameters_attributes] = params[:group_parameters_attributes] || []
+
+      # , :doers, :inputs, :outputs, :tools
+      [:group_parameters, :targets].each do |param|
+        options["#{param}_attributes"] = params["#{param}_attributes"] || []
+      end
 
       @intervention = Intervention.new(options)
 
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
-      render(locals: { cancel_url: { action: :index } })
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
     def sell

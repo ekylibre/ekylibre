@@ -36,10 +36,6 @@ ita:
       mode:
         harvested: "Harvest data di semina"
         sowed: "Data provvisoria di semina"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     analysis:
       retrieval_status:
         controller_error: "Errore del controller"
@@ -135,6 +131,16 @@ ita:
         informative: "Informativo"
         refused: "rifiutato"
         waiting: "In attesa"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensile"
+        none: "Nessuna"
+        # quaterly: "Quaterly"
+        yearly: "Annuale"
+      tax_declaration_mode:
+        debit: "Addebito"
+        none: "Nessuna"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Laureato" #?
@@ -144,9 +150,6 @@ ita:
       direction:
         loss: "Perdita"
         profit: "Profitto"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     georeading:
       nature:
         line: "linea" #?
@@ -394,14 +397,6 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     sensor:
       retrieval_mode:
         integration: "Integrazione"
@@ -442,6 +437,7 @@ ita:
         sales: "Vendite"
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
+        tax_declarations: "Dichiarazioni fiscali"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirezionale" #?
@@ -450,6 +446,17 @@ ita:
       nature: #?
         period: "Abbonamento per data" #?
         quantity: "Abbonamento per numero" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticazione"
+        get_inventory: "Ottenere l’inventario"
+        get_urls: "Ottenere gli URL"
+      state:
+        aborted: "Abortito"
+        # errored: "Errored"
+        finished: "Finito"
+        in_progress: "In corso"
+        undone: "Disfatto"
     task:
       nature:
         document: "scrittura" #?

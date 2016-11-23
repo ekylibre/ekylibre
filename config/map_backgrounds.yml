@@ -5,15 +5,26 @@ open_street_map:
     mapnik:
       url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       enabled: yes
+      options:
+        max_zoom: 19
     black_and_white:
       url: 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
+      options:
+        max_zoom: 18
     de:
       url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
+      options:
+        max_zoom: 18
+    france:
+      url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
+      options:
+        max_zoom: 19
     hot:
       url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
       enabled: yes
       by_default: yes
       options:
+        max_zoom: 19
         attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 
 thunderforest:
@@ -27,8 +38,12 @@ thunderforest:
       url: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png'
     transport:
       url: 'https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png'
+      options:
+        max_zoom: 19
     transport_dark:
       url: 'https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png'
+      options:
+        max_zoom: 19
     landscape:
       enabled: yes
       url: 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
@@ -37,6 +52,7 @@ open_map_surfer:
   url: 'http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}'
   options:
     attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+    max_zoom: 19
   variants:
     roads:
     grayscale:
@@ -69,6 +85,7 @@ esri:
   variants:
     world_street_map:
       options:
+        max_zoom: 19
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
     de_lorme:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}'
@@ -79,12 +96,14 @@ esri:
     world_topo_map:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
       options:
+        max_zoom: 19
         attribution:
           'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
     world_imagery:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
       enabled: yes
       options:
+        max_zoom: 19
         attribution:
           'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     nat_geo_world_map:

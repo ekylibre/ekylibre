@@ -90,6 +90,7 @@ cmn:
       subscriptions: "订阅"
       supervisions: "监督"
       tasks: "任务"
+      tax_declarations: "纳税申报"
       taxes: "税"
       teams: "小组"
       trackings: "漏电痕迹"

@@ -30,13 +30,13 @@
 #  currency         :string           not null
 #  direction        :string           not null
 #  entity_id        :integer          not null
-#  entity_role      :string           not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  number           :string           not null
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  printed_at       :datetime         not null
+#  type             :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

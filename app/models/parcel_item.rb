@@ -164,6 +164,10 @@ class ParcelItem < Ekylibre::Record::Base
       (parcel_incoming? && variant.present?)
   end
 
+  def trade_item
+    parcel_incoming? ? purchase_item : sale_item
+  end
+
   def stock_amount
     population * unit_pretax_stock_amount
   end

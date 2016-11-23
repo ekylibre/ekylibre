@@ -1,3 +1,4 @@
+# coding: utf-8
 module Procedo
   module Engine
     # This module all functions accessible through formula language
@@ -107,6 +108,61 @@ module Procedo
           return container.actor.containeds.count(&:available?)
         rescue
           raise Procedo::Errors::FailedFunctionCall
+        end
+
+        # compute a name from given variant
+        def output_computed_name(variant, working_periods) # working_periods
+          # last_day = working_periods.last[:value]
+          end_of_period = working_periods.last[:stopped_at].to_time
+
+          # get product born on the same day
+          products = []
+          ps = Product.of_variant(variant).at(end_of_period).order(:born_at)
+          ps.each do |p|
+            products << p if p.born_at.to_date == end_of_period.to_date
+          end
+
+          # build variables
+          ordered = products.compact.count + 1
+          name = variant.name
+          born_at = end_of_period.strftime('%d/%m/%Y')
+
+          "#{name} n°#{ordered} #{born_at}"
+        end
+
+        def variety_of(product)
+          return product.variety
+        rescue
+          raise Procedo::FailedFunctionCall
+        end
+
+        def variant_of(product)
+          return product.member_variant unless product.nil?
+          nil
+        rescue
+          raise Procedo::FailedFunctionCall
+        end
+
+        def father_of(vial)
+          return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
+        rescue
+          raise Procedo::FailedFunctionCall
+        end
+
+        def mother_of(vial)
+          return vial.mother.last_transplantation.input.mother || vial.mother
+        rescue
+          raise Procedo::FailedFunctionCall
+        end
+
+        # return first date as Datetime object
+        def intervention_started_at(set)
+          set.collect { |h| DateTime.parse(h[:started_at]) }.min
+        end
+
+        # return last date as Datetime object
+        def intervention_stopped_at(set)
+          set.collect { |h| DateTime.parse(h[:stopped_at]) }.max
         end
       end
     end

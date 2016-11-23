@@ -130,6 +130,14 @@ class Account < Ekylibre::Record::Base
               :short_cycle_animals_inventory_variations, :long_cycle_animals_inventory_variations)
   }
 
+  scope :collected_vat, -> {
+    of_usages(:collected_vat, :enterprise_collected_vat)
+  }
+
+  scope :deductible_vat, -> {
+    of_usages(:deductible_vat, :enterprise_deductible_vat)
+  }
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?
@@ -382,10 +390,8 @@ class Account < Ekylibre::Record::Base
 
   def new_letter
     letter = last_letter
-    letter = letter.blank? ? 'AAA' : letter.succ
+    letter = letter.blank? ? 'A' : letter.succ
     update_column(:last_letter, letter)
-    # item = self.journal_entry_items.where("LENGTH(TRIM(letter)) > 0").order("letter DESC").first
-    # return (item ? item.letter.succ : "AAA")
     letter
   end
 
@@ -401,7 +407,8 @@ class Account < Ekylibre::Record::Base
   def mark(item_ids, letter = nil)
     conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)', item_ids]
     items = journal_entry_items.where(conditions)
-    return nil unless item_ids.size > 1 && items.count == item_ids.size && items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
+    return nil unless item_ids.size > 1 && items.count == item_ids.size &&
+                      items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
     letter ||= new_letter
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter

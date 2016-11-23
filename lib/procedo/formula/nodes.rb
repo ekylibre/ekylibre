@@ -3,6 +3,9 @@ module Procedo
     module Nodes
       class Base < Treetop::Runtime::SyntaxNode; end
       class Expression < Base; end
+      class StringExpression < Base; end
+      class Text < Base; end
+      class Interpolation < Base; end
       class Condition < Base; end
       class Operation < Base; end # Abstract
       class Multiplication < Operation; end

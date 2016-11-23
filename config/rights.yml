@@ -25,7 +25,6 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
-#     - "backend/animal_groups#list_trackings"
 #     - "backend/animal_groups#take"
 #     - "backend/animals#list_trackings"
 #     - "backend/animals#take"
@@ -129,8 +128,6 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#list_trackings"
 #     - "backend/products#take"
-#     - "backend/purchases#pay"
-#     - "backend/purchases#payment_mode"
 #     - "backend/sensors#last_locations"
 #     - "backend/settlements#list_trackings"
 #     - "backend/settlements#take"
@@ -325,6 +322,7 @@ animal_groups:
     - "backend/animal_groups#list_parcel_items"
     - "backend/animal_groups#list_places"
     - "backend/animal_groups#list_readings"
+    - "backend/animal_groups#list_trackings"
     - "backend/animal_groups#picture"
     - "backend/animal_groups#show"
     - "backend/animal_groups#unroll"
@@ -371,10 +369,6 @@ animals:
     - "backend/animals#destroy"
     - "backend/animals#edit"
     - "backend/animals#load_animals"
-    - "backend/animals#load_containers"
-    - "backend/animals#load_natures"
-    - "backend/animals#load_production_supports"
-    - "backend/animals#load_workers"
     - "backend/animals#new"
     - "backend/animals#update"
 
@@ -932,11 +926,21 @@ gaps:
     - "backend/gaps#list"
     - "backend/gaps#list_items"
     - "backend/gaps#show"
+    - "backend/purchase_gaps#index"
+    - "backend/purchase_gaps#list"
+    - "backend/purchase_gaps#list_items"
+    - "backend/purchase_gaps#show"
+    - "backend/sale_gaps#index"
+    - "backend/sale_gaps#list"
+    - "backend/sale_gaps#list_items"
+    - "backend/sale_gaps#show"
   write:
     dependencies:
     - read-gaps
     actions:
     - "backend/gaps#destroy"
+    - "backend/purchase_gaps#destroy"
+    - "backend/sale_gaps#destroy"
 
 georeadings:
   read:
@@ -1497,20 +1501,18 @@ outgoing_deliveries:
 outgoing_payment_lists:
   read:
     actions:
+    - "backend/outgoing_payment_lists#export_to_sepa"
     - "backend/outgoing_payment_lists#index"
     - "backend/outgoing_payment_lists#list"
+    - "backend/outgoing_payment_lists#list_payments"
     - "backend/outgoing_payment_lists#show"
   write:
     dependencies:
     - read-outgoing_payment_lists
     actions:
-    - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
-    - "backend/outgoing_payment_lists#edit"
-    - "backend/outgoing_payment_lists#export_to_sepa"
-    - "backend/outgoing_payment_lists#list_payments"
-    - "backend/outgoing_payment_lists#new"
-    - "backend/outgoing_payment_lists#update"
+    - "backend/purchases#pay"
+    - "backend/purchases#payment_mode"
 
 outgoing_payment_modes:
   read:
@@ -1782,6 +1784,10 @@ purchase_natures:
 purchases:
   read:
     actions:
+    - "backend/purchase_affairs#index"
+    - "backend/purchase_affairs#list"
+    - "backend/purchase_affairs#show"
+    - "backend/purchase_affairs#unroll"
     - "backend/purchases#index"
     - "backend/purchases#list"
     - "backend/purchases#list_items"
@@ -1794,6 +1800,11 @@ purchases:
     actions:
     - "backend/interventions#purchase"
     - "backend/parcels#invoice"
+    - "backend/purchase_affairs#attach"
+    - "backend/purchase_affairs#detach"
+    - "backend/purchase_affairs#detach_gaps"
+    - "backend/purchase_affairs#finish"
+    - "backend/purchase_affairs#select"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1847,6 +1858,10 @@ sale_natures:
 sales:
   read:
     actions:
+    - "backend/sale_affairs#index"
+    - "backend/sale_affairs#list"
+    - "backend/sale_affairs#show"
+    - "backend/sale_affairs#unroll"
     - "backend/sale_opportunities#index"
     - "backend/sale_opportunities#list"
     - "backend/sale_opportunities#list_tasks"
@@ -1866,6 +1881,11 @@ sales:
     actions:
     - "backend/interventions#sell"
     - "backend/parcels#invoice"
+    - "backend/sale_affairs#attach"
+    - "backend/sale_affairs#detach"
+    - "backend/sale_affairs#detach_gaps"
+    - "backend/sale_affairs#finish"
+    - "backend/sale_affairs#select"
     - "backend/sale_opportunities#attach"
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
@@ -2059,6 +2079,26 @@ tasks:
     - "backend/tasks#reset"
     - "backend/tasks#start"
     - "backend/tasks#update"
+
+tax_declarations:
+  read:
+    actions:
+    - "backend/tax_declarations#index"
+    - "backend/tax_declarations#list"
+    - "backend/tax_declarations#list_items"
+    - "backend/tax_declarations#show"
+    - "backend/tax_declarations#unroll"
+  write:
+    dependencies:
+    - read-tax_declarations
+    actions:
+    - "backend/tax_declarations#confirm"
+    - "backend/tax_declarations#create"
+    - "backend/tax_declarations#destroy"
+    - "backend/tax_declarations#edit"
+    - "backend/tax_declarations#new"
+    - "backend/tax_declarations#propose"
+    - "backend/tax_declarations#update"
 
 taxes:
   read:
