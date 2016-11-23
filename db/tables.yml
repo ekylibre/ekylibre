@@ -4836,9 +4836,9 @@ parcels:
   transporter_id:
     type: integer
     references: entity
-  undelivered_invoice_entry_id:
+  undelivered_invoice_journal_entry_id:
     type: integer
-    references: ''
+    references: journal_entry
   updated_at:
     type: datetime
     required: true

@@ -59,10 +59,10 @@ class LoanRepayment < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(journal, printed_on: due_on, if: (amount > 0 && due_on <= Time.zone.today)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
-      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, base_amount) unless base_amount.zero?
-      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans_interests).id }, interest_amount) unless interest_amount.zero?
-      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:insurance_expenses).id }, insurance_amount) unless insurance_amount.zero?
-      entry.add_credit(label, cash.account_id, amount)
+      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, base_amount, as: :repayment) unless base_amount.zero?
+      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans_interests).id }, interest_amount, as: :interest) unless interest_amount.zero?
+      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:insurance_expenses).id }, insurance_amount, as: :insurance) unless insurance_amount.zero?
+      entry.add_credit(label, cash.account_id, amount, as: :bank)
     end
   end
 

@@ -51,6 +51,7 @@ module Ekylibre
 
           attributes = options
           attributes[:resource] ||= @resource
+          attributes[:resource_prism] ||= prism
           # attributes[:state]      ||= @state
           attributes[:printed_on] ||= @resource.created_at.to_date if @resource.respond_to? :created_at
           unless attributes[:printed_on].is_a?(Date)
@@ -126,7 +127,7 @@ module Ekylibre
           code << "end\n"
 
           configuration[:on] = [configuration[:on]].flatten
-          for action in Ekylibre::Record::Bookkeep.actions
+          Ekylibre::Record::Bookkeep.actions.each do |action|
             next unless configuration[:on].include? action
             code << "after_#{action} do \n"
             code << "  if ::Preference[:bookkeep_automatically]\n"

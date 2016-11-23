@@ -8,6 +8,7 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
     rename_column :sales, :quantity_gap_on_invoice_entry_id, :quantity_gap_on_invoice_journal_entry_id
     rename_column :purchases, :undelivered_invoice_entry_id, :undelivered_invoice_journal_entry_id
     rename_column :purchases, :quantity_gap_on_invoice_entry_id, :quantity_gap_on_invoice_journal_entry_id
+    rename_column :parcels, :undelivered_invoice_entry_id, :undelivered_invoice_journal_entry_id
 
     other_usual_running_expenses_id = select_value("SELECT id FROM accounts WHERE usages = 'other_usual_running_expenses'").to_i
     other_usual_running_profits_id = select_value("SELECT id FROM accounts WHERE usages = 'other_usual_running_profits'").to_i
@@ -68,6 +69,8 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '  WHERE je.id = jei.entry_id' \
                 '    AND jei.account_id = e.supplier_account_id'
 
+        execute "UPDATE journal_entries SET resource_prism = 'purchase' WHERE resource_type = 'Purchase' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('supplier', 'item_product', 'item_tax'))"
+
         # purchase_gap
         execute 'UPDATE journal_entry_items AS jei' \
                 " SET resource_type = 'GapItem', resource_id = gi.id, resource_prism = 'item_tax', tax_id = gi.tax_id, real_pretax_amount = gi.pretax_amount" \
@@ -100,6 +103,8 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '    JOIN entities AS e ON g.entity_id = e.id' \
                 "  WHERE je.id = jei.entry_id AND g.type = 'PurchaseGap'" \
                 '    AND jei.account_id = e.supplier_account_id'
+
+        execute "UPDATE journal_entries SET resource_prism = 'purchase_gap' FROM gaps AS g WHERE resource_type = 'Gap' AND resource_id = g.id AND g.type = 'SaleGap' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('supplier', 'item_product', 'item_tax'))"
 
         # sale
         execute 'UPDATE journal_entry_items AS jei' \
@@ -134,6 +139,8 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '  WHERE je.id = jei.entry_id' \
                 '    AND jei.account_id = e.client_account_id'
 
+        execute "UPDATE journal_entries SET resource_prism = 'sale' WHERE resource_type = 'Sale' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('client', 'item_product', 'item_tax'))"
+
         # sale_gap
         execute 'UPDATE journal_entry_items AS jei' \
                 " SET resource_type = 'GapItem', resource_id = gi.id, resource_prism = 'item_tax', tax_id = gi.tax_id, real_pretax_amount = gi.pretax_amount" \
@@ -166,6 +173,8 @@ class AddResourceOnJournalEntryItems < ActiveRecord::Migration
                 '    JOIN entities AS e ON g.entity_id = e.id' \
                 "  WHERE je.id = jei.entry_id AND g.type = 'SaleGap'" \
                 '    AND jei.account_id = e.client_account_id'
+
+        execute "UPDATE journal_entries SET resource_prism = 'sale_gap' FROM gaps AS g WHERE resource_type = 'Gap' AND resource_id = g.id AND g.type = 'SaleGap' AND id IN (SELECT entry_id FROM journal_entry_items WHERE resource_prism IN ('client', 'item_product', 'item_tax'))"
 
         # tax_declaration
 

@@ -184,7 +184,7 @@ class Purchase < Ekylibre::Record::Base
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product]
+          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item]
         end
       end
     end

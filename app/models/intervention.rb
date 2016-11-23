@@ -323,8 +323,8 @@ class Intervention < Ekylibre::Record::Base
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
-        list << [:add_debit, label, debit_account, stock_amount]
-        list << [:add_credit, label, credit_account, stock_amount]
+        list << [:add_debit, label, debit_account, stock_amount, as: (input? ? :stock_movement : :stock)]
+        list << [:add_credit, label, credit_account, stock_amount, as: (input? ? :stock : :stock_movement)]
       end
       inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
       outputs.each  { |output|  write_parameter_entry_items.call(output, false) }

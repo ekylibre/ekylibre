@@ -4214,7 +4214,7 @@ CREATE TABLE parcels (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    undelivered_invoice_entry_id integer,
+    undelivered_invoice_journal_entry_id integer,
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer
@@ -13116,10 +13116,10 @@ CREATE INDEX index_parcels_on_transporter_id ON parcels USING btree (transporter
 
 
 --
--- Name: index_parcels_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_parcels_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_undelivered_invoice_entry_id ON parcels USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_parcels_on_undelivered_invoice_journal_entry_id ON parcels USING btree (undelivered_invoice_journal_entry_id);
 
 
 --

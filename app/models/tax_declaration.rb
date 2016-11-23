@@ -121,18 +121,19 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    journal = Journal.used_for_tax_declarations!(currency: currency)
+    journal = unsuppress { Journal.used_for_tax_declarations!(currency: currency) }
     b.journal_entry(journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, started_on: started_on.l, stopped_on: stopped_on.l)
       items.each do |item|
-        entry.add_debit(label, item.tax.collect_account.id, item.collected_tax_amount.round(2)) unless item.collected_tax_amount.zero?
-        entry.add_credit(label, item.tax.deduction_account.id, item.deductible_tax_amount.round(2)) unless item.deductible_tax_amount.zero?
-        entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_tax_amount.round(2)) unless item.fixed_asset_deductible_tax_amount.zero?
+        entry.add_debit(label, item.tax.collect_account.id, item.collected_tax_amount.round(2), tax: item.tax, resource: item, as: :collect) unless item.collected_tax_amount.zero?
+        entry.add_credit(label, item.tax.deduction_account.id, item.deductible_tax_amount.round(2), tax: item.tax, resource: item, as: :deduction) unless item.deductible_tax_amount.zero?
+        entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_tax_amount.round(2), tax: item.tax, resource: item, as: :fixed_asset_deduction) unless item.fixed_asset_deductible_tax_amount.zero?
       end
       balance = items.sum(:balance_tax_amount).round(2)
       unless balance.zero?
+        # FIXME: Too french
         account = Account.find_or_create_by(number: balance < 0 ? '45567' : '44551')
-        entry.add_credit(label, account, balance)
+        entry.add_credit(label, account, balance, as: :balance)
       end
     end
   end
