@@ -391,6 +391,11 @@ cmn:
       new: "新地块"
       ship: "船舶包裹"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      new: "新的计数"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "植物"
@@ -761,6 +766,7 @@ cmn:
     automatic: "汽车"
     available: "可用的"
     # available_columns: "Available columns: %{columns}"
+    average: "平均"
     back: "回到以前的页"
     balance: "平衡"
     bank_account: "银行账户"
@@ -1245,6 +1251,8 @@ cmn:
     placeholder: "占位符"
     places: "地方"
     plant: "厂"
+    plant_counting: "数数"
+    # plant_countings: "Countings"
     plantation_density: "种植密度"
     plants: "植物"
     please_wait: "请稍候…"
@@ -1544,6 +1552,9 @@ cmn:
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1699,6 +1710,7 @@ cmn:
       closed_financial_years: "本财政年度已圆满闭幕"
       columns_are_already_uses: "一个或多个列选择多次"
       dashboard_is_being_developed: "仪表板仍处于开发状态"
+      density_is_not_computable_in_counting: "无法计算这个计算密度。在遗漏值应在计算的属性或撒种的指标来完成。"
       draft_journal_entries_have_been_validated:
         one: "一个条目已被证实"
         # other: "%{count} entries have been validated"
@@ -1908,6 +1920,7 @@ cmn:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"

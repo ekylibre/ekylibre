@@ -278,6 +278,10 @@ cmn:
         in_preparation: "在准备" #?
         ordered: "有序" #?
         prepared: "准备" #?
+    plant_counting:
+      nature:
+        germination: "在发芽"
+        sowing: "在播种"
     preference:
       nature:
         accounting_system: "会计制度"

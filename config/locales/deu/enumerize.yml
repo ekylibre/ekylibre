@@ -278,6 +278,10 @@ deu:
         in_preparation: "In Vorbereitung" #?
         ordered: "bestellt" #?
         prepared: "Bereit" #?
+    plant_counting:
+      nature:
+        germination: "Bei der Keimung"
+        sowing: "Bei Aussaat"
     preference:
       nature:
         accounting_system: "Abrechnungssystem"

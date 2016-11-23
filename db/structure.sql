@@ -4289,7 +4289,9 @@ CREATE TABLE plant_countings (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     number character varying,
-    nature character varying
+    nature character varying,
+    working_width_value numeric(19,4),
+    rows_count_value integer
 );
 
 
@@ -16426,4 +16428,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161121033801');
 INSERT INTO schema_migrations (version) VALUES ('20161121171401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122155003');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122161646');
 

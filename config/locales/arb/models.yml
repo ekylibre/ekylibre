@@ -335,6 +335,16 @@ arb:
         population: "كمية"
       plant:
         born_at: "زرعت في"
+      plant_counting:
+        plant: "المنتج"
+        plant_activity: "نشاط"
+        rows_count_value: "عد الصفوف"
+        working_width_value: "عرض تطبيق Implanter"
+      plant_counting_item:
+        value: "عد النباتات"
+      plant_density_abacus_item:
+        plants_count: "عد النباتات المتوقع"
+        seeding_density_value: "يتوقع كثافة بذر"
       postal_zone:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
@@ -2122,6 +2132,7 @@ arb:
     root_model_name: "جذر"
     root_node: "عقدة الجذر"
     root_parameters: "المعلمات الجذر"
+    # rows_count_value: "Rows count"
     sale: "طلب البيع"
     sale_credit: "الائتمان بيع"
     sale_id: "طلب بيع" #?
@@ -2418,6 +2429,7 @@ arb:
     working_duration: "مدة العمل"
     working_periods: "فترات العمل"
     working_shape: "شكل العمل" #?
+    # working_width_value: "Implanter application width"
     working_zone: "منطقة العمل"
     working_zone_area: "منطقة منطقة العمل"
     zone_memberships: "عضوية منطقة"

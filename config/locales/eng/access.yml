@@ -11,6 +11,7 @@ eng:
       reopen: "Reopen"
       write: "Write"
     resources:
+      # plant_countings: "Plant countings"
       accounts: "Accounts"
       activities: "Activities"
       affairs: "Affairs"

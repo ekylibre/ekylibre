@@ -652,6 +652,8 @@
         <page to="backend/plant_density_abaci#new"/>
         <page to="backend/plant_density_abaci#show"/>
         <page to="backend/plant_density_abaci#update"/>
+        <page to="backend/plant_density_abacus_items#new"/>
+        <page to="backend/plant_density_abacus_items#unroll"/>
         <page to="backend/wine_tanks#index"/>
         <page to="backend/wine_tanks#list"/>
         <page to="backend/fungi#index"/>
@@ -762,7 +764,7 @@
         <page to="backend/issues#picture"/>
         <page to="backend/issues#unroll"/>
       </item>
-      <item name="inspections" icon="grain">
+      <item name="inspections">
         <page to="backend/inspections#index"/>
         <page to="backend/inspections#create"/>
         <page to="backend/inspections#destroy"/>
@@ -773,6 +775,16 @@
         <page to="backend/inspections#show"/>
         <page to="backend/inspections#unroll"/>
         <page to="backend/inspections#update"/>
+      </item>
+      <item name="plant_countings">
+        <page to="backend/plant_countings#index"/>
+        <page to="backend/plant_countings#new"/>
+        <page to="backend/plant_countings#create"/>
+        <page to="backend/plant_countings#edit"/>
+        <page to="backend/plant_countings#update"/>
+        <page to="backend/plant_countings#destroy"/>
+        <page to="backend/plant_countings#list"/>
+        <page to="backend/plant_countings#show"/>
       </item>
     </group>
     <group name="field_distribution" icon="land-parcels">
@@ -825,6 +837,7 @@
         <page to="backend/plants#list_inspections"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_parcel_items"/>
+        <page to="backend/plants#list_plant_countings"/>
         <page to="backend/plants#list_readings"/>
         <page to="backend/plants#list_intervention_product_parameters"/>
         <page to="backend/plants#list_issues"/>

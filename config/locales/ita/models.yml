@@ -38,6 +38,16 @@ ita:
         population: "Quantità"
       plant:
         born_at: "piantato a"
+      plant_counting:
+        plant: "Prodotto"
+        plant_activity: "Attività"
+        rows_count_value: "Contano le righe"
+        working_width_value: "Larghezza di applicazione implanter"
+      plant_counting_item:
+        value: "Contano piante"
+      plant_density_abacus_item:
+        plants_count: "Contano le piante attesi"
+        seeding_density_value: "Previsto densità di semina"
       purchase:
         affair_balance: "Equilibrio"
       sale:
@@ -1236,6 +1246,7 @@ ita:
     root_model_name: "Root nome del modello"
     root_node: "nodo principale"
     root_parameters: "parametri Root"
+    # rows_count_value: "Rows count"
     sale: "Vendita"
     sale_credit: "vendita di credito"
     sale_item: "punto vendita"
@@ -1456,6 +1467,7 @@ ita:
     working_duration: "durata di funzionamento"
     working_periods: "periodi di lavoro"
     working_shape: "forma di lavoro" #?
+    # working_width_value: "Implanter application width"
     working_zone: "zona di lavoro"
     working_zone_area: "zona zona di lavoro"
     zone_memberships: "appartenenze Zone"

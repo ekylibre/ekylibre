@@ -391,6 +391,11 @@ jpn:
       new: "新小包"
       ship: "船の小包"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      # index: "Countings"
+      new: "新しいカウント"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "植物"
@@ -828,6 +833,7 @@ jpn:
     automatic: "オート"
     available: "利用できます"
     # available_columns: "Available columns: %{columns}"
+    average: "平均"
     back: "前のページに戻ります"
     balance: "バランス"
     bank_account: "銀行口座"
@@ -1317,6 +1323,8 @@ jpn:
     placeholder: "プレースホルダー"
     places: "場所"
     plant: "工場"
+    plant_counting: "集計"
+    # plant_countings: "Countings"
     plantation_density: "プランテーション密度"
     plants: "植物"
     please_wait: "お待ちください…"
@@ -1617,6 +1625,9 @@ jpn:
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1775,6 +1786,7 @@ jpn:
       closed_financial_years: "会計年度は正常にクローズされました"
       columns_are_already_uses: "一つまたは多くの列が何度も選択されています"
       dashboard_is_being_developed: "ダッシュボードは重い開発中です"
+      density_is_not_computable_in_counting: "この計数のための密度を計算することができませんでした。欠損値は、カウントのプロパティまたは種まきの指標で完了する必要があります。"
       draft_journal_entries_have_been_validated:
         one: "1つのエントリが検証されています"
         # other: "%{count} entries have been validated"
@@ -1984,6 +1996,7 @@ jpn:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"

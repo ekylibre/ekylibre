@@ -38,6 +38,16 @@ por:
         population: "Quantidade"
       plant:
         born_at: "Plantadas em"
+      plant_counting:
+        plant: "Produto"
+        plant_activity: "Atividade"
+        rows_count_value: "Linhas contar"
+        working_width_value: "Width aplicação implantador"
+      plant_counting_item:
+        value: "Plantas contar"
+      plant_density_abacus_item:
+        plants_count: "Plantas esperados contar"
+        seeding_density_value: "Densidade de semeadura esperado"
       purchase:
         affair_balance: "Equilibrar"
       sale:
@@ -1205,6 +1215,7 @@ por:
     root_model_name: "Nome do modelo raiz"
     root_node: "Nó raiz"
     root_parameters: "Parâmetros de raiz"
+    # rows_count_value: "Rows count"
     sale: "Venda"
     sale_credit: "Crédito venda"
     sale_item: "Item de venda"
@@ -1425,6 +1436,7 @@ por:
     working_duration: "Duração de trabalho"
     working_periods: "Períodos de trabalho"
     working_shape: "Forma de trabalho" #?
+    # working_width_value: "Implanter application width"
     working_zone: "Zona de trabalho"
     working_zone_area: "área de zona de trabalho"
     zone_memberships: "Associações da zona"

@@ -38,6 +38,16 @@ eng:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      plant_counting:
+        plant: "Product"
+        plant_activity: "Activity"
+        rows_count_value: "Rows count"
+        working_width_value: "Implanter application width"
+      plant_counting_item:
+        value: "Plants count"
+      plant_density_abacus_item:
+        plants_count: "Expected plants count"
+        seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
       sale:
@@ -1224,6 +1234,7 @@ eng:
     root_model_name: "Root model name"
     root_node: "Root node"
     root_parameters: "Root parameters"
+    rows_count_value: "Rows count" #?
     sale: "Sale"
     sale_credit: "Sale credit"
     sale_item: "Sale item"
@@ -1443,6 +1454,7 @@ eng:
     worker: "Worker"
     working_duration: "Working duration"
     working_periods: "Working periods"
+    working_width_value: "Implanter application width" #?
     working_zone: "Working zone"
     working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?
