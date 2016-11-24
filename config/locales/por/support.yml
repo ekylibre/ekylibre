@@ -67,6 +67,9 @@ por:
     relative_distance_in_words:
       in_sometime: "em %{distance}"
       sometime_ago: "%{distance} atrás"
+  general:
+    # n: "No"
+    # y: "Yes"
   http:
     errors:
       internal_server_error:

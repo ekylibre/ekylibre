@@ -66,6 +66,9 @@ spa:
     relative_distance_in_words:
       in_sometime: "en %{distance}"
       sometime_ago: "hace %{distance}"
+  general:
+    # n: "No"
+    # y: "Yes"
   http:
     errors:
       internal_server_error:

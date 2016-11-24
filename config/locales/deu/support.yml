@@ -109,6 +109,9 @@ deu:
       header: #?
         one: "Konnte %{model} nicht speichern: ein Fehler." #?
         other: "Konnte %{model} nicht speichern: %{count} Fehler." #?
+  general:
+    # n: "No"
+    # y: "Yes"
   helpers:  #?
     select: #?
       prompt: "Bitte wählen" #?

@@ -663,6 +663,11 @@ module Backend
       @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
     end
 
+    def yes_no_radio(attribute_name, options = {})
+      options.merge!({as: :radio_buttons, collection: [[::I18n.translate('general.y'), true], [I18n.t('general.n'), false]]})
+      input(attribute_name, options)
+    end
+
     def actions
       return nil unless @actions.any?
       @template.form_actions do

@@ -110,6 +110,9 @@ arb:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
+  general:
+    # n: "No"
+    # y: "Yes"
   http:
     errors:
       internal_server_error:
