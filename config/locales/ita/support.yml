@@ -60,6 +60,7 @@ ita:
     periods:
       day: "Giorno"
       month: "Mese"
+      # today: "Today"
       week: "Settimana"
       year: "Anno"
     prompts:  #?

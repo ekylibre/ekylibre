@@ -1,9 +1,6 @@
 - if intervals.size > 1
-  .btn-group.period-interval-selector
-    - intervals.each do |interval|
-      - classes = 'btn period-interval '
-      - classes << 'active' if period_interval == interval
-      = link_to("datetime.periods.#{interval}".t, { current_period_interval: interval, current_campaign: current_period.year }, class: classes)
+  .period-selector
+    = link_to("datetime.periods.today".t, { current_period: Date.today, current_period_interval: period_interval }, class: 'btn today-period-btn')
 
 .btn-group.period-selector
   - previous_period = current_period - 1.send(period_interval)
@@ -26,7 +23,20 @@
                        else
                          current_period.year.to_s
                        end
-  = link_to(displayed_period, url_params, class: "btn period #{period_interval}")
+
+  - if intervals.size > 1
+    .btn.btn-group
+      = content_tag(:button, nil, { class: "btn btn-with-intervals period #{period_interval}", "data-toggle": "dropdown" }) do
+        %span= displayed_period
+        %span.caret
+      = content_tag(:ul, nil, class: "dropdown-menu interval-menu") do
+        - intervals.each do |interval|
+          = content_tag(:li, nil, class: "") do
+            - classes = 'period-interval '
+            - classes << 'active' if period_interval == interval
+            = link_to("datetime.periods.#{interval}".t, { current_period_interval: interval, current_campaign: current_period.year }, class: classes)
+  - else
+    = link_to(displayed_period, url_params, class: "btn period #{period_interval}")
 
 
   - next_period = current_period + 1.send(period_interval)
