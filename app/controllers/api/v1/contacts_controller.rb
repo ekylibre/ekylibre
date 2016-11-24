@@ -17,7 +17,7 @@ module Api
           end
 
           f = File.read(contact.picture.path(:contact))
-          render json: { picture: Base64::strict_encode64(f) }
+          render json: { picture: Base64::urlsafe_encode64(f) }
         else
           head :not_found
         end
