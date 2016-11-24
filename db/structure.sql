@@ -3355,7 +3355,8 @@ CREATE TABLE journal_entries (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    resource_prism character varying
 );
 
 
@@ -3422,7 +3423,10 @@ CREATE TABLE journal_entry_items (
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    tax_declaration_item_id integer
+    tax_declaration_item_id integer,
+    resource_id integer,
+    resource_type character varying,
+    resource_prism character varying
 );
 
 
@@ -4211,7 +4215,7 @@ CREATE TABLE parcels (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    undelivered_invoice_entry_id integer,
+    undelivered_invoice_journal_entry_id integer,
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer
@@ -4290,7 +4294,9 @@ CREATE TABLE plant_countings (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     number character varying,
-    nature character varying
+    nature character varying,
+    working_width_value numeric(19,4),
+    rows_count_value integer
 );
 
 
@@ -5419,8 +5425,8 @@ CREATE TABLE purchases (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer,
+    undelivered_invoice_journal_entry_id integer,
+    quantity_gap_on_invoice_journal_entry_id integer,
     payment_delay character varying,
     payment_at timestamp without time zone,
     contract_id integer
@@ -5511,8 +5517,7 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb,
-    amount_reference character varying
+    codes jsonb
 );
 
 
@@ -5631,8 +5636,8 @@ CREATE TABLE sales (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     codes jsonb,
-    undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer
+    undelivered_invoice_journal_entry_id integer,
+    quantity_gap_on_invoice_journal_entry_id integer
 );
 
 
@@ -12169,6 +12174,13 @@ CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btre
 
 
 --
+-- Name: index_journal_entry_items_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_resource_type_and_resource_id ON journal_entry_items USING btree (resource_type, resource_id);
+
+
+--
 -- Name: index_journal_entry_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13107,10 +13119,10 @@ CREATE INDEX index_parcels_on_transporter_id ON parcels USING btree (transporter
 
 
 --
--- Name: index_parcels_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_parcels_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_undelivered_invoice_entry_id ON parcels USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_parcels_on_undelivered_invoice_journal_entry_id ON parcels USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
@@ -14801,10 +14813,10 @@ CREATE INDEX index_purchases_on_nature_id ON purchases USING btree (nature_id);
 
 
 --
--- Name: index_purchases_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_purchases_on_quantity_gap_on_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_quantity_gap_on_invoice_entry_id ON purchases USING btree (quantity_gap_on_invoice_entry_id);
+CREATE INDEX index_purchases_on_quantity_gap_on_invoice_journal_entry_id ON purchases USING btree (quantity_gap_on_invoice_journal_entry_id);
 
 
 --
@@ -14822,10 +14834,10 @@ CREATE INDEX index_purchases_on_supplier_id ON purchases USING btree (supplier_i
 
 
 --
--- Name: index_purchases_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_purchases_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_undelivered_invoice_entry_id ON purchases USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_purchases_on_undelivered_invoice_journal_entry_id ON purchases USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
@@ -15081,10 +15093,10 @@ CREATE INDEX index_sales_on_nature_id ON sales USING btree (nature_id);
 
 
 --
--- Name: index_sales_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_sales_on_quantity_gap_on_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_quantity_gap_on_invoice_entry_id ON sales USING btree (quantity_gap_on_invoice_entry_id);
+CREATE INDEX index_sales_on_quantity_gap_on_invoice_journal_entry_id ON sales USING btree (quantity_gap_on_invoice_journal_entry_id);
 
 
 --
@@ -15102,10 +15114,10 @@ CREATE INDEX index_sales_on_transporter_id ON sales USING btree (transporter_id)
 
 
 --
--- Name: index_sales_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_sales_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_undelivered_invoice_entry_id ON sales USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_sales_on_undelivered_invoice_journal_entry_id ON sales USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
@@ -16421,13 +16433,17 @@ INSERT INTO schema_migrations (version) VALUES ('20161115163443');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118150610');
 
-INSERT INTO schema_migrations (version) VALUES ('20161118152710');
-
 INSERT INTO schema_migrations (version) VALUES ('20161120153801');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121033801');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121171401');
 
-INSERT INTO schema_migrations (version) VALUES ('20161122143751');
+INSERT INTO schema_migrations (version) VALUES ('20161122155003');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122161646');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122203438');
+
+INSERT INTO schema_migrations (version) VALUES ('20161124143751');
 

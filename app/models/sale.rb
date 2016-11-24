@@ -22,50 +22,50 @@
 #
 # == Table: sales
 #
-#  accounted_at                     :datetime
-#  address_id                       :integer
-#  affair_id                        :integer
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  annotation                       :text
-#  client_id                        :integer          not null
-#  codes                            :jsonb
-#  conclusion                       :text
-#  confirmed_at                     :datetime
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  credit                           :boolean          default(FALSE), not null
-#  credited_sale_id                 :integer
-#  currency                         :string           not null
-#  custom_fields                    :jsonb
-#  delivery_address_id              :integer
-#  description                      :text
-#  downpayment_amount               :decimal(19, 4)   default(0.0), not null
-#  expiration_delay                 :string
-#  expired_at                       :datetime
-#  function_title                   :string
-#  has_downpayment                  :boolean          default(FALSE), not null
-#  id                               :integer          not null, primary key
-#  initial_number                   :string
-#  introduction                     :text
-#  invoice_address_id               :integer
-#  invoiced_at                      :datetime
-#  journal_entry_id                 :integer
-#  letter_format                    :boolean          default(TRUE), not null
-#  lock_version                     :integer          default(0), not null
-#  nature_id                        :integer
-#  number                           :string           not null
-#  payment_at                       :datetime
-#  payment_delay                    :string           not null
-#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_entry_id :integer
-#  reference_number                 :string
-#  responsible_id                   :integer
-#  state                            :string           not null
-#  subject                          :string
-#  transporter_id                   :integer
-#  undelivered_invoice_entry_id     :integer
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  accounted_at                             :datetime
+#  address_id                               :integer
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  annotation                               :text
+#  client_id                                :integer          not null
+#  codes                                    :jsonb
+#  conclusion                               :text
+#  confirmed_at                             :datetime
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  credit                                   :boolean          default(FALSE), not null
+#  credited_sale_id                         :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  downpayment_amount                       :decimal(19, 4)   default(0.0), not null
+#  expiration_delay                         :string
+#  expired_at                               :datetime
+#  function_title                           :string
+#  has_downpayment                          :boolean          default(FALSE), not null
+#  id                                       :integer          not null, primary key
+#  initial_number                           :string
+#  introduction                             :text
+#  invoice_address_id                       :integer
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  letter_format                            :boolean          default(TRUE), not null
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string           not null
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string           not null
+#  subject                                  :string
+#  transporter_id                           :integer
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 
 class Sale < Ekylibre::Record::Base
@@ -80,8 +80,8 @@ class Sale < Ekylibre::Record::Base
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :invoice_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
-  belongs_to :quantity_gap_on_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :nature, class_name: 'SaleNature'
   belongs_to :credited_sale, class_name: 'Sale'
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
@@ -202,6 +202,7 @@ class Sale < Ekylibre::Record::Base
 
   after_create do
     client.add_event(:sale_creation, updater.person) if updater && updater.person
+    true
   end
 
   protect on: :destroy do
@@ -212,33 +213,33 @@ class Sale < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
-      entry.add_debit(label, client.account(:client).id, amount)
+      entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
-        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
-        entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount)
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
+        entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
       end
     end
 
     # For undelivered invoice
     # exchange undelivered invoice from parcel
-    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     list = []
     if with_accounting && invoice?
       parcels.each do |parcel|
-        next unless parcel.undelivered_invoice_entry
+        next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
-        undelivered_items = parcel.undelivered_invoice_entry.items
+        undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance]
+          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product]
         end
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, list: list)
+    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, list: list)
 
     # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
     list = []
     if with_accounting && invoice? && items.any?
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
@@ -250,11 +251,11 @@ class Sale < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        list << [:add_credit, label, item.variant.stock_account_id, gap_value]
-        list << [:add_debit, label, item.variant.stock_movement_account_id, gap_value]
+        list << [:add_credit, label, item.variant.stock_account_id, gap_value, resource: item, as: :stock]
+        list << [:add_debit, label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement]
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, list: list)
+    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
   end
 
   def invoiced_on

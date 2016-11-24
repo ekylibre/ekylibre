@@ -1,5 +1,8 @@
 module Ekylibre
   module Record
+    class RecordInvalid < ActiveRecord::RecordNotSaved
+    end
+
     class Scope < Struct.new(:name, :arity)
     end
 
@@ -74,6 +77,13 @@ module Ekylibre
 
       def already_updated?
         self.class.where(id: id, lock_version: lock_version).empty?
+      end
+
+      def unsuppress
+        yield
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.info e.inspect
+        raise Ekylibre::Record::RecordInvalid.new(e.message, e.record)
       end
 
       @@readonly_counter = 0

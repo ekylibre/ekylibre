@@ -56,6 +56,9 @@
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  resource_id               :integer
+#  resource_prism            :string
+#  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
 #  tax_id                    :integer

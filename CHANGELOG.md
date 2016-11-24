@@ -1,5 +1,63 @@
 # Change Log
 
+## [2.21.0](https://github.com/ekylibre/ekylibre/tree/2.21.0) (2016-11-23)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.20.1...2.21.0)
+
+**Implemented enhancements:**
+
+- Export trial balance to csv format [\#1313](https://github.com/ekylibre/ekylibre/issues/1313)
+
+**Fixed bugs:**
+
+- purchases\#invoice \(ActiveRecord::RecordInvalid\) "Validations échouées : Nom a déjà été pris" [\#1388](https://github.com/ekylibre/ekylibre/issues/1388)
+- Incoming and outgoing parcels cannot be received or given  [\#1373](https://github.com/ekylibre/ekylibre/issues/1373)
+- parcels\#destroy Validations échouées : Code a déjà été pris, Nom a déjà été pris [\#1247](https://github.com/ekylibre/ekylibre/issues/1247)
+- adding a new variant record doesn't work [\#1342](https://github.com/ekylibre/ekylibre/issues/1342)
+- product\_nature\_variants\#incorporate \(RuntimeError\) "Account 'stock\_movement\_account' is not configured on ca... [\#1317](https://github.com/ekylibre/ekylibre/issues/1317)
+- product\_nature\_variants\#destroy \(Ekylibre::Record::RecordNotDestroyable\) "Account ID=750 is not destroyable" [\#1314](https://github.com/ekylibre/ekylibre/issues/1314)
+- product\_nature\_variants\#create "Validations échouées : Numéro a déjà été pris" [\#1160](https://github.com/ekylibre/ekylibre/issues/1160)
+
+**Merged pull requests:**
+
+- Tax declaration finish [\#1391](https://github.com/ekylibre/ekylibre/pull/1391) ([burisu](https://github.com/burisu))
+- Plant countings views fix [\#1390](https://github.com/ekylibre/ekylibre/pull/1390) ([burisu](https://github.com/burisu))
+- Fixes stock accountancy [\#1389](https://github.com/ekylibre/ekylibre/pull/1389) ([burisu](https://github.com/burisu))
+
+## [2.20.1](https://github.com/ekylibre/ekylibre/tree/2.20.1) (2016-11-21)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.20.0...2.20.1)
+
+**Fixed bugs:**
+
+- trial\_balances\#show \(NameError\) "undefined local variable or method `human\_action\_name' for \#\<ODF::Spreadshe... [\#1379](https://github.com/ekylibre/ekylibre/issues/1379)
+
+## [2.20.0](https://github.com/ekylibre/ekylibre/tree/2.20.0) (2016-11-21)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.19.1...2.20.0)
+
+**Implemented enhancements:**
+
+- Add pointer cursor on table headers [\#957](https://github.com/ekylibre/ekylibre/issues/957)
+
+**Merged pull requests:**
+
+- Add a VAT declaration tool [\#1340](https://github.com/ekylibre/ekylibre/pull/1340) ([burisu](https://github.com/burisu))
+- Permits to track taxes automatically on journal entry items from sales/purchases [\#1370](https://github.com/ekylibre/ekylibre/pull/1370) ([burisu](https://github.com/burisu))
+- Lettering affairs automatically [\#1369](https://github.com/ekylibre/ekylibre/pull/1369) ([burisu](https://github.com/burisu))
+- Export trial balance to ods [\#1367](https://github.com/ekylibre/ekylibre/pull/1367) ([Nyxelio](https://github.com/Nyxelio))
+
+## [2.19.1](https://github.com/ekylibre/ekylibre/tree/2.19.1) (2016-11-16)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.19.0...2.19.1)
+
+**Closed issues:**
+
+- Updates acceptable max zoom on map backgrounds  [\#1339](https://github.com/ekylibre/ekylibre/issues/1339)
+
+## [2.19.0](https://github.com/ekylibre/ekylibre/tree/2.19.0) (2016-11-15)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.18.0...2.19.0)
+
+**Implemented enhancements:**
+
+- Re-activation of animals interface [\#1066](https://github.com/ekylibre/ekylibre/pull/1066) ([burisu](https://github.com/burisu))
+
 ## [2.18.0](https://github.com/ekylibre/ekylibre/tree/2.18.0) (2016-11-15)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.17.0...2.18.0)
 
@@ -58,9 +116,7 @@
 - interventions\#index \(ActionView::Template::Error\) "undefined method `flatten' for \"record\":String" [\#1302](https://github.com/ekylibre/ekylibre/issues/1302)
 - product\_nature\_variants\#create \(TypeError\) "exception class/object expected" [\#1298](https://github.com/ekylibre/ekylibre/issues/1298)
 - parcels\#update \(NoMethodError\) "undefined method `to\_date' for nil:NilClass" [\#1286](https://github.com/ekylibre/ekylibre/issues/1286)
-- last\_movements\_cells\#show \(ActionView::Template::Error\) "PG::UndefinedColumn: ERREUR: la colonne interventi... [\#1279](https://github.com/ekylibre/ekylibre/issues/1279)
 - purchases\#create \(NoMethodError\) "undefined method `supplier\_payment\_delay' for nil:NilClass" [\#1276](https://github.com/ekylibre/ekylibre/issues/1276)
-- interventions\#index \(ActionView::Template::Error\) "PG::UndefinedColumn: ERREUR: la colonne interventions.re... [\#1274](https://github.com/ekylibre/ekylibre/issues/1274)
 - helps\#index \(ActionView::Template::Error\) "No route matches {:action=\>\"export\", :controller=\>\"backend/ent... [\#1256](https://github.com/ekylibre/ekylibre/issues/1256)
 - address is two time present in entities show view [\#1231](https://github.com/ekylibre/ekylibre/issues/1231)
 - dashboards\#search \(ActionView::Template::Error\) "translation data {:zero=\>\"No se han encontrado resultados\... [\#1223](https://github.com/ekylibre/ekylibre/issues/1223)

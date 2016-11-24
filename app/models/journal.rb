@@ -145,28 +145,40 @@ class Journal < Ekylibre::Record::Base
       attributes[:name] ||= :profits_and_losses.tl
       attributes[:code] ||= '??'
       attributes[:nature] ||= :various
-      Journal.create_with(attributes).find_or_create_by!(used_for_gaps: true)
+      attributes[:used_for_gaps] = true
+      journal = Journal.find_by(used_for_gaps: true)
+      journal ||= Journal.find_by(attributes.slice(:name))
+      journal || Journal.create!(attributes)
     end
 
     def used_for_tax_declarations!(attributes = {})
       attributes[:name] ||= :taxes.tl
       attributes[:code] ||= '??'
       attributes[:nature] ||= :various
-      Journal.create_with(attributes).find_or_create_by!(used_for_tax_declarations: true)
+      attributes[:used_for_tax_declarations] = true
+      journal = Journal.find_by(used_for_tax_declarations: true)
+      journal ||= Journal.find_by(attributes.slice(:name))
+      journal || Journal.create!(attributes)
     end
 
     def used_for_permanent_stock_inventory!(attributes = {})
       attributes[:name] ||= :permanent_stock_inventory.tl
       attributes[:code] ||= '??'
       attributes[:nature] ||= :stocks
-      Journal.create_with(attributes).find_or_create_by!(used_for_permanent_stock_inventory: true)
+      attributes[:used_for_permanent_stock_inventory] = true
+      journal = Journal.find_by(used_for_permanent_stock_inventory: true)
+      journal ||= Journal.find_by(attributes.slice(:name))
+      journal || Journal.create!(attributes)
     end
 
     def used_for_unbilled_payables!(attributes = {})
       attributes[:name] ||= :unbilled_payables.tl
       attributes[:code] ||= '??'
       attributes[:nature] ||= :various
-      Journal.create_with(attributes).find_or_create_by!(used_for_unbilled_payables: true)
+      attributes[:used_for_unbilled_payables] = true
+      journal = Journal.find_by(used_for_unbilled_payables: true)
+      journal ||= Journal.find_by(attributes.slice(:name))
+      journal || Journal.create!(attributes)
     end
 
     # Load default journal if not exist

@@ -313,6 +313,7 @@ ita:
       new: "Nuovo arrivato"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "Articoli voce di diario"
       new: "Nuova voce di entrata"
       # show: "Journal entry item: %{name}"
     backend/journals:
@@ -391,6 +392,11 @@ ita:
       new: "Nuovo pacco"
       ship: "pacchi nave"
       # show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      # edit: "Edit plant counting #%{number}"
+      index: "Conteggi"
+      new: "Nuovo conteggio"
+      # show: "Plant counting #%{number}"
     backend/plants:
       # edit: "Edit crop: %{name}"
       index: "Piante"
@@ -827,6 +833,7 @@ ita:
     # automatic: "Auto"
     available: "A disposizione"
     # available_columns: "Available columns: %{columns}"
+    average: "Media"
     back: "torna alla PAGINA precedente"
     balance: "Equilibrio"
     bank_account: "conto bancario"
@@ -1130,6 +1137,15 @@ ita:
     journal_entries: "voci di diario"
     journal_entries_states: "Stati di voci"
     journal_entry_items: "articoli voce di diario"
+    journal_entry_items_with_undeclared_taxes:
+      # other: "%{count} journal entry items with undeclared taxes"
+      # zero: "%{count} journal entry item with undeclared taxes"
+    journal_entry_items_with_unidentified_expenses:
+      # other: "%{count} journal entry items with unidentified expenses"
+      # zero: "%{count} journal entry item with unidentified expenses"
+    journal_entry_items_with_unidentified_revenues:
+      # other: "%{count} journal entry items with unidentified revenues"
+      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "Inserimenti"
@@ -1310,6 +1326,8 @@ ita:
     placeholder: "segnaposto"
     places: "posti"
     plant: "pianta"
+    plant_counting: "Conteggio"
+    plant_countings: "Conteggi"
     plantation_density: "densità d'impianto"
     plants: "Piante"
     please_wait: "Attendere prego…"
@@ -1609,6 +1627,9 @@ ita:
     x_contracts:
       # one: "%{count} contract"
       # other: "%{count} contracts"
+    x_countings:
+      # one: "%{count} counting"
+      # other: "%{count} countings"
     x_days:
       # one: "%{count} day"
       # other: "%{count} days"
@@ -1764,6 +1785,7 @@ ita:
       closed_financial_years: "L'esercizio è stato chiuso con successo"
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
+      density_is_not_computable_in_counting: "Impossibile calcolare la densità per questo conteggio. I valori mancanti dovrebbero essere completate nelle proprietà del conteggio o indicatori del seminatore."
       draft_journal_entries_have_been_validated:
         one: "Una voce è stata convalidata"
         # other: "%{count} entries have been validated"
@@ -1973,6 +1995,7 @@ ita:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"

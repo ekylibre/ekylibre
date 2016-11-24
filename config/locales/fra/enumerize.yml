@@ -261,6 +261,10 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
+    plant_counting:
+      nature:
+        germination: "À la levée"
+        sowing: "Au semis"
     preference:
       nature:
         accounting_system: "Système de comptabilité"

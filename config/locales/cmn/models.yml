@@ -38,6 +38,16 @@ cmn:
         population: "数量"
       plant:
         born_at: "在种植"
+      plant_counting:
+        plant: "产品"
+        plant_activity: "活动"
+        rows_count_value: "行数"
+        working_width_value: "注入的应用宽度"
+      plant_counting_item:
+        value: "植物计数"
+      plant_density_abacus_item:
+        plants_count: "预计算的植物"
+        seeding_density_value: "预计播种密度"
       purchase:
         affair_balance: "平衡"
       sale:
@@ -1120,7 +1130,7 @@ cmn:
     purchased_on: "购买了"
     purchases: "订单"
     quantity: "数量"
-    quantity_gap_on_invoice_entry: "库存数量差距进入"
+    quantity_gap_on_invoice_journal_entry: "库存数量差距进入"
     quantity_handler: "处理器数量"
     quantity_indicator: "数量指标"
     quantity_indicator_name: "数量指标名称"
@@ -1189,6 +1199,7 @@ cmn:
     reset_password_sent_at: "在重置密码发送"
     reset_password_token: "重置密码令牌"
     resource: "资源"
+    resource_prism: "资源棱镜"
     resource_type: "资源类型"
     responses: "回复"
     responsible: "主管"
@@ -1206,6 +1217,7 @@ cmn:
     root_model_name: "根模型名称"
     root_node: "根节点"
     root_parameters: "根参数"
+    rows_count_value: "行数"
     sale: "拍卖"
     sale_credit: "信用销售"
     sale_item: "出售项目"
@@ -1359,7 +1371,7 @@ cmn:
     type: "类型"
     # uid: "UID"
     unconfirmed_email: "未经证实的邮件"
-    undelivered_invoice_entry: "未交付发票录入"
+    undelivered_invoice_journal_entry: "未交付发票录入"
     undelivered_quantity: "未交付数量"
     unit_amount: "单位量"
     unit_currency: "货币单位"
@@ -1426,6 +1438,7 @@ cmn:
     working_duration: "工作时间"
     working_periods: "工作周期"
     working_shape: "工作形状" #?
+    working_width_value: "注入的应用宽度"
     working_zone: "工作区"
     working_zone_area: "工作区区域"
     zone_memberships: "会员区"

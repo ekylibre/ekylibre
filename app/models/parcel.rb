@@ -22,42 +22,42 @@
 #
 # == Table: parcels
 #
-#  accounted_at                 :datetime
-#  address_id                   :integer
-#  contract_id                  :integer
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  currency                     :string
-#  custom_fields                :jsonb
-#  delivery_id                  :integer
-#  delivery_mode                :string
-#  given_at                     :datetime
-#  id                           :integer          not null, primary key
-#  in_preparation_at            :datetime
-#  journal_entry_id             :integer
-#  lock_version                 :integer          default(0), not null
-#  nature                       :string           not null
-#  number                       :string           not null
-#  ordered_at                   :datetime
-#  planned_at                   :datetime         not null
-#  position                     :integer
-#  prepared_at                  :datetime
-#  pretax_amount                :decimal(19, 4)   default(0.0), not null
-#  purchase_id                  :integer
-#  recipient_id                 :integer
-#  reference_number             :string
-#  remain_owner                 :boolean          default(FALSE), not null
-#  responsible_id               :integer
-#  sale_id                      :integer
-#  sender_id                    :integer
-#  separated_stock              :boolean
-#  state                        :string           not null
-#  storage_id                   :integer
-#  transporter_id               :integer
-#  undelivered_invoice_entry_id :integer
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
-#  with_delivery                :boolean          default(FALSE), not null
+#  accounted_at                         :datetime
+#  address_id                           :integer
+#  contract_id                          :integer
+#  created_at                           :datetime         not null
+#  creator_id                           :integer
+#  currency                             :string
+#  custom_fields                        :jsonb
+#  delivery_id                          :integer
+#  delivery_mode                        :string
+#  given_at                             :datetime
+#  id                                   :integer          not null, primary key
+#  in_preparation_at                    :datetime
+#  journal_entry_id                     :integer
+#  lock_version                         :integer          default(0), not null
+#  nature                               :string           not null
+#  number                               :string           not null
+#  ordered_at                           :datetime
+#  planned_at                           :datetime         not null
+#  position                             :integer
+#  prepared_at                          :datetime
+#  pretax_amount                        :decimal(19, 4)   default(0.0), not null
+#  purchase_id                          :integer
+#  recipient_id                         :integer
+#  reference_number                     :string
+#  remain_owner                         :boolean          default(FALSE), not null
+#  responsible_id                       :integer
+#  sale_id                              :integer
+#  sender_id                            :integer
+#  separated_stock                      :boolean
+#  state                                :string           not null
+#  storage_id                           :integer
+#  transporter_id                       :integer
+#  undelivered_invoice_journal_entry_id :integer
+#  updated_at                           :datetime         not null
+#  updater_id                           :integer
+#  with_delivery                        :boolean          default(FALSE), not null
 #
 
 class Parcel < Ekylibre::Record::Base
@@ -70,7 +70,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
@@ -187,7 +187,7 @@ class Parcel < Ekylibre::Record::Base
   # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     # For purchase_not_received or sale_not_emitted
-    journal = Journal.used_for_unbilled_payables!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
     list = []
     if Preference[:permanent_stock_inventory] && given?
       label = tc(:undelivered_invoice,
@@ -197,15 +197,14 @@ class Parcel < Ekylibre::Record::Base
       items.each do |item|
         amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
         next unless item.variant && item.variant.charge_account && amount.nonzero?
-        list << [:add_credit, label, account.id, amount]
-        list << [:add_debit, label, item.variant.charge_account.id, amount]
+        list << [:add_credit, label, account.id, amount, resource: item, as: :unbilled]
+        list << [:add_debit, label, item.variant.charge_account.id, amount, resource: item, as: :expense]
       end
     end
-    b.journal_entry(journal, printed_on: printed_on, list: list,
-                             column: :undelivered_invoice_entry_id)
+    b.journal_entry(journal, printed_on: printed_on, list: list, as: :undelivered_invoice)
 
     # For permanent stock inventory
-    journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
     list = []
     if Preference[:permanent_stock_inventory] && given?
       label = tc(:bookkeep, resource: self.class.model_name.human,
@@ -213,8 +212,8 @@ class Parcel < Ekylibre::Record::Base
       items.each do |item|
         variant = item.variant
         next unless variant && variant.storable? && item.stock_amount.nonzero?
-        list << [:add_credit, label, variant.stock_movement_account_id, item.stock_amount]
-        list << [:add_debit, label, variant.stock_account_id, item.stock_amount]
+        list << [:add_credit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
+        list << [:add_debit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
       end
     end
     b.journal_entry(journal, printed_on: printed_on, list: list)

@@ -386,6 +386,7 @@ eng:
       new: "New entry"
       show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "Journal entry items"
       new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:
@@ -488,11 +489,18 @@ eng:
       # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      edit: "Edit plant counting #%{number}"
+      index: "Countings"
+      new: "New counting"
+      show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
       # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
+    backend/plant_density_abacus_items:
+      # new: "New plant density abacus item"
     backend/plants:
       edit: "Edit crop: %{name}"
       index: "Crops"
@@ -967,6 +975,7 @@ eng:
     automatic: "Auto" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
+    average: "Average"
     back: "Back to the previous page"
     balance: "Balance"
     bank_account: "Bank account"
@@ -1271,6 +1280,15 @@ eng:
     journal_entries: "Journal's entries" #?
     journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
+    journal_entry_items_with_undeclared_taxes:
+      other: "%{count} journal entry items with undeclared taxes"
+      zero: "%{count} journal entry item with undeclared taxes"
+    journal_entry_items_with_unidentified_expenses:
+      other: "%{count} journal entry items with unidentified expenses"
+      zero: "%{count} journal entry item with unidentified expenses"
+    journal_entry_items_with_unidentified_revenues:
+      other: "%{count} journal entry items with unidentified revenues"
+      zero: "%{count} journal entry item with unidentified revenues"
     journal_name: "%{name}" #?
     journal_view:
       entries: "Entries"
@@ -1399,6 +1417,7 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
+    # observations: "Observations"
     on_account: "On account" #?
     one_condition: "One condition" #??
     open_a_production: "Open a production"
@@ -1449,6 +1468,8 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     plant: "Crop"
+    plant_counting: "Counting" #?
+    plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
@@ -1741,6 +1762,9 @@ eng:
     x_contracts:
       one: "%{count} contract"
       other: "%{count} contracts"
+    x_countings:
+      one: "%{count} counting"
+      other: "%{count} countings"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
@@ -1898,6 +1922,7 @@ eng:
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
+      density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2126,6 +2151,7 @@ eng:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

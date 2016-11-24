@@ -38,6 +38,16 @@ eng:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      plant_counting:
+        plant: "Product"
+        plant_activity: "Activity"
+        rows_count_value: "Rows count"
+        working_width_value: "Implanter application width"
+      plant_counting_item:
+        value: "Plants count"
+      plant_density_abacus_item:
+        plants_count: "Expected plants count"
+        seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
       sale:
@@ -1138,7 +1148,7 @@ eng:
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
     quantity: "Quantity"
-    quantity_gap_on_invoice_entry: "Stock quantity gap entry"
+    quantity_gap_on_invoice_journal_entry: "Stock quantity gap entry"
     quantity_handler: "Quantity handler"
     quantity_indicator: "Quantity indicator" #?
     quantity_indicator_name: "Quantity indicator name"
@@ -1208,6 +1218,7 @@ eng:
     reset_password_sent_at: "Reset password sent at"
     reset_password_token: "Reset password token"
     resource: "Resource"
+    resource_prism: "Resource prism"
     resource_type: "Resource type"
     # response: "Response"
     responses: "Responses"
@@ -1226,6 +1237,7 @@ eng:
     root_model_name: "Root model name"
     root_node: "Root node"
     root_parameters: "Root parameters"
+    rows_count_value: "Rows count"
     sale: "Sale"
     sale_credit: "Sale credit"
     sale_item: "Sale item"
@@ -1380,7 +1392,7 @@ eng:
     type: "Type"
     uid: "UID"
     unconfirmed_email: "Unconfirmed email"
-    undelivered_invoice_entry: "Undelivered invoice entry"
+    undelivered_invoice_journal_entry: "Undelivered invoice entry"
     undelivered_quantity: "Undelivered quantity"
     unit_amount: "Unit amount"
     unit_currency: "Unit currency"
@@ -1445,6 +1457,7 @@ eng:
     worker: "Worker"
     working_duration: "Working duration"
     working_periods: "Working periods"
+    working_width_value: "Implanter application width"
     working_zone: "Working zone"
     working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?

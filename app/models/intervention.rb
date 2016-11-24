@@ -321,7 +321,7 @@ class Intervention < Ekylibre::Record::Base
   # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
 
     list = []
     if Preference[:permanent_stock_inventory] && record?
@@ -332,8 +332,8 @@ class Intervention < Ekylibre::Record::Base
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
-        list << [:add_debit, label, debit_account, stock_amount]
-        list << [:add_credit, label, credit_account, stock_amount]
+        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
+        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
       end
       inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
       outputs.each  { |output|  write_parameter_entry_items.call(output, false) }

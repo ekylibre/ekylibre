@@ -38,6 +38,16 @@ ita:
         population: "Quantità"
       plant:
         born_at: "piantato a"
+      plant_counting:
+        plant: "Prodotto"
+        plant_activity: "Attività"
+        rows_count_value: "Contano le righe"
+        working_width_value: "Larghezza di applicazione implanter"
+      plant_counting_item:
+        value: "Contano piante"
+      plant_density_abacus_item:
+        plants_count: "Contano le piante attesi"
+        seeding_density_value: "Previsto densità di semina"
       purchase:
         affair_balance: "Equilibrio"
       sale:
@@ -1151,7 +1161,7 @@ ita:
     purchased_on: "acquistato su"
     purchases: "Ordini d'acquisto"
     quantity: "Quantità"
-    quantity_gap_on_invoice_entry: "Ingresso gap quantità di stock"
+    quantity_gap_on_invoice_journal_entry: "Ingresso gap quantità di stock"
     quantity_handler: "Quantità gestore"
     quantity_indicator: "indicatore Quantità"
     quantity_indicator_name: "Quantità nome Indicatore"
@@ -1220,6 +1230,7 @@ ita:
     reset_password_sent_at: "Reimpostare la password inviata a"
     reset_password_token: "Token reimpostazione della password"
     resource: "Risorsa"
+    resource_prism: "Prisma delle risorse"
     resource_type: "tipo di risorsa"
     responses: "Risposte"
     responsible: "Responsabile"
@@ -1237,6 +1248,7 @@ ita:
     root_model_name: "Root nome del modello"
     root_node: "nodo principale"
     root_parameters: "parametri Root"
+    rows_count_value: "Contano le righe"
     sale: "Vendita"
     sale_credit: "vendita di credito"
     sale_item: "punto vendita"
@@ -1390,7 +1402,7 @@ ita:
     type: "Digitare"
     # uid: "UID"
     unconfirmed_email: "e-mail non confermato"
-    undelivered_invoice_entry: "Ingresso fattura non consegnato"
+    undelivered_invoice_journal_entry: "Ingresso fattura non consegnato"
     undelivered_quantity: "quantità mancante"
     unit_amount: "importo unitario"
     unit_currency: "valuta Unità"
@@ -1457,6 +1469,7 @@ ita:
     working_duration: "durata di funzionamento"
     working_periods: "periodi di lavoro"
     working_shape: "forma di lavoro" #?
+    working_width_value: "Larghezza di applicazione implanter"
     working_zone: "zona di lavoro"
     working_zone_area: "zona zona di lavoro"
     zone_memberships: "appartenenze Zone"

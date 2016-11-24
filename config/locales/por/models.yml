@@ -38,6 +38,16 @@ por:
         population: "Quantidade"
       plant:
         born_at: "Plantadas em"
+      plant_counting:
+        plant: "Produto"
+        plant_activity: "Atividade"
+        rows_count_value: "Linhas contar"
+        working_width_value: "Width aplicação implantador"
+      plant_counting_item:
+        value: "Plantas contar"
+      plant_density_abacus_item:
+        plants_count: "Plantas esperados contar"
+        seeding_density_value: "Densidade de semeadura esperado"
       purchase:
         affair_balance: "Equilibrar"
       sale:
@@ -1120,7 +1130,7 @@ por:
     purchased_on: "Comprado em"
     purchases: "Ordens de compra"
     quantity: "Quantidade"
-    quantity_gap_on_invoice_entry: "Entrada lacuna da quantidade"
+    quantity_gap_on_invoice_journal_entry: "Entrada lacuna da quantidade"
     quantity_handler: "Manipulador Quantidade"
     quantity_indicator: "Indicador de quantidade de"
     quantity_indicator_name: "Nome do indicador de quantidade de"
@@ -1189,6 +1199,7 @@ por:
     reset_password_sent_at: "Redefinir a senha enviada pelo"
     reset_password_token: "Token de redefinição de senha"
     resource: "Recurso"
+    resource_prism: "Prisma de recursos"
     resource_type: "Tipo de recurso"
     responses: "Respostas"
     responsible: "Responsável"
@@ -1206,6 +1217,7 @@ por:
     root_model_name: "Nome do modelo raiz"
     root_node: "Nó raiz"
     root_parameters: "Parâmetros de raiz"
+    rows_count_value: "Linhas contar"
     sale: "Venda"
     sale_credit: "Crédito venda"
     sale_item: "Item de venda"
@@ -1359,7 +1371,7 @@ por:
     type: "Digitar"
     # uid: "UID"
     unconfirmed_email: "Email não confirmado"
-    undelivered_invoice_entry: "Entrada de faturas não entregues"
+    undelivered_invoice_journal_entry: "Entrada de faturas não entregues"
     undelivered_quantity: "Quantidade não entregue"
     unit_amount: "Montante unitário"
     unit_currency: "Moeda unidade"
@@ -1426,6 +1438,7 @@ por:
     working_duration: "Duração de trabalho"
     working_periods: "Períodos de trabalho"
     working_shape: "Forma de trabalho" #?
+    working_width_value: "Width aplicação implantador"
     working_zone: "Zona de trabalho"
     working_zone_area: "área de zona de trabalho"
     zone_memberships: "Associações da zona"

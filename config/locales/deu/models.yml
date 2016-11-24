@@ -38,6 +38,16 @@ deu:
         population: "Menge"
       plant:
         born_at: "gepflanzt bei"
+      plant_counting:
+        plant: "Produkt"
+        plant_activity: "Aktivität"
+        rows_count_value: "Zeilen zählen"
+        working_width_value: "Implanter Anwendungsbreite"
+      plant_counting_item:
+        value: "Pflanzen zählen"
+      plant_density_abacus_item:
+        plants_count: "Erwartete Pflanzen zählen"
+        seeding_density_value: "Erwartete Aussaatdichte"
       purchase:
         # affair_balance: "Balance"
       sale:
@@ -1120,7 +1130,7 @@ deu:
     purchased_on: "erworben auf"
     purchases: "Kauforder"
     quantity: "Menge"
-    quantity_gap_on_invoice_entry: "Auf Grßenlücke Eintrag"
+    quantity_gap_on_invoice_journal_entry: "Auf Grßenlücke Eintrag"
     quantity_handler: "Menge Handler"
     quantity_indicator: "Mengenindikator"
     quantity_indicator_name: "Mengenindikator Namen"
@@ -1189,6 +1199,7 @@ deu:
     reset_password_sent_at: "Passwort zurücksetzen gesendet an"
     reset_password_token: "Reset Password Token"
     resource: "Ressource"
+    resource_prism: "Ressourcen Prisma"
     resource_type: "Ressourcentyp"
     responses: "Antworten"
     responsible: "Verantwortlich"
@@ -1206,6 +1217,7 @@ deu:
     root_model_name: "Root-Modellnamen"
     root_node: "Wurzelknoten"
     root_parameters: "root-Parameter"
+    rows_count_value: "Zeilen zählen"
     sale: "Verkauf"
     sale_credit: "Verkauf Kredit"
     sale_item: "Verkauf Artikel"
@@ -1358,7 +1370,7 @@ deu:
     type: "Art"
     # uid: "UID"
     unconfirmed_email: "Unbestätigten E-Mail"
-    undelivered_invoice_entry: "Nicht zugestellte Rechnungserfassung"
+    undelivered_invoice_journal_entry: "Nicht zugestellte Rechnungserfassung"
     undelivered_quantity: "nicht gelieferte Menge"
     unit_amount: "Einheitsbetrag"
     unit_currency: "Einheitswährung"
@@ -1425,6 +1437,7 @@ deu:
     working_duration: "Arbeitsdauer"
     working_periods: "Arbeitszeiten"
     working_shape: "Arbeitsform" #?
+    working_width_value: "Implanter Anwendungsbreite"
     working_zone: "Arbeitszone"
     working_zone_area: "Arbeitszonenbereich"
     zone_memberships: "Zone Mitgliedschaften"

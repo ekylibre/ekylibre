@@ -38,6 +38,16 @@ spa:
         population: "Cantidad"
       plant:
         born_at: "Plantado en"
+      plant_counting:
+        plant: "Producto"
+        plant_activity: "Actividad"
+        rows_count_value: "Las filas cuentan"
+        working_width_value: "Anchura de aplicación implantador"
+      plant_counting_item:
+        value: "Las plantas cuentan"
+      plant_density_abacus_item:
+        plants_count: "Instalaciones que se espera contar"
+        seeding_density_value: "Densidad de siembra esperado"
       purchase:
         affair_balance: "Equilibrar"
       sale:
@@ -1124,7 +1134,7 @@ spa:
     purchased_on: "Comprado en"
     purchases: "Ordenes de compra"
     quantity: "Cantidad"
-    quantity_gap_on_invoice_entry: "La entrada de la brecha de la cantidad"
+    quantity_gap_on_invoice_journal_entry: "La entrada de la brecha de la cantidad"
     quantity_handler: "Manejador Cantidad"
     quantity_indicator: "Indicador de cantidad"
     quantity_indicator_name: "Nombre del indicador de cantidad"
@@ -1193,6 +1203,7 @@ spa:
     reset_password_sent_at: "Restablecer la contraseña enviada al"
     reset_password_token: "Contador de restablecimiento de contraseña"
     resource: "Recurso"
+    resource_prism: "Prisma de recursos"
     resource_type: "Tipo de recurso"
     responses: "Respuestas"
     responsible: "Responsable"
@@ -1210,6 +1221,7 @@ spa:
     root_model_name: "Raíz nombre del modelo"
     root_node: "Nodo raíz"
     root_parameters: "Parámetros de raíz"
+    rows_count_value: "Las filas cuentan"
     sale: "Venta"
     sale_credit: "Venta de crédito"
     sale_item: "Artículo de la venta"
@@ -1363,7 +1375,7 @@ spa:
     type: "Tipo"
     # uid: "UID"
     unconfirmed_email: "Correo electrónico sin confirmar"
-    undelivered_invoice_entry: "El registro de facturas no entregado"
+    undelivered_invoice_journal_entry: "El registro de facturas no entregado"
     undelivered_quantity: "Cantidad no entregada"
     unit_amount: "Importe unitario"
     unit_currency: "Moneda de la unidad"
@@ -1430,6 +1442,7 @@ spa:
     working_duration: "Duración de trabajo"
     working_periods: "Periodos de trabajo"
     working_shape: "La forma de trabajar" #?
+    working_width_value: "Anchura de aplicación implantador"
     working_zone: "Zona de trabajo"
     working_zone_area: "área de la zona de trabajo"
     zone_memberships: "Zona de miembro"
