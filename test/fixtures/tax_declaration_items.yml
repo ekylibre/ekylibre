@@ -34,6 +34,8 @@
 #  fixed_asset_deductible_pretax_amount :decimal(19, 4)   default(0.0), not null
 #  fixed_asset_deductible_tax_amount    :decimal(19, 4)   default(0.0), not null
 #  id                                   :integer          not null, primary key
+#  intracommunity_payable_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  intracommunity_payable_tax_amount    :decimal(19, 4)   default(0.0), not null
 #  lock_version                         :integer          default(0), not null
 #  tax_declaration_id                   :integer          not null
 #  tax_id                               :integer          not null

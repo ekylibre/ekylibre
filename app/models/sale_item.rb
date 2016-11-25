@@ -122,9 +122,9 @@ class SaleItem < Ekylibre::Record::Base
         self.pretax_amount = nil
         self.amount = nil
       end
-      self.unit_amount   ||= unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      self.pretax_amount ||= (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
-      self.amount        ||= (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      self.unit_amount   ||= tax.amount_of(unit_pretax_amount)
+      self.pretax_amount ||= (unit_pretax_amount * quantity * reduction_coefficient).round(precision)
+      self.amount        ||= tax.amount_of(pretax_amount).round(precision)
     end
 
     if variant
@@ -154,6 +154,10 @@ class SaleItem < Ekylibre::Record::Base
     !sale.draft?
   end
 
+  def reduction_coefficient
+    (100.0 - reduction_percentage) / 100.0
+  end
+  
   def undelivered_quantity
     quantity - parcel_items.sum(:quantity)
   end
