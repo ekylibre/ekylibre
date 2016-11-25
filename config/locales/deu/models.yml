@@ -561,6 +561,7 @@ deu:
     customized_type: "Customized Art"
     daily_nitrogen_production: "Täglich Stickstoffproduktion"
     dashboards: "Armaturenbretter"
+    # dead: "Dead"
     dead_at: "Exakt zutreffend"
     dead_line_at: "Anmeldeschluss an"
     deals_count: "Angeboten zählen"

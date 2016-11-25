@@ -607,6 +607,29 @@ module Clean
           end
         end
 
+
+        translation << "  killables:\n"
+
+        products = []
+        Procedo.each_product_parameter do |parameter|
+          products << parameter.name if parameter.attribute(:killable)
+        end
+        ref[:killables] ||= {}
+
+        products.compact.uniq!
+        products.sort.each do |product|
+          to_translate += 1
+          found = ref[:killables].keys.select{|p| p.match(/is_#{product}.*/)}
+          if found.any?
+            translation << "    #{found.first}: " + Clean::Support.yaml_value(ref[:killables][found.first]) + "\n"
+          else
+            default_string = "is_#{product.to_s}_destroyed_by_this_intervention"
+            translation << "    #{missing_prompt}#{default_string}: " + Clean::Support.yaml_value(default_string.to_s.humanize) + "\n"
+            untranslated += 1
+          end
+        end
+
+
         # Finishing...
         write(file, translation, to_translate, untranslated)
       end

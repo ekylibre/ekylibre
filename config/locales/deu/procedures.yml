@@ -1,4 +1,6 @@
 deu:
+  killables:
+    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
   procedure_handlers:
     stakes_by_hectare: "Stakes von Hektar"
   procedure_parameters:

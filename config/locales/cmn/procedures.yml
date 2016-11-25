@@ -1,4 +1,6 @@
 cmn:
+  killables:
+    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
   procedure_handlers:
     stakes_by_hectare: "通过公顷锦标"
   procedure_parameters:

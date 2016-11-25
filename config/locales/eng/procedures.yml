@@ -238,3 +238,5 @@ eng:
     uncompacting: "Subsoiling"
     wine_blending: "Wine blending"
     wine_bottling: "Wine bottling"
+  killables:
+    is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"

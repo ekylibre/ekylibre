@@ -729,6 +729,7 @@ fra:
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
+    dead: "Mort"
     dead_at: "Date de décès"
     dead_line_at: "Date butoir"
     deal_type: "Type de transaction" #?
