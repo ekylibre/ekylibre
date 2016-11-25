@@ -1,10 +1,16 @@
 json.ignore_nil!
 
-@contacts.each do |type, items|
+@items.each do |type, items|
   next if items.empty?
-  json.set! "#{type}" do
-    json.array! items do |contact|
-      json.call contact, :id, :last_name, :first_name
+  json.array! items do |contact|
+    json.type type
+    if contact.is_a?(Hash)
+      json.id contact[:item_id]
+      next
+    end
+    json.(contact, :id)
+    json.entity do
+      json.call contact, :last_name, :first_name
       [contact.emails, contact.phones, contact.mobiles, contact.websites].each do |addresses|
         next if addresses.empty?
         json.set! "#{addresses.first.canal}", addresses.collect(&:coordinate).compact

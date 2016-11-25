@@ -6,11 +6,11 @@ module Api
       def index
         last_synchro = DateTime.parse(permitted_params[:last_synchro]) rescue DateTime.new(1, 1, 1, 1, 1, 1).in_time_zone
 
-        @contacts =
+        @items =
             {
-                new: Entity.includes(direct_links: :linked).where('created_at >= ?', last_synchro),
-                updated: Entity.includes(direct_links: :linked).joins(:addresses).where('entity_addresses.created_at < ? AND entity_addresses.updated_at >= ?', last_synchro, last_synchro),
-                deleted: []
+                create: Entity.includes(direct_links: :linked).where('created_at >= ?', last_synchro),
+                update: Entity.includes(direct_links: :linked).joins(:addresses).where('entity_addresses.created_at < ? AND entity_addresses.updated_at >= ?', last_synchro, last_synchro),
+                destroy: Version.destructions.where(item_type: 'Entity').after(last_synchro).collect{|v| {item_id: v.item_id} }
             }
       end
 
