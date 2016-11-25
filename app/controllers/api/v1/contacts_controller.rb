@@ -10,7 +10,7 @@ module Api
             {
                 create: Entity.includes(direct_links: :linked).where('created_at >= ?', last_synchro),
                 update: Entity.includes(direct_links: :linked).joins(:addresses).where('entity_addresses.created_at < ? AND entity_addresses.updated_at >= ?', last_synchro, last_synchro),
-                destroy: Version.destructions.where(item_type: 'Entity').after(last_synchro).collect{|v| {item_id: v.item_id} }
+                destroy: Version.destructions.where(item_type: 'Entity').after(last_synchro).select{ |v| v.item_object[:created_at] < last_synchro }.collect{|v| {item_id: v.item_id} }
             }
       end
 
