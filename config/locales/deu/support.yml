@@ -60,7 +60,7 @@ deu:
     periods:
       day: "Tag"
       month: "Monat"
-      # today: "Today"
+      today: "Heute"
       week: "Woche"
       year: "Jahr"
     prompts:  #?

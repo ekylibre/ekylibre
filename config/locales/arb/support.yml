@@ -104,7 +104,7 @@ arb:
     periods:
       day: "يوم"
       month: "شهر"
-      # today: "Today"
+      today: "اليوم"
       week: "أسبوع"
       year: "عام"
     relative_distance_in_words:

@@ -61,7 +61,7 @@ por:
     periods:
       day: "Dia"
       month: "Mês"
-      # today: "Today"
+      today: "Hoje"
       week: "Semana"
       year: "Ano"
     relative_distance_in_words:

@@ -976,6 +976,7 @@ arb:
       subscription_nature: "نوع الاشتراك"
       supervision: "إشراف"
       supervision_item: "البند إشراف"
+      synchronization_operation: "عملية المزامنة"
       target_distribution: "توزيع هدف"
       task: "مهمة"
       tax: "الضريبة"
@@ -1216,6 +1217,7 @@ arb:
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
     contract: "عقد"
+    contract_items: "بنود العقد"
     contracts: "عقود"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
@@ -2293,6 +2295,7 @@ arb:
     tax_declaration: "الإقرار الضريبي"
     tax_declaration_frequency: "تردد الإقرار الضريبي"
     tax_declaration_item: "الضرائب البند إعلان"
+    tax_declaration_items: "بنود الإقرار الضريبي"
     tax_declaration_mode: "وضع الإقرار الضريبي"
     tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?

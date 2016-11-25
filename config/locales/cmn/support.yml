@@ -60,7 +60,7 @@ cmn:
     periods:
       day: "天"
       month: "月"
-      # today: "Today"
+      today: "今天"
       week: "周"
       year: "年"
     prompts:  #?
