@@ -109,12 +109,16 @@ class InterventionParameter < Ekylibre::Record::Base
   end
 
   before_destroy do
-    # TODO
-    # intervention.targets.find_each do |target|
-    #   product = target.product
-    #   next unless product
-    #   InterventionTarget.where(product: product).where('dead_at > ?', stopped_at)
-    # end
+    intervention.targets.find_each do |target|
+      product = target.product
+      next unless product
+      dead_at = nil
+
+      if other_dead_at = InterventionTarget.joins(:intervention).where(product: product, dead: true).where('interventions.id != ?', target.id).order('interventions.stopped_at').last
+        dead_at = other_dead_at.intervention.stopped_at
+      end
+      product.update_columns(dead_at: dead_at)
+    end
   end
 
   def self.role
