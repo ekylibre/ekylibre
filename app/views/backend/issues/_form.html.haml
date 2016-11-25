@@ -16,6 +16,7 @@
   = f.input :gravity, collection: 0..4, as: :radio_buttons
   - unless params[:without_geolocation].to_i > 0
     = f.geolocation
+  = f.yes_no_radio :dead, label: "is_#{params[:target_type].to_s.downcase}_destroyed_by_this_issue".t(scope:[:killables]) if params[:target_type] and params[:target_type] == 'Plant'
   = f.custom_fields
 
 = f.attachments_field_set

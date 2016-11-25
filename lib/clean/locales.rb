@@ -621,7 +621,9 @@ module Clean
           to_translate += 1
           found = ref[:killables].keys.select{|p| p.match(/is_#{product}.*/)}
           if found.any?
-            translation << "    #{found.first}: " + Clean::Support.yaml_value(ref[:killables][found.first]) + "\n"
+            translation += found.collect do |item|
+              "    #{item}: " + Clean::Support.yaml_value(ref[:killables][item]) + "\n"
+            end.join
           else
             default_string = "is_#{product.to_s}_destroyed_by_this_intervention"
             translation << "    #{missing_prompt}#{default_string}: " + Clean::Support.yaml_value(default_string.to_s.humanize) + "\n"

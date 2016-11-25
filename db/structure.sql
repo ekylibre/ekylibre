@@ -3303,7 +3303,8 @@ CREATE TABLE issues (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     geolocation postgis.geometry(Point,4326),
-    custom_fields jsonb
+    custom_fields jsonb,
+    dead boolean DEFAULT false
 );
 
 
@@ -16446,4 +16447,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161122161646');
 INSERT INTO schema_migrations (version) VALUES ('20161122203438');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124143751');
+
+INSERT INTO schema_migrations (version) VALUES ('20161125162958');
 

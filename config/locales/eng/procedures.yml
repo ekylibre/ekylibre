@@ -240,3 +240,4 @@ eng:
     wine_bottling: "Wine bottling"
   killables:
     is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
+    is_plant_destroyed_by_this_issue: "Is plant destroyed by this issue ?"

@@ -1,6 +1,7 @@
 spa:
   killables:
     # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
+    # is_plant_destroyed_by_this_issue: "Is plant destroyed by this issue ?"
   procedure_handlers:
     stakes_by_hectare: "Estacas por hectárea"
   procedure_parameters:
