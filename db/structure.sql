@@ -8575,13 +8575,6 @@ CREATE INDEX index_accounts_on_creator_id ON accounts USING btree (creator_id);
 
 
 --
--- Name: index_accounts_on_number; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_accounts_on_number ON accounts USING btree (number);
-
-
---
 -- Name: index_accounts_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
