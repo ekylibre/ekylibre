@@ -53,6 +53,7 @@ class Tax < Ekylibre::Record::Base
   has_many :purchase_items
   has_many :sale_items
   has_many :journal_entry_items
+  has_many :tax_declaration_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -79,7 +80,8 @@ class Tax < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    product_nature_category_taxations.any? || sale_items.any? || purchase_items.any?
+    product_nature_category_taxations.any? || sale_items.any? || purchase_items.any? ||
+      tax_declaration_items.any?
   end
 
   class << self
