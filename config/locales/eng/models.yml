@@ -1037,6 +1037,7 @@ eng:
     plant_density_abaci: "Plant density abaci"
     plant_density_abacus: "Plant density abacus"
     plant_density_abacus_item: "Plant density abacus item"
+    plant_variant: "Plant variant"
     plants_count: "Plants count"
     point: "Point"
     point_value: "Point value"

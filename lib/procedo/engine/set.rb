@@ -33,6 +33,10 @@ module Procedo
         parameters
       end
 
+      def compact
+        to_a.compact
+      end
+
       private
 
       def sub(items)

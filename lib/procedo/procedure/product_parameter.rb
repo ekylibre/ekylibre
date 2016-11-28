@@ -21,7 +21,7 @@ module Procedo
 
       def initialize(procedure, name, type, options = {})
         super(procedure, name, options)
-        @type = type
+        @type = type || options[:type]
         unless ProductParameter::TYPES.include?(@type)
           raise ArgumentError, "Unknown parameter type: #{@type.inspect}"
         end

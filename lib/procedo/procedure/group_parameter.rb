@@ -15,6 +15,10 @@ module Procedo
         recursively ? all_parameters : @parameters.values
       end
 
+      def settings
+        parameters(recursively).select { |i| i.is_a?(Procedo::Procedure::Setting) }
+      end
+
       def group_parameters(recursively = false)
         parameters(recursively).select { |i| i.is_a?(Procedo::Procedure::GroupParameter) }
       end
@@ -86,6 +90,12 @@ module Procedo
         options[:group] = self
         parameter = Procedo::Procedure::ProductParameter.new(@procedure, name, type, options)
         @parameters[parameter.name] = parameter
+      end
+
+      def add_setting(name, type, options = {})
+        options[:group] = self
+        setting = Procedo::Procedure::Setting.new(@procedure, name, type, options)
+        @parameters[setting.name] = setting
       end
 
       def add_group_parameter(name, options = {})

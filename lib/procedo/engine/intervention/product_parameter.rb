@@ -34,6 +34,14 @@ module Procedo
           end
         end
 
+        def variety
+          product && product.variety
+        end
+
+        def derivative_of
+          product && product.derivative_of
+        end
+
         def read_at?
           @read_at.present?
         end

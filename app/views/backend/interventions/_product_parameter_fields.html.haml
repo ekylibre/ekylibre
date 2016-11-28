@@ -10,7 +10,10 @@
     - else
       - started_at = f.object.intervention.working_periods.map(&:started_at).min
   - if reference.output?
-    = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
+    - if (attr = reference.attribute(:variant))
+      = f.referenced_association :variant, as: :hidden, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
+    - else
+      = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
@@ -32,6 +35,12 @@
       = f.input :new_variant_id, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
     - else
       = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+
+  - if (attr = reference.attribute(:variety))
+    - if attr.hidden?
+      = f.variety as: :hidden
+    - else
+      = f.variety
 
   - if reference.attribute(:working_zone)
     :ruby

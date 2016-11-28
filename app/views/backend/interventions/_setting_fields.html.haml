@@ -1,0 +1,22 @@
+- prefix = namespace + "[#{f.index}]"
+-# f.object.reference_name = reference.name
+.nested-fields.nested-setting{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
+  = link_to_remove_nested_association(:destroy.ta, f)
+  = f.input :reference_name, as: :hidden
+
+  - source_intervention = Maybe(f.object.intervention)
+  - started_at = source_intervention.started_at.or_nil
+  - started_at ||= source_intervention.working_periods.or_else([]).map(&:started_at).min
+  - started_at ||= Time.now
+
+  - if reference.variant?
+    = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
+    -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
+  - if reference.text?
+    = f.input :text, label: reference.human_name
+  -# if reference.product?
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
+  -# if reference.measure?
+  -# if reference.number?
+
+  -# if reference.quantity?

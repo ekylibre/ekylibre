@@ -60,6 +60,8 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   belongs_to :intervention, inverse_of: :parameters
 
+  delegate :procedure, to: :intervention
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :derivative_of, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -77,7 +79,7 @@ class InterventionParameter < Ekylibre::Record::Base
   }
   scope :of_generic_role, lambda { |role|
     role = role.to_s
-    unless %w(doer input output target tool).include?(role)
+    unless %w(doer input output setting target tool).include?(role)
       raise ArgumentError, "Invalid role: #{role}"
     end
     where(type: "Intervention#{role.camelize}")
@@ -85,7 +87,7 @@ class InterventionParameter < Ekylibre::Record::Base
   scope :of_generic_roles, lambda { |roles|
     roles.collect! do |role|
       role = role.to_s
-      unless %w(doer input output target tool).include?(role)
+      unless %w(doer input output setting target tool).include?(role)
         raise ArgumentError, "Invalid role: #{role}"
       end
       "Intervention#{role.camelize}"

@@ -55,32 +55,10 @@
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
-class InterventionGroupParameter < InterventionParameter
-  include CastGroupable
-  belongs_to :group, class_name: 'InterventionGroupParameter' # , inverse_of: :group_parameters
-  belongs_to :intervention, inverse_of: :group_parameters
-  belongs_to :parent, class_name: 'InterventionGroupParameter',
-                      foreign_key: :group_id, inverse_of: :children
-  has_many :children, class_name: 'InterventionParameter', dependent: :destroy,
-                      foreign_key: :group_id, inverse_of: :parent
-  with_options inverse_of: :group, foreign_key: :group_id do
-    has_many :parameters, class_name: 'InterventionParameter'
-    has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
-    has_many :doers, class_name: 'InterventionDoer'
-    has_many :inputs, class_name: 'InterventionInput'
-    has_many :outputs, class_name: 'InterventionOutput'
-    has_many :targets, class_name: 'InterventionTarget'
-    has_many :tools, class_name: 'InterventionTool'
-    has_many :settings, class_name: 'InterventionSetting'
-  end
-
-  validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools
-
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, allow_destroy: true
-
-  delegate :procedure, to: :intervention
-
-  def product_parameters
-    intervention.product_parameters.where(group: self)
-  end
+# An intervention output represents a product which is produced by the
+# intervention. The output generate a product with the given quantity.
+class InterventionSetting < InterventionParameter
+  belongs_to :intervention, inverse_of: :outputs
+  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :product
 end

@@ -9,21 +9,29 @@ module Procedo
         end
 
         def derivative_of(product_or_set)
-          return nil if product_or_set.compact.blank?
           return product_or_set.derivative_of if product_or_set.respond_to? :derivative_of
+          return nil if product_or_set.blank?
           set = product_or_set.to_a
-          set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:derivative_of)).name : nil
+          variety = set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:derivative_of).compact) : nil
+          variety && variety.name
         rescue
           raise Procedo::Errors::FailedFunctionCall
         end
 
         def variety_of(product_or_set)
-          return nil if product_or_set.compact.blank?
           return product_or_set.variety if product_or_set.respond_to? :variety
+          return nil if product_or_set.blank?
           set = product_or_set.to_a
-          set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:variety)).name : nil
+          variety = set.present? ? Nomen::Variety.lowest_common_ancestor_of(*set.map(&:variety).compact) : nil
+          variety && variety.name
         rescue
           raise Procedo::Errors::FailedFunctionCall
+        end
+
+        def setting_value(settings)
+          return settings.value if settings.respond_to?(:value)
+          params = settings.parameters
+          params.length > 1 ? params.map(&:value) : params.first && params.first.value
         end
 
         # Test if population counting is as specified for given product
@@ -182,7 +190,7 @@ module Procedo
           if product_or_set.respond_to? :parameters
             set = product_or_set
             parameters = set.parameters
-            parameters.map { |param| param.product && param.product.variant }
+            parameters.map { |param| param.respond_to?(:variant) ? param.variant : param.product && param.product.variant }
           else
             product = product_or_set
             return product.member_variant unless product.nil?

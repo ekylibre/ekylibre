@@ -287,6 +287,7 @@ module Nomen
     end
 
     def lowest_common_ancestor_of(*items)
+      return nil if items.blank?
       items
         .map { |item| item.is_a?(Nomen::Item) ? item : find(item) }
         .map(&:self_and_parents).reduce(&:&).first
