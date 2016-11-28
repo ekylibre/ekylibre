@@ -79,71 +79,68 @@ class InterventionInput < InterventionProductParameter
       movement.save!
     end
   end
-  
+
   def reglementary_status
-    
     dose = quantity.convert(:liter_per_hectare)
-    
+
     if product.france_maaid
       agent = Pesticide::Agent.find(product.france_maaid)
       reglementary_doses = {}
-      
+
       if agent.usages.any?
-        puts agent.usages.inspect.red
+        # puts agent.usages.inspect.red
         agent.usages.each_with_index do |usage, index|
-          if usage.subject_variety && usage.dose
-            intervention.targets.each do |target|
-              puts target.product.variety.inspect.green
-              activity_variety = target.best_activity_production.cultivation_variety if target.best_activity_production
-              puts activity_variety.green
-              uv = Nomen::Variety[usage.subject_variety.to_sym]
-              # plant target case
-              if target.product.variety && (uv >= Nomen::Variety[target.product.variety.to_sym])
-                reglementary_doses[index] = {}
-                reglementary_doses[index][:name] = usage.name.to_s.downcase
-                reglementary_doses[index][:variety] = uv.l
-                reglementary_doses[index][:level] = :target_variety
-                reglementary_doses[index][:legal_dose] = usage.dose
-                if usage.dose.is_a?(Measure) && quantity.is_a?(Measure) && usage.dose.dimension == :volume_area_density
-                  if usage.dose.convert(:liter_per_hectare) < quantity.convert(:liter_per_hectare)
-                    reglementary_doses[index][:status] = :stop
-                  elsif usage.dose.convert(:liter_per_hectare) == quantity.convert(:liter_per_hectare)
-                    reglementary_doses[index][:status] = :caution
-                  elsif usage.dose.convert(:liter_per_hectare) > quantity.convert(:liter_per_hectare)
-                    reglementary_doses[index][:status] = :go
-                  end
+          next unless usage.subject_variety && usage.dose
+          intervention.targets.each do |target|
+            # puts target.product.variety.inspect.green
+            activity_variety = target.best_activity_production.cultivation_variety if target.best_activity_production
+            # puts activity_variety.green
+            uv = Nomen::Variety[usage.subject_variety.to_sym]
+            # plant target case
+            if target.product.variety && (uv >= Nomen::Variety[target.product.variety.to_sym])
+              reglementary_doses[index] = {}
+              reglementary_doses[index][:name] = usage.name.to_s.downcase
+              reglementary_doses[index][:variety] = uv.l
+              reglementary_doses[index][:level] = :target_variety
+              reglementary_doses[index][:legal_dose] = usage.dose
+              if usage.dose.is_a?(Measure) && quantity.is_a?(Measure) && usage.dose.dimension == :volume_area_density
+                if usage.dose.convert(:liter_per_hectare) < quantity.convert(:liter_per_hectare)
+                  reglementary_doses[index][:status] = :stop
+                elsif usage.dose.convert(:liter_per_hectare) == quantity.convert(:liter_per_hectare)
+                  reglementary_doses[index][:status] = :caution
+                elsif usage.dose.convert(:liter_per_hectare) > quantity.convert(:liter_per_hectare)
+                  reglementary_doses[index][:status] = :go
                 end
-                puts "MATCH PLANT - #{usage.dose} FOR #{usage.subject_variety}".inspect.green
-              # land_parcel target case
-              elsif activity_variety && (uv >= Nomen::Variety[activity_variety.to_sym])
-                reglementary_doses[index] = {}
-                reglementary_doses[index][:name] = usage.name.to_s.downcase
-                reglementary_doses[index][:variety] = uv.l
-                reglementary_doses[index][:level] = :activity_variety
-                reglementary_doses[index][:legal_dose] = usage.dose
-                if usage.dose.is_a?(Measure) && quantity.is_a?(Measure) && usage.dose.dimension == :volume_area_density
-                  if usage.dose.convert(:liter_per_hectare) < quantity.convert(:liter_per_hectare)
-                    reglementary_doses[index][:status] = :stop
-                  elsif usage.dose.convert(:liter_per_hectare) == quantity.convert(:liter_per_hectare)
-                    reglementary_doses[index][:status] = :caution
-                  elsif usage.dose.convert(:liter_per_hectare) > quantity.convert(:liter_per_hectare)
-                    reglementary_doses[index][:status] = :go
-                  end
-                end
-                puts "MATCH LAND PARCEL - #{usage.dose} FOR #{usage.subject_variety}".inspect.green
               end
+            # puts "MATCH PLANT - #{usage.dose} FOR #{usage.subject_variety}".inspect.green
+            # land_parcel target case
+            elsif activity_variety && (uv >= Nomen::Variety[activity_variety.to_sym])
+              reglementary_doses[index] = {}
+              reglementary_doses[index][:name] = usage.name.to_s.downcase
+              reglementary_doses[index][:variety] = uv.l
+              reglementary_doses[index][:level] = :activity_variety
+              reglementary_doses[index][:legal_dose] = usage.dose
+              if usage.dose.is_a?(Measure) && quantity.is_a?(Measure) && usage.dose.dimension == :volume_area_density
+                if usage.dose.convert(:liter_per_hectare) < quantity.convert(:liter_per_hectare)
+                  reglementary_doses[index][:status] = :stop
+                elsif usage.dose.convert(:liter_per_hectare) == quantity.convert(:liter_per_hectare)
+                  reglementary_doses[index][:status] = :caution
+                elsif usage.dose.convert(:liter_per_hectare) > quantity.convert(:liter_per_hectare)
+                  reglementary_doses[index][:status] = :go
+                end
+              end
+              # puts "MATCH LAND PARCEL - #{usage.dose} FOR #{usage.subject_variety}".inspect.green
             end
           end
         end
       end
-      puts reglementary_doses.inspect.green
-      
+      # puts reglementary_doses.inspect.green
+
       reglementary_doses
-      
+
     end
-    
   end
-  
+
   def stock_amount
     quantity_population * unit_pretax_stock_amount
   end
