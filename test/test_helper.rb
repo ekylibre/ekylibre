@@ -587,6 +587,7 @@ Capybara.javascript_driver = Capybara.default_driver
 # Capybara.server_port = 3333
 
 Capybara::Webkit.configure do |config|
+  config.allow_url 'secure.gravatar.com'
   config.allow_url 'a.tile.openstreetmap.fr'
   config.allow_url 'b.tile.openstreetmap.fr'
   config.allow_url 'c.tile.openstreetmap.fr'

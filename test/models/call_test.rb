@@ -29,6 +29,8 @@
 #  integration_name :string
 #  lock_version     :integer          default(0), not null
 #  name             :string
+#  source_id        :integer
+#  source_type      :string
 #  state            :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer

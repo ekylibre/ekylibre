@@ -64,6 +64,8 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :payer, class_name: 'Entity', inverse_of: :incoming_payments
   belongs_to :mode, class_name: 'IncomingPaymentMode', inverse_of: :payments
+  has_many :journal_entry_items, through: :journal_entry
+  has_one :bank_statement, -> { first }, through: :journal_entry_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :commission_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -80,7 +82,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :commission_account, presence: { if: :with_commission? }
 
   acts_as_numbered
-  acts_as_affairable :payer, dealt_at: :to_bank_at, role: 'client'
+  acts_as_affairable :payer, dealt_at: :to_bank_at, class_name: 'SaleAffair'
 
   alias status affair_status
 
@@ -133,16 +135,16 @@ class IncomingPayment < Ekylibre::Record::Base
     # mode = mode
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payer: payer.full_name, mode: mode.name, check_number: bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received)) do |entry|
-        entry.add_debit(label,  mode.depositables_account_id, amount - self.commission_amount)
-        entry.add_debit(label,  commission_account_id, self.commission_amount) if self.commission_amount > 0
-        entry.add_credit(label, payer.account(:client).id, amount) unless amount.zero?
+      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
+        entry.add_debit(label,  mode.depositables_account_id, amount - self.commission_amount, as: :deposited)
+        entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
+        entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
       b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received)) do |entry|
-        entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount)
-        entry.add_debit(label,  commission_account_id, self.commission_amount) if self.commission_amount > 0
-        entry.add_credit(label, payer.account(:client).id, amount) unless amount.zero?
+        entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount, as: :bank)
+        entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
+        entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     end
   end

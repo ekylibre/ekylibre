@@ -60,6 +60,7 @@ spa:
     periods:
       day: "Día"
       month: "Mes"
+      today: "Hoy"
       week: "Semana"
       year: "Año"
     relative_distance_in_words:

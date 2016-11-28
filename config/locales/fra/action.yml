@@ -318,9 +318,9 @@ fra:
       new: "Nouvel agréage"
       show: "Agréage\_: %{number}"
     backend/integrations:
-      edit: "Modifier l'intégration %{name}"
-      index: "Intégrations"
-      new: "Activer l'intégration %{name}"
+      edit: "Modifier la connexion %{name}"
+      index: "Connexions partenaires"
+      new: "Activer la connexion %{name}"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d'intervention"
@@ -354,8 +354,9 @@ fra:
       new: "Nouvelle écriture"
       show: "Écriture comptable\_: %{number}"
     backend/journal_entry_items:
+      index: "Lignes d’écritures"
       new: "Nouvelle ligne d’écriture"
-      show: "ligne d’écriture: %{name}"
+      show: "Ligne d’écriture: %{name}"
     backend/journals:
       bookkeep: "Bascule comptable"
       close: "Clôturer le journal\_: %{name}"
@@ -467,6 +468,11 @@ fra:
       new: "Nouveau colis"
       ship: "Expédier les colis"
       show: "Colis %{nature}\_: %{number}"
+    backend/plant_countings:
+      edit: "Modifier le comptage\_: %{number}"
+      index: "Comptages"
+      new: "Nouveau comptage"
+      show: "Comptage\_: %{number}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"
@@ -627,6 +633,13 @@ fra:
       index: "Tâches"
       new: "Nouvelle tâche"
       show: "Tâche\_: %{name}"
+    backend/tax_declarations:
+      confirm: "Confirmer la déclaration TVA: %{number}"
+      edit: "Modifier la déclaration TVA\_: %{number}"
+      index: "Déclarations TVA"
+      new: "Nouvelle déclaration TVA"
+      propose: "Proposer la déclaration TVA: %{number}"
+      show: "Déclaration TVA\_: %{number}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -907,6 +920,7 @@ fra:
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
+    average: "Moyenne"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
@@ -1343,6 +1357,15 @@ fra:
     journal_entries: "Écritures"
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
+    journal_entry_items_with_undeclared_taxes:
+      other: "%{count} lignes d'écriture avec des taxes non déclarées"
+      zero: "%{count} ligne d'écriture avec des taxes non déclarées"
+    journal_entry_items_with_unidentified_expenses:
+      other: "%{count} lignes d'écriture avec des charges non identifiées"
+      zero: "%{count} ligne d'écriture avec des charges non identifiées"
+    journal_entry_items_with_unidentified_revenues:
+      other: "%{count} lignes d'écriture avec des produits non identifiés"
+      zero: "%{count} ligne d'écriture avec des produits non identifiés"
     journal_name: "%{name}"
     journal_view:
       entries: "Écritures"
@@ -1492,6 +1515,7 @@ fra:
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
+    new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
     new_organization: "Nouvelle organisation"
@@ -1605,6 +1629,7 @@ fra:
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
     period: "Période prédéfinie"
     periods: "Périodes"
+    permanent_stock_inventory: "Inventaire des stocks permanent"
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
@@ -1616,6 +1641,8 @@ fra:
     places: "Lieux"
     planned_at: "Date prévisionnelle" #?
     plant: "Culture"
+    plant_counting: "Comptage"
+    plant_countings: "Comptages"
     plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
@@ -1670,6 +1697,7 @@ fra:
     products: "Produits"
     profile: "Profil"
     profitability: "Rentabilité" #?
+    profits_and_losses: "Les profits et pertes"
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
@@ -1939,6 +1967,8 @@ fra:
     to_deposit: "À encaisser"
     to_deposit_later: "À encaisser plus tard"
     to_deposit_now: "À encaisser maintenant"
+    to_pay: "À payer"
+    to_reclaim: "À réclamer"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare" #?
@@ -2005,6 +2035,7 @@ fra:
       waiting: "En attente" #?
     treatment: "Traitement" #?
     true: "Vrai" #?
+    unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
@@ -2062,7 +2093,7 @@ fra:
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    vat: "Taxe à payer" #?
+    vat: "TVA"
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
     vat_collected: "TVA BRUTE" #?
@@ -2094,6 +2125,12 @@ fra:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
+    x_contracts:
+      one: "%{count} contrat"
+      other: "%{count} contrats"
+    x_countings:
+      one: "%{count} comptage"
+      other: "%{count} comptages"
     x_days:
       one: "%{count} jour"
       other: "%{count} jours"
@@ -2278,6 +2315,7 @@ fra:
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
+      density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
@@ -2377,6 +2415,10 @@ fra:
       synchronization_operation_failed: "L'opération %{operation_name} a échoué: %{target} %{message}"
       synchronization_operation_finished_successfully: "L'opération %{operation_name} s’est finie correctement"
       synchronization_operation_in_progress: "L'opération %{operation_name} est en cours"
+      the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "Le lettrage automatique ne peut pas être fait en comptabilité parce qu’il a déjà été fait par un utilisateur"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "Le lettrage automatique ne peut pas être fait en comptabilité parce que certaines transactions ne sont pas encore comptabilisées"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       this_service_is_not_activated: "Ce service n'est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
@@ -2529,6 +2571,7 @@ fra:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

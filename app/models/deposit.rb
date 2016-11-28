@@ -94,18 +94,18 @@ class Deposit < Ekylibre::Record::Base
 
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, count: payments_count, mode: mode.name, responsible: responsible.label, description: description)
 
-      entry.add_debit(label, cash.account_id, amount - commissions_amount)
+      entry.add_debit(label, cash.account_id, amount - commissions_amount, as: :bank)
       commissions.each do |commission_account_id, commission_amount|
-        entry.add_debit(label, commission_account_id.to_i, commission_amount) if commission_amount > 0
+        entry.add_debit(label, commission_account_id.to_i, commission_amount, as: :commission) if commission_amount > 0
       end
 
       if detail_payments # Preference[:detail_payments_in_deposit_bookkeeping]
         payments.each do |payment|
           label = tc(:bookkeep_with_payment, resource: self.class.model_name.human, number: number, mode: mode.name, payer: payment.payer.full_name, check_number: payment.bank_check_number, payment: payment.number)
-          entry.add_credit(label, mode.depositables_account_id, payment.amount)
+          entry.add_credit(label, mode.depositables_account_id, payment.amount, as: :deposited, resource: payment)
         end
       else
-        entry.add_credit(label, mode.depositables_account_id, amount)
+        entry.add_credit(label, mode.depositables_account_id, amount, as: :deposited)
       end
       true
     end

@@ -134,7 +134,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:quantity, :invalid) if quantity.zero?
+    errors.add(:quantity, :invalid) if quantity && quantity.zero?
     # TODO: validates responsible can make reduction and reduction percentage is convenient
   end
 

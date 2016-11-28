@@ -38,6 +38,16 @@ eng:
         population: "Quantity"
       plant:
         born_at: "Planted at"
+      plant_counting:
+        plant: "Product"
+        plant_activity: "Activity"
+        rows_count_value: "Rows count"
+        working_width_value: "Implanter application width"
+      plant_counting_item:
+        value: "Plants count"
+      plant_density_abacus_item:
+        plants_count: "Expected plants count"
+        seeding_density_value: "Expected seeding density"
       purchase:
         affair_balance: "Balance"
       sale:
@@ -301,10 +311,14 @@ eng:
       product_population: "Product population"
       product_reading: "Product reading"
       purchase: "Purchase"
+      purchase_affair: "Purchase affair"
+      purchase_gap: "Purchase gap"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
       role: "Role"
       sale: "Sale"
+      sale_affair: "Sale affair"
+      sale_gap: "Sale gap"
       sale_item: "Sale item"
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"
@@ -317,10 +331,12 @@ eng:
       subscription_nature: "Subscription type"
       supervision: "Supervision"
       supervision_item: "Supervision item"
-      # synchronization_operation: "Synchronization operation"
+      synchronization_operation: "Synchronization operation"
       target_distribution: "Target distribution"
       task: "Task"
       tax: "Tax"
+      tax_declaration: "Tax declaration"
+      tax_declaration_item: "Tax declaration item"
       team: "Team"
       token: "Token"
       tracking: "Tracking"
@@ -336,14 +352,15 @@ eng:
     absolute_measure_value: "Absolute measure value"
     absolute_measure_value_unit: "Absolute measure value unit"
     absolute_measure_value_value: "Absolute measure value value"
+    # absolute_pretax_amount: "Absolute pretax amount"
     absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     absorber: "Absorber" #?
     acceptance_status: "Acceptance status"
     access_parameters: "Access parameters"
     account: "Account"
     account_balances: "Account balances"
-    account_name: "Account name" #?
-    account_number: "Account number" #?
+    account_name: "Account name"
+    account_number: "Account number"
     accountable: "Accountable"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
@@ -403,6 +420,8 @@ eng:
     auto_updateable_addresses: "Auto updateable addresses"
     average_value: "Average value"
     balance: "Balance"
+    balance_pretax_amount: "Balance pretax amount"
+    balance_tax_amount: "Balance tax amount"
     balances: "Balances"
     bank_account_holder_name: "Account owner"
     bank_account_key: "Bank account key"
@@ -468,6 +487,8 @@ eng:
     coefficient: "Coefficient"
     collect_account: "Collect account"
     # collected_fixed_asset_taxes: "Collected fixed asset taxes"
+    collected_pretax_amount: "Collected pretax amount"
+    collected_tax_amount: "Collected tax amount"
     collected_taxes: "Collected taxes"
     color: "Color"
     column_name: "Column name"
@@ -498,7 +519,7 @@ eng:
     content_localizations: "Content localizations"
     contents: "Contents"
     contract: "Contract"
-    # contract_items: "Contract items"
+    contract_items: "Contract items"
     contracts: "Contracts"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
@@ -552,6 +573,8 @@ eng:
     decimal_value: "Decimal value"
     declarant: "Declarant"
     # deductible_fixed_asset_taxes: "Deductible fixed asset taxes"
+    deductible_pretax_amount: "Deductible pretax amount"
+    deductible_tax_amount: "Deductible tax amount"
     deduction_account: "Deduction account"
     default_computation_method: "Default computation method"
     # default_email_address: "Default email address"
@@ -678,6 +701,8 @@ eng:
     fixed_asset_account: "Fixed asset account"
     fixed_asset_allocation_account: "Fixed asset depreciations account"
     fixed_asset_collect_account: "Fixed asset collect account"
+    fixed_asset_deductible_pretax_amount: "Fixed asset deductible pretax amount"
+    fixed_asset_deductible_tax_amount: "Fixed asset deductible tax amount"
     fixed_asset_deduction_account: "Fixed asset deduction account"
     fixed_asset_depreciation_method: "Fixed asset depreciation method"
     fixed_asset_depreciation_percentage: "Fixed asset depreciation percentage"
@@ -794,6 +819,7 @@ eng:
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     introduction: "Introduction"
+    # inventories: "Inventories"
     inventory: "Inventory"
     invitation_accepted_at: "Invitation accepted at"
     invitation_created_at: "Invitation created at"
@@ -804,6 +830,7 @@ eng:
     invited_by: "Invited by"
     invoice_address: "Invoice address"
     invoiced_at: "Invoiced on"
+    invoiced_on: "Invoiced on"
     ip_address: "IP address"
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
@@ -1109,6 +1136,7 @@ eng:
     provisional_intervention: "Provisional intervention" #?
     purchasable: "Purchasable"
     purchase: "Purchase"
+    purchase_affair: "Purchase affair" #?
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"
     purchase_item: "Purchase item"
@@ -1119,7 +1147,7 @@ eng:
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
     quantity: "Quantity"
-    quantity_gap_on_invoice_entry: "Stock quantity gap entry"
+    quantity_gap_on_invoice_journal_entry: "Stock quantity gap entry"
     quantity_handler: "Quantity handler"
     quantity_indicator: "Quantity indicator" #?
     quantity_indicator_name: "Quantity indicator name"
@@ -1138,6 +1166,7 @@ eng:
     real_currency: "Original currency"
     real_currency_rate: "Original currency rate"
     real_debit: "Original debit"
+    # real_pretax_amount: "Real pretax amount"
     receipt: "Receipt"
     received: "Received"
     received_at: "Received at" #?
@@ -1188,6 +1217,7 @@ eng:
     reset_password_sent_at: "Reset password sent at"
     reset_password_token: "Reset password token"
     resource: "Resource"
+    resource_prism: "Resource prism"
     resource_type: "Resource type"
     # response: "Response"
     responses: "Responses"
@@ -1206,6 +1236,7 @@ eng:
     root_model_name: "Root model name"
     root_node: "Root node"
     root_parameters: "Root parameters"
+    rows_count_value: "Rows count"
     sale: "Sale"
     sale_credit: "Sale credit"
     sale_item: "Sale item"
@@ -1322,6 +1353,12 @@ eng:
     targets: "Targets"
     tasks: "Tasks"
     tax: "Tax"
+    tax_declaration: "Tax declaration"
+    tax_declaration_frequency: "Tax declaration frequency"
+    tax_declaration_item: "Tax declaration item"
+    tax_declaration_items: "Tax declaration items"
+    tax_declaration_mode: "Tax declaration  mode"
+    tax_declarations: "Tax declarations"
     taxations: "Taxations"
     team: "Team"
     template: "Template"
@@ -1355,7 +1392,7 @@ eng:
     type: "Type"
     uid: "UID"
     unconfirmed_email: "Unconfirmed email"
-    undelivered_invoice_entry: "Undelivered invoice entry"
+    undelivered_invoice_journal_entry: "Undelivered invoice entry"
     undelivered_quantity: "Undelivered quantity"
     unit_amount: "Unit amount"
     unit_currency: "Unit currency"
@@ -1383,6 +1420,9 @@ eng:
     use_tactics: "Use cropping techniques"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
+    used_for_permanent_stock_inventory: "Used for permanent stock inventory"
+    used_for_tax_declarations: "Used for tax declarations"
+    used_for_unbilled_payables: "Used for unbilled payables"
     used_intervention_parameters: "Used intervention parameters"
     useful_items: "Useful items"
     user: "User"
@@ -1417,6 +1457,7 @@ eng:
     worker: "Worker"
     working_duration: "Working duration"
     working_periods: "Working periods"
+    working_width_value: "Implanter application width"
     working_zone: "Working zone"
     working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?
@@ -1508,8 +1549,8 @@ eng:
     intervention:
       name: "%{intervention} #%{number}"
     inventory:
-      bookkeep: "Physical inventory - [%{resource}] %{number}"
-      bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      bookkeep: "[%{resource}] %{number}"
+      bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       name_with_target: "%{nature} on %{target}"
       name_without_target: "%{nature}"
@@ -1623,6 +1664,8 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused order"
+    purchase_gap:
+      bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1661,6 +1704,8 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused estimate"
+    sale_gap:
+      bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"
@@ -1712,6 +1757,8 @@ eng:
           doing: "Doing"
           done: "Done"
           todo: "To do"
+    tax_declaration:
+      bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
     team:
       default: "Main team"
     user:

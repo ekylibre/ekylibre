@@ -46,7 +46,7 @@ require 'test_helper'
 class InventoryTest < ActiveSupport::TestCase
   test_model_actions
   test 'refresh' do
-    FinancialYear.destroy_all
+    FinancialYear.delete_all
     year = FinancialYear.create!(
       closed: false,
       code: 'inventory_test',
