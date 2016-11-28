@@ -209,7 +209,7 @@ GEM
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
-    jbuilder (2.6.0)
+    jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jc-validates_timeliness (3.1.1)
@@ -296,7 +296,7 @@ GEM
     paperclip-document (0.0.10)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 5.2)
-    parser (2.3.2.0)
+    parser (2.3.3.0)
       ast (~> 2.2)
     pg (0.19.0)
     polyglot (0.3.5)
@@ -399,8 +399,7 @@ GEM
     ruby-progressbar (1.8.1)
     rubyntlm (0.6.1)
     rubyzip (1.2.0)
-    rufus-scheduler (3.3.0)
-      tzinfo
+    rufus-scheduler (3.2.2)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -600,6 +599,7 @@ DEPENDENCIES
   rubocop
   rubyntlm (>= 0.3.2)
   rubyzip
+  rufus-scheduler (~> 3.2.0)
   sass-rails (~> 5.0)
   savon
   sdoc (~> 0.4.0)
