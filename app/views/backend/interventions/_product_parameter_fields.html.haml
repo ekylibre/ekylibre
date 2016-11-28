@@ -36,11 +36,22 @@
     - else
       = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
 
-  - if (attr = reference.attribute(:variety))
+  - if (attr = reference.attribute(:variety)) && reference.attribute(:derivative_of)
+    - if attr.hidden?
+      = f.variety as: :hidden
+      = f.input(:derivative_of)
+    - else
+      = f.variety derivative_of: true
+
+  - if (attr = reference.attribute(:variety)) && !reference.attribute(:derivative_of)
     - if attr.hidden?
       = f.variety as: :hidden
     - else
       = f.variety
+
+  - if (attr = reference.attribute(:derivative_of)) && !reference.attribute(:variety)
+    - if attr.hidden?
+      = f.input :derivative_of, as: :hidden
 
   - if reference.attribute(:working_zone)
     :ruby

@@ -618,11 +618,12 @@ module Backend
           field = ('<span class="add-on">' <<
                    ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
                    '</span>')
+          field = '<span class="add-on">{@@@@VARIETY@@@@}{@@@@DERIVATIVE@@@@}</span>' if options[:as].present?
           field.gsub!('{@@', '</span>')
           field.gsub!('@@}', '<span class="add-on">')
           field.gsub!('<span class="add-on"></span>', '')
           field.gsub!('@@VARIETY@@', input_field(:variety, as: (options[:as] || :select), collection: varieties))
-          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, (options[:as] || :select), collection: derivatives, wrapper: :nested))
+          field.gsub!('@@DERIVATIVE@@', input(:derivative_of, as: (options[:as] || :select), collection: derivatives, wrapper: (options[:as].present? ? nil : :nested)))
           field.html_safe
         end
       else
