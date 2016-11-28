@@ -318,9 +318,9 @@ fra:
       new: "Nouvel agréage"
       show: "Agréage\_: %{number}"
     backend/integrations:
-      edit: "Modifier l'intégration %{name}"
-      index: "Intégrations"
-      new: "Activer l'intégration %{name}"
+      edit: "Modifier la connexion %{name}"
+      index: "Connexions partenaires"
+      new: "Activer la connexion %{name}"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d'intervention"
