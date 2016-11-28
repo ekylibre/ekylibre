@@ -66,6 +66,7 @@
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  supplier_payment_delay    :string
+#  supplier_payment_mode_id  :integer
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
@@ -112,6 +113,7 @@ entities_001:
 entities_002:
   active: false
   client: false
+  client_account_id: 672
   country: in
   created_at: 2014-10-31 19:28:25.976860000 Z
   creator_id: 1
@@ -307,6 +309,7 @@ entities_008:
 entities_009:
   active: true
   client: true
+  client_account_id: 671
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -466,6 +469,7 @@ entities_014:
   active: true
   activity_code: ''
   client: true
+  client_account_id: 572
   country: fr
   created_at: 2015-04-21 08:27:39.814863000 Z
   creator_id: 1
@@ -581,3 +585,75 @@ entities_017:
   transporter: false
   updated_at: 2016-01-21 14:05:46.143246000 Z
   vat_subjected: true
+entities_018:
+  active: true
+  bank_account_holder_name: M. Ezekiel Moebius
+  bank_identifier_code: ''
+  client: false
+  country: fr
+  created_at: 2016-11-05 08:55:21.223505000 Z
+  creator_id: 1
+  currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
+  deliveries_conditions: ''
+  employee: false
+  first_name: "Éçékiel"
+  full_name: M. Éçékiel Möêbìûŝ
+  iban: ''
+  id: 18
+  language: fra
+  last_name: Möêbìûŝ
+  lock_version: 1
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: EI00000002
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  supplier_payment_delay: 30 days
+  title: M.
+  transporter: false
+  updated_at: 2016-11-05 09:00:32.277658000 Z
+  updater_id: 1
+  vat_subjected: false
+entities_019:
+  active: true
+  bank_account_holder_name: Mme Andrew BAKTOUBI
+  bank_identifier_code: ''
+  client: false
+  country: fr
+  created_at: 2016-11-05 09:09:52.282492000 Z
+  creator_id: 1
+  currency: EUR
+  custom_fields:
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: ''
+    bla_dsfk_jioh_sdf: ''
+  deliveries_conditions: ''
+  employee: false
+  first_name: Andrew
+  full_name: Mme Andrew BAKTOUBI
+  iban: ''
+  id: 19
+  language: fra
+  last_name: BAKTOUBI
+  lock_version: 0
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: EI00000003
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  supplier_payment_delay: 30 days
+  title: Mme
+  transporter: false
+  updated_at: 2016-11-05 09:09:52.282492000 Z
+  updater_id: 1
+  vat_subjected: false

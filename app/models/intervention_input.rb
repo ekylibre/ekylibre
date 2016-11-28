@@ -63,7 +63,7 @@ class InterventionInput < InterventionProductParameter
   validates :quantity_population, :product, presence: true
   # validates :component, presence: true, if: -> { reference.component_of? }
 
-  scope :of_component, -> (component) { where(component: component.self_and_parents) }
+  scope :of_component, ->(component) { where(component: component.self_and_parents) }
 
   before_validation do
     self.variant = product.variant if product

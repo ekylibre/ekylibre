@@ -64,6 +64,7 @@ class Sensor < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :token, presence: { if: :listening? }
+  validates :vendor_euid, :model_euid, presence: { unless: :listening? }
 
   # TODO: Check parameters presence
 
@@ -87,7 +88,7 @@ class Sensor < Ekylibre::Record::Base
   end
 
   def alert_on?(alert_nature)
-    alert = alerts.find_by_nature(alert_nature)
+    alert = alerts.find_by(nature: alert_nature)
     alert.present? && alert.level > 0
   end
 

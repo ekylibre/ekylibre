@@ -104,7 +104,7 @@ class SaleItem < Ekylibre::Record::Base
   }
 
   # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature|
+  scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
@@ -116,11 +116,15 @@ class SaleItem < Ekylibre::Record::Base
     self.quantity = -1 * credited_quantity if sale_credit
 
     if tax && unit_pretax_amount
-      item = Nomen::Currency.find(currency)
-      precision = item ? item.precision : 2
-      self.unit_amount   = unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      self.pretax_amount = (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
-      self.amount        = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      if sale.reference_number.blank?
+        self.unit_amount = nil
+        self.pretax_amount = nil
+        self.amount = nil
+      end
+      self.unit_amount   ||= unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      self.pretax_amount ||= (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
+      self.amount        ||= (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
     end
 
     if variant
@@ -130,7 +134,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:quantity, :invalid) if quantity.zero?
+    errors.add(:quantity, :invalid) if quantity && quantity.zero?
     # TODO: validates responsible can make reduction and reduction percentage is convenient
   end
 
@@ -197,9 +201,9 @@ class SaleItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if sale.affair.balanced?
-      return 1.00
+      1.00
     elsif sale.affair.credit != 0.0
-      return (1 - (-sale.affair.balance / sale.affair.credit)).to_f
+      (1 - (-sale.affair.balance / sale.affair.credit)).to_f
     end
   end
 end

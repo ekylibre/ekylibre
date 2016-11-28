@@ -36,10 +36,6 @@ arb:
       mode:
         harvested: "حصاد تاريخ البذر"
         sowed: "مواعيد الزراعة المؤقت"
-    affair:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     analysis:
       retrieval_status:
         controller_error: "خطأ تحكم"
@@ -135,6 +131,16 @@ arb:
         informative: "إعلامي"
         refused: "رفض"
         waiting: "انتظار"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "شهريا"
+        none: "لا شيء"
+        # quaterly: "Quaterly"
+        yearly: "سنوي"
+      tax_declaration_mode:
+        debit: "دين"
+        none: "لا شيء"
+        payment: "دفع"
     fixed_asset:
       depreciation_method:
         graduated: "تخرج" #?
@@ -144,9 +150,6 @@ arb:
       direction:
         loss: "خسارة"
         profit: "ربح"
-      entity_role:
-        client: "زبون"
-        supplier: "المورد"
     georeading:
       nature:
         line: "خط" #?
@@ -207,6 +210,16 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    intervention_participation:
+      state:
+        done: "فعله"
+        in_progress: "في تَقَدم"
+        validated: "التحقق من صحة"
+    intervention_working_period:
+      nature:
+        intervention: "تدخل"
+        preparation: "تجهيز"
+        travel: "سفر"
     journal:
       nature:
         bank: "بنك"
@@ -214,6 +227,7 @@ arb:
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
         sales: "مبيعات"
+        stocks: "مخازن"
         various: "عمليات مختلفة"
     listing_node:
       nature:
@@ -263,6 +277,10 @@ arb:
         in_preparation: "قيد التحضير" #?
         ordered: "أمر" #?
         prepared: "أعدت" #?
+    plant_counting:
+      nature:
+        germination: "في إنبات"
+        sowing: "في البذر"
     preference:
       nature:
         accounting_system: "نظام المحاسبة"
@@ -382,14 +400,6 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_opportunity:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
-    sale_ticket:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     sensor:
       retrieval_mode:
         integration: "دمج"
@@ -402,35 +412,35 @@ arb:
         number: "لا دورية"
         year: "عام"
       usage:
-        affairs: "ترقيم الشؤون"
-        analyses: "ترقيم تحليلات"
-        animals: "ترقيم الحيوانات"
-        campaigns: "ترقيم الحملات"
-        cash_transfers: "ترقيم التحويلات النقدية"
+        affairs: "شؤون"
+        analyses: "تحليلات"
+        animals: "الحيوانات"
+        cash_transfers: "التحويلات النقدية"
+        contracts: "عقود"
         deliveries: "التسليم"
-        deposits: "ترقيم الودائع"
-        documents: "ترقيم الوثائق"
-        entities: "ترقيم الناس"
-        fixed_assets: "ترقيم الأصول الثابتة"
-        gaps: "ترقيم الثغرات"
-        incoming_parcels: "ترقيم شحنات واردة" #?
-        incoming_payments: "ترقيم المدفوعات"
+        deposits: "الودائع"
+        documents: "وثائق"
+        entities: "الأثلاث"
+        fixed_assets: "أصول ثابتة"
+        gaps: "ثغرات"
+        incoming_payments: "المدفوعات الواردة"
         inspections: "عمليات التفتيش"
-        interventions: "ترقيم التدخلات"
+        interventions: "التدخلات"
         inventories: "المخزونات"
         opportunities: "الفرص"
-        outgoing_deliveries: "ترقيم شحنات الصادرة" #?
-        outgoing_payments: "ترقيم المدفوعات"
+        outgoing_payment_lists: "قوائم دفع المنتهية ولايته"
+        outgoing_payments: "المدفوعات الصادرة"
         parcels: "الطرود"
-        plants: "ترقيم النباتات"
-        product_nature_categories: "ترقيم فئات طبيعة المنتج"
-        product_nature_variants: "ترقيم طبيعة المنتج المتغيرات"
-        product_natures: "ترقيم طبائع المنتج"
-        products: "ترقيم المنتجات"
-        purchases: "ترقيم مشتريات"
-        sales: "ترقيم المبيعات"
-        sales_invoices: "ترقيم فواتير المبيعات"
-        subscriptions: "ترقيم الاشتراكات"
+        plants: "النباتات"
+        product_nature_categories: "فئات طبيعة المنتج"
+        product_nature_variants: "المتغيرات طبيعة المنتج"
+        product_natures: "طبائع المنتج"
+        products: "المنتجات"
+        purchases: "مشتريات"
+        sales: "مبيعات"
+        sales_invoices: "فواتير المبيعات"
+        subscriptions: "الاشتراكات"
+        tax_declarations: "الإقرارات الضريبية"
         transports: "ترقيم وسائل النقل" #?
     subscription_nature:  #?
       entity_link_direction: #?
@@ -440,6 +450,17 @@ arb:
       nature: #?
         period: "الاشتراك عن طريق التاريخ" #?
         quantity: "الاشتراك عن طريق رقم" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "المصادقة"
+        get_inventory: "الحصول على المخزون"
+        get_urls: "الحصول على عناوين المواقع"
+      state:
+        aborted: "أجهض"
+        # errored: "Errored"
+        finished: "تم الانتهاء من"
+        in_progress: "في تَقَدم"
+        undone: "غير مصنوع"
     task:
       nature:
         document: "جاري الكتابة" #?

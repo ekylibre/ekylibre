@@ -52,6 +52,7 @@
 #
 
 class Intervention < Ekylibre::Record::Base
+  include Ekylibre::Ednotif if defined? Ekylibre::Ednotif
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
@@ -161,6 +162,10 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
+    unless params[:cultivable_zone_id].blank?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
+    end
+
     unless params[:period_interval].blank? && params[:period].blank?
 
       period_interval = params[:period_interval]
@@ -185,10 +190,11 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
+    # CAUTION: params[:nature] is not used as in controller list filter
     unless params[:nature].blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.request_intervention_id IS NULL"
+        search_params << "#{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
       end
     end
 
@@ -223,7 +229,13 @@ class Intervention < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
-      self.actions = procedure.actions.map(&:name) if actions && actions.empty?
+      if actions && actions.empty?
+        self.actions = if procedure.mandatory_actions.any?
+                         procedure.mandatory_actions.map(&:name)
+                       else
+                         procedure.optional_actions.map(&:name)
+                       end
+      end
     end
     true
   end
@@ -257,8 +269,33 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
+    targets.find_each do |target|
+      if target.new_container_id
+        ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+
+      if target.new_group_id
+        ProductMembership.find_or_create_by(member: target.product, group: Product.find(target.new_group_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+
+      if target.new_variant_id
+        ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+    end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+  end
+
+  ACTIONS = {
+    parturition: :create_new_birth,
+    animal_artificial_insemination: :create_insemination
+  }.freeze
+
+  after_create do
+    actions.each do |action|
+      next unless ACTIONS.key? action
+      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
+    end
   end
 
   # Prevents from deleting an intervention that was executed
@@ -266,33 +303,36 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
-  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
-  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
-  #       Mode Intervention      |     Debit                      |            Credit            |
-  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  # This method permits to add stock journal entries corresponding to the
+  # interventions which consume or produce products.
+  # It depends on the preferences which permit to activate the "permanent stock
+  # inventory" and "automatic bookkeeping".
+  #
+  # | Intervention mode      | Debit                      | Credit                    |
+  # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
+  # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory] && nature == :record
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
-      # inputs
-      if inputs.any?
-        for input in inputs
-          label = tc(:bookkeep, resource: name, name: input.product.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
-            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-          end
-        end
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
+
+    list = []
+    if Preference[:permanent_stock_inventory] && record?
+      write_parameter_entry_items = lambda do |parameter, input|
+        variant      = parameter.variant
+        stock_amount = parameter.stock_amount.round(2)
+        next unless parameter.product_movement && stock_amount.nonzero?
+        label = tc(:bookkeep, resource: name, name: parameter.product.name)
+        debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
+        credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
+        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
+        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
       end
-      # outputs
-      if outputs.any?
-        for output in outputs
-          label = tc(:bookkeep, resource: name, name: output.variant.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
-            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-          end
-         end
+      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
+      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
+    end
+
+    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
+      list.each do |item|
+        entry.send(*item)
       end
     end
   end
@@ -427,10 +467,12 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: (stopped_at && started_at ? (stopped_at - started_at).to_i : 0)
     )
-    event.update_columns(
-      started_at: self.started_at,
-      stopped_at: self.stopped_at
-    ) if event
+    if event
+      event.update_columns(
+        started_at: self.started_at,
+        stopped_at: self.stopped_at
+      )
+    end
     outputs.find_each do |output|
       product = output.product
       next unless product
@@ -493,9 +535,7 @@ class Intervention < Ekylibre::Record::Base
 
   def total_cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
-      return (total_cost / working_zone_area(area_unit).to_d)
-    else
-      return nil
+      (total_cost / working_zone_area(area_unit).to_d)
     end
   end
 
@@ -565,16 +605,20 @@ class Intervention < Ekylibre::Record::Base
     working_periods.create!(started_at: started_at, stopped_at: stopped_at)
   end
 
-  def update_state(additional_state = nil)
-    return unless participations.any? || !additional_state.nil?
-    new_state = participations.pluck(:state).concat([additional_state]).compact.find { |s| s.to_sym == :in_progress }
-    update(state: new_state) if new_state.present?
+  def update_state(modifier = {})
+    return unless participations.any? || modifier.present?
+    states = participations.pluck(:id, :state).to_h
+    states[modifier.keys.first] = modifier.values.first
+    update(state: :in_progress) if states.values.map(&:to_sym).index(:in_progress)
+    update(state: :done) if (states.values.map(&:to_sym) - [:done]).empty?
   end
 
-  def update_compliance(additional_compliance = nil)
-    return unless participations.any? || !additional_compliance.nil?
-    new_compliance = participations.pluck(:request_compliant).concat([additional_compliance]).compact.find(&:!)
-    update(request_compliant: new_compliance) unless new_compliance.nil?
+  def update_compliance(modifier = {})
+    return unless participations.any? || !modifier.nil?
+    compliances = participations.pluck(:id, :request_compliant).to_h
+    compliances[modifier.keys.first] = modifier.values.first
+    update(request_compliant: false) if compliances.values.index(false)
+    update(request_compliant: true) if (compliances.values - [true]).empty?
   end
 
   class << self
@@ -740,20 +784,20 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:purchase),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               purchase.items.new(
                 variant: item.variant,
@@ -815,20 +859,20 @@ class Intervention < Ekylibre::Record::Base
         interventions.each do |intervention|
           hourly_params = {
             catalog: Catalog.by_default!(:cost),
-            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+            quantity_method: ->(_item) { intervention.duration.in_second.in_hour }
           }
           components = {
             doers:  hourly_params,
             tools:  hourly_params,
             inputs: {
               catalog: Catalog.by_default!(:sale),
-              quantity_method: -> (item) { item.quantity }
+              quantity_method: ->(item) { item.quantity }
             }
           }
 
           components.each do |component, cost_params|
             intervention.send(component).each do |item|
-              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              catalog_item = Maybe(cost_params[:catalog].items.find_by(variant_id: item.variant))
               quantity = cost_params[:quantity_method].call(item).round(3)
               sale.items.new(
                 variant: item.variant,

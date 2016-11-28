@@ -38,7 +38,7 @@ module Ekylibre
 
         # PROCEDURE GIVE A CAMPAIGN WHO DOES NOT EXIST IN DB
         #
-        unless campaign = Campaign.find_by_name(r.campaign_code)
+        unless campaign = Campaign.find_by(name: r.campaign_code)
           w.warn "#{prompt} #{r.campaign_code} will be created as a campaign"
         end
 
@@ -397,7 +397,7 @@ module Ekylibre
         end
       )
       # Get campaign
-      unless r.campaign = Campaign.find_by_name(r.campaign_code)
+      unless r.campaign = Campaign.find_by(name: r.campaign_code)
         r.campaign = Campaign.create!(name: r.campaign_code, harvest_year: r.campaign_code)
       end
       # Get supports
@@ -432,10 +432,10 @@ module Ekylibre
         input_unit_target_dose: (row[index + 3].blank? ? nil : row[index + 3].to_s.downcase)
       )
       if a.product_code
-        a.variant = if a.product = Product.find_by_work_number(a.product_code)
+        a.variant = if a.product = Product.find_by(work_number: a.product_code)
                       a.product.variant
                     else
-                      ProductNatureVariant.find_by_work_number(a.product_code)
+                      ProductNatureVariant.find_by(work_number: a.product_code)
                     end
       end
       a
@@ -637,7 +637,7 @@ module Ekylibre
         end
       end
 
-      # # impact
+      ## impact
       intervention = Procedo::Engine.new_intervention(attributes)
       updaters.each do |updater|
         intervention.impact_with!(updater)

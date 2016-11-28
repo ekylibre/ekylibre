@@ -91,12 +91,12 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:purchase).merge(Purchase.invoiced_between(started_at, stopped_at))
   }
   # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature|
+  scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
   # return all sale items for the consider product_nature
-  scope :by_product_nature_category, lambda { |product_nature_category|
+  scope :of_product_nature_category, lambda { |product_nature_category|
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
@@ -156,11 +156,15 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      for usage in [:stock, :purchase]
+      [:stock, :purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        unless catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
+               unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          variant.catalog_items.create!(
+            catalog: catalog,
+            amount: unit_pretax_amount, currency: currency
+          )
         end
       end
     end
@@ -188,9 +192,9 @@ class PurchaseItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if purchase.affair.balanced?
-      return 1.00
+      1.00
     elsif purchase.affair.debit != 0.0
-      return (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
+      (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
     end
   end
 end

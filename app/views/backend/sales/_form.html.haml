@@ -1,4 +1,9 @@
 = field_set do
+  - if f.object.new_record?
+    - if params[:affair_id]
+      - f.object.affair = SaleAffair.find(params[:affair_id])
+    - if f.object.affair
+      = f.association :affair, as: :hidden
   .delivery-item
     = f.referenced_association :client, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
     = f.subset :addresses, depend_on: :client

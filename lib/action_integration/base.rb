@@ -25,7 +25,7 @@ module ActionIntegration
             ::Call.new(
               integration_name: self,
               name: method,
-              arguments:   args
+              arguments: args
             )
           end
         end
@@ -116,7 +116,7 @@ module ActionIntegration
     def fetch(integration_params = nil)
       # Needed for #new Integrations
       integration = integration_params && ::Integration.new(integration_params)
-      integration ||= ::Integration.find_by_nature(self.class.integration_name.underscore)
+      integration ||= ::Integration.find_by(nature: self.class.integration_name.underscore)
 
       raise ServiceNotIntegrated unless integration
       self.class.parameters.each do |p|
@@ -124,6 +124,22 @@ module ActionIntegration
       end
 
       integration
+    end
+
+    class << self
+      # TODO: fetch shouldn't raise exceptions, fetch! does
+      def fetch(local_name = nil)
+        integration ||= ::Integration.find_by(nature: (local_name || integration_name).underscore)
+
+        raise ServiceNotIntegrated unless integration
+        parameters.each do |p|
+          raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
+        end
+
+        integration
+      end
+
+      alias fetch! fetch
     end
   end
 end

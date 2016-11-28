@@ -64,7 +64,6 @@ class CultivableZone < Ekylibre::Record::Base
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
   scope :of_production_system, ->(production_system) { where('production_system_name IS NULL OR production_system_name = ? OR production_system_name = ?', '', production_system) }
 
-
   protect on: :destroy do
     activity_productions.any?
   end

@@ -57,11 +57,11 @@ module Backend
       code << "if params[:period].to_s != 'all'\n"
       code << "  started_on = params[:started_on]\n"
       code << "  stopped_on = params[:stopped_on]\n"
-      code << "  c[0] << ' AND #{Product.table_name}.born_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Product.table_name}.born_at::DATE BETWEEN ? AND ?'\n"
       code << "  c << started_on\n"
       code << "  c << stopped_on\n"
       code << "  if params[:s] == 'consume'\n"
-      code << "    c[0] << ' AND #{Product.table_name}.dead_at BETWEEN ? AND ?'\n"
+      code << "    c[0] << ' AND #{Product.table_name}.dead_at::DATE BETWEEN ? AND ?'\n"
       code << "    c << started_on\n"
       code << "    c << stopped_on\n"
       code << "  end\n"
@@ -224,14 +224,16 @@ module Backend
     def check_variant_availability
       unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
         redirect_to new_backend_product_nature_path
-        return false
+        false
       end
     end
 
     def clean_attachments
-      permitted_params['attachments_attributes'].each do |k, v|
-        permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
-      end if permitted_params.include?('attachments_attributes')
+      if permitted_params.include?('attachments_attributes')
+        permitted_params['attachments_attributes'].each do |k, v|
+          permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+        end
+      end
     end
   end
 end

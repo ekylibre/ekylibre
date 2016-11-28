@@ -18,7 +18,8 @@
 
 module Backend
   class PurchasesController < Backend::BaseController
-    manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
+    manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
+                     except: :new, continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -32,7 +33,7 @@ module Backend
       code = ''
       code = search_conditions(purchases: [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], entities: [:number, :full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -55,11 +56,15 @@ module Backend
       code << "  c[0] += ' AND #{Purchase.table_name}.responsible_id = ?'\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:payment_mode_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Entity.table_name}.supplier_payment_mode_id = ?'\n"
+      code << "  c << params[:payment_mode_id]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
 
-    list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+    list(conditions: purchases_conditions, joins: [:affair, :supplier], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
       t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -68,15 +73,15 @@ module Backend
       t.column :created_at
       t.column :planned_at, hidden: true
       t.column :invoiced_at
-      t.column :payment_at
+      t.column :payment_at, hidden: true
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
       t.column :description, hidden: true
-      # t.column :shipped
+      t.column :supplier_payment_mode, hidden: true
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
-      t.column :pretax_amount, currency: true
+      t.column :pretax_amount, currency: true, hidden: true
       t.column :amount, currency: true
       t.column :affair_balance, currency: true, hidden: true
     end
@@ -143,6 +148,7 @@ module Backend
       if address = Entity.of_company.default_mail_address
         @purchase.delivery_address = address
       end
+      render locals: { with_continue: true }
     end
 
     def abort

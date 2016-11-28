@@ -113,7 +113,9 @@ module Backend
         notify_error(:unexpected_resource_type, type: klass.model_name)
         return false
       end
-      unless record = klass.find_by(id: id)
+      list = options[:scope] ? klass.send(options[:scope]) : klass
+      record = list.find_by(id: id)
+      unless record
         notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
         redirect_to_back
         return false
@@ -121,32 +123,31 @@ module Backend
       record
     end
 
-    def save_and_redirect(record, options = {}, &_block)
+    def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
       ActiveRecord::Base.transaction do
         if options[:saved] || record.send(:save)
-          yield record if block_given?
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
             head :ok
-          else
-            # TODO: notify if success
-            if options[:url] == :back
-              redirect_to_back
-            elsif params[:redirect]
-              redirect_to params[:redirect]
-            else
-              url = options[:url]
-              record.reload
-              if url.is_a? Hash
-                url.each do |k, v|
-                  url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
-                end
-              end
-              redirect_to(url)
+            return true
+          end
+          if options[:notify]
+            model = record.class
+            notify_success(options[:notify],
+                           record: model.model_name.human,
+                           column: model.human_attribute_name(options[:identifier]),
+                           name: record.send(options[:identifier]))
+          end
+          url = options[:url]
+          record.reload
+          if url.is_a? Hash
+            url.each do |k, v|
+              url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
             end
           end
+          redirect_to(url)
           return true
         end
       end
@@ -270,12 +271,12 @@ module Backend
         code << "#{variable}.to_s.lower.split(/\\s+/).each do |kw|\n"
         code << "  kw = '%'+kw+'%'\n"
         filters = columns.collect do |x|
-          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) ILIKE ?'
+          'unaccent(' + x.to_s + '::VARCHAR) ILIKE unaccent(?)'
         end
         exp_count = columns.size
         if options[:expressions]
           filters += options[:expressions].collect do |x|
-            x.to_s + ' ILIKE ?'
+            'unaccent(' + x.to_s + ') ILIKE unaccent(?)'
           end
           exp_count += options[:expressions].count
         end

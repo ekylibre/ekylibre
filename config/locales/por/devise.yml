@@ -46,9 +46,7 @@ por:
           sign_in: "Entre aqui."
           subject: "A sua conta foi aprovado!"
         signed_up:
-          confirm: "Por favor, confirme-a no painel de administração."
-          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "Nova inscrição"
+          subject: "Novo registo"
       reset_password_instructions:
         subject: "Instruções para resetar sua senha"
       unlock_instructions:

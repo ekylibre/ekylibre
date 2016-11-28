@@ -36,10 +36,6 @@ jpn:
       mode:
         harvested: "収穫播種日"
         sowed: "暫定播種日"
-    affair:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     analysis:
       retrieval_status:
         controller_error: "コントローラのエラー"
@@ -135,6 +131,16 @@ jpn:
         informative: "有益な"
         refused: "拒否されました"
         waiting: "待っています"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "毎月"
+        none: "なし"
+        # quaterly: "Quaterly"
+        yearly: "毎年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "なし"
+        payment: "支払い"
     fixed_asset:
       depreciation_method:
         graduated: "目盛り付きの" #?
@@ -144,9 +150,6 @@ jpn:
       direction:
         loss: "損失"
         profit: "利益"
-      entity_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     georeading:
       nature:
         line: "ライン" #?
@@ -208,6 +211,16 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    intervention_participation:
+      state:
+        done: "終わりました"
+        in_progress: "進行中"
+        validated: "有効な"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "準備"
+        travel: "旅行"
     journal:
       nature:
         bank: "バンク"
@@ -215,6 +228,7 @@ jpn:
         forward: "実施フォワード"
         purchases: "購入"
         sales: "セールス"
+        stocks: "ストック"
         various: "さまざまな操作"
     listing_node:
       nature:
@@ -264,6 +278,10 @@ jpn:
         in_preparation: "準備中" #?
         ordered: "順序付けられました" #?
         prepared: "準備" #?
+    plant_counting:
+      nature:
+        germination: "発芽時"
+        sowing: "播種時"
     preference:
       nature:
         accounting_system: "会計システム"
@@ -383,14 +401,6 @@ jpn:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
-    sale_opportunity:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
-    sale_ticket:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     sensor:
       retrieval_mode:
         integration: "統合"
@@ -403,35 +413,35 @@ jpn:
         number: "いいえ周期性はありません"
         year: "年"
       usage:
-        affairs: "事務の記数"
-        analyses: "分析の記数"
-        animals: "動物の記数"
-        campaigns: "キャンペーンの記数"
-        cash_transfers: "送金の記数"
+        affairs: "業務"
+        analyses: "解析"
+        animals: "動物"
+        cash_transfers: "現金移転"
+        contracts: "契約"
         deliveries: "出荷"
-        deposits: "預金の記数"
-        documents: "文書の記数"
-        entities: "人々の記数"
-        fixed_assets: "固定資産の記数"
-        gaps: "ギャップの記数"
-        incoming_parcels: "着信配達の記数" #?
-        incoming_payments: "支払いの記数"
+        deposits: "預金"
+        documents: "ドキュメント"
+        entities: "サーズ"
+        fixed_assets: "固定資産"
+        gaps: "ギャップ"
+        incoming_payments: "入金"
         inspections: "検査"
-        interventions: "介入の記数"
+        interventions: "介入"
         inventories: "棚卸"
         opportunities: "機会"
-        outgoing_deliveries: "発信配達の記数" #?
-        outgoing_payments: "支払いの記数"
+        outgoing_payment_lists: "支払リスト"
+        outgoing_payments: "支払"
         parcels: "小包"
-        plants: "植物の記数"
-        product_nature_categories: "製品自然カテゴリの記数"
-        product_nature_variants: "製品の性質変異体の記数"
-        product_natures: "製品の性質の記数"
-        products: "製品の記数"
-        purchases: "購入の記数"
-        sales: "売上高の記数"
-        sales_invoices: "売上請求書の記数"
-        subscriptions: "サブスクリプションの記数"
+        plants: "植物"
+        product_nature_categories: "製品の性質のカテゴリ"
+        product_nature_variants: "商品の性質上変種"
+        product_natures: "製品の性質"
+        products: "プロダクト"
+        purchases: "購入"
+        sales: "セールス"
+        sales_invoices: "売上請求書"
+        subscriptions: "サブスクリプション"
+        tax_declarations: "税務申告"
         transports: "トランスポートの記数" #?
     subscription_nature:  #?
       entity_link_direction: #?
@@ -441,6 +451,17 @@ jpn:
       nature: #?
         period: "日付別のサブスクリプション" #?
         quantity: "番号で購読" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "認証"
+        get_inventory: "インベントリを取得"
+        get_urls: "URLを取得します"
+      state:
+        aborted: "中止されました"
+        errored: "エラーの発生しました"
+        finished: "完成しました"
+        in_progress: "進行中"
+        undone: "元に戻します"
     task:
       nature:
         document: "書き込み" #?

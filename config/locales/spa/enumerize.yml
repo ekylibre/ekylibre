@@ -36,10 +36,6 @@ spa:
       mode:
         harvested: "Cosecha fecha de siembra"
         sowed: "fecha de siembra provisional"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     analysis:
       retrieval_status:
         controller_error: "Error de controlador"
@@ -135,6 +131,16 @@ spa:
         informative: "Informativo"
         refused: "Negado"
         waiting: "Esperando"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensual"
+        none: "Ninguna"
+        quaterly: "Trimestral"
+        yearly: "Anual"
+      tax_declaration_mode:
+        debit: "Débito"
+        none: "Ninguna"
+        payment: "Pago"
     fixed_asset:
       depreciation_method:
         graduated: "Graduado" #?
@@ -144,9 +150,6 @@ spa:
       direction:
         loss: "Pérdida"
         profit: "Lucro"
-      entity_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     georeading:
       nature:
         line: "Línea" #?
@@ -208,6 +211,16 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    intervention_participation:
+      state:
+        done: "Hecho"
+        in_progress: "En progreso"
+        validated: "Validado"
+    intervention_working_period:
+      nature:
+        intervention: "Intervención"
+        preparation: "Preparación"
+        travel: "Viajar"
     journal:
       nature:
         bank: "Banco"
@@ -215,6 +228,7 @@ spa:
         forward: "A cargo de avance"
         purchases: "Las compras"
         sales: "Ventas"
+        stocks: "Cepo"
         various: "Diversas operaciones"
     listing_node:
       nature:
@@ -264,6 +278,10 @@ spa:
         in_preparation: "En la preparación de" #?
         ordered: "Ordenado" #?
         prepared: "Preparado" #?
+    plant_counting:
+      nature:
+        germination: "En la germinación"
+        sowing: "En la siembra"
     preference:
       nature:
         accounting_system: "Sistema de contabilidad"
@@ -383,14 +401,6 @@ spa:
       nature:
         payslip: "Recibo de sueldo"
         purchase: "Compra"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Proveedor"
     sensor:
       retrieval_mode:
         integration: "Integración"
@@ -403,35 +413,35 @@ spa:
         number: "Sin periodicidad"
         year: "Año"
       usage:
-        affairs: "La numeración de los asuntos"
-        analyses: "Numeración de los análisis"
-        animals: "Numeración de los animales"
-        campaigns: "La numeración de las campañas"
-        cash_transfers: "Numeración de las transferencias de dinero"
+        affairs: "Asuntos"
+        analyses: "Los análisis"
+        animals: "Animales"
+        cash_transfers: "Las transferencias de dinero"
+        contracts: "Contratos"
         deliveries: "Las entregas"
-        deposits: "La numeración de los depósitos"
-        documents: "Numeración de documentos"
-        entities: "Numeración de las personas"
-        fixed_assets: "La numeración de los activos fijos"
-        gaps: "La numeración de las lagunas"
-        incoming_parcels: "Numeración de las entregas entrantes" #?
-        incoming_payments: "Numeración de los pagos"
+        deposits: "Depósitos"
+        documents: "Documentos"
+        entities: "Tercios"
+        fixed_assets: "Los activos fijos"
+        gaps: "Brechas"
+        incoming_payments: "La entrada de pagos"
         inspections: "Inspecciones"
-        interventions: "Numeración de las intervenciones"
+        interventions: "Intervenciones"
         inventories: "Los inventarios"
         opportunities: "Oportunidades"
-        outgoing_deliveries: "Numeración de las entregas salientes" #?
-        outgoing_payments: "Numeración de los pagos"
+        outgoing_payment_lists: "Listas de pago salientes"
+        outgoing_payments: "Pagos salientes"
         parcels: "Parcelas"
-        plants: "Numeración de las plantas"
-        product_nature_categories: "La numeración de las categorías de productos naturales"
-        product_nature_variants: "Numeración de la naturaleza del producto Variantes"
-        product_natures: "La numeración de las naturalezas de productos"
-        products: "Numeración de productos"
-        purchases: "Numeración de las compras"
-        sales: "Numeración de las ventas"
-        sales_invoices: "La numeración de las facturas de venta"
-        subscriptions: "Numeración de las suscripciones"
+        plants: "Plantas"
+        product_nature_categories: "Categorías de productos naturales"
+        product_nature_variants: "Variantes de la naturaleza del producto"
+        product_natures: "Naturalezas de productos"
+        products: "Productos"
+        purchases: "Las compras"
+        sales: "Ventas"
+        sales_invoices: "Facturas de venta"
+        subscriptions: "Suscripciones"
+        tax_declarations: "Declaraciones de impuestos"
         transports: "Numeración de los transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?
@@ -441,6 +451,17 @@ spa:
       nature: #?
         period: "Suscripción por fecha" #?
         quantity: "Suscripción por número" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticación"
+        get_inventory: "Obtener inventario"
+        get_urls: "Obtener direcciones URL"
+      state:
+        aborted: "Abortado"
+        errored: "Con error"
+        finished: "Terminado"
+        in_progress: "En progreso"
+        undone: "Deshecho"
     task:
       nature:
         document: "Escritura" #?

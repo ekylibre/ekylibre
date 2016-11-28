@@ -46,9 +46,7 @@ jpn:
           sign_in: "ここにサインインします。"
           subject: "アカウントは承認されました！"
         signed_up:
-          confirm: "管理パネルでご確認ください。"
-          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "新しいサインアップ"
+          subject: "新規登録"
       reset_password_instructions:
         subject: "パスワード命令をリセット"
       unlock_instructions:

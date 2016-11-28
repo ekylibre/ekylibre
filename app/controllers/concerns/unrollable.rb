@@ -65,7 +65,8 @@ module Unrollable
       end
       haml << "}\n"
       haml << "      %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes.to_h)}}\n"
-      haml << '        = ' + (options[:partial] ? "render '#{partial}', item: item" : 'highlight(item_label, keys)') + "\n"
+      haml << "        - matches = keys + keys.map { |key| ActiveSupport::Inflector.transliterate(key) }\n"
+      haml << '        = ' + (options[:partial] ? "render '#{partial}', item: item" : 'highlight(item_label, matches)') + "\n"
       haml << "    - if params[:insert].to_i > 0\n"
       haml << "      %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
       haml << "  - if items.count > #{(max * 1.5).round}\n"
@@ -142,7 +143,7 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
       code << '      conditions[0] << ' + searchable_filters.collect do |column|
-        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
+        "unaccent(CAST(#{column[:search]} AS VARCHAR)) ILIKE unaccent(?)"
       end.join(' OR ').inspect + "\n"
       code << '      conditions += [' + searchable_filters.collect do |column|
         column[:pattern].inspect.gsub('X', '" + key + "')
@@ -156,7 +157,7 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      ordering[0] << ') AND (' if index > 0\n"
       code << '      ordering[0] << ' + searchable_filters.collect do |column|
-        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
+        "unaccent(CAST(#{column[:search]} AS VARCHAR)) ILIKE unaccent(?)"
       end.join(' OR ').inspect + "\n"
       code << '      ordering += [' + searchable_filters.collect do |column|
         column[:start_pattern].inspect.gsub('X', '" + key + "')
@@ -213,7 +214,7 @@ module Unrollable
         filter[:start_pattern] = infos.second || 'X%'
         filter[:column_name] = definition.name
         filter[:column_type] = definition.type
-        return filter
+        filter
       else
         raise "What a parameter? #{object.inspect}"
       end
@@ -223,18 +224,18 @@ module Unrollable
     def includify(object)
       if object.is_a?(Array)
         a = object.map { |o| includify(o) }.compact
-        return (a.size == 1 ? a.first : a)
+        (a.size == 1 ? a.first : a)
       elsif object.is_a?(Hash)
         n = object.each_with_object({}) do |pair, h|
           h[pair.first] = includify(pair.second)
           h
         end
-        return n.each_with_object([]) do |pair, a|
+        n.each_with_object([]) do |pair, a|
           a << (pair.second.nil? ? pair.first : { pair.first => pair.second })
           a
         end
       elsif object.is_a?(Symbol) || object.is_a?(String)
-        return nil
+        nil
       else
         raise "What a parameter? #{object.inspect}"
       end
@@ -244,11 +245,11 @@ module Unrollable
     def compactify(object)
       if object.is_a?(Array)
         a = object.map { |o| compactify(o) }.compact
-        return (a.empty? ? nil : a)
+        (a.empty? ? nil : a)
       elsif object.is_a?(Hash)
-        return (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
+        (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
       elsif object.is_a?(Symbol) || object.is_a?(String)
-        return object
+        object
       else
         raise "What a parameter? #{object.inspect}"
       end

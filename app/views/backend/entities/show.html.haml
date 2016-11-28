@@ -6,6 +6,7 @@
     = t.menu :add_a_worker.tl, icon: false do |menu|
       - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
         - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, born_at: resource.born_at, redirect: request.fullpath}
+  = t.toggle resource, method: :post, label: resource.contact? ? :convert_into_organization.tl : :convert_into_contact.tl, data: { confirm: :are_you_sure.tl }, icon: false
 
 = main_informations attachment: true do
   = render 'coordinates'
@@ -13,6 +14,12 @@
     .info
       %span.title= Entity.human_attribute_name(:worker)
       %span.value= link_to(resource.worker.name, {controller: :workers, action: :show, id: resource.worker.id})
+  - if current_user.can? :read, :accounts
+    - [:client, :supplier, :employee].each do |nature|
+      - if resource.send(nature) && (account = resource.send("#{nature}_account"))
+        .info
+          %span.title= Entity.human_attribute_name("#{nature}_account")
+          %span.value= link_to(account.label, { controller: :accounts, action: :show, id: account.id })
 
 = janus do |j|
   - j.face :timeline do
@@ -149,6 +156,12 @@
           = t.new(params: {controller: :subscriptions, subscriber_id: resource.id, address_id: resource.default_mail_address_id})
         - if resource.subscriptions.any?
           = cobble_list(:subscriptions)
+
+      - c.cobble(:contracts, title: :x_contracts.tl(count: resource.contracts.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :contracts, :supplier_id => resource.id})
+        - if resource.contracts.any?
+          = cobble_list(:contracts)
 
       - c.cobble(:purchases, title: :x_purchases.tl(count: resource.purchases.count)) do
         = cobble_toolbar do |t|

@@ -1,62 +1,75 @@
-.affair.active-list
-  %table.list.deals
-    %thead
-      %tr
-        %th.act
-          %i.icon.icon-remove
-        %th= Gap.human_attribute_name(:done_at)
-        %th= Gap.human_attribute_name(:deal_type)
-        %th= Gap.human_attribute_name(:third)
-        %th= Gap.human_attribute_name(:reference)
-        %th= Gap.human_attribute_name(:amount)
-    %tfoot
-      %tr
-        %td{colspan: 4}
-          - if affair && affair.gaps.none?
-            - unless affair.closed?
-              %span.action-intro= :attach_deal.tl
-            %span.btn-group<
-              - third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
-              - for type in (Affair.affairable_types - %w(Gap))
-                - model = type.underscore
-                = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn btn-link") do
-                  %i
-                  = Ekylibre::Record.human_name(model)
-        %td.total
-          - if affair
-            - if affair.closed?
-              = :balance.tl
-            - else
-              - unless affair.balance.zero?
-                %span.btn-group<
-                  = link_to({controller: :affairs, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn btn-check primary") do
-                    %i
-                    = "convert_balance_into_#{affair.losing? ? :loss : :profit}".tl
-        - if affair
-          %td.total.amount.sum{class: (affair.balance == 0 ? "debit" : "credit")}= affair.balance.l(currency: affair.currency)
-        - else
-          %td.total.amount.sum
-    - if affair
-      %tbody
-        - for deal in affair.deals.sort{|a,b| a.dealt_at <=> b.dealt_at and a.created_at <=> b.created_at }
+- many_thirds = affair.deals.map(&:deal_third).uniq.count > 1
+- if affair
+  - affairs_controller = affair.class.name.tableize
+  .affair
+    .deals.active-list
+      %table.list
+        %thead
           %tr
-            %td.act
-              - if !current_deal or (deal != current_deal and deal.detachable?)
-                - if affair.gaps.none?
-                  = link_to({action: :detach, controller: :affairs, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "remove") do
-                    %i
-                    = :destroy.tl
-                - if deal.is_a? Gap
-                  = link_to({action: :detach_gaps, controller: :affairs, id: deal.affair_id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "remove") do
-                    %i
-                    = :destroy.tl
-            %td.dat.dealt-on= deal.dealt_at.l
-            %td.type= deal.class.model_name.human
-            %td.third= link_to(deal.deal_third.full_name, send("backend_#{deal.deal_third.class.name.underscore}_path", deal.deal_third))
-            %td.name= link_to(deal.label, controller: "/backend/"+deal.class.table_name, action: :show, id: deal.id)
-            %td.amount{class: (deal.deal_debit? ? "debit" : "credit")}
-              - amount = deal.deal_amount
-              - amount *= -1 if deal.deal_credit?
-              -# unless deal.deal_amount.zero?
-                %span.sign= deal.deal_debit? ? "+" : "-"
-              %span.value= amount.l(currency: deal.currency)
+            %th.act
+              %i.icon.icon-unlink
+            %th= affair.gap_class.human_attribute_name(:done_at)
+            %th= affair.gap_class.human_attribute_name(:deal_type)
+            - if many_thirds
+              %th= affair.gap_class.human_attribute_name(:third)
+            %th= affair.gap_class.human_attribute_name(:reference)
+            %th= affair.gap_class.human_attribute_name(:amount)
+        %tbody
+          - affair.deals.sort_by{ |a| a.dealt_at || a.created_at }.each do |deal|
+            %tr
+              %td.act
+                - if !current_deal || (deal != current_deal && deal.detachable?)
+                  - if affair.gaps.none?
+                    = link_to({action: :detach, controller: affairs_controller, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "unlink") do
+                      %i
+                      = :destroy.tl
+                  - if deal.is_a? Gap
+                    = link_to({action: :detach_gaps, controller: affairs_controller, id: deal.affair_id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "remove") do
+                      %i
+                      = :destroy.tl
+              %td.dat.dealt-on= deal.dealt_at.to_date.l
+              %td.type= deal.class.model_name.human
+              - if many_thirds
+                %td.third= link_to(deal.deal_third.full_name, send("backend_#{deal.deal_third.class.name.underscore}_path", deal.deal_third))
+              %td.name= link_to(deal.number, controller: "/backend/" + deal.class.name.tableize, action: :show, id: deal.id)
+              %td.amount{class: (deal.good_deal? ? "debit" : "credit")}
+                - amount = deal.deal_amount
+                - amount *= -1 if deal.deal_credit?
+                -# unless deal.deal_amount.zero?
+                  %span.sign= deal.deal_debit? ? "+" : "-"
+                %span.value= amount.l(currency: deal.currency)
+
+    %table.list
+      %tbody
+        %tr.total
+          - unless affair.closed?
+            %th.txt
+              - types.each_with_index do |type, index|
+                - model = type.underscore
+                - klass = type.classify.constantize
+                = dropdown_menu_button "add_#{model}".to_sym, icon: false, class: (index.zero? ? 'primary' : nil), dropup: true do |l|
+                  - excluded = affair.deals_of_type(klass).pluck(:id) + klass.where.not(currency: affair.currency).pluck(:id)
+                  - existings = klass.where(klass.deal_third.name => affair.third).affairable.where.not(id: excluded)
+                  - if existings.any?
+                    - existings.each do |existing|
+                      - l.item existing.label, { controller: affairs_controller, action: :attach, id: affair.id, deal_id: existing.id, deal_type: model, redirect: request.fullpath }, method: :post
+                    - l.separator
+                  - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
+              - if affair.finishable?
+                .btn-group
+                  = link_to("convert_balance_into_#{affair.losing? ? :loss : :profit}".tl, {controller: affairs_controller, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn")
+          %th= :balance.tl
+          %td.total.amount.sum{class: (affair.balance.zero? ? "debit" : "credit")}
+            = affair.balance.l(currency: affair.currency)
+  - if affair.balanced? && !affair.letterable?
+    %p.inline-message.warning
+      %i.icon.icon-warning
+      - if affair.multi_thirds?
+        = :the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present.tn
+      - elsif affair.journal_entry_items_unbalanced?
+        = :the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet.tn
+      - elsif affair.journal_entry_items_already_lettered?
+        = :the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user.tn
+      - else
+        = :the_automatic_lettering_cannot_be_done_in_accountancy.tn
+

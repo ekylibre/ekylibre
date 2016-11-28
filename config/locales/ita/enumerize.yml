@@ -36,10 +36,6 @@ ita:
       mode:
         harvested: "Harvest data di semina"
         sowed: "Data provvisoria di semina"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     analysis:
       retrieval_status:
         controller_error: "Errore del controller"
@@ -135,6 +131,16 @@ ita:
         informative: "Informativo"
         refused: "rifiutato"
         waiting: "In attesa"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensile"
+        none: "Nessuna"
+        # quaterly: "Quaterly"
+        yearly: "Annuale"
+      tax_declaration_mode:
+        debit: "Addebito"
+        none: "Nessuna"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Laureato" #?
@@ -144,9 +150,6 @@ ita:
       direction:
         loss: "Perdita"
         profit: "Profitto"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     georeading:
       nature:
         line: "linea" #?
@@ -208,6 +211,16 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    intervention_participation:
+      state:
+        done: "Fatto"
+        in_progress: "In corso"
+        validated: "Convalidato"
+    intervention_working_period:
+      nature:
+        intervention: "Intervento"
+        preparation: "Preparazione"
+        travel: "Viaggio"
     journal:
       nature:
         bank: "Banca"
@@ -215,6 +228,7 @@ ita:
         forward: "Portato avanti"
         purchases: "acquisti"
         sales: "Vendite"
+        stocks: "Riserve"
         various: "varie operazioni"
     listing_node:
       nature:
@@ -264,6 +278,10 @@ ita:
         in_preparation: "In preparazione" #?
         ordered: "Ordinato" #?
         prepared: "Preparato" #?
+    plant_counting:
+      nature:
+        germination: "A germinazione"
+        sowing: "Alla semina"
     preference:
       nature:
         accounting_system: "Sistema di contabilità"
@@ -383,14 +401,6 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     sensor:
       retrieval_mode:
         integration: "Integrazione"
@@ -403,36 +413,35 @@ ita:
         number: "No periodicità"
         year: "Anno"
       usage:
-        affairs: "Numerazione degli affari"
-        analyses: "Numerazione di analisi"
-        animals: "Numerazione degli animali"
-        campaigns: "Numerazione di campagne"
-        cash_transfers: "Numerazione dei trasferimenti di denaro"
+        affairs: "Affari"
+        analyses: "Analisi"
+        animals: "Animali"
+        cash_transfers: "Trasferimenti di denaro"
+        contracts: "Contratti"
         deliveries: "Le consegne"
-        deposits: "Numerazione dei depositi"
-        documents: "Numerazione dei documenti"
-        entities: "Numerazione di persone"
-        fixed_assets: "Numerazione delle immobilizzazioni"
-        gaps: "Numerazione di lacune"
-        incoming_parcels: "Numerazione delle consegne in entrata" #?
-        incoming_payments: "Numerazione dei pagamenti"
+        deposits: "Depositi"
+        documents: "Documenti"
+        entities: "Terzi"
+        fixed_assets: "Immobilizzazioni"
+        gaps: "Lacune"
+        incoming_payments: "Pagamenti in entrata"
         inspections: "Ispezioni"
-        interventions: "Numerazione degli interventi"
+        interventions: "Interventi"
         inventories: "Rimanenze"
         opportunities: "Opportunità"
-        outgoing_deliveries: "Numerazione delle consegne in uscita" #?
-        outgoing_payments: "Numerazione dei pagamenti"
+        outgoing_payment_lists: "Elenchi di pagamento in uscita"
+        outgoing_payments: "Pagamenti in uscita"
         parcels: "Pacchi"
-        plants: "Numerazione delle piante"
-        product_nature_categories: "Numerazione di categorie di prodotti naturali"
-        product_nature_variants: "Numerazione della natura del prodotto varianti"
-        product_natures: "Numerazione delle nature prodotti"
-        products: "Numerazione dei prodotti"
-        purchases: "Numerazione degli acquisti"
-        sales: "Numerazione delle vendite"
-        sales_invoices: "Numerazione di fatture di vendita"
-        subscriptions: "Numerazione degli abbonamenti"
-        transports: "Numerazione dei trasporti" #?
+        plants: "Piante"
+        product_nature_categories: "Categorie Natura del prodotto"
+        product_nature_variants: "La natura del prodotto Varianti"
+        product_natures: "Nature del prodotto"
+        products: "Prodotti"
+        purchases: "Acquisti"
+        sales: "Vendite"
+        sales_invoices: "Fatture di vendita"
+        subscriptions: "Sottoscrizioni"
+        tax_declarations: "Dichiarazioni fiscali"
     subscription_nature:  #?
       entity_link_direction: #?
         all: "bidirezionale" #?
@@ -441,6 +450,17 @@ ita:
       nature: #?
         period: "Abbonamento per data" #?
         quantity: "Abbonamento per numero" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticazione"
+        get_inventory: "Ottenere l’inventario"
+        get_urls: "Ottenere gli URL"
+      state:
+        aborted: "Abortito"
+        # errored: "Errored"
+        finished: "Finito"
+        in_progress: "In corso"
+        undone: "Disfatto"
     task:
       nature:
         document: "scrittura" #?

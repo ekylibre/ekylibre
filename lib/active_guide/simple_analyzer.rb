@@ -30,22 +30,24 @@ module ActiveGuide
       # Display report if wanted
       if env.verbose
         puts "#{report[:failed].to_s.red} tests failed, #{report[:passed].to_s.green} tests passed"
-        report[:results].each do |r|
-          puts " > #{r[:item].name.to_s.humanize}: #{r[:value].to_s.yellow}"
-        end if report[:results]
+        if report[:results]
+          report[:results].each do |r|
+            puts " > #{r[:item].name.to_s.humanize}: #{r[:value].to_s.yellow}"
+          end
+        end
       end
       report
     end
 
     def analyze_item(item, env, depth = 0)
       if item.is_a? ActiveGuide::Group
-        return analyze_group(item, env, depth)
+        analyze_group(item, env, depth)
       elsif item.is_a? ActiveGuide::Test
-        return analyze_test(item, env, depth)
+        analyze_test(item, env, depth)
       elsif item.is_a? ActiveGuide::Question
-        return analyze_question(item, env, depth)
+        analyze_question(item, env, depth)
       elsif item.is_a? ActiveGuide::Result
-        return analyze_result(item, env)
+        analyze_result(item, env)
       else
         raise "Unknown item type: #{item.class.name}"
       end

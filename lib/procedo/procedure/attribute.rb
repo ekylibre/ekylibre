@@ -2,7 +2,8 @@ module Procedo
   class Procedure
     # An Attribute defines an information to complete
     class Attribute < Procedo::Procedure::Setter
-      TYPES = [:new_name, :working_zone].freeze
+      # TODO: change types with ids as it's a rails paradigm
+      TYPES = [:new_name, :working_zone, :new_container_id, :new_group_id, :new_variant].freeze
 
       def initialize(parameter, name, options = {})
         super(parameter, name, options)

@@ -6,7 +6,7 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = controller_name
       path = controller_path
-      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url)
+      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -16,6 +16,7 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       model_name  = name.to_s.classify
       model = model_name.constantize
+      columns = model.columns_definition.keys
 
       if after_save_url.blank?
         if instance_methods(true).include?(:show) || actions.include?(:show)
@@ -25,15 +26,20 @@ module RestfullyManageable
         end
       end
 
+      notify_after_save = true
       if after_save_url == :show
-        after_save_url = "{action: :show, id: 'id'.c}".c
+        after_save_url = "{ action: :show, id: 'id'.c }".c
+        notify_after_save = false
       elsif after_save_url == :index
-        after_save_url = '{action: :index}'.c
+        after_save_url = '{ action: :index }'.c
       elsif after_save_url.is_a?(CodeString)
         after_save_url.gsub!(/RECORD/, "@#{record_name}")
       elsif after_save_url.is_a?(Hash)
         after_save_url = after_save_url.inspect.gsub(/RECORD/, "@#{record_name}")
       end
+
+      options[:identifier] ||= %w(name number id).detect { |i| columns.include?(i) }
+      raise 'Need a :identifier option' if options[:identifier].blank?
 
       render_form_options = []
       render_form_options << "partial: '#{options[:partial]}'" if options[:partial]
@@ -43,7 +49,9 @@ module RestfullyManageable
                                else
                                  :back
                                end
-      render_form_options << "locals: {cancel_url: #{options[:cancel_url].inspect}}"
+      locals = ["cancel_url: #{options[:cancel_url].inspect}"]
+      locals << 'with_continue: ' + (options[:continue] ? 'true' : 'false')
+      render_form_options << 'locals: { ' + locals.join(', ') + ' }'
       render_form = 'render(' + render_form_options.join(', ') + ')'
 
       after_save_url ||= options[:cancel_url].inspect
@@ -55,6 +63,10 @@ module RestfullyManageable
         end.join(', ') + ')'
       end
       t3e_code << ')'
+
+      find_and_check_code = "  return unless @#{record_name} = find_and_check(:#{record_name}"
+      find_and_check_code << ", scope: #{options[:scope].inspect}" if options[:scope]
+      find_and_check_code << ")\n"
 
       creation_t3e = options[:creation_t3e].is_a?(TrueClass)
 
@@ -75,7 +87,7 @@ module RestfullyManageable
 
       if actions.include?(:show)
         code << "def show\n"
-        code << "  return unless @#{record_name} = find_and_check\n"
+        code << find_and_check_code
         parents = [self]
         while parents.last.superclass < ActionController::Base
           parents << parents.last.superclass
@@ -150,7 +162,21 @@ module RestfullyManageable
         code << "def create\n"
         # code << "  raise params.inspect.red\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
-        code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
+        continue_url_options = { action: :new, continue: true }
+        if options[:continue].is_a?(Array)
+          options[:continue].each do |d|
+            continue_url_options[d] = "@#{record_name}.#{d}".c
+          end
+        end
+        code << "  return if save_and_redirect(@#{record_name}, url: (params[:create_and_continue] ? #{continue_url_options.inspect} : (params[:redirect] || (#{after_save_url})))"
+        notification_message = ':record_x_created'
+        code << if notify_after_save
+                  ", notify: #{notification_message}"
+                else
+                  ", notify: ((params[:create_and_continue] || params[:redirect]) ? #{notification_message} : false)"
+                end
+        code << ", identifier: :#{options[:identifier]}"
+        code << ")\n"
         code << "  #{t3e_code}\n" if creation_t3e
         code << "  #{render_form}\n"
         code << "end\n"
@@ -158,7 +184,7 @@ module RestfullyManageable
 
       if actions.include?(:edit)
         code << "def edit\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << find_and_check_code
         code << "  #{t3e_code}\n"
         code << "  #{render_form}\n"
         code << "end\n"
@@ -166,10 +192,18 @@ module RestfullyManageable
 
       if actions.include?(:update)
         code << "def update\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << find_and_check_code
         code << "  #{t3e_code}\n"
         code << "  @#{record_name}.attributes = permitted_params\n"
-        code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
+        code << "  return if save_and_redirect(@#{record_name}, url: params[:redirect] || (#{after_save_url})"
+        notification_message = ':record_x_updated'
+        code << if notify_after_save
+                  ", notify: #{notification_message}"
+                else
+                  ", notify: (params[:redirect] ? #{notification_message} : false)"
+                end
+        code << ", identifier: :#{options[:identifier]}"
+        code << ")\n"
         code << "  #{render_form}\n"
         code << "end\n"
       end
@@ -186,7 +220,7 @@ module RestfullyManageable
 
         # this action deletes or hides an existing record.
         code << "def destroy\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << find_and_check_code
         if model.instance_methods.include?(:destroyable?)
           code << "  if @#{record_name}.destroyable?\n"
           # code << "    resource_model.destroy(@#{record_name}.id)\n"
@@ -302,9 +336,9 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       code = ''
       code << "def picture\n"
-      code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-      code << "  if @#{record_name}.picture.file?\n"
-      code << "    send_file(@#{record_name}.picture.path(params[:style] || :original))\n"
+      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+      code << "  if #{record_name}.picture.file?\n"
+      code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
       code << "  else\n"
       code << "    head :not_found\n"
       code << "  end\n"

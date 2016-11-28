@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161017090516">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161103111303">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -76,6 +76,7 @@
     <items>
       <item name="fr_pcg82"/>
       <item name="fr_pcga"/>
+      <item name="pt_snc"/>
     </items>
   </nomenclature>
   <nomenclature name="accounts" translateable="true">
@@ -83,6 +84,7 @@
       <property name="debtor" type="boolean" default="false"/>
       <property name="fr_pcg82" type="string" fallbacks="fr_pcga"/>
       <property name="fr_pcga" type="string" fallbacks="fr_pcg82"/>
+      <property name="pt_snc" type="string"/>
     </properties>
     <items>
       <item name="accrued_bank_interests" fr_pcg82="518"/>
@@ -120,7 +122,7 @@
       <item name="associates_salary" fr_pcga="6413"/>
       <item name="attorneys" fr_pcg82="467"/>
       <item name="banks" fr_pcg82="512"/>
-      <item name="banks_and_similar" fr_pcg82="51"/>
+      <item name="banks_and_similar" fr_pcg82="51" pt_snc="12"/>
       <item name="banks_services_expenses" fr_pcga="627"/>
       <item name="biocorporeal_asset_depreciations" fr_pcga="284"/>
       <item name="bonus_staff_expenses" fr_pcg82="6413"/>
@@ -130,12 +132,12 @@
       <item name="campaigns_interests" fr_pcg82="6614"/>
       <item name="capital" fr_pcg82="101"/>
       <item name="capitalized_revenues" fr_pcg82="72"/>
-      <item name="capitals" fr_pcg82="1"/>
-      <item name="cashes" fr_pcg82="53"/>
+      <item name="capitals" fr_pcg82="1" pt_snc="5"/>
+      <item name="cashes" fr_pcg82="53" pt_snc="11"/>
       <item name="catalog_and_print_expenses" fr_pcg82="6236"/>
-      <item name="clients" fr_pcg82="411"/>
+      <item name="clients" fr_pcg82="411" pt_snc="21"/>
       <item name="co_ownership_and_locative_expenses" fr_pcga="614"/>
-      <item name="collected_vat" fr_pcg82="44571"/>
+      <item name="collected_vat" fr_pcg82="44571" pt_snc="2433"/>
       <item name="collected_vat_to_resolve" fr_pcg82="44575"/>
       <item name="compensation_operations" fr_pcg82="472"/>
       <item name="concession_asset_depreciations" fr_pcg82="282"/>
@@ -146,20 +148,20 @@
       <item name="cooperative_participation_assets" fr_pcga="2621"/>
       <item name="corporeal_asset_depreciations" fr_pcga="281"/>
       <item name="corporeal_asset_revenues" fr_pcg82="722"/>
-      <item name="corporeal_assets" fr_pcga="21"/>
+      <item name="corporeal_assets" fr_pcga="21" pt_snc="43"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>
       <item name="credit_retained_earnings" fr_pcg82="110"/>
-      <item name="creditor_clients" fr_pcg82="419"/>
+      <item name="creditor_clients" fr_pcg82="419" pt_snc="219"/>
       <item name="debit_retained_earnings" fr_pcg82="119"/>
       <item name="debtor_suppliers" fr_pcg82="409"/>
-      <item name="deductible_asset_vat" fr_pcg82="44562"/>
-      <item name="deductible_vat" fr_pcg82="44566"/>
+      <item name="deductible_asset_vat" fr_pcg82="44562" pt_snc="24322"/>
+      <item name="deductible_vat" fr_pcg82="44566" pt_snc="2432"/>
       <item name="deductible_vat_to_resolve" fr_pcg82="44565"/>
       <item name="deferred_expense_accounts" fr_pcg82="481"/>
       <item name="deprecated_client_entity_accounts" fr_pcg82="491"/>
       <item name="deprecated_entity_accounts" fr_pcg82="49"/>
       <item name="depreciation_revenues" fr_pcg82="78"/>
-      <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
+      <item name="depreciations_inputations_expenses" fr_pcg82="68" pt_snc="64"/>
       <item name="discount_and_reductions_expenses" fr_pcg82="609"/>
       <item name="discount_and_reductions_revenues" fr_pcg82="709"/>
       <item name="discount_from_cooperatives" fr_pcga="754"/>
@@ -170,8 +172,8 @@
       <item name="employee_participation_expenses" fr_pcg82="691"/>
       <item name="employee_representative_committees" fr_pcg82="422"/>
       <item name="end_products_stock" fr_pcga="37"/>
-      <item name="enterprise_collected_vat" fr_pcga="4457"/>
-      <item name="enterprise_deductible_vat" fr_pcga="4456"/>
+      <item name="enterprise_collected_vat" fr_pcga="4457" pt_snc="2433"/>
+      <item name="enterprise_deductible_vat" fr_pcga="4456" pt_snc="2432"/>
       <item name="entity_collectable_taxes" fr_pcg82="442"/>
       <item name="equipment_asset_depreciations" fr_pcga="2815"/>
       <item name="equipment_assets" fr_pcga="2154"/>
@@ -190,7 +192,7 @@
       <item name="exceptionnal_charge_transfer_revenues" fr_pcg82="797"/>
       <item name="exceptionnal_depreciations_inputations_expenses" fr_pcg82="687"/>
       <item name="exceptionnal_incorporeal_asset_depreciation_revenues" fr_pcg82="787"/>
-      <item name="expenses" fr_pcg82="6"/>
+      <item name="expenses" fr_pcg82="6" pt_snc="6"/>
       <item name="exploitation_depreciations_inputations_expenses" fr_pcg82="681"/>
       <item name="exploitation_expenses_transfers" fr_pcga="791"/>
       <item name="exploitation_risk_insurance_expenses" fr_pcga="6166"/>
@@ -204,7 +206,7 @@
       <item name="fertilizer_stock" fr_pcga="3011"/>
       <item name="fertilizer_stocks_variation" fr_pcga="60311"/>
       <item name="fill_up_price_revenues" fr_pcga="7087"/>
-      <item name="finances" fr_pcg82="5"/>
+      <item name="finances" fr_pcg82="5" pt_snc="1"/>
       <item name="financial_asset_depreciation_revenues" fr_pcg82="786"/>
       <item name="financial_charge_transfer_revenues" fr_pcg82="796"/>
       <item name="financial_depreciations_inputations_expenses" fr_pcg82="686"/>
@@ -218,7 +220,7 @@
       <item name="fiscal_fine_exceptional_expenses" fr_pcga="6712"/>
       <item name="fiscal_integration_expenses" fr_pcg82="698"/>
       <item name="fixed_asset_depreciations" fr_pcga="28"/>
-      <item name="fixed_assets" fr_pcg82="2"/>
+      <item name="fixed_assets" fr_pcg82="2" pt_snc="4"/>
       <item name="fixed_assets_suppliers" fr_pcg82="404"/>
       <item name="fixed_assets_values" fr_pcg82="675"/>
       <item name="flat_rate_taxes_expenses" fr_pcg82="697"/>
@@ -237,15 +239,16 @@
       <item name="government_tax_expenses" fr_pcg82="635"/>
       <item name="guaranteed_obligations" fr_pcg82="446"/>
       <item name="holding_accounts" fr_pcg82="451"/>
-      <item name="holding_company_and_associate_accounts" fr_pcg82="45"/>
+      <item name="holding_company_and_associate_accounts" fr_pcg82="45" pt_snc="26"/>
       <item name="home_consumption_production" fr_pcga="726"/>
       <item name="in_cycle_products_stock" fr_pcg82="33"/>
       <item name="in_cycle_services_stock" fr_pcg82="34"/>
-      <item name="income_taxes" fr_pcg82="444"/>
+      <item name="income_taxes" fr_pcg82="444" pt_snc="241"/>
       <item name="income_taxes_expenses" fr_pcg82="695"/>
       <item name="incorporeal_asset_depreciation_revenues" fr_pcg82="781"/>
       <item name="incorporeal_asset_depreciations" fr_pcga="280"/>
       <item name="incorporeal_asset_revenues" fr_pcg82="721"/>
+      <item name="incorporeal_assets" fr_pcga="20" pt_snc="44"/>
       <item name="incorporeals_depreciations_inputations_expenses" fr_pcga="68111"/>
       <item name="industrial_cooperative_participation_assets" fr_pcga="2624"/>
       <item name="infirmity_and_death_insurance_expenses" fr_pcga="6168"/>
@@ -378,7 +381,7 @@
       <item name="partial_net_product_on_long_term_operation_revenues" fr_pcga="73"/>
       <item name="participation_financials_revenues" fr_pcg82="761"/>
       <item name="participation_losses_on_debt_obligation_expenses" fr_pcg82="664"/>
-      <item name="participations" fr_pcg82="26"/>
+      <item name="participations" fr_pcg82="26" pt_snc="41"/>
       <item name="particular_operation_with_state" fr_pcg82="443"/>
       <item name="payment_guarantees" fr_pcg82="275"/>
       <item name="pending_deposit_payments" fr_pcg82="511"/>
@@ -417,7 +420,7 @@
       <item name="residual_products_stock" fr_pcga="377"/>
       <item name="retained_earnings" fr_pcg82="11"/>
       <item name="revenue_subsidies" fr_pcga="7453"/>
-      <item name="revenues" fr_pcg82="7"/>
+      <item name="revenues" fr_pcg82="7" pt_snc="7"/>
       <item name="salary_social_contribution_expenses" fr_pcga="645"/>
       <item name="sales_assets_revenues" fr_pcga="775"/>
       <item name="seed_expenses" fr_pcga="6012"/>
@@ -453,24 +456,24 @@
       <item name="staff_advances" fr_pcg82="425"/>
       <item name="staff_and_linked_accounts" fr_pcg82="42"/>
       <item name="staff_bonus_participation" fr_pcg82="424"/>
-      <item name="staff_due_remunerations" fr_pcg82="421"/>
+      <item name="staff_due_remunerations" fr_pcg82="421" pt_snc="231"/>
       <item name="staff_expense_to_sold" fr_pcg82="428"/>
-      <item name="staff_expenses" fr_pcga="64"/>
+      <item name="staff_expenses" fr_pcga="64" pt_snc="63"/>
       <item name="staff_oppositions" fr_pcg82="427"/>
       <item name="staff_remuneration" fr_pcg82="641"/>
       <item name="staff_salary" fr_pcga="6411"/>
       <item name="staff_submissions" fr_pcg82="426"/>
-      <item name="state_and_other_public_entities" fr_pcg82="44"/>
+      <item name="state_and_other_public_entities" fr_pcg82="44" pt_snc="24"/>
       <item name="state_emission_quota_to_restitute" fr_pcg82="449"/>
-      <item name="stocks" fr_pcg82="3"/>
-      <item name="stocks_variation" fr_pcga="603"/>
+      <item name="stocks" fr_pcg82="3" pt_snc="3"/>
+      <item name="stocks_variation" fr_pcga="603" pt_snc="603"/>
       <item name="studies_and_research_expenses" fr_pcga="617"/>
       <item name="subcontracting_expenses" fr_pcg82="611"/>
       <item name="subsidies" fr_pcga="745"/>
       <item name="subsidy_to_receive" fr_pcg82="441"/>
-      <item name="suppliers" fr_pcg82="401"/>
+      <item name="suppliers" fr_pcg82="401" pt_snc="221"/>
       <item name="suppliers_balance_after_compensation" fr_pcg82="402"/>
-      <item name="suppliers_invoices_not_received" fr_pcg82="408"/>
+      <item name="suppliers_invoices_not_received" fr_pcg82="408" pt_snc="225"/>
       <item name="supply_stock" fr_pcga="301"/>
       <item name="supply_stocks_variation" fr_pcga="6031"/>
       <item name="sustainable_packaging_asset_depreciations" fr_pcga="28186"/>
@@ -486,7 +489,7 @@
       <item name="technical_installation_on_own_land_parcel_assets" fr_pcga="2151"/>
       <item name="telecommunications_expenses" fr_pcga="626"/>
       <item name="temporary_operations" fr_pcg82="47"/>
-      <item name="third_party" fr_pcg82="4"/>
+      <item name="third_party" fr_pcg82="4" pt_snc="2"/>
       <item name="tools_assets" fr_pcga="2155"/>
       <item name="trade_show_expenses" fr_pcg82="6233"/>
       <item name="transfer_revenues" fr_pcg82="79"/>
@@ -499,7 +502,7 @@
       <item name="usual_associates_current_accounts" fr_pcga="4552"/>
       <item name="usual_bank_overdraft" fr_pcg82="519"/>
       <item name="various_exceptional_revenues" fr_pcg82="778"/>
-      <item name="vat" fr_pcga="445"/>
+      <item name="vat" fr_pcga="445" pt_snc="243"/>
       <item name="vegetals_making_services_expenses" fr_pcga="6051"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="waiting_vat" fr_pcg82="4458"/>
@@ -1360,6 +1363,7 @@
   </nomenclature>
   <nomenclature name="countries" translateable="true">
     <properties>
+      <property name="ednotif_eu" type="boolean" default="false"/>
       <property name="number" type="string"/>
     </properties>
     <items>
@@ -1375,7 +1379,7 @@
       <item name="aq"/>
       <item name="ar"/>
       <item name="as"/>
-      <item name="at"/>
+      <item name="at" ednotif_eu="true"/>
       <item name="au"/>
       <item name="aw"/>
       <item name="ax"/>
@@ -1383,9 +1387,9 @@
       <item name="ba"/>
       <item name="bb"/>
       <item name="bd"/>
-      <item name="be"/>
+      <item name="be" ednotif_eu="true"/>
       <item name="bf"/>
-      <item name="bg"/>
+      <item name="bg" ednotif_eu="true"/>
       <item name="bh"/>
       <item name="bi"/>
       <item name="bj"/>
@@ -1405,7 +1409,7 @@
       <item name="cd"/>
       <item name="cf"/>
       <item name="cg"/>
-      <item name="ch"/>
+      <item name="ch" ednotif_eu="true"/>
       <item name="ci"/>
       <item name="ck"/>
       <item name="cl"/>
@@ -1416,29 +1420,29 @@
       <item name="cu"/>
       <item name="cv"/>
       <item name="cx"/>
-      <item name="cy"/>
-      <item name="cz"/>
-      <item name="de"/>
+      <item name="cy" ednotif_eu="true"/>
+      <item name="cz" ednotif_eu="true"/>
+      <item name="de" ednotif_eu="true"/>
       <item name="dj"/>
-      <item name="dk"/>
+      <item name="dk" ednotif_eu="true"/>
       <item name="dm"/>
       <item name="do"/>
       <item name="dz"/>
       <item name="ec"/>
-      <item name="ee"/>
+      <item name="ee" ednotif_eu="true"/>
       <item name="eg"/>
       <item name="eh"/>
       <item name="er"/>
-      <item name="es"/>
+      <item name="es" ednotif_eu="true"/>
       <item name="et"/>
-      <item name="fi"/>
+      <item name="fi" ednotif_eu="true"/>
       <item name="fj"/>
       <item name="fk"/>
       <item name="fm"/>
       <item name="fo"/>
-      <item name="fr"/>
+      <item name="fr" ednotif_eu="true"/>
       <item name="ga"/>
-      <item name="gb"/>
+      <item name="gb" ednotif_eu="true"/>
       <item name="gd"/>
       <item name="ge"/>
       <item name="gf"/>
@@ -1450,7 +1454,7 @@
       <item name="gn"/>
       <item name="gp"/>
       <item name="gq"/>
-      <item name="gr"/>
+      <item name="gr" ednotif_eu="true"/>
       <item name="gs"/>
       <item name="gt"/>
       <item name="gu"/>
@@ -1459,11 +1463,11 @@
       <item name="hk"/>
       <item name="hm"/>
       <item name="hn"/>
-      <item name="hr"/>
+      <item name="hr" ednotif_eu="true"/>
       <item name="ht"/>
-      <item name="hu"/>
+      <item name="hu" ednotif_eu="true"/>
       <item name="id"/>
-      <item name="ie"/>
+      <item name="ie" ednotif_eu="true"/>
       <item name="il"/>
       <item name="im"/>
       <item name="in"/>
@@ -1471,7 +1475,7 @@
       <item name="iq"/>
       <item name="ir"/>
       <item name="is"/>
-      <item name="it"/>
+      <item name="it" ednotif_eu="true"/>
       <item name="je"/>
       <item name="jm"/>
       <item name="jo"/>
@@ -1494,9 +1498,9 @@
       <item name="lk"/>
       <item name="lr"/>
       <item name="ls"/>
-      <item name="lt"/>
-      <item name="lu"/>
-      <item name="lv"/>
+      <item name="lt" ednotif_eu="true"/>
+      <item name="lu" ednotif_eu="true"/>
+      <item name="lv" ednotif_eu="true"/>
       <item name="ly"/>
       <item name="ma"/>
       <item name="mc"/>
@@ -1514,7 +1518,7 @@
       <item name="mq"/>
       <item name="mr"/>
       <item name="ms"/>
-      <item name="mt"/>
+      <item name="mt" ednotif_eu="true"/>
       <item name="mu"/>
       <item name="mv"/>
       <item name="mw"/>
@@ -1527,7 +1531,7 @@
       <item name="nf"/>
       <item name="ng"/>
       <item name="ni"/>
-      <item name="nl"/>
+      <item name="nl" ednotif_eu="true"/>
       <item name="no"/>
       <item name="np"/>
       <item name="nr"/>
@@ -1540,17 +1544,17 @@
       <item name="pg"/>
       <item name="ph"/>
       <item name="pk"/>
-      <item name="pl"/>
+      <item name="pl" ednotif_eu="true"/>
       <item name="pm"/>
       <item name="pn"/>
       <item name="pr"/>
       <item name="ps"/>
-      <item name="pt"/>
+      <item name="pt" ednotif_eu="true"/>
       <item name="pw"/>
       <item name="py"/>
       <item name="qa"/>
       <item name="re"/>
-      <item name="ro"/>
+      <item name="ro" ednotif_eu="true"/>
       <item name="rs"/>
       <item name="ru"/>
       <item name="rw"/>
@@ -1558,12 +1562,12 @@
       <item name="sb"/>
       <item name="sc"/>
       <item name="sd"/>
-      <item name="se"/>
+      <item name="se" ednotif_eu="true"/>
       <item name="sg"/>
       <item name="sh"/>
-      <item name="si"/>
+      <item name="si" ednotif_eu="true"/>
       <item name="sj"/>
-      <item name="sk"/>
+      <item name="sk" ednotif_eu="true"/>
       <item name="sl"/>
       <item name="sm"/>
       <item name="sn"/>
@@ -2089,6 +2093,8 @@
       <item name="average_wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="period"/>
       <item name="average_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="best_before_period" datatype="measure" unit="day"/>
+      <item name="birth_date" datatype="string"/>
+      <item name="birth_farm_number" datatype="string"/>
       <item name="boron_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="calcium_concentration" datatype="measure" unit="mass_percent"/>
       <item name="calving_ease_index" datatype="measure" unit="unity"/>
@@ -2100,6 +2106,8 @@
       <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="consumption_period" datatype="measure" unit="day"/>
       <item name="copper_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="country_code" datatype="string"/>
+      <item name="cpb_filiation_status" datatype="boolean"/>
       <item name="cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
       <item name="daily_average_working_time" datatype="measure" unit="hour"/>
       <item name="daily_nitrogen_production" datatype="measure" unit="kilogram"/>
@@ -2108,12 +2116,21 @@
       <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="economical_milk_index" datatype="measure" unit="unity"/>
+      <item name="end_of_life_witness" datatype="string"/>
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>
+      <item name="entry_date" datatype="string"/>
+      <item name="entry_reason" datatype="string"/>
+      <item name="exit_date" datatype="string"/>
+      <item name="exit_reason" datatype="string"/>
       <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
       <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
+      <item name="father_country_code" datatype="string"/>
+      <item name="father_identification_number" datatype="string"/>
+      <item name="father_race_code" datatype="string"/>
       <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
       <item name="fertility_index" datatype="measure" unit="unity"/>
       <item name="figure" datatype="choice" choices="figures"/>
+      <item name="first_calving_date" datatype="string"/>
       <item name="fodder_bales_count" datatype="integer"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="fresh_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -2167,6 +2184,9 @@
       <item name="minimal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"/>
       <item name="minimal_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="mother_country_code" datatype="string"/>
+      <item name="mother_identification_number" datatype="string"/>
+      <item name="mother_race_code" datatype="string"/>
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
       <item name="net_length" datatype="measure" unit="meter" gathering="proportional_to_population"/>
       <item name="net_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -2178,6 +2198,8 @@
       <item name="nominal_storable_net_mass" datatype="measure" unit="kilogram"/>
       <item name="nominal_storable_net_volume" datatype="measure" unit="liter"/>
       <item name="organic_matter_concentration" datatype="measure" unit="mass_percent"/>
+      <item name="origin_country_code" datatype="string"/>
+      <item name="origin_identification_number" datatype="string"/>
       <item name="phosphate_concentration" datatype="measure" unit="mass_percent"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
       <item name="phosphorus_concentration" datatype="measure" unit="mass_percent"/>
@@ -2238,6 +2260,7 @@
       <item name="width" datatype="measure" unit="meter"/>
       <item name="wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="instant"/>
       <item name="wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="instant"/>
+      <item name="witness" datatype="string"/>
       <item name="woodstock_variety" datatype="choice" choices="varieties"/>
       <item name="working_lifespan" datatype="measure" unit="hour"/>
       <item name="zinc_concentration" datatype="measure" unit="parts_per_million"/>
@@ -2642,6 +2665,7 @@
       <item name="plant_uncovering"/>
       <item name="plantation_unfixing"/>
       <item name="planting"/>
+      <item name="plants_sorting"/>
       <item name="plowing"/>
       <item name="pollinate"/>
       <item name="preventive_maintenance"/>
@@ -3738,7 +3762,7 @@
       <item name="farm_teaching_services" category="farm_teaching_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="fee" category="fee" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="female_adult_cattle_herd" category="cattle_herd" variety="animal_group" derivative_of="bos" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
-      <item name="female_adult_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
+      <item name="female_adult_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat, milk"/>
       <item name="female_adult_goat" category="female_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
       <item name="female_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(animal)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy" frozen_indicators="livestock_unit, reproductor, sex"/>
@@ -3746,7 +3770,7 @@
       <item name="female_adult_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
       <item name="female_adult_sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(oryctolagus)" variable_indicators="net_mass, animal_life_state, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
-      <item name="female_young_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
+      <item name="female_young_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat, milk"/>
       <item name="female_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="female_young_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="fence" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length, height"/>
@@ -3824,14 +3848,14 @@
       <item name="loan_interest" category="loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mail_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="maintenance" category="maintenance" variety="service" population_counting="decimal" variable_indicators=""/>
-      <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat"/>
       <item name="male_adult_goat" category="male_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement)" frozen_indicators="reproductor, sex"/>
       <item name="male_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="livestock_unit, reproductor, sex"/>
       <item name="male_adult_pig" category="male_adult_pig" variety="sus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_adult_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
-      <item name="male_young_cow" category="male_young_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_young_cow" category="male_young_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat"/>
       <item name="male_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="male_young_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="manager" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), manage(worker), milk(mammalia), move, administer_care(animal)" variable_indicators="geolocation" frozen_indicators=""/>
@@ -10116,6 +10140,7 @@
       <item name="canidae" parent="mammalia" itis_tsn="180594"/>
       <item name="cannabaceae" parent="plant" itis_tsn="19118"/>
       <item name="cannabis" parent="cannabaceae" itis_tsn="19108"/>
+      <item name="cannabis_antal" parent="cannabis"/>
       <item name="cannabis_sativa" parent="cannabis" itis_tsn="19109"/>
       <item name="cannabis_sativa_armanca" parent="cannabis_sativa"/>
       <item name="cannabis_sativa_benico" parent="cannabis_sativa"/>
@@ -10506,6 +10531,8 @@
       <item name="gallus_gallus_domesticus_gournay" parent="gallus_gallus_domesticus"/>
       <item name="gas" parent="raw_matter"/>
       <item name="gastropoda" parent="animal" itis_tsn="69459"/>
+      <item name="geraniaceae" parent="plant" itis_tsn="29103"/>
+      <item name="geranium" parent="geraniaceae" itis_tsn="29104"/>
       <item name="gleditsia" parent="fabaceae" itis_tsn="26711"/>
       <item name="glycine" parent="fabaceae" itis_tsn="26715"/>
       <item name="glycine_max" parent="glycine" itis_tsn="26716"/>
@@ -12105,6 +12132,7 @@
       <item name="triticum_durum_babylone" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_biensur" parent="triticum_durum"/>
       <item name="triticum_durum_byblos" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_byzance" parent="triticum_durum"/>
       <item name="triticum_durum_casteldoux" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_catervo" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_cesare" parent="triticum_durum" itis_tsn="42240"/>
@@ -12127,6 +12155,7 @@
       <item name="triticum_durum_gainsur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_gibus" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_grazia" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_haristide" parent="triticum_durum"/>
       <item name="triticum_durum_isildur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_ismur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_joyau" parent="triticum_durum" itis_tsn="42240"/>
@@ -12137,6 +12166,7 @@
       <item name="triticum_durum_latinur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_lemur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_levante" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_lg_boris" parent="triticum_durum"/>
       <item name="triticum_durum_liberdur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_lloyd" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_luminur" parent="triticum_durum" itis_tsn="42240"/>
@@ -12170,10 +12200,13 @@
       <item name="triticum_durum_relief" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_albiozur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_fabionur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_fiertimur" parent="triticum_durum"/>
       <item name="triticum_durum_rgt_izaldur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_musclur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_rgt_nomur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_voilur" parent="triticum_durum"/>
       <item name="triticum_durum_sachem" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_santur" parent="triticum_durum"/>
       <item name="triticum_durum_saragolla" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_sculptur" parent="triticum_durum"/>
       <item name="triticum_durum_sorriso" parent="triticum_durum" itis_tsn="42240"/>
@@ -12184,6 +12217,7 @@
       <item name="triticum_durum_sy_esperto" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_tablur" parent="triticum_durum"/>
       <item name="triticum_durum_tiziana" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_toscadou" parent="triticum_durum"/>
       <item name="triticum_durum_virgilio" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_vivadur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_yelodur" parent="triticum_durum" itis_tsn="42240"/>

@@ -37,6 +37,8 @@ module Backend
       t.column :stock_account, if: :storable?, url: true
       t.column :depreciable, hidden: true
       t.column :fixed_asset_account, if: :depreciable?, url: true
+      t.column :natures_count, hidden: true
+      t.column :variants_count, hidden: true
     end
 
     list(:products, conditions: { category_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|

@@ -15096,3 +15096,182 @@ versions_274:
     initial_movement_id:
     custom_fields:
   item_type: Product
+versions_275:
+  created_at: 2016-11-05 08:55:21.233408000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 312
+  item_id: 18
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 18
+    nature: contact
+    last_name: Möêbìûŝ
+    first_name: "Ézékiel"
+    number: EI00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2016-11-05 08:55:21.223505000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Ezekiel Moebius
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_276:
+  created_at: 2016-11-05 09:00:32.289688000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 313
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    first_name: "Ézékiel"
+  item_id: 18
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 18
+    nature: contact
+    last_name: Möêbìûŝ
+    first_name: "Éçékiel"
+    number: EI00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2016-11-05 08:55:21.223505000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Ezekiel Moebius
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_277:
+  created_at: 2016-11-05 09:09:52.292471000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 314
+  item_id: 19
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 19
+    nature: contact
+    last_name: BAKTOUBI
+    first_name: Andrew
+    number: EI00000003
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2016-11-05 09:09:52.282492000 Z
+    creator_id: 1
+    title: Mme
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: false
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Andrew BAKTOUBI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity

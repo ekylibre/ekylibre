@@ -22,10 +22,12 @@ module Backend
                      language: 'Preference[:language]'.c,
                      country: 'Preference[:country]'.c,
                      active: true,
+                     scope: :normal,
+                     continue: [:nature],
                      t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
-    unroll fill_in: :full_name
+    unroll fill_in: :full_name, scope: :normal
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
@@ -34,6 +36,9 @@ module Backend
     def self.entities_conditions
       code = ''
       code = search_conditions(entities: [:number, :full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+
+      code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
+
       code << "unless params[:state].blank?\n"
       code << "  if params[:state].include?('client')\n"
       code << "    c[0] << ' AND #{Entity.table_name}.client IS TRUE'\n"
@@ -64,8 +69,9 @@ module Backend
       code << "    c << params[:subscription_nature_id]\n"
       code << "    c << params[:subscribed_on]\n"
       code << "  elsif params[:subscription_test] == 'expired_within'\n"
-      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s LEFT JOIN subscriptions AS ns ON (ns.subscriber_id = s.subscriber_id AND ns.stopped_on > s.stopped_on AND ns.nature_id = ?) WHERE s.nature_id = ? AND ns.id IS NULL AND s.stopped_on <= CURRENT_DATE + ?::INTERVAL)'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND stopped_on BETWEEN CURRENT_DATE AND CURRENT_DATE + ?::INTERVAL) AND #{Entity.table_name}.id NOT IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND stopped_on > CURRENT_DATE + ?::INTERVAL)'\n"
       code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:expired_within] + ' days'\n"
       code << "    c << params[:subscription_nature_id]\n"
       code << "    c << params[:expired_within] + ' days'\n"
       code << "  elsif params[:subscription_test] == 'expired_since'\n"
@@ -98,6 +104,21 @@ module Backend
       t.column :mobile, label_method: :coordinate, through: :default_mobile_address, hidden: true
       # Deactivated for performance reason, need to store it in one column
       # t.column :balance, currency: true, hidden: true
+    end
+
+    list(:contracts, conditions: { supplier_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :reference_number, url: true
+      t.column :created_at
+      t.column :started_on
+      t.column :stopped_on, hidden: true
+      t.column :responsible, url: true, hidden: true
+      t.column :description, hidden: true
+      t.status
+      t.column :state_label
+      t.column :pretax_amount, currency: true
     end
 
     list(:event_participations, conditions: { participant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
@@ -175,7 +196,7 @@ module Backend
       t.column :number, url: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
-      t.column :created_at,  hidden: true
+      t.column :created_at, hidden: true
       t.column :state, label_method: :human_state_name
       t.column :sale, url: true
     end
@@ -215,7 +236,7 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.suspended ? 'squeezed' : '')".c) do |t|
+    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? ' squeezed' : '')".c) do |t|
       t.action :edit
       t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
       t.action :suspend, method: :post, if: :suspendable?
@@ -241,6 +262,12 @@ module Backend
       t.column :due_at
       t.column :sale_opportunity, url: true
       t.column :executor, url: true
+    end
+
+    def toggle
+      @entity = Entity.find_by!(id: params[:id])
+      @entity.toggle!
+      redirect_to params[:redirect] || { action: :show, id: @entity.id }
     end
 
     def import

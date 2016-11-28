@@ -47,6 +47,7 @@
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
+#  member_variant_id     :integer
 #  name                  :string           not null
 #  nature_id             :integer          not null
 #  number                :string           not null
@@ -67,6 +68,7 @@
 #  work_number           :string
 #
 class Plant < Bioproduct
+  has_many :plant_countings
   refers_to :variety, scope: :plant
 
   has_shape
@@ -87,7 +89,7 @@ class Plant < Bioproduct
       if variable_indicators_list.include?(:net_surface_area)
         read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
       end
-      if frozen_indicators_list.include?(:net_surface_area)
+      if frozen_indicators_list.include?(:net_surface_area) && variant.net_surface_area.nonzero?
         self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
       end
     end
@@ -95,12 +97,29 @@ class Plant < Bioproduct
 
   def status
     if dead_at?
-      return :stop
+      :stop
     elsif issues.any?
-      return (issues.where(state: :opened).any? ? :caution : :go)
+      (issues.where(state: :opened).any? ? :caution : :go)
     else
-      return :go
+      :go
     end
+  end
+
+  def last_sowing
+    Intervention
+      .real
+      .where(
+        procedure_name: :sowing,
+        id: InterventionOutput
+          .where(product: self)
+          .select(:intervention_id)
+      )
+      .order(started_at: :desc)
+      .first
+  end
+
+  def sower
+    last_sowing && last_sowing.parameters.select { |eq| eq.reference_name.to_sym == :sower }.first
   end
 
   def ready_to_harvest?

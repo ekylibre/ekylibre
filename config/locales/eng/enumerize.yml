@@ -36,10 +36,6 @@ eng:
       mode:
         harvested: "From harvesting date"
         sowed: "From sowing date"
-    affair:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
@@ -133,6 +129,16 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Monthly"
+        none: "None"
+        quaterly: "Quaterly"
+        yearly: "Yearly"
+      tax_declaration_mode:
+        debit: "Debit"
+        none: "None"
+        payment: "Payment"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
@@ -141,9 +147,6 @@ eng:
       direction:
         loss: "Loss"
         profit: "Profit"
-      entity_role:
-        client: "Client"
-        supplier: "Supplier"
     georeading:
       nature:
         linestring: "Linestring"
@@ -199,14 +202,14 @@ eng:
         string: "String"
     intervention_participation:
       state:
-        # done: "Done"
-        # in_progress: "In progress"
-        # validated: "Validated"
+        done: "Done"
+        in_progress: "In progress"
+        validated: "Validated"
     intervention_working_period:
       nature:
-        # intervention: "Intervention"
-        # preparation: "Preparation"
-        # travel: "Travel"
+        intervention: "Intervention"
+        preparation: "Preparation"
+        travel: "Travel"
     journal:
       nature:
         bank: "Bank"
@@ -214,7 +217,7 @@ eng:
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"
-        # stocks: "Stocks"
+        stocks: "Stocks"
         various: "Various operations"
     listing_node:
       nature:
@@ -256,6 +259,10 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+    plant_counting:
+      nature:
+        germination: "At germination"
+        sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Accounting system"
@@ -373,23 +380,23 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    sale_opportunity:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
-    sale_ticket:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
+    sale_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     sensor:
       retrieval_mode:
         integration: "Integration"
-        listening: "Listening"
-        requesting: "Requesting"
+        listening: "Direct"
+        requesting: "Automatic"
     sequence:
       period:
         cweek: "Commercial week"
@@ -397,34 +404,48 @@ eng:
         number: "No periodicity"
         year: "Year"
       usage:
-        affairs: "Numeration of affairs"
-        analyses: "Numeration of analyses"
-        animals: "Numeration of animals"
-        campaigns: "Numeration of campaigns"
-        cash_transfers: "Numeration of cash transfers"
-        deliveries: "Numeration of deliveries"
-        deposits: "Numeration of deposits"
-        documents: "Numeration of documents"
-        entities: "Numeration of people"
-        fixed_assets: "Numeration of fixed assets"
-        gaps: "Numeration of gaps"
-        incoming_payments: "Numeration of payments"
-        inspections: "Numeration of inspections"
-        interventions: "Numeration of interventions"
-        inventories: "Numeration of inventories"
-        opportunities: "Numeration of opportunities"
-        # outgoing_payment_lists: "Outgoing payment lists"
-        outgoing_payments: "Numeration of payments"
-        parcels: "Numeration of parcels"
-        plants: "Numeration of plants"
-        product_nature_categories: "Numeration of product type categories"
-        product_nature_variants: "Numeration of product type variants"
-        product_natures: "Numeration of product types"
-        products: "Numeration of products"
-        purchases: "Numeration of purchases"
-        sales: "Numeration of sales"
-        sales_invoices: "Numeration of sales invoices"
-        subscriptions: "Numeration of subscriptions"
+        affairs: "Affairs"
+        analyses: "Analyses"
+        animals: "Animals"
+        # campaigns: "Campaigns"
+        cash_transfers: "Cash transfers"
+        contracts: "Contracts"
+        deliveries: "Deliveries"
+        deposits: "Deposits"
+        documents: "Documents"
+        entities: "Thirds"
+        fixed_assets: "Fixed assets"
+        gaps: "Gaps"
+        incoming_payments: "Incoming payments"
+        inspections: "Inspections"
+        interventions: "Interventions"
+        inventories: "Inventories"
+        opportunities: "Opportunities"
+        outgoing_payment_lists: "Outgoing payment lists"
+        outgoing_payments: "Outgoing payments"
+        parcels: "Parcels"
+        # plant_countings: "Plant countings"
+        plants: "Plants"
+        product_nature_categories: "Product nature categories"
+        product_nature_variants: "Product nature variants"
+        product_natures: "Product natures"
+        products: "Products"
+        purchases: "Purchases"
+        sales: "Sales"
+        sales_invoices: "Sales invoices"
+        subscriptions: "Subscriptions"
+        tax_declarations: "Tax declarations"
+    synchronization_operation:
+      operation_name:
+        authenticate: "Authentication"
+        get_inventory: "Get inventory"
+        get_urls: "Get urls"
+      state:
+        aborted: "Aborted"
+        errored: "Errored"
+        finished: "Finished"
+        in_progress: "In progress"
+        undone: "Undone"
     task:
       nature:
         incoming_call: "Incoming call"
@@ -437,6 +458,10 @@ eng:
         doing: "Doing"
         done: "Done"
         todo: "Todo"
+    tax_declaration:
+      mode:
+        # debit: "Debit"
+        # payment: "Payment"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"

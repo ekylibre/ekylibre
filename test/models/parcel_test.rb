@@ -22,39 +22,42 @@
 #
 # == Table: parcels
 #
-#  accounted_at                 :datetime
-#  address_id                   :integer
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  currency                     :string
-#  custom_fields                :jsonb
-#  delivery_id                  :integer
-#  delivery_mode                :string
-#  given_at                     :datetime
-#  id                           :integer          not null, primary key
-#  in_preparation_at            :datetime
-#  journal_entry_id             :integer
-#  lock_version                 :integer          default(0), not null
-#  nature                       :string           not null
-#  number                       :string           not null
-#  ordered_at                   :datetime
-#  planned_at                   :datetime         not null
-#  position                     :integer
-#  prepared_at                  :datetime
-#  purchase_id                  :integer
-#  recipient_id                 :integer
-#  reference_number             :string
-#  remain_owner                 :boolean          default(FALSE), not null
-#  sale_id                      :integer
-#  sender_id                    :integer
-#  separated_stock              :boolean
-#  state                        :string           not null
-#  storage_id                   :integer
-#  transporter_id               :integer
-#  undelivered_invoice_entry_id :integer
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
-#  with_delivery                :boolean          default(FALSE), not null
+#  accounted_at                         :datetime
+#  address_id                           :integer
+#  contract_id                          :integer
+#  created_at                           :datetime         not null
+#  creator_id                           :integer
+#  currency                             :string
+#  custom_fields                        :jsonb
+#  delivery_id                          :integer
+#  delivery_mode                        :string
+#  given_at                             :datetime
+#  id                                   :integer          not null, primary key
+#  in_preparation_at                    :datetime
+#  journal_entry_id                     :integer
+#  lock_version                         :integer          default(0), not null
+#  nature                               :string           not null
+#  number                               :string           not null
+#  ordered_at                           :datetime
+#  planned_at                           :datetime         not null
+#  position                             :integer
+#  prepared_at                          :datetime
+#  pretax_amount                        :decimal(19, 4)   default(0.0), not null
+#  purchase_id                          :integer
+#  recipient_id                         :integer
+#  reference_number                     :string
+#  remain_owner                         :boolean          default(FALSE), not null
+#  responsible_id                       :integer
+#  sale_id                              :integer
+#  sender_id                            :integer
+#  separated_stock                      :boolean
+#  state                                :string           not null
+#  storage_id                           :integer
+#  transporter_id                       :integer
+#  undelivered_invoice_journal_entry_id :integer
+#  updated_at                           :datetime         not null
+#  updater_id                           :integer
+#  with_delivery                        :boolean          default(FALSE), not null
 #
 
 require 'test_helper'
@@ -101,7 +104,7 @@ class ParcelTest < ActiveSupport::TestCase
     parcel.give!
     @variant.reload
 
-    assert_equal  2, @variant.products.count
+    assert_equal 2, @variant.products.count
     assert_equal 20, @variant.products.order(:created_at).last.population
   end
 
@@ -115,7 +118,7 @@ class ParcelTest < ActiveSupport::TestCase
 
     @variant.reload
 
-    assert_equal       1, @variant.products.count
+    assert_equal 1, @variant.products.count
     assert_equal 50 + 20, @variant.products.order(:created_at).first.population
   end
 

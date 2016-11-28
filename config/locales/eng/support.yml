@@ -58,10 +58,11 @@ eng:
         one: "1 second"
         other: "%{count} seconds"
     periods:
-      day: "Day"
-      month: "Month"
-      week: "Week"
-      year: "Year"
+      day: "Daily planification"
+      month: "Monthly planification"
+      today: "Today"
+      week: "Weekly planification"
+      year: "Annual planification"
     relative_distance_in_words:
       in_sometime: "in %{distance}"
       sometime_ago: "%{distance} ago"

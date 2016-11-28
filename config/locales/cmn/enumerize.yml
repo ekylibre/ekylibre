@@ -36,10 +36,6 @@ cmn:
       mode:
         harvested: "嘉实播种期"
         sowed: "临时播种期"
-    affair:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
     analysis:
       retrieval_status:
         controller_error: "控制器错误"
@@ -135,6 +131,16 @@ cmn:
         informative: "信息化"
         refused: "拒绝"
         waiting: "等候"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "每月一次"
+        none: "没有"
+        quaterly: "季刊"
+        yearly: "每年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "没有"
+        payment: "付款"
     fixed_asset:
       depreciation_method:
         graduated: "毕业" #?
@@ -144,9 +150,6 @@ cmn:
       direction:
         loss: "失利"
         profit: "利润"
-      entity_role:
-        client: "客户"
-        supplier: "供应商"
     georeading:
       nature:
         line: "线" #?
@@ -208,6 +211,16 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    intervention_participation:
+      state:
+        done: "做"
+        in_progress: "进行中"
+        validated: "验证"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "制备"
+        travel: "旅行"
     journal:
       nature:
         bank: "银行"
@@ -215,6 +228,7 @@ cmn:
         forward: "结转"
         purchases: "购买"
         sales: "销售"
+        stocks: "股票"
         various: "各种操作"
     listing_node:
       nature:
@@ -264,6 +278,10 @@ cmn:
         in_preparation: "在准备" #?
         ordered: "有序" #?
         prepared: "准备" #?
+    plant_counting:
+      nature:
+        germination: "在发芽"
+        sowing: "在播种"
     preference:
       nature:
         accounting_system: "会计制度"
@@ -383,14 +401,6 @@ cmn:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale_opportunity:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
-    sale_ticket:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
     sensor:
       retrieval_mode:
         integration: "积分"
@@ -403,35 +413,35 @@ cmn:
         number: "无周期性"
         year: "年"
       usage:
-        affairs: "事务记数"
-        analyses: "分析计算法"
-        animals: "动物记数"
-        campaigns: "活动的记数"
-        cash_transfers: "现金转移的记数"
+        affairs: "事务"
+        analyses: "分析"
+        animals: "动物"
+        cash_transfers: "现金转移"
+        contracts: "合同"
         deliveries: "交付"
-        deposits: "存款记数"
-        documents: "文档记数"
-        entities: "人的记数"
-        fixed_assets: "固定资产记数"
-        gaps: "空白的记数"
-        incoming_parcels: "传入交付记数" #?
-        incoming_payments: "支付记数"
+        deposits: "存款"
+        documents: "文件"
+        entities: "三分之二"
+        fixed_assets: "固定资产"
+        gaps: "差距"
+        incoming_payments: "收款"
         inspections: "检查"
-        interventions: "干预的记数"
+        interventions: "干预"
         inventories: "存货"
         opportunities: "机会"
-        outgoing_deliveries: "即将离任的交货记数" #?
-        outgoing_payments: "支付记数"
+        outgoing_payment_lists: "付款清单"
+        outgoing_payments: "汇出款项"
         parcels: "地块"
-        plants: "植物的记数"
-        product_nature_categories: "产品性质类别的记数"
-        product_nature_variants: "产品性质的记数变种"
-        product_natures: "产品性质的记数"
-        products: "产品记数"
-        purchases: "购买记数"
-        sales: "销售的记数"
-        sales_invoices: "销售发票的记数"
-        subscriptions: "订阅记数"
+        plants: "植物"
+        product_nature_categories: "产品类别性质"
+        product_nature_variants: "产品性质变种"
+        product_natures: "产品性质"
+        products: "制品"
+        purchases: "购买"
+        sales: "销售"
+        sales_invoices: "销售发票"
+        subscriptions: "订阅"
+        tax_declarations: "纳税申报"
         transports: "运输的记数" #?
     subscription_nature:  #?
       entity_link_direction: #?
@@ -441,6 +451,17 @@ cmn:
       nature: #?
         period: "认购日期" #?
         quantity: "认购按编号" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "认证"
+        get_inventory: "拿到盘点"
+        get_urls: "获取网址"
+      state:
+        aborted: "中止"
+        errored: "误码"
+        finished: "完"
+        in_progress: "进行中"
+        undone: "未完成"
     task:
       nature:
         document: "写作" #?

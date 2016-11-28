@@ -4,8 +4,8 @@ module Backend
     test_restfully_all_actions except: [:detail, :models]
 
     test 'retrieving models' do
-      get :models, format: :json
-      get :models, vendor_euid: :openweathermap, format: :json
+      get :models, params: { format: :json }
+      get :models, params: { vendor_euid: :openweathermap, format: :json }
     end
 
     # test "retrieving detail" do

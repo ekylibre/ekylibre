@@ -43,13 +43,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   acts_as_numbered
 
   protect(on: :destroy) do
-    payments
-      .includes(journal_entry: :items)
-      .map(&:journal_entry)
-      .flatten
-      .map(&:items)
-      .flatten
-      .any? { |i| i.bank_statement_letter.present? }
+    JournalEntryItem.where(entry_id: payments.select(:entry_id)).where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
   def mode
@@ -68,7 +62,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     )
 
     sct.message_identification =
-      "EKY-#{self.number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
+      "EKY-#{number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
 
     payments.each do |payment|
       credit_transfer_params = {
@@ -81,11 +75,11 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         batch_booking: false
       }
 
-      if payment.payee.bank_identifier_code.present?
-        credit_transfer_params[:bic] = payment.payee.bank_identifier_code
-      else
-        credit_transfer_params[:bic] = 'NOTPROVIDED'
-      end
+      credit_transfer_params[:bic] = if payment.payee.bank_identifier_code.present?
+                                       payment.payee.bank_identifier_code
+                                     else
+                                       'NOTPROVIDED'
+                                     end
 
       sct.add_transaction(credit_transfer_params)
     end

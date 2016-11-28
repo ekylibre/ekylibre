@@ -18,7 +18,7 @@
 
 module Backend
   class SalesController < Backend::BaseController
-    manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c
+    manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c, continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -29,7 +29,7 @@ module Backend
       code = ''
       code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -179,7 +179,7 @@ module Backend
                 Sale.new(nature: nature)
               end
       @sale.currency = @sale.nature.currency
-      if client = Entity.find_by_id(@sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
+      if client = Entity.find_by(id: @sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
         if client.default_mail_address
           cid = client.default_mail_address.id
           @sale.attributes = { address_id: cid, delivery_address_id: cid, invoice_address_id: cid }
@@ -192,6 +192,7 @@ module Backend
       @sale.function_title = :default_letter_function_title.tl
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
+      render locals: { with_continue: true }
     end
 
     def duplicate
@@ -222,16 +223,16 @@ module Backend
       if request.xhr?
         client = nil
         address_id = nil
-        client = if params[:selected] && address = EntityAddress.find_by_id(params[:selected])
+        client = if params[:selected] && address = EntityAddress.find_by(id: params[:selected])
                    address.entity
                  else
-                   Entity.find_by_id(params[:client_id])
+                   Entity.find_by(id: params[:client_id])
                  end
         if client
           session[:current_entity_id] = client.id
           address_id = (address ? address.id : client.default_mail_address.id)
         end
-        @sale = Sale.find_by_id(params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
+        @sale = Sale.find_by(id: params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
         render partial: 'addresses_form', locals: { client: client, object: @sale }
       else
         redirect_to action: :index

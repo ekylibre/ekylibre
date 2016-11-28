@@ -17,6 +17,6 @@
 #
 
 module Backend
-  class SaleTicketsController < Backend::AffairsController
+  class SaleTicketsController < Backend::SaleAffairsController
   end
 end

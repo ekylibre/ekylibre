@@ -55,6 +55,8 @@
       box:
         height: 400
         width: null
+      minZoom: 0
+      maxZoom: 25
       customClass: ''
       back: []
       show:
@@ -157,7 +159,6 @@
       this.mapElement = $("<div>", class: "map #{this.options.customClass}")
         .insertAfter(this.element)
       this.map = L.map(this.mapElement[0],
-        maxZoom: 25
         zoomControl: false
         attributionControl: true
       )
@@ -463,8 +464,8 @@
             for layer, index in @options.back
               opts = {}
               opts['attribution'] = layer.attribution if layer.attribution?
-              opts['minZoom'] = layer.minZoom if layer.minZoom?
-              opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+              opts['minZoom'] = layer.minZoom || @options.minZoom
+              opts['maxZoom'] = layer.maxZoom || @options.maxZoom
               opts['subdomains'] = layer.subdomains if layer.subdomains?
               opts['tms'] = true if layer.tms
 
@@ -481,6 +482,8 @@
               backgroundLayer = L.tileLayer.provider(layer)
               baseLayers[layer] = backgroundLayer
               @map.addLayer(backgroundLayer) if index == 0
+            @map.fitWorld( { maxZoom: @options.maxZoom } )
+
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector

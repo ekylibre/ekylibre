@@ -53,7 +53,7 @@ class EntityAddress < Ekylibre::Record::Base
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
   has_many :buildings, foreign_key: :address_id
-  has_many :parcels, foreign_key: :address_id
+  has_many :parcels, foreign_key: :address_id, dependent: :restrict_with_exception
   has_many :purchases, foreign_key: :delivery_address_id
   has_many :sales, foreign_key: :address_id
   has_many :subscriptions, foreign_key: :address_id

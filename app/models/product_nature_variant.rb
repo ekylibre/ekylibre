@@ -64,11 +64,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
-  belongs_to :stock_account, class_name: 'Account', dependent: :destroy
+  belongs_to :stock_movement_account, class_name: 'Account'
+  belongs_to :stock_account, class_name: 'Account'
 
+  has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
@@ -136,15 +138,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || has_accounts?
+      parcel_items.any?
   end
 
   before_validation on: :create do
-    self.number = if ProductNatureVariant.any?
-                    ProductNatureVariant.order(number: :desc).first.number.succ
-                  else
-                    '00000001'
-                  end
+    if ProductNatureVariant.any?
+      self.category = nature.category if nature
+      if category
+        num = ProductNatureVariant.order('number::INTEGER DESC').first.number.to_i.to_s.rjust(6, '0').succ
+        if category.storable?
+          while Account.where(number: [category.stock_movement_account.number + num, category.stock_account.number + num]).any? || ProductNatureVariant.where(number: num).any?
+            num.succ!
+          end
+        end
+        self.number = num
+      end
+    else
+      self.number = '000001'
+    end
   end
 
   before_validation do # on: :create
@@ -200,22 +211,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
-  def has_accounts?
-    return false unless storable?
-    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
-  end
-
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
-    unless storable?
-      errors.add :stock_account, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
-    end
 
     category_account = category.send(account_key)
     unless category_account
       # We want to notice => raise.
-      raise :category_account, "Account is not configured for #{self.name.inspect}. You have to check category first"
+      raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
 
     options = {}
@@ -279,9 +282,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # check if a variant has an indicator which is frozen or not
   def has_frozen_indicator?(indicator)
     if indicator.is_a?(Nomen::Item)
-      return frozen_indicators.include?(indicator)
+      frozen_indicators.include?(indicator)
     else
-      return frozen_indicators_list.include?(indicator)
+      frozen_indicators_list.include?(indicator)
     end
   end
 
@@ -349,6 +352,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
 
     list
+  end
+
+  def contractual_prices
+    contract_items
+      .pluck(:contract_id, :unit_pretax_amount)
+      .to_h
+      .map { |contract_id, price| [Contract.find(contract_id), price] }
+      .to_h
   end
 
   # Get indicator value

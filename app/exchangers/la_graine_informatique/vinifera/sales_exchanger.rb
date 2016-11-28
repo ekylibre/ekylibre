@@ -52,7 +52,7 @@ module LaGraineInformatique
           # find a variant link to this external number
           if variant_number
             # find variant in DB by number (external number)
-            unless variant = ProductNatureVariant.find_by_number(variant_number)
+            unless variant = ProductNatureVariant.find_by(number: variant_number)
               w.warn "No way to find #{variant_number} in variant DB"
               # fail "Import variant first"
             end

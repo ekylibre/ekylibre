@@ -1,0 +1,30 @@
+.delete-modal
+  = form_tag(change_state_backend_interventions_path, method: :post) do
+
+    = modal_header(:delete_selected_interventions.tl)
+
+    .modal-body
+
+      .modal-introduction
+        %p= :choose_delete_interventions_options.tl
+
+      .modal-intervention
+
+        - interventions_ids = interventions.map(&:id)
+
+        = hidden_field_tag('intervention[interventions_ids]', interventions_ids.to_json)
+        = hidden_field_tag('intervention[state]', :rejected)
+
+        .delete-option
+          %label.radio
+            = radio_button_tag('intervention[delete_option]', :delete_request, true)
+            %span= t("labels.delete_request", count: interventions_ids.count)
+
+        .delete-option
+          %label.radio
+            = radio_button_tag('intervention[delete_option]', :delete_only_record)
+            %span= t("labels.delete_only_record", count: interventions_ids.count)
+
+
+    .modal-footer
+      = submit_tag :delete.tl, class: 'primary'

@@ -46,8 +46,6 @@ fra:
           sign_in: "Connexion."
           subject: "Votre compte vient d’être approuvé"
         signed_up:
-          confirm: "Veuillez confirmer son inscription dans l’interface d’administration."
-          details: "%{first_name} %{last_name} identifié par l’email %{email} vient juste de s’inscrire."
           subject: "Nouvelle inscription"
       reset_password_instructions:
         subject: "Instructions pour changer le mot de passe"
@@ -71,7 +69,7 @@ fra:
       update_needs_confirmation: "Votre compte a bien été mis à jour mais nous devons vérifier votre nouvelle adresse email. Merci de vérifier vos emails et de cliquer sur le lien de confirmation pour finaliser la validation de votre nouvelle adresse."
       updated: "Votre compte a été modifié avec succès."
       user:
-        signed_up_but_not_approved: "Vous avez signé avec succès, mais votre compte n’a pas encore été approuvé par votre administrateur"
+        signed_up_but_not_approved: "Vous vous êtes inscris avec succès, mais votre compte n’a pas encore été approuvé par votre administrateur"
     sessions:
       signed_in: "Connecté."
       signed_out: "Déconnecté."

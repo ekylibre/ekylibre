@@ -165,14 +165,19 @@ module Ekylibre
               td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
             end
           # ANIMAL FARMING
-          elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming
+          elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming && product.is_a?(AnimalGroup)
             attributes[:size_value] = 1.0
             attributes[:size_unit] = :unity
             attributes[:usage] = :meat
             # find or create AP (support = animal_group) and TD (target = animal)
-            unless (ap = ActivityProduction.find_by(activity: activity, campaign: campaign))
+            unless (ap = ActivityProduction.find_by(activity: activity, campaign: campaign, support: product))
               ap = ActivityProduction.create!(attributes)
-              td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
+              m = product.members_at(ap.started_on.to_time)
+              if m.any?
+                for animal in m
+                  td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: animal)
+                end
+              end
             end
           else
             attributes[:size_indicator] = 'net_surface_area'

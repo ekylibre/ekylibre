@@ -36,6 +36,7 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
 #  number                 :string           not null
@@ -45,7 +46,6 @@
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -54,20 +54,46 @@ require 'test_helper'
 
 class AffairTest < ActiveSupport::TestCase
   test_model_actions
+
   # check that every model that can be affairable
   test 'affairables classes' do
-    for type in Affair.affairable_types
+    Affair.affairable_types.each do |type|
       model = type.constantize
       assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
     end
   end
 
-  # test "deals attachment" do
-  #   affair = affairs(:affairs_003)
-  #   deals = [incoming_payments(:incoming_payments_001), sales(:sales_001)]
-  #   for deal in deals
-  #     affair.attach(deal)
-  #   end
-  #   assert_equal (deals.size + 1), affair.deals_count, "The deals count is invalid"
-  # end
+  # Check that affair of given sale is actually closed perfectly
+  def check_closed_state(affair)
+    assert affair.balanced?,
+           "Affair should be balanced:\n" + deal_entries(affair)
+    assert affair.letterable_journal_entry_items.any?,
+           "Affair should have letterable journal entry items:\n" + deal_entries(affair)
+    assert affair.journal_entry_items_balanced?,
+           "Journal entry items should be balanced:\n" + deal_entries(affair)
+    assert !affair.multi_thirds?
+    assert !affair.journal_entry_items_already_lettered?
+    assert affair.match_with_accountancy?,
+           "Affair should match with accountancy:\n" + deal_entries(affair)
+
+    assert affair.letterable?
+
+    letter = affair.letter
+    assert letter.present?, 'After lettering, letter should be saved in affair'
+
+    affair.letterable_journal_entry_items.each do |item|
+      assert_equal letter, item.letter, "Journal entry item (account: #{item.account_number}, debit: #{item.debit}, debit: #{item.credit}) should be lettered with: #{letter}. Got: #{item.letter.inspect}"
+    end
+
+    debit = affair.letterable_journal_entry_items.sum(:debit)
+    credit = affair.letterable_journal_entry_items.sum(:debit)
+    assert_equal debit, credit
+  end
+
+  def deal_entries(affair)
+    content = "debit: #{affair.debit.to_s.rjust(10).yellow}, credit: #{affair.credit.to_s.rjust(10).yellow}\n"
+    content << "deals:\n"
+    content << affair.deals.map { |d| e = d.journal_entry; " - #{d.number.ljust(20)} : #{e.debit.to_s.rjust(8)} | #{e.credit.to_s.rjust(8)} | #{d.deal_debit_amount.to_s.rjust(8)} | #{d.deal_credit_amount.to_s.rjust(8)} | #{d.direction if d.is_a?(Gap)}\n".red + e.items.map { |i| "   #{i.account_number.ljust(20).cyan} : #{i.debit.to_s.rjust(8)} | #{i.credit.to_s.rjust(8)} | #{i.letter}" }.join("\n") }.join("\n")
+    content
+  end
 end
