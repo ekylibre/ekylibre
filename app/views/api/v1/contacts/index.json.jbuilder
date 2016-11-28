@@ -1,5 +1,6 @@
 json.ignore_nil!
 
+json.array! []
 @items.each do |type, items|
   next if items.empty?
   json.array! items do |contact|
