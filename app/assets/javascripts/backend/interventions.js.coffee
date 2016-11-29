@@ -211,13 +211,13 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  $(document).on "click", '.view-toolbar a', (event) ->
-    E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
+  # $(document).on "click", '.view-toolbar a', (event) ->
+  #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
 
 
   $(document).ready ->
 
-    E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
+    # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
     if $('.taskboard').length > 0
 

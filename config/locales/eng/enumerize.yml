@@ -36,10 +36,6 @@ eng:
       mode:
         harvested: "From harvesting date"
         sowed: "From sowing date"
-    affair:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
@@ -133,6 +129,16 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Monthly"
+        none: "None"
+        quaterly: "Quaterly"
+        yearly: "Yearly"
+      tax_declaration_mode:
+        debit: "Debit"
+        none: "None"
+        payment: "Payment"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
@@ -141,9 +147,6 @@ eng:
       direction:
         loss: "Loss"
         profit: "Profit"
-      entity_role:
-        client: "Client"
-        supplier: "Supplier"
     georeading:
       nature:
         linestring: "Linestring"
@@ -256,6 +259,10 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+    plant_counting:
+      nature:
+        germination: "At germination"
+        sowing: "At sowing"
     preference:
       nature:
         accounting_system: "Accounting system"
@@ -373,18 +380,18 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    sale_opportunity:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
-    sale_ticket:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
+    sale_gap:
+      direction:
+        # loss: "Loss"
+        # profit: "Profit"
     sensor:
       retrieval_mode:
         integration: "Integration"
@@ -400,6 +407,7 @@ eng:
         affairs: "Affairs"
         analyses: "Analyses"
         animals: "Animals"
+        # campaigns: "Campaigns"
         cash_transfers: "Cash transfers"
         contracts: "Contracts"
         deliveries: "Deliveries"
@@ -416,6 +424,7 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
+        # plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Product nature categories"
         product_nature_variants: "Product nature variants"
@@ -425,6 +434,7 @@ eng:
         sales: "Sales"
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
+        tax_declarations: "Tax declarations"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"
@@ -448,6 +458,10 @@ eng:
         doing: "Doing"
         done: "Done"
         todo: "Todo"
+    tax_declaration:
+      mode:
+        # debit: "Debit"
+        # payment: "Payment"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"

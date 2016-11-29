@@ -14,6 +14,12 @@
     .info
       %span.title= Entity.human_attribute_name(:worker)
       %span.value= link_to(resource.worker.name, {controller: :workers, action: :show, id: resource.worker.id})
+  - if current_user.can? :read, :accounts
+    - [:client, :supplier, :employee].each do |nature|
+      - if resource.send(nature) && (account = resource.send("#{nature}_account"))
+        .info
+          %span.title= Entity.human_attribute_name("#{nature}_account")
+          %span.value= link_to(account.label, { controller: :accounts, action: :show, id: account.id })
 
 = janus do |j|
   - j.face :timeline do

@@ -37,6 +37,7 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
 #  number                 :string           not null
@@ -46,13 +47,12 @@
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
 
-class SaleOpportunity < Affair
+class SaleOpportunity < SaleAffair
   include Versionable, Commentable
   attr_readonly :currency
   refers_to :origin, class_name: 'OpportunityOrigin'
@@ -121,10 +121,6 @@ class SaleOpportunity < Affair
   before_validation(on: :create) do
     self.state ||= :prospecting
     self.currency ||= Preference[:currency]
-  end
-
-  before_validation do
-    self.third_role = :client
   end
 
   def status

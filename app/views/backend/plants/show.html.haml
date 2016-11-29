@@ -62,42 +62,15 @@
     = cobble_list(:issues)
 
   - if resource.inspections.any?
-    -# TODO: Refactor this _again_ it's still clunky.
-    - inspections = resource.inspections.reorder(:sampled_at)
-    - categories = inspections.map(&:position)
-    - last_inspection = inspections.reorder(:sampled_at).last
-    - activity = last_inspection.activity
+    - render 'inspection_cobbles', c: c, resource: resource
 
-    - dimension = activity.unit_preference(current_user)
-    - symbol_measure = Nomen::Unit.find(last_inspection.user_quantity_unit(dimension)).symbol
-
-
-    - series_disease = resource.disease_deformity_series(dimension)
-    - series_disease = series_disease.map { |cat, data| { name: cat.l, data: data.map { |d| [cat.l, d] } } }
-
-    - c.cobble(:stock_in_ground_by_calibration) do
-      = render 'backend/inspections/unit_selector', activity: activity
-      - activity.inspection_calibration_scales.each do |scale|
-        - if scale.natures.any? { |n| n.inspection_calibrations.any? }
-        - series = resource.stock_in_ground_by_calibration_series(dimension, scale.natures.reorder(:minimal_value)).map { |name, data| { name: name, data: data.map { |d| [name, d] } } }
-          = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: InspectionCalibration.human_attribute_name(dimension)}, stack_labels: {enabled: true}}, x_axis: { categories: categories }, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-
-    - if activity.inspection_point_natures.any? && inspections.any? { |i| i.points_percentage(dimension).nonzero? }
-      - c.cobble(:disease_deformity_percentage) do
-        = render 'backend/inspections/unit_selector', activity: activity
-        = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories }, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-
-    - if last_inspection.marketable_quantity(dimension).to_f.nonzero?
-      - c.cobble(:percentage_by_calibration) do
-        = render 'backend/inspections/unit_selector', activity: activity
-        - pies = last_inspection.scales.map do |scale|
-          - if last_inspection.calibrations.of_scale(scale).any? { |c| c.marketable_quantity(dimension).to_d.nonzero? }
-            - render "backend/inspections/percentage_chart", dataset: last_inspection.calibrations.of_scale(scale).reorder(:id), scale: scale, dimension: dimension, symbol_measure: symbol_measure
-        .chart-table
-          - pies.compact.each_slice(3) do |slice_of_pie|
-            .chart-line
-              - slice_of_pie.each do |chart|
-                = chart
+  - c.cobble :plant_countings, title: :x_countings.tl(count: resource.plant_countings.count) do
+    - if resource.activity.present?
+      = cobble_toolbar do |t|
+        = t.menu :new, icon: false do |menu|
+          - resource.activity.plant_density_abaci.each do |abacus|
+            - menu.item abacus.name, { action: :new, controller: :plant_countings, plant_id: resource.id, plant_density_abacus_id: abacus.id }, title: abacus.name
+    = cobble_list :plant_countings
 
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do
     -# FIXME Add activity in URL to get link working

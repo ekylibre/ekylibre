@@ -3,17 +3,29 @@
   = f.referenced_association :financial_year
   = f.referenced_association :responsible #, source: :employees
   = f.input :achieved_at
+  - %w(product_id product_nature_variant_id product_nature_id product_nature_category_id).each do |x|
+    = hidden_field_tag(x, params[x]) if params[x]
   = f.custom_fields
 
 :ruby
   f.object.build_missing_items
-  containers = Product.where(id: f.object.items.collect(&:container)).order(:name)
+  items = f.object.items.to_a
+  if params[:product_id]
+    items.select!{ |p| p.product_id == params[:product_id].to_i }
+  elsif params[:product_nature_variant_id]
+    items.select!{ |p| p.variant.id == params[:product_nature_variant_id].to_i }
+  elsif params[:product_nature_id]
+    items.select!{ |p| p.nature.id == params[:product_nature_id].to_i }
+  elsif params[:product_nature_category_id]
+    items.select!{ |p| p.category.id == params[:product_nature_category_id].to_i }
+  end
+  containers = Product.where(id: items.collect(&:container)).order(:name)
 
 - containers.each do |container|
   = field_set(container.name) do
-    = render 'items_form', f: f, items: f.object.items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name}
+    = render 'items_form', f: f, items: items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name}
 
-- undefined = f.object.items.select{|i| i.container.nil? }
+- undefined = items.select{|i| i.container.nil? }
 - if undefined.any?
   = field_set(:undefined_container) do
     = render 'items_form', f: f, items: undefined.sort{|a,b| a.name <=> b.name}

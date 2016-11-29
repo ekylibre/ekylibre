@@ -286,12 +286,12 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(request_compliant: request_compliant) if request_compliant
   end
 
-  after_create do
-    ACTIONS = {
-      parturition: :create_new_birth,
-      animal_artificial_insemination: :create_insemination
-    }.freeze
+  ACTIONS = {
+    parturition: :create_new_birth,
+    animal_artificial_insemination: :create_insemination
+  }.freeze
 
+  after_create do
     actions.each do |action|
       next unless ACTIONS.key? action
       Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
@@ -303,13 +303,16 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
-  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
-  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
-  #       Mode Intervention      |     Debit                      |            Credit            |
-  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  # This method permits to add stock journal entries corresponding to the
+  # interventions which consume or produce products.
+  # It depends on the preferences which permit to activate the "permanent stock
+  # inventory" and "automatic bookkeeping".
+  #
+  # | Intervention mode      | Debit                      | Credit                    |
+  # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
+  # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
 
     list = []
     if Preference[:permanent_stock_inventory] && record?
@@ -320,8 +323,8 @@ class Intervention < Ekylibre::Record::Base
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
-        list << [:add_debit, label, debit_account, stock_amount]
-        list << [:add_credit, label, credit_account, stock_amount]
+        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
+        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
       end
       inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
       outputs.each  { |output|  write_parameter_entry_items.call(output, false) }

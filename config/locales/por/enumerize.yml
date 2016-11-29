@@ -37,10 +37,6 @@ por:
       mode:
         harvested: "Colheita época de semeadura"
         sowed: "semeadura provisória"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     analysis:
       retrieval_status:
         controller_error: "Erro de controlador"
@@ -137,6 +133,16 @@ por:
         informative: "Informativo"
         refused: "Recusado"
         waiting: "Esperando"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Por mês"
+        none: "Nenhum"
+        # quaterly: "Quaterly"
+        yearly: "Anual"
+      tax_declaration_mode:
+        debit: "Débito"
+        none: "Nenhum"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Gradual" #?
@@ -146,9 +152,6 @@ por:
       direction:
         loss: "Perda"
         profit: "Lucro"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     georeading:
       nature:
         line: "Linha" #?
@@ -277,6 +280,10 @@ por:
         in_preparation: "Em preparação" #?
         ordered: "Pedido" #?
         prepared: "Preparado" #?
+    plant_counting:
+      nature:
+        germination: "Na germinação"
+        sowing: "Na semeadura"
     preference:
       nature:
         accounting_system: "Sistema de contabilidade"
@@ -407,14 +414,6 @@ por:
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornecedor"
     sensor:
       retrieval_mode:
         integration: "Integração"
@@ -455,6 +454,8 @@ por:
         sales: "Vendas"
         sales_invoices: "Facturas de vendas"
         subscriptions: "Assinaturas"
+        tax_declarations: "Declarações fiscais"
+        transports: "Numeração de transportes" #?
     subscription_nature:  #?
       entity_link_direction: #?
         all: "Bidirecional" #?
@@ -465,15 +466,15 @@ por:
         quantity: "Subscrição por número" #?
     synchronization_operation:
       operation_name:
-        # authenticate: "Authentication"
-        # get_inventory: "Get inventory"
-        # get_urls: "Get urls"
+        authenticate: "Autenticação"
+        get_inventory: "Obter inventário"
+        get_urls: "Obter urls"
       state:
-        # aborted: "Aborted"
+        aborted: "Abortado"
         # errored: "Errored"
-        # finished: "Finished"
-        # in_progress: "In progress"
-        # undone: "Undone"
+        finished: "Acabado"
+        in_progress: "Em progresso"
+        undone: "Desfeito"
     task:
       nature:
         document: "Documento" #?

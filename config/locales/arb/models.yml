@@ -335,6 +335,16 @@ arb:
         population: "كمية"
       plant:
         born_at: "زرعت في"
+      plant_counting:
+        plant: "المنتج"
+        plant_activity: "نشاط"
+        rows_count_value: "عد الصفوف"
+        working_width_value: "عرض تطبيق Implanter"
+      plant_counting_item:
+        value: "عد النباتات"
+      plant_density_abacus_item:
+        plants_count: "عد النباتات المتوقع"
+        seeding_density_value: "يتوقع كثافة بذر"
       postal_zone:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
@@ -566,11 +576,11 @@ arb:
         nature_label: "النوع" #?
         subscriptions: "ملاحظة" #?
       synchronization_operation:
-        # human_message: "Error message"
-        # operation_name: "Operation name"
-        # request: "Request"
-        # response: "Response"
-        # status: "Status"
+        human_message: "رسالة خطأ"
+        operation_name: "اسم العملية"
+        request: "طلب"
+        response: "استجابة"
+        status: "الحالة"
       tax:
         amount: "القيمة المالية"
         nature_label: "النوع" #?
@@ -941,10 +951,14 @@ arb:
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       purchase: "الشراء"
+      purchase_affair: "قضية شراء"
+      purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
       role: "الدور"
       sale: "البيع"
+      sale_affair: "بيع القضية"
+      sale_gap: "الفجوة بيع"
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
       sale_opportunity: "فرصة بيع"
@@ -962,10 +976,12 @@ arb:
       subscription_nature: "نوع الاشتراك"
       supervision: "إشراف"
       supervision_item: "البند إشراف"
+      synchronization_operation: "عملية المزامنة"
       target_distribution: "توزيع هدف"
       task: "مهمة"
       tax: "الضريبة"
-      tax_declaration: "تصريح الضرائب" #?
+      tax_declaration: "تصريح الضرائب"
+      tax_declaration_item: "الضرائب البند إعلان"
       team: "الخجمة"
       token: "رمز"
       tool: "الاداة" #?
@@ -1068,6 +1084,8 @@ arb:
     average_value: "متوسط ​​القيمة"
     balance: "توازن"
     balance_amount: "الرصيد" #?
+    balance_pretax_amount: "تحقيق التوازن بين كمية قبل خصم الضرائب"
+    balance_tax_amount: "مبلغ الضريبة التوازن"
     balances: "ارصدة الحساب"
     bank: "البنك" #?
     bank_account_holder_name: "صاحب حساب"
@@ -1157,6 +1175,8 @@ arb:
     collected_account: "جمع قيمة الضريبة الاضافية" #?
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية" #?
+    collected_pretax_amount: "كمية قبل خصم الضرائب التي تم جمعها"
+    collected_tax_amount: "مقدار الضريبة المحصلة"
     collected_taxes: "الضرائب التي تم جمعها"
     color: "اللون"
     column_name: "اسم العمود"
@@ -1197,6 +1217,7 @@ arb:
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
     contract: "عقد"
+    contract_items: "بنود العقد"
     contracts: "عقود"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
@@ -1267,6 +1288,8 @@ arb:
     decimal_value: "القيمة العشرية"
     declarant: "الإقرار"
     declared_at: "صرح يوم" #?
+    deductible_pretax_amount: "كمية قبل خصم الضرائب للخصم"
+    deductible_tax_amount: "مبلغ الضريبة اقتطاع"
     deduction_account: "حساب خصم"
     default_computation_method: "افتراضي طريقة حساب"
     default_contact: "الشخص المتوقع الاتصال به" #?
@@ -1439,7 +1462,7 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
-    # finished_at: "Finished at"
+    finished_at: "انتهت في"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1449,6 +1472,8 @@ arb:
     fixed_asset_account: "حساب الأصول الثابتة"
     fixed_asset_allocation_account: "ثابت حساب انخفاض قيمة الأصول"
     fixed_asset_collect_account: "الأصول الثابتة جمع الحساب"
+    fixed_asset_deductible_pretax_amount: "الأصول الثابتة مبلغ قبل خصم الضرائب للخصم"
+    fixed_asset_deductible_tax_amount: "الأصول الثابتة مبلغ الضريبة القابلة للحسم"
     fixed_asset_deduction_account: "حساب خصم الأصول الثابتة"
     fixed_asset_depreciation_method: "الأصول الثابتة طريقة الاستهلاك"
     fixed_asset_depreciation_percentage: "نسبة انخفاض قيمة الأصول الثابتة"
@@ -1592,6 +1617,7 @@ arb:
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
     invoiced_at: "فواتير على"
+    invoiced_on: "فواتير على"
     ip_address: "عنوان بروتوكول الإنترنت"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
@@ -1787,7 +1813,7 @@ arb:
     nodes: "عقد الاستخراج"
     noticed_start_amount: "كمية بداية لاحظت"
     noticed_stop_amount: "لاحظت كمية توقف"
-    # notification: "Notification"
+    notification: "إعلام"
     notifications: "الإشعارات"
     number: "الرقم"
     number_format: "التصميم"
@@ -1802,7 +1828,7 @@ arb:
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
-    # operation_name: "Operation name"
+    operation_name: "اسم العملية"
     operation_natures: "انواع العمل" #?
     operation_uses: "استخدامات الاداة" #?
     operations: "الاعمال" #?
@@ -1989,6 +2015,7 @@ arb:
     published: "تم نشره" #?
     purchasable: "للشراء"
     purchase: "شراء"
+    purchase_affair: "قضية شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
@@ -2001,7 +2028,7 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
-    quantity_gap_on_invoice_entry: "دخول الفجوة كمية الأسهم"
+    quantity_gap_on_invoice_journal_entry: "دخول الفجوة كمية الأسهم"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
     quantity_indicator_name: "الكمية اسم المؤشر"
@@ -2087,6 +2114,7 @@ arb:
     reset_password_token: "رمز إعادة تعيين كلمة المرور"
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
+    resource_prism: "منظور الموارد"
     resource_type: "نوع المصدر"
     responses: "الردود"
     responsible: "المسؤول"
@@ -2107,6 +2135,7 @@ arb:
     root_model_name: "جذر"
     root_node: "عقدة الجذر"
     root_parameters: "المعلمات الجذر"
+    rows_count_value: "عد الصفوف"
     sale: "طلب البيع"
     sale_credit: "الائتمان بيع"
     sale_id: "طلب بيع" #?
@@ -2263,7 +2292,12 @@ arb:
     targets: "أهداف"
     tasks: "المهام"
     tax: "الضريبة"
-    tax_declarations: "الاعلان عن الضرائب" #?
+    tax_declaration: "الإقرار الضريبي"
+    tax_declaration_frequency: "تردد الإقرار الضريبي"
+    tax_declaration_item: "الضرائب البند إعلان"
+    tax_declaration_items: "بنود الإقرار الضريبي"
+    tax_declaration_mode: "وضع الإقرار الضريبي"
+    tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
@@ -2314,7 +2348,7 @@ arb:
     type: "النوع"
     # uid: "UID"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
-    undelivered_invoice_entry: "دخول فاتورة غير المسلمة"
+    undelivered_invoice_journal_entry: "دخول فاتورة غير المسلمة"
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
     unit_amount: "كمية وحدة"
@@ -2352,6 +2386,9 @@ arb:
     use_tactics: "استخدام تقنيات إدارة المحاصيل"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
+    used_for_permanent_stock_inventory: "تستخدم لجرد مخزون دائم"
+    used_for_tax_declarations: "تستخدم لالإقرارات الضريبية"
+    used_for_unbilled_payables: "تستخدم لالدائنة غير المفوترة"
     used_intervention_parameters: "المعلمات تدخل مستعملة"
     useful_items: "المواد المفيدة"
     user: "المستخدم"
@@ -2396,6 +2433,7 @@ arb:
     working_duration: "مدة العمل"
     working_periods: "فترات العمل"
     working_shape: "شكل العمل" #?
+    working_width_value: "عرض تطبيق Implanter"
     working_zone: "منطقة العمل"
     working_zone_area: "منطقة منطقة العمل"
     zone_memberships: "عضوية منطقة"
@@ -2670,8 +2708,8 @@ arb:
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
-      # bookkeep: "Physical inventory - [%{resource}] %{number}"
-      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
+      # bookkeep: "[%{resource}] %{number}"
+      # bookkeep_exchange: "[%{resource} exchange] %{number}"
     inventory_item:  #?
       inventory: "عملية الجرد" #?
     issue:
@@ -2885,6 +2923,8 @@ arb:
         invoice: "فاتورة"
         order: "طلب"
         refused: "أجل رفض"
+    purchase_gap:
+      # bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
@@ -2930,6 +2970,8 @@ arb:
         invoice: "فاتورة"
         order: "طلب"
         refused: "تقدير رفض"
+    sale_gap:
+      # bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{building}, هذا ويحتوي %{contained_product} "
       can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "
@@ -2989,6 +3031,8 @@ arb:
           doing: "فعل"
           done: "فعله"
           todo: "لكى يفعل"
+    tax_declaration:
+      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
     team:
       default: "فريق الرئيسي"
     user:
