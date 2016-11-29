@@ -13,7 +13,7 @@
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: true, at: started_at.strftime("%Y-%m-%d %H:%M")), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
   - if reference.quantified?
     = render 'quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))
@@ -22,10 +22,10 @@
     - else
       = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
   - if (attr = reference.attribute(:new_container_id))
-    = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container_id).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
+    = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container_id).scope_hash.merge(availables: true, at: started_at.strftime("%Y-%m-%d %H:%M")), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
 
   - if (attr = reference.attribute(:new_group_id))
-    = f.referenced_association :new_group, source: { scope: reference.attribute(:new_group_id).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_group_id' } }, new: false
+    = f.referenced_association :new_group, source: { scope: reference.attribute(:new_group_id).scope_hash.merge(availables: true, at: started_at.strftime("%Y-%m-%d %H:%M")), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_group_id' } }, new: false
 
   - if (attr = reference.attribute(:new_variant))
     - if attr.hidden?
