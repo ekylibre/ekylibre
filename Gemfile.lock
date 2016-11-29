@@ -160,7 +160,7 @@ GEM
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
     docile (1.1.5)
-    domain_name (0.5.20161021)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     enumerize (2.0.1)
       activesupport (>= 3.2)
@@ -223,7 +223,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (5.0.5)
+    jquery-ui-rails (6.0.0)
       railties (>= 3.2.16)
     json (1.8.3)
     jwt (1.5.6)
@@ -429,7 +429,7 @@ GEM
       iban-tools
     sexp_processor (4.7.0)
     shoulda-context (1.2.2)
-    sidekiq (4.2.6)
+    sidekiq (4.2.7)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
