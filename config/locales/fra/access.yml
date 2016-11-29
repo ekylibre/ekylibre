@@ -49,7 +49,7 @@ fra:
       incoming_deliveries: "Colis entrants"
       incoming_payment_modes: "Modes d’encaissement"
       incoming_payments: "Encaissements"
-      integrations: "Intégrations"
+      integrations: "Connexions partenaires"
       interventions: "Interventions"
       inventories: "Inventaires"
       issues: "Incidents"
