@@ -171,7 +171,8 @@ gem 'luhn'
 gem 'hajimari', git: 'https://alecuelle@forge.ekylibre.com/hajimari.git', branch: 'gemify'
 # gem 'cap', git: 'https://alecuelle@forge.ekylibre.com/cap.git', branch: 'gemify'
 gem 'cap', path: '../cap'
-#gem 'weather', path: '../weather'
+gem 'weather', path: '../weather'
+gem 'cap-trap', path: '../cap-trap'
 
 group :development do
   gem 'quiet_assets'
