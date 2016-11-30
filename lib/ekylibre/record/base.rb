@@ -7,6 +7,10 @@ module Ekylibre
     end
 
     class Base < ActiveRecord::Base
+
+      include Userstamp::Stamper
+      include Userstamp::Stampable
+
       self.abstract_class = true
 
       cattr_accessor :scopes do

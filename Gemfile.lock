@@ -19,7 +19,7 @@ GIT
 PATH
   remote: ../cap-trap
   specs:
-    cap-trap (2.0.0)
+    cap2020 (2.0.0)
 
 PATH
   remote: ../cap
@@ -565,7 +565,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails
   browser
   cap!
-  cap-trap!
+  cap2020!
   capybara
   capybara-webkit
   charlock_holmes
