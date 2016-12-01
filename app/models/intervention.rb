@@ -52,7 +52,7 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  include Ekylibre::Ednotif if defined? Ekylibre::Ednotif
+  # include Ednotif::Engine if defined? Ednotif::Engine
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency

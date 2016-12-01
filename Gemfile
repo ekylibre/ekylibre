@@ -175,6 +175,10 @@ gem 'hajimari', git: 'https://alecuelle@forge.ekylibre.com/hajimari.git', branch
 gem 'cap', path: '../cap'
 gem 'weather', path: '../weather'
 gem 'cap2020', path: '../cap-trap'
+# gem 'helileo', path: '../helileo'
+gem 'fermes_larrere', path: '../fermes-larrere'
+gem 'keyfield', path: '../keyfield'
+gem 'ednotif', path: '../ednotif'
 
 group :development do
   gem 'quiet_assets'

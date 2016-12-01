@@ -27,6 +27,21 @@ PATH
     cap (2.0.0)
 
 PATH
+  remote: ../ednotif
+  specs:
+    ednotif (1.0.0)
+
+PATH
+  remote: ../fermes-larrere
+  specs:
+    fermes_larrere (1.0.0)
+
+PATH
+  remote: ../keyfield
+  specs:
+    keyfield (1.0.0)
+
+PATH
   remote: ../weather
   specs:
     weather (1.0.0)
@@ -580,9 +595,11 @@ DEPENDENCIES
   devise
   devise-i18n-views
   devise_invitable
+  ednotif!
   enumerize
   exception_notification
   feedjira
+  fermes_larrere!
   ffaker (>= 2.0.0)
   figaro
   foreman
@@ -599,6 +616,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   kaminari
+  keyfield!
   letter_opener
   luhn
   mechanize
