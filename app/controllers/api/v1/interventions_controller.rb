@@ -55,7 +55,7 @@ module Api
             end
           end
         end
-        @interventions = @interventions.where(nature: nature).page(page).per(per_page).order(:id)
+        @interventions = @interventions.where(nature: nature).where.not(state: :rejected).page(page).per(per_page).order(:id)
       end
     end
   end
