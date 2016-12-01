@@ -9,8 +9,7 @@ module Backend
         t.column :created_at
       end
 
-      def show
-      end
+      def show; end
     end
   end
 end
