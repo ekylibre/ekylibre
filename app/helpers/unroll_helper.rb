@@ -1,3 +1,4 @@
+# Allows us to label items for the unroll list from both a view or its controller.
 module UnrollHelper
   def label_item(item, filters, controller)
    UnrollHelper.label_item(item, filters, controller)

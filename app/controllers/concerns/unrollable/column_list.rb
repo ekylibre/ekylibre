@@ -1,4 +1,5 @@
 module Unrollable
+  # Class representing a list of columns providing methods to convert them.
   class ColumnList
     include Toolbelt
 

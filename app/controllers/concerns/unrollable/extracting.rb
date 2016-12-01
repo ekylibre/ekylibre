@@ -28,8 +28,8 @@ module Unrollable
     end
 
     def self.fill_in_from(options, filters)
-      return nil if options[:fill_in].blank? && options.key?(:fill_in)
-      fill_in = options[:fill_in]
+      return nil if (fill_in = options[:fill_in]) && options.key?(:fill_in)
+
       fill_in ||= filters.select(&:root?).map(&:name).first
       fill_in &&= fill_in.to_sym
 

@@ -1,3 +1,4 @@
+# Concern that allows a support for the JS searchable selectors.
 module Unrollable
   extend ActiveSupport::Concern
 
@@ -27,7 +28,7 @@ module Unrollable
 
         items = Unrollable::ItemRelation.new(model.send(default_scope))
 
-        kept = items.keeping(params[:id]) if params[:id]
+        kept = items.keeping(params[:id])
 
         begin
           filtered_items = items.filter_through(model, columns, order, scopes, excluded_records)
@@ -42,9 +43,10 @@ module Unrollable
         items = kept || filtered_items.ordered_matches(keys, searchable_filters)
 
         respond_to do |format|
+          data_only_view = items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } }
           format.html { render partial: 'unrolled', locals: { max: options[:max], items: items, fill_in: fill_in, keys: keys, filters: filters, render_partial: options[:partial], search: search_term.capitalize, model_name: model_name }, layout: false }
-          format.json { render json:  items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } } }
-          format.xml  { render xml:   items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } } }
+          format.json { render json: data_only_view }
+          format.xml  { render xml:  data_only_view }
         end
       end
     end
