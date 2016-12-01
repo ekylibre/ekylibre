@@ -188,6 +188,8 @@ group :development do
   gem 'spring'
 
   gem 'letter_opener'
+
+  gem 'minitest', '~> 5.9.1'
 end
 
 group :development, :test do
