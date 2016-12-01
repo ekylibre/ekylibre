@@ -4,10 +4,9 @@ module UnrollHelper
   end
 
   def self.label_item(item, filters, controller)
-    "unrolls.#{controller}".t(
-      filters
-        .map { |f| [f[:name], f[:expression].call(item)] }.to_h
-        .merge(default: filters.map { |f| "%{#{f[:name]}}" }.join(', '))
-    )
+    defaults = filters.map { |f| "%{#{f.name}}" }.join(', ')
+    item_names = filters.map { |f| [f.name, f.value_of(item)] }.to_h
+
+    "unrolls.#{controller}".t(item_names.merge(default: defaults))
   end
 end
