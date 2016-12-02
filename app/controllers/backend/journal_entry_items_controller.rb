@@ -52,8 +52,7 @@ module Backend
       t.column :tax, url: true
     end
 
-    def index
-    end
+    def index; end
 
     def new
       @journal_entry_item = JournalEntryItem.new

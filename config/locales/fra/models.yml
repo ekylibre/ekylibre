@@ -461,6 +461,7 @@ fra:
       subscription_nature: "Type d’abonnement"
       supervision: "Supervision"
       supervision_item: "Supervisé"
+      synchronization_operation: "Opération de synchronisation"
       target_distribution: "Répartition de cible"
       task: "Tâche"
       tax: "Taxe"
@@ -679,6 +680,7 @@ fra:
     contents: "Contenu"
     contour: "Silhouette" #?
     contract: "Contrat"
+    contract_items: "Éléments du contrat"
     contracts: "Contrats"
     coordinate: "Coordonnée"
     coordinate_columns: "Colonnes de coordonnées"
@@ -1605,6 +1607,7 @@ fra:
     tax_declaration: "Déclaration d’impôts"
     tax_declaration_frequency: "Fréquence de déclaration d’impôt"
     tax_declaration_item: "Tax élément de déclaration"
+    tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration d’impôt"
     tax_declarations: "Déclarations fiscales"
     taxations: "Taxations"

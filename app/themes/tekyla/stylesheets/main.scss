@@ -2548,8 +2548,25 @@ a[data-annotate] {
       vertical-align: middle !important;
     }
   }
+
+  ul.dropdown-menu.interval-menu {
+    @include dropdown-menu(bottom, end);
+  }
+
+  .btn-with-intervals {
+    height: 100%;
+  }
 }
 
+.period-selector {
+  display: inline-block;
+
+  .today-period-btn {
+    margin-right: round($default-gap * 1.4) !important;
+    height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
+    line-height: $lh-large;
+  }
+}
 
 
 .cobbles {

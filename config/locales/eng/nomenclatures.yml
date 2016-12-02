@@ -4124,6 +4124,7 @@ eng:
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_napus_annua: "Brassica napus annua"       #< brassica_napus
         brassica_napus_napus: "Brassica napus napus"       #< brassica_napus
+        brassica_napus_napus_dk_exalte: "Brassica napus napus dk exalte" #< brassica_napus
         brassica_napus_rapifera: "Rutabaga"                #< brassica_napus
         brassica_nigra: "Black mustard"                    #< brassica
         brassica_oleracea: "Cabbage"                       #< brassica
@@ -6103,14 +6104,17 @@ eng:
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Wheat"                                  #< poaceae
         triticum_aestivum: "Common wheat"                  #< triticum
+        triticum_aestivum_alixan: "Common wheat Alixan"    #< triticum_aestivum
         triticum_aestivum_allies: "Common wheat Alliès"    #< triticum_aestivum
         triticum_aestivum_apache: "Common wheat Apache"    #< triticum_aestivum
-        triticum_aestivum_arezzo: "Common wheat arezzo"    #< triticum_aestivum
+        triticum_aestivum_arezzo: "Common wheat Arezzo"    #< triticum_aestivum
+        triticum_aestivum_as_de_coeur: "Common wheat As de Cœur" #< triticum_aestivum
         triticum_aestivum_ascott: "Common wheat Ascott"    #< triticum_aestivum
         triticum_aestivum_autan: "Common wheat Autan"      #< triticum_aestivum
         triticum_aestivum_automne_rouge_barbu: "Common wheat Automne rouge barbu" #< triticum_aestivum
         triticum_aestivum_autrichien: "Common wheat Autrichien" #< triticum_aestivum
         triticum_aestivum_aztec: "Common wheat Aztec"      #< triticum_aestivum
+        triticum_aestivum_bermude: "Common wheat Bermude"  #< triticum_aestivum
         triticum_aestivum_blanc_de_flandre: "Common wheat Blanc de Flandre" #< triticum_aestivum
         triticum_aestivum_ble_de_crepi: "Common wheat Blé de Crépi" #< triticum_aestivum
         triticum_aestivum_ble_de_redon: "Common wheat Blé de Redon" #< triticum_aestivum
@@ -6148,10 +6152,12 @@ eng:
         triticum_aestivum_later: "Common wheat Later"      #< triticum_aestivum
         triticum_aestivum_levis: "Common wheat Levis"      #< triticum_aestivum
         triticum_aestivum_lona: "Common wheat Lona"        #< triticum_aestivum
+        triticum_aestivum_lyrik: "Common wheat Lyrik"      #< triticum_aestivum
         triticum_aestivum_manital: "Common wheat Manital"  #< triticum_aestivum
         triticum_aestivum_noe: "Common wheat Noé"          #< triticum_aestivum
         triticum_aestivum_nord_desprez: "Common wheat Nord-Desprez" #< triticum_aestivum
         triticum_aestivum_oratorio: "Common wheat Oratorio" #< triticum_aestivum
+        triticum_aestivum_oregrain: "Common wheat Oregrain" #< triticum_aestivum
         triticum_aestivum_picardie_desprez: "Common wheat Picardie-Desprez" #< triticum_aestivum
         triticum_aestivum_poulard_d_australie: "Common wheat Poulard d’Australie" #< triticum_aestivum
         triticum_aestivum_premio: "Common wheat Premio"    #< triticum_aestivum
@@ -6164,17 +6170,21 @@ eng:
         triticum_aestivum_quebon: "Common wheat Quebon"    #< triticum_aestivum
         triticum_aestivum_recital: "Common wheat Recital"  #< triticum_aestivum
         triticum_aestivum_renan: "Common wheat Renan"      #< triticum_aestivum
+        triticum_aestivum_rgt_sacramento: "Common wheat RGT Sacramento" #< triticum_aestivum
         triticum_aestivum_rouge_d_alsace: "Common wheat Rouge d’Alsace (synonyme Rouge d’Altkirch)" #< triticum_aestivum
         triticum_aestivum_rouge_de_bordeaux: "Common wheat Rouge de Bordeaux" #< triticum_aestivum
         triticum_aestivum_roux_des_ardennes: "Common wheat Roux des Ardennes" #< triticum_aestivum
         triticum_aestivum_rubisko: "Common wheat Rubisko"  #< triticum_aestivum
         triticum_aestivum_runal: "Common wheat Runal"      #< triticum_aestivum
+        triticum_aestivum_sherlock: "Common wheat Sherlock" #< triticum_aestivum
         triticum_aestivum_shireff_epis_carres: "Common wheat Shireff à épis carrés (synonyme Shireff squarehead)" #< triticum_aestivum
         triticum_aestivum_soissons: "Common wheat Soissons" #< triticum_aestivum
         triticum_aestivum_tamaro: "Common wheat Tamaro"    #< triticum_aestivum
+        triticum_aestivum_terroir: "Common wheat Terroir"  #< triticum_aestivum
         triticum_aestivum_teverson: "Common wheat Teverson" #< triticum_aestivum
         triticum_aestivum_texel: "Common wheat Texel"      #< triticum_aestivum
         triticum_aestivum_tremie: "Common wheat Tremie"    #< triticum_aestivum
+        triticum_aestivum_triomph: "Common wheat Triomph"  #< triticum_aestivum
         triticum_aestivum_victoria_d_automne: "Common wheat victoria d automne" #< triticum_aestivum
         triticum_aestivum_vilmorin_23: "Common wheat Vilmorin 23" #< triticum_aestivum
         triticum_aestivum_vilmorin_27: "Common wheat Vilmorin 27" #< triticum_aestivum
