@@ -1,5 +1,4 @@
 class GlobalCurrency
-
   def initialize(currency)
     @currency = currency
   end
@@ -15,5 +14,4 @@ class GlobalCurrency
     end
     @currency = new_currency
   end
-
 end

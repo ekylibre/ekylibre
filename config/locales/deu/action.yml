@@ -875,6 +875,7 @@ deu:
     cultivable_zone: "Anbauzone"
     cultivable_zones: "Anbauzonen"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
+    currency_conversion_rate: "Währungsumrechnungskurs"
     current: "Strom"
     current_cultivation: "aktuelle Anbau"
     current_stocks_by_variety: "Aktuelle Bestände durch Vielfalt"

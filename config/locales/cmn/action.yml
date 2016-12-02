@@ -875,6 +875,7 @@ cmn:
     cultivable_zone: "可种植区"
     cultivable_zones: "可种植区"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
+    currency_conversion_rate: "货币转化率"
     current: "当前"
     current_cultivation: "目前种植"
     current_stocks_by_variety: "目前的库存按品种"

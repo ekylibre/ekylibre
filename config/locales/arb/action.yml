@@ -1188,6 +1188,7 @@ arb:
     cultivable_zone: "منطقة القابلة للزراعة"
     cultivable_zones: "المناطق الصالحة للزراعة"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
+    currency_conversion_rate: "سعر تحويل العملة"
     current: "الحالية"
     current_cultivation: "زراعة الحالية"
     current_letter: "البيانات الحالية : %{letter}" #?

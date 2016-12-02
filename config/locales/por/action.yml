@@ -880,6 +880,7 @@ por:
     cultivable_zone: "Zona cultivável"
     cultivable_zones: "Zonas cultiváveis"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
+    currency_conversion_rate: "Taxa de conversão de moeda"
     current: "Atual"
     current_cultivation: "Cultivo atual"
     current_stocks_by_variety: "Estoques atuais de variedade"

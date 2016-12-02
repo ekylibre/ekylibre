@@ -20,7 +20,7 @@ module Backend
             gc = GlobalCurrency.new(preference.value)
             if preference.value.to_s != data[:value]
               rate = params[:currency_change_rate].to_i
-              raise "Cannot proceed with null rate " if rate.zero?
+              raise 'Cannot proceed with null rate' if rate.zero?
               gc.convert_to(data[:value], rate: rate)
             end
           end
