@@ -157,7 +157,7 @@ class SaleItem < Ekylibre::Record::Base
   def reduction_coefficient
     (100.0 - reduction_percentage) / 100.0
   end
-  
+
   def undelivered_quantity
     quantity - parcel_items.sum(:quantity)
   end

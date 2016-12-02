@@ -110,7 +110,7 @@ class PurchaseItem < Ekylibre::Record::Base
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
       if pretax_amount.nil? || pretax_amount.zero?
-        self.pretax_amount = (unit_pretax_amount * self.quantity * self.reduction_coefficient).round(precision)
+        self.pretax_amount = (unit_pretax_amount * self.quantity * reduction_coefficient).round(precision)
       end
       if amount.nil? || amount.zero?
         self.amount = tax.amount_of(pretax_amount).round(precision)
@@ -172,7 +172,7 @@ class PurchaseItem < Ekylibre::Record::Base
   def reduction_coefficient
     (100.0 - reduction_percentage) / 100.0
   end
-  
+
   def product_name
     variant.name
   end

@@ -220,7 +220,7 @@ class Tax < Ekylibre::Record::Base
   def amount(intracommunity = false)
     intracommunity ? intracommunity_amount : super
   end
-  
+
   def intracommunity_amount
     0
   end
