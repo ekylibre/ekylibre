@@ -50,4 +50,36 @@ class TaxTest < ActiveSupport::TestCase
   test 'load the taxes' do
     Tax.load_defaults
   end
+
+  test 'basic' do
+    tax = Tax.create!(
+      name: 'Standard',
+      amount: 25,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    assert_equal 250, tax.amount_of(200)
+    assert_equal 250, tax.intracommunity_amount_of(200)
+    assert_equal 400, tax.pretax_amount_of(500)
+    assert_equal 1.25, tax.coefficient
+  end
+
+  test 'intracommunity' do
+    tax = Tax.create!(
+      name: 'Intra',
+      amount: 30,
+      nature: :normal_vat,
+      intracommunity: true,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      intracommunity_payable_account: Account.find_or_create_by_number('4452'),
+      country: :fr
+    )
+    assert tax.intracommunity
+    assert_equal 1, tax.coefficient
+    assert_equal 100, tax.amount_of(100), 'Intracommunity tax should not impact amount'
+    assert_equal 130, tax.intracommunity_amount_of(100), 'Intracommunity tax should impact intracommunity amount'
+  end
 end

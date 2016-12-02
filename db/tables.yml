@@ -7100,7 +7100,7 @@ taxes:
     default: false
   intracommunity_payable_account_id:
     type: integer
-    references: ''
+    references: account
   lock_version:
     type: integer
     required: true

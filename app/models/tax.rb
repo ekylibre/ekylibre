@@ -51,14 +51,14 @@ class Tax < Ekylibre::Record::Base
   belongs_to :deduction_account, class_name: 'Account'
   belongs_to :fixed_asset_collect_account, class_name: 'Account'
   belongs_to :fixed_asset_deduction_account, class_name: 'Account'
-  belongs_to :neutralization_account, class_name: 'Account'
+  belongs_to :intracommunity_payable_account, class_name: 'Account'
   has_many :product_nature_category_taxations, dependent: :restrict_with_error
   has_many :purchase_items
   has_many :sale_items
   has_many :journal_entry_items
   has_many :tax_declaration_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :neutral, inclusion: { in: [true, false] }
+  validates :active, :intracommunity, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :country, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -183,7 +183,7 @@ class Tax < Ekylibre::Record::Base
   def compute(amount, *args)
     options = args.extract_options!
     all_taxes_included = args.shift || options[:all_taxes_included] || false
-    percentage = self.amount(options[:intracommunity]).to_d / 100
+    percentage = (options[:intracommunity] ? intracommunity_amount : self.amount).to_d / 100
     if all_taxes_included
       amount.to_d * percentage / (1 + percentage)
     else
@@ -192,8 +192,8 @@ class Tax < Ekylibre::Record::Base
   end
 
   # Returns the intracommunity tax amount used in purchase reverse-charge
-  def intracommunity_tax_amount_of(pretax_amount)
-    coefficient(true) * pretax_amount
+  def intracommunity_amount_of(pretax_amount)
+    pretax_amount + compute(pretax_amount, intracommunity: true)
   end
 
   # Returns the pretax amount of an amount
@@ -213,16 +213,16 @@ class Tax < Ekylibre::Record::Base
 
   # Returns the matching coefficient k of the percentage
   # where pretax_amount * k = amount_with_tax
-  def coefficient(intracommunity = false)
-    (100 + amount(intracommunity)) / 100
+  def coefficient
+    (100 + amount) / 100
   end
 
-  def amount(intracommunity = false)
-    intracommunity ? intracommunity_amount : super
+  def amount
+    intracommunity ? 0 : self['amount']
   end
 
   def intracommunity_amount
-    0
+    self['amount']
   end
 
   # Returns the short label of a tax

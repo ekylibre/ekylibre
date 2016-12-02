@@ -819,6 +819,7 @@ eng:
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
     # intracommunity: "Intracommunity"
+    # intracommunity_payable_account: "Intracommunity payable account"
     # intracommunity_payable_pretax_amount: "Intracommunity payable pretax amount"
     # intracommunity_payable_tax_amount: "Intracommunity payable tax amount"
     introduction: "Introduction"
@@ -979,7 +980,6 @@ eng:
     net_mass_value: "Net mass value"
     net_mass_yield: "Net mass yield" #?
     net_service: "Net service"
-    # neutralization_account: "Neutralization account"
     new_container: "New container"
     new_group: "New group"
     new_name: "New name"
