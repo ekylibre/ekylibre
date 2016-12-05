@@ -181,7 +181,7 @@
   $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
-    $('#parameters *[data-intervention-updater]').each ->
+    $('#working-periods *[data-intervention-updater]').each ->
       E.interventions.refresh $(this),
         success: (stat, status, request) ->
           E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())

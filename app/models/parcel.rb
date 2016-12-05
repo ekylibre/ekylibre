@@ -356,6 +356,7 @@ class Parcel < Ekylibre::Record::Base
     return false unless can_give?
     update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)
+    reload
     super
   end
 
