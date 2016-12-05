@@ -8,3 +8,6 @@
   = f.referenced_association :deduction_account, source: { scope: :deductible_vat }, new: { number: Account.find_or_import_from_nomenclature(:deductible_vat).number }
   = f.referenced_association :fixed_asset_collect_account, source: { scope: { of_usage: :collected_vat }}, new: { number: Account.find_or_import_from_nomenclature(:collected_vat).number }
   = f.referenced_association :fixed_asset_deduction_account, source: { scope: { of_usage: :deductible_vat }}, new: { number: Account.find_or_import_from_nomenclature(:deductible_vat).number }
+
+  = f.input :intracommunity
+  = f.referenced_association :intracommunity_payable_account, source: { scope: { of_usage: :vat }}, new: { number: Account.find_or_import_from_nomenclature(:vat).number }
