@@ -34,7 +34,7 @@ module Unrollable
 
         return bad_scope(scope, model) unless multiple_params_in?(parameter)
 
-        parameters = extract_parameters_from(parameter)
+        parameters = Unrollable::Extracting.parameters_from(parameter)
         items = items.send(scope, *parameters)
       end
       self.class.new(items)
