@@ -943,6 +943,7 @@ jpn:
     cultivable_zone: "耕作地帯"
     cultivable_zones: "耕作地帯"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
+    currency_conversion_rate: "通貨の換算レート"
     current: "現在"
     current_cultivation: "現在の栽培"
     current_stocks_by_variety: "種々の方法により、現在の株式"

@@ -973,6 +973,7 @@ spa:
     cultivable_zone: "Zona cultivable"
     cultivable_zones: "Zonas cultivables"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
+    currency_conversion_rate: "Tasa de conversión de moneda"
     current: "Corriente"
     current_cultivation: "El cultivo actual"
     current_letter: "Carta en curso\_: %{letter}" #?
