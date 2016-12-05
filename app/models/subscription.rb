@@ -165,7 +165,7 @@ class Subscription < Ekylibre::Record::Base
   end
 
   def suspendable?
-    !suspended
+    !suspended && active?
   end
 
   def active?
