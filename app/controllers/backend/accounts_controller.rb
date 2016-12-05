@@ -48,8 +48,7 @@ module Backend
     end
 
     # Displays the main page with the list of accounts
-    def index
-    end
+    def index; end
 
     def self.account_moves_conditions(_options = {})
       code = ''
@@ -106,8 +105,7 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency
     end
 
-    def reconciliation
-    end
+    def reconciliation; end
 
     def mark
       return unless @account = find_and_check

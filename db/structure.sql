@@ -6034,7 +6034,9 @@ CREATE TABLE tax_declaration_items (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    intracommunity_payable_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    intracommunity_payable_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -6124,7 +6126,9 @@ CREATE TABLE taxes (
     nature character varying NOT NULL,
     country character varying NOT NULL,
     fixed_asset_deduction_account_id integer,
-    fixed_asset_collect_account_id integer
+    fixed_asset_collect_account_id integer,
+    intracommunity boolean DEFAULT false NOT NULL,
+    intracommunity_payable_account_id integer
 );
 
 
@@ -15673,6 +15677,13 @@ CREATE INDEX index_taxes_on_fixed_asset_deduction_account_id ON taxes USING btre
 
 
 --
+-- Name: index_taxes_on_intracommunity_payable_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taxes_on_intracommunity_payable_account_id ON taxes USING btree (intracommunity_payable_account_id);
+
+
+--
 -- Name: index_taxes_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16443,4 +16454,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161122155003');
 INSERT INTO schema_migrations (version) VALUES ('20161122161646');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122203438');
+
+INSERT INTO schema_migrations (version) VALUES ('20161124093205');
 

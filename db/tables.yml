@@ -6978,6 +6978,16 @@ tax_declaration_items:
   id:
     type: integer
     required: true
+  intracommunity_payable_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  intracommunity_payable_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   lock_version:
     type: integer
     required: true
@@ -7084,6 +7094,13 @@ taxes:
   id:
     type: integer
     required: true
+  intracommunity:
+    type: boolean
+    required: true
+    default: false
+  intracommunity_payable_account_id:
+    type: integer
+    references: account
   lock_version:
     type: integer
     required: true

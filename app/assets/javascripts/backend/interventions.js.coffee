@@ -337,6 +337,9 @@
         }
         success: (data, status, request) ->
 
+          interventionsIds.forEach (intervention_id) ->
+            $('#interventions-list tr[id*="'+intervention_id+'"]').remove()
+
           selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
           selectedTasks.remove()
 

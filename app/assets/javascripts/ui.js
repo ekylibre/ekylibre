@@ -1,7 +1,7 @@
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
 //= require bootstrap-datetimepicker
-//= require jquery-ui/slider
+//= require jquery-ui/widgets/slider
 
 (function ($) {
   "use strict";
