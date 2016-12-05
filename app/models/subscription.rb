@@ -72,6 +72,7 @@ class Subscription < Ekylibre::Record::Base
   scope :stopped_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id NOT IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
   scope :renewed_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
   scope :between, ->(started_on, stopped_on) { where('started_on BETWEEN ? AND ? OR stopped_on BETWEEN ? AND ? OR (started_on < ? AND ? < stopped_on)', started_on, stopped_on, started_on, stopped_on, started_on, stopped_on) }
+  scope :active, -> { where('NOT suspended AND ? BETWEEN started_on AND stopped_on', Time.zone.today) }
 
   delegate :name, to: :nature, prefix: true
 

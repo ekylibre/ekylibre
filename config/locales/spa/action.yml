@@ -977,6 +977,7 @@ spa:
     current_cultivation: "El cultivo actual"
     current_letter: "Carta en curso\_: %{letter}" #?
     current_stocks_by_variety: "Existencias actuales de variedad"
+    currently_subscribed_to: "Actualmente suscrito"
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?

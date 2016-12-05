@@ -878,6 +878,7 @@ deu:
     current: "Strom"
     current_cultivation: "aktuelle Anbau"
     current_stocks_by_variety: "Aktuelle Bestände durch Vielfalt"
+    currently_subscribed_to: "Derzeit abonniert"
     custom_fields: "Benutzerdefinierte Felder"
     dates: "Wählen Sie Zeitraum Startdatum und Enddatum der Periode"
     days: "Tage"
