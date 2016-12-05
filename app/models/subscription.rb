@@ -123,9 +123,9 @@ class Subscription < Ekylibre::Record::Base
     sale_item && children.empty?
   end
 
-  # Create a Sale, a SaleItem and a Subscription linked to current subscription
-  # Inspired by Sale#duplicate
-  def renew!(attributes = {})
+  # Returns a hash to create a Sale with a SaleItem and a Subscription linked
+  # to current subscription
+  def renew_attributes(attributes = {})
     hash = {
       client_id: sale.client_id,
       nature_id: sale.nature_id,
@@ -136,11 +136,18 @@ class Subscription < Ekylibre::Record::Base
       :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
       :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
     ].each_with_object({}) do |field, h|
-      h[field] = sale_item.send(field)
+      v = sale_item.send(field)
+      h[field] = v unless v.blank?
     end
     attrs[:subscription_attributes] = following_attributes
     hash[:items_attributes] = { '0' => attrs }
-    Sale.create!(hash.with_indifferent_access.deep_merge(attributes))
+    hash.with_indifferent_access.deep_merge(attributes)
+  end
+
+  # Create a Sale, a SaleItem and a Subscription linked to current subscription
+  # Inspired by Sale#duplicate
+  def renew!(attributes = {})
+    Sale.create!(renew_attributes(attributes))
   end
 
   def following_attributes
