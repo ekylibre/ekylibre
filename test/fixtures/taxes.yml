@@ -52,6 +52,7 @@ taxes_001:
   creator_id: 1
   deduction_account_id: 39
   id: 1
+  intracommunity: false
   lock_version: 2
   name: 19.6% VAT
   nature: normal_vat
@@ -66,6 +67,7 @@ taxes_002:
   creator_id: 1
   deduction_account_id: 39
   id: 2
+  intracommunity: false
   lock_version: 3
   name: 0% VAT
   nature: null_vat
@@ -80,6 +82,7 @@ taxes_003:
   creator_id: 1
   deduction_account_id: 39
   id: 3
+  intracommunity: false
   lock_version: 2
   name: 20% VAT
   nature: normal_vat
@@ -94,6 +97,7 @@ taxes_004:
   creator_id: 1
   deduction_account_id: 577
   id: 8
+  intracommunity: false
   lock_version: 0
   name: TVA française intermédiaire 2014
   nature: intermediate_vat
@@ -109,6 +113,7 @@ taxes_005:
   creator_id: 1
   deduction_account_id: 581
   id: 9
+  intracommunity: false
   lock_version: 0
   name: TVA française particulière 1989
   nature: particular_vat
@@ -124,6 +129,7 @@ taxes_006:
   creator_id: 1
   deduction_account_id: 583
   id: 10
+  intracommunity: false
   lock_version: 0
   name: TVA française réduite
   nature: reduced_vat
