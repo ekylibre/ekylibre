@@ -67,7 +67,7 @@ class Tax < Ekylibre::Record::Base
   validates :reference_name, length: { allow_nil: true, maximum: 120 }
   validates :collect_account, :deduction_account, presence: true
   validates :name, uniqueness: true
-  validates :amount, uniqueness: { scope: [:country, :nature] }
+  # validates :amount, uniqueness: { scope: [:country, :nature] }
   validates :amount, numericality: { in: 0..100 }
   validates :intracommunity_payable_account, presence: { if: :intracommunity }
   delegate :name, to: :collect_account, prefix: true
