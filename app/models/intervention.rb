@@ -269,19 +269,29 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
-    targets.find_each do |target|
-      if target.new_container_id
-        ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+    create_dependent_records = lambda do |parameter|
+      end_of_intervention = working_periods.maximum(:stopped_at)
+      product = parameter.product
+
+      if parameter.new_container_id
+        ProductLocalization.find_or_create_by(product: product, container: Product.find(parameter.new_container_id), intervention_id: parameter.intervention_id, started_at: end_of_intervention)
       end
 
-      if target.new_group_id
-        ProductMembership.find_or_create_by(member: target.product, group: Product.find(target.new_group_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      if parameter.new_group_id
+        ProductMembership.find_or_create_by(member: product, group: Product.find(parameter.new_group_id), intervention_id: parameter.intervention_id, started_at: end_of_intervention)
       end
 
-      if target.new_variant_id
-        ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      if parameter.new_variant_id
+        ProductPhase.find_or_create_by(product: product, variant: ProductNatureVariant.find(parameter.new_variant_id), intervention_id: parameter.intervention_id, started_at: end_of_intervention)
+      end
+
+      if parameter.merge_stocks
+        next unless dest = product.matching_product(at: end_of_intervention, container: parameter.new_container)
+        ProductMerging.create!(originator: parameter, product: product, merged_with: dest, merged_at: end_of_intervention)
       end
     end
+    targets.find_each(&create_dependent_records)
+    outputs.find_each(&create_dependent_records)
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
   end

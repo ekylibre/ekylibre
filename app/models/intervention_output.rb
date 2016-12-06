@@ -94,6 +94,10 @@ class InterventionOutput < InterventionProductParameter
     product_movement.population * unit_pretax_stock_amount if product_movement
   end
 
+  def mergeable_with
+    variant.present? && !variant.population_counting_unitary? && Product.matching_products(variant, new_container_id, intervention.working_periods.map(&:stopped_at).max)
+  end
+
   def earn_amount_computation
     options = { quantity: quantity_population, unit_name: product.unit_name }
     if product

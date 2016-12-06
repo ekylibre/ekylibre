@@ -109,6 +109,8 @@ class Product < Ekylibre::Record::Base
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
+  has_many :merges, class_name: 'ProductMerging', foreign_key: :merged_with_id
+  has_many :merged_products, through: :merges, class_name: 'Product', source: :product
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
   has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
@@ -131,6 +133,8 @@ class Product < Ekylibre::Record::Base
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
+  has_one :merge, class_name: 'ProductMerging'
+  has_one :merged_with, through: :merge, class_name: 'Product'
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
@@ -148,7 +152,7 @@ class Product < Ekylibre::Record::Base
 
   scope :members_of_place, ->(place, viewed_at) { contained_by(place, viewed_at) }
   scope :contained_by, lambda { |container, viewed_at = Time.zone.now|
-    where(id: ProductLocalization.select(:product_id).where(container: container).at(viewed_at))
+    where(id: ProductLocalization.select(:product_id).where(container: container).at(viewed_at).uniq)
   }
   scope :derivative_of, ->(*varieties) { of_derivative_of(*varieties) }
   scope :can, lambda { |*abilities|
@@ -224,6 +228,8 @@ class Product < Ekylibre::Record::Base
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
+
+  scope :unmerged, -> { where.not(id: ProductMerging.select(:product_id).uniq) }
 
   scope :mine, -> { of_owner(:own) }
   scope :mine_or_undefined, ->(at = nil) {
@@ -351,6 +357,14 @@ class Product < Ekylibre::Record::Base
         available.at(at)
       end
     end
+
+    def matching_products(variant, location, time)
+      where(variant: variant)
+        .unmerged
+        .contained_by(location)
+        .at(time)
+        .order(:id)
+    end
   end
 
   def production(at = nil)
@@ -448,6 +462,11 @@ class Product < Ekylibre::Record::Base
         reading.save!
       end
     end
+  end
+
+  def matching_product(at: Time.zone.now, container: nil)
+    container ||= container_at(at)
+    Product.matching_products(variant, container, at).where.not(id: id).first
   end
 
   # Try to find the best name for the new products

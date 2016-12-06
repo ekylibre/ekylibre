@@ -77,4 +77,8 @@ class InterventionTarget < InterventionProductParameter
     ActiveSupport::Deprecation.warn('InterventionTarget#activity_production is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity_production instead.')
     best_activity_production
   end
+
+  def mergeable_with
+    product.present? && !product.population_counting_unitary? && product.matching_product(at: intervention.working_periods.map(&:stopped_at).max, container: container_id)
+  end
 end

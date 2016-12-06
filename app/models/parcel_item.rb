@@ -191,7 +191,7 @@ class ParcelItem < Ekylibre::Record::Base
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
-    checked_at = parcel_prepared_at
+    self.checked_at = parcel_prepared_at
     check_incoming(checked_at) if parcel_incoming?
     check_outgoing(checked_at) if parcel_outgoing?
     save!
@@ -219,7 +219,7 @@ class ParcelItem < Ekylibre::Record::Base
     product_params[:identification_number] = product_identification_number
     product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 
-    self.product = existing_product_in_storage unless no_fusing || storage.blank?
+    self.product = variant.new.existing_product_in_storage unless no_fusing || storage.blank?
 
     self.product ||= variant.create_product!(product_params)
   end
@@ -245,12 +245,6 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def existing_product_in_storage
-    similar_products = Product.where(variant: variant)
-    product_in_storage = similar_products.find do |p|
-      location = p.localizations.last.container
-      owner = p.owner
-      location == storage && owner = Entity.of_company
-    end
-    product_in_storage
+    Product.matching_products(variant, storage, checked_at)
   end
 end

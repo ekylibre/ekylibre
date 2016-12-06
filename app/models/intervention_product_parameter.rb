@@ -64,6 +64,7 @@ class InterventionProductParameter < InterventionParameter
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :crumbs, dependent: :destroy, foreign_key: :intervention_parameter_id
   has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_parameter, foreign_key: :parameter_id
+  has_one :merging, class_name: 'ProductMerging', dependent: :destroy, inverse_of: :originator
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
@@ -156,6 +157,10 @@ class InterventionProductParameter < InterventionParameter
     define_method role.to_s + '?' do
       type.to_s == role_class_name
     end
+  end
+
+  def mergeable_with
+    false
   end
 
   # Change name with default name like described in procedure
