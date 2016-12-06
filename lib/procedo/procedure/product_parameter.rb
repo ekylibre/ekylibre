@@ -23,21 +23,20 @@ module Procedo
         unless ProductParameter::TYPES.include?(@type)
           raise ArgumentError, "Unknown parameter type: #{@type.inspect}"
         end
-        if options[:filter]
-          @filter = options[:filter]
-          # # Check filter syntax
-          # WorkingSet.parse(@filter)
-        end
+        @handlers = {}
+        @attributes = {}
+        @readings = {}
+        @filter = options[:filter]
+
         if output?
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
+          add_attribute(:new_container_id, filter: 'is building_division')
+          add_attribute(:merge_stocks, default_value: false)
         end
         if (input? || target?) && options[:component_of]
           self.component_of = options[:component_of]
         end
-        @handlers = {}
-        @attributes = {}
-        @readings = {}
       end
 
       def quantified?
