@@ -808,6 +808,8 @@ por:
     intervention_product_parameters: "Elencos de intervenção"
     interventions: "Intervenções"
     interventions_used_in: "Utilizado em intervenções"
+    intracommunity: "Intracomunitário"
+    intracommunity_payable_account: "Conta a pagar intracomunitário"
     introduction: "Introdução"
     inventory: "Inventário"
     invitation_accepted_at: "Convite aceito em"

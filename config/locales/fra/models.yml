@@ -1018,6 +1018,8 @@ fra:
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
+    intracommunity: "Intracommunautaire"
+    intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
     invitation_accepted_at: "Invitation acceptée à"
