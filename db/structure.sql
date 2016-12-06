@@ -289,7 +289,8 @@ CREATE TABLE intervention_parameters (
     component_id integer,
     assembly_id integer,
     currency character varying,
-    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    merge_stocks boolean
 );
 
 
@@ -4393,6 +4394,145 @@ ALTER SEQUENCE plant_density_abacus_items_id_seq OWNED BY plant_density_abacus_i
 
 
 --
+-- Name: product_mergings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_mergings (
+    id integer NOT NULL,
+    product_id integer,
+    merged_with_id integer,
+    merged_at timestamp without time zone,
+    originator_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: product_movements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_movements (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    intervention_id integer,
+    originator_id integer,
+    originator_type character varying,
+    delta numeric(19,4) NOT NULL,
+    population numeric(19,4) NOT NULL,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE products (
+    id integer NOT NULL,
+    type character varying,
+    name character varying NOT NULL,
+    number character varying NOT NULL,
+    variant_id integer NOT NULL,
+    nature_id integer NOT NULL,
+    category_id integer NOT NULL,
+    initial_born_at timestamp without time zone,
+    initial_dead_at timestamp without time zone,
+    initial_container_id integer,
+    initial_owner_id integer,
+    initial_enjoyer_id integer,
+    initial_population numeric(19,4) DEFAULT 0.0,
+    initial_shape postgis.geometry(MultiPolygon,4326),
+    initial_father_id integer,
+    initial_mother_id integer,
+    variety character varying NOT NULL,
+    derivative_of character varying,
+    tracking_id integer,
+    fixed_asset_id integer,
+    born_at timestamp without time zone,
+    dead_at timestamp without time zone,
+    description text,
+    picture_file_name character varying,
+    picture_content_type character varying,
+    picture_file_size integer,
+    picture_updated_at timestamp without time zone,
+    identification_number character varying,
+    work_number character varying,
+    address_id integer,
+    parent_id integer,
+    default_storage_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    person_id integer,
+    initial_geolocation postgis.geometry(Point,4326),
+    uuid uuid,
+    initial_movement_id integer,
+    custom_fields jsonb,
+    team_id integer,
+    member_variant_id integer
+);
+
+
+--
+-- Name: population_movements; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW population_movements AS
+ SELECT product_movements.product_id,
+    product_movements.started_at,
+    product_movements.delta,
+    product_movements.creator_id,
+    product_movements.created_at,
+    product_movements.updater_id,
+    product_movements.updated_at,
+    product_movements.id,
+    product_movements.lock_version
+   FROM product_movements
+UNION ALL
+ SELECT destinations.id AS product_id,
+    merges.merged_at AS started_at,
+    sum(movements.delta) AS delta,
+    merges.creator_id,
+    merges.created_at,
+    merges.updater_id,
+    merges.updated_at,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (((products destinations
+     LEFT JOIN product_mergings merges ON ((merges.merged_with_id = destinations.id)))
+     LEFT JOIN products sources ON ((merges.product_id = sources.id)))
+     LEFT JOIN product_movements movements ON (((movements.product_id = sources.id) AND (movements.started_at <= merges.merged_at))))
+  GROUP BY destinations.id, merges.merged_at, merges.creator_id, merges.created_at, merges.updater_id, merges.updated_at
+UNION ALL
+ SELECT sources.id AS product_id,
+    merges.merged_at AS started_at,
+    (- sum(movements.delta)) AS delta,
+    merges.creator_id,
+    merges.created_at,
+    merges.updater_id,
+    merges.updated_at,
+    max(movements.id) AS id,
+    1 AS lock_version
+   FROM (((products destinations
+     LEFT JOIN product_mergings merges ON ((merges.merged_with_id = destinations.id)))
+     LEFT JOIN products sources ON ((merges.product_id = sources.id)))
+     LEFT JOIN product_movements movements ON (((movements.product_id = sources.id) AND (movements.started_at <= merges.merged_at))))
+  GROUP BY sources.id, merges.merged_at, merges.creator_id, merges.created_at, merges.updater_id, merges.updated_at;
+
+
+--
 -- Name: postal_zones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4754,25 +4894,22 @@ ALTER SEQUENCE product_memberships_id_seq OWNED BY product_memberships.id;
 
 
 --
--- Name: product_movements; Type: TABLE; Schema: public; Owner: -
+-- Name: product_mergings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE TABLE product_movements (
-    id integer NOT NULL,
-    product_id integer NOT NULL,
-    intervention_id integer,
-    originator_id integer,
-    originator_type character varying,
-    delta numeric(19,4) NOT NULL,
-    population numeric(19,4) NOT NULL,
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
+CREATE SEQUENCE product_mergings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_mergings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_mergings_id_seq OWNED BY product_mergings.id;
 
 
 --
@@ -5164,22 +5301,26 @@ ALTER SEQUENCE product_phases_id_seq OWNED BY product_phases.id;
 
 
 --
--- Name: product_populations; Type: TABLE; Schema: public; Owner: -
+-- Name: product_populations; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE TABLE product_populations (
-    product_id integer,
-    started_at timestamp without time zone,
-    value numeric,
-    creator_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    updater_id integer,
-    id integer,
-    lock_version integer
-);
-
-ALTER TABLE ONLY product_populations REPLICA IDENTITY NOTHING;
+CREATE VIEW product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (population_movements movements
+     LEFT JOIN ( SELECT sum(population_movements.delta) AS delta,
+            population_movements.product_id,
+            population_movements.started_at
+           FROM population_movements
+          GROUP BY population_movements.product_id, population_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id, movements.product_id, movements.started_at;
 
 
 --
@@ -5231,58 +5372,6 @@ CREATE SEQUENCE product_readings_id_seq
 --
 
 ALTER SEQUENCE product_readings_id_seq OWNED BY product_readings.id;
-
-
---
--- Name: products; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE products (
-    id integer NOT NULL,
-    type character varying,
-    name character varying NOT NULL,
-    number character varying NOT NULL,
-    variant_id integer NOT NULL,
-    nature_id integer NOT NULL,
-    category_id integer NOT NULL,
-    initial_born_at timestamp without time zone,
-    initial_dead_at timestamp without time zone,
-    initial_container_id integer,
-    initial_owner_id integer,
-    initial_enjoyer_id integer,
-    initial_population numeric(19,4) DEFAULT 0.0,
-    initial_shape postgis.geometry(MultiPolygon,4326),
-    initial_father_id integer,
-    initial_mother_id integer,
-    variety character varying NOT NULL,
-    derivative_of character varying,
-    tracking_id integer,
-    fixed_asset_id integer,
-    born_at timestamp without time zone,
-    dead_at timestamp without time zone,
-    description text,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
-    identification_number character varying,
-    work_number character varying,
-    address_id integer,
-    parent_id integer,
-    default_storage_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    person_id integer,
-    initial_geolocation postgis.geometry(Point,4326),
-    uuid uuid,
-    initial_movement_id integer,
-    custom_fields jsonb,
-    team_id integer,
-    member_variant_id integer
-);
 
 
 --
@@ -7133,6 +7222,13 @@ ALTER TABLE ONLY product_memberships ALTER COLUMN id SET DEFAULT nextval('produc
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY product_mergings ALTER COLUMN id SET DEFAULT nextval('product_mergings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY product_movements ALTER COLUMN id SET DEFAULT nextval('product_movements_id_seq'::regclass);
 
 
@@ -8236,6 +8332,14 @@ ALTER TABLE ONLY product_localizations
 
 ALTER TABLE ONLY product_memberships
     ADD CONSTRAINT product_memberships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_mergings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_mergings
+    ADD CONSTRAINT product_mergings_pkey PRIMARY KEY (id);
 
 
 --
@@ -13839,6 +13943,34 @@ CREATE INDEX index_product_memberships_on_updater_id ON product_memberships USIN
 
 
 --
+-- Name: index_product_mergings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_mergings_on_created_at ON product_mergings USING btree (created_at);
+
+
+--
+-- Name: index_product_mergings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_mergings_on_creator_id ON product_mergings USING btree (creator_id);
+
+
+--
+-- Name: index_product_mergings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_mergings_on_updated_at ON product_mergings USING btree (updated_at);
+
+
+--
+-- Name: index_product_mergings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_mergings_on_updater_id ON product_mergings USING btree (updater_id);
+
+
+--
 -- Name: index_product_movements_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15946,29 +16078,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE RULE "_RETURN" AS
-    ON SELECT TO product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
-
-
---
 -- Name: delete_activities_campaigns; Type: RULE; Schema: public; Owner: -
 --
 
@@ -16006,6 +16115,14 @@ CREATE RULE delete_activity_productions_interventions AS
 
 CREATE RULE delete_campaigns_interventions AS
     ON DELETE TO campaigns_interventions DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_product_movements; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_product_movements AS
+    ON DELETE TO product_movements DO INSTEAD NOTHING;
 
 
 --
@@ -16443,4 +16560,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161122155003');
 INSERT INTO schema_migrations (version) VALUES ('20161122161646');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122203438');
+
+INSERT INTO schema_migrations (version) VALUES ('20161130103917');
+
+INSERT INTO schema_migrations (version) VALUES ('20161205162943');
 
