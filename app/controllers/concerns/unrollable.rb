@@ -18,7 +18,7 @@ module Unrollable
       filters = columns.to_filters
       fill_in = Unrollable::Extracting.fill_in_from(options, filters)
       searchable_filters = Unrollable::Filter.searchables_in(filters, controller_path)
-      order = options[:order] || filters.map(&:name)
+      order = options[:order] || filters.map(&:search)
 
       define_method :unroll do
         scopes = Unrollable::Extracting.scopes_from(params)

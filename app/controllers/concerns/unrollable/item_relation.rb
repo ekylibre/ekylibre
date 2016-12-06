@@ -21,7 +21,7 @@ module Unrollable
 
     def includes(columns)
       includes = columns.to_includes
-      includes.any? ? self : self.class.new(@items.includes(includes).references(includes))
+      includes.any? ? self.class.new(@items.includes(includes).references(includes)) : self
     end
 
     def scoped(scopes, model)
