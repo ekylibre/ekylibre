@@ -87,6 +87,7 @@ ita:
         # invalid_datetime: "%{attribute} is not a valid datetime"
         # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
         # is_at: "%{attribute} must be at %{restriction}"
         less_than: "deve essere minore di %{count}"
         less_than_or_equal_to: "deve essere minore o uguale a %{count}"
