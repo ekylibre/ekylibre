@@ -194,6 +194,11 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     input, select, textarea {
       max-width: 100% - $controls-margin-left;
     }
+    label {
+      input, select, textarea {
+        @include margin-right($fs-normal);
+      }
+    }
     .input-append {
       width: 100%;
     }
@@ -231,7 +236,7 @@ $large-controls-margin-left: round($large-label-width * 1.1);
 
 .input-append {
   @include button-group;
-  .btn {
+  .btn:not(.selector-dropdown) {
     font-size: 0;
     i {
       margin-left: 0;

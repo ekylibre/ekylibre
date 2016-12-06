@@ -63,6 +63,28 @@
 
                 input.attr('data-selector', unrollPath)
 
+    handleMerging: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.handleMerging(form, attrs, subprefix + '_' + id + '_')
+        else
+          if name is 'attributes' and value?
+            # for each attribute
+            v = value['merge_stocks']
+            input = form.find("##{prefix}merge_stocks")
+            wrapper = input.parents('#checkbox-wrapper')
+            if v['with']? && v['with']
+              input.prop('disabled', null)
+              input.show()
+              wrapper.find("#product-name").html(v['with'])
+              wrapper.show()
+            else
+              input.prop('disabled', 'true')
+              input.hide()
+              wrapper.hide()
+
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes
         subprefix = prefix + name
@@ -162,6 +184,7 @@
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
+            E.interventions.handleMerging(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             computing.prop 'state', 'ready'
@@ -210,6 +233,7 @@
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
+      E.interventions.refresh $(this)
 
   # $(document).on "click", '.view-toolbar a', (event) ->
   #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
