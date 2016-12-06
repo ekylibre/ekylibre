@@ -78,7 +78,7 @@ module Unrollable
     end
 
     def unaccented_match(term, pattern)
-      "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent('[!BEGIN!]#{pattern}%')"
+      "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ActiveRecord::Base.sanitize("[!BEGIN!]#{pattern}%")})"
     end
 
     def bad_scope(scope, model)
