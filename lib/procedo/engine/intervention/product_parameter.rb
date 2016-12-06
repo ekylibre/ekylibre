@@ -27,10 +27,13 @@ module Procedo
             end
           end
           if attributes[:assembly_id].present?
-            @assembly = Product.find_by(id: attributes[:assembly_id])
+            @assembly = Product.find_by(id: @attributes[:assembly_id])
           end
           if attributes[:component_id].present?
-            @component = ProductNatureVariantComponent.find_by(id: attributes[:component_id])
+            @component = ProductNatureVariantComponent.find_by(id: @attributes[:component_id])
+          end
+          if attributes[:new_container_id].present?
+            @new_container = Product.find_by(id: @attributes[:new_container_id])
           end
         end
 
@@ -111,6 +114,36 @@ module Procedo
           @component.present?
         end
 
+        def new_container_id
+          @new_container ? @new_container.id : nil
+        end
+
+        def new_container=(record)
+          self.new_container_id = record.id
+        end
+
+        def new_container_id=(id)
+          @new_container = Product.find_by(id: id)
+          impact_dependencies!(:merge_stocks)
+        end
+
+        def new_container?
+          @new_container.present?
+        end
+
+        def merge_stocks
+          @merge_stocks
+        end
+
+        def merge_stocks=(boolean)
+          @merge_stocks = boolean
+          impact_dependencies!(:merge_stocks)
+        end
+
+        def mergeable_with
+          false
+        end
+
         def to_hash
           hash = super
           hash[:product_id] = product_id if product?
@@ -123,11 +156,11 @@ module Procedo
           reference.attributes.each do |attribute|
             next unless attribute.compute_filter?
             hash[:attributes] ||= {}
-            hash[:attributes][attribute.name] ||= {}
-            hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
+            hash[:attributes][attribute.name] ||= attribute.properties_hash
           end
           hash[:assembly_id] = assembly_id if assembly?
           hash[:component_id] = component_id if component?
+          hash[:new_container_id] = new_container_id if new_container?
           hash
         end
 
