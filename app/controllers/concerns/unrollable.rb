@@ -7,13 +7,9 @@ module Unrollable
     def unroll(*args)
       options = Unrollable::Extracting.options_from(args, defaults: true)
 
-      model_name = options[:model] || controller_name
-      model_name = model_name.to_s.classify
-      model      = model_name.constantize
-
       default_scope = options[:scope]
 
-      columns = Unrollable::ColumnList.new(args, model)
+      columns = Unrollable::ColumnList.new(args, controller_name.classify.constantize)
 
       filters = columns.to_filters
       fill_in = Unrollable::Extracting.fill_in_from(options, filters)
@@ -21,6 +17,8 @@ module Unrollable
       order = options[:order] || filters.map(&:search)
 
       define_method :unroll do
+        model_name = controller_name.classify
+        model      = model_name.constantize
         scopes = Unrollable::Extracting.scopes_from(params)
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
