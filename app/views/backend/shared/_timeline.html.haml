@@ -3,7 +3,7 @@
   - timeline.sides.each do |side|
     - if side.new_url?
       %span.timeline-tool{class: "tl-#{side.name}"}
-        = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-#{side.model_name.to_s.dasherize}", title: "actions.backend/#{side.controller_name}.new".t) do
+        = link_to({ controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-#{side.model_name.to_s.dasherize}", title: "actions.backend/#{side.controller_name}.new".t) do
           %i
           -#= "actions.backend/#{side.controller_name}.new".t
   - if timeline.id
