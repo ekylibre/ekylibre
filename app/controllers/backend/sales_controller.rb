@@ -125,7 +125,7 @@ module Backend
       # t.column :undelivered_quantity, :datatype => :decimal
     end
 
-    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: :position, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
+    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: { id: :asc }, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
       # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.column :name, through: :variant
