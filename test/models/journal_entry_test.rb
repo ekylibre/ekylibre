@@ -63,4 +63,25 @@ class JournalEntryTest < ActiveSupport::TestCase
       record = journal.entries.create!(printed_on: journal.closed_on + 1)
     end
   end
+
+  test 'save' do
+    journal = Journal.first
+    assert journal
+    assert journal.valid?
+
+    assert_raise ActiveRecord::RecordInvalid do
+      JournalEntry.create!(journal: journal)
+    end
+
+    entry = JournalEntry.new(journal: journal, printed_on: Date.today)
+    assert entry.valid?
+
+    entry = journal.entries.new(printed_on: Date.today)
+    assert entry.valid?
+
+    Preference.set!(:currency, 'INR')
+    assert_raise JournalEntry::IncompatibleCurrencies do
+      JournalEntry.create!(journal: journal, printed_on: Date.today)
+    end
+  end
 end

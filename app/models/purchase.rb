@@ -172,7 +172,7 @@ class Purchase < Ekylibre::Record::Base
         if tax.intracommunity
           reverse_charge_amount = tax.compute(item.pretax_amount, intracommunity: true).round(precision)
           entry.add_debit(label, account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
-          entry.add_credit(label, intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge)
+          entry.add_credit(label, tax.intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge)
         else
           entry.add_debit(label, account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
         end

@@ -77,7 +77,9 @@ class Tax < Ekylibre::Record::Base
   scope :current, -> { where(active: true).order(:country, :amount) }
 
   before_validation do
-    self.name = short_label if name.blank?
+    if Nomen::TaxNature.find(nature)
+      self.name = short_label if name.blank?
+    end
     self.active = false if active.nil?
     true
   end
