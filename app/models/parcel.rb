@@ -360,6 +360,10 @@ class Parcel < Ekylibre::Record::Base
     super
   end
 
+  def first_available_date
+    given_at || planned_at || prepared_at || in_preparation_at || ordered_at
+  end
+
   class << self
     # Ships parcels. Returns a delivery
     # options:
@@ -413,11 +417,11 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:given_at)
+        end.sort(&:first_available_date)
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last || Time.zone.now
+        planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = SaleNature.actives.first
-          unless journal = Journal.sales.opened_at(planned_at).first
+          unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
           nature = SaleNature.create!(
@@ -468,11 +472,11 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:given_at)
+        end.sort_by(&:first_available_date)
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last
+        planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = PurchaseNature.actives.first
-          unless journal = Journal.purchases.opened_at(planned_at).first
+          unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
           nature = PurchaseNature.create!(
