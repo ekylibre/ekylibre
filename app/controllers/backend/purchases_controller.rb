@@ -86,7 +86,7 @@ module Backend
       t.column :affair_balance, currency: true, hidden: true
     end
 
-    list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+    list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
       # t.action :edit, if: :draft?
       # t.action :destroy, if: :draft?
