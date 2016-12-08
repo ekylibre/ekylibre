@@ -22,7 +22,7 @@ module Unrollable
         scopes = Unrollable::Extracting.scopes_from(params)
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
-        keys = search_term.mb_chars.downcase.normalize.split(/[\\s\\,]+/)
+        keys = search_term.mb_chars.downcase.normalize.split(/[\s\\,]+/)
 
         items = Unrollable::ItemRelation.new(model.send(default_scope))
 
@@ -38,7 +38,7 @@ module Unrollable
 
         kept ||= filtered_items.keeping(params[:id]) unless Unrollable::Toolbelt.true?(params[:keep])
 
-        items = kept || filtered_items.ordered_matches(keys, searchable_filters)
+        items = kept || filtered_items.ordered_matches(keys, searchable_filters, search_term.mb_chars.downcase.normalize)
 
         respond_to do |format|
           data_only_view = items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } }
