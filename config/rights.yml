@@ -1,5 +1,6 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
 #     - "api/v1/intervention_participations#create"
+#     - "api/v1/intervention_targets#show"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -706,6 +707,8 @@ documents:
 entities:
   read:
     actions:
+    - "api/v1/contacts#index"
+    - "api/v1/contacts#picture"
     - "backend/entities#index"
     - "backend/entities#list"
     - "backend/entities#list_event_participations"

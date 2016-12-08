@@ -32,6 +32,8 @@ module Api
         end
       end
 
+      protected
+
       def permitted_params
         params.permit(:last_synchro)
       end
