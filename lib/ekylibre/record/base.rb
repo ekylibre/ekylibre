@@ -94,7 +94,7 @@ module Ekylibre
               thumb: ['64x64>', :jpg],
               identity: ['180x180#', :jpg],
               contact: ['720x720#', :jpg]
-          },
+            },
             convert_options: {
               thumb:    '-background white -gravity center -extent 64x64',
               identity: '-background white -gravity center -extent 180x180',
