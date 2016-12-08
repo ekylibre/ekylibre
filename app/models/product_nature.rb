@@ -344,12 +344,12 @@ class ProductNature < Ekylibre::Record::Base
     # Load a product nature from product nature nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNature.find(reference_name)
-        raise ArgumentError, "The product_nature #{reference_name.inspect} is unknown"
+        raise ArgumentError, "The product nature #{reference_name.inspect} is unknown"
       end
       unless category_item = Nomen::ProductNatureCategory.find(item.category)
         raise ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
       end
-      if !force && nature = ProductNature.find_by(reference_name: reference_name)
+      if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature
       end
       attributes = {
@@ -369,11 +369,12 @@ class ProductNature < Ekylibre::Record::Base
       create!(attributes)
     end
 
-    # Load.all product nature from product nature nomenclature
-    def import_all_from_nomenclature
+    # Load all product nature from product nature nomenclature
+    def load_defaults
       Nomen::ProductNature.find_each do |product_nature|
-        import_from_nomenclature(product_nature)
+        import_from_nomenclature(product_nature.name)
       end
     end
+    alias import_all_from_nomenclature load_defaults
   end
 end

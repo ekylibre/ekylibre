@@ -350,7 +350,6 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
-
   end
 
   def production(at = nil)

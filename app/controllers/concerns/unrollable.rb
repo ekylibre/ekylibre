@@ -7,24 +7,22 @@ module Unrollable
     def unroll(*args)
       options = Unrollable::Extracting.options_from(args, defaults: true)
 
-      model_name = options[:model] || controller_name
-      model_name = model_name.to_s.classify
-      model      = model_name.constantize
-
       default_scope = options[:scope]
 
-      columns = Unrollable::ColumnList.new(args, model)
+      columns = Unrollable::ColumnList.new(args, controller_name.classify.constantize)
 
       filters = columns.to_filters
       fill_in = Unrollable::Extracting.fill_in_from(options, filters)
       searchable_filters = Unrollable::Filter.searchables_in(filters, controller_path)
-      order = options[:order] || filters.map(&:name)
+      order = options[:order] || filters.map(&:search)
 
       define_method :unroll do
+        model_name = controller_name.classify
+        model      = model_name.constantize
         scopes = Unrollable::Extracting.scopes_from(params)
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
-        keys = search_term.mb_chars.downcase.normalize.split(/[\\s\\,]+/)
+        keys = search_term.mb_chars.downcase.normalize.split(/[\s\\,]+/)
 
         items = Unrollable::ItemRelation.new(model.send(default_scope))
 
@@ -43,10 +41,10 @@ module Unrollable
         items = kept || filtered_items.ordered_matches(keys, searchable_filters)
 
         respond_to do |format|
-          data_only_view = items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } }
+          data_only_view = proc { items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path), id: item.id } } }
           format.html { render partial: 'unrolled', locals: { max: options[:max], items: items, fill_in: fill_in, keys: keys, filters: filters, render_partial: options[:partial], search: search_term.capitalize, model_name: model_name }, layout: false }
-          format.json { render json: data_only_view }
-          format.xml  { render xml:  data_only_view }
+          format.json { render json: data_only_view.call }
+          format.xml  { render xml:  data_only_view.call }
         end
       end
     end

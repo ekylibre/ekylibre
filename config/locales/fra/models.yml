@@ -212,6 +212,7 @@ fra:
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
@@ -1018,6 +1019,8 @@ fra:
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
+    intracommunity: "Intracommunautaire"
+    intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
     invitation_accepted_at: "Invitation acceptée à"

@@ -12,7 +12,7 @@
     = f.input(:credited_quantity, wrapper: :nested, input_html: {size: 7, min: 0, max: f.object.credited_quantity, data: {trade_component: "credited_quantity"}})
   %td.decimal
     = f.association(:tax, as: :hidden)
-    = hidden_field_tag("tax_rate", (100 + f.object.tax.amount)/100, data: {value: 'rate', trade_component: "tax"})
+    = hidden_field_tag("tax_rate", (100 + f.object.tax.usable_amount)/100, data: {value: 'rate', trade_component: "tax"})
     %span= f.object.tax.short_label if f.object.tax
     -# = f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
   %td.decimal
