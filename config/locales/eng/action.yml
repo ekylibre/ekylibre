@@ -79,10 +79,6 @@ eng:
       edit: "Edit animal: %{name}"
       index: "Animals"
       # load_animals: "Load animals animal: %{name}"
-      # load_containers: "Load containers animal: %{name}"
-      # load_natures: "Load natures animal: %{name}"
-      # load_production_supports: "Load production supports animal: %{name}"
-      # load_workers: "Load workers animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
@@ -390,6 +386,7 @@ eng:
       new: "New entry"
       show: "Journal entry: %{number}"
     backend/journal_entry_items:
+      index: "Journal entry items"
       new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:
@@ -467,10 +464,8 @@ eng:
       edit: "Edit observation"
       new: "New observation"
     backend/outgoing_payment_lists:
-      # edit: "Edit outgoing payment list: %{name}"
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
-      # new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -494,11 +489,18 @@ eng:
       # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
+    backend/plant_countings:
+      edit: "Edit plant counting #%{number}"
+      index: "Countings"
+      new: "New counting"
+      show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
       # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
+    backend/plant_density_abacus_items:
+      # new: "New plant density abacus item"
     backend/plants:
       edit: "Edit crop: %{name}"
       index: "Crops"
@@ -556,6 +558,17 @@ eng:
       new: "New product"
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
+    backend/purchase_affairs:
+      # attach: "Attach purchase affair: %{name}"
+      # detach: "Detach purchase affair: %{name}"
+      # detach_gaps: "Detach gaps purchase affair: %{name}"
+      # finish: "Finish purchase affair: %{name}"
+      # index: "Purchase affairs"
+      # select: "Select purchase affair: %{name}"
+      # show: "Purchase affair: %{name}"
+    backend/purchase_gaps:
+      # index: "Purchase gaps"
+      # show: "Purchase gap: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -585,8 +598,19 @@ eng:
       new: "New role"
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
+    backend/sale_affairs:
+      # attach: "Attach sale affair: %{name}"
+      # detach: "Detach sale affair: %{name}"
+      # detach_gaps: "Detach gaps sale affair: %{name}"
+      # finish: "Finish sale affair: %{name}"
+      # index: "Sale affairs"
+      # select: "Select sale affair: %{name}"
+      # show: "Sale affair: %{name}"
     backend/sale_credits:
       new: "Cancel sales invoice %{number}"
+    backend/sale_gaps:
+      # index: "Sale gaps"
+      # show: "Sale gap: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -692,6 +716,13 @@ eng:
       # reset: "Reset task: %{name}"
       show: "Task: %{name}"
       # start: "Start task: %{name}"
+    backend/tax_declarations:
+      confirm: "Confirm tax declaration: %{number}"
+      edit: "Edit tax declaration: %{number}"
+      index: "Tax declarations"
+      new: "New tax declaration"
+      propose: "Propose tax declaration: %{number}"
+      show: "Tax declaration: %{number}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -849,9 +880,12 @@ eng:
     activity_productions: "Activity productions"
     add: "Add"
     add_a_worker: "Add a worker"
+    add_animal: "Add animal"
+    add_animal_group: "Add animal group"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
     add_bank_statement: "Add bank statement"
+    add_building_division: "Add building division"
     add_catalog_price: "Add catalog price"
     add_child: "Add a child component"
     add_choice: "Add choice"
@@ -861,7 +895,9 @@ eng:
     add_delivery: "Add delivery"
     add_distribution: "Add distribution"
     add_email: "Add email"
+    add_entrance: "Add entrance"
     add_entry: "Add entry"
+    add_exit: "Add exit"
     add_expense: "Add expense"
     add_fax: "Add fax"
     add_filter: "Add filter"
@@ -917,7 +953,8 @@ eng:
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
-    animal_details: "Animal details" #?
+    animal_details: "Animal details" #?!
+    # animal_management: "Animal management"
     animals: "Animals"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
@@ -936,8 +973,9 @@ eng:
     attachments: "Attachments"
     auto_reconciliate: "Auto reconciliate"
     automatic: "Auto" #?
-    available: "Available" #?
+    available: "Available"
     available_columns: "Available columns: %{columns}"
+    average: "Average"
     back: "Back to the previous page"
     balance: "Balance"
     bank_account: "Bank account"
@@ -983,7 +1021,8 @@ eng:
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
-    choose_creation_mode: "Choose creation mode"
+    choose_creation_mode: "Choose creation mode" #?!
+    choose_delete_interventions_options: "Would you :"
     choose_mail_column: "Choose email column"
     choose_options_is_needed: "You must choose the status for the following interventions:"
     clear: "Clear"
@@ -1027,6 +1066,7 @@ eng:
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
+    create_and_continue: "Create and continue"
     create_journal: "— Create journal —"
     create_or_import_equipments: "Create or import equipment"
     create_or_import_incoming_parcels: "Create or import incoming parcels"
@@ -1045,9 +1085,11 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    currency_conversion_rate: "Currency conversion rate"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
+    currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"
@@ -1067,6 +1109,8 @@ eng:
     deformity_percentage: "Deformity (%)" #?
     deformity_percentage_evolution: "Deformity percentage evolution"
     delete: "Delete"
+    delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
+    delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
@@ -1194,6 +1238,7 @@ eng:
     implanted_at: "Implanted at" #?
     import: "Import"
     importation_explanation: "Importation explanation"
+    in_progress: "In progress" #?
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
@@ -1237,6 +1282,15 @@ eng:
     journal_entries: "Journal's entries" #?
     journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
+    journal_entry_items_with_undeclared_taxes:
+      other: "%{count} journal entry items with undeclared taxes"
+      zero: "%{count} journal entry item with undeclared taxes"
+    journal_entry_items_with_unidentified_expenses:
+      other: "%{count} journal entry items with unidentified expenses"
+      zero: "%{count} journal entry item with unidentified expenses"
+    journal_entry_items_with_unidentified_revenues:
+      other: "%{count} journal entry items with unidentified revenues"
+      zero: "%{count} journal entry item with unidentified revenues"
     journal_name: "%{name}" #?
     journal_view:
       entries: "Entries"
@@ -1294,7 +1348,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
-    missing_attributes: "Some attributes are missing"
+    missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
@@ -1303,15 +1357,15 @@ eng:
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
-    move_animal: "Move animals" #?
+    move_animal: "Move animals" #??
     movements: "Movements"
     name: "Name" #?
     nature: "Type"
-    nature_changed: "Le type des animaux a changé"
+    nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
-    new: "New" #?
+    new: "New"
     new_activity: "New activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
@@ -1332,6 +1386,7 @@ eng:
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
@@ -1364,6 +1419,7 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
+    # observations: "Observations"
     on_account: "On account" #?
     one_condition: "One condition" #??
     open_a_production: "Open a production"
@@ -1405,6 +1461,7 @@ eng:
     # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
     periods: "Periods" #?
+    permanent_stock_inventory: "Permanent stock inventory"
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
@@ -1413,6 +1470,8 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     plant: "Crop"
+    plant_counting: "Counting" #?
+    plant_countings: "Countings" #?
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
@@ -1444,6 +1503,7 @@ eng:
     productions: "Productions"
     products: "Products"
     profile: "Profile"
+    profits_and_losses: "Profits and losses"
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
@@ -1528,7 +1588,7 @@ eng:
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     settings_statistics: "Settings statistics"
-    sex: "Sex"
+    sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
@@ -1571,8 +1631,9 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
+    # tax_declarations: "Tax declarations"
     taxations: "Taxations"
-    taxes: "Taxes" #?
+    taxes: "Taxes"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1595,6 +1656,8 @@ eng:
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
+    to_pay: "To pay"
+    to_reclaim: "To reclaim"
     today: "Today" #?
     tool_cost: "Tool cost"
     tools: "Tools"
@@ -1642,10 +1705,11 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
+    unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices"
+    undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
@@ -1679,6 +1743,7 @@ eng:
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
+    vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
@@ -1696,7 +1761,12 @@ eng:
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-    # x_contracts: "X contracts"
+    x_contracts:
+      one: "%{count} contract"
+      other: "%{count} contracts"
+    x_countings:
+      one: "%{count} counting"
+      other: "%{count} countings"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
@@ -1854,6 +1924,7 @@ eng:
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
+      density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -1907,6 +1978,8 @@ eng:
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
       record_not_found: "Record not found" #?
+      record_x_created: "%{record} %{name} created" #?
+      record_x_updated: "%{record} %{name} updated" #?
       sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entry_items_to_mark_together: "Select entry items to mark together"
       sensor_has_been_fixed: "Sensor %{name} has been fixed"
@@ -1914,7 +1987,15 @@ eng:
       sensor_reading_failed: "Sensor %{name} reading failed: %{message}"
       some_parcels_are_not_shippable: "Some parcels are not shippable"
       subscription_is_not_renewable: "Subscription is not renewable"
+      synchronization_operation_failed: "Operation %{operation_name} failed: %{target} %{message}" #?
+      synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully" #?
+      synchronization_operation_in_progress: "Operation %{operation_name} in progress" #?
+      the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "The automatic lettering cannot be done in accountancy because it was already done by an user"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "The automatic lettering cannot be done in accountancy because some deals are not accounted yet"
+      the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
+      this_service_is_not_activated: "This service is not activated" #?
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
@@ -1936,6 +2017,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    # host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
     permanent_stock_inventory: "Permanent stock inventory mode"
@@ -1996,10 +2078,6 @@ eng:
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
-      # load_containers: "Load containers"
-      # load_natures: "Load natures"
-      # load_production_supports: "Load production supports"
-      # load_workers: "Load workers"
       lock: "Lock"
       lose: "Lose"
       mail: "Mail"
@@ -2075,6 +2153,7 @@ eng:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

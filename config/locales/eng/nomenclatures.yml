@@ -1117,6 +1117,7 @@ eng:
         zw: "Zimbabwe"
       name: "Countries"
       property_natures:
+        # ednotif_eu: "Ednotif eu"
         number: "Number"
     crop_sets:
       items:
@@ -1622,6 +1623,8 @@ eng:
         average_wind_direction: "Average wind direction"
         average_wind_speed: "Average wind speed"
         best_before_period: "Best before period"
+        # birth_date: "Birth date"
+        # birth_farm_number: "Birth farm number"
         boron_concentration: "Boron concentration"
         calcium_concentration: "Calcium concentration"
         calving_ease_index: "Calving ease index"
@@ -1633,6 +1636,8 @@ eng:
         clostridial_spores_concentration: "Clostridial spores concentration"
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
+        # country_code: "Country code"
+        # cpb_filiation_status: "Cpb filiation status"
         cumulated_rainfall: "Cumulated rainfall"
         daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
@@ -1641,12 +1646,21 @@ eng:
         dry_matter_rate: "Dry matter rate"
         easement_area: "Easement area"
         economical_milk_index: "Economical milk index"
+        # end_of_life_witness: "End of life witness"
         energy: "Energy"
+        # entry_date: "Entry date"
+        # entry_reason: "Entry reason"
+        # exit_date: "Exit date"
+        # exit_reason: "Exit reason"
         fat_matter_concentration_index: "Fat matter concentration index"
         fat_matters_concentration: "Fat matters concentration"
+        # father_country_code: "Father country code"
+        # father_identification_number: "Father identification number"
+        # father_race_code: "Father race code"
         fence_perimeter: "Fence perimeter"
         fertility_index: "Fertility index"
         figure: "Figure"
+        # first_calving_date: "First calving date"
         fodder_bales_count: "Fodder bales count"
         freezing_point_temperature: "Freezing point temperature"
         fresh_mass: "Fresh mass"
@@ -1700,6 +1714,9 @@ eng:
         minimal_temperature: "Minimal temperature"
         minimal_wind_speed: "Minimal wind speed"
         molybdenum_concentration: "Molybdenum concentration"
+        # mother_country_code: "Mother country code"
+        # mother_identification_number: "Mother identification number"
+        # mother_race_code: "Mother race code"
         motor_power: "Motor power"
         net_length: "Net length"
         net_mass: "Net mass"
@@ -1711,6 +1728,8 @@ eng:
         nominal_storable_net_mass: "Nominal storable net mass"
         nominal_storable_net_volume: "Nominal storable net volume"
         organic_matter_concentration: "Organic matter concentration"
+        # origin_country_code: "Origin country code"
+        # origin_identification_number: "Origin identification number"
         phosphate_concentration: "Phosphate concentration (P₂O₅)"
         phosphorus_analysis_method: "Phosphorus analysis method"
         phosphorus_concentration: "Phosphorus concentration"
@@ -1771,6 +1790,7 @@ eng:
         width: "Width"
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
+        # witness: "Witness"
         woodstock_variety: "Woodstock variety"
         working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
@@ -4104,6 +4124,7 @@ eng:
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_napus_annua: "Brassica napus annua"       #< brassica_napus
         brassica_napus_napus: "Brassica napus napus"       #< brassica_napus
+        brassica_napus_napus_dk_exalte: "Brassica napus napus dk exalte" #< brassica_napus
         brassica_napus_rapifera: "Rutabaga"                #< brassica_napus
         brassica_nigra: "Black mustard"                    #< brassica
         brassica_oleracea: "Cabbage"                       #< brassica
@@ -6083,14 +6104,17 @@ eng:
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Wheat"                                  #< poaceae
         triticum_aestivum: "Common wheat"                  #< triticum
+        triticum_aestivum_alixan: "Common wheat Alixan"    #< triticum_aestivum
         triticum_aestivum_allies: "Common wheat Alliès"    #< triticum_aestivum
         triticum_aestivum_apache: "Common wheat Apache"    #< triticum_aestivum
-        triticum_aestivum_arezzo: "Common wheat arezzo"    #< triticum_aestivum
+        triticum_aestivum_arezzo: "Common wheat Arezzo"    #< triticum_aestivum
+        triticum_aestivum_as_de_coeur: "Common wheat As de Cœur" #< triticum_aestivum
         triticum_aestivum_ascott: "Common wheat Ascott"    #< triticum_aestivum
         triticum_aestivum_autan: "Common wheat Autan"      #< triticum_aestivum
         triticum_aestivum_automne_rouge_barbu: "Common wheat Automne rouge barbu" #< triticum_aestivum
         triticum_aestivum_autrichien: "Common wheat Autrichien" #< triticum_aestivum
         triticum_aestivum_aztec: "Common wheat Aztec"      #< triticum_aestivum
+        triticum_aestivum_bermude: "Common wheat Bermude"  #< triticum_aestivum
         triticum_aestivum_blanc_de_flandre: "Common wheat Blanc de Flandre" #< triticum_aestivum
         triticum_aestivum_ble_de_crepi: "Common wheat Blé de Crépi" #< triticum_aestivum
         triticum_aestivum_ble_de_redon: "Common wheat Blé de Redon" #< triticum_aestivum
@@ -6128,10 +6152,12 @@ eng:
         triticum_aestivum_later: "Common wheat Later"      #< triticum_aestivum
         triticum_aestivum_levis: "Common wheat Levis"      #< triticum_aestivum
         triticum_aestivum_lona: "Common wheat Lona"        #< triticum_aestivum
+        triticum_aestivum_lyrik: "Common wheat Lyrik"      #< triticum_aestivum
         triticum_aestivum_manital: "Common wheat Manital"  #< triticum_aestivum
         triticum_aestivum_noe: "Common wheat Noé"          #< triticum_aestivum
         triticum_aestivum_nord_desprez: "Common wheat Nord-Desprez" #< triticum_aestivum
         triticum_aestivum_oratorio: "Common wheat Oratorio" #< triticum_aestivum
+        triticum_aestivum_oregrain: "Common wheat Oregrain" #< triticum_aestivum
         triticum_aestivum_picardie_desprez: "Common wheat Picardie-Desprez" #< triticum_aestivum
         triticum_aestivum_poulard_d_australie: "Common wheat Poulard d’Australie" #< triticum_aestivum
         triticum_aestivum_premio: "Common wheat Premio"    #< triticum_aestivum
@@ -6144,17 +6170,21 @@ eng:
         triticum_aestivum_quebon: "Common wheat Quebon"    #< triticum_aestivum
         triticum_aestivum_recital: "Common wheat Recital"  #< triticum_aestivum
         triticum_aestivum_renan: "Common wheat Renan"      #< triticum_aestivum
+        triticum_aestivum_rgt_sacramento: "Common wheat RGT Sacramento" #< triticum_aestivum
         triticum_aestivum_rouge_d_alsace: "Common wheat Rouge d’Alsace (synonyme Rouge d’Altkirch)" #< triticum_aestivum
         triticum_aestivum_rouge_de_bordeaux: "Common wheat Rouge de Bordeaux" #< triticum_aestivum
         triticum_aestivum_roux_des_ardennes: "Common wheat Roux des Ardennes" #< triticum_aestivum
         triticum_aestivum_rubisko: "Common wheat Rubisko"  #< triticum_aestivum
         triticum_aestivum_runal: "Common wheat Runal"      #< triticum_aestivum
+        triticum_aestivum_sherlock: "Common wheat Sherlock" #< triticum_aestivum
         triticum_aestivum_shireff_epis_carres: "Common wheat Shireff à épis carrés (synonyme Shireff squarehead)" #< triticum_aestivum
         triticum_aestivum_soissons: "Common wheat Soissons" #< triticum_aestivum
         triticum_aestivum_tamaro: "Common wheat Tamaro"    #< triticum_aestivum
+        triticum_aestivum_terroir: "Common wheat Terroir"  #< triticum_aestivum
         triticum_aestivum_teverson: "Common wheat Teverson" #< triticum_aestivum
         triticum_aestivum_texel: "Common wheat Texel"      #< triticum_aestivum
         triticum_aestivum_tremie: "Common wheat Tremie"    #< triticum_aestivum
+        triticum_aestivum_triomph: "Common wheat Triomph"  #< triticum_aestivum
         triticum_aestivum_victoria_d_automne: "Common wheat victoria d automne" #< triticum_aestivum
         triticum_aestivum_vilmorin_23: "Common wheat Vilmorin 23" #< triticum_aestivum
         triticum_aestivum_vilmorin_27: "Common wheat Vilmorin 27" #< triticum_aestivum

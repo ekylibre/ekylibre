@@ -28,6 +28,7 @@ module Ekylibre
             work_number: r.code,
             identification_number: r.code,
             initial_born_at: r.born_at,
+            initial_population: 1.0,
             variant: ProductNatureVariant.import_from_nomenclature(r.nature),
             default_storage: BuildingDivision.find_by(work_number: r.place)
           )

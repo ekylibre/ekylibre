@@ -64,4 +64,12 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     assert ProductNatureVariant.items_of_expression('is triticum').any?
     assert ProductNatureVariant.items_of_expression('is triticum or is bos_taurus').any?
   end
+
+  test 'inner sequence' do
+    nature = ProductNature.first
+    v = nature.variants.create!(name: 'Titi', unit_name: 'Piaf')
+    v.destroy
+    v2 = nature.variants.create!(name: 'Gros minet', unit_name: 'Cat')
+    assert v.number != v2.number, 'Numbers should be different'
+  end
 end

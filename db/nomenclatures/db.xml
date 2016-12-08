@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161103111303">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161202083820">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -879,6 +879,7 @@
   </nomenclature>
   <nomenclature name="countries" translateable="true">
     <properties>
+      <property name="ednotif_eu" type="boolean" default="false"/>
       <property name="number" type="string"/>
     </properties>
     <items>
@@ -894,7 +895,7 @@
       <item name="aq"/>
       <item name="ar"/>
       <item name="as"/>
-      <item name="at"/>
+      <item name="at" ednotif_eu="true"/>
       <item name="au"/>
       <item name="aw"/>
       <item name="ax"/>
@@ -902,9 +903,9 @@
       <item name="ba"/>
       <item name="bb"/>
       <item name="bd"/>
-      <item name="be"/>
+      <item name="be" ednotif_eu="true"/>
       <item name="bf"/>
-      <item name="bg"/>
+      <item name="bg" ednotif_eu="true"/>
       <item name="bh"/>
       <item name="bi"/>
       <item name="bj"/>
@@ -924,7 +925,7 @@
       <item name="cd"/>
       <item name="cf"/>
       <item name="cg"/>
-      <item name="ch"/>
+      <item name="ch" ednotif_eu="true"/>
       <item name="ci"/>
       <item name="ck"/>
       <item name="cl"/>
@@ -935,29 +936,29 @@
       <item name="cu"/>
       <item name="cv"/>
       <item name="cx"/>
-      <item name="cy"/>
-      <item name="cz"/>
-      <item name="de"/>
+      <item name="cy" ednotif_eu="true"/>
+      <item name="cz" ednotif_eu="true"/>
+      <item name="de" ednotif_eu="true"/>
       <item name="dj"/>
-      <item name="dk"/>
+      <item name="dk" ednotif_eu="true"/>
       <item name="dm"/>
       <item name="do"/>
       <item name="dz"/>
       <item name="ec"/>
-      <item name="ee"/>
+      <item name="ee" ednotif_eu="true"/>
       <item name="eg"/>
       <item name="eh"/>
       <item name="er"/>
-      <item name="es"/>
+      <item name="es" ednotif_eu="true"/>
       <item name="et"/>
-      <item name="fi"/>
+      <item name="fi" ednotif_eu="true"/>
       <item name="fj"/>
       <item name="fk"/>
       <item name="fm"/>
       <item name="fo"/>
-      <item name="fr"/>
+      <item name="fr" ednotif_eu="true"/>
       <item name="ga"/>
-      <item name="gb"/>
+      <item name="gb" ednotif_eu="true"/>
       <item name="gd"/>
       <item name="ge"/>
       <item name="gf"/>
@@ -969,7 +970,7 @@
       <item name="gn"/>
       <item name="gp"/>
       <item name="gq"/>
-      <item name="gr"/>
+      <item name="gr" ednotif_eu="true"/>
       <item name="gs"/>
       <item name="gt"/>
       <item name="gu"/>
@@ -978,11 +979,11 @@
       <item name="hk"/>
       <item name="hm"/>
       <item name="hn"/>
-      <item name="hr"/>
+      <item name="hr" ednotif_eu="true"/>
       <item name="ht"/>
-      <item name="hu"/>
+      <item name="hu" ednotif_eu="true"/>
       <item name="id"/>
-      <item name="ie"/>
+      <item name="ie" ednotif_eu="true"/>
       <item name="il"/>
       <item name="im"/>
       <item name="in"/>
@@ -990,7 +991,7 @@
       <item name="iq"/>
       <item name="ir"/>
       <item name="is"/>
-      <item name="it"/>
+      <item name="it" ednotif_eu="true"/>
       <item name="je"/>
       <item name="jm"/>
       <item name="jo"/>
@@ -1013,9 +1014,9 @@
       <item name="lk"/>
       <item name="lr"/>
       <item name="ls"/>
-      <item name="lt"/>
-      <item name="lu"/>
-      <item name="lv"/>
+      <item name="lt" ednotif_eu="true"/>
+      <item name="lu" ednotif_eu="true"/>
+      <item name="lv" ednotif_eu="true"/>
       <item name="ly"/>
       <item name="ma"/>
       <item name="mc"/>
@@ -1033,7 +1034,7 @@
       <item name="mq"/>
       <item name="mr"/>
       <item name="ms"/>
-      <item name="mt"/>
+      <item name="mt" ednotif_eu="true"/>
       <item name="mu"/>
       <item name="mv"/>
       <item name="mw"/>
@@ -1046,7 +1047,7 @@
       <item name="nf"/>
       <item name="ng"/>
       <item name="ni"/>
-      <item name="nl"/>
+      <item name="nl" ednotif_eu="true"/>
       <item name="no"/>
       <item name="np"/>
       <item name="nr"/>
@@ -1059,17 +1060,17 @@
       <item name="pg"/>
       <item name="ph"/>
       <item name="pk"/>
-      <item name="pl"/>
+      <item name="pl" ednotif_eu="true"/>
       <item name="pm"/>
       <item name="pn"/>
       <item name="pr"/>
       <item name="ps"/>
-      <item name="pt"/>
+      <item name="pt" ednotif_eu="true"/>
       <item name="pw"/>
       <item name="py"/>
       <item name="qa"/>
       <item name="re"/>
-      <item name="ro"/>
+      <item name="ro" ednotif_eu="true"/>
       <item name="rs"/>
       <item name="ru"/>
       <item name="rw"/>
@@ -1077,12 +1078,12 @@
       <item name="sb"/>
       <item name="sc"/>
       <item name="sd"/>
-      <item name="se"/>
+      <item name="se" ednotif_eu="true"/>
       <item name="sg"/>
       <item name="sh"/>
-      <item name="si"/>
+      <item name="si" ednotif_eu="true"/>
       <item name="sj"/>
-      <item name="sk"/>
+      <item name="sk" ednotif_eu="true"/>
       <item name="sl"/>
       <item name="sm"/>
       <item name="sn"/>
@@ -1608,6 +1609,8 @@
       <item name="average_wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="period"/>
       <item name="average_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="best_before_period" datatype="measure" unit="day"/>
+      <item name="birth_date" datatype="string"/>
+      <item name="birth_farm_number" datatype="string"/>
       <item name="boron_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="calcium_concentration" datatype="measure" unit="mass_percent"/>
       <item name="calving_ease_index" datatype="measure" unit="unity"/>
@@ -1619,6 +1622,8 @@
       <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="consumption_period" datatype="measure" unit="day"/>
       <item name="copper_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="country_code" datatype="string"/>
+      <item name="cpb_filiation_status" datatype="boolean"/>
       <item name="cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
       <item name="daily_average_working_time" datatype="measure" unit="hour"/>
       <item name="daily_nitrogen_production" datatype="measure" unit="kilogram"/>
@@ -1627,12 +1632,21 @@
       <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="economical_milk_index" datatype="measure" unit="unity"/>
+      <item name="end_of_life_witness" datatype="string"/>
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>
+      <item name="entry_date" datatype="string"/>
+      <item name="entry_reason" datatype="string"/>
+      <item name="exit_date" datatype="string"/>
+      <item name="exit_reason" datatype="string"/>
       <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
       <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
+      <item name="father_country_code" datatype="string"/>
+      <item name="father_identification_number" datatype="string"/>
+      <item name="father_race_code" datatype="string"/>
       <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
       <item name="fertility_index" datatype="measure" unit="unity"/>
       <item name="figure" datatype="choice" choices="figures"/>
+      <item name="first_calving_date" datatype="string"/>
       <item name="fodder_bales_count" datatype="integer"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="fresh_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -1686,6 +1700,9 @@
       <item name="minimal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"/>
       <item name="minimal_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="mother_country_code" datatype="string"/>
+      <item name="mother_identification_number" datatype="string"/>
+      <item name="mother_race_code" datatype="string"/>
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
       <item name="net_length" datatype="measure" unit="meter" gathering="proportional_to_population"/>
       <item name="net_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -1697,6 +1714,8 @@
       <item name="nominal_storable_net_mass" datatype="measure" unit="kilogram"/>
       <item name="nominal_storable_net_volume" datatype="measure" unit="liter"/>
       <item name="organic_matter_concentration" datatype="measure" unit="mass_percent"/>
+      <item name="origin_country_code" datatype="string"/>
+      <item name="origin_identification_number" datatype="string"/>
       <item name="phosphate_concentration" datatype="measure" unit="mass_percent"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
       <item name="phosphorus_concentration" datatype="measure" unit="mass_percent"/>
@@ -1757,6 +1776,7 @@
       <item name="width" datatype="measure" unit="meter"/>
       <item name="wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="instant"/>
       <item name="wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="instant"/>
+      <item name="witness" datatype="string"/>
       <item name="woodstock_variety" datatype="choice" choices="varieties"/>
       <item name="working_lifespan" datatype="measure" unit="hour"/>
       <item name="zinc_concentration" datatype="measure" unit="parts_per_million"/>
@@ -3258,7 +3278,7 @@
       <item name="farm_teaching_services" category="farm_teaching_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="fee" category="fee" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="female_adult_cattle_herd" category="cattle_herd" variety="animal_group" derivative_of="bos" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
-      <item name="female_adult_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
+      <item name="female_adult_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat, milk"/>
       <item name="female_adult_goat" category="female_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
       <item name="female_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(animal)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy" frozen_indicators="livestock_unit, reproductor, sex"/>
@@ -3266,7 +3286,7 @@
       <item name="female_adult_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
       <item name="female_adult_sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(oryctolagus)" variable_indicators="net_mass, animal_life_state, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
-      <item name="female_young_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
+      <item name="female_young_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat, milk"/>
       <item name="female_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="female_young_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="fence" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length, height"/>
@@ -3344,14 +3364,14 @@
       <item name="loan_interest" category="loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mail_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="maintenance" category="maintenance" variety="service" population_counting="decimal" variable_indicators=""/>
-      <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat"/>
       <item name="male_adult_goat" category="male_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement)" frozen_indicators="reproductor, sex"/>
       <item name="male_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="livestock_unit, reproductor, sex"/>
       <item name="male_adult_pig" category="male_adult_pig" variety="sus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_adult_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
-      <item name="male_young_cow" category="male_young_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_young_cow" category="male_young_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex, witness, country_code, birth_date, birth_farm_number, cpb_filiation_status, first_calving_date, origin_country_code, origin_identification_number, end_of_life_witness, entry_reason, exit_reason, entry_date, exit_date, mother_country_code, mother_identification_number, mother_race_code, father_country_code, father_identification_number, father_race_code" derivatives="meat"/>
       <item name="male_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="male_young_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="manager" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), manage(worker), milk(mammalia), move, administer_care(animal)" variable_indicators="geolocation" frozen_indicators=""/>
@@ -9552,6 +9572,7 @@
       <item name="brassica_napus" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_napus_annua" parent="brassica_napus" itis_tsn="23060"/>
       <item name="brassica_napus_napus" parent="brassica_napus" itis_tsn="23060"/>
+      <item name="brassica_napus_napus_dk_exalte" parent="brassica_napus"/>
       <item name="brassica_napus_rapifera" parent="brassica_napus" itis_tsn="23062"/>
       <item name="brassica_nigra" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_oleracea" parent="brassica" itis_tsn="23062"/>
@@ -11531,14 +11552,17 @@
       <item name="triticosecale" parent="poaceae" itis_tsn="41455"/>
       <item name="triticum" parent="poaceae" itis_tsn="42236"/>
       <item name="triticum_aestivum" parent="triticum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_alixan" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_allies" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_apache" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_arezzo" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_as_de_coeur" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_ascott" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_autan" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_automne_rouge_barbu" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_autrichien" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_aztec" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_bermude" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_blanc_de_flandre" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_ble_de_crepi" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_ble_de_redon" parent="triticum_aestivum" itis_tsn="42237"/>
@@ -11576,10 +11600,12 @@
       <item name="triticum_aestivum_later" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_levis" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_lona" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_lyrik" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_manital" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_noe" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_nord_desprez" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_oratorio" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_oregrain" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_picardie_desprez" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_poulard_d_australie" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_premio" parent="triticum_aestivum"/>
@@ -11592,17 +11618,21 @@
       <item name="triticum_aestivum_quebon" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_recital" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_renan" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_rgt_sacramento" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_rouge_d_alsace" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_rouge_de_bordeaux" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_roux_des_ardennes" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_rubisko" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_runal" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_sherlock" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_shireff_epis_carres" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_soissons" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_tamaro" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_terroir" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_teverson" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_texel" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_tremie" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_triomph" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_victoria_d_automne" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_vilmorin_23" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_vilmorin_27" parent="triticum_aestivum" itis_tsn="42237"/>

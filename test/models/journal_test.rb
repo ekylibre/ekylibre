@@ -22,20 +22,23 @@
 #
 # == Table: journals
 #
-#  closed_on        :date             not null
-#  code             :string           not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  currency         :string           not null
-#  custom_fields    :jsonb
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  nature           :string           not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  used_for_affairs :boolean          default(FALSE), not null
-#  used_for_gaps    :boolean          default(FALSE), not null
+#  closed_on                          :date             not null
+#  code                               :string           not null
+#  created_at                         :datetime         not null
+#  creator_id                         :integer
+#  currency                           :string           not null
+#  custom_fields                      :jsonb
+#  id                                 :integer          not null, primary key
+#  lock_version                       :integer          default(0), not null
+#  name                               :string           not null
+#  nature                             :string           not null
+#  updated_at                         :datetime         not null
+#  updater_id                         :integer
+#  used_for_affairs                   :boolean          default(FALSE), not null
+#  used_for_gaps                      :boolean          default(FALSE), not null
+#  used_for_permanent_stock_inventory :boolean          default(FALSE), not null
+#  used_for_tax_declarations          :boolean          default(FALSE), not null
+#  used_for_unbilled_payables         :boolean          default(FALSE), not null
 #
 
 require 'test_helper'

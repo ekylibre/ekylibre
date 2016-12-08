@@ -18,7 +18,7 @@
 
 module Backend
   class OutgoingPaymentListsController < Backend::BaseController
-    manage_restfully
+    manage_restfully only: [:show, :index, :destroy]
 
     list do |t|
       t.action :destroy, if: :destroyable?
@@ -38,9 +38,9 @@ module Backend
       t.column :mode
       t.column :bank_check_number
       t.column :to_bank_at
-      t.column :work_name, through: :affair, label: :affair_number, url: true
+      t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
-      t.column :main_bank_statement_number, through: :journal_entry, label: :bank_statement_number, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statement.first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
 
     def export_to_sepa

@@ -107,14 +107,13 @@ class PurchaseItem < Ekylibre::Record::Base
     self.reduction_percentage ||= 0
 
     if tax && unit_pretax_amount
-      item = Nomen::Currency.find(currency)
-      precision = item ? item.precision : 2
-      self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      self.unit_amount = tax.amount_of(unit_pretax_amount)
       if pretax_amount.nil? || pretax_amount.zero?
-        self.pretax_amount = (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+        self.pretax_amount = (unit_pretax_amount * self.quantity * reduction_coefficient).round(precision)
       end
       if amount.nil? || amount.zero?
-        self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+        self.amount = tax.amount_of(pretax_amount).round(precision)
       end
     end
 
@@ -156,14 +155,22 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      for usage in [:stock, :purchase]
+      [:stock, :purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        unless catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
+               unit_pretax_amount.blank? || unit_pretax_amount.zero?
+          variant.catalog_items.create!(
+            catalog: catalog,
+            amount: unit_pretax_amount, currency: currency
+          )
         end
       end
     end
+  end
+
+  def reduction_coefficient
+    (100.0 - reduction_percentage) / 100.0
   end
 
   def product_name

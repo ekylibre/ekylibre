@@ -1,0 +1,30 @@
+= f.object.errors.full_messages if f.object.errors.any? && Rails.env.development?
+= field_set class: 'delivery-item' do
+  = f.input :nature, as: :radio_buttons
+  = f.input :read_at
+  = f.input :working_width_value, wrapper: :append do
+    - placeholder = f.object.density_computable? ? f.object.indicator_working_width.to_d(:meter).to_s : nil
+    = f.input_field :working_width_value, placeholder: placeholder
+    %span.add-on= Nomen::Unit[:meter].l
+  - placeholder = f.object.density_computable? ? f.object.indicator_rows_count.to_s : nil
+  = f.input :rows_count_value, placeholder: placeholder
+  = f.input :sampling_length, wrapper: :append do
+    = f.input_field :sampling_length, value: 1, disabled: true
+    %span.add-on= f.object.sampling_length.nomenclature_unit.l
+  = f.referenced_association :plant_density_abacus_item, source: { plant_density_abacus_id: f.object.plant_density_abacus }
+  = f.input :comment, as: :text
+
+  = f.referenced_association :plant, as: :hidden
+  = f.referenced_association :plant_density_abacus, as: :hidden
+
+= field_set f.object.class.human_attribute_name(:items) do
+  %table
+    %thead
+      %th= PlantCountingItem.model_name.human
+      %th= PlantCountingItem.human_attribute_name(:value)
+    %tbody.numbering-root#items-anchor
+      = f.simple_fields_for :items, f.object.items.order(:id) do |item|
+        = render 'item_fields', f: item
+    %tfoot
+      %tr
+        %td{colspan: 3}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items-anchor', 'data-association-insertion-method' => :append, class: 'btn primary'

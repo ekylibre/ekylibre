@@ -1,14 +1,13 @@
 module Ekylibre
   module Record
+    class RecordInvalid < ActiveRecord::RecordNotSaved
+    end
+
     class Scope < Struct.new(:name, :arity)
     end
 
     class Base < ActiveRecord::Base
       self.abstract_class = true
-
-      cattr_accessor :scopes do
-        []
-      end
 
       # Replaces old module: ActiveRecord::Acts::Tree
       # include ActsAsTree
@@ -76,9 +75,17 @@ module Ekylibre
         self.class.where(id: id, lock_version: lock_version).empty?
       end
 
-      @@readonly_counter = 0
+      def unsuppress
+        yield
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.info e.inspect
+        raise Ekylibre::Record::RecordInvalid.new(e.message, e.record)
+      end
 
       class << self
+        attr_accessor :scopes
+        attr_accessor :readonly_counter
+
         def has_picture(options = {})
           default_options = {
             url: '/backend/:class/:id/picture/:style',
@@ -109,6 +116,7 @@ module Ekylibre
 
         # Permits to consider something and something_id like the same
         def scope_with_registration(name, body, &block)
+          self.scopes ||= []
           # Check body.is_a?(Relation) to prevent the relation actually being
           # loaded by respond_to?
           if body.is_a?(::ActiveRecord::Relation) || !body.respond_to?(:call)
@@ -124,7 +132,7 @@ module Ekylibre
                   rescue
                     0
                   end
-          scopes << Scope.new(name.to_sym, arity)
+          self.scopes << Scope.new(name.to_sym, arity)
           scope_without_registration(name, body, &block)
         end
         alias_method_chain :scope, :registration
@@ -195,7 +203,8 @@ module Ekylibre
           if options[:if].is_a?(Symbol)
             method_name = options[:if]
           else
-            method_name = "readonly_#{@@readonly_counter += 1}?"
+            self.readonly_counter ||= 0
+            method_name = "readonly_#{self.readonly_counter += 1}?"
             send(:define_method, method_name, options[:if])
           end
           code = ''

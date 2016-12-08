@@ -6,14 +6,15 @@
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
           %i
+    %td= f.object.parcel_items.map(&:parcel).map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
     %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
-    %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+    %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
     %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
-    %td.decimal{class: "pta", data: {trade_component: "pretax_amount"}}= f.object.pretax_amount.l
-    %td.decimal{class: "wta", data: {trade_component: "amount"}}= f.object.amount.l
-    -# %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
+    -#%td.decimal{class: "pta", data: {trade_component: "pretax_amount"}}= f.object.pretax_amount.l
+    %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
     -# %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}})
+    %td.decimal{class: "wta", data: {trade_component: "amount"}}= f.object.amount.l
     %td.currency= f.object.sale_currency
     %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 

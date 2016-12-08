@@ -4,14 +4,22 @@ module Procedo
     class Setter < Procedo::Procedure::Field
       code_trees :condition, root: 'boolean_expression'
       code_trees :default_value
+      code_trees :compute_filter
 
       attr_reader :computations
+      attr_accessor :computed_filter, :filter
 
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
         @hidden = !!options[:hidden]
         self.default_value = options[:default_value]
         self.condition = options[:if]
+
+        if options[:compute_filter]
+          self.compute_filter = options[:compute_filter]
+        end
+        @filter = options[:filter]
+
         @computations = []
       end
 
@@ -32,6 +40,14 @@ module Procedo
 
       def add_computation(expression, destinations, options = {})
         @computations << Procedo::Procedure::Computation.new(@parameter, expression, options.merge(expression: expression, destinations: destinations))
+      end
+
+      # Returns scope hash for unroll
+      def scope_hash
+        hash = {}
+        hash[:of_expression] = @filter unless @filter.nil?
+        hash[:of_expression] = @computed_filter unless @computed_filter.nil?
+        hash
       end
     end
   end

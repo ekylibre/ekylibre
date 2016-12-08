@@ -22,35 +22,35 @@
 #
 # == Table: purchases
 #
-#  accounted_at                     :datetime
-#  affair_id                        :integer
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  confirmed_at                     :datetime
-#  contract_id                      :integer
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  currency                         :string           not null
-#  custom_fields                    :jsonb
-#  delivery_address_id              :integer
-#  description                      :text
-#  id                               :integer          not null, primary key
-#  invoiced_at                      :datetime
-#  journal_entry_id                 :integer
-#  lock_version                     :integer          default(0), not null
-#  nature_id                        :integer
-#  number                           :string           not null
-#  payment_at                       :datetime
-#  payment_delay                    :string
-#  planned_at                       :datetime
-#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_entry_id :integer
-#  reference_number                 :string
-#  responsible_id                   :integer
-#  state                            :string
-#  supplier_id                      :integer          not null
-#  undelivered_invoice_entry_id     :integer
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  accounted_at                             :datetime
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  confirmed_at                             :datetime
+#  contract_id                              :integer
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  id                                       :integer          not null, primary key
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string
+#  planned_at                               :datetime
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string
+#  supplier_id                              :integer          not null
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 
 require 'test_helper'
@@ -63,7 +63,7 @@ class PurchaseTest < ActiveSupport::TestCase
     supplier = Entity.where(supplier: true).first
     assert supplier
     purchase = Purchase.create!(nature: nature, supplier: supplier)
-    5.times do |index|
+    3.times do |index|
       variant = ProductNatureVariant.all.sample
       tax = Tax.find_by(amount: 20)
       quantity = index + 1
@@ -73,6 +73,22 @@ class PurchaseTest < ActiveSupport::TestCase
       assert_equal(quantity * 120, item.amount, "Item amount should be #{quantity * 120}. Got #{item.amount.inspect}")
       assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount}"
     end
+    2.times do |index|
+      variant = ProductNatureVariant.all.sample
+      tax = Tax.create_with(
+        collect_account: Account.find_or_create_by_number('4566'),
+        deduction_account: Account.find_or_create_by_number('4567'),
+        intracommunity_payable_account: Account.find_or_create_by_number('4452'),
+        country: :fr
+      ).find_or_create_by!(amount: 20, intracommunity: true, nature: :normal_vat)
+      quantity = index + 1
+      item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: tax, quantity: quantity)
+      item.save!
+      assert_equal(quantity * 100, item.pretax_amount, "Item pre-tax amount should be #{quantity * 100}. Got #{item.pretax_amount.inspect}")
+      assert_equal(quantity * 100, item.amount, "Item amount should be #{quantity * 100}. Got #{item.amount.inspect}")
+      assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount}"
+    end
+
     assert_equal 5, purchase.items.count
 
     variant = ProductNatureVariant.all.sample

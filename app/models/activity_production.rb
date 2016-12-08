@@ -221,10 +221,10 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def initialize_land_parcel_support!
-    support_shape ||= cultivable_zone.shape if cultivable_zone
+    self.support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
-      if support_shape
-        land_parcels = LandParcel.shape_matching(support_shape)
+      if self.support_shape
+        land_parcels = LandParcel.shape_matching(self.support_shape)
                                  .where.not(id: ActivityProduction.select(:support_id))
                                  .order(:id)
         self.support = land_parcels.first if land_parcels.any?
@@ -232,14 +232,14 @@ class ActivityProduction < Ekylibre::Record::Base
       self.support ||= LandParcel.new
     end
     support.name = computed_support_name
-    support.initial_shape = support_shape
+    support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
     support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
     support.save!
     reading = support.first_reading(:shape)
     if reading
-      reading.value = support_shape
+      reading.value = self.support_shape
       reading.save!
     end
     self.size = support_shape_area.in(size_unit_name)

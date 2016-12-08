@@ -48,7 +48,7 @@ module Ekylibre
           if Preference.reference[key]
             Preference.set!(key, value)
           else
-            raise "Unknown preference: #{key}"
+            Rails.logger.warn "Unknown preference: #{key}"
           end
         end
       end

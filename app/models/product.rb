@@ -47,6 +47,7 @@
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
+#  member_variant_id     :integer
 #  name                  :string           not null
 #  nature_id             :integer          not null
 #  number                :string           not null
@@ -130,6 +131,7 @@ class Product < Ekylibre::Record::Base
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
+  belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
@@ -216,6 +218,20 @@ class Product < Ekylibre::Record::Base
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
+  scope :availables, ->(**args) {
+    at = args[:at]
+    return available if at.blank?
+    if at.is_a?(String)
+      if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      else
+        logger.warn('Cannot parse: ' + at)
+        available
+      end
+    else
+      available.at(at)
+    end
+  }
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
@@ -334,21 +350,6 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
-
-    def availables(**args)
-      at = args[:at]
-      return available if at.blank?
-      if at.is_a?(String)
-        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
-          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
-        else
-          logger.warn('Cannot parse: ' + at)
-          available
-        end
-      else
-        available.at(at)
-      end
-    end
   end
 
   def production(at = nil)
@@ -417,7 +418,7 @@ class Product < Ekylibre::Record::Base
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
       movement.product = self
-      movement.delta = initial_population
+      movement.delta = !initial_population && variant.population_counting_unitary? ? 1 : initial_population
       movement.started_at = born_at
       movement.save!
       update_column(:initial_movement_id, movement.id)

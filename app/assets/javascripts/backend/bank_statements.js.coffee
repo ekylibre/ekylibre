@@ -294,14 +294,15 @@
 
     _areLineValidForReconciliation: (lines) ->
       return false unless lines.length
+      precision = parseInt(lines.closest("*[data-currency-precision]").data('currency-precision'))
       journalEntryItems = lines.filter(".journal-entry-item-type")
       journalEntryItemsDebit = journalEntryItems.find(".debit").sum()
       journalEntryItemsCredit = journalEntryItems.find(".credit").sum()
-      journalEntryItemsBalance = journalEntryItemsDebit - journalEntryItemsCredit
+      journalEntryItemsBalance = Math.round((journalEntryItemsDebit - journalEntryItemsCredit) * Math.pow(10, precision))
       bankStatementItems = lines.filter(".bank-statement-item-type")
       bankStatementItemsDebit = bankStatementItems.find(".debit").sum()
       bankStatementItemsCredit = bankStatementItems.find(".credit").sum()
-      bankStatementItemsBalance = bankStatementItemsDebit - bankStatementItemsCredit
+      bankStatementItemsBalance = Math.round((bankStatementItemsDebit - bankStatementItemsCredit) * Math.pow(10, precision))
       journalEntryItemsBalance is -bankStatementItemsBalance
 
     _clearLinesWithReconciliationLetter: (letter) ->

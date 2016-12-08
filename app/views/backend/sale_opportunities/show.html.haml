@@ -50,7 +50,7 @@
   - j.face :cobbles do
     = cobbles do |c|
       - c.cobble :deals do
-        = render "show", affair: resource, current_deal: nil
+        = affair_deals(resource)
       - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
         = cobble_toolbar do |t|
           = t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})

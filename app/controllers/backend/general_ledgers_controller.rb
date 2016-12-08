@@ -50,7 +50,6 @@ module Backend
       t.column :cumulated_absolute_credit, currency: :absolute_currency
     end
 
-    def show
-    end
+    def show; end
   end
 end
