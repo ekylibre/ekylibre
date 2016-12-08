@@ -43,13 +43,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   acts_as_numbered
 
   protect(on: :destroy) do
-    payments
-      .includes(journal_entry: :items)
-      .map(&:journal_entry)
-      .flatten
-      .map(&:items)
-      .flatten
-      .any? { |i| i.bank_statement_letter.present? }
+    JournalEntryItem.where(entry_id: payments.select(:entry_id)).where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
   def mode

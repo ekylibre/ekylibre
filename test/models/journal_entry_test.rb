@@ -43,6 +43,7 @@
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
 #  real_debit         :decimal(19, 4)   default(0.0), not null
 #  resource_id        :integer
+#  resource_prism     :string
 #  resource_type      :string
 #  state              :string           not null
 #  updated_at         :datetime         not null
@@ -60,6 +61,27 @@ class JournalEntryTest < ActiveSupport::TestCase
     end
     assert_nothing_raised do
       record = journal.entries.create!(printed_on: journal.closed_on + 1)
+    end
+  end
+
+  test 'save' do
+    journal = Journal.first
+    assert journal
+    assert journal.valid?
+
+    assert_raise ActiveRecord::RecordInvalid do
+      JournalEntry.create!(journal: journal)
+    end
+
+    entry = JournalEntry.new(journal: journal, printed_on: Date.today)
+    assert entry.valid?
+
+    entry = journal.entries.new(printed_on: Date.today)
+    assert entry.valid?
+
+    Preference.set!(:currency, 'INR')
+    assert_raise JournalEntry::IncompatibleCurrencies do
+      JournalEntry.create!(journal: journal, printed_on: Date.today)
     end
   end
 end

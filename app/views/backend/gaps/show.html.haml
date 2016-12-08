@@ -3,10 +3,12 @@
     = attributes_list do |l|
       - l.attribute :entity, url: true
       - l.attribute :direction
-      - l.attribute :entity_role
       - l.attribute :amount, currency: true
       - l.attribute :affair, url: true
       - l.attribute :journal_entry, url: true
 
   - c.cobble :items do
     = cobble_list :items
+
+  - c.cobble :deals do
+    = affair_of(resource)

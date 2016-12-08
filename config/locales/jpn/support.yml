@@ -60,6 +60,7 @@ jpn:
     periods:
       day: "日"
       month: "月"
+      today: "今日"
       week: "週間"
       year: "年"
     relative_distance_in_words:

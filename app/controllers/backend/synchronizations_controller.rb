@@ -18,8 +18,7 @@
 
 module Backend
   class SynchronizationsController < Backend::BaseController
-    def index
-    end
+    def index; end
 
     def run
       cooperative_cartodb if params[:id] == 'cooperative_cartodb'

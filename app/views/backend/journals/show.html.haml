@@ -42,8 +42,8 @@
         - if resource.currency != absolute_currency
           %tr.important.total
             %th= :total.tl
-            %td.decimal= JournalEntry.where(conditions).sum(:debit).l(currency: absolute_currency)
-            %td.decimal= JournalEntry.where(conditions).sum(:credit).l(currency: absolute_currency)
+            %td.decimal= JournalEntry.where(conditions).sum(:absolute_debit).l(currency: absolute_currency)
+            %td.decimal= JournalEntry.where(conditions).sum(:absolute_credit).l(currency: absolute_currency)
         - if totals[:real_balance_debit] != totals[:real_balance_credit]
           %tr.important.total
             %th= :balance.tl

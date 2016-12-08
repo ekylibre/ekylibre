@@ -97,7 +97,7 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bootstrap3-datetimepicker-rails (4.17.42)
+    bootstrap3-datetimepicker-rails (4.17.43)
       momentjs-rails (>= 2.8.1)
     browser (2.3.0)
     builder (3.2.2)
@@ -133,14 +133,14 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.10.0)
+    coffee-script-source (1.11.1)
     colored (1.2)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.1)
-    coveralls (0.8.15)
+    coveralls (0.8.16)
       json (>= 1.8, < 3)
       simplecov (~> 0.12.0)
-      term-ansicolor (~> 1.3)
+      term-ansicolor (~> 1.3.0)
       thor (~> 0.19.1)
       tins (>= 1.6.0, < 2)
     daemons (1.2.4)
@@ -160,12 +160,12 @@ GEM
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
     docile (1.1.5)
-    domain_name (0.5.20161021)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     enumerize (2.0.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    eventmachine (1.2.0.1)
+    eventmachine (1.2.1)
     exception_notification (4.2.1)
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
@@ -209,7 +209,7 @@ GEM
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
-    jbuilder (2.6.0)
+    jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jc-validates_timeliness (3.1.1)
@@ -223,7 +223,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (5.0.5)
+    jquery-ui-rails (6.0.0)
       railties (>= 3.2.16)
     json (1.8.3)
     jwt (1.5.6)
@@ -235,7 +235,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    libv8 (3.16.14.15)
+    libv8 (3.16.14.17)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -296,7 +296,7 @@ GEM
     paperclip-document (0.0.10)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 5.2)
-    parser (2.3.1.4)
+    parser (2.3.3.0)
       ast (~> 2.2)
     pg (0.19.0)
     polyglot (0.3.5)
@@ -306,7 +306,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.4.0)
+    pry-byebug (3.4.1)
       byebug (~> 9.0)
       pry (~> 0.10)
     pry-inline (1.0.2)
@@ -358,7 +358,7 @@ GEM
     raindrops (0.17.0)
     rake (11.3.0)
     rdoc (4.3.0)
-    redis (3.3.1)
+    redis (3.3.2)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
@@ -390,7 +390,7 @@ GEM
     roo (2.5.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
-    rubocop (0.45.0)
+    rubocop (0.46.0)
       parser (>= 2.3.1.1, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
@@ -419,7 +419,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.0.1)
+    selenium-webdriver (3.0.3)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -429,7 +429,7 @@ GEM
       iban-tools
     sexp_processor (4.7.0)
     shoulda-context (1.2.2)
-    sidekiq (4.2.6)
+    sidekiq (4.2.7)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
@@ -441,7 +441,7 @@ GEM
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
-    simple_calendar (2.2.0)
+    simple_calendar (2.2.2)
       rails (>= 3.0)
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
@@ -467,7 +467,7 @@ GEM
       railties (>= 3.2.5, < 6)
     teaspoon-jasmine (2.3.4)
       teaspoon (>= 1.0.0)
-    term-ansicolor (1.4.0)
+    term-ansicolor (1.3.2)
       tins (~> 1.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -476,12 +476,12 @@ GEM
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
-    thor (0.19.1)
+    thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
     timecop (0.8.1)
     timeliness (0.3.8)
-    tins (1.12.0)
+    tins (1.13.0)
     treetop (1.6.8)
       polyglot (~> 0.3)
     turbolinks (2.5.3)
@@ -492,7 +492,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.3)
+    uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -574,6 +574,7 @@ DEPENDENCIES
   letter_opener
   luhn
   mechanize
+  minitest (~> 5.9.1)
   minitest-reporters
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.6.0)
@@ -599,6 +600,7 @@ DEPENDENCIES
   rubocop
   rubyntlm (>= 0.3.2)
   rubyzip
+  rufus-scheduler (~> 3.2.0)
   sass-rails (~> 5.0)
   savon
   sdoc (~> 0.4.0)
@@ -623,6 +625,9 @@ DEPENDENCIES
   unicorn
   uuidtools
   web-console (~> 3.0)
+
+RUBY VERSION
+   ruby 2.2.3p173
 
 BUNDLED WITH
    1.13.6

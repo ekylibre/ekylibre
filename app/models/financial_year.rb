@@ -22,20 +22,22 @@
 #
 # == Table: financial_years
 #
-#  closed                :boolean          default(FALSE), not null
-#  code                  :string           not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  currency              :string           not null
-#  currency_precision    :integer
-#  custom_fields         :jsonb
-#  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer
-#  lock_version          :integer          default(0), not null
-#  started_on            :date             not null
-#  stopped_on            :date             not null
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  closed                    :boolean          default(FALSE), not null
+#  code                      :string           not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  currency                  :string           not null
+#  currency_precision        :integer
+#  custom_fields             :jsonb
+#  id                        :integer          not null, primary key
+#  last_journal_entry_id     :integer
+#  lock_version              :integer          default(0), not null
+#  started_on                :date             not null
+#  stopped_on                :date             not null
+#  tax_declaration_frequency :string
+#  tax_declaration_mode      :string           not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 class FinancialYear < Ekylibre::Record::Base
@@ -43,27 +45,37 @@ class FinancialYear < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
   refers_to :currency
+  enumerize :tax_declaration_frequency, in: [:monthly, :quaterly, :yearly, :none], default: :monthly, predicates: { prefix: true }
+  enumerize :tax_declaration_mode, in: [:debit, :payment, :none], default: :none, predicates: { prefix: true }
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
-  has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
-  has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
+  has_many :account_balances, dependent: :delete_all
+  has_many :fixed_asset_depreciations, dependent: :restrict_with_exception
+  has_many :inventories, dependent: :restrict_with_exception
+  has_many :journal_entries, dependent: :restrict_with_exception
+  has_many :tax_declarations, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
   validates :code, presence: true, length: { maximum: 500 }
-  validates :currency, presence: true
+  validates :currency, :tax_declaration_mode, presence: true
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
-  validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :code, length: { allow_nil: true, maximum: 20 }
-  validates :code, uniqueness: true
-  validates :currency, presence: true
+  validates :currency, presence: true, length: { allow_nil: true, maximum: 3 }
+  validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }
+  validates :tax_declaration_frequency, presence: { unless: :tax_declaration_mode_none? }
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
   scope :closed, -> { where(closed: true).reorder(:started_on) }
   scope :opened, -> { where(closed: false).reorder(:started_on) }
   scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
+  scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
+
+  protect on: :destroy do
+    fixed_asset_depreciations.any? || tax_declarations.any? || journal_entries.any? ||
+      inventories.any?
+  end
 
   class << self
     # Find or create if possible the requested financial year for the searched date
@@ -144,6 +156,38 @@ class FinancialYear < Ekylibre::Record::Base
 
   def name
     code
+  end
+
+  def next_tax_declaration_on
+    if tax_declarations.any?
+      tax_declarations.order(stopped_on: :desc).first.stopped_on + 1
+    else
+      started_on
+    end
+  end
+
+  def tax_declaration_frequency_duration
+    if tax_declaration_frequency == :monthly
+      1.month
+    elsif tax_declaration_frequency == :quaterly
+      3.months
+    elsif tax_declaration_frequency == :yearly
+      12.months
+    elsif tax_declaration_frequency == :none
+      nil
+    end
+  end
+
+  def tax_declaration_end_date(from_on)
+    if tax_declaration_frequency == :monthly
+      from_on.end_of_month
+    elsif tax_declaration_frequency == :quaterly
+      from_on.end_of_quarter
+    elsif tax_declaration_frequency == :yearly
+      from_on.end_of_year
+    elsif tax_declaration_frequency == :none
+      nil
+    end
   end
 
   def default_code

@@ -122,9 +122,9 @@ class SaleItem < Ekylibre::Record::Base
         self.pretax_amount = nil
         self.amount = nil
       end
-      self.unit_amount   ||= unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      self.pretax_amount ||= (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
-      self.amount        ||= (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      self.unit_amount   ||= tax.amount_of(unit_pretax_amount)
+      self.pretax_amount ||= (unit_pretax_amount * quantity * reduction_coefficient).round(precision)
+      self.amount        ||= tax.amount_of(pretax_amount).round(precision)
     end
 
     if variant
@@ -134,7 +134,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:quantity, :invalid) if quantity.zero?
+    errors.add(:quantity, :invalid) if quantity && quantity.zero?
     # TODO: validates responsible can make reduction and reduction percentage is convenient
   end
 
@@ -152,6 +152,10 @@ class SaleItem < Ekylibre::Record::Base
 
   protect(on: :update) do
     !sale.draft?
+  end
+
+  def reduction_coefficient
+    (100.0 - reduction_percentage) / 100.0
   end
 
   def undelivered_quantity

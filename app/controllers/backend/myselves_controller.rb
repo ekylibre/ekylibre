@@ -20,8 +20,7 @@ module Backend
   class MyselvesController < Backend::BaseController
     before_action :find_resource
 
-    def show
-    end
+    def show; end
 
     def update
       permitted_params = params.require(:user).permit(:first_name, :last_name, :language, :theme)

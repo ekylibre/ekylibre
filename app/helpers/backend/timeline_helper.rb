@@ -34,6 +34,7 @@ module Backend
           @label = options[:label]
           @new = !options[:new].is_a?(FalseClass)
           @params = options[:params] || {}
+          @params.update(options[:new]) if options[:new].is_a?(Hash)
           @authorization_proc = options[:if]
         end
 

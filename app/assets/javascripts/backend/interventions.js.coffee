@@ -181,7 +181,7 @@
   $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
-    $('#parameters *[data-intervention-updater]').each ->
+    $('#working-periods *[data-intervention-updater]').each ->
       E.interventions.refresh $(this),
         success: (stat, status, request) ->
           E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())
@@ -211,13 +211,13 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  $(document).on "click", '.view-toolbar a', (event) ->
-    E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
+  # $(document).on "click", '.view-toolbar a', (event) ->
+  #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
 
 
   $(document).ready ->
 
-    E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
+    # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
     if $('.taskboard').length > 0
 
@@ -336,6 +336,9 @@
           }
         }
         success: (data, status, request) ->
+
+          interventionsIds.forEach (intervention_id) ->
+            $('#interventions-list tr[id*="'+intervention_id+'"]').remove()
 
           selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
           selectedTasks.remove()

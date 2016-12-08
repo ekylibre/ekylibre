@@ -509,6 +509,7 @@ accounts_037:
   debtor: false
   id: 203
   label: 401EI00000001 - Taurus Plus
+  last_letter: A
   lock_version: 0
   name: Taurus Plus
   number: 401EI00000001
@@ -2965,6 +2966,7 @@ accounts_226:
   debtor: false
   id: 572
   label: 411P00000004 - Περικλῆς
+  last_letter: A
   lock_version: 0
   name: "Περικλῆς"
   number: 411P00000004
@@ -4068,3 +4070,99 @@ accounts_324:
   reconcilable: false
   updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: plant_medicine_stocks_variation
+accounts_325:
+  created_at: 2016-11-20 22:10:17.285394000 Z
+  creator_id: 1
+  debtor: false
+  id: 671
+  label: 411193 - M. Gendo IKARI
+  last_letter: B
+  lock_version: 0
+  name: M. Gendo IKARI
+  number: '411193'
+  reconcilable: true
+  updated_at: 2016-11-20 22:10:17.285394000 Z
+  updater_id: 1
+accounts_326:
+  created_at: 2016-11-20 22:12:15.511964000 Z
+  creator_id: 1
+  debtor: false
+  id: 672
+  label: 411196 - Mohandas Karamchand Gandhi
+  last_letter: A
+  lock_version: 0
+  name: Mohandas Karamchand Gandhi
+  number: '411196'
+  reconcilable: true
+  updated_at: 2016-11-20 22:12:15.511964000 Z
+  updater_id: 1
+accounts_327:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 673
+  label: 70100000035 – Zone accueillant des animaux
+  lock_version: 0
+  name: 701 – Zone accueillant des animaux
+  number: '70100000035'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_328:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 674
+  label: 70100000007 – Herd
+  lock_version: 0
+  name: 701 – Herd
+  number: '70100000007'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_329:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 675
+  label: 70100000005 – Cow
+  lock_version: 0
+  name: 701 – Cow
+  number: '70100000005'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_330:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 676
+  label: 70100000004 – Dry matter
+  lock_version: 0
+  name: 701 – Dry matter
+  number: '70100000004'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_331:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 677
+  label: 70100000003 – Building
+  lock_version: 0
+  name: 701 – Building
+  number: '70100000003'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_332:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 678
+  label: 70100000002 – Lorem ipsum 2
+  lock_version: 0
+  name: 701 – Lorem ipsum 2
+  number: '70100000002'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_333:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  debtor: false
+  id: 679
+  label: 70100000001 – Generic Product Variant
+  lock_version: 0
+  name: 701 – Generic Product Variant
+  number: '70100000001'
+  reconcilable: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
