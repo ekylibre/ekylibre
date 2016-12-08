@@ -22,7 +22,7 @@ module Unrollable
         scopes = Unrollable::Extracting.scopes_from(params)
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
-        keys = search_term.mb_chars.downcase.normalize.split(/[\\s\\,]+/)
+        keys = search_term.mb_chars.downcase.normalize.split(/[\s\\,]+/)
 
         items = Unrollable::ItemRelation.new(model.send(default_scope))
 
