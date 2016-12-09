@@ -56,7 +56,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, selectable: :true, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
@@ -69,9 +69,9 @@ module Backend
       t.column :description, hidden: true
       t.status
       t.column :state_label
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
-      t.column :affair_balance, currency: true, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum
+      t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
 
     # Displays the main page with the list of sales

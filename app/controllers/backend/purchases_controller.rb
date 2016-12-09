@@ -81,9 +81,9 @@ module Backend
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
-      t.column :pretax_amount, currency: true, hidden: true
-      t.column :amount, currency: true
-      t.column :affair_balance, currency: true, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
+      t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
