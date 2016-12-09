@@ -6,6 +6,16 @@ GIT
     ofx-parser (1.1.0.20121129105223)
       hpricot (>= 0.6)
 
+PATH
+  remote: ../active_list
+  specs:
+    active_list (6.7.2)
+      arel (>= 5.0.0)
+      code_string (>= 0.0.0)
+      i18n-complements
+      rails (>= 3.2, < 5.0.0)
+      rubyzip (>= 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -30,12 +40,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_list (6.7.0)
-      arel (>= 5.0.0)
-      code_string (>= 0.0.0)
-      i18n-complements
-      rails (>= 3.2, < 5.1.0)
-      rubyzip (>= 1.0)
     activejob (4.2.7.1)
       activesupport (= 4.2.7.1)
       globalid (>= 0.3.0)
@@ -74,7 +78,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.5.3)
+    autoprefixer-rails (6.5.3.1)
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -121,8 +125,8 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
-    codacy-coverage (1.1.1)
-      simplecov (>= 0.10.0)
+    codacy-coverage (1.1.5)
+      simplecov
     code_analyzer (0.4.7)
       sexp_processor
     code_string (0.0.0)
@@ -137,12 +141,12 @@ GEM
     colored (1.2)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.1)
-    coveralls (0.8.16)
+    coveralls (0.8.17)
       json (>= 1.8, < 3)
       simplecov (~> 0.12.0)
-      term-ansicolor (~> 1.3.0)
+      term-ansicolor (~> 1.3)
       thor (~> 0.19.1)
-      tins (>= 1.6.0, < 2)
+      tins (~> 1.6)
     daemons (1.2.4)
     database_cleaner (1.5.3)
     dbf (3.0.8)
@@ -206,7 +210,7 @@ GEM
     i18n (0.7.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
-    i18n-js (3.0.0.rc14)
+    i18n-js (3.0.0.rc15)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
     jbuilder (2.6.1)
@@ -223,7 +227,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (6.0.0)
+    jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (1.8.3)
     jwt (1.5.6)
@@ -257,7 +261,7 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
-    minitest-reporters (1.1.12)
+    minitest-reporters (1.1.13)
       ansi
       builder
       minitest (>= 5.0)
@@ -265,7 +269,7 @@ GEM
     momentjs-rails (2.15.1)
       railties (>= 3.1)
     multi_json (1.12.1)
-    multi_xml (0.5.5)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
@@ -296,7 +300,7 @@ GEM
     paperclip-document (0.0.10)
       burisu-docsplit (>= 0.7.9)
       paperclip (>= 3.1, < 5.2)
-    parser (2.3.3.0)
+    parser (2.3.3.1)
       ast (~> 2.2)
     pg (0.19.0)
     polyglot (0.3.5)
@@ -306,7 +310,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.4.1)
+    pry-byebug (3.4.2)
       byebug (~> 9.0)
       pry (~> 0.10)
     pry-inline (1.0.2)
@@ -356,7 +360,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     raindrops (0.17.0)
-    rake (11.3.0)
+    rake (12.0.0)
     rdoc (4.3.0)
     redis (3.3.2)
     redis-namespace (1.5.2)
@@ -383,10 +387,10 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
-    rodf (0.3.7)
-      activesupport (>= 3.0, < 6.0)
-      builder (~> 3.0)
-      rubyzip (~> 1.0)
+    rodf (1.0.0)
+      activesupport (>= 3.0)
+      builder (>= 3.0)
+      rubyzip (>= 1.0)
     roo (2.5.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -434,7 +438,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    sidekiq-cron (0.4.4)
+    sidekiq-cron (0.4.5)
       redis-namespace (>= 1.5.2)
       rufus-scheduler (>= 2.0.24)
       sidekiq (>= 4.2.1)
@@ -467,7 +471,7 @@ GEM
       railties (>= 3.2.5, < 6)
     teaspoon-jasmine (2.3.4)
       teaspoon (>= 1.0.0)
-    term-ansicolor (1.3.2)
+    term-ansicolor (1.4.0)
       tins (~> 1.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -498,7 +502,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.2)
     unicode (0.4.4.2)
-    unicode-display_width (1.1.1)
+    unicode-display_width (1.1.2)
     unicorn (5.2.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -522,7 +526,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.7.0)
+  active_list (>= 6.7.0)!
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)

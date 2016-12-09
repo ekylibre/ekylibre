@@ -88,7 +88,7 @@ gem 'exception_notification'
 # Views helpers
 gem 'haml'
 gem 'simple_calendar'
-gem 'active_list', '>= 6.7.0' # , path: "../active_list"
+gem 'active_list', '>= 6.7.0', path: "../active_list"
 
 # Models helpers
 gem 'uuidtools'
