@@ -38,7 +38,11 @@ module Backend
           geojson_features_collection = Charta.from_kml(geometry, false).to_json_object(true) if ::Charta::KML.valid?(geometry)
 
         when 'geojson'
-          geo = (geometry.is_a?(Hash) ? geometry : JSON.parse(geometry)) || {}
+          geo = (begin
+                   geometry.is_a?(Hash) ? geometry : JSON.parse(geometry)
+                 rescue
+                   {}
+                 end) || {}
           srid = geo.try(:[], 'crs').try(:[], 'properties').try(:[], 'name')
 
           if ::Charta::GeoJSON.valid?(geometry, srid)

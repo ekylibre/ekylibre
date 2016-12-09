@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plowing" categories="soil_working, crop_protection" actions="plowing, loosening" optional-actions="conservation_plowing, herbicide, organic_matter_burying, water_flow_improvement">
     <parameters>
-      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>

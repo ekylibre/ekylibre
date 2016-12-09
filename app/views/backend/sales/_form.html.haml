@@ -52,7 +52,7 @@
           %td#wta.decimal{ data: { use: ".wta", calculate: "sum", calculate_round: precision } }= f.object.amount
           %td= f.object.currency
           %th
-      = f.simple_fields_for :items, f.object.items.order(:id) do |item|
+      = f.simple_fields_for :items, f.object.items.sort_by(&:id) do |item|
         = render 'item_fields', f: item
 
 = f.attachments_field_set
