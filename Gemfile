@@ -71,8 +71,6 @@ gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs'
 
-gem 'rufus-scheduler', '~> 3.2.0'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -88,7 +86,7 @@ gem 'exception_notification'
 # Views helpers
 gem 'haml'
 gem 'simple_calendar'
-gem 'active_list', '>= 6.7.0', path: "../active_list"
+gem 'active_list', '>= 6.7.0' # , path: "../active_list"
 
 # Models helpers
 gem 'uuidtools'
@@ -188,8 +186,6 @@ group :development do
   gem 'spring'
 
   gem 'letter_opener'
-
-  gem 'minitest', '~> 5.9.1'
 end
 
 group :development, :test do
