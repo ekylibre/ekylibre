@@ -42,13 +42,13 @@ module NavigationHelper
 
   def next_records(resource, order, scope)
     matching_attrs = resource.attributes.slice(*order.keys.map(&:to_s))
-    other_records  = navigable(resource.class, scope, resource.id).order(**order)
+    other_records  = navigable(resource.class, order, scope, resource.id).order(**order)
     reversed = (order.first.last =~ /desc/)
 
     lists = %i(down up).map do |dir|
       [dir, matching_attrs.reduce(other_records, &get_next_record_method(going: dir, reverse: reversed))]
     end.to_h
-    lists[:down] = lists[:down].reverse
+    lists[:down] = lists[:down].reverse_order
     lists
   end
 
@@ -57,11 +57,11 @@ module NavigationHelper
     Maybe(record).send(method.to_sym).or_nil
   end
 
-  def navigable(items, scope, excluded)
+  def navigable(items, order, scope, excluded)
     scoped   = scope
     scoped &&= items.send(scope)
     scoped ||= items
-    scoped.where.not(id: excluded)
+    scoped.where.not(id: excluded).order(**order)
   rescue NoMethodError => e
     raise MissingScopeError.new(e.name, e.missing_name, e.backtrace, *e.args)
   end
