@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class SaleOpportunitiesController < Backend::AffairsController
+  class SaleOpportunitiesController < Backend::SaleAffairsController
     manage_restfully currency: 'Preference[:currency]'.c, responsible: 'current_user.person'.c, probability_percentage: 50
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json

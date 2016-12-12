@@ -25,7 +25,7 @@
       %i.icon.icon-destroy
 
 
-- for address in resource.addresses.order(:canal, :by_default)
+- resource.addresses.order(:canal, :by_default).each do |address|
   .info
     %span.title{class: "canal-#{address.canal}"}= address.canal.l
     %span.value
@@ -34,7 +34,7 @@
       - elsif address.phone? or address.mobile?
         %a{:href => "tel:#{address.coordinate}"}= address.coordinate
       - elsif address.mail?
-        = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
+        = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.mail_lines(without: :line_1))}")
       - elsif address.website?
         = link_to(address.coordinate, address.coordinate)
       - else

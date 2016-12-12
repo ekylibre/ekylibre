@@ -33,7 +33,7 @@ module Backend
       code = ''
       code = search_conditions(purchases: [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], entities: [:number, :full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -64,7 +64,7 @@ module Backend
       code.c
     end
 
-    list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+    list(conditions: purchases_conditions, joins: [:affair, :supplier], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
       t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -81,12 +81,12 @@ module Backend
       t.status
       t.column :state_label
       # t.column :paid_amount, currency: true
-      t.column :pretax_amount, currency: true, hidden: true
-      t.column :amount, currency: true
-      t.column :affair_balance, currency: true, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
+      t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
 
-    list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+    list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
       # t.action :edit, if: :draft?
       # t.action :destroy, if: :draft?

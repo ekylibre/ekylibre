@@ -1,4 +1,5 @@
 - main_toolbar do |t|
+  = t.edit resource
   = t.export(:balance_sheet, :income_statement, :trial_balance, key: :code)
   = t.compute_balances resource, method: :post
   - attrs = {}

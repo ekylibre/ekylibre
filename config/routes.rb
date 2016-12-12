@@ -34,9 +34,8 @@ Rails.application.routes.draw do
   end
 
   concern :products do
-    concerns :list, :unroll
+    concerns :list, :unroll, :picture
     member do
-      match 'picture(/:style)', via: :get, action: :picture, as: :picture
       get :list_carried_linkages
       get :list_carrier_linkages
       get :list_contained_products
@@ -88,13 +87,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
+      resources :contacts, only: [:index] do
+        match 'picture(/:style)', via: :get, action: :picture, as: :picture
+      end
       resources :crumbs
       resources :interventions, only: [:index]
+      resources :intervention_participations, only: [:create]
+      resources :intervention_targets, only: [:show]
       resources :issues
       resources :plant_density_abaci
       resources :plant_countings
       resources :plants
-      resources :intervention_participations, only: [:create]
     end
   end
 
@@ -223,7 +226,8 @@ Rails.application.routes.draw do
 
     resources :activity_seasons, concerns: [:unroll]
 
-    resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
+    # resources :affairs, concerns: [:affairs, :list], only: [:show, :index]
+    resources :affairs, only: [:unroll]
 
     resources :analyses, concerns: [:list, :unroll] do
       member do
@@ -233,7 +237,7 @@ Rails.application.routes.draw do
 
     resources :analysis_items, only: [:new]
 
-    resources :animal_groups, concerns: [:list, :picture, :unroll] do
+    resources :animal_groups, concerns: :products do
       member do
         get :list_animals
         get :list_places
@@ -478,11 +482,11 @@ Rails.application.routes.draw do
 
     resources :fungi, concerns: :products
 
-    resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
-      member do
-        get :list_items
-      end
-    end
+    # resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
+    #   member do
+    #     get :list_items
+    #   end
+    # end
 
     resource :general_ledger, only: [:show], path: 'general-ledger' do
       member do
@@ -594,7 +598,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :journal_entry_items, only: [:new, :show], concerns: [:unroll]
+    resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
 
     resources :kujakus, only: [] do
       member do
@@ -666,7 +670,7 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
-    resources :outgoing_payment_lists, concerns: [:list] do
+    resources :outgoing_payment_lists, only: [:index, :show, :destroy], concerns: [:list] do
       member do
         get :list_payments
         get :export_to_sepa
@@ -699,7 +703,13 @@ Rails.application.routes.draw do
 
     resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
-    resources :plants, concerns: :products
+    resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'
+
+    resources :plants, concerns: :products do
+      member do
+        get :list_plant_countings
+      end
+    end
 
     resources :postal_zones, concerns: [:autocomplete, :list, :unroll]
 
@@ -716,6 +726,8 @@ Rails.application.routes.draw do
         get :export, defaults: { format: 'ods' }
       end
     end
+
+    resources :plant_countings, concerns: [:list]
 
     resources :product_groups, concerns: :products
 
@@ -750,6 +762,14 @@ Rails.application.routes.draw do
     resources :product_nature_variant_components, only: [],
                                                   concerns: [:autocomplete, :unroll]
 
+    resources :purchase_affairs, concerns: [:affairs, :list], only: [:show, :index], path: 'purchase-affairs'
+
+    resources :purchase_gaps, concerns: [:list], except: [:new, :create, :edit, :update], path: 'purchase-gaps' do
+      member do
+        get :list_items
+      end
+    end
+
     resources :purchase_natures, concerns: [:list, :unroll]
 
     resources :purchases, concerns: [:list, :unroll] do
@@ -776,9 +796,17 @@ Rails.application.routes.draw do
 
     resources :sale_credits, only: [:new, :create], path: 'sale-credits'
 
+    resources :sale_gaps, concerns: [:list], except: [:new, :create, :edit, :update], path: 'sale-gaps' do
+      member do
+        get :list_items
+      end
+    end
+
     resources :sale_natures, concerns: [:list, :unroll], path: 'sale-natures'
 
-    resources :sale_opportunities, concerns: [:list, :affairs], path: 'sale-opportunities' do
+    resources :sale_affairs, concerns: [:affairs, :list], only: [:index, :show], path: 'sale-affairs'
+
+    resources :sale_opportunities, concerns: [:affairs, :list], path: 'sale-opportunities' do
       member do
         get :list_tasks
         post :prospect
@@ -791,7 +819,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sale_tickets, concerns: [:list, :affairs], only: [:index, :show], path: 'sale-tickets'
+    resources :sale_tickets, concerns: [:affairs, :list], only: [:index, :show], path: 'sale-tickets'
 
     resources :sales, concerns: [:list, :unroll] do
       collection do
@@ -903,6 +931,14 @@ Rails.application.routes.draw do
       member do
         post :lock
         post :unlock
+      end
+    end
+
+    resources :tax_declarations, concerns: [:list, :unroll], path: 'tax-declarations' do
+      member do
+        get :list_items
+        post :propose
+        post :confirm
       end
     end
 

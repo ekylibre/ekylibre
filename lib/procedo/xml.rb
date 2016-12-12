@@ -2,7 +2,7 @@
 
 module Procedo
   # The module parse XML procedures.
-  # More documentation on schema can be found on http://wiki.ekylibre.com
+  # More documentation on schema can be found on http://wiki.ekylibre.org
   # Sample:
   #
   #   <?xml version="1.0"?>

@@ -29,7 +29,7 @@ module Backend
       code = ''
       code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
-      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
       code << "    c << params[:started_on]\n"
       code << "    c << params[:stopped_on]\n"
@@ -56,7 +56,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, selectable: :true, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
@@ -69,9 +69,9 @@ module Backend
       t.column :description, hidden: true
       t.status
       t.column :state_label
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
-      t.column :affair_balance, currency: true, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum
+      t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
 
     # Displays the main page with the list of sales
@@ -125,7 +125,7 @@ module Backend
       # t.column :undelivered_quantity, :datatype => :decimal
     end
 
-    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: :position, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
+    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: { id: :asc }, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
       # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.column :name, through: :variant
@@ -192,6 +192,7 @@ module Backend
       @sale.function_title = :default_letter_function_title.tl
       @sale.introduction = :default_letter_introduction.tl
       @sale.conclusion = :default_letter_conclusion.tl
+      @sale.items_attributes = params[:items_attributes] if params[:items_attributes]
       render locals: { with_continue: true }
     end
 

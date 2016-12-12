@@ -39,8 +39,7 @@ module Backend
     end
 
     # this method lists all the entries generated in draft mode
-    def show
-    end
+    def show; end
 
     # This method confirm all draft entries
     def confirm

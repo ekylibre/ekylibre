@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -152,6 +153,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   end
 
   test 'destroy with all bank_statement_letter blank' do
+    JournalEntryItem.where(entry_id: @list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
     assert(@list.destroy)
     assert_raise(ActiveRecord::RecordNotFound) { @list.reload }
   end

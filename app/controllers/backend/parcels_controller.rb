@@ -41,7 +41,7 @@ module Backend
       code << "    interval = params[:period].split('_')\n"
       code << "    first_date = interval.first\n"
       code << "    last_date = interval.last\n"
-      code << "    c[0] << \" AND #{Parcel.table_name}.planned_at BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Parcel.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
       code << "    c << first_date\n"
       code << "    c << last_date\n"
       code << "  end\n "
@@ -116,7 +116,7 @@ module Backend
       t.column :analysis, url: true
     end
 
-    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+    list(:incoming_items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name

@@ -4,8 +4,10 @@
   = f.input :description
   = f.association :client, as: :hidden
   = f.association :affair, as: :hidden
+  = f.association :nature, as: :hidden
   = f.association :credited_sale, as: :hidden
   = f.input :credit, as: :hidden
+  = f.input :currency, as: :hidden
   = f.custom_fields
 
 = field_set Sale.human_attribute_name(:items) do
