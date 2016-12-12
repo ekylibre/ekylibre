@@ -23,9 +23,6 @@ module ApplicationHelper
 
   delegate :current_user, to: :controller
 
-  class MissingScopeError < NoMethodError; end
-  class NoNamingMethodError < NoMethodError; end
-
   # Helper which check authorization of an action
   def authorized?(url_options = {})
     controller.authorized?(url_options)
@@ -755,37 +752,6 @@ module ApplicationHelper
     content_tag(:table, html, html_options).html_safe
   end
 
-  def navigation(resource, order: { id: :asc }, naming_method: :name, scopes: nil)
-    current = resource.attributes.slice(*order.keys.map(&:to_s))
-
-    begin
-      ordered  = resource.class.order(**order)
-      scoped   = scopes
-      scoped &&= scoped.reduce(ordered, &:send)
-      scoped ||= ordered
-      no_dupe  = scoped.where.not(id: resource.id)
-    rescue NoMethodError => e
-      raise MissingScopeError.new("Scope `#{e.name}` unknown in resource #{e.missing_name}.", e.backtrace, *e.args)
-    end
-
-    previous  = current.reduce(no_dupe, &get_next_record_method(going: :down)).last
-    following = current.reduce(no_dupe, &get_next_record_method(going: :up)).first
-
-    names = {
-      previous: Maybe(previous).send(naming_method.to_sym).or_nil,
-      following: Maybe(following).send(naming_method.to_sym).or_nil
-    }
-    content_for :heading_toolbar do
-      render 'backend/shared/record_navigation', previous: previous, following: following, names: names
-    end
-
-  rescue ActiveRecord::StatementInvalid => e
-    raise e unless (pg_error = e.original_exception).is_a?(PG::UndefinedColumn)
-    raise ActiveRecord::StatementInvalid, "Column #{pg_error.message.split('"').second} is specified in order but isn't present in table columns.", e.backtrace
-  rescue NoMethodError => e
-    raise NoNamingMethodError.new("Naming method `#{e.name}` doesn't exist for resource #{e.missing_name}.", e.backtrace, *e.args)
-  end
-
   # TOOLBAR
 
   def menu_to(name, url, options = {})
@@ -1087,17 +1053,6 @@ module ApplicationHelper
   end
 
   private
-
-  def get_next_record_method(going: :up)
-    operator = case going
-               when /up/   then '>'
-               when /down/ then '<'
-               end
-    lambda do |resources, condition|
-      key, value = *condition
-      resources.where("#{key} #{operator} #{value.inspect.tr('"', "'")}")
-    end
-  end
 
   def default_evening_options(options)
     defaults = {}
