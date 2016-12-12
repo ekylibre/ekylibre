@@ -109,11 +109,11 @@ module Ekylibre
         end
 
         def simple_scopes
-          scopes.select { |x| x.arity.zero? }
+          (scopes || []).select { |x| x.arity.zero? }
         end
 
         def complex_scopes
-          scopes.select { |x| !x.arity.zero? }
+          (scopes || []).select { |x| !x.arity.zero? }
         end
 
         # Permits to consider something and something_id like the same
