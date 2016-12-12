@@ -64,6 +64,18 @@ class NavigationHelperTest < ActionView::TestCase
     assert_equal 'Joe',         label_in(following_link)
   end
 
+  test 'raise error if scope doesn\'t exist' do
+    assert_raises(MissingScopeError) do
+      navigation @max, scope: :war_boys
+    end
+  end
+
+  test 'raise error if order criterion doesn\'t exist' do
+    assert_raises(OrderingCriterionNotFound) do
+      navigation @max, order: :badassness
+    end
+  end
+
   private
 
   Struct.new('Link', :url, :label)
