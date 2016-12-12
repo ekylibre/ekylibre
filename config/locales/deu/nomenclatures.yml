@@ -2223,6 +2223,7 @@ deu:
       name: "Vorgehensweise Aktionen"
     procedure_categories:
       items:
+        # administrative_tasks: "Administrative tasks"
         animal_breeding: "Tierzucht"
         animal_feeding: "Fütterungs"
         animal_production: "Tierproduktion"
@@ -2237,6 +2238,7 @@ deu:
         fertilizing: "Dünge-"
         fish_transformation: "Fisch Transformation"
         habitat_maintenance: "Habitat Wartung"
+        # handling: "Handling"
         harvesting: "Ernte"
         installations_modification: "Installationen Modifikation"
         irrigating: "Bewässerung"

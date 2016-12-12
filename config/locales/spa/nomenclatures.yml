@@ -2229,6 +2229,7 @@ spa:
       name: "Procedimiento acciones"
     procedure_categories:
       items:
+        # administrative_tasks: "Administrative tasks"
         animal_breeding: "Ganadería"
         animal_feeding: "La alimentación animal"
         animal_production: "La producción animal"
@@ -2243,6 +2244,7 @@ spa:
         fertilizing: "Fertilización"
         fish_transformation: "La transformación de pescado"
         habitat_maintenance: "El mantenimiento del hábitat"
+        # handling: "Handling"
         harvesting: "Cosecha"
         installations_modification: "Modificación de las instalaciones"
         irrigating: "Riego"

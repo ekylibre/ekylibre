@@ -132,6 +132,7 @@ deu:
     worker: "Arbeitnehmer"
     # zone: "Zone"
   procedures:
+    # administrative_tasks: "Administrative tasks"
     all_in_one_sowing: "in einer Aussaat All"
     animal_antibiotic_treatment: "Tier Antibiotika-Behandlung"
     animal_artificial_insemination: "Tier künstliche Befruchtung"
@@ -159,6 +160,7 @@ deu:
     greenhouse_assembling: "Gewächshäuser Montage"
     ground_destratification: "Boden destratification"
     hand_weeding: "Hand jäten"
+    # handling: "Handling"
     harvest_transportation: "Ernte-Transport"
     harvesting: "Ernte"
     hilling: "ridging"

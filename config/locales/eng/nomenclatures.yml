@@ -2243,6 +2243,7 @@ eng:
       name: "Procedure actions"
     procedure_categories:
       items:
+        administrative_tasks: "Administrative tasks"
         animal_breeding: "Animal breeding"
         animal_feeding: "Animal feeding"
         animal_production: "Animal production"
@@ -2257,6 +2258,7 @@ eng:
         fertilizing: "Fertilization"
         fish_transformation: "Fish transformation"
         habitat_maintenance: "Habitat maintenance"
+        handling: "Handling"
         harvesting: "Harvesting"
         installations_modification: "Facilities modifications"
         irrigating: "Irrigation"

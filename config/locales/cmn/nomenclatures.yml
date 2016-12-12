@@ -2223,6 +2223,7 @@ cmn:
       name: "动作过程"
     procedure_categories:
       items:
+        # administrative_tasks: "Administrative tasks"
         animal_breeding: "动物养殖"
         animal_feeding: "动物饲养"
         animal_production: "动物产品"
@@ -2237,6 +2238,7 @@ cmn:
         fertilizing: "施肥"
         fish_transformation: "鱼转型"
         habitat_maintenance: "维修居"
+        # handling: "Handling"
         harvesting: "收获"
         installations_modification: "安装改造"
         irrigating: "灌溉"

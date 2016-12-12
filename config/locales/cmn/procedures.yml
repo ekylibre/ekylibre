@@ -132,6 +132,7 @@ cmn:
     worker: "工人"
     zone: "区"
   procedures:
+    # administrative_tasks: "Administrative tasks"
     all_in_one_sowing: "在一个播种"
     animal_antibiotic_treatment: "动物抗生素治疗"
     animal_artificial_insemination: "动物人工授精"
@@ -159,6 +160,7 @@ cmn:
     greenhouse_assembling: "温室组装"
     ground_destratification: "地面去层理作用"
     hand_weeding: "手工除草"
+    # handling: "Handling"
     harvest_transportation: "嘉实交通"
     harvesting: "收获"
     hilling: "培土"

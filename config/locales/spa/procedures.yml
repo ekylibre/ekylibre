@@ -132,6 +132,7 @@ spa:
     worker: "Obrero"
     zone: "Zona"
   procedures:
+    # administrative_tasks: "Administrative tasks"
     all_in_one_sowing: "Todo en uno siembra"
     animal_antibiotic_treatment: "Tratamiento antibiótico Animal"
     animal_artificial_insemination: "La inseminación artificial de animales"
@@ -159,6 +160,7 @@ spa:
     greenhouse_assembling: "montaje de efecto invernadero"
     ground_destratification: "Desestratificación planta"
     hand_weeding: "Deshierbe manual"
+    # handling: "Handling"
     harvest_transportation: "El transporte de la cosecha"
     harvesting: "Cosecha"
     hilling: "Aporque"

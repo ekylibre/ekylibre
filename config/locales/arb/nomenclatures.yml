@@ -2232,6 +2232,7 @@ arb:
       name: "الإجراءات الإجراء"
     procedure_categories:
       items:
+        # administrative_tasks: "Administrative tasks"
         animal_breeding: "تربية الحيوان"
         animal_feeding: "تغذية الحيوان"
         animal_production: "الإنتاج الحيواني"
@@ -2246,6 +2247,7 @@ arb:
         fertilizing: "تسميد"
         fish_transformation: "التحول الأسماك"
         habitat_maintenance: "صيانة الموائل"
+        # handling: "Handling"
         harvesting: "حصاد"
         installations_modification: "المنشآت تعديل"
         irrigating: "الري"

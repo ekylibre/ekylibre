@@ -132,6 +132,7 @@ por:
     worker: "Trabalhador"
     zone: "Zona"
   procedures:
+    # administrative_tasks: "Administrative tasks"
     all_in_one_sowing: "Tudo em um semeadura"
     animal_antibiotic_treatment: "Tratamento antibiótico animal"
     animal_artificial_insemination: "Inseminação artificial de animais"
@@ -159,6 +160,7 @@ por:
     greenhouse_assembling: "montagem de efeito estufa"
     ground_destratification: "Desestratificação chão"
     hand_weeding: "Capina manual"
+    # handling: "Handling"
     harvest_transportation: "Transporte da colheita"
     harvesting: "Colheita"
     hilling: "Amontoa"

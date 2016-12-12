@@ -2234,6 +2234,7 @@ jpn:
       name: "プロシージャのアクション"
     procedure_categories:
       items:
+        # administrative_tasks: "Administrative tasks"
         animal_breeding: "動物育種"
         animal_feeding: "家畜飼養"
         animal_production: "動物生産"
@@ -2248,6 +2249,7 @@ jpn:
         fertilizing: "施肥"
         fish_transformation: "魚の変換"
         habitat_maintenance: "生息地のメンテナンス"
+        # handling: "Handling"
         harvesting: "収穫"
         installations_modification: "インストールの変更"
         irrigating: "灌漑"

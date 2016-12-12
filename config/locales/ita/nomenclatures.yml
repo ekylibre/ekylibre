@@ -2223,6 +2223,7 @@ ita:
       name: "azioni Procedura"
     procedure_categories:
       items:
+        # administrative_tasks: "Administrative tasks"
         animal_breeding: "allevamento animali"
         animal_feeding: "l'alimentazione di animali"
         animal_production: "produzione animale"
@@ -2237,6 +2238,7 @@ ita:
         fertilizing: "fertilizzante"
         fish_transformation: "trasformazione di pesce"
         habitat_maintenance: "manutenzione Habitat"
+        # handling: "Handling"
         harvesting: "Raccolta"
         installations_modification: "modifica installazioni"
         irrigating: "irrigazione"

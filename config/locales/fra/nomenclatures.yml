@@ -2373,6 +2373,7 @@ fra:
       name: "Actions des procédures"
     procedure_categories:
       items:
+        administrative_tasks: "Tâches administratives"
         animal_breeding: "Reproduction animale"
         animal_feeding: "Alimentation et abreuvage"
         animal_production: "Produits animaux"
@@ -2387,6 +2388,7 @@ fra:
         fertilizing: "Fertilisation"
         fish_transformation: "Transformation produits de l’aquaculture et de la pêche"
         habitat_maintenance: "Entretien de l’habitat"
+        handling: "Manutention"
         harvesting: "Récolte"
         installations_modification: "Travaux fonciers sur installations"
         irrigating: "Irrigation"

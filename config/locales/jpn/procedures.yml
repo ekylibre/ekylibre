@@ -132,6 +132,7 @@ jpn:
     worker: "ワーカー"
     zone: "ゾーン"
   procedures:
+    # administrative_tasks: "Administrative tasks"
     all_in_one_sowing: "1播種のすべて"
     animal_antibiotic_treatment: "動物抗生物質治療"
     animal_artificial_insemination: "動物の人工授精"
@@ -159,6 +160,7 @@ jpn:
     greenhouse_assembling: "温室組立"
     ground_destratification: "グラウンド成層破壊"
     hand_weeding: "ハンド除草"
+    # handling: "Handling"
     harvest_transportation: "収穫輸送"
     harvesting: "収穫"
     hilling: "畝"
