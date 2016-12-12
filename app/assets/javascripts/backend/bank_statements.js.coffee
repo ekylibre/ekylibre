@@ -342,6 +342,7 @@
     _uiUpdate: ->
       @_showOrHideClearButtons()
       @_showOrHideCompleteButtons()
+      @_showOrHideNewPaymentButtons()
       @_updateReconciliationBalances()
 
     _showOrHideClearButtons: ->
@@ -351,6 +352,14 @@
     _showOrHideCompleteButtons: ->
       $(".journal-entry-item-type.selected .complete a").show()
       $(".journal-entry-item-type:not(.selected) .complete a").hide()
+
+    _showOrHideNewPaymentButtons: ->
+      selectedBankStatements = @_lines().filter(".bank-statement-item-type.selected")
+      selectedJournalItems   = @_lines().filter(".journal-entry-item-type.selected")
+      if selectedBankStatements.length > 0 and selectedJournalItems.length == 0
+        $("thead tr th.payment-buttons a").show()
+      else
+        $("thead tr th.payment-buttons a").hide()
 
     _updateReconciliationBalances: ->
       all = @_lines().filter(".bank-statement-item-type")
