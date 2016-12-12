@@ -57,6 +57,27 @@ require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase
   test_model_actions
+
+  test 'rounds' do
+    nature = PurchaseNature.first
+    assert nature
+    purchase = Purchase.create!(nature: nature, supplier: Entity.normal.first)
+    assert purchase
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    tax = Tax.create!(
+      name: 'Reduced',
+      amount: 5.5,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    item = purchase.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 3.791, tax: tax)
+    assert item
+    assert_equal 16, item.amount
+    assert_equal 16, purchase.amount
+  end
+
   test 'simple creation' do
     nature = PurchaseNature.first
     assert nature
