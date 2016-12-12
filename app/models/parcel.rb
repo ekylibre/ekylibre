@@ -417,7 +417,7 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort(&:first_available_date)
+        end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = SaleNature.actives.first

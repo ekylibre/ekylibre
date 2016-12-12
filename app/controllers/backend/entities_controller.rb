@@ -99,6 +99,7 @@ module Backend
       t.column :mail_line_4, through: :default_mail_address, hidden: true
       t.column :mail_line_5, through: :default_mail_address, hidden: true
       t.column :mail_line_6, through: :default_mail_address
+      t.column :mail_country, label_method: :human_mail_country_name, through: :default_mail_address, hidden: true
       t.column :email, label_method: :coordinate, through: :default_email_address, hidden: true
       t.column :phone, label_method: :coordinate, through: :default_phone_address, hidden: true
       t.column :mobile, label_method: :coordinate, through: :default_mobile_address, hidden: true
