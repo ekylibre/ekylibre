@@ -239,4 +239,5 @@ eng:
     wine_blending: "Wine blending"
     wine_bottling: "Wine bottling"
   killables:
+    is_cultivation_destroyed_by_this_intervention: "Is cultivation destroyed by this intervention ?"
     is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
