@@ -122,9 +122,10 @@ class SaleItem < Ekylibre::Record::Base
         self.pretax_amount = nil
         self.amount = nil
       end
-      self.unit_amount   ||= tax.amount_of(unit_pretax_amount)
-      self.pretax_amount ||= (unit_pretax_amount * quantity * reduction_coefficient).round(precision)
-      self.amount        ||= tax.amount_of(pretax_amount).round(precision)
+      self.unit_amount ||= tax.amount_of(unit_pretax_amount)
+      raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
+      self.pretax_amount ||= raw_pretax_amount.round(precision)
+      self.amount        ||= tax.amount_of(raw_pretax_amount).round(precision)
     end
 
     if variant

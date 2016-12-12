@@ -109,11 +109,13 @@ class PurchaseItem < Ekylibre::Record::Base
     if tax && unit_pretax_amount
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
+      raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
-        self.pretax_amount = (unit_pretax_amount * self.quantity * reduction_coefficient).round(precision)
+        raw_pretax_amount = unit_pretax_amount * self.quantity * reduction_coefficient
+        self.pretax_amount = raw_pretax_amount.round(precision)
       end
       if amount.nil? || amount.zero?
-        self.amount = tax.amount_of(pretax_amount).round(precision)
+        self.amount = tax.amount_of(raw_pretax_amount || pretax_amount).round(precision)
       end
     end
 
