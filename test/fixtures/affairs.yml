@@ -616,6 +616,23 @@ sale_affairs_020:
   type: SaleAffair
   updated_at: 2016-11-20 22:12:25.331521000 Z
   updater_id: 1
+sale_affairs_021:
+  closed: false
+  created_at: 2016-12-13 14:21:49.002319000 Z
+  creator_id: 1
+  credit: 5346.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 52
+  lock_version: 0
+  number: A000000000045
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 2
+  type: SaleAffair
+  updated_at: 2016-12-13 14:21:49.002319000 Z
+  updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
   closed: true

@@ -689,3 +689,33 @@ sales_018:
   state: invoice
   updated_at: 2016-11-20 22:12:46.221741000 Z
   updater_id: 1
+sales_019:
+  accounted_at: 2016-12-13 14:21:48.970042000 Z
+  affair_id: 52
+  amount: 5346.0
+  client_id: 2
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  created_at: 2016-12-13 14:21:48.765450000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 25
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  letter_format: false
+  lock_version: 0
+  nature_id: 1
+  number: SO000000000020
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 4455.0
+  responsible_id: 9
+  state: draft
+  subject: ''
+  updated_at: 2016-12-13 14:21:48.820087000 Z
+  updater_id: 1

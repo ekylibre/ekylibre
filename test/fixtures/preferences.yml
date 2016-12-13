@@ -4570,3 +4570,14 @@ preferences_396:
   updated_at: 2016-11-20 22:10:24.498917000 Z
   updater_id: 1
   user_id: 1
+preferences_397:
+  boolean_value: false
+  created_at: 2016-12-13 14:06:57.838118000 Z
+  creator_id: 1
+  id: 397
+  lock_version: 0
+  name: interface.snippets.animal_management.collapsed
+  nature: boolean
+  updated_at: 2016-12-13 14:06:57.838118000 Z
+  updater_id: 1
+  user_id: 1
