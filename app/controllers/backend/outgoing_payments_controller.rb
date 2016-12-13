@@ -61,5 +61,33 @@ module Backend
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
+
+    def new
+      if params[:bank_statement_ids].present?
+        bank_items = BankStatementItem.where(id: params[:bank_statement_ids].map(&:to_i))
+        amount = bank_items.sum(:debit) - bank_items.sum(:credit)
+      end
+      amount ||= params[:amount].to_f
+      @outgoing_payment = resource_model.new(
+        accounted_at: params[:accounted_at],
+        affair_id: params[:affair_id],
+        amount: amount,
+        bank_check_number: params[:bank_check_number],
+        cash_id: params[:cash_id],
+        currency: params[:currency],
+        custom_fields: params[:custom_fields],
+        delivered: true,
+        downpayment: params[:downpayment],
+        journal_entry_id: params[:journal_entry_id],
+        list_id: params[:list_id],
+        mode_id: params[:mode_id],
+        number: params[:number],
+        paid_at: Time.zone.today,
+        payee_id: params[:payee_id],
+        responsible_id: current_user.id,
+        to_bank_at: Time.zone.today
+      )
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
+    end
   end
 end
