@@ -97,7 +97,7 @@ class OutgoingPayment < Ekylibre::Record::Base
     letter = bank_statement.next_letter
     journal_entry
       .items
-      .where.not(account_id: bank_statement.cash_account_id)
+      .where(account_id: bank_statement.cash_account_id)
       .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
     bank_statements_items.update_all(letter: letter)
   end

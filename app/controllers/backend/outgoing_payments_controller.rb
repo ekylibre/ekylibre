@@ -99,7 +99,9 @@ module Backend
         if (statements = params[:outgoing_payment][:bank_statement_item_ids]).present?
           bank_items = BankStatementItem.where(id: statements.split.map(&:to_i))
           amount = bank_items.sum(:debit) - bank_items.sum(:credit)
-          @outgoing_payment.letter_with(bank_items) if amount == attributes[:amount].to_f
+          lettrable   = (amount == attributes[:amount].to_f)
+          lettrable &&= (bank_items.first.bank_statement.cash_id == @outgoing_payment.mode.cash_id)
+          @outgoing_payment.letter_with(bank_items) if lettrable
         end
         return save_and_redirect(
           @outgoing_payment,

@@ -123,9 +123,7 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def next_letter
-    current_letters = items.pluck(:letter).compact.sort_by { |src| [src.length, src.itself] }
-    last_letter = current_letters.last
-    cash_next_reconciliation_letters.find(last_letter).next
+    cash_next_reconciliation_letters.next
   end
 
   def eligible_journal_entry_items
