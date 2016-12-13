@@ -74,7 +74,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.5.3.1)
+    autoprefixer-rails (6.5.4)
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -174,11 +174,11 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.1)
       faraday (>= 0.7.4, < 1.0)
-    feedjira (2.0.0)
-      faraday (~> 0.9)
-      faraday_middleware (~> 0.9)
-      loofah (~> 2.0)
-      sax-machine (~> 1.0)
+    feedjira (2.1.0)
+      faraday (>= 0.9)
+      faraday_middleware (>= 0.9)
+      loofah (>= 2.0)
+      sax-machine (>= 1.0)
     ffaker (2.3.0)
     ffi (1.9.14)
     figaro (1.1.1)
@@ -420,7 +420,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (2.53.4)
+    selenium-webdriver (3.0.3)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -603,7 +603,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   savon
   sdoc (~> 0.4.0)
-  selenium-webdriver (~> 2.5)
+  selenium-webdriver
   sepa_king
   shoulda-context
   sidekiq (>= 4.0)
