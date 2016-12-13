@@ -288,6 +288,7 @@
       @_reconciliateLines selected, letter
 
     _reconciliateLines: (lines, letter) ->
+      @_letterItems letter
       lines.find(".bank-statement-letter:not(input)").text letter
       lines.find("input.bank-statement-letter").val letter
       lines.removeClass "selected"
@@ -307,6 +308,7 @@
 
     _clearLinesWithReconciliationLetter: (letter) ->
       return unless letter
+      @_unletterItems letter
       lines = @_linesWithReconciliationLetter(letter)
       lines.find(".bank-statement-letter:not(input)").text ""
       lines.find("input.bank-statement-letter").val null
@@ -402,6 +404,12 @@
     _updateRemainingReconciliationBalance: (debit, credit) ->
       $(".remaining-reconciliated-debit").text debit.toFixed(2)
       $(".remaining-reconciliated-credit").text credit.toFixed(2)
+
+    _letterItems: (letter) ->
+      _ajaxLettering(letter, true)
+
+    _unletterItems: (letter) ->
+      _ajaxLettering(letter, false)
 
     # Other methods
 
