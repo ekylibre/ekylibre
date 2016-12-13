@@ -25,6 +25,7 @@
 #  account_id           :integer
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
+#  amount_reference     :string
 #  annotation           :text
 #  codes                :jsonb
 #  created_at           :datetime         not null
@@ -84,7 +85,7 @@ class SaleItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :subscription, reject_if: :all_blank, allow_destroy: true
   sums :sale, :items, :pretax_amount, :amount
 
-  enumerize :amount_reference, in: [:unitary, :total]
+  enumerize :amount_reference, in: [:unitary, :total], default: :unitary
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -126,23 +127,16 @@ class SaleItem < Ekylibre::Record::Base
         self.amount = nil
       end
 
-      # WORKING
-      #
-      # if amount_reference == :unitary
-      #   self.pretax_amount = (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0)
-      # else
-      #   self.unit_pretax_amount = (self.pretax_amount / (quantity * (100.0 - reduction_percentage))) * 100
-      # end
-      #
-      # self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      # self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
-      #
-      # self.pretax_amount = self.pretax_amount.round(precision)
+      if amount_reference == :unitary
+        self.unit_amount ||= tax.amount_of(unit_pretax_amount)
+        raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
+        self.pretax_amount ||= raw_pretax_amount.round(precision)
+      else
+        raw_pretax_amount ||= pretax_amount
+        self.unit_pretax_amount = (raw_pretax_amount / quantity / reduction_coefficient).round(precision)
+        self.unit_amount ||= tax.amount_of(unit_pretax_amount)
+      end
 
-
-      self.unit_amount ||= tax.amount_of(unit_pretax_amount)
-      raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
-      self.pretax_amount ||= raw_pretax_amount.round(precision)
       self.amount        ||= tax.amount_of(raw_pretax_amount).round(precision)
     end
 
