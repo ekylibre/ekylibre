@@ -133,26 +133,26 @@ module Procedo
         def variety_of(product)
           return product.variety
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def variant_of(product)
           return product.member_variant unless product.nil?
           nil
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def father_of(vial)
           return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def mother_of(vial)
           return vial.mother.last_transplantation.input.mother || vial.mother
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         # return first date as Datetime object
