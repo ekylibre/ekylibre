@@ -2397,7 +2397,7 @@ fra:
         soil_working: "Travail du sol"
         textile_transformation: "Transformation produits textiles"
         troubleshooting: "Dépannage"
-        viticulture_transformation: "Viniculture"
+        viticulture_transformation: "Vinification"
         washing_packaging_transformation: "Transformation station lavage et conditionnement"
       name: "Catégories de procédures"
       property_natures:
