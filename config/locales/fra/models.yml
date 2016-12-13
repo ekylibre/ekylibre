@@ -1287,7 +1287,7 @@ fra:
     plant_density_abaci: "Abaques de densité de plant"
     plant_density_abacus: "Abaque de densité de plant"
     plant_density_abacus_item: "Densité théorique de semis"
-    plant_variant: "Variant de culture"
+    plant_variant: "Culture"
     plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"
