@@ -63,8 +63,8 @@ module Backend
     end
 
     def new
-      if params[:bank_statement_ids].present?
-        bank_items = BankStatementItem.where(id: params[:bank_statement_ids].map(&:to_i))
+      if params[:bank_statement_item_ids].present?
+        bank_items = BankStatementItem.where(id: params[:bank_statement_item_ids].map(&:to_i))
         amount = bank_items.sum(:debit) - bank_items.sum(:credit)
       end
       amount ||= params[:amount].to_f
@@ -88,6 +88,28 @@ module Backend
         to_bank_at: Time.zone.today
       )
       render(locals: { cancel_url: { action: :index }, with_continue: false })
+    end
+
+    def create
+      attributes = permitted_params.dup
+      attributes.delete(:bank_statement_item_ids)
+      @outgoing_payment = resource_model.new(attributes)
+      save_successful = @outgoing_payment.save
+      if save_successful
+        if (statements = params[:outgoing_payment][:bank_statement_item_ids]).present?
+          bank_items = BankStatementItem.where(id: statements.split.map(&:to_i))
+          amount = bank_items.sum(:debit) - bank_items.sum(:credit)
+          @outgoing_payment.letter_with(bank_items) if amount == attributes[:amount].to_f
+        end
+        return save_and_redirect(
+          @outgoing_payment,
+          url: params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c }),
+          notify: (params[:create_and_continue] || params[:redirect]) ? :record_x_created : false,
+          identifier: :number,
+          saved: true
+        )
+      end
+      render(locals: { cancel_url: { action: :index }, params: { bank_statement_item_ids: statements && statements.split(',') }, with_continue: false })
     end
   end
 end

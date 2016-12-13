@@ -366,11 +366,11 @@
       selectedBankStatements = @_lines().filter(".bank-statement-item-type.selected")
       ids = selectedBankStatements.get().map (line) =>
         @_idForLine(line)
-      id_space = new RegExp("(.*/.*/new\\?.*&?bank_statement_ids\\[\\]=)(.*)(&.*)?")
+      id_space = new RegExp("(.*/.*/new\\?.*?)(&?bank_statement_item_ids\\[\\]=.*)+(&.*)?")
       $("thead tr th.payment-buttons a").each (i, button) ->
         url = $(button).attr('href')
-        url = url + '&bank_statement_ids[]=PLACEHOLDER' unless id_space.exec url
-        url = url.replace(id_space, "$1#{ids.join()}$3")
+        url = url + '&bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
+        url = url.replace(id_space, "$1&bank_statement_item_ids[]=#{ids.join('&bank_statement_item_ids[]=')}$3")
         $(button).attr('href', url)
 
     _updateReconciliationBalances: ->

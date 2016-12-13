@@ -10,7 +10,7 @@
   = f.input :delivered
   = f.referenced_association :mode
   = f.custom_fields
-  = f.input_field :bank_statement_ids, value: params[:bank_statement_ids], as: :hidden
+  = f.input_field :bank_statement_item_ids, value: params[:bank_statement_item_ids], as: :hidden
 
 = field_set(:depositable_options) do
   = f.referenced_association :responsible, :source => :employees
