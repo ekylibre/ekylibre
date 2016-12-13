@@ -354,12 +354,24 @@
       $(".journal-entry-item-type:not(.selected) .complete a").hide()
 
     _showOrHideNewPaymentButtons: ->
-      selectedBankStatements = @_lines().filter(".bank-statement-item-type.selected")
-      selectedJournalItems   = @_lines().filter(".journal-entry-item-type.selected")
+      selectedBankStatements = @_bankStatementLines().filter(".selected")
+      selectedJournalItems   = @_journalEntryLines().filter(".selected")
       if selectedBankStatements.length > 0 and selectedJournalItems.length == 0
+        @_changeIdsInButtons()
         $("thead tr th.payment-buttons a").show()
       else
         $("thead tr th.payment-buttons a").hide()
+
+    _changeIdsInButtons: ->
+      selectedBankStatements = @_lines().filter(".bank-statement-item-type.selected")
+      ids = selectedBankStatements.get().map (line) =>
+        @_idForLine(line)
+      id_space = new RegExp("(.*/.*/new\\?.*&?bank_statement_ids\\[\\]=)(.*)(&.*)?")
+      $("thead tr th.payment-buttons a").each (i, button) ->
+        url = $(button).attr('href')
+        url = url + '&bank_statement_ids[]=PLACEHOLDER' unless id_space.exec url
+        url = url.replace(id_space, "$1#{ids.join()}$3")
+        $(button).attr('href', url)
 
     _updateReconciliationBalances: ->
       all = @_lines().filter(".bank-statement-item-type")
@@ -396,6 +408,12 @@
     _lines: ->
       $(".bank-statement-item-type,.journal-entry-item-type")
 
+    _bankStatementLines: ->
+      $(".bank-statement-item-type")
+
+    _journalEntryLines: ->
+      $(".journal-entry-item-type")
+
     _filterLinesBy: (lines, filters) ->
       { date, debit, credit } = filters
       lines.filter (i, e) =>
@@ -416,5 +434,13 @@
     _floatValueForTextOrInput: (element) ->
       value = if element.is("input") then element.val() else element.text()
       parseFloat(value || 0)
+
+    _idForLine: (line) ->
+      return null unless $(line).hasClass("bank-statement-item-type")
+      class_id = line.className.split(/\s+/).filter (e, i) =>
+        bank_id_class = /\d+-bank-statement-item/
+        bank_id_class.exec e
+      return null unless class_id
+      return parseInt(class_id[0].split('-')[0])
 
 ) ekylibre, jQuery
