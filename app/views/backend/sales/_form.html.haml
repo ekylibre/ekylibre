@@ -33,8 +33,8 @@
         %tr
           %th= SaleItem.human_attribute_name(:variant)
           %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
-          %th= SaleItem.human_attribute_name(:unit_pretax_amount)
           %th= SaleItem.human_attribute_name(:quantity)
+          %th= SaleItem.human_attribute_name(:unit_pretax_amount)
           %th= SaleItem.human_attribute_name(:tax)
           %th= SaleItem.human_attribute_name(:reduction_percentage)
           %th= SaleItem.human_attribute_name(:pretax_amount)
