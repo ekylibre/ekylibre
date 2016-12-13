@@ -397,6 +397,7 @@ deu:
     all_taxes_included: "Alle Steuern eingeschlossen"
     allocation_account: "Allocation Konto"
     amount: "Menge"
+    # amount_reference: "Amount reference"
     analysed_at: "Analysierte an"
     # analyser: "Analyser"
     analyses: "Analysen"

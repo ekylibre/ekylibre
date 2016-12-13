@@ -533,6 +533,7 @@ fra:
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte de dotation"
     amount: "Montant"
+    # amount_reference: "Amount reference"
     analysed_at: "Analysé le"
     analyser: "Analyseur"
     analyses: "Analyses"

@@ -398,6 +398,7 @@ eng:
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
+    amount_reference: "Amount reference"
     analysed_at: "Analysed at"
     analyser: "Analyser"
     analyses: "Analyses"

@@ -397,6 +397,7 @@ jpn:
     all_taxes_included: "すべての税金が含ま"
     allocation_account: "割り当てアカウント"
     amount: "量"
+    # amount_reference: "Amount reference"
     analysed_at: "でAnalysed"
     analyser: "アナライザ"
     analyses: "解析"

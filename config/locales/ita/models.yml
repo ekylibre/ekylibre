@@ -428,6 +428,7 @@ ita:
     all_taxes_included: "Tutte le tasse incluse"
     allocation_account: "conto Allocation"
     amount: "Quantità"
+    # amount_reference: "Amount reference"
     analysed_at: "Analizzati a"
     analyser: "Analizzatore"
     analyses: "Analisi"

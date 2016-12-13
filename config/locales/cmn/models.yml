@@ -397,6 +397,7 @@ cmn:
     all_taxes_included: "包括任何税项"
     allocation_account: "分配帐户"
     amount: "量"
+    # amount_reference: "Amount reference"
     analysed_at: "在Analysed"
     analyser: "分析仪"
     analyses: "分析"

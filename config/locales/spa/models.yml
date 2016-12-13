@@ -398,6 +398,7 @@ spa:
     all_taxes_included: "Todos los impuestos incluidos"
     allocation_account: "Cuenta de la asignación"
     amount: "Cantidad"
+    # amount_reference: "Amount reference"
     analysed_at: "Analizado en"
     analyser: "Analizador"
     analyses: "Los análisis"

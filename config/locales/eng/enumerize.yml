@@ -392,6 +392,10 @@ eng:
       direction:
         # loss: "Loss"
         # profit: "Profit"
+    sale_item:
+      amount_reference:
+        # total: "Total"
+        # unitary: "Unitary"
     sensor:
       retrieval_mode:
         integration: "Integration"

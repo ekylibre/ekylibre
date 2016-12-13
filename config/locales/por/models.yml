@@ -397,6 +397,7 @@ por:
     all_taxes_included: "Todas as taxas incluídas"
     allocation_account: "Conta de alocação"
     amount: "Quantidade"
+    # amount_reference: "Amount reference"
     analysed_at: "Analisados ​​em"
     # analyser: "Analyser"
     analyses: "Análises"
