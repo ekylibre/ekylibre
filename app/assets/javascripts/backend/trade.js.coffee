@@ -202,7 +202,7 @@
     E.selling.compute component.closest("*[data-trade-item]"), component
 
 
-  $(document).on "keyup change", "*[data-amount-reference]", (e) ->
+  $(document).on "change", "*[data-amount-reference]", (e) ->
     $(e.currentTarget).closest('*[data-trade-item="selling"]').find('*[data-amount-reference-updater]').val($(e.currentTarget).data('amount-reference'))
 
 
