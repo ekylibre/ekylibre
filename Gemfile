@@ -200,7 +200,7 @@ group :test do
 
   gem 'capybara'
   gem 'capybara-webkit'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 2.53'
 
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
