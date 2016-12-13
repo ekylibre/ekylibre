@@ -17,13 +17,12 @@
         %thead
           %tr
             %th.payment-buttons{colspan: 4}
-              = tool_to(:new_outgoing_payment.tl, { controller: :outgoing_payments, action: :new }, tabindex: -1, method: :get)
+              = tool_to(:new_outgoing_payment.tl, { controller: :outgoing_payments, action: :new }, tabindex: -1, method: :get, style: "display: none;")
+              = tool_to(:new_incoming_payment.tl, { controller: :incoming_payments, action: :new }, tabindex: -1, method: :get, style: "display: none;")
             %th.center= BankStatementItem.human_attribute_name(:debit)
             %th.center= BankStatementItem.human_attribute_name(:credit)
           %tr
-            %th.payment-buttons{colspan: 3}
-              = tool_to(:new_incoming_payment.tl, { controller: :incoming_payments, action: :new }, tabindex: -1, method: :get)
-            %th= :initial_balance_of_bank_statement.tl
+            %th.right{colspan: 4}= :initial_balance_of_bank_statement.tl
             %th.center= text_field_tag("bank_statement[initial_balance_debit]", @bank_statement.initial_balance_debit || 0.0, id: "initial_balance_debit", class: "center", data: { exclusive_nullify: "#initial_balance_credit" })
             %th.center= text_field_tag("bank_statement[initial_balance_credit]", @bank_statement.initial_balance_credit || 0.0, id: "initial_balance_credit", class: "center", data: { exclusive_nullify: "#initial_balance_debit" })
 
