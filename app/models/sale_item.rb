@@ -130,8 +130,9 @@ class SaleItem < Ekylibre::Record::Base
       if amount_reference == :unitary
         self.unit_amount ||= tax.amount_of(unit_pretax_amount)
         raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
-        self.pretax_amount ||= raw_pretax_amount.round(precision)
+        self.pretax_amount = raw_pretax_amount.round(precision)
       else
+        self.pretax_amount = -1 * pretax_amount.abs if sale_credit
         raw_pretax_amount ||= pretax_amount
         self.unit_pretax_amount = (raw_pretax_amount / quantity / reduction_coefficient).round(precision)
         self.unit_amount ||= tax.amount_of(unit_pretax_amount)

@@ -480,7 +480,7 @@ class Sale < Ekylibre::Record::Base
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)
     items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].each_with_object({}) do |attribute, hash|
+      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax, :amount_reference, :pretax_amount].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end

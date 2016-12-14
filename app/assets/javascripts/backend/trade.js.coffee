@@ -143,6 +143,29 @@
       updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
 
+    # Compute other amounts from pretax amount
+    updateCreditedPretaxAmount: (item) ->
+      values = E.trade.itemValues(item)
+      updates = {}
+      # Compute unit_pretax_amount
+      updates.unit_pretax_amount = -(E.trade.round(values.pretax_amount / (values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0), 4))
+      # Compute amount
+      updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
+      E.trade.itemValues(item, updates)
+
+
+    # Compute other amounts from unit pretax amount
+    updateCreditedUnitPretaxAmount: (item) ->
+      values = E.trade.itemValues(item)
+      updates = {}
+      # Compute pretax_amount
+      updates.pretax_amount = -(values.unit_pretax_amount * values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0)
+      # Compute amount
+      updates.amount = E.trade.round(updates.pretax_amount * values.tax, 2)
+      # Round pretax amount
+      updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
+      E.trade.itemValues(item, updates)
+
     find: (item, name) ->
       item.find("*[data-trade-component='#{name}']")
 
@@ -203,7 +226,7 @@
 
 
   $(document).on "change", "*[data-amount-reference]", (e) ->
-    $(e.currentTarget).closest('*[data-trade-item="selling"]').find('*[data-amount-reference-updater]').val($(e.currentTarget).data('amount-reference'))
+    $(e.currentTarget).closest('*[data-trade-item]').find('*[data-amount-reference-updater]').val($(e.currentTarget).data('amount-reference'))
 
 
   # Crediting workflow
@@ -214,6 +237,10 @@
       switch component
         when 'credited_quantity'
           E.trade.updateCreditedQuantity(item)
+        when 'unit_pretax_amount'
+          E.trade.updateCreditedUnitPretaxAmount(item)
+        when 'pretax_amount'
+          E.trade.updateCreditedPretaxAmount(item)
         else
           console.error "Unknown component: #{component}"
 
