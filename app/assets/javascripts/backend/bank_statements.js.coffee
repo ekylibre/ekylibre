@@ -288,7 +288,7 @@
       @_reconciliateLines selected, letter
 
     _reconciliateLines: (lines, letter) ->
-      @_letterItems letter
+      @_letterItems lines, letter
       lines.find(".bank-statement-letter:not(input)").text letter
       lines.find("input.bank-statement-letter").val letter
       lines.removeClass "selected"
@@ -308,8 +308,8 @@
 
     _clearLinesWithReconciliationLetter: (letter) ->
       return unless letter
-      @_unletterItems letter
       lines = @_linesWithReconciliationLetter(letter)
+      @_unletterItems lines
       lines.find(".bank-statement-letter:not(input)").text ""
       lines.find("input.bank-statement-letter").val null
       @_releaseReconciliationLetter letter
@@ -405,11 +405,32 @@
       $(".remaining-reconciliated-debit").text debit.toFixed(2)
       $(".remaining-reconciliated-credit").text credit.toFixed(2)
 
-    _letterItems: (letter) ->
-      _ajaxLettering(letter, true)
+    _letterItems: (lines, letter) ->
+      console.log letter
+      journalLines = lines.filter(".journal-entry-item-type")
+      journalIds = journalLines.get().map (line) =>
+        @_idForLine line
+      bankLines = lines.filter(".bank-statement-item-type")
+      bankIds = bankLines.get().map (line) =>
+        @_idForLine line
+      url = '/backend/bank-statements/4/letter'
+      $.ajax url,
+        type: 'PATCH'
+        dataType: 'JSON'
+        data:
+          journal_entry_items: journalIds
+          bank_statement_items: bankIds
+          letter: letter
+        success: (json_data) ->
+          console.log json_data
+          return true
+        error: (data) ->
+          console.log data
+          return false
 
-    _unletterItems: (letter) ->
-      _ajaxLettering(letter, false)
+    _unletterItems: (lines) ->
+      console.log 'lines'
+
 
     # Other methods
 
@@ -444,11 +465,9 @@
       parseFloat(value || 0)
 
     _idForLine: (line) ->
-      return null unless $(line).hasClass("bank-statement-item-type")
-      class_id = line.className.split(/\s+/).filter (e, i) =>
-        bank_id_class = /\d+-bank-statement-item/
-        bank_id_class.exec e
-      return null unless class_id
-      return parseInt(class_id[0].split('-')[0])
+      input  = $(line).find("td.hidden input[type=hidden]")
+      name = input.attr('name')
+      id = name.split('[')[1].split(']')[0]
+      parseInt(id)
 
 ) ekylibre, jQuery

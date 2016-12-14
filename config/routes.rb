@@ -267,7 +267,9 @@ Rails.application.routes.draw do
         match :import, via: [:get, :post]
       end
       member do
-        match :reconciliation, via: [:get, :post]
+        get  :reconciliation
+        put   :letter
+        patch :letter
       end
     end
 
