@@ -1837,6 +1837,10 @@
       </item>
     </group>
     <group>
+      <item name="contacts">
+        <page to="api/v1/contacts#index"/>
+        <page to="api/v1/contacts#picture"/>
+      </item>
       <item name="crumbs">
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
@@ -1846,6 +1850,9 @@
       </item>
       <item name="intervention_participations">
         <page to="api/v1/intervention_participations#create"/>
+      </item>
+      <item name="intervention_targets">
+        <page to="api/v1/intervention_targets#show"/>
       </item>
       <item name="issues">
         <page to="api/v1/issues#index"/>

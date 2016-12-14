@@ -1080,11 +1080,13 @@ fra:
     cultivable_zones: "Zones cultivables"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
+    currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
     current_stocks_by_variety: "État des stocks"
+    currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
     daily_nitrogen_production: "Excretion d’azote journalière" #?
     data_to_export: "Données à exporter" #?

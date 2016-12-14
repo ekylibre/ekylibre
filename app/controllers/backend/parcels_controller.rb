@@ -116,7 +116,7 @@ module Backend
       t.column :analysis, url: true
     end
 
-    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+    list(:incoming_items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name
