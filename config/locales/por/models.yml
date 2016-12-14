@@ -1340,6 +1340,7 @@ por:
     tax_declaration_items: "Itens de declaração de imposto"
     tax_declaration_mode: "Modo de declaração de imposto"
     tax_declarations: "Declarações fiscais"
+    tax_payability: "Payability fiscal"
     taxations: "Taxations"
     team: "Equipe"
     template: "Modelo"

@@ -2302,6 +2302,7 @@ arb:
     tax_declaration_mode: "وضع الإقرار الضريبي"
     tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
+    tax_payability: "payability الضرائب"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"

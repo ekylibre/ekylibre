@@ -1613,6 +1613,7 @@ fra:
     tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration d’impôt"
     tax_declarations: "Déclarations fiscales"
+    tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"

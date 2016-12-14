@@ -1371,6 +1371,7 @@ ita:
     tax_declaration_items: "Articoli dichiarazione dei redditi"
     tax_declaration_mode: "Modalità di dichiarazione dei redditi"
     tax_declarations: "Dichiarazioni fiscali"
+    tax_payability: "Pagabilità fiscale"
     taxations: "tassazioni"
     team: "Squadra"
     template: "Modello"

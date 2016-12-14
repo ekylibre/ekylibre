@@ -1340,6 +1340,7 @@ cmn:
     tax_declaration_items: "纳税申报项目"
     tax_declaration_mode: "纳税申报方式"
     tax_declarations: "纳税申报"
+    tax_payability: "税务payability"
     taxations: "税费"
     team: "球队"
     template: "模板"

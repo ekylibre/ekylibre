@@ -396,6 +396,10 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    purchase:
+      tax_payability:
+        at_invoicing: "في الفواتير"
+        at_paying: "في دفع"
     purchase_nature:
       nature:
         payslip: "قسيمة الدفع"

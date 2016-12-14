@@ -397,6 +397,10 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    purchase:
+      tax_payability:
+        at_invoicing: "請求書発行で"
+        at_paying: "支払う時"
     purchase_nature:
       nature:
         payslip: "給料明細書"

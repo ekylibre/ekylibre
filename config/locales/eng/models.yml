@@ -1363,6 +1363,7 @@ eng:
     tax_declaration_items: "Tax declaration items"
     tax_declaration_mode: "Tax declaration  mode"
     tax_declarations: "Tax declarations"
+    tax_payability: "Tax payability"
     taxations: "Taxations"
     team: "Team"
     template: "Template"
