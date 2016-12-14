@@ -405,6 +405,10 @@ cmn:
       nature:
         payslip: "工资单"
         purchase: "采购"
+    sale_item:
+      compute_from:
+        pretax_amount: "税前金额"
+        unit_pretax_amount: "单位税前金额"
     sensor:
       retrieval_mode:
         integration: "积分"

@@ -2102,6 +2102,7 @@ eng:
     procedure_actions:
       items:
         acaricide: "Acaricide"
+        administrative: "Administrative"
         animal_artificial_insemination: "Animal artificial insemination"
         animal_feeding: "Animal feeding"
         animal_group_changing: "Animal group changing"
@@ -2155,6 +2156,7 @@ eng:
         greasing: "Greasing"
         greenhouse_assembling: "Greenhouse assembling"
         growth_regulator: "Growth regulator"
+        handling: "Handling"
         hardpan_destruction: "Hardpan destruction"
         harvest: "Harvest"
         herbicide: "Herbicide"
@@ -2167,6 +2169,11 @@ eng:
         indirect_silage: "Indirect silage"
         insect_repellent: "Insect repellent"
         insecticide: "Insecticide"
+        installation_cleaning: "Installation cleaning"
+        installation_construction: "Installation construction"
+        installation_maintenance: "Installation maintenance"
+        installation_renovation: "Installation renovation"
+        installation_repairing: "Installation repairing"
         irrigation: "Irrigation"
         irrigation_pump_lifting: "Irrigation pump lifting"
         irrigation_system_improvement: "Irrigation system improvement"
@@ -2243,6 +2250,7 @@ eng:
       name: "Procedure actions"
     procedure_categories:
       items:
+        administrative_tasks: "Administrative tasks"
         animal_breeding: "Animal breeding"
         animal_feeding: "Animal feeding"
         animal_production: "Animal production"
@@ -2257,6 +2265,7 @@ eng:
         fertilizing: "Fertilization"
         fish_transformation: "Fish transformation"
         habitat_maintenance: "Habitat maintenance"
+        handling: "Handling"
         harvesting: "Harvesting"
         installations_modification: "Facilities modifications"
         irrigating: "Irrigation"

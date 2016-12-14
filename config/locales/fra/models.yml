@@ -660,6 +660,7 @@ fra:
     components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
+    compute_from: "Calculer à partir"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"

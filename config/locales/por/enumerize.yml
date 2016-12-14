@@ -417,6 +417,10 @@ por:
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+    sale_item:
+      compute_from:
+        pretax_amount: "Montante pretax"
+        unit_pretax_amount: "Montante pretax unidade"
     sensor:
       retrieval_mode:
         integration: "Integração"

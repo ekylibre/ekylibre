@@ -5517,7 +5517,8 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb
+    codes jsonb,
+    compute_from character varying NOT NULL
 );
 
 
@@ -16462,5 +16463,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161201142213');
 
 INSERT INTO schema_migrations (version) VALUES ('20161205185328');
 
-INSERT INTO schema_migrations (version) VALUES ('20161214091911');
+INSERT INTO schema_migrations (version) VALUES ('20161212183910');
 
+INSERT INTO schema_migrations (version) VALUES ('20161214091911');

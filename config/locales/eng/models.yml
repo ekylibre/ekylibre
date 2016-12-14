@@ -507,6 +507,7 @@ eng:
     components: "Components"
     computation_method: "Computation method"
     compute: "Compute"
+    compute_from: "Compute from"
     conclusion: "Conclusion"
     condition_operator: "Condition operator"
     condition_value: "Condition value"

@@ -503,6 +503,7 @@ por:
     components: "Componentes"
     computation_method: "Método de cálculo"
     compute: "Calcular"
+    compute_from: "Calcule a partir"
     conclusion: "Conclusão"
     condition_operator: "Operador de condição"
     condition_value: "Valor da condição"

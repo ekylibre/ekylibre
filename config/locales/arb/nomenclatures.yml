@@ -2091,6 +2091,7 @@ arb:
     procedure_actions:
       items:
         acaricide: "قراد"
+        administrative: "إداري"
         animal_artificial_insemination: "التلقيح الاصطناعي الحيوان"
         animal_feeding: "تغذية الحيوان"
         animal_group_changing: "تغيير مجموعة الحيوانات"
@@ -2144,6 +2145,7 @@ arb:
         greasing: "تشحيم"
         greenhouse_assembling: "الاحتباس الحراري تجميع"
         growth_regulator: "منظم النمو"
+        handling: "معالجة"
         hardpan_destruction: "تدمير Hardpan"
         harvest: "حصاد"
         herbicide: "مبيدات الأعشاب"
@@ -2156,6 +2158,11 @@ arb:
         indirect_silage: "السيلاج غير مباشر"
         insect_repellent: "طارد الحشرات"
         insecticide: "مبيد الحشرات"
+        installation_cleaning: "تنظيف التثبيت"
+        installation_construction: "البناء تركيب"
+        installation_maintenance: "صيانة تركيب"
+        installation_renovation: "تحديث التثبيت"
+        installation_repairing: "إصلاح التثبيت"
         irrigation: "ري"
         irrigation_pump_lifting: "مضخة الري رفع"
         irrigation_system_improvement: "تحسين نظام الري"
@@ -2232,6 +2239,7 @@ arb:
       name: "الإجراءات الإجراء"
     procedure_categories:
       items:
+        administrative_tasks: "المهام الإدارية"
         animal_breeding: "تربية الحيوان"
         animal_feeding: "تغذية الحيوان"
         animal_production: "الإنتاج الحيواني"
@@ -2246,6 +2254,7 @@ arb:
         fertilizing: "تسميد"
         fish_transformation: "التحول الأسماك"
         habitat_maintenance: "صيانة الموائل"
+        handling: "معالجة"
         harvesting: "حصاد"
         installations_modification: "المنشآت تعديل"
         irrigating: "الري"

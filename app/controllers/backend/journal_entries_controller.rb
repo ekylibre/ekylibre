@@ -62,7 +62,6 @@ module Backend
       session[:current_journal_id] = @journal.id
       @journal_entry = @journal.entries.build
       @journal_entry.printed_on = params[:printed_on] || Time.zone.today
-      @journal_entry.number = @journal.next_number
       @journal_entry.real_currency_rate = params[:exchange_rate].to_f
       if request.xhr?
         render(partial: 'backend/journal_entries/items_form', locals: { items: @journal_entry.items })

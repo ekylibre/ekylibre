@@ -404,6 +404,10 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
+    sale_item:
+      compute_from:
+        pretax_amount: "كمية قبل خصم الضرائب"
+        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب"
     sensor:
       retrieval_mode:
         integration: "دمج"

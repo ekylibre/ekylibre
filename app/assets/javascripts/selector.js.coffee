@@ -58,6 +58,7 @@
       this._on @dropDownMenu,
         "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
+        "click .item-footer": "_actionFooterItemClick"
 
       $(document).on 'mousedown',(e) =>
         if $(e.target).hasClass('items-list') or $(e.target).hasClass('selector-dropdown')
@@ -329,6 +330,10 @@
       # console.log "menuclick"
       # console.log event.target
       this._choose()
+      false
+
+    _actionFooterItemClick: (event) ->
+      this._choose($(event.target))
       false
 
     _menuMouseEnter: (event) ->

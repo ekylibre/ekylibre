@@ -503,6 +503,7 @@ jpn:
     components: "コンポーネント"
     computation_method: "計算方法"
     compute: "計算"
+    compute_from: "から計算"
     conclusion: "結論"
     condition_operator: "条件演算子"
     condition_value: "条件値"

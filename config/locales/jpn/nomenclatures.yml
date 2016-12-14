@@ -2093,6 +2093,7 @@ jpn:
     procedure_actions:
       items:
         acaricide: "ダニ駆除剤"
+        administrative: "行政の"
         animal_artificial_insemination: "動物の人工授精"
         animal_feeding: "家畜飼養"
         animal_group_changing: "動物群交換"
@@ -2146,6 +2147,7 @@ jpn:
         greasing: "グリース補給"
         greenhouse_assembling: "温室組立"
         growth_regulator: "成長調整物質"
+        handling: "取り扱い"
         hardpan_destruction: "硬盤層破壊"
         harvest: "収穫"
         herbicide: "除草剤"
@@ -2158,6 +2160,11 @@ jpn:
         indirect_silage: "間接サイレージ"
         insect_repellent: "防虫剤"
         insecticide: "殺虫剤"
+        installation_cleaning: "インストールのクリーニング"
+        installation_construction: "設置工事"
+        installation_maintenance: "インストールのメンテナンス"
+        installation_renovation: "インストールのリフォーム"
+        installation_repairing: "インストールの修復"
         irrigation: "かんがい"
         irrigation_pump_lifting: "灌漑ポンプリフティング"
         irrigation_system_improvement: "灌漑システム改善"
@@ -2234,6 +2241,7 @@ jpn:
       name: "プロシージャのアクション"
     procedure_categories:
       items:
+        administrative_tasks: "管理タスク"
         animal_breeding: "動物育種"
         animal_feeding: "家畜飼養"
         animal_production: "動物生産"
@@ -2248,6 +2256,7 @@ jpn:
         fertilizing: "施肥"
         fish_transformation: "魚の変換"
         habitat_maintenance: "生息地のメンテナンス"
+        handling: "取り扱い"
         harvesting: "収穫"
         installations_modification: "インストールの変更"
         irrigating: "灌漑"

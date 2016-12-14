@@ -6305,6 +6305,9 @@ sale_items:
     type: text
   codes:
     type: jsonb
+  compute_from:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true
