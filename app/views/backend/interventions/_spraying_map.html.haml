@@ -1,11 +1,11 @@
 - count = 0
 - map = visualization do |v|
   - for cast in resource.product_parameters
-    - shape = cast.shape
-    - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
+    - shape = cast.working_zone
+    - shape ||= cast.product.shape(at: resource.started_at) if cast.product
     - if shape
       - v.serie cast.id, [{name: cast.name, shape: shape}]
-      - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
+      - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
       - count += 1
   - resource.product_parameters.each do |cast|
     - if cast.crumbs.any?

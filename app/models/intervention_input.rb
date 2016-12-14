@@ -84,7 +84,9 @@ class InterventionInput < InterventionProductParameter
     dose = quantity.convert(:liter_per_hectare)
 
     if product.france_maaid
+      
       agent = Pesticide::Agent.find(product.france_maaid)
+      
       reglementary_doses = {}
 
       if agent.usages.any?
