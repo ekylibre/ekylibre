@@ -160,6 +160,7 @@ eng:
     worker: "Worker"
     zone: "Zone"
   procedures:
+    administrative_tasks: "Administrative tasks"
     all_in_one_sowing: "All-in-one seeding"
     animal_antibiotic_treatment: "Animal antibiotic treatment"
     animal_artificial_insemination: "Animal artificial insemination"
@@ -187,6 +188,7 @@ eng:
     greenhouse_assembling: "Greenhouse assembling"
     ground_destratification: "Ground destratification"
     hand_weeding: "Hand weeding"
+    handling: "Handling"
     harvest_transportation: "Harvest transportation"
     harvesting: "Harvesting"
     hilling: "Ridging"
@@ -194,6 +196,7 @@ eng:
     hoeing: "Hoeing"
     # housing_soil_disinfection: "Housing soil disinfection"
     indirect_silage: "Indirect silage"
+    installation_maintenance: "Installation maintenance"
     inter_row_hoeing: "Inter-row hoeing"
     land_parcel_grinding: "Land parcel grinding"
     lifting: "Lifting"

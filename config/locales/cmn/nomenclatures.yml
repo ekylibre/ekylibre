@@ -2082,6 +2082,7 @@ cmn:
     procedure_actions:
       items:
         acaricide: "杀螨剂"
+        administrative: "行政的"
         animal_artificial_insemination: "动物人工授精"
         animal_feeding: "动物饲养"
         animal_group_changing: "动物群变化"
@@ -2135,6 +2136,7 @@ cmn:
         greasing: "润滑"
         greenhouse_assembling: "温室组装"
         growth_regulator: "生长调节剂"
+        handling: "处理"
         hardpan_destruction: "黏土毁坏"
         harvest: "收成"
         herbicide: "除草剂"
@@ -2147,6 +2149,11 @@ cmn:
         indirect_silage: "间接青贮"
         insect_repellent: "驱蚊"
         insecticide: "杀虫剂"
+        installation_cleaning: "安装清洗"
+        installation_construction: "安装施工"
+        installation_maintenance: "安装维修"
+        installation_renovation: "安装改造"
+        installation_repairing: "安装维修"
         irrigation: "灌溉"
         irrigation_pump_lifting: "灌溉泵举升"
         irrigation_system_improvement: "灌溉系统的改进"
@@ -2223,6 +2230,7 @@ cmn:
       name: "动作过程"
     procedure_categories:
       items:
+        administrative_tasks: "管理任务"
         animal_breeding: "动物养殖"
         animal_feeding: "动物饲养"
         animal_production: "动物产品"
@@ -2237,6 +2245,7 @@ cmn:
         fertilizing: "施肥"
         fish_transformation: "鱼转型"
         habitat_maintenance: "维修居"
+        handling: "处理"
         harvesting: "收获"
         installations_modification: "安装改造"
         irrigating: "灌溉"

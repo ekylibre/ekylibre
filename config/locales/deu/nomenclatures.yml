@@ -2082,6 +2082,7 @@ deu:
     procedure_actions:
       items:
         acaricide: "Akarizid"
+        administrative: "Administrativ"
         animal_artificial_insemination: "Tier künstliche Befruchtung"
         animal_feeding: "Fütterungs"
         animal_group_changing: "Tiergruppe Wechsel"
@@ -2135,6 +2136,7 @@ deu:
         greasing: "Schmieren"
         greenhouse_assembling: "Greenhouse Montage"
         growth_regulator: "Wachstumsregulator"
+        handling: "Handhabung"
         hardpan_destruction: "hardpan Zerstörung"
         harvest: "Ernte"
         herbicide: "Herbizid"
@@ -2147,6 +2149,11 @@ deu:
         indirect_silage: "indirekte Silage"
         insect_repellent: "Insektenschutz"
         insecticide: "Insektizid"
+        installation_cleaning: "Die Installation Reinigung"
+        installation_construction: "Die Installation Bau"
+        installation_maintenance: "Die Installation Wartung"
+        installation_renovation: "Die Installation Renovierung"
+        installation_repairing: "Reparatur der Installation"
         irrigation: "Bewässerung"
         irrigation_pump_lifting: "Bewässerungspumpen-Hebe"
         irrigation_system_improvement: "Bewässerungssystem Verbesserung"
@@ -2223,6 +2230,7 @@ deu:
       name: "Vorgehensweise Aktionen"
     procedure_categories:
       items:
+        administrative_tasks: "Administrative Aufgaben"
         animal_breeding: "Tierzucht"
         animal_feeding: "Fütterungs"
         animal_production: "Tierproduktion"
@@ -2237,6 +2245,7 @@ deu:
         fertilizing: "Dünge-"
         fish_transformation: "Fisch Transformation"
         habitat_maintenance: "Habitat Wartung"
+        handling: "Handhabung"
         harvesting: "Ernte"
         installations_modification: "Installationen Modifikation"
         irrigating: "Bewässerung"
