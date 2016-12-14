@@ -77,7 +77,12 @@ module Backend
 
     def new
       return unless mode = find_mode
-      @deposit = Deposit.new(created_at: Time.zone.today, mode: mode, responsible: current_user.person)
+      @deposit = Deposit.new(
+        created_at: Time.zone.today,
+        mode: mode,
+        cash: mode.cash,
+        responsible: current_user.person
+      )
       t3e mode: @deposit.mode.name
     end
 
@@ -106,7 +111,7 @@ module Backend
       t.column :amount
       t.column :payments_count
       t.column :cash, url: true
-      t.check_box :validated, value: 'RECORD.created_at<=Time.zone.today-(15)'.c
+      t.check_box :validated, value: 'RECORD.created_at <= Time.zone.today-(15)'.c
     end
 
     def unvalidateds

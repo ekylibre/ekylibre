@@ -506,6 +506,7 @@ spa:
     components: "Componentes"
     computation_method: "Método de cálculo"
     compute: "Calcular"
+    compute_from: "Computar a partir"
     conclusion: "Conclusión"
     condition_operator: "Operador de condición"
     condition_value: "Valor de condición"

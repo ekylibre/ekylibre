@@ -258,6 +258,15 @@ table {
         &:first-child td {
           border-top: none;
         }
+        &#computation-results td div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          span#list-computation-result {
+            @include padding-left(2*$fs-normal);
+          }
+        }
         /* &.focus { */
         /*   td { */
         /*     @include transition(background 6s ease-in); */

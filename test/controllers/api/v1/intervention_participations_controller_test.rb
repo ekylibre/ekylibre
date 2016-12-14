@@ -30,6 +30,8 @@ module Api
         part_id_una = JSON(post(:create, params: payload).body)['id']
         part_id_bis = JSON(post(:create, params: payload).body)['id']
 
+        assert_not_nil part_id_una
+        assert_not_nil part_id_bis
         assert_equal part_id_una, part_id_bis
       end
 

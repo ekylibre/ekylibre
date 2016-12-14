@@ -401,6 +401,10 @@ spa:
       nature:
         payslip: "Recibo de sueldo"
         purchase: "Compra"
+    sale_item:
+      compute_from:
+        pretax_amount: "Cantidad antes de impuestos"
+        unit_pretax_amount: "Unidades de la cantidad antes de impuestos"
     sensor:
       retrieval_mode:
         integration: "Integración"

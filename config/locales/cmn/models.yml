@@ -503,6 +503,7 @@ cmn:
     components: "组件"
     computation_method: "计算方法"
     compute: "计算"
+    compute_from: "从计算"
     conclusion: "结论"
     condition_operator: "条件运算符"
     condition_value: "条件值"

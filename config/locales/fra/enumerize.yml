@@ -384,6 +384,10 @@ fra:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
+    sale_item:
+      compute_from:
+        pretax_amount: "Montant avant impôts"
+        unit_pretax_amount: "Unité montant avant impôts"
     sensor:
       retrieval_mode:
         integration: "Intégration"

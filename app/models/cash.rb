@@ -105,6 +105,7 @@ class Cash < Ekylibre::Record::Base
   scope :associate_accounts, -> { where(nature: %w(associate_account owner_account)) }
   scope :with_pointing_work, -> { where(account_id: JournalEntryItem.select(:account_id).unpointed) }
   scope :pointables, -> { where(nature: %w(associate_account owner_account bank_account)) }
+  scope :with_deposit, -> { where(id: IncomingPaymentMode.where(with_deposit: true).select(:cash_id)) }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do

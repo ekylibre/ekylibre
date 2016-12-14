@@ -228,8 +228,11 @@ class JournalEntry < Ekylibre::Record::Base
         raise IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
       end
     end
-    number.upcase! if number
-    self.number ||= journal.next_number if journal && !number
+    if number.present?
+      number.upcase!
+    elsif journal
+      self.number ||= journal.next_number
+    end
   end
 
   validate(on: :update) do

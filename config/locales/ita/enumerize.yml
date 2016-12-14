@@ -401,6 +401,10 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
+    sale_item:
+      compute_from:
+        pretax_amount: "Importo lordo delle imposte"
+        unit_pretax_amount: "Unità importo lordo delle imposte"
     sensor:
       retrieval_mode:
         integration: "Integrazione"
