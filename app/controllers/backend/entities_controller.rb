@@ -18,14 +18,17 @@
 
 module Backend
   class EntitiesController < Backend::BaseController
-    manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
-                     language: 'Preference[:language]'.c,
-                     country: 'Preference[:country]'.c,
-                     active: true,
-                     scope: :normal,
-                     continue: [:nature],
-                     t3e: { nature: 'RECORD.nature.text'.c }
+    manage_restfully(
+      nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
+      language: 'Preference[:language]'.c,
+      country: 'Preference[:country]'.c,
+      active: true,
+      scope: :normal,
+      continue: [:nature],
+      t3e: { nature: 'RECORD.nature.text'.c }
+    )
     manage_restfully_picture
+    respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
     unroll fill_in: :full_name, scope: :normal
 
@@ -105,6 +108,15 @@ module Backend
       t.column :mobile, label_method: :coordinate, through: :default_mobile_address, hidden: true
       # Deactivated for performance reason, need to store it in one column
       # t.column :balance, currency: true, hidden: true
+    end
+
+    def show
+      return unless @entity = find_and_check
+      respond_with(@entity, include: { default_mail_address: { methods: [:mail_coordinate] }}) do |format|
+        format.html do
+          t3e @entity.attributes, nature: @entity.nature.l
+        end
+      end
     end
 
     list(:contracts, conditions: { supplier_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
