@@ -6251,9 +6251,6 @@ purchases:
     type: integer
     references: entity
     required: true
-  tax_payability:
-    type: string
-    required: true
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
