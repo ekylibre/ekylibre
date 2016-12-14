@@ -71,8 +71,6 @@ gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs'
 
-gem 'rufus-scheduler', '~> 3.2.0'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -188,8 +186,6 @@ group :development do
   gem 'spring'
 
   gem 'letter_opener'
-
-  gem 'minitest', '~> 5.9.1'
 end
 
 group :development, :test do

@@ -42,7 +42,7 @@ module Backend
         format.html
         format.ods do
           send_data(
-            inspections_to_ods_export(inspections).bytes,
+            to_ods(inspections).bytes,
             filename: "[#{Time.zone.now.l}] #{Inspection.model_name.human}.ods".underscore
           )
         end
@@ -67,9 +67,9 @@ module Backend
     # really figure out where it should be.
     #
     # Maybe an Exporter ? A Presenter ? Something along those lines ?
-    def inspections_to_ods_export(inspections)
-      require 'odf/spreadsheet'
-      output = ODF::Spreadsheet.new
+    def to_ods(inspections)
+      require 'rodf'
+      output = RODF::Spreadsheet.new
       output.instance_eval do
         office_style :important, family: :cell do
           property :text, 'font-weight': :bold, 'font-size': '11px'
