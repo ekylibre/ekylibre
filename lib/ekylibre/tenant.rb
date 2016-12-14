@@ -119,13 +119,13 @@ module Ekylibre
             raise 'No given name for the tenant'
           end
 
-          format_version = manifest[:format_version]
+          format_version = manifest[:format_version].to_s
           if format_version == '3'
             restore_v3(archive_path, name, options)
-          elsif format_version =~ /\A2(.0)?\z/
+          elsif format_version =~ /\A2(\.0)?\Z/
             restore_v2(archive_path, name, options)
           else
-            raise "Cannot handle this version of archive: #{format_version}"
+            raise "Cannot handle this version of archive: #{format_version.inspect}"
           end
         end
         FileUtils.rm_rf(archive_path)

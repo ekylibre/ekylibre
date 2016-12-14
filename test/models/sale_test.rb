@@ -74,37 +74,55 @@ class SaleTest < ActiveSupport::TestCase
   test_model_actions
 
   test 'rounds' do
-    nature = SaleNature.first
+    nature = SaleNature.find_or_create_by(with_accounting: true)
     assert nature
-    sale = Sale.create!(nature: nature, client: Entity.normal.first)
+    client = Entity.normal.first
+    assert client
+    sale = Sale.create!(nature: nature, client: client)
     assert sale
     variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     # Standard case
-    tax = Tax.create!(
+    standard_vat = Tax.create!(
       name: 'Standard',
       amount: 20,
       nature: :normal_vat,
-      collect_account: Account.find_or_create_by_number('4566'),
-      deduction_account: Account.find_or_create_by_number('4567'),
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
       country: :fr
     )
-    item = sale.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 100, tax: tax)
-    assert item
-    assert_equal 480, item.amount
+    first_item = sale.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
+    assert first_item
+    assert_equal 480, first_item.amount
     assert_equal 480, sale.amount
     # Limit case
-    tax = Tax.create!(
+    reduced_vat = Tax.create!(
       name: 'Reduced',
       amount: 5.5,
       nature: :normal_vat,
-      collect_account: Account.find_or_create_by_number('4566'),
-      deduction_account: Account.find_or_create_by_number('4567'),
+      collect_account: Account.find_or_create_by_number('45662'),
+      deduction_account: Account.find_or_create_by_number('45672'),
       country: :fr
     )
-    item = sale.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 3.791, tax: tax)
-    assert item
-    assert_equal 16, item.amount
+    second_item = sale.items.create!(variant: variants.second, quantity: 4, unit_pretax_amount: 3.791, tax: reduced_vat)
+    assert second_item
+    assert_equal 16, second_item.amount
     assert_equal 496, sale.amount
+
+    assert sale.propose!
+    assert sale.confirm!
+    assert sale.invoice!
+
+    sale.reload
+    entry = sale.journal_entry
+
+    assert entry.present?, 'Journal entry must be present after invoicing'
+
+    assert_equal 5, entry.items.count
+    assert 80.0, entry.items.find_by(account_id: standard_vat.collect_account_id).credit
+    assert 400.0, entry.items.find_by(account_id: first_item.account_id).credit
+    assert 0.84, entry.items.find_by(account_id: reduced_vat.collect_account_id).credit
+    assert 15.16, entry.items.find_by(account_id: second_item.account_id).credit
+    assert 496, entry.items.find_by(account_id: client.account(:client).id).debit
   end
 
   test 'unit pretax amount calculation based on total pretax amount' do

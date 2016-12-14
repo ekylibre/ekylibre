@@ -2,11 +2,11 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="harvesting" categories="harvesting" actions="harvest">
     <parameters>
-      <target name="plant" filter="is plant and has indicator shape" default-shape=":cultivation" default-actor="variant_localized_in_storage">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, PRODUCT.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
+          <compute to="shape" expr="intersection(VALUE, PRODUCT.shape)"/>
+          <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
         </handler>
       </target>
       <output name="matters" derivative-of="variety: plant" filter="is matter and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
