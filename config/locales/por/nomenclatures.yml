@@ -2082,6 +2082,7 @@ por:
     procedure_actions:
       items:
         acaricide: "Acaricida"
+        # administrative: "Administrative"
         animal_artificial_insemination: "Inseminação artificial de animais"
         animal_feeding: "Alimentação de animais"
         animal_group_changing: "Mudança grupo de animais"
@@ -2135,6 +2136,7 @@ por:
         greasing: "Lubrificação"
         greenhouse_assembling: "Montagem de efeito estufa"
         growth_regulator: "Regulador de crescimento"
+        # handling: "Handling"
         hardpan_destruction: "Destruição hardpan"
         harvest: "Colheita"
         herbicide: "Herbicida"
@@ -2147,6 +2149,11 @@ por:
         indirect_silage: "Silagem indireta"
         insect_repellent: "Repelente de insetos"
         insecticide: "Inseticida"
+        # installation_cleaning: "Installation cleaning"
+        # installation_construction: "Installation construction"
+        # installation_maintenance: "Installation maintenance"
+        # installation_renovation: "Installation renovation"
+        # installation_repairing: "Installation repairing"
         irrigation: "Irrigação"
         irrigation_pump_lifting: "Levantamento de bomba de irrigação"
         irrigation_system_improvement: "Melhoria do sistema de irrigação"

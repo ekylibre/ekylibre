@@ -167,6 +167,7 @@ spa:
     hilling_for_sifting: "Aporque para tamizar"
     hoeing: "Azada"
     indirect_silage: "Ensilado indirecta"
+    # installation_maintenance: "Installation maintenance"
     inter_row_hoeing: "Entre hileras azada"
     land_parcel_grinding: "Molienda de parcelas"
     lifting: "Levantamiento"

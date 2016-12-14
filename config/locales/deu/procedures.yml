@@ -167,6 +167,7 @@ deu:
     hilling_for_sifting: "Hilling für Sieben"
     # hoeing: "Hoeing"
     indirect_silage: "indirekte Silage"
+    # installation_maintenance: "Installation maintenance"
     inter_row_hoeing: "Inter-Reihe Fräst"
     land_parcel_grinding: "Parzelle Schleif"
     lifting: "Heben"

@@ -167,6 +167,7 @@ arb:
     hilling_for_sifting: "هيلينج لغربلة"
     hoeing: "العزق"
     indirect_silage: "السيلاج غير مباشر"
+    # installation_maintenance: "Installation maintenance"
     inter_row_hoeing: "أمور الصف عزق"
     land_parcel_grinding: "قطعة أرض طحن"
     lifting: "رفع"

@@ -196,6 +196,7 @@ eng:
     hoeing: "Hoeing"
     # housing_soil_disinfection: "Housing soil disinfection"
     indirect_silage: "Indirect silage"
+    installation_maintenance: "Installation maintenance"
     inter_row_hoeing: "Inter-row hoeing"
     land_parcel_grinding: "Land parcel grinding"
     lifting: "Lifting"

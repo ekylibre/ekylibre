@@ -2088,6 +2088,7 @@ spa:
     procedure_actions:
       items:
         acaricide: "Acaricida"
+        # administrative: "Administrative"
         animal_artificial_insemination: "La inseminación artificial de animales"
         animal_feeding: "La alimentación animal"
         animal_group_changing: "Cambiante grupo de animales"
@@ -2141,6 +2142,7 @@ spa:
         greasing: "Lubricado"
         greenhouse_assembling: "Montaje de efecto invernadero"
         growth_regulator: "Regulador del crecimiento"
+        # handling: "Handling"
         hardpan_destruction: "Destrucción hardpan"
         harvest: "Cosecha"
         herbicide: "Herbicida"
@@ -2153,6 +2155,11 @@ spa:
         indirect_silage: "Ensilado indirecta"
         insect_repellent: "Repelente de insectos"
         insecticide: "Insecticida"
+        # installation_cleaning: "Installation cleaning"
+        # installation_construction: "Installation construction"
+        # installation_maintenance: "Installation maintenance"
+        # installation_renovation: "Installation renovation"
+        # installation_repairing: "Installation repairing"
         irrigation: "Irrigación"
         irrigation_pump_lifting: "Elevación de la bomba de riego"
         irrigation_system_improvement: "Mejora de sistema de riego"

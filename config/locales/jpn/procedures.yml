@@ -167,6 +167,7 @@ jpn:
     hilling_for_sifting: "ふるい分けのための畝"
     # hoeing: "Hoeing"
     indirect_silage: "間接サイレージ"
+    # installation_maintenance: "Installation maintenance"
     inter_row_hoeing: "行間hoeing"
     land_parcel_grinding: "土地区画研削"
     lifting: "持ち上げ"
