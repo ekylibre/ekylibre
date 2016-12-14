@@ -170,9 +170,10 @@ gem 'rest-client', require: false
 
 gem 'luhn'
 
-gem 'hajimari', git: 'https://alecuelle@forge.ekylibre.com/hajimari.git', branch: 'gemify'
+# gem 'hajimari', git: 'https://alecuelle@forge.ekylibre.com/hajimari.git', branch: 'gemify'
 # gem 'cap', git: 'https://alecuelle@forge.ekylibre.com/cap.git', branch: 'gemify'
 gem 'cap', path: '../cap'
+gem 'hajimari', path: '../hajimari'
 gem 'weather', path: '../weather'
 gem 'cap2020', path: '../cap-trap'
 # gem 'helileo', path: '../helileo'

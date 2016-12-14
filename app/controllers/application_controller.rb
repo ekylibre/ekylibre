@@ -36,10 +36,8 @@ class ApplicationController < ActionController::Base
   # Permits to redirect
   hide_action :after_sign_in_path_for
   def after_sign_in_path_for(resource)
-    if Ekylibre::Plugin.redirect_after_login?
-      path = Ekylibre::Plugin.after_login_path(resource)
-    end
-    path || super
+    Ekylibre::Hook.publish(:after_sign_in, resource)
+    @new_after_sign_in_path || super
   end
 
   def self.human_action_name(action, options = {})
