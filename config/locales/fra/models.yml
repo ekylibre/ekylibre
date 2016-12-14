@@ -533,7 +533,6 @@ fra:
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    # amount_reference: "Amount reference"
     analysed_at: "Analysé le"
     analyser: "Analyseur"
     analyses: "Analyses"
@@ -661,6 +660,7 @@ fra:
     components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
+    compute_from: "Calculer à partir"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"

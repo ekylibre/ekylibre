@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -5517,7 +5517,7 @@ CREATE TABLE sale_items (
     activity_budget_id integer,
     team_id integer,
     codes jsonb,
-    amount_reference character varying
+    compute_from character varying NOT NULL
 );
 
 

@@ -94,7 +94,7 @@
 
     round: (value, digits) ->
       magnitude = Math.pow(10, digits)
-      console.log value, magnitude, value * magnitude, Math.round(value * magnitude), (Math.round(value * magnitude) / magnitude), (Math.round(value * magnitude) / magnitude).toFixed(digits)
+      # console.log value, magnitude, value * magnitude, Math.round(value * magnitude), (Math.round(value * magnitude) / magnitude), (Math.round(value * magnitude) / magnitude).toFixed(digits)
       return (Math.round(value * magnitude) / magnitude).toFixed(digits)
 
     # Compute other amounts from unit pretax amount
@@ -114,7 +114,7 @@
       values = E.trade.itemValues(item)
       updates = {}
       # Compute unit_pretax_amount
-      updates.unit_pretax_amount = E.trade.round(values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 4)
+      updates.unit_pretax_amount = E.trade.round(values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 2)
       # Compute amount
       updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
       E.trade.itemValues(item, updates)
@@ -126,7 +126,7 @@
       # Compute pretax_amount
       updates.pretax_amount = values.amount / values.tax
       # Compute unit_pretax_amount
-      updates.unit_pretax_amount = E.trade.round(updates.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 4)
+      updates.unit_pretax_amount = E.trade.round(updates.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 2)
       # Round pretax amount
       updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
@@ -147,21 +147,20 @@
     updateCreditedPretaxAmount: (item) ->
       values = E.trade.itemValues(item)
       updates = {}
-      # Compute unit_pretax_amount
-      updates.unit_pretax_amount = -(E.trade.round(values.pretax_amount / (values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0), 4))
+      # Compute credited quantity
+      updates.credited_quantity = -(E.trade.round(values.pretax_amount / (values.unit_pretax_amount * (100.0 - values.reduction_percentage) / 100.0), 2))
       # Compute amount
       updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
       E.trade.itemValues(item, updates)
 
-
     # Compute other amounts from unit pretax amount
-    updateCreditedUnitPretaxAmount: (item) ->
+    updateCreditedAmount: (item) ->
       values = E.trade.itemValues(item)
       updates = {}
       # Compute pretax_amount
-      updates.pretax_amount = -(values.unit_pretax_amount * values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0)
-      # Compute amount
-      updates.amount = E.trade.round(updates.pretax_amount * values.tax, 2)
+      updates.pretax_amount = values.amount / values.tax
+      # Compute credited quantity
+      updates.credited_quantity = -(E.trade.round(values.pretax_amount / (values.unit_pretax_amount * (100.0 - values.reduction_percentage) / 100.0), 2))
       # Round pretax amount
       updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
@@ -209,8 +208,10 @@
     # Compute what have to be computed
     compute: (item, changedComponent) ->
       component = changedComponent.data("trade-component")
+      unless component in ['unit_pretax_amount', 'pretax_amount', 'amount']
+        component = changedComponent.closest('*[data-trade-item]').find('*[data-compute-from-updater]').val()
       switch component
-        when 'unit_pretax_amount', 'quantity', 'reduction_percentage', 'tax'
+        when 'unit_pretax_amount'
           E.trade.updateUnitPretaxAmount(item)
         when 'pretax_amount'
           E.trade.updatePretaxAmount(item)
@@ -225,11 +226,11 @@
     E.selling.compute component.closest("*[data-trade-item]"), component
 
 
-  $(document).on "change", "*[data-amount-reference]", (e) ->
-    $(e.currentTarget).closest('*[data-trade-item]').find('*[data-amount-reference-updater]').val($(e.currentTarget).data('amount-reference'))
+  $(document).on "change", "*[data-compute-from]", (e) ->
+    $(e.currentTarget).closest('*[data-trade-item]').find('*[data-compute-from-updater]').val($(e.currentTarget).data('compute-from'))
 
 
-  # Crediting workflow
+  # Sale crediting workflow
   E.crediting =
     # Compute what have to be computed
     compute: (item, changedComponent) ->
@@ -237,10 +238,10 @@
       switch component
         when 'credited_quantity'
           E.trade.updateCreditedQuantity(item)
-        when 'unit_pretax_amount'
-          E.trade.updateCreditedUnitPretaxAmount(item)
         when 'pretax_amount'
           E.trade.updateCreditedPretaxAmount(item)
+        when 'amount'
+          E.trade.updateCreditedAmount(item)
         else
           console.error "Unknown component: #{component}"
 

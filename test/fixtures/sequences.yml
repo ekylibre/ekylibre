@@ -44,17 +44,17 @@ sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  last_cweek: 50
-  last_month: 12
-  last_number: 20
+  last_cweek: 46
+  last_month: 11
+  last_number: 19
   last_year: 2016
-  lock_version: 21
+  lock_version: 20
   name: Sales
   number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-12-13 14:21:48.815883000 Z
+  updated_at: 2016-11-20 22:12:25.306687000 Z
   updater_id: 1
   usage: sales
 sequences_002:
@@ -193,17 +193,17 @@ sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
   creator_id: 1
   id: 10
-  last_cweek: 50
-  last_month: 12
-  last_number: 45
+  last_cweek: 46
+  last_month: 11
+  last_number: 44
   last_year: 2016
-  lock_version: 48
+  lock_version: 47
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-12-13 14:21:48.988961000 Z
+  updated_at: 2016-11-20 22:15:20.570612000 Z
   updater_id: 1
   usage: affairs
 sequences_011:

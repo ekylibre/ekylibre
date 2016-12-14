@@ -1050,7 +1050,6 @@ arb:
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
     amount: "القيمة من دون الضرائب"
-    # amount_reference: "Amount reference"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     analysed_at: "تم تحليل المعلومات في"
     analyser: "محلل"
@@ -1201,6 +1200,7 @@ arb:
     components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
+    compute_from: "حساب من"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
