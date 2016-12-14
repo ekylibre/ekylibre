@@ -404,7 +404,7 @@ class Entity < Ekylibre::Record::Base
     picture.path(style)
   end
 
-  def description
+  def name_with_postal_code_and_city
     desc = (number.nil? ? '' : number) + '. ' + full_name
     c = default_mail_address
     desc += ' (' + c.mail_line_6.to_s + ')' unless c.nil?

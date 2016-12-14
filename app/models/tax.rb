@@ -189,8 +189,8 @@ class Tax < Ekylibre::Record::Base
   end
 
   # Returns the pretax amount of an amount
-  def pretax_amount_of(amount)
-    (amount.to_d / coefficient)
+  def pretax_amount_of(with_tax_amount)
+    (with_tax_amount.to_d / coefficient)
   end
 
   # Returns the amount of a pretax amount
