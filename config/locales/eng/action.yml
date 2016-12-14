@@ -1085,9 +1085,11 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    currency_conversion_rate: "Currency conversion rate"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
+    currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"

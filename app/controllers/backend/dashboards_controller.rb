@@ -36,11 +36,9 @@ module Backend
       class_eval code
     end
 
-    def home
-    end
+    def home; end
 
-    def sandbox
-    end
+    def sandbox; end
 
     SIMILAR_LETTERS = [
       %w(C Ç),

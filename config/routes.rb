@@ -87,13 +87,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
+      resources :contacts, only: [:index] do
+        match 'picture(/:style)', via: :get, action: :picture, as: :picture
+      end
       resources :crumbs
       resources :interventions, only: [:index]
+      resources :intervention_participations, only: [:create]
+      resources :intervention_targets, only: [:show]
       resources :issues
       resources :plant_density_abaci
       resources :plant_countings
       resources :plants
-      resources :intervention_participations, only: [:create]
     end
   end
 

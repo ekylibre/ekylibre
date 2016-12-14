@@ -949,7 +949,7 @@ intervention_targets_001:
   position: 3
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-04 18:31:09.310469000 Z
@@ -1010,7 +1010,7 @@ intervention_targets_004:
   position: 3
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-06 17:47:42.946892000 Z

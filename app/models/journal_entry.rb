@@ -56,6 +56,7 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
+  class IncompatibleCurrencies < StandardError; end
   include Attachable
   attr_readonly :journal_id
   refers_to :currency
@@ -223,7 +224,9 @@ class JournalEntry < Ekylibre::Record::Base
       self.absolute_credit = real_credit
     else
       # FIXME: We need to do something better when currencies don't match
-      raise "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+      if currency? && (absolute_currency? || real_currency?)
+        raise IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+      end
     end
     number.upcase! if number
     self.number ||= journal.next_number if journal && !number
@@ -237,11 +240,13 @@ class JournalEntry < Ekylibre::Record::Base
   #
   validate do
     # TODO: Validates number has journal's code as prefix
-    if journal
-      errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on <= journal.closed_on
-    end
-    unless financial_year
-      errors.add(:printed_on, :out_of_existing_financial_year)
+    if printed_on
+      if journal
+        errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on <= journal.closed_on
+      end
+      unless financial_year
+        errors.add(:printed_on, :out_of_existing_financial_year)
+      end
     end
   end
 

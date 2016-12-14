@@ -216,7 +216,8 @@ class Sale < Ekylibre::Record::Base
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
         entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
-        entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+        tax = item.tax
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
       end
     end
 

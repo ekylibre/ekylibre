@@ -26,6 +26,5 @@ class CampaignProduction
 
   # Compute cost amount in global currency for the current campaign production
   # Cost is the sum of all
-  def cost_amount
-  end
+  def cost_amount; end
 end
