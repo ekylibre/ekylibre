@@ -1349,6 +1349,7 @@ spa:
     team: "Equipo"
     template: "Modelo"
     theme: "Tema"
+    theoretical_number: "Número teórico"
     third: "Tercero"
     third_producer: "En tercer productor" #?
     third_role: "Tercera papel"

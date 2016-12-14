@@ -78,7 +78,11 @@ module Backend
       @journal_entry_items = (params[:items] || {}).values
       # raise @journal_entry_items.inspect
       if @journal_entry.save_with_items(@journal_entry_items)
-        notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
+        if @journal_entry.number == params[:theoretical_number]
+          notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
+        else
+          notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
+        end
         redirect_to controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on # , :draft_mode => (1 if @journal_entry.draft_mode)
         return
       end

@@ -1368,6 +1368,7 @@ eng:
     team: "Team"
     template: "Template"
     theme: "Theme"
+    theoretical_number: "Theoretical number" #?
     third: "Third"
     third_role: "Third role"
     thread: "Thread"

@@ -1345,6 +1345,7 @@ por:
     team: "Equipe"
     template: "Modelo"
     theme: "Tema"
+    theoretical_number: "Número teórico"
     third: "Terceiro"
     third_producer: "Terceiro produtor" #?
     third_role: "Terceiro papel"

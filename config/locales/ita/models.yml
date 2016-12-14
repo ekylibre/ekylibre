@@ -1376,6 +1376,7 @@ ita:
     team: "Squadra"
     template: "Modello"
     theme: "Tema"
+    theoretical_number: "Numero teorico"
     third: "Terzo"
     third_producer: "terzo produttore" #?
     third_role: "terzo ruolo"

@@ -1618,6 +1618,7 @@ fra:
     team: "Équipe"
     template: "Modèle"
     theme: "Thème"
+    theoretical_number: "Numéro théorique"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers" #?

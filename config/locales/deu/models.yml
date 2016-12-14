@@ -1345,6 +1345,7 @@ deu:
     team: "Mannschaft"
     template: "Vorlage"
     theme: "Thema"
+    theoretical_number: "Theoretische Zahl"
     third: "Dritte"
     third_producer: "Drittens Produzent" #?
     third_role: "Drittens Rolle"

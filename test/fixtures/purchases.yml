@@ -48,6 +48,7 @@
 #  responsible_id                           :integer
 #  state                                    :string
 #  supplier_id                              :integer          not null
+#  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer

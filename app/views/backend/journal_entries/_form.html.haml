@@ -1,7 +1,12 @@
 = field_set do
   = hidden_field_tag :journal_id, (f.object.new_record? ? params[:journal_id] : f.object.journal_id)
-  -# = f.referenced_association :journal, readonly: true, input_html: { data: { dependents: '#items-form' } }
-  = f.input :number
+  -# = f.association :journal, as :hidden
+  - if f.object.new_record?
+    - theoretical_number = f.object.journal.next_number
+    = field JournalEntry.human_attribute_name(:theoretical_number), theoretical_number
+    = hidden_field_tag :theoretical_number, theoretical_number
+  - else
+    = f.input :number, placeholder: f.object.journal.next_number
   = f.input :printed_on, input_html: { data: { dependents: '#items-form', parameter_name: 'printed_on' } }
   = f.custom_fields
   #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: '#journal_id'}}

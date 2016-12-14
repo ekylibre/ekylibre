@@ -5428,7 +5428,8 @@ CREATE TABLE purchases (
     quantity_gap_on_invoice_journal_entry_id integer,
     payment_delay character varying,
     payment_at timestamp without time zone,
-    contract_id integer
+    contract_id integer,
+    tax_payability character varying NOT NULL
 );
 
 
@@ -16460,4 +16461,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161124093205');
 INSERT INTO schema_migrations (version) VALUES ('20161201142213');
 
 INSERT INTO schema_migrations (version) VALUES ('20161205185328');
+
+INSERT INTO schema_migrations (version) VALUES ('20161214091911');
 
