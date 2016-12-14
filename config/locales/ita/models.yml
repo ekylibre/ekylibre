@@ -534,6 +534,7 @@ ita:
     components: "Componenti"
     computation_method: "metodo di calcolo"
     compute: "Calcolare"
+    compute_from: "Calcola da"
     conclusion: "Conclusione"
     condition_operator: "operatore Condizione"
     condition_value: "valore della condizione"

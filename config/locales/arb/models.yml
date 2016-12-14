@@ -1200,6 +1200,7 @@ arb:
     components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
+    compute_from: "حساب من"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"

@@ -503,6 +503,7 @@ deu:
     components: "Komponenten"
     computation_method: "Berechnungsverfahren"
     compute: "Berechnen"
+    compute_from: "Berechnen von"
     conclusion: "Abschluss"
     condition_operator: "Zustand Betreiber"
     condition_value: "Zustandswert"
