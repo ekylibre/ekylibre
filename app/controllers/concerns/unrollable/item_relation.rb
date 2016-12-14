@@ -1,5 +1,5 @@
 module Unrollable
-  class InvalidScopeException < StandardError;
+  class InvalidScopeException < StandardError
   end
 
   # Wrapper around an ActiveRecord relation with easy-to-use filtering methods.
@@ -14,10 +14,10 @@ module Unrollable
 
     def filter_through(model, includes, order, scopes, excludes)
       self
-          .includes(includes)
-          .reorder(order)
-          .scoped(scopes, model)
-          .excluding(excludes)
+        .includes(includes)
+        .reorder(order)
+        .scoped(scopes, model)
+        .excluding(excludes)
     end
 
     def includes(columns)
@@ -59,7 +59,7 @@ module Unrollable
       order_request = "(#{request.gsub('[!BEGIN!]', '')}) DESC"
 
       exact_match_request = exact_conditions_for(query, searchables)
-      self.class.new(@items.where(where_request).reorder([exact_match_request,order_request].join(',')))
+      self.class.new(@items.where(where_request).reorder([exact_match_request, order_request].join(',')))
     end
 
     # Forwarding the unknown to the AR::Relation
@@ -82,7 +82,7 @@ module Unrollable
 
     def exact_conditions_for(keys, searchables)
       searchables.map { |filter| exact_unaccented_match(filter.search, keys) }
-          .map { |condition| "(#{condition})" }.join(',')
+                 .map { |condition| "(#{condition})" }.join(',')
     end
 
     def unaccented_match(term, pattern)
@@ -90,7 +90,7 @@ module Unrollable
     end
 
     def exact_unaccented_match(term, pattern)
-      "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ActiveRecord::Base.sanitize("#{pattern}")})"
+      "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ActiveRecord::Base.sanitize(pattern.to_s)})"
     end
 
     def bad_scope(scope, model)
