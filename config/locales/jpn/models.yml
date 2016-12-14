@@ -1341,10 +1341,12 @@ jpn:
     tax_declaration_items: "税申告項目"
     tax_declaration_mode: "税務申告モード"
     tax_declarations: "税務申告"
+    tax_payability: "税採算性"
     # taxations: "Taxations"
     team: "チーム"
     template: "テンプレート"
     theme: "テーマ"
+    theoretical_number: "理論数"
     third: "三番"
     third_producer: "サードプロデューサー" #?
     third_role: "第三の役割"

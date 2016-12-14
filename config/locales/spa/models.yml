@@ -1345,10 +1345,12 @@ spa:
     tax_declaration_items: "Artículos declaración fiscal"
     tax_declaration_mode: "Modo de declaración de la renta"
     tax_declarations: "Declaraciones de impuestos"
+    tax_payability: "Exigibilidad de Impuestos"
     taxations: "Tasaciones"
     team: "Equipo"
     template: "Modelo"
     theme: "Tema"
+    theoretical_number: "Número teórico"
     third: "Tercero"
     third_producer: "En tercer productor" #?
     third_role: "Tercera papel"

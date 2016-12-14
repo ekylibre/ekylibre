@@ -1341,10 +1341,12 @@ deu:
     tax_declaration_items: "Steuererklärung Artikel"
     tax_declaration_mode: "Steuererklärung Modus"
     tax_declarations: "Steuererklärungen"
+    tax_payability: "Steuer Zahlbarkeitsfaktoren"
     taxations: "Besteuerungen"
     team: "Mannschaft"
     template: "Vorlage"
     theme: "Thema"
+    theoretical_number: "Theoretische Zahl"
     third: "Dritte"
     third_producer: "Drittens Produzent" #?
     third_role: "Drittens Rolle"

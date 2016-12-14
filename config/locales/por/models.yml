@@ -1341,10 +1341,12 @@ por:
     tax_declaration_items: "Itens de declaração de imposto"
     tax_declaration_mode: "Modo de declaração de imposto"
     tax_declarations: "Declarações fiscais"
+    tax_payability: "Payability fiscal"
     taxations: "Taxations"
     team: "Equipe"
     template: "Modelo"
     theme: "Tema"
+    theoretical_number: "Número teórico"
     third: "Terceiro"
     third_producer: "Terceiro produtor" #?
     third_role: "Terceiro papel"
