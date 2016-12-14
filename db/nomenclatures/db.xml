@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161212181852">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161214093347">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2088,6 +2088,7 @@
   <nomenclature name="procedure_actions" translateable="true">
     <items>
       <item name="acaricide"/>
+      <item name="administrative"/>
       <item name="animal_artificial_insemination"/>
       <item name="animal_feeding"/>
       <item name="animal_group_changing"/>
@@ -2141,6 +2142,7 @@
       <item name="greasing"/>
       <item name="greenhouse_assembling"/>
       <item name="growth_regulator"/>
+      <item name="handling"/>
       <item name="hardpan_destruction"/>
       <item name="harvest"/>
       <item name="herbicide"/>
@@ -2153,6 +2155,11 @@
       <item name="indirect_silage"/>
       <item name="insect_repellent"/>
       <item name="insecticide"/>
+      <item name="installation_cleaning"/>
+      <item name="installation_construction"/>
+      <item name="installation_maintenance"/>
+      <item name="installation_renovation"/>
+      <item name="installation_repairing"/>
       <item name="irrigation"/>
       <item name="irrigation_pump_lifting"/>
       <item name="irrigation_system_improvement"/>
