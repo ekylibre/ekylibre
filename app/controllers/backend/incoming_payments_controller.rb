@@ -70,7 +70,7 @@ module Backend
     def new
       if params[:bank_statement_item_ids].present?
         bank_items = BankStatementItem.where(id: params[:bank_statement_item_ids].map(&:to_i))
-        amount = bank_items.sum(:debit) - bank_items.sum(:credit)
+        amount = bank_items.sum(:credit) - bank_items.sum(:debit)
       end
       amount ||= params[:amount].to_f
       @incoming_payment = resource_model.new(
@@ -108,7 +108,7 @@ module Backend
       if save_successful
         if (statements = params[:incoming_payment][:bank_statement_item_ids]).present?
           bank_items = BankStatementItem.where(id: statements.split.map(&:to_i))
-          amount = bank_items.sum(:debit) - bank_items.sum(:credit)
+          amount = bank_items.sum(:credit) - bank_items.sum(:debit)
           lettrable   = (amount == attributes[:amount].to_f)
           lettrable &&= (bank_items.first.bank_statement.cash_id == @incoming_payment.mode.cash_id)
           @incoming_payment.letter_with(bank_items) if lettrable
