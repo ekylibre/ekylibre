@@ -155,7 +155,7 @@
       buttonInDateSection.one "ajax:complete", (event, xhr, status) =>
         # use ajax:complete to ensure elements are already added to the DOM
         return unless status is "success"
-        @_reconciliateLines selectedJournalEntryItems, reconciliationLetter
+        @_reconciliateLines selectedJournalEntryItems
         @_uiUpdate()
       buttonInDateSection.click()
 
@@ -278,20 +278,17 @@
         similarJournalItems = @_filterLinesBy(journalItems, date: date, credit: debit, debit: credit)
         return if similarJournalItems.length isnt 1
         reconciliationLetter = @_getNextReconciliationLetter()
-        @_reconciliateLines $(e).add(similarJournalItems), reconciliationLetter
+        @_reconciliateLines $(e).add(similarJournalItems)
         @_uiUpdate()
 
     _reconciliateSelectedLinesIfValid: ->
       selected = @_lines().filter(".selected")
       return unless @_areLineValidForReconciliation(selected)
       letter = @_getNextReconciliationLetter()
-      @_reconciliateLines selected, letter
+      @_reconciliateLines selected
 
-    _reconciliateLines: (lines, letter) ->
-      @_letterItems lines, letter
-      lines.find(".bank-statement-letter:not(input)").text letter
-      lines.find("input.bank-statement-letter").val letter
-      lines.removeClass "selected"
+    _reconciliateLines: (lines) ->
+      @_letterItems lines
 
     _areLineValidForReconciliation: (lines) ->
       return false unless lines.length
@@ -308,11 +305,7 @@
 
     _clearLinesWithReconciliationLetter: (letter) ->
       return unless letter
-      lines = @_linesWithReconciliationLetter(letter)
-      @_unletterItems lines
-      lines.find(".bank-statement-letter:not(input)").text ""
-      lines.find("input.bank-statement-letter").val null
-      @_releaseReconciliationLetter letter
+      @_unletterItems letter
 
     _getNextReconciliationLetter: ->
       @reconciliationLetters.shift()
@@ -405,7 +398,7 @@
       $(".remaining-reconciliated-debit").text debit.toFixed(2)
       $(".remaining-reconciliated-credit").text credit.toFixed(2)
 
-    _letterItems: (lines, letter) ->
+    _letterItems: (lines) ->
       console.log letter
       journalLines = lines.filter(".journal-entry-item-type")
       journalIds = journalLines.get().map (line) =>
@@ -420,11 +413,13 @@
         data:
           journal_entry_items: journalIds
           bank_statement_items: bankIds
-          letter: letter
-        success: (json_data) ->
-          console.log json_data
+        success: (response) ->
+          lines.find(".bank-statement-letter:not(input)").text response.letter
+          lines.find("input.bank-statement-letter").val response.letter
+          lines.removeClass "selected"
           return true
         error: (data) ->
+          alert 'Error while lettering the lines.'
           console.log data
           return false
 

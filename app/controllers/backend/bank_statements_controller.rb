@@ -86,19 +86,18 @@ module Backend
 
     def letter
       return head :bad_request unless @bank_statement = find_and_check
-      byebug
-      letter = params[:letter]
-      bank_statement = BankStatement.find(params[:id])
+
+      letter = @bank_statement.next_letter
       bank_statement_items = params[:bank_statement_items] ? BankStatementItem.where(id: params[:bank_statement_items]) : BankStatementItem.none
       journal_entry_items  = params[:journal_entry_items]  ? JournalEntryItem.where(id: params[:journal_entry_items])   : JournalEntryItem.none
 
       saved = true
       saved &&= bank_statement_items.update_all(letter: letter)
-      saved &&= journal_entry_items.update_all(letter: letter, bank_statement_id: bank_statement.id)
+      saved &&= journal_entry_items.update_all(bank_statement_letter: letter, bank_statement_id: @bank_statement.id)
 
       return head :bad_request unless saved
       respond_to do |format|
-        format.json {  { status: :success } }
+        format.json {  render json: { letter: letter } }
       end
     end
   end
