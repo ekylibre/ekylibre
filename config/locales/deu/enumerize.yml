@@ -397,10 +397,18 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    purchase:
+      tax_payability:
+        at_invoicing: "Bei Fakturierung"
+        at_paying: "Zu zahlen"
     purchase_nature:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
+    sale_item:
+      compute_from:
+        pretax_amount: "Vor Steuern in Höhe"
+        unit_pretax_amount: "Einheit vor Steuern Menge"
     sensor:
       retrieval_mode:
         # integration: "Integration"

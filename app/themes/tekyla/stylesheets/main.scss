@@ -1578,6 +1578,15 @@ html.backend {
     background: #EFE;
     font-style: italic;
   }
+  .item-footer {
+    display: block;
+    padding: $default-gap;
+    font-style: italic;
+    &:hover {
+      background: rgba($base-color, 0.2);
+      cursor: pointer;
+    }
+  }
 }
 
 .stepper {

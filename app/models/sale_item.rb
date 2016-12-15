@@ -27,6 +27,7 @@
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  codes                :jsonb
+#  compute_from         :string           not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
@@ -52,6 +53,8 @@
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
   attr_readonly :sale_id
+  enumerize :compute_from, in: [:unit_pretax_amount, :pretax_amount, :amount],
+                           default: :unit_pretax_amount, predicates: { prefix: true }
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
@@ -62,6 +65,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :tax
   # belongs_to :tracking
   has_many :parcel_items
+  has_many :parcels, through: :parcel_items
   has_many :credits, class_name: 'SaleItem', foreign_key: :credited_item_id
   has_many :subscriptions, dependent: :destroy
   has_one :subscription, -> { order(:id) }, inverse_of: :sale_item
@@ -87,8 +91,8 @@ class SaleItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
+  validates :compute_from, :currency, :sale, :variant, presence: true
   validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :currency, :sale, :variant, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
@@ -112,22 +116,49 @@ class SaleItem < Ekylibre::Record::Base
 
   before_validation do
     self.currency = sale.currency if sale
-
-    self.quantity = -1 * credited_quantity if sale_credit
-
-    if tax && unit_pretax_amount
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
-      if sale.reference_number.blank?
-        self.unit_amount = nil
-        self.pretax_amount = nil
-        self.amount = nil
-      end
-      self.unit_amount ||= tax.amount_of(unit_pretax_amount)
-      raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
-      self.pretax_amount ||= raw_pretax_amount.round(precision)
-      self.amount        ||= tax.amount_of(raw_pretax_amount).round(precision)
+    self.compute_from ||= :unit_pretax_amount
+    if sale_credit
+      self.credited_quantity ||= 0.0
+      self.quantity = -1 * credited_quantity
     end
-
+    if tax
+      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      if compute_from_unit_pretax_amount?
+        if sale.reference_number.blank?
+          self.unit_amount = nil
+          self.pretax_amount = nil
+          self.amount = nil
+        end
+        self.unit_pretax_amount ||= 0.0
+        raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
+        self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
+        self.pretax_amount ||= raw_pretax_amount.round(precision)
+      elsif compute_from_pretax_amount?
+        if sale.reference_number.blank?
+          self.unit_pretax_amount = nil
+          self.unit_amount = nil
+          self.amount = nil
+        end
+        self.pretax_amount ||= 0.0
+        raw_pretax_amount = pretax_amount
+        self.unit_pretax_amount ||= (raw_pretax_amount / quantity / reduction_coefficient).round(precision)
+        self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
+      elsif compute_from_amount?
+        if sale.reference_number.blank?
+          self.pretax_amount = nil
+          self.unit_pretax_amount = nil
+          self.unit_amount = nil
+        end
+        self.amount ||= 0.0
+        raw_pretax_amount = tax.pretax_amount_of(self.amount)
+        self.pretax_amount ||= raw_pretax_amount.round(precision)
+        self.unit_pretax_amount ||= (raw_pretax_amount / quantity / reduction_coefficient).round(precision)
+        self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
+      elsif compute_from?
+        raise "Invalid compute_from value: #{compute_from.inspect}"
+      end
+      self.amount ||= tax.amount_of(raw_pretax_amount).round(precision)
+    end
     if variant
       self.account_id = variant.nature.category.product_account_id
       self.label ||= variant.commercial_name
@@ -141,7 +172,7 @@ class SaleItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      for usage in [:stock, :sale]
+      [:stock, :sale].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
@@ -156,7 +187,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def reduction_coefficient
-    (100.0 - reduction_percentage) / 100.0
+    (100.0 - (reduction_percentage || 0.0)) / 100.0
   end
 
   def undelivered_quantity

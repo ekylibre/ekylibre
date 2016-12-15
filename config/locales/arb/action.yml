@@ -923,6 +923,8 @@ arb:
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
     active_current_sum: "مجموع الموجودات المتداولة" #?
+    active_finishing_after: "التشطيب نشط بعد"
+    active_finishing_within: "التشطيب نشط داخل"
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
@@ -2435,6 +2437,7 @@ arb:
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
       journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."

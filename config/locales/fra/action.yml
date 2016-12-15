@@ -794,6 +794,8 @@ fra:
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
     active_current_sum: "Total actifs circulants" #?
+    active_finishing_after: "Actif dont l'abonnement se termine dans plus de"
+    active_finishing_within: "Actif dont l'abonnement se termine dans moins de"
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
     activities: "Activités"
@@ -1213,7 +1215,7 @@ fra:
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
-    expired_since: "Expiré depuis plus de"
+    expired_since: "Expiré depuis moins de"
     expired_within: "Expiré dans moins de"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
@@ -2341,8 +2343,9 @@ fra:
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."
-      journal_entry_already_validated: "La pièce a déjà été validée et ne peut plus être modifiée"
-      journal_entry_has_been_saved: "La pièce N°%{number} a été enregistrée correctement"
+      journal_entry_already_validated: "L’écriture a déjà été validée et ne peut plus être modifiée"
+      journal_entry_has_been_saved: "L’écriture N°%{number} a été enregistrée correctement"
+      journal_entry_has_been_saved_with_a_new_number: "L’écriture a été enregistrée correctement avec un nouveau numéro\_: %{number}"
       journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"

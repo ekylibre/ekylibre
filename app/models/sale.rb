@@ -471,7 +471,8 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
+    attrs = [:affair, :client, :address, :responsible, :nature,
+             :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -479,19 +480,24 @@ class Sale < Ekylibre::Record::Base
     attrs[:credit] = true
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)
+    x = []
     items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].each_with_object({}) do |attribute, hash|
+      attrs = [:account, :currency, :variant, :reduction_percentage, :tax,
+               :compute_from, :unit_pretax_amount, :unit_amount].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
+      [:pretax_amount, :amount].each do |v|
+        attrs[v] = -1 * item.send(v)
+      end
       attrs[:credited_quantity] = item.creditable_quantity
+      attrs[:quantity] = -1 * item.creditable_quantity
       attrs[:credited_item] = item
       if attrs[:credited_quantity] > 0
         sale_credit_item = sale_credit.items.build(attrs)
         sale_credit_item.valid?
       end
     end
-    # sale_credit.valid?
     sale_credit
   end
 

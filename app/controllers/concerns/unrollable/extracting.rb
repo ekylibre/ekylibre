@@ -4,7 +4,7 @@ module Unrollable
     extend Toolbelt
 
     AVAILABLE_OPTIONS = %i(model max order partial fill_in scope).freeze
-    DEFAULT_OPTIONS = { max: 80, scope: :unscoped }.freeze
+    DEFAULT_OPTIONS = { max: 80, scope: :unscoped, visible_items_count: 10 }.freeze
 
     def self.options_from(arguments, defaults: true)
       if arguments.last.is_a?(Hash)

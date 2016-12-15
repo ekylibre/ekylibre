@@ -727,6 +727,8 @@ spa:
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
     active_current_sum: "Total activos circulandos" #?
+    active_finishing_after: "Activo después de acabado"
+    active_finishing_within: "Acabado activo dentro de"
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
@@ -1994,7 +1996,8 @@ spa:
       journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "El registro ya ha sido validado y no puede ser cambiado"
-      # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_record_already_validated: "La pieza ya ha sido validada y ya no puede ser modificada" #?
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?

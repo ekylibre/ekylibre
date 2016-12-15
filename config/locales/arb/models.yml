@@ -1200,6 +1200,7 @@ arb:
     components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
+    compute_from: "حساب من"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
@@ -2305,6 +2306,7 @@ arb:
     tax_declaration_mode: "وضع الإقرار الضريبي"
     tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
+    tax_payability: "payability الضرائب"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
@@ -2313,6 +2315,7 @@ arb:
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
     theme: "موضوع"
+    theoretical_number: "عدد النظري"
     theoric_quantity: "الكمية النظرية" #?
     third: "ثلث"
     third_producer: "ثالث منتج" #?
