@@ -100,5 +100,23 @@ module Backend
         format.json {  render json: { letter: letter } }
       end
     end
+
+    def unletter
+      return head :bad_request unless @bank_statement = find_and_check
+
+      letter = params[:letter]
+      JournalEntryItem
+        .pointed_by(@bank_statement)
+        .where(bank_statement_letter: letter)
+        .update_all(bank_statement_letter: nil, bank_statement_id: nil)
+      @bank_statement
+        .items
+        .where(letter: letter)
+        .update_all(letter: nil)
+
+      respond_to do |format|
+        format.json {  render json: { letter: letter } }
+      end
+    end
   end
 end

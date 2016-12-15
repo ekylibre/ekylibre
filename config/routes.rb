@@ -270,6 +270,8 @@ Rails.application.routes.draw do
         get  :reconciliation
         put   :letter
         patch :letter
+        put   :unletter
+        patch :unletter
       end
     end
 

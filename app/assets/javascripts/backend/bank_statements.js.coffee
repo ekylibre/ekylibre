@@ -417,15 +417,31 @@
           lines.find(".bank-statement-letter:not(input)").text response.letter
           lines.find("input.bank-statement-letter").val response.letter
           lines.removeClass "selected"
+          @_uiUpdate()
           return true
         error: (data) ->
           alert 'Error while lettering the lines.'
           console.log data
           return false
 
-    _unletterItems: (lines) ->
-      console.log 'lines'
-
+    _unletterItems: (letter) ->
+      url = '/backend/bank-statements/4/unletter'
+      $.ajax url,
+        type: 'PATCH'
+        dataType: 'JSON'
+        data:
+          letter: letter
+        success: (response) =>
+          lines = @_linesWithReconciliationLetter(response.letter)
+          lines.find(".bank-statement-letter:not(input)").text ""
+          lines.find("input.bank-statement-letter").val null
+          @_releaseReconciliationLetter response.letter
+          @_uiUpdate()
+          return true
+        error: (data) ->
+          alert 'Error while unlettering the lines.'
+          console.log data
+          return false
 
     # Other methods
 
