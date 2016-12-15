@@ -1344,7 +1344,7 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invitation_status: "État"
-    invoice_status: "Etat de facturation"
+    invoice_status: "État de facturation"
     invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
     invoices: "Factures"
