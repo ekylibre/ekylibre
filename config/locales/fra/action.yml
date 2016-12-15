@@ -1215,8 +1215,8 @@ fra:
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
-    expired_since: "Expiré depuis moins de"
-    expired_within: "Expiré dans moins de"
+    expired_since: "Expiré depuis"
+    expired_within: "Expiré d'ici"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
