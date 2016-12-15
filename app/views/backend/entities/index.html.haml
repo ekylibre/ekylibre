@@ -9,13 +9,16 @@
     - k.helper do
       %label= Subscription.human_attribute_name(:subscriber)
       = select_tag(:subscription_nature_id, options_for_select([[]] + SubscriptionNature.order(:name).map{ |n| [n.name, n.id] }, params[:subscription_nature_id].to_i))
-      = select_tag(:subscription_test, options_for_select([:subscribed_on, :expired_within, :expired_since].map {|t| [ t.tl, t.to_s] }, params[:subscription_test]), data: { show_value: '.subscription-filter-'})
+      = select_tag(:subscription_test, options_for_select([:subscribed_on, :expired_within, :expired_since, :active_finishing_within, :active_finishing_after].map {|t| [ t.tl, t.to_s] }, params[:subscription_test]), data: { show_value: '.subscription-filter-'})
       = date_field_tag(:subscribed_on, params[:subscribed_on] || Date.today, class: 'subscription-filter-subscribed_on')
       %span.subscription-filter-expired_within.input-append
         = number_field_tag(:expired_within, params[:expired_within] || 0, size: 3, style: 'width: 5ex')
         .add-on= :days.tl
       %span.subscription-filter-expired_since.input-append
         = number_field_tag(:expired_since, params[:expired_since] || 0, size: 3, style: 'width: 5ex')
+        .add-on= :days.tl
+      %span.subscription-filter-active_finishing_within.subscription-filter-active_finishing_after.input-append
+        = number_field_tag(:delay, params[:delay] || 0, size: 3, style: 'width: 5ex')
         .add-on= :days.tl
 
 - main_toolbar do |t|

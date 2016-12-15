@@ -923,6 +923,8 @@ arb:
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
     active_current_sum: "مجموع الموجودات المتداولة" #?
+    active_finishing_after: "التشطيب نشط بعد"
+    active_finishing_within: "التشطيب نشط داخل"
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"

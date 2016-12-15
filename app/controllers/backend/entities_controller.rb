@@ -78,10 +78,20 @@ module Backend
       code << "    c << params[:subscription_nature_id]\n"
       code << "    c << params[:expired_within] + ' days'\n"
       code << "  elsif params[:subscription_test] == 'expired_since'\n"
-      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s LEFT JOIN subscriptions AS ns ON (ns.subscriber_id = s.subscriber_id AND ns.stopped_on > s.stopped_on AND ns.nature_id = ?) WHERE s.nature_id = ? AND ns.id IS NULL AND CURRENT_DATE >= s.stopped_on + ?::INTERVAL)'\n"
-      code << "    c << params[:subscription_nature_id]\n"
-      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE s.nature_id = ? AND s.stopped_on BETWEEN (CURRENT_DATE - ?::INTERVAL) AND CURRENT_DATE)'\n"
+      code << "    c << params[:subscription_nature_id].to_i\n"
       code << "    c << params[:expired_since] + ' days'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id NOT IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE s.nature_id = ? AND s.stopped_on > CURRENT_DATE)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "  elsif params[:subscription_test] == 'active_finishing_within'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE nature_id = ? AND started_on <= CURRENT_DATE AND stopped_on BETWEEN CURRENT_DATE AND (CURRENT_DATE + ?::INTERVAL) AND (subscriber_id, nature_id) NOT IN (SELECT subscriber_id, nature_id FROM subscriptions WHERE (CURRENT_DATE + ?::INTERVAL) BETWEEN started_on AND stopped_on))'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << (params[:delay].to_i - 1).to_s + ' days'\n"
+      code << "    c << params[:delay].to_i.to_s + ' days'\n"
+      code << "  elsif params[:subscription_test] == 'active_finishing_after'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE nature_id = ? AND started_on <= CURRENT_DATE AND stopped_on >= CURRENT_DATE + ?::INTERVAL)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:delay].to_i.to_s + ' days'\n"
       code << "  end\n"
       code << "end\n"
       code << "c\n"
@@ -112,7 +122,7 @@ module Backend
 
     def show
       return unless @entity = find_and_check
-      respond_with(@entity, include: { default_mail_address: { methods: [:mail_coordinate] }}) do |format|
+      respond_with(@entity, include: { default_mail_address: { methods: [:mail_coordinate] } }) do |format|
         format.html do
           t3e @entity.attributes, nature: @entity.nature.l
         end

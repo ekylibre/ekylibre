@@ -670,6 +670,8 @@ por:
     accounts_only_used_at: "Contas utilizada apenas na"
     accounts_to_load: "Contas para carregar"
     active: "Ativo"
+    active_finishing_after: "Acabamento activo depois"
+    active_finishing_within: "Acabamento ativo dentro"
     activities: "Atividades"
     activity: "Atividade"
     activity_production: "Produção de atividade"

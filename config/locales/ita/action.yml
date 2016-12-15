@@ -731,6 +731,8 @@ ita:
     accounts_only_used_at: "Conti utilizzati solo a"
     accounts_to_load: "Conti per caricare"
     active: "Attivo"
+    active_finishing_after: "Finitura attivo dopo"
+    active_finishing_within: "Finitura attivo all’interno"
     activities: "attività"
     activity: "Attività"
     activity_production: "Attività Produttive"

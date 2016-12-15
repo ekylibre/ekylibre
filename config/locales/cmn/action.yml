@@ -665,6 +665,8 @@ cmn:
     accounts_only_used_at: "账户仅用于在"
     accounts_to_load: "账户加载"
     active: "活性"
+    active_finishing_after: "后主动整理"
+    active_finishing_within: "在活动结束"
     activities: "活动"
     activity: "活动"
     activity_production: "生产活动"

@@ -665,6 +665,8 @@ deu:
     accounts_only_used_at: "Konten nur verwendet, um"
     accounts_to_load: "Konten zu laden"
     active: "Aktiv"
+    active_finishing_after: "Aktive Veredelung nach"
+    active_finishing_within: "Aktive Veredelung innerhalb"
     activities: "Aktivitäten"
     activity: "Aktivität"
     activity_production: "Aktivität Produktion"

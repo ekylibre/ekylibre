@@ -727,6 +727,8 @@ spa:
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
     active_current_sum: "Total activos circulandos" #?
+    active_finishing_after: "Activo después de acabado"
+    active_finishing_within: "Acabado activo dentro de"
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
