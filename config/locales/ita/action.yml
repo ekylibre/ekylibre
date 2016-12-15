@@ -1127,6 +1127,8 @@ ita:
     inventories: "rimanenze"
     inventory: "Inventario"
     invitation_status: "Stato"
+    # invoice_status: "Invoice status"
+    # invoiced: "Invoiced"
     invoiced_amount: "Vendite importo fatturato" #?
     invoices: "Fatture"
     is: "È"
@@ -1577,6 +1579,7 @@ ita:
     undelivered: "non consegnato"
     undelivered_invoices: "Fatture non consegnati"
     undone: "disfatto"
+    # uninvoiced: "Uninvoiced"
     unit: "Unità"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Sconosciuto"

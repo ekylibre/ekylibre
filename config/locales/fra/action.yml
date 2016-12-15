@@ -1344,6 +1344,8 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invitation_status: "État"
+    invoice_status: "Etat de facturation"
+    invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
@@ -2043,6 +2045,7 @@ fra:
     undelivered: "Reste à livrer"
     undelivered_invoices: "Factures non parvenues"
     undone: "Non-fait"
+    uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
     unit_and_indicator: "%{unit} (%{indicator})"

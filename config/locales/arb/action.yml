@@ -1454,6 +1454,8 @@ arb:
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد" #?
     invitation_status: "الحالة"
+    # invoice_status: "Invoice status"
+    # invoiced: "Invoiced"
     invoiced_amount: "قيمة الفاتورة" #?
     invoices: "الفواتير"
     is: "هل"
@@ -2141,6 +2143,7 @@ arb:
     undelivered_invoices: "الفواتير التي لم يتم تسليمها"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
     undone: "غير مصنوع"
+    # uninvoiced: "Uninvoiced"
     uninvoiced_amount: "قيمة غير مفوترة" #?
     unit: "الوحدة"
     # unit_and_indicator: "%{unit} (%{indicator})"

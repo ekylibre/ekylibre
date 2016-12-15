@@ -31,6 +31,7 @@
   -#     = select_tag(:transporter_id, options_for_select([[]] + transporters.order(:name).collect{|u| [u.name, u.id]}, params[:transporter_id]))
   - k.choice *([[:all.tl, :all]] + resource_model.nature.values.map{ |s| [s.l, s] }), name: :nature, label: Parcel.human_attribute_name(:nature)
   - k.choice *([[:all.tl, :all]] + resource_model.delivery_mode.values.map{ |s| [s.l, s] }), name: :delivery_mode, label: Parcel.human_attribute_name(:delivery_mode)
+  - k.choice *([[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]]), name: :invoice_status, label: :invoice_status.tl
 
 - main_toolbar do |t|
   = t.new params: { nature: :incoming, redirect: nil }, label: :new_incoming_parcel.tl

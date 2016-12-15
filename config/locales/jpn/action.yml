@@ -1130,6 +1130,8 @@ jpn:
     inventories: "棚卸"
     inventory: "インベントリ"
     invitation_status: "状態"
+    # invoice_status: "Invoice status"
+    # invoiced: "Invoiced"
     invoiced_amount: "売上請求額" #?
     invoices: "請求書"
     is: "あります"
@@ -1584,6 +1586,7 @@ jpn:
     undelivered: "未配達の"
     undelivered_invoices: "未配信の請求書"
     undone: "元に戻します"
+    # uninvoiced: "Uninvoiced"
     unit: "単位"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "不明"
