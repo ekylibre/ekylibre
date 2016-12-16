@@ -22,6 +22,7 @@
 #
 # == Table: bank_statements
 #
+#  accounted_at           :datetime
 #  cash_id                :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,6 +33,7 @@
 #  id                     :integer          not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  journal_entry_id       :integer
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null

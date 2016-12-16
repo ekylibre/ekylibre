@@ -22,33 +22,35 @@
 #
 # == Table: cashes
 #
-#  account_id               :integer          not null
-#  bank_account_holder_name :string
-#  bank_account_key         :string
-#  bank_account_number      :string
-#  bank_agency_address      :text
-#  bank_agency_code         :string
-#  bank_code                :string
-#  bank_identifier_code     :string
-#  bank_name                :string
-#  container_id             :integer
-#  country                  :string
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  currency                 :string           not null
-#  custom_fields            :jsonb
-#  iban                     :string
-#  id                       :integer          not null, primary key
-#  journal_id               :integer          not null
-#  last_number              :integer
-#  lock_version             :integer          default(0), not null
-#  mode                     :string           default("iban"), not null
-#  name                     :string           not null
-#  nature                   :string           default("bank_account"), not null
-#  owner_id                 :integer
-#  spaced_iban              :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
+#  account_id                             :integer          not null
+#  bank_account_holder_name               :string
+#  bank_account_key                       :string
+#  bank_account_number                    :string
+#  bank_agency_address                    :text
+#  bank_agency_code                       :string
+#  bank_code                              :string
+#  bank_identifier_code                   :string
+#  bank_name                              :string
+#  container_id                           :integer
+#  country                                :string
+#  created_at                             :datetime         not null
+#  creator_id                             :integer
+#  currency                               :string           not null
+#  custom_fields                          :jsonb
+#  iban                                   :string
+#  id                                     :integer          not null, primary key
+#  journal_id                             :integer          not null
+#  last_number                            :integer
+#  lock_version                           :integer          default(0), not null
+#  mode                                   :string           default("iban"), not null
+#  name                                   :string           not null
+#  nature                                 :string           default("bank_account"), not null
+#  owner_id                               :integer
+#  spaced_iban                            :string
+#  updated_at                             :datetime         not null
+#  updater_id                             :integer
+#  validate_payments_with_bank_statements :boolean          default(FALSE), not null
+#  validation_suspense_account_id         :integer
 #
 
 class Cash < Ekylibre::Record::Base
@@ -62,6 +64,7 @@ class Cash < Ekylibre::Record::Base
   refers_to :country
   refers_to :currency
   belongs_to :account
+  belongs_to :validation_suspense_account, class_name: 'Account'
   belongs_to :container, class_name: 'Product'
   belongs_to :journal
   belongs_to :owner, class_name: 'Entity'
@@ -85,6 +88,7 @@ class Cash < Ekylibre::Record::Base
   validates :account, :currency, :journal, :mode, :nature, presence: true
   validates :last_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
+  validates :validate_payments_with_bank_statements, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :country, length: { allow_blank: true, maximum: 2 }
   validates :currency, length: { allow_blank: true, maximum: 3 }
@@ -96,7 +100,7 @@ class Cash < Ekylibre::Record::Base
   validates :mode, inclusion: { in: mode.values }
   validates :nature, inclusion: { in: nature.values }
   validates :account, uniqueness: true
-  # validates_presence_of :owner, if: :associate_account?
+  validates :validation_suspense_account, if: :validate_payments_with_bank_statements
 
   delegate :currency, to: :journal, prefix: true
 
@@ -111,7 +115,10 @@ class Cash < Ekylibre::Record::Base
   before_validation do
     mode.lower! unless mode.blank?
     self.mode = self.class.mode.default_value if mode.blank?
-    self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name) unless bank_account_holder_name.nil?
+    self.validate_payments_with_bank_statements = false unless self.bank_account?
+    unless bank_account_holder_name.nil?
+      self.bank_account_holder_name = I18n.transliterate(bank_account_holder_name)
+    end
     if currency.blank?
       if journal
         self.currency = journal_currency

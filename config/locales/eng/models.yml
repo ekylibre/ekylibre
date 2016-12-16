@@ -1435,6 +1435,8 @@ eng:
     user: "User"
     users: "Users"
     uuid: "UUID"
+    # validate_payments_with_bank_statements: "Validate payments with bank statements"
+    # validation_suspense_account: "Validation suspense account"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
     variant: "Variant"

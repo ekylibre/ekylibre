@@ -22,33 +22,35 @@
 #
 # == Table: cashes
 #
-#  account_id               :integer          not null
-#  bank_account_holder_name :string
-#  bank_account_key         :string
-#  bank_account_number      :string
-#  bank_agency_address      :text
-#  bank_agency_code         :string
-#  bank_code                :string
-#  bank_identifier_code     :string
-#  bank_name                :string
-#  container_id             :integer
-#  country                  :string
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  currency                 :string           not null
-#  custom_fields            :jsonb
-#  iban                     :string
-#  id                       :integer          not null, primary key
-#  journal_id               :integer          not null
-#  last_number              :integer
-#  lock_version             :integer          default(0), not null
-#  mode                     :string           default("iban"), not null
-#  name                     :string           not null
-#  nature                   :string           default("bank_account"), not null
-#  owner_id                 :integer
-#  spaced_iban              :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
+#  account_id                             :integer          not null
+#  bank_account_holder_name               :string
+#  bank_account_key                       :string
+#  bank_account_number                    :string
+#  bank_agency_address                    :text
+#  bank_agency_code                       :string
+#  bank_code                              :string
+#  bank_identifier_code                   :string
+#  bank_name                              :string
+#  container_id                           :integer
+#  country                                :string
+#  created_at                             :datetime         not null
+#  creator_id                             :integer
+#  currency                               :string           not null
+#  custom_fields                          :jsonb
+#  iban                                   :string
+#  id                                     :integer          not null, primary key
+#  journal_id                             :integer          not null
+#  last_number                            :integer
+#  lock_version                           :integer          default(0), not null
+#  mode                                   :string           default("iban"), not null
+#  name                                   :string           not null
+#  nature                                 :string           default("bank_account"), not null
+#  owner_id                               :integer
+#  spaced_iban                            :string
+#  updated_at                             :datetime         not null
+#  updater_id                             :integer
+#  validate_payments_with_bank_statements :boolean          default(FALSE), not null
+#  validation_suspense_account_id         :integer
 #
 
 require 'test_helper'

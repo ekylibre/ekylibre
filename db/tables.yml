@@ -910,6 +910,8 @@ bank_statement_items:
     type: integer
     references: user
 bank_statements:
+  accounted_at:
+    type: datetime
   cash_id:
     type: integer
     references: cash
@@ -948,6 +950,9 @@ bank_statements:
     precision: 19
     scale: 4
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -1373,6 +1378,13 @@ cashes:
   updater_id:
     type: integer
     references: user
+  validate_payments_with_bank_statements:
+    type: boolean
+    required: true
+    default: false
+  validation_suspense_account_id:
+    type: integer
+    references: account
 catalog_items:
   all_taxes_included:
     type: boolean

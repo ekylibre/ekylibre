@@ -1015,7 +1015,9 @@ CREATE TABLE bank_statements (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     initial_balance_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL
+    initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    journal_entry_id integer,
+    accounted_at timestamp without time zone
 );
 
 
@@ -1391,7 +1393,9 @@ CREATE TABLE cashes (
     last_number integer,
     owner_id integer,
     custom_fields jsonb,
-    bank_account_holder_name character varying
+    bank_account_holder_name character varying,
+    validate_payments_with_bank_statements boolean DEFAULT false NOT NULL,
+    validation_suspense_account_id integer
 );
 
 
@@ -9400,6 +9404,13 @@ CREATE INDEX index_bank_statements_on_creator_id ON bank_statements USING btree 
 
 
 --
+-- Name: index_bank_statements_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bank_statements_on_journal_entry_id ON bank_statements USING btree (journal_entry_id);
+
+
+--
 -- Name: index_bank_statements_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9789,6 +9800,13 @@ CREATE INDEX index_cashes_on_updated_at ON cashes USING btree (updated_at);
 --
 
 CREATE INDEX index_cashes_on_updater_id ON cashes USING btree (updater_id);
+
+
+--
+-- Name: index_cashes_on_validation_suspense_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_validation_suspense_account_id ON cashes USING btree (validation_suspense_account_id);
 
 
 --
@@ -16466,4 +16484,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161205185328');
 INSERT INTO schema_migrations (version) VALUES ('20161212183910');
 
 INSERT INTO schema_migrations (version) VALUES ('20161214091911');
+
+INSERT INTO schema_migrations (version) VALUES ('20161216171308');
 

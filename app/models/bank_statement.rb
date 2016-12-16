@@ -22,6 +22,7 @@
 #
 # == Table: bank_statements
 #
+#  accounted_at           :datetime
 #  cash_id                :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,6 +33,7 @@
 #  id                     :integer          not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  journal_entry_id       :integer
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null
@@ -46,6 +48,7 @@ class BankStatement < Ekylibre::Record::Base
   belongs_to :cash
   has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :credit, :debit, :initial_balance_credit, :initial_balance_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -96,6 +99,10 @@ class BankStatement < Ekylibre::Record::Base
     end
     reconciliated_letters_to_clear = changed_reconciliated_items.map(&:letter).uniq
     clear_reconciliation_with_letters reconciliated_letters_to_clear
+  end
+
+  bookkeep do |b|
+    # if cash.validate_payments_with_bank_statements?
   end
 
   def balance_credit
