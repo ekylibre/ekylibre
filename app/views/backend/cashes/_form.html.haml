@@ -25,11 +25,11 @@
       = f.input :bank_account_key, input_html: { size: 4 }
 
 = field_set(:accountancy) do
-  = f.referenced_association :account, source: :banks_or_cashes_or_associates
+  = f.referenced_association :main_account, source: :banks_or_cashes_or_associates
   = f.referenced_association :journal, source: { nature: :banks_or_cashes }
   .bank_account-options
-    = f.input :validate_payments_with_bank_statements, show: '.payment-validation-with-bank-statements'
-    .payment-validation-with-bank-statements
-      = f.referenced_association :validation_suspense_account
+    = f.input :suspend_until_reconciliation, show: '.suspend-until-reconciliation'
+    .suspend-until-reconciliation
+      = f.referenced_association :suspense_account
 
 = f.attachments_field_set

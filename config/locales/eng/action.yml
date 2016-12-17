@@ -983,7 +983,7 @@ eng:
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
-    bban: "Basic Bank Account Number (BBAN)"
+    bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
@@ -1233,7 +1233,7 @@ eng:
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
-    iban: "International Bank Account Number (IBAN)"
+    iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"

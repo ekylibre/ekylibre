@@ -119,6 +119,7 @@ deu:
           unvalid_amounts: "Der Journaleintrag muss entweder Debit- oder Kredit aber nicht gleichzeitig gefüllt werden."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Ungültige BBAN. Ein oder mehrere Elemente sind nicht korrekt."
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"

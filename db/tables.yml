@@ -1306,10 +1306,6 @@ cash_transfers:
     type: integer
     references: user
 cashes:
-  account_id:
-    type: integer
-    references: account
-    required: true
   bank_account_holder_name:
     type: string
   bank_account_key:
@@ -1356,6 +1352,10 @@ cashes:
   lock_version:
     type: integer
     required: true
+  main_account_id:
+    type: integer
+    references: account
+    required: true
   mode:
     type: string
     required: true
@@ -1372,19 +1372,19 @@ cashes:
     references: entity
   spaced_iban:
     type: string
+  suspend_until_reconciliation:
+    type: boolean
+    required: true
+    default: false
+  suspense_account_id:
+    type: integer
+    references: account
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
-  validate_payments_with_bank_statements:
-    type: boolean
-    required: true
-    default: false
-  validation_suspense_account_id:
-    type: integer
-    references: account
 catalog_items:
   all_taxes_included:
     type: boolean

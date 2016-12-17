@@ -1371,7 +1371,7 @@ CREATE TABLE cashes (
     name character varying NOT NULL,
     nature character varying DEFAULT 'bank_account'::character varying NOT NULL,
     journal_id integer NOT NULL,
-    account_id integer NOT NULL,
+    main_account_id integer NOT NULL,
     bank_code character varying,
     bank_agency_code character varying,
     bank_account_number character varying,
@@ -1394,8 +1394,8 @@ CREATE TABLE cashes (
     owner_id integer,
     custom_fields jsonb,
     bank_account_holder_name character varying,
-    validate_payments_with_bank_statements boolean DEFAULT false NOT NULL,
-    validation_suspense_account_id integer
+    suspend_until_reconciliation boolean DEFAULT false NOT NULL,
+    suspense_account_id integer
 );
 
 
@@ -9747,13 +9747,6 @@ CREATE INDEX index_cash_transfers_on_updater_id ON cash_transfers USING btree (u
 
 
 --
--- Name: index_cashes_on_account_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_cashes_on_account_id ON cashes USING btree (account_id);
-
-
---
 -- Name: index_cashes_on_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9782,10 +9775,24 @@ CREATE INDEX index_cashes_on_journal_id ON cashes USING btree (journal_id);
 
 
 --
+-- Name: index_cashes_on_main_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_main_account_id ON cashes USING btree (main_account_id);
+
+
+--
 -- Name: index_cashes_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_cashes_on_owner_id ON cashes USING btree (owner_id);
+
+
+--
+-- Name: index_cashes_on_suspense_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_suspense_account_id ON cashes USING btree (suspense_account_id);
 
 
 --
@@ -9800,13 +9807,6 @@ CREATE INDEX index_cashes_on_updated_at ON cashes USING btree (updated_at);
 --
 
 CREATE INDEX index_cashes_on_updater_id ON cashes USING btree (updater_id);
-
-
---
--- Name: index_cashes_on_validation_suspense_account_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_cashes_on_validation_suspense_account_id ON cashes USING btree (validation_suspense_account_id);
 
 
 --

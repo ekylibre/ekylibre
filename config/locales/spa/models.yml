@@ -119,6 +119,7 @@ spa:
           unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
