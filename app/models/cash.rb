@@ -78,7 +78,7 @@ class Cash < Ekylibre::Record::Base
   has_many :sessions, class_name: 'CashSession'
   has_many :unpointed_main_journal_entry_items, -> { unpointed },
            through: :main_account, source: :journal_entry_items
-  has_many :unpointed_suspended_journal_entry_items, -> { unpointed },
+  has_many :unpointed_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatement.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
            through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 

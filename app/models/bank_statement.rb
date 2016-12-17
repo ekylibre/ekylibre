@@ -46,6 +46,7 @@ class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
+  belongs_to :journal_entry
   has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -62,7 +63,7 @@ class BankStatement < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
-  delegate :name, :currency, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
+  delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
   before_validation do
     self.currency = cash_currency if cash
@@ -102,7 +103,16 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    # if cash.validate_payments_with_bank_statements?
+    b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
+      label = "BS #{cash.name} #{number}"
+      balance = items.sum('credit - debit')
+      entry.add_debit(label, cash.main_account_id, balance, as: :bank)
+      entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
+      # items.each do |item|
+      #   entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
+      #   entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+      # end
+    end
   end
 
   def balance_credit
@@ -131,7 +141,7 @@ class BankStatement < Ekylibre::Record::Base
 
   def eligible_journal_entry_items
     margin = 20.days
-    unpointed = JournalEntryItem.where(account_id: cash_account_id).unpointed.between(started_on - margin, stopped_on + margin)
+    unpointed = cash.unpointed_journal_entry_items.between(started_on - margin, stopped_on + margin)
     pointed = JournalEntryItem.pointed_by(self)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end

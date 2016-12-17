@@ -92,6 +92,10 @@ class BankStatementItem < Ekylibre::Record::Base
     bank_statement && bank_statement.cash && bank_statement.cash.currency
   end
 
+  def credit_balance
+    self.credit - self.debit
+  end
+
   def balance=(new_balance)
     if new_balance > 0
       self.credit = new_balance

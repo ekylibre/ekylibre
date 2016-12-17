@@ -141,7 +141,7 @@ class IncomingPayment < Ekylibre::Record::Base
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode || mode.with_accounting? || received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount, as: :bank)
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?

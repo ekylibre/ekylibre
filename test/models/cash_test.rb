@@ -119,7 +119,14 @@ class CashTest < ActiveSupport::TestCase
     assert suspense
 
     currency = 'JPY'
-    cash = Cash.create!(name: '¡Banky!', nature: :bank_account, currency: currency, main_account: main, suspense_account: suspense, journal: Journal.find_or_create_by(nature: :bank, currency: currency))
+    cash = Cash.create!(
+      name: '¡Banky!',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by(nature: :bank, currency: currency)
+    )
     assert_equal main, cash.account
 
     cash.update!(suspend_until_reconciliation: true)
