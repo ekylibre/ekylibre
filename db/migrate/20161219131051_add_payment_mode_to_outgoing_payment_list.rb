@@ -10,7 +10,6 @@ class AddPaymentModeToOutgoingPaymentList < ActiveRecord::Migration
     SQL
 
     change_column_null :outgoing_payment_lists, :mode_id, false
-
   end
 
   def down

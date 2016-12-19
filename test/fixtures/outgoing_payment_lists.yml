@@ -37,6 +37,7 @@ outgoing_payment_lists_001:
   creator_id: 1
   id: 1
   lock_version: 1
+  mode_id: 3
   number: OPL000000000001
   updated_at: 2016-10-01 14:43:26.229792000 Z
   updater_id: 1
@@ -45,6 +46,7 @@ outgoing_payment_lists_002:
   creator_id: 1
   id: 2
   lock_version: 0
+  mode_id: 2
   number: OPL000000000002
   updated_at: 2016-10-26 15:31:44.103996000 Z
   updater_id: 1

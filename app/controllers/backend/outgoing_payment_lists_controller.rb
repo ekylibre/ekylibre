@@ -30,7 +30,7 @@ module Backend
       t.column :payments_sum, label: :total, datatype: :float, currency: true
     end
 
-    list(:payments, model: 'OutgoingPayment', conditions: {list_id: 'params[:id]'.c}) do |t|
+    list(:payments, model: 'OutgoingPayment', conditions: { list_id: 'params[:id]'.c }) do |t|
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -38,9 +38,9 @@ module Backend
       t.column :mode
       t.column :bank_check_number
       t.column :to_bank_at
-      t.column :work_name, through: :affair, label: :affair_number, url: {controller: :purchase_affairs}
-      t.column :deal_work_name, through: :affair, label: :purchase_number, url: {controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c}
-      t.column :bank_statement_number, through: :journal_entry, url: {controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c}
+      t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
+      t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
 
     def export_to_sepa
@@ -60,16 +60,16 @@ module Backend
         @outgoing_payment_list.mode = mode
 
         if @outgoing_payment_list.valid?
-          @thirds = Entity.includes(:purchase_affairs).where(affairs: {closed: false, currency: mode.cash.currency}).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at] )
+          @thirds = Entity.includes(:purchase_affairs).where(affairs: { closed: false, currency: mode.cash.currency }).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at])
         end
       end
     end
 
     def create
-      if params[:purchase_affairs] and params[:purchase_affairs].present?
+      if params[:purchase_affairs] && params[:purchase_affairs].present?
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
-        mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] and params[:outgoing_payment_list][:mode_id]
+        mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
         outgoing_payment_list = OutgoingPaymentList.build_from_purchase_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number]
         outgoing_payment_list.save!
 
