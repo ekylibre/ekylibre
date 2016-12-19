@@ -97,6 +97,17 @@ class OutgoingPayment < Ekylibre::Record::Base
     updateable? || destroyable?
   end
 
+  def amount_to_letter
+    # FIX ME : Humanize wants :fr but we have :fra in language preferences
+    parts = amount.to_s.split(".")
+    decimal_part = parts.count > 1 ? parts[1].to_s : 0
+    amount.humanize(locale: Preference[:country].to_sym) + " " + Nomen::Currency[currency].human_name.downcase + "s " + :and.tl.downcase + " " + decimal_part.to_s + " cts"
+  end
+
+  def affair_reference_numbers
+    affair.purchases.map(&:reference_number).compact.to_sentence
+  end
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

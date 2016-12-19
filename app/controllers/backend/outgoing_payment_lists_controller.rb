@@ -20,6 +20,8 @@ module Backend
   class OutgoingPaymentListsController < Backend::BaseController
     manage_restfully only: [:show, :index, :destroy]
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     list do |t|
       t.action :destroy, if: :destroyable?
       t.action :export_to_sepa, method: :get, if: :sepa?
@@ -41,6 +43,26 @@ module Backend
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
+    end
+
+    def show
+      return unless @outgoing_payment_list = find_and_check
+      t3e @outgoing_payment_list
+
+      @entity_of_company_full_name = Entity.of_company.full_name
+
+      respond_with(@outgoing_payment_list, methods: [:currency, :payments_sum, :entity],
+                                  include: {
+                                    payer: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                    payments: {
+                                      methods: [:amount_to_letter, :label, :affair_reference_numbers],
+                                      include: {
+                                        responsible: {},
+                                        mode: {},
+                                        payee: {include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }}
+                                      }
+                                    }
+                                  })
     end
 
     def export_to_sepa

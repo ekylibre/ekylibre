@@ -752,6 +752,7 @@ por:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Análises"
     analytic_preferences: "Preferências analíticas"
+    # and: "and"
     animal_details: "Detalhes de animais"
     animal_productions: "Produção animal" #?
     animals: "Animais"

@@ -815,6 +815,7 @@ spa:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Análisis"
     analytic_preferences: "Preferencias analíticas"
+    # and: "and"
     animal_details: "Detalles de los animales"
     animal_productions: "Producciones animales" #?
     animals: "Animales"

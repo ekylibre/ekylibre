@@ -1013,6 +1013,7 @@ arb:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "تحليلات"
     analytic_preferences: "تفضيلات التحليلية"
+    # and: "and"
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"

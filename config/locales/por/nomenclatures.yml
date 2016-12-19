@@ -1439,6 +1439,7 @@ por:
         manure_management_plan_sheet: "Plano de gestão de estrume (detalhe)"
         outgoing_deliveries_journal: "Entregas de saída jornal"
         outgoing_delivery_docket: "Docket de entrega de saída"
+        # outgoing_payment_list: "Outgoing payment list"
         phytosanitary_certification: "Certificação fitossanitária"
         phytosanitary_register: "Registo fitossanitário"
         prescription: "Prescrição"

@@ -747,6 +747,7 @@ deu:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analysen"
     analytic_preferences: "Analytic Präferenzen"
+    # and: "and"
     animal_details: "Tier Details"
     animal_productions: "Tierproduktionen" #?
     animals: "Tiere"

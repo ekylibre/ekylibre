@@ -203,6 +203,7 @@ GEM
     httpi (2.4.2)
       rack
       socksify
+    humanize (1.2.3)
     i18n (0.7.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
@@ -563,6 +564,7 @@ DEPENDENCIES
   formize (~> 2.1.0)
   haml
   http_accept_language
+  humanize
   i18n-complements (>= 0.0.14)
   i18n-js (>= 3.0.0.rc12)
   jbuilder (~> 2.0)

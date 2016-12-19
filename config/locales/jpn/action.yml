@@ -813,6 +813,7 @@ jpn:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "解析"
     analytic_preferences: "アナリ好み"
+    # and: "and"
     animal_details: "動物の詳細"
     animal_productions: "動物プロダクション" #?
     animals: "動物"

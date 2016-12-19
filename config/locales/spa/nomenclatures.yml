@@ -1445,6 +1445,7 @@ spa:
         manure_management_plan_sheet: "Plan de manejo del estiércol (detalle)"
         outgoing_deliveries_journal: "Entregas salientes revista"
         outgoing_delivery_docket: "Albarán de entrega saliente"
+        # outgoing_payment_list: "Outgoing payment list"
         phytosanitary_certification: "La certificación fitosanitaria"
         phytosanitary_register: "Registro fitosanitario"
         prescription: "Prescripción"

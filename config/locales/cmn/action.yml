@@ -747,6 +747,7 @@ cmn:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "分析"
     analytic_preferences: "喜好分析"
+    # and: "and"
     animal_details: "动物细节"
     animal_productions: "动物生产" #?
     animals: "动物"
