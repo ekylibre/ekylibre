@@ -299,6 +299,17 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
+  # get link item corresponding to charge or product line in purchase or sale.
+  def account_link_item_product
+    product_journal_entry_item = self.class.find_by(resource_id: self.resource_id, resource_prism: 'item_product')
+    if product_journal_entry_item
+      a = Account.find(product_journal_entry_item.account_id)
+      return a.label if a
+    else
+      nil
+    end
+  end
+
   # This method returns the name of journal which the entries are saved.
   def journal_name
     if entry

@@ -64,6 +64,10 @@ ita:
         status: "Stato"
       tax:
         amount: "Valore"
+      tax_declaration_item:
+        # collected: "Collected"
+        # deductible: "Deductible"
+        # fixed_asset_deductible: "Deductible on assets"
     errors:
       format: "%{attribute} %{message}" #?
       messages:

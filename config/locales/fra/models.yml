@@ -180,6 +180,10 @@ fra:
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
+      tax_declaration_item:
+        collected: "Collectée"
+        deductible: "Déductible"
+        fixed_asset_deductible: "Déductible sur immobilisation"
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?

@@ -592,6 +592,10 @@ arb:
         financial_year_id: "المدة المقدرة" #?
         nature: "نظام التصريح" #?
         updated_at: "تم تحديثها في" #?
+      tax_declaration_item:
+        # collected: "Collected"
+        # deductible: "Deductible"
+        # fixed_asset_deductible: "Deductible on assets"
       team:  #?
         company_id: "الشركة" #?
         parent_id: "النسب" #?

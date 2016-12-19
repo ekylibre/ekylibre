@@ -64,6 +64,10 @@ cmn:
         status: "状态"
       tax:
         amount: "值"
+      tax_declaration_item:
+        # collected: "Collected"
+        # deductible: "Deductible"
+        # fixed_asset_deductible: "Deductible on assets"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
