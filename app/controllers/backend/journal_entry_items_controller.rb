@@ -54,7 +54,7 @@ module Backend
       t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
       t.column :pretax_amount, currency: true
       t.column :tax, url: true
-      t.column :account_link_item_product, label: :number
+      t.column :vat_item_to_product_account, label: :product_account_number
     end
 
     def index; end

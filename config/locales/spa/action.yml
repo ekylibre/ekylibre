@@ -1467,6 +1467,7 @@ spa:
     # printing_document: "Printing %{document}"
     procedures: "Procedimientos"
     product: "Producto"
+    # product_account_number: "Product account number"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
     product_natures: "Tipos de productos"
@@ -1647,6 +1648,7 @@ spa:
     subtitle: "Informar la diferentes caracteristicas del nuevo utilizador" #?
     subtotal: "Subtotal %{name}"
     subtotals_at_level: "Subtotales al nivel"
+    # supervision: "Supervision"
     supplier: "Los precios de compra del proveedor"
     supplier_informations: "Información sobre los proveedores"
     supply: "Suministro"
@@ -1658,6 +1660,8 @@ spa:
     tasks: "Tareas"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    # tax_declarations: "Tax declarations"
+    # tax_label: "Tax label"
     taxations: "Tasaciones"
     taxes: "Impuestos"
     theoric_quantity: "cantidad teorica" #?

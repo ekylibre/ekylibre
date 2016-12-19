@@ -1812,6 +1812,7 @@ arb:
     # printing_document: "Printing %{document}"
     procedures: "الإجراءات"
     product: "المنتج"
+    # product_account_number: "Product account number"
     product_category: "الفئة"
     product_category_create: "اضافة فئة جديدة للمنتج" #?
     product_category_update: "تعديل الفئة" #?
@@ -2035,6 +2036,7 @@ arb:
     subtitle: "معرفة المعلومات المتعلقة بالاستخلاص" #?
     subtotal: "المجموع الاجمالي %{name}"
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
+    # supervision: "Supervision"
     supplier: "اسعار البيع للممولين"
     supplier_informations: "المعلومات المورد"
     supply: "التسليم"
@@ -2046,6 +2048,8 @@ arb:
     tasks: "المهام"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
+    # tax_declarations: "Tax declarations"
+    # tax_label: "Tax label"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب"
     theoric_quantity: "الكمية النظرية" #?

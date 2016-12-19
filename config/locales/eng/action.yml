@@ -1494,6 +1494,7 @@ eng:
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
+    product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
@@ -1624,7 +1625,7 @@ eng:
     subscriptions_evolution: "Subscriptions evolution" #?
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
-    # supervision: "Supervision"
+    supervision: "Supervision"
     supplier: "Purchase prices of the supplier" #?
     supplier_informations: "Supplier informations"
     supply: "Supply" #?
@@ -1633,7 +1634,8 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
-    # tax_declarations: "Tax declarations"
+    tax_declarations: "Tax declarations"
+    tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
     thumb: "Thumb" #?
