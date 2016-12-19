@@ -121,6 +121,31 @@ class SaleAffairTest < ActiveSupport::TestCase
     check_closed_state(sale.affair)
   end
 
+  test 'finishing with regularization' do
+    sale = new_valid_sales_invoice
+    assert_equal 1, sale.affair.deals.count
+
+    journal_entry = JournalEntry.create!(
+      journal: Journal.find_by(nature: :various, currency: sale.currency),
+      printed_on: sale.invoiced_on + 15,
+      items_attributes: {
+        '0' => {
+          name: 'Insurance care',
+          account: sale.client.account(:client),
+          real_credit: sale.amount
+        },
+        '1' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('123456'),
+          real_debit: sale.amount
+        }
+      }
+    )
+    Regularization.create!(affair: sale.affair, journal_entry: journal_entry)
+
+    check_closed_state(sale.affair)
+  end
+
   # Creates a sale and check affair informations
   def new_valid_sales_invoice
     client = entities(:entities_005)

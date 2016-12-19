@@ -124,6 +124,32 @@ class PurchaseAffairTest < ActiveSupport::TestCase
     check_closed_state(purchase.affair)
   end
 
+  test 'finishing with regularization' do
+    purchase = new_valid_purchases_invoice
+    assert_equal 1, purchase.affair.deals.count
+
+    journal_entry = JournalEntry.create!(
+      journal: Journal.find_by(nature: :various, currency: purchase.currency),
+      printed_on: purchase.invoiced_on + 15,
+      items_attributes: {
+        '0' => {
+          name: 'Insurance care',
+          account: purchase.supplier.account(:supplier),
+          real_debit: purchase.amount
+        },
+        '1' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('123456'),
+          real_credit: purchase.amount
+        }
+      }
+    )
+
+    Regularization.create!(affair: purchase.affair, journal_entry: journal_entry)
+
+    check_closed_state(purchase.affair)
+  end
+
   # Creates a purchase and check affair informations
   def new_valid_purchases_invoice
     supplier = entities(:entities_005)
