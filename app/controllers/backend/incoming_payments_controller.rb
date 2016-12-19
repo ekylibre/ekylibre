@@ -89,7 +89,7 @@ module Backend
         journal_entry_id: params[:journal_entry_id],
         mode_id: (params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil),
         number: params[:number],
-        paid_at: Time.zone.today,
+        paid_at: bank_items.min(:transfered_on) || Time.zone.today,
         payer_id: params[:payer_id],
         receipt: params[:receipt],
         received: true,

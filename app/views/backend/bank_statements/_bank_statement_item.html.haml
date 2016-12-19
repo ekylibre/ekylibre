@@ -1,0 +1,16 @@
+- type = BankStatementItem === item ? 'bank_statement_item' : 'journal_entry_item'
+.reconciliation-item{ data: { id: item.id, type: type } }
+  %a#delete{ href: "#" }
+    %i
+  .title
+    %i#type-icon{class: type.dasherize}=# type.humanize
+    .name= item.name
+  .amounts
+    .debit= item.credit
+    .credit= item.debit
+  .details
+    .letter= type =~ /bank_statement_item/ ? item.letter : item.bank_statement_letter
+    - link = :clear if item.letter
+    %a{ href: "#", id: link, data: { name: { clear: :clear.tl, complete: :complete.tl } } }
+      %i
+      %span= link && link.tl
