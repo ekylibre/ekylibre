@@ -58,8 +58,9 @@
                   - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
               - if affair.finishable?
                 .btn-group
-                  = link_to("convert_balance_into_#{affair.losing? ? :loss : :profit}".tl, {controller: affairs_controller, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn")
-                  = dropdown_menu_button 'Add regul', icon: false, dropup: true do |l|
+                  - if affair.regularizations.empty?
+                    = link_to("convert_balance_into_#{affair.losing? ? :loss : :profit}".tl, {controller: affairs_controller, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn")
+                  = dropdown_menu_button :add_regularization.tl, icon: false, dropup: true do |l|
                     - existings = JournalEntry.where(id: affair.third_account.journal_entry_items.where(letter: nil).select(:entry_id)).where(resource_id: nil)
                     - if existings.any?
                       - existings.each do |existing|
