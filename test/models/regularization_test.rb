@@ -44,5 +44,11 @@ class RegularizationTest < ActiveSupport::TestCase
     assert regularization
     assert regularization.journal_entry.present?
     assert_equal regularization, regularization.journal_entry.resource
+
+    entry = regularization.journal_entry
+    regularization.destroy
+
+    assert_nil entry.resource_id
+    assert_nil entry.resource_type
   end
 end

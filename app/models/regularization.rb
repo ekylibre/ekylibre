@@ -63,4 +63,8 @@ class Regularization < Ekylibre::Record::Base
   after_save do
     journal_entry.update_columns(resource_type: self.class.name, resource_id: id)
   end
+
+  after_destroy do
+    journal_entry.update_columns(resource_type: nil, resource_id: nil)
+  end
 end
