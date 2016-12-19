@@ -14,6 +14,9 @@
           %p.title= BankStatementItem.human_attribute_name(:credit)
           .field= @bank_statement.initial_balance_credit || 0.0
       .details
+        %label
+          %input#hide-lettered{ type: :checkbox, checked: true }
+          = :hide_lettered_lines.tl
 
     -# JS template for DatePicker.
     .date-section.hidden

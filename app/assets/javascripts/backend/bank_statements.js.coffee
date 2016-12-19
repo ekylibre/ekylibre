@@ -77,12 +77,15 @@
     # Automatic reconciliation
     bankReconciliation.autoReconciliate()
 
+  $(document).on "change", "#hide-lettered", ->
+    bankReconciliation.uiUpdate()
+
   class BankReconciliation
     constructor: (@precision) ->
 
     initialize: ->
       @autoReconciliate()
-      @_uiUpdate()
+      @uiUpdate()
 
     # Accessors
 
@@ -140,7 +143,7 @@
         # use ajax:complete to ensure elements are already added to the DOM
         return unless status is "success"
         @_letterItems selectedJournalEntryItems
-        @_uiUpdate()
+        @uiUpdate()
       buttonInDateSection.click()
 
     # Remove bank statement items
@@ -152,7 +155,7 @@
       @_removeLine bankStatementItem
       @_clearLinesWithReconciliationLetter @_reconciliationLetter(bankStatementItem)
       @_reconciliateSelectedLinesIfValid()
-      @_uiUpdate()
+      @uiUpdate()
 
     _removeLine: (line) ->
       form = line.parents('form')
@@ -172,12 +175,12 @@
       return if @_isLineReconciliated(line) or isNaN(@_idForLine(line))
       line.addClass "selected"
       @_reconciliateSelectedLinesIfValid()
-      @_uiUpdate()
+      @uiUpdate()
 
     deselectLine: (line) ->
       line.removeClass "selected"
       @_reconciliateSelectedLinesIfValid()
-      @_uiUpdate()
+      @uiUpdate()
 
     # Reconciliation methods
 
@@ -187,13 +190,13 @@
         letter = @_reconciliationLetter($(e))
         letters.push(letter) unless letters.includes(letter)
       @_clearLinesWithReconciliationLetter(letter) for letter in letters
-      @_uiUpdate()
+      @uiUpdate()
 
     clearReconciliationLetterFromLine: (line) ->
       letter = @_reconciliationLetter(line)
       return unless letter
       @_clearLinesWithReconciliationLetter letter
-      @_uiUpdate()
+      @uiUpdate()
 
     autoReconciliate: ->
       notReconciliated = @_notReconciliatedLines()
@@ -209,7 +212,7 @@
         similarJournalItems = @_filterLinesBy(journalItems, date: date, credit: debit, debit: credit)
         return if similarJournalItems.length isnt 1
         @_letterItems $(e).add(similarJournalItems)
-        @_uiUpdate()
+        @uiUpdate()
 
     _reconciliateSelectedLinesIfValid: ->
       selected = @_lines().filter(".selected")
@@ -249,10 +252,11 @@
 
     # UI UPDATING
 
-    _uiUpdate: ->
+    uiUpdate: ->
       @_showOrHideClearButtons()
       @_showOrHideCompleteButtons()
       @_showOrHideNewPaymentButtons()
+      @_showOrHideReconciliatedLines()
       @_updateReconciliationBalances()
 
     _showOrHideClearButtons: ->
@@ -282,6 +286,12 @@
         $("thead tr th.payment-buttons a").show()
       else
         $("thead tr th.payment-buttons a").hide()
+
+    _showOrHideReconciliatedLines: ->
+      if $("#hide-lettered").is(":checked")
+        @_reconciliatedLines().hide()
+      else
+        @_reconciliatedLines().show()
 
     _changeIdsInButtons: ->
       selectedBankStatements = @_lines().filter("[data-type=bank_statement_item].selected")
@@ -344,7 +354,7 @@
         success: (response) =>
           lines.find(".details .letter").text response.letter
           lines.removeClass "selected"
-          @_uiUpdate()
+          @uiUpdate()
           return true
         error: (data) ->
           alert 'Error while lettering the lines.'
@@ -361,7 +371,7 @@
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""
-          @_uiUpdate()
+          @uiUpdate()
           return true
         error: (data) ->
           alert 'Error while unlettering the lines.'

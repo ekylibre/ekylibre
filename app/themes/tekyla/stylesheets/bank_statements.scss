@@ -44,6 +44,12 @@
       justify-content: flex-end;
       align-items: flex-end;
     }
+
+    .details: {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+    }
   }
 
   .date-section {

@@ -1227,6 +1227,7 @@ eng:
     help: "Help"
     help_center: "Help center"
     hint: "Hint: %{value}" #?
+    hide_lettered-lines: "Hide lettered lines"
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
