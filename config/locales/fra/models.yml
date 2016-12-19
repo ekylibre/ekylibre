@@ -184,6 +184,7 @@ fra:
         collected: "Collectée"
         deductible: "Déductible"
         fixed_asset_deductible: "Déductible sur immobilisation"
+        intracommunity_payable: "Intra-communautaire"
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?

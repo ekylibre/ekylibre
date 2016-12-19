@@ -596,6 +596,7 @@ arb:
         # collected: "Collected"
         # deductible: "Deductible"
         # fixed_asset_deductible: "Deductible on assets"
+        # intracommunity_payable: "Intracommunity payable"
       team:  #?
         company_id: "الشركة" #?
         parent_id: "النسب" #?

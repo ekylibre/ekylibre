@@ -68,6 +68,7 @@ spa:
         # collected: "Collected"
         # deductible: "Deductible"
         # fixed_asset_deductible: "Deductible on assets"
+        # intracommunity_payable: "Intracommunity payable"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
