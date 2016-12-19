@@ -446,6 +446,7 @@ fra:
       purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"

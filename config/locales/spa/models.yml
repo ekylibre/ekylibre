@@ -317,6 +317,7 @@ spa:
       purchase_gap: "Brecha de la compra"
       purchase_item: "Artículo de la compra"
       purchase_nature: "Tipo de compra"
+      regularization: "Regularización"
       role: "Papel"
       sale: "Venta"
       sale_affair: "Venta asunto"

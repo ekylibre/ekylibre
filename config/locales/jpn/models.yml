@@ -316,6 +316,7 @@ jpn:
       purchase_gap: "購入ギャップ"
       purchase_item: "購入アイテム"
       purchase_nature: "購入タイプ"
+      regularization: "正則化"
       role: "役割"
       sale: "販売"
       sale_affair: "販売事件"

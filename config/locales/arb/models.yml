@@ -956,6 +956,7 @@ arb:
       purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
       sale_affair: "بيع القضية"

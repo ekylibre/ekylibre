@@ -316,6 +316,7 @@ por:
       purchase_gap: "Gap compra"
       purchase_item: "Artigo da compra"
       purchase_nature: "Tipo de compra"
+      regularization: "Regularização"
       role: "Função"
       sale: "Venda"
       sale_affair: "Caso venda"

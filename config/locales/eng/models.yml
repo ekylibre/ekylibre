@@ -316,7 +316,7 @@ eng:
       purchase_gap: "Purchase gap"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
-      # regularization: "Regularization"
+      regularization: "Regularization"
       role: "Role"
       sale: "Sale"
       sale_affair: "Sale affair"

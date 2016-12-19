@@ -316,6 +316,7 @@ cmn:
       purchase_gap: "采购差距"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      regularization: "正则"
       role: "角色"
       sale: "拍卖"
       sale_affair: "销售外遇"
