@@ -91,6 +91,8 @@ module Backend
       bank_statement_items = params[:bank_statement_items] ? BankStatementItem.where(id: params[:bank_statement_items]) : BankStatementItem.none
       journal_entry_items  = params[:journal_entry_items]  ? JournalEntryItem.where(id: params[:journal_entry_items])   : JournalEntryItem.none
 
+      return head :bad_request if (journal_entry_items + bank_statement_items).length.zero?
+
       saved = true
       saved &&= bank_statement_items.update_all(letter: letter)
       saved &&= journal_entry_items.update_all(bank_statement_letter: letter, bank_statement_id: @bank_statement.id)

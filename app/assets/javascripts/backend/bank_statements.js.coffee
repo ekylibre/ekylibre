@@ -47,7 +47,7 @@
 
   $(document).on "click", ".reconciliation-item:not(.selected)", (event) ->
     # Select line
-    return if $(event.target).is("input,a")
+    return if $(event.target).is("input,a,form")
     bankReconciliation.selectLine $(@)
 
   $(document).on "click", ".reconciliation-item.selected", (event) ->
@@ -169,7 +169,7 @@
     # Select/deselect lines
 
     selectLine: (line) ->
-      return if @_isLineReconciliated(line)
+      return if @_isLineReconciliated(line) or isNaN(@_idForLine(line))
       line.addClass "selected"
       @_reconciliateSelectedLinesIfValid()
       @_uiUpdate()
