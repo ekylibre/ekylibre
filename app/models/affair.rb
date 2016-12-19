@@ -173,6 +173,10 @@ class Affair < Ekylibre::Record::Base
     self.debit - self.credit
   end
 
+  def third_credit_balance
+    42
+  end
+
   # Check if debit is equal to credit
   def unbalanced?
     !(self.debit == self.credit)

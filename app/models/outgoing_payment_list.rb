@@ -26,6 +26,7 @@
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  mode_id      :integer          not null
 #  number       :string
 #  updated_at   :datetime
 #  updater_id   :integer
@@ -33,8 +34,11 @@
 class OutgoingPaymentList < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :number, length: { maximum: 500 }, allow_blank: true
+  validates :mode, presence: true
   # ]VALIDATORS]
+
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
+  belongs_to :mode, class_name: 'OutgoingPaymentMode'
 
   delegate :name, to: :mode, prefix: true
   delegate :sepa?, to: :mode
@@ -46,33 +50,29 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     JournalEntryItem.where(entry_id: payments.select(:entry_id)).where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
-  def mode
-    payments.first.mode unless payments.first.nil?
-  end
-
   def currency
     mode.cash.currency
   end
 
   def to_sepa
     sct = SEPA::CreditTransfer.new(
-      name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),
-      bic: mode.cash.bank_identifier_code || 'NOTPROVIDED',
-      iban: mode.cash.iban
+        name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),
+        bic: mode.cash.bank_identifier_code || 'NOTPROVIDED',
+        iban: mode.cash.iban
     )
 
     sct.message_identification =
-      "EKY-#{number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
+        "EKY-#{number}-#{Time.zone.now.strftime('%y%m%d-%H%M')}"
 
     payments.each do |payment|
       credit_transfer_params = {
-        name: payment.payee.bank_account_holder_name.truncate(70, omission: ''),
-        iban: payment.payee.iban,
-        amount: format('%.2f', payment.amount.round(2)),
-        reference: payment.number,
-        remittance_information: payment.affair.purchases.first.number,
-        requested_date: Time.zone.now.to_date,
-        batch_booking: false
+          name: payment.payee.bank_account_holder_name.truncate(70, omission: ''),
+          iban: payment.payee.iban,
+          amount: format('%.2f', payment.amount.round(2)),
+          reference: payment.number,
+          remittance_information: payment.affair.purchases.first.number,
+          requested_date: Time.zone.now.to_date,
+          batch_booking: false
       }
 
       credit_transfer_params[:bic] = if payment.payee.bank_identifier_code.present?
@@ -94,19 +94,44 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   def self.build_from_purchases(purchases, mode, responsible)
     outgoing_payments = purchases.map do |purchase|
       OutgoingPayment.new(
-        affair: purchase.affair,
-        amount: purchase.amount,
-        cash: mode.cash,
-        currency: purchase.currency,
-        delivered: true,
-        mode: mode,
-        paid_at: Time.zone.today,
-        payee: purchase.payee,
-        responsible: responsible,
-        to_bank_at: Time.zone.today
+          affair: purchase.affair,
+          amount: purchase.amount,
+          cash: mode.cash,
+          currency: purchase.currency,
+          delivered: true,
+          mode: mode,
+          paid_at: Time.zone.today,
+          payee: purchase.payee,
+          responsible: responsible,
+          to_bank_at: Time.zone.today
       )
     end
 
     new(payments: outgoing_payments)
+  end
+
+  def self.build_from_purchase_affairs(affairs, mode, responsible, bank_check_number = nil)
+    outgoing_payments = affairs.collect.with_index do |affair, i|
+      args = {
+          affair: affair,
+          amount: affair.third_credit_balance,
+          cash: mode.cash,
+          currency: affair.currency,
+          delivered: true,
+          mode: mode,
+          paid_at: Time.zone.today,
+          payee: affair.third,
+          responsible: responsible,
+          to_bank_at: Time.zone.today,
+          position: i
+      }
+
+      args[:bank_check_number] = bank_check_number.to_i + i unless bank_check_number.empty?
+
+      OutgoingPayment.new(args)
+    end
+
+
+    new(payments: outgoing_payments, mode: mode)
   end
 end
