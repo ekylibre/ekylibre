@@ -784,6 +784,7 @@ spa:
     add_purchase_taxation: "Añadir imposición de compra"
     add_quickly_an_item: "Añadir rápidamente una línea de producto"
     add_reading: "Añadir un valor de un indicador"
+    add_regularization: "Añadir regularización"
     add_revenue: "Añadir los ingresos"
     add_sale: "Añadir la venta"
     add_sale_taxation: "Añadir la venta imposición"
