@@ -498,6 +498,7 @@ ita:
         usual_bank_overdraft: "scoperto di conto bancario al solito"
         various_exceptional_revenues: "Vari ricavi eccezionali"
         vat: "I.V.A"
+        # vat_to_pay: "Vat to pay"
         vegetals_making_services_expenses: "Vegetali rendendo costi per servizi"
         veterinary_fees_expenses: "spese veterinarie spese"
         waiting_vat: "In attesa di IVA"

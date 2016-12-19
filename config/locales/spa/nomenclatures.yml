@@ -498,6 +498,7 @@ spa:
         usual_bank_overdraft: "Sobregiro bancario habitual"
         various_exceptional_revenues: "Varios ingresos excepcionales"
         vat: "Tina"
+        # vat_to_pay: "Vat to pay"
         vegetals_making_services_expenses: "Los vegetales que hacen los gastos de servicios"
         veterinary_fees_expenses: "Gastos veterinarios gastos"
         waiting_vat: "IVA esperando"

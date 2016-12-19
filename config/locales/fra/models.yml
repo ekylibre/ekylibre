@@ -2046,7 +2046,7 @@ fra:
           done: "Fini"
           todo: "À faire"
     tax_declaration:
-      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
     team:
       default: "Général"
     user:

@@ -501,6 +501,7 @@ fra:
         usual_bank_overdraft: "Concours bancaires courants"
         various_exceptional_revenues: "Autres produits exceptionnels"
         vat: "État ‒ Taxes sur le chiffre d’affaire"
+        vat_to_pay: "TVA à décaisser"
         vegetals_making_services_expenses: "Achats de prestations de services (production végétales)"
         veterinary_fees_expenses: "Honoraires veterinaires"
         waiting_vat: "Taxes sur le chiffres d’affaires à régulariser ou en attente"
