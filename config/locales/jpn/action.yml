@@ -1445,6 +1445,7 @@ jpn:
     # section_x: "Section %{x}"
     see_details: "詳細を見ます"
     see_more_details: "詳細を見ます"
+    select_a_journal: "ジャーナルの選択"
     select_closure_date: "閉じる日付を選択します。"
     select_columns: "列を選択します"
     select_date: "日付を選択"

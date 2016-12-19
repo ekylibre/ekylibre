@@ -1448,6 +1448,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
+    regularizations: "Régularisations"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
     remaining_lifespan: "Vie restante"

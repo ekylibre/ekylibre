@@ -33,7 +33,7 @@
 
       - if @financial_year and @journal.currency != @financial_year.currency
         %tr#subtotal.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false}}
-          %th{colspan: 2 + budget_size}= :total_in_currency.tl(currency: @financial_year.currency)
+          %th{colspan: 2 + budget_size + team_size }= :total_in_currency.tl(currency: @financial_year.currency)
           %td#entry-debit.decimal{ data: {use: "td.debit",  calculate_round: Nomen::Currency[@financial_year.currency].precision}}= @journal_entry.debit
           %td.txt= @financial_year.currency
           %td#entry-credit.decimal{data: {use: "td.credit", calculate_round: Nomen::Currency[@financial_year.currency].precision}}= @journal_entry.credit

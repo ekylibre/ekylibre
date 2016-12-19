@@ -1848,6 +1848,7 @@ fra:
     section_x: "%{section} %{x}"
     see_details: "Voir les détails"
     see_more_details: "Voir plus de détails"
+    select_a_journal: "Sélectionnez un journal"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
     select_area: "Zone postale" #?

@@ -51,8 +51,11 @@
 #  updater_id             :integer
 #
 require 'test_helper'
+require 'test/affairable'
 
-class SaleAffairTest < AffairTest
+class SaleAffairTest < ActiveSupport::TestCase
+  include Test::Affairable
+
   test 'homogeneousity' do
     sale = Sale.order(:id).first
     assert_equal SaleAffair, sale.affair.class
@@ -141,12 +144,11 @@ class SaleAffairTest < AffairTest
       )
     end
     sale = Sale.create!(client: client, nature: nature, items: items)
-    assert sale.amount > 0, "Sale amount should be greater than 0. Got: #{sale.amount.inspect}"
-    assert_equal sale.affair.credit, sale.amount, 'Sale amount should match exactly affair credit'
     sale.invoice!
     sale.reload
+    assert sale.amount > 0, "Sale amount should be greater than 0. Got: #{sale.amount.inspect}"
     assert sale.journal_entry, 'A journal entry should exists after sale invoicing'
-    assert_equal sale.affair.credit, sale.amount, 'Sale amount should match exactly affair credit'
+    assert_equal sale.affair.debit, sale.amount, 'Sale amount should match exactly affair debit'
     assert sale.affair.unbalanced?,
            "Affair should not be balanced:\n" +
            sale.affair.attributes.sort_by(&:first).map { |k, v| " - #{k}: #{v}" }.join("\n")

@@ -53,6 +53,7 @@ class Account < Ekylibre::Record::Base
                                                  foreign_key: :commission_account_id
   has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode',
                                                  foreign_key: :depositables_account_id
+  has_many :journal_entries, through: :journal_entry_items, source: :entry
   has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :collected_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id

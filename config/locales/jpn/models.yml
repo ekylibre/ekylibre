@@ -1182,6 +1182,7 @@ jpn:
     reflected_at: "で反射"
     reflection_nodes: "リフレクションノード"
     reflections: "リフレクションズ"
+    # regularizations: "Regularizations"
     remain_owner: "所有者のまま"
     remaining_amount: "残量"
     remaining_lifespan: "残りの寿命"

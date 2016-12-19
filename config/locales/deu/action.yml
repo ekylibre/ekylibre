@@ -1372,6 +1372,7 @@ deu:
     # section_x: "Section %{x}"
     see_details: "Siehe Einzelheiten"
     see_more_details: "Weitere Details"
+    select_a_journal: "Wählen Sie eine Zeitschrift"
     select_closure_date: "Wählen Sie Schluss"
     select_columns: "Spalten auswählen"
     # select_date: "Select date"

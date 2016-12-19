@@ -1963,6 +1963,7 @@ arb:
     # section_x: "Section %{x}"
     see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
+    select_a_journal: "حدد مجلة"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?

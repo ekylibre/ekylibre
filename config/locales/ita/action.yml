@@ -1438,6 +1438,7 @@ ita:
     # section_x: "Section %{x}"
     see_details: "Guarda i detagli"
     see_more_details: "Vedi i dettagli"
+    select_a_journal: "Seleziona una rivista"
     select_closure_date: "Scegli la data di chiusura"
     select_columns: "selezionare le colonne"
     select_date: "Seleziona la data"

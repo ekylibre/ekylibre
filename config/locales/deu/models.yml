@@ -1182,6 +1182,7 @@ deu:
     reflected_at: "Reflected auf"
     reflection_nodes: "Reflection Knoten"
     reflections: "Reflexionen"
+    regularizations: "Regulationen"
     remain_owner: "bleiben Eigentümer"
     remaining_amount: "Restbetrag"
     remaining_lifespan: "Restlebensdauer"
