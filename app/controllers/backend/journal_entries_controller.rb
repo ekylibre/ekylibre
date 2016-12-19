@@ -18,7 +18,7 @@
 
 module Backend
   class JournalEntriesController < Backend::BaseController
-    manage_restfully only: [:index, :show, :destroy]
+    manage_restfully only: [:show, :destroy]
 
     unroll
 
@@ -55,6 +55,10 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
+    end
+
+    def index
+      redirect_to controller: :journals, action: :index
     end
 
     def new
