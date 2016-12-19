@@ -413,6 +413,7 @@ spa:
       new: "Añadir una entrega" #?
     backend/outgoing_payment_lists:
       index: "Pagos salientes lista de lotes"
+      # new: "New outgoing payment list"
       show: "Lote de pagos salientes"
     backend/outgoing_payment_modes:
       edit: "Editar modo de desembolso"

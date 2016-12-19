@@ -376,6 +376,7 @@ cmn:
       new: "新观察"
     backend/outgoing_payment_lists:
       index: "汇出款项批名单"
+      # new: "New outgoing payment list"
       show: "汇出款项批"
     backend/outgoing_payment_modes:
       edit: "编辑付款方式"

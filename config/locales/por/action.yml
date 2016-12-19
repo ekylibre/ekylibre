@@ -381,6 +381,7 @@ por:
       new: "Nova observação"
     backend/outgoing_payment_lists:
       index: "Lista de lote de pagamentos a terceiros"
+      # new: "New outgoing payment list"
       show: "Pagamentos efectuados lote"
     backend/outgoing_payment_modes:
       edit: "Modo de edição de desembolso"

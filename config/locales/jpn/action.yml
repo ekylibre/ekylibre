@@ -376,6 +376,7 @@ jpn:
       new: "新しい観測"
     backend/outgoing_payment_lists:
       index: "支払のバッチリスト"
+      # new: "New outgoing payment list"
       show: "支払バッチ"
     backend/outgoing_payment_modes:
       edit: "編集支出モード"

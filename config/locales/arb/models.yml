@@ -2020,6 +2020,7 @@ arb:
     purchasable: "للشراء"
     purchase: "شراء"
     purchase_affair: "قضية شراء"
+    # purchase_affairs: "Purchase affairs"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"

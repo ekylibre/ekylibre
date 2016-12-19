@@ -1125,6 +1125,7 @@ cmn:
     purchasable: "购买"
     purchase: "采购"
     purchase_affair: "购买外遇"
+    # purchase_affairs: "Purchase affairs"
     purchase_amount: "购买量"
     purchase_invoices: "购买发票"
     purchase_item: "采购项目"

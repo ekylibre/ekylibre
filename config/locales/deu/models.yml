@@ -1125,6 +1125,7 @@ deu:
     purchasable: "käuflich"
     purchase: "Kauf"
     purchase_affair: "Kauf-Affäre"
+    # purchase_affairs: "Purchase affairs"
     purchase_amount: "Gesamtbetrag des Einkaufs"
     purchase_invoices: "Eingangsrechnungen"
     purchase_item: "Kaufsache"

@@ -376,6 +376,7 @@ ita:
       new: "Nuovo osservazione"
     backend/outgoing_payment_lists:
       index: "Pagamenti in uscita la lista dei lotti"
+      # new: "New outgoing payment list"
       show: "Pagamenti in uscita in batch"
     backend/outgoing_payment_modes:
       edit: "modalità di erogazione Edit"
