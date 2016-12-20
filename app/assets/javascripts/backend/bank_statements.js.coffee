@@ -38,7 +38,7 @@
 
     bankReconciliation.initialize()
 
-  $(document).on "click", "a#delete", ->
+  $(document).on "click", ".reconciliation-item[data-type=bank_statement_item] a#delete", ->
     # Remove bank statement item
     button = $(@)
     bankStatementItem = bankReconciliation.closestLine(button)
@@ -62,7 +62,7 @@
     bankReconciliation.clearReconciliationLetterFromLine line
     return false
 
-  $(document).on "click", ".reconciliation-item[data-type=journal_entry_item] .complete a", ->
+  $(document).on "click", ".reconciliation-item[data-type=journal_entry_item] a#complete", ->
     # Complete journal entry items
     button = $(@)
     line = bankReconciliation.closestLine(button)
@@ -123,7 +123,6 @@
 
     completeJournalEntryItems: (clickedLine) ->
       params =
-        letter: reconciliationLetter
         name: clickedLine.find('.name').first().html()
 
       selectedJournalEntryItems = @_lines().filter("[data-type=journal_entry_item].selected")
@@ -136,13 +135,13 @@
         params.debit = -balance
 
       date = @_dateForLine(clickedLine)
-      buttonInDateSection = $(".#{date} a")
+      buttonInDateSection = $(".date-header p[data-date=#{date}]").parent(".date-header").find('a')
       buttonInDateSection.one "ajax:beforeSend", (event, xhr, settings) ->
-        settings.url += "&#{$.param(params)}"
+        for key,value of params
+          settings.url += "&bank_statement_item[#{key}]=#{value}"
       buttonInDateSection.one "ajax:complete", (event, xhr, status) =>
         # use ajax:complete to ensure elements are already added to the DOM
         return unless status is "success"
-        @_letterItems selectedJournalEntryItems
         @uiUpdate()
       buttonInDateSection.click()
 

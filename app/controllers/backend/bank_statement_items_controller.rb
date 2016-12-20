@@ -2,9 +2,7 @@ module Backend
   class BankStatementItemsController < Backend::BaseController
     def new
       return head :bad_request unless @bank_statement = BankStatement.find(params[:bank_statement_id])
-      safe_params = permit_params
-      @bank_statement_item = BankStatementItem.new
-      @bank_statement_item.attributes = safe_params
+      @bank_statement_item = BankStatementItem.new(permit_params)
       if request.xhr?
         render partial: 'bank_statement_item_row_form', locals: { item: @bank_statement_item, bank_statement: @bank_statement }
       else

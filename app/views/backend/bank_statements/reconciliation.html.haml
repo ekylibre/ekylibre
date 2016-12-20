@@ -25,7 +25,7 @@
       .date-section
         = render 'date_header', date: date, bank_statement: @bank_statement
         - items.each do |item|
-          = render 'bank_statement_item', item: item
+          = render 'reconciliation_item', item: item
 
     .totals
       #matching
