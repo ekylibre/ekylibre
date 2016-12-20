@@ -591,6 +591,10 @@ eng:
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
+    backend/regularizations:
+      # edit: "Edit regularization: %{name}"
+      # new: "New regularization"
+      # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"
@@ -874,6 +878,8 @@ eng:
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
     active: "Active" #?
+    active_finishing_after: "Active finishing after" #?
+    active_finishing_within: "Active finishing within" #?
     activities: "Activities" #?
     activity: "Activity"
     activity_production: "Activity production" #?
@@ -927,6 +933,7 @@ eng:
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
@@ -1495,6 +1502,7 @@ eng:
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
+    product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
@@ -1576,6 +1584,7 @@ eng:
     section_x: "Section %{x}"
     see_details: "See details"
     see_more_details: "See more details"
+    select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
     select_date: "Select date"
@@ -1634,7 +1643,8 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
-    # tax_declarations: "Tax declarations"
+    tax_declarations: "Tax declarations"
+    tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
     thumb: "Thumb" #?
@@ -1947,8 +1957,9 @@ eng:
       integrate_tools_you_are_using_every_day: "Integrate tools you are using every day"
       invalid_reference_name: "Invalid reference name"
       journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
-      journal_entry_already_validated: "The record has already been validated and can not be changed"
-      journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      journal_entry_already_validated: "The journal entry has already been validated and can not be changed"
+      journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"

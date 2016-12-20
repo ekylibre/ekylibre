@@ -180,6 +180,11 @@ fra:
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
+      tax_declaration_item:
+        collected: "Collectée"
+        deductible: "Déductible"
+        fixed_asset_deductible: "Déductible sur immobilisation"
+        intracommunity_payable: "Intra-communautaire"
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
@@ -446,6 +451,7 @@ fra:
       purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"
@@ -660,6 +666,7 @@ fra:
     components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
+    compute_from: "Calculer à partir"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
@@ -1447,6 +1454,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
+    regularizations: "Régularisations"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
     remaining_lifespan: "Vie restante"
@@ -1613,10 +1621,12 @@ fra:
     tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration d’impôt"
     tax_declarations: "Déclarations fiscales"
+    tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
     theme: "Thème"
+    theoretical_number: "Numéro théorique"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers" #?
@@ -2038,7 +2048,7 @@ fra:
           done: "Fini"
           todo: "À faire"
     tax_declaration:
-      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
     team:
       default: "Général"
     user:

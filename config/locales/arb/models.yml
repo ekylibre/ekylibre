@@ -592,6 +592,11 @@ arb:
         financial_year_id: "المدة المقدرة" #?
         nature: "نظام التصريح" #?
         updated_at: "تم تحديثها في" #?
+      tax_declaration_item:
+        collected: "جمع"
+        deductible: "خصم"
+        fixed_asset_deductible: "خصم على الأصول"
+        intracommunity_payable: "Intracommunity المستحق"
       team:  #?
         company_id: "الشركة" #?
         parent_id: "النسب" #?
@@ -956,6 +961,7 @@ arb:
       purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
       sale_affair: "بيع القضية"
@@ -1200,6 +1206,7 @@ arb:
     components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
+    compute_from: "حساب من"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
@@ -2092,6 +2099,7 @@ arb:
     reflected_at: "ينعكس في"
     reflection_nodes: "العقد انعكاس"
     reflections: "خواطر"
+    # regularizations: "Regularizations"
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
@@ -2302,6 +2310,7 @@ arb:
     tax_declaration_mode: "وضع الإقرار الضريبي"
     tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
+    tax_payability: "payability الضرائب"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
@@ -2310,6 +2319,7 @@ arb:
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
     theme: "موضوع"
+    theoretical_number: "عدد النظري"
     theoric_quantity: "الكمية النظرية" #?
     third: "ثلث"
     third_producer: "ثالث منتج" #?

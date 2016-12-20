@@ -14,6 +14,7 @@
   = f.input :planned_at
   = f.input :invoiced_at
   = f.input :payment_delay
+  = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description
   = f.custom_fields
@@ -37,6 +38,7 @@
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          - colspan = f.object.parcels.any? ? 5 : 4
           %th{colspan: 4}= :total.tl
           %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
           %td#wta.decimal{data:{use: ".wta", calculate: "sum", calculate_round: precision}}= f.object.amount

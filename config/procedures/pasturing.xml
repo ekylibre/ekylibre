@@ -2,11 +2,11 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="pasturing" categories="animal_feeding" actions="animal_feeding">
     <parameters>
-      <parameter name="herd" type="tool" filter="is animal_group and derives from animal" default-actor="storage"/>
-      <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation">
+      <parameter name="herd" type="tool" filter="is animal_group and derives from animal"/>
+      <parameter name="cultivation" type="target" filter="is plant">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
+          <compute to="shape" expr="intersection(VALUE, cultivation.shape)"/>
+          <compute to="population" expr="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
       <parameter name="grass" type="output" variety="grass" derivative-of="variety: cultivation" filter="is grass and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">

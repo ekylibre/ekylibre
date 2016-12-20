@@ -64,6 +64,11 @@ ita:
         status: "Stato"
       tax:
         amount: "Valore"
+      tax_declaration_item:
+        collected: "Raccolto"
+        deductible: "Detraibile"
+        fixed_asset_deductible: "Franchigia su attività"
+        intracommunity_payable: "Intracomunitario da pagare"
     errors:
       format: "%{attribute} %{message}" #?
       messages:
@@ -347,6 +352,7 @@ ita:
       purchase_gap: "Gap Acquisto"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
       sale_affair: "Vendita vicenda"
@@ -534,6 +540,7 @@ ita:
     components: "Componenti"
     computation_method: "metodo di calcolo"
     compute: "Calcolare"
+    compute_from: "Calcola da"
     conclusion: "Conclusione"
     condition_operator: "operatore Condizione"
     condition_value: "valore della condizione"
@@ -1212,6 +1219,7 @@ ita:
     reflected_at: "riflessa in"
     reflection_nodes: "nodi di riflessione"
     reflections: "Riflessi"
+    regularizations: "Regolarizzazioni"
     remain_owner: "Rimangono proprietario"
     remaining_amount: "Importo residuo"
     remaining_lifespan: "Durata della vita residua"
@@ -1371,10 +1379,12 @@ ita:
     tax_declaration_items: "Articoli dichiarazione dei redditi"
     tax_declaration_mode: "Modalità di dichiarazione dei redditi"
     tax_declarations: "Dichiarazioni fiscali"
+    tax_payability: "Pagabilità fiscale"
     taxations: "tassazioni"
     team: "Squadra"
     template: "Modello"
     theme: "Tema"
+    theoretical_number: "Numero teorico"
     third: "Terzo"
     third_producer: "terzo produttore" #?
     third_role: "terzo ruolo"

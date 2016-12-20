@@ -6251,9 +6251,42 @@ purchases:
     type: integer
     references: entity
     required: true
+  tax_payability:
+    type: string
+    required: true
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+regularizations:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  lock_version:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -6302,6 +6335,9 @@ sale_items:
     type: text
   codes:
     type: jsonb
+  compute_from:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true

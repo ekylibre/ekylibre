@@ -64,6 +64,11 @@ cmn:
         status: "状态"
       tax:
         amount: "值"
+      tax_declaration_item:
+        collected: "集"
+        deductible: "免赔额"
+        fixed_asset_deductible: "扣除资产"
+        intracommunity_payable: "社区内支付"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -316,6 +321,7 @@ cmn:
       purchase_gap: "采购差距"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      regularization: "正则"
       role: "角色"
       sale: "拍卖"
       sale_affair: "销售外遇"
@@ -503,6 +509,7 @@ cmn:
     components: "组件"
     computation_method: "计算方法"
     compute: "计算"
+    compute_from: "从计算"
     conclusion: "结论"
     condition_operator: "条件运算符"
     condition_value: "条件值"
@@ -1181,6 +1188,7 @@ cmn:
     reflected_at: "在反射"
     reflection_nodes: "节点的反思"
     reflections: "思考"
+    # regularizations: "Regularizations"
     remain_owner: "保持所有者"
     remaining_amount: "剩余数量"
     remaining_lifespan: "剩余寿命"
@@ -1340,10 +1348,12 @@ cmn:
     tax_declaration_items: "纳税申报项目"
     tax_declaration_mode: "纳税申报方式"
     tax_declarations: "纳税申报"
+    tax_payability: "税务payability"
     taxations: "税费"
     team: "球队"
     template: "模板"
     theme: "主题"
+    theoretical_number: "理论数量"
     third: "第三"
     third_producer: "第三制片人" #?
     third_role: "第三个角色"

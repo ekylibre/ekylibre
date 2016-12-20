@@ -33,8 +33,8 @@
         %tr
           %th= SaleItem.human_attribute_name(:variant)
           %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
-          %th= SaleItem.human_attribute_name(:unit_pretax_amount)
           %th= SaleItem.human_attribute_name(:quantity)
+          %th= SaleItem.human_attribute_name(:unit_pretax_amount)
           %th= SaleItem.human_attribute_name(:tax)
           %th= SaleItem.human_attribute_name(:reduction_percentage)
           %th= SaleItem.human_attribute_name(:pretax_amount)
@@ -47,7 +47,8 @@
           %th
             - unless f.object.credited_sale
               = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-          %th{colspan: 4}= :total.tl
+          - colspan = f.object.parcels.any? ? 6 : 5
+          %th{colspan: colspan}= :total.tl
           %td#pta.decimal{ data: { use: ".pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
           %td#wta.decimal{ data: { use: ".wta", calculate: "sum", calculate_round: precision } }= f.object.amount
           %td= f.object.currency

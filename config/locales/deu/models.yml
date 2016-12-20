@@ -64,6 +64,11 @@ deu:
         # status: "Status"
       tax:
         amount: "Wert"
+      tax_declaration_item:
+        collected: "Gesammelt"
+        deductible: "Absetzbar"
+        fixed_asset_deductible: "Deductible auf Vermögenswerte"
+        intracommunity_payable: "Inner~~POS=TRUNC zahlbar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -316,6 +321,7 @@ deu:
       purchase_gap: "Kauf Lücke"
       purchase_item: "Kaufsache"
       purchase_nature: "Kauf Art"
+      regularization: "Regularisierung"
       role: "Rolle"
       sale: "Verkauf"
       sale_affair: "Sale-Affäre"
@@ -503,6 +509,7 @@ deu:
     components: "Komponenten"
     computation_method: "Berechnungsverfahren"
     compute: "Berechnen"
+    compute_from: "Berechnen von"
     conclusion: "Abschluss"
     condition_operator: "Zustand Betreiber"
     condition_value: "Zustandswert"
@@ -1181,6 +1188,7 @@ deu:
     reflected_at: "Reflected auf"
     reflection_nodes: "Reflection Knoten"
     reflections: "Reflexionen"
+    regularizations: "Regulationen"
     remain_owner: "bleiben Eigentümer"
     remaining_amount: "Restbetrag"
     remaining_lifespan: "Restlebensdauer"
@@ -1340,10 +1348,12 @@ deu:
     tax_declaration_items: "Steuererklärung Artikel"
     tax_declaration_mode: "Steuererklärung Modus"
     tax_declarations: "Steuererklärungen"
+    tax_payability: "Steuer Zahlbarkeitsfaktoren"
     taxations: "Besteuerungen"
     team: "Mannschaft"
     template: "Vorlage"
     theme: "Thema"
+    theoretical_number: "Theoretische Zahl"
     third: "Dritte"
     third_producer: "Drittens Produzent" #?
     third_role: "Drittens Rolle"

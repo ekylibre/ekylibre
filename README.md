@@ -47,6 +47,14 @@ We encourage you to contribute to Ekylibre.
 * Make sure to add tests for it. This is important so we don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so we can cherry-pick around it.
 
+## Testing
+
+To run integration test, do:
+
+* wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
+* tar xzvf geckodriver-v0.11.1-linux64.tar.gz
+* sudo cp geckodriver /usr/bin
+
 ## See also
 
 * [Forum](http://forum.ekylibre.org)
