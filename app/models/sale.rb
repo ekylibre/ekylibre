@@ -265,6 +265,14 @@ class Sale < Ekylibre::Record::Base
     dealt_at.to_date
   end
 
+  def self.third_attribute
+    :client
+  end
+
+  def third
+    send(third_attribute)
+  end
+
   # Gives the date to use for affair bookkeeping
   def dealt_at
     (invoice? ? invoiced_at : self.created_at)
@@ -297,6 +305,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   delegate :number, to: :client, prefix: true
+  delegate :third_attribute, to: :class
 
   def nature=(value)
     super(value)

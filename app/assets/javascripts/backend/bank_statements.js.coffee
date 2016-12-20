@@ -281,10 +281,12 @@
       selectedBankStatements = @_bankStatementLines().filter(".selected")
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
       if selectedBankStatements.length > 0 and selectedJournalItems.length == 0
-        @_changeIdsInButtons()
-        $("thead tr th.payment-buttons a").show()
+        @_updateIdsInButtons()
+        $("a.from-selected").show()
+        $("a.from-selected").parents('.btn-group').show()
       else
-        $("thead tr th.payment-buttons a").hide()
+        $("a.from-selected").hide()
+        $("a.from-selected").parents('.btn-group').hide()
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")
@@ -292,14 +294,18 @@
       else
         @_reconciliatedLines().show()
 
-    _changeIdsInButtons: ->
+    _updateIdsInButtons: ->
       selectedBankStatements = @_lines().filter("[data-type=bank_statement_item].selected")
       ids = selectedBankStatements.get().map (line) =>
         @_idForLine(line)
-      id_space = new RegExp("(.*/.*/new\\?.*?)(&?bank_statement_item_ids\\[\\]=.*)+(&.*)?")
-      $("thead tr th.payment-buttons a").each (i, button) ->
+      with_questionmark = new RegExp(".*/new(\\?).*?")
+      id_space = new RegExp("(.*/new\\?.*?)(&?bank_statement_item_ids\\[\\]=.*)+(&.*)?")
+      $("a.from-selected").each (i, button) ->
         url = $(button).attr('href')
-        url = url + '&bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
+        if with_questionmark.exec url
+          url = url + '&bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
+        else
+          url = url + '?bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
         url = url.replace(id_space, "$1&bank_statement_item_ids[]=#{ids.join('&bank_statement_item_ids[]=')}$3")
         $(button).attr('href', url)
 

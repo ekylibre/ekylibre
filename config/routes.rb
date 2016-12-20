@@ -793,6 +793,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :quick_affairs, only: [:new, :create], path: 'quick-affairs'
+
     resources :regularizations
 
     resources :roles, concerns: [:incorporate, :list, :unroll] do

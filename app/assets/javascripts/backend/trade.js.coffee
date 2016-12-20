@@ -199,7 +199,7 @@
           console.error "Unknown component: #{component}"
 
   # Computes changes on items
-  $(document).on "keyup change", "form *[data-trade-item='purchasing'] *[data-trade-component]", (event) ->
+  $(document).on "keyup change", "form *[data-trade-item='purchase'] *[data-trade-component]", (event) ->
     component = $(this)
     E.purchasing.compute component.closest("*[data-trade-item]"), component
 
@@ -221,7 +221,7 @@
           console.error "Unknown component: #{component}"
 
   # Computes changes on items
-  $(document).on "keyup change", "form *[data-trade-item='selling'] *[data-trade-component]", (event) ->
+  $(document).on "keyup change", "form *[data-trade-item='sale'] *[data-trade-component]", (event) ->
     component = $(this)
     E.selling.compute component.closest("*[data-trade-item]"), component
 
