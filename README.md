@@ -1,5 +1,6 @@
 # Ekylibre
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/67e89f4ee5174b2db26fbf26536131cf)](https://www.codacy.com/app/burisu/ekylibre?utm_source=github.com&utm_medium=referral&utm_content=ekylibre/ekylibre&utm_campaign=badger)
 [![Join the chat at https://gitter.im/ekylibre/ekylibre](https://badges.gitter.im/ekylibre/ekylibre.svg)](https://gitter.im/ekylibre/ekylibre?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Ekylibre is a simple enterprise management web application for farmers and small enterprises.
