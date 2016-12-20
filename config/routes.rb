@@ -277,7 +277,6 @@ Rails.application.routes.draw do
       end
     end
 
-
     resources :beehives, only: [:update] do
       member do
         post :reset
