@@ -70,22 +70,6 @@ module Backend
 
     def reconciliation
       return unless @bank_statement = find_and_check
-      if request.post?
-        @bank_statement.attributes = permitted_params
-        items = (params[:items] || {}).values
-        journal_entry_items = (params[:journal_entry_items] || {})
-        if @bank_statement.save_with_items(items)
-          journal_entry_items.each do |journal_entry_item_id, attributes|
-            letter = attributes[:bank_statement_letter].presence
-            JournalEntryItem.where(id: journal_entry_item_id).update_all(
-              bank_statement_id: @bank_statement.id,
-              bank_statement_letter: letter
-            )
-          end
-          redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }
-          return
-        end
-      end
       bank_statement_items = @bank_statement.items.order('ABS(debit-credit)')
       journal_entry_items = @bank_statement.eligible_journal_entry_items.order('ABS(real_debit-real_credit)')
       unless journal_entry_items.any?
@@ -98,6 +82,43 @@ module Backend
         BankStatementItem === item ? item.transfered_on : item.printed_on
       end.sort
       t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on
+    end
+
+    def letter
+      return head :bad_request unless @bank_statement = find_and_check
+
+      letter = @bank_statement.next_letter
+      bank_statement_items = params[:bank_statement_items] ? BankStatementItem.where(id: params[:bank_statement_items]) : BankStatementItem.none
+      journal_entry_items  = params[:journal_entry_items]  ? JournalEntryItem.where(id: params[:journal_entry_items])   : JournalEntryItem.none
+
+      return head :bad_request if (journal_entry_items + bank_statement_items).length.zero?
+
+      saved = true
+      saved &&= bank_statement_items.update_all(letter: letter)
+      saved &&= journal_entry_items.update_all(bank_statement_letter: letter, bank_statement_id: @bank_statement.id)
+
+      return head :bad_request unless saved
+      respond_to do |format|
+        format.json {  render json: { letter: letter } }
+      end
+    end
+
+    def unletter
+      return head :bad_request unless @bank_statement = find_and_check
+
+      letter = params[:letter]
+      JournalEntryItem
+        .pointed_by(@bank_statement)
+        .where(bank_statement_letter: letter)
+        .update_all(bank_statement_letter: nil, bank_statement_id: nil)
+      @bank_statement
+        .items
+        .where(letter: letter)
+        .update_all(letter: nil)
+
+      respond_to do |format|
+        format.json {  render json: { letter: letter } }
+      end
     end
   end
 end

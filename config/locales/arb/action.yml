@@ -1397,6 +1397,7 @@ arb:
     harvested_at: "تحصد في"
     help: "المساعدة"
     help_center: "مركز المساعدة"
+    hide_lettered_lines: "إخفاء خطوط بحروف"
     hint: "تلميح&nbsp;: %{value}"
     historic: "تاريخي"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
@@ -1650,11 +1651,13 @@ arb:
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
+    new_incoming_payment: "دفع الواردة الجديد"
     new_inventory: "جرد جديدة"
     new_issue: "مشكلة جديدة"
     new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
     new_outgoing_parcel: "الطرد الصادر الجديد"
+    new_outgoing_payment: "دفع المنتهية ولايته الجديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"

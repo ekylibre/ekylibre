@@ -209,6 +209,10 @@
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
+        <page to="backend/bank_statements#letter"/>
+        <page to="backend/bank_statements#unletter"/>
+        <page to="backend/bank_statement_items#create"/>
+        <page to="backend/bank_statement_items#destroy"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>

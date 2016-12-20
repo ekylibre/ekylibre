@@ -989,7 +989,7 @@ fra:
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
-    initial_balance_credit: "Crédit d’équilibre initial"
+    initial_balance_credit: "Crédit du solde initial"
     initial_balance_debit: "Débit du solde initial"
     initial_born_at: "Date initiale de naissance"
     initial_container: "Emplacement initial"

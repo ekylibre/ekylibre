@@ -93,6 +93,16 @@ class OutgoingPayment < Ekylibre::Record::Base
     (journal_entry && journal_entry.closed?)
   end
 
+  def letter_with(bank_statements_items)
+    bank_statement = bank_statements_items.first.bank_statement
+    letter = bank_statement.next_letter
+    journal_entry
+      .items
+      .where(account_id: bank_statement.cash_account_id)
+      .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
+    bank_statements_items.update_all(letter: letter)
+  end
+
   def check_updateable_or_destroyable?
     return false if list
     updateable? || destroyable?

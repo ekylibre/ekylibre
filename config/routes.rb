@@ -262,16 +262,20 @@ Rails.application.routes.draw do
     resources :attachments, only: [:show, :create, :destroy]
 
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
+      resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
+
       collection do
         get :list_items
         match :import, via: [:get, :post]
       end
       member do
-        match :reconciliation, via: [:get, :post]
+        get  :reconciliation
+        put   :letter
+        patch :letter
+        put   :unletter
+        patch :unletter
       end
     end
-
-    resources :bank_statement_items, only: [:new]
 
     resources :beehives, only: [:update] do
       member do
