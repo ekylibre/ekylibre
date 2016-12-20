@@ -106,7 +106,7 @@ module Backend
         return save_and_redirect(
           @outgoing_payment,
           url: params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c }),
-          notify: (params[:create_and_continue] || params[:redirect]) ? :record_x_created : false,
+          notify: params[:create_and_continue] || params[:redirect] ? :record_x_created : false,
           identifier: :number,
           saved: true
         )
