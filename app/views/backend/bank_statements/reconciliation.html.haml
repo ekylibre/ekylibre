@@ -5,6 +5,13 @@
 = field_set(:entries_to_point) do
   .reconciliation-list{ data: { currency_precision: Nomen::Currency.find(@bank_statement.currency).precision } }
     .legend
+      .buttons
+        = dropdown_menu_button :new_outgoing_payment, icon: false do |menu|
+          - PurchaseNature.find_each do |nature|
+            - menu.item nature.name, new_backend_quick_affair_path(mode: :outgoing, nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected', title: nature.name
+        = dropdown_menu_button :new_incoming_payment, icon: false do |menu|
+          - SaleNature.find_each do |nature|
+            - menu.item nature.name, new_backend_quick_affair_path(mode: :incoming, nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected', title: nature.name
       %p= :initial_balance_of_bank_statement.tl
       .amounts
         .debit

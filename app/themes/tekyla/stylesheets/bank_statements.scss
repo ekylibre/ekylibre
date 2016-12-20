@@ -33,16 +33,25 @@
     width: 100%;
     padding: 0 0 2px;
 
+    a {
+      margin: 0 5px;
+    }
+
     p {
+      flex: 1;
       font-weight: bold;
     }
 
-    & > *:first-child {
-      flex: 1;
-
+    & > p {
       display: flex;
       justify-content: flex-end;
-      align-items: flex-end;
+      align-items: middle;
+    }
+
+    .buttons {
+      display: flex;
+      align-self: flex-start;
+      align-items: flex-start;
     }
 
     .details: {
