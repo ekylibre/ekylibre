@@ -498,7 +498,7 @@ arb:
         usual_bank_overdraft: "السحب على المكشوف المعتاد"
         various_exceptional_revenues: "ايرادات استثنائية مختلفة"
         vat: "ضريبة"
-        # vat_to_pay: "Vat to pay"
+        vat_to_pay: "ضريبة القيمة المضافة لدفع"
         vegetals_making_services_expenses: "Vegetals جعل نفقات الخدمات"
         veterinary_fees_expenses: "رسوم البيطرية النفقات"
         waiting_vat: "انتظار ضريبة القيمة المضافة"

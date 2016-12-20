@@ -498,7 +498,7 @@ deu:
         usual_bank_overdraft: "Übliche Kontokorrentkredit"
         various_exceptional_revenues: "Verschiedene außergewöhnliche Einnahmen"
         vat: "Bottich"
-        # vat_to_pay: "Vat to pay"
+        vat_to_pay: "Mehrwertsteuer bezahlen"
         vegetals_making_services_expenses: "Vegetals Dienstleistungsaufwand machen"
         veterinary_fees_expenses: "Tierarztkosten Aufwendungen"
         waiting_vat: "warten Mehrwertsteuer"

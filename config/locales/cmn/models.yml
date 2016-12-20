@@ -65,10 +65,10 @@ cmn:
       tax:
         amount: "值"
       tax_declaration_item:
-        # collected: "Collected"
-        # deductible: "Deductible"
-        # fixed_asset_deductible: "Deductible on assets"
-        # intracommunity_payable: "Intracommunity payable"
+        collected: "集"
+        deductible: "免赔额"
+        fixed_asset_deductible: "扣除资产"
+        intracommunity_payable: "社区内支付"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

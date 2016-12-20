@@ -65,10 +65,10 @@ spa:
       tax:
         amount: "Valor"
       tax_declaration_item:
-        # collected: "Collected"
-        # deductible: "Deductible"
-        # fixed_asset_deductible: "Deductible on assets"
-        # intracommunity_payable: "Intracommunity payable"
+        collected: "Recogido"
+        deductible: "Deducible"
+        fixed_asset_deductible: "Deducible de los activos"
+        intracommunity_payable: "Intracomunitario por pagar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

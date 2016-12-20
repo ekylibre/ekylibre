@@ -65,10 +65,10 @@ jpn:
       tax:
         amount: "値"
       tax_declaration_item:
-        # collected: "Collected"
-        # deductible: "Deductible"
-        # fixed_asset_deductible: "Deductible on assets"
-        # intracommunity_payable: "Intracommunity payable"
+        collected: "集めました"
+        deductible: "控除できます"
+        fixed_asset_deductible: "資産の損金算入"
+        intracommunity_payable: "支払わIntracommunity"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

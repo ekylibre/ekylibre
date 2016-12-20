@@ -65,10 +65,10 @@ ita:
       tax:
         amount: "Valore"
       tax_declaration_item:
-        # collected: "Collected"
-        # deductible: "Deductible"
-        # fixed_asset_deductible: "Deductible on assets"
-        # intracommunity_payable: "Intracommunity payable"
+        collected: "Raccolto"
+        deductible: "Detraibile"
+        fixed_asset_deductible: "Franchigia su attività"
+        intracommunity_payable: "Intracomunitario da pagare"
     errors:
       format: "%{attribute} %{message}" #?
       messages:

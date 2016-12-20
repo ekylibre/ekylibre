@@ -1928,7 +1928,6 @@ fra:
     subtitle: "Informations générales" #?
     subtotal: "Sous-total %{name}"
     subtotals_at_level: "Sous-totaux aux niveaux"
-    # supervision: "Supervision"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
@@ -1942,7 +1941,7 @@ fra:
     target_zone: "Zone cible" #?
     targets: "Cibles" #?
     tasks: "Tâches"
-    # tax_declarations: "Tax declarations"
+    tax_declarations: "Déclarations fiscales"
     tax_label: "Nom Taxe"
     taxations: "Taxations"
     taxes: "Taxes"

@@ -1631,7 +1631,7 @@ eng:
     subscriptions_evolution: "Subscriptions evolution" #?
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
-    supervision: "Supervision"
+    # supervision: "Supervision"
     supplier: "Purchase prices of the supplier" #?
     supplier_informations: "Supplier informations"
     supply: "Supply" #?
