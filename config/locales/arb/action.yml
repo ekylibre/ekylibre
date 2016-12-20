@@ -467,6 +467,7 @@ arb:
       new: "اضافة تسليم" #?
     backend/outgoing_payment_lists:
       index: "المدفوعات الصادرة قائمة دفعة"
+      new: "قائمة جديدة لدفع المنتهية ولايته"
       show: "المدفوعات الصادرة دفعة"
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
@@ -2486,6 +2487,7 @@ arb:
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
       no_production_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية إنتاج"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
+      no_purchase_affair_found_on_given_period: "أي شراء علاقة جدت في فترة معينة"
       no_purchases_given: "لا مشتريات الممنوحة"
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_replacements_since_beginning: "لا البدلاء منذ بداية"

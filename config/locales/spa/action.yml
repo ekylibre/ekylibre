@@ -413,6 +413,7 @@ spa:
       new: "Añadir una entrega" #?
     backend/outgoing_payment_lists:
       index: "Pagos salientes lista de lotes"
+      new: "Nueva lista de salida de pago"
       show: "Lote de pagos salientes"
     backend/outgoing_payment_modes:
       edit: "Editar modo de desembolso"
@@ -2048,6 +2049,7 @@ spa:
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
       no_production_defined_for_current_campaign: "No se ha definido para la producción de la campaña actual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No se encontró producción. Se pueden añadir nuevos o copiar algunos de la campaña anterior."
+      no_purchase_affair_found_on_given_period: "No es un asunto compra que figura en determinado período"
       no_purchases_given: "No se dan las compras"
       no_reopenable_journal: "nos se puede cerrar este periodico."
       no_replacements_since_beginning: "No hay que sustituir una desde el principio"

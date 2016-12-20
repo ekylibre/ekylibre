@@ -1131,6 +1131,7 @@ por:
     purchasable: "Comprável"
     purchase: "Compra"
     purchase_affair: "Caso de compra"
+    purchase_affairs: "Assuntos de compra"
     purchase_amount: "Valor da compra"
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artigo da compra"

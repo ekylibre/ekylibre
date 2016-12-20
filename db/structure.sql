@@ -4011,7 +4011,8 @@ CREATE TABLE outgoing_payment_lists (
     updated_at timestamp without time zone,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    mode_id integer NOT NULL
 );
 
 
@@ -4100,7 +4101,8 @@ CREATE TABLE outgoing_payments (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    list_id integer
+    list_id integer,
+    "position" integer
 );
 
 
@@ -12839,6 +12841,13 @@ CREATE INDEX index_outgoing_payment_lists_on_creator_id ON outgoing_payment_list
 
 
 --
+-- Name: index_outgoing_payment_lists_on_mode_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payment_lists_on_mode_id ON outgoing_payment_lists USING btree (mode_id);
+
+
+--
 -- Name: index_outgoing_payment_lists_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16577,4 +16586,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161212183910');
 INSERT INTO schema_migrations (version) VALUES ('20161214091911');
 
 INSERT INTO schema_migrations (version) VALUES ('20161219092100');
+
+INSERT INTO schema_migrations (version) VALUES ('20161219131051');
 

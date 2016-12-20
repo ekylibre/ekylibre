@@ -1389,6 +1389,7 @@ fra:
     purchasable: "Achetable"
     purchase: "Achat"
     purchase_affair: "Affaire d’achat"
+    purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"

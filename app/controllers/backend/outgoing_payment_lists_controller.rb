@@ -27,7 +27,7 @@ module Backend
       t.action :export_to_sepa, method: :get, if: :sepa?
       t.column :number, url: true
       t.column :created_at
-      t.column :mode, url: { controller: '/backend/outgoing_payment_modes', id: 'RECORD.mode.id'.c }, label_method: :mode_name
+      t.column :mode
       t.column :payments_count, datatype: :integer
       t.column :payments_sum, label: :total, datatype: :float, currency: true
     end
@@ -72,6 +72,34 @@ module Backend
         send_data(list.to_sepa, filename: "#{list.number}.xml", type: 'text/xml')
       else
         render :index
+      end
+    end
+
+    def new
+      @outgoing_payment_list = OutgoingPaymentList.new
+      if params[:started_at].present? && params[:stopped_at].present? && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
+        mode = OutgoingPaymentMode.find_by(id: params[:outgoing_payment_list][:mode_id])
+        @outgoing_payment_list.mode = mode
+
+        if @outgoing_payment_list.valid?
+          @thirds = Entity.includes(:purchase_affairs).where(affairs: { closed: false, currency: mode.cash.currency }).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at])
+        end
+      else
+        notify_warning :no_purchase_affair_found_on_given_period
+      end
+    end
+
+    def create
+      if params[:purchase_affairs] && params[:purchase_affairs].present?
+        affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
+
+        mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
+        outgoing_payment_list = OutgoingPaymentList.build_from_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number]
+        outgoing_payment_list.save!
+
+        redirect_to action: :show, id: outgoing_payment_list.id
+      else
+        redirect_to new_backend_outgoing_payment_list_path(params.slice(:started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
       end
     end
   end
