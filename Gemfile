@@ -117,6 +117,7 @@ gem 'remotipart', '~> 1.2'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc12'
+gem 'humanize'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'

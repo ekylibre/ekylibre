@@ -139,6 +139,10 @@ class BankStatement < Ekylibre::Record::Base
     self.class.where('started_on >= ?', stopped_on).reorder(started_on: :asc).first
   end
 
+  def next_letter
+    cash_next_reconciliation_letters.next
+  end
+
   def eligible_journal_entry_items
     margin = 20.days
     unpointed = cash.unpointed_journal_entry_items.between(started_on - margin, stopped_on + margin)

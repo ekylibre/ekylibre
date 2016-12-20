@@ -56,6 +56,7 @@ module Backend
       t.column :credit, currency: true, hidden: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
+      t.column :product_item_to_tax_label, label: :tax_label, hidden: true
       t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
     end
 

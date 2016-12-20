@@ -64,6 +64,11 @@ ita:
         status: "Stato"
       tax:
         amount: "Valore"
+      tax_declaration_item:
+        collected: "Raccolto"
+        deductible: "Detraibile"
+        fixed_asset_deductible: "Franchigia su attività"
+        intracommunity_payable: "Intracomunitario da pagare"
     errors:
       format: "%{attribute} %{message}" #?
       messages:
@@ -348,6 +353,7 @@ ita:
       purchase_gap: "Gap Acquisto"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
       sale_affair: "Vendita vicenda"
@@ -1157,6 +1163,7 @@ ita:
     purchasable: "acquistabile"
     purchase: "Acquista"
     purchase_affair: "Acquisto vicenda"
+    purchase_affairs: "Affari di acquisto"
     purchase_amount: "Ammontare dell'acquisto"
     purchase_invoices: "fatture di acquisto"
     purchase_item: "voce Acquisto"
@@ -1214,6 +1221,7 @@ ita:
     reflected_at: "riflessa in"
     reflection_nodes: "nodi di riflessione"
     reflections: "Riflessi"
+    regularizations: "Regolarizzazioni"
     remain_owner: "Rimangono proprietario"
     remaining_amount: "Importo residuo"
     remaining_lifespan: "Durata della vita residua"

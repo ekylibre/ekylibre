@@ -64,6 +64,11 @@ eng:
         status: "Status"
       tax:
         amount: "Value"
+      tax_declaration_item:
+        collected: "Collected"
+        deductible: "Deductible"
+        fixed_asset_deductible: "Deductible on assets"
+        intracommunity_payable: "Intracommunity payable"
     errors:
       messages:
         accepted: "%{attribute} must be accepted"
@@ -317,6 +322,7 @@ eng:
       purchase_gap: "Purchase gap"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
+      regularization: "Regularization"
       role: "Role"
       sale: "Sale"
       sale_affair: "Sale affair"
@@ -1048,6 +1054,7 @@ eng:
     payer: "Payer"
     payment_at: "Payment on"
     payment_delay: "Payment delay"
+    # payment_lists: "Payment lists"
     payment_mode: "Payment mode"
     payment_mode_complement: "Payment mode complement"
     payments: "Payments"
@@ -1145,6 +1152,7 @@ eng:
     purchasable: "Purchasable"
     purchase: "Purchase"
     purchase_affair: "Purchase affair" #?
+    purchase_affairs: "Purchase affairs"
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"
     purchase_item: "Purchase item"
@@ -1203,6 +1211,7 @@ eng:
     reflected_at: "Reflected at"
     reflection_nodes: "Reflection nodes"
     reflections: "Reflections" #?
+    regularizations: "Regularizations"
     remain_owner: "Remain owner"
     remaining_amount: "Remaining amount"
     remaining_lifespan: "Remaining lifespan"

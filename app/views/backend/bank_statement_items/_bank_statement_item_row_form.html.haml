@@ -1,0 +1,22 @@
+- type = BankStatementItem === item ? 'bank_statement_item' : 'journal_entry_item'
+
+= simple_form_for [:backend, bank_statement, item], remote: true do |f|
+  .reconciliation-item{ data: { id: item.id, type: type, form_id: f.hash } }
+    .hidden
+      = f.hidden_field :initiator_id, value: f.hash
+      = f.input :transfered_on, as: :hidden
+      = f.input :initiated_on, as: :hidden
+      = f.input :transaction_number, as: :hidden
+    %a#delete{ href: "#" }
+      %i
+    .title
+      %i#type-icon{class: type.dasherize}=# type.humanize
+      .name= f.input :name, wrapper: false, label: false
+    .amounts
+      .debit
+        = f.input :debit, wrapper: false, label: false, input_html: { data: { "exclusive-nullify": "#bank_statement_item_credit", "use-closest": ".amounts" } }
+      .credit
+        = f.input :credit, wrapper: false, label: false, input_html: { data: { "exclusive-nullify": "#bank_statement_item_debit", "use-closest": ".amounts" } }
+    .details
+      .letter= type =~ /bank_statement_item/ ? item.letter : item.bank_statement_letter
+      = f.button :submit, :save.tl

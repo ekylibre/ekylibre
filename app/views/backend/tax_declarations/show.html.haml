@@ -20,14 +20,16 @@
 
   - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
     -# = cobble_list :items do
-    - columns = [:deductible, :fixed_asset_deductible, :collected, :balance]
+    - columns = [:deductible, :fixed_asset_deductible, :collected, :intracommunity_payable, :balance]
+    - account_transcode = {:collected => :collect_account_id, :deductible => :deduction_account_id, :fixed_asset_deductible => :fixed_asset_deduction_account_id}
+
     %table.list
       %thead
         %tr
           %th= TaxDeclarationItem.human_attribute_name(:tax)
           %th
           - columns.each do |column|
-            %th.decimal= TaxDeclarationItem.human_attribute_name(column)
+            %th.decimal= TaxDeclarationItem.human_attribute_name(column.to_sym)
       %tfoot
         %tr.total
           %th{ colspan: 2 }= :totals.tl
@@ -45,13 +47,15 @@
             %td= (-to_pay).l(currency: resource.currency)
 
       - resource.items.order(:id).each do |item|
+        - tax = Tax.find(item.tax_id)
         %tbody
           %tr
             %td= link_to(item.tax_name, { controller: :taxes, action: :show, id: item.tax_id })
             %td.decimal= number_to_percentage(item.tax.amount)
             - columns.each do |column|
+              - account_id = tax.send(account_transcode[column]) if account_transcode[column]
               %td.decimal
-                .tax-amount= link_to(item.send("#{column}_tax_amount").l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id})
+                .tax-amount= link_to(item.send("#{column}_tax_amount").l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id, account_id: account_id})
                 %small.pretax-amount= item.send("#{column}_pretax_amount").l(currency: item.currency)
 
   - c.cobble :undeclared, title: :journal_entry_items_with_undeclared_taxes.tl(count: resource.undeclared_tax_journal_entry_items.count) do

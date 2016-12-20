@@ -72,4 +72,13 @@ class Gap < Ekylibre::Record::Base
   def printed_on
     printed_at.to_date
   end
+
+  def loss_coefficient
+    loss? ? -1 : 1
+  end
+
+  def relative_amount
+    loss_coefficient * amount
+  end
+  alias deal_amount relative_amount
 end

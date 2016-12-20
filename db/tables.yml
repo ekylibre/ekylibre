@@ -4550,6 +4550,10 @@ outgoing_payment_lists:
   lock_version:
     type: integer
     required: true
+  mode_id:
+    type: integer
+    references: outgoing_payment_mode
+    required: true
   number:
     type: string
   updated_at:
@@ -4656,6 +4660,8 @@ outgoing_payments:
     type: integer
     references: entity
     required: true
+  position:
+    type: integer
   responsible_id:
     type: integer
     references: user
@@ -6269,6 +6275,36 @@ purchases:
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+regularizations:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  lock_version:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
