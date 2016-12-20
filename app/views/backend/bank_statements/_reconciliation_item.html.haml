@@ -1,7 +1,8 @@
 - type = BankStatementItem === item ? 'bank_statement_item' : 'journal_entry_item'
 .reconciliation-item{ data: { id: item.id, type: type } }
   %a#delete{ href: "#" }
-    %i
+    - unless type == 'journal_entry_item'
+      %i
   .title
     %i#type-icon{class: type.dasherize}=# type.humanize
     .name= item.name
