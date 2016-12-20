@@ -466,6 +466,7 @@ eng:
     backend/outgoing_payment_lists:
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
+      new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -1771,6 +1772,9 @@ eng:
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
+    x_cents:
+      one: "%{count} cent"
+      other: "%{count} cents"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1837,6 +1841,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_mills:
+      one: "%{count} mill"
+      other: "%{count} mills"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -1982,6 +1989,7 @@ eng:
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"

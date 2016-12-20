@@ -444,6 +444,8 @@
         <page to="backend/outgoing_payment_lists#show"/>
         <page to="backend/outgoing_payment_lists#export_to_sepa"/>
         <page to="backend/outgoing_payment_lists#list_payments"/>
+        <page to="backend/outgoing_payment_lists#create"/>
+        <page to="backend/outgoing_payment_lists#new"/>
       </item>
     </group>
   </part>

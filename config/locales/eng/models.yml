@@ -1051,6 +1051,7 @@ eng:
     payer: "Payer"
     payment_at: "Payment on"
     payment_delay: "Payment delay"
+    # payment_lists: "Payment lists"
     payment_mode: "Payment mode"
     payment_mode_complement: "Payment mode complement"
     payments: "Payments"
@@ -1148,6 +1149,7 @@ eng:
     purchasable: "Purchasable"
     purchase: "Purchase"
     purchase_affair: "Purchase affair" #?
+    purchase_affairs: "Purchase affairs"
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"
     purchase_item: "Purchase item"

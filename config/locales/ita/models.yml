@@ -1162,6 +1162,7 @@ ita:
     purchasable: "acquistabile"
     purchase: "Acquista"
     purchase_affair: "Acquisto vicenda"
+    purchase_affairs: "Affari di acquisto"
     purchase_amount: "Ammontare dell'acquisto"
     purchase_invoices: "fatture di acquisto"
     purchase_item: "voce Acquisto"

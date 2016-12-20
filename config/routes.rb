@@ -675,7 +675,7 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
-    resources :outgoing_payment_lists, only: [:index, :show, :destroy], concerns: [:list] do
+    resources :outgoing_payment_lists, only: [:index, :show, :destroy, :new, :create], concerns: [:list] do
       member do
         get :list_payments
         get :export_to_sepa
