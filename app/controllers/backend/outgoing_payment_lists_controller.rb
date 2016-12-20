@@ -84,6 +84,8 @@ module Backend
         if @outgoing_payment_list.valid?
           @thirds = Entity.includes(:purchase_affairs).where(affairs: { closed: false, currency: mode.cash.currency }).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at])
         end
+      else
+        notify_warning :no_purchase_affair_found_on_given_period
       end
     end
 
@@ -97,7 +99,6 @@ module Backend
 
         redirect_to action: :show, id: outgoing_payment_list.id
       else
-        notify_warning :no_purchase_affair_found_on_given_period
         redirect_to new_backend_outgoing_payment_list_path(params.slice(:started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
       end
     end

@@ -208,7 +208,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   def third_credit_balance
-    42
+    JournalEntryItem.where(entry: deals.map(&:journal_entry), account: third_account).sum('real_credit - real_debit')
   end
 
   # Check if debit is equal to credit
