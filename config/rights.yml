@@ -1234,9 +1234,6 @@ journal_entries:
     - "backend/journal_entry_items#new"
     - "backend/regularizations#create"
     - "backend/regularizations#destroy"
-    - "backend/regularizations#edit"
-    - "backend/regularizations#new"
-    - "backend/regularizations#update"
 
 journals:
   read:

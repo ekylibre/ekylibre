@@ -595,8 +595,6 @@ eng:
       edit: "Edit registration"
       index: "Registrations"
     backend/regularizations:
-      # edit: "Edit regularization: %{name}"
-      # new: "New regularization"
       # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"

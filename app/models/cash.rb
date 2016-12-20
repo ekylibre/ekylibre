@@ -174,7 +174,7 @@ class Cash < Ekylibre::Record::Base
     suspend_until_reconciliation ? suspense_account_id : main_account_id
   end
 
-  def account=(id)
+  def account_id=(id)
     if suspend_until_reconciliation
       self.suspense_account_id = id
     else
