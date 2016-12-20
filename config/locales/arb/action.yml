@@ -980,6 +980,7 @@ arb:
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"
     add_reading: "إضافة قيمة للمؤشر"
+    add_regularization: "إضافة تسوية"
     add_revenue: "إضافة الإيرادات"
     add_sale: "إضافة بيع"
     add_sale_taxation: "إضافة بيع الضرائب"
@@ -1963,6 +1964,7 @@ arb:
     # section_x: "Section %{x}"
     see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
+    select_a_journal: "حدد مجلة"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?

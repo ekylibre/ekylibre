@@ -176,23 +176,35 @@ module Ekylibre
             # Define the third of the deal
             code << "alias_attribute :deal_third, :#{options[:third]}\n"
 
-            # Define debit amount
+            # # Define debit amount
+            # code << "def deal_debit_amount\n"
+            # code << "  return (self.deal_debit? ? self.deal_amount : 0)\n"
+            # code << "end\n"
+
+            # # Define credit amount
+            # code << "def deal_credit_amount\n"
+            # code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
+            # code << "end\n"
+
+            code << "def our_deal_balance\n"
+            code << "  deal_mode_amount('real_credit - real_debit')\n"
+            code << "end\n"
+
+            code << "def third_deal_balance\n"
+            code << "  deal_mode_amount('real_debit - real_credit')\n"
+            code << "end\n"
+
             code << "def deal_debit_amount\n"
-            code << "  return (self.deal_debit? ? self.deal_amount : 0)\n"
+            code << "  deal_mode_amount(:debit)\n"
             code << "end\n"
 
-            # Define credit amount
             code << "def deal_credit_amount\n"
-            code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
+            code << "  deal_mode_amount(:credit)\n"
             code << "end\n"
 
             # Define credit amount
-            code << "def deal_mode_amount(mode = :debit)\n"
-            code << "  if mode == :credit\n"
-            code << "    return (self.deal_credit? ? self.deal_amount : 0)\n"
-            code << "  else\n"
-            code << "    return (self.deal_debit?  ? self.deal_amount : 0)\n"
-            code << "  end\n"
+            code << "def deal_mode_amount(mode)\n"
+            code << "  (self.journal_entry && self.affair) ? self.journal_entry.items.where(account: self.affair.third_account).sum(mode.is_a?(Symbol) ? 'real_' + mode.to_s : mode) : 0\n"
             code << "end\n"
 
             # Returns other deals

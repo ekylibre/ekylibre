@@ -956,6 +956,7 @@ arb:
       purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
       sale_affair: "بيع القضية"
@@ -2093,6 +2094,7 @@ arb:
     reflected_at: "ينعكس في"
     reflection_nodes: "العقد انعكاس"
     reflections: "خواطر"
+    # regularizations: "Regularizations"
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?

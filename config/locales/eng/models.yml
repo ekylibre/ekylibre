@@ -316,6 +316,7 @@ eng:
       purchase_gap: "Purchase gap"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
+      regularization: "Regularization"
       role: "Role"
       sale: "Sale"
       sale_affair: "Sale affair"
@@ -1200,6 +1201,7 @@ eng:
     reflected_at: "Reflected at"
     reflection_nodes: "Reflection nodes"
     reflections: "Reflections" #?
+    regularizations: "Regularizations"
     remain_owner: "Remain owner"
     remaining_amount: "Remaining amount"
     remaining_lifespan: "Remaining lifespan"

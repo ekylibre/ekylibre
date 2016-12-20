@@ -123,6 +123,12 @@
         <page to="backend/journal_entry_items#list"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
+        <page to="backend/regularizations#create"/>
+        <page to="backend/regularizations#destroy"/>
+        <page to="backend/regularizations#edit"/>
+        <page to="backend/regularizations#new"/>
+        <page to="backend/regularizations#show"/>
+        <page to="backend/regularizations#update"/>
       </item>
       <item name="draft">
         <page to="backend/draft_journals#show"/>
@@ -1893,6 +1899,9 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="regularizations">
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -784,6 +784,7 @@ spa:
     add_purchase_taxation: "Añadir imposición de compra"
     add_quickly_an_item: "Añadir rápidamente una línea de producto"
     add_reading: "Añadir un valor de un indicador"
+    add_regularization: "Añadir regularización"
     add_revenue: "Añadir los ingresos"
     add_sale: "Añadir la venta"
     add_sale_taxation: "Añadir la venta imposición"
@@ -1586,6 +1587,7 @@ spa:
     # section_x: "Section %{x}"
     see_details: "Ver detalles"
     see_more_details: "Ver más detalles"
+    select_a_journal: "Seleccionar un diario"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?

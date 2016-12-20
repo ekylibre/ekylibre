@@ -5453,6 +5453,42 @@ ALTER SEQUENCE purchases_id_seq OWNED BY purchases.id;
 
 
 --
+-- Name: regularizations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE regularizations (
+    id integer NOT NULL,
+    affair_id integer NOT NULL,
+    journal_entry_id integer NOT NULL,
+    currency character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: regularizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE regularizations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: regularizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE regularizations_id_seq OWNED BY regularizations.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7237,6 +7273,13 @@ ALTER TABLE ONLY purchases ALTER COLUMN id SET DEFAULT nextval('purchases_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY regularizations ALTER COLUMN id SET DEFAULT nextval('regularizations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
@@ -8354,6 +8397,14 @@ ALTER TABLE ONLY purchase_natures
 
 ALTER TABLE ONLY purchases
     ADD CONSTRAINT purchases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: regularizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT regularizations_pkey PRIMARY KEY (id);
 
 
 --
@@ -14860,6 +14911,48 @@ CREATE INDEX index_purchases_on_updater_id ON purchases USING btree (updater_id)
 
 
 --
+-- Name: index_regularizations_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_affair_id ON regularizations USING btree (affair_id);
+
+
+--
+-- Name: index_regularizations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_created_at ON regularizations USING btree (created_at);
+
+
+--
+-- Name: index_regularizations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_creator_id ON regularizations USING btree (creator_id);
+
+
+--
+-- Name: index_regularizations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_journal_entry_id ON regularizations USING btree (journal_entry_id);
+
+
+--
+-- Name: index_regularizations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_updated_at ON regularizations USING btree (updated_at);
+
+
+--
+-- Name: index_regularizations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_updater_id ON regularizations USING btree (updater_id);
+
+
+--
 -- Name: index_roles_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16038,6 +16131,14 @@ ALTER TABLE ONLY alert_phases
 
 
 --
+-- Name: fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
 -- Name: fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16059,6 +16160,14 @@ ALTER TABLE ONLY alerts
 
 ALTER TABLE ONLY intervention_working_periods
     ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
@@ -16466,4 +16575,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161205185328');
 INSERT INTO schema_migrations (version) VALUES ('20161212183910');
 
 INSERT INTO schema_migrations (version) VALUES ('20161214091911');
+
+INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 

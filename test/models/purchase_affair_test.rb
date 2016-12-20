@@ -52,7 +52,9 @@
 #
 require 'test_helper'
 
-class PurchaseAffairTest < AffairTest
+class PurchaseAffairTest < ActiveSupport::TestCase
+  include Test::Affairable
+
   test 'homogeneousity' do
     purchase = Purchase.order(:id).first
     assert_equal PurchaseAffair, purchase.affair.class
@@ -122,6 +124,32 @@ class PurchaseAffairTest < AffairTest
     check_closed_state(purchase.affair)
   end
 
+  test 'finishing with regularization' do
+    purchase = new_valid_purchases_invoice
+    assert_equal 1, purchase.affair.deals.count
+
+    journal_entry = JournalEntry.create!(
+      journal: Journal.find_by(nature: :various, currency: purchase.currency),
+      printed_on: purchase.invoiced_on + 15,
+      items_attributes: {
+        '0' => {
+          name: 'Insurance care',
+          account: purchase.supplier.account(:supplier),
+          real_debit: purchase.amount
+        },
+        '1' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('123456'),
+          real_credit: purchase.amount
+        }
+      }
+    )
+
+    Regularization.create!(affair: purchase.affair, journal_entry: journal_entry)
+
+    check_closed_state(purchase.affair)
+  end
+
   # Creates a purchase and check affair informations
   def new_valid_purchases_invoice
     supplier = entities(:entities_005)
@@ -145,13 +173,11 @@ class PurchaseAffairTest < AffairTest
     end
     purchase = Purchase.create!(supplier: supplier, nature: nature, items: items)
     assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount.inspect}"
-    assert purchase.affair, 'An affair should be present'
-    assert_equal purchase.affair.debit, purchase.amount, 'Purchase amount should match exactly affair debit'
     purchase.invoice!
     purchase.reload
     assert purchase.affair, 'An affair should be present after invoicing'
     assert purchase.journal_entry, 'A journal entry should exists after purchase invoicing'
-    assert_equal purchase.affair.debit, purchase.amount, 'Purchase amount should match exactly affair debit'
+    assert_equal purchase.affair.credit, purchase.amount, 'Purchase amount should match exactly affair debit'
     assert purchase.affair.unbalanced?,
            "Affair should not be balanced:\n" +
            purchase.affair.attributes.sort_by(&:first).map { |k, v| " - #{k}: #{v}" }.join("\n")

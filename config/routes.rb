@@ -788,6 +788,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :regularizations
+
     resources :roles, concerns: [:incorporate, :list, :unroll] do
       member do
         get :list_users
