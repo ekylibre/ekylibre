@@ -545,6 +545,8 @@ fra:
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
+    backend/quick_affairs:
+      new: "Créer %{trade}/%{payment}"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"

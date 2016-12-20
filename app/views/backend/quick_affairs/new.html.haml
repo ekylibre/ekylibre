@@ -1,4 +1,4 @@
-= backend_form_for @trade, as: :trade, url: backend_quick_affairs_path do |t|
+= backend_form_for @trade, as: :trade, url: backend_quick_affairs_path(redirect: @redirect_to) do |t|
   = field_set @trade.class.model_name.human do
     = t.referenced_association @trade.third_attribute
     = t.input :invoiced_at

@@ -209,6 +209,8 @@
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
+        <page to="backend/quick_affairs#new"/>
+        <page to="backend/quick_affairs#create"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>

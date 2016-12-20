@@ -17,6 +17,8 @@ module Backend
       @payment = payment_class.new(to_bank_at: @date)
       @amount  = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
       @amount *= coeff
+      t3e trade: trade_class.model_name.human, payment: payment_class.model_name.human
+      @redirect_to = params[:redirect]
     end
 
     def create
@@ -35,8 +37,11 @@ module Backend
       @affair  = affair_class.new(currency: currency, third: @trade.third)
       @trade.affair = @affair
       @payment.affair = @affair
-      return redirect_to(params[:redirect] || send(:"backend_#{trade_class.name.downcase}_path", @trade)) if @affair.save! && @trade.save! && @payment.save!
-      render :new
+      return render :new unless @affair.valid? && @trade.valid? && @payment.valid?
+      @affair.save!
+      @trade.save!
+      @payment.save!
+      redirect_to(params[:redirect] || send(:"backend_#{affair_class.name.underscore}_path", @affair))
     end
 
     protected

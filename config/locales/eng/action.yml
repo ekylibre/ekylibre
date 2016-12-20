@@ -588,6 +588,8 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
