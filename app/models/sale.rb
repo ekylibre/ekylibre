@@ -174,7 +174,9 @@ class Sale < Ekylibre::Record::Base
       self.expired_at ||= Delay.new(self.expiration_delay).compute(self.created_at)
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if has_downpayment.nil?
-      self.downpayment_amount ||= (amount * self.nature.downpayment_percentage * 0.01) if amount >= self.nature.downpayment_minimum
+      if amount >= self.nature.downpayment_minimum
+        self.downpayment_amount ||= (amount * self.nature.downpayment_percentage * 0.01)
+      end
       self.currency ||= self.nature.currency
     end
     true

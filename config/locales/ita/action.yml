@@ -787,6 +787,7 @@ ita:
     add_purchase_taxation: "Aggiungere tassazione acquisto"
     add_quickly_an_item: "Aggiungere rapidamente una linea di prodotti"
     add_reading: "Aggiungere un valore per un indicatore"
+    add_regularization: "Aggiungere regolarizzazione"
     add_revenue: "Aggiungere entrate"
     add_sale: "Aggiungere vendita"
     add_sale_taxation: "Aggiungere vendita tassazione"
@@ -1353,6 +1354,7 @@ ita:
     # printing_document: "Printing %{document}"
     procedures: "procedure"
     product: "Prodotto"
+    product_account_number: "Numero di conto del prodotto"
     product_category: "Categoria di prodotto"
     product_name: "Nome del prodotto"
     product_natures: "tipi di prodotto"
@@ -1439,6 +1441,7 @@ ita:
     # section_x: "Section %{x}"
     see_details: "Guarda i detagli"
     see_more_details: "Vedi i dettagli"
+    select_a_journal: "Seleziona una rivista"
     select_closure_date: "Scegli la data di chiusura"
     select_columns: "selezionare le colonne"
     select_date: "Seleziona la data"
@@ -1497,6 +1500,8 @@ ita:
     synthesis: "Sintesi"
     target: "Bersaglio"
     tasks: "Compiti"
+    tax_declarations: "Dichiarazioni fiscali"
+    tax_label: "Etichetta fiscale"
     taxations: "tassazioni"
     taxes: "Le tasse"
     thumb: "Pollice"
@@ -1626,6 +1631,9 @@ ita:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1692,6 +1700,9 @@ ita:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"

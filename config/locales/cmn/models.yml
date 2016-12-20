@@ -64,6 +64,11 @@ cmn:
         status: "状态"
       tax:
         amount: "值"
+      tax_declaration_item:
+        collected: "集"
+        deductible: "免赔额"
+        fixed_asset_deductible: "扣除资产"
+        intracommunity_payable: "社区内支付"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -316,6 +321,7 @@ cmn:
       purchase_gap: "采购差距"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      regularization: "正则"
       role: "角色"
       sale: "拍卖"
       sale_affair: "销售外遇"
@@ -1183,6 +1189,7 @@ cmn:
     reflected_at: "在反射"
     reflection_nodes: "节点的反思"
     reflections: "思考"
+    # regularizations: "Regularizations"
     remain_owner: "保持所有者"
     remaining_amount: "剩余数量"
     remaining_lifespan: "剩余寿命"

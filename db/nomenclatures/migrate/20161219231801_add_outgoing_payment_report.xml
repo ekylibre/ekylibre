@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add outgoing payment report">
+  <item-creation item="document_natures#outgoing_payment_list" category="exploitation"/>
+</migration>

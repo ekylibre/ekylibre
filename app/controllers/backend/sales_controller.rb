@@ -137,6 +137,7 @@ module Backend
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
       t.column :reduction_percentage
+      t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
       t.column :activity_budget, hidden: true

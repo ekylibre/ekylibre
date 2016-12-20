@@ -57,10 +57,10 @@ purchase_affairs_001:
   closed_at: 2014-11-05 13:40:57.905739000 Z
   created_at: 2014-11-05 10:44:42.282299000 Z
   creator_id: 1
-  credit: 1971.6
+  credit: 176.16
   currency: EUR
   deals_count: 2
-  debit: 176.16
+  debit: 1971.6
   id: 15
   lock_version: 2
   number: A000000000009
@@ -76,10 +76,10 @@ purchase_affairs_002:
   closed: false
   created_at: 2014-11-05 10:46:06.163028000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 1850.0
   currency: USD
   deals_count: 1
-  debit: 1850.0
+  debit: 0.0
   id: 16
   lock_version: 0
   number: A000000000010
@@ -95,10 +95,10 @@ purchase_affairs_003:
   closed: false
   created_at: 2014-11-05 14:11:50.235322000 Z
   creator_id: 1
-  credit: 116.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 116.0
   id: 23
   lock_version: 1
   number: A000000000017
@@ -114,10 +114,10 @@ purchase_affairs_004:
   closed: false
   created_at: 2014-11-07 13:58:35.214828000 Z
   creator_id: 1
-  credit: 156.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 156.0
   id: 25
   lock_version: 0
   number: A000000000019
@@ -153,10 +153,10 @@ purchase_affairs_006:
   closed: false
   created_at: 2014-11-07 16:52:05.277386000 Z
   creator_id: 1
-  credit: 29520.0
+  credit: 20520.0
   currency: EUR
   deals_count: 3
-  debit: 20520.0
+  debit: 29520.0
   id: 30
   lock_version: 5
   number: A000000000022
@@ -172,10 +172,10 @@ purchase_affairs_007:
   closed: false
   created_at: 2015-03-19 17:18:42.077881000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 1848.0
   currency: USD
   deals_count: 1
-  debit: 1848.0
+  debit: 0.0
   id: 31
   lock_version: 0
   number: A000000000024
@@ -191,10 +191,10 @@ purchase_affairs_008:
   closed: false
   created_at: 2016-07-01 20:22:49.220701000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 17329.62
   currency: USD
   deals_count: 1
-  debit: 17329.62
+  debit: 0.0
   id: 42
   lock_version: 0
   number: A000000000035
@@ -248,10 +248,10 @@ sale_affairs_001:
   closed: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  credit: 6000.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 6000.0
   id: 4
   lock_version: 1
   number: A000004
@@ -266,10 +266,10 @@ sale_affairs_002:
   closed: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  credit: 236.0
+  credit: 1158.0
   currency: EUR
   deals_count: 0
-  debit: 1158.0
+  debit: 236.0
   id: 5
   lock_version: 0
   number: A000005
@@ -305,10 +305,10 @@ sale_affairs_004:
   closed: false
   created_at: 2014-11-05 10:01:39.917982000 Z
   creator_id: 1
-  credit: 792.0
+  credit: 300.0
   currency: EUR
   deals_count: 2
-  debit: 300.0
+  debit: 792.0
   id: 12
   lock_version: 1
   number: A000000000006
@@ -345,10 +345,10 @@ sale_affairs_006:
   closed_at: 2014-11-05 13:36:51.536711000 Z
   created_at: 2014-11-05 13:36:09.026401000 Z
   creator_id: 1
-  credit: 1781.0
+  credit: 1870.0
   currency: EUR
   deals_count: 3
-  debit: 1870.0
+  debit: 1781.0
   id: 17
   lock_version: 4
   number: A000000000011
@@ -363,10 +363,10 @@ sale_affairs_007:
   accounted_at: 2014-11-05 14:07:53.349357000 Z
   closed: false
   created_at: 2014-11-05 14:05:57.528434000 Z
-  credit: 0.0
+  credit: 123.0
   currency: EUR
   deals_count: 1
-  debit: 123.0
+  debit: 0.0
   id: 20
   lock_version: 1
   number: A000000000014
@@ -380,10 +380,10 @@ sale_affairs_008:
   accounted_at: 2014-11-05 14:07:45.804138000 Z
   closed: false
   created_at: 2014-11-05 14:06:06.158342000 Z
-  credit: 0.0
+  credit: 100.0
   currency: EUR
   deals_count: 1
-  debit: 100.0
+  debit: 0.0
   id: 21
   lock_version: 1
   number: A000000000015
@@ -397,10 +397,10 @@ sale_affairs_009:
   accounted_at: 2014-11-05 14:07:42.859080000 Z
   closed: false
   created_at: 2014-11-05 14:06:11.319314000 Z
-  credit: 0.0
+  credit: 448.98
   currency: EUR
   deals_count: 1
-  debit: 448.98
+  debit: 0.0
   id: 22
   lock_version: 1
   number: A000000000016
@@ -414,10 +414,10 @@ sale_affairs_010:
   accounted_at: 2014-11-07 13:55:38.873436000 Z
   closed: false
   created_at: 2014-11-07 13:55:38.852252000 Z
-  credit: 0.0
+  credit: 150.0
   currency: EUR
   deals_count: 1
-  debit: 150.0
+  debit: 0.0
   id: 24
   lock_version: 1
   number: A000000000018
@@ -432,10 +432,10 @@ sale_affairs_011:
   closed: false
   created_at: 2015-04-21 23:49:19.404347000 Z
   creator_id: 1
-  credit: 319.6
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 319.6
   id: 36
   lock_version: 0
   number: A000000000029
@@ -469,10 +469,10 @@ sale_affairs_013:
   closed: false
   created_at: 2015-09-17 13:25:40.531173000 Z
   creator_id: 1
-  credit: 54000.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 54000.0
   id: 38
   lock_version: 0
   number: A000000000031
@@ -487,10 +487,10 @@ sale_affairs_014:
   closed: false
   created_at: 2016-05-26 21:26:07.880426000 Z
   creator_id: 1
-  credit: 142.94
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 142.94
   id: 39
   lock_version: 0
   number: A000000000032
@@ -505,10 +505,10 @@ sale_affairs_015:
   closed: false
   created_at: 2016-05-26 21:26:57.791625000 Z
   creator_id: 1
-  credit: 71.47
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 71.47
   id: 40
   lock_version: 1
   number: A000000000033
@@ -523,10 +523,10 @@ sale_affairs_016:
   closed: false
   created_at: 2016-07-01 20:12:41.393208000 Z
   creator_id: 1
-  credit: 148.8
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 148.8
   id: 41
   lock_version: 0
   number: A000000000034
@@ -671,10 +671,10 @@ sale_tickets_001:
   closed: false
   created_at: 2015-04-21 08:22:33.240093000 Z
   creator_id: 1
-  credit: 24.0
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 24.0
   id: 34
   lock_version: 0
   number: A000000000027
@@ -689,10 +689,10 @@ sale_tickets_002:
   closed: false
   created_at: 2015-04-21 08:29:05.229047000 Z
   creator_id: 1
-  credit: 187.2
+  credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 0.0
+  debit: 187.2
   id: 35
   lock_version: 0
   number: A000000000028

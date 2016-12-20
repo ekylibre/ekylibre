@@ -98,6 +98,31 @@ class OutgoingPayment < Ekylibre::Record::Base
     updateable? || destroyable?
   end
 
+  def amount_to_letter
+    c = Nomen::Currency[currency]
+    precision = c.precision
+    integers, decimals = amount.round(precision).divmod(1)
+    decimals = (decimals * 10**precision).round
+    locale = I18n.t('i18n.iso2').to_sym
+    items = [integers.to_i.humanize(locale: locale) + ' ' + c.human_name.downcase.pluralize]
+    if decimals > 0
+      if precision == 0
+      # OK
+      elsif precision == 2
+        items << :x_cents.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      elsif precision == 3
+        items << :x_mills.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      else
+        raise 'Invalid precision: ' + precision.inspect
+      end
+    end
+    items.to_sentence
+  end
+
+  def affair_reference_numbers
+    affair.purchases.map(&:reference_number).compact.to_sentence
+  end
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

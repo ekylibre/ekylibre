@@ -721,6 +721,7 @@ cmn:
     add_purchase_taxation: "添加购买税收"
     add_quickly_an_item: "添加快速线产品"
     add_reading: "添加值的指标"
+    add_regularization: "添加正规化"
     add_revenue: "添加收入"
     add_sale: "添加销售"
     add_sale_taxation: "添加销售税收"
@@ -1288,6 +1289,7 @@ cmn:
     # printing_document: "Printing %{document}"
     procedures: "程序"
     product: "产品"
+    product_account_number: "产品帐号"
     product_category: "产品分类"
     product_name: "产品名称"
     product_natures: "产品类型"
@@ -1374,6 +1376,7 @@ cmn:
     # section_x: "Section %{x}"
     see_details: "查看具体信息"
     see_more_details: "查看更多详情"
+    select_a_journal: "选择日记"
     select_closure_date: "选择截止日期"
     select_columns: "选择列"
     select_date: "选择日期"
@@ -1432,6 +1435,8 @@ cmn:
     synthesis: "合成"
     target: "目标"
     tasks: "任务"
+    tax_declarations: "纳税申报"
+    tax_label: "税务标签"
     taxations: "税费"
     taxes: "税"
     thumb: "拇指"
@@ -1561,6 +1566,9 @@ cmn:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1627,6 +1635,9 @@ cmn:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
