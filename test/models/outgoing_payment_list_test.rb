@@ -158,4 +158,9 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
     assert(@list.destroy)
     assert_raise(ActiveRecord::RecordNotFound) { @list.reload }
   end
+
+  test 'generate from purchase affairs' do
+    affairs = PurchaseAffair.where(closed: false, currency: 'EUR')
+    OutgoingPaymentList.build_from_affairs(affairs, OutgoingPaymentMode.where(cash: Cash.where(currency: 'EUR')).first, nil)
+  end
 end

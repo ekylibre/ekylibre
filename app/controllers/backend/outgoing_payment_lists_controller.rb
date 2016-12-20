@@ -70,11 +70,12 @@ module Backend
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
         mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
-        outgoing_payment_list = OutgoingPaymentList.build_from_purchase_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number]
+        outgoing_payment_list = OutgoingPaymentList.build_from_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number]
         outgoing_payment_list.save!
 
         redirect_to action: :show, id: outgoing_payment_list.id
       else
+        notify_warning :no_purchase_affair_found_on_given_period
         redirect_to new_backend_outgoing_payment_list_path(params.slice(:started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
       end
     end

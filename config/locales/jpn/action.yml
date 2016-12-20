@@ -376,7 +376,7 @@ jpn:
       new: "新しい観測"
     backend/outgoing_payment_lists:
       index: "支払のバッチリスト"
-      # new: "New outgoing payment list"
+      new: "新しい支払リスト"
       show: "支払バッチ"
     backend/outgoing_payment_modes:
       edit: "編集支出モード"
@@ -1846,6 +1846,7 @@ jpn:
       no_payment_to_deposit: "預金への支払いはありません"
       no_production_defined_for_current_campaign: "現在のキャンペーンのために定義されませ生産はありません"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "生産見つかりません。あなたは、新しい追加したり、前のキャンペーンからいくつかをコピーすることができます。"
+      no_purchase_affair_found_on_given_period: "与えられた期間に見つかりませ購入事件ません"
       no_purchases_given: "いいえ購入は与えられていません"
       no_reopenable_journal: "あなたはこの雑誌を再度開くことができません。"
       no_replacements_since_beginning: "初めから無置換ません"

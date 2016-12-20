@@ -1129,7 +1129,7 @@ spa:
     purchasable: "Comprable"
     purchase: "Compra"
     purchase_affair: "Compra asunto"
-    # purchase_affairs: "Purchase affairs"
+    purchase_affairs: "Asuntos de compra"
     purchase_amount: "Monto de la compra"
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artículo de la compra"

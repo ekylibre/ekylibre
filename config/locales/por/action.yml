@@ -381,7 +381,7 @@ por:
       new: "Nova observação"
     backend/outgoing_payment_lists:
       index: "Lista de lote de pagamentos a terceiros"
-      # new: "New outgoing payment list"
+      new: "Nova lista de contas a pagar"
       show: "Pagamentos efectuados lote"
     backend/outgoing_payment_modes:
       edit: "Modo de edição de desembolso"
@@ -1774,6 +1774,7 @@ por:
       no_payment_to_deposit: "Há nenhum pagamento para depositar"
       no_production_defined_for_current_campaign: "Sem produção definido para a campanha atual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Sem produção encontrados. Você pode adicionar novos ou copiar alguns de campanha anterior."
+      no_purchase_affair_found_on_given_period: "No caso de compra encontrado no determinado período"
       no_purchases_given: "Nenhuma compra dadas"
       no_reopenable_journal: "Você não pode voltar a abrir este diário."
       no_replacements_since_beginning: "Não há substituições desde início"
