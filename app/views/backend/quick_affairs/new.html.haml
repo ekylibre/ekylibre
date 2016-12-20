@@ -20,6 +20,7 @@
 
   = field_set @payment.class.model_name.human do
     = backend_fields_for :payment, @payment do |p|
+      = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
       = p.referenced_association :mode
       = p.input :amount, wrapper: :append, required: true do
         = p.input_field :amount

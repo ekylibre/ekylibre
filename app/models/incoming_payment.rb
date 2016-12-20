@@ -161,6 +161,11 @@ class IncomingPayment < Ekylibre::Record::Base
 
   def letter_with(bank_statements_items)
     bank_statement = bank_statements_items.first.bank_statement
+    letters = bank_statements_items.pluck(:letter)
+    bank_statements_items.update_all(letter: nil)
+    JournalEntryItem.pointed_by(bank_statement)
+                    .where(bank_statement_letter: letters)
+                    .update_all(bank_statement_letter: nil, bank_statement_id: nil)
     letter = bank_statement.next_letter
     journal_entry
       .items
