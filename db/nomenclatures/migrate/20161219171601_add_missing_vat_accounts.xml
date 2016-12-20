@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing vat account">
+  <item-creation item="accounts#vat_to_pay" fr_pcg82="44551"/>
+</migration>

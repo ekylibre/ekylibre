@@ -503,6 +503,7 @@
       <item name="usual_bank_overdraft" fr_pcg82="519"/>
       <item name="various_exceptional_revenues" fr_pcg82="778"/>
       <item name="vat" fr_pcga="445" pt_snc="243"/>
+      <item name="vat_to_pay" fr_pcg82="44551"/>
       <item name="vegetals_making_services_expenses" fr_pcga="6051"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="waiting_vat" fr_pcg82="4458"/>

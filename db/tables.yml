@@ -6263,6 +6263,36 @@ purchases:
   updater_id:
     type: integer
     references: user
+regularizations:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 roles:
   created_at:
     type: datetime

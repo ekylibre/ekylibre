@@ -84,4 +84,68 @@ class JournalEntryTest < ActiveSupport::TestCase
       JournalEntry.create!(journal: journal, printed_on: Date.today)
     end
   end
+
+  test 'save with items and currency' do
+    journal = Journal.find_or_create_by!(name: 'Wouhou', currency: 'BTN', nature: :various)
+    journal_entry = JournalEntry.create!(
+      journal: journal,
+      printed_on: Date.today - 200,
+      real_currency_rate: 12.2565237,
+      items_attributes: {
+        '0' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('41123456'),
+          real_credit: 4500
+        },
+        '1' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('44123456'),
+          real_debit: 112.89
+        },
+        '2' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('60123456'),
+          real_debit: 2578.23
+        },
+        '3' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('61123456'),
+          real_debit: 1808.88
+        }
+      }
+    )
+    assert journal_entry.balanced?
+    assert_equal 4, journal_entry.items.count
+  end
+
+  test 'save with items' do
+    journal_entry = JournalEntry.create!(
+      journal: Journal.find_by(nature: :various, currency: 'EUR'),
+      printed_on: Date.today - 200,
+      items_attributes: {
+        '0' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('41123456'),
+          real_credit: 4500
+        },
+        '1' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('44123456'),
+          real_debit: 112.89
+        },
+        '2' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('60123456'),
+          real_debit: 2578.23
+        },
+        '3' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('61123456'),
+          real_debit: 1808.88
+        }
+      }
+    )
+    assert journal_entry.balanced?
+    assert_equal 4, journal_entry.items.count
+  end
 end

@@ -498,6 +498,7 @@ cmn:
         usual_bank_overdraft: "通常的银行透支"
         various_exceptional_revenues: "各种特殊收入"
         vat: "增值税"
+        vat_to_pay: "增值税缴纳"
         vegetals_making_services_expenses: "Vegetals制作服务费"
         veterinary_fees_expenses: "兽医费开支"
         waiting_vat: "等待增值税"
