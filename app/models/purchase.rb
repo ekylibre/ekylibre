@@ -94,6 +94,7 @@ class Purchase < Ekylibre::Record::Base
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
 
   delegate :with_accounting, to: :nature
+  delegate :third_attribute, to: :class
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
@@ -218,6 +219,14 @@ class Purchase < Ekylibre::Record::Base
       end
     end
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
+  end
+
+  def self.third_attribute
+    :supplier
+  end
+
+  def third
+    send(third_attribute)
   end
 
   def precision
