@@ -753,7 +753,6 @@ por:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Análises"
     analytic_preferences: "Preferências analíticas"
-    # and: "and"
     animal_details: "Detalhes de animais"
     animal_productions: "Produção animal" #?
     animals: "Animais"
@@ -1570,6 +1569,9 @@ por:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1636,6 +1638,9 @@ por:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"

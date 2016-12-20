@@ -888,7 +888,7 @@ fra:
     analysis: "Analyse" #?
     analytic_preferences: "Préférences analytiques"
     analytics: "Analytiques" #?
-    and: "Et"
+    and: "Et" #?
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
@@ -2132,6 +2132,9 @@ fra:
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
+    x_cents:
+      one: "%{count} centime"
+      other: "%{count} centimes"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -2201,6 +2204,9 @@ fra:
     x_mandates:  #?
       one: "%{count} responsabilité" #?
       other: "%{count} responsabilités" #?
+    x_mills:
+      one: "%{count} millime"
+      other: "%{count} millimes"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"

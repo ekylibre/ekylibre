@@ -52,17 +52,17 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
 
       respond_with(@outgoing_payment_list, methods: [:currency, :payments_sum, :entity],
-                                  include: {
-                                    payer: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
-                                    payments: {
-                                      methods: [:amount_to_letter, :label, :affair_reference_numbers],
-                                      include: {
-                                        responsible: {},
-                                        mode: {},
-                                        payee: {include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }}
-                                      }
-                                    }
-                                  })
+                                           include: {
+                                             payer: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                             payments: {
+                                               methods: [:amount_to_letter, :label, :affair_reference_numbers],
+                                               include: {
+                                                 responsible: {},
+                                                 mode: {},
+                                                 payee: { include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } }
+                                               }
+                                             }
+                                           })
     end
 
     def export_to_sepa

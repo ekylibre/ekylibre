@@ -816,7 +816,6 @@ spa:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Análisis"
     analytic_preferences: "Preferencias analíticas"
-    # and: "and"
     animal_details: "Detalles de los animales"
     animal_productions: "Producciones animales" #?
     animals: "Animales"
@@ -1805,6 +1804,9 @@ spa:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1871,6 +1873,9 @@ spa:
     x_journal_entries:
       one: "La escritura"
       other: "%{count} escrituras"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"

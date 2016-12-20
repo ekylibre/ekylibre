@@ -1451,7 +1451,7 @@ jpn:
         manure_management_plan_sheet: "肥料管理計画（詳細）"
         outgoing_deliveries_journal: "発信配達ジャーナル"
         outgoing_delivery_docket: "発信配信ドケット"
-        # outgoing_payment_list: "Outgoing payment list"
+        outgoing_payment_list: "支払一覧"
         phytosanitary_certification: "植物検疫証明書"
         phytosanitary_register: "植物検疫レジスタ"
         prescription: "処方"

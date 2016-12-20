@@ -814,7 +814,6 @@ ita:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analisi"
     analytic_preferences: "Preferenze analitiche"
-    # and: "and"
     animal_details: "dettagli animali"
     animal_productions: "produzioni animali" #?
     animals: "Animali"
@@ -1631,6 +1630,9 @@ ita:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1697,6 +1699,9 @@ ita:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"

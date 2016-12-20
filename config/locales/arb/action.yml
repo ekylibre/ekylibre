@@ -1014,7 +1014,6 @@ arb:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "تحليلات"
     analytic_preferences: "تفضيلات التحليلية"
-    # and: "and"
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"
@@ -2220,6 +2219,9 @@ arb:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"
       zero: "ولا اي حساب" #?
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
@@ -2298,6 +2300,9 @@ arb:
       one: "تفويض واحد" #?
       other: "%{count} تفويض اخر" #?
       zero: "ولا اية تفويض" #?
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"

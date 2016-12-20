@@ -960,7 +960,6 @@ eng:
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
-    and: "and"
     animal_details: "Animal details" #?!
     # animal_management: "Animal management"
     animals: "Animals"
@@ -1769,6 +1768,9 @@ eng:
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
+    x_cents:
+      one: "%{count} cent"
+      other: "%{count} cents"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1835,6 +1837,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_mills:
+      one: "%{count} mill"
+      other: "%{count} mills"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
