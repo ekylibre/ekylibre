@@ -149,6 +149,16 @@ class IncomingPayment < Ekylibre::Record::Base
     end
   end
 
+  delegate :third_attribute, to: :class
+
+  def self.third_attribute
+    :payer
+  end
+
+  def third
+    send(third_attribute)
+  end
+
   def letter_with(bank_statements_items)
     bank_statement = bank_statements_items.first.bank_statement
     letter = bank_statement.next_letter

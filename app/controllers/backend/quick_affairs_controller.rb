@@ -20,7 +20,47 @@ module Backend
     end
 
     def create
-      raise NotImplementedError, "oh-ho"
+      third = trade_params.slice(:supplier_id, :client_id).compact.keys.first
+      return head :bad_request unless third
+      trade_class, payment_class = *case third
+                                    when /supplier_id/ then [Purchase, OutgoingPayment]
+                                    when /client_id/   then [Sale,     IncomingPayment]
+                                    else raise 'Somehow managed to avoid the guard-clause???'
+                                    end
+      affair_class = (trade_class.name + 'Affair').classify.constantize
+
+      @trade   = trade_class.new(trade_params)
+      currency = @trade.currency || @trade.nature.currency
+      @payment = payment_class.new(payment_params.merge(responsible: current_user, to_bank_at: @trade.invoiced_at, payment_class.third_attribute => @trade.third ))
+      @affair  = affair_class.new(currency: currency, third: @trade.third)
+      @trade.affair = @affair
+      @payment.affair = @affair
+      return redirect_to(params[:redirect] || send(:"backend_#{trade_class.name.downcase}_path", @trade)) if @affair.save! && @trade.save! && @payment.save!
+      render :new
+    end
+
+    protected
+
+    def trade_params
+      params.require(:trade)
+            .permit :supplier_id,
+                    :client_id,
+                    :invoiced_at,
+                    :nature_id,
+                    items_attributes: [
+                      :variant_id,
+                      :quantity,
+                      :amount,
+                      :tax_id,
+                      :reduction_percentage,
+                      :unit_pretax_amount
+                    ]
+    end
+
+    def payment_params
+      params.require(:payment)
+            .permit :mode_id,
+                    :amount
     end
   end
 end

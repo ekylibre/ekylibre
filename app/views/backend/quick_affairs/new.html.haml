@@ -1,4 +1,4 @@
-= backend_form_for @trade, url: backend_quick_affairs_path do |t|
+= backend_form_for @trade, as: :trade, url: backend_quick_affairs_path do |t|
   = field_set @trade.class.model_name.human do
     = t.referenced_association @trade.third_attribute
     = t.input :invoiced_at
@@ -19,7 +19,7 @@
           = render 'item_fields', f: item
 
   = field_set @payment.class.model_name.human do
-    = backend_fields_for @payment do |p|
+    = backend_fields_for :payment, @payment do |p|
       = p.referenced_association :mode
       = p.input :amount, wrapper: :append, required: true do
         = p.input_field :amount

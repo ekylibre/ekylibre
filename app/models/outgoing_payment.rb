@@ -92,6 +92,16 @@ class OutgoingPayment < Ekylibre::Record::Base
     (journal_entry && journal_entry.closed?)
   end
 
+  delegate :third_attribute, to: :class
+
+  def self.third_attribute
+    :payee
+  end
+
+  def third
+    send(third_attribute)
+  end
+
   def letter_with(bank_statements_items)
     bank_statement = bank_statements_items.first.bank_statement
     letter = bank_statement.next_letter
