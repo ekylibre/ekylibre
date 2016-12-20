@@ -197,7 +197,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns if the affair is bad for us...
   def losing?
-    self.debit < self.credit
+    self.debit > self.credit
   end
 
   def finishable?
