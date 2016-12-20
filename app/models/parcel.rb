@@ -22,42 +22,42 @@
 #
 # == Table: parcels
 #
-#  accounted_at                 :datetime
-#  address_id                   :integer
-#  contract_id                  :integer
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  currency                     :string
-#  custom_fields                :jsonb
-#  delivery_id                  :integer
-#  delivery_mode                :string
-#  given_at                     :datetime
-#  id                           :integer          not null, primary key
-#  in_preparation_at            :datetime
-#  journal_entry_id             :integer
-#  lock_version                 :integer          default(0), not null
-#  nature                       :string           not null
-#  number                       :string           not null
-#  ordered_at                   :datetime
-#  planned_at                   :datetime         not null
-#  position                     :integer
-#  prepared_at                  :datetime
-#  pretax_amount                :decimal(19, 4)   default(0.0), not null
-#  purchase_id                  :integer
-#  recipient_id                 :integer
-#  reference_number             :string
-#  remain_owner                 :boolean          default(FALSE), not null
-#  responsible_id               :integer
-#  sale_id                      :integer
-#  sender_id                    :integer
-#  separated_stock              :boolean
-#  state                        :string           not null
-#  storage_id                   :integer
-#  transporter_id               :integer
-#  undelivered_invoice_entry_id :integer
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
-#  with_delivery                :boolean          default(FALSE), not null
+#  accounted_at                         :datetime
+#  address_id                           :integer
+#  contract_id                          :integer
+#  created_at                           :datetime         not null
+#  creator_id                           :integer
+#  currency                             :string
+#  custom_fields                        :jsonb
+#  delivery_id                          :integer
+#  delivery_mode                        :string
+#  given_at                             :datetime
+#  id                                   :integer          not null, primary key
+#  in_preparation_at                    :datetime
+#  journal_entry_id                     :integer
+#  lock_version                         :integer          default(0), not null
+#  nature                               :string           not null
+#  number                               :string           not null
+#  ordered_at                           :datetime
+#  planned_at                           :datetime         not null
+#  position                             :integer
+#  prepared_at                          :datetime
+#  pretax_amount                        :decimal(19, 4)   default(0.0), not null
+#  purchase_id                          :integer
+#  recipient_id                         :integer
+#  reference_number                     :string
+#  remain_owner                         :boolean          default(FALSE), not null
+#  responsible_id                       :integer
+#  sale_id                              :integer
+#  sender_id                            :integer
+#  separated_stock                      :boolean
+#  state                                :string           not null
+#  storage_id                           :integer
+#  transporter_id                       :integer
+#  undelivered_invoice_journal_entry_id :integer
+#  updated_at                           :datetime         not null
+#  updater_id                           :integer
+#  with_delivery                        :boolean          default(FALSE), not null
 #
 
 class Parcel < Ekylibre::Record::Base
@@ -70,7 +70,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
@@ -177,47 +177,58 @@ class Parcel < Ekylibre::Record::Base
     prepared? || given?
   end
 
-  # This method permits to add stock journal entries corresponding to the incoming or outgoing parcel
-  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
-  #       Mode Parcels     |     Debit                      |            Credit            |
-  # incoming parcel        |    stock(3X)                   |   stock_movement(603X/71X)   |
-  # outgoing parcel        |  stock_movement(603X/71X)      |            stock(3X)         |
+  # This method permits to add stock journal entries corresponding to the
+  # incoming or outgoing parcels.
+  # It depends on the preferences which permit to activate the "permanent stock
+  # inventory" and "automatic bookkeeping".
+  #
+  # | Parcel mode            | Debit                      | Credit                    |
+  # | incoming parcel        | stock (3X)                 | stock_movement (603X/71X) |
+  # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    return unless Preference[:permanent_stock_inventory]
-    invoice_not_received_account = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
-    mode = nature.to_sym
-    entity = recipient || sender
-    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-    undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-    stock_journal = Journal.find_or_create_by!(nature: :stocks, currency: self.currency)
-    return unless [:incoming, :outgoing].include? mode
-    # for purchase_not_received or sale_not_emitted
-    journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP', currency: self.currency)
-    b.journal_entry(journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
-      # for permanent stock inventory
-      b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
-        items.each do |item|
-          next unless item.variant
-
-          transaction_item = (mode == :incoming ? item.purchase_item : item.sale_item)
-          # compute amout on purchase/sale or stock catalog
-          amount = (transaction_item && transaction_item.pretax_amount) || item.stock_amount
-          # purchase/sale not emitted
-          if item.variant.charge_account
-            entry.add_credit(undelivered_label, invoice_not_received_account.id, amount) unless amount.zero?
-            entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
-          end
-          # permanent stock inventory
-          next unless item.variant.storable?
-          stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-          stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-        end
+    # For purchase_not_received or sale_not_emitted
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    list = []
+    if Preference[:permanent_stock_inventory] && given?
+      label = tc(:undelivered_invoice,
+                 resource: self.class.model_name.human,
+                 number: number, entity: entity.full_name, mode: nature.l)
+      account = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
+      items.each do |item|
+        amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
+        next unless item.variant && item.variant.charge_account && amount.nonzero?
+        list << [:add_credit, label, account.id, amount, resource: item, as: :unbilled]
+        list << [:add_debit, label, item.variant.charge_account.id, amount, resource: item, as: :expense]
       end
     end
+    b.journal_entry(journal, printed_on: printed_on, list: list, as: :undelivered_invoice)
+
+    # For permanent stock inventory
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
+    list = []
+    if Preference[:permanent_stock_inventory] && given?
+      label = tc(:bookkeep, resource: self.class.model_name.human,
+                            number: number, entity: entity.full_name, mode: nature.l)
+      items.each do |item|
+        variant = item.variant
+        next unless variant && variant.storable? && item.stock_amount.nonzero?
+        list << [:add_credit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
+        list << [:add_debit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
+      end
+    end
+    b.journal_entry(journal, printed_on: printed_on, list: list)
+  end
+
+  def entity
+    incoming? ? sender : recipient
   end
 
   def printed_at
     given_at || created_at || Time.zone.now
+  end
+
+  def printed_on
+    printed_at.to_date
   end
 
   def content_sentence(limit = 30)
@@ -345,7 +356,12 @@ class Parcel < Ekylibre::Record::Base
     return false unless can_give?
     update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)
+    reload
     super
+  end
+
+  def first_available_date
+    given_at || planned_at || prepared_at || in_preparation_at || ordered_at
   end
 
   class << self
@@ -401,11 +417,11 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:given_at)
+        end.sort_by(&:first_available_date)
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last || Time.zone.now
+        planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = SaleNature.actives.first
-          unless journal = Journal.sales.opened_at(planned_at).first
+          unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
           nature = SaleNature.create!(
@@ -456,11 +472,11 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:given_at)
+        end.sort_by(&:first_available_date)
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last
+        planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = PurchaseNature.actives.first
-          unless journal = Journal.purchases.opened_at(planned_at).first
+          unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
           nature = PurchaseNature.create!(

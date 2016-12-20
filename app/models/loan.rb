@@ -84,8 +84,8 @@ class Loan < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
-      entry.add_debit(label, cash.account_id, amount)
-      entry.add_credit(label, Account.find_or_import_from_nomenclature(:loans).id, amount)
+      entry.add_debit(label, cash.account_id, amount, as: :bank)
+      entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, amount, as: :loan)
     end
   end
 

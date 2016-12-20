@@ -45,6 +45,8 @@ fra:
           hello: "Bonjour %{first_name} %{last_name},"
           sign_in: "Connexion."
           subject: "Votre compte vient d’être approuvé"
+        signed_up:
+          subject: "Nouvelle inscription"
       reset_password_instructions:
         subject: "Instructions pour changer le mot de passe"
       unlock_instructions:

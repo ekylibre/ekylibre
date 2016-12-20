@@ -56,6 +56,7 @@ module Backend
       t.column :credit, currency: true, hidden: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
+      t.column :product_item_to_tax_label, label: :tax_label, hidden: true
       t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
     end
 
@@ -159,15 +160,15 @@ module Backend
         session[:stopped_on] = params[:stopped_on]
         session[:started_on] = params[:started_on]
         @records = {}
-        for nature in @natures
-          conditions = ['created_at BETWEEN ? AND ?', session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
+        @natures.each do |nature|
+          conditions = ['created_at::DATE BETWEEN ? AND ?', session[:started_on], session[:stopped_on]]
           @records[nature] = nature.to_s.classify.constantize.where(conditions)
         end
 
         if @step == 3
           state = (params[:save_in_draft].to_i == 1 ? :draft : :confirmed)
-          for nature in @natures
-            for record in @records[nature]
+          @natures.each do |nature|
+            @records[nature].each do |record|
               record.bookkeep(:create, state)
             end
           end

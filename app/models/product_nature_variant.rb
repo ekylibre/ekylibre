@@ -63,12 +63,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  belongs_to :stock_movement_account, class_name: 'Account', dependent: :destroy
-  belongs_to :stock_account, class_name: 'Account', dependent: :destroy
+  belongs_to :stock_movement_account, class_name: 'Account'
+  belongs_to :stock_account, class_name: 'Account'
 
   has_many :contract_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
@@ -136,15 +137,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      parcel_items.any? || has_accounts?
+      parcel_items.any?
   end
 
   before_validation on: :create do
-    self.number = if ProductNatureVariant.any?
-                    ProductNatureVariant.order(number: :desc).first.number.succ
-                  else
-                    '00000001'
-                  end
+    if ProductNatureVariant.any?
+      self.category = nature.category if nature
+      if category
+        num = ProductNatureVariant.order('number::INTEGER DESC').first.number.to_i.to_s.rjust(6, '0').succ
+        if category.storable?
+          while Account.where(number: [category.stock_movement_account.number + num, category.stock_account.number + num]).any? || ProductNatureVariant.where(number: num).any?
+            num.succ!
+          end
+        end
+        self.number = num
+      end
+    else
+      self.number = '000001'
+    end
   end
 
   before_validation do # on: :create
@@ -166,9 +176,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   validate do
     if nature
-      unless Nomen::Variety.find(nature_variety) >= self.variety
+      nv = Nomen::Variety.find(nature_variety)
+      unless nv >= self.variety
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
-        errors.add(:variety, :invalid)
+        errors.add(:variety, :is, thing: nv.human_name)
       end
       if Nomen::Variety.find(nature_derivative_of)
         if self.derivative_of
@@ -198,11 +209,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
         errors.add(:derivative_of, :invalid)
       end
     end
-  end
-
-  def has_accounts?
-    return false unless storable?
-    stock_movement_account && stock_account && stock_movement_account.destroyable? && stock_account.destroyable?
   end
 
   # create unique account for stock management in accountancy
@@ -487,8 +493,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless nature_item = Nomen::ProductNature[item.nature]
         raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
-      unless !force && variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
-        attributes = {
+      unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
+        variant = new(
           name: item.human_name,
           active: true,
           nature: ProductNature.import_from_nomenclature(item.nature),
@@ -497,13 +503,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
           # :frozen_indicators => item.frozen_indicators_values.to_s,
           variety: item.variety || nil,
           derivative_of: item.derivative_of || nil
-        }
-        variant = new(attributes)
-        # puts variant.name.inspect.green
+        )
         unless variant.save
           raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
-
       end
 
       unless item.frozen_indicators_values.to_s.blank?

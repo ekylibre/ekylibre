@@ -22,56 +22,130 @@
 #
 # == Table: sales
 #
-#  accounted_at                     :datetime
-#  address_id                       :integer
-#  affair_id                        :integer
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  annotation                       :text
-#  client_id                        :integer          not null
-#  codes                            :jsonb
-#  conclusion                       :text
-#  confirmed_at                     :datetime
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  credit                           :boolean          default(FALSE), not null
-#  credited_sale_id                 :integer
-#  currency                         :string           not null
-#  custom_fields                    :jsonb
-#  delivery_address_id              :integer
-#  description                      :text
-#  downpayment_amount               :decimal(19, 4)   default(0.0), not null
-#  expiration_delay                 :string
-#  expired_at                       :datetime
-#  function_title                   :string
-#  has_downpayment                  :boolean          default(FALSE), not null
-#  id                               :integer          not null, primary key
-#  initial_number                   :string
-#  introduction                     :text
-#  invoice_address_id               :integer
-#  invoiced_at                      :datetime
-#  journal_entry_id                 :integer
-#  letter_format                    :boolean          default(TRUE), not null
-#  lock_version                     :integer          default(0), not null
-#  nature_id                        :integer
-#  number                           :string           not null
-#  payment_at                       :datetime
-#  payment_delay                    :string           not null
-#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_entry_id :integer
-#  reference_number                 :string
-#  responsible_id                   :integer
-#  state                            :string           not null
-#  subject                          :string
-#  transporter_id                   :integer
-#  undelivered_invoice_entry_id     :integer
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  accounted_at                             :datetime
+#  address_id                               :integer
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  annotation                               :text
+#  client_id                                :integer          not null
+#  codes                                    :jsonb
+#  conclusion                               :text
+#  confirmed_at                             :datetime
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  credit                                   :boolean          default(FALSE), not null
+#  credited_sale_id                         :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  downpayment_amount                       :decimal(19, 4)   default(0.0), not null
+#  expiration_delay                         :string
+#  expired_at                               :datetime
+#  function_title                           :string
+#  has_downpayment                          :boolean          default(FALSE), not null
+#  id                                       :integer          not null, primary key
+#  initial_number                           :string
+#  introduction                             :text
+#  invoice_address_id                       :integer
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  letter_format                            :boolean          default(TRUE), not null
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string           not null
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string           not null
+#  subject                                  :string
+#  transporter_id                           :integer
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 
 require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
   test_model_actions
+
+  test 'rounds' do
+    nature = SaleNature.find_or_create_by(with_accounting: true)
+    assert nature
+    client = Entity.normal.first
+    assert client
+    sale = Sale.create!(nature: nature, client: client)
+    assert sale
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    # Standard case
+    standard_vat = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
+      country: :fr
+    )
+    first_item = sale.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
+    assert first_item
+    assert_equal 480, first_item.amount
+    assert_equal 480, sale.amount
+    # Limit case
+    reduced_vat = Tax.create!(
+      name: 'Reduced',
+      amount: 5.5,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45662'),
+      deduction_account: Account.find_or_create_by_number('45672'),
+      country: :fr
+    )
+    second_item = sale.items.create!(variant: variants.second, quantity: 4, unit_pretax_amount: 3.791, tax: reduced_vat)
+    assert second_item
+    assert_equal 16, second_item.amount
+    assert_equal 496, sale.amount
+
+    assert sale.propose!
+    assert sale.confirm!
+    assert sale.invoice!
+
+    sale.reload
+    entry = sale.journal_entry
+
+    assert entry.present?, 'Journal entry must be present after invoicing'
+
+    assert_equal 5, entry.items.count
+    assert 80.0, entry.items.find_by(account_id: standard_vat.collect_account_id).credit
+    assert 400.0, entry.items.find_by(account_id: first_item.account_id).credit
+    assert 0.84, entry.items.find_by(account_id: reduced_vat.collect_account_id).credit
+    assert 15.16, entry.items.find_by(account_id: second_item.account_id).credit
+    assert 496, entry.items.find_by(account_id: client.account(:client).id).debit
+  end
+
+  test 'unit pretax amount calculation based on total pretax amount' do
+    nature = SaleNature.first
+    assert nature
+    sale = Sale.create!(nature: nature, client: Entity.normal.first)
+    assert sale
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    tax = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    # Calculates unit_pretax_amount based on pretax_amount
+    item = sale.items.create!(variant: variants.first, quantity: 2, pretax_amount: 225, tax: tax, compute_from: 'pretax_amount')
+    assert item
+    assert_equal 112.50, item.unit_pretax_amount
+    assert_equal 270, item.amount
+  end
+
   test 'duplicatablity' do
     count = 0
     Sale.find_each do |sale|

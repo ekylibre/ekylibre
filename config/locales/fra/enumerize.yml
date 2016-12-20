@@ -36,10 +36,6 @@ fra:
       mode:
         harvested: "Date de récolte prévisionnelle"
         sowed: "Date de semis prévisionnelle"
-    affair:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
     analysis:
       retrieval_status:
         controller_error: "Erreur de contrôleur"
@@ -133,6 +129,16 @@ fra:
         informative: "Pour information"
         refused: "Refusé"
         waiting: "En attente de réponse"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensuelle"
+        none: "Aucune"
+        quaterly: "Trimestrielle"
+        yearly: "Annuelle"
+      tax_declaration_mode:
+        debit: "Débits"
+        none: "Aucun"
+        payment: "Encaissements"
     fixed_asset:
       depreciation_method:
         graduated: "Dégressive" #?
@@ -141,10 +147,7 @@ fra:
     gap:
       direction:
         loss: "Perte"
-        profit: "Le profit"
-      entity_role:
-        # client: "Client"
-        supplier: "Fournisseur"
+        profit: "Profit"
     georeading:
       nature:
         line: "Ligne" #?
@@ -258,6 +261,10 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
+    plant_counting:
+      nature:
+        germination: "À la levée"
+        sowing: "Au semis"
     preference:
       nature:
         accounting_system: "Système de comptabilité"
@@ -373,18 +380,18 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    purchase:
+      tax_payability:
+        at_invoicing: "À la facturation (débit)"
+        at_paying: "Au paiement"
     purchase_nature:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
-    sale_opportunity:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
-    sale_ticket:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
+    sale_item:
+      compute_from:
+        pretax_amount: "Montant avant impôts"
+        unit_pretax_amount: "Unité montant avant impôts"
     sensor:
       retrieval_mode:
         integration: "Intégration"
@@ -426,6 +433,18 @@ fra:
         sales: "Ventes"
         sales_invoices: "Factures"
         subscriptions: "Abonnements"
+        tax_declarations: "Déclarations fiscales"
+    synchronization_operation:
+      operation_name:
+        authenticate: "Authentification"
+        get_inventory: "Récupération de l'inventaire"
+        get_urls: "Récupération des URL"
+      state:
+        aborted: "Avorté"
+        errored: "Erroné"
+        finished: "Fini"
+        in_progress: "En cours"
+        undone: "En attente"
     task:
       nature:
         incoming_call: "Appel entrant"

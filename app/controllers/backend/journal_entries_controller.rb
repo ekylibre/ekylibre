@@ -18,7 +18,7 @@
 
 module Backend
   class JournalEntriesController < Backend::BaseController
-    manage_restfully only: [:index, :show, :destroy]
+    manage_restfully only: [:show, :destroy]
 
     unroll
 
@@ -55,31 +55,45 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
+      t.column :product_item_to_tax_label, label: :tax_label, hidden: true
+    end
+
+    def index
+      redirect_to controller: :journals, action: :index
     end
 
     def new
-      return unless @journal = find_and_check(:journal, params[:journal_id])
-      session[:current_journal_id] = @journal.id
-      @journal_entry = @journal.entries.build
+      @journal_entry = JournalEntry.new
       @journal_entry.printed_on = params[:printed_on] || Time.zone.today
-      @journal_entry.number = @journal.next_number
       @journal_entry.real_currency_rate = params[:exchange_rate].to_f
+      @journal = Journal.find_by(id: params[:journal_id])
+      if @journal
+        @journal_entry.journal = @journal
+        t3e @journal.attributes
+      end
       if request.xhr?
         render(partial: 'backend/journal_entries/items_form', locals: { items: @journal_entry.items })
-      else
-        t3e @journal.attributes
       end
     end
 
     def create
       return unless @journal = find_and_check(:journal, params[:journal_id])
-      session[:current_journal_id] = @journal.id
       @journal_entry = @journal.entries.build(permitted_params)
       @journal_entry_items = (params[:items] || {}).values
       # raise @journal_entry_items.inspect
       if @journal_entry.save_with_items(@journal_entry_items)
-        notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
-        redirect_to controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on # , :draft_mode => (1 if @journal_entry.draft_mode)
+        if params[:affair_id]
+          affair = Affair.find_by(id: params[:affair_id])
+          if affair
+            Regularization.create!(affair: affair, journal_entry: @journal_entry)
+          end
+        end
+        if @journal_entry.number == params[:theoretical_number]
+          notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
+        else
+          notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
+        end
+        redirect_to params[:redirect] || { controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on }
         return
       end
       t3e @journal.attributes

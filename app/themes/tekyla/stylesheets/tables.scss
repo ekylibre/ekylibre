@@ -163,6 +163,9 @@ table {
         @include ellipsis;
         @include text-align(left);
         &[data-list-column-sort] {
+          &:hover{
+            cursor: pointer;
+          }
           i {
             @include is-icon(round(0.85 * $fs-normal));
             @include use-icon(sort);
@@ -254,6 +257,15 @@ table {
         }
         &:first-child td {
           border-top: none;
+        }
+        &#computation-results td div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          span#list-computation-result {
+            @include padding-left(2*$fs-normal);
+          }
         }
         /* &.focus { */
         /*   td { */

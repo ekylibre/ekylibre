@@ -18,7 +18,8 @@
 
 module Backend
   class ParcelsController < Backend::BaseController
-    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new
+    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new,
+                     continue: [:nature]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -40,7 +41,7 @@ module Backend
       code << "    interval = params[:period].split('_')\n"
       code << "    first_date = interval.first\n"
       code << "    last_date = interval.last\n"
-      code << "    c[0] << \" AND #{Parcel.table_name}.planned_at BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Parcel.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
       code << "    c << first_date\n"
       code << "    c << last_date\n"
       code << "  end\n "
@@ -115,7 +116,7 @@ module Backend
       t.column :analysis, url: true
     end
 
-    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+    list(:incoming_items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name
@@ -196,6 +197,7 @@ module Backend
         end
       end
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
+      render locals: { with_continue: true }
     end
 
     # Converts parcel to trade

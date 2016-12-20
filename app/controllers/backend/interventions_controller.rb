@@ -20,7 +20,10 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
+                     group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c,
+                     targets_attributes: 'params[:targets_attributes] || []'.c,
+                     continue: [:nature, :procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -48,8 +51,9 @@ module Backend
       code << "  c << params[:nature]\n"
       code << "end\n"
 
-      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
+      code << "c[0] << ' AND ((#{Intervention.table_name}.nature = ? AND #{Intervention.table_name}.state != ? AND (#{Intervention.table_name}.request_intervention_id IS NULL OR #{Intervention.table_name}.request_intervention_id NOT IN (SELECT id from #{Intervention.table_name})) OR #{Intervention.table_name}.nature = ?))'\n"
       code << "c << 'request'\n"
+      code << "c << '#{Intervention.state.rejected}'\n"
       code << "c << 'record'\n"
 
       code << "unless params[:procedure_name].blank?\n"
@@ -199,14 +203,18 @@ module Backend
        :whole_duration, :working_duration].each do |param|
         options[param] = params[param]
       end
-      options[:group_parameters_attributes] = params[:group_parameters_attributes] || []
+
+      # , :doers, :inputs, :outputs, :tools
+      [:group_parameters, :targets].each do |param|
+        options["#{param}_attributes"] = params["#{param}_attributes"] || []
+      end
 
       @intervention = Intervention.new(options)
 
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
-      render(locals: { cancel_url: { action: :index } })
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
     def sell
@@ -265,7 +273,12 @@ module Backend
 
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
-        render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+
+        if params[:modal_type] == 'delete'
+          render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
+        else
+          render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+        end
       end
     end
 
@@ -283,7 +296,28 @@ module Backend
       Intervention.transaction do
         @interventions.each do |intervention|
           if intervention.nature == :record && new_state == :rejected
+
+            unless intervention.request_intervention_id.nil?
+              intervention_request = Intervention.find(intervention.request_intervention_id)
+
+              if state_change_permitted_params[:delete_option].to_sym == :delete_request
+                intervention_request.destroy!
+              else
+                intervention_request.parameters = intervention.parameters
+                intervention_request.save!
+              end
+            end
+
             intervention.destroy!
+            next
+          end
+
+          if intervention.nature == :request && new_state == :rejected
+            intervention.state = new_state
+
+            next unless intervention.valid?
+            intervention.save!
+
             next
           end
 
@@ -320,7 +354,7 @@ module Backend
     end
 
     def state_change_permitted_params
-      params.require(:intervention).permit(:interventions_ids, :state)
+      params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
     end
   end
 end

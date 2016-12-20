@@ -2868,11 +2868,11 @@ preferences_241:
   created_at: 2015-05-30 19:58:55.614160000 Z
   creator_id: 1
   id: 241
-  lock_version: 7
+  lock_version: 8
   name: kujaku.feathers.backend-entities-index-1:0.default
   nature: string
-  string_value: ecekiel
-  updated_at: 2016-11-05 09:00:37.908511000 Z
+  string_value: ''
+  updated_at: 2016-11-20 22:09:53.340436000 Z
   updater_id: 1
   user_id: 1
 preferences_242:
@@ -4501,7 +4501,7 @@ preferences_389:
   lock_version: 0
   name: current_period_interval
   nature: string
-  string_value: years
+  string_value: year
   updated_at: 2016-11-05 21:32:28.426966000 Z
   updater_id: 1
   user_id: 1
@@ -4539,3 +4539,34 @@ preferences_393:
   name: distribute_sales_and_purchases_on_teams
   nature: boolean
   updated_at: 2016-11-06 17:57:39.680824000 Z
+preferences_394:
+  boolean_value: true
+  created_at: 2016-11-20 22:08:58.272185000 Z
+  creator_id: 1
+  id: 394
+  lock_version: 0
+  name: catalog_price_item_addition_if_blank
+  nature: boolean
+  updated_at: 2016-11-20 22:08:58.272185000 Z
+  updater_id: 1
+preferences_395:
+  created_at: 2016-11-20 22:08:58.389623000 Z
+  creator_id: 1
+  id: 395
+  lock_version: 0
+  name: client_account_radix
+  nature: string
+  string_value: ''
+  updated_at: 2016-11-20 22:08:58.389623000 Z
+  updater_id: 1
+preferences_396:
+  created_at: 2016-11-20 22:10:24.492281000 Z
+  creator_id: 1
+  id: 396
+  lock_version: 1
+  name: interface.janus.backend-entities-show-18.current_face
+  nature: string
+  string_value: cobbles
+  updated_at: 2016-11-20 22:10:24.498917000 Z
+  updater_id: 1
+  user_id: 1

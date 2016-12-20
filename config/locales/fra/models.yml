@@ -109,6 +109,23 @@ fra:
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
         variety: "Variété" #?
+      plant_counting:
+        expected_plants_count: "Nombre de graines théorique" #?
+        expected_seeding_density: "Densité théorique" #?
+        nature: "Comptage réalisé" #?
+        plant: "Produit"
+        plant_activity: "Activité"
+        plants_count: "Nombre de graines comptées" #?
+        read_at: "Date" #?
+        rows_count_value: "Nombre de rangs"
+        sampling_length: "Distance d'échantillonnage" #?
+        seeding_density_value: "Densité réelle" #?
+        working_width_value: "Largeur de l'outil de semis"
+      plant_counting_item:
+        value: "Nombre de plants"
+      plant_density_abacus_item:
+        plants_count: "Nombre théorique de graines"
+        seeding_density_value: "Densité théorique de semis"
       product_localization:  #?
         container: "Contenant" #?
         started_at: "Entrée" #?
@@ -150,6 +167,12 @@ fra:
         price: "Prix" #?
       sale_nature:
         downpayment: "Avec acompte"
+      synchronization_operation:
+        human_message: "Message d'erreur"
+        operation_name: "Nom de l'opération"
+        request: "Requête"
+        response: "Réponse"
+        status: "Statut"
       tax:
         amount: "Valeur"
       tax_declaration:  #?
@@ -157,6 +180,11 @@ fra:
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
+      tax_declaration_item:
+        collected: "Collectée"
+        deductible: "Déductible"
+        fixed_asset_deductible: "Déductible sur immobilisation"
+        intracommunity_payable: "Intra-communautaire"
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
@@ -189,6 +217,7 @@ fra:
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
@@ -390,10 +419,10 @@ fra:
       parcel: "Colis"
       parcel_item: "Élément de colis"
       plant: "Plante"
-      plant_counting: "Nombre de plants"
+      plant_counting: "Comptage"
       plant_counting_item: "Mesure du nombre de plants"
-      plant_density_abacus: "Densité de plants"
-      plant_density_abacus_item: "Mesure de la densité de plants"
+      plant_density_abacus: "Abaque de densité de plants"
+      plant_density_abacus_item: "Référence de densité"
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -418,10 +447,15 @@ fra:
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       purchase: "Achat"
+      purchase_affair: "Affaire d’achat"
+      purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
+      sale_affair: "Affaire de vente"
+      sale_gap: "Écart sur vente"
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
@@ -434,9 +468,12 @@ fra:
       subscription_nature: "Type d’abonnement"
       supervision: "Supervision"
       supervision_item: "Supervisé"
+      synchronization_operation: "Opération de synchronisation"
       target_distribution: "Répartition de cible"
       task: "Tâche"
       tax: "Taxe"
+      tax_declaration: "Déclaration d’impôts"
+      tax_declaration_item: "Tax élément de déclaration"
       team: "Service"
       token: "Jeton"
       tracking: "Lot traçable"
@@ -532,6 +569,8 @@ fra:
     average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
+    balance_pretax_amount: "Solde montant HT"
+    balance_tax_amount: "Montant de la taxe d’équilibre"
     balances: "Balances de compte"
     bank_account_holder_name: "Titulaire du compte"
     bank_account_key: "Clé RIB"
@@ -608,6 +647,8 @@ fra:
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute" #?
+    collected_pretax_amount: "Montant HT collectées"
+    collected_tax_amount: "Montant de la taxe perçue"
     collected_taxes: "TVA collectées"
     color: "Couleur"
     column_name: "Nom de colonne"
@@ -625,6 +666,7 @@ fra:
     components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
+    compute_from: "Calculer à partir"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
@@ -646,6 +688,7 @@ fra:
     contents: "Contenu"
     contour: "Silhouette" #?
     contract: "Contrat"
+    contract_items: "Éléments du contrat"
     contracts: "Contrats"
     coordinate: "Coordonnée"
     coordinate_columns: "Colonnes de coordonnées"
@@ -705,6 +748,8 @@ fra:
     decimal_value: "Valeur décimale"
     declarant: "Declarant"
     declared_at: "Déclarée le" #?
+    deductible_pretax_amount: "Montant HT déductible"
+    deductible_tax_amount: "Montant de la taxe déductible"
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
     default_computation_method: "Méthode de calcul par défaut"
@@ -841,6 +886,7 @@ fra:
     finish: "Fin"
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
+    finished_at: "Terminé à"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -851,6 +897,8 @@ fra:
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
     fixed_asset_collect_account: "TVA collectée sur les immobilisations"
+    fixed_asset_deductible_pretax_amount: "Montant HT déductibles sur immobilisation"
+    fixed_asset_deductible_tax_amount: "Montant taxes déductibles sur immobilisation"
     fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
@@ -978,6 +1026,8 @@ fra:
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
+    intracommunity: "Intracommunautaire"
+    intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
     invitation_accepted_at: "Invitation acceptée à"
@@ -990,6 +1040,7 @@ fra:
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
+    invoiced_on: "Facturé sur"
     invoices_count: "Nombre de factures" #?
     ip_address: "Adresse IP"
     irrigated: "Irrigué"
@@ -1115,6 +1166,7 @@ fra:
     meat_withdrawal_period: "Délai d’attente (viande)" #?
     meeting_origin: "Origine de la rencontre"
     member: "Membre"
+    member_variant: "Variante de membre"
     members: "Membres"
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
@@ -1164,6 +1216,7 @@ fra:
     nodes: "Nœuds d’extraction"
     noticed_start_amount: "Montant de début constaté"
     noticed_stop_amount: "Montant de fin constaté"
+    notification: "Notification"
     notifications: "Notifications"
     number: "Numéro"
     number_format: "Format du numéro"
@@ -1176,6 +1229,7 @@ fra:
     old_password: "Mot de passe actuel"
     opened_at: "Ouvert le"
     operation: "Travail"
+    operation_name: "Nom de l’opération"
     operations: "Travaux" #?
     ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
@@ -1238,11 +1292,11 @@ fra:
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu sur"
     plant: "Plante"
-    plant_counting: "comptage des plantes"
-    plant_countings: "dénombrements des plantes"
-    plant_density_abaci: "Abaci densité végétale"
-    plant_density_abacus: "boulier densité végétale"
-    plant_density_abacus_item: "la densité des plantes article boulier"
+    plant_counting: "Comptage"
+    plant_countings: "Comptages"
+    plant_density_abaci: "Abaques de densité de plant"
+    plant_density_abacus: "Abaque de densité de plant"
+    plant_density_abacus_item: "Densité théorique de semis"
     plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"
@@ -1334,6 +1388,8 @@ fra:
     provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
+    purchase_affair: "Affaire d’achat"
+    purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
@@ -1345,7 +1401,7 @@ fra:
     purchases: "Achats"
     quality_criterion: "Critère qualité" #?
     quantity: "Quantité"
-    quantity_gap_on_invoice_entry: "Ecriture d'ecart de quantité de stock"
+    quantity_gap_on_invoice_journal_entry: "Ecriture d'ecart de quantité de stock"
     quantity_handler: "Macro-unité Quantité"
     quantity_indicator: "Indicateur Quantité"
     quantity_indicator_name: "Quantité nom de l’indicateur"
@@ -1399,6 +1455,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
+    regularizations: "Régularisations"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
     remaining_lifespan: "Vie restante"
@@ -1421,6 +1478,7 @@ fra:
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
     resource: "Ressource"
+    resource_prism: "Prisme de ressources"
     resource_type: "Type de ressource"
     responses: "Réponses"
     responsible: "Responsable"
@@ -1439,6 +1497,7 @@ fra:
     root_model_name: "Racine"
     root_node: "Nœud racine"
     root_parameters: "Paramètres Root"
+    rows_count_value: "Nombre de rangs"
     sale: "Vente"
     sale_credit: "Avoir"
     sale_item: "Ligne de vente"
@@ -1557,10 +1616,18 @@ fra:
     targets: "Cibles"
     tasks: "Tâches"
     tax: "Taxe"
+    tax_declaration: "Déclaration d’impôts"
+    tax_declaration_frequency: "Fréquence de déclaration d’impôt"
+    tax_declaration_item: "Tax élément de déclaration"
+    tax_declaration_items: "Articles de déclaration d’impôt"
+    tax_declaration_mode: "Mode de déclaration d’impôt"
+    tax_declarations: "Déclarations fiscales"
+    tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
     theme: "Thème"
+    theoretical_number: "Numéro théorique"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers" #?
@@ -1598,7 +1665,7 @@ fra:
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
-    undelivered_invoice_entry: "Ecriture Facture non parvenue (FNP)"
+    undelivered_invoice_journal_entry: "Ecriture Facture non parvenue (FNP)"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité" #?
     unit_amount: "PU TTC"
@@ -1628,6 +1695,9 @@ fra:
     use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
+    used_for_permanent_stock_inventory: "Utilisé pour l’inventaire de stock permanent"
+    used_for_tax_declarations: "Utilisé pour les déclarations fiscales"
+    used_for_unbilled_payables: "Utilisé pour factures non parvenues"
     used_intervention_parameters: "Paramètres d’intervention d’occasion"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
@@ -1667,6 +1737,7 @@ fra:
     working_periods: "Périodes de travail"
     working_shape: "Forme de travail" #?
     working_unit: "Unité d’œuvre" #?
+    working_width_value: "Largeur de l'outil de semis"
     working_zone: "Zone travaillée"
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"
@@ -1884,6 +1955,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
+    purchase_gap:
+      bookkeep: "[%{resource} %{number}] %{supplier}"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -1922,6 +1995,8 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"
+    sale_gap:
+      bookkeep: "[%{resource} %{number}] %{client}"
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
@@ -1973,6 +2048,8 @@ fra:
           doing: "En cours"
           done: "Fini"
           todo: "À faire"
+    tax_declaration:
+      bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
     team:
       default: "Général"
     user:

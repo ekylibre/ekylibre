@@ -593,6 +593,8 @@ affairs:
   journal_entry_id:
     type: integer
     references: journal_entry
+  letter:
+    type: string
   lock_version:
     type: integer
     required: true
@@ -619,9 +621,6 @@ affairs:
   third_id:
     type: integer
     references: entity
-    required: true
-  third_role:
-    type: string
     required: true
   type:
     type: string
@@ -1031,6 +1030,11 @@ calls:
     type: integer
     required: true
   name:
+    type: string
+  source_id:
+    type: integer
+    references: "~source_type"
+  source_type:
     type: string
   state:
     type: string
@@ -2370,6 +2374,11 @@ financial_years:
   stopped_on:
     type: date
     required: true
+  tax_declaration_frequency:
+    type: string
+  tax_declaration_mode:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -2594,9 +2603,6 @@ gaps:
     type: integer
     references: entity
     required: true
-  entity_role:
-    type: string
-    required: true
   id:
     type: integer
     required: true
@@ -2617,6 +2623,8 @@ gaps:
   printed_at:
     type: datetime
     required: true
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -3717,6 +3725,8 @@ journal_entries:
   resource_id:
     type: integer
     references: "~resource_type"
+  resource_prism:
+    type: string
   resource_type:
     type: string
   state:
@@ -3738,6 +3748,11 @@ journal_entry_items:
     type: string
     required: true
   absolute_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  absolute_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
@@ -3818,6 +3833,11 @@ journal_entry_items:
     required: true
   position:
     type: integer
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   printed_on:
     type: date
     required: true
@@ -3844,9 +3864,27 @@ journal_entry_items:
     precision: 19
     scale: 4
     required: true
+  real_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  resource_id:
+    type: integer
+    references: "~resource_type"
+  resource_prism:
+    type: string
+  resource_type:
+    type: string
   state:
     type: string
     required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
+  tax_id:
+    type: integer
+    references: tax
   team_id:
     type: integer
     references: team
@@ -3897,6 +3935,18 @@ journals:
     required: true
     default: false
   used_for_gaps:
+    type: boolean
+    required: true
+    default: false
+  used_for_permanent_stock_inventory:
+    type: boolean
+    required: true
+    default: false
+  used_for_tax_declarations:
+    type: boolean
+    required: true
+    default: false
+  used_for_unbilled_payables:
     type: boolean
     required: true
     default: false
@@ -4491,6 +4541,10 @@ outgoing_payment_lists:
   lock_version:
     type: integer
     required: true
+  mode_id:
+    type: integer
+    references: outgoing_payment_mode
+    required: true
   number:
     type: string
   updated_at:
@@ -4597,6 +4651,8 @@ outgoing_payments:
     type: integer
     references: entity
     required: true
+  position:
+    type: integer
   responsible_id:
     type: integer
     references: user
@@ -4789,7 +4845,7 @@ parcels:
   transporter_id:
     type: integer
     references: entity
-  undelivered_invoice_entry_id:
+  undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   updated_at:
@@ -5950,6 +6006,9 @@ products:
   lock_version:
     type: integer
     required: true
+  member_variant_id:
+    type: integer
+    references: product_nature_variant
   name:
     type: string
     required: true
@@ -6187,7 +6246,7 @@ purchases:
     precision: 19
     scale: 4
     required: true
-  quantity_gap_on_invoice_entry_id:
+  quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   reference_number:
@@ -6201,9 +6260,42 @@ purchases:
     type: integer
     references: entity
     required: true
-  undelivered_invoice_entry_id:
+  tax_payability:
+    type: string
+    required: true
+  undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+regularizations:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  lock_version:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -6252,6 +6344,9 @@ sale_items:
     type: text
   codes:
     type: jsonb
+  compute_from:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true
@@ -6495,7 +6590,7 @@ sales:
     precision: 19
     scale: 4
     required: true
-  quantity_gap_on_invoice_entry_id:
+  quantity_gap_on_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   reference_number:
@@ -6511,7 +6606,7 @@ sales:
   transporter_id:
     type: integer
     references: entity
-  undelivered_invoice_entry_id:
+  undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
   updated_at:
@@ -6761,6 +6856,40 @@ supervisions:
     references: user
   view_parameters:
     type: json
+synchronization_operations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  finished_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  notification_id:
+    type: integer
+    references: notification
+  operation_name:
+    type: string
+    required: true
+  request:
+    type: jsonb
+  response:
+    type: jsonb
+  state:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 target_distributions:
   activity_id:
     type: integer
@@ -6841,6 +6970,139 @@ tasks:
   updater_id:
     type: integer
     references: user
+tax_declaration_items:
+  balance_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  balance_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  collected_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  collected_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  deductible_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  fixed_asset_deductible_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  fixed_asset_deductible_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  intracommunity_payable_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  intracommunity_payable_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  tax_declaration_id:
+    type: integer
+    references: tax_declaration
+    required: true
+  tax_id:
+    type: integer
+    references: tax
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declarations:
+  accounted_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  description:
+    type: text
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  invoiced_on:
+    type: date
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  mode:
+    type: string
+    required: true
+  number:
+    type: string
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: user
+  started_on:
+    type: date
+    required: true
+  state:
+    type: string
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 taxes:
   active:
     type: boolean
@@ -6877,6 +7139,13 @@ taxes:
   id:
     type: integer
     required: true
+  intracommunity:
+    type: boolean
+    required: true
+    default: false
+  intracommunity_payable_account_id:
+    type: integer
+    references: account
   lock_version:
     type: integer
     required: true

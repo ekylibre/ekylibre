@@ -37,6 +37,32 @@
               $(input).val('')
 
 
+    handleDynascope: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.handleDynascope(form, attrs, subprefix + '_' + id + '_')
+        else
+          if name is 'attributes' and value?
+            # for each attribute
+            for k, v of value
+              input = form.find("##{prefix}#{k}")
+              unrollPath = input.attr('data-selector')
+              if unrollPath
+                # for each scope
+                for scopeKey, scopeValue of v.dynascope
+
+                  scopeReg = ///
+                  (.* #root
+                  unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope
+                  = ([^&]*) # current value to change
+                  (&?.*)
+                  ///
+                  unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
+
+                input.attr('data-selector', unrollPath)
+
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes
         subprefix = prefix + name
@@ -62,6 +88,7 @@
         else if /\w+_attributes$/.test(name)
           E.interventions.unserializeList(form, value, subprefix + '_', updater_id)
         else
+#          console.log subprefix
           form.find("##{subprefix}").each (index) ->
             element = $(this)
             if element.is(':ui-selector')
@@ -135,6 +162,7 @@
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
+            E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             computing.prop 'state', 'ready'
             options.success.call(this, data, status, request) if options.success?
@@ -153,7 +181,7 @@
   $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
-    $('#parameters *[data-intervention-updater]').each ->
+    $('#working-periods *[data-intervention-updater]').each ->
       E.interventions.refresh $(this),
         success: (stat, status, request) ->
           E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())
@@ -179,17 +207,17 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on "keyup change", ".nested-fields.working-period:first-child input.intervention-started-at", ->
+  $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  $(document).on "click", '.view-toolbar a', (event) ->
-    E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
+  # $(document).on "click", '.view-toolbar a', (event) ->
+  #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
 
 
   $(document).ready ->
 
-    E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
+    # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
 
     if $('.taskboard').length > 0
 
@@ -254,30 +282,77 @@
 
       instance = this
 
-      $(document).on('confirm:complete', (event, answer) ->
+      $('.delete-tasks').on('click', (event) ->
 
-        if ($(event.target).find('.delete-tasks').length == 0 || !answer)
+        ekylibre.stopEvent(event)
+
+        confirmMessage = $(event.target).attr('data-confirm')
+        answer = confirm(confirmMessage);
+
+        if !answer
           return
 
-
+        displayDeleteModal = true
         columnSelector = event.target
         interventionsIds = instance._getSelectedInterventionsIds(columnSelector)
 
-        $.ajax
-          method: 'POST'
-          url: "/backend/interventions/change_state",
-          data: {
-            'intervention': {
-              interventions_ids: JSON.stringify(interventionsIds),
-              state: 'rejected'
-            }
-          }
-          success: (data, status, request) ->
+        tasksWithAttribute = instance.getTaskboard().getColumnTasksFilledDataAttribute(columnSelector, 'data-request-intervention-id')
 
-            selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
-            selectedTasks.remove()
+        if (!tasksWithAttribute || tasksWithAttribute.length == 0)
+          displayDeleteModal = false
+        else
+          tasksWithAttribute.each((index, taskWithAttribute) ->
+
+            attributeValue = $(taskWithAttribute).attr('data-request-intervention-id')
+            tasksWithThisAttributeValue = instance.getTaskboard().getColumnTasksByDataAttributeValue(columnSelector, 'data-request-intervention-id', attributeValue)
+
+            if (tasksWithThisAttributeValue && tasksWithThisAttributeValue.length > 1)
+              displayDeleteModal = false
+          )
+
+        if (displayDeleteModal)
+          $.ajax
+            url: "/backend/interventions/modal",
+            data: {modal_type: "delete", interventions_ids: interventionsIds}
+            success: (data, status, request) ->
+
+              instance._displayModalWithContent(data)
+        else
+          instance._removeInterventions(columnSelector, interventionsIds)
 
       )
+
+    _removeInterventions: (columnSelector, interventionsIds) ->
+
+      instance = this
+
+      $.ajax
+        method: 'POST'
+        url: "/backend/interventions/change_state",
+        data: {
+          'intervention': {
+            interventions_ids: JSON.stringify(interventionsIds),
+            state: 'rejected'
+          }
+        }
+        success: (data, status, request) ->
+
+          interventionsIds.forEach (intervention_id) ->
+            $('#interventions-list tr[id*="'+intervention_id+'"]').remove()
+
+          selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
+          selectedTasks.remove()
+
+          titleElement = $(columnSelector).closest('.taskboard-header').find('.title')
+          columnTitle = titleElement.text()
+          beginInterventionCount = columnTitle.indexOf("(") + 1
+          columnInterventionCount = columnTitle.slice(beginInterventionCount, -1)
+          newInterventionCount = parseInt(columnInterventionCount) - interventionsIds.length
+          newColumnTitle = columnTitle.slice(0, beginInterventionCount) + newInterventionCount+")"
+          titleElement.text(newColumnTitle)
+
+          if newInterventionCount == 0
+            $(columnSelector).closest('.taskboard-column').find('.tasks').remove()
 
 
     _getSelectedInterventionsIds: (columnSelector) ->

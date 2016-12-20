@@ -31,8 +31,7 @@ module Backend
     end
 
     # Need to add explicitly action to detect it properly for now
-    def index
-    end
+    def index; end
 
     def edit
       @registration = User.find(params[:id])

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="administrative_tasks" categories="administrative_tasks" actions="administrative">
+    <parameters>
+      <doer name="doer" filter="is worker and can move"/>
+      <input name="consumable_part" filter="is matter" cardinality="*">
+        <handler name="population" />
+      </input>
+    </parameters>
+  </procedure>
+</procedures>

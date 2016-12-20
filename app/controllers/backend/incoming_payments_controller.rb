@@ -18,7 +18,18 @@
 
 module Backend
   class IncomingPaymentsController < Backend::BaseController
-    manage_restfully to_bank_at: 'Time.zone.today'.c, paid_at: 'Time.zone.today'.c, responsible_id: 'current_user.id'.c, mode_id: 'params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil'.c, t3e: { payer: 'RECORD.payer.full_name'.c, entity: 'RECORD.payer.full_name'.c, number: 'RECORD.number'.c }
+    manage_restfully(
+      to_bank_at: 'Time.zone.today'.c,
+      paid_at: 'Time.zone.today'.c,
+      responsible_id: 'current_user.id'.c,
+      received: true,
+      mode_id: 'params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil'.c,
+      t3e: {
+        payer: 'RECORD.payer.full_name'.c,
+        entity: 'RECORD.payer.full_name'.c,
+        number: 'RECORD.number'.c
+      }
+    )
 
     unroll :number, :amount, :currency, mode: :name, payer: :full_name
 
@@ -52,8 +63,8 @@ module Backend
       t.column :to_bank_at
       t.column :received, hidden: true
       t.column :deposit, url: true
-      t.column :work_name, through: :affair, label: :affair_number, url: true
-      t.column :main_bank_statement_number, through: :journal_entry, label: :bank_statement_number, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statement.first.id'.c }
+      t.column :work_name, through: :affair, label: :affair_number, url: { controller: :sale_affairs }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
   end
 end
