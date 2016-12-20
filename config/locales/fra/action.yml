@@ -452,6 +452,7 @@ fra:
       show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_lists:
       index: "Lots de décaissements"
+      new: "Nouveau lot de décaissement"
       show: "Lot de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
@@ -851,6 +852,7 @@ fra:
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
+    add_regularization: "Ajouter une régularisation"
     add_revenue: "Ajouter une recette"
     add_sale: "Ajouter une vente"
     add_sale_taxation: "Ajouter une taxe de vente"
@@ -887,6 +889,7 @@ fra:
     analysis: "Analyse" #?
     analytic_preferences: "Préférences analytiques"
     analytics: "Analytiques" #?
+    and: "Et" #?
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
@@ -1685,6 +1688,7 @@ fra:
     procedure_natures: "Types de procédures" #?
     procedures: "Procédures"
     product: "Produit"
+    product_account_number: "Code comptable (Produit/Charge)"
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
@@ -1848,6 +1852,7 @@ fra:
     section_x: "%{section} %{x}"
     see_details: "Voir les détails"
     see_more_details: "Voir plus de détails"
+    select_a_journal: "Sélectionnez un journal"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
     select_area: "Zone postale" #?
@@ -1938,6 +1943,8 @@ fra:
     target_zone: "Zone cible" #?
     targets: "Cibles" #?
     tasks: "Tâches"
+    tax_declarations: "Déclarations fiscales"
+    tax_label: "Nom Taxe"
     taxations: "Taxations"
     taxes: "Taxes"
     temperature: "Température" #?
@@ -2126,6 +2133,9 @@ fra:
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
+    x_cents:
+      one: "%{count} centime"
+      other: "%{count} centimes"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -2195,6 +2205,9 @@ fra:
     x_mandates:  #?
       one: "%{count} responsabilité" #?
       other: "%{count} responsabilités" #?
+    x_mills:
+      one: "%{count} millime"
+      other: "%{count} millimes"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -2383,6 +2396,7 @@ fra:
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
+      no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_replacements_since_beginning: "Aucun changement depuis le début"

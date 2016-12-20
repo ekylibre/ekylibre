@@ -466,6 +466,7 @@ eng:
     backend/outgoing_payment_lists:
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
+      new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -591,6 +592,10 @@ eng:
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
+    backend/regularizations:
+      # edit: "Edit regularization: %{name}"
+      # new: "New regularization"
+      # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"
@@ -929,6 +934,7 @@ eng:
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
@@ -1494,6 +1500,7 @@ eng:
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
+    product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
@@ -1575,6 +1582,7 @@ eng:
     section_x: "Section %{x}"
     see_details: "See details"
     see_more_details: "See more details"
+    select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
     select_date: "Select date"
@@ -1633,7 +1641,8 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
-    # tax_declarations: "Tax declarations"
+    tax_declarations: "Tax declarations"
+    tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
     thumb: "Thumb" #?
@@ -1760,6 +1769,9 @@ eng:
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
+    x_cents:
+      one: "%{count} cent"
+      other: "%{count} cents"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1826,6 +1838,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_mills:
+      one: "%{count} mill"
+      other: "%{count} mills"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -1971,6 +1986,7 @@ eng:
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"

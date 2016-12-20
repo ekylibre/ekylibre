@@ -45,9 +45,22 @@ class GapItem < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   # validates_numericality_of :amount, :pretax_amount, greater_than_or_equal_to: 0
 
+  delegate :loss?, :profit?, :loss_coefficient, to: :gap
   sums :gap, :items, :pretax_amount, :amount
 
   def taxes_amount
     amount - pretax_amount
+  end
+
+  def relative_taxes_amount
+    loss_coefficient * (amount - pretax_amount)
+  end
+
+  def relative_pretax_amount
+    loss_coefficient * pretax_amount
+  end
+
+  def relative_amount
+    loss_coefficient * amount
   end
 end

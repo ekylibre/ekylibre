@@ -63,6 +63,24 @@ class AffairTest < ActiveSupport::TestCase
     end
   end
 
+  test 'absorption' do
+    sale = Sale.first
+    assert sale
+    affair = sale.affair
+    assert affair
+    affair.refresh! # Needed until affair#deals_count is up-to-date
+    count = affair.deals_count
+    purchase = Purchase.first
+    assert purchase
+    purchase.affair.refresh!
+    count += purchase.affair.deals_count
+    ret = affair.absorb!(purchase.affair)
+    purchase.reload
+    assert_equal affair, ret
+    assert_equal sale.affair, purchase.affair
+    assert_equal count, ret.deals_count
+  end
+
   # Check that affair of given sale is actually closed perfectly
   def check_closed_state(affair)
     assert affair.balanced?,

@@ -64,6 +64,11 @@ spa:
         status: "Estado"
       tax:
         amount: "Valor"
+      tax_declaration_item:
+        collected: "Recogido"
+        deductible: "Deducible"
+        fixed_asset_deductible: "Deducible de los activos"
+        intracommunity_payable: "Intracomunitario por pagar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -317,6 +322,7 @@ spa:
       purchase_gap: "Brecha de la compra"
       purchase_item: "Artículo de la compra"
       purchase_nature: "Tipo de compra"
+      regularization: "Regularización"
       role: "Papel"
       sale: "Venta"
       sale_affair: "Venta asunto"
@@ -1129,6 +1135,7 @@ spa:
     purchasable: "Comprable"
     purchase: "Compra"
     purchase_affair: "Compra asunto"
+    purchase_affairs: "Asuntos de compra"
     purchase_amount: "Monto de la compra"
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artículo de la compra"
@@ -1186,6 +1193,7 @@ spa:
     reflected_at: "Reflejado en"
     reflection_nodes: "Los nodos de reflexión"
     reflections: "Reflexiones"
+    regularizations: "Regularizaciones"
     remain_owner: "Permanecer propietario"
     remaining_amount: "Cantidad restante"
     remaining_lifespan: "Vida útil restante"

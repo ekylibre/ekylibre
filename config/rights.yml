@@ -112,6 +112,8 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
+#     - "backend/outgoing_payment_lists#create"
+#     - "backend/outgoing_payment_lists#new"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -1215,6 +1217,7 @@ journal_entries:
     - "backend/journal_entry_items#list"
     - "backend/journal_entry_items#show"
     - "backend/journal_entry_items#unroll"
+    - "backend/regularizations#show"
   write:
     dependencies:
     - read-journal_entries
@@ -1225,6 +1228,11 @@ journal_entries:
     - "backend/journal_entries#new"
     - "backend/journal_entries#update"
     - "backend/journal_entry_items#new"
+    - "backend/regularizations#create"
+    - "backend/regularizations#destroy"
+    - "backend/regularizations#edit"
+    - "backend/regularizations#new"
+    - "backend/regularizations#update"
 
 journals:
   read:
