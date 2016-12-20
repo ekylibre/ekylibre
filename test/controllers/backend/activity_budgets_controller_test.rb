@@ -7,10 +7,10 @@ module Backend
                                 except: [:show, :index]
 
     test 'show action' do
-      get :show, params: { id: 'NaID', redirect: root_url, locale: @locale }
+      get :show, id: 'NaID', redirect: root_url, locale: @locale
       assert_redirected_to root_url
       ActivityBudget.limit(5).find_each do |record|
-        get :show, params: { id: record.id, locale: @locale }
+        get :show, id: record.id, locale: @locale
         assert_redirected_to controller: :activities, action: :show, id: record.activity_id
 
         assert_not_nil assigns(:activity_budget)
@@ -18,7 +18,7 @@ module Backend
     end
 
     test 'index action' do
-      get :index, params: { redirect: root_url, locale: @locale }
+      get :index, redirect: root_url, locale: @locale
       assert_redirected_to backend_activities_url
     end
   end

@@ -78,17 +78,17 @@ sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
   creator_id: 1
   id: 3
-  last_cweek: 32
-  last_month: 8
-  last_number: 124
+  last_cweek: 51
+  last_month: 12
+  last_number: 125
   last_year: 2016
-  lock_version: 126
+  lock_version: 127
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-08-10 14:27:49.837974000 Z
+  updated_at: 2016-12-20 18:24:29.472854000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -195,15 +195,15 @@ sequences_010:
   id: 10
   last_cweek: 51
   last_month: 12
-  last_number: 45
+  last_number: 47
   last_year: 2016
-  lock_version: 48
+  lock_version: 50
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-12-20 08:53:53.402901000 Z
+  updated_at: 2016-12-20 18:16:57.019268000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -236,17 +236,17 @@ sequences_013:
   created_at: 2014-11-01 16:25:18.214468000 Z
   creator_id: 1
   id: 13
-  last_cweek: 46
-  last_month: 11
-  last_number: 5
+  last_cweek: 51
+  last_month: 12
+  last_number: 7
   last_year: 2016
-  lock_version: 6
+  lock_version: 8
   name: Perte ou profit
   number_format: E[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 22:15:36.369440000 Z
+  updated_at: 2016-12-20 18:17:24.061013000 Z
   updater_id: 1
   usage: gaps
 sequences_014:
@@ -270,17 +270,17 @@ sequences_015:
   created_at: 2014-11-01 16:25:18.953891000 Z
   creator_id: 1
   id: 15
-  last_cweek: 32
-  last_month: 8
-  last_number: 31
+  last_cweek: 51
+  last_month: 12
+  last_number: 32
   last_year: 2016
-  lock_version: 32
+  lock_version: 33
   name: Intervention
   number_format: "[number]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-08-10 14:33:28.771594000 Z
+  updated_at: 2016-12-20 18:24:29.428552000 Z
   updater_id: 1
   usage: interventions
 sequences_016:
@@ -304,17 +304,17 @@ sequences_017:
   created_at: 2014-11-01 16:25:18.981743000 Z
   creator_id: 1
   id: 17
-  last_cweek: 46
-  last_month: 11
-  last_number: 5
+  last_cweek: 51
+  last_month: 12
+  last_number: 6
   last_year: 2016
-  lock_version: 8
+  lock_version: 9
   name: Décaissement
   number_format: D[year|4][number|4]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 22:14:52.571197000 Z
+  updated_at: 2016-12-20 18:17:18.696066000 Z
   updater_id: 1
   usage: outgoing_payments
 sequences_018:
@@ -334,17 +334,17 @@ sequences_019:
   created_at: 2014-11-01 16:25:19.021542000 Z
   creator_id: 1
   id: 19
-  last_cweek: 46
-  last_month: 11
-  last_number: 3
+  last_cweek: 51
+  last_month: 12
+  last_number: 5
   last_year: 2016
-  lock_version: 8
+  lock_version: 10
   name: Achat
   number_format: A[year|4][month|2][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 22:15:20.524282000 Z
+  updated_at: 2016-12-20 18:16:56.939492000 Z
   updater_id: 1
   usage: purchases
 sequences_020:
@@ -550,3 +550,20 @@ sequences_032:
   updated_at: 2016-12-20 09:05:31.235673000 Z
   updater_id: 1
   usage: tax_declarations
+sequences_033:
+  created_at: 2016-12-20 18:26:27.958604000 Z
+  creator_id: 1
+  id: 33
+  last_cweek: 51
+  last_month: 12
+  last_number: 2
+  last_year: 2016
+  lock_version: 2
+  name: Comptage
+  number_format: PC[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-12-20 18:27:12.402372000 Z
+  updater_id: 1
+  usage: plant_countings

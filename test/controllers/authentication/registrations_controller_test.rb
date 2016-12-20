@@ -9,15 +9,16 @@ module Authentication
     end
 
     def sign_up_request
-      post :create, params: { user:
-             {
+      post :create, {
+             user: {
                first_name: 'Robert',
                last_name: 'Tee',
                email: 'robert.tee@gmail.com',
                password: 'robert00',
                password_confirmation: 'robert00',
                language: 'eng'
-             } }
+             }
+           }
     end
 
     test 'should create a User with signup_at value' do

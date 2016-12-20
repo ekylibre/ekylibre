@@ -486,12 +486,6 @@ Rails.application.routes.draw do
 
     resources :fungi, concerns: :products
 
-    # resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
-    #   member do
-    #     get :list_items
-    #   end
-    # end
-
     resource :general_ledger, only: [:show], path: 'general-ledger' do
       member do
         get :list_journal_entry_items
@@ -705,7 +699,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
+    resources :plant_density_abaci, except: [:index], path: 'plant-density-abaci'
 
     resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'
 

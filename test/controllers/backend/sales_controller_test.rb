@@ -29,7 +29,7 @@ module Backend
       template = DocumentTemplate.of_nature(:sales_invoice).first
       assert template, 'No template found for sales_invoice'
       assert_nothing_raised do # "Template #{template.inspect} doesn't seems to work"
-        get :show, params: { id: sale.id, format: :pdf, key: sale.number, template: template.id }
+        get :show, id: sale.id, format: :pdf, key: sale.number, template: template.id
       end
       assert_response :success
     end

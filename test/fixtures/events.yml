@@ -647,3 +647,16 @@ events_047:
   stopped_at: 2016-12-20 08:54:03.350778000 Z
   updated_at: 2016-12-20 08:53:53.364403000 Z
   updater_id: 1
+events_048:
+  created_at: 2016-12-20 18:24:29.437639000 Z
+  creator_id: 1
+  duration: 60
+  id: 58
+  lock_version: 0
+  name: Semis n°32
+  nature: production_intervention
+  restricted: false
+  started_at: 2016-04-06 17:23:00.000000000 Z
+  stopped_at: 2016-12-21 01:23:00.000000000 Z
+  updated_at: 2016-12-20 18:24:29.437639000 Z
+  updater_id: 1

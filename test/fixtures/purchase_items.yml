@@ -241,3 +241,47 @@ purchase_items_009:
   updated_at: 2016-11-20 22:15:20.528661000 Z
   updater_id: 1
   variant_id: 57
+purchase_items_010:
+  account_id: 54
+  amount: 4878.72
+  annotation: ''
+  created_at: 2016-12-20 18:16:09.200614000 Z
+  creator_id: 1
+  currency: EUR
+  fixed: false
+  id: 17
+  label: Ammonitre 33,5%  Big Bag
+  lock_version: 0
+  position: 1
+  pretax_amount: 4435.2
+  purchase_id: 16
+  quantity: 3.0
+  reduction_percentage: 4.0
+  tax_id: 8
+  unit_amount: 1694.0
+  unit_pretax_amount: 1540.0
+  updated_at: 2016-12-20 18:16:09.200614000 Z
+  updater_id: 1
+  variant_id: 39
+purchase_items_011:
+  account_id: 115
+  amount: 489.75
+  annotation: ''
+  created_at: 2016-12-20 18:16:56.944192000 Z
+  creator_id: 1
+  currency: EUR
+  fixed: false
+  id: 18
+  label: Bouteille Bordelaise 75cl
+  lock_version: 0
+  position: 1
+  pretax_amount: 445.23
+  purchase_id: 17
+  quantity: 510.0
+  reduction_percentage: 3.0
+  tax_id: 8
+  unit_amount: 0.99
+  unit_pretax_amount: 0.9
+  updated_at: 2016-12-20 18:16:56.944192000 Z
+  updater_id: 1
+  variant_id: 63

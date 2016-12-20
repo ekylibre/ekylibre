@@ -294,3 +294,29 @@ catalog_items_019:
   updated_at: 2016-12-20 08:53:53.342743000 Z
   updater_id: 1
   variant_id: 10
+catalog_items_020:
+  all_taxes_included: false
+  amount: 0.9
+  catalog_id: 6
+  created_at: 2016-12-20 18:16:56.969251000 Z
+  creator_id: 1
+  currency: EUR
+  id: 32
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl
+  updated_at: 2016-12-20 18:16:56.969251000 Z
+  updater_id: 1
+  variant_id: 63
+catalog_items_021:
+  all_taxes_included: false
+  amount: 0.9
+  catalog_id: 5
+  created_at: 2016-12-20 18:16:56.978348000 Z
+  creator_id: 1
+  currency: EUR
+  id: 33
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl
+  updated_at: 2016-12-20 18:16:56.978348000 Z
+  updater_id: 1
+  variant_id: 63
