@@ -813,6 +813,7 @@ jpn:
     intervention: "介入"
     intervention_cast: "介入キャスト"
     intervention_parameter: "介入パラメータ"
+    intervention_participation: "介入参加"
     intervention_product_parameters: "介入キャスト"
     interventions: "介入"
     interventions_used_in: "介入に使用されます"
