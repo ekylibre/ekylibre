@@ -87,6 +87,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   def payments_sum
     payments.sum(:amount)
   end
+  
+  def payer
+   Entity.of_company
+  end
 
   def self.build_from_purchases(purchases, mode, responsible, initial_check_number = nil)
     build_from_purchase_affairs(purchases.map(&:affair).uniq, mode, responsible, initial_check_number)
