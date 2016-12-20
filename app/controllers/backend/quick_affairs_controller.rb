@@ -7,8 +7,8 @@ module Backend
       return head :bad_request unless params[:bank_statement_item_ids] && @bank_statement_items = BankStatementItem.where(id: params[:bank_statement_item_ids])
       payment_class = "#{mode}_payment".classify.constantize
       trade_class, coeff = *case mode
-                            when /outgoing/ then [Purchase, 1]
-                            when /incoming/ then [Sale,    -1]
+                            when /incoming/ then [Sale,      1]
+                            when /outgoing/ then [Purchase, -1]
                             else raise 'Somehow managed to avoid the guard-clause???'
                             end
       @date    = @bank_statement_items.minimum(:transfered_on)
@@ -27,8 +27,8 @@ module Backend
       @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids])
       return head :bad_request unless payment_params[:bank_statement_item_ids] && @bank_statement_items
       trade_class, payment_class, coeff = *case third
-                                           when /supplier_id/ then [Purchase, OutgoingPayment,  1]
-                                           when /client_id/   then [Sale,     IncomingPayment, -1]
+                                           when /client_id/   then [Sale,     IncomingPayment,  1]
+                                           when /supplier_id/ then [Purchase, OutgoingPayment, -1]
                                            else raise 'Somehow managed to avoid the guard-clause???'
                                            end
       affair_class = (trade_class.name + 'Affair').classify.constantize
