@@ -64,6 +64,11 @@ deu:
         # status: "Status"
       tax:
         amount: "Wert"
+      tax_declaration_item:
+        collected: "Gesammelt"
+        deductible: "Absetzbar"
+        fixed_asset_deductible: "Deductible auf Vermögenswerte"
+        intracommunity_payable: "Inner~~POS=TRUNC zahlbar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

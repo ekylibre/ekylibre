@@ -64,6 +64,11 @@ spa:
         status: "Estado"
       tax:
         amount: "Valor"
+      tax_declaration_item:
+        collected: "Recogido"
+        deductible: "Deducible"
+        fixed_asset_deductible: "Deducible de los activos"
+        intracommunity_payable: "Intracomunitario por pagar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

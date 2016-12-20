@@ -1686,6 +1686,7 @@ fra:
     procedure_natures: "Types de procédures" #?
     procedures: "Procédures"
     product: "Produit"
+    product_account_number: "Code comptable (Produit/Charge)"
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
@@ -1940,6 +1941,8 @@ fra:
     target_zone: "Zone cible" #?
     targets: "Cibles" #?
     tasks: "Tâches"
+    tax_declarations: "Déclarations fiscales"
+    tax_label: "Nom Taxe"
     taxations: "Taxations"
     taxes: "Taxes"
     temperature: "Température" #?

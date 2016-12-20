@@ -1468,6 +1468,7 @@ spa:
     # printing_document: "Printing %{document}"
     procedures: "Procedimientos"
     product: "Producto"
+    product_account_number: "Número de cuenta del producto"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
     product_natures: "Tipos de productos"
@@ -1660,6 +1661,8 @@ spa:
     tasks: "Tareas"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    tax_declarations: "Declaraciones de impuestos"
+    tax_label: "Etiqueta de impuestos"
     taxations: "Tasaciones"
     taxes: "Impuestos"
     theoric_quantity: "cantidad teorica" #?

@@ -64,6 +64,11 @@ por:
         status: "Estado"
       tax:
         amount: "Valor"
+      tax_declaration_item:
+        collected: "Recolhidos"
+        deductible: "Deduzível"
+        fixed_asset_deductible: "Dedutível sobre ativos"
+        intracommunity_payable: "Intracomunitário a pagar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

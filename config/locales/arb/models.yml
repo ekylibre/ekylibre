@@ -592,6 +592,11 @@ arb:
         financial_year_id: "المدة المقدرة" #?
         nature: "نظام التصريح" #?
         updated_at: "تم تحديثها في" #?
+      tax_declaration_item:
+        collected: "جمع"
+        deductible: "خصم"
+        fixed_asset_deductible: "خصم على الأصول"
+        intracommunity_payable: "Intracommunity المستحق"
       team:  #?
         company_id: "الشركة" #?
         parent_id: "النسب" #?

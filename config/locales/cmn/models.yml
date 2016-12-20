@@ -64,6 +64,11 @@ cmn:
         status: "状态"
       tax:
         amount: "值"
+      tax_declaration_item:
+        collected: "集"
+        deductible: "免赔额"
+        fixed_asset_deductible: "扣除资产"
+        intracommunity_payable: "社区内支付"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"

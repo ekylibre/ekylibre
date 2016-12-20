@@ -180,6 +180,11 @@ fra:
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
+      tax_declaration_item:
+        collected: "Collectée"
+        deductible: "Déductible"
+        fixed_asset_deductible: "Déductible sur immobilisation"
+        intracommunity_payable: "Intra-communautaire"
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
@@ -2043,7 +2048,7 @@ fra:
           done: "Fini"
           todo: "À faire"
     tax_declaration:
-      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
     team:
       default: "Général"
     user:

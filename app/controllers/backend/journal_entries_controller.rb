@@ -55,6 +55,7 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
+      t.column :product_item_to_tax_label, label: :tax_label, hidden: true
     end
 
     def index

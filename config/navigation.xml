@@ -1899,9 +1899,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="regularizations">
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

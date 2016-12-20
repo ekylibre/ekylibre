@@ -62,8 +62,8 @@ class TaxDeclarationItem < Ekylibre::Record::Base
 
   before_validation do
     self.currency = tax_declaration_currency if tax_declaration
-    self.balance_pretax_amount = collected_pretax_amount - (deductible_pretax_amount + fixed_asset_deductible_pretax_amount)
-    self.balance_tax_amount = collected_tax_amount - (deductible_tax_amount + fixed_asset_deductible_tax_amount)
+    self.balance_pretax_amount = collected_pretax_amount - (deductible_pretax_amount + fixed_asset_deductible_pretax_amount + intracommunity_payable_pretax_amount)
+    self.balance_tax_amount = collected_tax_amount - (deductible_tax_amount + fixed_asset_deductible_tax_amount + intracommunity_payable_tax_amount)
   end
 
   def compute!

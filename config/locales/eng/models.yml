@@ -64,6 +64,11 @@ eng:
         status: "Status"
       tax:
         amount: "Value"
+      tax_declaration_item:
+        collected: "Collected"
+        deductible: "Deductible"
+        fixed_asset_deductible: "Deductible on assets"
+        intracommunity_payable: "Intracommunity payable"
     errors:
       messages:
         accepted: "%{attribute} must be accepted"
