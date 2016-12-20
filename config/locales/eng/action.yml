@@ -90,9 +90,11 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
+      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -1234,8 +1236,8 @@ eng:
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
+    hide_lettered_lines: "Hide lettered lines"
     hint: "Hint: %{value}" #?
-    hide_lettered-lines: "Hide lettered lines"
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
@@ -2097,6 +2099,7 @@ eng:
       index: "Index"
       invoice: "Invoice"
       # last_locations: "Last locations"
+      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2147,6 +2150,7 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"
