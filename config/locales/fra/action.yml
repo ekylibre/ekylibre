@@ -1212,6 +1212,7 @@ fra:
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     executed: "Réalisé" #?
+    existing: "Existant"
     existing_part: "Utiliser un encaissement non affecté" #?
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
     expedier: "Expéditeur"

@@ -1190,6 +1190,7 @@ eng:
     example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    existing: "Existing"
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
     expenses: "Expenses"

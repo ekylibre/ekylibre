@@ -1,24 +1,44 @@
-= backend_form_for @trade, as: :trade, url: backend_quick_affairs_path(redirect: @redirect_to) do |t|
-  = field_set @trade.class.model_name.human do
-    = t.referenced_association @trade.third_attribute
-    = t.input :invoiced_at
-    = t.input_field :nature_id, as: :hidden
+- trade_model_name   = @trade.class.model_name
+- payment_model_name = @payment.class.model_name
 
-    .items
-      %table#items-table
-        %thead
-          %tr
-            %th= PurchaseItem.human_attribute_name(:variant)
-            %th= PurchaseItem.human_attribute_name(:quantity)
-            %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
-            %th= PurchaseItem.human_attribute_name(:tax)
-            %th= PurchaseItem.human_attribute_name(:reduction_percentage)
-            %th= PurchaseItem.human_attribute_name(:amount)
-            %th{colspan: 3}= link_to_add_association :add_item.tl, t, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-        = t.simple_fields_for :items, t.object.items do |item|
-          = render 'item_fields', f: item
+= backend_form_for @affair, as: :affair, url: backend_quick_affairs_path(redirect: @redirect_to, mode: @mode) do |a|
+  = field_set do
+    = a.referenced_association :third
+    - [:trade, :payment].each do |attribute|
+      .existing-inputs
+        .control-group
+          %label.string.required.control-label= instance_variable_get("@#{attribute}").class.model_name.human
+          .controls
+            - [:existing, :new].each do |label|
+              = radio_button_tag :"mode-#{attribute}", label.to_s, {}, { data: { show: ".#{label}-#{attribute}" } }
+              = label_tag :"mode-#{attribute}", label.tl
 
-  = field_set @payment.class.model_name.human do
+  = field_set trade_model_name.human, class: 'new-trade' do
+    = backend_fields_for :trade, @trade do |t|
+      = t.input :invoiced_at
+      = t.input_field :nature_id, as: :hidden
+
+      .items
+        %table#items-table
+          %thead
+            %tr
+              %th= PurchaseItem.human_attribute_name(:variant)
+              %th= PurchaseItem.human_attribute_name(:quantity)
+              %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+              %th= PurchaseItem.human_attribute_name(:tax)
+              %th= PurchaseItem.human_attribute_name(:reduction_percentage)
+              %th= PurchaseItem.human_attribute_name(:amount)
+              %th{colspan: 3}= link_to_add_association :add_item.tl, t, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          = t.simple_fields_for :items, t.object.items do |item|
+            = render 'item_fields', f: item
+
+  = field_set trade_model_name.human, class: 'existing-trade' do
+    .control-group
+      %label.string.required.control-label= trade_model_name.human
+      .controls
+        = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll }
+
+  = field_set payment_model_name.human, class: 'new-payment' do
     = backend_fields_for :payment, @payment do |p|
       = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
       = p.referenced_association :mode
@@ -26,5 +46,11 @@
         = p.input_field :amount
         %span.add-on= @trade.currency || @trade.nature.currency
 
+  = field_set payment_model_name.human, class: 'existing-payment' do
+    .control-group
+      %label.string.required.control-label= payment_model_name.human
+      .controls
+        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll }
+
   = form_actions do
-    = t.button :submit, :save.tl, class: 'btn btn-primary'
+    = a.button :submit, :save.tl, class: 'btn btn-primary'

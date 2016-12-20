@@ -2,57 +2,47 @@ module Backend
   # This controller handles sales and purchases generation from BankStatements.
   class QuickAffairsController < Backend::BaseController
     def new
-      return head :bad_request unless (mode = params[:mode]) =~ /incoming|outgoing/
+      return head :bad_request unless @mode = find_mode
       return head :bad_request unless nature = params[:nature_id]
       return head :bad_request unless params[:bank_statement_item_ids] && @bank_statement_items = BankStatementItem.where(id: params[:bank_statement_item_ids])
-      payment_class = "#{mode}_payment".classify.constantize
-      trade_class, coeff = *case mode
-                            when /outgoing/ then [Purchase, 1]
-                            when /incoming/ then [Sale,    -1]
-                            else raise 'Somehow managed to avoid the guard-clause???'
-                            end
+      affair_class, trade_class, payment_class, coeff = *classes_for(@mode)
+
       @date    = @bank_statement_items.minimum(:transfered_on)
       @trade   = trade_class.new(invoiced_at: @date, nature_id: nature)
       @trade.items.new
-      @amount  = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
-      @amount *= coeff
+      @amount  = amount(@bank_statement_items, coeff)
       @payment = payment_class.new(to_bank_at: @date, amount: @amount)
+      @affair  = new_affair(affair_class, @trade)
       t3e trade: trade_class.model_name.human, payment: payment_class.model_name.human
       @redirect_to = params[:redirect]
     end
 
     def create
-      third = trade_params.slice(:supplier_id, :client_id).compact.keys.first
-      return head :bad_request unless third
+      return head :bad_request unless @mode = find_mode
       @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids])
       return head :bad_request unless payment_params[:bank_statement_item_ids] && @bank_statement_items
-      trade_class, payment_class, coeff = *case third
-                                           when /supplier_id/ then [Purchase, OutgoingPayment,  1]
-                                           when /client_id/   then [Sale,     IncomingPayment, -1]
-                                           else raise 'Somehow managed to avoid the guard-clause???'
-                                           end
-      affair_class = (trade_class.name + 'Affair').classify.constantize
+      affair_class, trade_class, payment_class, coeff = *classes_for(@mode)
 
-      @trade   = trade_class.new(trade_params)
-      currency = @trade.currency || @trade.nature.currency
-      payment_attributes = payment_params.dup
-      payment_attributes.delete(:bank_statement_item_ids)
-      payment_attributes = payment_attributes.merge(responsible: current_user, to_bank_at: @trade.invoiced_at, payment_class.third_attribute => @trade.third)
-      @payment = payment_class.new(payment_attributes)
-      @affair  = affair_class.new(currency: currency, third: @trade.third)
-      @trade.affair = @affair
-      @payment.affair = @affair
-      return render :new unless @affair.valid? && @trade.valid? && @payment.valid?
-      @affair.save!
-      @trade.save!
-      @payment.save!
+      @trade = new_trade(trade_class)
+      @payment = new_payment(payment_class, @trade.third, @trade.invoiced_at)
+      @affair = new_affair(affair_class, @trade)
 
-      @affair.reload
-      @trade.reload
-      @payment.reload
+      begin
+        @affair.transaction do
+          return render :new unless @affair.valid? && @trade.valid? && @payment.valid?
+          @affair.save!  && @affair.reload
+          @trade.save!   && @trade.reload
+          @payment.save! && @payment.reload
 
-      @amount  = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
-      @amount *= coeff
+          @affair.attach(@trade)
+          @affair.attach(@payment)
+        end
+      rescue
+        notify_info "Could not attach trade and payment to Affair"
+        return render :new
+      end
+
+      @amount = amount(@bank_statement_items, coeff)
       bank_statement = @bank_statement_items.first.bank_statement
       lettrable      = (@amount == @payment.amount)
       lettrable    &&= (@amount == @trade.amount)
@@ -62,6 +52,48 @@ module Backend
     end
 
     protected
+
+    def classes_for(mode)
+      payment_class = "#{@mode}_payment".classify.constantize
+      trade_class, coeff = *case @mode
+                            when /incoming/ then [Sale,      1]
+                            when /outgoing/ then [Purchase, -1]
+                            else raise 'Somehow managed to avoid the guard-clause???'
+                            end
+      affair_class = (trade_class.name + 'Affair').classify.constantize
+      [affair_class, trade_class, payment_class, coeff]
+    end
+
+    def new_trade(klass)
+      existing = params[:affair][:"mode-trade"] =~ /existing/
+      return klass.find(affair_params[:trade_id]) if existing && params[:affair][:trade_id]
+      klass.new(trade_params.merge(klass.third_attribute => Entity.find(affair_params[:third_id])))
+    end
+
+    def new_payment(klass, third, at)
+      existing = params[:affair][:"mode-payment"] =~ /existing/
+      return klass.find(affair_params[:payment_id]) if existing && params[:affair][:payment_id]
+      payment_attributes = payment_params.dup
+      payment_attributes.delete(:bank_statement_item_ids)
+      klass.new payment_attributes.merge(responsible: current_user, to_bank_at: at, klass.third_attribute => third)
+    end
+
+    def new_affair(klass, trade)
+      currency = trade.currency || trade.nature.currency
+      klass.new(currency: currency, third: trade.third)
+    end
+
+    def use_existing?(name)
+      params[:affair][:"use_existing_#{name}"].present?
+    end
+
+    def amount(bank_statement_items, coeff)
+      coeff * (bank_statement_items.sum(:debit) - bank_statement_items.sum(:credit))
+    end
+
+    def find_mode
+      params[:mode] if params[:mode] =~ /incoming|outgoing/
+    end
 
     def trade_params
       params.require(:trade)
@@ -84,6 +116,13 @@ module Backend
             .permit :mode_id,
                     :amount,
                     :bank_statement_item_ids
+    end
+
+    def affair_params
+      params.require(:affair)
+            .permit :trade_id,
+                    :third_id,
+                    :payment_id
     end
   end
 end
