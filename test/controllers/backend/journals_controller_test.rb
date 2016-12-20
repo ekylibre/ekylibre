@@ -24,7 +24,7 @@ module Backend
 
     test 'reopen action in get mode' do
       journal = journals(:journals_001)
-      post :reopen, params: { id: journal.id, locale: @locale }
+      post(:reopen, params: {}, id: journal.id.to_i)
       assert_redirected_to action: :index
     end
   end

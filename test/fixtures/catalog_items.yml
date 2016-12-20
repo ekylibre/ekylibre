@@ -281,3 +281,16 @@ catalog_items_018:
   updated_at: 2016-11-20 22:15:20.544602000 Z
   updater_id: 1
   variant_id: 57
+catalog_items_019:
+  all_taxes_included: false
+  amount: 121.21
+  catalog_id: 6
+  created_at: 2016-12-20 08:53:53.342743000 Z
+  creator_id: 1
+  currency: EUR
+  id: 31
+  lock_version: 0
+  name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  updated_at: 2016-12-20 08:53:53.342743000 Z
+  updater_id: 1
+  variant_id: 10

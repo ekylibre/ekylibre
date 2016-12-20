@@ -689,6 +689,7 @@ arb:
           unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
         custom_field_datum:  #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
@@ -2026,6 +2027,7 @@ arb:
     purchasable: "للشراء"
     purchase: "شراء"
     purchase_affair: "قضية شراء"
+    purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"

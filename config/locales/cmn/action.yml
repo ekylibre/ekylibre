@@ -376,6 +376,7 @@ cmn:
       new: "新观察"
     backend/outgoing_payment_lists:
       index: "汇出款项批名单"
+      new: "新的付款清单"
       show: "汇出款项批"
     backend/outgoing_payment_modes:
       edit: "编辑付款方式"
@@ -1019,6 +1020,7 @@ cmn:
     harvested_at: "在收获"
     help: "帮帮我"
     help_center: "帮助中心"
+    hide_lettered_lines: "隐藏字母线"
     # hint: "Hint: %{value}"
     historic: "历史性"
     home: "家"
@@ -1182,11 +1184,13 @@ cmn:
     new_email: "新邮件"
     new_group: "新建组"
     new_incoming_parcel: "新进​​入的包裹"
+    new_incoming_payment: "新的收款"
     new_inventory: "新的库存"
     new_issue: "新问题"
     new_listing: "新品上市"
     new_organization: "新组织"
     new_outgoing_parcel: "新传出的包裹"
+    new_outgoing_payment: "新付款"
     new_production: "新的生产"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新报价"
@@ -1565,6 +1569,9 @@ cmn:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1631,6 +1638,9 @@ cmn:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1774,6 +1784,7 @@ cmn:
       no_payment_to_deposit: "有没有支付存款"
       no_production_defined_for_current_campaign: "没有当前活动定义生产"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "没有生产中。您可以添加新的或复制一些从以前的运动。"
+      no_purchase_affair_found_on_given_period: "没有在一定时期内购买找到外遇"
       no_purchases_given: "没有给出购买"
       no_reopenable_journal: "你不能重新打开该杂志。"
       no_replacements_since_beginning: "年初以来没有更换"

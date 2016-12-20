@@ -65,9 +65,10 @@ module Ekylibre
           end
 
           Ekylibre::Record::Base.transaction do
-            if journal_entry = JournalEntry.find_by(id: @resource.send(column))
+            journal_entry = JournalEntry.find_by(id: @resource.send(column))
+            if journal_entry
               # Cancel the existing journal_entry
-              if journal_entry.draft? && condition && (attributes[:journal_id] == journal_entry.journal_id)
+              if journal_entry.draft? && (attributes[:journal_id] == journal_entry.journal_id)
                 journal_entry.items.destroy_all
                 journal_entry.reload
                 journal_entry.update_attributes!(attributes)
@@ -94,7 +95,12 @@ module Ekylibre
             end
 
             # Set accounted columns
-            @resource.class.where(id: @resource.id).update_all(:accounted_at => Time.zone.now, column => (journal_entry ? journal_entry.id : nil))
+            if @resource.class.exists?(@resource.id)
+              @resource.update_columns(
+                accounted_at: Time.zone.now,
+                column => (journal_entry ? journal_entry.id : nil)
+              )
+            end
           end
         end
       end

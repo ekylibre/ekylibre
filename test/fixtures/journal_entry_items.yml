@@ -10182,3 +10182,318 @@ journal_entry_items_303:
   tax_id: 2
   updated_at: 2014-11-05 13:36:51.433690000 Z
   updater_id: 1
+journal_entry_items_304:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 12.0
+  absolute_pretax_amount: 0.0
+  account_id: 572
+  balance: 12.0
+  created_at: 2016-12-20 08:52:57.291186000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 447.12
+  cumulated_absolute_debit: 459.12
+  currency: EUR
+  debit: 12.0
+  entry_id: 108
+  entry_number: XYZ0017
+  financial_year_id: 26
+  id: 522
+  journal_id: 1
+  lock_version: 0
+  name: Test OD
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: 12.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 12.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2016-12-20 08:52:57.291186000 Z
+  updater_id: 1
+journal_entry_items_305:
+  absolute_credit: 12.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 543
+  balance: -12.0
+  created_at: 2016-12-20 08:52:57.312576000 Z
+  creator_id: 1
+  credit: 12.0
+  cumulated_absolute_credit: 12.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 108
+  entry_number: XYZ0017
+  financial_year_id: 26
+  id: 523
+  journal_id: 1
+  lock_version: 0
+  name: Test OD
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: -12.0
+  real_credit: 12.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2016-12-20 08:52:57.312576000 Z
+  updater_id: 1
+journal_entry_items_306:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 400.0
+  absolute_pretax_amount: 0.0
+  account_id: 671
+  balance: 400.0
+  created_at: 2016-12-20 08:54:01.486754000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 41.18
+  cumulated_absolute_debit: 441.18
+  currency: EUR
+  debit: 400.0
+  entry_id: 109
+  entry_number: SAL000006
+  financial_year_id: 26
+  id: 524
+  journal_id: 3
+  letter: C
+  lock_version: 0
+  name: "[Facture F2016000009] Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+    pour M. Gendo IKARI (SO000000000020)"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: 400.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 400.0
+  real_pretax_amount: 0.0
+  resource_prism: client
+  state: draft
+  updated_at: 2016-12-20 08:54:01.486754000 Z
+  updater_id: 1
+journal_entry_items_307:
+  absolute_credit: 363.64
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 152
+  balance: -363.64
+  created_at: 2016-12-20 08:54:01.509524000 Z
+  creator_id: 1
+  credit: 363.64
+  cumulated_absolute_credit: 2593.64
+  cumulated_absolute_debit: 2230.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 109
+  entry_number: SAL000006
+  financial_year_id: 26
+  id: 525
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000009] Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+    pour M. Gendo IKARI (SO000000000020)"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: -363.64
+  real_credit: 363.64
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_id: 29
+  resource_prism: item_product
+  resource_type: SaleItem
+  state: draft
+  updated_at: 2016-12-20 08:54:01.509524000 Z
+  updater_id: 1
+journal_entry_items_308:
+  absolute_credit: 36.36
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 363.64
+  account_id: 578
+  balance: -36.36
+  created_at: 2016-12-20 08:54:01.529690000 Z
+  creator_id: 1
+  credit: 36.36
+  cumulated_absolute_credit: 36.36
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 109
+  entry_number: SAL000006
+  financial_year_id: 26
+  id: 526
+  journal_id: 3
+  lock_version: 0
+  name: "[Facture F2016000009] Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+    pour M. Gendo IKARI (SO000000000020)"
+  position: 3
+  pretax_amount: 363.64
+  printed_on: 2016-12-20
+  real_balance: -36.36
+  real_credit: 36.36
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 363.64
+  resource_id: 29
+  resource_prism: item_tax
+  resource_type: SaleItem
+  state: draft
+  tax_id: 8
+  updated_at: 2016-12-20 08:54:01.529690000 Z
+  updater_id: 1
+journal_entry_items_309:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 63.25
+  absolute_pretax_amount: 0.0
+  account_id: 671
+  balance: 63.25
+  created_at: 2016-12-20 08:55:32.998473000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 41.18
+  cumulated_absolute_debit: 504.43
+  currency: EUR
+  debit: 63.25
+  entry_id: 110
+  entry_number: XYZ0018
+  financial_year_id: 26
+  id: 527
+  journal_id: 1
+  letter: C
+  lock_version: 0
+  name: ncncncncncn
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: 63.25
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 63.25
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2016-12-20 08:55:32.998473000 Z
+  updater_id: 1
+journal_entry_items_310:
+  absolute_credit: 63.25
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 17
+  balance: -63.25
+  created_at: 2016-12-20 08:55:33.019462000 Z
+  creator_id: 1
+  credit: 63.25
+  cumulated_absolute_credit: 63.25
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 110
+  entry_number: XYZ0018
+  financial_year_id: 26
+  id: 528
+  journal_id: 1
+  lock_version: 0
+  name: ncncncncncn
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: -63.25
+  real_credit: 63.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2016-12-20 08:55:33.019462000 Z
+  updater_id: 1
+journal_entry_items_311:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 463.25
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 463.25
+  created_at: 2016-12-20 08:58:53.086260000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 373.0
+  cumulated_absolute_debit: 3146.25
+  currency: EUR
+  debit: 463.25
+  entry_id: 111
+  entry_number: XYZ0019
+  financial_year_id: 26
+  id: 529
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2016000003] In cash!  de M. Gendo IKARI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: 463.25
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 463.25
+  real_pretax_amount: 0.0
+  resource_prism: deposited
+  state: draft
+  updated_at: 2016-12-20 08:58:53.086260000 Z
+  updater_id: 1
+journal_entry_items_312:
+  absolute_credit: 463.25
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 671
+  balance: -463.25
+  created_at: 2016-12-20 08:58:53.110658000 Z
+  creator_id: 1
+  credit: 463.25
+  cumulated_absolute_credit: 504.43
+  cumulated_absolute_debit: 504.43
+  currency: EUR
+  debit: 0.0
+  entry_id: 111
+  entry_number: XYZ0019
+  financial_year_id: 26
+  id: 530
+  journal_id: 1
+  letter: C
+  lock_version: 0
+  name: "[Encaissement R2016000003] In cash!  de M. Gendo IKARI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2016-12-20
+  real_balance: -463.25
+  real_credit: 463.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_id: 9
+  resource_prism: payer
+  resource_type: Entity
+  state: draft
+  updated_at: 2016-12-20 08:58:53.110658000 Z
+  updater_id: 1

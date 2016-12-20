@@ -46,7 +46,8 @@ class Account < Ekylibre::Record::Base
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
   has_many :balances, class_name: 'AccountBalance', dependent: :destroy
-  has_many :cashes, dependent: :restrict_with_exception
+  has_many :cashes, dependent: :restrict_with_exception, foreign_key: :main_account_id
+  has_many :suspense_cashes, dependent: :restrict_with_exception, foreign_key: :suspense_account_id, class_name: 'Cash'
   has_many :clients,             class_name: 'Entity', foreign_key: :client_account_id
   has_many :collected_taxes,     class_name: 'Tax', foreign_key: :collect_account_id
   has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode',

@@ -90,9 +90,11 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
+      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -466,6 +468,7 @@ eng:
     backend/outgoing_payment_lists:
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
+      new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -594,8 +597,6 @@ eng:
       edit: "Edit registration"
       index: "Registrations"
     backend/regularizations:
-      # edit: "Edit regularization: %{name}"
-      # new: "New regularization"
       # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
@@ -990,7 +991,7 @@ eng:
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
-    bban: "Basic Bank Account Number (BBAN)"
+    bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
@@ -1235,13 +1236,13 @@ eng:
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
+    hide_lettered_lines: "Hide lettered lines"
     hint: "Hint: %{value}" #?
-    hide_lettered-lines: "Hide lettered lines"
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
-    iban: "International Bank Account Number (IBAN)"
+    iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"
@@ -1773,6 +1774,9 @@ eng:
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
+    x_cents:
+      one: "%{count} cent"
+      other: "%{count} cents"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1839,6 +1843,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_mills:
+      one: "%{count} mill"
+      other: "%{count} mills"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -1984,6 +1991,7 @@ eng:
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
@@ -2091,6 +2099,7 @@ eng:
       index: "Index"
       invoice: "Invoice"
       # last_locations: "Last locations"
+      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2141,6 +2150,7 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"

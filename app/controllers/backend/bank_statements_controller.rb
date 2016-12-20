@@ -44,10 +44,8 @@ module Backend
     end
 
     list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
-      t.column :journal, url: true
       t.column :transfered_on
       t.column :name
-      t.column :account, url: true
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency
     end

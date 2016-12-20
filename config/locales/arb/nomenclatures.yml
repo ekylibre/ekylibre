@@ -1449,6 +1449,7 @@ arb:
         manure_management_plan_sheet: "خطة إدارة السماد (التفاصيل)"
         outgoing_deliveries_journal: "مجلة شحنات الصادرة"
         outgoing_delivery_docket: "المنتهية ولايته الأجندة تسليم"
+        outgoing_payment_list: "قائمة دفع المنتهية ولايته"
         phytosanitary_certification: "شهادة الصحة النباتية"
         phytosanitary_register: "السجل الصحة النباتية"
         prescription: "وصفة طبية"

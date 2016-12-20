@@ -1776,6 +1776,16 @@ a[data-remove-closest], a[data-remove] {
   }
 }
 
+.payment {
+  td, th {
+    &.total {
+      @include text-align(right);
+    }
+    &.sum {
+      border-top: 1px solid #777;
+    }
+  }
+}
 
 
 #cell-date {
