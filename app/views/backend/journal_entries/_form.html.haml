@@ -1,15 +1,31 @@
-= field_set do
-  = hidden_field_tag :journal_id, (f.object.new_record? ? params[:journal_id] : f.object.journal_id)
-  -# = f.association :journal, as :hidden
-  - if f.object.new_record?
-    - theoretical_number = f.object.journal.next_number
-    = field JournalEntry.human_attribute_name(:theoretical_number), theoretical_number
-    = hidden_field_tag :theoretical_number, theoretical_number
-  - else
-    = f.input :number, placeholder: f.object.journal.next_number
-  = f.input :printed_on, input_html: { data: { dependents: '#items-form', parameter_name: 'printed_on' } }
-  = f.custom_fields
-  #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: '#journal_id'}}
-    = render 'items_form', items: f.object.items
+- if f.object.journal
+  = field_set do
+    = hidden_field_tag :affair_id, params[:affair_id]
+    = hidden_field_tag :journal_id, (f.object.new_record? ? params[:journal_id] : f.object.journal_id)
+    -# = f.association :journal, as :hidden
+    = field JournalEntry.human_attribute_name(:journal), f.object.journal.name
+    - if f.object.new_record?
+      - theoretical_number = f.object.journal.next_number
+      = field JournalEntry.human_attribute_name(:theoretical_number), theoretical_number
+      = hidden_field_tag :theoretical_number, theoretical_number
+    - else
+      = f.input :number, placeholder: f.object.journal.next_number
+    = f.input :printed_on, input_html: { data: { dependents: '#items-form', parameter_name: 'printed_on' } }
+    = f.custom_fields
+    #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: '#journal_id'}}
+      = render 'items_form', items: f.object.items
 
-= f.attachments_field_set
+  = f.attachments_field_set
+- else
+  :ruby
+    journals = Journal.order(:name)
+    journals = journals.where(nature: params[:nature]) if params[:nature]
+    journals = journals.where(currency: params[:currency]) if params[:currency]
+    subheading :select_a_journal.tl
+  .activity-family
+    - journals.map{|j| [j.nature.l, j.nature] }.uniq.sort_by(&:first).each do |t, n|
+      .activity-family-heading
+        %h2.activity-family-title= t
+      .activity-family-body
+        - journals.where(nature: n).each do |journal|
+          = link_to(journal.name, params.merge(journal_id: journal.id), class: 'btn btn-lg')

@@ -51,16 +51,17 @@
 #  updater_id             :integer
 #
 
-# Where to put amounts. The point of view is us
+# Where to put amounts. The point of view is third's one.
 #       Deal      |  Debit  |  Credit |
-# Sale            |         |    X    |
-# SaleCredit      |    X    |         |
-# SaleGap         |  Loss!  | Profit! |
-# Purchase        |    X    |         |
-# PurchaseCredit  |         |    X    |
-# PurchaseGap     |  Loss!  | Profit! |
-# OutgoingPayment |         |    X    |
-# IncomingPayment |    X    |         |
+# Sale            |    X    |         |
+# SaleCredit      |         |    X    |
+# SaleGap         | Profit! |  Loss!  |
+# Purchase        |         |    X    |
+# PurchaseCredit  |         |         |
+# PurchaseGap     | Profit! |  Loss!  |
+# OutgoingPayment |    X    |         |
+# IncomingPayment |         |    X    |
+# Regularization  |    ?    |    ?    |
 #
 class Affair < Ekylibre::Record::Base
   include Attachable
@@ -76,6 +77,7 @@ class Affair < Ekylibre::Record::Base
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
+  has_many :regularizations,   inverse_of: :affair, dependent: :destroy
   # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -137,7 +139,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w(SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment).freeze
+      @affairable_types ||= %w(SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization).freeze
     end
 
     # Removes empty affairs in the whole table
@@ -170,7 +172,7 @@ class Affair < Ekylibre::Record::Base
   # Positive result is a profit
   # A contrario, negative result is a loss
   def balance
-    self.debit - self.credit
+    self.credit - self.debit
   end
 
   # Check if debit is equal to credit
@@ -195,7 +197,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns if the affair is bad for us...
   def losing?
-    self.debit < self.credit
+    self.debit > self.credit
   end
 
   def finishable?
@@ -213,6 +215,7 @@ class Affair < Ekylibre::Record::Base
   def finish
     return false if balance.zero?
     raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
+    precision = Nomen::Currency.find(currency).precision
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
@@ -261,24 +264,26 @@ class Affair < Ekylibre::Record::Base
         # Apply that percentage to the gap to get a proportional amount
         taxed_amount_in_gap = percentage_at_vat * gap_amount
         # Get that amount +/- depending if we're crediting or debiting
-        taxed_amount_in_gap *= -1 unless gap_is_credit
+        # taxed_amount_in_gap *= -1 unless gap_is_credit
         # Get the pre-tax value
         pretaxed_amount_in_gap = tax.pretax_amount_of(taxed_amount_in_gap)
 
         GapItem.new(
           currency: currency,
-          amount: taxed_amount_in_gap,
           tax: tax,
-          pretax_amount: pretaxed_amount_in_gap
+          amount: taxed_amount_in_gap.round(precision),
+          pretax_amount: pretaxed_amount_in_gap.round(precision)
         )
       end
+
+      # TODO: Check that rounds fit exactly wanted amount
 
       gap_class.create!(
         affair: self,
         amount: gap_amount,
         currency: currency,
         entity: third,
-        direction: (gap_is_credit ? :profit : :loss),
+        direction: (!gap_is_credit ? :profit : :loss),
         items: gap_items
       )
       refresh!
@@ -358,9 +363,10 @@ class Affair < Ekylibre::Record::Base
     letter_journal_entries! if letterable?
   end
 
-  def letterable_account
+  def third_account
     third.account(third_role)
   end
+  alias letterable_account third_account
 
   def letterable_journal_entry_items
     JournalEntryItem.where(account: letterable_account, entry: deals.map(&:journal_entry))

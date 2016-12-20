@@ -72,10 +72,11 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :outgoing_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
+  has_many :regularizations, dependent: :nullify
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
   has_many :bank_statements, through: :useful_items
-  accepts_nested_attributes_for :items
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
@@ -255,6 +256,7 @@ class JournalEntry < Ekylibre::Record::Base
 
   after_save do
     JournalEntryItem.where(entry_id: id).update_all(state: self.state, journal_id: journal_id, financial_year_id: financial_year_id, printed_on: printed_on, entry_number: self.number, real_currency: real_currency, real_currency_rate: real_currency_rate)
+    regularizations.each(&:save)
   end
 
   before_destroy do
@@ -292,6 +294,17 @@ class JournalEntry < Ekylibre::Record::Base
   def refresh
     reload
     save!
+  end
+
+  # Destroy or cancel journal depending on its current state
+  def remove
+    reverse_entry = nil
+    if draft?
+      destroy
+    else
+      reverse_entry = cancel
+    end
+    reverse_entry
   end
 
   # Add a entry which cancel the entry
