@@ -54,6 +54,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     mode.cash.currency
   end
 
+  def payer
+    Entity.of_company
+  end
+
   def to_sepa
     sct = SEPA::CreditTransfer.new(
       name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),

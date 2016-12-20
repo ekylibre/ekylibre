@@ -1441,6 +1441,7 @@ eng:
         manure_management_plan_sheet: "Manure management plan (detail)"
         outgoing_deliveries_journal: "Outgoing deliveries journal"
         outgoing_delivery_docket: "Outgoing delivery docket"
+        outgoing_payment_list: "Outgoing payment list"
         phytosanitary_certification: "Phytosanitary certification"
         phytosanitary_register: "Phytosanitary register"
         prescription: "Prescription"
