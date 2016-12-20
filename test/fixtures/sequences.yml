@@ -176,17 +176,17 @@ sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
   creator_id: 1
   id: 9
-  last_cweek: 26
-  last_month: 7
-  last_number: 18
+  last_cweek: 51
+  last_month: 12
+  last_number: 20
   last_year: 2016
-  lock_version: 20
+  lock_version: 22
   name: Document
   number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-07-01 20:12:54.997405000 Z
+  updated_at: 2016-12-20 14:08:30.039629000 Z
   updater_id: 1
   usage: documents
 sequences_010:
