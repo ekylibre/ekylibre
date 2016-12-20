@@ -368,10 +368,10 @@ fra:
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
     backend/labels:
-      # edit: "Edit label: %{name}"
+      edit: "Modifier l'étiquette\_: %{name}"
       index: "Étiquettes"
       new: "Nouvelle étiquette"
-      # show: "Label: %{name}"
+      show: "Étiquette\_: %{name}"
     backend/land_parcel_clusters:  #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?

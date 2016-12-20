@@ -10,7 +10,7 @@ module Backend
     end
 
     def show
-      @regularization = Regularization.find_by(id: params[:id])
+      @regularization = Regularization.find(params[:id])
       redirect_to controller: :journal_entries, action: :show, id: @regularization.journal_entry.id
     end
   end
