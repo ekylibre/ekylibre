@@ -180,6 +180,11 @@ module Ekylibre
           hash
         end
       end
+      @manifest[:cashes].each do |n, v|
+        if v[:account]
+          v[:account] = find_record(:accounts, v[:account].to_s)
+        end
+      end
       create_records(:cashes)
       w.check_point
 
