@@ -7,8 +7,8 @@
     %i#type-icon{class: type.dasherize}=# type.humanize
     .name= item.name
   .amounts
-    .debit= item.credit
-    .credit= item.debit
+    .debit= item.debit
+    .credit= item.credit
   .details
     .letter= type =~ /bank_statement_item/ ? item.letter : item.bank_statement_letter
     - link = :clear if item.letter
