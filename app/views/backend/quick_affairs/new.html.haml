@@ -10,7 +10,8 @@
           %label.string.required.control-label= instance_variable_get("@#{attribute}").class.model_name.human
           .controls
             - [:existing, :new].each do |label|
-              = radio_button_tag :"mode-#{attribute}", label.to_s, {}, { data: { show: ".#{label}-#{attribute}" } }
+              - checked = Regexp.new(@mode_for[attribute]) =~ label
+              = radio_button_tag :"mode-#{attribute}", label.to_s, checked, { data: { show: ".#{label}-#{attribute}" } }
               = label_tag :"mode-#{attribute}", label.tl
 
   = field_set trade_model_name.human, class: 'new-trade' do
@@ -36,7 +37,7 @@
     .control-group
       %label.string.required.control-label= trade_model_name.human
       .controls
-        = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll }
+        = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll }, value: @trade.id
 
   = field_set payment_model_name.human, class: 'new-payment' do
     = backend_fields_for :payment, @payment do |p|
@@ -50,7 +51,7 @@
     .control-group
       %label.string.required.control-label= payment_model_name.human
       .controls
-        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll }
+        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll }, value: @payment.id
 
   = form_actions do
     = a.button :submit, :save.tl, class: 'btn btn-primary'

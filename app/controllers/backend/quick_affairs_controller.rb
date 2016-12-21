@@ -23,6 +23,11 @@ module Backend
       return head :bad_request unless payment_params[:bank_statement_item_ids] && @bank_statement_items
       affair_class, trade_class, payment_class, coeff = *classes_for(@mode)
 
+      @mode_for = {
+        trade: params[:"mode-trade"],
+        payment: params[:"mode-payment"]
+      }
+
       @trade = new_trade(trade_class)
       @payment = new_payment(payment_class, @trade.third, @trade.invoiced_at)
       @affair = new_affair(affair_class, @trade)
@@ -38,7 +43,7 @@ module Backend
           @affair.attach(@payment)
         end
       rescue
-        notify_info "Could not attach trade and payment to Affair"
+        notify_error "Could not attach trade and payment to Affair"
         return render :new
       end
 
@@ -65,13 +70,13 @@ module Backend
     end
 
     def new_trade(klass)
-      existing = params[:affair][:"mode-trade"] =~ /existing/
+      existing = params[:"mode-trade"] =~ /existing/
       return klass.find(affair_params[:trade_id]) if existing && params[:affair][:trade_id]
       klass.new(trade_params.merge(klass.third_attribute => Entity.find(affair_params[:third_id])))
     end
 
     def new_payment(klass, third, at)
-      existing = params[:affair][:"mode-payment"] =~ /existing/
+      existing = params[:"mode-payment"] =~ /existing/
       return klass.find(affair_params[:payment_id]) if existing && params[:affair][:payment_id]
       payment_attributes = payment_params.dup
       payment_attributes.delete(:bank_statement_item_ids)
