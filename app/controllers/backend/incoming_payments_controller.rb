@@ -66,5 +66,6 @@ module Backend
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :sale_affairs }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
+
   end
 end

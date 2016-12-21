@@ -90,9 +90,11 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
+      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -466,6 +468,7 @@ eng:
     backend/outgoing_payment_lists:
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
+      new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -588,9 +591,13 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
+    backend/regularizations:
+      # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"
@@ -929,6 +936,7 @@ eng:
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
@@ -983,7 +991,7 @@ eng:
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
-    bban: "Basic Bank Account Number (BBAN)"
+    bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
@@ -1228,12 +1236,13 @@ eng:
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
+    hide_lettered_lines: "Hide lettered lines"
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
-    iban: "International Bank Account Number (IBAN)"
+    iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"
@@ -1388,11 +1397,13 @@ eng:
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_incoming_payment: "New incoming payment"
     new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
+    new_outgoing_payment: "New outgoing payment"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -1495,6 +1506,7 @@ eng:
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
+    product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
@@ -1576,6 +1588,7 @@ eng:
     section_x: "Section %{x}"
     see_details: "See details"
     see_more_details: "See more details"
+    select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
     select_date: "Select date"
@@ -1634,7 +1647,8 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
-    # tax_declarations: "Tax declarations"
+    tax_declarations: "Tax declarations"
+    tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
     thumb: "Thumb" #?
@@ -1761,6 +1775,9 @@ eng:
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
+    x_cents:
+      one: "%{count} cent"
+      other: "%{count} cents"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1827,6 +1844,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_mills:
+      one: "%{count} mill"
+      other: "%{count} mills"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -1972,6 +1992,7 @@ eng:
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
@@ -2079,6 +2100,7 @@ eng:
       index: "Index"
       invoice: "Invoice"
       # last_locations: "Last locations"
+      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2129,6 +2151,7 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"

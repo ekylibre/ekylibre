@@ -22,6 +22,7 @@
 #
 # == Table: bank_statements
 #
+#  accounted_at           :datetime
 #  cash_id                :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,6 +33,7 @@
 #  id                     :integer          not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  journal_entry_id       :integer
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null
@@ -44,8 +46,10 @@ class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
+  belongs_to :journal_entry
   has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :credit, :debit, :initial_balance_credit, :initial_balance_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -59,7 +63,7 @@ class BankStatement < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
-  delegate :name, :currency, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
+  delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
   before_validation do
     self.currency = cash_currency if cash
@@ -98,6 +102,19 @@ class BankStatement < Ekylibre::Record::Base
     clear_reconciliation_with_letters reconciliated_letters_to_clear
   end
 
+  bookkeep do |b|
+    b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
+      label = "BS #{cash.name} #{number}"
+      balance = items.sum('credit - debit')
+      entry.add_debit(label, cash.main_account_id, balance, as: :bank)
+      entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
+      # items.each do |item|
+      #   entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
+      #   entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+      # end
+    end
+  end
+
   def balance_credit
     (debit > credit ? 0.0 : credit - debit)
   end
@@ -122,9 +139,13 @@ class BankStatement < Ekylibre::Record::Base
     self.class.where('started_on >= ?', stopped_on).reorder(started_on: :asc).first
   end
 
+  def next_letter
+    cash_next_reconciliation_letters.next
+  end
+
   def eligible_journal_entry_items
     margin = 20.days
-    unpointed = JournalEntryItem.where(account_id: cash_account_id).unpointed.between(started_on - margin, stopped_on + margin)
+    unpointed = cash.unpointed_journal_entry_items.between(started_on - margin, stopped_on + margin)
     pointed = JournalEntryItem.pointed_by(self)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end

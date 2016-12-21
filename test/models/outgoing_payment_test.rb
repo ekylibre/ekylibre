@@ -41,6 +41,7 @@
 #  number            :string
 #  paid_at           :datetime
 #  payee_id          :integer          not null
+#  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null

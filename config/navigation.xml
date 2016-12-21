@@ -123,6 +123,9 @@
         <page to="backend/journal_entry_items#list"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
+        <page to="backend/regularizations#create"/>
+        <page to="backend/regularizations#destroy"/>
+        <page to="backend/regularizations#show"/>
       </item>
       <item name="draft">
         <page to="backend/draft_journals#show"/>
@@ -203,6 +206,12 @@
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
+        <page to="backend/quick_affairs#new"/>
+        <page to="backend/quick_affairs#create"/>
+        <page to="backend/bank_statements#letter"/>
+        <page to="backend/bank_statements#unletter"/>
+        <page to="backend/bank_statement_items#create"/>
+        <page to="backend/bank_statement_items#destroy"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -438,6 +447,8 @@
         <page to="backend/outgoing_payment_lists#show"/>
         <page to="backend/outgoing_payment_lists#export_to_sepa"/>
         <page to="backend/outgoing_payment_lists#list_payments"/>
+        <page to="backend/outgoing_payment_lists#create"/>
+        <page to="backend/outgoing_payment_lists#new"/>
       </item>
     </group>
   </part>

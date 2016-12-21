@@ -41,6 +41,7 @@
 #  number            :string
 #  paid_at           :datetime
 #  payee_id          :integer          not null
+#  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -92,9 +93,59 @@ class OutgoingPayment < Ekylibre::Record::Base
     (journal_entry && journal_entry.closed?)
   end
 
+  delegate :third_attribute, to: :class
+
+  def self.third_attribute
+    :payee
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def letter_with(bank_statements_items)
+    bank_statement = bank_statements_items.first.bank_statement
+    letters = bank_statements_items.pluck(:letter)
+    bank_statements_items.update_all(letter: nil)
+    JournalEntryItem.pointed_by(bank_statement)
+                    .where(bank_statement_letter: letters)
+                    .update_all(bank_statement_letter: nil, bank_statement_id: nil)
+    letter = bank_statement.next_letter
+    journal_entry
+      .items
+      .where(account_id: bank_statement.cash_account_id)
+      .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
+    bank_statements_items.update_all(letter: letter)
+  end
+
   def check_updateable_or_destroyable?
     return false if list
     updateable? || destroyable?
+  end
+
+  def amount_to_letter
+    c = Nomen::Currency[currency]
+    precision = c.precision
+    integers, decimals = amount.round(precision).divmod(1)
+    decimals = (decimals * 10**precision).round
+    locale = I18n.t('i18n.iso2').to_sym
+    items = [integers.to_i.humanize(locale: locale) + ' ' + c.human_name.downcase.pluralize]
+    if decimals > 0
+      if precision == 0
+      # OK
+      elsif precision == 2
+        items << :x_cents.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      elsif precision == 3
+        items << :x_mills.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      else
+        raise 'Invalid precision: ' + precision.inspect
+      end
+    end
+    items.to_sentence
+  end
+
+  def affair_reference_numbers
+    affair.purchases.map(&:reference_number).compact.to_sentence
   end
 
   # This method permits to add journal entries corresponding to the payment

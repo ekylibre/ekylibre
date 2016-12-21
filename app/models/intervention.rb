@@ -318,7 +318,7 @@ class Intervention < Ekylibre::Record::Base
     if Preference[:permanent_stock_inventory] && record?
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
-        stock_amount = parameter.stock_amount.round(2)
+        stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
         next unless parameter.product_movement && stock_amount.nonzero?
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id

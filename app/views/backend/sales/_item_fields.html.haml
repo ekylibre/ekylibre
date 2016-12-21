@@ -1,6 +1,6 @@
 - item ||= f.object
 - precision = Nomen::Currency[f.object.sale_currency].precision
-%tbody.nested-fields{ data: { trade_item: "selling", currency_precision: precision } }
+%tbody.nested-fields{ data: { trade_item: "sale", currency_precision: precision } }
   %tr
     %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id, mode: :last_sale_item)}}})

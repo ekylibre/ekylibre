@@ -244,3 +244,55 @@ purchases_008:
   tax_payability: at_invoicing
   updated_at: 2016-11-20 22:15:24.353307000 Z
   updater_id: 1
+purchases_009:
+  accounted_at: 2016-12-20 18:16:13.294397000 Z
+  affair_id: 53
+  amount: 4878.72
+  created_at: 2016-12-20 18:16:09.138800000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 16
+  invoiced_at: 2016-12-20 18:15:00.000000000 Z
+  journal_entry_id: 112
+  lock_version: 2
+  nature_id: 1
+  number: A201612000004
+  payment_at: 2016-12-20 18:15:00.000000000 Z
+  payment_delay: ''
+  planned_at: 2016-12-20 18:15:00.000000000 Z
+  pretax_amount: 4435.2
+  reference_number: ''
+  responsible_id: 1
+  state: invoice
+  supplier_id: 5
+  tax_payability: at_invoicing
+  updated_at: 2016-12-20 18:16:13.187112000 Z
+  updater_id: 1
+purchases_010:
+  accounted_at: 2016-12-20 18:17:05.131532000 Z
+  affair_id: 54
+  amount: 489.75
+  created_at: 2016-12-20 18:16:56.920935000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 17
+  invoiced_at: 2016-12-20 18:16:00.000000000 Z
+  journal_entry_id: 114
+  lock_version: 2
+  nature_id: 1
+  number: A201612000005
+  payment_at: 2016-12-20 18:16:00.000000000 Z
+  payment_delay: ''
+  planned_at: 2016-12-20 18:16:00.000000000 Z
+  pretax_amount: 445.23
+  reference_number: ''
+  responsible_id: 1
+  state: invoice
+  supplier_id: 4
+  tax_payability: at_invoicing
+  updated_at: 2016-12-20 18:17:05.049190000 Z
+  updater_id: 1

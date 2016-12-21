@@ -376,6 +376,7 @@ ita:
       new: "Nuovo osservazione"
     backend/outgoing_payment_lists:
       index: "Pagamenti in uscita la lista dei lotti"
+      new: "Nuovo elenco pagamento in uscita"
       show: "Pagamenti in uscita in batch"
     backend/outgoing_payment_modes:
       edit: "modalità di erogazione Edit"
@@ -786,6 +787,7 @@ ita:
     add_purchase_taxation: "Aggiungere tassazione acquisto"
     add_quickly_an_item: "Aggiungere rapidamente una linea di prodotti"
     add_reading: "Aggiungere un valore per un indicatore"
+    add_regularization: "Aggiungere regolarizzazione"
     add_revenue: "Aggiungere entrate"
     add_sale: "Aggiungere vendita"
     add_sale_taxation: "Aggiungere vendita tassazione"
@@ -1084,6 +1086,7 @@ ita:
     harvested_at: "raccolte al"
     help: "Aiuto"
     help_center: "Centro assistenza"
+    hide_lettered_lines: "Nascondere le linee da lettere"
     # hint: "Hint: %{value}"
     historic: "Storico"
     home: "Casa"
@@ -1246,11 +1249,13 @@ ita:
     new_email: "Nuova email"
     new_group: "Nuovo gruppo"
     new_incoming_parcel: "Nuovo pacco in arrivo"
+    new_incoming_payment: "Nuovo pagamento in entrata"
     new_inventory: "Nuovo inventario"
     new_issue: "Nuovo problema"
     new_listing: "Nuova lista"
     new_organization: "nuova organizzazione"
     new_outgoing_parcel: "Nuovo pacco in uscita"
+    new_outgoing_payment: "Nuovo pagamento in uscita"
     new_production: "nuova produzione"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nuovo preventivo"
@@ -1352,6 +1357,7 @@ ita:
     # printing_document: "Printing %{document}"
     procedures: "procedure"
     product: "Prodotto"
+    product_account_number: "Numero di conto del prodotto"
     product_category: "Categoria di prodotto"
     product_name: "Nome del prodotto"
     product_natures: "tipi di prodotto"
@@ -1438,6 +1444,7 @@ ita:
     # section_x: "Section %{x}"
     see_details: "Guarda i detagli"
     see_more_details: "Vedi i dettagli"
+    select_a_journal: "Seleziona una rivista"
     select_closure_date: "Scegli la data di chiusura"
     select_columns: "selezionare le colonne"
     select_date: "Seleziona la data"
@@ -1496,6 +1503,8 @@ ita:
     synthesis: "Sintesi"
     target: "Bersaglio"
     tasks: "Compiti"
+    tax_declarations: "Dichiarazioni fiscali"
+    tax_label: "Etichetta fiscale"
     taxations: "tassazioni"
     taxes: "Le tasse"
     thumb: "Pollice"
@@ -1625,6 +1634,9 @@ ita:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1691,6 +1703,9 @@ ita:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1834,6 +1849,7 @@ ita:
       no_payment_to_deposit: "Non ci sono alcun pagamento per depositare"
       no_production_defined_for_current_campaign: "Nessuna produzione definita per la campagna in corso"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Nessuna produzione trovato. È possibile aggiungere nuovi o copiare alcuni dalla precedente campagna."
+      no_purchase_affair_found_on_given_period: "Nessun affare di acquisto riportata sulla determinato periodo"
       no_purchases_given: "Nessun dato acquisti"
       no_reopenable_journal: "Non si può riaprire questa rivista."
       no_replacements_since_beginning: "Non ci sono sostituzioni fin dall’inizio"

@@ -64,6 +64,11 @@ jpn:
         status: "状態"
       tax:
         amount: "値"
+      tax_declaration_item:
+        collected: "集めました"
+        deductible: "控除できます"
+        fixed_asset_deductible: "資産の損金算入"
+        intracommunity_payable: "支払わIntracommunity"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -119,6 +124,7 @@ jpn:
           unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。"
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
@@ -316,6 +322,7 @@ jpn:
       purchase_gap: "購入ギャップ"
       purchase_item: "購入アイテム"
       purchase_nature: "購入タイプ"
+      regularization: "正則化"
       role: "役割"
       sale: "販売"
       sale_affair: "販売事件"
@@ -1128,6 +1135,7 @@ jpn:
     purchasable: "購入"
     purchase: "購入"
     purchase_affair: "購入事件"
+    purchase_affairs: "購入業務"
     purchase_amount: "購入金額"
     purchase_invoices: "請求書を購入"
     purchase_item: "購入アイテム"
@@ -1185,6 +1193,7 @@ jpn:
     reflected_at: "で反射"
     reflection_nodes: "リフレクションノード"
     reflections: "リフレクションズ"
+    # regularizations: "Regularizations"
     remain_owner: "所有者のまま"
     remaining_amount: "残量"
     remaining_lifespan: "残りの寿命"
