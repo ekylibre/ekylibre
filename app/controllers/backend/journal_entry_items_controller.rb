@@ -55,6 +55,7 @@ module Backend
       t.column :pretax_amount, currency: true
       t.column :tax, url: true
       t.column :vat_item_to_product_account, label: :product_account_number
+      t.column :entity_country, hidden: true
     end
 
     def index; end

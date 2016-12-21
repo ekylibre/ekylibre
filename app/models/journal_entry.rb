@@ -284,6 +284,21 @@ class JournalEntry < Ekylibre::Record::Base
   def bank_statement_number
     bank_statements.first.number if bank_statements.first
   end
+  
+  def entity_country
+    if resource
+      if resource.is_a? Purchase
+        entity = resource.supplier
+      elsif resource.is_a? Sale
+        entity = resource.client
+      end
+    end
+    if entity
+      entity.country
+    else
+      nil
+    end
+  end
 
   # determines if the entry is balanced or not.
   def balanced?
