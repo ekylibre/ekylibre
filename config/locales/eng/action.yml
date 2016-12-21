@@ -499,7 +499,6 @@ eng:
       show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
-      # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
     backend/plant_density_abacus_items:

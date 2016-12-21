@@ -598,6 +598,8 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"

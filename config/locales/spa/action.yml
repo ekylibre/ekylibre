@@ -498,6 +498,8 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"

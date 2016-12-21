@@ -461,6 +461,8 @@ ita:
       propose_and_invoice: "fatturare direttamente"
       refuse: "ordine Refused"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Modifica registrazione"
       index: "Iscrizioni"

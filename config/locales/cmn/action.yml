@@ -461,6 +461,8 @@ cmn:
       propose_and_invoice: "直接发票"
       refuse: "为了拒绝"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "编辑注册"
       index: "注册"

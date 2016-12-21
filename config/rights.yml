@@ -202,8 +202,6 @@ activities:
     - "backend/inspections#list"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
-    - "backend/plant_density_abaci#index"
-    - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
     - "backend/target_distributions#index"
@@ -378,6 +376,8 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/quick_affairs#create"
+    - "backend/quick_affairs#new"
     - "backend/bank_statement_items#create"
     - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"

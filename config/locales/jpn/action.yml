@@ -461,6 +461,8 @@ jpn:
       propose_and_invoice: "直接請求書"
       refuse: "拒否したため"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "編集登録"
       index: "登録"

@@ -69,16 +69,16 @@ class AffairTest < ActiveSupport::TestCase
     affair = sale.affair
     assert affair
     affair.refresh! # Needed until affair#deals_count is up-to-date
-    count = affair.deals_count
+    count = 1
     payment = IncomingPayment.where(payer: sale.client).first
     assert payment
     payment.affair.refresh!
-    count += payment.affair.deals_count
+    count += 1
     ret = affair.attach(payment)
     payment.reload
-    assert_equal affair, ret
+    assert_equal payment.affair, ret.affair
     assert_equal sale.affair, payment.affair
-    assert_equal count, ret.deals_count
+    assert_equal count, ret.affair.deals_count
   end
 
   test 'absorption' do

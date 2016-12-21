@@ -461,6 +461,8 @@ deu:
       propose_and_invoice: "Rechnung direkt"
       refuse: "weigerte sich um"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Bearbeiten Registrierung"
       index: "Anmeldungen"

@@ -466,6 +466,8 @@ por:
       propose_and_invoice: "Facturar directamente"
       refuse: "Fim recusou"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
