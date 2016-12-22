@@ -262,7 +262,7 @@ Rails.application.routes.draw do
     resources :attachments, only: [:show, :create, :destroy]
 
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
-      resources :bank_statement_items, only: [:new, :create, :destroy], path: 'bank-statement-items'
+      resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
 
       collection do
         get :list_items
@@ -276,7 +276,6 @@ Rails.application.routes.draw do
         patch :unletter
       end
     end
-
 
     resources :beehives, only: [:update] do
       member do
@@ -487,12 +486,6 @@ Rails.application.routes.draw do
 
     resources :fungi, concerns: :products
 
-    # resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
-    #   member do
-    #     get :list_items
-    #   end
-    # end
-
     resource :general_ledger, only: [:show], path: 'general-ledger' do
       member do
         get :list_journal_entry_items
@@ -675,7 +668,7 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
-    resources :outgoing_payment_lists, only: [:index, :show, :destroy], concerns: [:list] do
+    resources :outgoing_payment_lists, only: [:index, :show, :destroy, :new, :create], concerns: [:list] do
       member do
         get :list_payments
         get :export_to_sepa
@@ -706,7 +699,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
+    resources :plant_density_abaci, except: [:index], path: 'plant-density-abaci'
 
     resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'
 

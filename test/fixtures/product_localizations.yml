@@ -2202,3 +2202,13 @@ product_localizations_190:
   started_at: 2016-08-10 14:27:49.970014000 Z
   updated_at: 2016-08-10 14:27:49.997236000 Z
   updater_id: 1
+product_localizations_191:
+  created_at: 2016-12-20 18:24:29.571767000 Z
+  creator_id: 1
+  id: 225
+  lock_version: 0
+  nature: exterior
+  product_id: 181
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-12-20 18:24:29.571767000 Z
+  updater_id: 1

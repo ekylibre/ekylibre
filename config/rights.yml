@@ -112,6 +112,8 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
+#     - "backend/outgoing_payment_lists#create"
+#     - "backend/outgoing_payment_lists#new"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -200,8 +202,6 @@ activities:
     - "backend/inspections#list"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
-    - "backend/plant_density_abaci#index"
-    - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
     - "backend/target_distributions#index"
@@ -376,13 +376,19 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/quick_affairs#create"
+    - "backend/quick_affairs#new"
+    - "backend/bank_statement_items#create"
+    - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
     - "backend/bank_statements#import"
+    - "backend/bank_statements#letter"
     - "backend/bank_statements#new"
     - "backend/bank_statements#reconciliation"
+    - "backend/bank_statements#unletter"
     - "backend/bank_statements#update"
 
 building_divisions:
@@ -1228,9 +1234,6 @@ journal_entries:
     - "backend/journal_entry_items#new"
     - "backend/regularizations#create"
     - "backend/regularizations#destroy"
-    - "backend/regularizations#edit"
-    - "backend/regularizations#new"
-    - "backend/regularizations#update"
 
 journals:
   read:

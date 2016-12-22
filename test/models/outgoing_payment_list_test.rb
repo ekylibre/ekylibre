@@ -27,6 +27,7 @@
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  mode_id      :integer          not null
 #  number       :string
 #  updated_at   :datetime
 #  updater_id   :integer
@@ -156,5 +157,10 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
     JournalEntryItem.where(entry_id: @list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
     assert(@list.destroy)
     assert_raise(ActiveRecord::RecordNotFound) { @list.reload }
+  end
+
+  test 'generate from purchase affairs' do
+    affairs = PurchaseAffair.where(closed: false, currency: 'EUR')
+    OutgoingPaymentList.build_from_affairs(affairs, OutgoingPaymentMode.where(cash: Cash.where(currency: 'EUR')).first, nil)
   end
 end

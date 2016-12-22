@@ -1241,3 +1241,13 @@ product_enjoyments_125:
   started_at: 2016-08-10 14:27:49.970014000 Z
   updated_at: 2016-08-10 14:27:50.008167000 Z
   updater_id: 1
+product_enjoyments_126:
+  created_at: 2016-12-20 18:24:29.557243000 Z
+  creator_id: 1
+  id: 133
+  lock_version: 0
+  nature: unknown
+  product_id: 181
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-12-20 18:24:29.557243000 Z
+  updater_id: 1

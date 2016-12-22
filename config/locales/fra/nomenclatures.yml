@@ -1566,6 +1566,7 @@ fra:
         manure_management_plan_sheet: "Plan prévisionnel de fumure détaillé"
         outgoing_deliveries_journal: "Journal de livraison"
         outgoing_delivery_docket: "Bon de livraison sortante"
+        outgoing_payment_list: "Edition de décaissements"
         phytosanitary_certification: "Certi-Phyto"
         phytosanitary_register: "Registre phytosanitaire"
         prescription: "Prescription vétérinaire"

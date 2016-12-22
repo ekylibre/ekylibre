@@ -376,6 +376,7 @@ deu:
       new: "New Beobachtung"
     backend/outgoing_payment_lists:
       index: "Auszahlungen Chargenliste"
+      new: "Neue Ausgangszahlung Liste"
       show: "Auszahlungen Batch"
     backend/outgoing_payment_modes:
       edit: "Bearbeiten Auszahlungsmodus"
@@ -460,6 +461,8 @@ deu:
       propose_and_invoice: "Rechnung direkt"
       refuse: "weigerte sich um"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Bearbeiten Registrierung"
       index: "Anmeldungen"
@@ -1019,6 +1022,7 @@ deu:
     harvested_at: "geerntete an"
     help: "Hilfe"
     help_center: "Hilfezentrum"
+    hide_lettered_lines: "Ausblenden beschrifteten Linien"
     # hint: "Hint: %{value}"
     historic: "historisch"
     home: "Zuhause"
@@ -1181,11 +1185,13 @@ deu:
     new_email: "Neue e-mail"
     new_group: "Neue Gruppe"
     new_incoming_parcel: "Neu eingehende Paket"
+    new_incoming_payment: "Neue Zahlungseingang"
     new_inventory: "Neues Inventar"
     new_issue: "Neues Problem"
     new_listing: "Neue Auflistung"
     new_organization: "neue Organisation"
     new_outgoing_parcel: "Neue abgehende Paket"
+    new_outgoing_payment: "Neue Ausgangszahlung"
     new_production: "neue Produktions"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "New Zitat"
@@ -1564,6 +1570,9 @@ deu:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1630,6 +1639,9 @@ deu:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1773,6 +1785,7 @@ deu:
       no_payment_to_deposit: "Es gibt keine Zahlung zu hinterlegen"
       no_production_defined_for_current_campaign: "Keine Produktion für aktuelle Kampagne definiert"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Keine Produktion gefunden. Sie können neue hinzufügen oder einige der letzten Kampagne kopieren."
+      no_purchase_affair_found_on_given_period: "Kein Kauf Affäre auf bestimmten Zeitraum gefunden"
       no_purchases_given: "Keine Einkäufe gegeben"
       no_reopenable_journal: "Sie können nicht diese Zeitschrift wieder zu öffnen."
       no_replacements_since_beginning: "Kein Ersatz seit Beginn"

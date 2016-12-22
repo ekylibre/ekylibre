@@ -1440,6 +1440,7 @@ cmn:
         manure_management_plan_sheet: "粪便管理计划（详细）"
         outgoing_deliveries_journal: "即将离任的交付日记"
         outgoing_delivery_docket: "即将离任的交付案卷"
+        outgoing_payment_list: "付款清单"
         phytosanitary_certification: "植物检疫证书"
         phytosanitary_register: "植物检疫登记"
         prescription: "处方"

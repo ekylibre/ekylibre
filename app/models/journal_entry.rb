@@ -285,6 +285,14 @@ class JournalEntry < Ekylibre::Record::Base
     bank_statements.first.number if bank_statements.first
   end
 
+  def entity_country_code
+    resource.third && resource.third.country
+  end
+
+  def entity_country
+    resource.third && resource.third.country && resource.third.country.l
+  end
+
   # determines if the entry is balanced or not.
   def balanced?
     balance.zero? # and self.items.count > 0
@@ -310,18 +318,25 @@ class JournalEntry < Ekylibre::Record::Base
   # Add a entry which cancel the entry
   # Create counter-entry_items
   def cancel
-    reconcilable_accounts = []
-    entry = self.class.new(journal: journal, resource: resource, real_currency: real_currency, real_currency_rate: real_currency_rate, printed_on: printed_on)
     ActiveRecord::Base.transaction do
-      entry.save!
-      for item in useful_items
+      reconcilable_accounts = []
+      entry = self.class.create!(
+        journal: journal,
+        resource: resource,
+        real_currency: real_currency,
+        real_currency_rate: real_currency_rate,
+        printed_on: printed_on
+      )
+      useful_items.each do |item|
         entry.send(:add!, tc(:entry_cancel, number: self.number, name: item.name), item.account, (item.debit - item.credit).abs, credit: (item.debit > 0))
-        reconcilable_accounts << item.account if item.account.reconcilable? && !reconcilable_accounts.include?(item.account)
+        if item.account.reconcilable? && !reconcilable_accounts.include?(item.account)
+          reconcilable_accounts << item.account
+        end
       end
-    end
-    # Mark accounts
-    for account in reconcilable_accounts
-      account.mark_entries(self, entry)
+      # Mark accounts
+      reconcilable_accounts.each do |account|
+        account.mark_entries(self, entry)
+      end
     end
     entry
   end

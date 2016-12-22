@@ -368,10 +368,10 @@ fra:
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
     backend/labels:
-      # edit: "Edit label: %{name}"
+      edit: "Modifier l'étiquette\_: %{name}"
       index: "Étiquettes"
       new: "Nouvelle étiquette"
-      # show: "Label: %{name}"
+      show: "Étiquette\_: %{name}"
     backend/land_parcel_clusters:  #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?
@@ -452,6 +452,7 @@ fra:
       show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_lists:
       index: "Lots de décaissements"
+      new: "Nouveau lot de décaissement"
       show: "Lot de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
@@ -890,6 +891,7 @@ fra:
     analysis: "Analyse" #?
     analytic_preferences: "Préférences analytiques"
     analytics: "Analytiques" #?
+    and: "Et" #?
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
@@ -2137,6 +2139,9 @@ fra:
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
+    x_cents:
+      one: "%{count} centime"
+      other: "%{count} centimes"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -2206,6 +2211,9 @@ fra:
     x_mandates:  #?
       one: "%{count} responsabilité" #?
       other: "%{count} responsabilités" #?
+    x_mills:
+      one: "%{count} millime"
+      other: "%{count} millimes"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -2394,6 +2402,7 @@ fra:
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
+      no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_replacements_since_beginning: "Aucun changement depuis le début"

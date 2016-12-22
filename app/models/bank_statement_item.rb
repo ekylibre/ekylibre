@@ -43,7 +43,6 @@ class BankStatementItem < Ekylibre::Record::Base
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
   has_one :journal, through: :cash
-  has_one :account, through: :cash
 
   delegate :started_on, :stopped_on, to: :bank_statement
 
@@ -91,6 +90,10 @@ class BankStatementItem < Ekylibre::Record::Base
 
   def cash_currency
     bank_statement && bank_statement.cash && bank_statement.cash.currency
+  end
+
+  def credit_balance
+    self.credit - self.debit
   end
 
   def balance=(new_balance)

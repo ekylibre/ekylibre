@@ -413,6 +413,7 @@ spa:
       new: "Añadir una entrega" #?
     backend/outgoing_payment_lists:
       index: "Pagos salientes lista de lotes"
+      new: "Nueva lista de salida de pago"
       show: "Lote de pagos salientes"
     backend/outgoing_payment_modes:
       edit: "Editar modo de desembolso"
@@ -497,6 +498,8 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"
@@ -1146,6 +1149,7 @@ spa:
     harvested_at: "Cosechadas en"
     help: "Ayuda"
     help_center: "Centro de ayuda"
+    hide_lettered_lines: "Ocultar las líneas con letras"
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
@@ -1345,11 +1349,13 @@ spa:
     new_email: "Nuevo Email"
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
+    new_incoming_payment: "Nueva entrada de pagos"
     new_inventory: "Nuevo inventario"
     new_issue: "Nueva edición"
     new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
+    new_outgoing_payment: "Nueva salida de pago"
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"
@@ -1804,6 +1810,9 @@ spa:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1870,6 +1879,9 @@ spa:
     x_journal_entries:
       one: "La escritura"
       other: "%{count} escrituras"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -2042,6 +2054,7 @@ spa:
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
       no_production_defined_for_current_campaign: "No se ha definido para la producción de la campaña actual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No se encontró producción. Se pueden añadir nuevos o copiar algunos de la campaña anterior."
+      no_purchase_affair_found_on_given_period: "No es un asunto compra que figura en determinado período"
       no_purchases_given: "No se dan las compras"
       no_reopenable_journal: "nos se puede cerrar este periodico."
       no_replacements_since_beginning: "No hay que sustituir una desde el principio"

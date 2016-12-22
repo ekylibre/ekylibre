@@ -55,6 +55,10 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert_not_nil first_year.next.previous
     assert_equal first_year, first_year.next.previous
 
-    assert_not_nil FinancialYear.at(Time.now + 49.years)
+    last_year = FinancialYear.order(stopped_on: :desc).first
+    # Test that we can add a new financial year
+    FinancialYear.create!(started_on: last_year.stopped_on + 1, stopped_on: last_year.stopped_on >> 15)
+
+    assert_not_nil FinancialYear.at(Time.zone.now + 49.years)
   end
 end

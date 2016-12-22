@@ -175,6 +175,42 @@ class Affair < Ekylibre::Record::Base
     self.credit - self.debit
   end
 
+  def absorb!(other)
+    unless other.is_a?(Affair)
+      raise "#{other.class.name} (ID=#{other.id}) cannot be merged in Affair"
+    end
+    return self if self == other
+    if other.currency != currency
+      raise ArgumentError, "The currency (#{currency}) is different of the affair currency(#{other.currency})"
+    end
+    Ekylibre::Record::Base.transaction do
+      other.deals.each do |deal|
+        deal.update_columns(affair_id: id)
+        deal.reload
+      end
+      refresh!
+      other.destroy!
+    end
+    self
+  end
+
+  def extract!(deal)
+    unless deals.include?(deal)
+      raise ArgumentError, 'Given deal is not one of the affair'
+    end
+    Ekylibre::Record::Base.transaction do
+      affair = self.class.create!(currency: deal.currency, third: deal.deal_third)
+      update_column(:affair_id, affair.id)
+      affair.refresh!
+      refresh!
+      destroy! if deals_count.zero?
+    end
+  end
+
+  def third_credit_balance
+    JournalEntryItem.where(entry: deals.map(&:journal_entry), account: third_account).sum('real_credit - real_debit')
+  end
+
   # Check if debit is equal to credit
   def unbalanced?
     !(self.debit == self.credit)

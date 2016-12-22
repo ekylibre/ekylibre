@@ -467,6 +467,7 @@ arb:
       new: "اضافة تسليم" #?
     backend/outgoing_payment_lists:
       index: "المدفوعات الصادرة قائمة دفعة"
+      new: "قائمة جديدة لدفع المنتهية ولايته"
       show: "المدفوعات الصادرة دفعة"
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
@@ -597,6 +598,8 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -1396,6 +1399,7 @@ arb:
     harvested_at: "تحصد في"
     help: "المساعدة"
     help_center: "مركز المساعدة"
+    hide_lettered_lines: "إخفاء خطوط بحروف"
     hint: "تلميح&nbsp;: %{value}"
     historic: "تاريخي"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
@@ -1649,11 +1653,13 @@ arb:
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
+    new_incoming_payment: "دفع الواردة الجديد"
     new_inventory: "جرد جديدة"
     new_issue: "مشكلة جديدة"
     new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
     new_outgoing_parcel: "الطرد الصادر الجديد"
+    new_outgoing_payment: "دفع المنتهية ولايته الجديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"
@@ -2219,6 +2225,9 @@ arb:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"
       zero: "ولا اي حساب" #?
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
@@ -2297,6 +2306,9 @@ arb:
       one: "تفويض واحد" #?
       other: "%{count} تفويض اخر" #?
       zero: "ولا اية تفويض" #?
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -2480,6 +2492,7 @@ arb:
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
       no_production_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية إنتاج"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
+      no_purchase_affair_found_on_given_period: "أي شراء علاقة جدت في فترة معينة"
       no_purchases_given: "لا مشتريات الممنوحة"
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_replacements_since_beginning: "لا البدلاء منذ بداية"
