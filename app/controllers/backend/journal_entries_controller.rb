@@ -126,5 +126,14 @@ module Backend
       end
       t3e @journal_entry.attributes
     end
+
+    def toggle_autocompletion
+      set_preference = params.require(:autocompletion)
+      choice = (set_preference == 'true')
+      return unless Preference.set!(:entry_autocompletion, choice)
+      respond_to do |format|
+        format.json { render json: { status: :success, preference: choice } }
+      end
+    end
   end
 end

@@ -15,7 +15,7 @@
     .control-group
       = label_tag "preference_entry_autocompletion", :activate_entry_autocompletion.tl, class: 'control-label'
       .controls
-        = check_box "preference", "entry_autocompletion", {}, true, false
+        = check_box "preference", "entry_autocompletion", {checked: Preference[:entry_autocompletion]}, true, false
     #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: '#journal_id'}}
       = render 'items_form', items: f.object.items
 
