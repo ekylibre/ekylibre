@@ -182,36 +182,36 @@ class JournalEntry < Ekylibre::Record::Base
     else
       self.real_currency_rate = 1
     end
-    self.real_debit   = items.sum(:real_debit)
-    self.real_credit  = items.sum(:real_credit)
+
+    self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.real_debit  || 0) }
+    self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.real_credit || 0) }
     self.real_balance = real_debit - real_credit
 
-    self.debit   = items.sum(:debit)
-    self.credit  = items.sum(:credit)
+    errors.add(:items, :empty) unless items.any?
+    errors.add(:balance, :unbalanced) unless real_balance.zero?
+
+    self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.debit  || 0) }
+    self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.credit || 0) }
 
     self.balance = debit - credit
 
     if real_balance.zero? && !balance.zero?
       error_sum = balance * 100
-      column = if error_sum > 0
-                 :credit
-               else
-                 :debit
-               end
+      column = error_sum > 0 ? :credit : :debit
 
       error_sum = error_sum.abs
 
       even_items = items.select { |item| !item.send(column).zero? }
-      proratas = even_items.map { |item| [item, item.send(column) / send(column)] }
-      proratas.reduce(error_sum) do |left, item|
-        error_to_update = [(error_sum * item[1]).ceil / 100.to_f, left].min
-        item[0].update_columns(column => item[0].send(column) + error_to_update)
+      proratas = even_items.map { |item| [item, item.send(column) / send(column)] }.to_h
+      proratas.reduce(error_sum) do |left, (item, prorata)|
+        error_to_update = [(error_sum * prorata).ceil / 100.to_f, left].min
+        item.send(:"#{column}=", item.send(column) + error_to_update)
 
         left - error_to_update * 100
       end
 
-      self.debit   = items.sum(:debit)
-      self.credit  = items.sum(:credit)
+      self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.debit   || 0) }
+      self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.credit  || 0) }
 
       self.balance = debit - credit
     end
@@ -339,44 +339,6 @@ class JournalEntry < Ekylibre::Record::Base
       end
     end
     entry
-  end
-
-  def save_with_items(entry_items)
-    ActiveRecord::Base.transaction do
-      saved = save
-
-      if saved
-        # Remove removed items and keep existings
-        items.where.not(id: entry_items.map { |i| i[:id] }).find_each(&:destroy)
-
-        entry_items.each_with_index do |entry_item, _index|
-          item = items.detect { |i| i.id == entry_item[:id].to_i }
-          if item
-            item.attributes = entry_item.except(:id)
-          else
-            item = items.build(entry_item.except(:id))
-          end
-          saved = false unless item.save
-        end
-        if saved
-          reload
-          unless items.any?
-            errors.add(:items, :empty)
-            saved = false
-          end
-          unless balanced?
-            errors.add(:debit, :unbalanced)
-            saved = false
-          end
-        end
-        if saved
-          return true
-        else
-          raise ActiveRecord::Rollback
-        end
-      end
-    end
-    false
   end
 
   # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".

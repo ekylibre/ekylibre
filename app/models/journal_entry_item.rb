@@ -110,12 +110,9 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   acts_as_list scope: :entry
 
-  before_update :uncumulate
+  before_update  :uncumulate
   before_destroy :uncumulate
-  after_create :update_entry
-  after_destroy :update_entry
-  after_destroy :unmark
-  after_update :update_entry
+  after_destroy  :unmark
 
   scope :between, lambda { |started_at, stopped_at|
     where(printed_on: started_at..stopped_at)

@@ -84,10 +84,11 @@ module Backend
 
     def create
       return unless @journal = find_and_check(:journal, params[:journal_id])
-      @journal_entry = @journal.entries.build(permitted_params)
+      items = params[:items].each_with_object({}) { |pair, hash| hash[pair.first] = pair.last.except(:id) }
+      @journal_entry = @journal.entries.build(permitted_params.merge(items_attributes: items.values).permit!)
       @journal_entry_items = (params[:items] || {}).values
       # raise @journal_entry_items.inspect
-      if @journal_entry.save_with_items(@journal_entry_items)
+      if @journal_entry.save
         if params[:affair_id]
           affair = Affair.find_by(id: params[:affair_id])
           if affair
@@ -101,6 +102,10 @@ module Backend
         end
         redirect_to params[:redirect] || { controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on }
         return
+      end
+      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+        next if /items\./ =~ field
+        messages.each { |m| notify_error_now "#{JournalEntry.human_attribute_name(field)}: #{m.capitalize}" }
       end
       t3e @journal.attributes
     end
