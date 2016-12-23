@@ -139,7 +139,6 @@ module Backend
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
       end
-      byebug
       @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
         next if /items\./ =~ field
         messages.each { |m| notify_error_now "#{JournalEntry.human_attribute_name(field)}: #{m.capitalize}" }
