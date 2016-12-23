@@ -376,8 +376,6 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
-    - "backend/quick_affairs#create"
-    - "backend/quick_affairs#new"
     - "backend/bank_statement_items#create"
     - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"
@@ -390,6 +388,8 @@ bank_statements:
     - "backend/bank_statements#reconciliation"
     - "backend/bank_statements#unletter"
     - "backend/bank_statements#update"
+    - "backend/quick_affairs#create"
+    - "backend/quick_affairs#new"
 
 building_divisions:
   read:

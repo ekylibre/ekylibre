@@ -4,7 +4,7 @@
 
 = main_informations attachment: true do
   .pull-right
-    .med-info.important 
+    .med-info.important
       - if resource.balance_debit != 0.0
         %span.title= resource.human_attribute_name(:balance_debit)
         %span.value= resource.balance_debit.l(currency: resource.currency)
@@ -19,7 +19,7 @@
     - l.attribute(:started_on)
     - l.attribute(:stopped_on)
     - l.attribute(:journal_entry, url: true)
-    
+
 
 = cobbles do |c|
 

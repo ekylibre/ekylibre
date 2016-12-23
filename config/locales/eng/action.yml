@@ -1517,7 +1517,7 @@ eng:
     products: "Products"
     profile: "Profile"
     profits_and_losses: "Profits and losses"
-    purchase: "Purchase" #?
+    purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
