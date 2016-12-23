@@ -268,6 +268,11 @@ class Cash < Ekylibre::Record::Base
       end
     end
   end
+  
+  # Return last entry date
+  def last_entry_date
+    main_journal_entry_items.reorder(:printed_on).last.printed_on
+  end
 
   # Returns (real) main account cash balance in the global currency
   def balance(at = Time.zone.now)
