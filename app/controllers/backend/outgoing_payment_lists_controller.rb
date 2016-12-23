@@ -82,7 +82,7 @@ module Backend
         @outgoing_payment_list.mode = mode
 
         if @outgoing_payment_list.valid?
-          @thirds = Entity.includes(:purchase_affairs).where(affairs: { closed: false, currency: mode.cash.currency }).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at])
+          @thirds = Entity.includes(:purchase_affairs).where(affairs: {closed: false, currency: mode.cash.currency}).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at] ).order("affairs.third_id, affairs.created_at")
         end
       else
         notify_warning :no_purchase_affair_found_on_given_period
