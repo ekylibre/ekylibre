@@ -82,6 +82,7 @@ module Backend
         @outgoing_payment_list.mode = mode
 
         if @outgoing_payment_list.valid?
+          @currency = mode.cash.currency
           @thirds = Entity.includes(:purchase_affairs).where(affairs: {closed: false, currency: mode.cash.currency}).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at] ).order("affairs.third_id, affairs.created_at")
         end
       else

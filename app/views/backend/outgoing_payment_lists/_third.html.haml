@@ -6,5 +6,6 @@
     = render partial: 'purchase_affair', collection: third.purchase_affairs, locals: {f:f}
   %tfoot
     %tr.total
-      %td{colspan: 3}= :total.tl
+      %td{colspan: 2}= :total.tl
       %td{data: {outgoing_payment_total: true}}= 0.0
+      %td= @currency

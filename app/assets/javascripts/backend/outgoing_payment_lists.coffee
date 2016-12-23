@@ -1,4 +1,4 @@
-((E, $) ->
+((E, $, C) ->
   'use strict'
 
   $(document).on "change", "*[data-outgoing-payment-purchase-affair-selector]", (e) ->
@@ -22,7 +22,7 @@
     $affairs.each () ->
       total += parseFloat $(this).data('outgoing-payment-selected-amount')
 
-    $total.text total
+    $total.text C.toCurrency(total)
 
   return
-) ekylibre, jQuery
+) ekylibre, jQuery, calcul
