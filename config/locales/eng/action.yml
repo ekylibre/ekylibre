@@ -879,6 +879,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
     active_finishing_within: "Active finishing within" #?
