@@ -118,7 +118,6 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
-    binding.pry
     outgoing_payments = thirds.map.with_index do |third, third_index|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
       first_affair = third_affairs.first

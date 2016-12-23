@@ -30,5 +30,10 @@
     if total < 0
       $total.addClass('error')
 
+
+  $(document).on "click", "[data-outgoing-payment-third] thead ", (e) ->
+    $(e.currentTarget).siblings('tbody').toggle()
+    return false
+
   return
 ) ekylibre, jQuery, calcul
