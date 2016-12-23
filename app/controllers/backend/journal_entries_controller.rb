@@ -63,10 +63,15 @@ module Backend
     end
 
     def new
-      @journal_entry = JournalEntry.new
-      @journal_entry.printed_on = params[:printed_on] || Time.zone.today
-      @journal_entry.real_currency_rate = params[:exchange_rate].to_f
-      @journal = Journal.find_by(id: params[:journal_id])
+      if params[:duplicate_of]
+        @journal_entry = JournalEntry.find_by(id: params[:duplicate_of])
+        @journal = @journal_entry.journal
+      else
+        @journal_entry = JournalEntry.new
+        @journal_entry.printed_on = params[:printed_on] || Time.zone.today
+        @journal_entry.real_currency_rate = params[:exchange_rate].to_f
+        @journal = Journal.find_by(id: params[:journal_id])
+      end
       if @journal
         @journal_entry.journal = @journal
         t3e @journal.attributes
