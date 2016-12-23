@@ -116,7 +116,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     new(payments: outgoing_payments, mode: mode)
   end
 
-  def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil)
+  def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
     outgoing_payments = thirds.map.with_index do |third, third_index|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
@@ -125,6 +125,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         first_affair.absorb!(affair) if index > 0
       end
       next if first_affair.balanced?
+      next if ignore_empty_affair && first_affair.third_credit_balance <= 0
       OutgoingPayment.new(
         affair: first_affair,
         amount: first_affair.third_credit_balance,
