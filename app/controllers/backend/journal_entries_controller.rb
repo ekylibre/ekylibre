@@ -129,11 +129,20 @@ module Backend
         return
       end
       @journal = @journal_entry.journal
-      @journal_entry.attributes = permitted_params
+      items = params[:items].each_with_object({}) do |pair, hash|
+        attributes = pair.last[:id].to_i > 0 ? pair.last : pair.last.except(:id)
+        hash[pair.first] = attributes
+      end
+      @journal_entry.attributes = permitted_params.merge(items_attributes: items.values).permit!
       @journal_entry_items = (params[:items] || {}).values
-      if @journal_entry.save_with_items(@journal_entry_items)
+      if @journal_entry.save
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
+      end
+      byebug
+      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+        next if /items\./ =~ field
+        messages.each { |m| notify_error_now "#{JournalEntry.human_attribute_name(field)}: #{m.capitalize}" }
       end
       t3e @journal_entry.attributes
     end
