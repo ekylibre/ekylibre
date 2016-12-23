@@ -65,6 +65,7 @@ module Backend
     def new
       if params[:duplicate_of]
         @journal_entry = JournalEntry.find_by(id: params[:duplicate_of])
+                                     .deep_clone(include: :items, except: :number)
         @journal = @journal_entry.journal
       else
         @journal_entry = JournalEntry.new
