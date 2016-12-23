@@ -95,7 +95,7 @@ module Backend
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
         mode_id = params[:outgoing_payment_list][:mode_id] if params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
-        outgoing_payment_list = OutgoingPaymentList.build_from_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number]
+        outgoing_payment_list = OutgoingPaymentList.build_from_affairs affairs, OutgoingPaymentMode.find_by(id: mode_id), current_user, params[:bank_check_number], true
         outgoing_payment_list.save!
 
         redirect_to action: :show, id: outgoing_payment_list.id
