@@ -11,7 +11,7 @@ class FrontendRegistrations < CapybaraIntegrationTest
   end
 
   def register
-    visit("/authentication/sign_up?locale=#{@locale}")
+    visit("/signup?locale=#{@locale}")
     fill_in 'First name', with: 'Robert'
     fill_in 'Last name', with: 'Tee'
     select('English', from: 'Language')
