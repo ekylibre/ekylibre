@@ -938,7 +938,6 @@ Rails.application.routes.draw do
 
     resources :tax_declarations, concerns: [:list, :unroll], path: 'tax-declarations' do
       member do
-        get :list_items
         post :propose
         post :confirm
       end

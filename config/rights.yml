@@ -2117,7 +2117,6 @@ tax_declarations:
     actions:
     - "backend/tax_declarations#index"
     - "backend/tax_declarations#list"
-    - "backend/tax_declarations#list_items"
     - "backend/tax_declarations#show"
     - "backend/tax_declarations#unroll"
   write:
