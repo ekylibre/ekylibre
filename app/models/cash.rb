@@ -286,7 +286,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   # Returns (theoric) suspense account cash balance in the global currency
-  def suspended_balance(at = Time.zone.now)
+  def suspended_balance(_at = Time.zone.now)
     suspended_journal_entry_items.sum('real_debit - real_credit') || 0.0
   end
 end

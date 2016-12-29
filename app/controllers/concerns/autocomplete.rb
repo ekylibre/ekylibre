@@ -28,7 +28,7 @@ module Autocomplete
                 .order(column => :asc)
                 .limit(15)
         respond_to do |format|
-          format.html { render inline: '<%= content_tag(:ul, items.map { |item| content_tag(:li, item.send(column)) }.join.html_safe) %>' }
+          format.html { render inline: '<%= content_tag(:ul, items.map { |item| content_tag(:li, item.send(column)) }.join.html_safe) %>', locals: { items: items, column: column } }
           format.json { render json: items.map { |item| item.send(column) }.to_json }
         end
       end
