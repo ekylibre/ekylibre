@@ -170,7 +170,6 @@
         <page to="backend/tax_declarations#destroy"/>
         <page to="backend/tax_declarations#edit"/>
         <page to="backend/tax_declarations#list"/>
-        <page to="backend/tax_declarations#list_items"/>
         <page to="backend/tax_declarations#confirm"/>
         <page to="backend/tax_declarations#propose"/>
         <page to="backend/tax_declarations#new"/>

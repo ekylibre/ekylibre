@@ -2,6 +2,6 @@
   = infos do
     - @cashes.each do |cash|
       - balance = cash.balance
-      = info(cash.name, balance.l(currency: cash.currency), class: (balance > 0 ? :positive : balance < 0 ? :negative : :caution))
+      = info(cash.name + " : " + cash.last_entry_date.l, balance.l(currency: cash.currency), class: (balance > 0 ? :positive : balance < 0 ? :negative : :caution))
 - else
   = no_data

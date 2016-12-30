@@ -244,6 +244,8 @@ fra:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
+          initial_balance_credit:  #?
+            unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
           ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
           ofx_file_invalid: "Fichier OFX invalide"
