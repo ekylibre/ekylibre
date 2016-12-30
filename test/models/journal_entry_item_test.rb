@@ -83,7 +83,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
   end
 
-  test 'valid case' do
+  test 'classical case' do
     journal = Journal.where(currency: Preference[:currency]).first
     entry = JournalEntry.new(
       journal: journal,
@@ -101,7 +101,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   end
 
   # Test case when debit and credit are invalid
-  test 'wrong case' do
+  test 'both filled debit and credit' do
     journal = Journal.where(currency: Preference[:currency]).first
     entry = JournalEntry.new(
       journal: journal,

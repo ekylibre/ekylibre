@@ -117,6 +117,7 @@
         <page to="backend/journal_entries#update"/>
         <page to="backend/journal_entries#index"/>
         <page to="backend/journal_entries#list"/>
+        <page to="backend/journal_entries#toggle_autocompletion"/>
         <page to="backend/journal_entries#unroll"/>
         <page to="backend/journal_entry_items#new"/>
         <page to="backend/journal_entry_items#index"/>

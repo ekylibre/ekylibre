@@ -733,6 +733,7 @@ jpn:
     accounts: "アカウント"
     accounts_only_used_at: "のみで使用するアカウント"
     accounts_to_load: "ロードするアカウント"
+    activate_entry_autocompletion: "エントリの自動補完を有効にします"
     active: "アクティブ"
     active_finishing_after: "後のアクティブ仕上げ"
     active_finishing_within: "内のアクティブな仕上げ"
