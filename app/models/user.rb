@@ -6,7 +6,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -89,6 +89,7 @@ class User < Ekylibre::Record::Base
   has_many :deliveries, foreign_key: :responsible_id
   has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
+  has_many :intervention_participations, through: :worker
 
   scope :employees, -> { where(employed: true) }
   scope :administrators, -> { where(administrator: true) }
@@ -105,12 +106,12 @@ class User < Ekylibre::Record::Base
   validates :language, presence: true
   validates :maximal_grantable_reduction_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
-  validates :language, length: { allow_nil: true, maximum: 3 }
+  validates :language, length: {allow_nil: true, maximum: 3}
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
   validates :password, confirmation: true
-  validates :maximal_grantable_reduction_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :maximal_grantable_reduction_percentage, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 100}
   validates :email, :person_id, uniqueness: true
-  validates :role, presence: { unless: :administrator_or_unapproved? }
+  validates :role, presence: {unless: :administrator_or_unapproved?}
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
@@ -205,6 +206,7 @@ class User < Ekylibre::Record::Base
     p ||= prefer!(name, default_value, nature)
     p
   end
+
   alias pref preference
 
   def prefer!(name, value, nature = nil)
@@ -294,23 +296,6 @@ class User < Ekylibre::Record::Base
     update_column(:locked, false)
   end
 
-  # Returns the days where the user has crumbs present
-  def unconverted_crumb_days
-    crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
-  end
-
-  # Returns all crumbs, grouped by interventions paths, for the current user.
-  # The result is an array of interventions paths.
-  # An intervention path is an array of crumbs, for a user, ordered by read_at,
-  # between a start crumb and a stop crumb.
-  def interventions_paths(options = {})
-    crumbs = reload.crumbs.unconverted.where(nature: :start)
-    if options[:on]
-      crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
-    end
-    crumbs.order(read_at: :asc).map(&:intervention_path).uniq
-  end
-
   def current_campaign
     return nil unless default_campaign = Campaign.order(harvest_year: :desc).first
     preference = self.preference('current_campaign.id', default_campaign.id, :integer)
@@ -366,14 +351,14 @@ class User < Ekylibre::Record::Base
   def self.generate_password(password_length = 8, mode = :normal)
     return '' if password_length.blank? || password_length < 1
     letters = case mode
-              when :dummy then
-                %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
-              when :simple then
-                %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
-              when :normal then
-                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
-              else
-                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
+                when :dummy then
+                  %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
+                when :simple then
+                  %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
+                when :normal then
+                  %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
+                else
+                  %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
               end
     letters_length = letters.length
     password = ''

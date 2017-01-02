@@ -321,6 +321,9 @@ fra:
       edit: "Modifier la connexion %{name}"
       index: "Connexions partenaires"
       new: "Activer la connexion %{name}"
+    backend/intervention_participations:
+      convert: "Convert intervention participation: %{name}"
+      index: "Participations d'intervention"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d'intervention"
@@ -1549,6 +1552,7 @@ fra:
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
+    no_intervention_participations_to_check: "Pas de participations d'intervention à vérifier"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_notifications: "Aucune notification"
     no_origin: "— Sans origine —" #?

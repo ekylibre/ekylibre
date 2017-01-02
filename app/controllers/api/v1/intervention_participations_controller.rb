@@ -18,7 +18,8 @@ module Api
           )
         else
           participation = InterventionParticipation.new(
-            product_id: current_user.worker.id
+            product_id: current_user.worker.id,
+            procedure_name: Procedo.find(params[:procedure_name]) ? params[:procedure_name] : nil
           )
         end
         participation.request_compliant = !params[:request_compliant].to_i.zero?
@@ -42,7 +43,8 @@ module Api
               geolocation: crumb['geolocation'],
               read_at: crumb['read_at'],
               accuracy: crumb['accuracy'],
-              device_uid: params[:device_uid]
+              device_uid: params[:device_uid],
+              user_id: current_user.worker.id
             )
           end
         end
