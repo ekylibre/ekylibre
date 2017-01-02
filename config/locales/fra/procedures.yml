@@ -263,6 +263,7 @@ fra:
     zone: "Zone"
   procedures:
     administrative_task: "Tâche administrative générale" #?
+    administrative_tasks: "Tâches administratives"
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
     animal_antibiotic_treatment: "Traitement antibiotique"
     animal_artificial_insemination: "Insémination articielle animale"
@@ -311,6 +312,7 @@ fra:
     group_exclusion: "Exclusion de groupe" #?
     group_inclusion: "Inclusion de groupe" #?
     hand_weeding: "Désherbage manuel"
+    handling: "Manutention"
     harvest_helping: "Aide à la récolte" #?
     harvest_transportation: "Transport de récolte"
     harvesting: "Récolte"
@@ -322,6 +324,7 @@ fra:
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
+    installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"

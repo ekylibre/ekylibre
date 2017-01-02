@@ -32,7 +32,7 @@ module Backend
       code << "    interval = params[:period].split('_')\n"
       code << "    first_date = interval.first\n"
       code << "    last_date = interval.last\n"
-      code << "    c[0] << \" AND #{Animal.table_name}.born_at BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Animal.table_name}.born_at::DATE BETWEEN ? AND ?\"\n"
       code << "    c << first_date\n"
       code << "    c << last_date\n"
       code << "  end\n "

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,17 +44,17 @@ sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  last_cweek: 46
-  last_month: 11
-  last_number: 19
+  last_cweek: 51
+  last_month: 12
+  last_number: 20
   last_year: 2016
-  lock_version: 20
+  lock_version: 21
   name: Sales
   number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 22:12:25.306687000 Z
+  updated_at: 2016-12-20 08:53:53.325877000 Z
   updater_id: 1
   usage: sales
 sequences_002:
@@ -78,17 +78,17 @@ sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
   creator_id: 1
   id: 3
-  last_cweek: 32
-  last_month: 8
-  last_number: 124
+  last_cweek: 51
+  last_month: 12
+  last_number: 125
   last_year: 2016
-  lock_version: 126
+  lock_version: 127
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-08-10 14:27:49.837974000 Z
+  updated_at: 2016-12-20 18:24:29.472854000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -176,34 +176,34 @@ sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
   creator_id: 1
   id: 9
-  last_cweek: 26
-  last_month: 7
-  last_number: 18
+  last_cweek: 51
+  last_month: 12
+  last_number: 20
   last_year: 2016
-  lock_version: 20
+  lock_version: 22
   name: Document
   number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-07-01 20:12:54.997405000 Z
+  updated_at: 2016-12-20 14:08:30.039629000 Z
   updater_id: 1
   usage: documents
 sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
   creator_id: 1
   id: 10
-  last_cweek: 46
-  last_month: 11
-  last_number: 44
+  last_cweek: 51
+  last_month: 12
+  last_number: 47
   last_year: 2016
-  lock_version: 47
+  lock_version: 50
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 22:15:20.570612000 Z
+  updated_at: 2016-12-20 18:16:57.019268000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -236,51 +236,51 @@ sequences_013:
   created_at: 2014-11-01 16:25:18.214468000 Z
   creator_id: 1
   id: 13
-  last_cweek: 46
-  last_month: 11
-  last_number: 5
+  last_cweek: 51
+  last_month: 12
+  last_number: 7
   last_year: 2016
-  lock_version: 6
+  lock_version: 8
   name: Perte ou profit
   number_format: E[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-11-20 22:15:36.369440000 Z
+  updated_at: 2016-12-20 18:17:24.061013000 Z
   updater_id: 1
   usage: gaps
 sequences_014:
   created_at: 2014-11-01 16:25:18.232107000 Z
   creator_id: 1
   id: 14
-  last_cweek: 46
-  last_month: 11
-  last_number: 2
+  last_cweek: 51
+  last_month: 12
+  last_number: 3
   last_year: 2016
-  lock_version: 5
+  lock_version: 6
   name: Encaissement
   number_format: R[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 22:10:52.938338000 Z
+  updated_at: 2016-12-20 08:58:52.975765000 Z
   updater_id: 1
   usage: incoming_payments
 sequences_015:
   created_at: 2014-11-01 16:25:18.953891000 Z
   creator_id: 1
   id: 15
-  last_cweek: 32
-  last_month: 8
-  last_number: 31
+  last_cweek: 51
+  last_month: 12
+  last_number: 32
   last_year: 2016
-  lock_version: 32
+  lock_version: 33
   name: Intervention
   number_format: "[number]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-08-10 14:33:28.771594000 Z
+  updated_at: 2016-12-20 18:24:29.428552000 Z
   updater_id: 1
   usage: interventions
 sequences_016:
@@ -304,17 +304,17 @@ sequences_017:
   created_at: 2014-11-01 16:25:18.981743000 Z
   creator_id: 1
   id: 17
-  last_cweek: 46
-  last_month: 11
-  last_number: 5
+  last_cweek: 51
+  last_month: 12
+  last_number: 6
   last_year: 2016
-  lock_version: 8
+  lock_version: 9
   name: Décaissement
   number_format: D[year|4][number|4]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 22:14:52.571197000 Z
+  updated_at: 2016-12-20 18:17:18.696066000 Z
   updater_id: 1
   usage: outgoing_payments
 sequences_018:
@@ -334,34 +334,34 @@ sequences_019:
   created_at: 2014-11-01 16:25:19.021542000 Z
   creator_id: 1
   id: 19
-  last_cweek: 46
-  last_month: 11
-  last_number: 3
+  last_cweek: 51
+  last_month: 12
+  last_number: 5
   last_year: 2016
-  lock_version: 8
+  lock_version: 10
   name: Achat
   number_format: A[year|4][month|2][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 22:15:20.524282000 Z
+  updated_at: 2016-12-20 18:16:56.939492000 Z
   updater_id: 1
   usage: purchases
 sequences_020:
   created_at: 2014-11-01 16:25:19.028014000 Z
   creator_id: 1
   id: 20
-  last_cweek: 46
-  last_month: 11
-  last_number: 8
+  last_cweek: 51
+  last_month: 12
+  last_number: 9
   last_year: 2016
-  lock_version: 12
+  lock_version: 13
   name: sales_invoices
   number_format: F[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-11-20 22:12:46.176646000 Z
+  updated_at: 2016-12-20 08:54:01.424655000 Z
   updater_id: 1
   usage: sales_invoices
 sequences_021:
@@ -533,3 +533,37 @@ sequences_031:
   updated_at: 2016-10-26 15:31:44.102806000 Z
   updater_id: 1
   usage: outgoing_payment_lists
+sequences_032:
+  created_at: 2016-12-20 09:05:17.904488000 Z
+  creator_id: 1
+  id: 32
+  last_cweek: 51
+  last_month: 12
+  last_number: 2
+  last_year: 2016
+  lock_version: 2
+  name: Déclaration d’impôts
+  number_format: TD[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-12-20 09:05:31.235673000 Z
+  updater_id: 1
+  usage: tax_declarations
+sequences_033:
+  created_at: 2016-12-20 18:26:27.958604000 Z
+  creator_id: 1
+  id: 33
+  last_cweek: 51
+  last_month: 12
+  last_number: 2
+  last_year: 2016
+  lock_version: 2
+  name: Comptage
+  number_format: PC[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2016-12-20 18:27:12.402372000 Z
+  updater_id: 1
+  usage: plant_countings

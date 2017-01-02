@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161103111303">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20161219231801">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -503,6 +503,7 @@
       <item name="usual_bank_overdraft" fr_pcg82="519"/>
       <item name="various_exceptional_revenues" fr_pcg82="778"/>
       <item name="vat" fr_pcga="445" pt_snc="243"/>
+      <item name="vat_to_pay" fr_pcg82="44551"/>
       <item name="vegetals_making_services_expenses" fr_pcga="6051"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="waiting_vat" fr_pcg82="4458"/>
@@ -1453,6 +1454,7 @@
       <item name="manure_management_plan_sheet" category="land_parcel_management"/>
       <item name="outgoing_deliveries_journal" category="exploitation"/>
       <item name="outgoing_delivery_docket" category="exploitation"/>
+      <item name="outgoing_payment_list" category="exploitation"/>
       <item name="phytosanitary_certification" category="land_parcel_management"/>
       <item name="phytosanitary_register" category="land_parcel_management"/>
       <item name="prescription" category="health"/>
@@ -2088,6 +2090,7 @@
   <nomenclature name="procedure_actions" translateable="true">
     <items>
       <item name="acaricide"/>
+      <item name="administrative"/>
       <item name="animal_artificial_insemination"/>
       <item name="animal_feeding"/>
       <item name="animal_group_changing"/>
@@ -2141,6 +2144,7 @@
       <item name="greasing"/>
       <item name="greenhouse_assembling"/>
       <item name="growth_regulator"/>
+      <item name="handling"/>
       <item name="hardpan_destruction"/>
       <item name="harvest"/>
       <item name="herbicide"/>
@@ -2153,6 +2157,11 @@
       <item name="indirect_silage"/>
       <item name="insect_repellent"/>
       <item name="insecticide"/>
+      <item name="installation_cleaning"/>
+      <item name="installation_construction"/>
+      <item name="installation_maintenance"/>
+      <item name="installation_renovation"/>
+      <item name="installation_repairing"/>
       <item name="irrigation"/>
       <item name="irrigation_pump_lifting"/>
       <item name="irrigation_system_improvement"/>
@@ -2233,6 +2242,7 @@
       <property name="activity_family" type="item_list" choices="activity_families"/>
     </properties>
     <items>
+      <item name="administrative_tasks" activity_family="administering"/>
       <item name="animal_breeding" activity_family="animal_farming"/>
       <item name="animal_feeding" activity_family="animal_farming"/>
       <item name="animal_production" activity_family="animal_farming"/>
@@ -2247,6 +2257,7 @@
       <item name="fertilizing" activity_family="plant_farming"/>
       <item name="fish_transformation" activity_family="processing"/>
       <item name="habitat_maintenance" activity_family="animal_farming"/>
+      <item name="handling" activity_family="tool_maintaining"/>
       <item name="harvesting" activity_family="plant_farming"/>
       <item name="installations_modification" activity_family="animal_farming, tool_maintaining, plant_farming"/>
       <item name="irrigating" activity_family="plant_farming"/>
@@ -9572,6 +9583,7 @@
       <item name="brassica_napus" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_napus_annua" parent="brassica_napus" itis_tsn="23060"/>
       <item name="brassica_napus_napus" parent="brassica_napus" itis_tsn="23060"/>
+      <item name="brassica_napus_napus_dk_exalte" parent="brassica_napus"/>
       <item name="brassica_napus_rapifera" parent="brassica_napus" itis_tsn="23062"/>
       <item name="brassica_nigra" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_oleracea" parent="brassica" itis_tsn="23062"/>
@@ -11551,14 +11563,17 @@
       <item name="triticosecale" parent="poaceae" itis_tsn="41455"/>
       <item name="triticum" parent="poaceae" itis_tsn="42236"/>
       <item name="triticum_aestivum" parent="triticum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_alixan" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_allies" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_apache" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_arezzo" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_as_de_coeur" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_ascott" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_autan" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_automne_rouge_barbu" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_autrichien" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_aztec" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_bermude" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_blanc_de_flandre" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_ble_de_crepi" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_ble_de_redon" parent="triticum_aestivum" itis_tsn="42237"/>
@@ -11596,10 +11611,12 @@
       <item name="triticum_aestivum_later" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_levis" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_lona" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_lyrik" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_manital" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_noe" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_nord_desprez" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_oratorio" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_oregrain" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_picardie_desprez" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_poulard_d_australie" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_premio" parent="triticum_aestivum"/>
@@ -11612,17 +11629,21 @@
       <item name="triticum_aestivum_quebon" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_recital" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_renan" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_rgt_sacramento" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_rouge_d_alsace" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_rouge_de_bordeaux" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_roux_des_ardennes" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_rubisko" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_runal" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_sherlock" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_shireff_epis_carres" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_soissons" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_tamaro" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_terroir" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_teverson" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_texel" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_tremie" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_triomph" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_victoria_d_automne" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_vilmorin_23" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_vilmorin_27" parent="triticum_aestivum" itis_tsn="42237"/>

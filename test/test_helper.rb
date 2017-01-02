@@ -642,6 +642,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     file = Rails.root.join('tmp', 'screenshots', "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     wait_for_ajax
+    page.save_screenshot(file)
     save_page file.to_s.gsub(/\.png\z/, '.html')
     # , full: true
   end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -218,6 +218,20 @@ class Product < Ekylibre::Record::Base
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
+  scope :availables, ->(**args) {
+    at = args[:at]
+    return available if at.blank?
+    if at.is_a?(String)
+      if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      else
+        logger.warn('Cannot parse: ' + at)
+        available
+      end
+    else
+      available.at(at)
+    end
+  }
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
@@ -336,21 +350,6 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
-
-    def availables(**args)
-      at = args[:at]
-      return available if at.blank?
-      if at.is_a?(String)
-        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
-          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
-        else
-          logger.warn('Cannot parse: ' + at)
-          available
-        end
-      else
-        available.at(at)
-      end
-    end
   end
 
   def production(at = nil)

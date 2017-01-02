@@ -592,6 +592,11 @@ arb:
         financial_year_id: "المدة المقدرة" #?
         nature: "نظام التصريح" #?
         updated_at: "تم تحديثها في" #?
+      tax_declaration_item:
+        collected: "جمع"
+        deductible: "خصم"
+        fixed_asset_deductible: "خصم على الأصول"
+        intracommunity_payable: "Intracommunity المستحق"
       team:  #?
         company_id: "الشركة" #?
         parent_id: "النسب" #?
@@ -650,6 +655,7 @@ arb:
         # invalid_datetime: "%{attribute} is not a valid datetime"
         # invalid_time: "%{attribute} is not a valid time"
         invalid_token: "%{attribute} غير متوفر.%{error} النموذج غير معروف.%{accepted} النماذج المقبولة هي"
+        # is: "%{attribute} must be a %{thing}"
         # is_at: "%{attribute} must be at %{restriction}"
         less_than: "%{attribute} يجب ان يكون اقل من %{count}"
         less_than_or_equal_to: "%{attribute} يجب ان يكون اقل او يساو %{count}"
@@ -683,6 +689,7 @@ arb:
           unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
         custom_field_datum:  #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
@@ -969,6 +976,7 @@ arb:
       purchase_gap: "الفجوة شراء"
       purchase_item: "طريقة طلب الشراء"
       purchase_nature: "نوع شراء"
+      regularization: "تسوية"
       role: "الدور"
       sale: "البيع"
       sale_affair: "بيع القضية"
@@ -990,6 +998,7 @@ arb:
       subscription_nature: "نوع الاشتراك"
       supervision: "إشراف"
       supervision_item: "البند إشراف"
+      synchronization_operation: "عملية المزامنة"
       target_distribution: "توزيع هدف"
       task: "مهمة"
       tax: "الضريبة"
@@ -1213,6 +1222,7 @@ arb:
     components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
+    compute_from: "حساب من"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
@@ -1231,6 +1241,7 @@ arb:
     content_localizations: "تعريب المحتوى"
     contents: "محتويات"
     contract: "عقد"
+    contract_items: "بنود العقد"
     contracts: "عقود"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
@@ -1613,6 +1624,8 @@ arb:
     intervention_product_parameters: "يلقي تدخل"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"
+    # intracommunity: "Intracommunity"
+    intracommunity_payable_account: "حساب المستحق Intracommunity"
     introduction: "المقدمة"
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
@@ -2029,6 +2042,7 @@ arb:
     purchasable: "للشراء"
     purchase: "شراء"
     purchase_affair: "قضية شراء"
+    purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
     purchase_item: "البند شراء"
@@ -2102,6 +2116,7 @@ arb:
     reflected_at: "ينعكس في"
     reflection_nodes: "العقد انعكاس"
     reflections: "خواطر"
+    # regularizations: "Regularizations"
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
@@ -2308,9 +2323,11 @@ arb:
     tax_declaration: "الإقرار الضريبي"
     tax_declaration_frequency: "تردد الإقرار الضريبي"
     tax_declaration_item: "الضرائب البند إعلان"
+    tax_declaration_items: "بنود الإقرار الضريبي"
     tax_declaration_mode: "وضع الإقرار الضريبي"
     tax_declarations: "الاعلان عن الضرائب"
     tax_id: "الضريبة" #?
+    tax_payability: "payability الضرائب"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
     team: "الفريق"
@@ -2319,6 +2336,7 @@ arb:
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
     theme: "موضوع"
+    theoretical_number: "عدد النظري"
     theoric_quantity: "الكمية النظرية" #?
     third: "ثلث"
     third_producer: "ثالث منتج" #?

@@ -180,6 +180,11 @@ fra:
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
+      tax_declaration_item:
+        collected: "Collectée"
+        deductible: "Déductible"
+        fixed_asset_deductible: "Déductible sur immobilisation"
+        intracommunity_payable: "Intra-communautaire"
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
@@ -212,6 +217,7 @@ fra:
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
@@ -238,6 +244,8 @@ fra:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
+          initial_balance_credit:  #?
+            unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
           ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
           ofx_file_invalid: "Fichier OFX invalide"
@@ -245,6 +253,7 @@ fra:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
+          different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
         deposit:
           must_be_a_bank_account: "%{field} doit être un compte bancaire et non une caisse"
@@ -459,6 +468,7 @@ fra:
       purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"
@@ -475,6 +485,7 @@ fra:
       subscription_nature: "Type d’abonnement"
       supervision: "Supervision"
       supervision_item: "Supervisé"
+      synchronization_operation: "Opération de synchronisation"
       target_distribution: "Répartition de cible"
       task: "Tâche"
       tax: "Taxe"
@@ -673,6 +684,7 @@ fra:
     components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
+    compute_from: "Calculer à partir"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
@@ -694,6 +706,7 @@ fra:
     contents: "Contenu"
     contour: "Silhouette" #?
     contract: "Contrat"
+    contract_items: "Éléments du contrat"
     contracts: "Contrats"
     coordinate: "Coordonnée"
     coordinate_columns: "Colonnes de coordonnées"
@@ -994,7 +1007,7 @@ fra:
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
-    initial_balance_credit: "Crédit d’équilibre initial"
+    initial_balance_credit: "Crédit du solde initial"
     initial_balance_debit: "Débit du solde initial"
     initial_born_at: "Date initiale de naissance"
     initial_container: "Emplacement initial"
@@ -1031,6 +1044,8 @@ fra:
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
+    intracommunity: "Intracommunautaire"
+    intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
     invitation_accepted_at: "Invitation acceptée à"
@@ -1392,6 +1407,7 @@ fra:
     purchasable: "Achetable"
     purchase: "Achat"
     purchase_affair: "Affaire d’achat"
+    purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
@@ -1457,6 +1473,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
+    regularizations: "Régularisations"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
     remaining_lifespan: "Vie restante"
@@ -1620,12 +1637,15 @@ fra:
     tax_declaration: "Déclaration d’impôts"
     tax_declaration_frequency: "Fréquence de déclaration d’impôt"
     tax_declaration_item: "Tax élément de déclaration"
+    tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration d’impôt"
     tax_declarations: "Déclarations fiscales"
+    tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
     theme: "Thème"
+    theoretical_number: "Numéro théorique"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers" #?
@@ -2047,7 +2067,7 @@ fra:
           done: "Fini"
           todo: "À faire"
     tax_declaration:
-      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
     team:
       default: "Général"
     user:

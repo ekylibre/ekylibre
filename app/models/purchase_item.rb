@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -107,14 +107,15 @@ class PurchaseItem < Ekylibre::Record::Base
     self.reduction_percentage ||= 0
 
     if tax && unit_pretax_amount
-      item = Nomen::Currency.find(currency)
-      precision = item ? item.precision : 2
-      self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      self.unit_amount = tax.amount_of(unit_pretax_amount)
+      raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
-        self.pretax_amount = (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+        raw_pretax_amount = unit_pretax_amount * self.quantity * reduction_coefficient
+        self.pretax_amount = raw_pretax_amount.round(precision)
       end
       if amount.nil? || amount.zero?
-        self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+        self.amount = tax.amount_of(raw_pretax_amount || pretax_amount).round(precision)
       end
     end
 
@@ -168,6 +169,10 @@ class PurchaseItem < Ekylibre::Record::Base
         end
       end
     end
+  end
+
+  def reduction_coefficient
+    (100.0 - reduction_percentage) / 100.0
   end
 
   def product_name

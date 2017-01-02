@@ -86,7 +86,7 @@ gem 'exception_notification'
 # Views helpers
 gem 'haml'
 gem 'simple_calendar'
-gem 'active_list', '>= 6.6.0' # , path: "../active_list"
+gem 'active_list', '>= 6.7.0' # , path: "../active_list"
 
 # Models helpers
 gem 'uuidtools'
@@ -117,6 +117,7 @@ gem 'remotipart', '~> 1.2'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc12'
+gem 'humanize'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -61,6 +61,42 @@ class AffairTest < ActiveSupport::TestCase
       model = type.constantize
       assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
     end
+  end
+
+  test 'attachment' do
+    sale = Sale.first
+    assert sale
+    affair = sale.affair
+    assert affair
+    affair.refresh! # Needed until affair#deals_count is up-to-date
+    count = 1
+    payment = IncomingPayment.where(payer: sale.client).first
+    assert payment
+    payment.affair.refresh!
+    count += 1
+    ret = affair.attach(payment)
+    payment.reload
+    assert_equal payment.affair, ret.affair
+    assert_equal sale.affair, payment.affair
+    assert_equal count, ret.affair.deals_count
+  end
+
+  test 'absorption' do
+    sale = Sale.first
+    assert sale
+    affair = sale.affair
+    assert affair
+    affair.refresh! # Needed until affair#deals_count is up-to-date
+    count = affair.deals_count
+    purchase = Purchase.first
+    assert purchase
+    purchase.affair.refresh!
+    count += purchase.affair.deals_count
+    ret = affair.absorb!(purchase.affair)
+    purchase.reload
+    assert_equal affair, ret
+    assert_equal sale.affair, purchase.affair
+    assert_equal count, ret.deals_count
   end
 
   # Check that affair of given sale is actually closed perfectly

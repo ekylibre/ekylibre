@@ -10,8 +10,7 @@ module Backend
         t.column :file_fingerprint, hidden: true
       end
 
-      def show
-      end
+      def show; end
     end
   end
 end

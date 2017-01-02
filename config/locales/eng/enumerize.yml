@@ -380,6 +380,10 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase:
+      tax_payability:
+        at_invoicing: "At invoicing"
+        at_paying: "At paying"
     purchase_gap:
       direction:
         # loss: "Loss"
@@ -392,6 +396,11 @@ eng:
       direction:
         # loss: "Loss"
         # profit: "Profit"
+    sale_item:
+      compute_from:
+        # amount: "Amount"
+        pretax_amount: "Pretax amount"
+        unit_pretax_amount: "Unit pretax amount"
     sensor:
       retrieval_mode:
         integration: "Integration"

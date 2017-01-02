@@ -399,12 +399,15 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
-    purchase:  #?
-      computation_method: #?
+    purchase:
+      computation_method:  #?
         adaptative: "Adaptativo" #?
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+      tax_payability:
+        at_invoicing: "No facturação"
+        at_paying: "Ao pagar"
     purchase_nature:
       nature:
         payslip: "Recibo de Pagamento"
@@ -414,6 +417,10 @@ por:
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+    sale_item:
+      compute_from:
+        pretax_amount: "Montante pretax"
+        unit_pretax_amount: "Montante pretax unidade"
     sensor:
       retrieval_mode:
         integration: "Integração"

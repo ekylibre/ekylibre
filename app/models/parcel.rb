@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -188,8 +188,7 @@ class Parcel < Ekylibre::Record::Base
   bookkeep do |b|
     # For purchase_not_received or sale_not_emitted
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    list = []
-    if Preference[:permanent_stock_inventory] && given?
+    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: Preference[:permanent_stock_inventory] && given?) do |entry|
       label = tc(:undelivered_invoice,
                  resource: self.class.model_name.human,
                  number: number, entity: entity.full_name, mode: nature.l)
@@ -197,11 +196,10 @@ class Parcel < Ekylibre::Record::Base
       items.each do |item|
         amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
         next unless item.variant && item.variant.charge_account && amount.nonzero?
-        list << [:add_credit, label, account.id, amount, resource: item, as: :unbilled]
-        list << [:add_debit, label, item.variant.charge_account.id, amount, resource: item, as: :expense]
+        entry.add_credit label, account.id, amount, resource: item, as: :unbilled
+        entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense
       end
     end
-    b.journal_entry(journal, printed_on: printed_on, list: list, as: :undelivered_invoice)
 
     # For permanent stock inventory
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
@@ -356,7 +354,12 @@ class Parcel < Ekylibre::Record::Base
     return false unless can_give?
     update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)
+    reload
     super
+  end
+
+  def first_available_date
+    given_at || planned_at || prepared_at || in_preparation_at || ordered_at
   end
 
   class << self
@@ -412,11 +415,11 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:given_at)
+        end.sort_by(&:first_available_date)
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last || Time.zone.now
+        planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = SaleNature.actives.first
-          unless journal = Journal.sales.opened_at(planned_at).first
+          unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
           nature = SaleNature.create!(
@@ -467,11 +470,11 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:given_at)
+        end.sort_by(&:first_available_date)
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last
+        planned_at = parcels.last.first_available_date || Time.zone.now
         unless nature = PurchaseNature.actives.first
-          unless journal = Journal.purchases.opened_at(planned_at).first
+          unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
           nature = PurchaseNature.create!(

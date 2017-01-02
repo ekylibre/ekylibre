@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +27,7 @@
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  codes                :jsonb
+#  compute_from         :string           not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
@@ -52,6 +53,7 @@
 sale_items_001:
   account_id: 5
   amount: 84.0
+  compute_from: unit_pretax_amount
   created_at: 2014-11-05 09:52:05.569662000 Z
   creator_id: 1
   currency: EUR
@@ -72,6 +74,7 @@ sale_items_001:
 sale_items_002:
   account_id: 5
   amount: 1080.0
+  compute_from: unit_pretax_amount
   created_at: 2014-11-05 09:52:05.575226000 Z
   creator_id: 1
   currency: EUR
@@ -92,6 +95,7 @@ sale_items_002:
 sale_items_003:
   account_id: 5
   amount: 792.0
+  compute_from: unit_pretax_amount
   created_at: 2014-11-05 10:01:39.877000000 Z
   creator_id: 1
   currency: EUR
@@ -112,6 +116,7 @@ sale_items_003:
 sale_items_004:
   account_id: 15
   amount: 11.23
+  compute_from: unit_pretax_amount
   created_at: 2014-11-05 10:03:05.895615000 Z
   creator_id: 1
   currency: EUR
@@ -132,6 +137,7 @@ sale_items_004:
 sale_items_005:
   account_id: 15
   amount: 19.2
+  compute_from: unit_pretax_amount
   created_at: 2014-11-05 13:36:08.975616000 Z
   creator_id: 1
   currency: EUR
@@ -153,6 +159,7 @@ sale_items_006:
   account_id: 152
   amount: 24.0
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2015-04-21 08:22:33.186082000 Z
   creator_id: 1
   currency: EUR
@@ -174,6 +181,7 @@ sale_items_007:
   account_id: 152
   amount: 187.2
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2015-04-21 08:29:05.182489000 Z
   creator_id: 1
   currency: EUR
@@ -195,6 +203,7 @@ sale_items_008:
   account_id: 152
   amount: 119.6
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2015-04-21 23:49:19.339881000 Z
   creator_id: 1
   currency: EUR
@@ -216,6 +225,7 @@ sale_items_009:
   account_id: 152
   amount: 200.0
   annotation: Arigato
+  compute_from: unit_pretax_amount
   created_at: 2015-04-21 23:49:19.346386000 Z
   creator_id: 1
   currency: EUR
@@ -237,6 +247,7 @@ sale_items_010:
   account_id: 152
   amount: 500.0
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2015-05-30 20:00:27.935928000 Z
   creator_id: 1
   currency: EUR
@@ -257,6 +268,7 @@ sale_items_010:
 sale_items_011:
   account_id: 152
   amount: -500.0
+  compute_from: unit_pretax_amount
   created_at: 2015-05-30 20:00:46.769726000 Z
   creator_id: 1
   credited_item_id: 17
@@ -280,6 +292,7 @@ sale_items_012:
   account_id: 5
   amount: 54000.0
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2015-09-17 13:25:40.431432000 Z
   creator_id: 1
   currency: EUR
@@ -301,6 +314,7 @@ sale_items_013:
   account_id: 528
   amount: 142.94
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2016-05-26 21:26:07.822854000 Z
   creator_id: 1
   currency: EUR
@@ -322,6 +336,7 @@ sale_items_014:
   account_id: 528
   amount: 71.47
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2016-05-26 21:26:57.758722000 Z
   creator_id: 1
   currency: EUR
@@ -343,6 +358,7 @@ sale_items_015:
   account_id: 152
   amount: 148.8
   annotation: wjbdkjxfs hdskfh gds
+  compute_from: unit_pretax_amount
   created_at: 2016-07-01 20:12:41.329080000 Z
   creator_id: 1
   currency: EUR
@@ -364,6 +380,7 @@ sale_items_016:
   account_id: 15
   amount: 393.12
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:08:58.264590000 Z
   creator_id: 1
   currency: EUR
@@ -385,6 +402,7 @@ sale_items_017:
   account_id: 15
   amount: 54.0
   annotation: BIO
+  compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:08:58.290373000 Z
   creator_id: 1
   currency: EUR
@@ -406,6 +424,7 @@ sale_items_018:
   account_id: 15
   amount: 37.44
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:10:17.198436000 Z
   creator_id: 1
   currency: EUR
@@ -427,6 +446,7 @@ sale_items_019:
   account_id: 15
   amount: 3.74
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:11:25.101031000 Z
   creator_id: 1
   currency: EUR
@@ -448,6 +468,7 @@ sale_items_020:
   account_id: 152
   amount: 2676.0
   annotation: ''
+  compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:12:15.435114000 Z
   creator_id: 1
   currency: EUR
@@ -468,6 +489,7 @@ sale_items_020:
 sale_items_021:
   account_id: 152
   amount: -2676.0
+  compute_from: unit_pretax_amount
   created_at: 2016-11-20 22:12:25.310161000 Z
   creator_id: 1
   credited_item_id: 27
@@ -487,3 +509,25 @@ sale_items_021:
   updated_at: 2016-11-20 22:12:25.310161000 Z
   updater_id: 1
   variant_id: 39
+sale_items_022:
+  account_id: 152
+  amount: 400.0
+  annotation: ''
+  compute_from: amount
+  created_at: 2016-12-20 08:53:53.330230000 Z
+  creator_id: 1
+  currency: EUR
+  id: 29
+  label: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  lock_version: 0
+  position: 1
+  pretax_amount: 363.64
+  quantity: 3.0
+  reduction_percentage: 0.0
+  sale_id: 25
+  tax_id: 8
+  unit_amount: 133.33
+  unit_pretax_amount: 121.21
+  updated_at: 2016-12-20 08:53:53.330230000 Z
+  updater_id: 1
+  variant_id: 10

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,6 +48,7 @@
 #  responsible_id                           :integer
 #  state                                    :string
 #  supplier_id                              :integer          not null
+#  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
@@ -57,6 +58,7 @@ class Purchase < Ekylibre::Record::Base
   include Attachable
   include Customizable
   attr_readonly :currency, :nature_id
+  enumerize :tax_payability, in: [:at_paying, :at_invoicing], default: :at_invoicing
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
@@ -76,7 +78,7 @@ class Purchase < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :invoiced_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :currency, :payee, :supplier, presence: true
+  validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :payment_delay, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
@@ -92,6 +94,7 @@ class Purchase < Ekylibre::Record::Base
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
 
   delegate :with_accounting, to: :nature
+  delegate :third_attribute, to: :class
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
@@ -166,9 +169,16 @@ class Purchase < Ekylibre::Record::Base
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       items.each do |item|
         entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
-        account = item.fixed? ? item.tax.fixed_asset_deduction_account_id : nil
-        account ||= item.tax.deduction_account_id # TODO: Check if it is good to do that
-        entry.add_debit(label, account, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+        tax = item.tax
+        account_id = item.fixed? ? tax.fixed_asset_deduction_account_id : nil
+        account_id ||= tax.deduction_account_id # TODO: Check if it is good to do that
+        if tax.intracommunity
+          reverse_charge_amount = tax.compute(item.pretax_amount, intracommunity: true).round(precision)
+          entry.add_debit(label, account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+          entry.add_credit(label, tax.intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge)
+        else
+          entry.add_debit(label, account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+        end
       end
       entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount, as: :supplier)
     end
@@ -209,6 +219,18 @@ class Purchase < Ekylibre::Record::Base
       end
     end
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
+  end
+
+  def self.third_attribute
+    :supplier
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def precision
+    Nomen::Currency.find(currency).precision
   end
 
   def invoiced_on

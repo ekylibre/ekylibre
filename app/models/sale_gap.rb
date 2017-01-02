@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,18 +45,14 @@ class SaleGap < Gap
 
   acts_as_affairable :client, good: :profit?, debit: :loss?, class_name: 'SaleAffair'
 
-  def deal_amount
-    (loss? ? -amount : amount)
-  end
-
   bookkeep do |b|
     b.journal_entry(unsuppress { Journal.used_for_gaps!(currency: currency) },
                     printed_on: printed_on, unless: amount.zero?) do |entry|
       label = tc(:bookkeep, resource: direction.l, number: number, client: client.full_name)
-      entry.add_debit(label, client.account(:client).id, amount, as: :client)
+      entry.add_debit(label, client.account(:client).id, relative_amount, as: :client)
       items.each do |item|
-        entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses) }, item.pretax_amount, resource: item, as: :item_product)
-        entry.add_credit(label, profit? ? item.tax.collect_account_id : item.tax.deduction_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax)
+        entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(profit? ? :other_usual_running_profits : :other_usual_running_expenses) }, item.relative_pretax_amount, resource: item, as: :item_product)
+        entry.add_credit(label, profit? ? item.tax.collect_account_id : item.tax.deduction_account_id, item.relative_taxes_amount, tax: item.tax, pretax_amount: item.relative_pretax_amount, resource: item, as: :item_tax)
       end
     end
   end

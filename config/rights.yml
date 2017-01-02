@@ -1,5 +1,6 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
 #     - "api/v1/intervention_participations#create"
+#     - "api/v1/intervention_targets#show"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -120,6 +121,8 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
+#     - "backend/outgoing_payment_lists#create"
+#     - "backend/outgoing_payment_lists#new"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -210,8 +213,6 @@ activities:
     - "backend/inspections#list"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
-    - "backend/plant_density_abaci#index"
-    - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
     - "backend/target_distributions#index"
@@ -386,14 +387,20 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/bank_statement_items#create"
+    - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
     - "backend/bank_statements#import"
+    - "backend/bank_statements#letter"
     - "backend/bank_statements#new"
     - "backend/bank_statements#reconciliation"
+    - "backend/bank_statements#unletter"
     - "backend/bank_statements#update"
+    - "backend/quick_affairs#create"
+    - "backend/quick_affairs#new"
 
 building_divisions:
   read:
@@ -717,6 +724,8 @@ documents:
 entities:
   read:
     actions:
+    - "api/v1/contacts#index"
+    - "api/v1/contacts#picture"
     - "backend/entities#index"
     - "backend/entities#list"
     - "backend/entities#list_event_participations"
@@ -1223,6 +1232,7 @@ journal_entries:
     - "backend/journal_entry_items#list"
     - "backend/journal_entry_items#show"
     - "backend/journal_entry_items#unroll"
+    - "backend/regularizations#show"
   write:
     dependencies:
     - read-journal_entries
@@ -1231,8 +1241,11 @@ journal_entries:
     - "backend/journal_entries#destroy"
     - "backend/journal_entries#edit"
     - "backend/journal_entries#new"
+    - "backend/journal_entries#toggle_autocompletion"
     - "backend/journal_entries#update"
     - "backend/journal_entry_items#new"
+    - "backend/regularizations#create"
+    - "backend/regularizations#destroy"
 
 journals:
   read:
@@ -2116,7 +2129,6 @@ tax_declarations:
     actions:
     - "backend/tax_declarations#index"
     - "backend/tax_declarations#list"
-    - "backend/tax_declarations#list_items"
     - "backend/tax_declarations#show"
     - "backend/tax_declarations#unroll"
   write:

@@ -1578,6 +1578,15 @@ html.backend {
     background: #EFE;
     font-style: italic;
   }
+  .item-footer {
+    display: block;
+    padding: $default-gap;
+    font-style: italic;
+    &:hover {
+      background: rgba($base-color, 0.2);
+      cursor: pointer;
+    }
+  }
 }
 
 .stepper {
@@ -1767,6 +1776,20 @@ a[data-remove-closest], a[data-remove] {
   }
 }
 
+.payment {
+  td, th {
+    &.total {
+      @include text-align(right);
+    }
+    &.sum {
+      border-top: 1px solid #777;
+    }
+  }
+
+  .error {
+    color: $invalid-color;
+  }
+}
 
 
 #cell-date {
@@ -2341,10 +2364,14 @@ svg.map {
 
 #items-form {
   #total {
-    a {
+    .options {
       @include float(left);
     }
   }
+}
+
+.standalone-option {
+  margin: 0 $default-gap * 2;
 }
 
 .document-archives {
@@ -2548,8 +2575,25 @@ a[data-annotate] {
       vertical-align: middle !important;
     }
   }
+
+  ul.dropdown-menu.interval-menu {
+    @include dropdown-menu(bottom, end);
+  }
+
+  .btn-with-intervals {
+    height: 100%;
+  }
 }
 
+.period-selector {
+  display: inline-block;
+
+  .today-period-btn {
+    margin-right: round($default-gap * 1.4) !important;
+    height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
+    line-height: $lh-large;
+  }
+}
 
 
 .cobbles {

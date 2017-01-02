@@ -108,8 +108,7 @@ module Backend
           js_datas
         end
 
-        def custom_datas
-        end
+        def custom_datas; end
       end
 
       class Interval < Item

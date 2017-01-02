@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new plant varieties">
+  <item-creation item="varieties#brassica_napus_napus_dk_exalte" parent="brassica_napus_napus"/>
+  <item-creation item="varieties#triticum_aestivum_alixan" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_as_de_coeur" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_bermude" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_lyrik" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_oregrain" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_rgt_sacramento" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_sherlock" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_terroir" parent="triticum_aestivum"/>
+  <item-creation item="varieties#triticum_aestivum_triomph" parent="triticum_aestivum"/>
+</migration>

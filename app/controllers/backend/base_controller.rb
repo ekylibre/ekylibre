@@ -286,8 +286,10 @@ module Backend
           v = '[' + v.join(', ') + ']' if v.is_a? Array
           values += '+' + v
         end
-        code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
-        code << "  #{conditions} += #{values}\n"
+        if filters.any?
+          code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
+          code << "  #{conditions} += #{values}\n"
+        end
         code << "end\n"
         code << conditions.to_s
         code.c

@@ -90,9 +90,11 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
+      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -392,6 +394,7 @@ eng:
       index: "Journal entries"
       new: "New entry"
       show: "Journal entry: %{number}"
+      # toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
       index: "Journal entry items"
       new: "New entry item"
@@ -473,6 +476,7 @@ eng:
     backend/outgoing_payment_lists:
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
       index: "Outgoing payments batch list"
+      new: "New outgoing payment list"
       show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
@@ -503,7 +507,6 @@ eng:
       show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
-      # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
     backend/plant_density_abacus_items:
@@ -595,9 +598,13 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
+    backend/regularizations:
+      # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"
@@ -883,7 +890,10 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
+    active_finishing_after: "Active finishing after" #?
+    active_finishing_within: "Active finishing within" #?
     activities: "Activities" #?
     activity: "Activity"
     activity_production: "Activity production" #?
@@ -937,6 +947,7 @@ eng:
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_regularization: "Add regularization"
     add_revenue: "Add revenue"
     add_sale: "Add sale"
     add_sale_taxation: "Add sale taxation"
@@ -991,7 +1002,7 @@ eng:
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
-    bban: "Basic Bank Account Number (BBAN)"
+    bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
@@ -1095,13 +1106,16 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    currency_conversion_rate: "Currency conversion rate"
     current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
+    currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
     days: "Days"
     deals: "Deals"
@@ -1156,7 +1170,7 @@ eng:
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
-    duplicate: "Duplicate" #?
+    duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
@@ -1235,12 +1249,13 @@ eng:
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
+    hide_lettered_lines: "Hide lettered lines"
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
-    iban: "International Bank Account Number (IBAN)"
+    iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"
@@ -1396,11 +1411,13 @@ eng:
     new_financial_year_exchange: "New exchange"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_incoming_payment: "New incoming payment"
     new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
+    new_outgoing_payment: "New outgoing payment"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -1502,6 +1519,7 @@ eng:
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
+    product_account_number: "Product account number" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
@@ -1514,7 +1532,7 @@ eng:
     products: "Products"
     profile: "Profile"
     profits_and_losses: "Profits and losses"
-    purchase: "Purchase" #?
+    purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
@@ -1583,6 +1601,7 @@ eng:
     section_x: "Section %{x}"
     see_details: "See details"
     see_more_details: "See more details"
+    select_a_journal: "Select a journal"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
     select_date: "Select date"
@@ -1641,7 +1660,8 @@ eng:
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks" #?
-    # tax_declarations: "Tax declarations"
+    tax_declarations: "Tax declarations"
+    tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
     thumb: "Thumb" #?
@@ -1768,6 +1788,9 @@ eng:
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
+    x_cents:
+      one: "%{count} cent"
+      other: "%{count} cents"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1834,6 +1857,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_mills:
+      one: "%{count} mill"
+      other: "%{count} mills"
     x_minutes:
       one: "%{count} minute"
       other: "%{count} minutes"
@@ -1958,8 +1984,9 @@ eng:
       invalid_reference_name: "Invalid reference name"
       journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entries_imported: "The journal entries have been imported."
-      journal_entry_already_validated: "The record has already been validated and can not be changed"
-      journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      journal_entry_already_validated: "The journal entry has already been validated and can not be changed"
+      journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"
@@ -1982,6 +2009,7 @@ eng:
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
+      no_purchase_affair_found_on_given_period: "No purchase affair found on given period"
       no_purchases_given: "No purchases given"
       no_reopenable_journal: "You can not re-open this journal."
       no_replacements_since_beginning: "No replacements since beginning"
@@ -2031,6 +2059,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    # entry_autocompletion: "Entry autocompletion"
     # host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
@@ -2093,6 +2122,7 @@ eng:
       # journal_entries_export: "Journal entries export"
       journal_entries_import: "Import CSV"
       # last_locations: "Last locations"
+      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2144,6 +2174,8 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # toggle_autocompletion: "Toggle autocompletion"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -688,4 +688,42 @@ sales_018:
   responsible_id: 9
   state: invoice
   updated_at: 2016-11-20 22:12:46.221741000 Z
+  updater_id: 1
+sales_019:
+  accounted_at: 2016-12-20 08:54:01.551325000 Z
+  address_id: 4
+  affair_id: 52
+  amount: 400.0
+  client_id: 9
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-12-20 08:54:01.419389000 Z
+  created_at: 2016-12-20 08:53:53.298867000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 4
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2017-01-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 25
+  initial_number: SO000000000020
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 4
+  invoiced_at: 2016-12-20 08:54:01.419389000 Z
+  journal_entry_id: 109
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000009
+  payment_at: 2017-01-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 363.64
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-12-20 08:54:01.466034000 Z
   updater_id: 1
