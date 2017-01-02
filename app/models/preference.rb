@@ -168,6 +168,7 @@ class Preference < Ekylibre::Record::Base
     end
   end
 
+  prefer :entry_autocompletion, :boolean, true
   prefer :bookkeep_automatically, :boolean, true
   prefer :permanent_stock_inventory, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true

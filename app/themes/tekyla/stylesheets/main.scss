@@ -2364,10 +2364,14 @@ svg.map {
 
 #items-form {
   #total {
-    a {
+    .options {
       @include float(left);
     }
   }
+}
+
+.standalone-option {
+  margin: 0 $default-gap * 2;
 }
 
 .document-archives {

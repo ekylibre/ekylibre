@@ -727,6 +727,7 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
+    activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
     active_current_sum: "Total activos circulandos" #?
