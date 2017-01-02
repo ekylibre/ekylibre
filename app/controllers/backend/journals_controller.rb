@@ -145,10 +145,13 @@ module Backend
                             rescue
                               (params[:stopped_on] - 1.year).beginning_of_month
                             end
-      @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment, :cash_transfer, :affair, :parcel, :intervention, :inventory] # , transfer
+      @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment,
+                  :cash_transfer, :parcel, :intervention, :inventory, :tax_declaration,
+                  :loan, :intervention, :parcel, :inventory, :bank_statement,
+                  :sale_gap, :purchase_gap]
 
       if request.get?
-        notify_now(:bookkeeping_works_only_with, list: @natures.collect { |x| x.to_s.classify.constantize.model_name.human }.to_sentence)
+        notify_now(:bookkeeping_works_only_with, list: @natures.map { |x| x.to_s.classify.constantize.model_name.human }.to_sentence)
         @step = 1
       elsif request.put?
         @step = 2
