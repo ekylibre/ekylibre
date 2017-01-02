@@ -3379,6 +3379,8 @@ intervention_participations:
   lock_version:
     type: integer
     required: true
+  procedure_name:
+    type: string
   product_id:
     type: integer
     references: product
