@@ -80,6 +80,8 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   alias status affair_status
 
+  scope :mode_matching_cash, ->(id) { includes(:mode).where(outgoing_payment_modes: { cash_id: id }) }
+
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
   before_validation do

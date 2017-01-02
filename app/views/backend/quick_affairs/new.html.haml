@@ -1,6 +1,7 @@
 - trade_model_name   = @trade.class.model_name
 - payment_model_name = @payment.class.model_name
 - url_helper = :"backend_quick_#{@trade.class.name.underscore.pluralize}_path"
+- statement_cash_id = @bank_statement_items.first.bank_statement.cash_id
 
 = backend_form_for @affair, as: :affair, url: send(url_helper, redirect: @redirect_to) do |a|
   = field_set do
@@ -44,7 +45,7 @@
   = field_set payment_model_name.human, class: 'new-payment' do
     = backend_fields_for :payment, @payment do |p|
       = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
-      = p.referenced_association :mode, source: { scope: { matching_cash: @bank_statement_items.first.bank_statement.cash_id } }
+      = p.referenced_association :mode, source: { scope: { matching_cash: statement_cash_id } }
       = p.input :amount, wrapper: :append, required: true do
         = p.input_field :amount
         %span.add-on= @trade.currency || @trade.nature.currency
@@ -53,7 +54,7 @@
     .control-group
       %label.string.required.control-label= payment_model_name.human
       .controls
-        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll }, value: @payment.id
+        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll, scope: { mode_matching_cash: statement_cash_id } }, value: @payment.id
 
   = form_actions do
     = a.button :submit, :save.tl, class: 'btn btn-primary'
