@@ -590,9 +590,9 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
-    backend/quick_purchase:
+    backend/quick_purchases:
       new: "New Purchase/Outgoing payment"
-    backend/quick_sale:
+    backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Edit registration"
@@ -1073,6 +1073,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
+    could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "Countings" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
@@ -1583,6 +1584,7 @@ eng:
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
     save_in_draft: "Save as draft"
+    saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
     search: "Search"
     search_placeholder: "Search…"

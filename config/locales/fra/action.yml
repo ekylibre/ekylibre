@@ -546,9 +546,9 @@ fra:
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
-    backend/quick_purchase:
+    backend/quick_purchases:
       new: "Nouvel Achat/Décaissement"
-    backend/quick_sale:
+    backend/quick_sales:
       new: "Nouvelle Vente/Encaissement"
     backend/registrations:
       edit: "Modifier inscription"
@@ -1054,6 +1054,7 @@ fra:
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
     costs_per_hectare: "Couts par hectare"
+    could_not_attach_x_or_y_to_affair: "Erreur lors du rattachement des %{trade}/%{payment} à l'affaire"
     countings: "Comptages"
     country: "Pays" #?
     counts: "Totaux"
@@ -1849,6 +1850,7 @@ fra:
     save: "Enregistrer"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
     save_in_draft: "Sauvegarder dans le brouillard"
+    saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n'ont pas pu être lettrés."
     scheduled: "Échéance"
     search: "Rechercher"
     search_account: "Rechercher un compte" #?

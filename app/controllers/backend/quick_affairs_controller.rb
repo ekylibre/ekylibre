@@ -48,7 +48,7 @@ module Backend
           @affair.attach @payment
         end
       rescue
-        notify_error 'Could not attach trade and payment to Affair'
+        notify_error :could_not_attach_x_or_y_to_affair.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
         @redirect_to = params[:redirect]
         return render :new
       end
@@ -56,7 +56,11 @@ module Backend
       @amount  = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
       @amount *= self.class::Payment.sign_of_amount
 
-      @payment.letter_with(@bank_statement_items) if lettrable?(@amount)
+      if lettrable?(@amount)
+        @payment.letter_with @bank_statement_items
+      else
+        notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
+      end
       redirect_to(params[:redirect] || send(:"backend_#{self.class::Trade.affair_class.name.underscore}_path", @affair))
     end
 
