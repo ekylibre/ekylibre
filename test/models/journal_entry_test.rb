@@ -180,5 +180,5 @@ class JournalEntryTest < ActiveSupport::TestCase
       JournalEntryItem.new(account: Account.first, real_debit: amount, real_credit: 0, name: name),
       JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: amount, name: name)
     ]
-  end  
+  end
 end

@@ -115,6 +115,7 @@ module Backend
       t.column :mail_country, label_method: :human_mail_country_name, through: :default_mail_address, hidden: true
       t.column :email, label_method: :coordinate, through: :default_email_address, hidden: true
       t.column :phone, label_method: :coordinate, through: :default_phone_address, hidden: true
+      t.column :fax, label_method: :coordinate, through: :default_fax_address, hidden: true
       t.column :mobile, label_method: :coordinate, through: :default_mobile_address, hidden: true
       # Deactivated for performance reason, need to store it in one column
       # t.column :balance, currency: true, hidden: true

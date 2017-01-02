@@ -196,6 +196,7 @@ journals_009:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_010:
+  accountant_id: 17
   closed_on: 1992-11-16
   code: RE
   created_at: 2016-12-20 08:53:53.385377000 Z
