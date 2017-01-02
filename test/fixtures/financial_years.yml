@@ -22,6 +22,7 @@
 #
 # == Table: financial_years
 #
+#  accountant_id             :integer
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -340,6 +341,7 @@ financial_years_023:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_024:
+  accountant_id: 17
   closed: false
   code: EX2014-15
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -353,6 +355,7 @@ financial_years_024:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_025:
+  accountant_id: 17
   closed: false
   code: EX2015/2016
   created_at: 2016-01-22 13:21:22.066344000 Z

@@ -22,32 +22,33 @@
 #
 # == Table: journal_entries
 #
-#  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4)   default(0.0), not null
-#  balance            :decimal(19, 4)   default(0.0), not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  financial_year_id  :integer
-#  id                 :integer          not null, primary key
-#  journal_id         :integer          not null
-#  lock_version       :integer          default(0), not null
-#  number             :string           not null
-#  printed_on         :date             not null
-#  real_balance       :decimal(19, 4)   default(0.0), not null
-#  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string           not null
-#  real_currency_rate :decimal(19, 10)  default(0.0), not null
-#  real_debit         :decimal(19, 4)   default(0.0), not null
-#  resource_id        :integer
-#  resource_prism     :string
-#  resource_type      :string
-#  state              :string           not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
+#  absolute_credit            :decimal(19, 4)   default(0.0), not null
+#  absolute_currency          :string           not null
+#  absolute_debit             :decimal(19, 4)   default(0.0), not null
+#  balance                    :decimal(19, 4)   default(0.0), not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credit                     :decimal(19, 4)   default(0.0), not null
+#  currency                   :string           not null
+#  debit                      :decimal(19, 4)   default(0.0), not null
+#  financial_year_exchange_id :integer
+#  financial_year_id          :integer
+#  id                         :integer          not null, primary key
+#  journal_id                 :integer          not null
+#  lock_version               :integer          default(0), not null
+#  number                     :string           not null
+#  printed_on                 :date             not null
+#  real_balance               :decimal(19, 4)   default(0.0), not null
+#  real_credit                :decimal(19, 4)   default(0.0), not null
+#  real_currency              :string           not null
+#  real_currency_rate         :decimal(19, 10)  default(0.0), not null
+#  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  resource_id                :integer
+#  resource_prism             :string
+#  resource_type              :string
+#  state                      :string           not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 
 require 'test_helper'
@@ -155,6 +156,23 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert_equal 4, journal_entry.items.count
   end
 
+  test 'cannot be created when in financial year exchange date range' do
+    exchange = financial_year_exchanges(:financial_year_exchanges_001)
+    journal = journals(:journals_010)
+    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    refute entry.valid?
+  end
+  
+  test 'cannot be updated to a date in financial year exchange date range' do
+    exchange = financial_year_exchanges(:financial_year_exchanges_001)
+    entry = journal_entries(:journal_entries_081)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    refute entry.valid?
+  end
+
   def fake_items(options = {})
     amount = options[:amount] || (500 * rand + 1).round(2)
     name = options[:name] || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
@@ -162,5 +180,5 @@ class JournalEntryTest < ActiveSupport::TestCase
       JournalEntryItem.new(account: Account.first, real_debit: amount, real_credit: 0, name: name),
       JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: amount, name: name)
     ]
-  end
+  end  
 end

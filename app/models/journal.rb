@@ -22,6 +22,7 @@
 #
 # == Table: journals
 #
+#  accountant_id                      :integer
 #  closed_on                          :date             not null
 #  code                               :string           not null
 #  created_at                         :datetime         not null
@@ -45,6 +46,7 @@ class Journal < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
   refers_to :currency
+  belongs_to :accountant, class_name: 'Entity'
   has_many :cashes, dependent: :restrict_with_exception
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
@@ -62,6 +64,7 @@ class Journal < Ekylibre::Record::Base
   validates :nature, length: { allow_nil: true, maximum: 30 }
   validates :code, uniqueness: true, format: { with: /\A[A-Z0-9]+\z/ }, length: { maximum: 4 }
   validates :name, uniqueness: true
+  validates :accountant, absence: true, unless: :various_without_cash?
 
   selects_among_all :used_for_affairs, :used_for_gaps, :used_for_unbilled_payables, if: :various?, scope: :currency
   selects_among_all :used_for_permanent_stock_inventory, if: :stocks?, scope: :currency
@@ -82,7 +85,7 @@ class Journal < Ekylibre::Record::Base
   scope :various,   -> { where(nature: 'various') }
   scope :cashes,    -> { where(nature: 'cashes') }
   scope :stocks,    -> { where(nature: 'stocks') }
-  scope :banks_or_cashes, -> { where(nature: 'cashes').or.where(nature: 'bank') }
+  scope :banks_or_cashes, -> { where(nature: %w(cashes bank)) }
 
   before_validation(on: :create) do
     if year = FinancialYear.first_of_all
@@ -114,6 +117,20 @@ class Journal < Ekylibre::Record::Base
     end
     unless code.blank?
       errors.add(:code, :taken) if others.find_by(code: code.to_s[0..3])
+    end
+    if persisted? && accountant_id_changed?
+      if accountant_has_financial_year_with_opened_exchange?(accountant)
+        errors.add(:accountant, :entity_frozen)
+      elsif accountant_has_financial_year_with_opened_exchange?(accountant_id_was)
+        errors.add(:accountant, :previous_entity_frozen)
+      end
+    end
+  end
+
+  before_save if: :accountant_id_changed? do
+    if accountant
+      entries.where(state: :draft).find_each(&:confirm)
+      entries.where(state: :confirmed).find_each(&:close)
     end
   end
 
@@ -199,6 +216,7 @@ class Journal < Ekylibre::Record::Base
 
   # Test if journal is closable
   def closable?(closed_on = nil)
+    return false if booked_for_accountant?
     closed_on ||= Time.zone.today
     self.class.where(id: id).update_all(closed_on: Date.civil(1900, 12, 31)) if self.closed_on.nil?
     reload
@@ -242,8 +260,7 @@ class Journal < Ekylibre::Record::Base
   end
 
   def reopenable?
-    return false unless reopenings.any?
-    true
+    !booked_for_accountant? && reopenings.any?
   end
 
   def reopenings
@@ -260,10 +277,8 @@ class Journal < Ekylibre::Record::Base
 
   def reopen(closed_on)
     ActiveRecord::Base.transaction do
-      for entry in entries.where(printed_on: (closed_on + 1)..self.closed_on)
-        entry.reopen
-      end
-      update_column(:closed_on, closed_on)
+      entries.where(printed_on: (closed_on + 1)..self.closed_on).find_each(&:reopen)
+      update_column :closed_on, closed_on
     end
     true
   end
@@ -293,6 +308,19 @@ class Journal < Ekylibre::Record::Base
   def entry_items_calculate(column, started_on, stopped_on, operation = :sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
     entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_on..stopped_on).calculate(operation, column)
+  end
+
+  def various_without_cash?
+    various? && cashes.empty?
+  end
+
+  def booked_for_accountant?
+    accountant
+  end
+
+  def accountant_has_financial_year_with_opened_exchange?(accountant_or_accountant_id)
+    accountant = accountant_or_accountant_id.is_a?(Fixnum) ? Entity.find(accountant_or_accountant_id) : accountant_or_accountant_id
+    accountant && accountant.financial_year_with_opened_exchange?
   end
 
   # Computes the value of list of accounts in a String

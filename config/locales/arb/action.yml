@@ -268,6 +268,10 @@ arb:
       # show: "Export: %{name}"
     backend/finances:  #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
+    backend/financial_year_exchanges:
+      # journal_entries_import: "Financial year exchange import"
+      # new: "New exchange"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       close: "نهاية الممارسة"
       compute_balances: "حساب التوازن العام المالي"
@@ -1340,6 +1344,7 @@ arb:
     example: "مثال&nbsp;: %{value}"
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # exchanges: "Exchanges"
     executed: "انجز" #?
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
@@ -1653,6 +1658,7 @@ arb:
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "بريد إلكتروني جديد"
     new_family: "اسرة جديدة" #?
+    # new_financial_year_exchange: "New exchange"
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
     new_incoming_payment: "دفع الواردة الجديد"
@@ -2411,6 +2417,8 @@ arb:
       warning: "!تحذير"
     messages:
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
+      # accountant_notified: "The accountant has been notified"
+      # accountant_without_email: "Please set the accountant email"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
       bad_file: "لا يبدو ان الملفات متطابقة" #?
@@ -2425,6 +2433,7 @@ arb:
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
       changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
       changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
+      # closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
@@ -2454,6 +2463,7 @@ arb:
       invalid_reference_name: "اسم إشارة غير صالحة"
       journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      # journal_entries_imported: "The journal entries have been imported."
       journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
       journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -2662,6 +2672,8 @@ arb:
       increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
+      # journal_entries_csv_export: "Download CSV"
+      # journal_entries_import: "Import CSV"
       list: "قائمة"
       load: "حمل"
       lock: "قفل"
@@ -2672,6 +2684,7 @@ arb:
       move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
+      # notify_accountant: "Notify accountant"
       open: "فتح"
       order: "طلب"
       pay: "دفع"
