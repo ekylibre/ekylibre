@@ -546,8 +546,10 @@ fra:
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
-    backend/quick_affairs:
-      new: "Créer %{trade}/%{payment}"
+    backend/quick_purchase:
+      new: "Nouvel Achat/Décaissement"
+    backend/quick_sale:
+      new: "Nouvelle Vente/Encaissement"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"
@@ -1537,10 +1539,11 @@ fra:
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
+    new_purchase: "Nouvel achat"
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"
     new_reservoir: "Ajouter un réservoir" #?
-    new_sale: "Nouvelle vente" #?
+    new_sale: "Nouvelle vente"
     new_sales_price: "Ajouter un prix de vente" #?
     new_title: "Nouveau titre" #?
     new_value: "Nouvelle valeur" #?

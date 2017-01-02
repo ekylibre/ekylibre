@@ -99,6 +99,10 @@ class OutgoingPayment < Ekylibre::Record::Base
     :payee
   end
 
+  def self.sign_of_amount
+    -1
+  end
+
   def third
     send(third_attribute)
   end

@@ -590,8 +590,10 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      new: "New %{trade}/%{payment}"
+    backend/quick_purchase:
+      new: "New Purchase/Outgoing payment"
+    backend/quick_sale:
+      new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
@@ -2112,6 +2114,8 @@ eng:
       # models: "Models"
       negociate: "Negociate"
       new: "New"
+      new_purchase: "New purchase"
+      new_sale: "New sale"
       open: "Open"
       order: "Order"
       # passthru: "Passthru"

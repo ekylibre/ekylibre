@@ -269,6 +269,14 @@ class Sale < Ekylibre::Record::Base
     :client
   end
 
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
+  def default_currency
+    currency || nature.currency
+  end
+
   def third
     send(third_attribute)
   end

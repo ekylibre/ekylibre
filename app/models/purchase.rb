@@ -225,8 +225,16 @@ class Purchase < Ekylibre::Record::Base
     :supplier
   end
 
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
   def third
     send(third_attribute)
+  end
+
+  def default_currency
+    currency || nature.currency
   end
 
   def precision

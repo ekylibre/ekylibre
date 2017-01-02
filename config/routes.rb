@@ -786,7 +786,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :quick_affairs, only: [:new, :create], path: 'quick-affairs'
+    resources :quick_purchases, only: [:new, :create], path: 'quick-purchases'
+    resources :quick_sales,     only: [:new, :create], path: 'quick-sales'
 
     resources :regularizations
 

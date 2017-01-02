@@ -155,6 +155,10 @@ class IncomingPayment < Ekylibre::Record::Base
     :payer
   end
 
+  def self.sign_of_amount
+    1
+  end
+
   def third
     send(third_attribute)
   end

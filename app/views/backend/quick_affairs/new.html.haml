@@ -1,7 +1,8 @@
 - trade_model_name   = @trade.class.model_name
 - payment_model_name = @payment.class.model_name
+- url_helper = :"backend_quick_#{@trade.class.name.underscore.pluralize}_path"
 
-= backend_form_for @affair, as: :affair, url: backend_quick_affairs_path(redirect: @redirect_to, mode: @mode) do |a|
+= backend_form_for @affair, as: :affair, url: send(url_helper, redirect: @redirect_to) do |a|
   = field_set do
     = a.referenced_association :third
     - [:trade, :payment].each do |attribute|
@@ -10,7 +11,8 @@
           %label.string.required.control-label= instance_variable_get("@#{attribute}").class.model_name.human
           .controls
             - [:existing, :new].each do |label|
-              - checked = Regexp.new(@mode_for[attribute]) =~ label
+              - mode = @mode_for || Hash.new('')
+              - checked = Regexp.new(mode[attribute]) =~ label
               = radio_button_tag :"mode-#{attribute}", label.to_s, checked, { data: { show: ".#{label}-#{attribute}" } }
               = label_tag :"mode-#{attribute}", label.tl
 
