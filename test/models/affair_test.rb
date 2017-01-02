@@ -63,6 +63,24 @@ class AffairTest < ActiveSupport::TestCase
     end
   end
 
+  test 'attachment' do
+    sale = Sale.first
+    assert sale
+    affair = sale.affair
+    assert affair
+    affair.refresh! # Needed until affair#deals_count is up-to-date
+    count = 1
+    payment = IncomingPayment.where(payer: sale.client).first
+    assert payment
+    payment.affair.refresh!
+    count += 1
+    ret = affair.attach(payment)
+    payment.reload
+    assert_equal payment.affair, ret.affair
+    assert_equal sale.affair, payment.affair
+    assert_equal count, ret.affair.deals_count
+  end
+
   test 'absorption' do
     sale = Sale.first
     assert sale

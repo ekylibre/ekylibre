@@ -371,10 +371,10 @@ fra:
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
     backend/labels:
-      # edit: "Edit label: %{name}"
+      edit: "Modifier l'étiquette\_: %{name}"
       index: "Étiquettes"
       new: "Nouvelle étiquette"
-      # show: "Label: %{name}"
+      show: "Étiquette\_: %{name}"
     backend/land_parcel_clusters:  #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?
@@ -549,6 +549,8 @@ fra:
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
+    backend/quick_affairs:
+      new: "Créer %{trade}/%{payment}"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"
@@ -1283,6 +1285,7 @@ fra:
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
     help_center: "Centre d’aide"
+    hide_lettered_lines: "Cacher les lignes lettrées"
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
@@ -1525,12 +1528,14 @@ fra:
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
+    new_incoming_payment: "Nouveau encaissement"
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
     new_outgoing_parcel: "Nouveau colis sortant"
+    new_outgoing_payment: "Nouveau décaissement"
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"

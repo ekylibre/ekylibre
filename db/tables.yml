@@ -910,6 +910,8 @@ bank_statement_items:
     type: integer
     references: user
 bank_statements:
+  accounted_at:
+    type: datetime
   cash_id:
     type: integer
     references: cash
@@ -948,6 +950,9 @@ bank_statements:
     precision: 19
     scale: 4
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -1301,10 +1306,6 @@ cash_transfers:
     type: integer
     references: user
 cashes:
-  account_id:
-    type: integer
-    references: account
-    required: true
   bank_account_holder_name:
     type: string
   bank_account_key:
@@ -1351,6 +1352,10 @@ cashes:
   lock_version:
     type: integer
     required: true
+  main_account_id:
+    type: integer
+    references: account
+    required: true
   mode:
     type: string
     required: true
@@ -1367,6 +1372,13 @@ cashes:
     references: entity
   spaced_iban:
     type: string
+  suspend_until_reconciliation:
+    type: boolean
+    required: true
+    default: false
+  suspense_account_id:
+    type: integer
+    references: account
   updated_at:
     type: datetime
     required: true

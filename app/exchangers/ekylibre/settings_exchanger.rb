@@ -175,9 +175,14 @@ module Ekylibre
           journal = Journal.find_by(nature: journal_nature)
           account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t, nature: nature.to_s,
-                           account: account, journal: journal }
+                           main_account: account, journal: journal }
           # hash[nature].merge!(iban: 'FR7611111222223333333333391') if nature == :bank_account
           hash
+        end
+      end
+      @manifest[:cashes].each do |n, v|
+        if v[:account]
+          v[:account] = find_record(:accounts, v[:account].to_s)
         end
       end
       create_records(:cashes)

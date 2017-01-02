@@ -1785,6 +1785,10 @@ a[data-remove-closest], a[data-remove] {
       border-top: 1px solid #777;
     }
   }
+
+  .error {
+    color: $invalid-color;
+  }
 }
 
 

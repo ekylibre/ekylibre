@@ -21,7 +21,7 @@
     journals = Journal.order(:name)
     journals = journals.where(nature: params[:nature]) if params[:nature]
     journals = journals.where(currency: params[:currency]) if params[:currency]
-    subheading :select_a_journal.tl
+    subheading :select_a_journal
   .activity-family
     - journals.map{|j| [j.nature.l, j.nature] }.uniq.sort_by(&:first).each do |t, n|
       .activity-family-heading

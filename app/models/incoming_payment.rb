@@ -141,12 +141,37 @@ class IncomingPayment < Ekylibre::Record::Base
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode || mode.with_accounting? || received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount, as: :bank)
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     end
+  end
+
+  delegate :third_attribute, to: :class
+
+  def self.third_attribute
+    :payer
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def letter_with(bank_statements_items)
+    bank_statement = bank_statements_items.first.bank_statement
+    letters = bank_statements_items.pluck(:letter)
+    bank_statements_items.update_all(letter: nil)
+    JournalEntryItem.pointed_by(bank_statement)
+                    .where(bank_statement_letter: letters)
+                    .update_all(bank_statement_letter: nil, bank_statement_id: nil)
+    letter = bank_statement.next_letter
+    journal_entry
+      .items
+      .where(account_id: bank_statement.cash_account_id)
+      .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
+    bank_statements_items.update_all(letter: letter)
   end
 
   # Returns true if payment is already deposited

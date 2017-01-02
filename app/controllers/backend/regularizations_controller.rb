@@ -1,6 +1,6 @@
 module Backend
   class RegularizationsController < Backend::BaseController
-    manage_restfully except: [:index, :show], identifier: :id
+    manage_restfully except: [:index, :show, :new, :edit, :update], identifier: :id
 
     def create
       journal_entry = JournalEntry.find(params[:journal_entry_id])
@@ -10,7 +10,7 @@ module Backend
     end
 
     def show
-      @regularization = Regularization.find_by(id: params[:id])
+      return unless @regularization = find_and_check
       redirect_to controller: :journal_entries, action: :show, id: @regularization.journal_entry.id
     end
   end

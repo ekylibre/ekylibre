@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -22,6 +23,7 @@
 #
 # == Table: bank_statements
 #
+#  accounted_at           :datetime
 #  cash_id                :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,6 +34,7 @@
 #  id                     :integer          not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  journal_entry_id       :integer
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null
@@ -174,6 +177,86 @@ class BankStatementTest < ActiveSupport::TestCase
     assert pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
     assert unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
     assert unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
+  end
+
+  test 'suspense process' do
+    now = Time.new(2016, 11, 17, 19)
+    currency = FinancialYear.at(now).currency
+
+    main = Account.find_or_create_by_number('512INR001')
+    assert main
+    suspense = Account.find_or_create_by_number('511INR001')
+    assert suspense
+
+    client = Entity.normal.order(:id).where(client: true).first
+
+    cash = Cash.create!(
+      name: 'Namaste Bank',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspend_until_reconciliation: true,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by!(nature: :bank, currency: currency, name: 'Namaste', code: 'Nam')
+    )
+    assert_equal 0, cash.main_account.totals[:balance]
+
+    mode = IncomingPaymentMode.create!(
+      name: 'Check on Namaste',
+      cash: cash,
+      with_accounting: true
+    )
+
+    payment = IncomingPayment.create!(
+      to_bank_at: now - 1.hour,
+      paid_at: now - 5.days,
+      received: true,
+      payer: client,
+      amount: 248_600,
+      mode: mode
+    )
+    cash.reload
+    assert_equal 0, cash.main_account.totals[:balance]
+    assert_equal 1, cash.journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+    Rails.logger.info ('%' * 80).yellow + cash.account.inspect.red + BankStatement.pluck(:journal_entry_id).inspect.green
+    assert_equal 1, cash.unpointed_journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+
+    journal_entry = payment.journal_entry
+    assert journal_entry.present?, payment.inspect
+    assert_equal Date.civil(2016, 11, 17), journal_entry.printed_on
+    assert_equal 1, journal_entry.items.where(account: suspense).count, journal_entry.inspect
+    assert_equal 248_600, journal_entry.items.where(account: suspense).sum(:real_debit)
+
+    bank_statement = BankStatement.create!(
+      cash: cash,
+      number: 'NB201611',
+      started_on: '2016-11-01',
+      stopped_on: '2016-11-30',
+      items_attributes: [
+        {
+          transfered_on: '2016-11-25',
+          name: 'Check #856124',
+          credit: 248_600
+        },
+        {
+          transfered_on: '2016-11-15',
+          name: 'Bla bla bla',
+          debit: 17_500.50
+        }
+      ]
+    )
+    assert bank_statement.valid?
+    assert bank_statement.journal_entry.present?
+
+    cash.reload
+
+    Rails.logger.info ('#' * 80).red
+    assert_equal 1, cash.unpointed_journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+    assert_equal 1, bank_statement.eligible_journal_entry_items.count
+    item = cash.unpointed_journal_entry_items.first
+    assert_equal journal_entry, item.entry
+
+    assert_equal bank_statement.balance_credit, cash.main_account.totals[:balance_debit]
   end
 
   def inspect_errors(object)

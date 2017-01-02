@@ -90,9 +90,11 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
+      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -500,7 +502,6 @@ eng:
       show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
-      # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
     backend/plant_density_abacus_items:
@@ -592,12 +593,12 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
     backend/regularizations:
-      # edit: "Edit regularization: %{name}"
-      # new: "New regularization"
       # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
@@ -992,7 +993,7 @@ eng:
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
-    bban: "Basic Bank Account Number (BBAN)"
+    bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
@@ -1237,12 +1238,13 @@ eng:
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
+    hide_lettered_lines: "Hide lettered lines"
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
-    iban: "International Bank Account Number (IBAN)"
+    iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"
@@ -1397,11 +1399,13 @@ eng:
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_incoming_payment: "New incoming payment"
     new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
+    new_outgoing_payment: "New outgoing payment"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -2098,6 +2102,7 @@ eng:
       index: "Index"
       invoice: "Invoice"
       # last_locations: "Last locations"
+      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2148,6 +2153,7 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"
