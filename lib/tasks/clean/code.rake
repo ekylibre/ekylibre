@@ -41,8 +41,9 @@ namespace :clean do
     print ' - Quality: '
     files = `git status --porcelain`.split(/\n/).map do |l|
       x = l.strip.split(/\ /)
-      [x.first, x[1..-1].join(' ').strip]
-    end.select { |p| p.second =~ /\A(.+\.rb|.+\.rake|Rakefile)\z/ }.reject { |p| p.first =~ /D/ }.map(&:second)
+      file = x[1..-1].join(' ').strip.split(' -> ').last
+      [x.first, file]
+    end.select { |p| p.second =~ /\A(.+\.rb|.+\.rake|Rakefile)\z/ && p.first =~ /(A|M)/ }.map(&:second)
     log.write "Inspect:\n"
     files.each do |f|
       log.write " - #{f}\n"

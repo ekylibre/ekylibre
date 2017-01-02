@@ -33,7 +33,7 @@
 #  import_file_updated_at   :datetime
 #  lock_version             :integer          default(0), not null
 #  public_token             :string
-#  public_token_expires_on  :datetime
+#  public_token_expired_at  :datetime
 #  started_on               :date             not null
 #  stopped_on               :date             not null
 #  updated_at               :datetime         not null

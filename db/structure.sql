@@ -2290,17 +2290,17 @@ CREATE TABLE financial_year_exchanges (
     started_on date NOT NULL,
     stopped_on date NOT NULL,
     closed_at timestamp without time zone,
+    public_token character varying,
+    public_token_expired_at timestamp without time zone,
+    import_file_file_name character varying,
+    import_file_content_type character varying,
+    import_file_file_size integer,
+    import_file_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    public_token character varying,
-    public_token_expires_on timestamp without time zone,
-    import_file_file_name character varying,
-    import_file_content_type character varying,
-    import_file_file_size integer,
-    import_file_updated_at timestamp without time zone
+    lock_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -16274,6 +16274,14 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16314,6 +16322,22 @@ ALTER TABLE ONLY intervention_working_periods
 
 
 --
+-- Name: fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
 -- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16327,6 +16351,14 @@ ALTER TABLE ONLY regularizations
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id);
 
 
 --
@@ -16717,18 +16749,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161122161646');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122203438');
 
-INSERT INTO schema_migrations (version) VALUES ('20161123110136');
-
-INSERT INTO schema_migrations (version) VALUES ('20161123110137');
-
-INSERT INTO schema_migrations (version) VALUES ('20161123110138');
-
-INSERT INTO schema_migrations (version) VALUES ('20161123110139');
-
-INSERT INTO schema_migrations (version) VALUES ('20161123110140');
-
-INSERT INTO schema_migrations (version) VALUES ('20161123110141');
-
 INSERT INTO schema_migrations (version) VALUES ('20161124093205');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201142213');
@@ -16744,4 +16764,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161216171308');
 INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 
 INSERT INTO schema_migrations (version) VALUES ('20161219131051');
+
+INSERT INTO schema_migrations (version) VALUES ('20170101110136');
 

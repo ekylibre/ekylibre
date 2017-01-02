@@ -1174,7 +1174,7 @@ eng:
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
     # public_token: "Public token"
-    # public_token_expires_on: "Public token expires on"
+    # public_token_expired_at: "Public token expired at"
     purchasable: "Purchasable"
     purchase: "Purchase"
     purchase_affair: "Purchase affair" #?

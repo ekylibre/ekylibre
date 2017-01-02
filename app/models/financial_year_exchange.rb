@@ -33,7 +33,7 @@
 #  import_file_updated_at   :datetime
 #  lock_version             :integer          default(0), not null
 #  public_token             :string
-#  public_token_expires_on  :datetime
+#  public_token_expired_at  :datetime
 #  started_on               :date             not null
 #  stopped_on               :date             not null
 #  updated_at               :datetime         not null
@@ -44,7 +44,7 @@ class FinancialYearExchange < Ekylibre::Record::Base
   has_many :journal_entries, dependent: :nullify
   has_attached_file :import_file, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed_at, :import_file_updated_at, :public_token_expires_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :closed_at, :import_file_updated_at, :public_token_expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :import_file_content_type, :import_file_file_name, length: { maximum: 500 }, allow_blank: true
   validates :import_file_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :public_token, uniqueness: true, length: { maximum: 500 }, allow_blank: true
@@ -60,7 +60,7 @@ class FinancialYearExchange < Ekylibre::Record::Base
 
   class << self
     def for_public_token(public_token)
-      find_by!('public_token = ? AND public_token_expires_on >= ?', public_token, Time.zone.today)
+      find_by!('public_token = ? AND public_token_expired_at >= ?', public_token, Time.zone.today)
     end
   end
 
@@ -111,7 +111,7 @@ class FinancialYearExchange < Ekylibre::Record::Base
 
   def set_public_token_and_expiration
     self.public_token = SecureRandom.urlsafe_base64(32)
-    self.public_token_expires_on = Time.zone.today + 1.month
+    self.public_token_expired_at = Time.zone.today + 1.month
   end
 
   def close_journal_entries

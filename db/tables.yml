@@ -2376,7 +2376,7 @@ financial_year_exchanges:
     required: true
   public_token:
     type: string
-  public_token_expires_on:
+  public_token_expired_at:
     type: datetime
   started_on:
     type: date
