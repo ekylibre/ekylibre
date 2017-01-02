@@ -100,6 +100,8 @@ class Purchase < Ekylibre::Record::Base
     where(invoiced_at: started_at..stopped_at)
   }
 
+  scope :with_nature, ->(id) { where(nature_id: id) }
+
   scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }

@@ -40,7 +40,7 @@
     .control-group
       %label.string.required.control-label= trade_model_name.human
       .controls
-        = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll }, value: @trade.id
+        = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll, scope: { with_nature: @trade.nature_id } }, value: @trade.id
 
   = field_set payment_model_name.human, class: 'new-payment' do
     = backend_fields_for :payment, @payment do |p|
