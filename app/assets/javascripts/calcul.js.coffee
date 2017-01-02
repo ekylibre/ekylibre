@@ -236,6 +236,28 @@
 
     return
 
+  $(document).behave "load", "*[data-valid-if-difference-between]", ->
+    element = $(this)
+    selector = element.data("valid-if-difference-between")
+    $(document).behave "load keyup change", selector, ->
+      value = null
+      equality = true
+      $(selector).each ->
+        value ?= $(this).numericalValue()
+        equality = false if value != $(this).numericalValue()
+      if element.hasClass("valid") and equality
+        element.removeClass "valid"
+        element.addClass "invalid"
+        element.trigger "change"
+      else if element.hasClass("invalid") and !equality
+        element.removeClass "invalid"
+        element.addClass "valid"
+        element.trigger "change"
+      else if !equality
+        element.addClass("valid")
+
+    return
+
   $(document).on "change", "*[data-valid-if-equality-between]", ->
     element = $(this)
     if element.hasClass("valid") && element.data("submit-if-valid") == true

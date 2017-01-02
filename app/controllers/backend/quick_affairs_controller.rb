@@ -11,10 +11,10 @@ module Backend
       @trade   = self.class::Trade.new(invoiced_at: date, nature_id: nature)
       @trade.items.new
 
-      amount   = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
-      amount  *= self.class::Payment.sign_of_amount
+      @amount   = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
+      @amount  *= self.class::Payment.sign_of_amount
 
-      @payment = self.class::Payment.new(to_bank_at: date, amount: amount)
+      @payment = self.class::Payment.new(to_bank_at: date, amount: @amount)
       @affair  = new_affair(@trade)
       @redirect_to = params[:redirect]
     end
@@ -56,7 +56,7 @@ module Backend
       @amount  = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
       @amount *= self.class::Payment.sign_of_amount
 
-      if lettrable?(@amount)
+      if lettrable?
         @payment.letter_with @bank_statement_items
       else
         notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
@@ -119,10 +119,10 @@ module Backend
                     :payment_id
     end
 
-    def lettrable?(amount)
+    def lettrable?
       bank_statement   = @bank_statement_items.first.bank_statement
-      amount_matches   = (amount == @payment.amount)
-      amount_matches &&= (amount == @trade.amount)
+      amount_matches   = (@amount == @payment.amount)
+      amount_matches &&= (@amount == @trade.amount)
       mode_is_valid    = (bank_statement.cash_id == @payment.mode.cash_id)
       amount_matches && mode_is_valid
     end

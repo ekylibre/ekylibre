@@ -1,0 +1,15 @@
+.form-actions{
+  .centered {
+    position: relative;
+
+    #validity{
+      display: none;
+
+      &.valid {
+        display: inline;
+        position: absolute;
+        top: 0.05em;
+      }
+    }
+  }
+}
