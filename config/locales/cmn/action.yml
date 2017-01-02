@@ -1362,7 +1362,7 @@ cmn:
     rest: "休息"
     restore: "恢复"
     result: "结果"
-    results:  #?
+    results: #?
       one: "1结果" #?
     revenues: "收入"
     revenues_by_product_nature: "按产品类型的收入"

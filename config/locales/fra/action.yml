@@ -49,19 +49,19 @@ fra:
       show: "Analyse N°%{number}"
     backend/analysis_items:
       new: "Nouvel élèment d’analyse"
-    backend/animal_foods:  #?
+    backend/animal_foods: #?
       index: "Alimentation animale" #?
     backend/animal_groups:
       edit: "Modifier le groupe d’animaux\_: %{name}"
       index: "Groupes d’animaux"
       new: "Nouveau groupe d’animaux"
       show: "Groupe\_: %{name}"
-    backend/animal_medicines:  #?
+    backend/animal_medicines: #?
       edit: "Modifier le produit vétérinaire\_: %{name}" #?
       index: "Produits vétérinaires" #?
       new: "Nouveau produit vétérinaire" #?
       show: "Produit vétérinaire\_: %{name}" #?
-    backend/animal_products:  #?
+    backend/animal_products: #?
       index: "Produits animaux" #?
     backend/animals:
       add_to_group: "Ajouter au groupe"
@@ -129,7 +129,7 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
-    backend/cells/stewardship_cells:  #?
+    backend/cells/stewardship_cells: #?
       show: "Assistant: %{name}" #?
     backend/companies:
       edit: "Société"
@@ -183,7 +183,7 @@ fra:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
       new: "Nouvelle zone administrative"
-    backend/document_archives:  #?
+    backend/document_archives: #?
       show: "Archive\_: %{name}" #?
     backend/document_templates:
       edit: "Modifier le modèle de document\_: %{name}"
@@ -222,7 +222,7 @@ fra:
       index: "Équipements"
       new: "Nouvel équipement"
       show: "Équipement\_: %{name}"
-    backend/establishments:  #?
+    backend/establishments: #?
       edit: "Modifier l’établissement\_: %{name}" #?
       index: "Établissements" #?
       new: "Nouvel établissement" #?
@@ -270,7 +270,7 @@ fra:
       index: "Relevés topographiques"
       new: "Nouveau relevé topographique"
       show: "Relevé topographique\_: %{name}"
-    backend/grading_quality_criteria:  #?
+    backend/grading_quality_criteria: #?
       edit: "Modifier le critère qualité d’agréage\_: %{name}" #?
       index: "Critères qualité d’agréage" #?
       new: "Nouveau critère qualité d’agréage" #?
@@ -298,9 +298,9 @@ fra:
       new: "Nouvel import"
       run: "Exécuter l’import\_: %{name}"
       show: "Import\_: %{name}"
-    backend/incoming_parcel_items:  #?
+    backend/incoming_parcel_items: #?
       new: "Nouvel élément" #?
-    backend/incoming_parcels:  #?
+    backend/incoming_parcels: #?
       confirm: "Confirmer la réception d’un colis" #?
       edit: "Modifier le colis à recevoir\_: %{number}" #?
       index: "Colis à recevoir" #?
@@ -376,12 +376,12 @@ fra:
       index: "Étiquettes"
       new: "Nouvelle étiquette"
       show: "Étiquette\_: %{name}"
-    backend/land_parcel_clusters:  #?
+    backend/land_parcel_clusters: #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?
       new: "Nouvel îlot" #?
       show: "Îlot %{name}" #?
-    backend/land_parcel_groups:  #?
+    backend/land_parcel_groups: #?
       divide: "Diviser le groupe de parcelle\_: %{name}" #?
       edit: "Modifier le groupe de parcelle\_: %{name}" #?
       index: "Groupes de parcelles" #?
@@ -437,18 +437,18 @@ fra:
     backend/observations:
       edit: "Modifier une observation"
       new: "Nouvelle observation"
-    backend/operations:  #?
+    backend/operations: #?
       edit: "Modifier le travail" #?
       index: "Travaux" #?
       new: "Nouveau travail" #?
       show: "Détails du travail" #?
       unvalidateds: "Travaux non validés" #?
-    backend/organizations:  #?
+    backend/organizations: #?
       edit: "Modifier l’organisation\_: %{full_name}" #?
       index: "Organisations" #?
       new: "Nouvelle organisation" #?
       show: "Organisation\_: %{full_name}" #?
-    backend/outgoing_parcels:  #?
+    backend/outgoing_parcels: #?
       edit: "Modifier le colis à expédier\_: %{number}" #?
       index: "Colis à expédier" #?
       new: "Nouveau colis à expédier" #?
@@ -518,7 +518,7 @@ fra:
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
-    backend/productions:  #?
+    backend/productions: #?
       edit: "Modifier la production\_: %{name}" #?
       index: "Productions" #?
       new: "Nouvelle production" #?
@@ -528,7 +528,7 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
-    backend/purchase_items:  #?
+    backend/purchase_items: #?
       edit: "Modifier une ligne de la commande" #?
       new: "Nouveau produit à la commande" #?
     backend/purchase_natures:
@@ -563,7 +563,7 @@ fra:
       show: "Rôle\_: %{name}"
     backend/sale_credits:
       new: "Passage en avoir de la facture %{number}"
-    backend/sale_items:  #?
+    backend/sale_items: #?
       detail: "Détailler une ligne de la vente" #?
       edit: "Modifier une ligne de la vente" #?
       new: "Nouveau produit à la vente" #?
@@ -662,7 +662,7 @@ fra:
       index: "Numéros de suivi"
       new: "Nouveau numéro de suivi"
       show: "Numéro de suivi\_: %{name} - %{serial}"
-    backend/transformed_products:  #?
+    backend/transformed_products: #?
       index: "Produits transformés" #?
     backend/trial_balances:
       show: "Balance"
@@ -675,7 +675,7 @@ fra:
       unlock: "Déverrouiller l’utilisateur"
     backend/wine_tanks:
       index: "Cuverie"
-    backend/wine_transformers:  #?
+    backend/wine_transformers: #?
       index: "Produits œnologiques" #?
     backend/workers:
       edit: "Modifier l’équipier %{name}"
@@ -738,7 +738,7 @@ fra:
             polygon: "Dessiner un polygone"
             polyline: "Dessiner une polyligne"
             rectangle: "Dessiner un rectangle"
-          finish:  #?
+          finish: #?
             text: "Terminer" #?
             title: "Terminer le dessin" #?
           undo:
@@ -1075,7 +1075,7 @@ fra:
     credit: "Crédit"
     credited_quantity: "Qté. à passer en avoir"
     credits: "Avoirs"
-    criterion_modes:  #?
+    criterion_modes: #?
       all: "Tout" #?
       confirmed: "Confirmés" #?
       unconfirmed: "Non-confirmés" #?
@@ -1122,12 +1122,12 @@ fra:
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
-    delete_only_record:  #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
-      one: "Ou supprimer uniquement l'intervention" #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
-      other: "Ou supprimer uniquement les interventions" #? String excepted (Hash:{:one=>"Ou supprimer uniquement l'intervention", :other=>"Ou supprimer uniquement les interventions"})
-    delete_request:  #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
-      one: "Supprimer l'intervention et la demande associée" #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
-      other: "Supprimer les interventions et les demandes associées" #? String excepted (Hash:{:one=>"Supprimer l'intervention et la demande associée", :other=>"Supprimer les interventions et les demandes associées"})
+    delete_only_record: #? String expected ("Or only delete the selected intervention(s) and display the request associate ?")
+      one: "Ou supprimer uniquement l'intervention" #?
+      other: "Ou supprimer uniquement les interventions" #?
+    delete_request: #? String expected ("Delete also the request associate to the selected intervention(s)")
+      one: "Supprimer l'intervention et la demande associée" #?
+      other: "Supprimer les interventions et les demandes associées" #?
     delete_selected_interventions: "Supprimer les interventions sélectionnées"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
@@ -1316,7 +1316,7 @@ fra:
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
-    incoming_payments_states:  #?
+    incoming_payments_states: #?
       all: "Tous" #?
       depositable: "À remettre en banque" #?
       unparted: "Non affectés" #?
@@ -1348,7 +1348,7 @@ fra:
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
-    interventions_selections:  #?
+    interventions_selections: #?
       done: "Fait" #?
       provisional: "Prévisionnelle" #?
       recommended: "Préconisée" #?
@@ -1420,7 +1420,7 @@ fra:
     letter_options: "Lettre" #?
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
-    lettering_modes:  #?
+    lettering_modes: #?
       attorneys: "Mandataires" #?
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
@@ -1616,7 +1616,7 @@ fra:
     outgoing_parcels: "Colis sortants"
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
-    outgoing_payments_states:  #?
+    outgoing_payments_states: #?
       all: "Tous" #?
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
@@ -1725,14 +1725,14 @@ fra:
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
-    purchase_steps:  #?
+    purchase_steps: #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?
       summary: "Décaissements" #?
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
-    purchases_selections:  #?
+    purchases_selections: #?
       aborted: "Annulée" #?
       draft: "Brouillon" #?
       estimate: "Devis" #?
@@ -1797,13 +1797,13 @@ fra:
     rest_to_pay: "Reste à payer" #?
     restore: "Restaurer"
     result: "Résultat"
-    results:  #?
+    results: #?
       one: "%{count} résultat" #?
       other: "%{count} résultats" #?
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
-    right_parts:  #?
+    right_parts: #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?
       finances: "Droits module Finances" #?
@@ -1824,7 +1824,7 @@ fra:
     sale_deliveries: "Livraisons" #?
     sale_items: "Lignes de la vente"
     sale_opportunities: "Opportunités de vente"
-    sale_steps:  #?
+    sale_steps: #?
       deliveries: "Planification des livraisons" #?
       estimate: "Création du devis" #?
       general: "Description" #?
@@ -1838,14 +1838,14 @@ fra:
     sales_invoice_print: "Imprimer la facture" #?
     sales_invoice_sale: "Facturer la vente" #?
     sales_invoices: "Factures" #?
-    sales_invoices_states:  #?
+    sales_invoices_states: #?
       all: "Toutes" #?
       cancelled: "Passées en avoir" #?
       credits: "Avoirs" #?
     sales_invoices_total: "Total factures" #?
     sales_preferences: "Préférences de vente"
     sales_pretax_amount: "Montant HT (Ventes)"
-    sales_states:  #?
+    sales_states: #?
       all: "Toutes" #?
       current: "En cours" #?
       unpaid: "Impayées" #?
@@ -2051,7 +2051,7 @@ fra:
     transformations: "Transformations" #?
     transformed_products: "Produits transformés" #?
     transport: "Transport"
-    transport_states:  #?
+    transport_states: #?
       all: "Tous" #?
       making: "En cours" #?
       ready: "Prêts" #?
@@ -2124,7 +2124,7 @@ fra:
     vat_paid: "TVA DEDUCTIBLE" #?
     video: "Vidéo" #?
     view: "Affichage"
-    view_modes:  #?
+    view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
@@ -2215,7 +2215,7 @@ fra:
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
-    x_mandates:  #?
+    x_mandates: #?
       one: "%{count} responsabilité" #?
       other: "%{count} responsabilités" #?
     x_mills:
@@ -2234,7 +2234,7 @@ fra:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} de %{y}"
-    x_operations:  #?
+    x_operations: #?
       one: "%{count} travail" #?
       other: "%{count} travaux" #?
     x_outgoing_parcels:
@@ -2243,13 +2243,13 @@ fra:
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
-    x_part_replacements:  #?
+    x_part_replacements: #?
       one: "%{count} changement de pièces effectué" #?
       other: "%{count} changement de pièces effectués" #?
-    x_performed_operations:  #?
+    x_performed_operations: #?
       one: "%{count} travail à réaliser" #?
       other: "%{count} travaux à réaliser" #?
-    x_prices:  #?
+    x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
     x_purchases:
@@ -2273,7 +2273,7 @@ fra:
     x_seconds:
       one: "%{count} seconde"
       other: "%{count} secondes"
-    x_stock_transfers_to_confirm:  #?
+    x_stock_transfers_to_confirm: #?
       one: "%{count} transfert à effectuer" #?
       other: "%{count} transferts à effectuer" #?
     x_subscriptions:

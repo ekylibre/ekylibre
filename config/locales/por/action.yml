@@ -78,7 +78,7 @@ por:
       index: "Prédios"
       new: "Novo prédio"
       show: "Prédio: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulators:  #?
+    backend/calculators/grains_commercialization_threshold_simulators: #?
       show: "Simulador de comercialização de grãos" #?
     backend/campaigns:
       current: "Campanha"
@@ -121,7 +121,7 @@ por:
       index: "Catalogos"
       new: "Novo catalogo"
       show: "Catalogo: %{name}"
-    backend/cells/stewardship_cells:  #?
+    backend/cells/stewardship_cells: #?
       show: "Células de administração: %{name}" #?
     backend/companies:
       edit: "Editar configurações de empresa"
@@ -1366,7 +1366,7 @@ por:
     rest: "Descansar"
     restore: "Restaurar"
     result: "Resultado"
-    results:  #?
+    results: #?
       one: "1 resultado" #?
     revenues: "Faturamento"
     revenues_by_product_nature: "As receitas por tipo de produto"

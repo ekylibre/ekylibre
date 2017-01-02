@@ -11,14 +11,14 @@ module Clean
       def exp(hash, *keys)
         options = keys.extract_options!
         name = keys.last
-        value = rec(hash, *keys)
         @to_translate += 1
-        if value
-          return "#{name}: " + Clean::Support.yaml_value(value)
-        else
+        value = rec(hash, *keys)
+        yaml = Clean::Support.pair_to_yaml(name, value || options[:default] || name.to_s.humanize)
+        unless value
           @untranslated += 1
-          return "# #{name}: " + Clean::Support.yaml_value(options[:default] || name.to_s.humanize)
+          yaml.gsub!(/^/, Clean::Support.missing_prompt)
         end
+        yaml
       end
 
       def rec(hash, *keys)
@@ -66,6 +66,7 @@ module Clean
         clean_file! 'exceptions'
         clean_exchangers!
         clean_file! 'formats'
+        clean_file! 'mailers'
         clean_models!
         clean_nomenclatures!
         clean_procedures!
@@ -75,6 +76,22 @@ module Clean
         log "  - Total:               #{(100 * @count / @total).round.to_s.rjust(3)}% (#{@count}/#{@total})\n"
         puts " - Locale: #{(100 * @count / @total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated"
       end
+
+      # def clean_access!
+      #   translate('access.yml') do |ref, translation, s|
+      #     s.node :access do      #       s.node :interactions do
+      #         Ekylibre::Access.interactions.each do |interaction|
+      #           s.expect(interaction)
+      #         end
+      #       end
+      #       s.node :resources do
+      #         Ekylibre::Access.resources.keys.each do |resource|
+      #           s.expect(resource)
+      #         end
+      #       end
+      #     end
+      #   end
+      # end
 
       def clean_access!
         translate('access.yml') do |ref, translation, s|
@@ -445,7 +462,7 @@ module Clean
         end
         translation << "  attributes:\n"
         attributes.sort.each do |attribute, definition|
-          # unless attribute.to_s.match(/_id$/)
+          # unless attribute.to_s.match(%r(_id$))
           translation << '    '
           translation << missing_prompt if definition[1] == :undefined
           translation << "#{attribute}: " + Clean::Support.yaml_value(definition[0])
@@ -620,23 +637,23 @@ module Clean
         total = 0
         count = 0
         Dir.glob(Rails.root.join('config', 'locales', reference_locale.to_s, '*.yml')).sort.each do |reference_path|
-          file_name = reference_path.split(/[\/\\]+/)[-1]
+          file_name = reference_path.split(%r{[\/\\]+})[-1]
           target_path = Rails.root.join('config', 'locales', locale.to_s, file_name)
           unless File.exist?(target_path)
             FileUtils.mkdir_p(target_path.dirname)
             File.open(target_path, 'wb') do |file|
-              file.write("#{locale}:\n")
+              file.write("#{locale}: {}\n")
             end
           end
           target = Clean::Support.yaml_to_hash(target_path).deep_compact
           reference = Clean::Support.yaml_to_hash(reference_path).deep_compact
-          translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[reference_locale], 1, (locale == :english ? :humanize : :localize))
+          translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[reference_locale], locale == :english ? :humanize : :localize)
           count += scount
           total += stotal
           log "  - #{(file_name + ':').ljust(20)} #{(stotal.zero? ? 0 : 100 * (stotal - scount) / stotal).round.to_s.rjust(3)}% (#{stotal - scount}/#{stotal})\n"
           File.open(target_path, 'wb') do |file|
             file.write("#{locale}:\n")
-            file.write(translation)
+            file.write(translation.indent.gsub(/\ +\n/, "\n"))
           end
         end
         log "  - Total:               #{(100 * (total - count) / total).round.to_s.rjust(3)}% (#{total - count}/#{total})\n"
@@ -645,7 +662,7 @@ module Clean
         # # log "  - help: # Missing files\n"
         # for controller, actions in useful_actions
         #   for action in actions
-        #     if File.exists?(Rails.root.join('app', 'views', controller.to_s, "#{action}.html.haml")) or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+        #     if File.exists?(Rails.root.join('app', 'views', controller.to_s, "#{action}.html.haml")) or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(%r(_[^_]*$), '')}_form.html.haml") and action.split("_")[-1].match(%r(create|update))
         #       help = "#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
         #       # log "    - #{help.gsub(Rails.root.to_s,'.')}\n" unless File.exists?(help)
         #     end
@@ -669,7 +686,7 @@ module Clean
 
       def write(file, translation, total, untranslated = 0)
         file = locale_dir.join(file) if file.is_a?(String)
-        File.write(file, translation.strip)
+        File.write(file, translation.strip.gsub(/\ +\n/, "\n"))
         log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
         @total += total
         @count += total - untranslated
@@ -696,7 +713,7 @@ module Clean
       end
 
       def missing_prompt
-        '# '
+        Clean::Support.missing_prompt
       end
 
       def clean_file!(basename)

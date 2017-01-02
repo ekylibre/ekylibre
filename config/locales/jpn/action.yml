@@ -581,7 +581,7 @@ jpn:
       index: "ホーム"
   errors:
     # format: "%{message}"
-    front-end:  #?
+    front-end: #?
       leaflet: #?
         draw: #?
           handlers: #?
@@ -1218,7 +1218,7 @@ jpn:
     mass: "マッセ"
     maximal_temperature: "最高温度"
     members: "メンバー"
-    menu:  #?
+    menu: #?
       accountancy_tasks: "用事" #?
       parameters: "パラメーター" #?
       tools: "道具" #?
@@ -1434,7 +1434,7 @@ jpn:
     rest: "残り"
     restore: "リストア"
     result: "結果"
-    results:  #?
+    results: #?
       one: "1の結果" #?
     revenues: "収入"
     revenues_by_product_nature: "製品タイプ別収益"
@@ -1799,7 +1799,7 @@ jpn:
     yield: "産出"
     yield_by_calibration: "キャリブレーションによって収量"
     zones: "ゾーン"
-  list:  #?
+  list: #?
     pagination: #?
       x_to_y_of_total: "%{x}-%{y}/%{total}" #?
   notifications:

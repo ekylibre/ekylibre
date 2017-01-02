@@ -164,7 +164,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     entry.printed_on = exchange.started_on + 1.day
     refute entry.valid?
   end
-  
+
   test 'cannot be updated to a date in financial year exchange date range' do
     exchange = financial_year_exchanges(:financial_year_exchanges_001)
     entry = journal_entries(:journal_entries_081)

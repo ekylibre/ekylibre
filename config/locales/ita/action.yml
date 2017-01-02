@@ -581,7 +581,7 @@ ita:
       index: "Casa"
   errors:
     # format: "%{message}"
-    front-end:  #?
+    front-end: #?
       leaflet: #?
         draw: #?
           handlers: #?
@@ -1427,7 +1427,7 @@ ita:
     rest: "riposo"
     restore: "Ripristinare"
     result: "Risultato"
-    results:  #?
+    results: #?
       one: "1 risultato" #?
     revenues: "ricavi"
     revenues_by_product_nature: "Ricavi per tipologia di prodotto"

@@ -111,16 +111,16 @@ ita:
         present: "deve essere lasciato in bianco" #?
         # record_invalid: "Validations failed: %{errors}"
         taken: "è già presente"
-        too_long:  #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-          one: "è troppo lungo (il massimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-          other: "è troppo lungo (il massimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-        too_short:  #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
-          one: "è troppo corto (il minimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
-          other: "è troppo corto (il minimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+        too_long: #? String expected ("%{attribute} is too long (maximum is %{count} characters)")
+          one: "è troppo lungo (il massimo è 1 carattere)" #?
+          other: "è troppo lungo (il massimo è %{count} caratteri)" #?
+        too_short: #? String expected ("%{attribute} is too short (minimum is %{count} characters)")
+          one: "è troppo corto (il minimo è 1 carattere)" #?
+          other: "è troppo corto (il minimo è %{count} caratteri)" #?
         unitary_in_parcel: "elementi unitari possono essere inviati solo uno per uno"
-        wrong_length:  #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
-          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
-          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
+        wrong_length: #? String expected ("%{attribute} is the wrong length (should be %{count} characters)")
+          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
+          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
@@ -197,7 +197,7 @@ ita:
           nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che." #?
           one: "Non posso salvare questo %{model}: 1 errore"
           other: "Non posso salvare questo %{model}: %{count} errori."
-        models:  #?
+        models: #?
           cash: #?
             unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti." #?
           financial_year: #?
@@ -216,7 +216,7 @@ ita:
             error_no_found_price: "Nessun prezzo trovato" #?
           subscription: #?
             entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto" #?
-        template:  #?
+        template: #?
           body: "Ci sono stati problemi con i seguenti campi:" #?
     models:
       account: "account"

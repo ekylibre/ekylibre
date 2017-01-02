@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -63,12 +63,12 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
   test 'for_public_token returns the exchange when the token is not expired' do
     exchange = financial_year_exchanges(:financial_year_exchanges_001)
-    assert exchange.update_columns(public_token: "123ABC", public_token_expires_on: Time.zone.today + 1.day)
-    assert_equal exchange, FinancialYearExchange.for_public_token("123ABC")
+    assert exchange.update_columns(public_token: '123ABC', public_token_expires_on: Time.zone.today + 1.day)
+    assert_equal exchange, FinancialYearExchange.for_public_token('123ABC')
   end
   test 'for_public_token raises when the token is expired' do
     exchange = financial_year_exchanges(:financial_year_exchanges_001)
-    assert exchange.update_columns(public_token: "123ABC", public_token_expires_on: Time.zone.today - 1.day)
+    assert exchange.update_columns(public_token: '123ABC', public_token_expires_on: Time.zone.today - 1.day)
     assert_raises(ActiveRecord::RecordNotFound) do
       FinancialYearExchange.for_public_token(exchange.public_token)
     end
