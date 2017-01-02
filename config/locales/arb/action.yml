@@ -1208,6 +1208,7 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
+    # dated_cash: "%{cash}: %{on}"
     dates: "ادخل تواريخ بداية ونهاية المدة"
     days: "أيام"
     deals: "عروض"

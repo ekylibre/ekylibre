@@ -954,6 +954,7 @@ ita:
     current_stocks_by_variety: "le scorte attuali di varietà"
     currently_subscribed_to: "Attualmente sottoscritto"
     custom_fields: "Campi personalizzati"
+    # dated_cash: "%{cash}: %{on}"
     dates: "Selezionare data di inizio periodo e periodo data di fine"
     days: "giorni"
     deals: "offerte"

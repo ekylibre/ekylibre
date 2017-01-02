@@ -888,6 +888,7 @@ deu:
     current_stocks_by_variety: "Aktuelle Bestände durch Vielfalt"
     currently_subscribed_to: "Derzeit abonniert"
     custom_fields: "Benutzerdefinierte Felder"
+    # dated_cash: "%{cash}: %{on}"
     dates: "Wählen Sie Zeitraum Startdatum und Enddatum der Periode"
     days: "Tage"
     deals: "Angebote"

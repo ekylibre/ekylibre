@@ -888,6 +888,7 @@ cmn:
     current_stocks_by_variety: "目前的库存按品种"
     currently_subscribed_to: "目前订阅"
     custom_fields: "自定义字段"
+    # dated_cash: "%{cash}: %{on}"
     dates: "选择期限起始日期和周期的最后一天"
     days: "天"
     deals: "优惠"

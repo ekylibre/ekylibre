@@ -1105,6 +1105,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
     days: "Days"
     deals: "Deals"
