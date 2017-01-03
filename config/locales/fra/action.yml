@@ -1541,11 +1541,11 @@ fra:
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
-    new_purchase: "Nouvel achat"
+    new_purchase: "Nouvel achat" #?
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"
     new_reservoir: "Ajouter un réservoir" #?
-    new_sale: "Nouvelle vente"
+    new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
     new_title: "Nouveau titre" #?
     new_value: "Nouvelle valeur" #?
@@ -1574,7 +1574,6 @@ fra:
     no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
-    not_letterable: "Impossible de lettrer"
     none: "Aucun"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?
@@ -1583,6 +1582,7 @@ fra:
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
+    not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
     now: "Maintenant"
@@ -2540,6 +2540,8 @@ fra:
       move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"

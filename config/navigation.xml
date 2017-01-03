@@ -1904,6 +1904,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="quick_affairs">
+        <page to="backend/quick_affairs#create"/>
+        <page to="backend/quick_affairs#new"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -461,8 +461,10 @@ deu:
       propose_and_invoice: "Rechnung direkt"
       refuse: "weigerte sich um"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Bearbeiten Registrierung"
       index: "Anmeldungen"
@@ -858,6 +860,7 @@ deu:
     costs: "Kosten"
     costs_map: "Kosten Karte" #?
     costs_per_hectare: "Die Kosten pro Hektar"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "Zählungen"
     counts: "zählt"
     counts_by_nature: "Anzahl der Dokumente pro Typ zu berücksichtigen"
@@ -978,6 +981,7 @@ deu:
     # example: "Example: %{value}"
     exchange: "Austausch"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Kosten"
@@ -1114,6 +1118,7 @@ deu:
     last_purchases: "Letzte Einkäufe"
     last_sales: "Letzte Verkaufs"
     letter: "Brief"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "linear Optionen"
     # link: "Link"
@@ -1212,6 +1217,7 @@ deu:
     none: "Keiner"
     # normal: "Normal"
     not_delivered: "Nicht zugestellt"
+    # not_letterable: "Not able to letter"
     not_ready: "Nicht bereit"
     not_received: "Nicht erhalten"
     now: "Jetzt"
@@ -1374,6 +1380,7 @@ deu:
     # same_variant_as_x: "Same variant as %{x}"
     save: "sparen"
     save_in_draft: "Als Entwurf speichern"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Geplant"
     search: "Suche"
     search_placeholder: "Suche…"
@@ -1890,6 +1897,8 @@ deu:
       move: "Bewegung" #?
       negociate: "verhandeln"
       new: "Neu"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "Öffnen"
       order: "Auftrag"
       pay: "Bezahlen"

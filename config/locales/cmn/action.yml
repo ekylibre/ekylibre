@@ -461,8 +461,10 @@ cmn:
       propose_and_invoice: "直接发票"
       refuse: "为了拒绝"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "编辑注册"
       index: "注册"
@@ -858,6 +860,7 @@ cmn:
     costs: "成本"
     costs_map: "成本地图" #?
     costs_per_hectare: "每公顷成本"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     # countings: "Countings"
     counts: "计数"
     counts_by_nature: "文档每个类型账户号码"
@@ -978,6 +981,7 @@ cmn:
     # example: "Example: %{value}"
     exchange: "交换"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "开支"
@@ -1115,6 +1119,7 @@ cmn:
     last_purchases: "上次购买"
     last_sales: "去年销售"
     letter: "信"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "线性选项"
     link: "链接"
@@ -1213,6 +1218,7 @@ cmn:
     none: "无"
     normal: "正常"
     not_delivered: "没送到"
+    # not_letterable: "Not able to letter"
     not_ready: "没有准备好"
     not_received: "没收到"
     now: "现在"
@@ -1375,6 +1381,7 @@ cmn:
     # same_variant_as_x: "Same variant as %{x}"
     save: "保存"
     save_in_draft: "保存为草稿"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "计划"
     search: "搜索"
     search_placeholder: "搜索…"
@@ -1892,6 +1899,8 @@ cmn:
       move: "移动" #?
       # negociate: "Negociate"
       new: "新"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "打开"
       order: "订购"
       pay: "工资"
