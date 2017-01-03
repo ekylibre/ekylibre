@@ -38,8 +38,10 @@ class InterventionParticipation < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :product
 
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy
+  has_many :working_periods, class_name: 'InterventionWorkingPeriod', inverse_of: :intervention_participation, dependent: :destroy
   has_many :crumbs, dependent: :destroy
+
+  accepts_nested_attributes_for :working_periods
 
   validates :product_id, presence: true
   validates :intervention_id, uniqueness: { scope: [:product_id] }, unless: -> { intervention_id.blank? }
@@ -100,6 +102,8 @@ class InterventionParticipation < Ekylibre::Record::Base
 
       # Create intervention
       intervention = Intervention.create!(attributes)
+      self.intervention = intervention
+      save!
     end
     intervention
   end
