@@ -61,5 +61,5 @@
     %span.centered
       = a.button :submit, :save.tl, class: 'btn btn-primary'
       #amount_to_match.hidden= @amount
-      %span.validity#letterable{ 'data-valid-if-equality-between': '.controls:visible #payment_amount, #amount_to_match' }="Lettrable"
-      %span.validity#nonletterable{ 'data-valid-if-difference-between': '.controls:visible #payment_amount, #amount_to_match' }="Non-lettrable"
+      %span.validity#letterable{ 'data-valid-if-equality-between': '.controls:visible #payment_amount, #amount_to_match' }= :letterable.tl
+      %span.validity#nonletterable{ 'data-valid-if-difference-between': '.controls:visible #payment_amount, #amount_to_match' }= :not_letterable.tl
