@@ -25,7 +25,7 @@
     $affairs.each () ->
       total += parseFloat $(this).data('outgoing-payment-selected-amount')
 
-    $total.text C.toCurrency(total)
+    $total.text C.toCurrency(total.toFixed(2))
 
     if total < 0
       $total.addClass('error')

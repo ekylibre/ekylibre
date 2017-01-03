@@ -98,6 +98,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   def self.build_from_purchase_affairs(affairs, mode, responsible, initial_check_number = nil)
     outgoing_payments = affairs.collect.with_index do |affair, index|
+      next if affair.third_credit_balance <= 0
       OutgoingPayment.new(
         affair: affair,
         amount: affair.third_credit_balance,
@@ -112,7 +113,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i + index,
         position: index
       )
-    end
+    end.compact
     new(payments: outgoing_payments, mode: mode)
   end
 
