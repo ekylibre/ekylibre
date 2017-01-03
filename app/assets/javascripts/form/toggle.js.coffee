@@ -13,12 +13,17 @@
   # Toggle check boxes and radio buttons target
   $.toggleCheckboxes = ->
     checkable = $(this)
+    toShow = checkable.formScopedSelect(checkable.interpolatedData("show"))
+    toHide = checkable.formScopedSelect(checkable.interpolatedData("hide"))
+    slidingOptions =
+      complete: ->
+        $(this).trigger("visibility:change", this)
     if checkable.prop("checked")
-      checkable.formScopedSelect(checkable.interpolatedData("show")).slideDown()
-      checkable.formScopedSelect(checkable.interpolatedData("hide")).slideUp()
+      toShow.filter(':not(:visible)').slideDown slidingOptions
+      toHide.filter(':visible').slideUp         slidingOptions
     else
-      checkable.formScopedSelect(checkable.interpolatedData("show")).slideUp()
-      checkable.formScopedSelect(checkable.interpolatedData("hide")).slideDown()
+      toShow.filter(':visible').slideUp         slidingOptions
+      toHide.filter(':not(:visible)').slideDown slidingOptions
     return
 
   $.toggleRadios = ->
@@ -29,7 +34,7 @@
   # Hide/show blocks depending on check boxes
   $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
   $(document).on   "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
-  $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleCheckboxes
+  $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
   $(document).on   "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
 
   return
