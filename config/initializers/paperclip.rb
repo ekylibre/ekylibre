@@ -2,6 +2,11 @@
 Paperclip.interpolates :tenant do |_attachment, _style|
   Ekylibre::Tenant.private_directory.join('attachments')
 end
+
+Paperclip.interpolates :private do |_attachment, _style|
+  Ekylibre::Tenant.private_directory
+end
+
 Paperclip.options[:whiny] = false
 
 require 'paperclip/media_type_spoof_detector'
