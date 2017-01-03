@@ -2819,7 +2819,8 @@ CREATE TABLE incoming_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    codes jsonb
 );
 
 
@@ -16608,4 +16609,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161216171308');
 INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 
 INSERT INTO schema_migrations (version) VALUES ('20161219131051');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231180401');
 
