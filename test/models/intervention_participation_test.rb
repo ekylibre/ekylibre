@@ -46,6 +46,32 @@ class InterventionParticipationTest < ActiveSupport::TestCase
     @intervention.reload
   end
 
+  test 'converting one participation to an intervention' do
+    time = Time.zone.now
+
+    participation = InterventionParticipation.create!(state: :done, request_compliant: false, procedure_name: :sowing, product: @worker,
+                                                      working_periods_attributes: [
+                                                          {
+                                                              started_at: time - 1.hour,
+                                                              stopped_at: time - 30.minutes,
+                                                              nature: 'travel'
+                                                          },
+                                                          {
+                                                              started_at: time - 30.minutes,
+                                                              stopped_at: time,
+                                                              nature: 'intervention'
+                                                          }
+                                                      ])
+    intervention = participation.convert!
+
+    assert_not_nil intervention
+    assert_equal :sowing, intervention.procedure_name.to_sym
+    assert_equal :done, intervention.state.to_sym
+    assert_equal 2, intervention.working_periods.count
+    assert_equal (time - 1.hour).to_s, intervention.working_periods.minimum(:started_at).to_s
+    assert_equal time.to_s, intervention.working_periods.maximum(:stopped_at).to_s
+  end
+
   test 'only one participation per worker per intervention' do
     assert_raises { @worker.intervention_participations.create!(intervention_id: @intervention.id, state: :in_progress) }
   end
