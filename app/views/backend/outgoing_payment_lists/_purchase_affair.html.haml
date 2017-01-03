@@ -1,5 +1,5 @@
 :ruby
-  purchases = purchase_affair.deals_of_type('Purchase')
+  purchases = purchase_affair.purchases.where(state: :invoice).order(created_at: :asc)
 
 %tr{data: {outgoing_payment_purchase_affair: purchase_affair.id}}
   = hidden_field_tag 'purchase_affairs[]', nil, data: {outgoing_payment_purchase_affair_selection: true}
