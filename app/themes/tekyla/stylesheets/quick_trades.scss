@@ -2,8 +2,18 @@
   .centered {
     position: relative;
 
-    #validity{
+    .validity{
       display: none;
+
+      &#letterable {
+        color: $brand-success;
+        @include icon-before(check);
+      }
+
+      &#nonletterable {
+        color: $brand-warning;
+        @include icon-before(times);
+      }
 
       &.valid {
         display: inline;

@@ -17,7 +17,7 @@
               = radio_button_tag :"mode-#{attribute}", label.to_s, checked, { data: { show: ".#{label}-#{attribute}" } }
               = label_tag :"mode-#{attribute}", label.tl
 
-  = field_set trade_model_name.human, class: 'new-trade' do
+  = field_set trade_model_name.human, class: 'new-trade hidden' do
     = backend_fields_for :trade, @trade do |t|
       = t.input :invoiced_at
       = t.input_field :nature_id, as: :hidden
@@ -36,13 +36,13 @@
           = t.simple_fields_for :items, t.object.items do |item|
             = render 'item_fields', f: item
 
-  = field_set trade_model_name.human, class: 'existing-trade' do
+  = field_set trade_model_name.human, class: 'existing-trade hidden' do
     .control-group
       %label.string.required.control-label= trade_model_name.human
       .controls
         = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll, scope: { with_nature: @trade.nature_id } }, value: @trade.id
 
-  = field_set payment_model_name.human, class: 'new-payment' do
+  = field_set payment_model_name.human, class: 'new-payment hidden' do
     = backend_fields_for :payment, @payment do |p|
       = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
       = p.referenced_association :mode, source: { scope: { matching_cash: statement_cash_id } }
@@ -50,7 +50,7 @@
         = p.input_field :amount
         %span.add-on= @trade.currency || @trade.nature.currency
 
-  = field_set payment_model_name.human, class: 'existing-payment' do
+  = field_set payment_model_name.human, class: 'existing-payment hidden' do
     .control-group
       %label.string.required.control-label= payment_model_name.human
       .controls.delivery-item
@@ -61,5 +61,5 @@
     %span.centered
       = a.button :submit, :save.tl, class: 'btn btn-primary'
       #amount_to_match.hidden= @amount
-      %span#validity{ 'data-valid-if-equality-between': '.controls:visible #payment_amount, #amount_to_match' }="Lettrable"
-      %span#validity{ 'data-valid-if-difference-between': '.controls:visible #payment_amount, #amount_to_match' }="Non-lettrable"
+      %span.validity#letterable{ 'data-valid-if-equality-between': '.controls:visible #payment_amount, #amount_to_match' }="Lettrable"
+      %span.validity#nonletterable{ 'data-valid-if-difference-between': '.controls:visible #payment_amount, #amount_to_match' }="Non-lettrable"
