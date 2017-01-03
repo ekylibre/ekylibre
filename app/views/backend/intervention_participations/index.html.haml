@@ -55,7 +55,7 @@
     - if intervention_participations.any?
       = cobbles do |c|
         - intervention_participations.each_with_index do |intervention_participation, index|
-          - c.cobble "intervention_#{index}".to_sym, title: intervention_participation.human_name do
+          - c.cobble "intervention_#{index}".to_sym, title: intervention_participation.qualified_human_name do
             = render 'intervention', participation: intervention_participation
     - else
       = :no_intervention_participations_to_check.tl
