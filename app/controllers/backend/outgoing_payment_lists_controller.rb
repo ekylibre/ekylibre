@@ -58,6 +58,7 @@ module Backend
                                                methods: [:amount_to_letter, :label, :affair_reference_numbers],
                                                include: {
                                                  responsible: {},
+                                                 affair: {include: {purchases: {}}},
                                                  mode: {},
                                                  payee: { include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } }
                                                }

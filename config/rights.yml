@@ -1230,6 +1230,7 @@ journal_entries:
     - "backend/journal_entries#destroy"
     - "backend/journal_entries#edit"
     - "backend/journal_entries#new"
+    - "backend/journal_entries#toggle_autocompletion"
     - "backend/journal_entries#update"
     - "backend/journal_entry_items#new"
     - "backend/regularizations#create"
