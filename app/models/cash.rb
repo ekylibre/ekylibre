@@ -269,10 +269,24 @@ class Cash < Ekylibre::Record::Base
     end
   end
 
-  # Returns cash balance in the global currency
+  # Return last entry date
+  def last_journal_entry
+    main_journal_entry_items.reorder(printed_on: :desc).first
+  end
+
+  # Returns (real) main account cash balance in the global currency
   def balance(at = Time.zone.now)
-    closure = FinancialYear.last_closure || Date.civil(-1, 12, 31)
-    closure += 1
-    journal_entry_items.where(printed_on: closure..at.to_date).sum('real_debit - real_credit') || 0.0
+    if at == Time.zone.now
+      main_journal_entry_items.sum('real_debit - real_credit') || 0.0
+    else
+      closure = FinancialYear.last_closure || Date.civil(-1, 12, 31)
+      closure += 1
+      main_journal_entry_items.where(printed_on: closure..at.to_date).sum('real_debit - real_credit') || 0.0
+    end
+  end
+
+  # Returns (theoric) suspense account cash balance in the global currency
+  def suspended_balance(_at = Time.zone.now)
+    suspended_journal_entry_items.sum('real_debit - real_credit') || 0.0
   end
 end

@@ -188,8 +188,7 @@ class Parcel < Ekylibre::Record::Base
   bookkeep do |b|
     # For purchase_not_received or sale_not_emitted
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    list = []
-    if Preference[:permanent_stock_inventory] && given?
+    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: Preference[:permanent_stock_inventory] && given?) do |entry|
       label = tc(:undelivered_invoice,
                  resource: self.class.model_name.human,
                  number: number, entity: entity.full_name, mode: nature.l)
@@ -197,11 +196,10 @@ class Parcel < Ekylibre::Record::Base
       items.each do |item|
         amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
         next unless item.variant && item.variant.charge_account && amount.nonzero?
-        list << [:add_credit, label, account.id, amount, resource: item, as: :unbilled]
-        list << [:add_debit, label, item.variant.charge_account.id, amount, resource: item, as: :expense]
+        entry.add_credit label, account.id, amount, resource: item, as: :unbilled
+        entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense
       end
     end
-    b.journal_entry(journal, printed_on: printed_on, list: list, as: :undelivered_invoice)
 
     # For permanent stock inventory
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }

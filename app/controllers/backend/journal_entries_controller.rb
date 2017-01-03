@@ -63,10 +63,16 @@ module Backend
     end
 
     def new
-      @journal_entry = JournalEntry.new
-      @journal_entry.printed_on = params[:printed_on] || Time.zone.today
-      @journal_entry.real_currency_rate = params[:exchange_rate].to_f
-      @journal = Journal.find_by(id: params[:journal_id])
+      if params[:duplicate_of]
+        @journal_entry = JournalEntry.find_by(id: params[:duplicate_of])
+                                     .deep_clone(include: :items, except: :number)
+        @journal = @journal_entry.journal
+      else
+        @journal_entry = JournalEntry.new
+        @journal_entry.printed_on = params[:printed_on] || Time.zone.today
+        @journal_entry.real_currency_rate = params[:exchange_rate].to_f
+        @journal = Journal.find_by(id: params[:journal_id])
+      end
       if @journal
         @journal_entry.journal = @journal
         t3e @journal.attributes
@@ -78,10 +84,11 @@ module Backend
 
     def create
       return unless @journal = find_and_check(:journal, params[:journal_id])
-      @journal_entry = @journal.entries.build(permitted_params)
+      items = params[:items].each_with_object({}) { |pair, hash| hash[pair.first] = pair.last.except(:id) }
+      @journal_entry = @journal.entries.build(permitted_params.merge(items_attributes: items.values).permit!)
       @journal_entry_items = (params[:items] || {}).values
       # raise @journal_entry_items.inspect
-      if @journal_entry.save_with_items(@journal_entry_items)
+      if @journal_entry.save
         if params[:affair_id]
           affair = Affair.find_by(id: params[:affair_id])
           if affair
@@ -95,6 +102,10 @@ module Backend
         end
         redirect_to params[:redirect] || { controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on }
         return
+      end
+      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+        next if /items\./ =~ field
+        messages.each { |m| notify_error_now "#{JournalEntry.human_attribute_name(field)}: #{m.capitalize}" }
       end
       t3e @journal.attributes
     end
@@ -118,13 +129,30 @@ module Backend
         return
       end
       @journal = @journal_entry.journal
-      @journal_entry.attributes = permitted_params
+      items = params[:items].each_with_object({}) do |pair, hash|
+        attributes = pair.last[:id].to_i > 0 ? pair.last : pair.last.except(:id)
+        hash[pair.first] = attributes
+      end
+      @journal_entry.attributes = permitted_params.merge(items_attributes: items.values).permit!
       @journal_entry_items = (params[:items] || {}).values
-      if @journal_entry.save_with_items(@journal_entry_items)
+      if @journal_entry.save
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
       end
+      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+        next if /items\./ =~ field
+        messages.each { |m| notify_error_now "#{JournalEntry.human_attribute_name(field)}: #{m.capitalize}" }
+      end
       t3e @journal_entry.attributes
+    end
+
+    def toggle_autocompletion
+      set_preference = params.require(:autocompletion)
+      choice = (set_preference == 'true')
+      return unless Preference.set!(:entry_autocompletion, choice)
+      respond_to do |format|
+        format.json { render json: { status: :success, preference: choice } }
+      end
     end
   end
 end

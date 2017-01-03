@@ -20,6 +20,6 @@
 require 'test_helper'
 module Backend
   class PostalZonesControllerTest < ActionController::TestCase
-    test_restfully_all_actions show: :redirected_get
+    test_restfully_all_actions show: :redirected_get, autocomplete: { column: :name, q: '3451' }
   end
 end

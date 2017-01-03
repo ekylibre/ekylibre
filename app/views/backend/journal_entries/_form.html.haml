@@ -1,7 +1,7 @@
 - if f.object.journal
   = field_set do
     = hidden_field_tag :affair_id, params[:affair_id]
-    = hidden_field_tag :journal_id, (f.object.new_record? ? params[:journal_id] : f.object.journal_id)
+    = hidden_field_tag :journal_id, params[:journal_id] || f.object.journal_id
     -# = f.association :journal, as :hidden
     = field JournalEntry.human_attribute_name(:journal), f.object.journal.name
     - if f.object.new_record?

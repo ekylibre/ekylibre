@@ -43,7 +43,7 @@
     %table.list
       %tbody
         %tr.total
-          - unless affair.closed?
+          - if !affair.closed? || (affair.closed? && affair.credit.zero?)
             %th.txt
               - types.each_with_index do |type, index|
                 - model = type.underscore
@@ -67,7 +67,6 @@
                         - l.item existing.number, { controller: :regularizations, action: :create, affair_id: affair.id, journal_entry_id: existing.id, redirect: request.fullpath }, method: :post
                       - l.separator
                     - l.item :new.tl, { controller: :journal_entries, action: :new, affair_id: affair.id, nature: :various, currency: affair.currency, redirect: request.fullpath }
-                  -# = link_to('New regul', { controller: :regularizations, action: :new, affair_id: affair.id }, class: "btn")
           %th= :balance.tl
           %td.total.amount.sum{class: (affair.balance.zero? ? "debit" : "credit")}
             = affair.balance.l(currency: affair.currency)
