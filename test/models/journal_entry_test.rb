@@ -157,18 +157,19 @@ class JournalEntryTest < ActiveSupport::TestCase
   end
 
   test 'cannot be created when in financial year exchange date range' do
-    exchange = financial_year_exchanges(:financial_year_exchanges_001)
-    journal = journals(:journals_010)
-    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day)
-    assert entry.valid?
+    exchange = financial_year_exchanges(:financial_year_exchanges_002)
+    journal = Journal.where(accountant: nil).first
+    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?, entry.errors.full_messages.to_sentence
     entry.printed_on = exchange.started_on + 1.day
     refute entry.valid?
   end
 
   test 'cannot be updated to a date in financial year exchange date range' do
-    exchange = financial_year_exchanges(:financial_year_exchanges_001)
-    entry = journal_entries(:journal_entries_081)
-    assert entry.valid?
+    exchange = financial_year_exchanges(:financial_year_exchanges_002)
+    entry = exchange.financial_year.journal_entries.where(financial_year_exchange: nil).first
+    assert entry, 'No entry found to continue test'
+    assert entry.valid?, entry.errors.full_messages.to_sentence
     entry.printed_on = exchange.started_on + 1.day
     refute entry.valid?
   end

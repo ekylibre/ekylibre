@@ -319,7 +319,7 @@ class Journal < Ekylibre::Record::Base
   end
 
   def accountant_has_financial_year_with_opened_exchange?(accountant_or_accountant_id)
-    accountant = accountant_or_accountant_id.is_a?(Fixnum) ? Entity.find(accountant_or_accountant_id) : accountant_or_accountant_id
+    accountant = accountant_or_accountant_id.is_a?(Integer) ? Entity.find(accountant_or_accountant_id) : accountant_or_accountant_id
     accountant && accountant.financial_year_with_opened_exchange?
   end
 

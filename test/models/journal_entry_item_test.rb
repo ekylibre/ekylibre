@@ -73,11 +73,11 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   test_model_actions
 
   test 'the validity of entries' do
-    item = journal_entry_items(:journal_entry_items_001)
+    item = JournalEntryItem.where(state: :draft).where('real_debit > 0').first
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
-    item.real_debit = 5
+    item.real_debit += 5
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
-    item.real_credit = 17
+    item.real_credit += 17
     assert !item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
     item.real_debit = 0
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
@@ -127,7 +127,8 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   end
 
   test 'destroy clears the bank statement items associated' do
-    item = journal_entry_items(:journal_entry_items_011)
+    item = JournalEntryItem.joins(:bank_statement).where.not(bank_statement_letter: nil, bank_statements: { number: nil }).where(state: :draft).first
+    assert item, 'Cannot find a non-closed bank-statement-linked journal entry item'
     bank_statement = item.bank_statement
     bank_statement_letter = item.bank_statement_letter
     assert bank_statement.present? && bank_statement_letter.present?
@@ -139,11 +140,12 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   end
 
   test 'bank statement letter is set to nil on validations when blank' do
-    item = journal_entry_items(:journal_entry_items_001)
+    item = JournalEntryItem.joins(:bank_statement).where.not(bank_statement_letter: nil, bank_statements: { number: nil }).where(state: :draft).first
     item.bank_statement_letter = ' '
-    assert item.valid?
+    assert item.valid?, item.errors.full_messages.to_sentence
     assert_nil item.bank_statement_letter
   end
+
   test 'third party is the account client when the account has one client but neither supplier nor employee' do
     item = journal_entry_items(:journal_entry_items_016)
     assert_equal item.account.clients.count, 1
@@ -151,6 +153,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert_equal item.account.employees.count, 0
     assert_equal item.third_party, entities(:entities_010)
   end
+
   test 'third party is the account supplier when the account has one supplier but neither client nor employee' do
     item = journal_entry_items(:journal_entry_items_042)
     assert_equal item.account.suppliers.count, 1
@@ -158,24 +161,27 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert_equal item.account.employees.count, 0
     assert_equal item.third_party, entities(:entities_013)
   end
+
   test 'third party is the account employee when the account has one employee but neither client nor supplier' do
-    # TODO fixtures
+    # TODO: fixtures
     # item = journal_entry_items(:journal_entry_items_XXX)
     # assert_equal item.account.employees.count, 1
     # assert_equal item.account.suppliers.count, 0
     # assert_equal item.account.clients.count, 0
     # assert_equal item.third_party, entities(:entities_XXX)
   end
+
   test 'third party is set when the account has client, supplier or employee but targets the same entity' do
-    # TODO fixtures
+    # TODO: fixtures
     # item = journal_entry_items(:journal_entry_items_XXX)
     # assert_equal item.account.clients.count, 1
     # assert_equal item.account.suppliers.count, 1
     # assert_equal item.account.clients.take, item.account.suppliers.take
     # assert_equal item.third_party, entities(:entities_XXX)
   end
+
   test 'third party is not set when the account has more than one client, supplier or employee' do
-    # TODO fixtures
+    # TODO: fixtures
     # item = journal_entry_items(:journal_entry_items_XXX)
     # assert_equal item.account.employees.count, 1
     # assert_equal item.account.suppliers.count, 1

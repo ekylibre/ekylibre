@@ -207,8 +207,12 @@ class Sale < Ekylibre::Record::Base
     true
   end
 
+  protect on: :update do
+    old_record.invoice?
+  end
+
   protect on: :destroy do
-    invoice? || order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
+    old_record.invoice? || old_record.order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
   end
 
   # This callback bookkeeps the sale depending on its state

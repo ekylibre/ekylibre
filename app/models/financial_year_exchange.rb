@@ -102,7 +102,11 @@ class FinancialYearExchange < Ekylibre::Record::Base
   end
 
   def set_initial_values
-    self.stopped_on = Date.yesterday unless stopped_on
+    unless stopped_on
+      possibilities = [Date.yesterday]
+      possibilities << financial_year.stopped_on if financial_year
+      self.stopped_on = possibilities.min
+    end
   end
 
   def set_started_on

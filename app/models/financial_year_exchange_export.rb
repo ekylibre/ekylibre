@@ -5,7 +5,7 @@ class FinancialYearExchangeExport
     @exchange = exchange
   end
 
-  def export(format, &block)
+  def export(format)
     build_export(format) do |file, name|
       zip_filename = "#{name}.zip"
       zip_file(zip_filename, name, file.path) do |zip|
@@ -15,6 +15,7 @@ class FinancialYearExchangeExport
   end
 
   private
+
   attr_reader :exchange
 
   def build_export(format, &block)

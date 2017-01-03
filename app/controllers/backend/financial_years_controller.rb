@@ -52,6 +52,10 @@ module Backend
     end
 
     list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_csv_export.ta
+      t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?
+      t.action :notify_accountant, if: :opened?
+      t.action :close, if: :opened?
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :closed_at

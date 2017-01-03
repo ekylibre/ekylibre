@@ -9,8 +9,8 @@ class FinancialYearExchangeExportMailer < ActionMailer::Base
     mail(
       from: current_user.email,
       to: @resource.accountant_email,
-      subject: I18n.t("mailers.financial_year_exchange_export.notify_accountant_subject", values),
-      body: I18n.t("mailers.financial_year_exchange_export.notify_accountant", values)
+      subject: I18n.t('mailers.financial_year_exchange_export.notify_accountant_subject', values),
+      body: I18n.t('mailers.financial_year_exchange_export.notify_accountant', values)
     )
   end
 end

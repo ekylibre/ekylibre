@@ -4,8 +4,8 @@ class FinancialYearExchangeExport
       @exchange = exchange
     end
 
-    def export(&block)
-      filename = "journal-entries-export.csv"
+    def export
+      filename = 'journal-entries-export.csv'
       tempfile = Tempfile.new(filename)
       write_csv tempfile.path
       yield tempfile, filename
@@ -14,6 +14,7 @@ class FinancialYearExchangeExport
     end
 
     private
+
     attr_reader :exchange
 
     def write_csv(filepath)
@@ -50,6 +51,5 @@ class FinancialYearExchangeExport
         'Lettrage'
       ]
     end
-
   end
 end

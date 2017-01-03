@@ -252,9 +252,9 @@ class JournalEntry < Ekylibre::Record::Base
         errors.add(:printed_on, :out_of_existing_financial_year)
       end
     end
-    if in_financial_year_exchange? && !importing_from_exchange
-      errors.add(:printed_on, :frozen_by_financial_year_exchange)
-    end
+    # if in_financial_year_exchange? && !importing_from_exchange
+    #   errors.add(:printed_on, :frozen_by_financial_year_exchange)
+    # end
     errors.add(:items, :empty) unless items.any?
     errors.add(:balance, :unbalanced) unless balance.zero?
     errors.add(:real_balance, :unbalanced) unless real_balance.zero?
@@ -332,7 +332,7 @@ class JournalEntry < Ekylibre::Record::Base
           tc(:entry_cancel, number: self.number, name: item.name),
           item.account, (item.debit - item.credit).abs, credit: (item.debit > 0)
         )
-        if item.account.reconcilable? && !reconcilable_accounts.cover?(item.account)
+        if item.account.reconcilable? && !reconcilable_accounts.include?(item.account)
           reconcilable_accounts << item.account
         end
       end

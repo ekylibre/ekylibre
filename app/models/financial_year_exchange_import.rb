@@ -37,7 +37,7 @@ class FinancialYearExchangeImport
   end
 
   def ensure_headers_are_valid
-    expected = %i{ jour numero_de_compte journal tiers numero_de_piece libelle_ecriture debit credit lettrage }
+    expected = %i(jour numero_de_compte journal tiers numero_de_piece libelle_ecriture debit credit lettrage)
     return true if parsed.headers.to_set == expected.to_set
     message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_headers_invalid')
     @error = InvalidFile.new(message)
@@ -48,7 +48,7 @@ class FinancialYearExchangeImport
     journal_codes = parsed.map { |row| row[:journal] }.uniq
     existing_journal_codes = Journal.where(code: journal_codes).pluck(:code)
     return true if existing_journal_codes.length == journal_codes.length
-    message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_journals_invalid', codes: (journal_codes - existing_journal_codes).join(", "))
+    message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_journals_invalid', codes: (journal_codes - existing_journal_codes).join(', '))
     @error = InvalidFile.new(message)
     false
   end
@@ -56,7 +56,11 @@ class FinancialYearExchangeImport
   def ensure_entries_included_in_financial_year_date_range
     range = (exchange.financial_year.started_on..exchange.financial_year.stopped_on)
     return true if parsed.all? do |row|
-      row_date = Date.parse(row[:jour]) rescue nil
+      row_date = begin
+                   Date.parse(row[:jour])
+                 rescue
+                   nil
+                 end
       row_date && range.cover?(row_date)
     end
     message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_entry_dates_invalid')
@@ -68,7 +72,7 @@ class FinancialYearExchangeImport
     financial_year = exchange.financial_year
     accountant = financial_year.accountant
     accountant.booked_journals.each do |journal|
-      journal.entries.where(printed_on: financial_year.started_on..financial_year.stopped_on).each do |entry|
+      journal.entries.where(printed_on: financial_year.started_on..financial_year.stopped_on).find_each do |entry|
         entry.mark_for_exchange_import!
         entry.destroy
       end
@@ -119,7 +123,7 @@ class FinancialYearExchangeImport
   end
 
   def format_header(header)
-    I18n.transliterate(header.force_encoding("UTF-8")).underscore.gsub(/\s/, '_').to_sym
+    I18n.transliterate(header.force_encoding('UTF-8')).underscore.gsub(/\s/, '_').to_sym
   end
 
   def rollback!
