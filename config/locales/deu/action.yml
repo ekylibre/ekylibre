@@ -1070,6 +1070,8 @@ deu:
     inventories: "Die Vorräte"
     inventory: "Inventar"
     # invitation_status: "Status"
+    invoice_status: "Rechnungsstatus"
+    invoiced: "Die fakturierten"
     invoiced_amount: "Der Umsatz Rechnungsbetrag" #?
     invoices: "Rechnungen"
     is: "ist"
@@ -1526,6 +1528,7 @@ deu:
     undelivered: "Nicht gesendet"
     undelivered_invoices: "Nicht zugestellte Rechnungen"
     undone: "unerledigt"
+    uninvoiced: "Nicht in Rechnung gestellte"
     unit: "Einheit"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unbekannt"

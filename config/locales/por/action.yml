@@ -1075,6 +1075,8 @@ por:
     inventories: "Inventário"
     inventory: "Inventário"
     invitation_status: "Estado"
+    invoice_status: "Status de fatura"
+    invoiced: "Facturado"
     invoiced_amount: "Vendas montante facturado" #?
     invoices: "Notas fiscais"
     is: "É"
@@ -1531,6 +1533,7 @@ por:
     undelivered: "Não entregue"
     undelivered_invoices: "Faturas não entregues"
     undone: "Desfeito"
+    uninvoiced: "Não facturada"
     unit: "Unidade"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Desconhecido"

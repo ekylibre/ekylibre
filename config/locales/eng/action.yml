@@ -1284,6 +1284,8 @@ eng:
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     invitation_status: "Status" #?
+    invoice_status: "Invoice status"
+    invoiced: "Invoiced"
     invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"
@@ -1729,6 +1731,7 @@ eng:
     undelivered: "Undelivered" #?
     undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
+    uninvoiced: "Uninvoiced"
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unknown"

@@ -1204,6 +1204,8 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     invitation_status: "Estado"
+    invoice_status: "Estado de la factura"
+    invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
     invoices: "Facturas"
     is: "Es"
@@ -1756,6 +1758,7 @@ spa:
     undelivered: "No entregado"
     undelivered_invoices: "Facturas pendientes de entrega"
     undone: "Deshecho"
+    uninvoiced: "No facturados"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
