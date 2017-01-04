@@ -16159,6 +16159,14 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16618,8 +16626,7 @@ INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 
 INSERT INTO schema_migrations (version) VALUES ('20161219131051');
 
-INSERT INTO schema_migrations (version) VALUES ('20161220090612');
-
 INSERT INTO schema_migrations (version) VALUES ('20161231180401');
 
+INSERT INTO schema_migrations (version) VALUES ('20161231200612');
 
