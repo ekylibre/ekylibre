@@ -141,6 +141,7 @@ eng:
     tool: "Tool"
     topper: "Topper"
     tractor: "Tractor"
+    trailed_equipment: "Trailed equipment"
     trailer: "Trailer"
     tunnel: "Tunnel"
     tunnel_implanter: "Tunnel implanter"

@@ -113,6 +113,7 @@ jpn:
     tool: "ツール"
     topper: "トッパー"
     tractor: "トラクター"
+    # trailed_equipment: "Trailed equipment"
     trailer: "トレーラー"
     tunnel: "トンネル"
     tunnel_implanter: "トンネル注入"
