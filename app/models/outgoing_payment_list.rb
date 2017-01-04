@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -98,6 +98,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   def self.build_from_purchase_affairs(affairs, mode, responsible, initial_check_number = nil)
     outgoing_payments = affairs.collect.with_index do |affair, index|
+      next if affair.third_credit_balance <= 0
       OutgoingPayment.new(
         affair: affair,
         amount: affair.third_credit_balance,
@@ -112,13 +113,14 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i + index,
         position: index
       )
-    end
+    end.compact
     new(payments: outgoing_payments, mode: mode)
   end
 
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
-    outgoing_payments = thirds.map.with_index do |third, third_index|
+    position = 0
+    outgoing_payments = thirds.map.with_index do |third|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
       first_affair = third_affairs.first
       third_affairs.each_with_index do |affair, index|
@@ -126,7 +128,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
       end
       next if first_affair.balanced?
       next if ignore_empty_affair && first_affair.third_credit_balance <= 0
-      OutgoingPayment.new(
+      op = OutgoingPayment.new(
         affair: first_affair,
         amount: first_affair.third_credit_balance,
         cash: mode.cash,
@@ -137,10 +139,13 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         payee: first_affair.third,
         responsible: responsible,
         to_bank_at: Time.zone.today,
-        bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i + third_index,
-        position: third_index + 1
+        bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i,
+        position: position
       )
-    end
-    new(payments: outgoing_payments.compact, mode: mode)
+      initial_check_number = initial_check_number.to_i + 1 unless initial_check_number.blank?
+      position += 1
+      op
+    end.compact
+    new(payments: outgoing_payments, mode: mode) unless outgoing_payments.empty?
   end
 end

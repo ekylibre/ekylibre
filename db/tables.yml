@@ -2946,6 +2946,8 @@ incoming_payments:
     type: string
   bank_name:
     type: string
+  codes:
+    type: jsonb
   commission_account_id:
     type: integer
     references: account

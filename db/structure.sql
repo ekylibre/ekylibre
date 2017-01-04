@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2820,7 +2820,8 @@ CREATE TABLE incoming_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    codes jsonb
 );
 
 
@@ -3117,7 +3118,8 @@ CREATE TABLE intervention_participations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    procedure_name character varying
 );
 
 
@@ -16618,4 +16620,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 INSERT INTO schema_migrations (version) VALUES ('20161219131051');
 
 INSERT INTO schema_migrations (version) VALUES ('20161220090612');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231180401');
+
+INSERT INTO schema_migrations (version) VALUES ('20170102173002');
 

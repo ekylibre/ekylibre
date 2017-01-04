@@ -5,6 +5,22 @@ module Ekylibre
         [:create, :update, :destroy]
       end
 
+      class EntryRecorder
+        attr_reader :list
+
+        def initialize
+          @list = []
+        end
+
+        def add_debit(*args)
+          @list << [:add_debit, *args]
+        end
+
+        def add_credit(*args)
+          @list << [:add_credit, *args]
+        end
+      end
+
       class Base
         attr_reader :resource, :action, :draft
 
@@ -23,7 +39,7 @@ module Ekylibre
           @draft = draft
         end
 
-        def journal_entry(journal, options = {})
+        def journal_entry(journal, options = {}, &block)
           prism = options.delete(:as)
           column = options.delete(:column)
           if prism.blank?
@@ -66,32 +82,33 @@ module Ekylibre
 
           Ekylibre::Record::Base.transaction do
             journal_entry = JournalEntry.find_by(id: @resource.send(column))
-            if journal_entry
-              # Cancel the existing journal_entry
-              if journal_entry.draft? && (attributes[:journal_id] == journal_entry.journal_id)
-                journal_entry.items.destroy_all
-                journal_entry.reload
-                journal_entry.update_attributes!(attributes)
-              else
-                journal_entry.cancel
-                journal_entry = nil
-              end
+            list = record(&block) if block_given?
+
+            if journal_entry && (!journal_entry.draft? || list.empty? ||
+                                 attributes[:journal_id] != journal_entry.journal_id)
+              journal_entry.cancel
+              journal_entry = nil
             end
 
             # Add journal items
-            if condition && @action != :destroy
-              journal_entry ||= JournalEntry.create!(attributes)
-              if list
-                list.each do |cmd|
-                  unless [:add_debit, :add_credit].include?(cmd.first)
-                    raise 'Can accept only add_debit and add_credit commands'
-                  end
-                  journal_entry.send(*cmd)
+            if condition && list.any? && @action != :destroy
+              attributes[:items] = []
+              list.each do |cmd|
+                direction = cmd.shift
+                unless [:add_debit, :add_credit].include?(direction)
+                  raise 'Can accept only add_debit and add_credit commands'
                 end
-              elsif block_given?
-                yield(journal_entry)
+                cmd[3] ||= {}
+                cmd[3][:credit] = true if direction == :add_credit
+                attributes[:items] << JournalEntryItem.new_for(*cmd)
               end
-              journal_entry.reload.confirm unless @draft
+              attributes[:financial_year] = FinancialYear.at(attributes[:printed_on])
+              attributes[:currency] = attributes[:financial_year].currency if attributes[:financial_year]
+              attributes[:real_currency] = Journal.find(attributes[:journal_id]).currency
+              journal_entry ||= JournalEntry.new
+              journal_entry.attributes = attributes
+              journal_entry.save!
+              journal_entry.confirm unless @draft
             end
 
             # Set accounted columns
@@ -102,6 +119,12 @@ module Ekylibre
               )
             end
           end
+        end
+
+        def record
+          recorder = EntryRecorder.new
+          yield(recorder)
+          recorder.list
         end
       end
 

@@ -600,6 +600,9 @@ Rails.application.routes.draw do
       member do
         get :list_items
       end
+      collection do
+        patch :toggle_autocompletion, path: 'toggle-autocompletion'
+      end
     end
 
     resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
@@ -944,7 +947,6 @@ Rails.application.routes.draw do
 
     resources :tax_declarations, concerns: [:list, :unroll], path: 'tax-declarations' do
       member do
-        get :list_items
         post :propose
         post :confirm
       end

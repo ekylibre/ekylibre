@@ -58,6 +58,7 @@ module Backend
                                                methods: [:amount_to_letter, :label, :affair_reference_numbers],
                                                include: {
                                                  responsible: {},
+                                                 affair: { include: { purchases: {} } },
                                                  mode: {},
                                                  payee: { include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } }
                                                }
@@ -83,7 +84,7 @@ module Backend
 
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
-          @thirds = Entity.includes(:purchase_affairs).where(affairs: {closed: false, currency: mode.cash.currency}).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at] ).order("affairs.third_id, affairs.created_at")
+          @thirds = Entity.includes(:purchase_affairs).where(affairs: { closed: false, currency: mode.cash.currency }).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at]).order('affairs.third_id, affairs.created_at')
         end
       else
         notify_warning :no_purchase_affair_found_on_given_period

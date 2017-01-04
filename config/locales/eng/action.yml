@@ -390,6 +390,7 @@ eng:
       index: "Journal entries"
       new: "New entry"
       show: "Journal entry: %{number}"
+      # toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
       index: "Journal entry items"
       new: "New entry item"
@@ -882,6 +883,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
     active_finishing_within: "Active finishing within" #?
@@ -1106,6 +1108,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
     days: "Days"
     deals: "Deals"
@@ -1160,7 +1163,7 @@ eng:
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
-    duplicate: "Duplicate" #?
+    duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
@@ -1521,7 +1524,7 @@ eng:
     products: "Products"
     profile: "Profile"
     profits_and_losses: "Profits and losses"
-    purchase: "Purchase" #?
+    purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
@@ -2044,6 +2047,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    # entry_autocompletion: "Entry autocompletion"
     # host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
@@ -2153,6 +2157,7 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # toggle_autocompletion: "Toggle autocompletion"
       # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"

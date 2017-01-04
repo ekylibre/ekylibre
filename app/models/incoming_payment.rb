@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
+#  codes                 :jsonb
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
@@ -135,13 +136,13 @@ class IncomingPayment < Ekylibre::Record::Base
     # mode = mode
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payer: payer.full_name, mode: mode.name, check_number: bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
+      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, amount - self.commission_amount, as: :deposited)
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode || mode.with_accounting? || received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount, as: :bank)
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
