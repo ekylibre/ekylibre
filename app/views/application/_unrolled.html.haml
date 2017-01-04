@@ -9,9 +9,12 @@
       %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes)}}
         - matches = keys + keys.map { |key| ActiveSupport::Inflector.transliterate(key) }
         = (render_partial ? render(render_partial, item: item) : highlight(item_label, matches))
-    - if params[:insert].to_i > 0
+    - if params[:insert].to_i > 0 && items.count <= visible_items_count
       %li.item.special{data: {new_item: ''}}
         = "labels.add_#{model_name}".t(default: [:'labels.add_new_record'])
+  - if params[:insert].to_i > 0 && items.count > visible_items_count
+    %span.item-footer{data: {new_item: ''}}
+      = "labels.add_#{model_name}".t(default: [:'labels.add_new_record'])
   - if items.count > (max * 1.5).round
     %span.items-status.items-status-too-many-records
       = 'labels.x_items_remain'.t(count: (items.count - max))

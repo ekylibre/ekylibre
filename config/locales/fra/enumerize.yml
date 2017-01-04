@@ -380,10 +380,18 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    purchase:
+      tax_payability:
+        at_invoicing: "À la facturation (débit)"
+        at_paying: "Au paiement"
     purchase_nature:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
+    sale_item:
+      compute_from:
+        pretax_amount: "Montant avant impôts"
+        unit_pretax_amount: "Unité montant avant impôts"
     sensor:
       retrieval_mode:
         integration: "Intégration"

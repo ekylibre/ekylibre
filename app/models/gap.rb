@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -72,4 +72,13 @@ class Gap < Ekylibre::Record::Base
   def printed_on
     printed_at.to_date
   end
+
+  def loss_coefficient
+    loss? ? -1 : 1
+  end
+
+  def relative_amount
+    loss_coefficient * amount
+  end
+  alias deal_amount relative_amount
 end

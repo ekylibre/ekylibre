@@ -23,7 +23,12 @@
     %tfoot
       %tr#total.total{data: {valid_if_equality_between: "#entry-real-debit, #entry-real-credit", submit_if_valid: false}}
         %th{ colspan: 2 + budget_size + team_size }
-          = tool_to(:new.ta, {controller: :journal_entry_items, action: :new, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
+          .options
+            = tool_to(:new.ta, {controller: :journal_entry_items, action: :new, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
+            = label_tag "preference_entry_autocompletion", class: 'control-label standalone-option' do
+              = check_box "preference", "entry_autocompletion", {checked: Preference[:entry_autocompletion]}, true, false
+              = :activate_entry_autocompletion.tl
+
           %span= :total.tl
         %td#entry-real-debit.decimal{ data: {use: "input.real-debit", calculate_round: Nomen::Currency[@journal.currency].precision}}=  @journal_entry.real_debit
         %td.txt= @journal.currency
@@ -33,7 +38,7 @@
 
       - if @financial_year and @journal.currency != @financial_year.currency
         %tr#subtotal.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false}}
-          %th{colspan: 2 + budget_size}= :total_in_currency.tl(currency: @financial_year.currency)
+          %th{colspan: 2 + budget_size + team_size }= :total_in_currency.tl(currency: @financial_year.currency)
           %td#entry-debit.decimal{ data: {use: "td.debit",  calculate_round: Nomen::Currency[@financial_year.currency].precision}}= @journal_entry.debit
           %td.txt= @financial_year.currency
           %td#entry-credit.decimal{data: {use: "td.credit", calculate_round: Nomen::Currency[@financial_year.currency].precision}}= @journal_entry.credit

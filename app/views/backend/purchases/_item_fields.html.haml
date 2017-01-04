@@ -1,5 +1,5 @@
 - item ||= f.object
-%tbody.nested-fields{ data: { trade_item: "purchasing" } }
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
   %tr
     %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})

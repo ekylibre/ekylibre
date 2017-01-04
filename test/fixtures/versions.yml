@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15275,3 +15275,174 @@ versions_277:
     iban: ''
     supplier_payment_mode_id:
   item_type: Entity
+versions_278:
+  created_at: 2016-12-20 18:24:29.487391000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 315
+  item_id: 181
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 181
+    type: Plant
+    name: sdfghj,k;l:!
+    number: PR00000000125
+    variant_id: 16
+    nature_id: 15
+    category_id: 8
+    initial_born_at: 2016-12-20 18:24:29.460445000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8006393909454350 45.8208891845532023, -0.8016023039817810
+        45.8207901146742032, -0.8015057444572450 45.8212873315344993, -0.8015513420104980
+        45.8215415459580981, -0.8019107580184940 45.8223359585506032, -0.8020234107971190
+        45.8230051255386996, -0.8007439970970150 45.8229901721743005, -0.8006393909454350
+        45.8208891845532023)))
+    initial_father_id:
+    initial_mother_id:
+    variety: triticum_aestivum
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-12-20 18:24:29.460445000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-12-20 18:24:29.477242000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: a9137f7d-85fc-4d0d-964b-741fc11f9734
+    initial_movement_id:
+    custom_fields:
+    team_id:
+    member_variant_id:
+  item_type: Product
+versions_279:
+  created_at: 2016-12-20 18:24:29.738143000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 316
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    initial_born_at: 2016-12-20 18:24:29.460445000 Z
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    born_at: 2016-12-20 18:24:29.460445000 Z
+    initial_movement_id:
+  item_id: 181
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 181
+    type: Plant
+    name: sdfghj,k;l:!
+    number: PR00000000125
+    variant_id: 16
+    nature_id: 15
+    category_id: 8
+    initial_born_at: 2016-04-06 17:23:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.19553E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8006393909454350 45.8208891845532023, -0.8016023039817810
+        45.8207901146742032, -0.8015057444572450 45.8212873315344993, -0.8015513420104980
+        45.8215415459580981, -0.8019107580184940 45.8223359585506032, -0.8020234107971190
+        45.8230051255386996, -0.8007439970970150 45.8229901721743005, -0.8006393909454350
+        45.8208891845532023)))
+    initial_father_id:
+    initial_mother_id:
+    variety: triticum_aestivum
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-04-06 17:23:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-12-20 18:24:29.477242000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: a9137f7d-85fc-4d0d-964b-741fc11f9734
+    initial_movement_id: 176
+    custom_fields:
+    team_id:
+    member_variant_id:
+  item_type: Product

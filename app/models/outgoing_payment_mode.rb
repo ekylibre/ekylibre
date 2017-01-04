@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,6 +40,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   belongs_to :cash
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
+  has_many :payment_lists, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
   has_many :supplier_payment_modes, class_name: 'Entity', foreign_key: :supplier_payment_mode_id, inverse_of: :supplier_payment_mode, dependent: :restrict_with_error
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :sepa, :with_accounting, inclusion: { in: [true, false] }

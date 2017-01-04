@@ -15,17 +15,17 @@ module Backend
 
     test 'upload JSON' do
       geometry = file_upload('map.geojson', 'application/json')
-      post :upload, params: { importer_format: :geojson, import_file: geometry, format: :json }
+      post :upload, importer_format: :geojson, import_file: geometry, format: :json
     end
 
     test 'upload KML' do
-      geometry = file_upload('map.kml', 'application/vnd.google-earth.kml+xm')
-      post :upload, params: { importer_format: :kml, import_file: geometry, format: :json }
+      geometry = file_upload('map.kml', 'application/vnd.google-earth.kml+xml')
+      post :upload, importer_format: :kml, import_file: geometry, format: :json
     end
 
     test 'upload GML' do
       geometry = file_upload('map.gml', 'application/xml')
-      post :upload, params: { importer_format: :gml, import_file: geometry, format: :json }
+      post :upload, importer_format: :gml, import_file: geometry, format: :json
     end
   end
 end

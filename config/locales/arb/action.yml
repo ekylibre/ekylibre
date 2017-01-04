@@ -467,6 +467,7 @@ arb:
       new: "اضافة تسليم" #?
     backend/outgoing_payment_lists:
       index: "المدفوعات الصادرة قائمة دفعة"
+      new: "قائمة جديدة لدفع المنتهية ولايته"
       show: "المدفوعات الصادرة دفعة"
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
@@ -597,6 +598,8 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -920,9 +923,12 @@ arb:
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
+    activate_entry_autocompletion: "تفعيل تكملة دخول"
     active: "فعال"
     active_balance_sheet: "رصيد دائر" #?
     active_current_sum: "مجموع الموجودات المتداولة" #?
+    active_finishing_after: "التشطيب نشط بعد"
+    active_finishing_within: "التشطيب نشط داخل"
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
@@ -978,6 +984,7 @@ arb:
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"
     add_reading: "إضافة قيمة للمؤشر"
+    add_regularization: "إضافة تسوية"
     add_revenue: "إضافة الإيرادات"
     add_sale: "إضافة بيع"
     add_sale_taxation: "إضافة بيع الضرائب"
@@ -1201,6 +1208,7 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
+    # dated_cash: "%{cash}: %{on}"
     dates: "ادخل تواريخ بداية ونهاية المدة"
     days: "أيام"
     deals: "عروض"
@@ -1393,6 +1401,7 @@ arb:
     harvested_at: "تحصد في"
     help: "المساعدة"
     help_center: "مركز المساعدة"
+    hide_lettered_lines: "إخفاء خطوط بحروف"
     hint: "تلميح&nbsp;: %{value}"
     historic: "تاريخي"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
@@ -1648,11 +1657,13 @@ arb:
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
+    new_incoming_payment: "دفع الواردة الجديد"
     new_inventory: "جرد جديدة"
     new_issue: "مشكلة جديدة"
     new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
     new_outgoing_parcel: "الطرد الصادر الجديد"
+    new_outgoing_payment: "دفع المنتهية ولايته الجديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"
@@ -1812,6 +1823,7 @@ arb:
     # printing_document: "Printing %{document}"
     procedures: "الإجراءات"
     product: "المنتج"
+    product_account_number: "رقم حساب المنتج"
     product_category: "الفئة"
     product_category_create: "اضافة فئة جديدة للمنتج" #?
     product_category_update: "تعديل الفئة" #?
@@ -1963,6 +1975,7 @@ arb:
     # section_x: "Section %{x}"
     see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
+    select_a_journal: "حدد مجلة"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?
@@ -2046,6 +2059,8 @@ arb:
     tasks: "المهام"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
+    tax_declarations: "الإقرارات الضريبية"
+    tax_label: "التسمية الضرائب"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب"
     theoric_quantity: "الكمية النظرية" #?
@@ -2215,6 +2230,9 @@ arb:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"
       zero: "ولا اي حساب" #?
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
@@ -2293,6 +2311,9 @@ arb:
       one: "تفويض واحد" #?
       other: "%{count} تفويض اخر" #?
       zero: "ولا اية تفويض" #?
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -2438,6 +2459,7 @@ arb:
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
       journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
@@ -2475,6 +2497,7 @@ arb:
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
       no_production_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية إنتاج"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
+      no_purchase_affair_found_on_given_period: "أي شراء علاقة جدت في فترة معينة"
       no_purchases_given: "لا مشتريات الممنوحة"
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_replacements_since_beginning: "لا البدلاء منذ بداية"

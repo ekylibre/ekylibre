@@ -28,6 +28,10 @@ module Backend
       code << "  c[0] += ' AND tax_declaration_item_id = ?'\n"
       code << "  c << params[:tax_declaration_item_id]\n"
       code << "end\n"
+      code << "if params[:account_id].to_i > 0\n"
+      code << "  c[0] += ' AND account_id = ?'\n"
+      code << "  c << params[:account_id].to_i\n"
+      code << "end\n"
       code << "unless params[:period].blank? or params[:period]='all'\n"
       code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
       code << "end\n"
@@ -50,6 +54,8 @@ module Backend
       t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
       t.column :pretax_amount, currency: true
       t.column :tax, url: true
+      t.column :vat_item_to_product_account, label: :product_account_number
+      t.column :entity_country, label: :country, hidden: true
     end
 
     def index; end

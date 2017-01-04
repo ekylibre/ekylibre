@@ -50,10 +50,11 @@ We encourage you to contribute to Ekylibre.
 ## Testing
 
 To run integration test, do:
-
-* wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
-* tar xzvf geckodriver-v0.11.1-linux64.tar.gz
-* sudo cp geckodriver /usr/bin
+``` bash
+wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
+tar xzvf geckodriver-v0.11.1-linux64.tar.gz
+sudo cp geckodriver /usr/bin
+```
 
 ## See also
 

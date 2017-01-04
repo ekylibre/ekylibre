@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -189,8 +189,8 @@ class Tax < Ekylibre::Record::Base
   end
 
   # Returns the pretax amount of an amount
-  def pretax_amount_of(amount)
-    (amount.to_d / coefficient)
+  def pretax_amount_of(with_tax_amount)
+    (with_tax_amount.to_d / coefficient)
   end
 
   # Returns the amount of a pretax amount

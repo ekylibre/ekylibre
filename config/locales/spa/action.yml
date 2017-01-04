@@ -413,6 +413,7 @@ spa:
       new: "Añadir una entrega" #?
     backend/outgoing_payment_lists:
       index: "Pagos salientes lista de lotes"
+      new: "Nueva lista de salida de pago"
       show: "Lote de pagos salientes"
     backend/outgoing_payment_modes:
       edit: "Editar modo de desembolso"
@@ -497,6 +498,8 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"
@@ -724,9 +727,12 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
+    activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
     active_current_sum: "Total activos circulandos" #?
+    active_finishing_after: "Activo después de acabado"
+    active_finishing_within: "Acabado activo dentro de"
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
@@ -782,6 +788,7 @@ spa:
     add_purchase_taxation: "Añadir imposición de compra"
     add_quickly_an_item: "Añadir rápidamente una línea de producto"
     add_reading: "Añadir un valor de un indicador"
+    add_regularization: "Añadir regularización"
     add_revenue: "Añadir los ingresos"
     add_sale: "Añadir la venta"
     add_sale_taxation: "Añadir la venta imposición"
@@ -982,6 +989,7 @@ spa:
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
+    # dated_cash: "%{cash}: %{on}"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     days: "Días"
     deals: "Ofertas"
@@ -1143,6 +1151,7 @@ spa:
     harvested_at: "Cosechadas en"
     help: "Ayuda"
     help_center: "Centro de ayuda"
+    hide_lettered_lines: "Ocultar las líneas con letras"
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
@@ -1344,11 +1353,13 @@ spa:
     new_email: "Nuevo Email"
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
+    new_incoming_payment: "Nueva entrada de pagos"
     new_inventory: "Nuevo inventario"
     new_issue: "Nueva edición"
     new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
+    new_outgoing_payment: "Nueva salida de pago"
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"
@@ -1467,6 +1478,7 @@ spa:
     # printing_document: "Printing %{document}"
     procedures: "Procedimientos"
     product: "Producto"
+    product_account_number: "Número de cuenta del producto"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
     product_natures: "Tipos de productos"
@@ -1586,6 +1598,7 @@ spa:
     # section_x: "Section %{x}"
     see_details: "Ver detalles"
     see_more_details: "Ver más detalles"
+    select_a_journal: "Seleccionar un diario"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?
@@ -1658,6 +1671,8 @@ spa:
     tasks: "Tareas"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    tax_declarations: "Declaraciones de impuestos"
+    tax_label: "Etiqueta de impuestos"
     taxations: "Tasaciones"
     taxes: "Impuestos"
     theoric_quantity: "cantidad teorica" #?
@@ -1800,6 +1815,9 @@ spa:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1866,6 +1884,9 @@ spa:
     x_journal_entries:
       one: "La escritura"
       other: "%{count} escrituras"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1997,7 +2018,8 @@ spa:
       journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "El registro ya ha sido validado y no puede ser cambiado"
-      # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_record_already_validated: "La pieza ya ha sido validada y ya no puede ser modificada" #?
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
@@ -2037,6 +2059,7 @@ spa:
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
       no_production_defined_for_current_campaign: "No se ha definido para la producción de la campaña actual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No se encontró producción. Se pueden añadir nuevos o copiar algunos de la campaña anterior."
+      no_purchase_affair_found_on_given_period: "No es un asunto compra que figura en determinado período"
       no_purchases_given: "No se dan las compras"
       no_reopenable_journal: "nos se puede cerrar este periodico."
       no_replacements_since_beginning: "No hay que sustituir una desde el principio"

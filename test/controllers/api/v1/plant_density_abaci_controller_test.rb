@@ -12,7 +12,7 @@ module Api
 
       test 'show' do
         add_auth_header
-        get :show, params: { id: 1 }
+        get :show, id: 1
         assert_response :ok
         json = JSON.parse response.body
         assert json['germination_percentage']

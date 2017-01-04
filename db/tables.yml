@@ -910,6 +910,8 @@ bank_statement_items:
     type: integer
     references: user
 bank_statements:
+  accounted_at:
+    type: datetime
   cash_id:
     type: integer
     references: cash
@@ -948,6 +950,9 @@ bank_statements:
     precision: 19
     scale: 4
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -1301,10 +1306,6 @@ cash_transfers:
     type: integer
     references: user
 cashes:
-  account_id:
-    type: integer
-    references: account
-    required: true
   bank_account_holder_name:
     type: string
   bank_account_key:
@@ -1351,6 +1352,10 @@ cashes:
   lock_version:
     type: integer
     required: true
+  main_account_id:
+    type: integer
+    references: account
+    required: true
   mode:
     type: string
     required: true
@@ -1367,6 +1372,13 @@ cashes:
     references: entity
   spaced_iban:
     type: string
+  suspend_until_reconciliation:
+    type: boolean
+    required: true
+    default: false
+  suspense_account_id:
+    type: integer
+    references: account
   updated_at:
     type: datetime
     required: true
@@ -2931,6 +2943,8 @@ incoming_payments:
     type: string
   bank_name:
     type: string
+  codes:
+    type: jsonb
   commission_account_id:
     type: integer
     references: account
@@ -4538,6 +4552,10 @@ outgoing_payment_lists:
   lock_version:
     type: integer
     required: true
+  mode_id:
+    type: integer
+    references: outgoing_payment_mode
+    required: true
   number:
     type: string
   updated_at:
@@ -4644,6 +4662,8 @@ outgoing_payments:
     type: integer
     references: entity
     required: true
+  position:
+    type: integer
   responsible_id:
     type: integer
     references: user
@@ -6251,9 +6271,42 @@ purchases:
     type: integer
     references: entity
     required: true
+  tax_payability:
+    type: string
+    required: true
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+regularizations:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  lock_version:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -6302,6 +6355,9 @@ sale_items:
     type: text
   codes:
     type: jsonb
+  compute_from:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true

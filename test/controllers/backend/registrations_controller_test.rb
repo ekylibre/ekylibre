@@ -32,11 +32,14 @@ module Backend
     end
 
     def update_request(user)
-      patch :update, params: { id: user.id, user: { first_name: user.first_name,
-                                                    last_name: user.last_name,
-                                                    language: user.language,
-                                                    role_id: user.role.id,
-                                                    email: user.email } }
+      patch :update, id: user.id,
+                     user: {
+                       first_name: user.first_name,
+                       last_name: user.last_name,
+                       language: user.language,
+                       role_id: user.role.id,
+                       email: user.email
+                     }
     end
 
     setup do

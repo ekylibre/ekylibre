@@ -64,6 +64,11 @@ ita:
         status: "Stato"
       tax:
         amount: "Valore"
+      tax_declaration_item:
+        collected: "Raccolto"
+        deductible: "Detraibile"
+        fixed_asset_deductible: "Franchigia su attività"
+        intracommunity_payable: "Intracomunitario da pagare"
     errors:
       format: "%{attribute} %{message}" #?
       messages:
@@ -128,6 +133,7 @@ ita:
           unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti."
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
@@ -347,6 +353,7 @@ ita:
       purchase_gap: "Gap Acquisto"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
       sale_affair: "Vendita vicenda"
@@ -534,6 +541,7 @@ ita:
     components: "Componenti"
     computation_method: "metodo di calcolo"
     compute: "Calcolare"
+    compute_from: "Calcola da"
     conclusion: "Conclusione"
     condition_operator: "operatore Condizione"
     condition_value: "valore della condizione"
@@ -1155,6 +1163,7 @@ ita:
     purchasable: "acquistabile"
     purchase: "Acquista"
     purchase_affair: "Acquisto vicenda"
+    purchase_affairs: "Affari di acquisto"
     purchase_amount: "Ammontare dell'acquisto"
     purchase_invoices: "fatture di acquisto"
     purchase_item: "voce Acquisto"
@@ -1212,6 +1221,7 @@ ita:
     reflected_at: "riflessa in"
     reflection_nodes: "nodi di riflessione"
     reflections: "Riflessi"
+    regularizations: "Regolarizzazioni"
     remain_owner: "Rimangono proprietario"
     remaining_amount: "Importo residuo"
     remaining_lifespan: "Durata della vita residua"
@@ -1371,10 +1381,12 @@ ita:
     tax_declaration_items: "Articoli dichiarazione dei redditi"
     tax_declaration_mode: "Modalità di dichiarazione dei redditi"
     tax_declarations: "Dichiarazioni fiscali"
+    tax_payability: "Pagabilità fiscale"
     taxations: "tassazioni"
     team: "Squadra"
     template: "Modello"
     theme: "Tema"
+    theoretical_number: "Numero teorico"
     third: "Terzo"
     third_producer: "terzo produttore" #?
     third_role: "terzo ruolo"

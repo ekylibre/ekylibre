@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -123,6 +123,27 @@ class SaleTest < ActiveSupport::TestCase
     assert 0.84, entry.items.find_by(account_id: reduced_vat.collect_account_id).credit
     assert 15.16, entry.items.find_by(account_id: second_item.account_id).credit
     assert 496, entry.items.find_by(account_id: client.account(:client).id).debit
+  end
+
+  test 'unit pretax amount calculation based on total pretax amount' do
+    nature = SaleNature.first
+    assert nature
+    sale = Sale.create!(nature: nature, client: Entity.normal.first)
+    assert sale
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    tax = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    # Calculates unit_pretax_amount based on pretax_amount
+    item = sale.items.create!(variant: variants.first, quantity: 2, pretax_amount: 225, tax: tax, compute_from: 'pretax_amount')
+    assert item
+    assert_equal 112.50, item.unit_pretax_amount
+    assert_equal 270, item.amount
   end
 
   test 'duplicatablity' do

@@ -14,7 +14,7 @@
       = field :select_date_generation.tl, params[:stopped_on].l
       = field :save_in_draft.tl, check_box_tag("save_in_draft", "1", Preference[:bookkeep_in_draft])
     = field_set :counts_by_nature do
-      - for nature in @natures
+      - @natures.each do |nature|
         = field nature.to_s.classify.constantize.model_name.human, @records[nature].size
     = form_actions do
       = submit_tag :save.tl
