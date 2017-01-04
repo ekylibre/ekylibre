@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -91,6 +91,31 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   protect do
     (journal_entry && journal_entry.closed?)
+  end
+
+  delegate :third_attribute, to: :class
+
+  def self.third_attribute
+    :payee
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def letter_with(bank_statements_items)
+    bank_statement = bank_statements_items.first.bank_statement
+    letters = bank_statements_items.pluck(:letter)
+    bank_statements_items.update_all(letter: nil)
+    JournalEntryItem.pointed_by(bank_statement)
+                    .where(bank_statement_letter: letters)
+                    .update_all(bank_statement_letter: nil, bank_statement_id: nil)
+    letter = bank_statement.next_letter
+    journal_entry
+      .items
+      .where(account_id: bank_statement.cash_account_id)
+      .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
+    bank_statements_items.update_all(letter: letter)
   end
 
   def check_updateable_or_destroyable?

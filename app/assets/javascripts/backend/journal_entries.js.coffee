@@ -72,6 +72,18 @@
           $(".real-"+column).each (index, item) ->
             convert(item, column)
 
+    toggleAutocompletion = () ->
+      $.ajax
+        url:  '/backend/journal_entries/toggle-autocompletion'
+        type: 'patch'
+        data:
+          autocompletion: $('#preference_entry_autocompletion').is(":checked")
+        error: ->
+          $('#preference_entry_autocompletion').attr('checked', !$('#preference_entry_autocompletion').is(":checked"))
+
+    $(document).behave "change", "#preference_entry_autocompletion", () ->
+      toggleAutocompletion()
+
     if $("#subtotal").length > 0
       ['debit', 'credit'].forEach (column) ->
         $(document).behave "change keyup paste", '.real-'+column,  () ->

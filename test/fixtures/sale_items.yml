@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -509,3 +509,25 @@ sale_items_021:
   updated_at: 2016-11-20 22:12:25.310161000 Z
   updater_id: 1
   variant_id: 39
+sale_items_022:
+  account_id: 152
+  amount: 400.0
+  annotation: ''
+  compute_from: amount
+  created_at: 2016-12-20 08:53:53.330230000 Z
+  creator_id: 1
+  currency: EUR
+  id: 29
+  label: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  lock_version: 0
+  position: 1
+  pretax_amount: 363.64
+  quantity: 3.0
+  reduction_percentage: 0.0
+  sale_id: 25
+  tax_id: 8
+  unit_amount: 133.33
+  unit_pretax_amount: 121.21
+  updated_at: 2016-12-20 08:53:53.330230000 Z
+  updater_id: 1
+  variant_id: 10

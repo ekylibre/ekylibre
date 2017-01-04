@@ -1015,7 +1015,9 @@ CREATE TABLE bank_statements (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     initial_balance_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL
+    initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    journal_entry_id integer,
+    accounted_at timestamp without time zone
 );
 
 
@@ -1369,7 +1371,7 @@ CREATE TABLE cashes (
     name character varying NOT NULL,
     nature character varying DEFAULT 'bank_account'::character varying NOT NULL,
     journal_id integer NOT NULL,
-    account_id integer NOT NULL,
+    main_account_id integer NOT NULL,
     bank_code character varying,
     bank_agency_code character varying,
     bank_account_number character varying,
@@ -1391,7 +1393,9 @@ CREATE TABLE cashes (
     last_number integer,
     owner_id integer,
     custom_fields jsonb,
-    bank_account_holder_name character varying
+    bank_account_holder_name character varying,
+    suspend_until_reconciliation boolean DEFAULT false NOT NULL,
+    suspense_account_id integer
 );
 
 
@@ -2816,7 +2820,8 @@ CREATE TABLE incoming_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    codes jsonb
 );
 
 
@@ -9454,6 +9459,13 @@ CREATE INDEX index_bank_statements_on_creator_id ON bank_statements USING btree 
 
 
 --
+-- Name: index_bank_statements_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bank_statements_on_journal_entry_id ON bank_statements USING btree (journal_entry_id);
+
+
+--
 -- Name: index_bank_statements_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9790,13 +9802,6 @@ CREATE INDEX index_cash_transfers_on_updater_id ON cash_transfers USING btree (u
 
 
 --
--- Name: index_cashes_on_account_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_cashes_on_account_id ON cashes USING btree (account_id);
-
-
---
 -- Name: index_cashes_on_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9825,10 +9830,24 @@ CREATE INDEX index_cashes_on_journal_id ON cashes USING btree (journal_id);
 
 
 --
+-- Name: index_cashes_on_main_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_main_account_id ON cashes USING btree (main_account_id);
+
+
+--
 -- Name: index_cashes_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_cashes_on_owner_id ON cashes USING btree (owner_id);
+
+
+--
+-- Name: index_cashes_on_suspense_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_suspense_account_id ON cashes USING btree (suspense_account_id);
 
 
 --
@@ -16593,9 +16612,14 @@ INSERT INTO schema_migrations (version) VALUES ('20161212183910');
 
 INSERT INTO schema_migrations (version) VALUES ('20161214091911');
 
+INSERT INTO schema_migrations (version) VALUES ('20161216171308');
+
 INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 
 INSERT INTO schema_migrations (version) VALUES ('20161219131051');
 
 INSERT INTO schema_migrations (version) VALUES ('20161220090612');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231180401');
+
 

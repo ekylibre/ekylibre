@@ -498,6 +498,8 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      # new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"
@@ -725,6 +727,7 @@ spa:
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
+    activate_entry_autocompletion: "Activar la terminación automática de entrada"
     active: "Activo"
     active_balance_sheet: "Balance activo" #?
     active_current_sum: "Total activos circulandos" #?
@@ -986,6 +989,7 @@ spa:
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
+    # dated_cash: "%{cash}: %{on}"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     days: "Días"
     deals: "Ofertas"
@@ -1147,6 +1151,7 @@ spa:
     harvested_at: "Cosechadas en"
     help: "Ayuda"
     help_center: "Centro de ayuda"
+    hide_lettered_lines: "Ocultar las líneas con letras"
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
@@ -1199,6 +1204,8 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     invitation_status: "Estado"
+    invoice_status: "Estado de la factura"
+    invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
     invoices: "Facturas"
     is: "Es"
@@ -1346,11 +1353,13 @@ spa:
     new_email: "Nuevo Email"
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
+    new_incoming_payment: "Nueva entrada de pagos"
     new_inventory: "Nuevo inventario"
     new_issue: "Nueva edición"
     new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
+    new_outgoing_payment: "Nueva salida de pago"
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"
@@ -1749,6 +1758,7 @@ spa:
     undelivered: "No entregado"
     undelivered_invoices: "Facturas pendientes de entrega"
     undone: "Deshecho"
+    uninvoiced: "No facturados"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?

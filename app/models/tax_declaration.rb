@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -91,7 +91,6 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state ||= :draft
-    self.invoiced_on ||= Date.today
     if financial_year
       self.mode = financial_year.tax_declaration_mode
       self.currency = financial_year.currency
@@ -102,6 +101,7 @@ class TaxDeclaration < Ekylibre::Record::Base
     if started_on
       self.stopped_on ||= financial_year.tax_declaration_end_date(started_on)
     end
+    self.invoiced_on ||= self.stopped_on
   end
 
   before_validation do
@@ -144,7 +144,7 @@ class TaxDeclaration < Ekylibre::Record::Base
   end
 
   def dealt_at
-    (validated? ? invoiced_on : created_at? ? self.created_at : Time.zone.now)
+    (validated? ? invoiced_on : stopped_on? ? self.created_at : Time.zone.now)
   end
 
   def status

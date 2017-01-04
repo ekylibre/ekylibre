@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,37 +22,38 @@
 #
 # == Table: cashes
 #
-#  account_id               :integer          not null
-#  bank_account_holder_name :string
-#  bank_account_key         :string
-#  bank_account_number      :string
-#  bank_agency_address      :text
-#  bank_agency_code         :string
-#  bank_code                :string
-#  bank_identifier_code     :string
-#  bank_name                :string
-#  container_id             :integer
-#  country                  :string
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  currency                 :string           not null
-#  custom_fields            :jsonb
-#  iban                     :string
-#  id                       :integer          not null, primary key
-#  journal_id               :integer          not null
-#  last_number              :integer
-#  lock_version             :integer          default(0), not null
-#  mode                     :string           default("iban"), not null
-#  name                     :string           not null
-#  nature                   :string           default("bank_account"), not null
-#  owner_id                 :integer
-#  spaced_iban              :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
+#  bank_account_holder_name     :string
+#  bank_account_key             :string
+#  bank_account_number          :string
+#  bank_agency_address          :text
+#  bank_agency_code             :string
+#  bank_code                    :string
+#  bank_identifier_code         :string
+#  bank_name                    :string
+#  container_id                 :integer
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  currency                     :string           not null
+#  custom_fields                :jsonb
+#  iban                         :string
+#  id                           :integer          not null, primary key
+#  journal_id                   :integer          not null
+#  last_number                  :integer
+#  lock_version                 :integer          default(0), not null
+#  main_account_id              :integer          not null
+#  mode                         :string           default("iban"), not null
+#  name                         :string           not null
+#  nature                       :string           default("bank_account"), not null
+#  owner_id                     :integer
+#  spaced_iban                  :string
+#  suspend_until_reconciliation :boolean          default(FALSE), not null
+#  suspense_account_id          :integer
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
 #
 ---
 cashes_001:
-  account_id: 212
   bank_account_holder_name: John Doe
   bank_account_key: ''
   bank_account_number: ''
@@ -69,14 +70,15 @@ cashes_001:
   id: 1
   journal_id: 2
   lock_version: 3
+  main_account_id: 212
   mode: iban
   name: GHB
   nature: bank_account
   spaced_iban: FR76 1111 1222 2233 3333 3333 391
+  suspend_until_reconciliation: false
   updated_at: 2014-11-05 12:35:44.603014000 Z
   updater_id: 1
 cashes_002:
-  account_id: 214
   bank_account_holder_name: John Doe
   bank_account_key: ''
   bank_account_number: ''
@@ -93,14 +95,15 @@ cashes_002:
   id: 2
   journal_id: 7
   lock_version: 5
+  main_account_id: 214
   mode: iban
   name: Capitalis
   nature: bank_account
   spaced_iban: US65 1234 5678 9012 3456 7891 2
+  suspend_until_reconciliation: false
   updated_at: 2014-11-05 12:44:40.749428000 Z
   updater_id: 1
 cashes_003:
-  account_id: 213
   bank_account_key: ''
   bank_account_number: ''
   bank_agency_address: ''
@@ -116,9 +119,11 @@ cashes_003:
   id: 3
   journal_id: 6
   lock_version: 3
+  main_account_id: 213
   mode: iban
   name: Caisse Accueil
   nature: cash_box
   spaced_iban: ''
+  suspend_until_reconciliation: false
   updated_at: 2014-11-05 12:34:57.099302000 Z
   updater_id: 1

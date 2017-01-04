@@ -6,11 +6,16 @@
     .med-info.important
       %span.title= resource.human_attribute_name(:balance)
       %span.value= resource.balance.l(currency: resource.currency)
+    - if resource.suspend_until_reconciliation
+      .med-info.important
+        %span.title= resource.human_attribute_name(:suspended_balance)
+        %span.value= resource.suspended_balance.l(currency: resource.currency)
   = attributes_list do |l|
     - l.attribute :name
     - l.attribute :nature
     - l.attribute :journal, url: true
-    - l.attribute :account, url: true
+    - l.attribute :main_account, url: true
+    - l.attribute :suspense_account, url: true
     - if resource.bank_account?
       - l.attribute :bank_name
       - l.attribute :bank_agency_address

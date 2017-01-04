@@ -90,9 +90,11 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
+      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -385,6 +387,7 @@ eng:
       index: "Journal entries"
       new: "New entry"
       show: "Journal entry: %{number}"
+      # toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
       index: "Journal entry items"
       new: "New entry item"
@@ -497,7 +500,6 @@ eng:
       show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       # edit: "Edit plant density abacus: %{name}"
-      # index: "Plant density abaci"
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
     backend/plant_density_abacus_items:
@@ -589,12 +591,12 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/quick_affairs:
+      new: "New %{trade}/%{payment}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
     backend/regularizations:
-      # edit: "Edit regularization: %{name}"
-      # new: "New regularization"
       # show: "Regularization: %{name}"
     backend/roles:
       edit: "Edit role: %{name}"
@@ -878,6 +880,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
+    activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
     active_finishing_within: "Active finishing within" #?
@@ -989,7 +992,7 @@ eng:
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
-    bban: "Basic Bank Account Number (BBAN)"
+    bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
@@ -1102,6 +1105,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     # date: "Date"
+    dated_cash: "%{cash}: %{on}"
     dates: "Select period start date and Period end date" #?
     days: "Days"
     deals: "Deals"
@@ -1156,7 +1160,7 @@ eng:
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
-    duplicate: "Duplicate" #?
+    duplicate: "Duplicate"
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
@@ -1234,12 +1238,13 @@ eng:
     harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
+    hide_lettered_lines: "Hide lettered lines"
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
-    iban: "International Bank Account Number (IBAN)"
+    iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"
@@ -1279,6 +1284,8 @@ eng:
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     invitation_status: "Status" #?
+    invoice_status: "Invoice status"
+    invoiced: "Invoiced"
     invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"
@@ -1394,11 +1401,13 @@ eng:
     new_email: "New email"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
+    new_incoming_payment: "New incoming payment"
     new_inventory: "New inventory"
     new_issue: "New issue"
     new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
+    new_outgoing_payment: "New outgoing payment"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -1513,7 +1522,7 @@ eng:
     products: "Products"
     profile: "Profile"
     profits_and_losses: "Profits and losses"
-    purchase: "Purchase" #?
+    purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
@@ -1722,6 +1731,7 @@ eng:
     undelivered: "Undelivered" #?
     undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
+    uninvoiced: "Uninvoiced"
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unknown"
@@ -2036,6 +2046,7 @@ eng:
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
     employee_account_radix: "Employee account radix"
+    # entry_autocompletion: "Entry autocompletion"
     # host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
@@ -2094,6 +2105,7 @@ eng:
       index: "Index"
       invoice: "Invoice"
       # last_locations: "Last locations"
+      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2144,6 +2156,8 @@ eng:
       take: "Take"
       takeover: "Take over"
       toggle: "Toggle"
+      # toggle_autocompletion: "Toggle autocompletion"
+      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"

@@ -19,6 +19,9 @@
 require 'test_helper'
 module Backend
   class BankStatementsControllerTest < ActionController::TestCase
-    test_restfully_all_actions
+    test_restfully_all_actions new: { cash_id: 1 },
+                               create: { bank_statement: { cash_id: 1 } },
+                               index: :redirected_get,
+                               reconciliation: :get_and_post
   end
 end

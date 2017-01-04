@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -265,6 +265,14 @@ class Sale < Ekylibre::Record::Base
     dealt_at.to_date
   end
 
+  def self.third_attribute
+    :client
+  end
+
+  def third
+    send(third_attribute)
+  end
+
   # Gives the date to use for affair bookkeeping
   def dealt_at
     (invoice? ? invoiced_at : self.created_at)
@@ -297,6 +305,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   delegate :number, to: :client, prefix: true
+  delegate :third_attribute, to: :class
 
   def nature=(value)
     super(value)
