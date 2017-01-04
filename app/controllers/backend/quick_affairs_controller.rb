@@ -3,26 +3,22 @@ module Backend
   class QuickAffairsController < Backend::BaseController
     def new
       return head :bad_request unless nature = params[:nature_id]
-      return head :bad_request unless params[:bank_statement_item_ids]
-      @bank_statement_items = BankStatementItem.where(id: params[:bank_statement_item_ids])
-      return head :bad_request unless @bank_statement_items
+      @bank_statement_items = BankStatementItem.where(id: params[:bank_statement_item_ids]) if params[:bank_statement_item_ids]
 
-      date     = @bank_statement_items.minimum(:transfered_on)
+      date     = Maybe(@bank_statement_items).minimum(:transfered_on).or_nil
       @trade   = self.class::Trade.new(invoiced_at: date, nature_id: nature)
       @trade.items.new
 
-      @amount   = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
+      @amount   = @bank_statement_items ? @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit) : 0
       @amount  *= self.class::Payment.sign_of_amount
 
       @payment = self.class::Payment.new(to_bank_at: date, amount: @amount)
-      @affair  = new_affair(@trade)
+      @affair  = self.class::Trade.affair_class.new
       @redirect_to = params[:redirect]
     end
 
     def create
-      return head :bad_request unless payment_params[:bank_statement_item_ids]
-      @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids])
-      return head :bad_request unless @bank_statement_items
+      @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids]) if payment_params[:bank_statement_item_ids]
 
       @mode_for = {
         trade: params[:"mode-trade"],
@@ -31,20 +27,20 @@ module Backend
 
       @trade = new_trade
       @payment = new_payment(@trade.third, @trade.invoiced_at)
-      @affair = new_affair(@trade, @trade.third)
 
       begin
-        @affair.transaction do
-          unless @affair.valid? && @trade.valid? && @payment.valid?
+        @trade.transaction do
+          unless @trade.valid? && @payment.valid?
             @redirect_to = params[:redirect]
             @trade.items.new if @trade.items.size.zero?
             return render :new
           end
-          @affair.save!  && @affair.reload
           @trade.save!   && @trade.reload
           @payment.save! && @payment.reload
+          @affair = @trade.affair
+          @affair.third = @trade.third
+          @affair.save!
 
-          @affair.attach @trade
           @affair.attach @payment
         end
       rescue
@@ -53,12 +49,12 @@ module Backend
         return render :new
       end
 
-      @amount  = @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit)
+      @amount  = @bank_statement_items ? @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit) : 0
       @amount *= self.class::Payment.sign_of_amount
 
       if lettrable?
         @payment.letter_with @bank_statement_items
-      else
+      elsif @bank_statement_items
         notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
       end
       redirect_to(params[:redirect] || send(:"backend_#{self.class::Trade.affair_class.name.underscore}_path", @affair))
@@ -81,19 +77,13 @@ module Backend
       self.class::Payment.new payment_attributes
     end
 
-    def new_affair(trade, third = nil)
-      self.class::Trade.affair_class.new(currency: trade.default_currency, third: third)
-    end
-
     def use_existing?(name)
       params[:affair][:"use_existing_#{name}"].present?
     end
 
     def trade_params
       params.require(:trade)
-            .permit :supplier_id,
-                    :client_id,
-                    :invoiced_at,
+            .permit :invoiced_at,
                     :nature_id,
                     items_attributes: [
                       :variant_id,
@@ -120,6 +110,7 @@ module Backend
     end
 
     def lettrable?
+      return false unless @bank_statement_items
       bank_statement   = @bank_statement_items.first.bank_statement
       amount_matches   = (@amount == @payment.amount)
       amount_matches &&= (@amount == @trade.amount)

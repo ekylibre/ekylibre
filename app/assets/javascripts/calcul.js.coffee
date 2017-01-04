@@ -172,6 +172,8 @@
       element.trigger "change"
     else if equality
       element.addClass("valid")
+    else
+      element.addClass("invalid")
 
   # Use element to compute a calculation
   $(document).behave "load", "*[data-use]", ->

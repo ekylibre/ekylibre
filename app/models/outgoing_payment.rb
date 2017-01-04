@@ -110,6 +110,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def letter_with(bank_statements_items)
+    return false unless journal_entry
     bank_statement = bank_statements_items.first.bank_statement
     letters = bank_statements_items.pluck(:letter)
     bank_statements_items.update_all(letter: nil)

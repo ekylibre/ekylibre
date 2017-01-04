@@ -1,7 +1,7 @@
 module Backend
   class QuickSalesController < QuickAffairsController
-    Trade   = Purchase
-    Payment = OutgoingPayment
+    Trade   = Sale
+    Payment = IncomingPayment
 
     def new
       super
