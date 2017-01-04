@@ -27,6 +27,7 @@
 #  id                :integer          not null, primary key
 #  intervention_id   :integer
 #  lock_version      :integer          default(0), not null
+#  procedure_name    :string
 #  product_id        :integer
 #  request_compliant :boolean          default(FALSE), not null
 #  state             :string
@@ -39,11 +40,51 @@ class InterventionParticipationTest < ActiveSupport::TestCase
   test_model_actions
 
   setup do
-    @intervention = Intervention.create!(procedure_name: :sowing, actions: [:sowing], request_compliant: false)
-    @worker = Worker.create!(name: 'Alice', variety: 'worker', variant: ProductNatureVariant.first, person: Entity.contacts.first)
+    @intervention = Intervention.create!(
+      procedure_name: :sowing,
+      actions: [:sowing],
+      request_compliant: false
+    )
+    @worker = Worker.create!(
+      name: 'Alice',
+      variety: 'worker',
+      variant: ProductNatureVariant.first,
+      person: Entity.contacts.first
+    )
 
     @participation = @worker.intervention_participations.create!(intervention_id: @intervention.id, state: :in_progress)
     @intervention.reload
+  end
+
+  test 'converting one participation to an intervention' do
+    now = Time.zone.now
+
+    participation = InterventionParticipation.create!(
+      state: :done,
+      request_compliant: false,
+      procedure_name: :sowing,
+      product: @worker,
+      working_periods_attributes: [
+        {
+          started_at: now - 1.hour,
+          stopped_at: now - 30.minutes,
+          nature: 'travel'
+        },
+        {
+          started_at: now - 30.minutes,
+          stopped_at: now,
+          nature: 'intervention'
+        }
+      ]
+    )
+    intervention = participation.convert!
+
+    assert_not_nil intervention
+    assert_equal :sowing, intervention.procedure_name.to_sym
+    assert_equal :done, intervention.state.to_sym
+    assert_equal 2, intervention.working_periods.count
+    assert_equal (now - 1.hour).round_off(1.minute), intervention.working_periods.minimum(:started_at).round_off(1.minute)
+    assert_equal now.round_off(1.minute), intervention.working_periods.maximum(:stopped_at).round_off(1.minute)
   end
 
   test 'only one participation per worker per intervention' do
@@ -81,7 +122,18 @@ class InterventionParticipationTest < ActiveSupport::TestCase
   end
 
   test 'working periods in a participation shouldn\'t be able to overlap' do
-    @participation.working_periods.create!(nature: :travel, started_at: Time.zone.now, stopped_at: Time.zone.now + 1.hour)
-    assert_raises { @participation.working_periods.create!(nature: :intervention, started_at: Time.zone.now - 30.minutes, stopped_at: Time.zone.now + 30.minutes) }
+    now = Time.zone.now
+    @participation.working_periods.create!(
+      nature: :travel,
+      started_at: now,
+      stopped_at: now + 1.hour
+    )
+    assert_raises do
+      @participation.working_periods.create!(
+        nature: :intervention,
+        started_at: now - 30.minutes,
+        stopped_at: now + 30.minutes
+      )
+    end
   end
 end

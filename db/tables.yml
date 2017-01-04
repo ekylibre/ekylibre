@@ -1593,6 +1593,9 @@ crumbs:
   intervention_parameter_id:
     type: integer
     references: intervention_parameter
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
@@ -3378,6 +3381,8 @@ intervention_participations:
   lock_version:
     type: integer
     required: true
+  procedure_name:
+    type: string
   product_id:
     type: integer
     references: product
