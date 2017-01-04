@@ -1,6 +1,6 @@
 - if @worked_on
   :ruby
-    intervention_participations = current_user.intervention_participations.includes(:crumbs).unprompted.at(@worked_on)
+    intervention_participations = current_user.intervention_participations.includes(:crumbs).unprompted.on(@worked_on)
 
     crumbs_serie = intervention_participations.collect do |intervention_participation|
       name = :intervention_at.tl(intervention: intervention_participation.human_name, at: intervention_participation.created_at.l)
@@ -38,24 +38,23 @@
     end
 
   = kujaku do |k|
-    - k.needle_choice current_user.intervention_participations.unprompted.order(:created_at).collect(&:created_at).collect{|d| [d.l, d]}, name: :worked_on, selected: @worked_on
+    - k.needle_choice current_user.intervention_participations.unprompted.pluck(:created_at).map(&:to_date).uniq.map{ |d| [d.l, d] }, name: :worked_on, selected: @worked_on
 
-  = main_informations do
-    - if crumbs_serie.any?
-      = visualization do |v|
-        - if supports.any?
-          - v.serie :production_supports, supports
-          - v.categories :activity, :production_supports
-        - v.serie :crumbs, crumbs_serie
-        - v.paths :name, :crumbs, label: Intervention.model_name.human
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
-    - if intervention_participations.any?
-      = cobbles do |c|
-        - intervention_participations.each_with_index do |intervention_participation, index|
-          - c.cobble "intervention_#{index}".to_sym, title: intervention_participation.qualified_human_name do
-            = render 'intervention', participation: intervention_participation
-    - else
-      = :no_intervention_participations_to_check.tl
+  - if crumbs_serie.any?
+    = visualization do |v|
+      - if supports.any?
+        - v.serie :production_supports, supports
+        - v.categories :activity, :production_supports
+      - v.serie :crumbs, crumbs_serie
+      - v.paths :name, :crumbs, label: Intervention.model_name.human
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+  - if intervention_participations.any?
+    = cobbles do |c|
+      - intervention_participations.each_with_index do |intervention_participation, index|
+        - c.cobble "intervention_#{index}".to_sym, title: intervention_participation.qualified_human_name do
+          = render 'intervention', participation: intervention_participation
+  - else
+    = :no_intervention_participations_to_check.tl

@@ -63,5 +63,4 @@ class Crumb < Ekylibre::Record::Base
   scope :of_date, lambda { |start_date = Time.zone.now.midnight|
     where(read_at: start_date.midnight..start_date.end_of_day)
   }
-
 end

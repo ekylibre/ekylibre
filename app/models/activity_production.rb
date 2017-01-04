@@ -125,9 +125,9 @@ class ActivityProduction < Ekylibre::Record::Base
     options[:campaigns] ||= Campaign.current
 
     of_campaign(options[:campaigns].first).distinct
-        .joins(:support)
-        .joins("INNER JOIN crumbs ON ST_Contains(ST_CollectionExtract(activity_productions.support_shape, 3), crumbs.geolocation)")
-        .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.flatten.map(&:id)] : 'crumbs.id IS NOT NULL')
+                                          .joins(:support)
+                                          .joins('INNER JOIN crumbs ON ST_Contains(ST_CollectionExtract(activity_productions.support_shape, 3), crumbs.geolocation)')
+                                          .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.flatten.map(&:id)] : 'crumbs.id IS NOT NULL')
   }
 
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }

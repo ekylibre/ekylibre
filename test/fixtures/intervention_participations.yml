@@ -50,6 +50,7 @@ intervention_participations_002:
   created_at: 2017-01-04 13:55:59.415115000 Z
   id: 2
   lock_version: 0
+  procedure_name: administrative_tasks
   product_id: 79
   request_compliant: false
   state: done
@@ -58,6 +59,7 @@ intervention_participations_003:
   created_at: 2017-01-04 13:55:59.562907000 Z
   id: 3
   lock_version: 0
+  procedure_name: sowing
   product_id: 79
   request_compliant: false
   state: done

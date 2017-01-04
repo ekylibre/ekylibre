@@ -23,9 +23,9 @@ module Backend
     def index
       @worked_on = if params[:worked_on].blank?
                      first_participation = current_user.intervention_participations.unprompted.order(created_at: :desc).first
-                     first_participation.present? ? first_participation.created_at : Time.zone.now
+                     first_participation.present? ? first_participation.created_at : Time.zone.today
                    else
-                     params[:worked_on].to_datetime
+                     params[:worked_on].to_date
                    end
     end
 

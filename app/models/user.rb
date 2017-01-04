@@ -106,12 +106,12 @@ class User < Ekylibre::Record::Base
   validates :language, presence: true
   validates :maximal_grantable_reduction_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
-  validates :language, length: {allow_nil: true, maximum: 3}
+  validates :language, length: { allow_nil: true, maximum: 3 }
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
   validates :password, confirmation: true
-  validates :maximal_grantable_reduction_percentage, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 100}
+  validates :maximal_grantable_reduction_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :email, :person_id, uniqueness: true
-  validates :role, presence: {unless: :administrator_or_unapproved?}
+  validates :role, presence: { unless: :administrator_or_unapproved? }
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
@@ -351,14 +351,14 @@ class User < Ekylibre::Record::Base
   def self.generate_password(password_length = 8, mode = :normal)
     return '' if password_length.blank? || password_length < 1
     letters = case mode
-                when :dummy then
-                  %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
-                when :simple then
-                  %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
-                when :normal then
-                  %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
-                else
-                  %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
+              when :dummy then
+                %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
+              when :simple then
+                %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
+              when :normal then
+                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
+              else
+                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
               end
     letters_length = letters.length
     password = ''

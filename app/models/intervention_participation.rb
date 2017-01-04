@@ -35,22 +35,33 @@
 #  updater_id        :integer
 #
 class InterventionParticipation < Ekylibre::Record::Base
+  enumerize :state, in: [:in_progress, :done, :validated]
+  enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   belongs_to :intervention
   belongs_to :product
 
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod', inverse_of: :intervention_participation, dependent: :destroy
+  has_many :working_periods, class_name: 'InterventionWorkingPeriod',
+                             inverse_of: :intervention_participation, dependent: :destroy
   has_many :crumbs, dependent: :destroy
 
   accepts_nested_attributes_for :working_periods
 
-  validates :product_id, presence: true
-  validates :intervention_id, uniqueness: { scope: [:product_id] }, unless: -> { intervention_id.blank? }
-  validates :state, presence: true
-  enumerize :state, in: [:in_progress, :done, :validated]
-  enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :request_compliant, inclusion: { in: [true, false] }
   # ]VALIDATORS]
+  validates :product, presence: true
+  validates :intervention, uniqueness: { scope: [:product_id] }, unless: -> { intervention.blank? }
+  validates :state, presence: true
+
+  scope :unprompted, -> { where(intervention: nil) }
+
+  scope :at, lambda { |at|
+    where(arel_table[:created_at].lteq(at))
+  }
+
+  scope :on, lambda { |on|
+    where(arel_table[:created_at].lteq(on.to_time.end_of_day))
+  }
 
   before_save do
     if intervention.present?
@@ -59,23 +70,16 @@ class InterventionParticipation < Ekylibre::Record::Base
     end
   end
 
-  scope :unprompted, -> { where(intervention_id: nil) }
-
-  scope :at, lambda { |at|
-    where(arel_table[:created_at].lteq(at))
-  }
-
   # Data are metrics and in meter and square meter
   DEFAULT_ACCURACY = 3
   DEFAULT_ACCURACY_AREA = (((DEFAULT_ACCURACY * 0.5)**2) * Math::PI).freeze
 
-
   def human_name
-    intervention ? intervention.name : procedure_name ? I18n.t( procedure_name ,scope: :procedures) : nil
+    intervention ? intervention.name : procedure_name ? I18n.t(procedure_name, scope: :procedures) : nil
   end
 
   def qualified_human_name
-    return if human_name.nil? or product.name.nil?
+    return if human_name.nil? || product.name.nil?
     working_periods.empty? ? "#{human_name} (#{product.name})" : "#{:intervention_at.tl(intervention: human_name, at: working_periods.minimum(:started_at).l)} (#{product.name})"
   end
 
@@ -91,11 +95,15 @@ class InterventionParticipation < Ekylibre::Record::Base
 
       # Working periods
       attributes[:working_periods_attributes] = working_periods.collect do |wp|
+        s = wp.started_at.round_off(1.minute)
+        f = wp.stopped_at.round_off(1.minute)
+        next if s == f
         {
-            started_at: wp.started_at,
-            stopped_at: wp.stopped_at
+          started_at: s,
+          stopped_at: f,
+          nature: wp.nature
         }
-      end
+      end.compact.uniq
       # Parameters
       options[:working_width] ||= 6
       attributes = assign_parameters(procedure, attributes, options.slice(:working_width))
@@ -137,14 +145,13 @@ class InterventionParticipation < Ekylibre::Record::Base
               intersection = zone.intersection(target.shape)
               next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
               attributes[key] << {
-                  reference_name: parameter.name,
-                  targets_attributes: [
-                      { reference_name: target_parameter.name,
-                        # working_zone: target.shape,
-                        working_zone: intersection,
-                        product_id: target.id
-                      }
-                  ]
+                reference_name: parameter.name,
+                targets_attributes: [
+                  { reference_name: target_parameter.name,
+                    # working_zone: target.shape,
+                    working_zone: intersection,
+                    product_id: target.id }
+                ]
               }
             end
           end
@@ -161,17 +168,17 @@ class InterventionParticipation < Ekylibre::Record::Base
             intersection = zone.intersection(target.shape)
             next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
             attributes[key] << {
-                reference_name: parameter.name,
-                # working_zone: target.shape,
-                working_zone: intersection,
-                product_id: target.id
+              reference_name: parameter.name,
+              # working_zone: target.shape,
+              working_zone: intersection,
+              product_id: target.id
             }
           end
         elsif product && parameter.doer?
           if parameter.filter.blank? || (parameter.filter && product.of_expression(parameter.filter))
             attributes[key] << {
-                reference_name: parameter.name,
-                product_id: product.id
+              reference_name: parameter.name,
+              product_id: product.id
             }
           end
         end
