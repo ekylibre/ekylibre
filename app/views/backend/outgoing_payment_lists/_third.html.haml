@@ -3,7 +3,7 @@
     %tr
       %th{colspan: 4}= third.full_name
   %tbody
-    = render partial: 'purchase_affair', collection: third.purchase_affairs, locals: {f:f}
+    = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
   %tfoot
     %tr.total
       %td{colspan: 2}= :total.tl
