@@ -823,7 +823,7 @@ eng:
     intervention_parameter: "Intervention parameter"
     # intervention_participated_to: "Intervention participated to"
     intervention_participation: "Intervention participation"
-    # intervention_participations: "Intervention participations"
+    intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"

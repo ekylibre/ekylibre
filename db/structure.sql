@@ -3118,7 +3118,8 @@ CREATE TABLE intervention_participations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    procedure_name character varying
 );
 
 
@@ -16629,4 +16630,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161219131051');
 INSERT INTO schema_migrations (version) VALUES ('20161231180401');
 
 INSERT INTO schema_migrations (version) VALUES ('20161231200612');
+
+INSERT INTO schema_migrations (version) VALUES ('20170102173002');
 

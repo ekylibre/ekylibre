@@ -815,6 +815,7 @@ por:
     intervention_cast: "Intervenção elenco"
     intervention_parameter: "Parâmetro de intervenção"
     intervention_participation: "Participação intervenção"
+    # intervention_participations: "Intervention participations"
     intervention_product_parameters: "Elencos de intervenção"
     interventions: "Intervenções"
     interventions_used_in: "Utilizado em intervenções"

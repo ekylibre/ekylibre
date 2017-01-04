@@ -300,3 +300,13 @@ intervention_working_periods_024:
   stopped_at: 2016-12-21 01:23:00.000000000 Z
   updated_at: 2016-12-20 18:24:29.649068000 Z
   updater_id: 1
+intervention_working_periods_025:
+  created_at: 2017-01-03 17:26:29.233492000 Z
+  duration: 10800
+  id: 25
+  intervention_participation_id: 2
+  lock_version: 0
+  nature: intervention
+  started_at: 2017-01-03 14:26:29.190957000 Z
+  stopped_at: 2017-01-03 17:26:29.191028000 Z
+  updated_at: 2017-01-03 17:26:29.233492000 Z

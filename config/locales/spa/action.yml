@@ -306,6 +306,9 @@ spa:
       # edit: "Edit integration: %{name}"
       index: "Integraciones"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      # index: "Intervention participations"
     backend/interventions:
       edit: "Editar"
       edit_request: "Editar solicitud"
@@ -1370,6 +1373,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
+    # no_intervention_participations_to_check: "No intervention participations to check"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     no_notifications: "No Notificaciones"
     no_particular_periods: "No determinado período"

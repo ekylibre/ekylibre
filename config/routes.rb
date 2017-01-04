@@ -553,6 +553,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :intervention_participations, only: [:index, :update, :destroy] do
+      member do
+        post :convert
+      end
+    end
+
     resources :inventories, concerns: [:list, :unroll] do
       member do
         post :reflect

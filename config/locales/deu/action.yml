@@ -280,6 +280,9 @@ deu:
       # edit: "Edit integration: %{name}"
       index: "Integrationen"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      # index: "Intervention participations"
     backend/interventions:
       edit: "Bearbeiten"
       edit_request: "Anfrage bearbeiten"
@@ -1206,6 +1209,7 @@ deu:
     no_crumbs_to_check: "Keine Krümel zu überprüfen"
     no_data: "Keine Daten"
     no_deposits: "Keine Ablagerungen"
+    # no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "Keine Benachrichtigungen"
     no_particular_periods: "Keine besondere Zeit"
     no_products: "Keine Produkte"
