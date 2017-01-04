@@ -280,6 +280,9 @@ ita:
       # edit: "Edit integration: %{name}"
       index: "Integrazioni"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      # index: "Intervention participations"
     backend/interventions:
       edit: "Modifica"
       edit_request: "Richiesta Modifica"
@@ -1140,6 +1143,8 @@ ita:
     inventories: "rimanenze"
     inventory: "Inventario"
     invitation_status: "Stato"
+    invoice_status: "Stato delle fatture"
+    invoiced: "Fatturato"
     invoiced_amount: "Vendite importo fatturato" #?
     invoices: "Fatture"
     is: "È"
@@ -1275,6 +1280,7 @@ ita:
     no_crumbs_to_check: "Non ci sono briciole per controllare"
     no_data: "Nessun dato"
     no_deposits: "Nessun deposito"
+    # no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "Nessuna notifica"
     no_particular_periods: "Nessun periodo di particolare"
     no_products: "Nessun prodotto"
@@ -1599,6 +1605,7 @@ ita:
     undelivered: "non consegnato"
     undelivered_invoices: "Fatture non consegnati"
     undone: "disfatto"
+    uninvoiced: "Non ancora fatturate"
     unit: "Unità"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Sconosciuto"

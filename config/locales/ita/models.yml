@@ -845,6 +845,8 @@ ita:
     intervention: "Intervento"
     intervention_cast: "getto di intervento"
     intervention_parameter: "parametro intervento"
+    intervention_participation: "Partecipazione intervento"
+    # intervention_participations: "Intervention participations"
     intervention_product_parameters: "calchi di intervento"
     interventions: "interventi"
     interventions_used_in: "Interventi utilizzato in"

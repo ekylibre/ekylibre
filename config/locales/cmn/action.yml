@@ -280,6 +280,9 @@ cmn:
       # edit: "Edit integration: %{name}"
       index: "集成"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      # index: "Intervention participations"
     backend/interventions:
       edit: "编辑"
       edit_request: "编辑请求"
@@ -1074,6 +1077,8 @@ cmn:
     inventories: "存货"
     inventory: "库存"
     invitation_status: "状态"
+    invoice_status: "发票状态"
+    invoiced: "已开发票"
     invoiced_amount: "销售发票金额" #?
     invoices: "发票"
     is: "是"
@@ -1210,6 +1215,7 @@ cmn:
     no_crumbs_to_check: "无屑检查"
     no_data: "没有数据"
     no_deposits: "没有存款"
+    # no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "没有通知"
     no_particular_periods: "无特殊时期"
     no_products: "没有产品"
@@ -1534,6 +1540,7 @@ cmn:
     undelivered: "未送达"
     undelivered_invoices: "未交付发票"
     undone: "未完成"
+    uninvoiced: "未开具发票"
     unit: "单元"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "未知"

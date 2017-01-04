@@ -306,6 +306,9 @@ spa:
       # edit: "Edit integration: %{name}"
       index: "Integraciones"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      # index: "Intervention participations"
     backend/interventions:
       edit: "Editar"
       edit_request: "Editar solicitud"
@@ -1208,6 +1211,8 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     invitation_status: "Estado"
+    invoice_status: "Estado de la factura"
+    invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
     invoices: "Facturas"
     is: "Es"
@@ -1373,6 +1378,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
+    # no_intervention_participations_to_check: "No intervention participations to check"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     no_notifications: "No Notificaciones"
     no_particular_periods: "No determinado período"
@@ -1763,6 +1769,7 @@ spa:
     undelivered: "No entregado"
     undelivered_invoices: "Facturas pendientes de entrega"
     undone: "Deshecho"
+    uninvoiced: "No facturados"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?

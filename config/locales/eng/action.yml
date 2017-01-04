@@ -347,6 +347,9 @@ eng:
       edit: "Edit integration: %{name}"
       index: "Integrations"
       new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      convert: "Convert intervention participation: %{name}"
+      index: "Intervention participations"
     backend/interventions:
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
@@ -1290,6 +1293,8 @@ eng:
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     invitation_status: "Status" #?
+    invoice_status: "Invoice status"
+    invoiced: "Invoiced"
     invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"
@@ -1423,6 +1428,7 @@ eng:
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
+    no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "No notifications"
     no_particular_periods: "No particular period" #?
     no_products: "No products"
@@ -1738,6 +1744,7 @@ eng:
     undelivered: "Undelivered" #?
     undelivered_invoices: "Undelivered invoices" #?!
     undone: "Undone" #?
+    uninvoiced: "Uninvoiced"
     unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unknown"
