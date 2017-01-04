@@ -28,9 +28,13 @@ module Backend
       @trade = new_trade
       @payment = new_payment(@trade.third, @trade.invoiced_at)
 
+      @amount  = @bank_statement_items ? @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit) : 0
+      @amount *= self.class::Payment.sign_of_amount
+
       begin
         @trade.transaction do
           unless @trade.valid? && @payment.valid?
+            @affair = self.class::Trade.affair_class.new
             @redirect_to = params[:redirect]
             @trade.items.new if @trade.items.size.zero?
             return render :new
@@ -48,9 +52,6 @@ module Backend
         @redirect_to = params[:redirect]
         return render :new
       end
-
-      @amount  = @bank_statement_items ? @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit) : 0
-      @amount *= self.class::Payment.sign_of_amount
 
       if lettrable?
         @payment.letter_with @bank_statement_items
