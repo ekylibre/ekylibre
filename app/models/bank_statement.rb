@@ -106,12 +106,12 @@ class BankStatement < Ekylibre::Record::Base
     b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
       label = "BS #{cash.name} #{number}"
       balance = items.sum('credit - debit')
-      entry.add_debit(label, cash.main_account_id, balance, as: :bank)
+      items.each do |item|
+        entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
+        # entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+      end
+      # entry.add_debit(label, cash.main_account_id, balance, as: :bank)
       entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
-      # items.each do |item|
-      #   entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
-      #   entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
-      # end
     end
   end
 
