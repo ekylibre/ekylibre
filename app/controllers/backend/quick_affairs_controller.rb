@@ -53,9 +53,8 @@ module Backend
         return render :new
       end
 
-      if lettrable?
-        @payment.letter_with @bank_statement_items
-      elsif @bank_statement_items
+      lettered = lettrable? && @payment.letter_with(@bank_statement_items)
+      if lettered && @bank_statement_items
         notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
       end
       redirect_to(params[:redirect] || send(:"backend_#{self.class::Trade.affair_class.name.underscore}_path", @affair))
