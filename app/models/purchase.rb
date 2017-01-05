@@ -138,7 +138,7 @@ class Purchase < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state = :draft
-    self.currency = nature.currency if nature
+    self.currency ||= nature.currency if nature
   end
 
   before_validation do
