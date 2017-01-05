@@ -89,6 +89,7 @@ class OfxImport
   def build_bank_statement_item(bank_statement, transaction)
     bank_statement.items.build.tap do |i|
       i.name = transaction.payee
+      i.memo = transaction.memo
       i.transaction_number = transaction.fit_id
       i.transfered_on = transaction.date
       i.initiated_on = transaction.date_initiated
