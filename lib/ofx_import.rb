@@ -25,10 +25,14 @@ class OfxImport
 
   attr_reader :file, :parsed
 
-  def read_and_parse_file
-    @parsed = OfxParser::OfxParser.parse(file.read)
+  def read_and_parse_file(encoding = 'utf-8', available_encodings = %w{ us-ascii iso-8859-1 })
+    content = File.open(file.path, encoding: encoding).read
+    @parsed = OfxParser::OfxParser.parse(content)
     true
   rescue => error
+    if (error.kind_of?(ArgumentError) || error.kind_of?(Encoding::InvalidByteSequenceError)) && (new_encoding = available_encodings.shift)
+      return read_and_parse_file new_encoding, available_encodings
+    end
     message = I18n.translate('activerecord.errors.models.bank_statement.ofx_file_invalid')
     @error = InvalidOfxFile.new(message)
     @internal_error = error
