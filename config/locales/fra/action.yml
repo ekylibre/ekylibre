@@ -325,6 +325,9 @@ fra:
       edit: "Modifier la connexion %{name}"
       index: "Connexions partenaires"
       new: "Activer la connexion %{name}"
+    backend/intervention_participations:
+      convert: "Convert intervention participation: %{name}"
+      index: "Participations d'intervention"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d'intervention"
@@ -1359,6 +1362,8 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invitation_status: "État"
+    invoice_status: "État de facturation"
+    invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
@@ -1562,6 +1567,7 @@ fra:
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
+    no_intervention_participations_to_check: "Pas de participations d'intervention à vérifier"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_notifications: "Aucune notification"
     no_origin: "— Sans origine —" #?
@@ -2065,6 +2071,7 @@ fra:
     undelivered: "Reste à livrer"
     undelivered_invoices: "Factures non parvenues"
     undone: "Non-fait"
+    uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
     unit_and_indicator: "%{unit} (%{indicator})"

@@ -829,6 +829,8 @@ cmn:
     intervention: "介入"
     intervention_cast: "干预投"
     intervention_parameter: "干预参数"
+    intervention_participation: "参与干预"
+    # intervention_participations: "Intervention participations"
     intervention_product_parameters: "干预铸件"
     interventions: "干预"
     interventions_used_in: "干预中使用"

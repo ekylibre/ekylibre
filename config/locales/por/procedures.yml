@@ -166,6 +166,7 @@ por:
     hilling: "Amontoa"
     hilling_for_sifting: "Amontoa para peneirar"
     # hoeing: "Hoeing"
+    # housing_soil_disinfection: "Housing soil disinfection"
     indirect_silage: "Silagem indireta"
     installation_maintenance: "Manutenção da instalação"
     inter_row_hoeing: "Capina entre linhas"

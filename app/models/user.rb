@@ -89,6 +89,7 @@ class User < Ekylibre::Record::Base
   has_many :deliveries, foreign_key: :responsible_id
   has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
+  has_many :intervention_participations, through: :worker
 
   scope :employees, -> { where(employed: true) }
   scope :administrators, -> { where(administrator: true) }
@@ -205,6 +206,7 @@ class User < Ekylibre::Record::Base
     p ||= prefer!(name, default_value, nature)
     p
   end
+
   alias pref preference
 
   def prefer!(name, value, nature = nil)
@@ -292,23 +294,6 @@ class User < Ekylibre::Record::Base
   # Unlock the user
   def unlock
     update_column(:locked, false)
-  end
-
-  # Returns the days where the user has crumbs present
-  def unconverted_crumb_days
-    crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
-  end
-
-  # Returns all crumbs, grouped by interventions paths, for the current user.
-  # The result is an array of interventions paths.
-  # An intervention path is an array of crumbs, for a user, ordered by read_at,
-  # between a start crumb and a stop crumb.
-  def interventions_paths(options = {})
-    crumbs = reload.crumbs.unconverted.where(nature: :start)
-    if options[:on]
-      crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
-    end
-    crumbs.order(read_at: :asc).map(&:intervention_path).uniq
   end
 
   def current_campaign

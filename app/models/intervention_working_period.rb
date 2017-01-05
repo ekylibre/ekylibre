@@ -65,6 +65,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_id: InterventionParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
+  scope :of_intervention_participation, lambda { |intervention_participation|
+    where(intervention_participation_id: intervention_participation)
+  }
+
   delegate :update_temporality, to: :intervention
 
   before_validation do
@@ -72,13 +76,14 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:intervention, :empty) unless intervention || intervention_participated_to
+    errors.add(:intervention, :empty) unless intervention || intervention_participated_to || intervention_participation
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
     unless intervention_participation.blank?
-      errors.add(:started_at, :invalid) if intervention_participation.working_periods.where('started_at <= ? AND ? < stopped_at', started_at, started_at).any?
-      errors.add(:stopped_at, :invalid) if intervention_participation.working_periods.where('started_at < ? AND ? <= stopped_at', stopped_at, stopped_at).any?
+      siblings = intervention_participation.working_periods.where.not(id: id || 0)
+      errors.add(:started_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', started_at, started_at).any?
+      errors.add(:stopped_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', stopped_at, stopped_at).any?
     end
   end
 

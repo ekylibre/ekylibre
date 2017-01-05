@@ -289,6 +289,9 @@ por:
       # edit: "Edit integration: %{name}"
       index: "Integrações"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      # index: "Intervention participations"
     backend/interventions:
       edit: "Editar"
       edit_request: "Pedido de edição"
@@ -1080,6 +1083,8 @@ por:
     inventories: "Inventário"
     inventory: "Inventário"
     invitation_status: "Estado"
+    invoice_status: "Status de fatura"
+    invoiced: "Facturado"
     invoiced_amount: "Vendas montante facturado" #?
     invoices: "Notas fiscais"
     is: "É"
@@ -1215,6 +1220,7 @@ por:
     no_crumbs_to_check: "Não migalhas para verificar"
     no_data: "Não existem dados"
     no_deposits: "Não há depósitos"
+    # no_intervention_participations_to_check: "No intervention participations to check"
     no_notifications: "Nenhuma notificação"
     no_particular_periods: "No período específico"
     no_products: "Nenhum produto"
@@ -1537,6 +1543,7 @@ por:
     undelivered: "Não entregue"
     undelivered_invoices: "Faturas não entregues"
     undone: "Desfeito"
+    uninvoiced: "Não facturada"
     unit: "Unidade"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Desconhecido"

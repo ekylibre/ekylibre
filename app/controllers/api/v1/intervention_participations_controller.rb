@@ -6,15 +6,22 @@ module Api
         params = permitted_params
         return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank?
 
-        intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
-        intervention.creator_id = current_user
-        intervention.created_at = Time.zone.now
-        intervention.save!
+        if params[:request_intervention_id]
+          intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
 
-        participation = intervention.participations.find_or_initialize_by(
-          product_id: current_user.worker.id
-        )
-
+          intervention.creator_id = current_user
+          intervention.created_at = Time.zone.now
+          intervention.save!
+          participation = InterventionParticipation.find_or_initialize_by(
+            product_id: current_user.worker.id,
+            intervention_id: intervention.id
+          )
+        else
+          participation = InterventionParticipation.new(
+            product_id: current_user.worker.id,
+            procedure_name: Procedo.find(params[:procedure_name]) ? params[:procedure_name] : nil
+          )
+        end
         participation.request_compliant = !params[:request_compliant].to_i.zero?
         participation.state = params[:state]
         participation.save!
@@ -29,13 +36,26 @@ module Api
           period.destroy
         end
 
+        if params[:crumbs].present?
+          params[:crumbs].each do |crumb|
+            participation.crumbs.create!(
+              nature: crumb['nature'],
+              geolocation: crumb['geolocation'],
+              read_at: crumb['read_at'],
+              accuracy: crumb['accuracy'],
+              device_uid: params[:device_uid],
+              user_id: current_user.worker.id
+            )
+          end
+        end
+
         render json: { id: participation.id }, status: :created
       end
 
       private
 
       def permitted_params
-        super.permit(:request_intervention_id, :procedure_name, { working_periods: [:started_at, :stopped_at, :nature] }, :request_compliant, :state)
+        super.permit(:request_intervention_id, :procedure_name, { working_periods: [:started_at, :stopped_at, :nature] }, :request_compliant, :state, :device_uid, crumbs: [:read_at, :accuracy, :geolocation, :nature])
       end
     end
   end

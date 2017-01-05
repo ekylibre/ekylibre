@@ -120,6 +120,16 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
 
+  scope :of_crumbs, lambda { |*crumbs|
+    options = crumbs.extract_options!
+    options[:campaigns] ||= Campaign.current
+
+    of_campaign(options[:campaigns].first).distinct
+                                          .joins(:support)
+                                          .joins('INNER JOIN crumbs ON ST_Contains(ST_CollectionExtract(activity_productions.support_shape, 3), crumbs.geolocation)')
+                                          .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.flatten.map(&:id)] : 'crumbs.id IS NOT NULL')
+  }
+
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
@@ -235,6 +245,8 @@ class ActivityProduction < Ekylibre::Record::Base
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
+    support.born_at = started_on
+    support.dead_at = stopped_on
     support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
     support.save!
     reading = support.first_reading(:shape)

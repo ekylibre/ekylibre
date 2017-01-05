@@ -829,6 +829,8 @@ deu:
     # intervention: "Intervention"
     intervention_cast: "Intervention Guss"
     intervention_parameter: "Intervention Parameter"
+    intervention_participation: "Intervention Teilnahme"
+    # intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention Abgüsse"
     interventions: "Interventionen"
     interventions_used_in: "Interventionen in"
