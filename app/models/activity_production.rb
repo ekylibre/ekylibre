@@ -245,6 +245,8 @@ class ActivityProduction < Ekylibre::Record::Base
     support.initial_shape = self.support_shape
     support.initial_born_at = started_on
     support.initial_dead_at = stopped_on
+    support.born_at = started_on
+    support.dead_at = stopped_on
     support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
     support.save!
     reading = support.first_reading(:shape)
