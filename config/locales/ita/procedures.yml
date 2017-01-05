@@ -166,6 +166,7 @@ ita:
     hilling: "ridging"
     hilling_for_sifting: "Hilling per setacciatura"
     # hoeing: "Hoeing"
+    # housing_soil_disinfection: "Housing soil disinfection"
     indirect_silage: "insilato indiretta"
     installation_maintenance: "Installazione manutenzione"
     inter_row_hoeing: "Inter-fila zappatura"
