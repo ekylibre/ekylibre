@@ -7,10 +7,8 @@ module Backend
       Cash.delete_all
       BankStatement.delete_all
       BankStatementItem.delete_all
-      Catalog.delete_all
       PurchaseNature.delete_all
       PurchaseAffair.destroy_all
-      OutgoingPaymentMode.delete_all
       OutgoingPaymentMode.delete_all
       Entity.delete_all
       Purchase.delete_all

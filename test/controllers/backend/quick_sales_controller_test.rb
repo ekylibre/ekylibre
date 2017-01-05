@@ -11,7 +11,6 @@ module Backend
       SaleNature.delete_all
       SaleAffair.destroy_all
       IncomingPaymentMode.delete_all
-      IncomingPaymentMode.delete_all
       Entity.delete_all
       Sale.delete_all
       IncomingPayment.delete_all
