@@ -54,7 +54,7 @@
 #
 
 class IncomingPayment < Ekylibre::Record::Base
-  include PeriodicCalculable, Attachable
+  include PeriodicCalculable, Attachable, Letterable
   include Customizable
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
@@ -161,33 +161,12 @@ class IncomingPayment < Ekylibre::Record::Base
     1
   end
 
-  def third
-    send(third_attribute)
+  def relative_amount
+    self.class.sign_of_amount * amount
   end
 
-  def letter_with(bank_statements_items)
-    return false unless bank_statements_items.present?
-    return false unless journal_entry
-    bank_statement = bank_statements_items.first.bank_statement
-    return false unless mode.cash_id == bank_statement.cash_id
-    unless bank_statements_items.respond_to?(:pluck)
-      ids = bank_statements_items.map { |item| item.respond_to?(:id) ? item.id : item }
-      bank_statements_items = BankStatementItem.where(id: ids)
-    end
-    matches = amount == bank_statements_items.sum(:debit) - bank_statements_items.sum(:credit)
-    return false unless matches
-    letters = bank_statements_items.pluck(:letter)
-    bank_statements_items.update_all(letter: nil)
-    JournalEntryItem.pointed_by(bank_statement)
-                    .where(bank_statement_letter: letters)
-                    .update_all(bank_statement_letter: nil, bank_statement_id: nil)
-    letter = bank_statement.next_letter
-    journal_entry
-      .items
-      .where(account_id: bank_statement.cash_account_id)
-      .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
-    bank_statements_items.update_all(letter: letter)
-    letter
+  def third
+    send(third_attribute)
   end
 
   # Returns true if payment is already deposited
