@@ -110,8 +110,16 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def letter_with(bank_statements_items)
+    return false unless bank_statements_items.present?
     return false unless journal_entry
     bank_statement = bank_statements_items.first.bank_statement
+    return false unless mode.cash_id == bank_statement.cash_id
+    unless bank_statements_items.respond_to?(:pluck)
+      ids = bank_statements_items.map { |item| item.respond_to?(:id) ? item.id : item }
+      bank_statements_items = BankStatementItem.where(id: ids)
+    end
+    matches = amount == bank_statements_items.sum(:credit) - bank_statements_items.sum(:debit)
+    return false unless matches
     letters = bank_statements_items.pluck(:letter)
     bank_statements_items.update_all(letter: nil)
     JournalEntryItem.pointed_by(bank_statement)
@@ -123,6 +131,7 @@ class OutgoingPayment < Ekylibre::Record::Base
       .where(account_id: bank_statement.cash_account_id)
       .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
     bank_statements_items.update_all(letter: letter)
+    letter
   end
 
   def check_updateable_or_destroyable?

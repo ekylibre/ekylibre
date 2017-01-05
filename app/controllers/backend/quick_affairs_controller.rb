@@ -53,7 +53,7 @@ module Backend
         return render :new
       end
 
-      lettered = lettrable? && @payment.letter_with(@bank_statement_items)
+      lettered = @amount == @trade.amount && @payment.letter_with(@bank_statement_items)
       if lettered && @bank_statement_items
         notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
       end
@@ -107,15 +107,6 @@ module Backend
             .permit :trade_id,
                     :third_id,
                     :payment_id
-    end
-
-    def lettrable?
-      return false unless @bank_statement_items
-      bank_statement   = @bank_statement_items.first.bank_statement
-      amount_matches   = (@amount == @payment.amount)
-      amount_matches &&= (@amount == @trade.amount)
-      mode_is_valid    = (bank_statement.cash_id == @payment.mode.cash_id)
-      amount_matches && mode_is_valid
     end
   end
 end
