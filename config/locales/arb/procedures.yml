@@ -166,6 +166,7 @@ arb:
     hilling: "هيلينج"
     hilling_for_sifting: "هيلينج لغربلة"
     hoeing: "العزق"
+    # housing_soil_disinfection: "Housing soil disinfection"
     indirect_silage: "السيلاج غير مباشر"
     installation_maintenance: "صيانة تركيب"
     inter_row_hoeing: "أمور الصف عزق"
