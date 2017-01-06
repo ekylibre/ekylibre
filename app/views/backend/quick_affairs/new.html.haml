@@ -49,7 +49,7 @@
     = backend_fields_for :payment, @payment do |p|
       - if @bank_statement_items
         = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
-      = p.referenced_association :mode, source: payment_scope.dup
+      = p.referenced_association :mode, source: payment_scope.to_h.dup
       = p.input :amount, wrapper: :append, required: true do
         = p.input_field :amount
         %span.add-on= @trade.currency || @trade.nature.currency
