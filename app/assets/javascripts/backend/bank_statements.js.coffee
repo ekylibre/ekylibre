@@ -326,14 +326,14 @@
       @_updateReconciliationBalance reconciliatedDebit, reconciliatedCredit
       @_updateRemainingReconciliationBalance remainingDebit, remainingCredit
 
-      $("#matching .debit").toggleClass("valid", allDebit is reconciliatedDebit)
-      $("#matching .credit").toggleClass("valid", allCredit is reconciliatedCredit)
+      # $("#matching .debit").toggleClass("valid", allDebit is reconciliatedDebit)
+      # $("#matching .credit").toggleClass("valid", allCredit is reconciliatedCredit)
       $("#to-match .debit").toggleClass("valid", remainingDebit is 0)
       $("#to-match .credit").toggleClass("valid", remainingCredit is 0)
 
     _updateReconciliationBalance: (debit, credit) ->
-      $("#matching .debit").text debit.toFixed(@precision)
-      $("#matching .credit").text credit.toFixed(@precision)
+      # $("#matching .debit").text debit.toFixed(@precision)
+      # $("#matching .credit").text credit.toFixed(@precision)
 
     _updateRemainingReconciliationBalance: (debit, credit) ->
       $("#to-match .debit").text debit.toFixed(@precision)
