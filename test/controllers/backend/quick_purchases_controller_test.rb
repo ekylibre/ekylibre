@@ -33,13 +33,13 @@ module Backend
                       name: 'Main tank',
                       bank_statement: @fuel_level,
                       transfered_on: Time.zone.now - 5.days,
-                      credit: 42
+                      debit: 42
                     )
       @tanks     << BankStatementItem.create!(
                       name: 'Backup tank',
                       bank_statement: @fuel_level,
                       transfered_on: Time.zone.now - 5.days,
-                      credit: 1337
+                      debit: 1337
                     )
 
       @citadels   = Tax.create!(name: 'Citadel\'s tax', country: 'au', deduction_account: fuel_act, collect_account: citadel_act, nature: :normal_vat)

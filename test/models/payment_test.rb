@@ -83,7 +83,7 @@ class PaymentTest < ActiveSupport::TestCase
   end
 
   def setup_items(amount)
-    amount_attr = (@payment_class == IncomingPayment ? :debit : :credit)
+    amount_attr = (@payment_class == IncomingPayment ? :credit : :debit)
 
     now = Time.zone.now
     fuel_level = BankStatement.create!(
