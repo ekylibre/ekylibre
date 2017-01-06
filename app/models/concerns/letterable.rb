@@ -36,8 +36,8 @@ module Letterable
     return false unless mode.cash_id == bank_statement.cash_id
 
     items = BankStatementItem.where(id: bank_statement_items)
-    bank_items_balance = items.sum(:debit) - items.sum(:credit)
-    return false unless -relative_amount == bank_items_balance
+    bank_items_balance = items.sum(:credit) - items.sum(:debit)
+    return false unless relative_amount == bank_items_balance
     items
   end
 end
