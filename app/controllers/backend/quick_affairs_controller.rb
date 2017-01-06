@@ -9,7 +9,7 @@ module Backend
       @trade   = self.class::Trade.new(invoiced_at: date, nature_id: nature)
       @trade.items.new
 
-      @amount   = @bank_statement_items ? @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit) : 0
+      @amount   = @bank_statement_items ? @bank_statement_items.sum(:credit) - @bank_statement_items.sum(:debit) : 0
       @amount  *= self.class::Payment.sign_of_amount
 
       @payment = self.class::Payment.new(to_bank_at: date, amount: @amount)
@@ -28,7 +28,7 @@ module Backend
       @trade = new_trade
       @payment = new_payment(@trade.third, @trade.invoiced_at)
 
-      @amount  = @bank_statement_items ? @bank_statement_items.sum(:debit) - @bank_statement_items.sum(:credit) : 0
+      @amount  = @bank_statement_items ? @bank_statement_items.sum(:credit) - @bank_statement_items.sum(:debit) : 0
       @amount *= self.class::Payment.sign_of_amount
 
       begin
@@ -54,7 +54,7 @@ module Backend
       end
 
       lettered = @amount == @trade.amount && @payment.letter_with(@bank_statement_items)
-      if lettered && @bank_statement_items
+      if !lettered && @bank_statement_items
         notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
       end
       redirect_to(params[:redirect] || send(:"backend_#{self.class::Trade.affair_class.name.underscore}_path", @affair))

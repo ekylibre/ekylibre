@@ -5,7 +5,6 @@ module Letterable
 
   def letter_with(bank_statement_items)
     items = letterable_items(bank_statement_items)
-
     return false unless items
 
     letters = items.pluck(:letter)
@@ -22,9 +21,9 @@ module Letterable
   def join_to_bank_statement_items(items)
     bank_statement = items.first.bank_statement
     letter = bank_statement.next_letter
-    journal_entry
-      .items
-      .where(account_id: bank_statement.cash_account_id)
+    JournalEntryItem
+      .where(id: journal_entry.items.to_a
+                              .select { |item| item.balance == relative_amount })
       .update_all(bank_statement_id: bank_statement.id, bank_statement_letter: letter)
     items.update_all(letter: letter)
     letter
@@ -38,7 +37,7 @@ module Letterable
 
     items = BankStatementItem.where(id: bank_statement_items)
     bank_items_balance = items.sum(:debit) - items.sum(:credit)
-    return false unless relative_amount == bank_items_balance
+    return false unless -relative_amount == bank_items_balance
     items
   end
 end

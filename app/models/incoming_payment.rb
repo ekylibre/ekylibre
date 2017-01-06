@@ -98,7 +98,7 @@ class IncomingPayment < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(paid_at: started_at..stopped_at)
   }
-  scope :mode_matching_cash, ->(id) { includes(:mode).where(incoming_payment_modes: { cash_id: id }) }
+  scope :matching_cash, ->(id) { includes(:mode).where(incoming_payment_modes: { cash_id: id }) }
 
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 

@@ -35,24 +35,21 @@
               %th{colspan: 3}= link_to_add_association :add_item.tl, t, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
           = t.simple_fields_for :items, t.object.items do |item|
             = render 'item_fields', f: item
-      #intermediary-amount.hidden{ 'data-calculate': 'sum', 'data-use': '.items td.amount input', 'data-use-closest': '.fieldset-fields' }
-      #trade-sign.hidden= @payment.class.sign_of_amount
-      #trade_amount.hidden{ 'data-calculate': 'mul', 'data-use': '#intermediary-amount, #trade-sign', 'data-use-closest': '.fieldset-fields' }
+      #trade_amount.hidden{ 'data-calculate': 'sum', 'data-use': '.items td.amount input', 'data-use-closest': '.fieldset-fields' }
+
 
   = field_set trade_model_name.human, class: 'existing-trade hidden' do
     .control-group
       %label.string.required.control-label= trade_model_name.human
       .controls.delivery-item
         = selector_tag :"affair[trade_id]", { controller: 'backend/' + @trade.class.model_name.plural, action: :unroll, scope: { with_nature: @trade.nature_id } }, { value: @trade.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@trade.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
-        #intermediary-amount.hidden{ 'data-when-item': :amount, 'data-when-set-value': "RECORD_VALUE" }
-        #trade-sign.hidden= @payment.class.sign_of_amount
-        #trade_amount.hidden{ 'data-calculate': 'mul', 'data-use': '#intermediary-amount, #trade-sign', 'data-use-closest': '.fieldset-fields' }
+        #trade_amount.hidden{ 'data-when-item': :amount, 'data-when-set-value': "RECORD_VALUE" }
 
   = field_set payment_model_name.human, class: 'new-payment hidden' do
     = backend_fields_for :payment, @payment do |p|
       - if @bank_statement_items
         = p.input_field :bank_statement_item_ids, value: @bank_statement_items.pluck(:id), as: :hidden
-      = p.referenced_association :mode, source: payment_scope
+      = p.referenced_association :mode, source: payment_scope.dup
       = p.input :amount, wrapper: :append, required: true do
         = p.input_field :amount
         %span.add-on= @trade.currency || @trade.nature.currency
@@ -61,7 +58,7 @@
     .control-group
       %label.string.required.control-label= payment_model_name.human
       .controls.delivery-item
-        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll, **(payment_scope.to_h) }, { value: @payment.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@payment.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
+        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll, **(payment_scope.to_h.dup) }, { value: @payment.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@payment.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
         #payment_amount.hidden{ 'data-when-item': :amount, 'data-when-set-value': "RECORD_VALUE" }
 
   = form_actions do
