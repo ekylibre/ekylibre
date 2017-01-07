@@ -167,12 +167,14 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
-      if plant_farming?
-        initialize_land_parcel_support!
-      elsif animal_farming?
-        initialize_animal_group_support!
-      elsif tool_maintaining?
-        initialize_equipment_fleet_support!
+      if self.stopped_on < Time.zone.now + 50.years && self.started_on <= self.stopped_on
+        if plant_farming?
+          initialize_land_parcel_support!
+        elsif animal_farming?
+          initialize_animal_group_support!
+        elsif tool_maintaining?
+          initialize_equipment_fleet_support!
+        end
       end
     end
     true
@@ -252,6 +254,7 @@ class ActivityProduction < Ekylibre::Record::Base
     reading = support.first_reading(:shape)
     if reading
       reading.value = self.support_shape
+      reading.read_at = support.born_at
       reading.save!
     end
     self.size = support_shape_area.in(size_unit_name)
