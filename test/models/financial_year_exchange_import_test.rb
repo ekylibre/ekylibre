@@ -100,7 +100,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
     exchange = financial_year_exchanges(:financial_year_exchanges_001)
     import = FinancialYearExchangeImport.new(file, exchange)
 
-    assert import.run
+    assert import.run!, 'Import fails'
     journal = journals(:journals_010)
     created_entry = journal.entries.detect { |e| e.number == '12345' }
     assert created_entry.present?
@@ -128,7 +128,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
     exchange = financial_year_exchanges(:financial_year_exchanges_001)
     assert exchange.import_file.blank?
     import = FinancialYearExchangeImport.new(file, exchange)
-    assert import.run
+    assert import.run!, 'Import fails'
     exchange.reload
     assert_equal exchange.import_file.size, file.size
   end

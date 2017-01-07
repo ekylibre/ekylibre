@@ -10,16 +10,23 @@ class FinancialYearExchangeImport
 
   def run
     ActiveRecord::Base.transaction do
-      read_and_parse_file || rollback!
-      ensure_headers_are_valid || rollback!
-      ensure_all_journals_exists || rollback!
-      ensure_entries_included_in_financial_year_date_range || rollback!
-      destroy_previous_journal_entries
-      import_journal_entries || rollback!
-      save_file
+      run!(ActiveRecord::Rollback)
       return true
     end
     false
+  end
+
+  def run!(exception = nil)
+    exception ||= StandardError
+    raise exception, 'Cannot parse file' unless read_and_parse_file
+    # FIXME: Headers are not fixed at all. Only columns order can be valid for i18n purpose
+    raise exception, 'Headers are invalid' unless ensure_headers_are_valid
+    raise exception, "All journals doesn't exists" unless ensure_all_journals_exists
+    # raise exception, "All entries are not included in date range" unless ensure_entries_included_in_financial_year_date_range
+    raise exception, 'Cannot remove existing journal entries' unless destroy_previous_journal_entries
+    raise exception, 'Cannot import new journal entries' unless import_journal_entries
+    save_file
+    true
   end
 
   private
@@ -77,6 +84,7 @@ class FinancialYearExchangeImport
         entry.destroy
       end
     end
+    true
   end
 
   def import_journal_entries
@@ -119,7 +127,7 @@ class FinancialYearExchangeImport
 
   def save_file
     exchange.import_file = file
-    exchange.save
+    exchange.save!
   end
 
   def format_header(header)

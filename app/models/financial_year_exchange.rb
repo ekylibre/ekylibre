@@ -42,6 +42,7 @@
 class FinancialYearExchange < Ekylibre::Record::Base
   belongs_to :financial_year
   has_many :journal_entries, dependent: :nullify
+  has_one :accountant, through: :financial_year
   has_attached_file :import_file, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_at, :import_file_updated_at, :public_token_expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -102,10 +103,8 @@ class FinancialYearExchange < Ekylibre::Record::Base
   end
 
   def set_initial_values
-    unless stopped_on
-      possibilities = [Date.yesterday]
-      possibilities << financial_year.stopped_on if financial_year
-      self.stopped_on = possibilities.min
+    if stopped_on.blank? && financial_year
+      self.stopped_on = [Date.yesterday, financial_year.stopped_on].min
     end
   end
 
@@ -133,7 +132,7 @@ class FinancialYearExchange < Ekylibre::Record::Base
 
   def compute_started_on
     return unless financial_year
-    previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).order(stopped_on: :desc).pluck(:stopped_on).first
+    previous_exchange_stopped_on = financial_year.exchanges.limit(1).where('stopped_on < ?', stopped_on).reorder(stopped_on: :desc).pluck(:stopped_on).first
     previous_exchange_stopped_on || financial_year.started_on
   end
 end

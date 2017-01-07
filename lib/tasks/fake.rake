@@ -2,11 +2,11 @@ task fake: :environment do
   class Fake
     attr_reader :on, :currency
     delegate :monday?, :tuesday?, :wenesday?, :thursday?, :friday?, :saturday?, :sunday?,
-             :day, :month, :year, :wday, :strftime, to: :on
+             :day, :month, :year, :mday, :wday, :strftime, to: :on
 
     def initialize(options = {})
       @currency = options[:currency] || 'EUR'
-      @on = options[:on] || Date.civil(2016, 1, 10)
+      @on = options[:on] || Date.civil(2015, 9, 1)
     end
 
     def entity(options = {})
@@ -170,6 +170,25 @@ task fake: :environment do
       OutgoingPayment.create!(options)
     end
 
+    def financial_year_exchange(options = {})
+      options[:started_on] ||= (@on - 1.month).beginning_of_month
+      options[:stopped_on] ||= options[:started_on].end_of_month
+      financial_year = FinancialYear.at(options[:started_on])
+      unless financial_year.accountant
+        accountant = nil
+        if financial_year.previous
+          accountant = financial_year.previous.accountant
+        end
+        accountant ||= entity(supplier: true)
+        financial_year.accountant = accountant
+        financial_year.save!
+        index = Journal.where('code like ?', 'JCR%').count + 1
+        journal = Journal.create_with(code: 'JCR' + index.to_s, name: entity.name)
+                         .find_or_create_by(accountant: accountant, nature: :various)
+      end
+      FinancialYearExchange.create!(options.merge(financial_year: financial_year))
+    end
+
     def next!
       User.stamper = User.all.sample
       @on += 1
@@ -273,6 +292,15 @@ task fake: :environment do
               print 'o'.red
             end
           end
+        end
+
+        if fake.tuesday? && fake.mday <= 7
+          if FinancialYearExchange.opened.any?
+            FinancialYearExchange.opened.last.close!
+          end
+          stopped_on = (fake.on - 7.months).end_of_month
+          fake.financial_year_exchange(started_on: stopped_on.beginning_of_month, stopped_on: stopped_on)
+          print 'x'.magenta
         end
       end
     end

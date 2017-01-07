@@ -129,8 +129,8 @@ class Journal < Ekylibre::Record::Base
 
   before_save if: :accountant_id_changed? do
     if accountant
-      entries.where(state: :draft).find_each(&:confirm)
-      entries.where(state: :confirmed).find_each(&:close)
+      entries.where(state: :draft).find_each(&:confirm!)
+      entries.where(state: :confirmed).find_each(&:close!)
     end
   end
 

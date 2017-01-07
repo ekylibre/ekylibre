@@ -95,8 +95,8 @@ class Entity < Ekylibre::Record::Base
   belongs_to :supplier_account, class_name: 'Account'
   belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
-  with_options class_name: 'EntityAddress', inverse_of: :entity do
-    has_many :all_addresses, dependent: :destroy
+  with_options class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy do
+    has_many :all_addresses
     has_many :addresses, -> { actives }
     has_many :mails,     -> { actives.mails    }
     has_many :emails,    -> { actives.emails   }

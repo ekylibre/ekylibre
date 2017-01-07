@@ -16296,7 +16296,7 @@ ALTER TABLE ONLY crumbs
 --
 
 ALTER TABLE ONLY journal_entries
-    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id);
+    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -16376,7 +16376,7 @@ ALTER TABLE ONLY intervention_participations
 --
 
 ALTER TABLE ONLY financial_year_exchanges
-    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id);
+    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

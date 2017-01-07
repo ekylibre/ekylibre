@@ -46,6 +46,7 @@ require 'test_helper'
 
 class JournalTest < ActiveSupport::TestCase
   test_model_actions
+
   test 'presence of nature scopes' do
     for nature in Journal.nature.values
       scope_name = nature.to_s.pluralize.to_sym
@@ -53,46 +54,54 @@ class JournalTest < ActiveSupport::TestCase
       # TODO: Check that scope works
     end
   end
+
   test 'accountant can be set on various journals' do
     various_journal = journals(:journals_001)
     various_journal.accountant = entities(:entities_016)
     assert various_journal.valid?
   end
+
   test 'set accountant close all entries' do
     various_journal = journals(:journals_001)
+    assert various_journal.entries.where(state: [:draft, :confirmed]).any?
     various_journal.accountant = entities(:entities_016)
-    assert various_journal.entries.any? { |e| e.draft? || e.confirmed? }
     assert various_journal.save
-    assert various_journal.entries.reload.all?(&:closed?)
+    assert various_journal.entries.reload.all?(&:closed?), 'All journal entries should be closed after accountant assignment on journal'
   end
+
   test 'accountant cannot be set on non-various journals' do
     bank_journal = journals(:journals_003)
     bank_journal.accountant = entities(:entities_016)
     refute bank_journal.valid?
   end
+
   test 'accountant cannot be on journals with cashes' do
     journal_with_cash = journals(:journals_002)
     journal_with_cash.nature = :various
     journal_with_cash.accountant = entities(:entities_016)
     refute journal_with_cash.valid?
   end
+
   test 'cannot set an accountant which has opened exchanges in its financial year' do
     financial_year = financial_years(:financial_years_025)
     journal = journals(:journals_001)
     journal.accountant = financial_year.accountant
     refute journal.valid?
   end
+
   test 'cannot remove accountant which has opened exchanges in its financial year' do
-    journal = journals(:journals_010)
+    journal = Journal.where(accountant_id: FinancialYear.where(id: FinancialYearExchange.opened.select(:financial_year_id)).select(:accountant_id)).first
     journal.accountant = nil
     refute journal.valid?
   end
+
   test 'cannot be closed with an accountant' do
     journal = journals(:journals_001)
     assert journal.closable?
     journal.accountant = entities(:entities_016)
     refute journal.closable?
   end
+
   test 'cannot be reopened with an accountant' do
     journal = journals(:journals_001)
     assert journal.close!(Time.zone.now.to_date)
