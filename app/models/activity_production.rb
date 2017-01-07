@@ -167,7 +167,7 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
-      if self.stopped_on < Time.zone.now + 50.years && self.started_on <= self.stopped_on
+      if valid_period_for_support?
         if plant_farming?
           initialize_land_parcel_support!
         elsif animal_farming?
@@ -230,6 +230,19 @@ class ActivityProduction < Ekylibre::Record::Base
         support.update_column(:name, new_support_name)
       end
     end
+  end
+
+  def valid_period_for_support?
+    if self.started_on
+      return false if self.started_on < Time.new(1, 1, 1).in_time_zone
+    end
+    if self.stopped_on
+      return false if self.stopped_on >= Time.zone.now + 50.years
+    end
+    if self.started_on && self.stopped_on
+      return false if self.started_on > self.stopped_on
+    end
+    return true
   end
 
   def initialize_land_parcel_support!
