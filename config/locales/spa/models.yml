@@ -819,7 +819,7 @@ spa:
     intervention_cast: "Reparto de intervención"
     intervention_parameter: "Parámetro de la intervención"
     intervention_participation: "La participación de la intervención"
-    # intervention_participations: "Intervention participations"
+    intervention_participations: "Participaciones de intervención"
     intervention_product_parameters: "Moldes de intervención"
     interventions: "Intervenciones"
     interventions_used_in: "Las intervenciones se utiliza en"

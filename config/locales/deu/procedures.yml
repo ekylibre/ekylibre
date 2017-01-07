@@ -166,7 +166,7 @@ deu:
     hilling: "ridging"
     hilling_for_sifting: "Hilling für Sieben"
     # hoeing: "Hoeing"
-    # housing_soil_disinfection: "Housing soil disinfection"
+    housing_soil_disinfection: "Gehäusebodendesinfektion"
     indirect_silage: "indirekte Silage"
     installation_maintenance: "Die Installation Wartung"
     inter_row_hoeing: "Inter-Reihe Fräst"

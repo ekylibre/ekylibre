@@ -166,7 +166,7 @@ cmn:
     hilling: "培土"
     hilling_for_sifting: "培土的筛选"
     hoeing: "锄"
-    # housing_soil_disinfection: "Housing soil disinfection"
+    housing_soil_disinfection: "房屋土壤消毒"
     indirect_silage: "间接青贮"
     installation_maintenance: "安装维修"
     inter_row_hoeing: "行间锄"

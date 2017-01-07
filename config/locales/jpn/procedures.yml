@@ -166,7 +166,7 @@ jpn:
     hilling: "畝"
     hilling_for_sifting: "ふるい分けのための畝"
     # hoeing: "Hoeing"
-    # housing_soil_disinfection: "Housing soil disinfection"
+    housing_soil_disinfection: "住宅土壌消毒"
     indirect_silage: "間接サイレージ"
     installation_maintenance: "インストールのメンテナンス"
     inter_row_hoeing: "行間hoeing"

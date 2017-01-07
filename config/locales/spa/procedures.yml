@@ -166,7 +166,7 @@ spa:
     hilling: "Aporque"
     hilling_for_sifting: "Aporque para tamizar"
     hoeing: "Azada"
-    # housing_soil_disinfection: "Housing soil disinfection"
+    housing_soil_disinfection: "Desinfección del suelo de vivienda"
     indirect_silage: "Ensilado indirecta"
     installation_maintenance: "Mantenimiento de la instalación"
     inter_row_hoeing: "Entre hileras azada"

@@ -936,6 +936,7 @@ fra:
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
     balance: "Solde"
+    balance_of_selection: "Solde de la sélection"
     bank_account: "Compte bancaire"
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
@@ -1753,7 +1754,6 @@ fra:
     received: "Reçue"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
-    reconciled_total: "Total rapproché"
     record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?

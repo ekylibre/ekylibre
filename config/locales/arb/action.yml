@@ -342,7 +342,7 @@ arb:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "المساهمات تدخل"
     backend/interventions:
       edit: "تحرير"
       edit_request: "طلب تحرير"
@@ -1065,6 +1065,7 @@ arb:
         opera: "الاوبرا" #?
         safari: "سفاري رحلة قنص" #?
     balance: "رصيد الحساب"
+    balance_of_selection: "ميزان اختيار"
     bank_account: "حساب البنك"
     bank_accounts: "" #?
     bank_statement_number: "عدد بيان البنك"
@@ -1684,7 +1685,7 @@ arb:
     no_deliveries: "ليس هناك من تسليم بالانتظار" #?
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع" #?
     no_deposits: "التأكد من عدم اقتطاعات البنك"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "لا المساهمات تدخل للتحقق"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
     no_notifications: "أي إخطارات"
     no_origin: "-- بدون مصدر --" #?
@@ -1874,7 +1875,6 @@ arb:
     ready_to_harvest: "استعداد لموسم الحصاد"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
-    reconciled_total: "مجموعه التوفيق"
     record: "سجل"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?

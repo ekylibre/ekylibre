@@ -287,7 +287,7 @@ por:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "Participações de intervenção"
     backend/interventions:
       edit: "Editar"
       edit_request: "Pedido de edição"
@@ -785,6 +785,7 @@ por:
     average: "Média"
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
+    balance_of_selection: "Balança de selecção"
     bank_account: "Conta bancária"
     bank_statement_number: "Número extrato bancário"
     bank_statements: "Extratos bancários"
@@ -1214,7 +1215,7 @@ por:
     no_crumbs_to_check: "Não migalhas para verificar"
     no_data: "Não existem dados"
     no_deposits: "Não há depósitos"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "Não há participações de intervenção para verificar"
     no_notifications: "Nenhuma notificação"
     no_particular_periods: "No período específico"
     no_products: "Nenhum produto"
@@ -1336,7 +1337,6 @@ por:
     ready_to_harvest: "Pronto para colher"
     received: "Recebido"
     recent_events: "Eventos recentes"
-    reconciled_total: "total de reconciliado"
     record: "Registro"
     record_maintenance: "Manutenção de registros"
     reflect: "Refletir"
