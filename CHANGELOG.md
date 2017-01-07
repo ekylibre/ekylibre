@@ -1,5 +1,135 @@
 # Change Log
 
+## [2.29.0](https://github.com/ekylibre/ekylibre/tree/2.29.0) (2017-01-07)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.28.0...2.29.0)
+
+**Implemented enhancements:**
+
+- Replace crumbs system with interventions participations [\#1539](https://github.com/ekylibre/ekylibre/pull/1539) ([Nyxelio](https://github.com/Nyxelio))
+
+**Fixed bugs:**
+
+- matters\#list \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1553](https://github.com/ekylibre/ekylibre/issues/1553)
+- campaigns\#close \(NoMethodError\) "undefined method `destroy' for nil:NilClass" [\#1547](https://github.com/ekylibre/ekylibre/issues/1547)
+- journal\_entries\#toggle\_autocompletion \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: ... [\#1532](https://github.com/ekylibre/ekylibre/issues/1532)
+- last\_sales\_cells\#list \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1525](https://github.com/ekylibre/ekylibre/issues/1525)
+- last\_purchases\_cells\#list \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1524](https://github.com/ekylibre/ekylibre/issues/1524)
+- No way to add a credit sale on sale [\#1523](https://github.com/ekylibre/ekylibre/issues/1523)
+- journals\#list\_items \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1483](https://github.com/ekylibre/ekylibre/issues/1483)
+- general\_ledgers\#list\_journal\_entry\_items \(ActiveRecord::StaleObjectError\) "Attempted to update a stale objec... [\#1476](https://github.com/ekylibre/ekylibre/issues/1476)
+- documents\#list \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1431](https://github.com/ekylibre/ekylibre/issues/1431)
+- catalogs\#list\_items \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1430](https://github.com/ekylibre/ekylibre/issues/1430)
+- activities\#index \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1371](https://github.com/ekylibre/ekylibre/issues/1371)
+- interventions\#index \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1337](https://github.com/ekylibre/ekylibre/issues/1337)
+- tokens\#create "Attempted to update a stale object: Preference" [\#1237](https://github.com/ekylibre/ekylibre/issues/1237)
+- januses\#toggle \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Preference" [\#1224](https://github.com/ekylibre/ekylibre/issues/1224)
+- last\_entities\_cells\#list "Attempted to update a stale object: Preference" [\#1158](https://github.com/ekylibre/ekylibre/issues/1158)
+- Attempted to update a stale object on purchases list page [\#1117](https://github.com/ekylibre/ekylibre/issues/1117)
+- Replace crumbs system with interventions participations [\#1539](https://github.com/ekylibre/ekylibre/pull/1539) ([Nyxelio](https://github.com/Nyxelio))
+
+**Closed issues:**
+
+- The date "dead\_at" of land parcels is not filled automatically with the date of the end of the production anymore [\#1552](https://github.com/ekylibre/ekylibre/issues/1552)
+- product\_nature\_categories\#list "Attempted to update a stale object" [\#1170](https://github.com/ekylibre/ekylibre/issues/1170)
+
+**Merged pull requests:**
+
+- Invoiced parcel hiding [\#1482](https://github.com/ekylibre/ekylibre/pull/1482) ([Nyxelio](https://github.com/Nyxelio))
+
+## [2.28.0](https://github.com/ekylibre/ekylibre/tree/2.28.0) (2017-01-03)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.27.2...2.28.0)
+
+**Implemented enhancements:**
+
+- Add a column codes for external sources [\#1533](https://github.com/ekylibre/ekylibre/pull/1533) ([burisu](https://github.com/burisu))
+
+**Fixed bugs:**
+
+- Date picker is in japanese [\#1531](https://github.com/ekylibre/ekylibre/issues/1531)
+- interventions\#create \(ActiveRecord::StaleObjectError\) "Attempted to update a stale object: Sequence" [\#1296](https://github.com/ekylibre/ekylibre/issues/1296)
+
+**Closed issues:**
+
+- Calendar in draft journal has a bad translation [\#1428](https://github.com/ekylibre/ekylibre/issues/1428)
+
+## [2.27.2](https://github.com/ekylibre/ekylibre/tree/2.27.2) (2017-01-02)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.27.1...2.27.2)
+
+**Fixed bugs:**
+
+- intervention\_participations\#create \(NameError\) "undefined local variable or method `entry' for \#\<JournalEntr... [\#1520](https://github.com/ekylibre/ekylibre/issues/1520)
+- parcels\#invoice \(NameError\) "undefined local variable or method `entry' for \#\<JournalEntry:0x007fa505eb3e60\>... [\#1518](https://github.com/ekylibre/ekylibre/issues/1518)
+- cashes\_balance\_cells\#show \(ActionView::Template::Error\) "undefined method `printed\_on' for nil:NilClass" [\#1517](https://github.com/ekylibre/ekylibre/issues/1517)
+- journals\#bookkeep \(NameError\) "undefined local variable or method `entry' for \#\<JournalEntry:0x007f5be4dc775... [\#1515](https://github.com/ekylibre/ekylibre/issues/1515)
+- purchases\#update \(NameError\) "undefined local variable or method `entry' for \#\<JournalEntry:0x007f5c04bc70c0... [\#1510](https://github.com/ekylibre/ekylibre/issues/1510)
+- journals\#bookkeep \(NoMethodError\) "undefined method `bookkeep' for \#\<SaleAffair:0x007f9c5ea4c548\>" [\#1485](https://github.com/ekylibre/ekylibre/issues/1485)
+- Fixes accountancy auto-completion by preference selection [\#1501](https://github.com/ekylibre/ekylibre/pull/1501) ([burisu](https://github.com/burisu))
+
+## [2.27.1](https://github.com/ekylibre/ekylibre/tree/2.27.1) (2016-12-29)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.27.0...2.27.1)
+
+**Implemented enhancements:**
+
+- Refactor JournalEntry\#items saving with nested\_attributes [\#264](https://github.com/ekylibre/ekylibre/issues/264)
+
+**Fixed bugs:**
+
+- No way to add a journal entry when more than 5 lines [\#1496](https://github.com/ekylibre/ekylibre/issues/1496)
+
+## [2.27.0](https://github.com/ekylibre/ekylibre/tree/2.27.0) (2016-12-21)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.26.0...2.27.0)
+
+**Merged pull requests:**
+
+- Adds quick affairs from bank statement reconciliation [\#1494](https://github.com/ekylibre/ekylibre/pull/1494) ([burisu](https://github.com/burisu))
+- Adds suspend process on bank movement until reconciliation [\#1493](https://github.com/ekylibre/ekylibre/pull/1493) ([burisu](https://github.com/burisu))
+- Rework bank statement reconciliation [\#1492](https://github.com/ekylibre/ekylibre/pull/1492) ([burisu](https://github.com/burisu))
+- Adds outgoing payment report [\#1491](https://github.com/ekylibre/ekylibre/pull/1491) ([burisu](https://github.com/burisu))
+- Adds tax to pay an dintracommunity in tax declarations [\#1490](https://github.com/ekylibre/ekylibre/pull/1490) ([burisu](https://github.com/burisu))
+- Adds a new way to select  affairs to build outgoing payment list [\#1489](https://github.com/ekylibre/ekylibre/pull/1489) ([burisu](https://github.com/burisu))
+- Adds regularizations to link various journal entries [\#1488](https://github.com/ekylibre/ekylibre/pull/1488) ([burisu](https://github.com/burisu))
+
+## [2.26.0](https://github.com/ekylibre/ekylibre/tree/2.26.0) (2016-12-15)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.25.1...2.26.0)
+
+**Implemented enhancements:**
+
+- Add possibility to enter purchase invoices with all taxe [\#1289](https://github.com/ekylibre/ekylibre/issues/1289)
+- Unroll sort improvement [\#1480](https://github.com/ekylibre/ekylibre/pull/1480) ([burisu](https://github.com/burisu))
+- Add global interventions [\#1478](https://github.com/ekylibre/ekylibre/pull/1478) ([EmmaDorie](https://github.com/EmmaDorie))
+
+**Fixed bugs:**
+
+- When you click on modify, nothing change on the page [\#1375](https://github.com/ekylibre/ekylibre/issues/1375)
+- Parcel price [\#1284](https://github.com/ekylibre/ekylibre/issues/1284)
+
+**Closed issues:**
+
+- Invoice and parcel validation are impossible [\#1448](https://github.com/ekylibre/ekylibre/issues/1448)
+- New parcel of unitary animal [\#1445](https://github.com/ekylibre/ekylibre/issues/1445)
+- new budget [\#1443](https://github.com/ekylibre/ekylibre/issues/1443)
+- Month is different in french and in english for the same page [\#1354](https://github.com/ekylibre/ekylibre/issues/1354)
+- Number of matters AND Translation [\#1338](https://github.com/ekylibre/ekylibre/issues/1338)
+- Need to open pretax\_amount on sale items to permit to compute unitary price automatically [\#1366](https://github.com/ekylibre/ekylibre/issues/1366)
+
+**Merged pull requests:**
+
+- Add purchase tax payability [\#1481](https://github.com/ekylibre/ekylibre/pull/1481) ([burisu](https://github.com/burisu))
+- Sale prices computing [\#1479](https://github.com/ekylibre/ekylibre/pull/1479) ([burisu](https://github.com/burisu))
+
+## [2.25.1](https://github.com/ekylibre/ekylibre/tree/2.25.1) (2016-12-13)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.25.0...2.25.1)
+
+**Fixed bugs:**
+
+- plots\#index \(ActionView::Template::Error\) "undefined method `harvest\_year' for nil:NilClass" [\#1380](https://github.com/ekylibre/ekylibre/issues/1380)
+- interventions\#compute \(NameError\) "uninitialized constant Procedo::FailedFunctionCall" [\#1343](https://github.com/ekylibre/ekylibre/issues/1343)
+- Impossible to change currency in settings [\#1216](https://github.com/ekylibre/ekylibre/issues/1216)
+- plots\#create "undefined method `name' for nil:NilClass" [\#1198](https://github.com/ekylibre/ekylibre/issues/1198)
+- The change of the absolute currency needs to be followed by a global update of all absolute\_\* columns in accountancy [\#194](https://github.com/ekylibre/ekylibre/issues/194)
+- cash\_transfers\#index \(ActionView::Template::Error\) "undefined method `currency' for \#\<CashTransfer:0x007f1b5... [\#1474](https://github.com/ekylibre/ekylibre/issues/1474)
+- interventions\#compute "uninitialized constant Procedo::FailedFunctionCall" [\#1154](https://github.com/ekylibre/ekylibre/issues/1154)
+
 ## [2.25.0](https://github.com/ekylibre/ekylibre/tree/2.25.0) (2016-12-12)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.24.1...2.25.0)
 
@@ -119,6 +249,7 @@
 **Fixed bugs:**
 
 - purchases\#index \(ActionView::Template::Error\) "PG::UndefinedTable: ERREUR: entrée manquante de la clause FR... [\#1382](https://github.com/ekylibre/ekylibre/issues/1382)
+- Deliveries impossible [\#1374](https://github.com/ekylibre/ekylibre/issues/1374)
 
 ## [2.21.2](https://github.com/ekylibre/ekylibre/tree/2.21.2) (2016-11-23)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.21.1...2.21.2)
