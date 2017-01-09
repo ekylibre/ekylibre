@@ -1175,6 +1175,7 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
+    memo: "Note"
     message: "Message"
     # messages: "Messages"
     metadata: "Méta-données"

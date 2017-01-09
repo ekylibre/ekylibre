@@ -965,6 +965,7 @@ eng:
     members: "Members"
     members_count: "Members count" #?
     memberships: "Memberships"
+    memo: "Memo"
     message: "Message"
     messages: "Messages"
     metadata: "Metadata"

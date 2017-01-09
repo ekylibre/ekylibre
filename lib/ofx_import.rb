@@ -4,7 +4,7 @@ class OfxImport
 
   attr_reader :error, :internal_error, :cash, :bank_statement
 
-  SUPPORTED_ENCODINGS = %w{ utf-8 iso-8859-1 us-ascii }
+  SUPPORTED_ENCODINGS = %w(utf-8 iso-8859-1 us-ascii).freeze
 
   def initialize(file, cash = nil)
     @file = file
@@ -41,8 +41,8 @@ class OfxImport
 
   def detect_encoding(file)
     mime_encoding = `file --mime-encoding "#{file.path}"`
-    if mime_encoding =~ /:\s+([^:\s]+)/ && SUPPORTED_ENCODINGS.include?($1)
-      $1
+    if mime_encoding =~ /:\s+([^:\s]+)/ && SUPPORTED_ENCODINGS.include?(Regexp.last_match(1))
+      Regexp.last_match(1)
     else
       'utf-8'
     end

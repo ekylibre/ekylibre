@@ -242,7 +242,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if self.started_on && self.stopped_on
       return false if self.started_on > self.stopped_on
     end
-    return true
+    true
   end
 
   def initialize_land_parcel_support!

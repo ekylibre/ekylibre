@@ -952,6 +952,7 @@ deu:
     members: "Mitglieder"
     members_count: "Mitglieder zählen"
     memberships: "Mitgliedschaften"
+    # memo: "Memo"
     message: "Nachricht"
     messages: "Nachrichten"
     metadata: "Metadaten"

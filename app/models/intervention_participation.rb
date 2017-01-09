@@ -67,7 +67,6 @@ class InterventionParticipation < Ekylibre::Record::Base
     where(intervention_id: intervention)
   }
 
-
   before_save do
     if intervention.present?
       intervention.update_state(id => state)

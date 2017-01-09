@@ -956,6 +956,7 @@ spa:
     members: "Miembros"
     members_count: "Cantidad de miembros"
     memberships: "Membresías"
+    memo: "Memorándum"
     message: "Mensaje"
     messages: "Mensajes"
     metadata: "Metadatos"

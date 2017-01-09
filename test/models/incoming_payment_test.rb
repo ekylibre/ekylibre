@@ -96,5 +96,4 @@ class IncomingPaymentTest < ActiveSupport::TestCase
     # Should not save without exception raise
     refute incoming_payment.save
   end
-
 end

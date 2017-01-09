@@ -895,6 +895,8 @@ bank_statement_items:
   lock_version:
     type: integer
     required: true
+  memo:
+    type: string
   name:
     type: string
     required: true
