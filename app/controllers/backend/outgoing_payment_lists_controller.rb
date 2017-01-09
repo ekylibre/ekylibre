@@ -94,9 +94,9 @@ module Backend
                      .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
                      .where(entities: { supplier_payment_mode_id: mode.id })
                      .order(:third_id, 'purchases.payment_at ASC', :number)
+
+          notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end
-      else
-        notify_warning :no_purchase_affair_found_on_given_period
       end
     end
 
