@@ -43,7 +43,8 @@ class InterventionParticipationTest < ActiveSupport::TestCase
     @intervention = Intervention.create!(
       procedure_name: :sowing,
       actions: [:sowing],
-      request_compliant: false
+      request_compliant: false,
+      working_periods: fake_working_periods
     )
     @worker = Worker.create!(
       name: 'Alice',
@@ -107,7 +108,12 @@ class InterventionParticipationTest < ActiveSupport::TestCase
   end
 
   test 'creating an :in_progress participation sets the intervention\'s to :in_progress' do
-    done_int = Intervention.create!(procedure_name: :sowing, actions: [:sowing], state: :done)
+    done_int = Intervention.create!(
+      procedure_name: :sowing,
+      actions: [:sowing],
+      state: :done,
+      working_periods: fake_working_periods
+    )
     @worker.intervention_participations.create!(intervention_id: done_int.id, state: :in_progress)
     done_int.reload
 
@@ -122,8 +128,18 @@ class InterventionParticipationTest < ActiveSupport::TestCase
   end
 
   test 'creating a non-compliant participation sets the intervention\'s compliance to false' do
-    non_comp_int = Intervention.create!(procedure_name: :sowing, actions: [:sowing], state: :done, request_compliant: true)
-    @worker.intervention_participations.create!(intervention_id: non_comp_int.id, state: :in_progress, request_compliant: false)
+    non_comp_int = Intervention.create!(
+      procedure_name: :sowing,
+      actions: [:sowing],
+      state: :done,
+      request_compliant: true,
+      working_periods: fake_working_periods
+    )
+    @worker.intervention_participations.create!(
+      intervention_id: non_comp_int.id,
+      state: :in_progress,
+      request_compliant: false
+    )
     non_comp_int.reload
 
     assert_equal false, non_comp_int.request_compliant
@@ -143,5 +159,15 @@ class InterventionParticipationTest < ActiveSupport::TestCase
         stopped_at: now + 30.minutes
       )
     end
+  end
+
+  def fake_working_periods
+    now = Time.zone.now
+    [
+      InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
+      InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),
+      InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
+      InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
+    ]
   end
 end

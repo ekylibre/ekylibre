@@ -40,15 +40,15 @@
 #  procedure_name          :string           not null
 #  request_compliant       :boolean
 #  request_intervention_id :integer
-#  started_at              :datetime
+#  started_at              :datetime         not null
 #  state                   :string           not null
-#  stopped_at              :datetime
+#  stopped_at              :datetime         not null
 #  trouble_description     :text
 #  trouble_encountered     :boolean          default(FALSE), not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  whole_duration          :integer          default(0), not null
-#  working_duration        :integer          default(0), not null
+#  whole_duration          :integer          not null
+#  working_duration        :integer          not null
 #
 
 class Intervention < Ekylibre::Record::Base
@@ -88,12 +88,13 @@ class Intervention < Ekylibre::Record::Base
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
   validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
@@ -223,6 +224,12 @@ class Intervention < Ekylibre::Record::Base
   scope :done, -> {}
 
   before_validation do
+    if working_periods.any? && !working_periods.detect { |p| p.started_at.blank? || p.stopped_at.blank? }
+      self.started_at = working_periods.map(&:started_at).min
+      self.stopped_at = working_periods.map(&:stopped_at).max
+      self.working_duration = working_periods.map { |p| p.stopped_at - p.started_at }.sum.to_i
+      self.whole_duration = (stopped_at - started_at).to_i
+    end
     if started_at && stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
@@ -599,7 +606,9 @@ class Intervention < Ekylibre::Record::Base
 
   # Run the intervention ie. the state is marked as done
   # Returns intervention
+  # DEPRECATED Will be removed in 3.0
   def run!
+    ActiveSupport::Deprecation.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
     raise 'Cannot run intervention without procedure' unless runnable?
     update_attributes(state: :done)
     self

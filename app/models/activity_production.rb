@@ -354,19 +354,11 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def interventions_by_weeks
     interventions_by_week = {}
-
     interventions.each do |intervention|
       week_number = intervention.started_at.to_date.cweek
-
-      list = []
-      unless interventions_by_week[week_number].nil?
-        list = interventions_by_week[week_number]
-      end
-
-      list << intervention
-      interventions_by_week[week_number] = list
+      interventions_by_week[week_number] ||= []
+      interventions_by_week[week_number] << intervention
     end
-
     interventions_by_week
   end
 

@@ -303,8 +303,8 @@ CREATE TABLE interventions (
     prescription_id integer,
     procedure_name character varying NOT NULL,
     state character varying NOT NULL,
-    started_at timestamp without time zone,
-    stopped_at timestamp without time zone,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -313,8 +313,8 @@ CREATE TABLE interventions (
     event_id integer,
     number character varying,
     description text,
-    working_duration integer DEFAULT 0 NOT NULL,
-    whole_duration integer DEFAULT 0 NOT NULL,
+    working_duration integer NOT NULL,
+    whole_duration integer NOT NULL,
     actions character varying,
     custom_fields jsonb,
     nature character varying NOT NULL,
@@ -16635,4 +16635,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161231200612');
 INSERT INTO schema_migrations (version) VALUES ('20161231223002');
 
 INSERT INTO schema_migrations (version) VALUES ('20161231233003');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231234533');
 
