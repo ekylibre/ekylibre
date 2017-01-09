@@ -102,6 +102,9 @@ module Backend
     end
 
     def create
+      params[:purchase_affairs] ||= []
+      params[:purchase_affairs].reject!{|p| p.empty?}
+
       if params[:purchase_affairs] && params[:purchase_affairs].present?
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
