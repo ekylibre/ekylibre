@@ -301,5 +301,5 @@ class PlantCountingTest < ActiveSupport::TestCase
       InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
       InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
     ]
-  end  
+  end
 end
