@@ -18,6 +18,7 @@
       %thead
         %tr
           %th= BankStatementItem.human_attribute_name(:name)
+          %th= BankStatementItem.human_attribute_name(:memo)
           %th= BankStatementItem.human_attribute_name(:transfered_on)
           %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:debit)
           %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:credit)
