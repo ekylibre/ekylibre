@@ -93,14 +93,18 @@ module Backend
                      .where(closed: false, currency: mode.cash.currency)
                      .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
                      .where(entities: { supplier_payment_mode_id: mode.id })
-                     .order(:third_id, 'purchases.payment_at ASC', :number)
+                     .order('entities.full_name ASC')
+                     .order('purchases.payment_at ASC', :number)
+
+          notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end
-      else
-        notify_warning :no_purchase_affair_found_on_given_period
       end
     end
 
     def create
+      params[:purchase_affairs] ||= []
+      params[:purchase_affairs].reject!{|p| p.empty?}
+
       if params[:purchase_affairs] && params[:purchase_affairs].present?
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 
