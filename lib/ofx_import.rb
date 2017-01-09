@@ -4,6 +4,8 @@ class OfxImport
 
   attr_reader :error, :internal_error, :cash, :bank_statement
 
+  SUPPORTED_ENCODINGS = %w{ utf-8 iso-8859-1 us-ascii }
+
   def initialize(file, cash = nil)
     @file = file
     @cash = cash
@@ -26,13 +28,24 @@ class OfxImport
   attr_reader :file, :parsed
 
   def read_and_parse_file
-    @parsed = OfxParser::OfxParser.parse(file.read)
+    encoding = detect_encoding(file)
+    content = File.open(file.path, encoding: encoding).read
+    @parsed = OfxParser::OfxParser.parse(content)
     true
   rescue => error
     message = I18n.translate('activerecord.errors.models.bank_statement.ofx_file_invalid')
     @error = InvalidOfxFile.new(message)
     @internal_error = error
     false
+  end
+
+  def detect_encoding(file)
+    mime_encoding = `file --mime-encoding "#{file.path}"`
+    if mime_encoding =~ /:\s+([^:\s]+)/ && SUPPORTED_ENCODINGS.include?($1)
+      $1
+    else
+      'utf-8'
+    end
   end
 
   def ensure_file_has_a_single_account
