@@ -186,11 +186,16 @@
 
   $(document).behave "load", "*[data-balance]", ->
     element = $(this)
-    operands = $(this).data("balance").split(/\s\-\s/g).slice(0, 2)
+    operands = $(this).data("balance").split('\\-').join('@DASH@').split(/\s\-\s/g).slice(0, 2).map (elem) ->
+      elem.split('@DASH@').join('-')
     round = parseInt(element.data("calculate-round"))
+    console.log operands.join(", ")
     $(document).on "change", operands.join(", "), ->
+      console.log operands[0], operands[1]
       plus = $(operands[0]).sum()
+      console.log plus
       minus = $(operands[1]).sum()
+      console.log minus
       result = 0
       if plus > minus
         result = plus - minus
@@ -202,7 +207,8 @@
   $(document).behave "load", "*[data-difference]", ->
     element = $(this)
     round = parseInt(element.data("calculate-round"))
-    operands = $(this).data("difference").split(/\s+\-\s+/g).slice(0, 2)
+    operands = $(this).data("difference").split('\\-').join('@DASH@').split(/\s+\-\s+/g).slice(0, 2).map (elem) ->
+      elem.split('@DASH@').join('-')
     $(document).on "change", operands.join(", "), ->
       result = $(operands[0]).sum() - $(operands[1]).sum()
       unless isNaN(round)

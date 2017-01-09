@@ -256,7 +256,6 @@
       @_showOrHideCompleteButtons()
       @_showOrHideNewPaymentButtons()
       @_showOrHideReconciliatedLines()
-      @_updateReconciliationBalances()
 
     _showOrHideClearButtons: ->
       @_showAndHideLinkForCollection 'clear',
@@ -309,37 +308,6 @@
         url = url.replace(id_space, "$1&bank_statement_item_ids[]=#{ids.join('&bank_statement_item_ids[]=')}$3")
         $(button).attr('href', url)
 
-    _updateReconciliationBalances: ->
-      all =  @_bankStatementLines()
-      allDebit = all.find(".debit").sum()
-      allCredit = all.find(".credit").sum()
-      allBalance = allDebit - allCredit
-
-      reconciliated = @_reconciliatedLines().filter("[data-type=bank_statement_item]")
-      reconciliatedDebit = reconciliated.find(".debit").sum()
-      reconciliatedCredit = reconciliated.find(".credit").sum()
-      reconciliatedBalance = reconciliatedDebit - reconciliatedCredit
-
-      remainingDebit = allDebit - reconciliatedDebit
-      remainingCredit = allCredit - reconciliatedCredit
-
-      @_updateReconciliationBalance reconciliatedDebit, reconciliatedCredit
-      @_updateRemainingReconciliationBalance remainingDebit, remainingCredit
-
-      # $("#matching .debit").toggleClass("valid", allDebit is reconciliatedDebit)
-      # $("#matching .credit").toggleClass("valid", allCredit is reconciliatedCredit)
-      $("#to-match .debit").toggleClass("valid", remainingDebit is 0)
-      $("#to-match .credit").toggleClass("valid", remainingCredit is 0)
-
-    _updateReconciliationBalance: (debit, credit) ->
-      # $("#matching .debit").text debit.toFixed(@precision)
-      # $("#matching .credit").text credit.toFixed(@precision)
-
-    _updateRemainingReconciliationBalance: (debit, credit) ->
-      $("#to-match .debit").text debit.toFixed(@precision)
-      $("#to-match .credit").text credit.toFixed(@precision)
-
-
     # AJAX CALLS
 
     _letterItems: (lines) ->
@@ -359,6 +327,8 @@
         success: (response) =>
           lines.find(".details .letter").text response.letter
           lines.removeClass "selected"
+          $(lines).find(".debit, .credit").trigger "change"
+          lines.addClass "lettered"
           @uiUpdate()
           return true
         error: (data) ->
@@ -376,6 +346,8 @@
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""
+          $(lines).find(".debit, .credit").trigger "change"
+          lines.removeClass "lettered"
           @uiUpdate()
           return true
         error: (data) ->
