@@ -52,7 +52,10 @@ class InterventionParticipationTest < ActiveSupport::TestCase
       person: Entity.contacts.first
     )
 
-    @participation = @worker.intervention_participations.create!(intervention_id: @intervention.id, state: :in_progress)
+    @participation = @worker.intervention_participations.create!(
+      intervention_id: @intervention.id,
+      state: :in_progress
+    )
     @intervention.reload
   end
 
@@ -72,6 +75,11 @@ class InterventionParticipationTest < ActiveSupport::TestCase
         },
         {
           started_at: now - 30.minutes,
+          stopped_at: now - 15.minutes,
+          nature: 'intervention'
+        },
+        {
+          started_at: now - 10.minutes,
           stopped_at: now,
           nature: 'intervention'
         }
