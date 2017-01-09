@@ -187,13 +187,16 @@
   $(document).behave "load", "*[data-balance]", ->
     element = $(this)
     operands = $(this).data("balance").split(/\s\-\s/g).slice(0, 2)
+    round = parseInt(element.data("calculate-round"))
     $(document).on "change", operands.join(", "), ->
       plus = $(operands[0]).sum()
       minus = $(operands[1]).sum()
+      result = 0
       if plus > minus
-        element.numericalValue(plus - minus)
-      else
-        element.numericalValue(0)
+        result = plus - minus
+      unless isNaN(round)
+        result = parseFloat(result.toFixed(round))
+      element.numericalValue(result)
     return
 
   $(document).behave "load", "*[data-difference]", ->

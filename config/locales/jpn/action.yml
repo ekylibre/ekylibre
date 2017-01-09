@@ -282,7 +282,7 @@ jpn:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "介入参加"
     backend/interventions:
       edit: "編集"
       edit_request: "編集要求"
@@ -849,6 +849,7 @@ jpn:
     average: "平均"
     back: "前のページに戻ります"
     balance: "バランス"
+    balance_of_selection: "選択のバランス"
     bank_account: "銀行口座"
     bank_statement_number: "銀行取引明細書番号"
     bank_statements: "銀行取引明細書"
@@ -1287,7 +1288,7 @@ jpn:
     no_crumbs_to_check: "チェックするパン粉いいえ"
     no_data: "データなし"
     no_deposits: "いいえ預金はありません"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "チェックするために介入への参加はありません"
     no_notifications: "いいえ通知はありません"
     no_particular_periods: "特に期間はありません"
     no_products: "商品なし"
@@ -1410,7 +1411,6 @@ jpn:
     ready_to_harvest: "収穫の準備完了"
     received: "受け"
     recent_events: "最近のイベント"
-    reconciled_total: "和解合計"
     record: "記録"
     record_maintenance: "記録管理"
     reflect: "反映します"

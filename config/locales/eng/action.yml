@@ -996,6 +996,7 @@ eng:
     average: "Average"
     back: "Back to the previous page"
     balance: "Balance"
+    balance_of_selection: "Balance of selection"
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
@@ -1548,7 +1549,6 @@ eng:
     ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
-    reconciled_total: "Reconciled total"
     record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?

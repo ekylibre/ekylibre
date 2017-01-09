@@ -281,7 +281,10 @@ class Product < Ekylibre::Record::Base
 
   def dead_at_in_interventions
     last_used_at = interventions.order(stopped_at: :desc).first.stopped_at
-    errors.add(:dead_at, :on_or_after, restriction: last_used_at.l) if dead_at < last_used_at
+    if dead_at < last_used_at
+      # puts ActivityProduction.find_by(support_id: self.id).id.green
+      errors.add(:dead_at, :on_or_after, restriction: last_used_at.l)
+    end
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|

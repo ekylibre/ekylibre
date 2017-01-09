@@ -282,7 +282,7 @@ cmn:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "干预参股"
     backend/interventions:
       edit: "编辑"
       edit_request: "编辑请求"
@@ -782,6 +782,7 @@ cmn:
     average: "平均"
     back: "回到以前的页"
     balance: "平衡"
+    balance_of_selection: "选择平衡"
     bank_account: "银行账户"
     bank_statement_number: "银行对账单号"
     bank_statements: "银行对账单"
@@ -1215,7 +1216,7 @@ cmn:
     no_crumbs_to_check: "无屑检查"
     no_data: "没有数据"
     no_deposits: "没有存款"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "不干预参股检查"
     no_notifications: "没有通知"
     no_particular_periods: "无特殊时期"
     no_products: "没有产品"
@@ -1338,7 +1339,6 @@ cmn:
     ready_to_harvest: "准备收获"
     received: "收到"
     recent_events: "最近发生的事件"
-    reconciled_total: "不甘心总"
     record: "记录"
     record_maintenance: "维修记录"
     reflect: "反映"

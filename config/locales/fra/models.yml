@@ -1027,7 +1027,7 @@ fra:
     intervention_cast: "Acteur de l’intervention"
     intervention_parameter: "Paramètre d’intervention"
     intervention_participation: "Participation d’intervention"
-    # intervention_participations: "Intervention participations"
+    intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"

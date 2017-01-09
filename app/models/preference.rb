@@ -63,6 +63,8 @@ class Preference < Ekylibre::Record::Base
   validates :nature, inclusion: { in: nature.values }
   validates :name, uniqueness: { scope: [:user_id] }
 
+  self.lock_optimistically = false
+
   alias_attribute :accounting_system_value, :string_value
   alias_attribute :country_value, :string_value
   alias_attribute :currency_value, :string_value

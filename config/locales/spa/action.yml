@@ -308,7 +308,7 @@ spa:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "Participaciones de intervención"
     backend/interventions:
       edit: "Editar"
       edit_request: "Editar solicitud"
@@ -864,6 +864,7 @@ spa:
         opera: "Opéra" #?
         safari: "Safari" #?
     balance: "Saldo"
+    balance_of_selection: "Balanza de selección"
     bank_account: "Cuenta bancaria"
     bank_statement_number: "Número de estado de cuenta bancaria"
     bank_statement_point: "Despuntar el levantar" #?
@@ -1378,7 +1379,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "No hay participaciones de intervención para comprobar"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     no_notifications: "No Notificaciones"
     no_particular_periods: "No determinado período"
@@ -1523,7 +1524,6 @@ spa:
     ready_to_harvest: "Listo para cosechar"
     received: "Recibido"
     recent_events: "Eventos recientes"
-    reconciled_total: "total conciliado"
     record: "Grabar"
     record_maintenance: "El mantenimiento de registros"
     reflect: "Reflejar"

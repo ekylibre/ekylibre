@@ -282,7 +282,7 @@ deu:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "Intervention Beteiligungen"
     backend/interventions:
       edit: "Bearbeiten"
       edit_request: "Anfrage bearbeiten"
@@ -782,6 +782,7 @@ deu:
     average: "Durchschnittlich"
     back: "Zurück zur vorherigen Seite"
     # balance: "Balance"
+    balance_of_selection: "Saldo der Auswahl"
     bank_account: "Bank Konto"
     bank_statement_number: "Kontoauszugsnummer"
     bank_statements: "Kontoauszüge"
@@ -1214,7 +1215,7 @@ deu:
     no_crumbs_to_check: "Keine Krümel zu überprüfen"
     no_data: "Keine Daten"
     no_deposits: "Keine Ablagerungen"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "Keine Intervention Beteiligungen zu überprüfen"
     no_notifications: "Keine Benachrichtigungen"
     no_particular_periods: "Keine besondere Zeit"
     no_products: "Keine Produkte"
@@ -1337,7 +1338,6 @@ deu:
     ready_to_harvest: "Bereit zur Ernte"
     received: "Empfangen"
     recent_events: "Die jüngsten Ereignisse"
-    reconciled_total: "Reconciled Gesamt"
     record: "Aufzeichnen"
     record_maintenance: "Nehmen Wartung"
     reflect: "Reflektieren"

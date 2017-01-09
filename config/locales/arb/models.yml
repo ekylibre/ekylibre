@@ -1607,7 +1607,7 @@ arb:
     intervention_cast: "تدخل الزهر"
     intervention_parameter: "معلمة تدخل"
     intervention_participation: "مشاركة التدخل"
-    # intervention_participations: "Intervention participations"
+    intervention_participations: "المساهمات تدخل"
     intervention_product_parameters: "يلقي تدخل"
     interventions: "التدخلات"
     interventions_used_in: "التدخلات المستخدمة في"

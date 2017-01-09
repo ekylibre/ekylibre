@@ -52,5 +52,15 @@ require 'test_helper'
 
 class OutgoingPaymentTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'create without mode' do
+    outgoing_payment = OutgoingPayment.new(
+      amount: 56,
+      payee: Entity.suppliers.first,
+      delivered: true
+    )
+    # Should not save without exception raise
+    refute outgoing_payment.save
+  end
+
 end
