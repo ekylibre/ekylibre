@@ -447,6 +447,10 @@ class Intervention < Ekylibre::Record::Base
     working_duration.in(:second).convert(unit).round(2).l
   end
 
+  def working_duration_of_nature(nature = :intervention)
+    InterventionWorkingPeriod.of_intervention_participations(InterventionParticipation.of_intervention(self)).of_nature(nature).sum(:duration)
+  end
+
   def completely_filled?
     reference_names = parameters.pluck(:reference_name).uniq
     reference_names = reference_names.map(&:to_sym)

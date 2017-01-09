@@ -63,6 +63,11 @@ class InterventionParticipation < Ekylibre::Record::Base
     where(arel_table[:created_at].lteq(on.to_time.end_of_day))
   }
 
+  scope :of_intervention, lambda { |intervention|
+    where(intervention_id: intervention)
+  }
+
+
   before_save do
     if intervention.present?
       intervention.update_state(id => state)
@@ -100,10 +105,16 @@ class InterventionParticipation < Ekylibre::Record::Base
         next if s == f
         {
           started_at: s,
-          stopped_at: f,
-          nature: wp.nature
+          stopped_at: f
         }
-      end.compact.uniq
+      end.compact.uniq.inject([]) do |obj, dates|
+        if !obj.empty? && obj.last[:stopped_at] == dates[:started_at]
+          obj.last[:stopped_at] = dates[:stopped_at]
+          obj
+        else
+          obj << dates
+        end
+      end
       # Parameters
       options[:working_width] ||= 6
       attributes = assign_parameters(procedure, attributes, options.slice(:working_width))
