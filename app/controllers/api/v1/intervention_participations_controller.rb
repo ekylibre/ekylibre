@@ -5,7 +5,15 @@ module Api
       def create
         params = permitted_params
         return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank?
-
+        if current_user && !current_user.worker && current_user.person
+          # create a worker which match given user to prevent bad fail
+          Worker.create!(
+            born_at: Date.today - 25.years,
+            person: current_user.person,
+            name: current_user.name,
+            variant: ProductNatureVariant.import_from_nomenclature(:technician)
+          )
+        end
         if params[:request_intervention_id]
           intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
 
@@ -13,12 +21,12 @@ module Api
           intervention.created_at = Time.zone.now
           intervention.save!
           participation = InterventionParticipation.find_or_initialize_by(
-            product_id: current_user.worker.id,
+            product: current_user.worker,
             intervention_id: intervention.id
           )
         else
           participation = InterventionParticipation.new(
-            product_id: current_user.worker.id,
+            product: current_user.worker,
             procedure_name: Procedo.find(params[:procedure_name]) ? params[:procedure_name] : nil
           )
         end
@@ -44,7 +52,7 @@ module Api
               read_at: crumb['read_at'],
               accuracy: crumb['accuracy'],
               device_uid: params[:device_uid],
-              user_id: current_user.worker.id
+              user_id: current_user
             )
           end
         end
