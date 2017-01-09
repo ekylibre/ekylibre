@@ -84,7 +84,6 @@
     constructor: (@precision) ->
 
     initialize: ->
-      @autoReconciliate()
       @uiUpdate()
 
     # Accessors
@@ -211,7 +210,7 @@
         similarJournalItems = @_filterLinesBy(journalItems, date: date, credit: debit, debit: credit)
         return if similarJournalItems.length isnt 1
         @_letterItems $(e).add(similarJournalItems)
-        @uiUpdate()
+      @uiUpdate()
 
     _reconciliateSelectedLinesIfValid: ->
       selected = @_lines().filter(".selected")
@@ -311,10 +310,10 @@
     # AJAX CALLS
 
     _letterItems: (lines) ->
-      journalLines = lines.filter("[data-type=journal_entry_item]")
+      journalLines = lines.filter(":not(.lettered)[data-type=journal_entry_item]")
       journalIds = journalLines.get().map (line) =>
         @_idForLine line
-      bankLines = lines.filter("[data-type=bank_statement_item]")
+      bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
       url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letter'
@@ -327,8 +326,8 @@
         success: (response) =>
           lines.find(".details .letter").text response.letter
           lines.removeClass "selected"
-          $(lines).find(".debit, .credit").trigger "change"
           lines.addClass "lettered"
+          $(lines).find(".debit, .credit").trigger "change"
           @uiUpdate()
           return true
         error: (data) ->
@@ -346,8 +345,8 @@
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""
-          $(lines).find(".debit, .credit").trigger "change"
           lines.removeClass "lettered"
+          $(lines).find(".debit, .credit").trigger "change"
           @uiUpdate()
           return true
         error: (data) ->
