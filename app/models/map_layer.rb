@@ -43,21 +43,42 @@
 #  updater_id     :integer
 #  url            :string           not null
 #
-class MapBackground < MapLayer
+class MapLayer < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
+  validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
+  validates :max_zoom, :min_zoom, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, :url, presence: true, length: { maximum: 500 }
+  validates :opacity, numericality: true, allow_blank: true
   # ]VALIDATORS]
-  validates :by_default, inclusion: { in: [true, false] }
+  validates :url, format: { with: URI.regexp(%w(http https)) }
+  validates_presence_of :type
 
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }
-  scope :by_default, -> { availables.first }
 
-  selects_among_all
 
   def self.load_defaults
-    super
+    fail "#{model_name.name}: Layers array is empty." if MapLayers::Layer.of_type(model_name.name.underscore).empty? && Rails.env.development?
 
-    default = MapLayers::Layer.of_type(model_name.name.underscore).select(&:by_default)
+    MapLayers::Layer.of_type(model_name.name.underscore).each do |item|
+      attrs = {
+          name: item.label,
+          reference_name: item.reference_name,
+          enabled: item.enabled,
+          by_default: item.by_default,
+          url: item.url,
+          attribution: item.options.try(:[], :attribution),
+          subdomains: item.options.try(:[], :subdomains),
+          min_zoom: item.options.try(:[], :min_zoom),
+          max_zoom: item.options.try(:[], :max_zoom),
+          managed: true,
+          opacity: item.options.try(:[], :opacity)
+      }
+      where(reference_name: item.reference_name).first_or_create(attrs)
+    end
+  end
 
-    where(reference_name: default.first.reference_name).first.update!(by_default: true) if default.present? && default.first.reference_name
+  def to_json_object
+    JSON.parse(to_json).compact.select { |_, value| value != '' }.deep_transform_keys { |key| key.to_s.camelize(:lower) }
   end
 end

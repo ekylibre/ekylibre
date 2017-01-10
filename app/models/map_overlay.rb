@@ -43,21 +43,10 @@
 #  updater_id     :integer
 #  url            :string           not null
 #
-class MapBackground < MapLayer
+class MapOverlay < MapLayer
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
-  validates :by_default, inclusion: { in: [true, false] }
 
-  scope :availables, -> { where(enabled: true).order(by_default: :desc) }
-  scope :by_default, -> { availables.first }
+  scope :availables, -> { where(enabled: true) }
 
-  selects_among_all
-
-  def self.load_defaults
-    super
-
-    default = MapLayers::Layer.of_type(model_name.name.underscore).select(&:by_default)
-
-    where(reference_name: default.first.reference_name).first.update!(by_default: true) if default.present? && default.first.reference_name
-  end
 end
