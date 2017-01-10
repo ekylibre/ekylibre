@@ -11,7 +11,7 @@ module Backend
 
     test 'loading defaults' do
       MapBackground.destroy_all
-      assert_difference 'MapBackground.count', MapBackgrounds::Layer.items.count do
+      assert_difference 'MapBackground.count', MapLayers::Layer.items.count do
         post :load
       end
       assert_redirected_to backend_map_backgrounds_path

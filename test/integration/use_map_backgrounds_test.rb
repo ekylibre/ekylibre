@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UseMapBackgroundsTest < CapybaraIntegrationTest
+class UseMapLayersTest < CapybaraIntegrationTest
   setup do
     login_with_user
   end
@@ -10,8 +10,8 @@ class UseMapBackgroundsTest < CapybaraIntegrationTest
   end
 
   def load_defaults
-    visit('/backend/map_backgrounds')
-    assert_selector '.map-background-container', count: MapBackgrounds::Layer.items.count
+    visit('/backend/map_layers')
+    assert_selector '.map-background-container', count: MapLayers::Layer.items.count
   end
 
   def check_enabled_map_backgrounds
@@ -28,7 +28,7 @@ class UseMapBackgroundsTest < CapybaraIntegrationTest
   test 'enabling a map background' do
     count_before = MapBackground.availables.size
 
-    visit('/backend/map_backgrounds')
+    visit('/backend/map_layers')
     first('div.map-background:not(.active)').click
     sleep(1)
 

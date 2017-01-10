@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: map_backgrounds
+# == Table: map_layers
 #
 #  attribution    :string
 #  by_default     :boolean          default(FALSE), not null
@@ -33,15 +33,18 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
+#  opacity        :float
+#  position       :integer
 #  reference_name :string
 #  subdomains     :string
 #  tms            :boolean          default(FALSE), not null
+#  type           :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #  url            :string           not null
 #
 require 'test_helper'
 
-class MapBackgroundTest < ActiveSupport::TestCase
+class MapLayerTest < ActiveSupport::TestCase
   test_model_actions
 end
