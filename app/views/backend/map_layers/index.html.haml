@@ -1,0 +1,15 @@
+-main_toolbar do |t|
+  = t.new params: { redirect: nil }
+  = t.action :load, method: :post
+
+.map-backgrounds-viewport
+  .map-background-heading
+    .map-background-title
+      = MapBackground.model_name.human
+  = render partial: 'map_background', collection: @map_backgrounds
+
+.map-backgrounds-viewport
+  .map-background-heading
+    .map-background-title
+      = MapOverlay.model_name.human
+  = render partial: 'map_overlay', collection: @map_overlays

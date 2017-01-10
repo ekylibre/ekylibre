@@ -33,6 +33,17 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :map_layers do
+    collection do
+      post :load
+    end
+    member do
+      post :toggle
+      put :star
+      delete :destroy
+    end
+  end
+
   concern :products do
     concerns :list, :unroll, :picture
     member do
@@ -641,16 +652,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :map_backgrounds do
-      collection do
-        post :load
-      end
-      member do
-        post :toggle
-        put :star
-        delete :destroy
-      end
-    end
+    resources :map_overlays, concerns: :map_layers
+    resources :map_backgrounds, concerns: :map_layers
+    resources :map_layers, concerns: :map_layers
 
     resources :map_editors, only: [] do
       collection do
