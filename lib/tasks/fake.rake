@@ -245,7 +245,7 @@ task fake: :environment do
 
     if rand > 0.1
       fake.travel do
-        if (1..5).cover?(fake.wday) && fake.bank_balance < 15000
+        if (1..5).cover?(fake.wday) && fake.bank_balance < 15_000
           # Add sales
           5.times do
             next unless rand > 0.7
@@ -305,7 +305,7 @@ task fake: :environment do
           # end
         end
 
-        if (1..6).cover?(fake.wday) && fake.bank_balance > -15000
+        if (1..6).cover?(fake.wday) && fake.bank_balance > -15_000
           # Add purchase
           3.times do
             next unless rand > 0.95
