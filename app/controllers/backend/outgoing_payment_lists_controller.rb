@@ -58,7 +58,7 @@ module Backend
                                                methods: [:amount_to_letter, :label, :affair_reference_numbers],
                                                include: {
                                                  responsible: {},
-                                                 affair: {include: {purchases: {}}},
+                                                 affair: { include: { purchases: {} } },
                                                  mode: {},
                                                  payee: { include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } }
                                                }
@@ -78,20 +78,33 @@ module Backend
 
     def new
       @outgoing_payment_list = OutgoingPaymentList.new
+      @affairs = []
+
       if params[:started_at].present? && params[:stopped_at].present? && params[:outgoing_payment_list] && params[:outgoing_payment_list][:mode_id]
         mode = OutgoingPaymentMode.find_by(id: params[:outgoing_payment_list][:mode_id])
         @outgoing_payment_list.mode = mode
 
         if @outgoing_payment_list.valid?
           @currency = mode.cash.currency
-          @thirds = Entity.includes(:purchase_affairs).where(affairs: { closed: false, currency: mode.cash.currency }).where('affairs.updated_at BETWEEN ? AND ?', params[:started_at], params[:stopped_at]).order('affairs.third_id, affairs.created_at')
+          @affairs = PurchaseAffair
+                     .joins(:purchases)
+                     .joins(:supplier)
+                     .includes(:supplier)
+                     .where(closed: false, currency: mode.cash.currency)
+                     .where("((purchases.payment_at IS NOT NULL AND purchases.payment_at BETWEEN ? AND ?) OR (purchases.payment_at IS NULL AND purchases.invoiced_at BETWEEN ? AND ?)) AND purchases.state = 'invoice'", params[:started_at], params[:stopped_at], params[:started_at], params[:stopped_at])
+                     .where(entities: { supplier_payment_mode_id: mode.id })
+                     .order('entities.full_name ASC')
+                     .order('purchases.payment_at ASC', :number)
+
+          notify_warning :no_purchase_affair_found_on_given_period if @affairs.empty?
         end
-      else
-        notify_warning :no_purchase_affair_found_on_given_period
       end
     end
 
     def create
+      params[:purchase_affairs] ||= []
+      params[:purchase_affairs].reject!(&:empty?)
+
       if params[:purchase_affairs] && params[:purchase_affairs].present?
         affairs = PurchaseAffair.where(id: params[:purchase_affairs].compact).uniq
 

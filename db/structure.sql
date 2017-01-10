@@ -303,8 +303,8 @@ CREATE TABLE interventions (
     prescription_id integer,
     procedure_name character varying NOT NULL,
     state character varying NOT NULL,
-    started_at timestamp without time zone,
-    stopped_at timestamp without time zone,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -313,8 +313,8 @@ CREATE TABLE interventions (
     event_id integer,
     number character varying,
     description text,
-    working_duration integer DEFAULT 0 NOT NULL,
-    whole_duration integer DEFAULT 0 NOT NULL,
+    working_duration integer NOT NULL,
+    whole_duration integer NOT NULL,
     actions character varying,
     custom_fields jsonb,
     nature character varying NOT NULL,
@@ -972,7 +972,8 @@ CREATE TABLE bank_statement_items (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    memo character varying
 );
 
 
@@ -1600,7 +1601,8 @@ CREATE TABLE crumbs (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_parameter_id integer,
-    device_uid character varying NOT NULL
+    device_uid character varying NOT NULL,
+    intervention_participation_id integer
 );
 
 
@@ -2819,7 +2821,8 @@ CREATE TABLE incoming_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    codes jsonb
 );
 
 
@@ -3116,7 +3119,8 @@ CREATE TABLE intervention_participations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    procedure_name character varying
 );
 
 
@@ -10059,6 +10063,13 @@ CREATE INDEX index_crumbs_on_intervention_parameter_id ON crumbs USING btree (in
 
 
 --
+-- Name: index_crumbs_on_intervention_participation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crumbs_on_intervention_participation_id ON crumbs USING btree (intervention_participation_id);
+
+
+--
 -- Name: index_crumbs_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16150,6 +16161,14 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16608,4 +16627,14 @@ INSERT INTO schema_migrations (version) VALUES ('20161216171308');
 INSERT INTO schema_migrations (version) VALUES ('20161219092100');
 
 INSERT INTO schema_migrations (version) VALUES ('20161219131051');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231180401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231200612');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231223002');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231233003');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231234533');
 

@@ -280,6 +280,9 @@ jpn:
       # edit: "Edit integration: %{name}"
       index: "統合"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "介入参加"
     backend/interventions:
       edit: "編集"
       edit_request: "編集要求"
@@ -844,6 +847,7 @@ jpn:
     average: "平均"
     back: "前のページに戻ります"
     balance: "バランス"
+    balance_of_selection: "選択のバランス"
     bank_account: "銀行口座"
     bank_statement_number: "銀行取引明細書番号"
     bank_statements: "銀行取引明細書"
@@ -1139,6 +1143,8 @@ jpn:
     inventories: "棚卸"
     inventory: "インベントリ"
     invitation_status: "状態"
+    invoice_status: "請求書のステータス"
+    invoiced: "請求済み"
     invoiced_amount: "売上請求額" #?
     invoices: "請求書"
     is: "あります"
@@ -1152,14 +1158,14 @@ jpn:
     journal_entries_states: "エントリの状態"
     journal_entry_items: "仕訳項目"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "エントリー"
@@ -1277,6 +1283,7 @@ jpn:
     no_crumbs_to_check: "チェックするパン粉いいえ"
     no_data: "データなし"
     no_deposits: "いいえ預金はありません"
+    no_intervention_participations_to_check: "チェックするために介入への参加はありません"
     no_notifications: "いいえ通知はありません"
     no_particular_periods: "特に期間はありません"
     no_products: "商品なし"
@@ -1398,7 +1405,6 @@ jpn:
     ready_to_harvest: "収穫の準備完了"
     received: "受け"
     recent_events: "最近のイベント"
-    reconciled_total: "和解合計"
     record: "記録"
     record_maintenance: "記録管理"
     reflect: "反映します"
@@ -1599,6 +1605,7 @@ jpn:
     undelivered: "未配達の"
     undelivered_invoices: "未配信の請求書"
     undone: "元に戻します"
+    uninvoiced: "未請求"
     unit: "単位"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "不明"

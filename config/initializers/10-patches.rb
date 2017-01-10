@@ -59,6 +59,10 @@ class ::Time
   def to_usec
     (utc.to_f * 1000).to_i
   end
+
+  def round_off(interval = 60)
+    Time.at((to_f / interval).round * interval).utc
+  end
 end
 
 class ::Numeric

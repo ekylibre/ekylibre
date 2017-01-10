@@ -192,6 +192,17 @@ class Product < Ekylibre::Record::Base
     of_productions(productions.flatten)
   }
 
+  scope :of_crumbs, lambda { |*crumbs|
+    options = crumbs.extract_options!
+    crumbs.flatten!
+    raw_products = Product.distinct.joins(:readings)
+                          .joins("INNER JOIN crumbs ON (product_readings.indicator_datatype = 'shape' AND ST_Contains(ST_CollectionExtract(product_readings.geometry_value, 3), crumbs.geolocation))")
+                          .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.map(&:id)] : 'crumbs.id IS NOT NULL')
+    contents = []
+    contents = raw_products.map(&:contents) unless options[:no_contents]
+    raw_products.concat(contents).flatten.uniq
+  }
+
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
@@ -270,7 +281,10 @@ class Product < Ekylibre::Record::Base
 
   def dead_at_in_interventions
     last_used_at = interventions.order(stopped_at: :desc).first.stopped_at
-    errors.add(:dead_at, :on_or_after, restriction: last_used_at.l) if dead_at < last_used_at
+    if dead_at < last_used_at
+      # puts ActivityProduction.find_by(support_id: self.id).id.green
+      errors.add(:dead_at, :on_or_after, restriction: last_used_at.l)
+    end
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|

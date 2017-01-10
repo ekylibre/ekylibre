@@ -1,0 +1,7 @@
+= form_actions do
+  = form_tag(convert_backend_intervention_participation_path(participation, worked_on: @worked_on), method: :post, class: "inline-form") do
+    = select_tag :procedure_name, options_for_select(Procedo.selection, participation.procedure_name)
+    = submit_tag :convert.ta, name: nil
+  = link_to(backend_intervention_participation_path(participation, redirect: url_for(worked_on: @worked_on)), action: :destroy, method: :delete, data: {confirm: :are_you_sure.tl}, class: "btn btn-default btn-destroy") do
+    %i
+    = :destroy.ta

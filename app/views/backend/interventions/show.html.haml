@@ -82,15 +82,20 @@
           %i.picto.picto-timelapse
           = human_duration(resource.whole_duration)
       .med-info
-        %span.title= Intervention.human_attribute_name(:started_at)
+        %span.title= I18n.t('enumerize.intervention_working_period.nature.preparation')
         %span.value
           %i.picto.picto-clock-o
-          = resource.started_at.l
+          = human_duration(resource.working_duration_of_nature(:preparation))
       .med-info
-        %span.title= Intervention.human_attribute_name(:stopped_at)
+        %span.title= I18n.t('enumerize.intervention_working_period.nature.travel')
         %span.value
           %i.picto.picto-clock-o
-          = resource.stopped_at.l
+          = human_duration(resource.working_duration_of_nature(:travel))
+      .med-info
+        %span.title= I18n.t('enumerize.intervention_working_period.nature.intervention')
+        %span.value
+          %i.picto.picto-clock-o
+          = human_duration(resource.working_duration_of_nature(:intervention))
 
     -# if resource.production_support
       .info

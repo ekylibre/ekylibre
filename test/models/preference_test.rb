@@ -88,4 +88,17 @@ class PreferenceTest < ActiveSupport::TestCase
 
     assert_equal 'baz', Preference.value('myfavoritepref', 'qux')
   end
+
+  test 'optimistic locking absence' do
+    preference_1 = Preference.get('myfavoritepref', 'foo')
+    preference_2 = Preference.find(preference_1.id)
+
+    preference_2.value = 'yeah!'
+    preference_2.save!
+
+    preference_1.value = 'yo!'
+    preference_1.save!
+
+    assert_equal 'yo!', Preference.value('myfavoritepref', 'qux')
+  end
 end

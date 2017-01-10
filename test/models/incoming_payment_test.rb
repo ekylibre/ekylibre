@@ -28,6 +28,7 @@
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
+#  codes                 :jsonb
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
@@ -84,5 +85,15 @@ class IncomingPaymentTest < ActiveSupport::TestCase
     assert_raise Ekylibre::Record::RecordNotUpdateable do
       payment.update!(amount: 450.21)
     end
+  end
+
+  test 'create without mode' do
+    incoming_payment = IncomingPayment.new(
+      amount: 56,
+      payer: Entity.clients.first,
+      received: true
+    )
+    # Should not save without exception raise
+    refute incoming_payment.save
   end
 end

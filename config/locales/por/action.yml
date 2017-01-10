@@ -285,6 +285,9 @@ por:
       # edit: "Edit integration: %{name}"
       index: "Integrações"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "Participações de intervenção"
     backend/interventions:
       edit: "Editar"
       edit_request: "Pedido de edição"
@@ -782,6 +785,7 @@ por:
     average: "Média"
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
+    balance_of_selection: "Balança de selecção"
     bank_account: "Conta bancária"
     bank_statement_number: "Número extrato bancário"
     bank_statements: "Extratos bancários"
@@ -1075,6 +1079,8 @@ por:
     inventories: "Inventário"
     inventory: "Inventário"
     invitation_status: "Estado"
+    invoice_status: "Status de fatura"
+    invoiced: "Facturado"
     invoiced_amount: "Vendas montante facturado" #?
     invoices: "Notas fiscais"
     is: "É"
@@ -1088,14 +1094,14 @@ por:
     journal_entries_states: "Estados de entradas"
     journal_entry_items: "Itens de entrada de diário"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "Entradas"
@@ -1209,6 +1215,7 @@ por:
     no_crumbs_to_check: "Não migalhas para verificar"
     no_data: "Não existem dados"
     no_deposits: "Não há depósitos"
+    no_intervention_participations_to_check: "Não há participações de intervenção para verificar"
     no_notifications: "Nenhuma notificação"
     no_particular_periods: "No período específico"
     no_products: "Nenhum produto"
@@ -1330,7 +1337,6 @@ por:
     ready_to_harvest: "Pronto para colher"
     received: "Recebido"
     recent_events: "Eventos recentes"
-    reconciled_total: "total de reconciliado"
     record: "Registro"
     record_maintenance: "Manutenção de registros"
     reflect: "Refletir"
@@ -1531,6 +1537,7 @@ por:
     undelivered: "Não entregue"
     undelivered_invoices: "Faturas não entregues"
     undone: "Desfeito"
+    uninvoiced: "Não facturada"
     unit: "Unidade"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Desconhecido"

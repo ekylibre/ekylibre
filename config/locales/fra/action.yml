@@ -321,6 +321,9 @@ fra:
       edit: "Modifier la connexion %{name}"
       index: "Connexions partenaires"
       new: "Activer la connexion %{name}"
+    backend/intervention_participations:
+      convert: "Convert intervention participation: %{name}"
+      index: "Participations d'intervention"
     backend/interventions:
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d'intervention"
@@ -933,6 +936,7 @@ fra:
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
     balance: "Solde"
+    balance_of_selection: "Solde de la sélection"
     bank_account: "Compte bancaire"
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
@@ -1354,6 +1358,8 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invitation_status: "État"
+    invoice_status: "État de facturation"
+    invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
@@ -1370,14 +1376,14 @@ fra:
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
     journal_entry_items_with_undeclared_taxes:
+      one: "%{count} ligne d'écriture avec des taxes non déclarées"
       other: "%{count} lignes d'écriture avec des taxes non déclarées"
-      zero: "%{count} ligne d'écriture avec des taxes non déclarées"
     journal_entry_items_with_unidentified_expenses:
+      one: "%{count} ligne d'écriture avec des charges non identifiées"
       other: "%{count} lignes d'écriture avec des charges non identifiées"
-      zero: "%{count} ligne d'écriture avec des charges non identifiées"
     journal_entry_items_with_unidentified_revenues:
+      one: "%{count} ligne d'écriture avec des produits non identifiés"
       other: "%{count} lignes d'écriture avec des produits non identifiés"
-      zero: "%{count} ligne d'écriture avec des produits non identifiés"
     journal_name: "%{name}"
     journal_view:
       entries: "Écritures"
@@ -1556,6 +1562,7 @@ fra:
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
+    no_intervention_participations_to_check: "Pas de participations d'intervention à vérifier"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_notifications: "Aucune notification"
     no_origin: "— Sans origine —" #?
@@ -1747,7 +1754,6 @@ fra:
     received: "Reçue"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
-    reconciled_total: "Total rapproché"
     record: "Enregistrement"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
@@ -2059,6 +2065,7 @@ fra:
     undelivered: "Reste à livrer"
     undelivered_invoices: "Factures non parvenues"
     undone: "Non-fait"
+    uninvoiced: "Non facturés"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
     unit_and_indicator: "%{unit} (%{indicator})"

@@ -28,6 +28,7 @@
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
+#  codes                 :jsonb
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null

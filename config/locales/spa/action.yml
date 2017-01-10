@@ -306,6 +306,9 @@ spa:
       # edit: "Edit integration: %{name}"
       index: "Integraciones"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "Participaciones de intervención"
     backend/interventions:
       edit: "Editar"
       edit_request: "Editar solicitud"
@@ -859,6 +862,7 @@ spa:
         opera: "Opéra" #?
         safari: "Safari" #?
     balance: "Saldo"
+    balance_of_selection: "Balanza de selección"
     bank_account: "Cuenta bancaria"
     bank_statement_number: "Número de estado de cuenta bancaria"
     bank_statement_point: "Despuntar el levantar" #?
@@ -1204,6 +1208,8 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     invitation_status: "Estado"
+    invoice_status: "Estado de la factura"
+    invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
     invoices: "Facturas"
     is: "Es"
@@ -1218,14 +1224,14 @@ spa:
     journal_entry_items: "Artículos entrada de diario"
     journal_entry_items_states: "Estado de las escrituras utilizadas" #?
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     journal_name: "%{name}"
     journal_record_update: "Modificar la pieza" #?
     journal_update: "Modificar el periodico" #?
@@ -1368,6 +1374,7 @@ spa:
     no_crumbs_to_check: "No hay migajas para comprobar"
     no_data: "Sin datos"
     no_deposits: "Sin depósitos"
+    no_intervention_participations_to_check: "No hay participaciones de intervención para comprobar"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     no_notifications: "No Notificaciones"
     no_particular_periods: "No determinado período"
@@ -1511,7 +1518,6 @@ spa:
     ready_to_harvest: "Listo para cosechar"
     received: "Recibido"
     recent_events: "Eventos recientes"
-    reconciled_total: "total conciliado"
     record: "Grabar"
     record_maintenance: "El mantenimiento de registros"
     reflect: "Reflejar"
@@ -1756,6 +1762,7 @@ spa:
     undelivered: "No entregado"
     undelivered_invoices: "Facturas pendientes de entrega"
     undone: "Deshecho"
+    uninvoiced: "No facturados"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
