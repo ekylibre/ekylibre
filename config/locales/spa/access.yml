@@ -61,7 +61,8 @@ spa:
       listings: "Listados"
       loans: "Préstamos"
       manure_management_plans: "Planes de manejo de estiércol"
-      map_backgrounds: "fondos de mapas"
+      map_backgrounds: "fondos de mapas" #?
+      # map_layers: "Map layers"
       matters: "Cuestiones"
       myselves: "Myselves"
       net_services: "Servicios de Net"

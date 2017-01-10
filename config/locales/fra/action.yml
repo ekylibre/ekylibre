@@ -413,10 +413,14 @@ fra:
       index: "Plans de fumure"
       new: "Nouveau plan de fumure"
       show: "Plan de fumure\_: %{name}"
-    backend/map_backgrounds:
-      edit: "Modifier le fond de carte\_: %{name}"
-      index: "Fonds de carte"
-      new: "Nouveau fond de carte"
+    backend/map_backgrounds:  #?
+      edit: "Modifier le fond de carte\_: %{name}" #?
+      index: "Fonds de carte" #?
+      new: "Nouveau fond de carte" #?
+    backend/map_layers:
+      edit: "Modifier la couche de carte : %{name}"
+      index: "Couches de carte"
+      new: "Nouvelle couche de carte"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"

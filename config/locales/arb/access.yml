@@ -61,7 +61,8 @@ arb:
       listings: "قوائم"
       loans: "القروض"
       manure_management_plans: "خطط إدارة السماد"
-      map_backgrounds: "خلفيات خريطة"
+      map_backgrounds: "خلفيات خريطة" #?
+      # map_layers: "Map layers"
       matters: "المسائل"
       # myselves: "Myselves"
       net_services: "صافي الخدمات"

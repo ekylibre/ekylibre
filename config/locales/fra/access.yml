@@ -62,6 +62,7 @@ fra:
       loans: "Emprunts"
       manure_management_plans: "Plans de fumure"
       map_backgrounds: "Fonds de carte"
+      map_layers: "Couches de carte"
       matters: "Matières"
       myselves: "Mon compte"
       net_services: "Services en ligne"

@@ -356,10 +356,17 @@ jpn:
       index: "肥料管理計画"
       new: "新しい肥料管理計画"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "地図の背景"
-      new: "新しいマップの背景"
+    backend/map_backgrounds:  #?
+      index: "地図の背景" #?
+      new: "新しいマップの背景" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      # index: "Map layers"
+      # load: "Load map layer: %{name}"
+      # new: "New map layer"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事態"
