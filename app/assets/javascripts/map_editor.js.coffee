@@ -59,6 +59,7 @@
       maxZoom: 25
       customClass: ''
       back: []
+      overlays: []
       show:
         layers: {}
         layerDefaults:
@@ -484,8 +485,22 @@
               @map.addLayer(backgroundLayer) if index == 0
             @map.fitWorld( { maxZoom: @options.maxZoom } )
 
+          overlayLayers = {}
 
-          @layerSelector = new L.Control.Layers(baseLayers)
+          if @options.overlays.length > 0
+            for layer, index in @options.overlays
+              opts = {}
+              opts['attribution'] = layer.attribution if layer.attribution?
+              opts['minZoom'] = layer.minZoom || @options.minZoom
+              opts['maxZoom'] = layer.maxZoom || @options.maxZoom
+              opts['subdomains'] = layer.subdomains if layer.subdomains?
+              opts['opacity'] = layer.opacity if layer.opacity?
+              opts['tms'] = true if layer.tms
+
+              overlayLayers[layer.name] =  L.tileLayer(layer.url, opts)
+
+
+          @layerSelector = new L.Control.Layers(baseLayers, overlayLayers)
           @map.addControl  @layerSelector
         else
           console.log "How to set background with #{this.options.back}?"

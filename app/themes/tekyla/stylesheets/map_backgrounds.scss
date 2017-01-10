@@ -6,6 +6,15 @@ $map-height: 250px;
 
 
 .map-backgrounds-viewport {
+  .map-background-heading {
+    clear: both;
+    margin: $default-gap * 2;
+    .map-background-title {
+      font-size: $fs-large;
+      line-height: $lh-large;
+      border-bottom: $menu-border;
+    }
+  }
   .map-background-container {
     @include make-xs-column(12, $gutter: 0);
 

@@ -321,6 +321,7 @@ module Backend
         end
       end
       editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
+      editor[:overlays] ||= MapOverlay.availables.collect(&:to_json_object)
 
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
@@ -333,6 +334,7 @@ module Backend
       options[:input_html][:data][:map_editor] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
       options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:overlays] ||= MapOverlay.availables.collect(&:to_json_object)
 
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
