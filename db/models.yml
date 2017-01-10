@@ -106,6 +106,8 @@
 - manure_management_plan
 - manure_management_plan_zone
 - map_background
+- map_layer
+- map_overlay
 - matter
 - net_service
 - notification

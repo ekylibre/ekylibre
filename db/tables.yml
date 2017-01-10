@@ -4397,7 +4397,7 @@ manure_management_plans:
   updater_id:
     type: integer
     references: user
-map_backgrounds:
+map_layers:
   attribution:
     type: string
   by_default:
@@ -4431,6 +4431,10 @@ map_backgrounds:
   name:
     type: string
     required: true
+  opacity:
+    type: float
+  position:
+    type: integer
   reference_name:
     type: string
   subdomains:
@@ -4439,6 +4443,8 @@ map_backgrounds:
     type: boolean
     required: true
     default: false
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true

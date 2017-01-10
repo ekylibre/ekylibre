@@ -1,7 +1,8 @@
 open_weather_map:
   options:
-    attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>'
+    attribution: 'Weather from <a href="http://openweathermap.org/" alt="World Map and worldwide Weather Forecast online">OpenWeatherMap</a>'
     opacity: 0.5
+    maxZoom: 18
   variants:
     clouds:
       url: 'http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png'
