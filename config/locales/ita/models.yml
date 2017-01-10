@@ -983,6 +983,7 @@ ita:
     members: "Utenti"
     members_count: "Numero dei membri"
     memberships: "Adesioni"
+    memo: "Promemoria"
     message: "Messaggio"
     messages: "Messaggi"
     metadata: "Metadati"

@@ -1308,14 +1308,14 @@ eng:
     journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
     journal_entry_items_with_undeclared_taxes:
+      one: "%{count} journal entry item with undeclared taxes"
       other: "%{count} journal entry items with undeclared taxes"
-      zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      one: "%{count} journal entry item with unidentified expenses"
       other: "%{count} journal entry items with unidentified expenses"
-      zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      one: "%{count} journal entry item with unidentified revenues"
       other: "%{count} journal entry items with unidentified revenues"
-      zero: "%{count} journal entry item with unidentified revenues"
     journal_name: "%{name}" #?
     journal_view:
       entries: "Entries"

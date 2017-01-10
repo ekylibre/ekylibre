@@ -3,6 +3,7 @@
   - tableRowClassName = "e#{item.id}" if item.persisted?
   %tr{ class: tableRowClassName }
     %td= f.input :name, wrapper: :nested
+    %td= f.input :memo, wrapper: :nested
     %td= f.input :transfered_on, wrapper: :nested
     %td.decimal= f.input :debit, wrapper: :nested, input_html: { data: { exclusive_nullify: (item.persisted? ? ".#{tableRowClassName} .credit" : 'filledbyjs') }, class: 'debit' }
     %td.currency= item.cash_currency

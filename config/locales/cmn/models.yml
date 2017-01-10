@@ -952,6 +952,7 @@ cmn:
     members: "会员"
     members_count: "会员数"
     memberships: "成员"
+    memo: "备忘录"
     message: "信息"
     messages: "消息"
     metadata: "元数据"

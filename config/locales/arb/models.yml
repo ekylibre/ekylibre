@@ -1777,6 +1777,7 @@ arb:
     members: "أعضاء"
     members_count: "عد الأعضاء"
     memberships: "عضوية"
+    memo: "مذكرة"
     message: "الرسالة"
     messages: "رسائل"
     metadata: "البيانات الوصفية"

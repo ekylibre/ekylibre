@@ -62,5 +62,4 @@ class OutgoingPaymentTest < ActiveSupport::TestCase
     # Should not save without exception raise
     refute outgoing_payment.save
   end
-
 end

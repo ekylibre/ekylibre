@@ -209,9 +209,9 @@ fra:
         validated: "Validé"
     intervention_working_period:
       nature:
-        # intervention: "Intervention"
+        intervention: "Intervention"
         preparation: "Préparation"
-        travel: "Voyager"
+        travel: "Déplacement"
     journal:
       nature:
         bank: "Banque"

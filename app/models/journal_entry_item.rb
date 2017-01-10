@@ -337,16 +337,16 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # get link item corresponding to charge or product line in purchase or sale from vat item
   def vat_item_to_product_account
-    product_journal_entry_item = self.class.find_by(resource_id: resource_id, resource_prism: 'item_product')
+    product_journal_entry_item = entry.items.find_by(resource_id: resource_id, resource_prism: 'item_product')
     if product_journal_entry_item
-      a = Account.find(product_journal_entry_item.account_id)
+      a = Account.where(id: product_journal_entry_item.account_id).first
       return a.label if a
     end
   end
 
   # get link item corresponding to vat line from product item
   def product_item_to_tax_label
-    vat_journal_entry_item = self.class.find_by(resource_id: resource_id, resource_prism: 'item_tax') # where.not(id: self.id).
+    vat_journal_entry_item = entry.items.find_by(resource_id: resource_id, resource_prism: 'item_tax') # where.not(id: self.id).
     if vat_journal_entry_item && vat_journal_entry_item.id != id
       t = Tax.find(vat_journal_entry_item.tax_id)
       return t.name if t

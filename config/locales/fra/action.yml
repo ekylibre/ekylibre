@@ -1380,14 +1380,14 @@ fra:
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
     journal_entry_items_with_undeclared_taxes:
+      one: "%{count} ligne d'écriture avec des taxes non déclarées"
       other: "%{count} lignes d'écriture avec des taxes non déclarées"
-      zero: "%{count} ligne d'écriture avec des taxes non déclarées"
     journal_entry_items_with_unidentified_expenses:
+      one: "%{count} ligne d'écriture avec des charges non identifiées"
       other: "%{count} lignes d'écriture avec des charges non identifiées"
-      zero: "%{count} ligne d'écriture avec des charges non identifiées"
     journal_entry_items_with_unidentified_revenues:
+      one: "%{count} ligne d'écriture avec des produits non identifiés"
       other: "%{count} lignes d'écriture avec des produits non identifiés"
-      zero: "%{count} ligne d'écriture avec des produits non identifiés"
     journal_name: "%{name}"
     journal_view:
       entries: "Écritures"
