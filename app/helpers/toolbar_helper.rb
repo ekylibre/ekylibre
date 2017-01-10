@@ -117,8 +117,8 @@ module ToolbarHelper
 
       options[:action] ||= :index
       options[:context] = :toolbar
-
-      Ekylibre::Plugin.find_addons(options).collect do |addon|
+	
+      Ekylibre::View::Addon.find(options).collect do |addon|
         @template.render partial: addon, locals: { t: self }
       end
     end
