@@ -2554,6 +2554,7 @@ fra:
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"
+      payment_gap: "Écart de réglement"
       payment_mode: "Payer (Mode)"
       pick: "Piocher"
       picture: "Image"

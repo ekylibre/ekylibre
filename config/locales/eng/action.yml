@@ -2139,6 +2139,7 @@ eng:
       order: "Order"
       # passthru: "Passthru"
       pay: "Pay"
+      payment_gap: "Payment gap"
       payment_mode: "Payment mode"
       pick: "Pick"
       picture: "Picture"
