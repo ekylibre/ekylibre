@@ -18,7 +18,7 @@ module Backend
       shortest = Account.of_usage(:other_usual_running_profits).minimum('LENGTH(number)')
       debit_gap_account = Account.of_usage(:other_usual_running_expenses).where("LENGTH(number) = #{shortest}").first
 
-      statement_account = @bank_statement.cash.main_account
+      statement_account = @bank_statement.cash.account
 
       debit_account  = debit_gap_account
       credit_account = statement_account
