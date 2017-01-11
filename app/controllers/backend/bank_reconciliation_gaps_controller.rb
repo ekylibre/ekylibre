@@ -13,10 +13,10 @@ module Backend
 
       mode = gap > 0 ? :debit : :credit
       shortest = Account.of_usage(:other_usual_running_profits).minimum('LENGTH(number)')
-      debit_gap_account = Account.of_usage(:other_usual_running_profits).where("LENGTH(number) = #{shortest}").first
+      credit_gap_account = Account.of_usage(:other_usual_running_profits).where("LENGTH(number) = #{shortest}").first
 
       shortest = Account.of_usage(:other_usual_running_profits).minimum('LENGTH(number)')
-      credit_gap_account = Account.of_usage(:other_usual_running_expenses).where("LENGTH(number) = #{shortest}").first
+      debit_gap_account = Account.of_usage(:other_usual_running_expenses).where("LENGTH(number) = #{shortest}").first
 
       statement_account = @bank_statement.cash.main_account
 
