@@ -51,9 +51,8 @@ module Backend
 
       letter = @bank_statement.letter_items(bank_statement_items, JournalEntryItem.where(id: journal_entry_items + entry.items.where(account_id: statement_account.id)))
 
-      respond_to do |format|
-        format.json { render json: { status: :success, letter: letter } }
-      end
+      return head :bad_request unless letter
+      redirect_to params[:redirect] || backend_journal_entry_path(entry)
     end
 
     private

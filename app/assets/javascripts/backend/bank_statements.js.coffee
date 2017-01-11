@@ -77,11 +77,6 @@
     # Automatic reconciliation
     bankReconciliation.autoReconciliate()
 
-  $(document).on "click", '.gap-creation', ->
-    button = $(@)
-    bankReconciliation.createGapEntry(button)
-    return false
-
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
@@ -200,24 +195,6 @@
       return unless letter
       @_clearLinesWithReconciliationLetter letter
       @uiUpdate()
-
-    createGapEntry: (button) ->
-      lines = @_lines().filter(".selected")
-      $.ajax button[0].href,
-        type: 'POST'
-        dataType: 'JSON'
-        success: (response) =>
-          lines.find(".details .letter").text response.letter
-          lines.removeClass "selected"
-          lines.addClass "lettered"
-          $(lines).find(".debit, .credit").trigger "change"
-          @uiUpdate()
-          return true
-        error: (data) ->
-          alert 'Error while creating the entry.'
-          console.log data
-          return false
-
 
     autoReconciliate: ->
       notReconciliated = @_notReconciliatedLines()
