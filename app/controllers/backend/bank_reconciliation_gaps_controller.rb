@@ -49,10 +49,12 @@ module Backend
         )
       )
 
-      letter = @bank_statement.letter_items(bank_statement_items, JournalEntryItem.where(id: journal_entry_items + entry.items.where(account_id: statement_account.id)))
+      entry_items_to_letter = JournalEntryItem.where(id: journal_entry_items + entry.items.where(account_id: statement_account.id))
+      letter = @bank_statement.letter_items(bank_statement_items, entry_items_to_letter)
 
       return head :bad_request unless letter
-      redirect_to params[:redirect] || backend_journal_entry_path(entry)
+      first_item = bank_statement_items.order(transfered_on: :asc).first
+      redirect_to reconciliation_backend_bank_statement_path(@bank_statement, scroll_to: first_item.id)
     end
 
     private
