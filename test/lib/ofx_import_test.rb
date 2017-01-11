@@ -109,6 +109,31 @@ class OfxImportTest < ActiveSupport::TestCase
     assert_equal 34.56, item.debit
   end
 
+  test 'run succeeds without newline' do
+    file = open_fixture_file('ofx_without_newlines.ofx')
+    cash = cashes(:cashes_003)
+    import = OfxImport.new(file, cash)
+    assert import.run
+    assert_nil import.error
+
+    bank_statement = import.bank_statement
+    assert bank_statement.valid?
+    assert bank_statement.persisted?
+    assert_equal cash.id, bank_statement.cash_id
+    assert_equal '2016040138', bank_statement.number
+    assert_equal '2016-04-01', bank_statement.started_on.to_s
+    assert_equal '2016-05-09', bank_statement.stopped_on.to_s
+    assert_equal 1, bank_statement.items.length
+
+    item = bank_statement.items.take
+    assert item.valid?
+    assert item.persisted?
+    assert_equal 'PRLV SEPA MUTUELLE 123', item.name
+    assert_equal '201600400001AB12', item.transaction_number
+    assert_equal '2016-05-09', item.transfered_on.to_s
+    assert_equal 34.56, item.debit
+  end
+
   def open_fixture_file(path)
     file = fixture_file(path)
     File.open file
