@@ -83,7 +83,7 @@ class BankStatement < Ekylibre::Record::Base
       errors.add(:stopped_on, :overlap_sibling)
     end
     if started_on && stopped_on
-      if started_on >= stopped_on
+      if started_on > stopped_on
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
