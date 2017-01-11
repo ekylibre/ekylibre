@@ -263,6 +263,7 @@ Rails.application.routes.draw do
 
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
       resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
+      resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
 
       collection do
         get :list_items

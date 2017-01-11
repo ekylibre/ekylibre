@@ -77,6 +77,11 @@
     # Automatic reconciliation
     bankReconciliation.autoReconciliate()
 
+  $(document).on "click", '.gap-creation', ->
+    button = $(@)
+    bankReconciliation.createGapEntry(button)
+    return false
+
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
@@ -196,6 +201,24 @@
       @_clearLinesWithReconciliationLetter letter
       @uiUpdate()
 
+    createGapEntry: (button) ->
+      lines = @_lines().filter(".selected")
+      $.ajax button[0].href,
+        type: 'POST'
+        dataType: 'JSON'
+        success: (response) =>
+          lines.find(".details .letter").text response.letter
+          lines.removeClass "selected"
+          lines.addClass "lettered"
+          $(lines).find(".debit, .credit").trigger "change"
+          @uiUpdate()
+          return true
+        error: (data) ->
+          alert 'Error while creating the entry.'
+          console.log data
+          return false
+
+
     autoReconciliate: ->
       notReconciliated = @_notReconciliatedLines()
       bankItems = notReconciliated.filter("[data-type=bank_statement_item]")
@@ -278,13 +301,21 @@
     _showOrHideNewPaymentButtons: ->
       selectedBankStatements = @_bankStatementLines().filter(".selected")
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
-      if selectedBankStatements.length > 0 and selectedJournalItems.length == 0
+      if selectedBankStatements.length > 0 or selectedJournalItems.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected").show()
-        $("a.from-selected").parents('.btn-group').show()
+
+        if selectedBankStatements.length > 0
+          $("a.from-selected-bank").show()
+          $("a.from-selected-bank").parents('.btn-group').show()
+
+        $("a.from-selected-journal").show()
+        $("a.from-selected-journal").parents('.btn-group').show()
       else
-        $("a.from-selected").hide()
-        $("a.from-selected").parents('.btn-group').hide()
+        $("a.from-selected-bank").hide()
+        $("a.from-selected-journal").hide()
+
+        $("a.from-selected-bank").parents('.btn-group').hide()
+        $("a.from-selected-journal").parents('.btn-group').hide()
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")
@@ -293,18 +324,28 @@
         @_reconciliatedLines().show()
 
     _updateIdsInButtons: ->
-      selectedBankStatements = @_lines().filter("[data-type=bank_statement_item].selected")
-      ids = selectedBankStatements.get().map (line) =>
+      @_updateItemIdsInButtons()
+      @_updateEntryIdsInButtons()
+
+    _updateItemIdsInButtons: ->
+      @_updateIdsInButtonsFor('.from-selected-bank', 'bank_statement_item')
+
+    _updateEntryIdsInButtons: ->
+      @_updateIdsInButtonsFor('.from-selected-journal', 'journal_entry_item')
+
+    _updateIdsInButtonsFor: (selector, type) ->
+      selectedLines = @_lines().filter("[data-type=#{type}].selected")
+      ids = selectedLines.get().map (line) =>
         @_idForLine(line)
-      with_questionmark = new RegExp(".*/new(\\?).*?")
-      id_space = new RegExp("(.*/new\\?.*?)(&?bank_statement_item_ids\\[\\]=.*)+(&.*)?")
-      $("a.from-selected").each (i, button) ->
+      with_questionmark = new RegExp(".*/\\w+(\\?).*?")
+      id_space = new RegExp("(.(?!/)*/\\w+\\?.*?)(&?#{type}_ids\\[\\]=.*)+(&.*)?")
+      $(selector).each (i, button) ->
         url = $(button).attr('href')
         if with_questionmark.exec url
-          url = url + '&bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
+          url = url + "&#{type}_ids[]=PLACEHOLDER" unless id_space.exec url
         else
-          url = url + '?bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
-        url = url.replace(id_space, "$1&bank_statement_item_ids[]=#{ids.join('&bank_statement_item_ids[]=')}$3")
+          url = url + "?#{type}_ids[]=PLACEHOLDER" unless id_space.exec url
+        url = url.replace(id_space, "$1&#{type}_ids[]=#{ids.join("&#{type}_ids[]=")}$3")
         $(button).attr('href', url)
 
     # AJAX CALLS

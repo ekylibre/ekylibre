@@ -104,6 +104,8 @@ module Backend
       journal_entry_items  = params[:journal_entry_items]  ? JournalEntryItem.where(id: params[:journal_entry_items])   : JournalEntryItem.none
 
       new_letter = letter_lines(bank_statement_items, journal_entry_items)
+      return head(:bad_request) unless new_letter
+
       respond_to do |format|
         format.json {  render json: { letter: new_letter } }
       end
@@ -131,16 +133,7 @@ module Backend
 
     def letter_lines(bank_items, journal_items)
       bank_statement = @bank_statement || bank_items.first.bank_statement
-      new_letter = bank_statement.next_letter
-
-      return head :bad_request if (journal_items + bank_items).length.zero?
-
-      saved = true
-      saved &&= bank_items.update_all(letter: new_letter)
-      saved &&= journal_items.update_all(bank_statement_letter: new_letter, bank_statement_id: bank_statement.id)
-
-      return head :bad_request unless saved
-      new_letter
+      bank_statement.letter_items(bank_items, journal_items) || false
     end
   end
 end

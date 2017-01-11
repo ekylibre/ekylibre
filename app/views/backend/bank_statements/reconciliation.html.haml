@@ -4,12 +4,15 @@
     .buttons
       = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
       = button_tag(:auto_reconciliate.tl, type: :button, class: "btn btn-default", id: "auto_reconciliation")
+      = dropdown_menu_button :regulate, icon: false do |menu|
+        - Journal.various.each do |regul_journal|
+          - menu.item regul_journal.name, backend_bank_statement_bank_reconciliation_gaps_path(bank_statement_id: @bank_statement.id, journal_id: regul_journal.id), tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
       = dropdown_menu_button :new_purchase, icon: false do |menu|
         - PurchaseNature.find_each do |nature|
-          - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected', title: nature.name
+          - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
       = dropdown_menu_button :new_sale, icon: false do |menu|
         - SaleNature.find_each do |nature|
-          - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected', title: nature.name
+          - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
     .details
       %label
         %input#hide-lettered{ type: :checkbox, checked: true }
