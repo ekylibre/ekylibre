@@ -23,10 +23,9 @@
         $.extend options,
           format: "YYYY-MM-DD"
           language: locale
-          singleMonth: true
           showShortcuts: false
           showTopbar: false
-          separator: ' -> '
+          separator: ' – '
         element.dateRangePicker options
         element.attr "autocomplete", "off"
       return

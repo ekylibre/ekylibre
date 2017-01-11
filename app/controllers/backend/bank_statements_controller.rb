@@ -70,7 +70,11 @@ module Backend
     def reconciliation
       return unless @bank_statement = find_and_check
       bank_statement_items = @bank_statement.items.order('ABS(debit-credit)')
-      journal_entry_items = @bank_statement.eligible_journal_entry_items.order('ABS(real_debit-real_credit)')
+      @period_start = @bank_statement.started_on - 20.days
+      @period_end   = @bank_statement.started_on + 20.days
+      @period_start = Date.strptime(params[:period_start], '%Y-%m-%d') if params[:period_start]
+      @period_end   = Date.strptime(params[:period_end  ], '%Y-%m-%d') if params[:period_end  ]
+      journal_entry_items = @bank_statement.eligible_journal_entry_items.between(@period_start, @period_end).order('ABS(real_debit-real_credit)')
       unless journal_entry_items.any?
         notify_error :need_entries_to_reconciliate
         redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }

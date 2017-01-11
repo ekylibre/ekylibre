@@ -36,12 +36,12 @@ module Backend
           items_attributes:
           {
             '0' => {
-              name: 'Gap',
+              name: "#{'rest.actions.payment_gap'.t} #{Time.zone.today.l} - #{debit_account.name}",
               real_debit: gap.abs,
               account_id: debit_account.id
             },
             '-1' => {
-              name: 'Gap',
+              name: "#{'rest.actions.payment_gap'.t} #{Time.zone.today.l} - #{credit_account.name}",
               real_credit: gap.abs,
               account_id: credit_account.id
             }

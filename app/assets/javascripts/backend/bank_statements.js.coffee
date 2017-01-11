@@ -89,6 +89,27 @@
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
+  $(document).on "datepicker-change", "#set_period", (event, dates) ->
+    current_params = document.location.search
+
+    start = dates.date1
+    start = "period_start=#{start.getFullYear()}-#{start.getMonth()+1}-#{start.getDate()}"
+    param_space = new RegExp("(&|\\?)period_start=[^\&]*")
+    if param_space.exec(current_params)
+      current_params = current_params.replace(param_space, "$1" + start)
+    else
+      current_params += (if current_params.length > 0 then '&' else '?') + start
+
+    end = dates.date2
+    end = "period_end=#{end.getFullYear()}-#{end.getMonth()+1}-#{end.getDate()}"
+    param_space = new RegExp("(&|\\?)period_end=[^\&]*")
+    if param_space.exec(current_params)
+      current_params = current_params.replace(param_space, "$1" + end)
+    else
+      current_params += (if current_params.length > 0 then '&' else '?') + end
+
+    document.location.search = current_params
+
   class BankReconciliation
     constructor: (@precision) ->
 

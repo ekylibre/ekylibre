@@ -13,6 +13,7 @@
         - SaleNature.find_each do |nature|
           - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
     .details
+      %input#set_period{ type: 'daterange', value: "#{@period_start} &ndash; #{@period_end}".html_safe }
       %label
         %input#hide-lettered{ type: :checkbox, checked: true }
         = :hide_lettered_lines.tl

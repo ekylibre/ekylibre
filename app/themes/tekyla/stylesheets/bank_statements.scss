@@ -18,9 +18,14 @@
     }
 
     .details {
+      width: unset;
       display: flex;
       justify-content: center;
       align-items: center;
+      * {
+        @include margin-left($default-gap);
+        text-align: center;
+      }
     }
   }
 
