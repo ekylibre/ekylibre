@@ -287,21 +287,25 @@
     _showOrHideNewPaymentButtons: ->
       selectedBankStatements = @_bankStatementLines().filter(".selected")
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
-      if selectedBankStatements.length > 0 or selectedJournalItems.length > 0
+      if selectedBankStatements.length > 0
         @_updateIdsInButtons()
+        $("a.from-selected-bank").show()
+        $("a.from-selected-bank").parents('.btn-group').show()
+      else
+        $("a.from-selected-bank").hide()
+        $("a.from-selected-bank").parents('.btn-group').hide()
 
-        if selectedBankStatements.length > 0
-          $("a.from-selected-bank").show()
-          $("a.from-selected-bank").parents('.btn-group').show()
-
+      if selectedJournalItems.length > 0
+        @_updateIdsInButtons()
         $("a.from-selected-journal").show()
         $("a.from-selected-journal").parents('.btn-group').show()
       else
-        $("a.from-selected-bank").hide()
         $("a.from-selected-journal").hide()
-
-        $("a.from-selected-bank").parents('.btn-group').hide()
         $("a.from-selected-journal").parents('.btn-group').hide()
+
+      unless selectedBankStatements.length > 0 and selectedJournalItems.length > 0
+        $("a.from-selected-journal.from-selected-bank").hide()
+        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').hide()
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")
