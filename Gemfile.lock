@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/lcoq/ofx-parser.git
-  revision: 3be6cdb8a70cea4b54bc0b4456b00ad2addf7284
+  revision: 3c4cbb43d3df1be3f9493f45a82dabec02edf866
   branch: master
   specs:
     ofx-parser (1.1.0.20121129105223)
