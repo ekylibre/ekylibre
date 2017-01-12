@@ -198,7 +198,7 @@ class InterventionParticipation < Ekylibre::Record::Base
   end
 
   def unconverted_crumbs
-    return [] unless crumbs.present?
+    return [] unless crumbs.any?
     start_read_at = crumbs.order(read_at: :asc).first.read_at.utc
     stop_read_at = crumbs.order(read_at: :asc).last.read_at.utc
 
