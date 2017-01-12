@@ -53,6 +53,8 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
 
   delegate :currency, to: :cash
 
+  scope :matching_cash, ->(id) { where(cash_id: id) }
+
   protect(on: :destroy) do
     payments.any? || supplier_payment_modes.any?
   end

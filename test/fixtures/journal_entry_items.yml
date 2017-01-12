@@ -11000,3 +11000,894 @@ journal_entry_items_326:
   tax_id: 2
   updated_at: 2016-12-20 18:17:24.136900000 Z
   updater_id: 1
+journal_entry_items_327:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 9
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 545
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_328:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 9
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 546
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_329:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 9
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 547
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_330:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 12
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 548
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_331:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 12
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 549
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_332:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 12
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 550
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_333:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 90
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 551
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_334:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 90
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 552
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_335:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 90
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 553
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_336:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 93
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 554
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_337:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 93
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 555
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_338:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 93
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 556
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_339:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 96
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 557
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_340:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 96
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 558
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_341:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 96
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 559
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_342:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 99
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 560
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_343:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 99
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 561
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_344:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 99
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 562
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_345:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 101
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 563
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_346:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 101
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 564
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_347:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 101
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 565
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_348:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 103
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 566
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_349:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 103
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 567
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_350:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 103
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 568
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_351:
+  absolute_credit: 85.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 206
+  balance: -85.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator_id: 1
+  credit: 85.0
+  cumulated_absolute_credit: 1129.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 106
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 569
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: -85.0
+  real_credit: 85.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater_id: 1
+journal_entry_items_352:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.0
+  absolute_pretax_amount: 0.0
+  account_id: 207
+  balance: 70.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 70.0
+  entry_id: 106
+  entry_number: XYZ0007
+  financial_year_id: 24
+  id: 570
+  journal_id: 1
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 70.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater_id: 1
+journal_entry_items_353:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 15.0
+  absolute_pretax_amount: 0.0
+  account_id: 1
+  balance: 15.0
+  created_at: 2014-11-05 09:58:15.849777000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 15.0
+  entry_id: 106
+  entry_number: XYZ0010
+  financial_year_id: 24
+  id: 571
+  journal_id: 1
+  lock_version: 0
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2014-11-01
+  real_balance: 15.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 15.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1

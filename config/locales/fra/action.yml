@@ -549,8 +549,10 @@ fra:
       propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
-    backend/quick_affairs:
-      new: "Créer %{trade}/%{payment}"
+    backend/quick_purchases:
+      new: "Nouvel Achat/Décaissement"
+    backend/quick_sales:
+      new: "Nouvelle Vente/Encaissement"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"
@@ -1057,6 +1059,7 @@ fra:
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
     costs_per_hectare: "Couts par hectare"
+    could_not_attach_x_or_y_to_affair: "Erreur lors du rattachement des %{trade}/%{payment} à l'affaire"
     countings: "Comptages"
     country: "Pays" #?
     counts: "Totaux"
@@ -1220,6 +1223,7 @@ fra:
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     executed: "Réalisé" #?
+    existing: "Existant"
     existing_part: "Utiliser un encaissement non affecté" #?
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
     expedier: "Expéditeur"
@@ -1419,6 +1423,7 @@ fra:
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
+    letterable: "Lettrable"
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
     lettering_modes:  #?
@@ -1544,6 +1549,7 @@ fra:
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
+    new_purchase: "Nouvel achat" #?
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"
     new_reservoir: "Ajouter un réservoir" #?
@@ -1585,6 +1591,7 @@ fra:
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
+    not_letterable: "Impossible de lettrer"
     not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
     now: "Maintenant"
@@ -1853,6 +1860,7 @@ fra:
     save: "Enregistrer"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
     save_in_draft: "Sauvegarder dans le brouillard"
+    saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n'ont pas pu être lettrés."
     scheduled: "Échéance"
     search: "Rechercher"
     search_account: "Rechercher un compte" #?
@@ -2409,7 +2417,7 @@ fra:
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
-      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
+      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activitée pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
@@ -2541,9 +2549,12 @@ fra:
       move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"
+      payment_gap: "Écart de réglement"
       payment_mode: "Payer (Mode)"
       pick: "Piocher"
       picture: "Image"

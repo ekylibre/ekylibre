@@ -233,6 +233,7 @@ fra:
     tool: "Outil"
     topper: "Effaneuse"
     tractor: "Tracteur"
+    trailed_equipment: "Outil tracté"
     trailer: "Remorque"
     tunnel: "Tunnel/Chenille"
     tunnel_implanter: "Outil de pose de tunnel/chenille"

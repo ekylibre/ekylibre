@@ -601,8 +601,10 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -1173,6 +1175,7 @@ arb:
     costs: "التكاليف"
     costs_map: "خريطة التكاليف" #?
     costs_per_hectare: "تكاليف الهكتار الواحد"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "فرزان"
     counts: "التهم"
     counts_by_nature: "عدد ونوع السجلات"
@@ -1345,6 +1348,7 @@ arb:
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     executed: "انجز" #?
+    # existing: "Existing"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
@@ -1530,6 +1534,7 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
+    # letterable: "Letterable"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes:  #?
@@ -1704,6 +1709,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_letterable: "Not able to letter"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
     notifications:  #?
@@ -1970,6 +1976,7 @@ arb:
     # same_variant_as_x: "Same variant as %{x}"
     save: "حفظ"
     save_in_draft: "حفظ في المسودات"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "المقرر"
     search: "البحث عن الشراء"
     search_go: "بدء البحث" #?
@@ -2679,9 +2686,12 @@ arb:
       move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "فتح"
       order: "طلب"
       pay: "دفع"
+      # payment_gap: "Payment gap"
       payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"

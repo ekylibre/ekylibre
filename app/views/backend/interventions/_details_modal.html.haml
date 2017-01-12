@@ -64,7 +64,7 @@
             - title = input.product.name
             - detail = ""
 
-            - unless input.quantity_handler_reference.unit.nil?
+            - unless input.quantity_value.nil? || input.quantity_handler_reference.unit.nil?
               - detail = input.quantity_value.round(2).l(precision: 0)
               - detail << " " + input.quantity_handler_reference.unit.symbol
 

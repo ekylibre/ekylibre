@@ -469,8 +469,10 @@ por:
       propose_and_invoice: "Facturar directamente"
       refuse: "Fim recusou"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
@@ -868,6 +870,7 @@ por:
     costs: "Custos"
     costs_map: "Custos mapa" #?
     costs_per_hectare: "Os custos por hectare"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "contagens"
     # counts: "Counts"
     counts_by_nature: "Número de documentos a conta por tipo"
@@ -989,6 +992,7 @@ por:
     # example: "Example: %{value}"
     exchange: "Trocas"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Despesas"
@@ -1127,6 +1131,7 @@ por:
     last_purchases: "Últimas compras"
     last_sales: "Últimos vendas"
     letter: "Carta"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "Opções lineares"
     link: "Ligação"
@@ -1226,6 +1231,7 @@ por:
     none: "Nenhum"
     # normal: "Normal"
     not_delivered: "Não entregue"
+    # not_letterable: "Not able to letter"
     not_ready: "Não está pronto"
     not_received: "Não recebido"
     now: "Agora"
@@ -1387,6 +1393,7 @@ por:
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar como rascunho"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Programado"
     search: "Pesquisar"
     search_placeholder: "Pesquisar…"
@@ -1905,9 +1912,12 @@ por:
       move: "Mover" #?
       negociate: "Negociar"
       new: "Novo"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "Aberto"
       order: "Ordem"
       pay: "Pagamento"
+      # payment_gap: "Payment gap"
       payment_mode: "Modo de pagamento"
       pick: "Escolher"
       picture: "Fotografia"

@@ -1,5 +1,8 @@
 - type = BankStatementItem === item ? 'bank_statement_item' : 'journal_entry_item'
-.reconciliation-item{ data: { id: item.id, type: type } }
+- letter = type =~ /bank_statement_item/ ? item.letter : item.bank_statement_letter
+- classes = [:'reconciliation-item']
+- classes << :lettered if letter
+%div{ class: classes, data: { id: item.id, type: type } }
   %a#delete{ href: "#" }
     - unless type == 'journal_entry_item'
       %i
@@ -10,8 +13,8 @@
     .debit= item.debit
     .credit= item.credit
   .details
-    .letter= type =~ /bank_statement_item/ ? item.letter : item.bank_statement_letter
-    - link = :clear if item.letter
+    .letter= letter
+    - link = :clear if letter
     %a{ href: "#", id: link, data: { name: { clear: :clear.tl, complete: :complete.tl } } }
       %i
       %span= link && link.tl

@@ -595,7 +595,11 @@ eng:
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
     backend/quick_affairs:
-      new: "New %{trade}/%{payment}"
+      # new: "New quick affair"
+    backend/quick_purchases:
+      new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
@@ -985,7 +989,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
-    auto_reconciliate: "Auto reconciliate"
+    auto_reconciliate: "Auto reconciliate" #?!
     automatic: "Auto" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
@@ -1077,6 +1081,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
+    could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "Countings" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
@@ -1179,7 +1184,7 @@ eng:
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
-    entries_to_point: "Entries pointing to"
+    entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
@@ -1197,6 +1202,7 @@ eng:
     example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    existing: "Existing" #?
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
     expenses: "Expenses"
@@ -1335,6 +1341,7 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     letter: "Letter" #?
+    letterable: "Letterable"
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
@@ -1434,6 +1441,7 @@ eng:
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
+    not_letterable: "Not able to letter"
     not_ready: "Not ready"
     not_received: "Not received" #?
     now: "Now" #?
@@ -1589,6 +1597,7 @@ eng:
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
     save_in_draft: "Save as draft"
+    saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
     search: "Search"
     search_placeholder: "Search…"
@@ -1954,6 +1963,7 @@ eng:
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
+      # could_not_attach_x_or_y_to_affair: "Could not attach x or y to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
       draft_journal_entries_have_been_validated:
@@ -2014,6 +2024,7 @@ eng:
       record_x_created: "%{record} %{name} created" #?
       record_x_updated: "%{record} %{name} updated" #?
       sale_is_not_duplicatable: "Sale is not duplicatable"
+      # saved_but_couldnt_letter_x_and_y: "Saved but couldnt letter x and y"
       select_entry_items_to_mark_together: "Select entry items to mark together"
       sensor_has_been_fixed: "Sensor %{name} has been fixed"
       sensor_is_out_of_service: "Sensor %{name} is out of service: %{message}"
@@ -2122,10 +2133,13 @@ eng:
       # models: "Models"
       negociate: "Negociate"
       new: "New"
+      new_purchase: "New purchase" #?
+      new_sale: "New sale" #?
       open: "Open"
       order: "Order"
       # passthru: "Passthru"
       pay: "Pay"
+      payment_gap: "Payment gap" #?
       payment_mode: "Payment mode"
       pick: "Pick"
       picture: "Picture"
