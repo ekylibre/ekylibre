@@ -84,6 +84,8 @@ eng:
       # take: "Take animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
+    backend/bank_reconciliation_items:
+      index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
     backend/bank_statement_items:
       # new: "New bank statement item"
     backend/bank_statements:
@@ -92,7 +94,6 @@ eng:
       index: "Bank statements"
       # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
-      reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
       # unletter: "Unletter bank statement: %{name}"
     backend/beehives:

@@ -264,17 +264,12 @@ Rails.application.routes.draw do
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
       resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
       resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
+      resources :bank_reconciliation_items, only: [:index], path: 'reconciliation'
+      resources :bank_statement_letters, only: [:create, :destroy], path: 'letters'
 
       collection do
         get :list_items
         match :import, via: [:get, :post]
-      end
-      member do
-        get  :reconciliation
-        put   :letter
-        patch :letter
-        put   :unletter
-        patch :unletter
       end
     end
 
