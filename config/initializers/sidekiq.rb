@@ -15,6 +15,6 @@ end
 
 Sidekiq.configure_server do |config|
   config.server_middleware do |chain|
-    chain.add Sidekiq::Middleware::Server::RetryJobs, :max_retries => 0
+    chain.add Sidekiq::Middleware::Server::RetryJobs, max_retries: 0
   end
 end
