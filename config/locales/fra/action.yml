@@ -2409,7 +2409,7 @@ fra:
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
-      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
+      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activitée pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
