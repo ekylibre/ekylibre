@@ -210,6 +210,10 @@ ita:
     backend/exports:
       index: "esportazioni"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      # journal_entries_import: "Financial year exchange import"
+      # new: "New exchange"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       # close: "Close financial year: %{code}"
       compute_balances: "Si calcoli equilibrio esercizio"
@@ -1050,6 +1054,7 @@ ita:
     # example: "Example: %{value}"
     exchange: "Scambio"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # exchanges: "Exchanges"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Spese"
@@ -1257,6 +1262,7 @@ ita:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "Nuova email"
+    # new_financial_year_exchange: "New exchange"
     new_group: "Nuovo gruppo"
     new_incoming_parcel: "Nuovo pacco in arrivo"
     new_incoming_payment: "Nuovo pagamento in entrata"
@@ -1800,6 +1806,8 @@ ita:
       warning: "Avvertimento!"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      # accountant_notified: "The accountant has been notified"
+      # accountant_without_email: "Please set the accountant email"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
       all_purchases_must_be_ordered_or_invoiced: "Tutti gli acquisti devono essere ordinati e fatturati."
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
@@ -1812,6 +1820,7 @@ ita:
       cannot_merge_entities: "E 'impossibile per unire queste persone."
       changes_have_been_reflected: "I cambiamenti si sono riflessi nello stato delle scorte"
       changes_have_not_been_reflected: "Le modifiche non si sono riflessi nello stato delle scorte"
+      # closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "L'esercizio è stato chiuso con successo"
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
@@ -1835,6 +1844,7 @@ ita:
       integrate_tools_you_are_using_every_day: "Integra strumenti si utilizzano tutti i giorni"
       invalid_reference_name: "nome di riferimento non valido"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      # journal_entries_imported: "The journal entries have been imported."
       journal_entry_already_validated: "Il record è già stato convalidato e non possono essere cambiati"
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -1956,6 +1966,8 @@ ita:
       increment: "Incremento" #?
       index: "Indice"
       invoice: "Fattura"
+      # journal_entries_csv_export: "Download CSV"
+      # journal_entries_import: "Import CSV"
       list: "Lista"
       load: "Caricare"
       lock: "Serratura"
@@ -1966,6 +1978,7 @@ ita:
       move: "Mossa" #?
       negociate: "negoziare"
       new: "Nuovo"
+      # notify_accountant: "Notify accountant"
       open: "aperto"
       order: "Ordine"
       pay: "Pagare"

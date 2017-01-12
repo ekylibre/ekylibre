@@ -142,11 +142,20 @@ ita:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente."
+              # frozen: "The financial year date cannot be changed when an exchange has been created."
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          # csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          # csv_file_headers_invalid: "CSV headers are invalid"
+          # csv_file_invalid: "CSV file is invalid"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -155,10 +164,15 @@ ita:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              # present: "Accountant can only be set for various operations journals"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          # frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
           out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente."
           unbalanced: "La voce di diario è sbilanciato"
         journal_entry_item:
@@ -400,6 +414,7 @@ ita:
     account_name: "Nome utente"
     account_number: "numero di conto"
     accountable: "Responsabile"
+    # accountant: "Accountant"
     accounted_at: "rappresentato a"
     accuracy: "Precisione"
     achieved_at: "raggiunto a"

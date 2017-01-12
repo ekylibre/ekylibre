@@ -2352,7 +2352,53 @@ events:
   updater_id:
     type: integer
     references: user
+financial_year_exchanges:
+  closed_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  import_file_content_type:
+    type: string
+  import_file_file_name:
+    type: string
+  import_file_file_size:
+    type: integer
+  import_file_updated_at:
+    type: datetime
+  lock_version:
+    type: integer
+    required: true
+  public_token:
+    type: string
+  public_token_expires_on:
+    type: datetime
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 financial_years:
+  accountant_id:
+    type: integer
+    references: entity
   closed:
     type: boolean
     required: true
@@ -3700,6 +3746,9 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  financial_year_exchange_id:
+    type: integer
+    references: financial_year_exchange
   financial_year_id:
     type: integer
     references: financial_year
@@ -3915,6 +3964,9 @@ journal_entry_items:
     type: integer
     references: user
 journals:
+  accountant_id:
+    type: integer
+    references: entity
   closed_on:
     type: date
     required: true

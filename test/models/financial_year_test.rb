@@ -22,6 +22,7 @@
 #
 # == Table: financial_years
 #
+#  accountant_id             :integer
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -60,5 +61,47 @@ class FinancialYearTest < ActiveSupport::TestCase
     FinancialYear.create!(started_on: last_year.stopped_on + 1, stopped_on: last_year.stopped_on >> 15)
 
     assert_not_nil FinancialYear.at(Time.zone.now + 49.years)
+  end
+  test 'accountant can be set' do
+    year = financial_years(:financial_years_001)
+    year.accountant = entities(:entities_017)
+    assert year.valid?
+  end
+  test 'cannot create exchange without accountant' do
+    year = financial_years(:financial_years_001)
+    refute year.can_create_exchange?
+  end
+  test 'cannot create exchange without journal booked by the accountant' do
+    year = financial_years(:financial_years_025)
+    Journal.where(id: year.accountant.booked_journals.pluck(:id)).delete_all
+    refute year.can_create_exchange?
+  end
+  test 'create exchange when it has no opened exchange but journal booked by the accountant' do
+    year = financial_years(:financial_years_025)
+    FinancialYearExchange.where(financial_year_id: year.id).update_all closed_at: Time.zone.now
+    assert year.can_create_exchange?
+  end
+  test 'cannot create exchange with opened exchanges' do
+    year = financial_years(:financial_years_025)
+    refute year.can_create_exchange?
+  end
+  test 'cannot change accountant with opened exchange' do
+    year = financial_years(:financial_years_025)
+    other_accountant = entities(:entities_016)
+    year.accountant = other_accountant
+    refute year.valid?
+  end
+  test 'cannot change started_on with exchange' do
+    year = financial_years(:financial_years_025)
+    year.started_on = year.started_on + 1.day
+    refute year.valid?
+  end
+  test 'has opened exchange with opened exchanges' do
+    year = financial_years(:financial_years_025)
+    assert year.opened_exchange?
+  end
+  test 'does not have opened exchange without exchange' do
+    year = financial_years(:financial_years_024)
+    refute year.opened_exchange?
   end
 end
