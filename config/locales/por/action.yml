@@ -1917,6 +1917,7 @@ por:
       open: "Aberto"
       order: "Ordem"
       pay: "Pagamento"
+      # payment_gap: "Payment gap"
       payment_mode: "Modo de pagamento"
       pick: "Escolher"
       picture: "Fotografia"

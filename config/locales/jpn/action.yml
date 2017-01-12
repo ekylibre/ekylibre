@@ -1989,6 +1989,7 @@ jpn:
       open: "開いた"
       order: "注文"
       pay: "支払う"
+      # payment_gap: "Payment gap"
       payment_mode: "お支払いモード"
       pick: "ピック"
       picture: "画像"

@@ -2691,6 +2691,7 @@ arb:
       open: "فتح"
       order: "طلب"
       pay: "دفع"
+      # payment_gap: "Payment gap"
       payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"

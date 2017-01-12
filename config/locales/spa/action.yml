@@ -2206,6 +2206,7 @@ spa:
       open: "Abierto"
       order: "Orden"
       pay: "Paga"
+      # payment_gap: "Payment gap"
       payment_mode: "Modo de pago"
       pick: "Recoger"
       picture: "Imagen"

@@ -1911,6 +1911,7 @@ deu:
       open: "Öffnen"
       order: "Auftrag"
       pay: "Bezahlen"
+      # payment_gap: "Payment gap"
       payment_mode: "Zahlungsart"
       pick: "pflücken"
       picture: "Bild"

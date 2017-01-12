@@ -989,7 +989,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
-    auto_reconciliate: "Auto reconciliate"
+    auto_reconciliate: "Auto reconciliate" #?!
     automatic: "Auto" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
@@ -1184,7 +1184,7 @@ eng:
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
-    entries_to_point: "Entries pointing to"
+    entries_to_point: "Entries pointing to" #?!
     entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
@@ -2139,7 +2139,7 @@ eng:
       order: "Order"
       # passthru: "Passthru"
       pay: "Pay"
-      payment_gap: "Payment gap"
+      payment_gap: "Payment gap" #?
       payment_mode: "Payment mode"
       pick: "Pick"
       picture: "Picture"

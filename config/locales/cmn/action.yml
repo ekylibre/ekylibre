@@ -1913,6 +1913,7 @@ cmn:
       open: "打开"
       order: "订购"
       pay: "工资"
+      # payment_gap: "Payment gap"
       payment_mode: "付款方式"
       pick: "挑"
       picture: "图片"

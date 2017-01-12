@@ -11036,17 +11036,17 @@ journal_entry_items_327:
 journal_entry_items_328:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 9
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11057,11 +11057,11 @@ journal_entry_items_328:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11069,17 +11069,17 @@ journal_entry_items_328:
 journal_entry_items_329:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 9
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11090,11 +11090,11 @@ journal_entry_items_329:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11135,17 +11135,17 @@ journal_entry_items_330:
 journal_entry_items_331:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 12
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11156,11 +11156,11 @@ journal_entry_items_331:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11168,17 +11168,17 @@ journal_entry_items_331:
 journal_entry_items_332:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 12
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11189,11 +11189,11 @@ journal_entry_items_332:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11234,17 +11234,17 @@ journal_entry_items_333:
 journal_entry_items_334:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 90
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11255,11 +11255,11 @@ journal_entry_items_334:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11267,17 +11267,17 @@ journal_entry_items_334:
 journal_entry_items_335:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 90
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11288,11 +11288,11 @@ journal_entry_items_335:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11333,17 +11333,17 @@ journal_entry_items_336:
 journal_entry_items_337:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 93
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11354,11 +11354,11 @@ journal_entry_items_337:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11366,17 +11366,17 @@ journal_entry_items_337:
 journal_entry_items_338:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 93
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11387,11 +11387,11 @@ journal_entry_items_338:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11432,17 +11432,17 @@ journal_entry_items_339:
 journal_entry_items_340:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 96
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11453,11 +11453,11 @@ journal_entry_items_340:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11465,17 +11465,17 @@ journal_entry_items_340:
 journal_entry_items_341:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 96
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11486,11 +11486,11 @@ journal_entry_items_341:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11531,17 +11531,17 @@ journal_entry_items_342:
 journal_entry_items_343:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 99
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11552,11 +11552,11 @@ journal_entry_items_343:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11564,17 +11564,17 @@ journal_entry_items_343:
 journal_entry_items_344:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 99
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11585,11 +11585,11 @@ journal_entry_items_344:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11630,17 +11630,17 @@ journal_entry_items_345:
 journal_entry_items_346:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 101
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11651,11 +11651,11 @@ journal_entry_items_346:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11663,17 +11663,17 @@ journal_entry_items_346:
 journal_entry_items_347:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 101
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11684,11 +11684,11 @@ journal_entry_items_347:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11729,17 +11729,17 @@ journal_entry_items_348:
 journal_entry_items_349:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 103
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11750,11 +11750,11 @@ journal_entry_items_349:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11762,17 +11762,17 @@ journal_entry_items_349:
 journal_entry_items_350:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 103
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11783,11 +11783,11 @@ journal_entry_items_350:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
@@ -11828,17 +11828,17 @@ journal_entry_items_351:
 journal_entry_items_352:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 70
+  absolute_debit: 70.0
   absolute_pretax_amount: 0.0
   account_id: 207
-  balance: 70
+  balance: 70.0
   created_at: 2014-11-01 19:52:01.272084000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 90.82
   cumulated_absolute_debit: 27.0
   currency: EUR
-  debit: 70
+  debit: 70.0
   entry_id: 106
   entry_number: XYZ0007
   financial_year_id: 24
@@ -11849,11 +11849,11 @@ journal_entry_items_352:
   position: 3
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 70
+  real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 70
+  real_debit: 70.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
@@ -11861,17 +11861,17 @@ journal_entry_items_352:
 journal_entry_items_353:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 15
+  absolute_debit: 15.0
   absolute_pretax_amount: 0.0
   account_id: 1
-  balance: 15
+  balance: 15.0
   created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
   cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 15
+  debit: 15.0
   entry_id: 106
   entry_number: XYZ0010
   financial_year_id: 24
@@ -11882,11 +11882,11 @@ journal_entry_items_353:
   position: 1
   pretax_amount: 0.0
   printed_on: 2014-11-01
-  real_balance: 15
+  real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 15
+  real_debit: 15.0
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z

@@ -1978,6 +1978,7 @@ ita:
       open: "aperto"
       order: "Ordine"
       pay: "Pagare"
+      # payment_gap: "Payment gap"
       payment_mode: "Metodo di pagamento"
       pick: "scegliere"
       picture: "Immagine"

@@ -1909,6 +1909,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="bank_reconciliation_gaps">
+        <page to="backend/bank_reconciliation_gaps#create"/>
+      </item>
       <item name="quick_affairs">
         <page to="backend/quick_affairs#create"/>
         <page to="backend/quick_affairs#new"/>
