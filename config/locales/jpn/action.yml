@@ -464,8 +464,10 @@ jpn:
       propose_and_invoice: "直接請求書"
       refuse: "拒否したため"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "編集登録"
       index: "登録"
@@ -931,6 +933,7 @@ jpn:
     costs: "費用"
     costs_map: "コストマップ" #?
     costs_per_hectare: "ヘクタールあたりの費用"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     # countings: "Countings"
     counts: "カウンツ"
     counts_by_nature: "タイプごとに考慮するドキュメントの数"
@@ -1053,6 +1056,7 @@ jpn:
     # example: "Example: %{value}"
     exchange: "交換"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "経費"
@@ -1191,6 +1195,7 @@ jpn:
     last_purchases: "最終購入"
     last_sales: "最終販売"
     letter: "文字"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "リニアオプション"
     link: "リンク"
@@ -1294,6 +1299,7 @@ jpn:
     none: "なし"
     normal: "ノーマル"
     not_delivered: "配信されません"
+    # not_letterable: "Not able to letter"
     not_ready: "準備ができていない"
     not_received: "受信していない"
     now: "今"
@@ -1455,6 +1461,7 @@ jpn:
     # same_variant_as_x: "Same variant as %{x}"
     save: "セーブ"
     save_in_draft: "下書きとして保存"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "予定の"
     search: "探す"
     search_placeholder: "サーチ…"
@@ -1977,6 +1984,8 @@ jpn:
       move: "移動" #?
       # negociate: "Negociate"
       new: "新しい"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "開いた"
       order: "注文"
       pay: "支払う"

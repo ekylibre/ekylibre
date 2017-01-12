@@ -501,8 +501,10 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"
@@ -959,6 +961,7 @@ spa:
     costs: "Costos"
     costs_map: "Mapa de costes" #?
     costs_per_hectare: "Los costos por hectárea"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "Los recuentos"
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
@@ -1104,6 +1107,7 @@ spa:
     # example: "Example: %{value}"
     exchange: "Intercambiar"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expédier"
     expenses: "Gastos"
@@ -1262,6 +1266,7 @@ spa:
     last_sales: "Última oferta de venta"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
+    # letterable: "Letterable"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
     lettering_modes:  #?
@@ -1387,6 +1392,7 @@ spa:
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
     not_delivered: "No entregado"
+    # not_letterable: "Not able to letter"
     not_ready: "No está listo"
     not_received: "No recibido"
     now: "Ahora"
@@ -1596,6 +1602,7 @@ spa:
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar en la niebla"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Programado"
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
@@ -2194,6 +2201,8 @@ spa:
       move: "Movimiento" #?
       negociate: "Negociate"
       new: "Nuevo"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "Abierto"
       order: "Orden"
       pay: "Paga"

@@ -100,6 +100,8 @@ class Purchase < Ekylibre::Record::Base
     where(invoiced_at: started_at..stopped_at)
   }
 
+  scope :with_nature, ->(id) { where(nature_id: id) }
+
   scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
@@ -136,7 +138,7 @@ class Purchase < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state = :draft
-    self.currency = nature.currency if nature
+    self.currency ||= nature.currency if nature
   end
 
   before_validation do
@@ -225,8 +227,16 @@ class Purchase < Ekylibre::Record::Base
     :supplier
   end
 
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
   def third
     send(third_attribute)
+  end
+
+  def default_currency
+    currency || nature.currency
   end
 
   def precision

@@ -71,6 +71,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   delegate :journal, to: :cash, prefix: true
 
   scope :depositers, -> { where(with_deposit: true).order(:name) }
+  scope :matching_cash, ->(id) { where(cash_id: id) }
 
   before_validation do
     if cash && cash.cash_box?
