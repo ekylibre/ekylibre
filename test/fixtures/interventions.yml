@@ -40,15 +40,15 @@
 #  procedure_name          :string           not null
 #  request_compliant       :boolean
 #  request_intervention_id :integer
-#  started_at              :datetime
+#  started_at              :datetime         not null
 #  state                   :string           not null
-#  stopped_at              :datetime
+#  stopped_at              :datetime         not null
 #  trouble_description     :text
 #  trouble_encountered     :boolean          default(FALSE), not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  whole_duration          :integer          default(0), not null
-#  working_duration        :integer          default(0), not null
+#  whole_duration          :integer          not null
+#  working_duration        :integer          not null
 #
 ---
 interventions_001:
@@ -469,7 +469,7 @@ interventions_023:
   procedure_name: sowing
   started_at: 2016-04-06 17:23:00.000000000 Z
   state: done
-  stopped_at: 2016-12-21 01:23:00.000000000 Z
+  stopped_at: 2016-05-21 01:23:00.000000000 Z
   trouble_description: ''
   trouble_encountered: false
   updated_at: 2016-12-20 18:24:29.439552000 Z

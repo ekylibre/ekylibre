@@ -895,6 +895,8 @@ bank_statement_items:
   lock_version:
     type: integer
     required: true
+  memo:
+    type: string
   name:
     type: string
     required: true
@@ -3530,11 +3532,13 @@ interventions:
     references: intervention
   started_at:
     type: datetime
+    required: true
   state:
     type: string
     required: true
   stopped_at:
     type: datetime
+    required: true
   trouble_description:
     type: text
   trouble_encountered:

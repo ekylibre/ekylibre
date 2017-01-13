@@ -167,12 +167,14 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
-      if plant_farming?
-        initialize_land_parcel_support!
-      elsif animal_farming?
-        initialize_animal_group_support!
-      elsif tool_maintaining?
-        initialize_equipment_fleet_support!
+      if valid_period_for_support?
+        if plant_farming?
+          initialize_land_parcel_support!
+        elsif animal_farming?
+          initialize_animal_group_support!
+        elsif tool_maintaining?
+          initialize_equipment_fleet_support!
+        end
       end
     end
     true
@@ -230,6 +232,19 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
+  def valid_period_for_support?
+    if self.started_on
+      return false if self.started_on < Time.new(1, 1, 1).in_time_zone
+    end
+    if self.stopped_on
+      return false if self.stopped_on >= Time.zone.now + 50.years
+    end
+    if self.started_on && self.stopped_on
+      return false if self.started_on > self.stopped_on
+    end
+    true
+  end
+
   def initialize_land_parcel_support!
     self.support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
@@ -252,6 +267,7 @@ class ActivityProduction < Ekylibre::Record::Base
     reading = support.first_reading(:shape)
     if reading
       reading.value = self.support_shape
+      reading.read_at = support.born_at
       reading.save!
     end
     self.size = support_shape_area.in(size_unit_name)
@@ -338,19 +354,11 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def interventions_by_weeks
     interventions_by_week = {}
-
     interventions.each do |intervention|
       week_number = intervention.started_at.to_date.cweek
-
-      list = []
-      unless interventions_by_week[week_number].nil?
-        list = interventions_by_week[week_number]
-      end
-
-      list << intervention
-      interventions_by_week[week_number] = list
+      interventions_by_week[week_number] ||= []
+      interventions_by_week[week_number] << intervention
     end
-
     interventions_by_week
   end
 

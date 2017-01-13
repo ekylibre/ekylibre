@@ -346,7 +346,7 @@ arb:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "المساهمات تدخل"
     backend/interventions:
       edit: "تحرير"
       edit_request: "طلب تحرير"
@@ -605,8 +605,10 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -1069,6 +1071,7 @@ arb:
         opera: "الاوبرا" #?
         safari: "سفاري رحلة قنص" #?
     balance: "رصيد الحساب"
+    balance_of_selection: "ميزان اختيار"
     bank_account: "حساب البنك"
     bank_accounts: "" #?
     bank_statement_number: "عدد بيان البنك"
@@ -1176,6 +1179,7 @@ arb:
     costs: "التكاليف"
     costs_map: "خريطة التكاليف" #?
     costs_per_hectare: "تكاليف الهكتار الواحد"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "فرزان"
     counts: "التهم"
     counts_by_nature: "عدد ونوع السجلات"
@@ -1349,6 +1353,7 @@ arb:
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # exchanges: "Exchanges"
     executed: "انجز" #?
+    # existing: "Existing"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
@@ -1488,14 +1493,14 @@ arb:
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     journal_name: "%{name}"
     journal_record_update: "تعديل العينات" #?
     journal_update: "تعديل الفاتر اليومية" #?
@@ -1534,6 +1539,7 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
+    # letterable: "Letterable"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes: #?
@@ -1690,7 +1696,7 @@ arb:
     no_deliveries: "ليس هناك من تسليم بالانتظار" #?
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع" #?
     no_deposits: "التأكد من عدم اقتطاعات البنك"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "لا المساهمات تدخل للتحقق"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
     no_notifications: "أي إخطارات"
     no_origin: "-- بدون مصدر --" #?
@@ -1709,6 +1715,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_letterable: "Not able to letter"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
     notifications: #?
@@ -1880,7 +1887,6 @@ arb:
     ready_to_harvest: "استعداد لموسم الحصاد"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
-    reconciled_total: "مجموعه التوفيق"
     record: "سجل"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
@@ -1976,6 +1982,7 @@ arb:
     # same_variant_as_x: "Same variant as %{x}"
     save: "حفظ"
     save_in_draft: "حفظ في المسودات"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "المقرر"
     search: "البحث عن الشراء"
     search_go: "بدء البحث" #?
@@ -2692,9 +2699,12 @@ arb:
       # negociate: "Negociate"
       new: "جديد"
       # notify_accountant: "Notify accountant"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "فتح"
       order: "طلب"
       pay: "دفع"
+      # payment_gap: "Payment gap"
       payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"

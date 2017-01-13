@@ -286,7 +286,7 @@ jpn:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "介入参加"
     backend/interventions:
       edit: "編集"
       edit_request: "編集要求"
@@ -468,8 +468,10 @@ jpn:
       propose_and_invoice: "直接請求書"
       refuse: "拒否したため"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "編集登録"
       index: "登録"
@@ -851,6 +853,7 @@ jpn:
     average: "平均"
     back: "前のページに戻ります"
     balance: "バランス"
+    balance_of_selection: "選択のバランス"
     bank_account: "銀行口座"
     bank_statement_number: "銀行取引明細書番号"
     bank_statements: "銀行取引明細書"
@@ -934,6 +937,7 @@ jpn:
     costs: "費用"
     costs_map: "コストマップ" #?
     costs_per_hectare: "ヘクタールあたりの費用"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     # countings: "Countings"
     counts: "カウンツ"
     counts_by_nature: "タイプごとに考慮するドキュメントの数"
@@ -1057,6 +1061,7 @@ jpn:
     exchange: "交換"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # exchanges: "Exchanges"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "経費"
@@ -1162,14 +1167,14 @@ jpn:
     journal_entries_states: "エントリの状態"
     journal_entry_items: "仕訳項目"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "エントリー"
@@ -1195,6 +1200,7 @@ jpn:
     last_purchases: "最終購入"
     last_sales: "最終販売"
     letter: "文字"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "リニアオプション"
     link: "リンク"
@@ -1288,7 +1294,7 @@ jpn:
     no_crumbs_to_check: "チェックするパン粉いいえ"
     no_data: "データなし"
     no_deposits: "いいえ預金はありません"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "チェックするために介入への参加はありません"
     no_notifications: "いいえ通知はありません"
     no_particular_periods: "特に期間はありません"
     no_products: "商品なし"
@@ -1299,6 +1305,7 @@ jpn:
     none: "なし"
     normal: "ノーマル"
     not_delivered: "配信されません"
+    # not_letterable: "Not able to letter"
     not_ready: "準備ができていない"
     not_received: "受信していない"
     now: "今"
@@ -1410,7 +1417,6 @@ jpn:
     ready_to_harvest: "収穫の準備完了"
     received: "受け"
     recent_events: "最近のイベント"
-    reconciled_total: "和解合計"
     record: "記録"
     record_maintenance: "記録管理"
     reflect: "反映します"
@@ -1461,6 +1467,7 @@ jpn:
     # same_variant_as_x: "Same variant as %{x}"
     save: "セーブ"
     save_in_draft: "下書きとして保存"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "予定の"
     search: "探す"
     search_placeholder: "サーチ…"
@@ -1990,9 +1997,12 @@ jpn:
       # negociate: "Negociate"
       new: "新しい"
       # notify_accountant: "Notify accountant"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "開いた"
       order: "注文"
       pay: "支払う"
+      # payment_gap: "Payment gap"
       payment_mode: "お支払いモード"
       pick: "ピック"
       picture: "画像"

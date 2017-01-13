@@ -1,6 +1,38 @@
 .reconciliation-list {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  max-height: 100%;
+
+  .top-part {
+    display: flex;
+    justify-content: space-between;
+    padding: $default-gap;
+
+    .buttons {
+      align-items: flex-start;
+
+      .btn-group + .btn-group {
+        margin-left: unset;
+      }
+    }
+
+    .details {
+      width: unset;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      * {
+        @include margin-left($default-gap);
+        text-align: center;
+      }
+    }
+  }
+
+  .list {
+    flex: 1;
+    overflow-y: scroll;
+  }
 
   .amounts {
     display: flex;
@@ -46,12 +78,6 @@
       display: flex;
       justify-content: flex-end;
       align-items: middle;
-    }
-
-    .buttons {
-      display: flex;
-      align-self: flex-start;
-      align-items: flex-start;
     }
 
     .details: {
@@ -113,6 +139,10 @@
       }
 
       .amounts * {
+        &.hidden {
+          display: none;
+        }
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -156,6 +186,7 @@
 
 .reconciliation-item {
   cursor: pointer;
+  background-color: white;
 
   display: flex;
   justify-content: flex-end;

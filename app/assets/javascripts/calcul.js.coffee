@@ -148,7 +148,6 @@
 
     return result
 
-
   # Compute the sum of the elements
   $.fn.sum = ->
     result = 0
@@ -156,6 +155,25 @@
       result = result + $(this).numericalValue()
     result
 
+  computeValidity = (element, selector, difference = false) ->
+    value = null
+    equality = true
+    $(selector).each ->
+      value ?= $(this).numericalValue()
+      equality = false if value != $(this).numericalValue()
+    equality = equality isnt difference
+    if element.hasClass("valid") and !equality
+      element.removeClass "valid"
+      element.addClass "invalid"
+      element.trigger "change"
+    else if element.hasClass("invalid") and equality
+      element.removeClass "invalid"
+      element.addClass "valid"
+      element.trigger "change"
+    else if equality
+      element.addClass("valid")
+    else
+      element.addClass("invalid")
 
   # Use element to compute a calculation
   $(document).behave "load", "*[data-use]", ->
@@ -168,20 +186,25 @@
 
   $(document).behave "load", "*[data-balance]", ->
     element = $(this)
-    operands = $(this).data("balance").split(/\s\-\s/g).slice(0, 2)
+    operands = $(this).data("balance").split('\\-').join('@DASH@').split(/\s\-\s/g).slice(0, 2).map (elem) ->
+      elem.split('@DASH@').join('-')
+    round = parseInt(element.data("calculate-round"))
     $(document).on "change", operands.join(", "), ->
       plus = $(operands[0]).sum()
       minus = $(operands[1]).sum()
+      result = 0
       if plus > minus
-        element.numericalValue(plus - minus)
-      else
-        element.numericalValue(0)
+        result = plus - minus
+      unless isNaN(round)
+        result = parseFloat(result.toFixed(round))
+      element.numericalValue(result)
     return
 
   $(document).behave "load", "*[data-difference]", ->
     element = $(this)
     round = parseInt(element.data("calculate-round"))
-    operands = $(this).data("difference").split(/\s+\-\s+/g).slice(0, 2)
+    operands = $(this).data("difference").split('\\-').join('@DASH@').split(/\s+\-\s+/g).slice(0, 2).map (elem) ->
+      elem.split('@DASH@').join('-')
     $(document).on "change", operands.join(", "), ->
       result = $(operands[0]).sum() - $(operands[1]).sum()
       unless isNaN(round)
@@ -218,22 +241,24 @@
     element = $(this)
     selector = element.data("valid-if-equality-between")
     $(document).behave "load keyup change", selector, ->
-      value = null
-      equality = true
-      $(selector).each ->
-        value ?= $(this).numericalValue()
-        equality = false if value != $(this).numericalValue()
-      if element.hasClass("valid") and !equality
-        element.removeClass "valid"
-        element.addClass "invalid"
-        element.trigger "change"
-      else if element.hasClass("invalid") and equality
-        element.removeClass "invalid"
-        element.addClass "valid"
-        element.trigger "change"
-      else if equality
-        element.addClass("valid")
+      computeValidity(element, selector)
+    $(document).on "visibility:change", (event, hiddenOrShown) ->
+      isParent = $(selector).toArray().some (triggerElement) ->
+        $.contains hiddenOrShown, triggerElement
+      computeValidity(element, selector) if isParent
+      return
+    return
 
+  $(document).behave "load", "*[data-valid-if-difference-between]", ->
+    element = $(this)
+    selector = element.data("valid-if-difference-between")
+    $(document).behave "load keyup change", selector, ->
+      computeValidity(element, selector, true)
+    $(document).on "visibility:change", (event, hiddenOrShown) ->
+      isParent = $(selector).toArray().some (triggerElement) ->
+        $.contains hiddenOrShown, triggerElement
+      computeValidity(element, selector, true) if isParent
+      return
     return
 
   $(document).on "change", "*[data-valid-if-equality-between]", ->

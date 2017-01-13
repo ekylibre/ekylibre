@@ -86,4 +86,14 @@ class IncomingPaymentTest < ActiveSupport::TestCase
       payment.update!(amount: 450.21)
     end
   end
+
+  test 'create without mode' do
+    incoming_payment = IncomingPayment.new(
+      amount: 56,
+      payer: Entity.clients.first,
+      received: true
+    )
+    # Should not save without exception raise
+    refute incoming_payment.save
+  end
 end

@@ -6,10 +6,35 @@ task fake: :environment do
 
     def initialize(options = {})
       @currency = options[:currency] || 'EUR'
-      @on = options[:on] || Date.civil(2015, 9, 1)
+      @on = options[:on] || Date.civil(2007, 9, 1)
     end
 
-    def entity(options = {})
+    def bank_balance
+      JournalEntryItem.where(account_id: Cash.select(:main_account_id)).sum('real_debit - real_credit')
+    end
+
+    def find_or_create_user(options = {})
+      if rand < 0.02
+        u = User.where(locked: false).to_a.sample
+        u.update_column(:locked, true) if u
+      end
+      user = if rand > 0.01 && User.where(options).any?
+               User.where(options).to_a.sample
+             else
+               pass = FFaker::NameFR.first_name * 8
+               user = User.create!(
+                 first_name: FFaker::NameFR.first_name,
+                 last_name: FFaker::NameFR.last_name.mb_chars.upcase,
+                 administrator: true,
+                 email: FFaker::Internet.safe_email,
+                 password: pass,
+                 password_confirmation: pass
+               )
+             end
+      user
+    end
+
+    def find_or_create_entity(options = {})
       options[:client] ||= (rand > 0.1)
       options[:supplier] ||= (rand > 0.9)
       options[:nature] ||= (rand > 0.7 ? :organization : :contact)
@@ -26,7 +51,7 @@ task fake: :environment do
                  Entity.find_or_create_by!(options)
                end
       if rand > 0.4
-        u = User.where(locked: false).to_a.sample
+        u = find_or_create_user(locked: false)
         entity.observations.create!(creator: u, author: u, content: FFaker::HipsterIpsum.words(15).join(' '))
       end
 
@@ -46,7 +71,7 @@ task fake: :environment do
       entity
     end
 
-    def sale(options = {})
+    def create_sale(options = {})
       currency = options[:currency] || @currency
       c = Nomen::Currency.find(currency)
       raise "What? #{currency.inspect}" unless c
@@ -80,7 +105,7 @@ task fake: :environment do
       sale
     end
 
-    def purchase(options = {})
+    def create_purchase(options = {})
       currency = options[:currency] || @currency
       c = Nomen::Currency.find(currency)
       raise "What? #{currency.inspect}" unless c
@@ -113,7 +138,7 @@ task fake: :environment do
       purchase
     end
 
-    def incoming_payment(options = {})
+    def create_incoming_payment(options = {})
       currency = options[:currency] || @currency
       c = Nomen::Currency.find(currency)
       raise "What? #{currency.inspect}" unless c
@@ -141,7 +166,7 @@ task fake: :environment do
       IncomingPayment.create!(options)
     end
 
-    def outgoing_payment(options = {})
+    def create_outgoing_payment(options = {})
       currency = options[:currency] || @currency
       c = Nomen::Currency.find(currency)
       raise "What? #{currency.inspect}" unless c
@@ -166,28 +191,28 @@ task fake: :environment do
       options[:delivered] = true
       options[:to_bank_at] ||= Time.zone.now
       options[:paid_at] ||= Time.zone.now
-      options[:responsible] ||= User.first
+      options[:responsible] ||= find_or_create_user(locked: false)
       OutgoingPayment.create!(options)
     end
 
-    def financial_year_exchange(options = {})
-      options[:started_on] ||= (@on - 1.month).beginning_of_month
-      options[:stopped_on] ||= options[:started_on].end_of_month
-      financial_year = FinancialYear.at(options[:started_on])
-      unless financial_year.accountant
-        accountant = nil
-        if financial_year.previous
-          accountant = financial_year.previous.accountant
-        end
-        accountant ||= entity(supplier: true)
-        financial_year.accountant = accountant
-        financial_year.save!
-        index = Journal.where('code like ?', 'JCR%').count + 1
-        journal = Journal.create_with(code: 'JCR' + index.to_s, name: entity.name)
-                         .find_or_create_by(accountant: accountant, nature: :various)
-      end
-      FinancialYearExchange.create!(options.merge(financial_year: financial_year))
-    end
+    # def create_financial_year_exchange(options = {})
+    #   options[:started_on] ||= (@on - 1.month).beginning_of_month
+    #   options[:stopped_on] ||= options[:started_on].end_of_month
+    #   financial_year = FinancialYear.at(options[:started_on])
+    #   unless financial_year.accountant
+    #     accountant = nil
+    #     if financial_year.previous
+    #       accountant = financial_year.previous.accountant
+    #     end
+    #     accountant ||= find_or_create_entity(supplier: true)
+    #     financial_year.accountant = accountant
+    #     financial_year.save!
+    #     index = Journal.where('code like ?', 'JCR%').count + 1
+    #     journal = Journal.create_with(code: 'JCR' + index.to_s, name: entity.name)
+    #                      .find_or_create_by(accountant: accountant, nature: :various)
+    #   end
+    #   FinancialYearExchange.create!(options.merge(financial_year: financial_year))
+    # end
 
     def next!
       User.stamper = User.all.sample
@@ -220,15 +245,15 @@ task fake: :environment do
 
     if rand > 0.1
       fake.travel do
-        if (1..5).cover? fake.wday
+        if (1..5).cover?(fake.wday) && fake.bank_balance < 15_000
           # Add sales
           5.times do
             next unless rand > 0.7
-            client = fake.entity(client: true)
-            sale = fake.sale(client: client)
+            client = fake.find_or_create_entity(client: true)
+            sale = fake.create_sale(client: client)
             print 's'.yellow
             if rand > 0.3
-              fake.incoming_payment(payer: client, affair: sale.affair, amount: sale.amount)
+              fake.create_incoming_payment(payer: client, affair: sale.affair, amount: sale.amount)
               print 'p'.yellow
             end
           end
@@ -238,8 +263,8 @@ task fake: :environment do
         #   # Add international sales
         #   1.times do
         #     next unless rand > 0.7
-        #     client = fake.entity(client: true, country: [:us, :ca, :jp].sample)
-        #     fake.sale(client: client, currency: [:USD, :JPY].sample)
+        #     client = fake.find_or_create_entity(client: true, country: [:us, :ca, :jp].sample)
+        #     fake.create_sale(client: client, currency: [:USD, :JPY].sample)
         #     print 'i'.yellow
         #   end
         # end
@@ -267,7 +292,7 @@ task fake: :environment do
             s.affair.reload
             unless s.affair.closed?
               if (s.invoice? && rand > 0.5) || (s.order? && rand > 0.7)
-                fake.incoming_payment(payer: s.client, affair: s.affair, amount: s.amount)
+                fake.create_incoming_payment(payer: s.client, affair: s.affair, amount: s.amount)
                 print 'p'.cyan
               end
             end
@@ -280,28 +305,28 @@ task fake: :environment do
           # end
         end
 
-        if (1..6).cover? fake.wday
+        if (1..6).cover?(fake.wday) && fake.bank_balance > -15_000
           # Add purchase
           3.times do
             next unless rand > 0.95
-            supplier = fake.entity(supplier: true)
-            purchase = fake.purchase(supplier: supplier)
+            supplier = fake.find_or_create_entity(supplier: true)
+            purchase = fake.create_purchase(supplier: supplier)
             print 'p'.red
             if rand > 0.05
-              fake.outgoing_payment(payee: supplier, affair: purchase.affair, amount: purchase.amount)
+              fake.create_outgoing_payment(payee: supplier, affair: purchase.affair, amount: purchase.amount)
               print 'o'.red
             end
           end
         end
 
-        if fake.tuesday? && fake.mday <= 7
-          if FinancialYearExchange.opened.any?
-            FinancialYearExchange.opened.last.close!
-          end
-          stopped_on = (fake.on - 7.months).end_of_month
-          fake.financial_year_exchange(started_on: stopped_on.beginning_of_month, stopped_on: stopped_on)
-          print 'x'.magenta
-        end
+        # if fake.tuesday? && fake.mday <= 7
+        #   if FinancialYearExchange.opened.any?
+        #     FinancialYearExchange.opened.last.close!
+        #   end
+        #   stopped_on = (fake.on - 7.months).end_of_month
+        #   fake.create_financial_year_exchange(started_on: stopped_on.beginning_of_month, stopped_on: stopped_on)
+        #   print 'x'.magenta
+        # end
       end
     end
     fake.next!

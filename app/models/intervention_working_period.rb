@@ -65,8 +65,12 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_id: InterventionParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
-  scope :of_intervention_participation, lambda { |intervention_participation|
-    where(intervention_participation_id: intervention_participation)
+  scope :of_intervention_participations, lambda { |intervention_participations|
+    where(intervention_participation: intervention_participations)
+  }
+
+  scope :of_nature, lambda { |nature|
+    where(nature: nature)
   }
 
   delegate :update_temporality, to: :intervention

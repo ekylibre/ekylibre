@@ -286,7 +286,7 @@ ita:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "Partecipazioni di intervento"
     backend/interventions:
       edit: "Modifica"
       edit_request: "Richiesta Modifica"
@@ -468,8 +468,10 @@ ita:
       propose_and_invoice: "fatturare direttamente"
       refuse: "ordine Refused"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "Modifica registrazione"
       index: "Iscrizioni"
@@ -850,6 +852,7 @@ ita:
     average: "Media"
     back: "torna alla PAGINA precedente"
     balance: "Equilibrio"
+    balance_of_selection: "Equilibrio di selezione"
     bank_account: "conto bancario"
     bank_statement_number: "Banca numero di dichiarazione"
     bank_statements: "estratti conto"
@@ -932,6 +935,7 @@ ita:
     costs: "Costi"
     costs_map: "costi mappa" #?
     costs_per_hectare: "I costi per ettaro"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "conteggi"
     counts: "Conti"
     counts_by_nature: "Numero di documenti per conto per tipo"
@@ -1054,6 +1058,7 @@ ita:
     exchange: "Scambio"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # exchanges: "Exchanges"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Spese"
@@ -1159,14 +1164,14 @@ ita:
     journal_entries_states: "Stati di voci"
     journal_entry_items: "articoli voce di diario"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "Inserimenti"
@@ -1192,6 +1197,7 @@ ita:
     last_purchases: "ultimi acquisti"
     last_sales: "ultimi vendite"
     letter: "Lettera"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "opzioni lineari"
     link: "collegamento"
@@ -1281,7 +1287,7 @@ ita:
     no_crumbs_to_check: "Non ci sono briciole per controllare"
     no_data: "Nessun dato"
     no_deposits: "Nessun deposito"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "Non ci sono partecipazioni di intervento per controllare"
     no_notifications: "Nessuna notifica"
     no_particular_periods: "Nessun periodo di particolare"
     no_products: "Nessun prodotto"
@@ -1292,6 +1298,7 @@ ita:
     none: "Nessuna"
     normal: "Normale"
     not_delivered: "Non consegnato"
+    # not_letterable: "Not able to letter"
     not_ready: "Non pronto"
     not_received: "Non ricevuto"
     now: "Adesso"
@@ -1403,7 +1410,6 @@ ita:
     ready_to_harvest: "Pronto a raccogliere"
     received: "ricevuto"
     recent_events: "Eventi recenti"
-    reconciled_total: "totale riconciliato"
     record: "Disco"
     record_maintenance: "Record di manutenzione"
     reflect: "Riflettere"
@@ -1454,6 +1460,7 @@ ita:
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvare"
     save_in_draft: "Salva come bozza"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "In programma"
     search: "Ricerca"
     search_placeholder: "Ricerca…"
@@ -1979,9 +1986,12 @@ ita:
       negociate: "negoziare"
       new: "Nuovo"
       # notify_accountant: "Notify accountant"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "aperto"
       order: "Ordine"
       pay: "Pagare"
+      # payment_gap: "Payment gap"
       payment_mode: "Metodo di pagamento"
       pick: "scegliere"
       picture: "Immagine"

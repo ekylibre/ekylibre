@@ -32,6 +32,7 @@
 #  initiated_on       :date
 #  letter             :string
 #  lock_version       :integer          default(0), not null
+#  memo               :string
 #  name               :string           not null
 #  transaction_number :string
 #  transfered_on      :date             not null

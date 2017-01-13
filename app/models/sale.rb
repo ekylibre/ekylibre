@@ -120,6 +120,8 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
+  scope :with_nature, ->(id) { where(nature_id: id) }
+
   scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
@@ -156,7 +158,7 @@ class Sale < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state = :draft
-    self.currency = nature.currency if nature
+    self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end
 
@@ -271,6 +273,14 @@ class Sale < Ekylibre::Record::Base
 
   def self.third_attribute
     :client
+  end
+
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
+  def default_currency
+    currency || nature.currency
   end
 
   def third

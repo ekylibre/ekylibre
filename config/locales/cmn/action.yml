@@ -286,7 +286,7 @@ cmn:
       # new: "Activate integration: %{name}"
     backend/intervention_participations:
       # convert: "Convert intervention participation: %{name}"
-      # index: "Intervention participations"
+      index: "干预参股"
     backend/interventions:
       edit: "编辑"
       edit_request: "编辑请求"
@@ -468,8 +468,10 @@ cmn:
       propose_and_invoice: "直接发票"
       refuse: "为了拒绝"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      # new: "New Purchase/Outgoing payment"
+    backend/quick_sales:
+      # new: "New Sale/Incoming payment"
     backend/registrations:
       edit: "编辑注册"
       index: "注册"
@@ -784,6 +786,7 @@ cmn:
     average: "平均"
     back: "回到以前的页"
     balance: "平衡"
+    balance_of_selection: "选择平衡"
     bank_account: "银行账户"
     bank_statement_number: "银行对账单号"
     bank_statements: "银行对账单"
@@ -866,6 +869,7 @@ cmn:
     costs: "成本"
     costs_map: "成本地图" #?
     costs_per_hectare: "每公顷成本"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     # countings: "Countings"
     counts: "计数"
     counts_by_nature: "文档每个类型账户号码"
@@ -988,6 +992,7 @@ cmn:
     exchange: "交换"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # exchanges: "Exchanges"
+    # existing: "Existing"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "开支"
@@ -1093,14 +1098,14 @@ cmn:
     journal_entries_states: "项国"
     journal_entry_items: "日记条目项目"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "参赛作品"
@@ -1127,6 +1132,7 @@ cmn:
     last_purchases: "上次购买"
     last_sales: "去年销售"
     letter: "信"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "线性选项"
     link: "链接"
@@ -1216,7 +1222,7 @@ cmn:
     no_crumbs_to_check: "无屑检查"
     no_data: "没有数据"
     no_deposits: "没有存款"
-    # no_intervention_participations_to_check: "No intervention participations to check"
+    no_intervention_participations_to_check: "不干预参股检查"
     no_notifications: "没有通知"
     no_particular_periods: "无特殊时期"
     no_products: "没有产品"
@@ -1227,6 +1233,7 @@ cmn:
     none: "无"
     normal: "正常"
     not_delivered: "没送到"
+    # not_letterable: "Not able to letter"
     not_ready: "没有准备好"
     not_received: "没收到"
     now: "现在"
@@ -1338,7 +1345,6 @@ cmn:
     ready_to_harvest: "准备收获"
     received: "收到"
     recent_events: "最近发生的事件"
-    reconciled_total: "不甘心总"
     record: "记录"
     record_maintenance: "维修记录"
     reflect: "反映"
@@ -1389,6 +1395,7 @@ cmn:
     # same_variant_as_x: "Same variant as %{x}"
     save: "保存"
     save_in_draft: "保存为草稿"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "计划"
     search: "搜索"
     search_placeholder: "搜索…"
@@ -1914,9 +1921,12 @@ cmn:
       # negociate: "Negociate"
       new: "新"
       # notify_accountant: "Notify accountant"
+      # new_purchase: "New purchase"
+      # new_sale: "New sale"
       open: "打开"
       order: "订购"
       pay: "工资"
+      # payment_gap: "Payment gap"
       payment_mode: "付款方式"
       pick: "挑"
       picture: "图片"

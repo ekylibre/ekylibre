@@ -206,8 +206,10 @@
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
-        <page to="backend/quick_affairs#new"/>
-        <page to="backend/quick_affairs#create"/>
+        <page to="backend/quick_purchases#new"/>
+        <page to="backend/quick_purchases#create"/>
+        <page to="backend/quick_sales#new"/>
+        <page to="backend/quick_sales#create"/>
         <page to="backend/bank_statements#letter"/>
         <page to="backend/bank_statements#unletter"/>
         <page to="backend/bank_statement_items#create"/>
@@ -1919,6 +1921,13 @@
       <item name="financial_year_exchange_exports">
         <page to="public/financial_year_exchange_exports#csv"/>
         <page to="public/financial_year_exchange_exports#show"/>
+      </item>
+      <item name="bank_reconciliation_gaps">
+        <page to="backend/bank_reconciliation_gaps#create"/>
+      </item>
+      <item name="quick_affairs">
+        <page to="backend/quick_affairs#create"/>
+        <page to="backend/quick_affairs#new"/>
       </item>
     </group>
   </untreated-actions>

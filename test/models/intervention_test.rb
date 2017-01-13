@@ -40,15 +40,15 @@
 #  procedure_name          :string           not null
 #  request_compliant       :boolean
 #  request_intervention_id :integer
-#  started_at              :datetime
+#  started_at              :datetime         not null
 #  state                   :string           not null
-#  stopped_at              :datetime
+#  stopped_at              :datetime         not null
 #  trouble_description     :text
 #  trouble_encountered     :boolean          default(FALSE), not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  whole_duration          :integer          default(0), not null
-#  working_duration        :integer          default(0), not null
+#  whole_duration          :integer          not null
+#  working_duration        :integer          not null
 #
 require 'test_helper'
 
@@ -84,7 +84,11 @@ class InterventionTest < ActiveSupport::TestCase
   end
 
   test 'creation and destruction' do
-    intervention = Intervention.create!(procedure_name: :sowing) # , actions: [:game_repellent, :fungicide]
+    intervention = Intervention.create!(
+      procedure_name: :sowing,
+      working_periods: fake_working_periods,
+      # , actions: [:game_repellent, :fungicide]
+    )
     Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
       intervention.add_parameter!(:driver, bob)
     end
@@ -103,35 +107,27 @@ class InterventionTest < ActiveSupport::TestCase
     intervention.destroy!
   end
 
-  test 'run!' do
-    intervention = Intervention.run!(:sowing) do |i|
-      Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
-        i.add!(:driver, bob)
-      end
-      i.add!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
-      i.add!(:sower, Equipment.of_expression('can sow').first)
-      i.add!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity_population: 5) # , quantity: 25.in_kilogram, quantity_handler: :net_mass)
-      cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
-      LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
-        i.add!(:zone) do |g|
-          g.add!(:land_parcel, land_parcel)
-          g.add!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
-        end
-      end
-    end
-  end
-
   test 'invalid cases' do
-    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing])
-    assert intervention.save, 'Intervention with invalid actions should be saved'
-    intervention = Intervention.new(procedure_name: :sowing, actions: [:loosening])
-    assert_not intervention.save, 'Intervention with invalid actions should not be saved'
-    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening])
-    assert_not intervention.save, 'Intervention with invalid actions should not be saved'
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing], working_periods: fake_working_periods)
+    assert intervention.save, 'Intervention with invalid actions should be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:loosening], working_periods: fake_working_periods)
+    refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening], working_periods: fake_working_periods)
+    refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
   end
 
   test 'destroy intervention update intervention_activities_db_view' do
     first_activity_intervention = Intervention::HABTM_Activities.first
     assert Intervention.destroy(first_activity_intervention.intervention_id)
+  end
+
+  def fake_working_periods
+    now = Time.zone.now
+    [
+      InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
+      InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),
+      InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
+      InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
+    ]
   end
 end
