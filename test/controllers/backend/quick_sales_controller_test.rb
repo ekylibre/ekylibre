@@ -26,18 +26,18 @@ module Backend
       warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
       @fuel_level = BankStatement.create!(currency: 'EUR', number: 'Fuel level check', started_on: Time.zone.now - 10.days, stopped_on: Time.zone.now, cash: warrig_tank)
       @tanks      = []
-      @tanks     << BankStatementItem.create!(
-                      name: 'Main tank',
-                      bank_statement: @fuel_level,
-                      transfered_on: Time.zone.now - 5.days,
-                      credit: 42
-                    )
-      @tanks     << BankStatementItem.create!(
-                      name: 'Backup tank',
-                      bank_statement: @fuel_level,
-                      transfered_on: Time.zone.now - 5.days,
-                      credit: 1337
-                    )
+      @tanks << BankStatementItem.create!(
+        name: 'Main tank',
+        bank_statement: @fuel_level,
+        transfered_on: Time.zone.now - 5.days,
+        credit: 42
+      )
+      @tanks << BankStatementItem.create!(
+        name: 'Backup tank',
+        bank_statement: @fuel_level,
+        transfered_on: Time.zone.now - 5.days,
+        credit: 1337
+      )
 
       @citadels   = Tax.create!(name: 'Citadel\'s tax', country: 'au', deduction_account: fuel_act, collect_account: citadel_act, nature: :normal_vat)
 
@@ -81,8 +81,7 @@ module Backend
                                       modes: {
                                         trade: :existing,
                                         payment: :existing
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.incoming_payments.first
 
@@ -91,8 +90,7 @@ module Backend
                                       modes: {
                                         trade: :new,
                                         payment: :new
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = SaleAffair.find(@response.redirect_url.split('/').last)
@@ -105,14 +103,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: true,
                                         cash:   true
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.incoming_payments.first
 
@@ -128,14 +125,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: true,
                                         cash:   true
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = SaleAffair.find(@response.redirect_url.split('/').last)
@@ -155,14 +151,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   true
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.incoming_payments.first
 
@@ -174,14 +169,13 @@ module Backend
       assert_empty payment_letters
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   true
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = SaleAffair.find(@response.redirect_url.split('/').last)
@@ -202,14 +196,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   true
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.incoming_payments.first
 
@@ -221,14 +214,13 @@ module Backend
       assert_empty payment_letters
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: true,
                                         cash:   false
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = SaleAffair.find(@response.redirect_url.split('/').last)
@@ -249,14 +241,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   false
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.incoming_payments.first
 
@@ -268,14 +259,13 @@ module Backend
       assert_empty payment_letters
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   false
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = SaleAffair.find(@response.redirect_url.split('/').last)

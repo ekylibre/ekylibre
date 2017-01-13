@@ -1367,7 +1367,7 @@ deu:
     rest: "Sich ausruhen"
     restore: "Wiederherstellen"
     result: "Ergebnis"
-    results:  #?
+    results: #?
       one: "1 Ergebnis" #?
     revenues: "Die Umsatzerlöse"
     revenues_by_product_nature: "Umsatz nach Produkttyp"
