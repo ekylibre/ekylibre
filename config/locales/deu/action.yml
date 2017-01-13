@@ -1918,9 +1918,9 @@ deu:
       move: "Bewegung" #?
       negociate: "verhandeln"
       new: "Neu"
-      # notify_accountant: "Notify accountant"
       # new_purchase: "New purchase"
       # new_sale: "New sale"
+      # notify_accountant: "Notify accountant"
       open: "Öffnen"
       order: "Auftrag"
       pay: "Bezahlen"

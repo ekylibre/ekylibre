@@ -2561,9 +2561,9 @@ fra:
       move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
-      notify_accountant: "Notifier le comptable"
       # new_purchase: "New purchase"
       # new_sale: "New sale"
+      notify_accountant: "Notifier le comptable"
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"

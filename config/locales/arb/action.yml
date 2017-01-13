@@ -2698,9 +2698,9 @@ arb:
       move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
-      # notify_accountant: "Notify accountant"
       # new_purchase: "New purchase"
       # new_sale: "New sale"
+      # notify_accountant: "Notify accountant"
       open: "فتح"
       order: "طلب"
       pay: "دفع"

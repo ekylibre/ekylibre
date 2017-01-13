@@ -1918,16 +1918,16 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="financial_year_exchange_exports">
-        <page to="public/financial_year_exchange_exports#csv"/>
-        <page to="public/financial_year_exchange_exports#show"/>
-      </item>
       <item name="bank_reconciliation_gaps">
         <page to="backend/bank_reconciliation_gaps#create"/>
       </item>
       <item name="quick_affairs">
         <page to="backend/quick_affairs#create"/>
         <page to="backend/quick_affairs#new"/>
+      </item>
+      <item name="financial_year_exchange_exports">
+        <page to="public/financial_year_exchange_exports#csv"/>
+        <page to="public/financial_year_exchange_exports#show"/>
       </item>
     </group>
   </untreated-actions>

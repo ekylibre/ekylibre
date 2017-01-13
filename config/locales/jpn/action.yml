@@ -1996,9 +1996,9 @@ jpn:
       move: "移動" #?
       # negociate: "Negociate"
       new: "新しい"
-      # notify_accountant: "Notify accountant"
       # new_purchase: "New purchase"
       # new_sale: "New sale"
+      # notify_accountant: "Notify accountant"
       open: "開いた"
       order: "注文"
       pay: "支払う"

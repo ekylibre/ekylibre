@@ -29,18 +29,18 @@ module Backend
       interceptor = Cash.create!(journal: journal, main_account: fuel_act, name: 'Interceptor\'s Tank')
       @fuel_level = BankStatement.create!(currency: 'EUR', number: 'Fuel level check', started_on: Time.zone.now - 10.days, stopped_on: Time.zone.now, cash: interceptor)
       @tanks      = []
-      @tanks     << BankStatementItem.create!(
-                      name: 'Main tank',
-                      bank_statement: @fuel_level,
-                      transfered_on: Time.zone.now - 5.days,
-                      debit: 42
-                    )
-      @tanks     << BankStatementItem.create!(
-                      name: 'Backup tank',
-                      bank_statement: @fuel_level,
-                      transfered_on: Time.zone.now - 5.days,
-                      debit: 1337
-                    )
+      @tanks << BankStatementItem.create!(
+        name: 'Main tank',
+        bank_statement: @fuel_level,
+        transfered_on: Time.zone.now - 5.days,
+        debit: 42
+      )
+      @tanks << BankStatementItem.create!(
+        name: 'Backup tank',
+        bank_statement: @fuel_level,
+        transfered_on: Time.zone.now - 5.days,
+        debit: 1337
+      )
 
       @citadels   = Tax.create!(name: 'Citadel\'s tax', country: 'au', deduction_account: fuel_act, collect_account: citadel_act, nature: :normal_vat)
 
@@ -79,8 +79,7 @@ module Backend
                                       modes: {
                                         trade: :existing,
                                         payment: :existing
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.outgoing_payments.first
 
@@ -89,8 +88,7 @@ module Backend
                                       modes: {
                                         trade: :new,
                                         payment: :new
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
@@ -103,14 +101,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: true,
                                         cash:   true
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.outgoing_payments.first
 
@@ -126,14 +123,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: true,
                                         cash:   true
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
@@ -153,14 +149,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   true
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.outgoing_payments.first
 
@@ -172,14 +167,13 @@ module Backend
       assert_empty payment_letters
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   true
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
@@ -200,14 +194,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   true
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.outgoing_payments.first
 
@@ -219,14 +212,13 @@ module Backend
       assert_empty payment_letters
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: true,
                                         cash:   false
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
@@ -247,14 +239,13 @@ module Backend
       assert_response :success
 
       post *complete_request(:create, modes: {
-                                        trade: :existing,
-                                        payment: :existing
-                                      },
+                               trade: :existing,
+                               payment: :existing
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   false
-                                      }
-                            )
+                                      })
       assert_response :redirect
       assert_equal @payment, @deal.affair.outgoing_payments.first
 
@@ -266,14 +257,13 @@ module Backend
       assert_empty payment_letters
 
       post *complete_request(:create, modes: {
-                                        trade: :new,
-                                        payment: :new
-                                      },
+                               trade: :new,
+                               payment: :new
+                             },
                                       matching: {
                                         amount: false,
                                         cash:   false
-                                      }
-                            )
+                                      })
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
@@ -309,30 +299,30 @@ module Backend
       @payment.reload
       @payment.update!(amount: amount, mode_id: mode.id)
       {
-          'mode-trade': modes[:trade],
-          'mode-payment': modes[:payment],
-          affair: {
-            trade_id: @deal.id,
-            third_id: @max.id,
-            payment_id: @payment.id
-          },
-          trade: {
-            invoiced_at: Time.zone.now,
-            nature_id: @nature.id,
-            items_attributes: [{
-              variant_id: @carrots,
-              quantity: 100,
-              amount: amount,
-              tax_id: @citadels.id,
-              reduction_percentage: 0,
-              unit_pretax_amount: amount / 100.0
-            }]
-          },
-          payment: {
-            mode_id: mode,
+        'mode-trade': modes[:trade],
+        'mode-payment': modes[:payment],
+        affair: {
+          trade_id: @deal.id,
+          third_id: @max.id,
+          payment_id: @payment.id
+        },
+        trade: {
+          invoiced_at: Time.zone.now,
+          nature_id: @nature.id,
+          items_attributes: [{
+            variant_id: @carrots,
+            quantity: 100,
             amount: amount,
-            bank_statement_item_ids: @tanks.map(&:id)
-          }
+            tax_id: @citadels.id,
+            reduction_percentage: 0,
+            unit_pretax_amount: amount / 100.0
+          }]
+        },
+        payment: {
+          mode_id: mode,
+          amount: amount,
+          bank_statement_item_ids: @tanks.map(&:id)
+        }
       }
     end
   end
