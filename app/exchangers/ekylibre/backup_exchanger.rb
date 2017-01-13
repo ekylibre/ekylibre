@@ -289,7 +289,7 @@ module Ekylibre
       data.import(:entity, :code, rename: { code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil, siren: :siret_number }, default_values: { nature: 'organization' }, converters: { siren: ->(e) { e.siren =~ /\A\d{9}\z/ ? e.siren + Luhn.control_digit(e.siren.to_s + '0001').to_s : e.siren } })
       Entity.where('title ILIKE ? OR title ILIKE ? OR title ILIKE ?', '%Madame%', '%Monsieur%', 'M%').update_all(nature: 'contact')
       w.check_point
-      data.import(:cash, :account_id, rename: { iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
+      data.import(:cash, :account_id, rename: { account_id: :main_account_id, iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
       w.check_point
       data.import(:bank_statement, :cash_id, :number, rename: { started_on: :started_at, stopped_on: :stopped_at })
       w.check_point

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -29,6 +29,8 @@
 #  integration_name :string
 #  lock_version     :integer          default(0), not null
 #  name             :string
+#  source_id        :integer
+#  source_type      :string
 #  state            :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -39,13 +41,16 @@ class Call < Ekylibre::Record::Base
   has_many :messages, class_name: 'CallMessage'
   has_many :requests, class_name: 'CallRequest'
   has_many :responses, class_name: 'CallResponse'
+  belongs_to :source, polymorphic: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :integration_name, :name, :state, length: { maximum: 500 }, allow_blank: true
+  validates :integration_name, :name, :source_type, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
   # Sync
-  def execute_now
+  def execute_now(source = nil)
+    self.source = source if source
+
     save!
 
     # Instantiate a ActionIntegration object with itself as parameter
@@ -112,7 +117,9 @@ class Call < Ekylibre::Record::Base
   end
 
   def state_is?(state)
-    @response.state.to_s.split('_').first == state.to_s
+    resp = @response.state.to_s.split('_')
+    state_array = state.to_s.split('_')
+    state_array.all? { |s| resp.include?(s) }
   end
 
   # Returns false for a nil/false code.

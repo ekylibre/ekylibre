@@ -60,9 +60,10 @@ ita:
     periods:
       day: "Giorno"
       month: "Mese"
+      today: "Oggi"
       week: "Settimana"
       year: "Anno"
-    prompts:  #?
+    prompts: #?
       day: "Giorno" #?
       hour: "Ora" #?
       minute: "Minuto" #?
@@ -72,7 +73,7 @@ ita:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  helpers:  #?
+  helpers: #?
     select: #?
       prompt: "Seleziona..." #?
     submit: #?
@@ -104,7 +105,7 @@ ita:
       precision: 2
       separator: ","
     human:
-      decimal_units:  #?
+      decimal_units: #?
         format: "%n %u" #?
         units: #?
           billion: "Miliardi" #?
@@ -118,7 +119,7 @@ ita:
         precision: 3
         significant: "true" #?
         strip_insignificant_zeros: "true" #?
-      storage_units:  #?
+      storage_units: #?
         format: "%n %u" #?
         units: #?
           byte: #?

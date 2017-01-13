@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@
 #  initiated_on       :date
 #  letter             :string
 #  lock_version       :integer          default(0), not null
+#  memo               :string
 #  name               :string           not null
 #  transaction_number :string
 #  transfered_on      :date             not null
@@ -43,7 +44,6 @@ class BankStatementItem < Ekylibre::Record::Base
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
   has_one :journal, through: :cash
-  has_one :account, through: :cash
 
   delegate :started_on, :stopped_on, to: :bank_statement
 
@@ -51,7 +51,7 @@ class BankStatementItem < Ekylibre::Record::Base
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_statement, :currency, presence: true
   validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :letter, :transaction_number, length: { maximum: 500 }, allow_blank: true
+  validates :letter, :memo, :transaction_number, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
@@ -91,6 +91,10 @@ class BankStatementItem < Ekylibre::Record::Base
 
   def cash_currency
     bank_statement && bank_statement.cash && bank_statement.cash.currency
+  end
+
+  def credit_balance
+    self.credit - self.debit
   end
 
   def balance=(new_balance)

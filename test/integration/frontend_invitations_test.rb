@@ -14,7 +14,8 @@ class FrontendInvitations < CapybaraIntegrationTest
     create_invitation
     accept_invitation_path = find_accept_invitation_path
 
-    visit(accept_invitation_path)
+    visit(accept_invitation_path + '&locale=eng')
+    shoot_screen 'invitations/list'
     fill_in 'Password', with: 'robert00'
     fill_in 'Confirmation of password', with: 'robert00'
     click_on('Set my password')

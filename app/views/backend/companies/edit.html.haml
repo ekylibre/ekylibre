@@ -3,7 +3,6 @@
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
   = field_set :company do
-    = f.input :nature, as: :hidden
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
     = f.input :siret_number
     = f.input :language
@@ -20,7 +19,8 @@
 
   - # NEVER SET currency and accounting_system HERE !!!
   = field_set :global_preferences do
-    = render 'preferences_form', list: [:country, :language]
+    = render 'preferences_form', list: [:country, :language, :currency]
+    = field "currency_conversion_rate".tl, { datatype: :decimal, value: 1, name: "currency_change_rate" }, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}
 
   = field_set :interface_preferences do
     = render 'preferences_form', list: [:use_global_search, :use_contextual_help]

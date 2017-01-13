@@ -20,6 +20,6 @@
 require 'test_helper'
 module Backend
   class EventsControllerTest < ActionController::TestCase
-    test_restfully_all_actions except: [:change_minutes]
+    test_restfully_all_actions except: [:change_minutes], autocomplete: { column: :place, q: 'par' }
   end
 end

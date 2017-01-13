@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -190,3 +190,133 @@ catalog_items_011:
   updated_at: 2016-07-01 20:48:38.739313000 Z
   updater_id: 1
   variant_id: 26
+catalog_items_012:
+  all_taxes_included: false
+  amount: 1.56
+  catalog_id: 6
+  created_at: 2016-11-20 22:08:58.286599000 Z
+  creator_id: 1
+  currency: EUR
+  id: 24
+  lock_version: 0
+  name: Lait de vache
+  updated_at: 2016-11-20 22:08:58.286599000 Z
+  updater_id: 1
+  variant_id: 18
+catalog_items_013:
+  all_taxes_included: false
+  amount: 1115.0
+  catalog_id: 6
+  created_at: 2016-11-20 22:12:15.445352000 Z
+  creator_id: 1
+  currency: EUR
+  id: 25
+  lock_version: 0
+  name: Ammonitre 33,5%  Big Bag
+  updated_at: 2016-11-20 22:12:15.445352000 Z
+  updater_id: 1
+  variant_id: 39
+catalog_items_014:
+  all_taxes_included: false
+  amount: 1115.0
+  catalog_id: 1
+  created_at: 2016-11-20 22:12:15.449450000 Z
+  creator_id: 1
+  currency: EUR
+  id: 26
+  lock_version: 0
+  name: Ammonitre 33,5%  Big Bag
+  updated_at: 2016-11-20 22:12:15.449450000 Z
+  updater_id: 1
+  variant_id: 39
+catalog_items_015:
+  all_taxes_included: false
+  amount: 99.6
+  catalog_id: 6
+  created_at: 2016-11-20 22:14:38.774969000 Z
+  creator_id: 1
+  currency: EUR
+  id: 27
+  lock_version: 0
+  name: Semence mixte
+  updated_at: 2016-11-20 22:14:38.774969000 Z
+  updater_id: 1
+  variant_id: 42
+catalog_items_016:
+  all_taxes_included: false
+  amount: 99.6
+  catalog_id: 5
+  created_at: 2016-11-20 22:14:38.779869000 Z
+  creator_id: 1
+  currency: EUR
+  id: 28
+  lock_version: 0
+  name: Semence mixte
+  updated_at: 2016-11-20 22:14:38.779869000 Z
+  updater_id: 1
+  variant_id: 42
+catalog_items_017:
+  all_taxes_included: false
+  amount: 250.0
+  catalog_id: 6
+  created_at: 2016-11-20 22:15:20.539493000 Z
+  creator_id: 1
+  currency: EUR
+  id: 29
+  lock_version: 0
+  name: Acide lactique ‒ 25kg
+  updated_at: 2016-11-20 22:15:20.539493000 Z
+  updater_id: 1
+  variant_id: 57
+catalog_items_018:
+  all_taxes_included: false
+  amount: 250.0
+  catalog_id: 5
+  created_at: 2016-11-20 22:15:20.544602000 Z
+  creator_id: 1
+  currency: EUR
+  id: 30
+  lock_version: 0
+  name: Acide lactique ‒ 25kg
+  updated_at: 2016-11-20 22:15:20.544602000 Z
+  updater_id: 1
+  variant_id: 57
+catalog_items_019:
+  all_taxes_included: false
+  amount: 121.21
+  catalog_id: 6
+  created_at: 2016-12-20 08:53:53.342743000 Z
+  creator_id: 1
+  currency: EUR
+  id: 31
+  lock_version: 0
+  name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  updated_at: 2016-12-20 08:53:53.342743000 Z
+  updater_id: 1
+  variant_id: 10
+catalog_items_020:
+  all_taxes_included: false
+  amount: 0.9
+  catalog_id: 6
+  created_at: 2016-12-20 18:16:56.969251000 Z
+  creator_id: 1
+  currency: EUR
+  id: 32
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl
+  updated_at: 2016-12-20 18:16:56.969251000 Z
+  updater_id: 1
+  variant_id: 63
+catalog_items_021:
+  all_taxes_included: false
+  amount: 0.9
+  catalog_id: 5
+  created_at: 2016-12-20 18:16:56.978348000 Z
+  creator_id: 1
+  currency: EUR
+  id: 33
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl
+  updated_at: 2016-12-20 18:16:56.978348000 Z
+  updater_id: 1
+  variant_id: 63

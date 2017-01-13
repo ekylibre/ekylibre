@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -62,6 +62,8 @@ class Preference < Ekylibre::Record::Base
   validates :nature, length: { allow_nil: true, maximum: 60 }
   validates :nature, inclusion: { in: nature.values }
   validates :name, uniqueness: { scope: [:user_id] }
+
+  self.lock_optimistically = false
 
   alias_attribute :accounting_system_value, :string_value
   alias_attribute :country_value, :string_value
@@ -168,6 +170,7 @@ class Preference < Ekylibre::Record::Base
     end
   end
 
+  prefer :entry_autocompletion, :boolean, true
   prefer :bookkeep_automatically, :boolean, true
   prefer :permanent_stock_inventory, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
@@ -189,6 +192,9 @@ class Preference < Ekylibre::Record::Base
 
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false
+
+  # DEPRECATED PREFERENCES
+  prefer :host, :string, 'erp.example.com'
 
   # Returns the name of the column used to store preference data
   def value_attribute

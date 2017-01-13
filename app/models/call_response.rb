@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -95,12 +95,12 @@ class CallResponse < CallMessage
   end
 
   def self.create_from_savon_httpi_response!(response, request)
-    r.new(
+    r = new(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
-      format: response.headers.split(';').first,
+      format: response.headers['content-type'].split(';').first,
       request: request
     )
     r.save!
@@ -112,7 +112,7 @@ class CallResponse < CallMessage
       status: response.code,
       headers: response.headers,
       body: 'Body too long to be saved.',
-      format: response.headers.split(';').first,
+      format: response.headers['content-type'].split(';').first,
       request: request
     )
   end

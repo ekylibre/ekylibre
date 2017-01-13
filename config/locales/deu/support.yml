@@ -60,9 +60,10 @@ deu:
     periods:
       day: "Tag"
       month: "Monat"
+      today: "Heute"
       week: "Woche"
       year: "Jahr"
-    prompts:  #?
+    prompts: #?
       day: "Tag" #?
       hour: "Stunden" #?
       minute: "Minute" #?
@@ -72,7 +73,7 @@ deu:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  errors:  #?
+  errors: #?
     format: "%{attribute} %{message}" #?
     messages: #?
       accepted: "muss akzeptiert werden" #?
@@ -108,7 +109,7 @@ deu:
       header: #?
         one: "Konnte %{model} nicht speichern: ein Fehler." #?
         other: "Konnte %{model} nicht speichern: %{count} Fehler." #?
-  helpers:  #?
+  helpers: #?
     select: #?
       prompt: "Bitte wählen" #?
     submit: #?
@@ -140,7 +141,7 @@ deu:
       precision: 2
       separator: ","
     human:
-      decimal_units:  #?
+      decimal_units: #?
         format: "%n %u" #?
         units: #?
           billion: #?
@@ -158,7 +159,7 @@ deu:
         precision: 3
         significant: "true" #?
         strip_insignificant_zeros: "true" #?
-      storage_units:  #?
+      storage_units: #?
         format: "%n %u" #?
         units: #?
           byte: #?

@@ -28,7 +28,6 @@ module Backend
       t.column :container, url: true
     end
 
-    def index
-    end
+    def index; end
   end
 end

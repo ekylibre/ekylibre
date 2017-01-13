@@ -3,7 +3,8 @@
 = field_set do
   = f.referenced_association :mode, as: :hidden
   = f.referenced_association :responsible # , source: :employees
-  -# = f.input :created_at
+  = f.referenced_association :cash, scope: :with_deposit
+  = f.input :created_at
   = f.input :description
   = f.custom_fields
 

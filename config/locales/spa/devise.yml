@@ -45,6 +45,8 @@ spa:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "Firme aquí."
           subject: "Su cuenta ha sido aceptado!"
+        signed_up:
+          subject: "Nuevo registro"
       reset_password_instructions:
         subject: "Restablecer las instrucciones de contraseña"
       unlock_instructions:

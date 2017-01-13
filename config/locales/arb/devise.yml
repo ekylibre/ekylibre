@@ -45,6 +45,8 @@ arb:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "تسجيل الدخول هنا."
           subject: "وقد تمت الموافقة على حسابك!"
+        signed_up:
+          subject: "تسجيل جديد"
       reset_password_instructions:
         subject: "إعادة تعيين كلمة المرور تعليمات"
       unlock_instructions:

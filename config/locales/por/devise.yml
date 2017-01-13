@@ -45,6 +45,8 @@ por:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "Entre aqui."
           subject: "A sua conta foi aprovado!"
+        signed_up:
+          subject: "Novo registo"
       reset_password_instructions:
         subject: "Instruções para resetar sua senha"
       unlock_instructions:

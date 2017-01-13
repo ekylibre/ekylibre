@@ -36,10 +36,6 @@ deu:
       mode:
         harvested: "Ernte Saattermin"
         sowed: "Vorläufige Saattermin"
-    affair:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
     analysis:
       retrieval_status:
         controller_error: "Controller-Fehler"
@@ -135,6 +131,16 @@ deu:
         informative: "Informativ"
         refused: "Verweigert"
         waiting: "Warten"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Monatlich"
+        none: "Keiner"
+        quaterly: "Vierteljährlich"
+        yearly: "Jährlich"
+      tax_declaration_mode:
+        debit: "Soll"
+        none: "Keiner"
+        payment: "Zahlung"
     fixed_asset:
       depreciation_method:
         graduated: "abgestufte" #?
@@ -144,9 +150,6 @@ deu:
       direction:
         loss: "Verlust"
         profit: "Profitieren"
-      entity_role:
-        client: "Klient"
-        supplier: "Lieferant"
     georeading:
       nature:
         line: "Linie" #?
@@ -168,7 +171,7 @@ deu:
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
-      status:  #?
+      status: #?
         errored: "Fehlerhafte" #?
         failed: "Gescheitert" #?
         passed: "Bestanden" #?
@@ -269,12 +272,16 @@ deu:
         incoming: "Eingehend"
         internal: "intern" #?
         outgoing: "abgehend"
-      state:  #?
+      state: #?
         draft: "Entwurf" #?
         given: "Gegeben" #?
         in_preparation: "In Vorbereitung" #?
         ordered: "bestellt" #?
         prepared: "Bereit" #?
+    plant_counting:
+      nature:
+        germination: "Bei der Keimung"
+        sowing: "Bei Aussaat"
     preference:
       nature:
         accounting_system: "Abrechnungssystem"
@@ -390,18 +397,18 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    purchase:
+      tax_payability:
+        at_invoicing: "Bei Fakturierung"
+        at_paying: "Zu zahlen"
     purchase_nature:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
-    sale_opportunity:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
-    sale_ticket:
-      third_role:
-        client: "Klient"
-        supplier: "Lieferant"
+    sale_item:
+      compute_from:
+        pretax_amount: "Vor Steuern in Höhe"
+        unit_pretax_amount: "Einheit vor Steuern Menge"
     sensor:
       retrieval_mode:
         # integration: "Integration"
@@ -442,7 +449,8 @@ deu:
         sales: "Der Umsatz"
         sales_invoices: "Verkaufsrechnungen"
         subscriptions: "Abonnements"
-    subscription_nature:  #?
+        tax_declarations: "Steuererklärungen"
+    subscription_nature: #?
       entity_link_direction: #?
         all: "bidirektionale" #?
         direct: "Direkt" #?
@@ -450,6 +458,17 @@ deu:
       nature: #?
         period: "Abonnement von Datum" #?
         quantity: "Abonnement von Nummer" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Beglaubigung"
+        get_inventory: "Erhalten Sie Inventar"
+        get_urls: "Erhalten Sie Urls"
+      state:
+        aborted: "Abgebrochen"
+        # errored: "Errored"
+        finished: "Fertig"
+        in_progress: "In Bearbeitung"
+        undone: "Unerledigt"
     task:
       nature:
         document: "Schreiben" #?
@@ -464,7 +483,7 @@ deu:
         doing: "Tun"
         done: "Erledigt"
         todo: "Tun"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Menge" #?
         percentage: "Prozentsatz" #?

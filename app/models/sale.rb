@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,50 +22,50 @@
 #
 # == Table: sales
 #
-#  accounted_at                     :datetime
-#  address_id                       :integer
-#  affair_id                        :integer
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  annotation                       :text
-#  client_id                        :integer          not null
-#  codes                            :jsonb
-#  conclusion                       :text
-#  confirmed_at                     :datetime
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  credit                           :boolean          default(FALSE), not null
-#  credited_sale_id                 :integer
-#  currency                         :string           not null
-#  custom_fields                    :jsonb
-#  delivery_address_id              :integer
-#  description                      :text
-#  downpayment_amount               :decimal(19, 4)   default(0.0), not null
-#  expiration_delay                 :string
-#  expired_at                       :datetime
-#  function_title                   :string
-#  has_downpayment                  :boolean          default(FALSE), not null
-#  id                               :integer          not null, primary key
-#  initial_number                   :string
-#  introduction                     :text
-#  invoice_address_id               :integer
-#  invoiced_at                      :datetime
-#  journal_entry_id                 :integer
-#  letter_format                    :boolean          default(TRUE), not null
-#  lock_version                     :integer          default(0), not null
-#  nature_id                        :integer
-#  number                           :string           not null
-#  payment_at                       :datetime
-#  payment_delay                    :string           not null
-#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_entry_id :integer
-#  reference_number                 :string
-#  responsible_id                   :integer
-#  state                            :string           not null
-#  subject                          :string
-#  transporter_id                   :integer
-#  undelivered_invoice_entry_id     :integer
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  accounted_at                             :datetime
+#  address_id                               :integer
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  annotation                               :text
+#  client_id                                :integer          not null
+#  codes                                    :jsonb
+#  conclusion                               :text
+#  confirmed_at                             :datetime
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  credit                                   :boolean          default(FALSE), not null
+#  credited_sale_id                         :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  downpayment_amount                       :decimal(19, 4)   default(0.0), not null
+#  expiration_delay                         :string
+#  expired_at                               :datetime
+#  function_title                           :string
+#  has_downpayment                          :boolean          default(FALSE), not null
+#  id                                       :integer          not null, primary key
+#  initial_number                           :string
+#  introduction                             :text
+#  invoice_address_id                       :integer
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  letter_format                            :boolean          default(TRUE), not null
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string           not null
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string           not null
+#  subject                                  :string
+#  transporter_id                           :integer
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 
 class Sale < Ekylibre::Record::Base
@@ -80,8 +80,8 @@ class Sale < Ekylibre::Record::Base
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :invoice_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
-  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
-  belongs_to :quantity_gap_on_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :nature, class_name: 'SaleNature'
   belongs_to :credited_sale, class_name: 'Sale'
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
@@ -120,6 +120,8 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
+  scope :with_nature, ->(id) { where(nature_id: id) }
+
   scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
@@ -155,8 +157,8 @@ class Sale < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    self.state ||= :draft
-    self.currency = nature.currency if nature
+    self.state = :draft
+    self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end
 
@@ -174,7 +176,9 @@ class Sale < Ekylibre::Record::Base
       self.expired_at ||= Delay.new(self.expiration_delay).compute(self.created_at)
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if has_downpayment.nil?
-      self.downpayment_amount ||= (amount * self.nature.downpayment_percentage * 0.01) if amount >= self.nature.downpayment_minimum
+      if amount >= self.nature.downpayment_minimum
+        self.downpayment_amount ||= (amount * self.nature.downpayment_percentage * 0.01)
+      end
       self.currency ||= self.nature.currency
     end
     true
@@ -202,6 +206,7 @@ class Sale < Ekylibre::Record::Base
 
   after_create do
     client.add_event(:sale_creation, updater.person) if updater && updater.person
+    true
   end
 
   protect on: :destroy do
@@ -210,58 +215,72 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
-      unless amount.zero?
-        entry.add_debit(label, client.account(:client).id, amount)
-      end
+      entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
-        unless item.pretax_amount.zero?
-          entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team)
-        end
-        unless item.taxes_amount.zero?
-          entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount)
-        end
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
+        tax = item.tax
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
       end
     end
-    # FIXME: We can't select a journal with pure random
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
-    # FIXME: We can't select a journal with pure random
-    ui_journal = Journal.create_with(name: :undelivered_invoices.tl).find_or_create_by!(nature: 'various', code: 'FNOP')
-    # 1 / for undelivered invoice
+
+    # For undelivered invoice
     # exchange undelivered invoice from parcel
-    parcels.each do |pi|
-      # 1 / for undelivered invoice
-      next unless pi.undelivered_invoice_entry
-      b.journal_entry(ui_journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
-        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
-        undelivered_items = pi.undelivered_invoice_entry.items
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    list = []
+    if with_accounting && invoice?
+      parcels.each do |parcel|
+        next unless parcel.undelivered_invoice_journal_entry
+        label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
+        undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
+          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product]
         end
       end
     end
-    # 2 / for gap between parcel item quantity and sale item quantity
+    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, list: list)
+
+    # For gap between parcel item quantity and sale item quantity
     # if more quantity on sale than parcel then i have value in C of stock account
-    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
-    b.journal_entry(stock_journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
+    list = []
+    if with_accounting && invoice? && items.any?
+      label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
       items.each do |item|
-        next unless item.variant.storable?
-        parcel_items_qty = item.parcel_items.map(&:population).compact.sum
-        gap = item.quantity - parcel_items_qty
+        next unless item.variant && item.variant.storable?
+        parcel_items_quantity = item.parcel_items.map(&:population).compact.sum
+        gap = item.quantity - parcel_items_quantity
         next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
-        qty = item.parcel_items.first.unit_pretax_stock_amount
-        gap_value = gap * qty
+        quantity = item.parcel_items.first.unit_pretax_stock_amount
+        gap_value = gap * quantity
         next if gap_value.zero?
-        entry.add_credit(gap_label, item.variant.stock_account_id, gap_value)
-        entry.add_debit(gap_label, item.variant.stock_movement_account_id, gap_value)
+        list << [:add_credit, label, item.variant.stock_account_id, gap_value, resource: item, as: :stock]
+        list << [:add_debit, label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement]
       end
     end
+    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
   end
 
   def invoiced_on
     dealt_at.to_date
+  end
+
+  def self.third_attribute
+    :client
+  end
+
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
+  def default_currency
+    currency || nature.currency
+  end
+
+  def third
+    send(third_attribute)
   end
 
   # Gives the date to use for affair bookkeeping
@@ -296,6 +315,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   delegate :number, to: :client, prefix: true
+  delegate :third_attribute, to: :class
 
   def nature=(value)
     super(value)
@@ -396,7 +416,7 @@ class Sale < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    self.class.state_machine.state(state.to_sym).human_name
   end
 
   # Returns true if there is some products to deliver
@@ -408,7 +428,7 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc("label.#{credit? && invoice? ? :credit : self.state}", number: number)
+    tc("label.#{credit? && invoice? ? :credit : state}", number: number)
   end
   alias label name
 
@@ -472,7 +492,8 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
+    attrs = [:affair, :client, :address, :responsible, :nature,
+             :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -480,19 +501,24 @@ class Sale < Ekylibre::Record::Base
     attrs[:credit] = true
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)
+    x = []
     items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].each_with_object({}) do |attribute, hash|
+      attrs = [:account, :currency, :variant, :reduction_percentage, :tax,
+               :compute_from, :unit_pretax_amount, :unit_amount].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
+      [:pretax_amount, :amount].each do |v|
+        attrs[v] = -1 * item.send(v)
+      end
       attrs[:credited_quantity] = item.creditable_quantity
+      attrs[:quantity] = -1 * item.creditable_quantity
       attrs[:credited_item] = item
       if attrs[:credited_quantity] > 0
         sale_credit_item = sale_credit.items.build(attrs)
         sale_credit_item.valid?
       end
     end
-    # sale_credit.valid?
     sale_credit
   end
 

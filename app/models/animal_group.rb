@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -47,6 +47,7 @@
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
+#  member_variant_id     :integer
 #  name                  :string           not null
 #  nature_id             :integer          not null
 #  number                :string           not null
@@ -95,12 +96,6 @@ class AnimalGroup < ProductGroup
 
   def places(viewed_at = nil)
     animals = members_at(viewed_at || Time.zone.now)
-    # containers = []
-    # byebug
-    # animals.each do |animal|
-    #   containers << animal.container
-    # end
-    # return containers.uniq
     animals.collect(&:container).uniq.compact
   end
 

@@ -137,6 +137,15 @@ i.icon {
 
 }
 
+.numbering-root{
+  counter-reset: numbers;
+}
+
+.numbered:before {
+  content: counter(numbers);
+  counter-increment: numbers;
+}
+
 
 
 li.dropdown {
@@ -180,6 +189,16 @@ ul.dropdown-menu {
   }
   .modal & {
     padding: $lh-large;
+  }
+}
+
+.inline-message {
+  padding: $default-gap;
+  line-height: $lh-ratio * 1em;
+  &.warning {
+    &, * {
+      color: $caution-color;
+    }
   }
 }
 
@@ -554,7 +573,10 @@ html.exception {
 
 #core {
   clear: both;
-  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  @include calc(height, "100vh - #{$header-height + $topbar-height}");
+  .toolbar + & {
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  }
 }
 
 #about-us {
@@ -1559,6 +1581,15 @@ html.backend {
     background: #EFE;
     font-style: italic;
   }
+  .item-footer {
+    display: block;
+    padding: $default-gap;
+    font-style: italic;
+    &:hover {
+      background: rgba($base-color, 0.2);
+      cursor: pointer;
+    }
+  }
 }
 
 .stepper {
@@ -1695,58 +1726,74 @@ a[data-remove-closest], a[data-remove] {
 
 
 .affair {
-  overflow: auto;
   .deals {
-    // @include padding-left(4em);
-    width: 100%;
-    border-collapse: collapse;
-    border: none;
-    padding: 0;
-    margin: 0;
-    tr {
-      list-style-type: decimal;
-      &, & * {
-        font-size: $fs-normal;
-        line-height: $lh-normal;
-        vertical-align: middle;
-      }
-      .dealt-on { width: 16ex; }
-      .amount {
-        @include text-align(right);
-        &.credit {
-          &, & * { color: $invalid-color }
-        }
-        &.debit {
-          &, & * { color: green }
-        }
+    overflow: auto;
+    & > table {
+      // @include padding-left(4em);
+      width: 100%;
+      border-collapse: collapse;
+      border: none;
+      padding: 0;
+      margin: 0;
+      tr {
+        list-style-type: decimal;
         &, & * {
-          font-weight: bold;
+          font-size: $fs-normal;
+          line-height: $lh-normal;
+          vertical-align: middle;
         }
-      }
-      .act {
-        text-align: center;
-        width: 3ex;
-        .remove {
-          font-size: 0;
-          i {
-            @include is-icon;
-            @include use-icon(clear);
+        .dealt-on { width: 16ex; }
+        .act {
+          text-align: center;
+          width: 3ex;
+          .remove, .unlink {
+            font-size: 0;
+            i {
+              @include is-icon;
+              @include use-icon(clear);
+            }
+          }
+        }
+        td, th {
+          &.total {
+            @include text-align(right);
+          }
+          &.sum {
+            border-top: 1px solid #777;
           }
         }
       }
-      td, th {
-        &.total {
-          @include text-align(right);
-        }
-        &.sum {
-          border-top: 1px solid #777;
-        }
-      }
+    }
+  }
+  .amount {
+    @include text-align(right);
+    &.credit {
+      &, & * { color: $invalid-color }
+    }
+    &.debit {
+      &, & * { color: green }
+    }
+    &, & * {
+      font-weight: bold;
+    }
+  }
+}
 
+.payment {
+  td, th {
+    &.total {
+      @include text-align(right);
+    }
+    &.sum {
+      border-top: 1px solid #777;
     }
   }
 
+  .error {
+    color: $invalid-color;
+  }
 }
+
 
 #cell-date {
   display: block;
@@ -2320,10 +2367,14 @@ svg.map {
 
 #items-form {
   #total {
-    a {
+    .options {
       @include float(left);
     }
   }
+}
+
+.standalone-option {
+  margin: 0 $default-gap * 2;
 }
 
 .document-archives {
@@ -2527,8 +2578,25 @@ a[data-annotate] {
       vertical-align: middle !important;
     }
   }
+
+  ul.dropdown-menu.interval-menu {
+    @include dropdown-menu(bottom, end);
+  }
+
+  .btn-with-intervals {
+    height: 100%;
+  }
 }
 
+.period-selector {
+  display: inline-block;
+
+  .today-period-btn {
+    margin-right: round($default-gap * 1.4) !important;
+    height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
+    line-height: $lh-large;
+  }
+}
 
 
 .cobbles {

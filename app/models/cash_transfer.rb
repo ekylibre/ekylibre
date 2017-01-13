@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -90,13 +90,13 @@ class CashTransfer < Ekylibre::Record::Base
   bookkeep do |b|
     transfer_account = Account.find_in_nomenclature(:internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
-    b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, column: :emission_journal_entry_id) do |entry|
-      entry.add_debit(label, transfer_account.id, emission_amount)
-      entry.add_credit(label, emission_cash.account_id, emission_amount)
+    b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, as: :emission) do |entry|
+      entry.add_debit(label, transfer_account.id, emission_amount, as: :transfer)
+      entry.add_credit(label, emission_cash.account_id, emission_amount, as: :emitter)
     end
-    b.journal_entry(reception_cash.journal, printed_on: self.transfered_at.to_date, column: :reception_journal_entry_id) do |entry|
-      entry.add_debit(label, reception_cash.account_id, reception_amount)
-      entry.add_credit(label, transfer_account.id, reception_amount)
+    b.journal_entry(reception_cash.journal, printed_on: self.transfered_at.to_date, as: :reception) do |entry|
+      entry.add_debit(label, reception_cash.account_id, reception_amount, as: :receiver)
+      entry.add_credit(label, transfer_account.id, reception_amount, as: :transfer)
     end
   end
 end

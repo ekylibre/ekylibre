@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,18 +40,19 @@
 #  procedure_name          :string           not null
 #  request_compliant       :boolean
 #  request_intervention_id :integer
-#  started_at              :datetime
+#  started_at              :datetime         not null
 #  state                   :string           not null
-#  stopped_at              :datetime
+#  stopped_at              :datetime         not null
 #  trouble_description     :text
 #  trouble_encountered     :boolean          default(FALSE), not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  whole_duration          :integer          default(0), not null
-#  working_duration        :integer          default(0), not null
+#  whole_duration          :integer          not null
+#  working_duration        :integer          not null
 #
 
 class Intervention < Ekylibre::Record::Base
+  include Ekylibre::Ednotif if defined? Ekylibre::Ednotif
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
@@ -87,12 +88,13 @@ class Intervention < Ekylibre::Record::Base
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
   validates :request_compliant, inclusion: { in: [true, false] }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
@@ -161,6 +163,10 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
+    unless params[:cultivable_zone_id].blank?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
+    end
+
     unless params[:period_interval].blank? && params[:period].blank?
 
       period_interval = params[:period_interval]
@@ -189,7 +195,7 @@ class Intervention < Ekylibre::Record::Base
     unless params[:nature].blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
-        search_params << "#{Intervention.table_name}.request_intervention_id IS NULL"
+        search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND #{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
       end
     end
 
@@ -218,13 +224,25 @@ class Intervention < Ekylibre::Record::Base
   scope :done, -> {}
 
   before_validation do
+    if working_periods.any? && !working_periods.detect { |p| p.started_at.blank? || p.stopped_at.blank? }
+      self.started_at = working_periods.map(&:started_at).min
+      self.stopped_at = working_periods.map(&:stopped_at).max
+      self.working_duration = working_periods.map { |p| p.stopped_at - p.started_at }.sum.to_i
+      self.whole_duration = (stopped_at - started_at).to_i
+    end
     if started_at && stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
     self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
-      self.actions = procedure.actions.map(&:name) if actions && actions.empty?
+      if actions && actions.empty?
+        self.actions = if procedure.mandatory_actions.any?
+                         procedure.mandatory_actions.map(&:name)
+                       else
+                         procedure.optional_actions.map(&:name)
+                       end
+      end
     end
     true
   end
@@ -258,8 +276,33 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
+    targets.find_each do |target|
+      if target.new_container_id
+        ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+
+      if target.new_group_id
+        ProductMembership.find_or_create_by(member: target.product, group: Product.find(target.new_group_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+
+      if target.new_variant_id
+        ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+    end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
+  end
+
+  ACTIONS = {
+    parturition: :create_new_birth,
+    animal_artificial_insemination: :create_insemination
+  }.freeze
+
+  after_create do
+    actions.each do |action|
+      next unless ACTIONS.key? action
+      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
+    end
   end
 
   # Prevents from deleting an intervention that was executed
@@ -267,33 +310,36 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
-  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
-  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
-  #       Mode Intervention      |     Debit                      |            Credit            |
-  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  # This method permits to add stock journal entries corresponding to the
+  # interventions which consume or produce products.
+  # It depends on the preferences which permit to activate the "permanent stock
+  # inventory" and "automatic bookkeeping".
+  #
+  # | Intervention mode      | Debit                      | Credit                    |
+  # | outputs                | stock (3X)                 | stock_movement (603X/71X) |
+  # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory] && nature == :record
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
-      # inputs
-      if inputs.any?
-        for input in inputs
-          label = tc(:bookkeep, resource: name, name: input.product.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
-            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount.round(2)) unless input.stock_amount.zero?
-          end
-        end
+    stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
+
+    list = []
+    if Preference[:permanent_stock_inventory] && record?
+      write_parameter_entry_items = lambda do |parameter, input|
+        variant      = parameter.variant
+        stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
+        next unless parameter.product_movement && stock_amount.nonzero?
+        label = tc(:bookkeep, resource: name, name: parameter.product.name)
+        debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
+        credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
+        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
+        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
       end
-      # outputs
-      if outputs.any?
-        for output in outputs
-          label = tc(:bookkeep, resource: name, name: output.variant.name)
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
-            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount.round(2)) unless output.stock_amount.zero?
-          end
-         end
+      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
+      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
+    end
+
+    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
+      list.each do |item|
+        entry.send(*item)
       end
     end
   end
@@ -406,6 +452,10 @@ class Intervention < Ekylibre::Record::Base
 
   def human_working_duration(unit = :hour)
     working_duration.in(:second).convert(unit).round(2).l
+  end
+
+  def working_duration_of_nature(nature = :intervention)
+    InterventionWorkingPeriod.of_intervention_participations(InterventionParticipation.of_intervention(self)).of_nature(nature).sum(:duration)
   end
 
   def completely_filled?
@@ -556,7 +606,9 @@ class Intervention < Ekylibre::Record::Base
 
   # Run the intervention ie. the state is marked as done
   # Returns intervention
+  # DEPRECATED Will be removed in 3.0
   def run!
+    ActiveSupport::Deprecation.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
     raise 'Cannot run intervention without procedure' unless runnable?
     update_attributes(state: :done)
     self

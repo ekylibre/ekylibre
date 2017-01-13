@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -84,8 +84,8 @@ class Loan < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
-      entry.add_debit(label, cash.account_id, amount)
-      entry.add_credit(label, Account.find_or_import_from_nomenclature(:loans).id, amount)
+      entry.add_debit(label, cash.account_id, amount, as: :bank)
+      entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, amount, as: :loan)
     end
   end
 

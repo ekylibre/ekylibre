@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add indicators for plant analysis">
+  <item-creation item="indicators#germination_rate" datatype="measure" unit="percent"/>
+  <item-creation item="indicators#species_purity" datatype="measure" unit="percent"/>
+  <item-change item="analysis_natures#plant_analysis" items="ready_to_harvest, fresh_mass, healthy, plant_growth_level, plant_life_state, plant_reproduction_state, plants_interval, plants_count, germination_rate, species_purity"/>
+</migration>

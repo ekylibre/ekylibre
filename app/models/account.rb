@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,13 +46,15 @@ class Account < Ekylibre::Record::Base
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
   has_many :balances, class_name: 'AccountBalance', dependent: :destroy
-  has_many :cashes, dependent: :restrict_with_exception
+  has_many :cashes, dependent: :restrict_with_exception, foreign_key: :main_account_id
+  has_many :suspense_cashes, dependent: :restrict_with_exception, foreign_key: :suspense_account_id, class_name: 'Cash'
   has_many :clients,             class_name: 'Entity', foreign_key: :client_account_id
   has_many :collected_taxes,     class_name: 'Tax', foreign_key: :collect_account_id
   has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode',
                                                  foreign_key: :commission_account_id
   has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode',
                                                  foreign_key: :depositables_account_id
+  has_many :journal_entries, through: :journal_entry_items, source: :entry
   has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :collected_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
@@ -128,6 +130,14 @@ class Account < Ekylibre::Record::Base
               :long_cycle_vegetals_inventory_variations, :short_cycle_vegetals_inventory_variations,
               :products_inventory_variations,
               :short_cycle_animals_inventory_variations, :long_cycle_animals_inventory_variations)
+  }
+
+  scope :collected_vat, -> {
+    of_usages(:collected_vat, :enterprise_collected_vat)
+  }
+
+  scope :deductible_vat, -> {
+    of_usages(:deductible_vat, :enterprise_deductible_vat)
   }
 
   # This method:allows to create the parent accounts if it is necessary.
@@ -382,10 +392,8 @@ class Account < Ekylibre::Record::Base
 
   def new_letter
     letter = last_letter
-    letter = letter.blank? ? 'AAA' : letter.succ
+    letter = letter.blank? ? 'A' : letter.succ
     update_column(:last_letter, letter)
-    # item = self.journal_entry_items.where("LENGTH(TRIM(letter)) > 0").order("letter DESC").first
-    # return (item ? item.letter.succ : "AAA")
     letter
   end
 
@@ -401,7 +409,8 @@ class Account < Ekylibre::Record::Base
   def mark(item_ids, letter = nil)
     conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)', item_ids]
     items = journal_entry_items.where(conditions)
-    return nil unless item_ids.size > 1 && items.count == item_ids.size && items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
+    return nil unless item_ids.size > 1 && items.count == item_ids.size &&
+                      items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
     letter ||= new_letter
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter

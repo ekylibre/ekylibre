@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +34,43 @@
 #  plant_density_abacus_item_id :integer          not null
 #  plant_id                     :integer          not null
 #  read_at                      :datetime
+#  rows_count_value             :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
+#  working_width_value          :decimal(19, 4)
 #
---- {}
+---
+plant_countings_001:
+  average_value: 14.3333
+  comment: dsfgdg
+  created_at: 2016-12-20 18:26:27.965110000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  nature: sowing
+  number: PC000000000001
+  plant_density_abacus_id: 1
+  plant_density_abacus_item_id: 1
+  plant_id: 181
+  read_at: 2016-04-13 17:25:00.000000000 Z
+  rows_count_value: 3
+  updated_at: 2016-12-20 18:26:27.965110000 Z
+  updater_id: 1
+  working_width_value: 1.0
+plant_countings_002:
+  average_value: 8.6667
+  comment: ''
+  created_at: 2016-12-20 18:27:12.404611000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  nature: germination
+  number: PC000000000002
+  plant_density_abacus_id: 1
+  plant_density_abacus_item_id: 2
+  plant_id: 181
+  read_at: 2016-05-18 17:26:00.000000000 Z
+  rows_count_value: 3
+  updated_at: 2016-12-20 18:27:12.404611000 Z
+  updater_id: 1
+  working_width_value: 1.0

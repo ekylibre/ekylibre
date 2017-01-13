@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,20 +22,22 @@
 #
 # == Table: financial_years
 #
-#  closed                :boolean          default(FALSE), not null
-#  code                  :string           not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  currency              :string           not null
-#  currency_precision    :integer
-#  custom_fields         :jsonb
-#  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer
-#  lock_version          :integer          default(0), not null
-#  started_on            :date             not null
-#  stopped_on            :date             not null
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  closed                    :boolean          default(FALSE), not null
+#  code                      :string           not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  currency                  :string           not null
+#  currency_precision        :integer
+#  custom_fields             :jsonb
+#  id                        :integer          not null, primary key
+#  last_journal_entry_id     :integer
+#  lock_version              :integer          default(0), not null
+#  started_on                :date             not null
+#  stopped_on                :date             not null
+#  tax_declaration_frequency :string
+#  tax_declaration_mode      :string           not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 require 'test_helper'
@@ -53,6 +55,10 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert_not_nil first_year.next.previous
     assert_equal first_year, first_year.next.previous
 
-    assert_not_nil FinancialYear.at(Time.now + 49.years)
+    last_year = FinancialYear.order(stopped_on: :desc).first
+    # Test that we can add a new financial year
+    FinancialYear.create!(started_on: last_year.stopped_on + 1, stopped_on: last_year.stopped_on >> 15)
+
+    assert_not_nil FinancialYear.at(Time.zone.now + 49.years)
   end
 end

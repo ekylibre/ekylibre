@@ -587,6 +587,7 @@ Capybara.javascript_driver = Capybara.default_driver
 # Capybara.server_port = 3333
 
 Capybara::Webkit.configure do |config|
+  config.allow_url 'secure.gravatar.com'
   config.allow_url 'a.tile.openstreetmap.fr'
   config.allow_url 'b.tile.openstreetmap.fr'
   config.allow_url 'c.tile.openstreetmap.fr'
@@ -615,7 +616,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     I18n.locale = ENV['LOCALE'] || I18n.default_locale
     user = users(:users_001)
     user.language = I18n.locale
-    visit("/authentication/sign_in?locale=#{I18n.locale}")
+    visit("/sign-in?locale=#{I18n.locale}")
     resize_window(1366, 768)
     # shoot_screen 'authentication/sign_in'
     login_as(user, scope: :user) # , run_callbacks: false
@@ -641,6 +642,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     file = Rails.root.join('tmp', 'screenshots', "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     wait_for_ajax
+    page.save_screenshot(file)
     save_page file.to_s.gsub(/\.png\z/, '.html')
     # , full: true
   end

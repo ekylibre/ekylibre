@@ -5,6 +5,22 @@ module Ekylibre
         [:create, :update, :destroy]
       end
 
+      class EntryRecorder
+        attr_reader :list
+
+        def initialize
+          @list = []
+        end
+
+        def add_debit(*args)
+          @list << [:add_debit, *args]
+        end
+
+        def add_credit(*args)
+          @list << [:add_credit, *args]
+        end
+      end
+
       class Base
         attr_reader :resource, :action, :draft
 
@@ -23,12 +39,35 @@ module Ekylibre
           @draft = draft
         end
 
-        def journal_entry(journal, options = {}, &_block)
-          column = options.delete(:column) || :journal_entry_id
-          condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
+        def journal_entry(journal, options = {}, &block)
+          prism = options.delete(:as)
+          column = options.delete(:column)
+          if prism.blank?
+            prism ||= resource.class.name.underscore
+            column ||= :journal_entry_id
+          else
+            column ||= "#{prism}_journal_entry_id".to_sym
+          end
+          if (options.keys & [:if, :unless, :list]).size > 1
+            raise ArgumentError, 'Options :if, :unless and :list are incompatible.'
+          end
+          list = nil
+          if options.key?(:list)
+            list = options.delete(:list)
+            if block_given?
+              raise ArgumentError, 'No block acceptable with :list option'
+            end
+            unless list.is_a?(Array) && !list.detect { |i| !i.is_a?(Array) }
+              raise ArgumentError, ':list option must be an Array of Array. Got: ' + list.inspect
+            end
+            condition = list.any?
+          else
+            condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
+          end
 
           attributes = options
           attributes[:resource] ||= @resource
+          attributes[:resource_prism] ||= prism
           # attributes[:state]      ||= @state
           attributes[:printed_on] ||= @resource.created_at.to_date if @resource.respond_to? :created_at
           unless attributes[:printed_on].is_a?(Date)
@@ -42,28 +81,50 @@ module Ekylibre
           end
 
           Ekylibre::Record::Base.transaction do
-            if journal_entry = JournalEntry.find_by(id: @resource.send(column))
-              # Cancel the existing journal_entry
-              if journal_entry.draft? && condition && (attributes[:journal_id] == journal_entry.journal_id)
-                journal_entry.items.destroy_all
-                journal_entry.reload
-                journal_entry.update_attributes!(attributes)
-              else
-                journal_entry.cancel
-                journal_entry = nil
-              end
+            journal_entry = JournalEntry.find_by(id: @resource.send(column))
+            list = record(&block) if block_given?
+
+            if journal_entry && (!journal_entry.draft? || list.empty? ||
+                                 attributes[:journal_id] != journal_entry.journal_id)
+              journal_entry.cancel
+              journal_entry = nil
             end
 
             # Add journal items
-            if block_given? && condition && @action != :destroy
-              journal_entry ||= JournalEntry.create!(attributes)
-              yield(journal_entry)
-              journal_entry.reload.confirm unless @draft
+            if condition && list.any? && @action != :destroy
+              attributes[:items] = []
+              list.each do |cmd|
+                direction = cmd.shift
+                unless [:add_debit, :add_credit].include?(direction)
+                  raise 'Can accept only add_debit and add_credit commands'
+                end
+                cmd[3] ||= {}
+                cmd[3][:credit] = true if direction == :add_credit
+                attributes[:items] << JournalEntryItem.new_for(*cmd)
+              end
+              attributes[:financial_year] = FinancialYear.at(attributes[:printed_on])
+              attributes[:currency] = attributes[:financial_year].currency if attributes[:financial_year]
+              attributes[:real_currency] = Journal.find(attributes[:journal_id]).currency
+              journal_entry ||= JournalEntry.new
+              journal_entry.attributes = attributes
+              journal_entry.save!
+              journal_entry.confirm unless @draft
             end
 
             # Set accounted columns
-            @resource.class.where(id: @resource.id).update_all(:accounted_at => Time.zone.now, column => (journal_entry ? journal_entry.id : nil))
+            if @resource.class.exists?(@resource.id)
+              @resource.update_columns(
+                accounted_at: Time.zone.now,
+                column => (journal_entry ? journal_entry.id : nil)
+              )
+            end
           end
+        end
+
+        def record
+          recorder = EntryRecorder.new
+          yield(recorder)
+          recorder.list
         end
       end
 
@@ -95,7 +156,7 @@ module Ekylibre
           code << "end\n"
 
           configuration[:on] = [configuration[:on]].flatten
-          for action in Ekylibre::Record::Bookkeep.actions
+          Ekylibre::Record::Bookkeep.actions.each do |action|
             next unless configuration[:on].include? action
             code << "after_#{action} do \n"
             code << "  if ::Preference[:bookkeep_automatically]\n"

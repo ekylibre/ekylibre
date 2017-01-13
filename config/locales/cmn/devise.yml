@@ -45,6 +45,8 @@ cmn:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "在此登录。"
           subject: "您的帐户已被批准！"
+        signed_up:
+          subject: "新注册"
       reset_password_instructions:
         subject: "重置密码的说明"
       unlock_instructions:

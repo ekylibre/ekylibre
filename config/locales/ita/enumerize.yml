@@ -36,10 +36,6 @@ ita:
       mode:
         harvested: "Harvest data di semina"
         sowed: "Data provvisoria di semina"
-    affair:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     analysis:
       retrieval_status:
         controller_error: "Errore del controller"
@@ -135,6 +131,16 @@ ita:
         informative: "Informativo"
         refused: "rifiutato"
         waiting: "In attesa"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensile"
+        none: "Nessuna"
+        # quaterly: "Quaterly"
+        yearly: "Annuale"
+      tax_declaration_mode:
+        debit: "Addebito"
+        none: "Nessuna"
+        payment: "Pagamento"
     fixed_asset:
       depreciation_method:
         graduated: "Laureato" #?
@@ -144,9 +150,6 @@ ita:
       direction:
         loss: "Perdita"
         profit: "Profitto"
-      entity_role:
-        client: "Cliente"
-        supplier: "Fornitore"
     georeading:
       nature:
         line: "linea" #?
@@ -168,7 +171,7 @@ ita:
         failed: "Fallito"
         passed: "Passato"
         passed_with_warnings: "Superato con avvisi"
-      status:  #?
+      status: #?
         errored: "errored" #?
         failed: "fallito" #?
         passed: "Passato" #?
@@ -269,12 +272,16 @@ ita:
         incoming: "in arrivo"
         internal: "Interno" #?
         outgoing: "Estroverso"
-      state:  #?
+      state: #?
         draft: "Bozza" #?
         given: "Dato" #?
         in_preparation: "In preparazione" #?
         ordered: "Ordinato" #?
         prepared: "Preparato" #?
+    plant_counting:
+      nature:
+        germination: "A germinazione"
+        sowing: "Alla semina"
     preference:
       nature:
         accounting_system: "Sistema di contabilità"
@@ -390,18 +397,18 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    purchase:
+      tax_payability:
+        at_invoicing: "A fatturazione"
+        at_paying: "A pagamento"
     purchase_nature:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale_opportunity:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
-    sale_ticket:
-      third_role:
-        client: "Cliente"
-        supplier: "Fornitore"
+    sale_item:
+      compute_from:
+        pretax_amount: "Importo lordo delle imposte"
+        unit_pretax_amount: "Unità importo lordo delle imposte"
     sensor:
       retrieval_mode:
         integration: "Integrazione"
@@ -442,7 +449,8 @@ ita:
         sales: "Vendite"
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
-    subscription_nature:  #?
+        tax_declarations: "Dichiarazioni fiscali"
+    subscription_nature: #?
       entity_link_direction: #?
         all: "bidirezionale" #?
         direct: "Diretto" #?
@@ -450,6 +458,17 @@ ita:
       nature: #?
         period: "Abbonamento per data" #?
         quantity: "Abbonamento per numero" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "Autenticazione"
+        get_inventory: "Ottenere l’inventario"
+        get_urls: "Ottenere gli URL"
+      state:
+        aborted: "Abortito"
+        # errored: "Errored"
+        finished: "Finito"
+        in_progress: "In corso"
+        undone: "Disfatto"
     task:
       nature:
         document: "scrittura" #?
@@ -464,7 +483,7 @@ ita:
         doing: "Fare"
         done: "Fatto"
         todo: "Fare"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Quantità" #?
         percentage: "Percentuale" #?

@@ -36,10 +36,6 @@ cmn:
       mode:
         harvested: "嘉实播种期"
         sowed: "临时播种期"
-    affair:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
     analysis:
       retrieval_status:
         controller_error: "控制器错误"
@@ -135,6 +131,16 @@ cmn:
         informative: "信息化"
         refused: "拒绝"
         waiting: "等候"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "每月一次"
+        none: "没有"
+        quaterly: "季刊"
+        yearly: "每年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "没有"
+        payment: "付款"
     fixed_asset:
       depreciation_method:
         graduated: "毕业" #?
@@ -144,9 +150,6 @@ cmn:
       direction:
         loss: "失利"
         profit: "利润"
-      entity_role:
-        client: "客户"
-        supplier: "供应商"
     georeading:
       nature:
         line: "线" #?
@@ -168,7 +171,7 @@ cmn:
         failed: "失败"
         passed: "通过"
         passed_with_warnings: "有警告传递"
-      status:  #?
+      status: #?
         errored: "误码" #?
         failed: "失败" #?
         passed: "通过" #?
@@ -269,12 +272,16 @@ cmn:
         incoming: "来"
         internal: "内部" #?
         outgoing: "传出"
-      state:  #?
+      state: #?
         draft: "草案" #?
         given: "特定" #?
         in_preparation: "在准备" #?
         ordered: "有序" #?
         prepared: "准备" #?
+    plant_counting:
+      nature:
+        germination: "在发芽"
+        sowing: "在播种"
     preference:
       nature:
         accounting_system: "会计制度"
@@ -390,18 +397,18 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    purchase:
+      tax_payability:
+        at_invoicing: "在开票"
+        at_paying: "在支付"
     purchase_nature:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale_opportunity:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
-    sale_ticket:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
+    sale_item:
+      compute_from:
+        pretax_amount: "税前金额"
+        unit_pretax_amount: "单位税前金额"
     sensor:
       retrieval_mode:
         integration: "积分"
@@ -442,7 +449,9 @@ cmn:
         sales: "销售"
         sales_invoices: "销售发票"
         subscriptions: "订阅"
-    subscription_nature:  #?
+        tax_declarations: "纳税申报"
+        transports: "运输的记数" #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "双向" #?
         direct: "直接" #?
@@ -450,6 +459,17 @@ cmn:
       nature: #?
         period: "认购日期" #?
         quantity: "认购按编号" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "认证"
+        get_inventory: "拿到盘点"
+        get_urls: "获取网址"
+      state:
+        aborted: "中止"
+        errored: "误码"
+        finished: "完"
+        in_progress: "进行中"
+        undone: "未完成"
     task:
       nature:
         document: "写作" #?
@@ -464,7 +484,7 @@ cmn:
         doing: "干"
         done: "做"
         todo: "去做"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "量" #?
         percentage: "百分比" #?

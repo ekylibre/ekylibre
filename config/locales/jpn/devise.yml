@@ -45,6 +45,8 @@ jpn:
           # hello: "Hello %{first_name} %{last_name},"
           sign_in: "ここにサインインします。"
           subject: "アカウントは承認されました！"
+        signed_up:
+          subject: "新規登録"
       reset_password_instructions:
         subject: "パスワード命令をリセット"
       unlock_instructions:

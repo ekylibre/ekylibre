@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -303,8 +303,8 @@ CREATE TABLE interventions (
     prescription_id integer,
     procedure_name character varying NOT NULL,
     state character varying NOT NULL,
-    started_at timestamp without time zone,
-    stopped_at timestamp without time zone,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -313,8 +313,8 @@ CREATE TABLE interventions (
     event_id integer,
     number character varying,
     description text,
-    working_duration integer DEFAULT 0 NOT NULL,
-    whole_duration integer DEFAULT 0 NOT NULL,
+    working_duration integer NOT NULL,
+    whole_duration integer NOT NULL,
     actions character varying,
     custom_fields jsonb,
     nature character varying NOT NULL,
@@ -721,7 +721,7 @@ CREATE TABLE affairs (
     type character varying,
     state character varying,
     probability_percentage numeric(19,4) DEFAULT 0.0,
-    third_role character varying NOT NULL
+    letter character varying
 );
 
 
@@ -972,7 +972,8 @@ CREATE TABLE bank_statement_items (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    memo character varying
 );
 
 
@@ -1015,7 +1016,9 @@ CREATE TABLE bank_statements (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     initial_balance_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL
+    initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    journal_entry_id integer,
+    accounted_at timestamp without time zone
 );
 
 
@@ -1097,7 +1100,9 @@ CREATE TABLE calls (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    source_id integer,
+    source_type character varying
 );
 
 
@@ -1367,7 +1372,7 @@ CREATE TABLE cashes (
     name character varying NOT NULL,
     nature character varying DEFAULT 'bank_account'::character varying NOT NULL,
     journal_id integer NOT NULL,
-    account_id integer NOT NULL,
+    main_account_id integer NOT NULL,
     bank_code character varying,
     bank_agency_code character varying,
     bank_account_number character varying,
@@ -1389,7 +1394,9 @@ CREATE TABLE cashes (
     last_number integer,
     owner_id integer,
     custom_fields jsonb,
-    bank_account_holder_name character varying
+    bank_account_holder_name character varying,
+    suspend_until_reconciliation boolean DEFAULT false NOT NULL,
+    suspense_account_id integer
 );
 
 
@@ -1594,7 +1601,8 @@ CREATE TABLE crumbs (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_parameter_id integer,
-    device_uid character varying NOT NULL
+    device_uid character varying NOT NULL,
+    intervention_participation_id integer
 );
 
 
@@ -2292,7 +2300,9 @@ CREATE TABLE financial_years (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    tax_declaration_frequency character varying,
+    tax_declaration_mode character varying NOT NULL
 );
 
 
@@ -2465,7 +2475,6 @@ CREATE TABLE gaps (
     direction character varying NOT NULL,
     affair_id integer,
     entity_id integer NOT NULL,
-    entity_role character varying NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     currency character varying NOT NULL,
@@ -2475,7 +2484,8 @@ CREATE TABLE gaps (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    type character varying
 );
 
 
@@ -2811,7 +2821,8 @@ CREATE TABLE incoming_payments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    codes jsonb
 );
 
 
@@ -3108,7 +3119,8 @@ CREATE TABLE intervention_participations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    procedure_name character varying
 );
 
 
@@ -3350,7 +3362,8 @@ CREATE TABLE journal_entries (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    resource_prism character varying
 );
 
 
@@ -3412,7 +3425,15 @@ CREATE TABLE journal_entry_items (
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
     bank_statement_letter character varying,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    tax_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    tax_declaration_item_id integer,
+    resource_id integer,
+    resource_type character varying,
+    resource_prism character varying
 );
 
 
@@ -3453,7 +3474,10 @@ CREATE TABLE journals (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
+    used_for_unbilled_payables boolean DEFAULT false NOT NULL,
+    used_for_tax_declarations boolean DEFAULT false NOT NULL
 );
 
 
@@ -3995,7 +4019,8 @@ CREATE TABLE outgoing_payment_lists (
     updated_at timestamp without time zone,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    mode_id integer NOT NULL
 );
 
 
@@ -4084,7 +4109,8 @@ CREATE TABLE outgoing_payments (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    list_id integer
+    list_id integer,
+    "position" integer
 );
 
 
@@ -4198,7 +4224,7 @@ CREATE TABLE parcels (
     accounted_at timestamp without time zone,
     currency character varying,
     journal_entry_id integer,
-    undelivered_invoice_entry_id integer,
+    undelivered_invoice_journal_entry_id integer,
     contract_id integer,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     responsible_id integer
@@ -4277,7 +4303,9 @@ CREATE TABLE plant_countings (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     number character varying,
-    nature character varying
+    nature character varying,
+    working_width_value numeric(19,4),
+    rows_count_value integer
 );
 
 
@@ -5262,7 +5290,8 @@ CREATE TABLE products (
     uuid uuid,
     initial_movement_id integer,
     custom_fields jsonb,
-    team_id integer
+    team_id integer,
+    member_variant_id integer
 );
 
 
@@ -5405,11 +5434,12 @@ CREATE TABLE purchases (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer,
+    undelivered_invoice_journal_entry_id integer,
+    quantity_gap_on_invoice_journal_entry_id integer,
     payment_delay character varying,
     payment_at timestamp without time zone,
-    contract_id integer
+    contract_id integer,
+    tax_payability character varying NOT NULL
 );
 
 
@@ -5430,6 +5460,42 @@ CREATE SEQUENCE purchases_id_seq
 --
 
 ALTER SEQUENCE purchases_id_seq OWNED BY purchases.id;
+
+
+--
+-- Name: regularizations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE regularizations (
+    id integer NOT NULL,
+    affair_id integer NOT NULL,
+    journal_entry_id integer NOT NULL,
+    currency character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: regularizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE regularizations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: regularizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE regularizations_id_seq OWNED BY regularizations.id;
 
 
 --
@@ -5497,7 +5563,8 @@ CREATE TABLE sale_items (
     credited_quantity numeric(19,4),
     activity_budget_id integer,
     team_id integer,
-    codes jsonb
+    codes jsonb,
+    compute_from character varying NOT NULL
 );
 
 
@@ -5616,8 +5683,8 @@ CREATE TABLE sales (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     codes jsonb,
-    undelivered_invoice_entry_id integer,
-    quantity_gap_on_invoice_entry_id integer
+    undelivered_invoice_journal_entry_id integer,
+    quantity_gap_on_invoice_journal_entry_id integer
 );
 
 
@@ -5895,6 +5962,45 @@ ALTER SEQUENCE supervisions_id_seq OWNED BY supervisions.id;
 
 
 --
+-- Name: synchronization_operations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE synchronization_operations (
+    id integer NOT NULL,
+    operation_name character varying NOT NULL,
+    state character varying NOT NULL,
+    finished_at timestamp without time zone,
+    notification_id integer,
+    request jsonb,
+    response jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: synchronization_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE synchronization_operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: synchronization_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE synchronization_operations_id_seq OWNED BY synchronization_operations.id;
+
+
+--
 -- Name: target_distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -5956,6 +6062,98 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
+-- Name: tax_declaration_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declaration_items (
+    id integer NOT NULL,
+    tax_declaration_id integer NOT NULL,
+    tax_id integer NOT NULL,
+    currency character varying NOT NULL,
+    collected_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    deductible_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    deductible_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    collected_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    fixed_asset_deductible_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    fixed_asset_deductible_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    balance_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    balance_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    intracommunity_payable_tax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    intracommunity_payable_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+);
+
+
+--
+-- Name: tax_declaration_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declaration_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declaration_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declaration_items_id_seq OWNED BY tax_declaration_items.id;
+
+
+--
+-- Name: tax_declarations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declarations (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    journal_entry_id integer,
+    accounted_at timestamp without time zone,
+    responsible_id integer,
+    mode character varying NOT NULL,
+    description text,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    currency character varying NOT NULL,
+    number character varying,
+    reference_number character varying,
+    state character varying,
+    invoiced_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_declarations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declarations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declarations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declarations_id_seq OWNED BY tax_declarations.id;
+
+
+--
 -- Name: taxes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5976,7 +6174,9 @@ CREATE TABLE taxes (
     nature character varying NOT NULL,
     country character varying NOT NULL,
     fixed_asset_deduction_account_id integer,
-    fixed_asset_collect_account_id integer
+    fixed_asset_collect_account_id integer,
+    intracommunity boolean DEFAULT false NOT NULL,
+    intracommunity_payable_account_id integer
 );
 
 
@@ -7083,6 +7283,13 @@ ALTER TABLE ONLY purchases ALTER COLUMN id SET DEFAULT nextval('purchases_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY regularizations ALTER COLUMN id SET DEFAULT nextval('regularizations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
@@ -7153,6 +7360,13 @@ ALTER TABLE ONLY supervisions ALTER COLUMN id SET DEFAULT nextval('supervisions_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY synchronization_operations ALTER COLUMN id SET DEFAULT nextval('synchronization_operations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY target_distributions ALTER COLUMN id SET DEFAULT nextval('target_distributions_id_seq'::regclass);
 
 
@@ -7161,6 +7375,20 @@ ALTER TABLE ONLY target_distributions ALTER COLUMN id SET DEFAULT nextval('targe
 --
 
 ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items ALTER COLUMN id SET DEFAULT nextval('tax_declaration_items_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations ALTER COLUMN id SET DEFAULT nextval('tax_declarations_id_seq'::regclass);
 
 
 --
@@ -8182,6 +8410,14 @@ ALTER TABLE ONLY purchases
 
 
 --
+-- Name: regularizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT regularizations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8262,6 +8498,14 @@ ALTER TABLE ONLY supervisions
 
 
 --
+-- Name: synchronization_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT synchronization_operations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: target_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8275,6 +8519,22 @@ ALTER TABLE ONLY target_distributions
 
 ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_declaration_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_items
+    ADD CONSTRAINT tax_declaration_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_declarations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declarations
+    ADD CONSTRAINT tax_declarations_pkey PRIMARY KEY (id);
 
 
 --
@@ -9201,6 +9461,13 @@ CREATE INDEX index_bank_statements_on_creator_id ON bank_statements USING btree 
 
 
 --
+-- Name: index_bank_statements_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bank_statements_on_journal_entry_id ON bank_statements USING btree (journal_entry_id);
+
+
+--
 -- Name: index_bank_statements_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9268,6 +9535,13 @@ CREATE INDEX index_calls_on_created_at ON calls USING btree (created_at);
 --
 
 CREATE INDEX index_calls_on_creator_id ON calls USING btree (creator_id);
+
+
+--
+-- Name: index_calls_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_calls_on_source_type_and_source_id ON calls USING btree (source_type, source_id);
 
 
 --
@@ -9530,13 +9804,6 @@ CREATE INDEX index_cash_transfers_on_updater_id ON cash_transfers USING btree (u
 
 
 --
--- Name: index_cashes_on_account_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_cashes_on_account_id ON cashes USING btree (account_id);
-
-
---
 -- Name: index_cashes_on_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9565,10 +9832,24 @@ CREATE INDEX index_cashes_on_journal_id ON cashes USING btree (journal_id);
 
 
 --
+-- Name: index_cashes_on_main_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_main_account_id ON cashes USING btree (main_account_id);
+
+
+--
 -- Name: index_cashes_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_cashes_on_owner_id ON cashes USING btree (owner_id);
+
+
+--
+-- Name: index_cashes_on_suspense_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cashes_on_suspense_account_id ON cashes USING btree (suspense_account_id);
 
 
 --
@@ -9779,6 +10060,13 @@ CREATE INDEX index_crumbs_on_creator_id ON crumbs USING btree (creator_id);
 --
 
 CREATE INDEX index_crumbs_on_intervention_parameter_id ON crumbs USING btree (intervention_parameter_id);
+
+
+--
+-- Name: index_crumbs_on_intervention_participation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crumbs_on_intervention_participation_id ON crumbs USING btree (intervention_participation_id);
 
 
 --
@@ -11973,6 +12261,27 @@ CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btre
 
 
 --
+-- Name: index_journal_entry_items_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_resource_type_and_resource_id ON journal_entry_items USING btree (resource_type, resource_id);
+
+
+--
+-- Name: index_journal_entry_items_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_entry_items USING btree (tax_declaration_item_id);
+
+
+--
+-- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_id ON journal_entry_items USING btree (tax_id);
+
+
+--
 -- Name: index_journal_entry_items_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12561,6 +12870,13 @@ CREATE INDEX index_outgoing_payment_lists_on_creator_id ON outgoing_payment_list
 
 
 --
+-- Name: index_outgoing_payment_lists_on_mode_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payment_lists_on_mode_id ON outgoing_payment_lists USING btree (mode_id);
+
+
+--
 -- Name: index_outgoing_payment_lists_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12897,10 +13213,10 @@ CREATE INDEX index_parcels_on_transporter_id ON parcels USING btree (transporter
 
 
 --
--- Name: index_parcels_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_parcels_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_parcels_on_undelivered_invoice_entry_id ON parcels USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_parcels_on_undelivered_invoice_journal_entry_id ON parcels USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
@@ -14325,6 +14641,13 @@ CREATE INDEX index_products_on_initial_owner_id ON products USING btree (initial
 
 
 --
+-- Name: index_products_on_member_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_member_variant_id ON products USING btree (member_variant_id);
+
+
+--
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14584,10 +14907,10 @@ CREATE INDEX index_purchases_on_nature_id ON purchases USING btree (nature_id);
 
 
 --
--- Name: index_purchases_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_purchases_on_quantity_gap_on_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_quantity_gap_on_invoice_entry_id ON purchases USING btree (quantity_gap_on_invoice_entry_id);
+CREATE INDEX index_purchases_on_quantity_gap_on_invoice_journal_entry_id ON purchases USING btree (quantity_gap_on_invoice_journal_entry_id);
 
 
 --
@@ -14605,10 +14928,10 @@ CREATE INDEX index_purchases_on_supplier_id ON purchases USING btree (supplier_i
 
 
 --
--- Name: index_purchases_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_purchases_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_undelivered_invoice_entry_id ON purchases USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_purchases_on_undelivered_invoice_journal_entry_id ON purchases USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
@@ -14623,6 +14946,48 @@ CREATE INDEX index_purchases_on_updated_at ON purchases USING btree (updated_at)
 --
 
 CREATE INDEX index_purchases_on_updater_id ON purchases USING btree (updater_id);
+
+
+--
+-- Name: index_regularizations_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_affair_id ON regularizations USING btree (affair_id);
+
+
+--
+-- Name: index_regularizations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_created_at ON regularizations USING btree (created_at);
+
+
+--
+-- Name: index_regularizations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_creator_id ON regularizations USING btree (creator_id);
+
+
+--
+-- Name: index_regularizations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_journal_entry_id ON regularizations USING btree (journal_entry_id);
+
+
+--
+-- Name: index_regularizations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_updated_at ON regularizations USING btree (updated_at);
+
+
+--
+-- Name: index_regularizations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_regularizations_on_updater_id ON regularizations USING btree (updater_id);
 
 
 --
@@ -14864,10 +15229,10 @@ CREATE INDEX index_sales_on_nature_id ON sales USING btree (nature_id);
 
 
 --
--- Name: index_sales_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_sales_on_quantity_gap_on_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_quantity_gap_on_invoice_entry_id ON sales USING btree (quantity_gap_on_invoice_entry_id);
+CREATE INDEX index_sales_on_quantity_gap_on_invoice_journal_entry_id ON sales USING btree (quantity_gap_on_invoice_journal_entry_id);
 
 
 --
@@ -14885,10 +15250,10 @@ CREATE INDEX index_sales_on_transporter_id ON sales USING btree (transporter_id)
 
 
 --
--- Name: index_sales_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_sales_on_undelivered_invoice_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_sales_on_undelivered_invoice_entry_id ON sales USING btree (undelivered_invoice_entry_id);
+CREATE INDEX index_sales_on_undelivered_invoice_journal_entry_id ON sales USING btree (undelivered_invoice_journal_entry_id);
 
 
 --
@@ -15179,6 +15544,41 @@ CREATE INDEX index_supervisions_on_updater_id ON supervisions USING btree (updat
 
 
 --
+-- Name: index_synchronization_operations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_created_at ON synchronization_operations USING btree (created_at);
+
+
+--
+-- Name: index_synchronization_operations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_creator_id ON synchronization_operations USING btree (creator_id);
+
+
+--
+-- Name: index_synchronization_operations_on_operation_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_operation_name ON synchronization_operations USING btree (operation_name);
+
+
+--
+-- Name: index_synchronization_operations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_updated_at ON synchronization_operations USING btree (updated_at);
+
+
+--
+-- Name: index_synchronization_operations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_synchronization_operations_on_updater_id ON synchronization_operations USING btree (updater_id);
+
+
+--
 -- Name: index_target_distributions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15277,6 +15677,97 @@ CREATE INDEX index_tasks_on_updater_id ON tasks USING btree (updater_id);
 
 
 --
+-- Name: index_tax_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_created_at ON tax_declaration_items USING btree (created_at);
+
+
+--
+-- Name: index_tax_declaration_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_creator_id ON tax_declaration_items USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declaration_items_on_tax_declaration_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_tax_declaration_id ON tax_declaration_items USING btree (tax_declaration_id);
+
+
+--
+-- Name: index_tax_declaration_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_tax_id ON tax_declaration_items USING btree (tax_id);
+
+
+--
+-- Name: index_tax_declaration_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_updated_at ON tax_declaration_items USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declaration_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_items_on_updater_id ON tax_declaration_items USING btree (updater_id);
+
+
+--
+-- Name: index_tax_declarations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_created_at ON tax_declarations USING btree (created_at);
+
+
+--
+-- Name: index_tax_declarations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_creator_id ON tax_declarations USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declarations_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_financial_year_id ON tax_declarations USING btree (financial_year_id);
+
+
+--
+-- Name: index_tax_declarations_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_journal_entry_id ON tax_declarations USING btree (journal_entry_id);
+
+
+--
+-- Name: index_tax_declarations_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_responsible_id ON tax_declarations USING btree (responsible_id);
+
+
+--
+-- Name: index_tax_declarations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_updated_at ON tax_declarations USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declarations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declarations_on_updater_id ON tax_declarations USING btree (updater_id);
+
+
+--
 -- Name: index_taxes_on_collect_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15316,6 +15807,13 @@ CREATE INDEX index_taxes_on_fixed_asset_collect_account_id ON taxes USING btree 
 --
 
 CREATE INDEX index_taxes_on_fixed_asset_deduction_account_id ON taxes USING btree (fixed_asset_deduction_account_id);
+
+
+--
+-- Name: index_taxes_on_intracommunity_payable_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taxes_on_intracommunity_payable_account_id ON taxes USING btree (intracommunity_payable_account_id);
 
 
 --
@@ -15663,11 +16161,27 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY crumbs
+    ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY alert_phases
     ADD CONSTRAINT fk_rails_7a9749733c FOREIGN KEY (alert_id) REFERENCES alerts(id);
+
+
+--
+-- Name: fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
 
 
 --
@@ -15692,6 +16206,14 @@ ALTER TABLE ONLY alerts
 
 ALTER TABLE ONLY intervention_working_periods
     ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regularizations
+    ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
@@ -16063,4 +16585,56 @@ INSERT INTO schema_migrations (version) VALUES ('20161026102134');
 INSERT INTO schema_migrations (version) VALUES ('20161105212807');
 
 INSERT INTO schema_migrations (version) VALUES ('20161106140253');
+
+INSERT INTO schema_migrations (version) VALUES ('20161107065331');
+
+INSERT INTO schema_migrations (version) VALUES ('20161108140009');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114091835');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114101401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114112858');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115163443');
+
+INSERT INTO schema_migrations (version) VALUES ('20161118150610');
+
+INSERT INTO schema_migrations (version) VALUES ('20161120153801');
+
+INSERT INTO schema_migrations (version) VALUES ('20161121033801');
+
+INSERT INTO schema_migrations (version) VALUES ('20161121171401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122155003');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122161646');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122203438');
+
+INSERT INTO schema_migrations (version) VALUES ('20161124093205');
+
+INSERT INTO schema_migrations (version) VALUES ('20161201142213');
+
+INSERT INTO schema_migrations (version) VALUES ('20161205185328');
+
+INSERT INTO schema_migrations (version) VALUES ('20161212183910');
+
+INSERT INTO schema_migrations (version) VALUES ('20161214091911');
+
+INSERT INTO schema_migrations (version) VALUES ('20161216171308');
+
+INSERT INTO schema_migrations (version) VALUES ('20161219092100');
+
+INSERT INTO schema_migrations (version) VALUES ('20161219131051');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231180401');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231200612');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231223002');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231233003');
+
+INSERT INTO schema_migrations (version) VALUES ('20161231234533');
 

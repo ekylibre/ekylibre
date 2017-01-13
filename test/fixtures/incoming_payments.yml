@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
+#  codes                 :jsonb
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
@@ -215,4 +216,79 @@ incoming_payments_007:
   scheduled: false
   to_bank_at: 2014-11-01 23:00:00.000000000 Z
   updated_at: 2014-11-05 13:36:45.639839000 Z
+  updater_id: 1
+incoming_payments_008:
+  accounted_at: 2016-11-20 22:09:40.218918000 Z
+  affair_id: 43
+  amount: 447.12
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2016-11-20 22:09:40.159990000 Z
+  creator_id: 1
+  currency: EUR
+  downpayment: true
+  id: 8
+  journal_entry_id: 91
+  lock_version: 0
+  mode_id: 2
+  number: R2016000001
+  paid_at: 2016-11-19 23:00:00.000000000 Z
+  payer_id: 14
+  received: true
+  responsible_id: 1
+  scheduled: false
+  to_bank_at: 2016-11-19 23:00:00.000000000 Z
+  updated_at: 2016-11-20 22:09:40.159990000 Z
+  updater_id: 1
+incoming_payments_009:
+  accounted_at: 2016-11-20 22:10:53.000679000 Z
+  affair_id: 45
+  amount: 37.44
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2016-11-20 22:10:52.940167000 Z
+  creator_id: 1
+  currency: EUR
+  downpayment: true
+  id: 9
+  journal_entry_id: 94
+  lock_version: 0
+  mode_id: 2
+  number: R2016000002
+  paid_at: 2016-11-19 23:00:00.000000000 Z
+  payer_id: 9
+  received: true
+  responsible_id: 1
+  scheduled: false
+  to_bank_at: 2016-11-19 23:00:00.000000000 Z
+  updated_at: 2016-11-20 22:10:52.940167000 Z
+  updater_id: 1
+incoming_payments_010:
+  accounted_at: 2016-12-20 08:58:53.128227000 Z
+  affair_id: 52
+  amount: 463.25
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2016-12-20 08:58:52.977894000 Z
+  creator_id: 1
+  currency: EUR
+  downpayment: true
+  id: 10
+  journal_entry_id: 111
+  lock_version: 0
+  mode_id: 1
+  number: R2016000003
+  paid_at: 2016-12-19 23:00:00.000000000 Z
+  payer_id: 9
+  received: true
+  responsible_id: 1
+  scheduled: false
+  to_bank_at: 2016-12-19 23:00:00.000000000 Z
+  updated_at: 2016-12-20 08:58:52.977894000 Z
   updater_id: 1

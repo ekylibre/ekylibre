@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,50 +22,50 @@
 #
 # == Table: sales
 #
-#  accounted_at                     :datetime
-#  address_id                       :integer
-#  affair_id                        :integer
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  annotation                       :text
-#  client_id                        :integer          not null
-#  codes                            :jsonb
-#  conclusion                       :text
-#  confirmed_at                     :datetime
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  credit                           :boolean          default(FALSE), not null
-#  credited_sale_id                 :integer
-#  currency                         :string           not null
-#  custom_fields                    :jsonb
-#  delivery_address_id              :integer
-#  description                      :text
-#  downpayment_amount               :decimal(19, 4)   default(0.0), not null
-#  expiration_delay                 :string
-#  expired_at                       :datetime
-#  function_title                   :string
-#  has_downpayment                  :boolean          default(FALSE), not null
-#  id                               :integer          not null, primary key
-#  initial_number                   :string
-#  introduction                     :text
-#  invoice_address_id               :integer
-#  invoiced_at                      :datetime
-#  journal_entry_id                 :integer
-#  letter_format                    :boolean          default(TRUE), not null
-#  lock_version                     :integer          default(0), not null
-#  nature_id                        :integer
-#  number                           :string           not null
-#  payment_at                       :datetime
-#  payment_delay                    :string           not null
-#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
-#  quantity_gap_on_invoice_entry_id :integer
-#  reference_number                 :string
-#  responsible_id                   :integer
-#  state                            :string           not null
-#  subject                          :string
-#  transporter_id                   :integer
-#  undelivered_invoice_entry_id     :integer
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  accounted_at                             :datetime
+#  address_id                               :integer
+#  affair_id                                :integer
+#  amount                                   :decimal(19, 4)   default(0.0), not null
+#  annotation                               :text
+#  client_id                                :integer          not null
+#  codes                                    :jsonb
+#  conclusion                               :text
+#  confirmed_at                             :datetime
+#  created_at                               :datetime         not null
+#  creator_id                               :integer
+#  credit                                   :boolean          default(FALSE), not null
+#  credited_sale_id                         :integer
+#  currency                                 :string           not null
+#  custom_fields                            :jsonb
+#  delivery_address_id                      :integer
+#  description                              :text
+#  downpayment_amount                       :decimal(19, 4)   default(0.0), not null
+#  expiration_delay                         :string
+#  expired_at                               :datetime
+#  function_title                           :string
+#  has_downpayment                          :boolean          default(FALSE), not null
+#  id                                       :integer          not null, primary key
+#  initial_number                           :string
+#  introduction                             :text
+#  invoice_address_id                       :integer
+#  invoiced_at                              :datetime
+#  journal_entry_id                         :integer
+#  letter_format                            :boolean          default(TRUE), not null
+#  lock_version                             :integer          default(0), not null
+#  nature_id                                :integer
+#  number                                   :string           not null
+#  payment_at                               :datetime
+#  payment_delay                            :string           not null
+#  pretax_amount                            :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_journal_entry_id :integer
+#  reference_number                         :string
+#  responsible_id                           :integer
+#  state                                    :string           not null
+#  subject                                  :string
+#  transporter_id                           :integer
+#  undelivered_invoice_journal_entry_id     :integer
+#  updated_at                               :datetime         not null
+#  updater_id                               :integer
 #
 ---
 sales_001:
@@ -503,4 +503,227 @@ sales_013:
   state: invoice
   subject: ''
   updated_at: 2016-07-01 20:12:48.702437000 Z
+  updater_id: 1
+sales_014:
+  accounted_at: 2016-11-20 22:09:03.112111000 Z
+  address_id: 14
+  affair_id: 43
+  amount: 447.12
+  client_id: 14
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 22:09:02.899705000 Z
+  created_at: 2016-11-20 22:08:58.229193000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 14
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 20
+  initial_number: SO000000000015
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 14
+  invoiced_at: 2016-11-20 22:09:02.899705000 Z
+  journal_entry_id: 89
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000004
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 372.6
+  quantity_gap_on_invoice_journal_entry_id: 90
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 22:09:02.945881000 Z
+  updater_id: 1
+sales_015:
+  accounted_at: 2016-11-20 22:10:43.258752000 Z
+  address_id: 4
+  affair_id: 45
+  amount: 37.44
+  client_id: 9
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 22:10:43.122467000 Z
+  created_at: 2016-11-20 22:10:17.177512000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 4
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 21
+  initial_number: SO000000000016
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 4
+  invoiced_at: 2016-11-20 22:10:43.122467000 Z
+  journal_entry_id: 92
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000005
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 31.2
+  quantity_gap_on_invoice_journal_entry_id: 93
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 22:10:43.170464000 Z
+  updater_id: 1
+sales_016:
+  accounted_at: 2016-11-20 22:11:28.858719000 Z
+  address_id: 4
+  affair_id: 47
+  amount: 3.74
+  client_id: 9
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 22:11:28.690241000 Z
+  created_at: 2016-11-20 22:11:25.081230000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 4
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 22
+  initial_number: SO000000000017
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 4
+  invoiced_at: 2016-11-20 22:11:28.690241000 Z
+  journal_entry_id: 95
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000006
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 3.12
+  quantity_gap_on_invoice_journal_entry_id: 96
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 22:11:28.732682000 Z
+  updater_id: 1
+sales_017:
+  accounted_at: 2016-11-20 22:12:19.197652000 Z
+  affair_id: 48
+  amount: 2676.0
+  client_id: 2
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-11-20 22:12:19.028659000 Z
+  created_at: 2016-11-20 22:12:15.418054000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 23
+  initial_number: SO000000000018
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoiced_at: 2016-11-20 22:12:19.028659000 Z
+  journal_entry_id: 98
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000007
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 2230.0
+  quantity_gap_on_invoice_journal_entry_id: 99
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-11-20 22:12:19.114372000 Z
+  updater_id: 1
+sales_018:
+  accounted_at: 2016-11-20 22:12:46.307370000 Z
+  affair_id: 48
+  amount: -2676.0
+  client_id: 2
+  confirmed_at: 2016-11-20 22:12:00.000000000 Z
+  created_at: 2016-11-20 22:12:25.292665000 Z
+  creator_id: 1
+  credit: true
+  credited_sale_id: 23
+  currency: EUR
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2016-12-10 23:00:00.000000000 Z
+  has_downpayment: false
+  id: 24
+  initial_number: SO000000000019
+  invoiced_at: 2016-11-20 22:12:00.000000000 Z
+  journal_entry_id: 100
+  letter_format: true
+  lock_version: 2
+  nature_id: 1
+  number: F2016000008
+  payment_at: 2016-12-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: -2230.0
+  quantity_gap_on_invoice_journal_entry_id: 101
+  responsible_id: 9
+  state: invoice
+  updated_at: 2016-11-20 22:12:46.221741000 Z
+  updater_id: 1
+sales_019:
+  accounted_at: 2016-12-20 08:54:01.551325000 Z
+  address_id: 4
+  affair_id: 52
+  amount: 400.0
+  client_id: 9
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2016-12-20 08:54:01.419389000 Z
+  created_at: 2016-12-20 08:53:53.298867000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 4
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2017-01-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 25
+  initial_number: SO000000000020
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 4
+  invoiced_at: 2016-12-20 08:54:01.419389000 Z
+  journal_entry_id: 109
+  letter_format: false
+  lock_version: 2
+  nature_id: 1
+  number: F2016000009
+  payment_at: 2017-01-24 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 363.64
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2016-12-20 08:54:01.466034000 Z
   updater_id: 1

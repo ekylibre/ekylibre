@@ -90,6 +90,10 @@ module Procedo
         end
       end
 
+      def working_periods_parameter
+        @working_periods.values.collect(&:to_hash)
+      end
+
       private
 
       attr_reader :root_group

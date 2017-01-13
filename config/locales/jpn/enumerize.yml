@@ -36,10 +36,6 @@ jpn:
       mode:
         harvested: "収穫播種日"
         sowed: "暫定播種日"
-    affair:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     analysis:
       retrieval_status:
         controller_error: "コントローラのエラー"
@@ -135,6 +131,16 @@ jpn:
         informative: "有益な"
         refused: "拒否されました"
         waiting: "待っています"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "毎月"
+        none: "なし"
+        # quaterly: "Quaterly"
+        yearly: "毎年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "なし"
+        payment: "支払い"
     fixed_asset:
       depreciation_method:
         graduated: "目盛り付きの" #?
@@ -144,9 +150,6 @@ jpn:
       direction:
         loss: "損失"
         profit: "利益"
-      entity_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     georeading:
       nature:
         line: "ライン" #?
@@ -168,7 +171,7 @@ jpn:
         failed: "失敗しました"
         passed: "合格"
         passed_with_warnings: "警告付きで合格"
-      status:  #?
+      status: #?
         errored: "エラーの発生しました" #?
         failed: "失敗しました" #?
         passed: "合格" #?
@@ -269,12 +272,16 @@ jpn:
         incoming: "入ってきます"
         internal: "内部" #?
         outgoing: "出ていきます"
-      state:  #?
+      state: #?
         draft: "ドラフト" #?
         given: "与えられました" #?
         in_preparation: "準備中" #?
         ordered: "順序付けられました" #?
         prepared: "準備" #?
+    plant_counting:
+      nature:
+        germination: "発芽時"
+        sowing: "播種時"
     preference:
       nature:
         accounting_system: "会計システム"
@@ -390,18 +397,18 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    purchase:
+      tax_payability:
+        at_invoicing: "請求書発行で"
+        at_paying: "支払う時"
     purchase_nature:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
-    sale_opportunity:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
-    sale_ticket:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
+    sale_item:
+      compute_from:
+        pretax_amount: "税引前金額"
+        unit_pretax_amount: "ユニット税引前金額"
     sensor:
       retrieval_mode:
         integration: "統合"
@@ -442,7 +449,9 @@ jpn:
         sales: "セールス"
         sales_invoices: "売上請求書"
         subscriptions: "サブスクリプション"
-    subscription_nature:  #?
+        tax_declarations: "税務申告"
+        transports: "トランスポートの記数" #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "双方向の" #?
         direct: "直接" #?
@@ -450,6 +459,17 @@ jpn:
       nature: #?
         period: "日付別のサブスクリプション" #?
         quantity: "番号で購読" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "認証"
+        get_inventory: "インベントリを取得"
+        get_urls: "URLを取得します"
+      state:
+        aborted: "中止されました"
+        errored: "エラーの発生しました"
+        finished: "完成しました"
+        in_progress: "進行中"
+        undone: "元に戻します"
     task:
       nature:
         document: "書き込み" #?
@@ -464,7 +484,7 @@ jpn:
         doing: "実行"
         done: "終わりました"
         todo: "藤堂"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "量" #?
         percentage: "パーセンテージ" #?

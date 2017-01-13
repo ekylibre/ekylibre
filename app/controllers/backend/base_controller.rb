@@ -123,32 +123,31 @@ module Backend
       record
     end
 
-    def save_and_redirect(record, options = {}, &_block)
+    def save_and_redirect(record, options = {})
       record.attributes = options[:attributes] if options[:attributes]
       ActiveRecord::Base.transaction do
         if options[:saved] || record.send(:save)
-          yield record if block_given?
           response.headers['X-Return-Code'] = 'success'
           response.headers['X-Saved-Record-Id'] = record.id.to_s
           if params[:dialog]
             head :ok
-          else
-            # TODO: notify if success
-            if options[:url] == :back
-              redirect_to_back
-            elsif params[:redirect]
-              redirect_to params[:redirect]
-            else
-              url = options[:url]
-              record.reload
-              if url.is_a? Hash
-                url.each do |k, v|
-                  url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
-                end
-              end
-              redirect_to(url)
+            return true
+          end
+          if options[:notify]
+            model = record.class
+            notify_success(options[:notify],
+                           record: model.model_name.human,
+                           column: model.human_attribute_name(options[:identifier]),
+                           name: record.send(options[:identifier]))
+          end
+          url = options[:url]
+          record.reload
+          if url.is_a? Hash
+            url.each do |k, v|
+              url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
             end
           end
+          redirect_to(url)
           return true
         end
       end
@@ -287,8 +286,10 @@ module Backend
           v = '[' + v.join(', ') + ']' if v.is_a? Array
           values += '+' + v
         end
-        code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
-        code << "  #{conditions} += #{values}\n"
+        if filters.any?
+          code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
+          code << "  #{conditions} += #{values}\n"
+        end
         code << "end\n"
         code << conditions.to_s
         code.c

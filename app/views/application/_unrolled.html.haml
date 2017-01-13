@@ -1,0 +1,30 @@
+- if items.any?
+  %ul.items-list
+    - limit_at = max
+    - limit_at = max * 2 if items.count < (max * 1.5).round
+    - items.limit(limit_at).each do |item|
+      - item_label = label_item(item, filters, controller_path)
+      - attributes = filters.map { |f| [f.name, f.value_of(item)] }.to_h
+
+      %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes)}}
+        - matches = keys + keys.map { |key| ActiveSupport::Inflector.transliterate(key) }
+        = (render_partial ? render(render_partial, item: item) : highlight(item_label, matches))
+    - if params[:insert].to_i > 0 && items.count <= visible_items_count
+      %li.item.special{data: {new_item: ''}}
+        = "labels.add_#{model_name}".t(default: [:'labels.add_new_record'])
+  - if params[:insert].to_i > 0 && items.count > visible_items_count
+    %span.item-footer{data: {new_item: ''}}
+      = "labels.add_#{model_name}".t(default: [:'labels.add_new_record'])
+  - if items.count > (max * 1.5).round
+    %span.items-status.items-status-too-many-records
+      = 'labels.x_items_remain'.t(count: (items.count - max))
+- elsif params[:insert].to_i > 0
+  %ul.items-list
+    - unless fill_in.blank?
+      - unless search.blank?
+        %li.item.special{data: {new_item: search, new_item_parameter: fill_in}}= :add_x.th(x: search).html_safe
+    %li.item.special{data: {new_item: ''}}
+      = "labels.add_#{model_name}".t(default: [:'labels.add_new_record'])
+- else
+  %span.items-status.items-status-empty
+    = :no_results.tl

@@ -76,8 +76,7 @@ module Backend
         redirect_to params[:redirect] || { action: :show, id: @subscription.id }
         return
       end
-      sale = @subscription.renew!
-      redirect_to(controller: :sales, action: :edit, id: sale.id)
+      redirect_to(@subscription.renew_attributes.merge(controller: :sales, action: :new))
     end
 
     def suspend

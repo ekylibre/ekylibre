@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -33,8 +33,8 @@
 #
 
 class SubscriptionNature < Ekylibre::Record::Base
-  has_many :product_natures
-  has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature
+  has_many :product_natures, dependent: :restrict_with_exception
+  has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true

@@ -14,6 +14,19 @@
     .info
       %span.title= Entity.human_attribute_name(:worker)
       %span.value= link_to(resource.worker.name, {controller: :workers, action: :show, id: resource.worker.id})
+  - subscriptions = resource.subscriptions.active
+  - if subscriptions.any?
+    .info
+      %span.title= :currently_subscribed_to.tl
+      %span.value= subscriptions.map { |subscription| link_to("#{subscription.nature.name} (#{subscription.number})", { controller: :subscriptions, action: :show, id: subscription.id }) }.to_sentence.html_safe
+  - if current_user.can? :read, :accounts
+    - [:client, :supplier, :employee].each do |nature|
+      - if resource.send(nature) && (account = resource.send("#{nature}_account"))
+        .info
+          %span.title= Entity.human_attribute_name("#{nature}_account")
+          %span.value= link_to(account.label, { controller: :accounts, action: :show, id: account.id })
+  - if resource.description?
+    %p= h(resource.description).gsub(/\n/, '<br/>').html_safe
 
 = janus do |j|
   - j.face :timeline do
@@ -41,7 +54,7 @@
     = timeline(resource, id: :entity) do |l|
       - l.side :observations, at: :observed_at
       - l.side :sale_opportunities, new: resource.client?, if: Proc.new {|r| r.sale_opportunities.any? || r.client?}
-      - l.side :sales, new: resource.client?, if: Proc.new {|r| r.sales.any? || r.client? }
+      - l.side :sales, new: (resource.client? ? { redirect: nil } : false) , if: Proc.new {|r| r.sales.any? || r.client? }
       - l.side :outgoing_parcels, new: resource.client?, if: Proc.new {|r| r.outgoing_parcels.any? || r.client? }
       - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? || r.supplier? }
       - l.side :incoming_parcels, new: resource.supplier?, if: Proc.new {|r| r.incoming_parcels.any? || r.supplier? }
@@ -129,7 +142,7 @@
 
       - c.cobble(:sales, title: :x_sales.tl(count: resource.sales.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :sales, :client_id => resource.id})
+          = t.new(params: { controller: :sales, client_id: resource.id, redirect: nil })
         - if resource.sales.any?
           = cobble_list(:sales)
 

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -2868,11 +2868,11 @@ preferences_241:
   created_at: 2015-05-30 19:58:55.614160000 Z
   creator_id: 1
   id: 241
-  lock_version: 7
+  lock_version: 8
   name: kujaku.feathers.backend-entities-index-1:0.default
   nature: string
-  string_value: ecekiel
-  updated_at: 2016-11-05 09:00:37.908511000 Z
+  string_value: ''
+  updated_at: 2016-11-20 22:09:53.340436000 Z
   updater_id: 1
   user_id: 1
 preferences_242:
@@ -4501,7 +4501,7 @@ preferences_389:
   lock_version: 0
   name: current_period_interval
   nature: string
-  string_value: years
+  string_value: year
   updated_at: 2016-11-05 21:32:28.426966000 Z
   updater_id: 1
   user_id: 1
@@ -4539,3 +4539,175 @@ preferences_393:
   name: distribute_sales_and_purchases_on_teams
   nature: boolean
   updated_at: 2016-11-06 17:57:39.680824000 Z
+preferences_394:
+  boolean_value: true
+  created_at: 2016-11-20 22:08:58.272185000 Z
+  creator_id: 1
+  id: 394
+  lock_version: 0
+  name: catalog_price_item_addition_if_blank
+  nature: boolean
+  updated_at: 2016-11-20 22:08:58.272185000 Z
+  updater_id: 1
+preferences_395:
+  created_at: 2016-11-20 22:08:58.389623000 Z
+  creator_id: 1
+  id: 395
+  lock_version: 0
+  name: client_account_radix
+  nature: string
+  string_value: ''
+  updated_at: 2016-11-20 22:08:58.389623000 Z
+  updater_id: 1
+preferences_396:
+  created_at: 2016-11-20 22:10:24.492281000 Z
+  creator_id: 1
+  id: 396
+  lock_version: 1
+  name: interface.janus.backend-entities-show-18.current_face
+  nature: string
+  string_value: cobbles
+  updated_at: 2016-11-20 22:10:24.498917000 Z
+  updater_id: 1
+  user_id: 1
+preferences_397:
+  boolean_value: false
+  created_at: 2016-12-20 08:52:32.114378000 Z
+  creator_id: 1
+  id: 397
+  lock_version: 0
+  name: interface.snippets.vat.collapsed
+  nature: boolean
+  updated_at: 2016-12-20 08:52:32.114378000 Z
+  updater_id: 1
+  user_id: 1
+preferences_398:
+  created_at: 2016-12-20 08:59:56.939214000 Z
+  creator_id: 1
+  id: 398
+  lock_version: 0
+  name: list._labels_list_labels_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 08:59:56.939214000 Z
+  updater_id: 1
+  user_id: 1
+preferences_399:
+  created_at: 2016-12-20 09:05:11.499262000 Z
+  creator_id: 1
+  id: 399
+  lock_version: 0
+  name: list._tax_declarations_list_tax_declarations_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 09:05:11.499262000 Z
+  updater_id: 1
+  user_id: 1
+preferences_400:
+  created_at: 2016-12-20 09:05:18.142137000 Z
+  creator_id: 1
+  id: 400
+  lock_version: 0
+  name: cobbler.tax_declarations-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 09:05:18.142137000 Z
+  updater_id: 1
+  user_id: 1
+preferences_401:
+  boolean_value: false
+  created_at: 2016-12-20 18:21:15.644735000 Z
+  creator_id: 1
+  id: 401
+  lock_version: 0
+  name: interface.snippets.animal_management.collapsed
+  nature: boolean
+  updated_at: 2016-12-20 18:21:15.644735000 Z
+  updater_id: 1
+  user_id: 1
+preferences_402:
+  created_at: 2016-12-20 18:22:07.315803000 Z
+  creator_id: 1
+  id: 402
+  lock_version: 0
+  name: activity_17_inspection_view_unit
+  nature: string
+  updated_at: 2016-12-20 18:22:07.315803000 Z
+  updater_id: 1
+  user_id: 1
+preferences_403:
+  created_at: 2016-12-20 18:22:11.205700000 Z
+  creator_id: 1
+  id: 403
+  lock_version: 0
+  name: cobbler.plants-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 18:22:11.205700000 Z
+  updater_id: 1
+  user_id: 1
+preferences_404:
+  created_at: 2016-12-20 18:22:11.318172000 Z
+  creator_id: 1
+  id: 404
+  lock_version: 0
+  name: list._products_list_trackings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 18:22:11.318172000 Z
+  updater_id: 1
+  user_id: 1
+preferences_405:
+  created_at: 2016-12-20 18:22:11.500037000 Z
+  creator_id: 1
+  id: 405
+  lock_version: 0
+  name: list._plants_list_plant_countings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 18:22:11.500037000 Z
+  updater_id: 1
+  user_id: 1
+preferences_406:
+  created_at: 2016-12-20 18:22:11.521323000 Z
+  creator_id: 1
+  id: 406
+  lock_version: 0
+  name: list._products_list_inspections_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-12-20 18:22:11.521323000 Z
+  updater_id: 1
+  user_id: 1
+preferences_407:
+  boolean_value: true
+  created_at: 2016-12-20 18:24:29.653196000 Z
+  creator_id: 1
+  id: 407
+  lock_version: 0
+  name: permanent_stock_inventory
+  nature: boolean
+  updated_at: 2016-12-20 18:24:29.653196000 Z
+  updater_id: 1
+preferences_408:
+  boolean_value: true
+  created_at: 2017-01-04 14:47:42.534194000 Z
+  creator_id: 1
+  id: 409
+  lock_version: 0
+  name: interface.kujakus.backend-intervention_participations-index-40.collapsed
+  nature: boolean
+  updated_at: 2017-01-04 14:47:42.534194000 Z
+  updater_id: 1
+  user_id: 1
+preferences_409:
+  created_at: 2017-01-04 14:47:42.643427000 Z
+  creator_id: 1
+  id: 410
+  lock_version: 0
+  name: cobbler.intervention_participations-index
+  nature: string
+  string_value: {}
+  updated_at: 2017-01-04 14:47:42.643427000 Z
+  updater_id: 1
+  user_id: 1

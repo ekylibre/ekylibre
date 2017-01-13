@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -59,10 +59,14 @@ class LoanRepayment < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(journal, printed_on: due_on, if: (amount > 0 && due_on <= Time.zone.today)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
-      entry.add_debit(label, Account.find_or_import_from_nomenclature(:loans).id, base_amount) unless base_amount.zero?
-      entry.add_debit(label, Account.find_or_import_from_nomenclature(:loans_interests).id, interest_amount) unless interest_amount.zero?
-      entry.add_debit(label, Account.find_or_import_from_nomenclature(:insurance_expenses).id, insurance_amount) unless insurance_amount.zero?
-      entry.add_credit(label, cash.account_id, amount)
+      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, base_amount, as: :repayment) unless base_amount.zero?
+      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans_interests).id }, interest_amount, as: :interest) unless interest_amount.zero?
+      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:insurance_expenses).id }, insurance_amount, as: :insurance) unless insurance_amount.zero?
+      entry.add_credit(label, cash.account_id, amount, as: :bank)
     end
+  end
+
+  def number
+    loan.name + ' ' + position.to_s
   end
 end

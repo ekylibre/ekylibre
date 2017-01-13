@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -58,10 +58,8 @@ class Inspection < Ekylibre::Record::Base
   validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :activity, :product, presence: true
   # ]VALIDATORS]
-  validates :product_net_surface_area, presence: true
-  validates :implanter_rows_number, presence: true
-  validates :implanter_application_width, presence: true
-  validates :sampling_distance, presence: true
+  validates :implanter_rows_number, :product_net_surface_area, :implanter_application_width, :sampling_distance, numericality: { greater_than: 0 }, allow_blank: false
+  validates :implanter_rows_number, :product_net_surface_area, :implanter_application_width, :sampling_distance, presence: true
 
   composed_of :product_net_surface_area, class_name: 'Measure',
                                          mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]

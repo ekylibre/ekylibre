@@ -60,10 +60,11 @@ fra:
         one: "1 seconde"
         other: "%{count} secondes"
     periods:
-      day: "Journée"
-      month: "Mois"
-      week: "Semaine"
-      year: "Année"
+      day: "Planning journalier"
+      month: "Planning mensuel"
+      today: "Aujourd'hui"
+      week: "Planning hedbomadaire"
+      year: "Planning annuel"
     relative_distance_in_words:
       in_sometime: "dans %{distance}"
       sometime_ago: "il y a %{distance}"

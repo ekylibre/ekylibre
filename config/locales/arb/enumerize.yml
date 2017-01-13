@@ -36,10 +36,6 @@ arb:
       mode:
         harvested: "حصاد تاريخ البذر"
         sowed: "مواعيد الزراعة المؤقت"
-    affair:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     analysis:
       retrieval_status:
         controller_error: "خطأ تحكم"
@@ -135,6 +131,16 @@ arb:
         informative: "إعلامي"
         refused: "رفض"
         waiting: "انتظار"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "شهريا"
+        none: "لا شيء"
+        # quaterly: "Quaterly"
+        yearly: "سنوي"
+      tax_declaration_mode:
+        debit: "دين"
+        none: "لا شيء"
+        payment: "دفع"
     fixed_asset:
       depreciation_method:
         graduated: "تخرج" #?
@@ -144,9 +150,6 @@ arb:
       direction:
         loss: "خسارة"
         profit: "ربح"
-      entity_role:
-        client: "زبون"
-        supplier: "المورد"
     georeading:
       nature:
         line: "خط" #?
@@ -168,7 +171,7 @@ arb:
         failed: "فشل"
         passed: "مرت"
         passed_with_warnings: "مرت مع تحذيرات"
-      status:  #?
+      status: #?
         failed: "فشل" #?
         passed: "مرت" #?
         passed_with_warnings: "مرت مع تحذيرات" #?
@@ -268,12 +271,16 @@ arb:
         incoming: "الوارد"
         internal: "داخلي" #?
         outgoing: "المنتهية ولايته"
-      state:  #?
+      state: #?
         draft: "مسودة" #?
         given: "معطى" #?
         in_preparation: "قيد التحضير" #?
         ordered: "أمر" #?
         prepared: "أعدت" #?
+    plant_counting:
+      nature:
+        germination: "في إنبات"
+        sowing: "في البذر"
     preference:
       nature:
         accounting_system: "نظام المحاسبة"
@@ -389,18 +396,18 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    purchase:
+      tax_payability:
+        at_invoicing: "في الفواتير"
+        at_paying: "في دفع"
     purchase_nature:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_opportunity:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
-    sale_ticket:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
+    sale_item:
+      compute_from:
+        pretax_amount: "كمية قبل خصم الضرائب"
+        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب"
     sensor:
       retrieval_mode:
         integration: "دمج"
@@ -441,7 +448,9 @@ arb:
         sales: "مبيعات"
         sales_invoices: "فواتير المبيعات"
         subscriptions: "الاشتراكات"
-    subscription_nature:  #?
+        tax_declarations: "الإقرارات الضريبية"
+        transports: "ترقيم وسائل النقل" #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "ثنائي الاتجاه" #?
         direct: "مباشرة" #?
@@ -449,6 +458,17 @@ arb:
       nature: #?
         period: "الاشتراك عن طريق التاريخ" #?
         quantity: "الاشتراك عن طريق رقم" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "المصادقة"
+        get_inventory: "الحصول على المخزون"
+        get_urls: "الحصول على عناوين المواقع"
+      state:
+        aborted: "أجهض"
+        # errored: "Errored"
+        finished: "تم الانتهاء من"
+        in_progress: "في تَقَدم"
+        undone: "غير مصنوع"
     task:
       nature:
         document: "جاري الكتابة" #?
@@ -463,7 +483,7 @@ arb:
         doing: "فعل"
         done: "فعله"
         todo: "لكى يفعل"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "كمية" #?
         percentage: "نسبة مئوية" #?

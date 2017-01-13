@@ -19,7 +19,7 @@
 module Backend
   class SaleCreditsController < Backend::BaseController
     before_action :find_credited_sale
-    after_action :render_form
+    before_action :render_form
 
     def new # undo
       @sale_credit = @credited_sale.build_credit
