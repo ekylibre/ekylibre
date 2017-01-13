@@ -709,7 +709,7 @@
     // we have a date, so just return it.
     if (typeof(date) == "object") {
       return date;
-    };
+    }
 
     matches = date.toString().match(/(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}):(\d{2})([\.,]\d{1,3})?)?(Z|\+00:?00)?/);
 
