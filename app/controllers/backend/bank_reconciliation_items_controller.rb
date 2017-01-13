@@ -64,10 +64,10 @@ module Backend
     end
 
     def group_by_date(items)
-      items.group_by do |item|
+      items.each(&:reload).group_by do |item|
         attributes = item.attributes
         attributes['transfered_on'] || attributes['printed_on']
-      end.sort
+      end.sort.to_h
     end
   end
 end
