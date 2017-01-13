@@ -12,7 +12,7 @@
 // See tests for specific formatting like numbers and dates.
 //
 
-;(function(factory) {
+(function(factory) {
   if (typeof module !== 'undefined' && module.exports) {
     // Node/CommonJS
     module.exports = factory(this);
@@ -56,7 +56,7 @@
   var isArray = function(obj) {
     if (Array.isArray) {
       return Array.isArray(obj);
-    };
+    }
     return Object.prototype.toString.call(obj) === '[object Array]';
   };
 
