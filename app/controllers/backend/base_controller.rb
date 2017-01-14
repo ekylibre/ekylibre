@@ -94,8 +94,8 @@ module Backend
       respond_with_without_template(*resources, &block)
     end
 
-    hide_action :respond_with, :respond_with_without_template
-    alias_method_chain :respond_with, :template
+    alias respond_with_without_template respond_with
+    alias respond_with respond_with_with_template
 
     # Find a record with the current environment or given parameters and check availability of it
     def find_and_check(*args)

@@ -5,11 +5,11 @@ module CallLoggable
 
   included do
     before_action :log_request
-    hide_action :log_request
 
     after_action :log_response
-    hide_action :log_response
   end
+
+  protected
 
   def log_request
     # Stocking the CallRequest so we can set the request_id reference

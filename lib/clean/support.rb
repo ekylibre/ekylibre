@@ -228,7 +228,7 @@ module Clean
         Dir.glob(Rails.root.join('app', 'models', '*.rb')).each { |file| require file }
         ObjectSpace
           .each_object(Class)
-          .select { |klass| klass < ActiveRecord::Base }
+          .select { |klass| klass < ActiveRecord::Base && klass != Apartment::Adapters::AbstractAdapter::SeparateDbConnectionHandler }
           .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') }
           .uniq
           .sort_by(&:name)

@@ -45,7 +45,7 @@ module Clean
             list << 'inclusion: { in: [true, false] }'
           elsif type == :integer
             list << "numericality: { only_integer: true, greater_than: -#{pretty_number(2_147_483_648 + 1)}, less_than: #{pretty_number(2_147_483_647 + 1)} }"
-          elsif column.number?
+          elsif type == :decimal || type == :float
             if column.precision && column.scale
               max = pretty_number(10**(column.precision - column.scale))
               list << "numericality: { greater_than: -#{max}, less_than: #{max} }"

@@ -20,6 +20,8 @@ module Backend
   class JournalsController < Backend::BaseController
     include JournalEntriesCondition
 
+    JOURNAL_VIEWS = %w(items entries mixed).freeze
+
     manage_restfully nature: 'params[:nature]'.c, currency: 'Preference[:currency]'.c
 
     unroll
@@ -36,11 +38,6 @@ module Backend
       t.column :currency
       t.column :closed_on
     end
-
-    hide_action :journal_views
-
-    @@journal_views = %w(items entries mixed)
-    cattr_reader :journal_views
 
     list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :entry_number, url: true
@@ -93,8 +90,8 @@ module Backend
     def show
       return unless @journal = find_and_check
       journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
-      journal_view.value = journal_views[0] unless journal_views.include? journal_view.value
-      if view = journal_views.detect { |x| params[:view] == x }
+      journal_view.value = JOURNAL_VIEWS[0] unless JOURNAL_VIEWS.include? journal_view.value
+      if view = JOURNAL_VIEWS.detect { |x| params[:view] == x }
         journal_view.value = view
         journal_view.save
       end

@@ -29,19 +29,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from PG::UndefinedTable, Apartment::TenantNotFound, with: :configure_application
 
-  hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
-
-  attr_accessor :current_theme
-
-  # Permits to redirect
-  hide_action :after_sign_in_path_for
-  def after_sign_in_path_for(resource)
-    if Ekylibre::Plugin.redirect_after_login?
-      path = Ekylibre::Plugin.after_login_path(resource)
-    end
-    path || super
-  end
-
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)
     root = 'actions.' + controller_path + '.'
@@ -61,6 +48,18 @@ class ApplicationController < ActionController::Base
       klass = klass.superclass
     end
     ::I18n.translate(root + action, options)
+  end
+
+  protected
+
+  attr_accessor :current_theme
+
+  # Permits to redirect
+  def after_sign_in_path_for(resource)
+    if Ekylibre::Plugin.redirect_after_login?
+      path = Ekylibre::Plugin.after_login_path(resource)
+    end
+    path || super
   end
 
   helper_method :human_action_name
@@ -95,8 +94,6 @@ class ApplicationController < ActionController::Base
       true
     end
   end
-
-  protected
 
   def notify(message, options = {}, nature = :information, mode = :next)
     options[:default] ||= []

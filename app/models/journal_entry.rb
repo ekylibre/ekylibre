@@ -228,7 +228,7 @@ class JournalEntry < Ekylibre::Record::Base
       end
     end
     if number.present?
-      number.upcase!
+      self.number.upcase!
     elsif journal
       self.number ||= journal.next_number
     end

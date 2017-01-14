@@ -21,7 +21,7 @@ module Fixturing
     # Returns true if current_version is last DB version
     def up_to_date?(options = {})
       version = options[:version] || current_version
-      version == ActiveRecord::Migrator.last_version
+      version == ActiveRecord::Migrator.current_version
     end
 
     def tables_from_files(options = {})
@@ -116,7 +116,7 @@ module Fixturing
     end
 
     def migrate(tenant, options = {})
-      target = ActiveRecord::Migrator.last_version
+      target = ActiveRecord::Migrator.current_version
       origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect

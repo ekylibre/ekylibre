@@ -3,8 +3,9 @@ module InspectionViewable
 
   included do
     before_action :set_preference_view, only: [:show]
-    hide_action :set_preference_view
   end
+
+  protected
 
   def set_preference_view
     if params[:unit] && params[:activity_id]

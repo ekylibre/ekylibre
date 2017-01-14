@@ -32,7 +32,7 @@ module Backend
     # Show the 3 modes of view for a journal
     def journal_view_tag
       code = content_tag(:dt, :view.tl)
-      for mode in controller.journal_views
+      controller; JOURNAL_VIEWS.each do |mode|
         code << content_tag(:dd, link_to(h("journal_view.#{mode}".tl(default: ["labels.#{mode}".to_sym, mode.to_s.humanize])), params.merge(view: mode)), (@journal_view == mode ? { class: :active } : nil)) # content_tag(:i) + " " +
       end
       content_tag(:dl, code, id: 'journal-views')

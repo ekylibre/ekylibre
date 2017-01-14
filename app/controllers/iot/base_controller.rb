@@ -21,7 +21,8 @@ module Iot
     include ActionController::Flash
     before_action :authenticate_thing!
 
-    hide_action :authenticate_thing!
+    protected
+
     def authenticate_thing!
       @sensor = Sensor.find_by(token: params.delete(:token))
       unless @sensor

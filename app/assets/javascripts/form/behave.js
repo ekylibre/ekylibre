@@ -40,7 +40,7 @@
       }
     });
   };
-  
+
   // Retro-compatibility
   $.behave = function (selector, events, handler) {
     $(document).behave(events, selector, handler);

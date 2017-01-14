@@ -1,5 +1,5 @@
 # Selectors for unroll action
-#= require jquery.scrollTo
+# require jquery.scrollTo
 
 
 ((E, $) ->

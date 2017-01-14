@@ -1,5 +1,5 @@
 #= require twitter/typeahead
-#= require formize/behave
+#= require form/behave
 
 (($) ->
 

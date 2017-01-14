@@ -8,7 +8,7 @@ gem 'rails', '5.0.1'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
-gem 'activerecord-postgis-adapter', '~> 4.0.0'
+gem 'activerecord-postgis-adapter', '~> 4.0'
 
 # Multi-tenancy
 gem 'apartment', '~> 1.2.0'
@@ -180,9 +180,10 @@ group :development do
 
   # Webservers
   gem 'thin'
+  gem 'puma'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'# , '~> 3.0'
+  gem 'web-console'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

@@ -28,18 +28,17 @@ module Api
       before_action :force_json!
       after_action :add_generic_headers!
 
-      hide_action :add_generic_headers!
+      protected
+
       def add_generic_headers!
         response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
         # response.headers['Access-Control-Allow-Origin'] = '*'
       end
 
-      hide_action :force_json!
       def force_json!
         request.format = 'json'
       end
 
-      hide_action :authenticate_api_user!
       def authenticate_api_user!
         user = nil
         token = nil
@@ -57,7 +56,6 @@ module Api
         false
       end
 
-      hide_action :authenticate_user_from_simple_token!
       # Check given token match with the user one and
       def authenticate_user_from_simple_token!(email, token)
         user = User.find_by(email: email)
@@ -78,8 +76,6 @@ module Api
         render status: :unauthorized, json: { message: 'Unauthorized.' }
         false
       end
-
-      protected
 
       def permitted_params
         params.except(:format)
