@@ -19,13 +19,18 @@
 # ##### END LICENSE BLOCK #####
 
 module ApplicationHelper
-  delegate :current_theme, to: :controller
+  # Delegation on protected method
+  def current_theme
+    controller.send(:current_theme)
+  end
 
-  delegate :current_user, to: :controller
+  def current_user
+    controller.send(:current_user)
+  end
 
   # Helper which check authorization of an action
   def authorized?(url_options = {})
-    controller.authorized?(url_options)
+    controller.send(:authorized?, url_options)
   end
 
   def selector_tag(name, choices = nil, options = {}, html_options = {})
@@ -674,7 +679,7 @@ module ApplicationHelper
         content_for(:main_title, value)
       end
     else
-      (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
+      (content_for?(:main_title) ? content_for(:main_title) : controller.send(:human_action_name))
     end
   end
 
