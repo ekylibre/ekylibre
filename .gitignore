@@ -80,8 +80,8 @@ capybara*.html
 /.ruby-version
 /.ruby-gemset
 
+Gemfile.lock
 Gemfile.local
-Gemfile.local.lock
 
 Procfile.*
 
