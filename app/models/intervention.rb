@@ -292,16 +292,8 @@ class Intervention < Ekylibre::Record::Base
     participations.update_all(request_compliant: request_compliant) if request_compliant
   end
 
-  ACTIONS = {
-    parturition: :create_new_birth,
-    animal_artificial_insemination: :create_insemination
-  }.freeze
-
   after_create do
-    actions.each do |action|
-      next unless ACTIONS.key? action
-      Ekylibre::Hook.publish "add_#{ACTIONS[:action]}_intervention", self
-    end
+    Ekylibre::Hook.publish :create_intervention, self
   end
 
   # Prevents from deleting an intervention that was executed
