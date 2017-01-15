@@ -1,5 +1,5 @@
 module Ekylibre
   module View
-    autoload :DSL, 'ekylibre/view/addon'
+    autoload :Addon, 'ekylibre/view/addon'
   end
 end
