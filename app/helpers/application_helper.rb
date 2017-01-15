@@ -195,8 +195,19 @@ module ApplicationHelper
       options      = args[1] || {}
       html_options = args[2] || {}
 
-      if options.is_a? Hash
-        return (html_options[:remove] ? '' : content_tag(:a, name, class: html_options[:class].to_s + ' forbidden', disabled: true)) unless authorized?(options)
+      if options.is_a?(Hash) && !authorized?(options)
+        if html_options[:remove]
+          return ''
+        else
+          html_options[:class] = if html_options[:class].is_a?(Array)
+                                   html_options[:class] + ['forbidden']
+                                 else
+                                   html_options[:class].to_s + ' forbidden'
+                                 end
+          html_options.delete('disabled')
+          html_options[:disabled] = true
+          return content_tag(:a, name, html_options)
+        end
       end
 
       html_options = convert_options_to_data_attributes(options, html_options)

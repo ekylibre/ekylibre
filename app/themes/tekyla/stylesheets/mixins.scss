@@ -158,6 +158,12 @@
   }
 }
 
+@mixin disabled {
+  filter: contrast(75%) grayscale(100%);
+  cursor: default;
+  pointer-events: none;
+}
+
 @mixin calc-height($expression) {
   @include calc(height, $expression);
 }
@@ -335,9 +341,7 @@
     background: background-hover($menu-background);
   }
   &.disabled, &[disabled] {
-    filter: contrast(75%) grayscale(100%);
-    cursor: default;
-    pointer-events: none;
+    @include disabled;
   }
   &.separator {
     @include menu-separator;
