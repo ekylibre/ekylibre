@@ -52,7 +52,6 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  # include Ednotif::Engine if defined? Ednotif::Engine
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
@@ -301,7 +300,7 @@ class Intervention < Ekylibre::Record::Base
   after_create do
     actions.each do |action|
       next unless ACTIONS.key? action
-      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action]}", self
+      Ekylibre::Hook.publish "add_#{ACTIONS[:action]}_intervention", self
     end
   end
 
