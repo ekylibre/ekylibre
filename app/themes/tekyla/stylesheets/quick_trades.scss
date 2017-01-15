@@ -1,0 +1,34 @@
+.form-actions{
+  .validity {
+    position: relative;
+    overflow: visible;
+
+    #letterable {
+      display: none;
+      position: absolute;
+      white-space: nowrap;
+      top: 0.05em;
+
+      color: $brand-success;
+      @include icon-before(check);
+    }
+
+    #nonletterable {
+      display: none;
+      position: absolute;
+      white-space: nowrap;
+      top: 0.05em;
+
+      color: $brand-warning;
+      @include icon-before(times);
+    }
+
+    &.valid #letterable {
+      display: inline;
+    }
+
+    &.invalid #nonletterable {
+      display: inline;
+    }
+  }
+}

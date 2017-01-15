@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -120,6 +120,8 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
+  scope :with_nature, ->(id) { where(nature_id: id) }
+
   scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
@@ -156,7 +158,7 @@ class Sale < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state = :draft
-    self.currency = nature.currency if nature
+    self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end
 
@@ -174,7 +176,9 @@ class Sale < Ekylibre::Record::Base
       self.expired_at ||= Delay.new(self.expiration_delay).compute(self.created_at)
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if has_downpayment.nil?
-      self.downpayment_amount ||= (amount * self.nature.downpayment_percentage * 0.01) if amount >= self.nature.downpayment_minimum
+      if amount >= self.nature.downpayment_minimum
+        self.downpayment_amount ||= (amount * self.nature.downpayment_percentage * 0.01)
+      end
       self.currency ||= self.nature.currency
     end
     true
@@ -216,7 +220,8 @@ class Sale < Ekylibre::Record::Base
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
         entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
-        entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount, tax: item.tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+        tax = item.tax
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
       end
     end
 
@@ -262,6 +267,22 @@ class Sale < Ekylibre::Record::Base
     dealt_at.to_date
   end
 
+  def self.third_attribute
+    :client
+  end
+
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
+  def default_currency
+    currency || nature.currency
+  end
+
+  def third
+    send(third_attribute)
+  end
+
   # Gives the date to use for affair bookkeeping
   def dealt_at
     (invoice? ? invoiced_at : self.created_at)
@@ -294,6 +315,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   delegate :number, to: :client, prefix: true
+  delegate :third_attribute, to: :class
 
   def nature=(value)
     super(value)
@@ -470,7 +492,8 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
+    attrs = [:affair, :client, :address, :responsible, :nature,
+             :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -478,19 +501,24 @@ class Sale < Ekylibre::Record::Base
     attrs[:credit] = true
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)
+    x = []
     items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].each_with_object({}) do |attribute, hash|
+      attrs = [:account, :currency, :variant, :reduction_percentage, :tax,
+               :compute_from, :unit_pretax_amount, :unit_amount].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
+      [:pretax_amount, :amount].each do |v|
+        attrs[v] = -1 * item.send(v)
+      end
       attrs[:credited_quantity] = item.creditable_quantity
+      attrs[:quantity] = -1 * item.creditable_quantity
       attrs[:credited_item] = item
       if attrs[:credited_quantity] > 0
         sale_credit_item = sale_credit.items.build(attrs)
         sale_credit_item.valid?
       end
     end
-    # sale_credit.valid?
     sale_credit
   end
 

@@ -1,0 +1,16 @@
+= field_set do
+  .control-group.select.required
+    = label_tag :started_at, :started_at.t(scope:[:attributes]), class: 'control-label'
+    .controls
+      = date_field_tag :started_at, params[:started_at], required: true, disabled: @affairs.present?
+
+  .control-group.select.required
+    = label_tag :stopped_at, :stopped_at.t(scope:[:attributes]), class: 'control-label'
+    .controls
+      = date_field_tag :stopped_at, params[:stopped_at], required: true, disabled: @affairs.present?
+  = f.association :mode
+  .control-group.select
+    = label_tag :bank_check_number, :bank_check_number.t(scope:[:attributes]), class: 'control-label'
+    .controls
+      = text_field_tag :bank_check_number, params[:bank_check_number]
+  = render partial: 'third', collection: @affairs.collect(&:supplier).uniq, locals: {f:f}

@@ -10,8 +10,12 @@ class FixturesTest < ActiveSupport::TestCase
       # print "#{model.name.green}"
       reflections = model.reflect_on_all_associations(:belongs_to).delete_if { |r| r.name.to_s == 'item' && model == Version }
       model.includes(reflections.collect(&:name)).find_each do |record|
-        unless record.valid?
-          invalids << "#{model.name}##{record.id}: #{record.errors.full_messages.to_sentence}"
+        begin
+          unless record.valid?
+            invalids << "#{model.name}##{record.id}: #{record.errors.full_messages.to_sentence}"
+          end
+        rescue ActiveRecord::RecordInvalid => e
+          invalids << "#{model.name}##{record.id}: #{e.class.name} raised: #{e.message}"
         end
         reflections.each do |reflection|
           id = record.send(reflection.foreign_key)

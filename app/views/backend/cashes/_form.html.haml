@@ -8,24 +8,28 @@
 
 .bank_account-options
   = field_set(:bank_account) do
+    = f.input :bank_account_holder_name
     = f.input :bank_name
     = f.input :bank_agency_address
-    = f.input :bank_account_holder_name
     = f.input :mode, show: '#{{value}}', as: :radio_buttons
 
-  = field_set(:iban) do
-    = f.input :iban
-    = f.input :bank_identifier_code
+    #iban
+      = f.input :iban, input_html: { size: 48 }
+      = f.input :bank_identifier_code, input_html: { size: 10 }
 
-  = field_set(:bban) do
-    = f.input :country
-    = f.input :bank_code
-    = f.input :bank_agency_code
-    = f.input :bank_account_number
-    = f.input :bank_account_key
+    #bban
+      = f.input :country
+      = f.input :bank_code, input_html: { size: 8 }
+      = f.input :bank_agency_code, input_html: { size: 8 }
+      = f.input :bank_account_number, input_html: { size: 16 }
+      = f.input :bank_account_key, input_html: { size: 4 }
 
 = field_set(:accountancy) do
-  = f.referenced_association :account, source: :banks_or_cashes_or_associates
+  = f.referenced_association :main_account, source: :banks_or_cashes_or_associates
   = f.referenced_association :journal, source: { nature: :banks_or_cashes }
+  .bank_account-options
+    = f.input :suspend_until_reconciliation, show: '.suspend-until-reconciliation'
+    .suspend-until-reconciliation
+      = f.referenced_association :suspense_account
 
 = f.attachments_field_set

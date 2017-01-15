@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -72,6 +72,80 @@ require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
   test_model_actions
+
+  test 'rounds' do
+    nature = SaleNature.find_or_create_by(with_accounting: true)
+    assert nature
+    client = Entity.normal.first
+    assert client
+    sale = Sale.create!(nature: nature, client: client)
+    assert sale
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    # Standard case
+    standard_vat = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
+      country: :fr
+    )
+    first_item = sale.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
+    assert first_item
+    assert_equal 480, first_item.amount
+    assert_equal 480, sale.amount
+    # Limit case
+    reduced_vat = Tax.create!(
+      name: 'Reduced',
+      amount: 5.5,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45662'),
+      deduction_account: Account.find_or_create_by_number('45672'),
+      country: :fr
+    )
+    second_item = sale.items.create!(variant: variants.second, quantity: 4, unit_pretax_amount: 3.791, tax: reduced_vat)
+    assert second_item
+    assert_equal 16, second_item.amount
+    assert_equal 496, sale.amount
+
+    assert sale.propose!
+    assert sale.confirm!
+    assert sale.invoice!
+
+    sale.reload
+    entry = sale.journal_entry
+
+    assert entry.present?, 'Journal entry must be present after invoicing'
+
+    assert_equal 5, entry.items.count
+    assert 80.0, entry.items.find_by(account_id: standard_vat.collect_account_id).credit
+    assert 400.0, entry.items.find_by(account_id: first_item.account_id).credit
+    assert 0.84, entry.items.find_by(account_id: reduced_vat.collect_account_id).credit
+    assert 15.16, entry.items.find_by(account_id: second_item.account_id).credit
+    assert 496, entry.items.find_by(account_id: client.account(:client).id).debit
+  end
+
+  test 'unit pretax amount calculation based on total pretax amount' do
+    nature = SaleNature.first
+    assert nature
+    sale = Sale.create!(nature: nature, client: Entity.normal.first)
+    assert sale
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    tax = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    # Calculates unit_pretax_amount based on pretax_amount
+    item = sale.items.create!(variant: variants.first, quantity: 2, pretax_amount: 225, tax: tax, compute_from: 'pretax_amount')
+    assert item
+    assert_equal 112.50, item.unit_pretax_amount
+    assert_equal 270, item.amount
+  end
+
   test 'duplicatablity' do
     count = 0
     Sale.find_each do |sale|
@@ -186,5 +260,25 @@ class SaleTest < ActiveSupport::TestCase
       #   assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
       # end
     end
+  end
+
+  test 'default_currency is nature\'s currency if currency is not specified' do
+    Catalog.delete_all
+    SaleNature.delete_all
+    Entity.delete_all
+    Sale.delete_all
+
+    catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
+    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog)
+    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with       = Sale.create!(client: max, nature: nature, currency: 'USD')
+    without    = Sale.create!(client: max, nature: nature)
+
+    assert_equal 'USD', with.default_currency
+    assert_equal 'EUR', without.default_currency
+  end
+
+  test 'affair_class points to correct class' do
+    assert_equal SaleAffair, Sale.affair_class
   end
 end

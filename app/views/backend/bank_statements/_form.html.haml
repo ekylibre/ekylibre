@@ -6,6 +6,8 @@
   = f.input :number
   = f.input :started_on
   = f.input :stopped_on
+  = f.input :initial_balance_debit
+  = f.input :initial_balance_credit
   = f.custom_fields
 
 = f.attachments_field_set
@@ -16,6 +18,7 @@
       %thead
         %tr
           %th= BankStatementItem.human_attribute_name(:name)
+          %th= BankStatementItem.human_attribute_name(:memo)
           %th= BankStatementItem.human_attribute_name(:transfered_on)
           %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:debit)
           %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:credit)

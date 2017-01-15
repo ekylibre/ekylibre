@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,4 +31,31 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
---- {}
+---
+labels_001:
+  color: "#000000"
+  created_at: 2016-12-20 09:00:02.282349000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  name: Black
+  updated_at: 2016-12-20 09:00:02.282349000 Z
+  updater_id: 1
+labels_002:
+  color: "#d33c3c"
+  created_at: 2016-12-20 09:01:26.060357000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  name: Destroyable (Keep it)
+  updated_at: 2016-12-20 09:01:26.060357000 Z
+  updater_id: 1
+labels_003:
+  color: "#29ca12"
+  created_at: 2016-12-20 09:01:41.208192000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: Other green
+  updated_at: 2016-12-20 09:01:41.208192000 Z
+  updater_id: 1

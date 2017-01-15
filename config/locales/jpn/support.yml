@@ -90,7 +90,7 @@ jpn:
       delimiter: ","
       precision: 3
       separator: "."
-    formats:  #?
+    formats: #?
       JPY: #?
         unit: "円" #?
     human:

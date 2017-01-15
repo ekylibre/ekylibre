@@ -37,7 +37,8 @@ module Backend
       t.column :nature
       t.column :currency
       t.column :country
-      t.column :account, url: true
+      t.column :main_account, url: true
+      t.column :suspense_account, url: true
       t.column :journal, url: true
     end
 

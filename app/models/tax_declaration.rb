@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -91,7 +91,6 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state ||= :draft
-    self.invoiced_on ||= Date.today
     if financial_year
       self.mode = financial_year.tax_declaration_mode
       self.currency = financial_year.currency
@@ -102,6 +101,7 @@ class TaxDeclaration < Ekylibre::Record::Base
     if started_on
       self.stopped_on ||= financial_year.tax_declaration_end_date(started_on)
     end
+    self.invoiced_on ||= self.stopped_on
   end
 
   before_validation do
@@ -128,18 +128,23 @@ class TaxDeclaration < Ekylibre::Record::Base
         entry.add_debit(label, item.tax.collect_account.id, item.collected_tax_amount.round(2), tax: item.tax, resource: item, as: :collect) unless item.collected_tax_amount.zero?
         entry.add_credit(label, item.tax.deduction_account.id, item.deductible_tax_amount.round(2), tax: item.tax, resource: item, as: :deduction) unless item.deductible_tax_amount.zero?
         entry.add_credit(label, item.tax.fixed_asset_deduction_account.id, item.fixed_asset_deductible_tax_amount.round(2), tax: item.tax, resource: item, as: :fixed_asset_deduction) unless item.fixed_asset_deductible_tax_amount.zero?
+        entry.add_credit(label, item.tax.intracommunity_payable_account.id, item.intracommunity_payable_tax_amount.round(2), tax: item.tax, resource: item, as: :intracommunity_payable) unless item.intracommunity_payable_tax_amount.zero?
       end
-      balance = items.sum(:balance_tax_amount).round(2)
-      unless balance.zero?
-        # FIXME: Too french
-        account = Account.find_or_create_by(number: balance < 0 ? '45567' : '44551')
-        entry.add_credit(label, account, balance, as: :balance)
+      unless global_balance.zero?
+        if global_balance < 0
+          account = Account.find_or_import_from_nomenclature(:report_vat_credit)
+          # account = Account.find_or_create_by!(number: '44567', usages: :deductible_vat)
+        elsif global_balance > 0
+          account = Account.find_or_import_from_nomenclature(:vat_to_pay)
+          # account = Account.find_or_create_by!(number: '44551', usages: :collected_vat)
+        end
+        entry.add_credit(label, account, global_balance, as: :balance)
       end
     end
   end
 
   def dealt_at
-    (validated? ? invoiced_on : created_at? ? self.created_at : Time.zone.now)
+    (validated? ? invoiced_on : stopped_on? ? self.created_at : Time.zone.now)
   end
 
   def status
@@ -169,6 +174,10 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   def collected_tax_amount_balance
     items.map(&:collected_tax_amount).compact.sum
+  end
+
+  def global_balance
+    items.sum(:balance_tax_amount).round(2)
   end
 
   # Compute tax declaration with its items

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/lcoq/ofx-parser.git
-  revision: 3be6cdb8a70cea4b54bc0b4456b00ad2addf7284
+  revision: 3c4cbb43d3df1be3f9493f45a82dabec02edf866
   branch: master
   specs:
     ofx-parser (1.1.0.20121129105223)
@@ -68,7 +68,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_list (6.7.4)
+    active_list (6.7.6)
       arel (>= 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements
@@ -110,9 +110,9 @@ GEM
     apartment-sidekiq (1.1.0)
       apartment (~> 1.0)
       sidekiq (>= 2.11)
-    arel (6.0.3)
+    arel (6.0.4)
     ast (2.3.0)
-    autoprefixer-rails (6.5.4)
+    autoprefixer-rails (6.6.1)
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -138,28 +138,27 @@ GEM
     bootstrap3-datetimepicker-rails (4.17.43)
       momentjs-rails (>= 2.8.1)
     browser (2.3.0)
-    builder (3.2.2)
+    builder (3.2.3)
     burisu-docsplit (0.7.9)
     byebug (9.0.6)
-    capybara (2.7.1)
+    capybara (2.11.0)
       addressable
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
+    capybara-webkit (1.12.0)
+      capybara (>= 2.3.0, < 2.13.0)
       json
     charlock_holmes (0.7.3)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
+    climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
-    codacy-coverage (1.1.5)
+    codacy-coverage (1.1.6)
       simplecov
     code_analyzer (0.4.7)
       sexp_processor
@@ -171,9 +170,9 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.11.1)
+    coffee-script-source (1.12.2)
     colored (1.2)
-    concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.4)
     connection_pool (2.2.1)
     coveralls (0.8.17)
       json (>= 1.8, < 3)
@@ -183,7 +182,7 @@ GEM
       tins (~> 1.6)
     daemons (1.2.4)
     database_cleaner (1.5.3)
-    dbf (3.0.8)
+    dbf (3.1.0)
     debug_inspector (0.0.2)
     deep_cloneable (2.2.2)
       activerecord (>= 3.1.0, < 5.2.0)
@@ -208,7 +207,7 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    faraday (0.9.2)
+    faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.1)
       faraday (>= 0.7.4, < 1.0)
@@ -217,8 +216,8 @@ GEM
       faraday_middleware (>= 0.9)
       loofah (>= 2.0)
       sax-machine (>= 1.0)
-    ffaker (2.3.0)
-    ffi (1.9.14)
+    ffaker (2.4.0)
+    ffi (1.9.17)
     figaro (1.1.1)
       thor (~> 0.14)
     foreman (0.82.0)
@@ -241,6 +240,7 @@ GEM
     httpi (2.4.2)
       rack
       socksify
+    humanize (1.2.3)
     i18n (0.7.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
@@ -252,7 +252,7 @@ GEM
       multi_json (~> 1.2)
     jc-validates_timeliness (3.1.1)
       timeliness (~> 0.3.7)
-    jquery-rails (4.2.1)
+    jquery-rails (4.2.2)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -263,12 +263,21 @@ GEM
       turbolinks
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (1.8.3)
+    json (1.8.6)
     jwt (1.5.6)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
-    kgio (2.10.0)
+    kaminari (1.0.0)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.0)
+      kaminari-activerecord (= 1.0.0)
+      kaminari-core (= 1.0.0)
+    kaminari-actionview (1.0.0)
+      actionview
+      kaminari-core (= 1.0.0)
+    kaminari-activerecord (1.0.0)
+      activerecord
+      kaminari-core (= 1.0.0)
+    kaminari-core (1.0.0)
+    kgio (2.11.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -312,8 +321,8 @@ GEM
       mini_portile2 (~> 2.1.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
-    oauth2 (1.2.0)
-      faraday (>= 0.8, < 0.10)
+    oauth2 (1.3.0)
+      faraday (>= 0.8, < 0.11)
       jwt (~> 1.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
@@ -352,7 +361,7 @@ GEM
       unicode (~> 0.4.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    public_suffix (2.0.4)
+    public_suffix (2.0.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.5)
@@ -373,9 +382,9 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.7)
+    rails-dom-testing (1.0.8)
       activesupport (>= 4.2.0.beta, < 5.0)
-      nokogiri (~> 1.6.0)
+      nokogiri (~> 1.6)
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
@@ -392,7 +401,7 @@ GEM
       activesupport (= 4.2.7.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rainbow (2.1.0)
+    rainbow (2.2.1)
     raindrops (0.17.0)
     rake (12.0.0)
     rdoc (4.3.0)
@@ -401,7 +410,7 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
-    require_all (1.3.3)
+    require_all (1.4.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rest-client (2.0.0)
@@ -425,7 +434,7 @@ GEM
       activesupport (>= 3.0)
       builder (>= 3.0)
       rubyzip (>= 1.0)
-    roo (2.5.1)
+    roo (2.7.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
     rubocop (0.46.0)
@@ -437,8 +446,9 @@ GEM
     ruby-progressbar (1.8.1)
     rubyntlm (0.6.1)
     rubyzip (1.2.0)
-    rufus-scheduler (3.2.2)
-    sass (3.4.22)
+    rufus-scheduler (3.3.2)
+      tzinfo
+    sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -457,7 +467,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.0.3)
+    selenium-webdriver (3.0.5)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -467,7 +477,7 @@ GEM
       iban-tools
     sexp_processor (4.7.0)
     shoulda-context (1.2.2)
-    sidekiq (4.2.7)
+    sidekiq (4.2.9)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
@@ -493,7 +503,7 @@ GEM
     socksify (1.7.0)
     spring (2.0.0)
       activesupport (>= 4.2)
-    sprockets (3.7.0)
+    sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.0)
@@ -507,8 +517,8 @@ GEM
       teaspoon (>= 1.0.0)
     term-ansicolor (1.4.0)
       tins (~> 1.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
       ref
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
@@ -536,7 +546,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.2)
     unicode (0.4.4.2)
-    unicode-display_width (1.1.2)
+    unicode-display_width (1.1.3)
     unicorn (5.2.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -560,7 +570,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.6.0)
+  active_list (>= 6.7.0)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
@@ -605,6 +615,7 @@ DEPENDENCIES
   hajimari!
   haml
   http_accept_language
+  humanize
   i18n-complements (>= 0.0.14)
   i18n-js (>= 3.0.0.rc12)
   jbuilder (~> 2.0)
@@ -643,7 +654,6 @@ DEPENDENCIES
   rubocop
   rubyntlm (>= 0.3.2)
   rubyzip
-  rufus-scheduler (~> 3.2.0)
   sass-rails (~> 5.0)
   savon
   sdoc (~> 0.4.0)
@@ -674,4 +684,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

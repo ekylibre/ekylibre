@@ -1,7 +1,7 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 
-%tbody.nested-fields{ data: { trade_item: "purchasing" } }
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
   %tr
     %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, input_html: {data: {trade_component: "variant"}})

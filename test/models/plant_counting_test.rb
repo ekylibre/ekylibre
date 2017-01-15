@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -5,7 +6,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -271,10 +272,9 @@ class PlantCountingTest < ActiveSupport::TestCase
     intervention = Intervention.create!(
       procedure_name: 'sowing',
       state: 'done',
-      started_at: Time.zone.now,
-      stopped_at: Time.zone.now,
       number: '50',
-      nature: 'record'
+      nature: 'record',
+      working_periods: fake_working_periods
     )
 
     intervention.outputs.create!(
@@ -291,5 +291,15 @@ class PlantCountingTest < ActiveSupport::TestCase
     )
 
     intervention.outputs.first.product
+  end
+
+  def fake_working_periods
+    now = Time.zone.now
+    [
+      InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
+      InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),
+      InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
+      InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
+    ]
   end
 end

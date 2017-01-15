@@ -1,0 +1,11 @@
+%table.payment{data: {outgoing_payment_third: true}}
+  %thead
+    %tr
+      %th{colspan: 4}= third.full_name
+  %tbody
+    = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
+  %tfoot
+    %tr.total
+      %td{colspan: 2}= :total.tl
+      %td{data: {outgoing_payment_total: true}}= 0.0
+      %td= @currency

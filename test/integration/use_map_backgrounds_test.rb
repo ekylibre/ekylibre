@@ -15,7 +15,7 @@ class UseMapBackgroundsTest < CapybaraIntegrationTest
   end
 
   def check_enabled_map_backgrounds
-    visit('/backend/land_parcels')
+    visit('/backend/land-parcels')
     page.execute_script("$(\"*[data-toggle='face'][href='map']\").trigger('click');")
     assert_selector '[name="leaflet-base-layers"]', visible: false, count: MapBackground.where(enabled: true).count
   end

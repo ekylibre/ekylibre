@@ -26,7 +26,7 @@ module Backend
         format.html
         format.ods do
           send_data(
-            trial_balance_to_ods_export(@balance).bytes,
+            to_ods(@balance).bytes,
             filename: "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}.ods"
           )
         end
@@ -35,9 +35,9 @@ module Backend
 
     protected
 
-    def trial_balance_to_ods_export(balance)
-      require 'odf/spreadsheet'
-      output = ODF::Spreadsheet.new
+    def to_ods(balance)
+      require 'rodf'
+      output = RODF::Spreadsheet.new
       action_name = human_action_name
 
       output.instance_eval do
