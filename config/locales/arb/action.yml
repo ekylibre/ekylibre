@@ -602,9 +602,9 @@ arb:
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "شراء الجديد / دفع المنتهية ولايته"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "بيع جديد / دفع الواردة"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -1348,7 +1348,7 @@ arb:
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     executed: "انجز" #?
-    # existing: "Existing"
+    existing: "موجود"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
@@ -1709,7 +1709,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
-    # not_letterable: "Not able to letter"
+    not_letterable: "لم يكن قادرا على بريد إلكتروني"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
     notifications: #?
@@ -2686,12 +2686,12 @@ arb:
       move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "شراء جديدة"
+      new_sale: "بيع جديدة"
       open: "فتح"
       order: "طلب"
       pay: "دفع"
-      # payment_gap: "Payment gap"
+      payment_gap: "الفجوة الدفع"
       payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"

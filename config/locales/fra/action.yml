@@ -2549,8 +2549,8 @@ fra:
       move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "Nouveau achat"
+      new_sale: "Nouvelle vente"
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"
