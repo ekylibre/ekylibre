@@ -6,6 +6,9 @@ input[type="submit"], input[type="button"], input[type="reset"] {
   &.primary, &.btn-primary {
     @include button($background-color: $base-color, $input: true);
   }
+  &.btn-success {
+    @include button($background-color: $success-color, $input: true);
+  }
   &.important, &.caution, &.btn-warning {
     @include button($background-color: $caution-color, $input: true);
   }
@@ -21,6 +24,9 @@ a.btn, button.btn {
   @include button();
   &.primary, &.btn-primary {
     @include button($background-color: $base-color);
+  }
+  &.btn-success {
+    @include button($background-color: $success-color, $input: true);
   }
   &.important, &.caution, &.btn-warning {
     @include button($background-color: $caution-color);
