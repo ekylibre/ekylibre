@@ -1,63 +1,77 @@
 module Backend
+  # Handles creation of 'Various Operations' from bank_statement_items + journal_entry_items.
   class BankReconciliationGapsController < Backend::BaseController
     def create
-      return head :bad_request unless @bank_statement = BankStatement.find(params[:bank_statement_id])
+      @bank_statement = BankStatement.find(params[:bank_statement_id])
+      return head :bad_request unless @bank_statement
 
       bank_statement_items = fetch_bank_items
       journal_entry_items  = fetch_journal_items
 
-      bank_sold    = bank_statement_items.sum(:credit) - bank_statement_items.sum(:debit)
-      journal_sold = journal_entry_items.sum(:credit)  - journal_entry_items.sum(:debit)
+      gap = sold(bank_statement_items, journal_entry_items)
 
-      gap = bank_sold + journal_sold
+      new_entry = regul_entry_for(gap.abs, *accounts(gap))
+      return head :bad_request unless new_entry
 
-      mode = gap > 0 ? :debit : :credit
+      letter_and_redirect bank_statement_items,
+                          fuse_items(journal_entry_items,
+                                     with_matching_items_of: new_entry)
+    end
+
+    private
+
+    def accounts(gap)
+      bank = @bank_statement.cash.account
+      return [bank, credit_gap_account] if gap > 0
+      [debit_gap_account, bank]
+    end
+
+    def sold(bank_items, journal_items)
+      [bank_items, journal_items].map { |items| items.sum(:credit) - items.sum(:debit) }
+                                 .sum
+    end
+
+    def credit_gap_account
       shortest = Account.of_usage(:other_usual_running_profits).minimum('LENGTH(number)')
-      credit_gap_account = Account.of_usage(:other_usual_running_profits).where("LENGTH(number) = #{shortest}").first
+      Account.of_usage(:other_usual_running_profits).where("LENGTH(number) = #{shortest}").first
+    end
 
-      shortest = Account.of_usage(:other_usual_running_profits).minimum('LENGTH(number)')
-      debit_gap_account = Account.of_usage(:other_usual_running_expenses).where("LENGTH(number) = #{shortest}").first
-
-      statement_account = @bank_statement.cash.account
-
-      debit_account  = debit_gap_account
-      credit_account = statement_account
-      if mode == :debit
-        debit_account  = statement_account
-        credit_account = credit_gap_account
-      end
-
-      return head :bad_request unless debit_account && credit_account
-
-      entry = JournalEntry.create!(
+    def regul_entry_for(amount, debit, credit)
+      return false unless debit_account && credit_account
+      JournalEntry.create!(
         journal_entry_params.merge(
           currency: @bank_statement.currency,
           printed_on: Time.zone.now,
           items_attributes:
           {
-            '0' => {
-              name: "#{'rest.actions.payment_gap'.t} #{Time.zone.today.l} - #{debit_account.name}",
-              real_debit: gap.abs,
-              account_id: debit_account.id
-            },
-            '-1' => {
-              name: "#{'rest.actions.payment_gap'.t} #{Time.zone.today.l} - #{credit_account.name}",
-              real_credit: gap.abs,
-              account_id: credit_account.id
-            }
+            '0' => item_for(amount, debit, :debit),
+            '-1' => item_for(amount, credit, :credit)
           }
         )
       )
-
-      entry_items_to_letter = JournalEntryItem.where(id: journal_entry_items + entry.items.where(account_id: statement_account.id))
-      letter = @bank_statement.letter_items(bank_statement_items, entry_items_to_letter)
-
-      return head :bad_request unless letter
-      first_item = bank_statement_items.order(transfered_on: :asc).first
-      redirect_to reconciliation_backend_bank_statement_path(@bank_statement, scroll_to: first_item.id)
     end
 
-    private
+    def fuse_items(source_items, with_matching_items_of: [])
+      JournalEntryItem.where(id: source_items + with_matching_items_of.items.where(account_id: statement_account.id))
+    end
+
+    def item_for(amount, account, key)
+      {
+        name: "#{'rest.actions.payment_gap'.t} #{Time.zone.today.l} - #{account.name}",
+        "real_#{key}": amount,
+        account_id: debit.id
+      }
+    end
+
+    def letter_and_redirect(bank_items, entry_items)
+      head :bad_request unless @bank_statement.letter_items(bank_items, entry_items)
+      redirect_to reconciliation_backend_bank_statement_path(@bank_statement, scroll_to: bank_items.order(transfered_on: :asc).first.id)
+    end
+
+    def debit_gap_account
+      shortest = Account.of_usage(:other_usual_running_profits).minimum('LENGTH(number)')
+      Account.of_usage(:other_usual_running_expenses).where("LENGTH(number) = #{shortest}").first
+    end
 
     def fetch_bank_items
       params[:bank_statement_item_ids] ? BankStatementItem.where(id: params[:bank_statement_item_ids]) : BankStatementItem.none
