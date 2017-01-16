@@ -45,8 +45,54 @@
 
 require 'test_helper'
 
+# Here until we find it a better place
+module PaymentTest
+  extend ActiveSupport::Concern
+
+  included do
+    test 'ensure sign of amount is different in Incoming and Outgoing payments' do
+      assert_equal 0, IncomingPayment.sign_of_amount + OutgoingPayment.sign_of_amount
+    end
+
+    [IncomingPayment, OutgoingPayment].each do |payment|
+      test "#{payment} can be lettered with bank_statement_items" do
+        @payment_class = payment
+        setup_data
+        assert_lettered_by @payment.letter_with(@tanks), with_letters: %w(A)
+      end
+
+      test "#{payment} cannot be lettered when amounts don't match" do
+        @payment_class = payment
+        setup_data(amount_mismatch: true)
+        assert_not_lettered_by @payment.letter_with(@tanks)
+      end
+
+      test "#{payment} cannot be lettered when the payment doesn't have any journal entry" do
+        @payment_class = payment
+        setup_data(no_journal_entry: true)
+        assert_not_lettered_by @payment.letter_with(@tanks)
+      end
+
+      test "#{payment} cannot be lettered when there's the cashes don't match" do
+        @payment_class = payment
+        setup_data(cash_mismatch: true)
+        assert_not_lettered_by @payment.letter_with(@tanks)
+      end
+
+      test "#{payment} cannot be lettered without any bank statement items" do
+        @payment_class = payment
+        setup_data
+        assert_not_lettered_by @payment.letter_with([])
+      end
+    end
+  end
+end
+
+# Tests the model
 class BankStatementTest < ActiveSupport::TestCase
   test_model_actions
+
+  include PaymentTest
 
   test 'the validity of bank statements' do
     bank_statement = bank_statements(:bank_statements_001)
@@ -259,40 +305,34 @@ class BankStatementTest < ActiveSupport::TestCase
     assert_equal bank_statement.balance_credit, cash.main_account.totals[:balance_debit]
   end
 
-  test 'ensure sign of amount is different in Incoming and Outgoing payments' do
-    assert_equal 0, IncomingPayment.sign_of_amount + OutgoingPayment.sign_of_amount
+  test 'we can letter journal_entry_items with items in the statement' do
+    wipe_db
+
+    setup_data(no_payment: :niet)
+    setup_entries
+
+    @fuel_level.letter_items(BankStatementItem.where(id: @tanks), JournalEntryItem.where(id: @entry.items.first))
+    @entry.items.first.reload
+    @tanks.first.reload
+    assert_equal 'A', @entry.items.first.bank_statement_letter
+    assert_equal 'A', @tanks.first.letter
   end
 
-  [IncomingPayment, OutgoingPayment].each do |payment|
-    test "#{payment} can be lettered with bank_statement_items" do
-      @payment_class = payment
-      setup_data
-      assert_lettered_by @payment.letter_with(@tanks), with_letters: %w(A)
-    end
+  test 'lettering use next letter when letters are taken' do
+    wipe_db
 
-    test "#{payment} cannot be lettered when amounts don't match" do
-      @payment_class = payment
-      setup_data(amount_mismatch: true)
-      assert_not_lettered_by @payment.letter_with(@tanks)
-    end
+    setup_data(no_payment: :niet)
+    setup_entries
 
-    test "#{payment} cannot be lettered when the payment doesn't have any journal entry" do
-      @payment_class = payment
-      setup_data(no_journal_entry: true)
-      assert_not_lettered_by @payment.letter_with(@tanks)
-    end
+    @fuel_level.letter_items(BankStatementItem.where(id: @tanks.first), JournalEntryItem.where(id: @entry.items.first))
+    @entry.items.first.reload
+    @tanks.first.reload
 
-    test "#{payment} cannot be lettered when there's the cashes don't match" do
-      @payment_class = payment
-      setup_data(cash_mismatch: true)
-      assert_not_lettered_by @payment.letter_with(@tanks)
-    end
-
-    test "#{payment} cannot be lettered without any bank statement items" do
-      @payment_class = payment
-      setup_data
-      assert_not_lettered_by @payment.letter_with([])
-    end
+    @fuel_level.letter_items(BankStatementItem.where(id: @tanks.last), JournalEntryItem.where(id: @entry.items.last))
+    @entry.items.last.reload
+    @tanks.last.reload
+    assert_equal 'B', @entry.items.last.bank_statement_letter
+    assert_equal 'B', @tanks.last.letter
   end
 
   def assert_lettered_by(operation, with_letters: ['A'])
@@ -328,22 +368,43 @@ class BankStatementTest < ActiveSupport::TestCase
     wipe_db
 
     ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
-    journal     = Journal.create!
-    fuel_act    = Account.create!(name: 'Fuel', number: '002')
-    caps_act    = Account.create!(name: 'Caps', number: '001')
+    @journal     = Journal.create!
+    @fuel_act    = Account.create!(name: 'Fuel', number: '002')
+    @caps_act    = Account.create!(name: 'Caps', number: '001')
 
-    @warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
-    @caps_stash  = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
+    @warrig_tank = Cash.create!(journal: @journal, main_account: @fuel_act, name: 'War-rig\'s Tank')
+    @caps_stash  = Cash.create!(journal: @journal, main_account: @caps_act, name: 'Stash o\' Caps')
 
     setup_items(options[:amount_mismatch] ? 1336 : 1337)
-    setup_payment(options[:cash_mismatch])
+    setup_payment(options[:cash_mismatch]) unless options[:no_payment]
+  end
+
+  def setup_entries
+    @entry = JournalEntry.create!(
+      journal: @journal,
+      currency: @fuel_level.currency,
+      printed_on: Time.zone.now,
+      items_attributes:
+      {
+        '0' => {
+          name: 'Test',
+          real_debit: 42,
+          account_id: @fuel_act.id
+        },
+        '-1' => {
+          name: 'TestBis',
+          real_credit: 42,
+          account_id: @caps_act.id
+        }
+      }
+    )
   end
 
   def setup_items(amount)
     amount_attr = (@payment_class == IncomingPayment ? :credit : :debit)
 
     now = Time.zone.now
-    fuel_level = BankStatement.create!(
+    @fuel_level = BankStatement.create!(
       currency: 'EUR',
       number: 'Fuel level check',
       started_on: now - 10.days,
@@ -354,14 +415,14 @@ class BankStatementTest < ActiveSupport::TestCase
     @tanks =  []
     @tanks << BankStatementItem.create!(
       name: 'Main tank',
-      bank_statement: fuel_level,
+      bank_statement: @fuel_level,
       transfered_on: now - 5.days,
       amount_attr => 42
     )
 
     @tanks << BankStatementItem.create!(
       name: 'Backup tank',
-      bank_statement: fuel_level,
+      bank_statement: @fuel_level,
       transfered_on: now - 5.days,
       amount_attr => amount
     )
