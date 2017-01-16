@@ -1,6 +1,6 @@
 # coding: utf-8
 class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRecord::Migration
-  ACCOUNT_LABELS = YAML.load <<-YAML
+  ACCOUNT_LABELS = YAML.safe_load <<-YAML
     pt_snc:
       :stock:
         :label: Materiais diversos
