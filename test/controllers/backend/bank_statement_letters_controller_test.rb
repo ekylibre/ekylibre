@@ -1,5 +1,6 @@
 require 'test_helper'
 module Backend
+  # Tests the lettering/unlettering.
   class BankStatementLettersControllerTest < ActionController::TestCase
     setup do
       empty_db
@@ -11,11 +12,10 @@ module Backend
       caps_act = Account.create!(name: 'Caps', number: '5')
       bank_statement_setup(account: fuel_act, journal: journal)
       entry_setup(amount: 42, date: @now - 4.days,
-                  journal: journal, bank_account: fuel_act,
-                  ext_account: caps_act)
+                  journal: journal, accounts: [caps_act, fuel_act])
       entry_setup(amount: 1337, date: @now + 4.days,
-                  journal: journal, bank_account: fuel_act,
-                  ext_account: caps_act, letter: 'B')
+                  journal: journal, accounts: [caps_act, fuel_act],
+                  letter: 'B')
     end
 
     test 'can letter' do
@@ -83,19 +83,19 @@ module Backend
                                                   letter: :B)
     end
 
-    def entry_setup(amount: 0, journal: nil, ext_account: nil, bank_account: nil, date: Time.zone.today, letter: nil)
+    def entry_setup(amount: 0, journal: nil, accounts: [], date: Time.zone.today, letter: nil)
       JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: date,
                            items_attributes: {
                              '0' => {
                                name: 'Test',
                                real_debit: amount,
-                               account_id: ext_account.id,
+                               account_id: accounts.first.id,
                                bank_statement_letter: letter
                              },
                              '-1' => {
                                name: 'Testbis',
                                real_credit: amount,
-                               account_id: bank_account.id,
+                               account_id: accounts.last.id,
                                bank_statement_letter: letter,
                                bank_statement_id: letter ? @bank_statement.id : nil
                              }
