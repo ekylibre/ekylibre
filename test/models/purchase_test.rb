@@ -155,4 +155,22 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 1000, purchase.pretax_amount
     assert_equal 1020, purchase.amount
   end
+
+  test 'default_currency is nature\'s currency if currency is not specified' do
+    PurchaseNature.delete_all
+    Entity.delete_all
+    Purchase.delete_all
+
+    nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with       = Purchase.create!(supplier: max, nature: nature, currency: 'USD')
+    without    = Purchase.create!(supplier: max, nature: nature)
+
+    assert_equal 'USD', with.default_currency
+    assert_equal 'EUR', without.default_currency
+  end
+
+  test 'affair_class points to correct class' do
+    assert_equal PurchaseAffair, Purchase.affair_class
+  end
 end

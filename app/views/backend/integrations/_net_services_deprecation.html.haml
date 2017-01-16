@@ -1,0 +1,5 @@
+.footnote
+  %p= :net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release.tn
+  .toolbar
+    = link_to('actions.backend/net_services.index'.t, { controller: :net_services, action: :index }, class: 'btn')
+    = link_to('actions.backend/identifiers.index'.t, { controller: :identifiers, action: :index }, class: 'btn')

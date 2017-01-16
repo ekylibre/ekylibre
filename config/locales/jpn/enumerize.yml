@@ -171,7 +171,7 @@ jpn:
         failed: "失敗しました"
         passed: "合格"
         passed_with_warnings: "警告付きで合格"
-      status:  #?
+      status: #?
         errored: "エラーの発生しました" #?
         failed: "失敗しました" #?
         passed: "合格" #?
@@ -272,7 +272,7 @@ jpn:
         incoming: "入ってきます"
         internal: "内部" #?
         outgoing: "出ていきます"
-      state:  #?
+      state: #?
         draft: "ドラフト" #?
         given: "与えられました" #?
         in_preparation: "準備中" #?
@@ -451,7 +451,7 @@ jpn:
         subscriptions: "サブスクリプション"
         tax_declarations: "税務申告"
         transports: "トランスポートの記数" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "双方向の" #?
         direct: "直接" #?
@@ -484,7 +484,7 @@ jpn:
         doing: "実行"
         done: "終わりました"
         todo: "藤堂"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "量" #?
         percentage: "パーセンテージ" #?

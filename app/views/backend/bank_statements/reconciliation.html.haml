@@ -1,17 +1,25 @@
-- content_for(:main_toolbar) do
-  = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
-  = button_tag(:auto_reconciliate.tl, type: :button, class: "btn btn-default", id: "auto_reconciliation")
+- precision = Nomen::Currency.find(@bank_statement.currency).precision
+.reconciliation-list{ data: { currency_precision: precision } }
+  .top-part
+    .buttons
+      = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
+      = dropdown_menu_button :payment_gap, icon: false do |menu|
+        - Journal.various.each do |regul_journal|
+          - menu.item regul_journal.name, backend_bank_statement_bank_reconciliation_gaps_path(bank_statement_id: @bank_statement.id, journal_id: regul_journal.id), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
+      = dropdown_menu_button :new_purchase, icon: false do |menu|
+        - PurchaseNature.find_each do |nature|
+          - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
+      = dropdown_menu_button :new_sale, icon: false do |menu|
+        - SaleNature.find_each do |nature|
+          - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
+    .details
+      %input#set_period{ type: 'daterange', value: "#{@period_start} &ndash; #{@period_end}".html_safe }
+      %label
+        %input#hide-lettered{ type: :checkbox, checked: true }
+        = :hide_lettered_lines.tl
 
-= field_set(:entries_to_point) do
-  .reconciliation-list{ data: { currency_precision: Nomen::Currency.find(@bank_statement.currency).precision } }
+  .list
     .legend
-      .buttons
-        = dropdown_menu_button :new_outgoing_payment, icon: false do |menu|
-          - PurchaseNature.find_each do |nature|
-            - menu.item nature.name, new_backend_quick_affair_path(mode: :outgoing, nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected', title: nature.name
-        = dropdown_menu_button :new_incoming_payment, icon: false do |menu|
-          - SaleNature.find_each do |nature|
-            - menu.item nature.name, new_backend_quick_affair_path(mode: :incoming, nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected', title: nature.name
       %p= :initial_balance_of_bank_statement.tl
       .amounts
         .debit
@@ -21,9 +29,6 @@
           %p.title= BankStatementItem.human_attribute_name(:credit)
           .field= @bank_statement.initial_balance_credit || 0.0
       .details
-        %label
-          %input#hide-lettered{ type: :checkbox, checked: true }
-          = :hide_lettered_lines.tl
 
     -# JS template for DatePicker.
     .date-section.hidden
@@ -34,30 +39,30 @@
         - items.each do |item|
           = render 'reconciliation_item', item: item
 
-    .totals
-      #matching
-        .title
-          #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn" }
-          %p= :balance_of_selection.tl
-        .amounts
-          .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0
-          .hidden.total_credit{data: {use: '.reconciliation-item.selected .amounts .credit', calculate: :sum, 'use-closest': '.reconciliation-list'}}= 0
-          .debit
-            %span.value{ data: { balance: '.total_credit - .total_debit', 'calculate-round': 2 }}= 0
-          .credit
-            %span.value{ data: { balance: '.total_debit - .total_credit', 'calculate-round': 2 }}= 0
-        .details
-      #to-match
-        .title
-          %p= :remaining_amount_to_reconcile.tl
-        .amounts
-          .debit= 0
-          .credit= 0
-        .details
-      #final
-        .title
-          %p= :final_balance.tl
-        .amounts
-          .debit{ data: { use: "#initial_balance_debit,.bank-statement-item-type .debit", calculate_round: 2 } }= 0
-          .credit{ data: { use: "#initial_balance_debit,.bank-statement-item-type .debit", calculate_round: 2 } }= 0
-        .details
+  .totals
+    #matching
+      .title
+        #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn" }
+        %p= :balance_of_selection.tl
+      .amounts
+        .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0
+        .hidden.total_credit{data: {use: '.reconciliation-item.selected .amounts .credit', calculate: :sum, 'use-closest': '.reconciliation-list'}}= 0
+        .debit
+          %span.value{ data: { balance: '.total_credit - .total_debit', calculate_round: precision }}= 0
+        .credit
+          %span.value{ data: { balance: '.total_debit - .total_credit', calculate_round: precision }}= 0
+      .details
+    #to-match
+      .title
+        %p= :remaining_amount_to_reconcile.tl
+      .amounts
+        .debit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+        .credit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+      .details
+    #final
+      .title
+        %p= :final_balance.tl
+      .amounts
+        .debit{ data: { use: ".reconciliation-item .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+        .credit{ data: { use: ".reconciliation-item .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+      .details

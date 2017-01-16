@@ -274,6 +274,7 @@ Rails.application.routes.draw do
 
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
       resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
+      resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
 
       collection do
         get :list_items
@@ -673,7 +674,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:show, :index, :destroy] do
       collection do
         delete :destroy
-        get :unread
+        get :unread, action: :index, mode: :unread
       end
     end
 
@@ -799,7 +800,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :quick_affairs, only: [:new, :create], path: 'quick-affairs'
+    resources :quick_purchases, only: [:new, :create], path: 'quick-purchases'
+    resources :quick_sales,     only: [:new, :create], path: 'quick-sales'
 
     resources :regularizations
 

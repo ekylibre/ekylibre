@@ -471,8 +471,10 @@ ita:
       propose_and_invoice: "fatturare direttamente"
       refuse: "ordine Refused"
       # show: "Purchase: %{number} - %{state}"
-    backend/quick_affairs:
-      # new: "New %{trade}/%{payment}"
+    backend/quick_purchases:
+      new: "Nuovo acquisto / pagamento in uscita"
+    backend/quick_sales:
+      new: "Nuova vendita / pagamento in entrata"
     backend/registrations:
       edit: "Modifica registrazione"
       index: "Iscrizioni"
@@ -587,7 +589,7 @@ ita:
       index: "Casa"
   errors:
     # format: "%{message}"
-    front-end:  #?
+    front-end: #?
       leaflet: #?
         draw: #?
           handlers: #?
@@ -936,6 +938,7 @@ ita:
     costs: "Costi"
     costs_map: "costi mappa" #?
     costs_per_hectare: "I costi per ettaro"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "conteggi"
     counts: "Conti"
     counts_by_nature: "Numero di documenti per conto per tipo"
@@ -1057,6 +1060,7 @@ ita:
     # example: "Example: %{value}"
     exchange: "Scambio"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    existing: "Esistente"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Spese"
@@ -1195,6 +1199,7 @@ ita:
     last_purchases: "ultimi acquisti"
     last_sales: "ultimi vendite"
     letter: "Lettera"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "opzioni lineari"
     link: "collegamento"
@@ -1294,6 +1299,7 @@ ita:
     none: "Nessuna"
     normal: "Normale"
     not_delivered: "Non consegnato"
+    not_letterable: "Non in grado di lettera"
     not_ready: "Non pronto"
     not_received: "Non ricevuto"
     now: "Adesso"
@@ -1434,7 +1440,7 @@ ita:
     rest: "riposo"
     restore: "Ripristinare"
     result: "Risultato"
-    results:  #?
+    results: #?
       one: "1 risultato" #?
     revenues: "ricavi"
     revenues_by_product_nature: "Ricavi per tipologia di prodotto"
@@ -1455,6 +1461,7 @@ ita:
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvare"
     save_in_draft: "Salva come bozza"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "In programma"
     search: "Ricerca"
     search_placeholder: "Ricerca…"
@@ -1973,9 +1980,12 @@ ita:
       move: "Mossa" #?
       negociate: "negoziare"
       new: "Nuovo"
+      new_purchase: "Nuovo acquisto"
+      new_sale: "Nuova vendita"
       open: "aperto"
       order: "Ordine"
       pay: "Pagare"
+      payment_gap: "Gap di pagamento"
       payment_mode: "Metodo di pagamento"
       pick: "scegliere"
       picture: "Immagine"

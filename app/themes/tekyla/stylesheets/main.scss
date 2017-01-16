@@ -573,7 +573,10 @@ html.exception {
 
 #core {
   clear: both;
-  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  @include calc(height, "100vh - #{$header-height + $topbar-height}");
+  .toolbar + & {
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  }
 }
 
 #about-us {
@@ -2506,6 +2509,9 @@ a[data-annotate] {
     &.inaccessible {
       cursor: not-allowed;
       background: $neutral-color;
+    }
+    &[disabled], &.disabled {
+      @include disabled;
     }
   }
   a.state:hover {

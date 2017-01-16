@@ -83,7 +83,7 @@ class BankStatement < Ekylibre::Record::Base
       errors.add(:stopped_on, :overlap_sibling)
     end
     if started_on && stopped_on
-      if started_on >= stopped_on
+      if started_on > stopped_on
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
@@ -143,9 +143,23 @@ class BankStatement < Ekylibre::Record::Base
     cash_next_reconciliation_letters.next
   end
 
+  def letter_items(statement_items, journal_entry_items)
+    new_letter = next_letter
+    return false if (journal_entry_items + statement_items).length.zero?
+
+    saved = true
+    saved &&= statement_items.update_all(letter: new_letter)
+    saved &&= journal_entry_items.update_all(
+      bank_statement_letter: new_letter,
+      bank_statement_id: id
+    )
+
+    saved && new_letter
+  end
+
   def eligible_journal_entry_items
-    margin = 20.days
-    unpointed = cash.unpointed_journal_entry_items.between(started_on - margin, stopped_on + margin)
+    # margin = 20.days
+    unpointed = cash.unpointed_journal_entry_items # .between(started_on - margin, stopped_on + margin)
     pointed = JournalEntryItem.pointed_by(self)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end
