@@ -835,7 +835,7 @@ module ApplicationHelper
 
   # Create the main toolbar with the same API as toolbar
   def main_toolbar(options = {}, &block)
-    content_for(:main_toolbar, toolbar(options.merge(wrap: false), &block))
+    content_for(:main_toolbar, toolbar(options.merge(wrap: false, name: :main), &block))
     nil
   end
 
