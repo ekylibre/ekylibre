@@ -356,7 +356,7 @@ deu:
       index: "Dungsmanagementpläne"
       new: "New Gülle-Management-Plan"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:  #?
+    backend/map_backgrounds: #?
       index: "Karte Hintergründe" #?
       new: "Neue Karte Hintergrund" #?
     backend/map_layers:

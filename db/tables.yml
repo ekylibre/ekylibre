@@ -4432,7 +4432,9 @@ map_layers:
     type: string
     required: true
   opacity:
-    type: float
+    type: decimal
+    precision: 3
+    scale: 2
   position:
     type: integer
   reference_name:

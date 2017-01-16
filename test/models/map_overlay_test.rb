@@ -45,6 +45,6 @@
 #
 require 'test_helper'
 
-class MapLayerTest < ActiveSupport::TestCase
-  test_model_actions
+class MapOverlayTest < ActiveSupport::TestCase
+  # Add tests here...
 end

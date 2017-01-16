@@ -33,7 +33,7 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
-#  opacity        :float
+#  opacity        :decimal(3, 2)
 #  position       :integer
 #  reference_name :string
 #  subdomains     :string
@@ -48,5 +48,4 @@ class MapOverlay < MapLayer
   # ]VALIDATORS]
 
   scope :availables, -> { where(enabled: true) }
-
 end

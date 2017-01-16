@@ -386,7 +386,7 @@ spa:
       index: "Planes de manejo de estiércol"
       new: "Nuevo plan de manejo del estiércol"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:  #?
+    backend/map_backgrounds: #?
       index: "fondos de mapas" #?
       new: "Nuevo fondo de la correspondencia" #?
     backend/map_layers:

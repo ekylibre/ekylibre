@@ -18,7 +18,7 @@ module Backend
     def toggle
       return head :forbidden unless m = MapLayer.find_by(id: params[:id])
 
-      # TODO improve
+      # TODO: improve
       # Is a map background
       return head :forbidden if m.is_a?(MapBackground) && !!m.enabled && MapBackground.availables.length == 1
 
@@ -50,7 +50,7 @@ module Backend
 
     def destroy
       m = MapLayer.find_by(id: params[:id])
-      return head :forbidden if m.nil? or m.managed
+      return head :forbidden if m.nil? || m.managed
       m.destroy
       head :no_content
     end

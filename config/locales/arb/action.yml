@@ -429,7 +429,7 @@ arb:
       index: "خطط إدارة السماد"
       new: "خطة جديدة لإدارة السماد"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:  #?
+    backend/map_backgrounds: #?
       index: "خلفيات خريطة" #?
       new: "خريطة خلفية جديدة" #?
     backend/map_layers:

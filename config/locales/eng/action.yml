@@ -1023,7 +1023,6 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
-    # by_default: "By default"
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?

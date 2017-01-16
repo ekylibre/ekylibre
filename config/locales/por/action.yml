@@ -361,7 +361,7 @@ por:
       index: "Planos de manejo de dejetos"
       new: "Novo plano de manejo de dejetos"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:  #?
+    backend/map_backgrounds: #?
       index: "Mapa fundos" #?
       new: "Novo fundo do mapa" #?
     backend/map_layers:

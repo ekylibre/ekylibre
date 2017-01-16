@@ -356,7 +356,7 @@ jpn:
       index: "肥料管理計画"
       new: "新しい肥料管理計画"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:  #?
+    backend/map_backgrounds: #?
       index: "地図の背景" #?
       new: "新しいマップの背景" #?
     backend/map_layers:

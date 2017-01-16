@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3874,7 +3874,7 @@ CREATE TABLE map_layers (
     lock_version integer DEFAULT 0 NOT NULL,
     type character varying,
     "position" integer,
-    opacity double precision
+    opacity numeric(3,2)
 );
 
 

@@ -33,7 +33,7 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
-#  opacity        :float
+#  opacity        :decimal(3, 2)
 #  position       :integer
 #  reference_name :string
 #  subdomains     :string
@@ -49,30 +49,29 @@ class MapLayer < Ekylibre::Record::Base
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
   validates :max_zoom, :min_zoom, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, :url, presence: true, length: { maximum: 500 }
-  validates :opacity, numericality: true, allow_blank: true
+  validates :opacity, numericality: { greater_than: -10, less_than: 10 }, allow_blank: true
   # ]VALIDATORS]
   validates :url, format: { with: URI.regexp(%w(http https)) }
-  validates_presence_of :type
+  validates :type, presence: true
 
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }
 
-
   def self.load_defaults
-    fail "#{model_name.name}: Layers array is empty." if MapLayers::Layer.of_type(model_name.name.underscore).empty? && Rails.env.development?
+    raise "#{model_name.name}: Layers array is empty." if MapLayers::Layer.of_type(model_name.name.underscore).empty? && Rails.env.development?
 
     MapLayers::Layer.of_type(model_name.name.underscore).each do |item|
       attrs = {
-          name: item.label,
-          reference_name: item.reference_name,
-          enabled: item.enabled,
-          by_default: item.by_default,
-          url: item.url,
-          attribution: item.options.try(:[], :attribution),
-          subdomains: item.options.try(:[], :subdomains),
-          min_zoom: item.options.try(:[], :min_zoom),
-          max_zoom: item.options.try(:[], :max_zoom),
-          managed: true,
-          opacity: item.options.try(:[], :opacity)
+        name: item.label,
+        reference_name: item.reference_name,
+        enabled: item.enabled,
+        by_default: item.by_default,
+        url: item.url,
+        attribution: item.options.try(:[], :attribution),
+        subdomains: item.options.try(:[], :subdomains),
+        min_zoom: item.options.try(:[], :min_zoom),
+        max_zoom: item.options.try(:[], :max_zoom),
+        managed: true,
+        opacity: item.options.try(:[], :opacity)
       }
       where(reference_name: item.reference_name).first_or_create(attrs)
     end
