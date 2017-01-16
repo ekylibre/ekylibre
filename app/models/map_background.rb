@@ -44,8 +44,6 @@
 #  url            :string           not null
 #
 class MapBackground < MapLayer
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  # ]VALIDATORS]
   validates :by_default, inclusion: { in: [true, false] }
 
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }

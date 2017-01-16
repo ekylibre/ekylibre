@@ -45,6 +45,6 @@
 #
 require 'test_helper'
 
-class MapLayerTest < ActiveSupport::TestCase
+class MapBackgroundTest < ActiveSupport::TestCase
   test_model_actions
 end

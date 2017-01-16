@@ -44,8 +44,5 @@
 #  url            :string           not null
 #
 class MapOverlay < MapLayer
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  # ]VALIDATORS]
-
   scope :availables, -> { where(enabled: true) }
 end
