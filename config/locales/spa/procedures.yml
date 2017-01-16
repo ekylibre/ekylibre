@@ -113,6 +113,7 @@ spa:
     tool: "Herramienta"
     topper: "Sombrero de copa"
     # tractor: "Tractor"
+    trailed_equipment: "Equipos remolcados"
     trailer: "Remolque"
     tunnel: "Túnel"
     tunnel_implanter: "Implantador túnel"

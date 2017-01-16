@@ -71,9 +71,9 @@ module Backend
     def new_payment(third, at)
       return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/
       payment_attributes = payment_params
-        .except(:bank_statement_item_ids)
-        .merge(self.class::Payment.third_attribute => third)
-        .merge(responsible: current_user, to_bank_at: at)
+                           .except(:bank_statement_item_ids)
+                           .merge(self.class::Payment.third_attribute => third)
+                           .merge(responsible: current_user, to_bank_at: at)
       self.class::Payment.new payment_attributes
     end
 

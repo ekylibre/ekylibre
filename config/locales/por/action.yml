@@ -78,7 +78,7 @@ por:
       index: "Prédios"
       new: "Novo prédio"
       show: "Prédio: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulators:  #?
+    backend/calculators/grains_commercialization_threshold_simulators: #?
       show: "Simulador de comercialização de grãos" #?
     backend/campaigns:
       current: "Campanha"
@@ -121,7 +121,7 @@ por:
       index: "Catalogos"
       new: "Novo catalogo"
       show: "Catalogo: %{name}"
-    backend/cells/stewardship_cells:  #?
+    backend/cells/stewardship_cells: #?
       show: "Células de administração: %{name}" #?
     backend/companies:
       edit: "Editar configurações de empresa"
@@ -470,9 +470,9 @@ por:
       refuse: "Fim recusou"
       # show: "Purchase: %{number} - %{state}"
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "Nova Compra / pagamento de saída"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "Novo Venda / entrada de pagamento"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
@@ -992,7 +992,7 @@ por:
     # example: "Example: %{value}"
     exchange: "Trocas"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
-    # existing: "Existing"
+    existing: "Existir"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Despesas"
@@ -1231,7 +1231,7 @@ por:
     none: "Nenhum"
     # normal: "Normal"
     not_delivered: "Não entregue"
-    # not_letterable: "Not able to letter"
+    not_letterable: "Não é capaz de letra"
     not_ready: "Não está pronto"
     not_received: "Não recebido"
     now: "Agora"
@@ -1372,7 +1372,7 @@ por:
     rest: "Descansar"
     restore: "Restaurar"
     result: "Resultado"
-    results:  #?
+    results: #?
       one: "1 resultado" #?
     revenues: "Faturamento"
     revenues_by_product_nature: "As receitas por tipo de produto"
@@ -1912,11 +1912,12 @@ por:
       move: "Mover" #?
       negociate: "Negociar"
       new: "Novo"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "Nova compra"
+      new_sale: "Nova venda"
       open: "Aberto"
       order: "Ordem"
       pay: "Pagamento"
+      payment_gap: "Gap de pagamento"
       payment_mode: "Modo de pagamento"
       pick: "Escolher"
       picture: "Fotografia"

@@ -10,7 +10,7 @@ arb:
     authentication/sessions:
       destroy: "الخروج"
       new: "الدخول"
-    backend/accountancy:  #?
+    backend/accountancy: #?
       balance: "رصيد الحساب" #?
       bookkeep: "نظام المحاسبة المتغير" #?
       draft: "المسودات" #?
@@ -127,7 +127,7 @@ arb:
     backend/companies:
       edit: "تعديل الإعدادات شركة"
       register: "تسجيل شركة" #?
-    backend/company:  #?
+    backend/company: #?
       about: "وحول ايكيليبغ" #?
       backups: "النسخ الاحتياطية" #?
       change_password: "تغيير كلمة المرور" #?
@@ -137,7 +137,7 @@ arb:
       index: "صباح الخير، %{user}" #?
       listing_nodes: "اختر المعلومات المستخرجة" #?
       welcome: "نرحب بايكيليبغ  %{user}" #?
-    backend/contacts:  #?
+    backend/contacts: #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
     backend/contracts:
@@ -173,7 +173,7 @@ arb:
       stocks: "الأسهم لوحة القيادة"
       tools: "أدوات لوحة القيادة"
       trade: "لوحة أجهزة القياس التجارة"
-    backend/delays:  #?
+    backend/delays: #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?
       new: "اضافة مهلة جديدة" #?
@@ -219,27 +219,27 @@ arb:
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
       new: "العنوان الجديد"
-    backend/entity_categories:  #?
+    backend/entity_categories: #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملف" #?
       new: "اضافة نوع جديد للملف" #?
       show: "نوع الملف : %{name}" #?
-    backend/entity_event_natures:  #?
+    backend/entity_event_natures: #?
       edit: "تعديل نوع الحدث: %{name}" #?
       index: "انواع الاحداث" #?
       new: "اضافة نوع الحدث" #?
-    backend/entity_events:  #?
+    backend/entity_events: #?
       edit: "تعديل الحدث" #?
       index: "الاحداث" #?
       new: "اضافة حدث" #?
-    backend/entity_link_natures:  #?
+    backend/entity_link_natures: #?
       edit: "تعديل نوع الرابط : %{name}" #?
       index: "انواع الرابط" #?
       new: "اضافة نوع رابط جديد" #?
     backend/entity_links:
       edit: "تعديل الرابط"
       new: "اضافة رابط جديد"
-    backend/entity_natures:  #?
+    backend/entity_natures: #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملفات" #?
       new: "اضافة نوع ملف جديد" #?
@@ -248,11 +248,11 @@ arb:
       index: "المعدات"
       new: "معدات جديدة"
       # show: "Equipment: %{name}"
-    backend/establishments:  #?
+    backend/establishments: #?
       edit: "تعديل نموذج المرفق : %{name}" #?
       index: "مرافق" #?
       new: "اضافة مرفق جديد" #?
-    backend/event_natures:  #?
+    backend/event_natures: #?
       edit: "تعديل نوع الحدث: %{name}" #?
       index: "انواع الاحداث" #?
       new: "اضافة نوع الحدث" #?
@@ -266,7 +266,7 @@ arb:
     backend/exports:
       index: "صادرات"
       # show: "Export: %{name}"
-    backend/finances:  #?
+    backend/finances: #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
     backend/financial_years:
       close: "نهاية الممارسة"
@@ -324,7 +324,7 @@ arb:
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة جديدة لتسديد الفعة"
       # show: "Incoming payment mode: %{name}"
-    backend/incoming_payment_uses:  #?
+    backend/incoming_payment_uses: #?
       new: "اضافة دفعة جديدة  : %{type} رقم %{number}" #?
     backend/incoming_payments:
       edit: "تعديل دفعة رقم%{number}"
@@ -411,7 +411,7 @@ arb:
       index: "القروض"
       new: "قرض جديد"
       # show: "Loan: %{name}"
-    backend/management:  #?
+    backend/management: #?
       index: "ادارة الاعمال" #?
       sale_items: "اختيار المنتجات للطلب %{sale} من : %{client}" #?
       sale_summary: "فوترة دفعة  (دفعات) طلب الشراء %{number}" #?
@@ -419,7 +419,7 @@ arb:
       sales_invoices: "الفواتير" #?
       statistics: "الاحصائيات" #?
       undelivered_sales: "التسليم بالانتظار" #?
-    backend/mandates:  #?
+    backend/mandates: #?
       configure: "ترتيب التفويضات" #?
       edit: "تعديل التفويض" #?
       index: "تفويضات" #?
@@ -451,21 +451,21 @@ arb:
     backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
-    backend/operation_natures:  #?
+    backend/operation_natures: #?
       edit: "تعديل نوع العمل : %{name}" #?
       index: "اواع العمل" #?
       new: "انشاء نوع جديد من العمل" #?
-    backend/operations:  #?
+    backend/operations: #?
       edit: "تعدل العمل %{name}" #?
       index: "اعمال" #?
       new: "انشاء عمل جديد" #?
       show: "تفاصيل العمل %{name}" #?
       unvalidateds: "تحقيق الاعمال" #?
-    backend/outgoing_delivery_modes:  #?
+    backend/outgoing_delivery_modes: #?
       edit: "تعديل وسيلة التسليم : %{name}" #?
       index: "وسائل التسليم" #?
       new: "اضافة وسيلة جديدة للتسليم" #?
-    backend/outgoing_parcels:  #?
+    backend/outgoing_parcels: #?
       edit: "تعديل التسليم" #?
       new: "اضافة تسليم" #?
     backend/outgoing_payment_lists:
@@ -476,7 +476,7 @@ arb:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة تسديد الدفعة"
-    backend/outgoing_payment_uses:  #?
+    backend/outgoing_payment_uses: #?
       new: "تسديد الشراء رقم%{number}" #?
     backend/outgoing_payments:
       edit: "تعديل دفعة : %{number}"
@@ -508,16 +508,16 @@ arb:
       index: "وصفات"
       new: "وصفة جديدة"
       # show: "Prescription: %{reference_number}"
-    backend/prices:  #?
+    backend/prices: #?
       import: "CSV استيراد بيان التعرفة ضمن" #?
       index: "الاسعار" #?
       new: "اضافة سعر جديد" #?
-    backend/product_categories:  #?
+    backend/product_categories: #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
       new: "اضافة فئة جديدة للمنتج" #?
       show: "تفاصيل فئة: %{name}" #?
-    backend/product_components:  #?
+    backend/product_components: #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
     backend/product_groups:
@@ -528,10 +528,10 @@ arb:
     backend/product_localizations:
       edit: "تحرير توطين المنتج:"
       new: "جديد توطين المنتج"
-    backend/product_moves:  #?
+    backend/product_moves: #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
-    backend/product_nature:  #?
+    backend/product_nature: #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
@@ -542,7 +542,7 @@ arb:
       new: "اضافة فئة جديدة للمنتج"
       pick: "اختيار فئة المنتج"
       show: "تفاصيل فئة: %{name}"
-    backend/product_nature_components:  #?
+    backend/product_nature_components: #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
     backend/product_nature_variants:
@@ -557,17 +557,17 @@ arb:
       new: "اضافة منتج جديد"
       pick: "اختيار نوع المنتج"
       show: "المنتجات : %{name}"
-    backend/product_stock_moves:  #?
+    backend/product_stock_moves: #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
-    backend/product_stocks:  #?
+    backend/product_stocks: #?
       index: "وضع الاسهم" #?
-    backend/product_transfers:  #?
+    backend/product_transfers: #?
       confirm: "اتمام عملية نقل" #?
       edit: "تعديل عملية نقل الاسهم" #?
       index: "عمليات نقل وخسارة الاسهم" #?
       new: "اضافة عملية نقل او خسارة الاسهم" #?
-    backend/production:  #?
+    backend/production: #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
     backend/products:
@@ -575,12 +575,12 @@ arb:
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
-    backend/products_natures:  #?
+    backend/products_natures: #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
-    backend/purchase_items:  #?
+    backend/purchase_items: #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
     backend/purchase_natures:
@@ -602,13 +602,13 @@ arb:
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "شراء الجديد / دفع المنتهية ولايته"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "بيع جديد / دفع الواردة"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
-    backend/relations:  #?
+    backend/relations: #?
       index: "ادارة علاقات العملاء والممولين" #?
     backend/roles:
       edit: "تعديل المهام : %{name}"
@@ -618,7 +618,7 @@ arb:
       # show: "Role: %{name}"
     backend/sale_credits:
       # new: "Cancel sales invoice %{number}"
-    backend/sale_items:  #?
+    backend/sale_items: #?
       edit: "تعديل مسار طلب المنتج" #?
       new: "اضافة تصميم خطوط المنتج" #?
     backend/sale_natures:
@@ -649,7 +649,7 @@ arb:
       index: "التسلسلات"
       load: "تحميل المفقودين متواليات"
       new: "انشاء تسلسل جديد"
-    backend/sessions:  #?
+    backend/sessions: #?
       destroy: "الخروج" #?
       new: "الدخول" #?
     backend/settings:
@@ -659,15 +659,15 @@ arb:
       index: "المستوطنات"
       new: "مستوطنة جديدة"
       # show: "Settlement: %{name}"
-    backend/stock_moves:  #?
+    backend/stock_moves: #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
-    backend/stock_transfers:  #?
+    backend/stock_transfers: #?
       confirm: "اتمام عملية نقل" #?
       edit: "تعديل عملية نقل الاسهم" #?
       index: "عمليات نقل وخسارة الاسهم" #?
       new: "اضافة عملية نقل او خسارة الاسهم" #?
-    backend/stocks:  #?
+    backend/stocks: #?
       index: "وضع الاسهم" #?
     backend/subscription_natures:
       edit: "تعديل نوع الاشتراك: %{name}"
@@ -715,7 +715,7 @@ arb:
       index: "الوظائف/المهام"
       new: "اضافة وظيفة جديدة"
       # show: "Team: %{name}"
-    backend/tools:  #?
+    backend/tools: #?
       edit: "تعديل المادة : %{name}" #?
       index: "مادة" #?
       new: "اضافة مادة" #?
@@ -727,7 +727,7 @@ arb:
       show: "الحصة %{name}"
     backend/trial_balances:
       show: "رصيد الحساب"
-    backend/units:  #?
+    backend/units: #?
       edit: "تعديل الوحدة : %{label}" #?
       index: "وحدات القياس" #?
       new: "اضافة وحدة قياس جديدة" #?
@@ -748,7 +748,7 @@ arb:
       # show: "Worker: %{name}"
     public:
       index: "الصفحة الرئيسية"
-  controllers:  #?
+  controllers: #?
     backend/accountancy: "المحاسبة" #?
     backend/accounts: "مخطط الحساب" #?
     backend/application: "تطبيق" #?
@@ -913,7 +913,7 @@ arb:
     account_other_assets: "موجودات اخرى" #?
     account_provision: "احتياطات لمواجهة المخاطر والتكاليف" #?
     account_supplier_to_create: "-- انشاء حساب للممول بشكل اوتوماتيكي --" #?
-    account_tabbox:  #?
+    account_tabbox: #?
       children: "الحسابات الفرعية" #?
       entities: "أشخاص" #?
       journal_entry_items: "ادخالات الدفاتر اليومية" #?
@@ -1056,7 +1056,7 @@ arb:
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
     backup: "نسخ احتياطية" #?
     backups: "النسخ الاحتياطية" #?
-    bad_browser:  #?
+    bad_browser: #?
       explanation: "لم يتم دعم هذا الاصدار من المتصفح من قبل ايكيلينغ لاستخدامه، ولم يتم عرض الصفحات بشكل صحيح والميزات اصبحت مفقودة. " #?
       proposal: "رجاءا، خططو لانقاذ صفحة واحدة من هذه المتصفحات اليوم:" #?
       title: "يبدو على متصفح الويب الخاص بك قديم" #?
@@ -1247,7 +1247,7 @@ arb:
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام" #?
     deposit: "اقتطاعات البنك"
-    deposit_create:  #?
+    deposit_create: #?
       one: "يقدم بيانا : %{mode} (دفعة واحدة)" #?
       other: "يقدم بيانا : %{mode} (%{count}دفعات اخرى)" #?
       zero: "يقدم بيانا : %{mode} (ولا دفعة)" #?
@@ -1348,7 +1348,7 @@ arb:
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     executed: "انجز" #?
-    # existing: "Existing"
+    existing: "موجود"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
@@ -1377,7 +1377,7 @@ arb:
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_assets: "أصول ثابتة"
-    format_date:  #?
+    format_date: #?
       iso: "(السنة-الشهر-اليوم)" #?
     free_purchases: "المشتريات مجانية" #?
     from: "من"
@@ -1413,7 +1413,7 @@ arb:
     hint: "تلميح&nbsp;: %{value}"
     historic: "تاريخي"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
-    hour_duration:  #?
+    hour_duration: #?
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
@@ -1537,7 +1537,7 @@ arb:
     # letterable: "Letterable"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
-    lettering_modes:  #?
+    lettering_modes: #?
       attorneys: "الوكيل" #?
       clients: "العملاء" #?
       suppliers: "الممولون" #?
@@ -1582,7 +1582,7 @@ arb:
     maximal_temperature: "درجة الحرارة القصوى"
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
-    menu:  #?
+    menu: #?
       accountancy_tasks: "أعمال المحاسبة" #?
       bank_statements: "بيانات الحساب" #?
       bookkeep: "ميزان المحاسبة" #?
@@ -1597,14 +1597,14 @@ arb:
       stock_transfers: "تحويلات الاسهم والضائع منها" #?
       stocks_tasks: "الاسهم" #?
       tools: "الادوات" #?
-    menus:  #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      accountancy: "المحاسبة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      finances: "المالية" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      general: "شركة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      home: "إستقبال" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      production: "المنتج" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      relations: "العلاقات" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
-      trade: "التجارة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+    menus: #? String expected ("Menus")
+      accountancy: "المحاسبة" #?
+      finances: "المالية" #?
+      general: "شركة" #?
+      home: "إستقبال" #?
+      production: "المنتج" #?
+      relations: "العلاقات" #?
+      trade: "التجارة" #?
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
@@ -1632,11 +1632,11 @@ arb:
     nature: "الطبع"
     nature_changed: "لو نوع قصر animaux تغيير"
     natures: "أنواع"
-    nb_mandates:  #?
+    nb_mandates: #?
       one: "تفويض واحد مسجل" #?
       other: "%{count} تفويضات اخرى" #?
       zero: "ولا اية تفويض" #?
-    nb_products:  #?
+    nb_products: #?
       one: "تم تسجيل منتج واحد" #?
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
@@ -1709,10 +1709,10 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
-    # not_letterable: "Not able to letter"
+    not_letterable: "لم يكن قادرا على بريد إلكتروني"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
-    notifications:  #?
+    notifications: #?
       error: "خطأ" #?
       information: "معلومة" #?
       success: "استكملت العملية بنجاح" #?
@@ -1860,7 +1860,7 @@ arb:
     purchase_number: "عدد شراء"
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
-    purchase_steps:  #?
+    purchase_steps: #?
       products: "انشاء الصفقة" #?
       summary: "النفقات" #?
     purchase_update: "تعديل معلومات الطلب" #?
@@ -1920,14 +1920,14 @@ arb:
     rest_to_pay: "القيمة المتبقية" #?
     restore: "تجديد"
     result: "الناتج"
-    results:  #?
+    results: #?
       one: "نتيجة واحدة" #?
       other: "%{count} نتائج" #?
       zero: "ولا نتيجة" #?
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
-    right_parts:  #?
+    right_parts: #?
       accountancy: "حقوق المحاسبة" #?
       company: "حقوق الشركة" #?
       management: "حقوق التجارة" #?
@@ -1953,7 +1953,7 @@ arb:
     sale_opportunities: "فرص بيع"
     sale_price_create: "اضافة سعر البيع" #?
     sale_print: "طباعة طلب البيع" #?
-    sale_steps:  #?
+    sale_steps: #?
       deliveries: "جدولة عمليات التسليم" #?
       estimate: "انشاء تقييم" #?
       general: "الوصف" #?
@@ -2157,7 +2157,7 @@ arb:
     transport: "المواصلات"
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
-    unavailable:  #?
+    unavailable: #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
@@ -2318,7 +2318,7 @@ arb:
       one: "سجل واحد"
       other: "%{count} سجلات اخرى"
       zero: "ولا اي سجل" #?
-    x_mandates:  #?
+    x_mandates: #?
       one: "تفويض واحد" #?
       other: "%{count} تفويض اخر" #?
       zero: "ولا اية تفويض" #?
@@ -2339,7 +2339,7 @@ arb:
       other: "%{count} ملاحظات اخرى"
       zero: "ولا اية ملاحظة" #?
     # x_of_y: "%{x} of %{y}"
-    x_operations:  #?
+    x_operations: #?
       one: "عمل واحد" #?
       other: "%{count} اعمال اخرى" #?
       zero: "ولا اي عمل" #?
@@ -2351,7 +2351,7 @@ arb:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"
       zero: "ولااية نفقة" #?
-    x_performed_operations:  #?
+    x_performed_operations: #?
       one: "تم انجاز عمل واحد" #?
       other: "%{count} تم انجاز اعمال اخرى" #?
       zero: "لم يتم انجاز اي عمل" #?
@@ -2568,7 +2568,7 @@ arb:
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
   preferences:
-    accountancy:  #?
+    accountancy: #?
       accounts: #?
         capital_gains: "(نتيجة العمل (الارباح" #?
         capital_losses: "(نتيجة العمل (الخسارة" #?
@@ -2609,10 +2609,10 @@ arb:
     distribute_sales_and_purchases_on_activities: "توزيع البيع والشراء على الأنشطة"
     distribute_sales_and_purchases_on_teams: "توزيع البيع والشراء على فرق"
     employee_account_radix: "جذر حساب الموظف"
-    general:  #?
+    general: #?
       language: "اللغة المفترضة" #?
     language: "لغة"
-    management:  #?
+    management: #?
       deposits: #?
         days_before_warning_undone: "عدد الايام قبل منع الضرائب الفير تامة" #?
         days_before_warning_unvalidated: "عدد الايام الضرورية للمصادقة على الاقنطاعات المصرفية " #?
@@ -2629,7 +2629,7 @@ arb:
         numeration: "احصاء الاشتراكات" #?
     map_measure_srs: "SRS خريطة قياس"
     permanent_stock_inventory: "وضع جرد مخزون دائم"
-    relations:  #?
+    relations: #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
     sales_conditions: "شروط البيع"
@@ -2686,11 +2686,12 @@ arb:
       move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "شراء جديدة"
+      new_sale: "بيع جديدة"
       open: "فتح"
       order: "طلب"
       pay: "دفع"
+      payment_gap: "الفجوة الدفع"
       payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"

@@ -8,7 +8,11 @@ class ::String
   MENUSCULES = %w(a a a a a a ae e e e e i i i o o o oe u u u c).freeze  # Simplification "lisible"
 
   def dig(depth = 1)
-    strip.gsub(/^/, '  ' * depth) + "\n"
+    strip.indent(depth) + "\n"
+  end
+
+  def indent(depth = 1)
+    gsub(/^/, '  ' * depth)
   end
 
   def translate(from, to)

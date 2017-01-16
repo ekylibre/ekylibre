@@ -665,7 +665,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:show, :index, :destroy] do
       collection do
         delete :destroy
-        get :unread
+        get :unread, action: :index, mode: :unread
       end
     end
 

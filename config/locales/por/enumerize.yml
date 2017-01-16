@@ -173,7 +173,7 @@ por:
         failed: "Fracassado"
         passed: "Passado"
         passed_with_warnings: "Aprovada com avisos"
-      status:  #?
+      status: #?
         errored: "Com erros" #?
         failed: "Falhou" #?
         passed: "Passou" #?
@@ -274,7 +274,7 @@ por:
         incoming: "Entrada"
         internal: "Interno" #?
         outgoing: "Extrovertido"
-      state:  #?
+      state: #?
         draft: "Esboço" #?
         given: "Dado" #?
         in_preparation: "Em preparação" #?
@@ -400,7 +400,7 @@ por:
         point: "Ponto"
         string: "Corda"
     purchase:
-      computation_method:  #?
+      computation_method: #?
         adaptative: "Adaptativo" #?
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
@@ -412,7 +412,7 @@ por:
       nature:
         payslip: "Recibo de Pagamento"
         purchase: "Compra"
-    sale:  #?
+    sale: #?
       computation_method: #?
         adaptative: "Adaptativo" #?
         quantity_tax: "Quantidade-Imposto" #?
@@ -463,7 +463,7 @@ por:
         subscriptions: "Assinaturas"
         tax_declarations: "Declarações fiscais"
         transports: "Numeração de transportes" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "Bidirecional" #?
         direct: "Direto" #?
@@ -496,7 +496,7 @@ por:
         doing: "Fazendo"
         done: "Feito"
         todo: "Façam"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Total" #?
         percentage: "Percentagem" #?

@@ -113,6 +113,7 @@ deu:
     tool: "Werkzeug"
     topper: "Zylinder"
     tractor: "Traktor"
+    trailed_equipment: "Anhängegeräte"
     trailer: "Anhänger"
     # tunnel: "Tunnel"
     # tunnel_implanter: "Tunnel implanter"
