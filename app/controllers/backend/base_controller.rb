@@ -29,6 +29,7 @@ module Backend
     before_action :set_current_campaign
     before_action :set_current_period_interval
     before_action :set_current_period
+    before_action :publish_backend_action
 
     include Userstamp
 
@@ -210,6 +211,10 @@ module Backend
         return false
       end
       true
+    end
+
+    def publish_backend_action
+      Ekylibre::Hook.publish(:backend_action, action: action_name, controller: controller_name, user: current_user)
     end
 
     def search_article(article = nil)
