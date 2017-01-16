@@ -125,7 +125,7 @@ open_weather_map:
   type: map_overlay
   options:
     attribution: 'Weather from <a href="http://openweathermap.org/" alt="World Map and worldwide Weather Forecast online">OpenWeatherMap</a>'
-    opacity: 0.5
+    opacity: 100
     maxZoom: 18
   variants:
     clouds:
@@ -155,6 +155,7 @@ open_map_surfer:
   type: map_overlay
   options:
     attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+    opacity: 100
   variants:
     admin_bounds:
       url: 'http://korona.geog.uni-heidelberg.de/tiles/adminb/x={x}&y={y}&z={z}'

@@ -33,7 +33,7 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
-#  opacity        :decimal(3, 2)
+#  opacity        :integer
 #  position       :integer
 #  reference_name :string
 #  subdomains     :string
@@ -47,14 +47,18 @@ class MapLayer < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
-  validates :max_zoom, :min_zoom, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :max_zoom, :min_zoom, :opacity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, :url, presence: true, length: { maximum: 500 }
-  validates :opacity, numericality: { greater_than: -10, less_than: 10 }, allow_blank: true
   # ]VALIDATORS]
   validates :url, format: { with: URI.regexp(%w(http https)) }
   validates :type, presence: true
+  validates :opacity, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
 
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }
+
+  before_validation do
+    self.opacity = opacity || 100
+  end
 
   def self.load_defaults
     raise "#{model_name.name}: Layers array is empty." if MapLayers::Layer.of_type(model_name.name.underscore).empty? && Rails.env.development?

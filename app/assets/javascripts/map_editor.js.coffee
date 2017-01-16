@@ -494,8 +494,9 @@
               opts['minZoom'] = layer.minZoom || @options.minZoom
               opts['maxZoom'] = layer.maxZoom || @options.maxZoom
               opts['subdomains'] = layer.subdomains if layer.subdomains?
-              opts['opacity'] = layer.opacity if layer.opacity?
+              opts['opacity'] = (layer.opacity / 100).toFixed(1) if layer.opacity? and !isNaN(layer.opacity)
               opts['tms'] = true if layer.tms
+              console.log opts
 
               overlayLayers[layer.name] =  L.tileLayer(layer.url, opts)
 

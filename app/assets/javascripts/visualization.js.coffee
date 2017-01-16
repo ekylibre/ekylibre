@@ -190,7 +190,7 @@
         opts['minZoom'] = @options.overlays.minZoom || @options.view.minZoom
         opts['maxZoom'] = @options.overlays.maxZoom || @options.view.maxZoom
         opts['subdomains'] = @options.overlays.subdomains if @options.overlays.subdomains?
-        opts['opacity'] = @options.overlays.opacity if @options.overlays.opacity?
+        opts['opacity'] = (@options.overlays.opacity / 100).toFixed(1) if @options.overlays.opacity? and !isNaN(@options.overlays.opacity)
         opts['tms'] = true if @options.overlays.tms
 
         OverlayLayer = L.tileLayer(@options.overlays.url, opts)
@@ -315,7 +315,7 @@
         opts['minZoom'] = layer.minZoom || @options.view.minZoom
         opts['maxZoom'] = layer.maxZoom || @options.view.maxZoom
         opts['subdomains'] = layer.subdomains if layer.subdomains?
-        opts['opacity'] = layer.opacity if layer.opacity?
+        opts['opacity'] = (layer.opacity / 100).toFixed(1) if layer.opacity? and !isNaN(layer.opacity)
         opts['tms'] = true if layer.tms
 
         overlays[layer.name] = L.tileLayer(layer.url, opts)

@@ -4,7 +4,8 @@
   = f.input :attribution
   = f.input :min_zoom
   = f.input :max_zoom
-  = f.input :opacity
+  -#= f.input :opacity
+  = f.input :opacity, as: :range, input_html: {min: 0, max: 100, step: 10}
   = f.input :subdomains
   = f.input :tms
   = f.input :type, collection: [[MapBackground.model_name.human, MapBackground.model_name.name], [MapOverlay.model_name.human, MapOverlay.model_name.name]], as: :radio_buttons

@@ -33,7 +33,7 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
-#  opacity        :decimal(3, 2)
+#  opacity        :integer
 #  position       :integer
 #  reference_name :string
 #  subdomains     :string
