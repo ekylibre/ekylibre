@@ -55,6 +55,12 @@ module PaymentTest
     end
 
     [IncomingPayment, OutgoingPayment].each do |payment|
+      def test_not_lettered(**options)
+        @payment_class = payment
+        setup_data(**options)
+        assert_not_lettered_by @payment.letter_with(@tanks)
+      end
+
       test "#{payment} can be lettered with bank_statement_items" do
         @payment_class = payment
         setup_data
@@ -62,21 +68,15 @@ module PaymentTest
       end
 
       test "#{payment} cannot be lettered when amounts don't match" do
-        @payment_class = payment
-        setup_data(amount_mismatch: true)
-        assert_not_lettered_by @payment.letter_with(@tanks)
+        test_not_lettered amount_mismatch: true
       end
 
       test "#{payment} cannot be lettered when the payment doesn't have any journal entry" do
-        @payment_class = payment
-        setup_data(no_journal_entry: true)
-        assert_not_lettered_by @payment.letter_with(@tanks)
+        test_not_lettered no_journal_entry: true
       end
 
       test "#{payment} cannot be lettered when there's the cashes don't match" do
-        @payment_class = payment
-        setup_data(cash_mismatch: true)
-        assert_not_lettered_by @payment.letter_with(@tanks)
+        test_not_lettered cash_mismatch: true
       end
 
       test "#{payment} cannot be lettered without any bank statement items" do
