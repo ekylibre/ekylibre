@@ -305,20 +305,7 @@ class BankStatementTest < ActiveSupport::TestCase
     assert_equal bank_statement.balance_credit, cash.main_account.totals[:balance_debit]
   end
 
-  test 'we can letter journal_entry_items with items in the statement' do
-    wipe_db
-
-    setup_data(no_payment: :niet)
-    setup_entries
-
-    @fuel_level.letter_items(BankStatementItem.where(id: @tanks), JournalEntryItem.where(id: @entry.items.first))
-    @entry.items.first.reload
-    @tanks.first.reload
-    assert_equal 'A', @entry.items.first.bank_statement_letter
-    assert_equal 'A', @tanks.first.letter
-  end
-
-  test 'lettering use next letter when letters are taken' do
+  test 'we can letter journal_entry_items with items in the statement and take next letter afterwards' do
     wipe_db
 
     setup_data(no_payment: :niet)
@@ -327,6 +314,8 @@ class BankStatementTest < ActiveSupport::TestCase
     @fuel_level.letter_items(BankStatementItem.where(id: @tanks.first), JournalEntryItem.where(id: @entry.items.first))
     @entry.items.first.reload
     @tanks.first.reload
+    assert_equal 'A', @entry.items.first.bank_statement_letter
+    assert_equal 'A', @tanks.first.letter
 
     @fuel_level.letter_items(BankStatementItem.where(id: @tanks.last), JournalEntryItem.where(id: @entry.items.last))
     @entry.items.last.reload
