@@ -207,6 +207,8 @@ group :test do
   gem 'codacy-coverage', require: false
 
   gem 'minitest-reporters'
+
+  gem 'factory_girl'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

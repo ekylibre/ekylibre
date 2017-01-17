@@ -170,6 +170,8 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.1)
@@ -555,6 +557,7 @@ DEPENDENCIES
   devise_invitable
   enumerize
   exception_notification
+  factory_girl
   feedjira
   ffaker (>= 2.0.0)
   figaro
