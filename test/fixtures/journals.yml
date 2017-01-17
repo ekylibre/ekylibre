@@ -198,7 +198,7 @@ journals_009:
 journals_010:
   accountant_id: 17
   closed_on: 1992-11-16
-  code: JCR
+  code: CR
   created_at: 2014-11-05 12:13:12.680296000 Z
   creator_id: 1
   currency: USD

@@ -39,14 +39,3 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
-financial_year_exchanges_001:
-  closed_at:
-  created_at: 2016-10-14 09:21:22.062122000 Z
-  creator_id: 1
-  financial_year_id: 25
-  id: 1
-  lock_version: 0
-  started_on: 2015-09-01
-  stopped_on: 2016-05-31
-  updated_at: 2016-10-14 09:21:22.062122000 Z
-  updater_id: 1

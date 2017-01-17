@@ -28,6 +28,13 @@ FactoryGirl.define do
     end
   end
 
+  factory :account do
+    debtor false
+    reconcilable false
+    sequence(:name) { |n| "801 - Compte #{n}" }
+    sequence(:number) { |n| "801000000#{n}" }
+  end
+
   factory :journal do
     closed_on Date.parse('1997-12-31')
     sequence(:name) { |i| "Journal #{i}" }
@@ -42,6 +49,64 @@ FactoryGirl.define do
 
     trait :various do
     end
+  end
+
+  factory :journal_entry do
+    # needs journal
+    absolute_credit 0
+    absolute_debit 0
+    absolute_currency 'EUR'
+    credit 0
+    debit 0
+    balance 0
+    currency 'EUR'
+    real_credit 0
+    real_debit 0
+    real_balance 0
+    real_currency 'EUR'
+    real_currency_rate 1.0
+    state 'draft'
+    printed_on Date.parse('2016-12-01')
+
+    trait :confirmed do
+      state 'confirmed'
+    end
+
+    trait :with_items do
+      after(:build) do |entry|
+        2.times do
+          attributes = attributes_for(:journal_entry_item)
+          attributes.update account: create(:account), printed_on: entry.printed_on
+          entry.items.build attributes
+        end
+      end
+    end
+  end
+
+  factory :journal_entry_item do
+    # needs financial year
+    journal_entry
+    account
+    absolute_credit 0
+    absolute_debit 0
+    absolute_pretax_amount 0
+    cumulated_absolute_credit 0
+    cumulated_absolute_debit 0
+    absolute_currency 'EUR'
+    credit 0
+    debit 0
+    pretax_amount 0
+    balance 0
+    currency 'EUR'
+    real_credit 0
+    real_debit 0
+    real_pretax_amount 0
+    real_balance 0
+    real_currency 'EUR'
+    real_currency_rate 1.0
+    state 'confirmed'
+    sequence(:name) { |i| "JEI #{i}" }
+    printed_on Date.parse('2016-12-01')
   end
 
   factory :financial_year_exchange do
