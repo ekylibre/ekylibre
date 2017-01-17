@@ -88,19 +88,27 @@ class EntityTest < ActiveSupport::TestCase
     assert !entity.errors.include?(:nature), 'Entity must accept organization nature'
   end
   test 'has many booked journals' do
-    entity = entities(:entities_017)
-    refute entity.booked_journals.empty?
+    accountant = create(:entity, :accountant, :with_booked_journals)
+    refute accountant.booked_journals.empty?
   end
   test 'does not have financial year with opened exchange without financial year' do
-    entity = entities(:entities_016)
-    refute entity.financial_year_with_opened_exchange?
+    accountant = create(:entity, :accountant)
+    refute accountant.financial_year_with_opened_exchange?
   end
   test 'has financial year with opened exchange' do
-    entity = entities(:entities_017)
-    assert entity.financial_year_with_opened_exchange?
+    accountant = accountant_with_financial_year_and_opened_exchange
+    assert accountant.financial_year_with_opened_exchange?
   end
   test 'cannot destroy when it has financial year with opened exchange' do
-    entity = entities(:entities_017)
-    assert_raises { entity.destroy }
+    accountant = accountant_with_financial_year_and_opened_exchange
+    assert_raises { accountant.destroy }
+  end
+
+  def accountant_with_financial_year_and_opened_exchange
+    accountant = create(:entity, :accountant)
+    financial_year = FinancialYear.last
+    financial_year.update_attribute :accountant_id, accountant.id
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
+    accountant
   end
 end
