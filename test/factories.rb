@@ -52,6 +52,25 @@ FactoryGirl.define do
     sequence(:number) { |n| "801000000#{n}" }
   end
 
+  factory :cash do
+    account
+    journal
+    bank_account_holder_name "Dupond"
+    bank_account_key ''
+    bank_account_number ''
+    bank_agency_code ''
+    bank_code ''
+    bank_identifier_code 'GHBXFRPP'
+    bank_name 'GHB'
+    country 'fr'
+    currency 'EUR'
+    iban ''
+    spaced_iban ''
+    mode 'iban'
+    nature 'bank_account'
+    sequence(:name) { |n| "Bank account #{n}" }
+  end
+
   factory :journal do
     closed_on Date.parse('1997-12-31')
     sequence(:name) { |i| "Journal #{i}" }
@@ -65,6 +84,16 @@ FactoryGirl.define do
     used_for_unbilled_payables false
 
     trait :various do
+    end
+
+    trait :bank do
+      nature 'bank'
+    end
+
+    trait :with_cash do
+      after(:create) do |journal|
+        create(:cash, journal: journal)
+      end
     end
   end
 
@@ -84,6 +113,9 @@ FactoryGirl.define do
     real_currency_rate 1.0
     state 'draft'
     printed_on Date.parse('2016-12-01')
+
+    trait :draft do
+    end
 
     trait :confirmed do
       state 'confirmed'
