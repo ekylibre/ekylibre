@@ -26,6 +26,23 @@ FactoryGirl.define do
         create_list :journal, 2, :various, accountant_id: entity.id
       end
     end
+
+    trait :with_email do
+      after(:create) do |entity|
+        create :entity_address, :email, entity: entity
+      end
+    end
+  end
+
+  factory :entity_address do
+    entity
+    canal 'email'
+    by_default true
+    mail_auto_update false
+    sequence(:coordinate) { |n| "email#{n}@test.com" }
+
+    trait :email do
+    end
   end
 
   factory :account do
