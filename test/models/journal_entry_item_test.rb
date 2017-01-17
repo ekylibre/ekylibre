@@ -145,41 +145,38 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert_nil item.bank_statement_letter
   end
   test 'third party is the account client when the account has one client but neither supplier nor employee' do
-    item = journal_entry_items(:journal_entry_items_016)
-    assert_equal item.account.clients.count, 1
-    assert_equal item.account.suppliers.count, 0
-    assert_equal item.account.employees.count, 0
-    assert_equal item.third_party, entities(:entities_010)
+    account = create(:account)
+    client = create(:entity, client_account_id: account.id)
+    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    assert_equal item.third_party, client
   end
   test 'third party is the account supplier when the account has one supplier but neither client nor employee' do
-    item = journal_entry_items(:journal_entry_items_042)
-    assert_equal item.account.suppliers.count, 1
-    assert_equal item.account.clients.count, 0
-    assert_equal item.account.employees.count, 0
-    assert_equal item.third_party, entities(:entities_013)
+    financial_year = financial_years(:financial_years_025)
+    account = create(:account)
+    supplier = create(:entity, supplier_account_id: account.id)
+    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    assert_equal item.third_party, supplier
   end
   test 'third party is the account employee when the account has one employee but neither client nor supplier' do
-    # TODO fixtures
-    # item = journal_entry_items(:journal_entry_items_XXX)
-    # assert_equal item.account.employees.count, 1
-    # assert_equal item.account.suppliers.count, 0
-    # assert_equal item.account.clients.count, 0
-    # assert_equal item.third_party, entities(:entities_XXX)
+    financial_year = financial_years(:financial_years_025)
+    account = create(:account)
+    employee = create(:entity, employee_account_id: account.id)
+    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    assert_equal item.third_party, employee
   end
   test 'third party is set when the account has client, supplier or employee but targets the same entity' do
-    # TODO fixtures
-    # item = journal_entry_items(:journal_entry_items_XXX)
-    # assert_equal item.account.clients.count, 1
-    # assert_equal item.account.suppliers.count, 1
-    # assert_equal item.account.clients.take, item.account.suppliers.take
-    # assert_equal item.third_party, entities(:entities_XXX)
+    financial_year = financial_years(:financial_years_025)
+    account = create(:account)
+    client_employee_and_supplier = create(:entity, client_account_id: account.id, employee_account_id: account.id, supplier_account_id: account.id)
+    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    assert_equal item.third_party, client_employee_and_supplier
   end
   test 'third party is not set when the account has more than one client, supplier or employee' do
-    # TODO fixtures
-    # item = journal_entry_items(:journal_entry_items_XXX)
-    # assert_equal item.account.employees.count, 1
-    # assert_equal item.account.suppliers.count, 1
-    # assert_equal item.account.clients.count, 0
-    # refute item.third_party
+    financial_year = financial_years(:financial_years_025)
+    account = create(:account)
+    employee = create(:entity, employee_account_id: account.id)
+    client = create(:entity, client_account_id: account.id)
+    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    refute item.third_party
   end
 end

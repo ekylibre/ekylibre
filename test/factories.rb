@@ -69,7 +69,7 @@ FactoryGirl.define do
   end
 
   factory :journal_entry do
-    # needs journal
+    journal
     absolute_credit 0
     absolute_debit 0
     absolute_currency 'EUR'
@@ -101,8 +101,7 @@ FactoryGirl.define do
   end
 
   factory :journal_entry_item do
-    # needs financial year
-    journal_entry
+    association :entry, factory: :journal_entry
     account
     absolute_credit 0
     absolute_debit 0
