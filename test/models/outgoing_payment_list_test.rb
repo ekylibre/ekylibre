@@ -38,7 +38,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   setup { @list = outgoing_payment_lists(:outgoing_payment_lists_001) }
 
   test 'to_sepa' do
-    Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
+    Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
       doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
       doc.remove_namespaces!
@@ -86,7 +86,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       payment.payee.update!(bank_identifier_code: nil)
     end
 
-    Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
+    Timecop.freeze(Time.new(2016, 10, 1, 11, 1, 35, '+02:00')) do
       doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
       doc.remove_namespaces!
