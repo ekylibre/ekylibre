@@ -15,29 +15,29 @@ class ConvertMapBackgroundToMapLayer < ActiveRecord::Migration
 
   def change
     rename_table :map_backgrounds, :map_layers
-    add_column :map_layers, :type, :string
+    add_column :map_layers, :nature, :string
     add_column :map_layers, :position, :integer
     add_column :map_layers, :opacity, :integer
 
     reversible do |r|
       r.up do
         execute <<-SQL
-          UPDATE map_layers SET type='MapBackground'
+          UPDATE map_layers SET nature='map_background'
         SQL
 
-        reference_names = select_values("SELECT reference_name FROM map_layers WHERE type='MapOverlay'").uniq
+        reference_names = select_values("SELECT reference_name FROM map_layers WHERE nature='map_overlay'").uniq
         MAP_OVERLAYS.each do |overlay|
           next if reference_names.include?(overlay[:reference_name])
           execute 'INSERT INTO map_layers (' + overlay.keys.join(', ') +
-                  ', created_at, updated_at, type) SELECT ' +
+                  ', created_at, updated_at, nature) SELECT ' +
                   overlay.values.map { |v| quote(v) }.join(', ') +
-                  ', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, \'MapOverlay\';'
+                  ', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, \'map_overlay\';'
         end
       end
 
       r.down do
         execute <<-SQL
-          DELETE FROM map_layers WHERE type='MapOverlay'
+          DELETE FROM map_layers WHERE nature='map_overlay'
         SQL
       end
     end

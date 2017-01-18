@@ -5,22 +5,18 @@ module Backend
     respond_to :json, only: [:toggle, :star]
 
     def index
-      @map_backgrounds = MapBackground.order('by_default DESC, enabled DESC, name')
-      @map_overlays = MapOverlay.order('enabled DESC, name')
+      @map_layers = MapLayer.order('nature, by_default DESC, enabled DESC, name')
+      @bounds = CultivableZone.first ? CultivableZone.first.shape_centroid : [44.8423142, -0.5988415]
     end
 
     def load
-      MapBackground.load_defaults
-      MapOverlay.load_defaults
+      MapLayer.load_defaults
       redirect_to params[:redirect] || { action: :index }
     end
 
     def toggle
       return head :forbidden unless m = MapLayer.find_by(id: params[:id])
-
-      # TODO: improve
-      # Is a map background
-      return head :forbidden if m.is_a?(MapBackground) && !!m.enabled && MapBackground.availables.length == 1
+      return head :forbidden if m.map_background? && !!m.enabled && MapLayer.availables_map_backgrounds.length == 1
 
       toggle = !m.enabled
       m.update(enabled: toggle)
@@ -30,7 +26,7 @@ module Backend
       # if map background is disabling but is by default
       # set the first available map background as default
       if !toggle && m.by_default
-        mb = MapBackground.availables.first
+        mb = MapLayer.availables_map_backgrounds.first
         unless mb.nil?
           mb.update(by_default: true)
           id = mb.id
@@ -43,7 +39,7 @@ module Backend
     end
 
     def star
-      return unless m = MapBackground.find_by(id: params[:id])
+      return unless m = MapLayer.map_backgrounds.find_by(id: params[:id])
       m.update(by_default: !m.by_default)
       head :no_content
     end

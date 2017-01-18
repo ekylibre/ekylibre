@@ -251,6 +251,10 @@ spa:
       shift_method:
         anatocism: "Anatocismo"
         immediate_payment: "Pago inmediato"
+    map_layer:
+      nature:
+        # map_background: "Map background"
+        # map_overlay: "Map overlay"
     notification:
       level:
         # error: "Error"

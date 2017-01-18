@@ -252,7 +252,7 @@ module Ekylibre
       end
       w.check_point
 
-      MapBackground.load_defaults
+      MapLayer.load_defaults
       w.check_point
     end
 

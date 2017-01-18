@@ -1,0 +1,42 @@
+.map-background-container
+  .map-background{data: {id: map_layer.id,enable: {url: toggle_backend_map_layer_path(map_layer)}}, class: "#{map_layer.enabled ? 'active': ''}"}
+    .map-background-header
+      .map-background-name
+        %span= map_layer.managed ? map_layer.name : link_to(map_layer.name, edit_backend_map_layer_path(map_layer), class: 'map-background-edit')
+        - unless map_layer.managed
+          %span.map-background-delete= link_to '', backend_map_layer_path(map_layer), title: :delete.tl, class: "map-background-icon", remote: true, "data-type" => "json", method: :delete
+      - if map_layer.map_background?
+        = link_to '', star_backend_map_layer_path(map_layer), title: MapLayer.human_attribute_name(:by_default), class: "map-background-icon map-background-by-default #{map_layer.by_default ? 'active': ''} #{map_layer.enabled ? '': 'hide'}", remote: true, "data-type" => "json", method: :put
+    :ruby
+      options = {
+        box: {
+          height: 250
+        },
+        view: {
+          center: @bounds,
+          zoom: map_layer.max_zoom
+        },
+        map: {
+          attributionControl: false,
+          setDefaultBackground: true,
+          dragging: false,
+          touchZoom: false,
+          doubleClickZoom: false,
+          boxZoom: false,
+          tap: false
+        }
+      }
+
+      if map_layer.map_background?
+        options.merge!({ backgrounds: map_layer.to_json_object })
+      else
+        options.deep_merge!({
+          backgrounds: MapLayer.default_map_background,
+          overlays: map_layer.to_json_object,
+          map: {
+            setDefaultOverlay: true
+          }
+        })
+      end
+
+    .map-view{data: {visualization: options.to_json }}

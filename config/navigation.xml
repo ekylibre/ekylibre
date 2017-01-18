@@ -1910,31 +1910,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="map_backgrounds">
-        <page to="backend/map_backgrounds#index"/>
-        <page to="backend/map_backgrounds#create"/>
-        <page to="backend/map_backgrounds#destroy"/>
-        <page to="backend/map_backgrounds#edit"/>
-        <page to="backend/map_backgrounds#load"/>
-        <page to="backend/map_backgrounds#new"/>
-        <page to="backend/map_backgrounds#show"/>
-        <page to="backend/map_backgrounds#star"/>
-        <page to="backend/map_backgrounds#toggle"/>
-        <page to="backend/map_backgrounds#update"/>
-      </item>
-      <item name="map_overlays">
-        <page to="backend/map_overlays#index"/>
-        <page to="backend/map_overlays#create"/>
-        <page to="backend/map_overlays#destroy"/>
-        <page to="backend/map_overlays#edit"/>
-        <page to="backend/map_overlays#load"/>
-        <page to="backend/map_overlays#new"/>
-        <page to="backend/map_overlays#show"/>
-        <page to="backend/map_overlays#star"/>
-        <page to="backend/map_overlays#toggle"/>
-        <page to="backend/map_overlays#update"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

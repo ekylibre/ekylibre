@@ -2728,3 +2728,15 @@ a[data-annotate] {
     margin-bottom: 0;
   }
 }
+
+.opacity-range {
+  margin-left: 1.5em;
+  &:before {
+    content: '0';
+    margin-left: -1.5em;
+  }
+  &:after {
+    content: '100';
+    margin-right: -2em;
+  }
+}

@@ -251,6 +251,10 @@ cmn:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "立即付款"
+    map_layer:
+      nature:
+        # map_background: "Map background"
+        # map_overlay: "Map overlay"
     notification:
       level:
         error: "错误"

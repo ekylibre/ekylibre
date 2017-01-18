@@ -17,7 +17,7 @@ class UseMapLayersTest < CapybaraIntegrationTest
   def check_enabled_map_backgrounds
     visit('/backend/land-parcels')
     page.execute_script("$(\"*[data-toggle='face'][href='map']\").trigger('click');")
-    assert_selector '[name="leaflet-base-layers"]', visible: false, count: MapBackground.where(enabled: true).count
+    assert_selector '[name="leaflet-base-layers"]', visible: false, count: MapLayer.availables_map_backgrounds.count
   end
 
   test 'loading defaults' do
@@ -26,13 +26,13 @@ class UseMapLayersTest < CapybaraIntegrationTest
   end
 
   test 'enabling a map background' do
-    count_before = MapBackground.availables.size
+    count_before = MapLayer.availables_map_backgrounds.size
 
     visit('/backend/map_layers')
     first('div.map-background:not(.active)').click
     sleep(1)
 
-    assert_equal count_before + 1, MapBackground.availables.size
+    assert_equal count_before + 1, MapLayer.availables_map_backgrounds.size
 
     check_enabled_map_backgrounds
   end

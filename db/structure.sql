@@ -3872,7 +3872,7 @@ CREATE TABLE map_layers (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    type character varying,
+    nature character varying,
     "position" integer,
     opacity integer
 );

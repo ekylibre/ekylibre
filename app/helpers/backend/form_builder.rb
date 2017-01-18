@@ -320,8 +320,8 @@ module Backend
           end
         end
       end
-      editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
-      editor[:overlays] ||= MapOverlay.availables.collect(&:to_json_object)
+      editor[:back] ||= MapLayer.availables_map_backgrounds.collect(&:to_json_object)
+      editor[:overlays] ||= MapLayer.availables_map_overlays.collect(&:to_json_object)
 
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
@@ -333,8 +333,8 @@ module Backend
       options[:input_html][:data] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
-      options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
-      options[:input_html][:data][:map_editor][:overlays] ||= MapOverlay.availables.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:back] ||= MapLayer.availables_map_backgrounds.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:overlays] ||= MapLayer.availables_map_overlays.collect(&:to_json_object)
 
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
@@ -362,7 +362,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.availables.collect(&:to_json_object)
+      marker[:background] ||= MapLayer.availables_map_backgrounds.collect(&:to_json_object)
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
@@ -380,8 +380,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
-      marker[:background] &&= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapLayer.availables_map_backgrounds.collect(&:to_json_object).first
+      marker[:background] &&= MapLayer.default_map_background.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 

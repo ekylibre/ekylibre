@@ -280,9 +280,8 @@ cmn:
       loan_repayment: "偿还借款"
       manure_management_plan: "粪便管理计划"
       manure_management_plan_zone: "粪便管理计划区"
-      map_background: "地图背景"
+      map_background: "地图背景" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "物"
       net_service: "网络服务"
       notification: "通知"

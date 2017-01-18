@@ -280,9 +280,8 @@ deu:
       loan_repayment: "Kreditrückzahlung"
       manure_management_plan: "Gülle-Management-Plan"
       manure_management_plan_zone: "Gülle-Management-Plan Zone"
-      map_background: "Kartenhintergrund"
+      map_background: "Kartenhintergrund" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "Angelegenheit"
       net_service: "Net Service"
       notification: "Mitteilung"

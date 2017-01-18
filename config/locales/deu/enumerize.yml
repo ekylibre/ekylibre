@@ -251,6 +251,10 @@ deu:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "Sofortige Bezahlung"
+    map_layer:
+      nature:
+        # map_background: "Map background"
+        # map_overlay: "Map overlay"
     notification:
       level:
         error: "Fehler"

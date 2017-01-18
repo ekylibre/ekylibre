@@ -899,9 +899,8 @@ arb:
       mandate: "التفويض" #?
       manure_management_plan: "خطة إدارة السماد"
       manure_management_plan_zone: "السماد منطقة خطة الإدارة"
-      map_background: "خلفية خريطة"
+      map_background: "خلفية خريطة" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "مسألة"
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?

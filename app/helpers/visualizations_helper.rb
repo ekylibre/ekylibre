@@ -3,8 +3,8 @@ module Visualization
     def initialize(config = {})
       @config = config
       @categories_colors = @config.delete(:categories_colors)
-      @config[:backgrounds] = MapBackground.availables.collect(&:to_json_object)
-      @config[:overlays] = MapOverlay.availables.collect(&:to_json_object)
+      @config[:backgrounds] = MapLayer.availables_map_backgrounds.collect(&:to_json_object)
+      @config[:overlays] = MapLayer.availables_map_overlays.collect(&:to_json_object)
     end
 
     def background(layer, options = {})

@@ -280,9 +280,8 @@ jpn:
       loan_repayment: "ローン返済"
       manure_management_plan: "肥料管理計画"
       manure_management_plan_zone: "肥料管理計画ゾーン"
-      map_background: "マップの背景"
+      map_background: "マップの背景" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "問題"
       net_service: "ネットサービス"
       notification: "お知らせ"

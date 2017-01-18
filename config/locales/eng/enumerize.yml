@@ -240,6 +240,10 @@ eng:
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
+    map_layer:
+      nature:
+        map_background: "Map background"
+        map_overlay: "Map overlay"
     notification:
       level:
         error: "Error"

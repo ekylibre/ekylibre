@@ -33,12 +33,12 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
+#  nature         :string
 #  opacity        :integer
 #  position       :integer
 #  reference_name :string
 #  subdomains     :string
 #  tms            :boolean          default(FALSE), not null
-#  type           :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #  url            :string           not null

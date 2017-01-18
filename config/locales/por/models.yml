@@ -280,9 +280,8 @@ por:
       loan_repayment: "Pagamento de empréstimo"
       manure_management_plan: "Plano de gestão de estrume"
       manure_management_plan_zone: "Zona de plano de manejo de dejetos"
-      map_background: "fundo do mapa"
+      map_background: "fundo do mapa" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "Importam"
       net_service: "Serviço net"
       notification: "Notificação"

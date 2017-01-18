@@ -4431,6 +4431,8 @@ map_layers:
   name:
     type: string
     required: true
+  nature:
+    type: string
   opacity:
     type: integer
   position:
@@ -4443,8 +4445,6 @@ map_layers:
     type: boolean
     required: true
     default: false
-  type:
-    type: string
   updated_at:
     type: datetime
     required: true

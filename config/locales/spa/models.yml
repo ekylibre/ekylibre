@@ -281,9 +281,8 @@ spa:
       loan_repayment: "Pago de prestamo"
       manure_management_plan: "Plan de manejo del estiércol"
       manure_management_plan_zone: "Zona de plan de manejo del estiércol"
-      map_background: "fondo de la correspondencia"
+      map_background: "fondo de la correspondencia" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "Importar"
       net_service: "Servicio Net"
       notification: "Notificación"

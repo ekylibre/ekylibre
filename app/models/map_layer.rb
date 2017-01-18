@@ -33,17 +33,18 @@
 #  max_zoom       :integer
 #  min_zoom       :integer
 #  name           :string           not null
+#  nature         :string
 #  opacity        :integer
 #  position       :integer
 #  reference_name :string
 #  subdomains     :string
 #  tms            :boolean          default(FALSE), not null
-#  type           :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #  url            :string           not null
 #
 class MapLayer < Ekylibre::Record::Base
+  enumerize :nature, in: [:map_background, :map_overlay], default: :map_background, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
@@ -51,21 +52,29 @@ class MapLayer < Ekylibre::Record::Base
   validates :name, :url, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :url, format: { with: URI.regexp(%w(http https)) }
-  validates :type, presence: true
-  validates :opacity, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :opacity, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_blank: true
+  validates :by_default, inclusion: { in: [true, false] }, if: proc { |map| map.nature == :map_background }
 
-  scope :availables, -> { where(enabled: true).order(by_default: :desc) }
+  selects_among_all
+
+  scope :availables, -> { where(enabled: true) }
+
+  scope :map_backgrounds, -> { where(nature: :map_background) }
+  scope :map_overlays, -> { where(nature: :map_overlay) }
+
+  scope :availables_map_backgrounds, -> { map_backgrounds.availables.order(by_default: :desc) }
+  scope :availables_map_overlays, -> { map_overlays.availables }
+  scope :default_map_background, -> { availables_map_backgrounds.first }
 
   before_validation do
     self.opacity = opacity || 100
   end
 
   def self.load_defaults
-    raise "#{model_name.name}: Layers array is empty." if MapLayers::Layer.of_type(model_name.name.underscore).empty? && Rails.env.development?
-
-    MapLayers::Layer.of_type(model_name.name.underscore).each do |item|
+    MapLayers::Layer.items.each do |item|
       attrs = {
         name: item.label,
+        nature: item.type.to_sym,
         reference_name: item.reference_name,
         enabled: item.enabled,
         by_default: item.by_default,
@@ -77,8 +86,11 @@ class MapLayer < Ekylibre::Record::Base
         managed: true,
         opacity: item.options.try(:[], :opacity)
       }
-      where(reference_name: item.reference_name).first_or_create(attrs)
+      where(reference_name: item.reference_name).first_or_create!(attrs)
     end
+
+    default = MapLayers::Layer.of_type(:map_background).select(&:by_default)
+    where(reference_name: default.first.reference_name).first.update!(by_default: true) if default.present? && default.first.reference_name && find_by(reference_name: default.first.reference_name)
   end
 
   def to_json_object

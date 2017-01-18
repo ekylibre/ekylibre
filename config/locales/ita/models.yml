@@ -311,9 +311,8 @@ ita:
       loan_repayment: "Rimborso del prestito"
       manure_management_plan: "piano di gestione del letame"
       manure_management_plan_zone: "Concimi zona di piano di gestione"
-      map_background: "Mappa di sfondo"
+      map_background: "Mappa di sfondo" #?
       # map_layer: "Map layer"
-      # map_overlay: "Map overlay"
       matter: "Importa"
       net_service: "il servizio net"
       notification: "Notifica"
