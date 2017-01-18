@@ -1,36 +1,44 @@
 module Ekylibre
   module View
     class Addon
-      cattr_reader :list
+      cattr_reader :list do
+        {}.with_indifferent_access
+      end
+
+      attr_accessor :condition, :partial
+
+      def initialize(partial)
+        @partial = partial
+      end
+
+      def usable?(options = {})
+        @condition.blank? || (@condition.present? && @condition.call(options))
+      end
 
       class << self
         # Backward compat
         alias view_addons list
 
-        def add(partial_path, to: nil, for_action: nil)
-          @list = [] if @list.nil?
-
-          addon = {}
-          addon[to] ||= {}
-          addon[to][for_action] = partial_path
-          @list << addon
+        def add(partial_path, context, options = {})
+          addon = new(partial_path)
+          if options[:to]
+            addon.condition = ->(options) { options[:controller] + '#' + options[:action] == options[:to] }
+          end
+          @@list = {}.with_indifferent_access if @@list.nil?
+          @@list[context] ||= []
+          @@list[context] << addon
         end
 
-        def find(options)
-          return unless options[:context]
-
-          addons = []
-          search_path = "#{options[:controller]}##{options[:action]}"
-          # Backend is the default namespace
-          search_path = 'backend/' + search_path unless search_path =~ %r{\/}
-
-          @list.each do |addon|
-            if addon.key?(options[:context]) && addon[options[:context]].key?(search_path)
-              addons << addon[options[:context]][search_path]
+        # Render all addons for a given context
+        def render(context, template, options = {})
+          return nil unless @@list[context]
+          html = ''.html_safe
+          @@list[context].each do |addon|
+            if addon.usable?(options.merge(controller: template.controller_path, action: template.action_name, template: template))
+              html << template.render(addon.partial, options)
             end
           end
-
-          addons
+          html
         end
       end
     end

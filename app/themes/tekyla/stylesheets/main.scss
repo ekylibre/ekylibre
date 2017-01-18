@@ -2510,6 +2510,9 @@ a[data-annotate] {
       cursor: not-allowed;
       background: $neutral-color;
     }
+    &[disabled], &.disabled {
+      @include disabled;
+    }
   }
   a.state:hover {
     opacity: 0.66;

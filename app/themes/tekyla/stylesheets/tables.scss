@@ -86,10 +86,9 @@ table {
         margin: 0 auto;
         border: none;
         &.forbidden {
-          &, * {
-            cursor: default;
-            color: rgba(#000, 0.1);
-          }
+          filter: contrast(75%) grayscale(100%);
+          cursor: default;
+          pointer-events: none;
         }
       }
 

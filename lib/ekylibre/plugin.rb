@@ -143,23 +143,9 @@ module Ekylibre
       def after_login_path(resource)
         after_login_plugin.name.to_s.camelize.constantize.after_login_path(resource)
       end
-
-      #   def find_addons(options = {})
-      #     return unless options[:context]
-      #
-      #     view_addons = []
-      #     search_path = "backend/#{options[:controller]}##{options[:action]}"
-      #
-      #     each do |plugin|
-      #       availables_addons = plugin.view_addons
-      #       view_addons << availables_addons[options[:context]][search_path] if availables_addons.key?(options[:context]) && availables_addons[options[:context]].key?(search_path)
-      #     end
-      #
-      #     view_addons
-      #   end
     end
 
-    attr_reader :root, :themes_assets, :routes, :javascripts, :initializers, :view_addons
+    attr_reader :root, :themes_assets, :routes, :javascripts, :initializers
     field_accessor :name, :summary, :description, :url, :author, :author_url, :version
 
     # Links plugin into app
@@ -169,7 +155,6 @@ module Ekylibre
       @themes_assets = {}.with_indifferent_access
       @javascripts = []
       @initializers = {}
-      @view_addons = {}
 
       lib = @root.join('lib')
       if File.directory?(lib)
@@ -330,19 +315,15 @@ module Ekylibre
       @routes = block
     end
 
-    # def add_toolbar_addon(partial_path, options = {})
-    #   return unless options[:to]
-    #   context = :toolbar
-    #   @view_addons[context] ||= {}
-    #   @view_addons[context][options[:to]] = partial_path
-    # end
-    #
-    # def add_cobble_addon(partial_path, options = {})
-    #   return unless options[:to]
-    #   context = :cobble
-    #   @view_addons[context] ||= {}
-    #   @view_addons[context][options[:to]] = partial_path
-    # end
+    def add_toolbar_addon(partial_path, options = {})
+      # Config main toolbar by default because with current tools, no way to specify
+      # which toolbar use when many in the same page.
+      Ekylibre::View::Addon.add(:main_toolbar, partial_path, options)
+    end
+
+    def add_cobble_addon(partial_path, options = {})
+      Ekylibre::View::Addon.add(:cobbler, partial_path, options)
+    end
 
     # Adds menus with DSL in Ekylibre backend nav
     def extend_navigation(&block)

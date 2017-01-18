@@ -4,7 +4,9 @@ module Api
     class InterventionParticipationsController < Api::V1::BaseController
       def create
         params = permitted_params
-        return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank?
+        return render json: { message: :unprocessable_entity }, status: :unprocessable_entity if params.blank? or params[:working_periods].nil? or params[:working_periods].empty?
+        return render json: { message: :unprocessable_entity }, status: :unprocessable_entity unless current_user && current_user.person
+
         if current_user && !current_user.worker && current_user.person
           # create a worker which match given user to prevent bad fail
           Worker.create!(

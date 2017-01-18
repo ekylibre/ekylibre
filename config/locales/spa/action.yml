@@ -502,9 +502,9 @@ spa:
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "Nueva Compra / Salida de pagos"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "Nueva Venta / Pago recibido"
     backend/registrations:
       edit: "Editar el registro"
       index: "Las inscripciones"
@@ -1107,7 +1107,7 @@ spa:
     # example: "Example: %{value}"
     exchange: "Intercambiar"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
-    # existing: "Existing"
+    existing: "Existente"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expédier"
     expenses: "Gastos"
@@ -1392,7 +1392,7 @@ spa:
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
     not_delivered: "No entregado"
-    # not_letterable: "Not able to letter"
+    not_letterable: "No es capaz de carta"
     not_ready: "No está listo"
     not_received: "No recibido"
     now: "Ahora"
@@ -2201,12 +2201,12 @@ spa:
       move: "Movimiento" #?
       negociate: "Negociate"
       new: "Nuevo"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "Nueva compra"
+      new_sale: "Nueva venta"
       open: "Abierto"
       order: "Orden"
       pay: "Paga"
-      # payment_gap: "Payment gap"
+      payment_gap: "Brecha de pago"
       payment_mode: "Modo de pago"
       pick: "Recoger"
       picture: "Imagen"
