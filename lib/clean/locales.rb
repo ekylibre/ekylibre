@@ -718,6 +718,7 @@ module Clean
 
       def clean_file!(basename)
         yaml_file = locale_dir.join("#{basename}.yml")
+        return unless yaml_file.exist?
         translation, total = Clean::Support.hash_sort_and_count(Clean::Support.yaml_to_hash(yaml_file))
         write(yaml_file, translation, total)
       end

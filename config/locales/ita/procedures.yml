@@ -113,7 +113,7 @@ ita:
     tool: "Strumento"
     # topper: "Topper"
     tractor: "Trattore"
-    # trailed_equipment: "Trailed equipment"
+    trailed_equipment: "Attrezzature trainati"
     # trailer: "Trailer"
     # tunnel: "Tunnel"
     # tunnel_implanter: "Tunnel implanter"

@@ -472,7 +472,6 @@ eng:
     backend/notifications:
       index: "Notifications"
       # show: "Notification: %{name}"
-      # unread: "Unread notification: %{name}"
     backend/observations:
       edit: "Edit observation"
       new: "New observation"
@@ -2199,7 +2198,6 @@ eng:
       # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
-      # unread: "Unread"
       unroll: "Unroll"
       unvalidateds: "Unvalidateds"
       up: "Up"

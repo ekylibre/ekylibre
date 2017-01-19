@@ -2,7 +2,7 @@ module Synel
   class AnimalsExchanger < ActiveExchanger::Base
     # Create or updates animals
     def import
-      demo_mode = Preference.value(:demo, false)
+      demo_mode = Preference.value(:demo, false, :boolean)
       variants = {}
       owner = Entity.of_company
       now = Time.zone.now

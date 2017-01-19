@@ -8,10 +8,10 @@ More details can be found on the official website http://ekylibre.org.
 
 ## Code status
 
-[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=2-0-stable)](https://travis-ci.org/ekylibre/ekylibre)
+[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=master)](https://travis-ci.org/ekylibre/ekylibre)
 [![Gem Dependency Status](https://gemnasium.com/ekylibre/ekylibre.svg)](https://gemnasium.com/ekylibre/ekylibre)
 [![Code Metrics](https://codeclimate.com/github/ekylibre/ekylibre.svg)](https://codeclimate.com/github/ekylibre/ekylibre)
-[![Code Coverage](https://coveralls.io/repos/github/ekylibre/ekylibre/badge.svg?branch=2-0-stable)](https://coveralls.io/r/ekylibre/ekylibre)
+[![Code Coverage](https://coveralls.io/repos/github/ekylibre/ekylibre/badge.svg?branch=master)](https://coveralls.io/r/ekylibre/ekylibre)
 [![Codacy Grade Badge](https://api.codacy.com/project/badge/Grade/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ekylibre/ekylibre&amp;utm_campaign=Badge_Grade)
 [![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ekylibre/ekylibre&amp;utm_campaign=Badge_Coverage)
 
@@ -23,13 +23,13 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/2-0-stable/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/2-0-stable/doc/screenshots/screens.png)
+[![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
 
 ## Installation
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* [English](https://github.com/ekylibre/ekylibre/blob/2-0-stable/doc/guides/installation.md) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/2-0-stable/doc/guides/installation-debian-jessie.md))
+* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.md) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.md))
 * [Français](https://wiki.ekylibre.org/fr/guides/installation)
 
 Ekylibre depends on PostgreSQL (≥ 9.5) and PostGIS (≥ 2.2).

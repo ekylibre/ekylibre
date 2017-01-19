@@ -125,9 +125,6 @@
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
-#     - "backend/notifications#unread"
-#     - "backend/outgoing_payment_lists#create"
-#     - "backend/outgoing_payment_lists#new"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -886,14 +883,6 @@ financial_years:
     - "backend/financial_years#new"
     - "backend/financial_years#update"
 
-first_run:
-  write:
-    dependencies:
-    - read-first_run
-  execute:
-    dependencies:
-    - read-first_run
-
 fixed_assets:
   read:
     actions:
@@ -1542,7 +1531,9 @@ outgoing_payment_lists:
     dependencies:
     - read-outgoing_payment_lists
     actions:
+    - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
+    - "backend/outgoing_payment_lists#new"
     - "backend/purchases#pay"
     - "backend/purchases#payment_mode"
 

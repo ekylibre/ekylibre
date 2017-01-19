@@ -75,7 +75,8 @@ module ToolbarHelper
       @template.dropdown_menu_button(name, options, &block)
     end
 
-    def destroy(options = {})
+    def destroy(*args)
+      options = args.extract_options!
       if @template.resource
         if @template.resource.destroyable?
           tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
@@ -113,17 +114,6 @@ module ToolbarHelper
       end
     end
 
-    def view_addons(options = {})
-      return nil unless options[:controller].present?
-
-      options[:action] ||= :index
-      options[:context] = :toolbar
-
-      Ekylibre::Plugin.find_addons(options).collect do |addon|
-        @template.render partial: addon, locals: { t: self }
-      end
-    end
-
     def method_missing(method_name, *args)
       raise ArgumentError, 'Block can not be accepted' if block_given?
       options = args.extract_options!
@@ -147,8 +137,8 @@ module ToolbarHelper
         end
       end
     end
-    html << capture(toolbar) do |t|
-      t.view_addons(controller: controller_name, action: action_name).join.html_safe
+    if options[:name] == :main
+      html << Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar)
     end
 
     unless options[:wrap].is_a?(FalseClass)

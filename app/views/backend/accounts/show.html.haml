@@ -2,6 +2,7 @@
 
 - main_toolbar do |t|
   = t.edit(resource)
+  = t.destroy(resource)
   = t.mark(resource) if resource.reconcilable?
 
 = cobbles do |c|

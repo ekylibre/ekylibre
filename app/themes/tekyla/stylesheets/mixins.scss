@@ -158,6 +158,12 @@
   }
 }
 
+@mixin disabled {
+  filter: contrast(75%) grayscale(100%);
+  cursor: default;
+  pointer-events: none;
+}
+
 @mixin calc-height($expression) {
   @include calc(height, $expression);
 }
@@ -327,6 +333,7 @@
   min-width: $menu-width;
   max-width: 2 * $menu-width;
   list-style-type: none;
+  @include user-select(none);
   @include transition(background 0.2s, box-shadow 0.2s);
   &:hover > a {
     outline: none;
@@ -334,9 +341,7 @@
     background: background-hover($menu-background);
   }
   &.disabled, &[disabled] {
-    background: transparent;
-    cursor: default;
-    pointer-events: none;
+    @include disabled;
   }
   &.separator {
     @include menu-separator;
@@ -485,13 +490,9 @@
       }
     }
     &.disabled {
-      a {
-        opacity: 0.9;
-        color: $neutral-color;
-        background: $neutral-background;
-        cursor: default;
-        pointer-events: none;
-      }
+      filter: contrast(75%) grayscale(100%);
+      cursor: default;
+      pointer-events: none;
     }
   }
 }
@@ -627,6 +628,7 @@
   border-style: solid;
   border-color: rgba(#000, 0.1) rgba(#000, 0.1) rgba(#000, 0.25);
   background: $background-color;
+  @include user-select(none);
   @include gradient-vertical(lighten($background-color, $default-lightness-variation), darken($background-color, $default-lightness-variation));
   @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset);
   @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset, 0 1px 2px rgba(#000, 0.05));
@@ -668,13 +670,9 @@
     }
   }
   &[disabled], &.disabled {
+    filter: contrast(75%) grayscale(100%);
     cursor: default;
     pointer-events: none;
-    &, &:hover, &:focus {
-      &, & > i {
-        @include opacity(0.6);
-      }
-    }
   }
 }
 

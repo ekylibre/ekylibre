@@ -113,7 +113,7 @@ cmn:
     tool: "工具"
     topper: "礼帽"
     tractor: "拖拉机"
-    # trailed_equipment: "Trailed equipment"
+    trailed_equipment: "牵引设备"
     trailer: "拖车"
     tunnel: "隧道"
     tunnel_implanter: "隧道注入"
