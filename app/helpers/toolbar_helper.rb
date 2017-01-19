@@ -75,7 +75,8 @@ module ToolbarHelper
       @template.dropdown_menu_button(name, options, &block)
     end
 
-    def destroy(options = {})
+    def destroy(*args)
+      options = args.extract_options!
       if @template.resource
         if @template.resource.destroyable?
           tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })

@@ -3,7 +3,7 @@
   = link_to("#", data: {toggle_visibility: "#config"}, class: "config", alt: :configure.tl) do
     %i
 
-- demo_mode = Preference.value(:demo, :boolean, false)
+- demo_mode = Preference.value(:demo, false, :boolean)
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
 
   #config
