@@ -43,10 +43,10 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{@list.number}-161001-0901"
+      message_identification = "EKY-#{@list.number}-#{Time.now.utc.strftime('%y%m%d-%H%M')}"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
-      assert_equal('2016-10-01T11:01:35+02:00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
+      assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
@@ -57,7 +57,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
-      assert_equal('2016-10-01', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
+      assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
       assert_equal('FR7611111222223333333333391', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAcct/Id/IBAN').text)
       assert_equal('GHBXFRPP', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
@@ -91,10 +91,10 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{@list.number}-161001-0901"
+      message_identification = "EKY-#{@list.number}-#{Time.now.utc.strftime('%y%m%d-%H%M')}"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
-      assert_equal('2016-10-01T11:01:35+02:00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
+      assert_equal(Time.now.getlocal.iso8601, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CtrlSum').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
@@ -105,7 +105,7 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('2', doc.xpath('//CstmrCdtTrfInitn/PmtInf/NbOfTxs').text)
       assert_equal('3561.00', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CtrlSum').text)
       assert_equal('SEPA', doc.xpath('//CstmrCdtTrfInitn/PmtInf/PmtTpInf/SvcLvl/Cd').text)
-      assert_equal('2016-10-01', doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
+      assert_equal(Time.zone.now.strftime('%Y-%m-%d').to_s, doc.xpath('//CstmrCdtTrfInitn/PmtInf/ReqdExctnDt').text)
       assert_equal('John Doe', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
       assert_equal('FR7611111222223333333333391', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAcct/Id/IBAN').text)
       assert_equal('NOTPROVIDED', doc.xpath('//CstmrCdtTrfInitn/PmtInf/DbtrAgt/FinInstnId/BIC').text)
