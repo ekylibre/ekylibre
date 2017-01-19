@@ -56,57 +56,65 @@ class JournalTest < ActiveSupport::TestCase
   end
 
   test 'accountant can be set on various journals' do
-    various_journal = journals(:journals_001)
-    various_journal.accountant = entities(:entities_016)
+    various_journal = create(:journal, :various)
+    various_journal.accountant = create(:entity, :accountant)
     assert various_journal.valid?
   end
 
   test 'set accountant close all entries' do
-    various_journal = journals(:journals_001)
-    assert various_journal.entries.where(state: [:draft, :confirmed]).any?
-    various_journal.accountant = entities(:entities_016)
+    various_journal = create(:journal, :various)
+    create_list(:journal_entry, 2, :draft, journal: various_journal)
+    various_journal.accountant = create(:entity, :accountant)
+    assert various_journal.entries.any? { |e| e.draft? || e.confirmed? }
     assert various_journal.save
     assert various_journal.entries.reload.all?(&:closed?), 'All journal entries should be closed after accountant assignment on journal'
   end
 
   test 'accountant cannot be set on non-various journals' do
-    bank_journal = journals(:journals_003)
-    bank_journal.accountant = entities(:entities_016)
+    bank_journal = create(:journal, :bank)
+    bank_journal.accountant = create(:entity, :accountant)
     refute bank_journal.valid?
   end
 
   test 'accountant cannot be on journals with cashes' do
-    journal_with_cash = journals(:journals_002)
-    journal_with_cash.nature = :various
-    journal_with_cash.accountant = entities(:entities_016)
+    journal_with_cash = create(:journal, :various, :with_cash)
+    journal_with_cash.accountant = create(:entity, :accountant)
     refute journal_with_cash.valid?
   end
 
   test 'cannot set an accountant which has opened exchanges in its financial year' do
+    accountant = create(:entity, :accountant)
     financial_year = financial_years(:financial_years_025)
-    journal = journals(:journals_001)
+    financial_year.update_column(:accountant_id, accountant)
+    create(:financial_year_exchange, :opened, financial_year: financial_year)
+
+    journal = create(:journal, :various)
     journal.accountant = financial_year.accountant
     refute journal.valid?
   end
 
   test 'cannot remove accountant which has opened exchanges in its financial year' do
-    journal = Journal.where(accountant_id: FinancialYear.where(id: FinancialYearExchange.opened.select(:financial_year_id)).select(:accountant_id)).first
+    accountant = create(:entity, :accountant)
+    financial_year = financial_years(:financial_years_025)
+    financial_year.update_column(:accountant_id, accountant)
+    journal = create(:journal, :various, accountant_id: accountant.id)
+    create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal.accountant = nil
     refute journal.valid?
   end
 
   test 'cannot be closed with an accountant' do
-    journal = journals(:journals_001)
+    journal = create(:journal, :various)
     assert journal.closable?
-    journal.accountant = entities(:entities_016)
+    journal.accountant = create(:entity, :accountant)
     refute journal.closable?
   end
 
   test 'cannot be reopened with an accountant' do
-    journal = journals(:journals_001)
+    journal = create(:journal, :various)
     assert journal.close!(Time.zone.now.to_date)
     assert journal.reopenable?
-    journal.accountant = entities(:entities_016)
+    journal.accountant = create(:entity, :accountant)
     refute journal.reopenable?
   end
 end

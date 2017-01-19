@@ -45,43 +45,46 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test_model_actions
 
   test 'opened scope includes opened exchanges' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     assert FinancialYearExchange.opened.pluck(:id).include?(exchange.id)
   end
 
   test 'opened scope does not include closed exchanges' do
-    exchange = opened_financial_year_exchange
-    exchange.update_column :closed_at, Time.zone.now
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
     refute FinancialYearExchange.opened.pluck(:id).include?(exchange.id)
   end
 
   test 'closed scope includes closed exchanges' do
-    exchange = opened_financial_year_exchange
-    exchange.update_column :closed_at, Time.zone.now
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
     assert FinancialYearExchange.closed.pluck(:id).include?(exchange.id)
   end
 
   test 'closed scope does not include opened exchanges' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     refute FinancialYearExchange.closed.pluck(:id).include?(exchange.id)
   end
 
   test 'for_public_token returns the exchange when the token is not expired' do
-    exchange = opened_financial_year_exchange
-    assert exchange.update_columns(public_token: '123ABC', public_token_expired_at: Time.zone.today + 1.day)
-    assert_equal exchange, FinancialYearExchange.for_public_token('123ABC')
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expires_on: Time.zone.today + 1.day)
+    assert_equal exchange, FinancialYearExchange.for_public_token("123ABC")
   end
 
   test 'for_public_token raises when the token is expired' do
-    exchange = opened_financial_year_exchange
-    assert exchange.update_columns(public_token: '123ABC', public_token_expired_at: Time.zone.today - 1.day)
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expires_on: Time.zone.today - 1.day)
     assert_raises(ActiveRecord::RecordNotFound) do
       FinancialYearExchange.for_public_token(exchange.public_token)
     end
   end
 
   test 'is valid' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     assert exchange.valid?
   end
 
@@ -98,25 +101,28 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'needs a stopped on' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.stopped_on = nil
     refute exchange.valid?
   end
 
   test 'stopped on is before financial year stopped on' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.stopped_on = exchange.financial_year.stopped_on + 1.day
     refute exchange.valid?
   end
 
   test 'needs a financial year' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.financial_year = nil
     refute exchange.valid?
   end
 
   test 'started on is set before create validations' do
-    financial_year = financial_years(:financial_years_024)
+    financial_year = financial_years(:financial_years_025)
     exchange = FinancialYearExchange.new(financial_year: financial_year)
     refute exchange.started_on.present?
     exchange.valid?
@@ -124,21 +130,24 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'generates public token' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     refute exchange.public_token.present?
     exchange.generate_public_token!
     assert exchange.public_token.present?
   end
 
   test 'public token expires on is set to 1 month later' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     exchange.generate_public_token!
     assert exchange.public_token_expired_at.present?
     assert_equal Time.zone.today + 1.month, exchange.public_token_expired_at
   end
 
   test 'started on is not updated on update' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = build(:financial_year_exchange, financial_year: financial_year)
     initial_started_on = exchange.started_on
     exchange.closed_at = Time.zone.now
     assert exchange.save
@@ -146,14 +155,14 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'started on is the financial year started on when the financial year has no other exchange' do
-    financial_year = FinancialYear.where.not(id: FinancialYearExchange.select(:id)).first
+    financial_year = financial_years(:financial_years_025)
     exchange = FinancialYearExchange.new(financial_year: financial_year)
     assert_equal financial_year.started_on, get_computed_started_on(exchange)
   end
 
   test 'started on is the latest financial year exchange stopped on when the financial year has other exchanges' do
-    previous_exchange = opened_financial_year_exchange
-    financial_year = previous_exchange.financial_year
+    financial_year = financial_years(:financial_years_025)
+    previous_exchange = create(:financial_year_exchange, financial_year: financial_year)
     exchange = FinancialYearExchange.new(financial_year: financial_year)
     assert_equal previous_exchange.stopped_on, get_computed_started_on(exchange), 'Expected start date of exchange is not encountered. Financial year started on ' + financial_year.started_on.l(locale: :eng) + ' and stopped on ' + financial_year.stopped_on.l(locale: :eng) + ' and previous exchange stopped on ' + exchange.stopped_on.l(locale: :eng)
   end
@@ -161,12 +170,10 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test 'create closes journal entries from non-booked journal between financial year start and exchange lock when the financial year has no other exchange' do
     financial_year = financial_years(:financial_years_025)
     stopped_on = financial_year.stopped_on - 2.days
-    entries_range = financial_year.started_on..stopped_on
 
-    draft_entries = JournalEntry.joins(:journal).where(printed_on: entries_range, state: :draft, journals: { accountant_id: nil }).to_a
-    assert draft_entries.any?, 'Need draft entries to continue test'
-    confirmed_entries = JournalEntry.joins(:journal).where(printed_on: entries_range, state: :confirmed, journals: { accountant_id: nil }).to_a
-    assert confirmed_entries.any?, 'No confirmed entries found to continue test'
+    journal = create(:journal, accountant_id: nil)
+    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: financial_year.started_on + 1.day)
+    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: financial_year.started_on + 1.day)
 
     exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
     assert exchange.save
@@ -181,11 +188,14 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'create does not close journal entries from journals booked by the financial year accountant' do
+    accountant = create(:entity, :accountant)
     financial_year = financial_years(:financial_years_025)
+    assert financial_year.update_column(:accountant_id, accountant.id)
+
     stopped_on = financial_year.stopped_on - 2.days
-    entries_range = financial_year.started_on..stopped_on
-    draft_entries = JournalEntry.joins(:journal).where(printed_on: entries_range, state: :draft, journals: { accountant_id: financial_year.accountant_id }).to_a
-    assert draft_entries.any?, 'No draft entries found to continue test'
+
+    journal = create(:journal, accountant_id: accountant.id)
+    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: financial_year.started_on + 1.day)
 
     exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
     assert exchange.save
@@ -195,12 +205,10 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test 'create does not close journal entries not between financial year start and exchange lock when the financial year has no other exchange' do
     financial_year = financial_years(:financial_years_025)
     stopped_on = financial_year.stopped_on - 2.days
-    entries_range = financial_year.started_on..stopped_on
 
-    draft_entries = JournalEntry.joins(:journal).where(state: :draft, journals: { accountant_id: nil }).where.not(printed_on: entries_range).to_a
-    assert draft_entries.any?
-    confirmed_entries = JournalEntry.joins(:journal).where(state: :confirmed, journals: { accountant_id: nil }).where.not(printed_on: entries_range).to_a
-    assert confirmed_entries.any?, 'Need confirmed entries to continue test'
+    journal = create(:journal, accountant_id: nil)
+    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: stopped_on + 1.day)
+    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: stopped_on + 1.day)
 
     exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
     assert exchange.save
@@ -209,16 +217,13 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'create closes journal entries from non-booked journal between previous and actual exchanges lock' do
-    financial_year = financial_years(:financial_years_024)
-    previous_exchange = opened_financial_year_exchange
-    previous_exchange.update_column :closed_at, Time.zone.now
+    financial_year = financial_years(:financial_years_025)
+    previous_exchange = create(:financial_year_exchange, financial_year: financial_year)
     stopped_on = financial_year.stopped_on - 2.days
-    entries_range = previous_exchange.stopped_on..stopped_on
 
-    draft_entries = JournalEntry.joins(:journal).where(printed_on: entries_range, state: :draft, journals: { accountant_id: nil }).to_a
-    assert draft_entries.any?, 'Need draft entries to continue test'
-    confirmed_entries = JournalEntry.joins(:journal).where(printed_on: entries_range, state: :confirmed, journals: { accountant_id: nil }).to_a
-    assert confirmed_entries.any?
+    journal = create(:journal, accountant_id: nil)
+    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: previous_exchange.stopped_on + 1.day)
+    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: previous_exchange.stopped_on + 1.day)
 
     exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
     assert exchange.save
@@ -233,16 +238,14 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'create does not close journal entries not between previous and actual exchanges lock' do
-    financial_year = financial_years(:financial_years_024)
-    previous_exchange = opened_financial_year_exchange
-    previous_exchange.update_column :closed_at, Time.zone.now
+    financial_year = financial_years(:financial_years_025)
+    previous_exchange = create(:financial_year_exchange, financial_year: financial_year)
     stopped_on = financial_year.stopped_on - 2.days
-    entries_range = previous_exchange.stopped_on..stopped_on
 
-    draft_entries = JournalEntry.joins(:journal).where(state: :draft, journals: { accountant_id: nil }).where.not(printed_on: entries_range).to_a
-    assert draft_entries.any?
-    confirmed_entries = JournalEntry.joins(:journal).where(state: :confirmed, journals: { accountant_id: nil }).where.not(printed_on: entries_range).to_a
-    assert confirmed_entries.any?, 'Need confirmed entries to continue test'
+    journal = create(:journal, accountant_id: nil)
+    draft_entries = create_list(:journal_entry, 2, :with_items, journal: journal, printed_on: stopped_on + 1.day)
+    confirmed_entries = create_list(:journal_entry, 2, :confirmed, :with_items, journal: journal, printed_on: stopped_on + 1.day)
+
     exchange = FinancialYearExchange.new(financial_year: financial_year, stopped_on: stopped_on)
     assert exchange.save
     assert draft_entries.all? { |e| e.reload.draft? }
@@ -250,9 +253,10 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'accountant_email is the accountant default email' do
-    exchange = opened_financial_year_exchange
-    accountant = entities(:entities_015)
-    exchange.financial_year.update_column :accountant_id, accountant.id
+    accountant = create(:entity, :accountant, :with_email)
+    financial_year = financial_years(:financial_years_025)
+    assert financial_year.update_column(:accountant_id, accountant.id)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
     assert_equal accountant.default_email_address.coordinate, exchange.accountant_email
   end
 
@@ -269,19 +273,22 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'is opened without closed at' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     assert exchange.closed_at.blank?
     assert exchange.opened?
   end
 
   test 'is not opened with closed at' do
-    exchange = opened_financial_year_exchange
-    assert exchange.update_column(:closed_at, Time.zone.now)
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    assert exchange.closed_at.present?
     refute exchange.opened?
   end
 
   test 'it closes' do
-    exchange = opened_financial_year_exchange
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     assert exchange.close!
     assert_equal exchange.reload.closed_at.to_date, Time.zone.today
   end

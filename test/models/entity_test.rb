@@ -90,26 +90,30 @@ class EntityTest < ActiveSupport::TestCase
   end
 
   test 'has many booked journals' do
-    entity = accountants.first
-    refute entity.booked_journals.empty?
+    accountant = create(:entity, :accountant, :with_booked_journals)
+    refute accountant.booked_journals.empty?
   end
 
   test 'does not have financial year with opened exchange without financial year' do
-    entity = Entity.where.not(id: accountants).first
-    refute entity.financial_year_with_opened_exchange?
+    accountant = create(:entity, :accountant)
+    refute accountant.financial_year_with_opened_exchange?
   end
 
   test 'has financial year with opened exchange' do
-    entity = Entity.where(id: FinancialYear.where(id: FinancialYearExchange.opened.select(:financial_year_id)).select(:accountant_id)).first
-    assert entity.financial_year_with_opened_exchange?
+    accountant = accountant_with_financial_year_and_opened_exchange
+    assert accountant.financial_year_with_opened_exchange?
   end
 
   test 'cannot destroy when it has financial year with opened exchange' do
-    accountant = FinancialYearExchange.first.financial_year.accountant
+    accountant = accountant_with_financial_year_and_opened_exchange
     assert_raises { accountant.destroy }
   end
 
-  def accountants
-    Entity.where(id: FinancialYear.where.not(accountant: nil).reorder(:id).select(:accountant_id))
+  def accountant_with_financial_year_and_opened_exchange
+    accountant = create(:entity, :accountant)
+    financial_year = FinancialYear.last
+    financial_year.update_attribute :accountant_id, accountant.id
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
+    accountant
   end
 end

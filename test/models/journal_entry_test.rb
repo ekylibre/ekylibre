@@ -155,24 +155,25 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert journal_entry.balanced?
     assert_equal 4, journal_entry.items.count
   end
-
-  # test 'cannot be created when in financial year exchange date range' do
-  #   exchange = financial_year_exchanges(:financial_year_exchanges_002)
-  #   journal = Journal.where(accountant: nil).first
-  #   entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
-  #   assert entry.valid?, entry.errors.full_messages.to_sentence
-  #   entry.printed_on = exchange.started_on + 1.day
-  #   refute entry.valid?
-  # end
-
-  # test 'cannot be updated to a date in financial year exchange date range' do
-  #   exchange = financial_year_exchanges(:financial_year_exchanges_002)
-  #   entry = exchange.financial_year.journal_entries.where(financial_year_exchange: nil).first
-  #   assert entry, 'No entry found to continue test'
-  #   assert entry.valid?, entry.errors.full_messages.to_sentence
-  #   entry.printed_on = exchange.started_on + 1.day
-  #   refute entry.valid?
-  # end
+  
+  test 'cannot be created when in financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    journal = create(:journal)
+    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    refute entry.valid?
+  end
+  
+  test 'cannot be updated to a date in financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    refute entry.valid?
+  end
 
   def fake_items(options = {})
     amount = options[:amount] || (500 * rand + 1).round(2)
