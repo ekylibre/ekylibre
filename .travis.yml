@@ -13,3 +13,5 @@ before_script:  test/ci/before_script
 script: xvfb-run bundle exec rake test:$TEST_SUITE DRIVER=webkit
 services:
   - redis-server
+notifications:
+  webhooks: https://coveralls.io/webhook?repo_token=COVERALLS_REPO_TOKEN
