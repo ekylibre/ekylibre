@@ -155,7 +155,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     assert journal_entry.balanced?
     assert_equal 4, journal_entry.items.count
   end
-  
+
   test 'cannot be created when in financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, financial_year: financial_year)
@@ -165,7 +165,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     entry.printed_on = exchange.started_on + 1.day
     refute entry.valid?
   end
-  
+
   test 'cannot be updated to a date in financial year exchange date range' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, financial_year: financial_year)

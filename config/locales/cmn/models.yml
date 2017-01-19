@@ -137,15 +137,15 @@ cmn:
               # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
-              # frozen: "The financial year date cannot be changed when an exchange has been created."
+              frozen: "交易所已创建时的财政年度日期不能更改。"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
-          # csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
+          csv_file_entry_dates_invalid: "在CSV一些条目没有财政年度交换日期范围"
           # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          # csv_file_headers_invalid: "CSV headers are invalid"
-          # csv_file_invalid: "CSV file is invalid"
+          csv_file_headers_invalid: "CSV标头是无效"
+          csv_file_invalid: "CSV文件无效"
           # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
@@ -157,13 +157,13 @@ cmn:
           attributes:
             accountant:
               # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              # present: "Accountant can only be set for various operations journals"
+              present: "会计师只能对各种操作日志设置"
               # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          # frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
+          frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。"
           out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。"
           unbalanced: "日记帐分录不平衡"
         journal_entry_item:
@@ -383,7 +383,7 @@ cmn:
     account_name: "用户名"
     account_number: "帐号"
     accountable: "负责"
-    # accountant: "Accountant"
+    accountant: "会计"
     accounted_at: "在占"
     accuracy: "准确性"
     achieved_at: "在实现"

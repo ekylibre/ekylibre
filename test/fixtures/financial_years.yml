@@ -341,7 +341,7 @@ financial_years_023:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_024:
-  accountant_id: 17
+  # accountant_id: 17
   closed: false
   code: EX2014-15
   created_at: 2014-10-31 17:19:32.000000000 Z

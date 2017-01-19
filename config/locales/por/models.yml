@@ -137,15 +137,15 @@ por:
               # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "Os exercícios devem ser consecutivos. Deve iniciar após o final do anterior."
-              # frozen: "The financial year date cannot be changed when an exchange has been created."
+              frozen: "A data de exercício não pode ser alterado quando um intercâmbio foi criado."
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
         financial_year_exchange:
-          # csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
+          csv_file_entry_dates_invalid: "Algumas entradas no CSV estão fora do intervalo de data de troca exercício"
           # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
-          # csv_file_headers_invalid: "CSV headers are invalid"
-          # csv_file_invalid: "CSV file is invalid"
+          csv_file_headers_invalid: "Cabeçalhos CSV são inválidos"
+          csv_file_invalid: "Arquivo CSV é inválido"
           # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
@@ -157,13 +157,13 @@ por:
           attributes:
             accountant:
               # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
-              # present: "Accountant can only be set for various operations journals"
+              present: "Contador só pode ser definida por várias revistas de operações"
               # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
-          # frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
+          frozen_by_financial_year_exchange: "A entrada de diário não podem ser gravados em um período correspondente a uma troca de exercício."
           out_of_existing_financial_year: "A entrada de diário deve ser registrado em um período correspondente a um exercício existente."
           unbalanced: "A entrada de diário é desequilibrado"
         journal_entry_item:
@@ -383,7 +383,7 @@ por:
     account_name: "Nome da conta"
     account_number: "Número da conta"
     accountable: "Responsável"
-    # accountant: "Accountant"
+    accountant: "Contador"
     accounted_at: "Contabilizados ao"
     accuracy: "Precisão"
     achieved_at: "Alcançados ao"

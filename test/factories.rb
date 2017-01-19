@@ -13,8 +13,8 @@ FactoryGirl.define do
     currency 'EUR'
     language 'fra'
     nature 'contact'
-    full_name "Dupond Comptable"
-    last_name "Dupond"
+    full_name 'Dupond Comptable'
+    last_name 'Dupond'
     country 'fr'
     iban ''
 
@@ -55,7 +55,7 @@ FactoryGirl.define do
   factory :cash do
     account
     journal
-    bank_account_holder_name "Dupond"
+    bank_account_holder_name 'Dupond'
     bank_account_key ''
     bank_account_number ''
     bank_agency_code ''

@@ -1919,6 +1919,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="financial_year_exchange_exports">
+        <page to="public/financial_year_exchange_exports#csv"/>
+        <page to="public/financial_year_exchange_exports#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

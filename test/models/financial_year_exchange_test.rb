@@ -71,7 +71,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   test 'for_public_token returns the exchange when the token is not expired' do
     financial_year = financial_years(:financial_years_025)
     exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expires_on: Time.zone.today + 1.day)
-    assert_equal exchange, FinancialYearExchange.for_public_token("123ABC")
+    assert_equal exchange, FinancialYearExchange.for_public_token('123ABC')
   end
 
   test 'for_public_token raises when the token is expired' do

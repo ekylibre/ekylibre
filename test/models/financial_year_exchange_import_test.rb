@@ -145,17 +145,17 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
 
     item1 = created_entry.items.detect { |i| i.name == 'Ecriture1' }
     assert item1.present?
-    assert_equal "12.5", item1.real_debit.to_s
-    assert_equal "0.0", item1.real_credit.to_s
+    assert_equal '12.5', item1.real_debit.to_s
+    assert_equal '0.0', item1.real_credit.to_s
     assert_equal account.id, item1.account_id
-    assert_equal Date.parse("2015-09-02"), item1.printed_on
+    assert_equal Date.parse('2015-09-02'), item1.printed_on
 
     item2 = created_entry.items.detect { |i| i.name == 'Ecriture2' }
     assert item2.present?
-    assert_equal "0.0", item2.real_debit.to_s
-    assert_equal "12.5", item2.real_credit.to_s
+    assert_equal '0.0', item2.real_debit.to_s
+    assert_equal '12.5', item2.real_credit.to_s
     assert_equal account.id, item2.account_id
-    assert_equal Date.parse("2015-09-02"), item2.printed_on
+    assert_equal Date.parse('2015-09-02'), item2.printed_on
   end
 
   test 'store the file' do
