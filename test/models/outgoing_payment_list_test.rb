@@ -137,7 +137,6 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{@list.number}-161001-0901"
       assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/InitgPty/Nm').text)
       assert_equal('Cedric Attention', doc.xpath('//CstmrCdtTrfInitn/PmtInf/Dbtr/Nm').text)
       assert_equal('Compte complique', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[0].xpath('Cdtr/Nm').text)
