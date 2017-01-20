@@ -13,11 +13,14 @@ AllCops:
 
 Rails:
   Enabled: true
-  
+
 Rails/HttpPositionalArguments:
   Enabled: false
 
 Metrics/LineLength:
+  Enabled: false
+
+Lint/AssignmentInCondition:
   Enabled: false
 
 Metrics/MethodLength:
