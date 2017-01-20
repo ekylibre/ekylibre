@@ -65,7 +65,7 @@ module CobblesHelper
   # List is sortable and cobbles are hideable/collapseable
   def cobbles(options = {}, &_block)
     name = options[:name] || "#{controller_name}-#{action_name}".to_sym
-    config = YAML.load(current_user.preference("cobbler.#{name}", {}.to_yaml).value).deep_symbolize_keys
+    config = YAML.safe_load(current_user.preference("cobbler.#{name}", {}.to_yaml).value).deep_symbolize_keys
     cobbler = Cobbler.new(self, name, order: config[:order])
     yield cobbler
 

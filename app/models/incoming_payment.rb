@@ -128,8 +128,16 @@ class IncomingPayment < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    (deposit && deposit.protected_on_update?) || (journal_entry && journal_entry.closed?)
+    (deposit && deposit.protected_on_update?) ||
+      (journal_entry && journal_entry.closed?) ||
+      pointed_by_bank_statement?
   end
+
+  # protect(on: :update) do |p|
+  #   p.when :pointed_by_bank_statement
+  #   p.when :closed_journal_period, definitive: true
+  #   p.when :locked_deposit, definitive: true
+  # end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
@@ -167,6 +175,10 @@ class IncomingPayment < Ekylibre::Record::Base
 
   def third
     send(third_attribute)
+  end
+
+  def pointed_by_bank_statement?
+    journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
   # Returns true if payment is already deposited

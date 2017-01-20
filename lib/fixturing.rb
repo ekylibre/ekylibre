@@ -358,7 +358,7 @@ module Fixturing
                 JSON.parse(value)
               else
                 puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string, :uuid].include?(type)
-                value =~ /\A\-\-\-(\s+|\z)/ ? YAML.load(value) : value
+                value =~ /\A\-\-\-(\s+|\z)/ ? YAML.safe_load(value, [ActiveSupport::HashWithIndifferentAccess, Symbol, Time, BigDecimal, RGeo::Geos::CAPIGeometryCollectionImpl, RGeo::Geos::CAPIFactory, RGeo::Geos::CAPIMultiPolygonImpl, OpenStruct]) : value
               end
       value
     end
