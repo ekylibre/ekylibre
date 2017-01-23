@@ -36,7 +36,8 @@ module Procedo
         end
 
         def mergeable_with
-          @product.present? && !@product.population_counting_unitary? && @product.matching_product(at: time_of_creation, container: @new_container_id)
+          intervention_stop = intervention.working_periods.values.map(&:stopped_at).max
+          @product.present? && !@product.population_counting_unitary? && @product.matching_product(at: intervention_stop, container: @new_container_id)
         end
 
         def to_hash
