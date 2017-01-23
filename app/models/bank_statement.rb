@@ -163,6 +163,12 @@ class BankStatement < Ekylibre::Record::Base
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end
 
+  def eligible_entries_in(start, finish)
+    unpointed = cash.unpointed_journal_entry_items.between(start, finish)
+    pointed = JournalEntryItem.pointed_by(self)
+    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+  end
+
   def save_with_items(statement_items)
     ActiveRecord::Base.transaction do
       saved = save

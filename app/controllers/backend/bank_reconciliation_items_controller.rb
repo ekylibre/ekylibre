@@ -6,8 +6,7 @@ module Backend
 
       set_period!
       bank_statement_items = @bank_statement.items
-      journal_entry_items  = @bank_statement.eligible_journal_entry_items
-                                            .between(@period_start, @period_end)
+      journal_entry_items  = @bank_statement.eligible_entries_in(@period_start, @period_end)
 
       return no_entries if journal_entry_items.blank?
 
