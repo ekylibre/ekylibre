@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_estimate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isSummaryNewPage="true" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-  <property name="ireport.zoom" value="1.4019755979255708"/>
+  <property name="ireport.zoom" value="1.6963904734899409"/>
   <property name="ireport.x" value="0"/>
-  <property name="ireport.y" value="398"/>
+  <property name="ireport.y" value="674"/>
   <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -215,8 +215,8 @@
   <field name="supplier-vat-number" class="java.lang.String">
     <fieldDescription><![CDATA[supplier/vat-number]]></fieldDescription>
   </field>
-  <field name="supplier-siren" class="java.lang.String">
-    <fieldDescription><![CDATA[supplier/siren]]></fieldDescription>
+  <field name="supplier-siret" class="java.lang.String">
+    <fieldDescription><![CDATA[supplier/siret-number]]></fieldDescription>
   </field>
   <field name="supplier-activity-code" class="java.lang.String">
     <fieldDescription><![CDATA[supplier/activity-code]]></fieldDescription>
@@ -533,7 +533,7 @@
           <font fontName="Open Sans" size="6"/>
         </textElement>
         <textFieldExpression><![CDATA[($F{supplier-vat-number} == null ? "" : "N° TVA Intracommunautaire : "+$F{supplier-vat-number})+
-($F{supplier-siren} == null ? "" : " - SIREN : "+$F{supplier-siren})+
+($F{supplier-siret} == null ? "" : " - SIRET : "+$F{supplier-siret})+
 ($F{supplier-activity-code} == null ? "" : " - Code APE : "+$F{supplier-activity-code})]]></textFieldExpression>
       </textField>
       <line>
@@ -576,7 +576,7 @@
           <font fontName="Open Sans" size="6"/>
         </textElement>
         <textFieldExpression><![CDATA[($F{supplier-vat-number} == null ? "" : "N° TVA Intracommunautaire : "+$F{supplier-vat-number})+
-($F{supplier-siren} == null ? "" : " - SIREN : "+$F{supplier-siren})+
+($F{supplier-siret} == null ? "" : " - SIRET : "+$F{supplier-siret})+
 ($F{supplier-activity-code} == null ? "" : " - Code APE : "+$F{supplier-activity-code})]]></textFieldExpression>
       </textField>
       <textField pattern="dd/MM/yyyy HH:mm">

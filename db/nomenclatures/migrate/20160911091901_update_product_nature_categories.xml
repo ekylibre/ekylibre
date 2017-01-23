@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<migration name="Update product nature categorie">
+<migration name="Update product nature categories">
   <item-creation item="accounts#gas_stock" fr_pcga="3018"/>
   <item-creation item="accounts#workshop_supplies_stock" fr_pcga="3023"/>
   <item-creation item="accounts#raw_product_stock" fr_pcga="3028"/>
+  <property-creation property="product_nature_categories.stock_movement_account" type="item" choices="accounts"/>
   <item-change item="product_nature_categories#animal_food" stock_movement_account="livestock_feed_stocks_variation"/>
   <item-change item="product_nature_categories#animal_medicine" stock_movement_account="animal_medicine_stocks_variation"/>
   <item-change item="product_nature_categories#animal_reproduction" stock_movement_account="animal_reproduction_stocks_variation"/>

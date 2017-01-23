@@ -1,7 +1,7 @@
 = field_set do
   = f.input :name
   - if @document_template.new_record?
-    = f.input :nature
+    = f.input :nature, collection: Nomen::DocumentNature.selection
   = f.input :archiving
   = f.input :active
   = f.input :by_default

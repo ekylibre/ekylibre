@@ -58,6 +58,7 @@
       this._on @dropDownMenu,
         "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
+        "click .item-footer": "_actionFooterItemClick"
 
       $(document).on 'mousedown',(e) =>
         if $(e.target).hasClass('items-list') or $(e.target).hasClass('selector-dropdown')
@@ -95,7 +96,6 @@
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
             @_select listItem.id, listItem.label, triggerEvents
-            @element.prop("ready", true)
           else
             console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
@@ -282,10 +282,15 @@
       code = (event.keyCode or event.which)
       search = @element.val()
       if @lastSearch isnt search
-        if search.length > 0
-          this._openMenu search
-        else
-          @dropDownMenu.hide()
+        if @searchRequestTimeout?
+          window.clearTimeout(@searchRequestTimeout)
+        @searchRequestTimeout = window.setTimeout(
+          () =>
+            if search.length > 0
+              @_openMenu search
+            else
+              @dropDownMenu.hide()
+          , 500)
         @lastSearch = search
       else if @dropDownMenu.is(":visible")
         selected = @dropDownMenu.find("ul li.selected.item").first()
@@ -325,6 +330,10 @@
       # console.log "menuclick"
       # console.log event.target
       this._choose()
+      false
+
+    _actionFooterItemClick: (event) ->
+      this._choose($(event.target))
       false
 
     _menuMouseEnter: (event) ->

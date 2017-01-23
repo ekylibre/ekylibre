@@ -36,7 +36,11 @@ module Backend
     end
 
     def root_models
-      Ekylibre::Schema.models.collect { |a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize] }.sort { |a, b| a[0].ascii <=> b[0].ascii }
+      Ekylibre::Schema.models.collect { |a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize] }.sort_by { |a| a[0].ascii }
+    end
+
+    def extensions_tag(place)
+      Ekylibre::View::Addon.render("extensions_#{place}", self)
     end
 
     def navigation_tag

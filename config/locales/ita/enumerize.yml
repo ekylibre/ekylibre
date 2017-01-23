@@ -171,7 +171,7 @@ ita:
         failed: "Fallito"
         passed: "Passato"
         passed_with_warnings: "Superato con avvisi"
-      status:  #?
+      status: #?
         errored: "errored" #?
         failed: "fallito" #?
         passed: "Passato" #?
@@ -272,7 +272,7 @@ ita:
         incoming: "in arrivo"
         internal: "Interno" #?
         outgoing: "Estroverso"
-      state:  #?
+      state: #?
         draft: "Bozza" #?
         given: "Dato" #?
         in_preparation: "In preparazione" #?
@@ -397,10 +397,18 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    purchase:
+      tax_payability:
+        at_invoicing: "A fatturazione"
+        at_paying: "A pagamento"
     purchase_nature:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
+    sale_item:
+      compute_from:
+        pretax_amount: "Importo lordo delle imposte"
+        unit_pretax_amount: "Unità importo lordo delle imposte"
     sensor:
       retrieval_mode:
         integration: "Integrazione"
@@ -442,7 +450,7 @@ ita:
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
         tax_declarations: "Dichiarazioni fiscali"
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "bidirezionale" #?
         direct: "Diretto" #?
@@ -475,7 +483,7 @@ ita:
         doing: "Fare"
         done: "Fatto"
         todo: "Fare"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Quantità" #?
         percentage: "Percentuale" #?

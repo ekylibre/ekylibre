@@ -33,8 +33,7 @@ module Ekylibre
           zile.puts('</office:spreadsheet></office:body></office:document-content>')
         end
 
-        def header(&_block)
-        end
+        def header(&_block); end
 
         def generate(output)
           start = Time.zone.now

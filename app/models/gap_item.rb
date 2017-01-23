@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,9 +45,22 @@ class GapItem < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   # validates_numericality_of :amount, :pretax_amount, greater_than_or_equal_to: 0
 
+  delegate :loss?, :profit?, :loss_coefficient, to: :gap
   sums :gap, :items, :pretax_amount, :amount
 
   def taxes_amount
     amount - pretax_amount
+  end
+
+  def relative_taxes_amount
+    loss_coefficient * (amount - pretax_amount)
+  end
+
+  def relative_pretax_amount
+    loss_coefficient * pretax_amount
+  end
+
+  def relative_amount
+    loss_coefficient * amount
   end
 end

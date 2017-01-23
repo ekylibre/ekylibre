@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,6 +48,7 @@
 #  responsible_id                           :integer
 #  state                                    :string
 #  supplier_id                              :integer          not null
+#  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
@@ -57,13 +58,34 @@ require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase
   test_model_actions
+
+  test 'rounds' do
+    nature = PurchaseNature.first
+    assert nature
+    purchase = Purchase.create!(nature: nature, supplier: Entity.normal.first)
+    assert purchase
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    tax = Tax.create!(
+      name: 'Reduced',
+      amount: 5.5,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    item = purchase.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 3.791, tax: tax)
+    assert item
+    assert_equal 16, item.amount
+    assert_equal 16, purchase.amount
+  end
+
   test 'simple creation' do
     nature = PurchaseNature.first
     assert nature
     supplier = Entity.where(supplier: true).first
     assert supplier
     purchase = Purchase.create!(nature: nature, supplier: supplier)
-    5.times do |index|
+    3.times do |index|
       variant = ProductNatureVariant.all.sample
       tax = Tax.find_by(amount: 20)
       quantity = index + 1
@@ -73,6 +95,22 @@ class PurchaseTest < ActiveSupport::TestCase
       assert_equal(quantity * 120, item.amount, "Item amount should be #{quantity * 120}. Got #{item.amount.inspect}")
       assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount}"
     end
+    2.times do |index|
+      variant = ProductNatureVariant.all.sample
+      tax = Tax.create_with(
+        collect_account: Account.find_or_create_by_number('4566'),
+        deduction_account: Account.find_or_create_by_number('4567'),
+        intracommunity_payable_account: Account.find_or_create_by_number('4452'),
+        country: :fr
+      ).find_or_create_by!(amount: 20, intracommunity: true, nature: :normal_vat)
+      quantity = index + 1
+      item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: tax, quantity: quantity)
+      item.save!
+      assert_equal(quantity * 100, item.pretax_amount, "Item pre-tax amount should be #{quantity * 100}. Got #{item.pretax_amount.inspect}")
+      assert_equal(quantity * 100, item.amount, "Item amount should be #{quantity * 100}. Got #{item.amount.inspect}")
+      assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount}"
+    end
+
     assert_equal 5, purchase.items.count
 
     variant = ProductNatureVariant.all.sample
@@ -116,5 +154,23 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 2, purchase.items.count
     assert_equal 1000, purchase.pretax_amount
     assert_equal 1020, purchase.amount
+  end
+
+  test 'default_currency is nature\'s currency if currency is not specified' do
+    PurchaseNature.delete_all
+    Entity.delete_all
+    Purchase.delete_all
+
+    nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with       = Purchase.create!(supplier: max, nature: nature, currency: 'USD')
+    without    = Purchase.create!(supplier: max, nature: nature)
+
+    assert_equal 'USD', with.default_currency
+    assert_equal 'EUR', without.default_currency
+  end
+
+  test 'affair_class points to correct class' do
+    assert_equal PurchaseAffair, Purchase.affair_class
   end
 end

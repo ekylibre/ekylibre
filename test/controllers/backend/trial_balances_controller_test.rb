@@ -6,5 +6,9 @@ module Backend
     test 'with period' do
       get :show, params: { period: '2007-01-01_2015-12-31', states: [:draft, :confirmed, :closed] }
     end
+
+    test 'export to ODS' do
+      get :show, params: { period: '2007-01-01_2015-12-31', format: :ods }
+    end
   end
 end

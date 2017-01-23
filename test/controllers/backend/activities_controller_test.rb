@@ -7,10 +7,10 @@ module Backend
                                except: :show
 
     test 'show action' do
-      get :show, params: { id: 'NaID', redirect: root_url, locale: @locale }
+      get :show, id: 'NaID', redirect: root_url, locale: @locale
       assert_redirected_to root_url
       Activity.limit(5).find_each do |record|
-        get :show, params: { id: record.id, locale: @locale }
+        get :show, id: record.id, locale: @locale
         assert_response :success
         assert_not_nil assigns(:activity)
       end

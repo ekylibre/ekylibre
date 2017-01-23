@@ -14,6 +14,7 @@ module Ekylibre
   autoload :Support,           'ekylibre/support'
   autoload :Tenant,            'ekylibre/tenant'
   autoload :VERSION,           'ekylibre/version'
+  autoload :View,              'ekylibre/view'
 
   CSV = ::CSV.freeze
 

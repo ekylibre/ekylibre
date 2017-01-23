@@ -1,0 +1,5 @@
+= backend_form_for(crumb) do |f|
+  = f.input :nature, input_html: {value: 'start'}, as: :hidden
+  -#= f.simple_fields_for :metadata do |mf|
+    = mf.input :procedure_nature, collection: Nomen::ProcedureNature.selection
+  = f.submit :start_new_intervention_here.tl

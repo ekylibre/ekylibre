@@ -1,14 +1,15 @@
 - item ||= f.object
-%tbody.nested-fields{ data: { trade_item: "purchasing" } }
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
   %tr
     %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
       - if f.object.annotation.blank?
         = link_to("#", data: {annotate: ".annotate", use_closest: "tbody"}, title: :add_annotation.tl) do
           %i
+    %td= f.object.parcel_items.map(&:parcel).map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
     %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
-    %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+    %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
     %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
     %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
     %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}})

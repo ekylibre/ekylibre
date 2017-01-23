@@ -86,10 +86,9 @@ table {
         margin: 0 auto;
         border: none;
         &.forbidden {
-          &, * {
-            cursor: default;
-            color: rgba(#000, 0.1);
-          }
+          filter: contrast(75%) grayscale(100%);
+          cursor: default;
+          pointer-events: none;
         }
       }
 
@@ -257,6 +256,15 @@ table {
         }
         &:first-child td {
           border-top: none;
+        }
+        &#computation-results td div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          span#list-computation-result {
+            @include padding-left(2*$fs-normal);
+          }
         }
         /* &.focus { */
         /*   td { */

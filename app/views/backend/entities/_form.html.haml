@@ -12,14 +12,15 @@
     = f.input :siret_number
   = f.input :number, required: false, placeholder: f.object.next_number
   = f.custom_fields
-  = f.input :language
-  -# = f.input :country
+  = f.input :language, collection: Nomen::Language.selection
+  -# = f.input :country, collection: Nomen::Country.selection
   - if f.object.organization?
     = f.input :activity_code
     = f.input :vat_number
   = f.input :active, hide: :dead_at
   = f.input :born_at
   #dead_at= f.input :dead_at
+  = f.input :description
   = f.picture
   = f.nested_association(:emails)
   = f.nested_association(:mails)

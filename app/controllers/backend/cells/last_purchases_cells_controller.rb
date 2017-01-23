@@ -9,8 +9,7 @@ module Backend
         t.column :amount, currency: true
       end
 
-      def show
-      end
+      def show; end
     end
   end
 end
