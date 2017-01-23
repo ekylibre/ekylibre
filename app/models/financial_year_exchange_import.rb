@@ -10,23 +10,15 @@ class FinancialYearExchangeImport
 
   def run
     ActiveRecord::Base.transaction do
-      run!(ActiveRecord::Rollback)
-      return true
+      read_and_parse_file || rollback!
+      ensure_headers_are_valid || rollback!
+      ensure_all_journals_exists || rollback!
+      ensure_entries_included_in_financial_year_date_range || rollback!
+      destroy_previous_journal_entries
+      import_journal_entries || rollback!
+      save_file
     end
-    false
-  end
-
-  def run!(exception = nil)
-    exception ||= StandardError
-    raise exception, 'Cannot parse file' unless read_and_parse_file
-    # FIXME: Headers are not fixed at all. Only columns order can be valid for i18n purpose
-    raise exception, 'Headers are invalid' unless ensure_headers_are_valid
-    raise exception, "All journals doesn't exists" unless ensure_all_journals_exists
-    # raise exception, "All entries are not included in date range" unless ensure_entries_included_in_financial_year_date_range
-    raise exception, 'Cannot remove existing journal entries' unless destroy_previous_journal_entries
-    raise exception, 'Cannot import new journal entries' unless import_journal_entries
-    save_file
-    true
+    @error.blank?
   end
 
   private
@@ -90,7 +82,8 @@ class FinancialYearExchangeImport
   def import_journal_entries
     import_journal_entries!
     true
-  rescue => error
+  rescue => e
+    @error = e
     false
   end
 
@@ -112,12 +105,13 @@ class FinancialYearExchangeImport
       end
       entry = journal.entries.build(number: entry_number, printed_on: printed_on)
       entry.mark_for_exchange_import!
-      save_entry_with_items! entry, items
+      entry.items_attributes = items
+      save_entry! entry
     end
   end
 
-  def save_entry_with_items!(entry, items)
-    unless entry.save_with_items(items) && entry.confirm && entry.close
+  def save_entry!(entry)
+    unless entry.save && entry.confirm && entry.close
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_entry_invalid', entry_number: entry.number)
       @error = InvalidFile.new(message)
       @internal_error = ActiveRecord::RecordInvalid.new(entry)
@@ -127,7 +121,7 @@ class FinancialYearExchangeImport
 
   def save_file
     exchange.import_file = file
-    exchange.save!
+    @error = ActiveRecord::RecordInvalid.new(exchange) unless exchange.save
   end
 
   def format_header(header)

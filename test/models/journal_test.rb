@@ -63,7 +63,7 @@ class JournalTest < ActiveSupport::TestCase
 
   test 'set accountant close all entries' do
     various_journal = create(:journal, :various)
-    create_list(:journal_entry, 2, :draft, journal: various_journal)
+    create_list(:journal_entry, 2, :with_items, :draft, journal: various_journal)
     various_journal.accountant = create(:entity, :accountant)
     assert various_journal.entries.any? { |e| e.draft? || e.confirmed? }
     assert various_journal.save

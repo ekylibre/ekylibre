@@ -196,7 +196,6 @@ journals_009:
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
 journals_010:
-  # accountant_id: 17
   closed_on: 1992-11-16
   code: RE
   created_at: 2016-12-20 08:53:53.385377000 Z
@@ -231,7 +230,6 @@ journals_011:
   used_for_tax_declarations: true
   used_for_unbilled_payables: true
 journals_012:
-  # accountant_id: 17
   closed_on: 1992-11-16
   code: CR
   created_at: 2014-11-05 12:13:12.680296000 Z
@@ -246,6 +244,5 @@ journals_012:
   used_for_affairs: false
   used_for_gaps: false
   used_for_permanent_stock_inventory: false
-  updater_id: 1
   used_for_tax_declarations: false
   used_for_unbilled_payables: false

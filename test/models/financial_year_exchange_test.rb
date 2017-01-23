@@ -70,13 +70,13 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
 
   test 'for_public_token returns the exchange when the token is not expired' do
     financial_year = financial_years(:financial_years_025)
-    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expires_on: Time.zone.today + 1.day)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expired_at: Time.zone.today + 1.day)
     assert_equal exchange, FinancialYearExchange.for_public_token('123ABC')
   end
 
   test 'for_public_token raises when the token is expired' do
     financial_year = financial_years(:financial_years_025)
-    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expires_on: Time.zone.today - 1.day)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year, public_token: '123ABC', public_token_expired_at: Time.zone.today - 1.day)
     assert_raises(ActiveRecord::RecordNotFound) do
       FinancialYearExchange.for_public_token(exchange.public_token)
     end
@@ -299,6 +299,20 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   def opened_financial_year_exchange
-    FinancialYearExchange.joins(:financial_year).reorder(stopped_on: :desc).where(closed_at: nil).where('financial_years.stopped_on != financial_year_exchanges.stopped_on').first
+    exchange = FinancialYearExchange.joins(:financial_year).reorder(stopped_on: :desc).where(closed_at: nil)
+                                    .where('financial_years.stopped_on != financial_year_exchanges.stopped_on').first
+    unless exchange
+      financial_year = FinancialYear.where('stopped_on <= ?', Date.today)
+                                    .where.not(stopped_on: FinancialYearExchange.where(closed_at: nil).select(:stopped_on))
+                                    .order(stopped_on: :desc).first
+      assert financial_year, 'Financial year is missing'
+      unless financial_year.accountant
+        financial_year.accountant = Entity.normal.first
+        financial_year.save!
+      end
+      exchange = financial_year.exchanges.create!
+    end
+    assert exchange, 'An opened exchange is missing'
+    exchange
   end
 end

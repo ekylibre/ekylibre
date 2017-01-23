@@ -1592,6 +1592,12 @@
     </group>
   </part>
   <inaccessible-actions>
+    <group name="public">
+      <item name="financial_year_exchange_exports">
+        <page to="public/financial_year_exchange_exports#csv"/>
+        <page to="public/financial_year_exchange_exports#show"/>
+      </item>
+    </group>
     <group>
       <item name="georeadings">
         <page to="backend/georeadings#index"/>
@@ -1919,11 +1925,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="financial_year_exchange_exports">
-        <page to="public/financial_year_exchange_exports#csv"/>
-        <page to="public/financial_year_exchange_exports#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
