@@ -214,7 +214,7 @@
         <page to="backend/quick_sales#create"/>
         <page to="backend/bank_statement_letters#create"/>
         <page to="backend/bank_statement_letters#destroy"/>
-        <page to="backend/bank_reconciliation_items#create"/>
+        <page to="backend/bank_reconciliation_items#index"/>
         <page to="backend/bank_statement_items#destroy"/>
       </item>
       <item name="loans">
