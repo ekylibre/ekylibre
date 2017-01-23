@@ -5,10 +5,11 @@ module Ekylibre
         {}
       end
 
-      attr_accessor :condition, :partial
+      attr_accessor :condition, :partial, :options
 
-      def initialize(partial)
+      def initialize(partial, options = {})
         @partial = partial
+        @options = options
       end
 
       def usable?(options = {})
@@ -19,8 +20,8 @@ module Ekylibre
         # Backward compat
         alias view_addons list
 
-        def add(partial_path, context, options = {})
-          addon = new(partial_path)
+        def add(context, partial_path, options = {})
+          addon = new(partial_path, options)
           if options[:to]
             addon.condition = ->(options) { options[:controller] + '#' + options[:action] == options[:to] }
           end
@@ -34,7 +35,7 @@ module Ekylibre
           return nil unless @@list[context]
           html = ''.html_safe
           @@list[context].each do |addon|
-            if addon.usable?(options.merge(controller: template.controller_path, action: template.action_name, template: template))
+            if addon.usable?(options.merge(controller: template.controller_path, action: template.action_name, template: template).merge(addon.options.slice(:to)))
               html << template.render(addon.partial, options)
             end
           end
