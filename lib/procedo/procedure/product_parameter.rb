@@ -31,8 +31,8 @@ module Procedo
         if output?
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
-          add_attribute(:new_container_id, filter: 'is building_division')
-          add_attribute(:merge_stocks, default_value: false)
+          add_attribute(:new_container_id, filter: 'is building_division', allow_overload: true)
+          add_attribute(:merge_stocks, default_value: false, allow_overload: true)
         end
         if (input? || target?) && options[:component_of]
           self.component_of = options[:component_of]
@@ -55,7 +55,7 @@ module Procedo
       # Adds a new attribute
       def add_attribute(name, options = {})
         attribute = Procedo::Procedure::Attribute.new(self, name, options)
-        if @attributes.key?(attribute.name)
+        if @attributes.key?(attribute.name) && !@attributes[attribute.name].can_be_overloaded?
           raise ArgumentError, "Attribute name already taken: #{name}"
         end
         @attributes[attribute.name] = attribute
