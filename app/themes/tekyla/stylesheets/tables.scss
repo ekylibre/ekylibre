@@ -17,6 +17,15 @@ table {
   width: 100%;
   padding: 0;
   margin: 0;
+  caption{
+    width: 100%;
+    text-align: center;
+    padding: $default-gap;
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+    background: white;
+    min-height: $lh-normal;
+  }
   th, td {
     background: white;
     padding: $default-gap;
