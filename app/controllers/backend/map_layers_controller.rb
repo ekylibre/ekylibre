@@ -1,6 +1,6 @@
 module Backend
   class MapLayersController < Backend::BaseController
-    manage_restfully subclass_inheritance: true, redirect_to: :index
+    manage_restfully except: :index, identifier: :name
 
     respond_to :json, only: [:toggle, :star]
 
