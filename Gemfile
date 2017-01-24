@@ -84,7 +84,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.7.0' # , path: "../active_list"
+gem 'active_list', '>= 6.8.0' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -208,6 +208,8 @@ group :test do
   gem 'database_cleaner'
 
   gem 'minitest-reporters'
+
+  gem 'factory_girl'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

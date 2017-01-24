@@ -2,7 +2,7 @@
   = t.edit resource
   = t.close resource if resource.closable?
   = t.reopen resource if resource.reopenable?
-  = t.new(params: { controller: :journal_entries, journal_id: resource.id, redirect: nil }, label: :add_entry.tl)
+  = t.new(params: { controller: :journal_entries, journal_id: resource.id, redirect: nil }, label: :add_entry.tl) unless resource.booked_for_accountant?
 
 = journals_tag
 

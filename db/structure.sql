@@ -2284,6 +2284,49 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: financial_year_exchanges; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE financial_year_exchanges (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    closed_at timestamp without time zone,
+    public_token character varying,
+    public_token_expired_at timestamp without time zone,
+    import_file_file_name character varying,
+    import_file_content_type character varying,
+    import_file_file_size integer,
+    import_file_updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: financial_year_exchanges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE financial_year_exchanges_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: financial_year_exchanges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE financial_year_exchanges_id_seq OWNED BY financial_year_exchanges.id;
+
+
+--
 -- Name: financial_years; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2303,7 +2346,8 @@ CREATE TABLE financial_years (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     tax_declaration_frequency character varying,
-    tax_declaration_mode character varying NOT NULL
+    tax_declaration_mode character varying NOT NULL,
+    accountant_id integer
 );
 
 
@@ -3364,7 +3408,8 @@ CREATE TABLE journal_entries (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    resource_prism character varying
+    resource_prism character varying,
+    financial_year_exchange_id integer
 );
 
 
@@ -3478,7 +3523,8 @@ CREATE TABLE journals (
     custom_fields jsonb,
     used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
-    used_for_tax_declarations boolean DEFAULT false NOT NULL
+    used_for_tax_declarations boolean DEFAULT false NOT NULL,
+    accountant_id integer
 );
 
 
@@ -6861,6 +6907,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY financial_year_exchanges ALTER COLUMN id SET DEFAULT nextval('financial_year_exchanges_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY financial_years ALTER COLUMN id SET DEFAULT nextval('financial_years_id_seq'::regclass);
 
 
@@ -7919,6 +7972,14 @@ ALTER TABLE ONLY event_participations
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: financial_year_exchanges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT financial_year_exchanges_pkey PRIMARY KEY (id);
 
 
 --
@@ -10909,6 +10970,55 @@ CREATE INDEX index_events_on_updater_id ON events USING btree (updater_id);
 
 
 --
+-- Name: index_financial_year_exchanges_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_created_at ON financial_year_exchanges USING btree (created_at);
+
+
+--
+-- Name: index_financial_year_exchanges_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_creator_id ON financial_year_exchanges USING btree (creator_id);
+
+
+--
+-- Name: index_financial_year_exchanges_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_financial_year_id ON financial_year_exchanges USING btree (financial_year_id);
+
+
+--
+-- Name: index_financial_year_exchanges_on_public_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_financial_year_exchanges_on_public_token ON financial_year_exchanges USING btree (public_token);
+
+
+--
+-- Name: index_financial_year_exchanges_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_updated_at ON financial_year_exchanges USING btree (updated_at);
+
+
+--
+-- Name: index_financial_year_exchanges_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_updater_id ON financial_year_exchanges USING btree (updater_id);
+
+
+--
+-- Name: index_financial_years_on_accountant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_years_on_accountant_id ON financial_years USING btree (accountant_id);
+
+
+--
 -- Name: index_financial_years_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12246,6 +12356,13 @@ CREATE INDEX index_journal_entries_on_creator_id ON journal_entries USING btree 
 
 
 --
+-- Name: index_journal_entries_on_financial_year_exchange_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entries_on_financial_year_exchange_id ON journal_entries USING btree (financial_year_exchange_id);
+
+
+--
 -- Name: index_journal_entries_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12404,6 +12521,13 @@ CREATE INDEX index_journal_entry_items_on_updated_at ON journal_entry_items USIN
 --
 
 CREATE INDEX index_journal_entry_items_on_updater_id ON journal_entry_items USING btree (updater_id);
+
+
+--
+-- Name: index_journals_on_accountant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journals_on_accountant_id ON journals USING btree (accountant_id);
 
 
 --
@@ -16286,6 +16410,14 @@ ALTER TABLE ONLY crumbs
 
 
 --
+-- Name: fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16326,6 +16458,22 @@ ALTER TABLE ONLY intervention_working_periods
 
 
 --
+-- Name: fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
 -- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16339,6 +16487,14 @@ ALTER TABLE ONLY regularizations
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -16756,6 +16912,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161231223002');
 INSERT INTO schema_migrations (version) VALUES ('20161231233003');
 
 INSERT INTO schema_migrations (version) VALUES ('20161231234533');
+
+INSERT INTO schema_migrations (version) VALUES ('20170101110136');
 
 INSERT INTO schema_migrations (version) VALUES ('20170124095012');
 

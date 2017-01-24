@@ -9,11 +9,17 @@ class ForcePresenceOfPeriodOfInterventions < ActiveRecord::Migration
         execute "UPDATE interventions SET whole_duration = EXTRACT('epoch' FROM (stopped_at - started_at)::INTERVAL) WHERE whole_duration IS NULL"
         execute "UPDATE interventions SET working_duration = s.d FROM (SELECT intervention_id, SUM(EXTRACT('epoch' FROM (stopped_at - started_at)::INTERVAL)) AS d FROM intervention_working_periods GROUP BY 1) AS s WHERE working_duration IS NULL AND s.intervention_id = interventions.id"
         execute 'UPDATE interventions SET working_duration = whole_duration WHERE working_duration IS NULL'
+        change_column_null :interventions, :started_at, false
+        change_column_null :interventions, :stopped_at, false
+        change_column_default :interventions, :whole_duration, nil
+        change_column_default :interventions, :working_duration, nil
+      end
+      r.down do
+        change_column_null :interventions, :started_at, true
+        change_column_null :interventions, :stopped_at, true
+        change_column_default :interventions, :whole_duration, 0
+        change_column_default :interventions, :working_duration, 0
       end
     end
-    change_column_null :interventions, :started_at, false
-    change_column_null :interventions, :stopped_at, false
-    change_column_default :interventions, :whole_duration, nil
-    change_column_default :interventions, :working_duration, nil
   end
 end

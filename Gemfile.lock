@@ -30,7 +30,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_list (6.7.6)
+    active_list (6.8.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements
@@ -169,6 +169,8 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
     faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.11.0)
@@ -532,7 +534,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.7.0)
+  active_list (>= 6.8.0)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
@@ -565,6 +567,7 @@ DEPENDENCIES
   devise_invitable
   enumerize
   exception_notification
+  factory_girl
   feedjira
   ffaker (>= 2.0.0)
   figaro
