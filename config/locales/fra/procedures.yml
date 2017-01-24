@@ -236,6 +236,7 @@ fra:
     tool: "Outil"
     topper: "Effaneuse"
     tractor: "Tracteur"
+    trailed_equipment: "Outil tracté"
     trailer: "Remorque"
     tunnel: "Tunnel/Chenille"
     tunnel_implanter: "Outil de pose de tunnel/chenille"
@@ -266,9 +267,10 @@ fra:
     zone: "Zone"
   procedures:
     administrative_task: "Tâche administrative générale" #?
+    administrative_tasks: "Tâches administratives"
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
     animal_antibiotic_treatment: "Traitement antibiotique"
-    animal_artificial_insemination: "Insémination articielle animale"
+    animal_artificial_insemination: "Insémination artificielle"
     animal_birth: "Naissance d’un animal" #?
     animal_group_changing: "Déplacement d'un animal"
     animal_housing_cleaning: "Nettoyage de stabulation"
@@ -314,6 +316,7 @@ fra:
     group_exclusion: "Exclusion de groupe" #?
     group_inclusion: "Inclusion de groupe" #?
     hand_weeding: "Désherbage manuel"
+    handling: "Manutention"
     harvest_helping: "Aide à la récolte" #?
     harvest_transportation: "Transport de récolte"
     harvesting: "Récolte"
@@ -322,9 +325,11 @@ fra:
     hilling: "Buttage"
     hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
+    housing_soil_disinfection: "Désinfection du sol"
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
+    installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
@@ -336,7 +341,7 @@ fra:
     manual_vine_harvest: "Vendange manuelle" #?
     mecanical_vine_harvest: "Vendange mécanique" #?
     mechanical_harvesting: "Récolte mécanique" #?
-    mechanical_planting: "Plantation mécanique"
+    mechanical_planting: "Plantation"
     milking: "Traite"
     mineral_fertilizing: "Fertilisation minérale" #?
     moving: "Déplacement" #?

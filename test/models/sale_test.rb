@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -125,6 +125,27 @@ class SaleTest < ActiveSupport::TestCase
     assert 496, entry.items.find_by(account_id: client.account(:client).id).debit
   end
 
+  test 'unit pretax amount calculation based on total pretax amount' do
+    nature = SaleNature.first
+    assert nature
+    sale = Sale.create!(nature: nature, client: Entity.normal.first)
+    assert sale
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+    tax = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    # Calculates unit_pretax_amount based on pretax_amount
+    item = sale.items.create!(variant: variants.first, quantity: 2, pretax_amount: 225, tax: tax, compute_from: 'pretax_amount')
+    assert item
+    assert_equal 112.50, item.unit_pretax_amount
+    assert_equal 270, item.amount
+  end
+
   test 'duplicatablity' do
     count = 0
     Sale.find_each do |sale|
@@ -239,5 +260,25 @@ class SaleTest < ActiveSupport::TestCase
       #   assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
       # end
     end
+  end
+
+  test 'default_currency is nature\'s currency if currency is not specified' do
+    Catalog.delete_all
+    SaleNature.delete_all
+    Entity.delete_all
+    Sale.delete_all
+
+    catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
+    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog)
+    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with       = Sale.create!(client: max, nature: nature, currency: 'USD')
+    without    = Sale.create!(client: max, nature: nature)
+
+    assert_equal 'USD', with.default_currency
+    assert_equal 'EUR', without.default_currency
+  end
+
+  test 'affair_class points to correct class' do
+    assert_equal SaleAffair, Sale.affair_class
   end
 end

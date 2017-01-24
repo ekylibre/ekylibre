@@ -64,6 +64,11 @@ por:
         status: "Estado"
       tax:
         amount: "Valor"
+      tax_declaration_item:
+        collected: "Recolhidos"
+        deductible: "Deduzível"
+        fixed_asset_deductible: "Dedutível sobre ativos"
+        intracommunity_payable: "Intracomunitário a pagar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -119,6 +124,7 @@ por:
           unvalid_amounts: "A entrada de diário deve ser preenchido tanto de débito ou de crédito, mas não ao mesmo tempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. Um ou mais elementos estão incorretas."
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
@@ -316,6 +322,7 @@ por:
       purchase_gap: "Gap compra"
       purchase_item: "Artigo da compra"
       purchase_nature: "Tipo de compra"
+      regularization: "Regularização"
       role: "Função"
       sale: "Venda"
       sale_affair: "Caso venda"
@@ -503,6 +510,7 @@ por:
     components: "Componentes"
     computation_method: "Método de cálculo"
     compute: "Calcular"
+    compute_from: "Calcule a partir"
     conclusion: "Conclusão"
     condition_operator: "Operador de condição"
     condition_value: "Valor da condição"
@@ -807,6 +815,8 @@ por:
     intervention: "Intervenção"
     intervention_cast: "Intervenção elenco"
     intervention_parameter: "Parâmetro de intervenção"
+    intervention_participation: "Participação intervenção"
+    intervention_participations: "Participações de intervenção"
     intervention_product_parameters: "Elencos de intervenção"
     interventions: "Intervenções"
     interventions_used_in: "Utilizado em intervenções"
@@ -943,6 +953,7 @@ por:
     members: "Membros"
     members_count: "Membros contar"
     memberships: "Associações"
+    memo: "Memorando"
     message: "Mensagem"
     messages: "Mensagens"
     metadata: "Metadados"
@@ -1125,6 +1136,7 @@ por:
     purchasable: "Comprável"
     purchase: "Compra"
     purchase_affair: "Caso de compra"
+    purchase_affairs: "Assuntos de compra"
     purchase_amount: "Valor da compra"
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artigo da compra"
@@ -1182,6 +1194,7 @@ por:
     reflected_at: "Refletida na"
     reflection_nodes: "Nós reflexão"
     reflections: "Reflexões"
+    regularizations: "Regularizações"
     remain_owner: "Permanecem proprietário"
     remaining_amount: "Montante restante"
     remaining_lifespan: "Vida útil remanescente"
@@ -1341,10 +1354,12 @@ por:
     tax_declaration_items: "Itens de declaração de imposto"
     tax_declaration_mode: "Modo de declaração de imposto"
     tax_declarations: "Declarações fiscais"
+    tax_payability: "Payability fiscal"
     taxations: "Taxations"
     team: "Equipe"
     template: "Modelo"
     theme: "Tema"
+    theoretical_number: "Número teórico"
     third: "Terceiro"
     third_producer: "Terceiro produtor" #?
     third_role: "Terceiro papel"

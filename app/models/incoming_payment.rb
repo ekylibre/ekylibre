@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,7 @@
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
+#  codes                 :jsonb
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
@@ -53,7 +54,7 @@
 #
 
 class IncomingPayment < Ekylibre::Record::Base
-  include PeriodicCalculable, Attachable
+  include PeriodicCalculable, Attachable, Letterable
   include Customizable
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
@@ -97,6 +98,7 @@ class IncomingPayment < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(paid_at: started_at..stopped_at)
   }
+  scope :matching_cash, ->(id) { includes(:mode).where(incoming_payment_modes: { cash_id: id }) }
 
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
@@ -126,8 +128,16 @@ class IncomingPayment < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    (deposit && deposit.protected_on_update?) || (journal_entry && journal_entry.closed?)
+    (deposit && deposit.protected_on_update?) ||
+      (journal_entry && journal_entry.closed?) ||
+      pointed_by_bank_statement?
   end
+
+  # protect(on: :update) do |p|
+  #   p.when :pointed_by_bank_statement
+  #   p.when :closed_journal_period, definitive: true
+  #   p.when :locked_deposit, definitive: true
+  # end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
@@ -135,18 +145,40 @@ class IncomingPayment < Ekylibre::Record::Base
     # mode = mode
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payer: payer.full_name, mode: mode.name, check_number: bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
+      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, amount - self.commission_amount, as: :deposited)
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount, as: :bank)
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     end
+  end
+
+  delegate :third_attribute, to: :class
+
+  def self.third_attribute
+    :payer
+  end
+
+  def self.sign_of_amount
+    1
+  end
+
+  def relative_amount
+    self.class.sign_of_amount * amount
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def pointed_by_bank_statement?
+    journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
   # Returns true if payment is already deposited

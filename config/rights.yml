@@ -31,6 +31,7 @@
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
+#     - "backend/bank_reconciliation_gaps#create"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
@@ -103,6 +104,10 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
+#     - "backend/intervention_participations#convert"
+#     - "backend/intervention_participations#destroy"
+#     - "backend/intervention_participations#index"
+#     - "backend/intervention_participations#update"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
@@ -111,7 +116,6 @@
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
-#     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -119,6 +123,10 @@
 #     - "backend/product_nature_variants#picture"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
+#     - "backend/quick_purchases#create"
+#     - "backend/quick_purchases#new"
+#     - "backend/quick_sales#create"
+#     - "backend/quick_sales#new"
 #     - "backend/sensors#last_locations"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
@@ -200,8 +208,6 @@ activities:
     - "backend/inspections#list"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
-    - "backend/plant_density_abaci#index"
-    - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
     - "backend/target_distributions#index"
@@ -376,14 +382,20 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/bank_statement_items#create"
+    - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
     - "backend/bank_statements#import"
+    - "backend/bank_statements#letter"
     - "backend/bank_statements#new"
     - "backend/bank_statements#reconciliation"
+    - "backend/bank_statements#unletter"
     - "backend/bank_statements#update"
+    - "backend/quick_affairs#create"
+    - "backend/quick_affairs#new"
 
 building_divisions:
   read:
@@ -860,14 +872,6 @@ financial_years:
     - "backend/financial_years#new"
     - "backend/financial_years#update"
 
-first_run:
-  write:
-    dependencies:
-    - read-first_run
-  execute:
-    dependencies:
-    - read-first_run
-
 fixed_assets:
   read:
     actions:
@@ -1215,6 +1219,7 @@ journal_entries:
     - "backend/journal_entry_items#list"
     - "backend/journal_entry_items#show"
     - "backend/journal_entry_items#unroll"
+    - "backend/regularizations#show"
   write:
     dependencies:
     - read-journal_entries
@@ -1223,8 +1228,11 @@ journal_entries:
     - "backend/journal_entries#destroy"
     - "backend/journal_entries#edit"
     - "backend/journal_entries#new"
+    - "backend/journal_entries#toggle_autocompletion"
     - "backend/journal_entries#update"
     - "backend/journal_entry_items#new"
+    - "backend/regularizations#create"
+    - "backend/regularizations#destroy"
 
 journals:
   read:
@@ -1512,7 +1520,9 @@ outgoing_payment_lists:
     dependencies:
     - read-outgoing_payment_lists
     actions:
+    - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
+    - "backend/outgoing_payment_lists#new"
     - "backend/purchases#pay"
     - "backend/purchases#payment_mode"
 
@@ -2108,7 +2118,6 @@ tax_declarations:
     actions:
     - "backend/tax_declarations#index"
     - "backend/tax_declarations#list"
-    - "backend/tax_declarations#list_items"
     - "backend/tax_declarations#show"
     - "backend/tax_declarations#unroll"
   write:

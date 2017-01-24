@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="handling" categories="handling" actions="handling">
+    <parameters>
+      <doer name="doer" filter="is worker and can move"/>
+      <tool name="equipment" filter="is equipment" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

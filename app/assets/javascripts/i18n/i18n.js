@@ -12,7 +12,7 @@
 // See tests for specific formatting like numbers and dates.
 //
 
-;(function(factory) {
+(function(factory) {
   if (typeof module !== 'undefined' && module.exports) {
     // Node/CommonJS
     module.exports = factory(this);
@@ -56,7 +56,7 @@
   var isArray = function(obj) {
     if (Array.isArray) {
       return Array.isArray(obj);
-    };
+    }
     return Object.prototype.toString.call(obj) === '[object Array]';
   };
 
@@ -709,7 +709,7 @@
     // we have a date, so just return it.
     if (typeof(date) == "object") {
       return date;
-    };
+    }
 
     matches = date.toString().match(/(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}):(\d{2})([\.,]\d{1,3})?)?(Z|\+00:?00)?/);
 

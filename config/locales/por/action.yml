@@ -78,7 +78,7 @@ por:
       index: "Prédios"
       new: "Novo prédio"
       show: "Prédio: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulators:  #?
+    backend/calculators/grains_commercialization_threshold_simulators: #?
       show: "Simulador de comercialização de grãos" #?
     backend/campaigns:
       current: "Campanha"
@@ -121,7 +121,7 @@ por:
       index: "Catalogos"
       new: "Novo catalogo"
       show: "Catalogo: %{name}"
-    backend/cells/stewardship_cells:  #?
+    backend/cells/stewardship_cells: #?
       show: "Células de administração: %{name}" #?
     backend/companies:
       edit: "Editar configurações de empresa"
@@ -285,6 +285,9 @@ por:
       # edit: "Edit integration: %{name}"
       index: "Integrações"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "Participações de intervenção"
     backend/interventions:
       edit: "Editar"
       edit_request: "Pedido de edição"
@@ -381,6 +384,7 @@ por:
       new: "Nova observação"
     backend/outgoing_payment_lists:
       index: "Lista de lote de pagamentos a terceiros"
+      new: "Nova lista de contas a pagar"
       show: "Pagamentos efectuados lote"
     backend/outgoing_payment_modes:
       edit: "Modo de edição de desembolso"
@@ -465,6 +469,10 @@ por:
       propose_and_invoice: "Facturar directamente"
       refuse: "Fim recusou"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_purchases:
+      new: "Nova Compra / pagamento de saída"
+    backend/quick_sales:
+      new: "Novo Venda / entrada de pagamento"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
@@ -669,7 +677,10 @@ por:
     accounts: "Contas"
     accounts_only_used_at: "Contas utilizada apenas na"
     accounts_to_load: "Contas para carregar"
+    activate_entry_autocompletion: "Ative o preenchimento automático de entrada"
     active: "Ativo"
+    active_finishing_after: "Acabamento activo depois"
+    active_finishing_within: "Acabamento ativo dentro"
     activities: "Atividades"
     activity: "Atividade"
     activity_production: "Produção de atividade"
@@ -723,6 +734,7 @@ por:
     add_purchase_taxation: "Adicionar tributação de compra"
     add_quickly_an_item: "Adicionar rapidamente uma linha de produto"
     add_reading: "Adicionar um valor para um indicador"
+    add_regularization: "Adicionar regularização"
     add_revenue: "Adicionar receitas"
     add_sale: "Adicione venda"
     add_sale_taxation: "Adicione venda tributação"
@@ -775,6 +787,7 @@ por:
     average: "Média"
     back: "Voltar para a página anterior"
     balance: "Equilibrar"
+    balance_of_selection: "Balança de selecção"
     bank_account: "Conta bancária"
     bank_statement_number: "Número extrato bancário"
     bank_statements: "Extratos bancários"
@@ -857,6 +870,7 @@ por:
     costs: "Custos"
     costs_map: "Custos mapa" #?
     costs_per_hectare: "Os custos por hectare"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "contagens"
     # counts: "Counts"
     counts_by_nature: "Número de documentos a conta por tipo"
@@ -886,6 +900,7 @@ por:
     current_stocks_by_variety: "Estoques atuais de variedade"
     currently_subscribed_to: "Atualmente subscrito"
     custom_fields: "Os campos personalizados"
+    # dated_cash: "%{cash}: %{on}"
     dates: "Selecione Data de início e data final do período"
     days: "Dias"
     deals: "Ofertas"
@@ -977,6 +992,7 @@ por:
     # example: "Example: %{value}"
     exchange: "Trocas"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    existing: "Existir"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Despesas"
@@ -1021,6 +1037,7 @@ por:
     harvested_at: "Colhidas em"
     help: "Socorro"
     help_center: "Centro de ajuda"
+    hide_lettered_lines: "Esconder linhas de letras"
     # hint: "Hint: %{value}"
     historic: "Histórico"
     home: "Casa"
@@ -1066,6 +1083,8 @@ por:
     inventories: "Inventário"
     inventory: "Inventário"
     invitation_status: "Estado"
+    invoice_status: "Status de fatura"
+    invoiced: "Facturado"
     invoiced_amount: "Vendas montante facturado" #?
     invoices: "Notas fiscais"
     is: "É"
@@ -1079,14 +1098,14 @@ por:
     journal_entries_states: "Estados de entradas"
     journal_entry_items: "Itens de entrada de diário"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "Entradas"
@@ -1112,6 +1131,7 @@ por:
     last_purchases: "Últimas compras"
     last_sales: "Últimos vendas"
     letter: "Carta"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "Opções lineares"
     link: "Ligação"
@@ -1183,11 +1203,13 @@ por:
     new_email: "Novo Email"
     new_group: "Novo grupo"
     new_incoming_parcel: "Novo pacote de entrada"
+    new_incoming_payment: "Nova entrada de pagamento"
     new_inventory: "Novo inventário"
     new_issue: "Novo problema"
     new_listing: "Nova lista"
     new_organization: "Nova organização"
     new_outgoing_parcel: "Novo pacote de saída"
+    new_outgoing_payment: "Novo pagamento de saída"
     new_production: "Nova produção"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nova citação"
@@ -1198,6 +1220,7 @@ por:
     no_crumbs_to_check: "Não migalhas para verificar"
     no_data: "Não existem dados"
     no_deposits: "Não há depósitos"
+    no_intervention_participations_to_check: "Não há participações de intervenção para verificar"
     no_notifications: "Nenhuma notificação"
     no_particular_periods: "No período específico"
     no_products: "Nenhum produto"
@@ -1208,6 +1231,7 @@ por:
     none: "Nenhum"
     # normal: "Normal"
     not_delivered: "Não entregue"
+    not_letterable: "Não é capaz de letra"
     not_ready: "Não está pronto"
     not_received: "Não recebido"
     now: "Agora"
@@ -1289,6 +1313,7 @@ por:
     # printing_document: "Printing %{document}"
     procedures: "Procedimentos"
     product: "Produto"
+    product_account_number: "Número de conta do produto"
     product_category: "Categoria de Produto"
     product_name: "Nome do Produto"
     product_natures: "Tipos de produtos"
@@ -1318,7 +1343,6 @@ por:
     ready_to_harvest: "Pronto para colher"
     received: "Recebido"
     recent_events: "Eventos recentes"
-    reconciled_total: "total de reconciliado"
     record: "Registro"
     record_maintenance: "Manutenção de registros"
     reflect: "Refletir"
@@ -1348,7 +1372,7 @@ por:
     rest: "Descansar"
     restore: "Restaurar"
     result: "Resultado"
-    results:  #?
+    results: #?
       one: "1 resultado" #?
     revenues: "Faturamento"
     revenues_by_product_nature: "As receitas por tipo de produto"
@@ -1369,12 +1393,14 @@ por:
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar como rascunho"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Programado"
     search: "Pesquisar"
     search_placeholder: "Pesquisar…"
     # section_x: "Section %{x}"
     see_details: "Veja detalhes"
     see_more_details: "Veja mais detalhes"
+    select_a_journal: "Selecionar uma revista"
     select_closure_date: "Escolha a data de fechamento"
     select_columns: "Selecionar colunas"
     select_date: "Seleccionar data"
@@ -1433,6 +1459,8 @@ por:
     synthesis: "Síntese"
     target: "Alvo"
     tasks: "Tarefas"
+    tax_declarations: "Declarações fiscais"
+    tax_label: "Etiqueta de impostos"
     taxations: "Taxations"
     taxes: "Impostos"
     thumb: "Polegar"
@@ -1516,6 +1544,7 @@ por:
     undelivered: "Não entregue"
     undelivered_invoices: "Faturas não entregues"
     undone: "Desfeito"
+    uninvoiced: "Não facturada"
     unit: "Unidade"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Desconhecido"
@@ -1562,6 +1591,9 @@ por:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1628,6 +1660,9 @@ por:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1747,7 +1782,8 @@ por:
       invalid_reference_name: "Nome de referência inválida"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "A ficha já foi validado e não pode ser alterado"
-      # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "Os e-mails foram enviados"
@@ -1770,6 +1806,7 @@ por:
       no_payment_to_deposit: "Há nenhum pagamento para depositar"
       no_production_defined_for_current_campaign: "Sem produção definido para a campanha atual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Sem produção encontrados. Você pode adicionar novos ou copiar alguns de campanha anterior."
+      no_purchase_affair_found_on_given_period: "No caso de compra encontrado no determinado período"
       no_purchases_given: "Nenhuma compra dadas"
       no_reopenable_journal: "Você não pode voltar a abrir este diário."
       no_replacements_since_beginning: "Não há substituições desde início"
@@ -1875,9 +1912,12 @@ por:
       move: "Mover" #?
       negociate: "Negociar"
       new: "Novo"
+      new_purchase: "Nova compra"
+      new_sale: "Nova venda"
       open: "Aberto"
       order: "Ordem"
       pay: "Pagamento"
+      payment_gap: "Gap de pagamento"
       payment_mode: "Modo de pagamento"
       pick: "Escolher"
       picture: "Fotografia"

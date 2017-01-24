@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -112,7 +112,7 @@ class FixedAsset < Ekylibre::Record::Base
       errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
-      if fy = FinancialYear.reorder(:started_on).first
+      if (fy = FinancialYear.reorder(:started_on).first)
         unless fy.started_on <= started_on
           errors.add(:started_on, :greater_than_or_equal_to, count: fy.started_on.l)
         end
@@ -133,7 +133,8 @@ class FixedAsset < Ekylibre::Record::Base
   before_update do
     @auto_depreciate = false
     old = self.class.find(id)
-    [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency].each do |attr|
+    [:depreciable_amount, :started_on, :stopped_on, :depreciation_method,
+     :depreciation_percentage, :currency].each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
@@ -158,7 +159,7 @@ class FixedAsset < Ekylibre::Record::Base
     starts += depreciations.pluck(:started_on)
 
     FinancialYear.at(self.stopped_on)
-    for financial_year in FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on)
+    FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
       start = financial_year.started_on
       starts << start if started_on <= start && start <= self.stopped_on
     end
@@ -171,7 +172,7 @@ class FixedAsset < Ekylibre::Record::Base
   def depreciate_with_linear_method(starts)
     depreciable_days = duration.round(2)
     depreciable_amount = self.depreciable_amount
-    for depreciation in depreciations
+    depreciations.each do |depreciation|
       depreciable_days -= depreciation.duration.round(2)
       depreciable_amount -= depreciation.amount
     end
@@ -181,7 +182,8 @@ class FixedAsset < Ekylibre::Record::Base
     position = 1
     starts.each_with_index do |start, index|
       next if starts[index + 1].nil?
-      unless depreciation = depreciations.find_by(started_on: start)
+      depreciation = depreciations.find_by(started_on: start)
+      unless depreciation
         depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
         duration = depreciation.duration.round(2)
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
@@ -191,9 +193,7 @@ class FixedAsset < Ekylibre::Record::Base
 
       depreciation.position = position
       position += 1
-      unless depreciation.save
-        raise 'AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr' + depreciation.errors.inspect
-      end
+      depreciation.save!
     end
   end
 
@@ -202,7 +202,7 @@ class FixedAsset < Ekylibre::Record::Base
   def depreciate_with_simplified_linear_method(starts)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
-    for depreciation in reload.depreciations
+    reload.depreciations.each do |depreciation|
       depreciable_days -= depreciation.duration
       depreciable_amount -= depreciation.amount
     end
@@ -212,7 +212,8 @@ class FixedAsset < Ekylibre::Record::Base
     position = 1
     starts.each_with_index do |start, index|
       next if starts[index + 1].nil?
-      unless depreciation = depreciations.find_by(started_on: start)
+      depreciation = depreciations.find_by(started_on: start)
+      unless depreciation
         depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
         duration = depreciation.duration
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min

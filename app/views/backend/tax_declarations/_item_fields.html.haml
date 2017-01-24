@@ -1,5 +1,5 @@
 - item ||= f.object
-%tbody.nested-fields{ data: { trade_item: "purchasing" } }
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
   %tr
     %td.annotable
       = f.referenced_association(:tax, wrapper: :nested, source: {scope: :current}, input_html: {})

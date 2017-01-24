@@ -1,93 +1,233 @@
-.active-list .list.bank-reconciliation-items {
-  tbody tr {
-    cursor: pointer;
-  }
+.reconciliation-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 
-  tfoot tr, tfoot tr td {
-    font-weight: bold;
-  }
+  .top-part {
+    display: flex;
+    justify-content: space-between;
+    padding: $default-gap;
+    flex: 0 0 auto;
 
-  .center {
-    text-align: center;
-  }
+    .buttons {
+      .btn-group + .btn-group {
+        margin-left: unset;
+      }
+    }
 
-  input.error {
-    border-color: $invalid-color;
-    border-width: 2px;
-  }
-
-  .tmpl-date {
-    display: none;
-  }
-
-  .date-separator {
-    border-top: 1px solid red;
-
-    .add-line-inline {
-      font-weight: normal;
-      i {
-        @include is-icon;
-        @include use-icon(add);
+    .details {
+      width: unset;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      * {
+        @include margin-left($default-gap);
+        text-align: center;
       }
     }
   }
 
-  .del {
-    font-weight: bold;
-    i {
-      @include is-icon;
-      @include use-icon(clear);
+  .list {
+    overflow-y: scroll;
+  }
+
+  .amounts {
+    display: flex;
+    justify-content: space-around;
+    width: 15rem;
+  }
+
+  .details {
+    width: 15rem;
+    display: flex;
+    justify-content: space-around;
+
+    a {
+      i {
+        display: none;
+      }
+
+      &#clear > i {
+        display: inline-block;
+        @include is-icon;
+        @include use-icon(eraser);
+      }
     }
   }
 
-  .bank-statement-item-type, .journal-entry-item-type {
-    &.selected {
-      background-color: $active-color;
+  .legend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    padding: 0 0 2px;
+
+    a {
+      margin: 0 5px;
+    }
+
+    p {
+      flex: 1;
+      font-weight: bold;
+    }
+
+    & > p {
+      display: flex;
+      justify-content: flex-end;
+      align-items: middle;
+    }
+
+    .details: {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
     }
   }
 
-  .bank-statement-item-type {
-    font-style: italic;
-    .name {
-      width: 90%;
+  .date-section {
+    border-top: solid 1px red;
+
+    .date-header {
+      display: flex;
+      align-items: center;
+      padding: 4px 0;
+
+      p {
+        font-weight: bold;
+        padding: 0 1em;
+      }
     }
-    .clear {
-      font-style: normal;
+
+    & > div {
+      display: flex;
     }
-    .type-icon i {
-      @include is-icon;
+  }
+
+  .totals {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+
+    & > div {
+      display: flex;
+      justify-content: flex-end;
+
+      font-size: $fs-large;
+
+      border: solid 1px $neutral-background;
+      background-color: $desktop-background;
+
+      & ~ div {
+        border-top: none;
+      }
+
+      .title {
+        display: flex;
+        flex: 1;
+        padding: 6px;
+
+        p {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          font-size: $fs-large;
+          flex: 1;
+        }
+      }
+
+      .amounts * {
+        &.hidden {
+          display: none;
+        }
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: $fs-large;
+        font-weight: bold;
+        background-color: white;
+
+        border: solid 1px $darkened-white;
+        border-top: none;
+        border-bottom: none;
+      }
+    }
+  }
+
+  i {
+    @include is-icon;
+
+    &.bank-statement-item {
       @include use-icon(university);
-    }
-  }
 
-  .journal-entry-item-type {
-    .type-icon i {
-      @include is-icon;
+      & ~ .name {
+        font-style: italic;
+      }
+    }
+    &.journal-entry-item {
       @include use-icon(book);
     }
   }
 
-  .add-bank-statement-item-cont .ui-datepicker-trigger {
-    float: left;
+  a#delete > i {
+    @include use-icon(clear);
+  }
+}
+
+.amounts {
+  * {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.reconciliation-item {
+  cursor: pointer;
+  background-color: white;
+
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100%;
+  border-top: solid 1px $neutral-background;
+  padding: 3px 0;
+
+  transition: background-color 0.5s;
+
+  &:hover {
+    background-color: $desktop-background;
   }
 
-  .bank-statement-letter {
-    font-style: normal;
+  &.selected {
+    background-color: $light-color;
+  }
+
+  i, #delete {
+    text-align: center;
+    width: 3rem;
+  }
+
+  & > div {
+    display: flex;
+  }
+
+  .letter {
     font-weight: bold;
   }
 
-  .clear {
-    a {
-      display: none;
-    }
-    i {
-      @include is-icon;
-      @include use-icon(eraser);
+  .title {
+    display: flex;
+    flex: 1;
+
+    .name {
+      @include padding-left(2em);
+      flex: 1;
+
+      input {
+        width: 100%;
+      }
     }
   }
-
-  .complete a {
-    display: none;
-  }
-
 }

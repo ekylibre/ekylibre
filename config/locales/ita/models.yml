@@ -64,6 +64,11 @@ ita:
         status: "Stato"
       tax:
         amount: "Valore"
+      tax_declaration_item:
+        collected: "Raccolto"
+        deductible: "Detraibile"
+        fixed_asset_deductible: "Franchigia su attività"
+        intracommunity_payable: "Intracomunitario da pagare"
     errors:
       format: "%{attribute} %{message}" #?
       messages:
@@ -106,16 +111,16 @@ ita:
         present: "deve essere lasciato in bianco" #?
         # record_invalid: "Validations failed: %{errors}"
         taken: "è già presente"
-        too_long:  #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-          one: "è troppo lungo (il massimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-          other: "è troppo lungo (il massimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-        too_short:  #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
-          one: "è troppo corto (il minimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
-          other: "è troppo corto (il minimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+        too_long: #? String expected ("%{attribute} is too long (maximum is %{count} characters)")
+          one: "è troppo lungo (il massimo è 1 carattere)" #?
+          other: "è troppo lungo (il massimo è %{count} caratteri)" #?
+        too_short: #? String expected ("%{attribute} is too short (minimum is %{count} characters)")
+          one: "è troppo corto (il minimo è 1 carattere)" #?
+          other: "è troppo corto (il minimo è %{count} caratteri)" #?
         unitary_in_parcel: "elementi unitari possono essere inviati solo uno per uno"
-        wrong_length:  #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
-          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
-          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
+        wrong_length: #? String expected ("%{attribute} is the wrong length (should be %{count} characters)")
+          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
+          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
@@ -128,6 +133,7 @@ ita:
           unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti."
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
@@ -177,7 +183,7 @@ ita:
           nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che." #?
           one: "Non posso salvare questo %{model}: 1 errore"
           other: "Non posso salvare questo %{model}: %{count} errori."
-        models:  #?
+        models: #?
           cash: #?
             unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti." #?
           financial_year: #?
@@ -196,7 +202,7 @@ ita:
             error_no_found_price: "Nessun prezzo trovato" #?
           subscription: #?
             entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto" #?
-        template:  #?
+        template: #?
           body: "Ci sono stati problemi con i seguenti campi:" #?
     models:
       account: "account"
@@ -347,6 +353,7 @@ ita:
       purchase_gap: "Gap Acquisto"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
       sale_affair: "Vendita vicenda"
@@ -534,6 +541,7 @@ ita:
     components: "Componenti"
     computation_method: "metodo di calcolo"
     compute: "Calcolare"
+    compute_from: "Calcola da"
     conclusion: "Conclusione"
     condition_operator: "operatore Condizione"
     condition_value: "valore della condizione"
@@ -838,6 +846,8 @@ ita:
     intervention: "Intervento"
     intervention_cast: "getto di intervento"
     intervention_parameter: "parametro intervento"
+    intervention_participation: "Partecipazione intervento"
+    intervention_participations: "Partecipazioni di intervento"
     intervention_product_parameters: "calchi di intervento"
     interventions: "interventi"
     interventions_used_in: "Interventi utilizzato in"
@@ -974,6 +984,7 @@ ita:
     members: "Utenti"
     members_count: "Numero dei membri"
     memberships: "Adesioni"
+    memo: "Promemoria"
     message: "Messaggio"
     messages: "Messaggi"
     metadata: "Metadati"
@@ -1156,6 +1167,7 @@ ita:
     purchasable: "acquistabile"
     purchase: "Acquista"
     purchase_affair: "Acquisto vicenda"
+    purchase_affairs: "Affari di acquisto"
     purchase_amount: "Ammontare dell'acquisto"
     purchase_invoices: "fatture di acquisto"
     purchase_item: "voce Acquisto"
@@ -1213,6 +1225,7 @@ ita:
     reflected_at: "riflessa in"
     reflection_nodes: "nodi di riflessione"
     reflections: "Riflessi"
+    regularizations: "Regolarizzazioni"
     remain_owner: "Rimangono proprietario"
     remaining_amount: "Importo residuo"
     remaining_lifespan: "Durata della vita residua"
@@ -1372,10 +1385,12 @@ ita:
     tax_declaration_items: "Articoli dichiarazione dei redditi"
     tax_declaration_mode: "Modalità di dichiarazione dei redditi"
     tax_declarations: "Dichiarazioni fiscali"
+    tax_payability: "Pagabilità fiscale"
     taxations: "tassazioni"
     team: "Squadra"
     template: "Modello"
     theme: "Tema"
+    theoretical_number: "Numero teorico"
     third: "Terzo"
     third_producer: "terzo produttore" #?
     third_role: "terzo ruolo"

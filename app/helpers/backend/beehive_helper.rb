@@ -147,7 +147,7 @@ module Backend
       def layout(user)
         hash = nil
         if preference = user.preferences.find_by(name: preference_name)
-          got = YAML.load(preference.value).deep_symbolize_keys
+          got = YAML.safe_load(preference.value).deep_symbolize_keys
           hash = got if got[:version] && got[:version] >= FORMAT_VERSION
         end
         hash || to_hash

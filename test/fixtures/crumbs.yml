@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,20 +22,21 @@
 #
 # == Table: crumbs
 #
-#  accuracy                  :decimal(19, 4)   not null
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  device_uid                :string           not null
-#  geolocation               :geometry({:srid=>4326, :type=>"point"}) not null
-#  id                        :integer          not null, primary key
-#  intervention_parameter_id :integer
-#  lock_version              :integer          default(0), not null
-#  metadata                  :text
-#  nature                    :string           not null
-#  read_at                   :datetime         not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  user_id                   :integer
+#  accuracy                      :decimal(19, 4)   not null
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  device_uid                    :string           not null
+#  geolocation                   :geometry({:srid=>4326, :type=>"point"}) not null
+#  id                            :integer          not null, primary key
+#  intervention_parameter_id     :integer
+#  intervention_participation_id :integer
+#  lock_version                  :integer          default(0), not null
+#  metadata                      :text
+#  nature                        :string           not null
+#  read_at                       :datetime         not null
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
+#  user_id                       :integer
 #
 ---
 crumbs_001:
@@ -81,3 +82,621 @@ crumbs_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   user_id: 1
+crumbs_004:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.594273000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62411637 44.79409333)
+  id: 4
+  intervention_participation_id: 3
+  lock_version: 0
+  metadata:
+    procedure_nature: administrative_task
+  nature: start
+  read_at: 2017-01-04 13:53:59.146000000 Z
+  updated_at: 2017-01-04 13:55:59.594273000 Z
+crumbs_005:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.598978000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62434746 44.79382501)
+  id: 5
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:30.054000000 Z
+  updated_at: 2017-01-04 13:55:59.598978000 Z
+crumbs_006:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.602895000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62438391 44.79381084)
+  id: 6
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:31.058000000 Z
+  updated_at: 2017-01-04 13:55:59.602895000 Z
+crumbs_007:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.607360000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.6243706 44.79380161)
+  id: 7
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:32.399000000 Z
+  updated_at: 2017-01-04 13:55:59.607360000 Z
+crumbs_008:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.611695000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62436288 44.79379138)
+  id: 8
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:33.395000000 Z
+  updated_at: 2017-01-04 13:55:59.611695000 Z
+crumbs_009:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.616273000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62436261 44.79378091)
+  id: 9
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:34.389000000 Z
+  updated_at: 2017-01-04 13:55:59.616273000 Z
+crumbs_010:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.621189000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62436722 44.79377431)
+  id: 10
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:35.390000000 Z
+  updated_at: 2017-01-04 13:55:59.621189000 Z
+crumbs_011:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.625822000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62436634 44.79376656)
+  id: 11
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:36.392000000 Z
+  updated_at: 2017-01-04 13:55:59.625822000 Z
+crumbs_012:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.629718000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62435872 44.79375738)
+  id: 12
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:37.389000000 Z
+  updated_at: 2017-01-04 13:55:59.629718000 Z
+crumbs_013:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.633480000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62435229 44.79375075)
+  id: 13
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:38.392000000 Z
+  updated_at: 2017-01-04 13:55:59.633480000 Z
+crumbs_014:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.637021000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62434436 44.79374296)
+  id: 14
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:39.392000000 Z
+  updated_at: 2017-01-04 13:55:59.637021000 Z
+crumbs_015:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.640798000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62433284 44.79373105)
+  id: 15
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:40.390000000 Z
+  updated_at: 2017-01-04 13:55:59.640798000 Z
+crumbs_016:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.645174000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62432406 44.79372015)
+  id: 16
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:41.391000000 Z
+  updated_at: 2017-01-04 13:55:59.645174000 Z
+crumbs_017:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.649840000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62431088 44.79371148)
+  id: 17
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:42.389000000 Z
+  updated_at: 2017-01-04 13:55:59.649840000 Z
+crumbs_018:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.653738000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62429627 44.79370311)
+  id: 18
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:43.388000000 Z
+  updated_at: 2017-01-04 13:55:59.653738000 Z
+crumbs_019:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.657711000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62428278 44.79369775)
+  id: 19
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:44.386000000 Z
+  updated_at: 2017-01-04 13:55:59.657711000 Z
+crumbs_020:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.661553000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62425945 44.79368712)
+  id: 20
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:45.389000000 Z
+  updated_at: 2017-01-04 13:55:59.661553000 Z
+crumbs_021:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.665567000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62423962 44.79367747)
+  id: 21
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:46.390000000 Z
+  updated_at: 2017-01-04 13:55:59.665567000 Z
+crumbs_022:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.669408000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62422202 44.79367189)
+  id: 22
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:47.389000000 Z
+  updated_at: 2017-01-04 13:55:59.669408000 Z
+crumbs_023:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.673339000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62420896 44.79366886)
+  id: 23
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:48.388000000 Z
+  updated_at: 2017-01-04 13:55:59.673339000 Z
+crumbs_024:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.677040000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62419617 44.79366697)
+  id: 24
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:49.390000000 Z
+  updated_at: 2017-01-04 13:55:59.677040000 Z
+crumbs_025:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.681466000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62417829 44.79366434)
+  id: 25
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:50.390000000 Z
+  updated_at: 2017-01-04 13:55:59.681466000 Z
+crumbs_026:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.685418000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.6241632 44.79366012)
+  id: 26
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:51.388000000 Z
+  updated_at: 2017-01-04 13:55:59.685418000 Z
+crumbs_027:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.695560000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62414852 44.79366008)
+  id: 27
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:52.389000000 Z
+  updated_at: 2017-01-04 13:55:59.695560000 Z
+crumbs_028:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.700144000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62413447 44.79366095)
+  id: 28
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:53.390000000 Z
+  updated_at: 2017-01-04 13:55:59.700144000 Z
+crumbs_029:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.704800000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62411427 44.79366496)
+  id: 29
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:54.391000000 Z
+  updated_at: 2017-01-04 13:55:59.704800000 Z
+crumbs_030:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.708785000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.6241026 44.79367335)
+  id: 30
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:55.390000000 Z
+  updated_at: 2017-01-04 13:55:59.708785000 Z
+crumbs_031:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.712330000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62409019 44.79367521)
+  id: 31
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:56.391000000 Z
+  updated_at: 2017-01-04 13:55:59.712330000 Z
+crumbs_032:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.716780000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62406939 44.7936762)
+  id: 32
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:57.390000000 Z
+  updated_at: 2017-01-04 13:55:59.716780000 Z
+crumbs_033:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.721413000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62404816 44.79367705)
+  id: 33
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:58.391000000 Z
+  updated_at: 2017-01-04 13:55:59.721413000 Z
+crumbs_034:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.725364000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62402991 44.79368021)
+  id: 34
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:54:59.389000000 Z
+  updated_at: 2017-01-04 13:55:59.725364000 Z
+crumbs_035:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.729160000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62401072 44.7936804)
+  id: 35
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:00.392000000 Z
+  updated_at: 2017-01-04 13:55:59.729160000 Z
+crumbs_036:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.732759000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62399443 44.79368415)
+  id: 36
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:01.391000000 Z
+  updated_at: 2017-01-04 13:55:59.732759000 Z
+crumbs_037:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.743475000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62397912 44.79367738)
+  id: 37
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:02.389000000 Z
+  updated_at: 2017-01-04 13:55:59.743475000 Z
+crumbs_038:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.748148000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62397278 44.79368265)
+  id: 38
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:03.384000000 Z
+  updated_at: 2017-01-04 13:55:59.748148000 Z
+crumbs_039:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.752085000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62396638 44.79369065)
+  id: 39
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:04.387000000 Z
+  updated_at: 2017-01-04 13:55:59.752085000 Z
+crumbs_040:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.756629000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.6239666 44.79369848)
+  id: 40
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:05.391000000 Z
+  updated_at: 2017-01-04 13:55:59.756629000 Z
+crumbs_041:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.760872000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62395457 44.79370524)
+  id: 41
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:06.390000000 Z
+  updated_at: 2017-01-04 13:55:59.760872000 Z
+crumbs_042:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.765465000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62394263 44.79371273)
+  id: 42
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:07.390000000 Z
+  updated_at: 2017-01-04 13:55:59.765465000 Z
+crumbs_043:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.769489000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62393119 44.79372022)
+  id: 43
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:08.391000000 Z
+  updated_at: 2017-01-04 13:55:59.769489000 Z
+crumbs_044:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.773216000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62393631 44.7937252)
+  id: 44
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:09.389000000 Z
+  updated_at: 2017-01-04 13:55:59.773216000 Z
+crumbs_045:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.777087000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62393703 44.79372127)
+  id: 45
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:10.390000000 Z
+  updated_at: 2017-01-04 13:55:59.777087000 Z
+crumbs_046:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.780739000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62392828 44.79372126)
+  id: 46
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:11.391000000 Z
+  updated_at: 2017-01-04 13:55:59.780739000 Z
+crumbs_047:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.785131000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62394179 44.79370942)
+  id: 47
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:12.391000000 Z
+  updated_at: 2017-01-04 13:55:59.785131000 Z
+crumbs_048:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.789001000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62391086 44.7937092)
+  id: 48
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:13.391000000 Z
+  updated_at: 2017-01-04 13:55:59.789001000 Z
+crumbs_049:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.792646000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62390262 44.79371429)
+  id: 49
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:14.389000000 Z
+  updated_at: 2017-01-04 13:55:59.792646000 Z
+crumbs_050:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.796363000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62391727 44.79372236)
+  id: 50
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:15.389000000 Z
+  updated_at: 2017-01-04 13:55:59.796363000 Z
+crumbs_051:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.800017000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.6239096 44.7937251)
+  id: 51
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:16.389000000 Z
+  updated_at: 2017-01-04 13:55:59.800017000 Z
+crumbs_052:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.803519000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62389917 44.79373151)
+  id: 52
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:17.390000000 Z
+  updated_at: 2017-01-04 13:55:59.803519000 Z
+crumbs_053:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.807085000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62387785 44.79373512)
+  id: 53
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:18.390000000 Z
+  updated_at: 2017-01-04 13:55:59.807085000 Z
+crumbs_054:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.810709000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.6239543 44.79384229)
+  id: 54
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:21.390000000 Z
+  updated_at: 2017-01-04 13:55:59.810709000 Z
+crumbs_055:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.814260000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62396158 44.79386174)
+  id: 55
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:22.391000000 Z
+  updated_at: 2017-01-04 13:55:59.814260000 Z
+crumbs_056:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.817967000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62395838 44.79387922)
+  id: 56
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:23.389000000 Z
+  updated_at: 2017-01-04 13:55:59.817967000 Z
+crumbs_057:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.821817000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62392255 44.79399291)
+  id: 57
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:30.391000000 Z
+  updated_at: 2017-01-04 13:55:59.821817000 Z
+crumbs_058:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.825474000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62390779 44.79399343)
+  id: 58
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:31.392000000 Z
+  updated_at: 2017-01-04 13:55:59.825474000 Z
+crumbs_059:
+  accuracy: 0.0
+  created_at: 2017-01-04 13:55:59.836285000 Z
+  device_uid: android:8575174b31f4ad56
+  geolocation: SRID=4326;POINT(-0.62389602 44.79400104)
+  id: 59
+  intervention_participation_id: 3
+  lock_version: 0
+  nature: point
+  read_at: 2017-01-04 13:55:32.395000000 Z
+  updated_at: 2017-01-04 13:55:59.836285000 Z

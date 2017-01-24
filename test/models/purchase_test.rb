@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,6 +48,7 @@
 #  responsible_id                           :integer
 #  state                                    :string
 #  supplier_id                              :integer          not null
+#  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
@@ -153,5 +154,23 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 2, purchase.items.count
     assert_equal 1000, purchase.pretax_amount
     assert_equal 1020, purchase.amount
+  end
+
+  test 'default_currency is nature\'s currency if currency is not specified' do
+    PurchaseNature.delete_all
+    Entity.delete_all
+    Purchase.delete_all
+
+    nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with       = Purchase.create!(supplier: max, nature: nature, currency: 'USD')
+    without    = Purchase.create!(supplier: max, nature: nature)
+
+    assert_equal 'USD', with.default_currency
+    assert_equal 'EUR', without.default_currency
+  end
+
+  test 'affair_class points to correct class' do
+    assert_equal PurchaseAffair, Purchase.affair_class
   end
 end
