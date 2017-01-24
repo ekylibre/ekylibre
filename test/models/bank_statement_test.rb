@@ -55,34 +55,24 @@ module PaymentTest
     end
 
     [IncomingPayment, OutgoingPayment].each do |payment|
-      def ensure_not_lettered_when(**options)
-        @payment_class = payment
-        setup_data(**options)
-        assert_not_lettered_by @payment.letter_with(@tanks)
-      end
-
       test "#{payment} can be lettered with bank_statement_items" do
         @payment_class = payment
         setup_data
         assert_lettered_by @payment.letter_with(@tanks), with_letters: %w(A)
       end
 
-      test "#{payment} cannot be lettered when amounts don't match" do
-        ensure_not_lettered_when amount_mismatch: true
-      end
-
-      test "#{payment} cannot be lettered when the payment doesn't have any journal entry" do
-        ensure_not_lettered_when no_journal_entry: true
-      end
-
-      test "#{payment} cannot be lettered when there's the cashes don't match" do
-        ensure_not_lettered_when cash_mismatch: true
-      end
-
       test "#{payment} cannot be lettered without any bank statement items" do
         @payment_class = payment
         setup_data
         assert_not_lettered_by @payment.letter_with([])
+      end
+
+      %i(a_mismatch_in_amounts no_journal_entry a_mismatch_in_cashes).each do |trouble|
+        test "#{payment} cannot be lettered when there's #{trouble.to_s.humanize.downcase}" do
+          @payment_class = payment
+          setup_data trouble => true
+          assert_not_lettered_by @payment.letter_with(@tanks)
+        end
       end
     end
   end
@@ -364,8 +354,8 @@ class BankStatementTest < ActiveSupport::TestCase
     @warrig_tank = Cash.create!(journal: @journal, main_account: @fuel_act, name: 'War-rig\'s Tank')
     @caps_stash  = Cash.create!(journal: @journal, main_account: @caps_act, name: 'Stash o\' Caps')
 
-    setup_items(options[:amount_mismatch] ? 1336 : 1337)
-    setup_payment(options[:cash_mismatch]) unless options[:no_payment]
+    setup_items(options[:a_mismatch_in_amounts] ? 1336 : 1337)
+    setup_payment(options[:a_mismatch_in_cashes]) unless options[:no_payment]
   end
 
   def setup_entries
