@@ -210,6 +210,10 @@ jpn:
     backend/exports:
       index: "輸出"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "会計年度の為替インポート"
+      new: "新しいExchange"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       # close: "Close financial year: %{code}"
       compute_balances: "会計年度の残高を計算"
@@ -1056,6 +1060,7 @@ jpn:
     # example: "Example: %{value}"
     exchange: "交換"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "交流"
     existing: "既存の"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
@@ -1269,6 +1274,7 @@ jpn:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "新しい電子メール"
+    new_financial_year_exchange: "新しいExchange"
     new_group: "新しいグループ"
     new_incoming_parcel: "新しい着信小包"
     new_incoming_payment: "新入金"
@@ -1818,6 +1824,8 @@ jpn:
       warning: "警告！"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "会計士が通知されました"
+      accountant_without_email: "会計士の電子メールを設定してください"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "すべての小包はinvoiceableと同じ性質と第三のものでなければなりません"
       all_purchases_must_be_ordered_or_invoiced: "すべての購入は、発注や請求しなければなりません。"
       bookkeeping_is_finished: "商用のデータ転送が終了します。"
@@ -1830,6 +1838,7 @@ jpn:
       cannot_merge_entities: "それはこれらの人々をマージすることは不可能です。"
       changes_have_been_reflected: "変更は、在庫状況に反映されています"
       changes_have_not_been_reflected: "変更は、株式の状態に反映されていません"
+      closed_financial_year_exchange: "会計年度の交換が正常にクローズされました"
       closed_financial_years: "会計年度は正常にクローズされました"
       columns_are_already_uses: "一つまたは多くの列が何度も選択されています"
       dashboard_is_being_developed: "ダッシュボードは重い開発中です"
@@ -1853,6 +1862,7 @@ jpn:
       integrate_tools_you_are_using_every_day: "あなたが毎日使用しているツールを統合"
       invalid_reference_name: "無効な参照名"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "ジャーナル・エントリがインポートされています。"
       journal_entry_already_validated: "レコードが既に確認されており、変更することはできません"
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -1974,6 +1984,8 @@ jpn:
       increment: "インクリメント" #?
       index: "インデックス"
       invoice: "請求書"
+      journal_entries_csv_export: "CSVをダウンロード"
+      journal_entries_import: "CSVのインポート"
       list: "リスト"
       load: "負荷"
       lock: "ロック"
@@ -1986,6 +1998,7 @@ jpn:
       new: "新しい"
       new_purchase: "新規購入"
       new_sale: "新発売"
+      notify_accountant: "会計士に通知"
       open: "開いた"
       order: "注文"
       pay: "支払う"

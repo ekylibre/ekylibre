@@ -236,6 +236,10 @@ fra:
     backend/exports:
       index: "Exports"
       show: "Export\_: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "Import d'échange comptable"
+      new: "Nouvel échange"
+      show: "Échange: %{stopped_on}"
     backend/financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
@@ -1222,6 +1226,7 @@ fra:
     example: "Exemple\_: %{value}"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
+    exchanges: "Échanges"
     executed: "Réalisé" #?
     existing: "Existant"
     existing_part: "Utiliser un encaissement non affecté" #?
@@ -1535,6 +1540,7 @@ fra:
     new_document: "Nouveau document" #?
     new_email: "Nouveau courriel"
     new_family: "Nouvelle famille" #?
+    new_financial_year_exchange: "Nouvel échange"
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
@@ -2334,6 +2340,8 @@ fra:
       warning: "Attention\_!"
     messages:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+      accountant_notified: "Le comptable a bien été notifié"
+      accountant_without_email: "Merci de renseigner l'email du comptable"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
@@ -2351,6 +2359,7 @@ fra:
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
       changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
       changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
+      closed_financial_year_exchange: "L'échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
@@ -2378,6 +2387,7 @@ fra:
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."
+      journal_entries_imported: "Les écritures ont été importées correctement."
       journal_entry_already_validated: "L’écriture a déjà été validée et ne peut plus être modifiée"
       journal_entry_has_been_saved: "L’écriture N°%{number} a été enregistrée correctement"
       journal_entry_has_been_saved_with_a_new_number: "L’écriture a été enregistrée correctement avec un nouveau numéro\_: %{number}"
@@ -2539,6 +2549,8 @@ fra:
       increment: "Incrémenter" #?
       index: "Index"
       invoice: "Facturer"
+      journal_entries_csv_export: "Télécharger le CSV"
+      journal_entries_import: "Importer un CSV"
       list: "Lister"
       load: "Charger"
       lock: "Verrouiller"
@@ -2551,6 +2563,7 @@ fra:
       new: "Nouveau"
       new_purchase: "Nouveau achat"
       new_sale: "Nouvelle vente"
+      notify_accountant: "Notifier le comptable"
       open: "Ouvrir"
       order: "Commander"
       pay: "Payer"

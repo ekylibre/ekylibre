@@ -32,6 +32,7 @@ module Backend
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :currency
+      t.column :accountant, url: true
       # t.column :currency_precision
     end
 
@@ -48,6 +49,16 @@ module Backend
       t.column :started_on
       t.column :stopped_on
       t.column :amount, currency: true
+    end
+
+    list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_csv_export.ta
+      t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?
+      t.action :notify_accountant, if: :opened?
+      t.action :close, if: :opened?
+      t.column :started_on, url: true
+      t.column :stopped_on, url: true
+      t.column :closed_at
     end
 
     # Displays details of one financial year selected with +params[:id]+

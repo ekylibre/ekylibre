@@ -22,6 +22,7 @@
 #
 # == Table: journals
 #
+#  accountant_id                      :integer
 #  closed_on                          :date             not null
 #  code                               :string           not null
 #  created_at                         :datetime         not null
@@ -228,3 +229,20 @@ journals_011:
   used_for_permanent_stock_inventory: false
   used_for_tax_declarations: true
   used_for_unbilled_payables: true
+journals_012:
+  closed_on: 1992-11-16
+  code: CR
+  created_at: 2014-11-05 12:13:12.680296000 Z
+  creator_id: 1
+  currency: USD
+  id: 12
+  lock_version: 1
+  name: Journal Comptable Reserve
+  nature: various
+  updated_at: 2014-11-05 12:29:44.520908000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+  used_for_permanent_stock_inventory: false
+  used_for_tax_declarations: false
+  used_for_unbilled_payables: false
