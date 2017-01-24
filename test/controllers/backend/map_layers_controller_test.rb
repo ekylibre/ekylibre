@@ -25,7 +25,7 @@ module Backend
     end
 
     test 'toggling by_default' do
-      m = MapLayer.availables_map_backgrounds.first
+      m = MapLayer.availables_map_backgrounds.second
       state = m.by_default
       put :star, id: m.id
       assert_equal !state, m.reload.by_default
