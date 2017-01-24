@@ -17,9 +17,9 @@ table {
   width: 100%;
   padding: 0;
   margin: 0;
-  caption{
+  .selected-count{
     width: 100%;
-    text-align: center;
+    text-align: left;
     padding: $default-gap;
     font-size: $fs-normal;
     line-height: $lh-normal;
