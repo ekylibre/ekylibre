@@ -113,8 +113,7 @@ class InterventionParameter < Ekylibre::Record::Base
       product = target.product
       next unless product
       dead_at = nil
-
-      if other_dead_at = InterventionTarget.joins(:intervention).where(product: product, dead: true).where('interventions.id != ?', target.id).order('interventions.stopped_at').last
+      if other_dead_at = InterventionTarget.joins(:intervention).where(product: product, dead: true).where('intervention_id != ?', intervention.id).order('interventions.stopped_at').last
         dead_at = other_dead_at.intervention.stopped_at
       end
       product.update_columns(dead_at: dead_at)
