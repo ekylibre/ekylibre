@@ -239,7 +239,6 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
 
   test 'create does not close journal entries not between previous and actual exchanges lock' do
     financial_year = financial_years(:financial_years_025)
-    previous_exchange = create(:financial_year_exchange, financial_year: financial_year)
     stopped_on = financial_year.stopped_on - 2.days
 
     journal = create(:journal, accountant_id: nil)
@@ -302,7 +301,7 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
     exchange = FinancialYearExchange.joins(:financial_year).reorder(stopped_on: :desc).where(closed_at: nil)
                                     .where('financial_years.stopped_on != financial_year_exchanges.stopped_on').first
     unless exchange
-      financial_year = FinancialYear.where('stopped_on <= ?', Date.today)
+      financial_year = FinancialYear.where('stopped_on <= ?', Time.zone.today)
                                     .where.not(stopped_on: FinancialYearExchange.where(closed_at: nil).select(:stopped_on))
                                     .order(stopped_on: :desc).first
       assert financial_year, 'Financial year is missing'

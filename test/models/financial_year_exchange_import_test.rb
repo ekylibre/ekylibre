@@ -10,10 +10,10 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
     assert financial_year.update_attribute(:accountant_id, accountant.id)
 
     @booked_journal = create(:journal, :various, code: 'JCR', accountant_id: accountant.id)
-    account = create(:account)
+    create(:account)
 
-    entry_in_financial_year = create(:journal_entry, :confirmed, :with_items, journal: booked_journal, printed_on: financial_year.started_on + 1.day)
-    entry_out_of_financial_year = create(:journal_entry, :confirmed, :with_items, journal: booked_journal, printed_on: financial_year.stopped_on + 1.day)
+    create(:journal_entry, :confirmed, :with_items, journal: booked_journal, printed_on: financial_year.started_on + 1.day)
+    create(:journal_entry, :confirmed, :with_items, journal: booked_journal, printed_on: financial_year.stopped_on + 1.day)
 
     @financial_year_exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
 

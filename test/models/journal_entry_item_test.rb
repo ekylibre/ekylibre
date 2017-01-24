@@ -154,7 +154,6 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   end
 
   test 'third party is the account supplier when the account has one supplier but neither client nor employee' do
-    financial_year = financial_years(:financial_years_025)
     account = create(:account)
     supplier = create(:entity, supplier_account_id: account.id)
     item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
@@ -180,8 +179,8 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   test 'third party is not set when the account has more than one client, supplier or employee' do
     financial_year = financial_years(:financial_years_025)
     account = create(:account)
-    employee = create(:entity, employee_account_id: account.id)
-    client = create(:entity, client_account_id: account.id)
+    create(:entity, employee_account_id: account.id)
+    create(:entity, client_account_id: account.id)
     item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
     refute item.third_party
   end

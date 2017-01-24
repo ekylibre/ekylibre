@@ -113,7 +113,7 @@ class EntityTest < ActiveSupport::TestCase
     accountant = create(:entity, :accountant)
     financial_year = FinancialYear.last
     financial_year.update_attribute :accountant_id, accountant.id
-    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
+    create(:financial_year_exchange, :opened, financial_year: financial_year)
     accountant
   end
 end

@@ -111,12 +111,11 @@ class FinancialYearExchangeImport
   end
 
   def save_entry!(entry)
-    unless entry.save && entry.confirm && entry.close
-      message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_entry_invalid', entry_number: entry.number)
-      @error = InvalidFile.new(message)
-      @internal_error = ActiveRecord::RecordInvalid.new(entry)
-      raise error
-    end
+    return true if entry.save && entry.confirm && entry.close
+    message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_entry_invalid', entry_number: entry.number)
+    @error = InvalidFile.new(message)
+    @internal_error = ActiveRecord::RecordInvalid.new(entry)
+    raise error
   end
 
   def save_file
