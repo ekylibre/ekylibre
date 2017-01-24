@@ -4521,7 +4521,7 @@ UNION ALL
     min(movements.id) AS id,
     1 AS lock_version
    FROM (((products destinations
-     LEFT JOIN product_mergings merges ON ((merges.merged_with_id = destinations.id)))
+     JOIN product_mergings merges ON ((merges.merged_with_id = destinations.id)))
      LEFT JOIN products sources ON ((merges.product_id = sources.id)))
      LEFT JOIN product_movements movements ON (((movements.product_id = sources.id) AND (movements.started_at <= merges.merged_at))))
   GROUP BY destinations.id, merges.merged_at, merges.creator_id, merges.created_at, merges.updater_id, merges.updated_at
@@ -4536,7 +4536,7 @@ UNION ALL
     max(movements.id) AS id,
     1 AS lock_version
    FROM (((products destinations
-     LEFT JOIN product_mergings merges ON ((merges.merged_with_id = destinations.id)))
+     JOIN product_mergings merges ON ((merges.merged_with_id = destinations.id)))
      LEFT JOIN products sources ON ((merges.product_id = sources.id)))
      LEFT JOIN product_movements movements ON (((movements.product_id = sources.id) AND (movements.started_at <= merges.merged_at))))
   GROUP BY sources.id, merges.merged_at, merges.creator_id, merges.created_at, merges.updater_id, merges.updated_at;
@@ -16735,8 +16735,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161130103917');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201142213');
 
-INSERT INTO schema_migrations (version) VALUES ('20161205162943');
-
 INSERT INTO schema_migrations (version) VALUES ('20161205185328');
 
 INSERT INTO schema_migrations (version) VALUES ('20161212183910');
@@ -16758,4 +16756,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161231223002');
 INSERT INTO schema_migrations (version) VALUES ('20161231233003');
 
 INSERT INTO schema_migrations (version) VALUES ('20161231234533');
+
+INSERT INTO schema_migrations (version) VALUES ('20170124095012');
 

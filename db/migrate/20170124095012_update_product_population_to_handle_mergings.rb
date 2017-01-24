@@ -8,7 +8,7 @@ class UpdateProductPopulationToHandleMergings < ActiveRecord::Migration
         SELECT
           destinations.id           AS product_id,
           merges.merged_at          AS started_at,
-          SUM(movements.delta)     AS delta,
+          SUM(movements.delta)      AS delta,
           merges.creator_id         AS creator_id,
           merges.created_at         AS created_at,
           merges.updater_id         AS updater_id,
@@ -16,7 +16,7 @@ class UpdateProductPopulationToHandleMergings < ActiveRecord::Migration
           MIN(movements.id)         AS id,
           1                         AS lock_version
         FROM products               AS destinations
-        LEFT JOIN product_mergings  AS merges
+        INNER JOIN product_mergings  AS merges
                ON merges.merged_with_id = destinations.id
         LEFT JOIN products          AS sources
                ON merges.product_id     = sources.id
@@ -28,7 +28,7 @@ class UpdateProductPopulationToHandleMergings < ActiveRecord::Migration
         SELECT
           sources.id                AS product_id,
           merges.merged_at          AS started_at,
-          -SUM(movements.delta)    AS delta,
+          -SUM(movements.delta)     AS delta,
           merges.creator_id         AS creator_id,
           merges.created_at         AS created_at,
           merges.updater_id         AS updater_id,
@@ -36,13 +36,13 @@ class UpdateProductPopulationToHandleMergings < ActiveRecord::Migration
           MAX(movements.id)         AS id,
           1                         AS lock_version
         FROM products               AS destinations
-        LEFT JOIN product_mergings  AS merges
+        INNER JOIN product_mergings  AS merges
                ON merges.merged_with_id = destinations.id
         LEFT JOIN products          AS sources
                ON merges.product_id     = sources.id
         LEFT JOIN product_movements AS movements
                ON movements.product_id  = sources.id
-                  AND movements.started_at <= merges.merged_at
+                 AND movements.started_at <= merges.merged_at
         GROUP BY 1, 2, 4, 5, 6, 7
     SQL
 
