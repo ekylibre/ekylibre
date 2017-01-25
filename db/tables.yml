@@ -3665,6 +3665,9 @@ issues:
     references: user
   custom_fields:
     type: jsonb
+  dead:
+    type: boolean
+    default: false
   description:
     type: text
   geolocation:

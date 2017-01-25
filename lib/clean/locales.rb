@@ -598,23 +598,6 @@ module Clean
           end
         end
 
-        translation << "  procedure_parameters:\n"
-        parameters = []
-        Procedo.each_parameter do |parameter|
-          parameters << parameter.name
-        end
-        parameters.uniq!
-        ref[:procedure_parameters] ||= {}
-        parameters.sort.each do |parameter|
-          to_translate += 1
-          if name = ref[:procedure_parameters][parameter]
-            translation << "    #{parameter}: " + Clean::Support.yaml_value(name) + "\n"
-          else
-            translation << "    #{missing_prompt}#{parameter}: " + Clean::Support.yaml_value(parameter.to_s.humanize) + "\n"
-            untranslated += 1
-          end
-        end
-
         translation << "  procedure_killable_parameters:\n"
         killables = [
           :is_it_completely_destroyed_by_intervention
@@ -633,6 +616,23 @@ module Clean
             translation << "    #{killable}: " + Clean::Support.yaml_value(found) + "\n"
           else
             translation << "    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n"
+            untranslated += 1
+          end
+        end
+
+        translation << "  procedure_parameters:\n"
+        parameters = []
+        Procedo.each_parameter do |parameter|
+          parameters << parameter.name
+        end
+        parameters.uniq!
+        ref[:procedure_parameters] ||= {}
+        parameters.sort.each do |parameter|
+          to_translate += 1
+          if name = ref[:procedure_parameters][parameter]
+            translation << "    #{parameter}: " + Clean::Support.yaml_value(name) + "\n"
+          else
+            translation << "    #{missing_prompt}#{parameter}: " + Clean::Support.yaml_value(parameter.to_s.humanize) + "\n"
             untranslated += 1
           end
         end
