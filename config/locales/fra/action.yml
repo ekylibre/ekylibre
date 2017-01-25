@@ -2617,6 +2617,12 @@ fra:
       update: "Modifier"
       update_password: "Modifier le mot de passe" #?
       win: "Gagner"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Numéro de facture fournisseur"
+    required:
+      text: "Obligatoire"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

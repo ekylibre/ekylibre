@@ -2050,6 +2050,12 @@ jpn:
       update: "更新"
       update_password: "パスワードを更新します" #?
       win: "勝つ"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "サプライヤーの請求書番号"
+    required:
+      text: "必須"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

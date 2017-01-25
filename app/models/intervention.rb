@@ -291,7 +291,7 @@ class Intervention < Ekylibre::Record::Base
       if target.dead
         death_date = working_periods.maximum(:stopped_at)
 
-        if !target.product.dead_at or (target.product.dead_at and target.product.dead_at > death_date)
+        if !target.product.dead_at || (target.product.dead_at && target.product.dead_at > death_date)
           target.product.update_columns(dead_at: death_date)
         end
       end

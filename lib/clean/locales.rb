@@ -267,6 +267,10 @@ module Clean
         end
         warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
 
+        # Simple form
+        to_translate += Clean::Support.hash_count(::I18n.translate('simple_form'))
+        translation << '  simple_form:' + Clean::Support.hash_to_yaml(::I18n.translate('simple_form'), 2) + "\n"
+
         # Unroll
         translation << "  unrolls:\n"
         unrolls = ::I18n.t('unrolls')
@@ -611,6 +615,28 @@ module Clean
           end
         end
 
+        translation << "  procedure_killable_parameters:\n"
+        killables = [
+          :is_it_completely_destroyed_by_intervention
+        ]
+        Procedo.each_product_parameter do |parameter|
+          next unless parameter.attribute(:killable)
+          key = "is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}".to_sym
+          killables << key
+          key = "is_#{parameter.name}_completely_destroyed_by_intervention".to_sym
+          killables << key unless killables.include? key
+        end
+        ref[:procedure_killable_parameters] ||= {}
+        killables.sort.each do |killable|
+          to_translate += 1
+          if (found = ref[:procedure_killable_parameters][killable])
+            translation << "    #{killable}: " + Clean::Support.yaml_value(found) + "\n"
+          else
+            translation << "    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n"
+            untranslated += 1
+          end
+        end
+
         translation << "  procedures:\n"
         procedures = Procedo.procedure_names.uniq.map(&:to_sym)
         ref[:procedures] ||= {}
@@ -623,29 +649,6 @@ module Clean
             untranslated += 1
           end
         end
-
-
-        translation << "  killables:\n"
-
-        products = []
-        Procedo.each_product_parameter do |parameter|
-          products << parameter.name if parameter.attribute(:killable)
-        end
-        ref[:killables] ||= {}
-
-        products.compact.uniq!
-        products.sort.each do |product|
-          to_translate += 1
-          found = ref[:killables].keys.select{|p| p.match(/is_#{product}.*/)}
-          if found.any?
-            translation << "    #{found.first}: " + Clean::Support.yaml_value(ref[:killables][found.first]) + "\n"
-          else
-            default_string = "is_#{product.to_s}_destroyed_by_this_intervention"
-            translation << "    #{missing_prompt}#{default_string}: " + Clean::Support.yaml_value(default_string.to_s.humanize) + "\n"
-            untranslated += 1
-          end
-        end
-
 
         # Finishing...
         write(file, translation, to_translate, untranslated)

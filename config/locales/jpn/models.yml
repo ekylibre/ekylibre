@@ -587,7 +587,7 @@ jpn:
     customized_type: "カスタマイズされたタイプ"
     daily_nitrogen_production: "毎日の窒素製造"
     dashboards: "ダッシュボード"
-    # dead: "Dead"
+    dead: "デッド"
     dead_at: "デッドに"
     dead_line_at: "デッドライン"
     deals_count: "お得な情報を数えます"

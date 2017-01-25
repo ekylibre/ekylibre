@@ -2267,6 +2267,12 @@ spa:
       update: "Actualizar"
       update_password: "Actualiza contraseña" #?
       win: "Ganar"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Número de factura del proveedor"
+    required:
+      text: "Necesario"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

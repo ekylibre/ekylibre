@@ -1,9 +1,10 @@
 por:
-  killables:
-    # is_cultivation_destroyed_by_this_intervention: "Is cultivation destroyed by this intervention ?"
-    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
   procedure_handlers:
     stakes_by_hectare: "Stakes por hectare"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "É o cultivo completamente destruído pela intervenção?"
+    is_it_completely_destroyed_by_intervention: "É este completamente destruído pela intervenção?"
+    is_plant_completely_destroyed_by_intervention: "Planta está completamente destruído pela intervenção?"
   procedure_parameters:
     adding_wine: "Adicionando vinho"
     # animal: "Animal"

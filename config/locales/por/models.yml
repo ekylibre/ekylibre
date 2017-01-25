@@ -587,7 +587,7 @@ por:
     customized_type: "Tipo personalizado"
     daily_nitrogen_production: "A produção diária de azoto"
     dashboards: "Dashboards"
-    # dead: "Dead"
+    dead: "Morto"
     dead_at: "Dead on"
     dead_line_at: "Linha de mortos em"
     deals_count: "Ofertas de contar"

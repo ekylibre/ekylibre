@@ -1,9 +1,10 @@
 spa:
-  killables:
-    # is_cultivation_destroyed_by_this_intervention: "Is cultivation destroyed by this intervention ?"
-    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
   procedure_handlers:
     stakes_by_hectare: "Estacas por hectárea"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "Es el cultivo completamente destruido por la intervención?"
+    is_it_completely_destroyed_by_intervention: "Se esta completamente destruido por la intervención?"
+    is_plant_completely_destroyed_by_intervention: "Se planta completamente destruido por la intervención?"
   procedure_parameters:
     adding_wine: "La adición de vino"
     # animal: "Animal"

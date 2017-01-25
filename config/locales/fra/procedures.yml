@@ -1,7 +1,4 @@
 fra:
-  killables:
-    is_cultivation_destroyed_by_this_intervention: "L'intervention détruit-elle cette parcelle/culture ?"
-    is_plant_destroyed_by_this_intervention: "L'intervention détruit-elle cette culture ?"
   procedure_handlers:
     dry_matter_mass: "Masse de matière sèche" #?
     dry_matter_mass_area_density: "Masse de matière sèche par surface" #?
@@ -36,6 +33,10 @@ fra:
     volume_area_density: "Densité surfacique" #?
     volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
     volume_density: "Densité volumique" #?
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_it_completely_destroyed_by_intervention: "Est-ce complètement détruit par l'intervention\_?"
+    is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
   procedure_parameters:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?

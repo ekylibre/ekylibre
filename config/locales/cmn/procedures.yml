@@ -1,9 +1,10 @@
 cmn:
-  killables:
-    # is_cultivation_destroyed_by_this_intervention: "Is cultivation destroyed by this intervention ?"
-    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
   procedure_handlers:
     stakes_by_hectare: "通过公顷锦标"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "就是修炼完全被摧毁的干预？"
+    is_it_completely_destroyed_by_intervention: "这是完全被摧毁的干预？"
+    is_plant_completely_destroyed_by_intervention: "是植物完全被破坏的干预？"
   procedure_parameters:
     adding_wine: "添加酒"
     animal: "动物"

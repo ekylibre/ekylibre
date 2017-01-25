@@ -83,6 +83,17 @@ module Procedo
         @readings.values
       end
 
+      def killable_question
+        "is_#{reference.name}_completely_destroyed_by_#{reference.procedure.name}".t(
+          scope: [:procedure_killable_parameters],
+          default: [
+            "is_#{reference.name}_completely_destroyed_by_intervention".to_sym,
+            "is_this_completely_destroyed_by_#{reference.procedure.name}".to_sym,
+            'is_this_completely_destroyed_by_this_intervention'.to_sym
+          ]
+        )
+      end
+
       # Returns reflection name for an intervention object
       def reflection_name
         @type.to_s.pluralize.to_sym

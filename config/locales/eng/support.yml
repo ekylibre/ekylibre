@@ -66,9 +66,6 @@ eng:
     relative_distance_in_words:
       in_sometime: "in %{distance}"
       sometime_ago: "%{distance} ago"
-  general:
-    n: "No"
-    y: "Yes"
   http:
     errors:
       internal_server_error:
@@ -103,13 +100,10 @@ eng:
     precision:
       format:
         delimiter: ""
+  polar:
+    no: "No"
+    yes: "Yes"
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Supplier invoice number"
-    required:
-      text: "Required"
   support:
     array:
       last_word_connector: " and "

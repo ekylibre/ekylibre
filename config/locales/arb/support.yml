@@ -110,9 +110,6 @@ arb:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  general:
-    # n: "No"
-    # y: "Yes"
   http:
     errors:
       internal_server_error:
@@ -147,13 +144,10 @@ arb:
     precision:
       format:
         delimiter: ""
+  polar:
+    no: "لا"
+    yes: "نعم فعلا"
   # rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "رقم الفاتورة المورد"
-    required:
-      text: "مطلوب"
   support:
     array:
       last_word_connector: " و "

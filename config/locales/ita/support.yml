@@ -136,13 +136,10 @@ ita:
     precision:
       format:
         delimiter: ""
+  polar:
+    # no: "No"
+    yes: "Sì"
   # rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Numero di fattura del fornitore"
-    required:
-      text: "Richiesto"
   support:
     array:
       last_word_connector: " e "

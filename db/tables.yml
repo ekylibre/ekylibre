@@ -6421,8 +6421,6 @@ sale_items:
     precision: 19
     scale: 4
     required: true
-  amount_reference:
-    type: string
   annotation:
     type: text
   codes:

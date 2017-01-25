@@ -2039,6 +2039,12 @@ ita:
       update: "Aggiornare"
       update_password: "Aggiornamento della password" #?
       win: "Vincere"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Numero di fattura del fornitore"
+    required:
+      text: "Richiesto"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
