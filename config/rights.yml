@@ -96,6 +96,15 @@
 #     - "backend/entities#list_incoming_parcels"
 #     - "backend/entities#list_outgoing_parcels"
 #     - "backend/equipments#take"
+#     - "backend/financial_year_exchanges#close"
+#     - "backend/financial_year_exchanges#create"
+#     - "backend/financial_year_exchanges#journal_entries_export"
+#     - "backend/financial_year_exchanges#journal_entries_import"
+#     - "backend/financial_year_exchanges#list_journal_entries"
+#     - "backend/financial_year_exchanges#new"
+#     - "backend/financial_year_exchanges#notify_accountant"
+#     - "backend/financial_year_exchanges#show"
+#     - "backend/financial_years#list_exchanges"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
@@ -161,6 +170,8 @@
 #     - "devise/unlocks#show"
 #     - "iot/analyses#create"
 #     - "public#index"
+#     - "public/financial_year_exchange_exports#csv"
+#     - "public/financial_year_exchange_exports#show"
 
 accounts:
   read:

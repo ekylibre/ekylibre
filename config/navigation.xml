@@ -1295,11 +1295,20 @@
         <page to="backend/financial_years#generate_last_journal_entry"/>
         <page to="backend/financial_years#list"/>
         <page to="backend/financial_years#list_account_balances"/>
+        <page to="backend/financial_years#list_exchanges"/>
         <page to="backend/financial_years#list_fixed_asset_depreciations"/>
         <page to="backend/financial_years#new"/>
         <page to="backend/financial_years#show"/>
         <page to="backend/financial_years#unroll"/>
         <page to="backend/financial_years#update"/>
+        <page to="backend/financial_year_exchanges#new"/>
+        <page to="backend/financial_year_exchanges#create"/>
+        <page to="backend/financial_year_exchanges#list_journal_entries"/>
+        <page to="backend/financial_year_exchanges#show"/>
+        <page to="backend/financial_year_exchanges#journal_entries_export"/>
+        <page to="backend/financial_year_exchanges#journal_entries_import"/>
+        <page to="backend/financial_year_exchanges#notify_accountant"/>
+        <page to="backend/financial_year_exchanges#close"/>
       </item>
       <item name="taxes">
         <page to="backend/taxes#index"/>
@@ -1583,6 +1592,12 @@
     </group>
   </part>
   <inaccessible-actions>
+    <group name="public">
+      <item name="financial_year_exchange_exports">
+        <page to="public/financial_year_exchange_exports#csv"/>
+        <page to="public/financial_year_exchange_exports#show"/>
+      </item>
+    </group>
     <group>
       <item name="georeadings">
         <page to="backend/georeadings#index"/>

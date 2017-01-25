@@ -236,6 +236,10 @@ spa:
     backend/exports:
       index: "Exportaciones"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "Importación de intercambio ejercicio"
+      new: "Nueva intercambio"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       close: "Cerrado de ejercicio"
       compute_balances: "Calcule el equilibrio ejercicio"
@@ -1114,6 +1118,7 @@ spa:
     # example: "Example: %{value}"
     exchange: "Intercambiar"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "Intercambios"
     existing: "Existente"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expédier"
@@ -1367,6 +1372,7 @@ spa:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "Nuevo Email"
+    new_financial_year_exchange: "Nueva intercambio"
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
     new_incoming_payment: "Nueva entrada de pagos"
@@ -1990,6 +1996,8 @@ spa:
       warning: "Cuidad!"
     messages:
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
+      accountant_notified: "El contador se ha notificado"
+      accountant_without_email: "Por favor, configurar el correo electrónico contador"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
       all_purchases_must_be_ordered_or_invoiced: "Todas las compras se deben ordenar o facturar."
       bad_file: "El fichero no parece corresponder" #?
@@ -2004,6 +2012,7 @@ spa:
       cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
       changes_have_been_reflected: "Los cambios han sido repercutidos correctamente sobre el estatuto de depósitos actua"
       changes_have_not_been_reflected: "Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua"
+      closed_financial_year_exchange: "El cambio de ejercicio se ha cerrado con éxito"
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
@@ -2035,6 +2044,7 @@ spa:
       invalid_reference_name: "Nombre de referencia no válida"
       journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "Las entradas del diario han sido importados."
       journal_entry_already_validated: "El registro ya ha sido validado y no puede ser cambiado"
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -2198,6 +2208,8 @@ spa:
       increment: "Incremento" #?
       index: "Índice"
       invoice: "Factura"
+      journal_entries_csv_export: "Descargar CSV"
+      journal_entries_import: "Importar CSV"
       list: "Lista"
       load: "Carga"
       lock: "Bloquear"
@@ -2210,6 +2222,7 @@ spa:
       new: "Nuevo"
       new_purchase: "Nueva compra"
       new_sale: "Nueva venta"
+      notify_accountant: "Notificar contador"
       open: "Abierto"
       order: "Orden"
       pay: "Paga"
