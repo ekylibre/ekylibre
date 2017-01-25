@@ -128,13 +128,13 @@ class Issue < Ekylibre::Record::Base
   end
 
   after_save do
-    if dead && (!target.dead_at || target.dead_at > observed_at)
+    if target && dead && (!target.dead_at || target.dead_at > observed_at)
       target.update_columns dead_at: observed_at
     end
   end
 
-  before_destroy do
-    target.update_columns dead_at: nil if dead
+  after_destroy do
+    target.update_columns(dead_at: target.dead_first_at) if target && dead
   end
 
   protect(on: :destroy) do
