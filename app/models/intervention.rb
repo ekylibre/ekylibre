@@ -366,7 +366,9 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def printed_at
-    (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
+    return stopped_at if stopped_at?
+    return created_at if created_at?
+    Time.zone.now
   end
 
   def with_undestroyable_products?
