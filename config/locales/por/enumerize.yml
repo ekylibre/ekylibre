@@ -253,6 +253,10 @@ por:
       shift_method:
         anatocism: "Anatocismo"
         immediate_payment: "Pagamento imediato"
+    map_layer:
+      nature:
+        background: "Fundo"
+        # overlay: "Overlay"
     notification:
       level:
         error: "Erro"

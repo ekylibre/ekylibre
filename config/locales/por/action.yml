@@ -365,10 +365,17 @@ por:
       index: "Planos de manejo de dejetos"
       new: "Novo plano de manejo de dejetos"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "Mapa fundos"
-      new: "Novo fundo do mapa"
+    backend/map_backgrounds: #?
+      index: "Mapa fundos" #?
+      new: "Novo fundo do mapa" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "Camadas do mapa"
+      # load: "Load map layer: %{name}"
+      new: "Camada de novo mapa"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Materiais"

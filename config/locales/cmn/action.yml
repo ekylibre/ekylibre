@@ -360,10 +360,17 @@ cmn:
       index: "粪便管理计划"
       new: "新的粪便管理计划"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "地图背景"
-      new: "新地图背景"
+    backend/map_backgrounds: #?
+      index: "地图背景" #?
+      new: "新地图背景" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "地图图层"
+      # load: "Load map layer: %{name}"
+      new: "新建图层"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事项"

@@ -390,10 +390,17 @@ spa:
       index: "Planes de manejo de estiércol"
       new: "Nuevo plan de manejo del estiércol"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "fondos de mapas"
-      new: "Nuevo fondo de la correspondencia"
+    backend/map_backgrounds: #?
+      index: "fondos de mapas" #?
+      new: "Nuevo fondo de la correspondencia" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "Las capas de mapa"
+      # load: "Load map layer: %{name}"
+      new: "El nuevo mapa"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Cuestiones"

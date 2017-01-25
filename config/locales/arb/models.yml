@@ -913,7 +913,8 @@ arb:
       mandate: "التفويض" #?
       manure_management_plan: "خطة إدارة السماد"
       manure_management_plan_zone: "السماد منطقة خطة الإدارة"
-      map_background: "خلفية خريطة"
+      map_background: "خلفية خريطة" #?
+      map_layer: "طبقة خريطة"
       matter: "مسألة"
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?
@@ -1098,6 +1099,7 @@ arb:
     attorney_account_id: "حساب مساعد الوكيل" #?
     attorney_accounts: "وكلاء الحسابات" #?
     attribute_name: "اسم الصفة المميزة"
+    attribution: "عزو"
     authentication_token: "رمز المصادقة"
     author: "مؤلف"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
@@ -1853,6 +1855,7 @@ arb:
     of_company: "الشركة"
     office: "المكتب/الاستديو" #?
     old_password: "كلمة المرور الحالية"
+    opacity: "غموض"
     opened_at: "افتتح في"
     operation: "العمل"
     operation_id: "عمل" #?

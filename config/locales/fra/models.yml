@@ -425,7 +425,7 @@ fra:
       loan_repayment: "Remboursement d’emprunt"
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
-      map_background: "Fond de carte"
+      map_layer: "Couche de carte"
       matter: "Matière"
       net_service: "Service en ligne"
       notification: "Notification"
@@ -580,6 +580,7 @@ fra:
     attorney_journal: "Journal mandataire" #?
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
+    # attribution: "Attribution"
     authentication_token: "Clef d’authentification"
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
@@ -1248,6 +1249,7 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
+    opacity: "Opacité"
     opened_at: "Ouvert le"
     operation: "Travail"
     operation_name: "Nom de l’opération"

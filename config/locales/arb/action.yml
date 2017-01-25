@@ -433,10 +433,17 @@ arb:
       index: "خطط إدارة السماد"
       new: "خطة جديدة لإدارة السماد"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "خلفيات خريطة"
-      new: "خريطة خلفية جديدة"
+    backend/map_backgrounds: #?
+      index: "خلفيات خريطة" #?
+      new: "خريطة خلفية جديدة" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "طبقات الخرائط"
+      # load: "Load map layer: %{name}"
+      new: "طبقة خريطة جديدة"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "المسائل"

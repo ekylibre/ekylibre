@@ -1392,23 +1392,23 @@ manure_management_plans:
     - "backend/manure_management_plans#new"
     - "backend/manure_management_plans#update"
 
-map_backgrounds:
+map_layers:
   read:
     actions:
-    - "backend/map_backgrounds#index"
-    - "backend/map_backgrounds#new"
-    - "backend/map_backgrounds#show"
+    - "backend/map_layers#index"
+    - "backend/map_layers#new"
+    - "backend/map_layers#show"
   write:
     dependencies:
-    - read-map_backgrounds
+    - read-map_layers
     actions:
-    - "backend/map_backgrounds#create"
-    - "backend/map_backgrounds#destroy"
-    - "backend/map_backgrounds#edit"
-    - "backend/map_backgrounds#load"
-    - "backend/map_backgrounds#star"
-    - "backend/map_backgrounds#toggle"
-    - "backend/map_backgrounds#update"
+    - "backend/map_layers#create"
+    - "backend/map_layers#destroy"
+    - "backend/map_layers#edit"
+    - "backend/map_layers#load"
+    - "backend/map_layers#star"
+    - "backend/map_layers#toggle"
+    - "backend/map_layers#update"
 
 matters:
   read:
