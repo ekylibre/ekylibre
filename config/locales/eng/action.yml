@@ -2204,6 +2204,12 @@ eng:
       # update_many: "Update many"
       # upload: "Upload"
       win: "Win"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Supplier invoice number"
+    required:
+      text: "Required"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

@@ -267,6 +267,10 @@ module Clean
         end
         warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
 
+        # Simple form
+        to_translate += Clean::Support.hash_count(::I18n.translate('simple_form'))
+        translation << '  simple_form:' + Clean::Support.hash_to_yaml(::I18n.translate('simple_form'), 2) + "\n"
+
         # Unroll
         translation << "  unrolls:\n"
         unrolls = ::I18n.t('unrolls')
@@ -607,6 +611,28 @@ module Clean
             translation << "    #{parameter}: " + Clean::Support.yaml_value(name) + "\n"
           else
             translation << "    #{missing_prompt}#{parameter}: " + Clean::Support.yaml_value(parameter.to_s.humanize) + "\n"
+            untranslated += 1
+          end
+        end
+
+        translation << "  procedure_killable_parameters:\n"
+        killables = [
+          :is_it_completely_destroyed_by_intervention
+        ]
+        Procedo.each_product_parameter do |parameter|
+          next unless parameter.attribute(:killable)
+          key = "is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}".to_sym
+          killables << key
+          key = "is_#{parameter.name}_completely_destroyed_by_intervention".to_sym
+          killables << key unless killables.include? key
+        end
+        ref[:procedure_killable_parameters] ||= {}
+        killables.sort.each do |killable|
+          to_translate += 1
+          if (found = ref[:procedure_killable_parameters][killable])
+            translation << "    #{killable}: " + Clean::Support.yaml_value(found) + "\n"
+          else
+            translation << "    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n"
             untranslated += 1
           end
         end

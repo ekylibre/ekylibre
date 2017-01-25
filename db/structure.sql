@@ -289,7 +289,8 @@ CREATE TABLE intervention_parameters (
     component_id integer,
     assembly_id integer,
     currency character varying,
-    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    dead boolean DEFAULT false NOT NULL
 );
 
 
@@ -16800,4 +16801,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161231234533');
 INSERT INTO schema_migrations (version) VALUES ('20170101110136');
 
 INSERT INTO schema_migrations (version) VALUES ('20170110083324');
+
+INSERT INTO schema_migrations (version) VALUES ('20170124133351');
 

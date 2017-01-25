@@ -27,6 +27,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
@@ -60,6 +61,7 @@ class InterventionParameter < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -104,6 +106,18 @@ class InterventionParameter < Ekylibre::Record::Base
       self.position = (precision * now.to_f).round - (precision * now.to_i)
     end
     true
+  end
+
+  before_destroy do
+    intervention.targets.find_each do |target|
+      product = target.product
+      next unless product
+      dead_at = nil
+      if other_dead_at = InterventionTarget.joins(:intervention).where(product: product, dead: true).where('intervention_id != ?', intervention.id).order('interventions.stopped_at').last
+        dead_at = other_dead_at.intervention.stopped_at
+      end
+      product.update_columns(dead_at: dead_at)
+    end
   end
 
   def self.role

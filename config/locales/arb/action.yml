@@ -2752,6 +2752,12 @@ arb:
       update: "تحديث"
       update_password: "تحديث كلمة المرور" #?
       win: "انتصر"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "رقم الفاتورة المورد"
+    required:
+      text: "مطلوب"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

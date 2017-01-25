@@ -1304,6 +1304,7 @@ arb:
     data: "بيانات اضافية" #?
     date_value: "قيمة التاريخ" #?
     datetime_value: "قيمة التاريخ/الساعة" #?
+    dead: "ميت"
     dead_at: "تاريغ الوفاة"
     dead_line_at: "خط الموتى في"
     deals_count: "عد عروض"

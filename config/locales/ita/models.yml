@@ -618,6 +618,7 @@ ita:
     customized_type: "tipo personalizzato"
     daily_nitrogen_production: "produzione di azoto giornaliera"
     dashboards: "Dashboard"
+    dead: "Morto"
     dead_at: "Morto"
     dead_line_at: "dead line a"
     deals_count: "contano offerte"

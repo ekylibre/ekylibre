@@ -587,6 +587,7 @@ cmn:
     customized_type: "定制型"
     daily_nitrogen_production: "每日制氮"
     dashboards: "仪表板"
+    dead: "死"
     dead_at: "死在"
     dead_line_at: "在死亡线"
     deals_count: "算上优惠"

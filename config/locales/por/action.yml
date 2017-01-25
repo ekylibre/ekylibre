@@ -1978,6 +1978,12 @@ por:
       update: "Atualizar"
       update_password: "Password atualização" #?
       win: "Ganhar"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Número da fatura fornecedor"
+    required:
+      text: "Requeridos"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

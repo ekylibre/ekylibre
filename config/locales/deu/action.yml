@@ -1972,6 +1972,12 @@ deu:
       update: "Aktualisieren"
       update_password: "Update-Passwort" #?
       win: "Gewinnen"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Lieferant Rechnungsnummer"
+    required:
+      text: "Erforderlich"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
