@@ -128,7 +128,7 @@ class Issue < Ekylibre::Record::Base
   end
 
   after_save do
-    if dead and (!target.dead_at or target.dead_at > observed_at)
+    if dead && (!target.dead_at || target.dead_at > observed_at)
       target.update_columns dead_at: observed_at
     end
   end
