@@ -8,6 +8,9 @@ deu:
     human:
       false_class: "Falsch"
       true_class: "Wahr"
+    polar:
+      false_class: "Ja"
+      true_class: "Nein"
   date:
     abbr_day_names: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
     abbr_month_names: ["", "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
@@ -176,9 +179,6 @@ deu:
     precision:
       format:
         delimiter: ""
-  polar:
-    no: "Nein"
-    yes: "Ja"
   rank: "#%{number}"
   support:
     array:

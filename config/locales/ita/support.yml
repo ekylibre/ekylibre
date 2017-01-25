@@ -8,6 +8,9 @@ ita:
     human:
       false_class: "Falso"
       true_class: "Vero"
+    polar:
+      false_class: "Sì"
+      true_class: "No"
   date:
     abbr_day_names: ["dom", "lun", "mar", "mer", "gio", "ven", "sab"]
     abbr_month_names: ["", "gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"]
@@ -136,9 +139,6 @@ ita:
     precision:
       format:
         delimiter: ""
-  polar:
-    # no: "No"
-    yes: "Sì"
   # rank: "#%{number}"
   support:
     array:

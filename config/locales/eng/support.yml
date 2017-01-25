@@ -8,6 +8,9 @@ eng:
     human:
       false_class: "False"
       true_class: "True"
+    polar:
+      false_class: "Yes"
+      true_class: "No"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
@@ -100,9 +103,6 @@ eng:
     precision:
       format:
         delimiter: ""
-  polar:
-    no: "No"
-    yes: "Yes"
   rank: "#%{number}"
   support:
     array:

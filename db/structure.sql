@@ -290,7 +290,7 @@ CREATE TABLE intervention_parameters (
     assembly_id integer,
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    dead boolean DEFAULT false
+    dead boolean DEFAULT false NOT NULL
 );
 
 

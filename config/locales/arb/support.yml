@@ -8,6 +8,9 @@ arb:
     human:
       false_class: "كاذب"
       true_class: "صحيح"
+    polar:
+      false_class: "نعم فعلا"
+      true_class: "لا"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
@@ -144,9 +147,6 @@ arb:
     precision:
       format:
         delimiter: ""
-  polar:
-    no: "لا"
-    yes: "نعم فعلا"
   # rank: "#%{number}"
   support:
     array:

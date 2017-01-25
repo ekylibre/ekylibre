@@ -3341,6 +3341,7 @@ intervention_parameters:
     type: string
   dead:
     type: boolean
+    required: true
     default: false
   event_participation_id:
     type: integer

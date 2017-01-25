@@ -666,7 +666,7 @@ module Backend
     end
 
     def yes_no_radio(attribute_name, options = {})
-      input(attribute_name, options.merge(as: :radio_buttons, collection: [[::I18n.t('polar.yes'), true], [I18n.t('polar.no'), false]]))
+      input(attribute_name, options.merge(as: :radio_buttons, collection: [[::I18n.t('boolean.polar.true_class'), true], [I18n.t('boolean.polar.false_class'), false]]))
     end
 
     def actions

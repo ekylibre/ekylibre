@@ -8,6 +8,9 @@ cmn:
     human:
       false_class: "假"
       true_class: "真正"
+    polar:
+      false_class: "是"
+      true_class: "没有"
   date:
     abbr_day_names: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     abbr_month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
@@ -107,9 +110,6 @@ cmn:
     precision:
       format:
         delimiter: ""
-  polar:
-    no: "没有"
-    yes: "是"
   rank: "#%{number}"
   support:
     array:
