@@ -365,9 +365,9 @@ jpn:
       new: "新しいマップの背景" #?
     backend/map_layers:
       # edit: "Edit map layer: %{name}"
-      # index: "Map layers"
+      index: "マップレイヤ"
       # load: "Load map layer: %{name}"
-      # new: "New map layer"
+      new: "新しいマップレイヤ"
       # show: "Map layer: %{name}"
       # star: "Star map layer: %{name}"
       # toggle: "Toggle map layer: %{name}"

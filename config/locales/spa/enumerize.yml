@@ -253,8 +253,8 @@ spa:
         immediate_payment: "Pago inmediato"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "Fondo"
+        overlay: "Cubrir"
     notification:
       level:
         # error: "Error"

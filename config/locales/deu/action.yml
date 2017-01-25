@@ -365,9 +365,9 @@ deu:
       new: "Neue Karte Hintergrund" #?
     backend/map_layers:
       # edit: "Edit map layer: %{name}"
-      # index: "Map layers"
+      index: "Kartenschichten"
       # load: "Load map layer: %{name}"
-      # new: "New map layer"
+      new: "Neue Karten-Layer"
       # show: "Map layer: %{name}"
       # star: "Star map layer: %{name}"
       # toggle: "Toggle map layer: %{name}"

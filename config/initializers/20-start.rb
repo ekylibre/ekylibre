@@ -65,6 +65,6 @@ Ekylibre::Plugin.plug
 Aggeratio.load_path += Dir.glob(Rails.root.join('config', 'aggregators', '**', '*.xml'))
 Aggeratio.load
 
-# MapLayers
-autoload :MapLayers, 'map_layers'
-MapLayers::Layer.load
+# Map and co
+autoload :Map, 'map'
+Map::Layer.load

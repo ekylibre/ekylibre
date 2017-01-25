@@ -16,7 +16,7 @@ module Backend
 
     def toggle
       return head :forbidden unless m = MapLayer.find_by(id: params[:id])
-      return head :forbidden if m.map_background? && !!m.enabled && MapLayer.availables_map_backgrounds.length == 1
+      return head :forbidden if m.background? && !!m.enabled && MapLayer.available_backgrounds.length == 1
 
       toggle = !m.enabled
       m.update(enabled: toggle)
@@ -26,7 +26,7 @@ module Backend
       # if map background is disabling but is by default
       # set the first available map background as default
       if !toggle && m.by_default
-        mb = MapLayer.availables_map_backgrounds.first
+        mb = MapLayer.available_backgrounds.first
         unless mb.nil?
           mb.update(by_default: true)
           id = mb.id
@@ -39,7 +39,7 @@ module Backend
     end
 
     def star
-      return unless m = MapLayer.map_backgrounds.find_by(id: params[:id])
+      return unless m = MapLayer.backgrounds.find_by(id: params[:id])
       m.update(by_default: !m.by_default)
       head :no_content
     end

@@ -169,7 +169,7 @@
 
     _create: ->
       $.extend(true, @options, @element.data("visualization"))
-      @mapElement = $("<div>", class: "map").insertAfter(@element)
+      @mapElement = $("<div>", class: "map").appendTo(@element)
       @map = L.map(@mapElement[0], @options.map)
       @layers = []
 

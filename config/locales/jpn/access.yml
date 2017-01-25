@@ -61,7 +61,7 @@ jpn:
       loans: "ローン"
       manure_management_plans: "肥料管理計画"
       map_backgrounds: "地図の背景" #?
-      # map_layers: "Map layers"
+      map_layers: "マップレイヤ"
       matters: "事態"
       # myselves: "Myselves"
       net_services: "ネットサービス"

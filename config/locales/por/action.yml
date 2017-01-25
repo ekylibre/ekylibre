@@ -370,9 +370,9 @@ por:
       new: "Novo fundo do mapa" #?
     backend/map_layers:
       # edit: "Edit map layer: %{name}"
-      # index: "Map layers"
+      index: "Camadas do mapa"
       # load: "Load map layer: %{name}"
-      # new: "New map layer"
+      new: "Camada de novo mapa"
       # show: "Map layer: %{name}"
       # star: "Star map layer: %{name}"
       # toggle: "Toggle map layer: %{name}"

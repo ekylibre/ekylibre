@@ -654,7 +654,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :map_layers do
+    resources :map_layers, path: 'map-layers' do
       collection do
         post :load
       end

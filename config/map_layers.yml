@@ -1,5 +1,5 @@
 open_street_map:
-  type: map_background
+  type: background
   options:
     attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   variants:
@@ -29,7 +29,7 @@ open_street_map:
         attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 
 thunderforest:
-  type: map_background
+  type: background
   options:
     attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     subdomains: 'abc'
@@ -51,7 +51,7 @@ thunderforest:
       url: 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
 
 open_map_surfer:
-  type: map_background
+  type: background
   url: 'http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}'
   options:
     attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
@@ -62,7 +62,7 @@ open_map_surfer:
       url: 'http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}'
 
 stamen:
-  type: map_background
+  type: background
   options:
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     subdomains: 'abcd'
@@ -82,7 +82,7 @@ stamen:
         max_zoom: 15
 
 esri:
-  type: map_background
+  type: background
   url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
   options:
     attribution: 'Tiles &copy; Esri'
@@ -122,7 +122,7 @@ esri:
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
 
 open_weather_map:
-  type: map_overlay
+  type: overlay
   options:
     attribution: 'Weather from <a href="http://openweathermap.org/" alt="World Map and worldwide Weather Forecast online">OpenWeatherMap</a>'
     opacity: 100
@@ -152,7 +152,7 @@ open_weather_map:
       url: 'http://{s}.tile.openweathermap.org/map/snow/{z}/{x}/{y}.png'
 
 open_map_surfer:
-  type: map_overlay
+  type: overlay
   options:
     attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     opacity: 100

@@ -438,9 +438,9 @@ arb:
       new: "خريطة خلفية جديدة" #?
     backend/map_layers:
       # edit: "Edit map layer: %{name}"
-      # index: "Map layers"
+      index: "طبقات الخرائط"
       # load: "Load map layer: %{name}"
-      # new: "New map layer"
+      new: "طبقة خريطة جديدة"
       # show: "Map layer: %{name}"
       # star: "Star map layer: %{name}"
       # toggle: "Toggle map layer: %{name}"

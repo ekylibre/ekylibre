@@ -61,7 +61,7 @@ cmn:
       loans: "贷款"
       manure_management_plans: "粪便管理计划"
       map_backgrounds: "地图背景" #?
-      # map_layers: "Map layers"
+      map_layers: "地图图层"
       matters: "事项"
       # myselves: "Myselves"
       net_services: "网络服务"

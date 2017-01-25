@@ -252,8 +252,8 @@ arb:
         immediate_payment: "الدفع الفوري"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "خلفية"
+        overlay: "غطاء"
     notification:
       level:
         error: "خطأ"

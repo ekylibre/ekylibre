@@ -242,8 +242,8 @@ eng:
         immediate_payment: "Immediate payment"
     map_layer:
       nature:
-        map_background: "Map background"
-        map_overlay: "Map overlay"
+        background: "Background"
+        overlay: "Overlay"
     notification:
       level:
         error: "Error"

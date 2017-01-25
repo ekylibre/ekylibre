@@ -44,7 +44,7 @@
 #  url            :string           not null
 #
 class MapLayer < Ekylibre::Record::Base
-  enumerize :nature, in: [:map_background, :map_overlay], default: :map_background, predicates: true
+  enumerize :nature, in: [:background, :overlay], default: :background, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
@@ -53,25 +53,29 @@ class MapLayer < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :url, format: { with: URI.regexp(%w(http https)) }
   validates :opacity, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_blank: true
-  validates :by_default, inclusion: { in: [true, false] }, if: proc { |map| map.nature == :map_background }
 
-  selects_among_all
+  selects_among_all subset: :backgrounds
 
-  scope :availables, -> { where(enabled: true) }
+  scope :available, -> { where(enabled: true) }
+  scope :availables, -> { available }
 
-  scope :map_backgrounds, -> { where(nature: :map_background) }
-  scope :map_overlays, -> { where(nature: :map_overlay) }
+  scope :backgrounds, -> { where(nature: :background) }
+  scope :overlays, -> { where(nature: :overlay) }
 
-  scope :availables_map_backgrounds, -> { map_backgrounds.availables.order(by_default: :desc) }
-  scope :availables_map_overlays, -> { map_overlays.availables }
-  scope :default_map_background, -> { availables_map_backgrounds.first }
+  scope :available_backgrounds, -> { available.backgrounds.order(by_default: :desc) }
+  scope :available_overlays, -> { available.overlays }
+  scope :default_backgrounds, -> { available_backgrounds }
 
   before_validation do
-    self.opacity = opacity || 100
+    self.opacity ||= 50
+  end
+
+  def self.default_background
+    default_backgrounds.first
   end
 
   def self.load_defaults
-    MapLayers::Layer.items.each do |item|
+    Map::Layer.find_each do |item|
       attrs = {
         name: item.label,
         nature: item.type.to_sym,
@@ -89,7 +93,7 @@ class MapLayer < Ekylibre::Record::Base
       where(reference_name: item.reference_name).first_or_create!(attrs)
     end
 
-    default = MapLayers::Layer.of_type(:map_background).select(&:by_default)
+    default = Map::Layer.of_type(:background).select(&:by_default)
     where(reference_name: default.first.reference_name).first.update!(by_default: true) if default.present? && default.first.reference_name && find_by(reference_name: default.first.reference_name)
   end
 

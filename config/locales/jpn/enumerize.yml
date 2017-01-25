@@ -253,8 +253,8 @@ jpn:
         immediate_payment: "即納"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "バックグラウンド"
+        overlay: "オーバーレイ"
     notification:
       level:
         error: "エラー"

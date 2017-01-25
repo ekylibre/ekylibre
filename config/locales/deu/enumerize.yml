@@ -253,8 +253,8 @@ deu:
         immediate_payment: "Sofortige Bezahlung"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "Hintergrund"
+        overlay: "Auflage"
     notification:
       level:
         error: "Fehler"

@@ -11,21 +11,21 @@ module Backend
 
     test 'loading defaults' do
       MapLayer.destroy_all
-      assert_difference 'MapLayer.count', MapLayers::Layer.items.count do
+      assert_difference 'MapLayer.count', Map::Layer.items.count do
         post :load
       end
       assert_redirected_to backend_map_layers_path
     end
 
     test 'toggling activation' do
-      m = MapLayer.availables_map_backgrounds.first
+      m = MapLayer.available_backgrounds.first
       state = m.enabled
       post :toggle, id: m.id, format: :json
       assert_equal !state, m.reload.enabled
     end
 
     test 'toggling by_default' do
-      m = MapLayer.availables_map_backgrounds.second
+      m = MapLayer.available_backgrounds.second
       state = m.by_default
       put :star, id: m.id
       assert_equal !state, m.reload.by_default

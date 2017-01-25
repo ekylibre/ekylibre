@@ -61,7 +61,7 @@ ita:
       loans: "Prestiti"
       manure_management_plans: "piani di gestione del letame"
       map_backgrounds: "Mappa sfondi" #?
-      # map_layers: "Map layers"
+      map_layers: "Livelli della mappa"
       # matters: "Matters"
       # myselves: "Myselves"
       net_services: "servizi di rete"

@@ -253,8 +253,8 @@ ita:
         immediate_payment: "Pagamento immediato"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "Sfondo"
+        overlay: "Copertura"
     notification:
       level:
         error: "Errore"

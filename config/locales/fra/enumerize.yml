@@ -244,8 +244,8 @@ fra:
         immediate_payment: "Paiement immédiat des intérêts"
     map_layer:
       nature:
-        map_background: "Fond de carte"
-        map_overlay: "Calque de carte"
+        background: "Fond"
+        overlay: "Calque"
     notification:
       level:
         error: "Erreur"

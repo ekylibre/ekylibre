@@ -255,8 +255,8 @@ por:
         immediate_payment: "Pagamento imediato"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "Fundo"
+        # overlay: "Overlay"
     notification:
       level:
         error: "Erro"

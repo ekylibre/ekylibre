@@ -253,8 +253,8 @@ cmn:
         immediate_payment: "立即付款"
     map_layer:
       nature:
-        # map_background: "Map background"
-        # map_overlay: "Map overlay"
+        background: "背景"
+        overlay: "覆盖"
     notification:
       level:
         error: "错误"

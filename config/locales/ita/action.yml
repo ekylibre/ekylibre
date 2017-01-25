@@ -365,9 +365,9 @@ ita:
       new: "Nuova mappa di sfondo" #?
     backend/map_layers:
       # edit: "Edit map layer: %{name}"
-      # index: "Map layers"
+      index: "Livelli della mappa"
       # load: "Load map layer: %{name}"
-      # new: "New map layer"
+      new: "Nuovo livello mappa"
       # show: "Map layer: %{name}"
       # star: "Star map layer: %{name}"
       # toggle: "Toggle map layer: %{name}"

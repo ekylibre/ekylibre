@@ -56,7 +56,7 @@ map_layers_001:
   managed: true
   max_zoom: 19
   name: OpenStreetMap Mapnik
-  nature: map_background
+  nature: background
   reference_name: open_street_map.mapnik
   tms: false
   updated_at: 2016-05-10 19:09:51.690119000 Z
@@ -68,16 +68,17 @@ map_layers_002:
   by_default: false
   created_at: 2016-05-10 19:09:46.829621000 Z
   creator_id: 1
-  enabled: false
+  enabled: true
   id: 2
-  lock_version: 0
+  lock_version: 1
   managed: true
   max_zoom: 18
   name: OpenStreetMap Black and white
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: open_street_map.black_and_white
   tms: false
-  updated_at: 2016-05-10 19:09:46.829621000 Z
+  updated_at: 2017-01-25 15:35:34.559736000 Z
   updater_id: 1
   url: http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png
 map_layers_003:
@@ -88,14 +89,15 @@ map_layers_003:
   creator_id: 1
   enabled: false
   id: 3
-  lock_version: 0
+  lock_version: 2
   managed: true
   max_zoom: 18
   name: OpenStreetMap De
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: open_street_map.de
   tms: false
-  updated_at: 2016-05-10 19:09:46.835624000 Z
+  updated_at: 2017-01-25 15:30:26.882746000 Z
   updater_id: 1
   url: http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png
 map_layers_004:
@@ -108,14 +110,15 @@ map_layers_004:
   creator_id: 1
   enabled: true
   id: 4
-  lock_version: 0
+  lock_version: 2
   managed: true
   max_zoom: 19
   name: OpenStreetMap Hot
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: open_street_map.hot
   tms: false
-  updated_at: 2016-05-10 19:09:46.840786000 Z
+  updated_at: 2017-01-25 15:32:02.732233000 Z
   updater_id: 1
   url: http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png
 map_layers_005:
@@ -129,7 +132,7 @@ map_layers_005:
   lock_version: 0
   managed: true
   name: Thunderforest Outdoors
-  nature: map_background
+  nature: background
   reference_name: thunderforest.outdoors
   subdomains: abc
   tms: false
@@ -147,7 +150,7 @@ map_layers_006:
   lock_version: 0
   managed: true
   name: Thunderforest Cycle
-  nature: map_background
+  nature: background
   reference_name: thunderforest.cycle
   subdomains: abc
   tms: false
@@ -166,7 +169,7 @@ map_layers_007:
   managed: true
   max_zoom: 19
   name: Thunderforest Transport
-  nature: map_background
+  nature: background
   reference_name: thunderforest.transport
   subdomains: abc
   tms: false
@@ -185,7 +188,7 @@ map_layers_008:
   managed: true
   max_zoom: 19
   name: Thunderforest Transport dark
-  nature: map_background
+  nature: background
   reference_name: thunderforest.transport_dark
   subdomains: abc
   tms: false
@@ -200,14 +203,15 @@ map_layers_009:
   creator_id: 1
   enabled: true
   id: 9
-  lock_version: 0
+  lock_version: 3
   managed: true
   name: Thunderforest Landscape
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: thunderforest.landscape
   subdomains: abc
   tms: false
-  updated_at: 2016-05-10 19:09:46.878650000 Z
+  updated_at: 2017-01-25 15:30:39.455310000 Z
   updater_id: 1
   url: https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
 map_layers_010:
@@ -223,7 +227,7 @@ map_layers_010:
   managed: true
   max_zoom: 19
   name: OpenMapSurfer Roads
-  nature: map_background
+  nature: background
   reference_name: open_map_surfer.roads
   tms: false
   updated_at: 2016-05-10 19:09:46.884134000 Z
@@ -242,7 +246,7 @@ map_layers_011:
   managed: true
   max_zoom: 19
   name: OpenMapSurfer Grayscale
-  nature: map_background
+  nature: background
   reference_name: open_map_surfer.grayscale
   tms: false
   updated_at: 2016-05-10 19:09:46.890015000 Z
@@ -260,7 +264,7 @@ map_layers_012:
   lock_version: 0
   managed: true
   name: MapQuestOpen
-  nature: map_background
+  nature: background
   reference_name: map_quest_open.default
   subdomains: '1234'
   tms: false
@@ -280,7 +284,7 @@ map_layers_013:
   managed: true
   max_zoom: 11
   name: MapQuestOpen Aerial
-  nature: map_background
+  nature: background
   reference_name: map_quest_open.aerial
   subdomains: '1234'
   tms: false
@@ -296,16 +300,17 @@ map_layers_014:
   creator_id: 1
   enabled: false
   id: 14
-  lock_version: 0
+  lock_version: 2
   managed: true
   max_zoom: 17
   min_zoom: 0
   name: Stamen Toner
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: stamen.toner
   subdomains: abcd
   tms: false
-  updated_at: 2016-05-10 19:09:46.951683000 Z
+  updated_at: 2017-01-25 15:30:28.742843000 Z
   updater_id: 1
   url: http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png
 map_layers_015:
@@ -322,7 +327,7 @@ map_layers_015:
   max_zoom: 17
   min_zoom: 0
   name: Stamen Toner background
-  nature: map_background
+  nature: background
   reference_name: stamen.toner_background
   subdomains: abcd
   tms: false
@@ -343,7 +348,7 @@ map_layers_016:
   max_zoom: 17
   min_zoom: 0
   name: Stamen Toner lite
-  nature: map_background
+  nature: background
   reference_name: stamen.toner_lite
   subdomains: abcd
   tms: false
@@ -359,16 +364,17 @@ map_layers_017:
   creator_id: 1
   enabled: true
   id: 17
-  lock_version: 1
+  lock_version: 4
   managed: true
   max_zoom: 15
   min_zoom: 3
   name: Stamen Watercolor
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: stamen.watercolor
   subdomains: abcd
   tms: false
-  updated_at: 2016-05-10 19:09:56.714684000 Z
+  updated_at: 2017-01-25 15:30:47.483630000 Z
   updater_id: 1
   url: http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg
 map_layers_018:
@@ -380,14 +386,15 @@ map_layers_018:
   creator_id: 1
   enabled: false
   id: 18
-  lock_version: 0
+  lock_version: 2
   managed: true
   max_zoom: 19
   name: Esri World street map
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: esri.world_street_map
   tms: false
-  updated_at: 2016-05-10 19:09:46.976716000 Z
+  updated_at: 2017-01-25 15:30:18.433195000 Z
   updater_id: 1
   url: http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}
 map_layers_019:
@@ -402,7 +409,7 @@ map_layers_019:
   max_zoom: 11
   min_zoom: 1
   name: Esri De lorme
-  nature: map_background
+  nature: background
   reference_name: esri.de_lorme
   tms: false
   updated_at: 2016-05-10 19:09:46.982652000 Z
@@ -421,7 +428,7 @@ map_layers_020:
   managed: true
   max_zoom: 19
   name: Esri World topo map
-  nature: map_background
+  nature: background
   reference_name: esri.world_topo_map
   tms: false
   updated_at: 2016-05-10 19:09:46.988252000 Z
@@ -435,14 +442,15 @@ map_layers_021:
   creator_id: 1
   enabled: true
   id: 21
-  lock_version: 0
+  lock_version: 5
   managed: true
   max_zoom: 19
   name: Esri World imagery
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: esri.world_imagery
   tms: false
-  updated_at: 2016-05-10 19:09:46.994216000 Z
+  updated_at: 2017-01-25 15:31:52.692787000 Z
   updater_id: 1
   url: http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
 map_layers_022:
@@ -451,16 +459,17 @@ map_layers_022:
   by_default: false
   created_at: 2016-05-10 19:09:46.999827000 Z
   creator_id: 1
-  enabled: false
+  enabled: true
   id: 22
-  lock_version: 0
+  lock_version: 1
   managed: true
   max_zoom: 12
   name: Esri Nat geo world map
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: esri.nat_geo_world_map
   tms: false
-  updated_at: 2016-05-10 19:09:46.999827000 Z
+  updated_at: 2017-01-25 15:32:45.102534000 Z
   updater_id: 1
   url: http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}
 map_layers_023:
@@ -470,14 +479,15 @@ map_layers_023:
   creator_id: 1
   enabled: false
   id: 23
-  lock_version: 0
+  lock_version: 8
   managed: true
   max_zoom: 16
   name: Esri World gray canvas
-  nature: map_background
+  nature: background
+  opacity: 50
   reference_name: esri.world_gray_canvas
   tms: false
-  updated_at: 2016-05-10 19:09:47.005483000 Z
+  updated_at: 2017-01-25 15:30:23.951490000 Z
   updater_id: 1
   url: http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}
 map_layers_024:
@@ -485,17 +495,18 @@ map_layers_024:
     worldwide Weather Forecast online">OpenWeatherMap</a>
   by_default: false
   created_at: 2017-01-24 13:17:51.133936000 Z
-  enabled: false
+  enabled: true
   id: 24
-  lock_version: 0
+  lock_version: 1
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Clouds
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.clouds
   tms: false
-  updated_at: 2017-01-24 13:17:51.133936000 Z
+  updated_at: 2017-01-25 15:32:15.151008000 Z
+  updater_id: 1
   url: http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png
 map_layers_025:
   attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
@@ -504,32 +515,34 @@ map_layers_025:
   created_at: 2017-01-24 13:17:51.133936000 Z
   enabled: false
   id: 25
-  lock_version: 0
+  lock_version: 2
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Clouds classic
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.clouds_classic
   tms: false
-  updated_at: 2017-01-24 13:17:51.133936000 Z
+  updated_at: 2017-01-25 15:12:11.989773000 Z
+  updater_id: 1
   url: http://{s}.tile.openweathermap.org/map/clouds_cls/{z}/{x}/{y}.png
 map_layers_026:
   attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
     worldwide Weather Forecast online">OpenWeatherMap</a>
   by_default: false
   created_at: 2017-01-24 13:17:51.133936000 Z
-  enabled: false
+  enabled: true
   id: 26
-  lock_version: 0
+  lock_version: 1
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Precipitation
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.precipitation
   tms: false
-  updated_at: 2017-01-24 13:17:51.133936000 Z
+  updated_at: 2017-01-25 15:11:56.301182000 Z
+  updater_id: 1
   url: http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png
 map_layers_027:
   attribution: Weather from <a href="http://openweathermap.org/" alt="World Map and
@@ -542,7 +555,7 @@ map_layers_027:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Precipitation classic
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.precipitation_classic
   tms: false
@@ -559,7 +572,7 @@ map_layers_028:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Rain
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.rain
   tms: false
@@ -576,7 +589,7 @@ map_layers_029:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Rain classic
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.rain_classic
   tms: false
@@ -593,7 +606,7 @@ map_layers_030:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Pressure
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.pressure
   tms: false
@@ -610,7 +623,7 @@ map_layers_031:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Pressure contour
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.pressure_contour
   tms: false
@@ -627,7 +640,7 @@ map_layers_032:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Wind
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.wind
   tms: false
@@ -644,7 +657,7 @@ map_layers_033:
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Temperature
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.temperature
   tms: false
@@ -657,13 +670,52 @@ map_layers_034:
   created_at: 2017-01-24 13:17:51.133936000 Z
   enabled: false
   id: 34
-  lock_version: 0
+  lock_version: 2
   managed: true
   max_zoom: 18
   name: OpenWeatherMap Snow
-  nature: map_overlay
+  nature: overlay
   opacity: 100
   reference_name: open_weather_map.snow
   tms: false
-  updated_at: 2017-01-24 13:17:51.133936000 Z
+  updated_at: 2017-01-25 15:12:11.396838000 Z
+  updater_id: 1
   url: http://{s}.tile.openweathermap.org/map/snow/{z}/{x}/{y}.png
+map_layers_035:
+  attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  by_default: false
+  created_at: 2017-01-25 15:32:33.529119000 Z
+  creator_id: 1
+  enabled: false
+  id: 35
+  lock_version: 0
+  managed: true
+  max_zoom: 19
+  name: OpenStreetMap France
+  nature: background
+  opacity: 50
+  reference_name: open_street_map.france
+  tms: false
+  updated_at: 2017-01-25 15:32:33.529119000 Z
+  updater_id: 1
+  url: http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png
+map_layers_036:
+  attribution: Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research
+    Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>
+    contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
+  by_default: true
+  created_at: 2017-01-25 15:32:33.541496000 Z
+  creator_id: 1
+  enabled: false
+  id: 36
+  lock_version: 0
+  managed: true
+  name: OpenMapSurfer Admin bounds
+  nature: overlay
+  opacity: 100
+  reference_name: open_map_surfer.admin_bounds
+  tms: false
+  updated_at: 2017-01-25 15:32:33.541496000 Z
+  updater_id: 1
+  url: http://korona.geog.uni-heidelberg.de/tiles/adminb/x={x}&y={y}&z={z}

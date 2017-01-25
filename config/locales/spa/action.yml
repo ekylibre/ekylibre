@@ -395,9 +395,9 @@ spa:
       new: "Nuevo fondo de la correspondencia" #?
     backend/map_layers:
       # edit: "Edit map layer: %{name}"
-      # index: "Map layers"
+      index: "Las capas de mapa"
       # load: "Load map layer: %{name}"
-      # new: "New map layer"
+      new: "El nuevo mapa"
       # show: "Map layer: %{name}"
       # star: "Star map layer: %{name}"
       # toggle: "Toggle map layer: %{name}"
