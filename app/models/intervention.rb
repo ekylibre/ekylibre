@@ -275,29 +275,9 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
-    create_dependent_records = lambda do |parameter|
-      end_of_intervention = working_periods.maximum(:stopped_at)
-      product = parameter.product
-
-      if parameter.new_container_id
-        ProductLocalization.find_or_create_by(product: product, container: Product.find(parameter.new_container_id), intervention_id: parameter.intervention_id, started_at: end_of_intervention)
-      end
-
-      if parameter.new_group_id
-        ProductMembership.find_or_create_by(member: product, group: Product.find(parameter.new_group_id), intervention_id: parameter.intervention_id, started_at: end_of_intervention)
-      end
-
-      if parameter.new_variant_id
-        ProductPhase.find_or_create_by(product: product, variant: ProductNatureVariant.find(parameter.new_variant_id), intervention_id: parameter.intervention_id, started_at: end_of_intervention)
-      end
-
-      if parameter.merge_stocks
-        next unless dest = product.matching_product(at: end_of_intervention, container: parameter.new_container)
-        ProductMerging.create!(originator: parameter, product: product, merged_with: dest, merged_at: end_of_intervention)
-      end
-    end
-    targets.find_each(&create_dependent_records)
-    outputs.find_each(&create_dependent_records)
+    end_of_intervention = working_periods.maximum(:stopped_at)
+    create_dependent_records_for(targets, end_of_intervention)
+    create_dependent_records_for(outputs, end_of_intervention)
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
   end
@@ -394,6 +374,37 @@ class Intervention < Ekylibre::Record::Base
       next unless product
       InterventionProductParameter.of_actor(product).where.not(type: 'InterventionOutput').any?
     end
+  end
+
+  def create_dependent_records_for(collection, at)
+    collection.find_each do |parameter|
+      attributes = {
+        product: parameter.product,
+        member: product,
+        intervention_id: parameter.intervention_id,
+        started_at: at
+      }
+
+      create_dependent(:group, attributes.except(:member).merge(dependent_class: ProductMembership, thing_class: Product))
+      create_dependent(:variant, attributes.except(:product).merge(dependent_class: ProductPhase, thing_class: ProductNatureVariant))
+      create_dependent(:container, attributes.except(:member).merge(dependent_class: ProductLocalization, thing_class: Product))
+      create_merging(parameter, at)
+    end
+  end
+
+  def create_dependent(thing, **params)
+    return unless new_thing = parameter.send(:"new_#{thing}_id")
+    dependent_class = params.delete(:dependent_class)
+    thing_class     = params.delete(:thing_class)
+
+    dependent_class.find_or_create_by(attributes.merge(thing => thing_class.find(new_thing)))
+  end
+
+  def create_merging(parameter, at)
+    product = parameter.product
+    return unless parameter.merge_stocks
+    return unless dest = product.matching_product(at: at, container: parameter.new_container)
+    ProductMerging.create!(originator: parameter, product: product, merged_with: dest, merged_at: at)
   end
 
   # Returns human activity names
