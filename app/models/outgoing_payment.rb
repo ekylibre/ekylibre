@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,6 +41,7 @@
 #  number            :string
 #  paid_at           :datetime
 #  payee_id          :integer          not null
+#  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -51,6 +52,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   include Attachable
   include Customizable
   include PeriodicCalculable
+  include Letterable
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -79,6 +81,8 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   alias status affair_status
 
+  scope :matching_cash, ->(id) { includes(:mode).where(outgoing_payment_modes: { cash_id: id }) }
+
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
   before_validation do
@@ -92,10 +96,7 @@ class OutgoingPayment < Ekylibre::Record::Base
     (journal_entry && journal_entry.closed?)
   end
 
-  def check_updateable_or_destroyable?
-    return false if list
-    updateable? || destroyable?
-  end
+  delegate :third_attribute, to: :class
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
@@ -105,6 +106,52 @@ class OutgoingPayment < Ekylibre::Record::Base
       entry.add_debit(label, payee.account(:supplier).id, amount, as: :payee, resource: payee)
       entry.add_credit(label, mode.cash.account_id, amount, as: :bank)
     end
+  end
+
+  def self.third_attribute
+    :payee
+  end
+
+  def self.sign_of_amount
+    -1
+  end
+
+  def relative_amount
+    self.class.sign_of_amount * amount
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def check_updateable_or_destroyable?
+    return false if list
+    updateable? || destroyable?
+  end
+
+  def amount_to_letter
+    c = Nomen::Currency[currency]
+    precision = c.precision
+    integers, decimals = amount.round(precision).divmod(1)
+    decimals = (decimals * 10**precision).round
+    locale = I18n.t('i18n.iso2').to_sym
+    items = [integers.to_i.humanize(locale: locale) + ' ' + c.human_name.downcase.pluralize]
+    if decimals > 0
+      if precision == 0
+      # OK
+      elsif precision == 2
+        items << :x_cents.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      elsif precision == 3
+        items << :x_mills.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      else
+        raise 'Invalid precision: ' + precision.inspect
+      end
+    end
+    items.to_sentence
+  end
+
+  def affair_reference_numbers
+    affair.purchases.map(&:reference_number).compact.to_sentence
   end
 
   def label

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,280 +40,311 @@ target_distributions_001:
   activity_production_id: 18
   created_at: 2016-01-21 14:05:47.289432000 Z
   id: 1
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 145
-  updated_at: 2016-01-21 14:05:47.289432000 Z
+  updated_at: 2016-12-20 18:25:40.469000000 Z
+  updater_id: 1
 target_distributions_002:
   activity_id: 8
   activity_production_id: 19
   created_at: 2016-01-21 14:05:47.450023000 Z
   id: 2
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 146
-  updated_at: 2016-01-21 14:05:47.450023000 Z
+  updated_at: 2016-12-20 18:25:40.585494000 Z
+  updater_id: 1
 target_distributions_003:
   activity_id: 9
   activity_production_id: 20
   created_at: 2016-01-21 14:05:47.589568000 Z
   id: 3
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 147
-  updated_at: 2016-01-21 14:05:47.589568000 Z
+  updated_at: 2016-12-20 18:25:40.672358000 Z
+  updater_id: 1
 target_distributions_004:
   activity_id: 9
   activity_production_id: 21
   created_at: 2016-01-21 14:05:47.740774000 Z
   id: 4
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 148
-  updated_at: 2016-01-21 14:05:47.740774000 Z
+  updated_at: 2016-12-20 18:25:40.682208000 Z
+  updater_id: 1
 target_distributions_005:
   activity_id: 10
   activity_production_id: 22
   created_at: 2016-01-21 14:05:47.884331000 Z
   id: 5
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 149
-  updated_at: 2016-01-21 14:05:47.884331000 Z
+  updated_at: 2016-12-20 18:25:40.692276000 Z
+  updater_id: 1
 target_distributions_006:
   activity_id: 10
   activity_production_id: 23
   created_at: 2016-01-21 14:05:48.065425000 Z
   id: 6
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 150
-  updated_at: 2016-01-21 14:05:48.065425000 Z
+  updated_at: 2016-12-20 18:25:40.702481000 Z
+  updater_id: 1
 target_distributions_007:
   activity_id: 10
   activity_production_id: 24
   created_at: 2016-01-21 14:05:48.209982000 Z
   id: 7
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 151
-  updated_at: 2016-01-21 14:05:48.209982000 Z
+  updated_at: 2016-12-20 18:25:40.712390000 Z
+  updater_id: 1
 target_distributions_008:
   activity_id: 11
   activity_production_id: 25
   created_at: 2016-01-21 14:05:48.358981000 Z
   id: 8
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 152
-  updated_at: 2016-01-21 14:05:48.358981000 Z
+  updated_at: 2016-12-20 18:25:40.751841000 Z
+  updater_id: 1
 target_distributions_009:
   activity_id: 12
   activity_production_id: 26
   created_at: 2016-01-21 14:05:48.493853000 Z
   id: 9
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 153
-  updated_at: 2016-01-21 14:05:48.493853000 Z
+  updated_at: 2016-12-20 18:25:40.723043000 Z
+  updater_id: 1
 target_distributions_010:
   activity_id: 13
   activity_production_id: 27
   created_at: 2016-01-21 14:05:48.635898000 Z
   id: 10
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 154
-  updated_at: 2016-01-21 14:05:48.635898000 Z
+  updated_at: 2016-12-20 18:25:40.740755000 Z
+  updater_id: 1
 target_distributions_011:
   activity_id: 14
   activity_production_id: 28
   created_at: 2016-01-21 14:05:48.787891000 Z
   id: 11
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 155
-  updated_at: 2016-01-21 14:05:48.787891000 Z
+  updated_at: 2016-12-20 18:25:40.766548000 Z
+  updater_id: 1
 target_distributions_012:
   activity_id: 15
   activity_production_id: 29
   created_at: 2016-01-21 14:05:48.959553000 Z
   id: 12
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 156
-  updated_at: 2016-01-21 14:05:48.959553000 Z
+  updated_at: 2016-12-20 18:25:40.790666000 Z
+  updater_id: 1
 target_distributions_013:
   activity_id: 15
   activity_production_id: 30
   created_at: 2016-01-21 14:05:49.123754000 Z
   id: 13
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 157
-  updated_at: 2016-01-21 14:05:49.123754000 Z
+  updated_at: 2016-12-20 18:25:40.778927000 Z
+  updater_id: 1
 target_distributions_014:
   activity_id: 16
   activity_production_id: 31
   created_at: 2016-01-21 14:05:49.295982000 Z
   id: 14
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 158
-  updated_at: 2016-01-21 14:05:49.295982000 Z
+  updated_at: 2016-12-20 18:25:40.458782000 Z
+  updater_id: 1
 target_distributions_015:
   activity_id: 17
   activity_production_id: 32
   created_at: 2016-01-21 14:05:49.500104000 Z
   id: 15
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 159
-  updated_at: 2016-01-21 14:05:49.500104000 Z
+  updated_at: 2016-12-20 18:25:40.478928000 Z
+  updater_id: 1
 target_distributions_016:
   activity_id: 18
   activity_production_id: 33
   created_at: 2016-01-21 14:05:49.695062000 Z
   id: 16
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 160
-  updated_at: 2016-01-21 14:05:49.695062000 Z
+  updated_at: 2016-12-20 18:25:40.495699000 Z
+  updater_id: 1
 target_distributions_017:
   activity_id: 10
   activity_production_id: 34
   created_at: 2016-01-21 14:05:49.856676000 Z
   id: 17
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 161
-  updated_at: 2016-01-21 14:05:49.856676000 Z
+  updated_at: 2016-12-20 18:25:40.505759000 Z
+  updater_id: 1
 target_distributions_018:
   activity_id: 18
   activity_production_id: 35
   created_at: 2016-01-21 14:05:49.997165000 Z
   id: 18
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 162
-  updated_at: 2016-01-21 14:05:49.997165000 Z
+  updated_at: 2016-12-20 18:25:40.515537000 Z
+  updater_id: 1
 target_distributions_019:
   activity_id: 19
   activity_production_id: 36
   created_at: 2016-01-21 14:05:50.170415000 Z
   id: 19
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 163
-  updated_at: 2016-01-21 14:05:50.170415000 Z
+  updated_at: 2016-12-20 18:25:40.525622000 Z
+  updater_id: 1
 target_distributions_020:
   activity_id: 19
   activity_production_id: 37
   created_at: 2016-01-21 14:05:50.330118000 Z
   id: 20
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 164
-  updated_at: 2016-01-21 14:05:50.330118000 Z
+  updated_at: 2016-12-20 18:25:40.535628000 Z
+  updater_id: 1
 target_distributions_021:
   activity_id: 17
   activity_production_id: 38
   created_at: 2016-01-21 14:05:50.462927000 Z
   id: 21
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 165
-  updated_at: 2016-01-21 14:05:50.462927000 Z
+  updated_at: 2016-12-20 18:25:40.545757000 Z
+  updater_id: 1
 target_distributions_022:
   activity_id: 18
   activity_production_id: 39
   created_at: 2016-01-21 14:05:50.585686000 Z
   id: 22
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 166
-  updated_at: 2016-01-21 14:05:50.585686000 Z
+  updated_at: 2016-12-20 18:25:40.555686000 Z
+  updater_id: 1
 target_distributions_023:
   activity_id: 18
   activity_production_id: 40
   created_at: 2016-01-21 14:05:50.710625000 Z
   id: 23
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 167
-  updated_at: 2016-01-21 14:05:50.710625000 Z
+  updated_at: 2016-12-20 18:25:40.565405000 Z
+  updater_id: 1
 target_distributions_024:
   activity_id: 10
   activity_production_id: 41
   created_at: 2016-01-21 14:05:50.848789000 Z
   id: 24
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 168
-  updated_at: 2016-01-21 14:05:50.848789000 Z
+  updated_at: 2016-12-20 18:25:40.575483000 Z
+  updater_id: 1
 target_distributions_025:
   activity_id: 10
   activity_production_id: 42
   created_at: 2016-01-21 14:05:50.978276000 Z
   id: 25
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 169
-  updated_at: 2016-01-21 14:05:50.978276000 Z
+  updated_at: 2016-12-20 18:25:40.595476000 Z
+  updater_id: 1
 target_distributions_026:
   activity_id: 10
   activity_production_id: 43
   created_at: 2016-01-21 14:05:51.108338000 Z
   id: 26
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 170
-  updated_at: 2016-01-21 14:05:51.108338000 Z
+  updated_at: 2016-12-20 18:25:40.605361000 Z
+  updater_id: 1
 target_distributions_027:
   activity_id: 9
   activity_production_id: 44
   created_at: 2016-01-21 14:05:51.262047000 Z
   id: 27
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 171
-  updated_at: 2016-01-21 14:05:51.262047000 Z
+  updated_at: 2016-12-20 18:25:40.615280000 Z
+  updater_id: 1
 target_distributions_028:
   activity_id: 20
   activity_production_id: 45
   created_at: 2016-01-21 14:05:51.399710000 Z
   id: 28
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 172
-  updated_at: 2016-01-21 14:05:51.399710000 Z
+  updated_at: 2016-12-20 18:25:40.625416000 Z
+  updater_id: 1
 target_distributions_029:
   activity_id: 9
   activity_production_id: 46
   created_at: 2016-01-21 14:05:51.560028000 Z
   id: 29
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 173
-  updated_at: 2016-01-21 14:05:51.560028000 Z
+  updated_at: 2016-12-20 18:25:40.635569000 Z
+  updater_id: 1
 target_distributions_030:
   activity_id: 10
   activity_production_id: 47
   created_at: 2016-01-21 14:05:51.687283000 Z
   id: 30
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 174
-  updated_at: 2016-01-21 14:05:51.687283000 Z
+  updated_at: 2016-12-20 18:25:40.645527000 Z
+  updater_id: 1
 target_distributions_031:
   activity_id: 21
   activity_production_id: 48
   created_at: 2016-01-21 14:05:51.822570000 Z
   id: 31
-  lock_version: 0
+  lock_version: 1
   started_at: 0001-01-01 00:00:00.000000000 Z
   target_id: 175
-  updated_at: 2016-01-21 14:05:51.822570000 Z
+  updated_at: 2016-12-20 18:25:40.655691000 Z
+  updater_id: 1
 target_distributions_032:
   activity_id: 1
   activity_production_id: 8
@@ -534,4 +565,70 @@ target_distributions_050:
   started_at: 2016-07-01 20:15:41.361194000 Z
   target_id: 110
   updated_at: 2016-07-01 20:15:41.364056000 Z
+  updater_id: 1
+target_distributions_051:
+  activity_id: 1
+  activity_production_id: 10
+  created_at: 2016-12-20 18:25:40.809404000 Z
+  creator_id: 1
+  id: 51
+  lock_version: 0
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  target_id: 82
+  updated_at: 2016-12-20 18:25:40.809404000 Z
+  updater_id: 1
+target_distributions_052:
+  activity_id: 22
+  activity_production_id: 49
+  created_at: 2016-12-20 18:25:40.820197000 Z
+  creator_id: 1
+  id: 52
+  lock_version: 0
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  target_id: 176
+  updated_at: 2016-12-20 18:25:40.820197000 Z
+  updater_id: 1
+target_distributions_053:
+  activity_id: 5
+  activity_production_id: 12
+  created_at: 2016-12-20 18:25:40.830505000 Z
+  creator_id: 1
+  id: 53
+  lock_version: 0
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  target_id: 81
+  updated_at: 2016-12-20 18:25:40.830505000 Z
+  updater_id: 1
+target_distributions_054:
+  activity_id: 22
+  activity_production_id: 49
+  created_at: 2016-12-20 18:25:40.841429000 Z
+  creator_id: 1
+  id: 54
+  lock_version: 0
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  target_id: 181
+  updated_at: 2016-12-20 18:25:40.841429000 Z
+  updater_id: 1
+target_distributions_055:
+  activity_id: 3
+  activity_production_id: 13
+  created_at: 2016-12-20 18:25:40.852882000 Z
+  creator_id: 1
+  id: 55
+  lock_version: 0
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  target_id: 85
+  updated_at: 2016-12-20 18:25:40.852882000 Z
+  updater_id: 1
+target_distributions_056:
+  activity_id: 3
+  activity_production_id: 15
+  created_at: 2016-12-20 18:25:40.862707000 Z
+  creator_id: 1
+  id: 56
+  lock_version: 0
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  target_id: 86
+  updated_at: 2016-12-20 18:25:40.862707000 Z
   updater_id: 1

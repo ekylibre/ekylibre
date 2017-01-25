@@ -64,6 +64,11 @@ spa:
         status: "Estado"
       tax:
         amount: "Valor"
+      tax_declaration_item:
+        collected: "Recogido"
+        deductible: "Deducible"
+        fixed_asset_deductible: "Deducible de los activos"
+        intracommunity_payable: "Intracomunitario por pagar"
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
@@ -86,6 +91,7 @@ spa:
         # invalid_datetime: "%{attribute} is not a valid datetime"
         # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is: "%{attribute} must be a %{thing}"
         # is_at: "%{attribute} must be at %{restriction}"
         # less_than: "%{attribute} must be less than %{count}"
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
@@ -118,6 +124,7 @@ spa:
           unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
@@ -126,11 +133,20 @@ spa:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "Los ejercicios deben ser consecutivos. Debe comenzar tras el fin de la anterior."
+              frozen: "La fecha de ejercicio no se puede cambiar cuando se ha creado un intercambio."
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Algunas entradas de la CSV están fuera del intervalo de fechas de cambio ejercicio"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "Cabeceras CSV no son válidos"
+          csv_file_invalid: "Archivo CSV no es válido"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -139,10 +155,15 @@ spa:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Contador sólo se puede configurar para diversas revistas de operaciones"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "La entrada de diario no se puede grabar en un período que corresponde a un cambio de ejercicio."
           out_of_existing_financial_year: "El asiento debe ser registrada en un periodo correspondiente a un ejercicio ya existente."
           unbalanced: "La entrada de diario no es equilibrada"
         journal_entry_item:
@@ -274,7 +295,8 @@ spa:
       loan_repayment: "Pago de prestamo"
       manure_management_plan: "Plan de manejo del estiércol"
       manure_management_plan_zone: "Zona de plan de manejo del estiércol"
-      map_background: "fondo de la correspondencia"
+      map_background: "fondo de la correspondencia" #?
+      map_layer: "Capa de mapa"
       matter: "Importar"
       net_service: "Servicio Net"
       notification: "Notificación"
@@ -316,6 +338,7 @@ spa:
       purchase_gap: "Brecha de la compra"
       purchase_item: "Artículo de la compra"
       purchase_nature: "Tipo de compra"
+      regularization: "Regularización"
       role: "Papel"
       sale: "Venta"
       sale_affair: "Venta asunto"
@@ -362,6 +385,7 @@ spa:
     account_name: "Nombre de la cuenta"
     account_number: "Número de cuenta"
     accountable: "Explicable"
+    accountant: "Contador"
     accounted_at: "Representaron en"
     accuracy: "Exactitud"
     achieved_at: "Alcanzado en"
@@ -413,6 +437,7 @@ spa:
     assembly: "Asamblea"
     attachments: "Archivos adjuntos"
     attribute_name: "Nombre del Atributo"
+    attribution: "Atribución"
     authentication_token: "Token de autenticación"
     author: "Autor"
     authorized_payments_count: "Pagos autorizados cuentan"
@@ -505,6 +530,7 @@ spa:
     components: "Componentes"
     computation_method: "Método de cálculo"
     compute: "Calcular"
+    compute_from: "Computar a partir"
     conclusion: "Conclusión"
     condition_operator: "Operador de condición"
     condition_value: "Valor de condición"
@@ -564,7 +590,7 @@ spa:
     customized_type: "Tipo personalizado"
     daily_nitrogen_production: "La producción diaria de nitrógeno"
     dashboards: "Cuadros de mando"
-    # dead: "Dead"
+    dead: "Muerto"
     dead_at: "Muerto en"
     dead_line_at: "Línea de muertos en"
     deals_count: "Ofertas cuentan"
@@ -810,9 +836,13 @@ spa:
     intervention: "Intervención"
     intervention_cast: "Reparto de intervención"
     intervention_parameter: "Parámetro de la intervención"
+    intervention_participation: "La participación de la intervención"
+    intervention_participations: "Participaciones de intervención"
     intervention_product_parameters: "Moldes de intervención"
     interventions: "Intervenciones"
     interventions_used_in: "Las intervenciones se utiliza en"
+    intracommunity: "Intracomunitario"
+    intracommunity_payable_account: "Cuenta por pagar intracomunitario"
     introduction: "Introducción"
     inventory: "Inventario"
     invitation_accepted_at: "Invitación aceptada en"
@@ -944,6 +974,7 @@ spa:
     members: "Miembros"
     members_count: "Cantidad de miembros"
     memberships: "Membresías"
+    memo: "Memorándum"
     message: "Mensaje"
     messages: "Mensajes"
     metadata: "Metadatos"
@@ -992,6 +1023,7 @@ spa:
     observed_at: "Observado a las"
     of_company: "De la compañia"
     old_password: "Contraseña anterior"
+    opacity: "Opacidad"
     opened_at: "Inaugurado a"
     operation: "Operación"
     operation_name: "Nombre de la operación"
@@ -1126,6 +1158,7 @@ spa:
     purchasable: "Comprable"
     purchase: "Compra"
     purchase_affair: "Compra asunto"
+    purchase_affairs: "Asuntos de compra"
     purchase_amount: "Monto de la compra"
     purchase_invoices: "Facturas de compra"
     purchase_item: "Artículo de la compra"
@@ -1183,6 +1216,7 @@ spa:
     reflected_at: "Reflejado en"
     reflection_nodes: "Los nodos de reflexión"
     reflections: "Reflexiones"
+    regularizations: "Regularizaciones"
     remain_owner: "Permanecer propietario"
     remaining_amount: "Cantidad restante"
     remaining_lifespan: "Vida útil restante"
@@ -1342,10 +1376,12 @@ spa:
     tax_declaration_items: "Artículos declaración fiscal"
     tax_declaration_mode: "Modo de declaración de la renta"
     tax_declarations: "Declaraciones de impuestos"
+    tax_payability: "Exigibilidad de Impuestos"
     taxations: "Tasaciones"
     team: "Equipo"
     template: "Modelo"
     theme: "Tema"
+    theoretical_number: "Número teórico"
     third: "Tercero"
     third_producer: "En tercer productor" #?
     third_role: "Tercera papel"

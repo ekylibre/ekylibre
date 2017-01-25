@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,23 +22,25 @@
 #
 # == Table: taxes
 #
-#  active                           :boolean          default(FALSE), not null
-#  amount                           :decimal(19, 4)   default(0.0), not null
-#  collect_account_id               :integer
-#  country                          :string           not null
-#  created_at                       :datetime         not null
-#  creator_id                       :integer
-#  deduction_account_id             :integer
-#  description                      :text
-#  fixed_asset_collect_account_id   :integer
-#  fixed_asset_deduction_account_id :integer
-#  id                               :integer          not null, primary key
-#  lock_version                     :integer          default(0), not null
-#  name                             :string           not null
-#  nature                           :string           not null
-#  reference_name                   :string
-#  updated_at                       :datetime         not null
-#  updater_id                       :integer
+#  active                            :boolean          default(FALSE), not null
+#  amount                            :decimal(19, 4)   default(0.0), not null
+#  collect_account_id                :integer
+#  country                           :string           not null
+#  created_at                        :datetime         not null
+#  creator_id                        :integer
+#  deduction_account_id              :integer
+#  description                       :text
+#  fixed_asset_collect_account_id    :integer
+#  fixed_asset_deduction_account_id  :integer
+#  id                                :integer          not null, primary key
+#  intracommunity                    :boolean          default(FALSE), not null
+#  intracommunity_payable_account_id :integer
+#  lock_version                      :integer          default(0), not null
+#  name                              :string           not null
+#  nature                            :string           not null
+#  reference_name                    :string
+#  updated_at                        :datetime         not null
+#  updater_id                        :integer
 #
 ---
 taxes_001:
@@ -50,6 +52,7 @@ taxes_001:
   creator_id: 1
   deduction_account_id: 39
   id: 1
+  intracommunity: false
   lock_version: 2
   name: 19.6% VAT
   nature: normal_vat
@@ -64,6 +67,7 @@ taxes_002:
   creator_id: 1
   deduction_account_id: 39
   id: 2
+  intracommunity: false
   lock_version: 3
   name: 0% VAT
   nature: null_vat
@@ -78,6 +82,7 @@ taxes_003:
   creator_id: 1
   deduction_account_id: 39
   id: 3
+  intracommunity: false
   lock_version: 2
   name: 20% VAT
   nature: normal_vat
@@ -92,6 +97,7 @@ taxes_004:
   creator_id: 1
   deduction_account_id: 577
   id: 8
+  intracommunity: false
   lock_version: 0
   name: TVA française intermédiaire 2014
   nature: intermediate_vat
@@ -107,6 +113,7 @@ taxes_005:
   creator_id: 1
   deduction_account_id: 581
   id: 9
+  intracommunity: false
   lock_version: 0
   name: TVA française particulière 1989
   nature: particular_vat
@@ -122,6 +129,7 @@ taxes_006:
   creator_id: 1
   deduction_account_id: 583
   id: 10
+  intracommunity: false
   lock_version: 0
   name: TVA française réduite
   nature: reduced_vat

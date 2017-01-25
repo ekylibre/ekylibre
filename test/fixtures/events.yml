@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -633,4 +633,30 @@ events_046:
   started_at: 2016-11-20 22:12:25.345774000 Z
   stopped_at: 2016-11-20 22:12:35.345774000 Z
   updated_at: 2016-11-20 22:12:25.349787000 Z
+  updater_id: 1
+events_047:
+  created_at: 2016-12-20 08:53:53.364403000 Z
+  creator_id: 1
+  duration: 10
+  id: 57
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-12-20 08:53:53.350778000 Z
+  stopped_at: 2016-12-20 08:54:03.350778000 Z
+  updated_at: 2016-12-20 08:53:53.364403000 Z
+  updater_id: 1
+events_048:
+  created_at: 2016-12-20 18:24:29.437639000 Z
+  creator_id: 1
+  duration: 60
+  id: 58
+  lock_version: 0
+  name: Semis n°32
+  nature: production_intervention
+  restricted: false
+  started_at: 2016-04-06 17:23:00.000000000 Z
+  stopped_at: 2016-12-21 01:23:00.000000000 Z
+  updated_at: 2016-12-20 18:24:29.437639000 Z
   updater_id: 1

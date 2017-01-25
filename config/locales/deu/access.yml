@@ -37,7 +37,6 @@ deu:
       events: "Veranstaltungen"
       exports: "Ausfuhr"
       financial_years: "Geschäftsjahre"
-      first_run: "Erster Lauf"
       fixed_assets: "Anlagevermögen"
       fungi: "Pilze"
       gaps: "Lücken"
@@ -61,7 +60,8 @@ deu:
       listings: "Anzeigen"
       loans: "Kredite"
       manure_management_plans: "Dungsmanagementpläne"
-      map_backgrounds: "Karte Hintergründe"
+      map_backgrounds: "Karte Hintergründe" #?
+      map_layers: "Kartenschichten"
       matters: "Angelegenheiten"
       myselves: "myselves"
       net_services: "Net Services"

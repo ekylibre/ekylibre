@@ -1,9 +1,10 @@
 spa:
-  killables:
-    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
-    # is_plant_destroyed_by_this_issue: "Is plant destroyed by this issue ?"
   procedure_handlers:
     stakes_by_hectare: "Estacas por hectárea"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "Es el cultivo completamente destruido por la intervención?"
+    is_it_completely_destroyed_by_intervention: "Se esta completamente destruido por la intervención?"
+    is_plant_completely_destroyed_by_intervention: "Se planta completamente destruido por la intervención?"
   procedure_parameters:
     adding_wine: "La adición de vino"
     # animal: "Animal"
@@ -116,6 +117,7 @@ spa:
     tool: "Herramienta"
     topper: "Sombrero de copa"
     # tractor: "Tractor"
+    trailed_equipment: "Equipos remolcados"
     trailer: "Remolque"
     tunnel: "Túnel"
     tunnel_implanter: "Implantador túnel"
@@ -135,6 +137,7 @@ spa:
     worker: "Obrero"
     zone: "Zona"
   procedures:
+    administrative_tasks: "Tareas administrativas"
     all_in_one_sowing: "Todo en uno siembra"
     animal_antibiotic_treatment: "Tratamiento antibiótico Animal"
     animal_artificial_insemination: "La inseminación artificial de animales"
@@ -162,12 +165,15 @@ spa:
     greenhouse_assembling: "montaje de efecto invernadero"
     ground_destratification: "Desestratificación planta"
     hand_weeding: "Deshierbe manual"
+    handling: "Manejo"
     harvest_transportation: "El transporte de la cosecha"
     harvesting: "Cosecha"
     hilling: "Aporque"
     hilling_for_sifting: "Aporque para tamizar"
     hoeing: "Azada"
+    housing_soil_disinfection: "Desinfección del suelo de vivienda"
     indirect_silage: "Ensilado indirecta"
+    installation_maintenance: "Mantenimiento de la instalación"
     inter_row_hoeing: "Entre hileras azada"
     land_parcel_grinding: "Molienda de parcelas"
     lifting: "Levantamiento"

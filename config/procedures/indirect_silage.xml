@@ -2,11 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="indirect_silage" categories="plants_transformation" actions="indirect_silage">
     <parameters>
-      <target name="cultivation" filter="is plant and has indicator shape" default-shape=":cultivation" default-actor="variant_localized_in_storage">
+      <target name="cultivation" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, PRODUCT.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
+          <compute to="shape" expr="intersection(VALUE, PRODUCT.shape)"/>
+          <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
         </handler>
       </target>
       <input name="straw_to_bunch" filter="is straw and derives from poaceae" cardinality="*">

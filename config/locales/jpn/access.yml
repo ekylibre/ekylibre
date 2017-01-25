@@ -37,7 +37,6 @@ jpn:
       events: "イベント"
       exports: "輸出"
       financial_years: "ファイナンシャル年"
-      first_run: "ファーストラン"
       fixed_assets: "固定資産"
       fungi: "菌類"
       gaps: "ギャップ"
@@ -61,7 +60,8 @@ jpn:
       listings: "掲載"
       loans: "ローン"
       manure_management_plans: "肥料管理計画"
-      map_backgrounds: "地図の背景"
+      map_backgrounds: "地図の背景" #?
+      map_layers: "マップレイヤ"
       matters: "事態"
       # myselves: "Myselves"
       net_services: "ネットサービス"

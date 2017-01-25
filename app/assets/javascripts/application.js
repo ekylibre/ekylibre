@@ -12,15 +12,15 @@
 //
 //= require modernizr
 //= require jquery
-//= require jquery-ui/datepicker
-//= require jquery-ui/datepicker-fr
-//= #require jquery-ui/datepicker-ar
-//= #require jquery-ui/datepicker-ja
-//= require jquery-ui/dialog
-//= require jquery-ui/slider
-//= require jquery-ui/accordion
-//= require jquery-ui/sortable
-//= require jquery-ui/droppable
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/i18n/datepicker-fr
+// require jquery-ui/i18n/datepicker-ar
+// require jquery-ui/i18n/datepicker-ja
+//= require jquery-ui/widgets/dialog
+//= require jquery-ui/widgets/slider
+//= require jquery-ui/widgets/accordion
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/widgets/droppable
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,5 +87,18 @@ class PreferenceTest < ActiveSupport::TestCase
     preference_2.set! 'baz'
 
     assert_equal 'baz', Preference.value('myfavoritepref', 'qux')
+  end
+
+  test 'optimistic locking absence' do
+    preference_1 = Preference.get('myfavoritepref', 'foo')
+    preference_2 = Preference.find(preference_1.id)
+
+    preference_2.value = 'yeah!'
+    preference_2.save!
+
+    preference_1.value = 'yo!'
+    preference_1.save!
+
+    assert_equal 'yo!', Preference.value('myfavoritepref', 'qux')
   end
 end

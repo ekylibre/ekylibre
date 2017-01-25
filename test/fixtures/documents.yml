@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -344,3 +344,55 @@ documents_011:
   updated_at: 2016-07-01 20:12:54.999223000 Z
   updater_id: 1
   uploaded: false
+documents_012:
+  created_at: 2016-12-20 14:08:20.703181000 Z
+  creator_id: 1
+  file_content_text: |+
+    FERSTIVALL
+
+  file_content_type: image/png
+  file_file_name: logo.png
+  file_file_size: 9354
+  file_fingerprint: 2b677c444a62501a04c5d98f7635503c
+  file_pages_count: 1
+  file_updated_at: 2016-12-20 14:08:20.084388000 Z
+  id: 21
+  key: 1482242899977-logo.png
+  lock_version: 0
+  name: logo.png
+  number: D000000000019
+  updated_at: 2016-12-20 14:08:20.703181000 Z
+  updater_id: 1
+  uploaded: true
+documents_013:
+  created_at: 2016-12-20 14:08:30.041420000 Z
+  creator_id: 1
+  file_content_text: "DU\nPL\nICA\nTA\nWõ òJ 0IûKöR\nU FED ÒE 6{ECÓ 6ÓDE K õ üõ û²òKKò\nSÔ
+    NZQ M} óI­J¹õ ö­ò\n\nü{ù FD ú{ÿ\\ù D ÷ SS TNUÖ\n\n¶¼½¼¾ ¼ ]¼¯ ¨´´×¶{ ¯ AB C D
+    E F D E G F C H\n\nIB H F E F D E G F C H\n\nxyz¡¿ÐÝ ® x^£¥^\n·©¶¼½\n¾[]¯\n\n·©¶¼½\n\n¨´×[\n\n{AB¼\n\nwy¿yu¿wyv¡\n\nÐy¡x\n\nxyz¡¿ÐÝ
+    ® Fx¾¯ {Hx¯¯· x\nuvwxvvÝz\n\n¶¼½\n\nv¾Þy\n\n¾½[\n\nyÞy\n\n¾¨´Ý¿\n\n^\n\nSVS\n\n­¼AôG
+    ½[× ­¼AôG ´Iö ó¼ô[ ô[ ·©E¼½×D´×\n½¼Dò[G ×D´½Gõ¼D×\n\n©Ð×¡y\n\n^\n\nvÞz ®®£\n\nvÞz
+    ®®£\n\n¥·©§¶§¼½\n\nuvwxvvÝx\n\nwy¿yu¿wyv¡\n\nÐy¡x\n\nv¾Þy\n\nyÞy\n\n^\n\n^\n\nvÞz®
+    ®\n\nvÞz® ®\n\n¥·©§¶§¼½\n\nuvwxvv¾y\n\nwy¿yu¿wyv¡\n\nÐy¡x\n\nv¾Þy\n\nyÞy\n\n^\n\n^\n\nyÞ®
+    zw£\n\ny Þ® zw£\n\n¥·©§¶§¼½\n\nuvwxvv¾v\n\nwy¿yu¿wyv¡\n\nÐy¡x\n\nv¾Þy\n\nyÞy\n\n^\n\n^\n\nyÞ®z
+    w\n\nyÞ®zw\n\n¥·©§¶§¼½\n\nuvwxvv¾¡\n\nwy¿yu¿wyv¡\n\nÐy¡x\n\nv¾Þy\n\nyÞy\n\n^\n\n^\n\nv
+    Þ® ¾w£\n\nvÞ® ¾w£\n\n¥·©§¶§¼½\n\nuvwxvv¾Ý\n\nwy¿yu¿wyv¡\n\nÐy¡x\n\nv¾Þy\n\nyÞy\n\n^\n\n^\n\nvÞ®¾
+    w\n\nvÞ®¾ w\n\n¥·©§¶§¼½\n\nv¾Þy\n\nyÞy\n\nyÞyy y\n\nyÞyy y\n\nDBz×Ð E F BGÝ¨¨Ý
+    Fx¾¯ {Hx¯¯· x\n\n¾F]¯ E¼½×D´×\n¾y y¾x¾¡y\n\nC´D´E×FDAG×AHI[G\n\n}´DAF×F\n\nGAHE
+    BIAEE¨ A\n\nJKõ[\n\nBC D× Aöòóõõ}\n\n}¼BIò[ [½L´LF J\n\nJ¼×´B ´]][E×F J\n\nCIòIB
+    ´]][E×F J\n\n¾yy ¾x¾¡y\n\n¾yy¾x¾ ¡y\n\n¾yy¾x¾ ¡y\n\n{¼Bô[ J\n\nwyÞwz z\n\nÝÞÝ
+    vv\n\nvu Þx u¾\n\n¡Þ¡w¡\n\nwyÞwz z\n\nÝÞÝvv\n\nvu Þx u¾\n\n¡Þ¡w¡\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: outgoing_deliveries.pdf
+  file_file_size: 252753
+  file_fingerprint: 4e6b01421db086913e88539d1cbc6bb7
+  file_pages_count: 1
+  file_updated_at: 2016-12-20 14:08:27.449142000 Z
+  id: 22
+  key: 1482242907415-outgoing_deliveries.pdf
+  lock_version: 0
+  name: outgoing_deliveries.pdf
+  number: D000000000020
+  updated_at: 2016-12-20 14:08:30.041420000 Z
+  updater_id: 1
+  uploaded: true

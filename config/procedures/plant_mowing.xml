@@ -3,9 +3,8 @@
   <procedure name="plant_mowing" categories="harvesting" actions="harvest">
     <parameters>
       <target name="plant" filter="is plant and has indicator shape">
-        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?">
-          <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" if="VARIANT?" to="population"/>
-        </attribute>
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
       </target>
       <output name="straw" filter="is grass and derives from plant" cardinality="*">
         <attribute name="new_name"/><!--  value="'{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})'" -->

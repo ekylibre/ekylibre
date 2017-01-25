@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: journals
 #
+#  accountant_id                      :integer
 #  closed_on                          :date             not null
 #  code                               :string           not null
 #  created_at                         :datetime         not null
@@ -188,6 +189,57 @@ journals_009:
   name: Factures non parvenues
   nature: various
   updated_at: 2016-11-20 22:08:58.347492000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+  used_for_permanent_stock_inventory: false
+  used_for_tax_declarations: false
+  used_for_unbilled_payables: false
+journals_010:
+  closed_on: 1992-11-16
+  code: RE
+  created_at: 2016-12-20 08:53:53.385377000 Z
+  creator_id: 1
+  currency: EUR
+  id: 10
+  lock_version: 0
+  name: Inventaire des stocks permanent
+  nature: stocks
+  updated_at: 2016-12-20 08:53:53.385377000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+  used_for_permanent_stock_inventory: true
+  used_for_tax_declarations: false
+  used_for_unbilled_payables: false
+journals_011:
+  closed_on: 1992-11-16
+  code: OP
+  created_at: 2016-12-20 09:05:17.945307000 Z
+  creator_id: 1
+  currency: EUR
+  id: 11
+  lock_version: 0
+  name: Taxes
+  nature: various
+  updated_at: 2016-12-20 09:05:17.945307000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+  used_for_permanent_stock_inventory: false
+  used_for_tax_declarations: true
+  used_for_unbilled_payables: true
+journals_012:
+  closed_on: 1992-11-16
+  code: CR
+  created_at: 2014-11-05 12:13:12.680296000 Z
+  creator_id: 1
+  currency: USD
+  id: 12
+  lock_version: 1
+  name: Journal Comptable Reserve
+  nature: various
+  updated_at: 2014-11-05 12:29:44.520908000 Z
   updater_id: 1
   used_for_affairs: false
   used_for_gaps: false

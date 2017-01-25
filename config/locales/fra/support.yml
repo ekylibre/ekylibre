@@ -8,6 +8,9 @@ fra:
     human:
       false_class: "Faux"
       true_class: "Vrai"
+    polar:
+      false_class: "Non"
+      true_class: "Oui"
   date:
     abbr_day_names: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
     abbr_month_names: ["", "janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"]
@@ -68,9 +71,6 @@ fra:
     relative_distance_in_words:
       in_sometime: "dans %{distance}"
       sometime_ago: "il y a %{distance}"
-  general:
-    n: "Non"
-    y: "Oui"
   http:
     errors:
       internal_server_error:
@@ -106,12 +106,6 @@ fra:
       format:
         delimiter: ""
   rank: "n°%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Numéro de facture fournisseur"
-    required:
-      text: "Obligatoire"
   support:
     array:
       last_word_connector: " et "

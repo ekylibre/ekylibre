@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,32 +22,33 @@
 #
 # == Table: journal_entries
 #
-#  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4)   default(0.0), not null
-#  balance            :decimal(19, 4)   default(0.0), not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  financial_year_id  :integer
-#  id                 :integer          not null, primary key
-#  journal_id         :integer          not null
-#  lock_version       :integer          default(0), not null
-#  number             :string           not null
-#  printed_on         :date             not null
-#  real_balance       :decimal(19, 4)   default(0.0), not null
-#  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string           not null
-#  real_currency_rate :decimal(19, 10)  default(0.0), not null
-#  real_debit         :decimal(19, 4)   default(0.0), not null
-#  resource_id        :integer
-#  resource_prism     :string
-#  resource_type      :string
-#  state              :string           not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
+#  absolute_credit            :decimal(19, 4)   default(0.0), not null
+#  absolute_currency          :string           not null
+#  absolute_debit             :decimal(19, 4)   default(0.0), not null
+#  balance                    :decimal(19, 4)   default(0.0), not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credit                     :decimal(19, 4)   default(0.0), not null
+#  currency                   :string           not null
+#  debit                      :decimal(19, 4)   default(0.0), not null
+#  financial_year_exchange_id :integer
+#  financial_year_id          :integer
+#  id                         :integer          not null, primary key
+#  journal_id                 :integer          not null
+#  lock_version               :integer          default(0), not null
+#  number                     :string           not null
+#  printed_on                 :date             not null
+#  real_balance               :decimal(19, 4)   default(0.0), not null
+#  real_credit                :decimal(19, 4)   default(0.0), not null
+#  real_currency              :string           not null
+#  real_currency_rate         :decimal(19, 10)  default(0.0), not null
+#  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  resource_id                :integer
+#  resource_prism             :string
+#  resource_type              :string
+#  state                      :string           not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 ---
 journal_entries_001:
@@ -1813,7 +1814,7 @@ journal_entries_068:
   real_debit: 771.16
   resource_id: 44
   resource_type: LoanRepayment
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:32.694431000 Z
   updater_id: 1
 journal_entries_069:
@@ -2073,7 +2074,7 @@ journal_entries_078:
   real_debit: 771.16
   resource_id: 54
   resource_type: LoanRepayment
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:42.996943000 Z
   updater_id: 1
 journal_entries_079:
@@ -2129,30 +2130,30 @@ journal_entries_080:
   updated_at: 2016-10-04 07:17:54.436178000 Z
   updater_id: 1
 journal_entries_081:
-  absolute_credit: 20520.0
+  absolute_credit: 176.16
   absolute_currency: EUR
-  absolute_debit: 20520.0
+  absolute_debit: 176.16
   balance: 0.0
-  created_at: 2016-10-26 15:31:44.251316000 Z
+  created_at: 2016-10-01 14:43:02.598941000 Z
   creator_id: 1
-  credit: 20520.0
+  credit: 176.16
   currency: EUR
-  debit: 20520.0
-  financial_year_id: 26
+  debit: 176.16
+  financial_year_id: 25
   id: 88
-  journal_id: 6
-  lock_version: 2
-  number: CUN000003
-  printed_on: 2016-10-26
+  journal_id: 10
+  lock_version: 7
+  number: BNK000012
+  printed_on: 2015-08-28
   real_balance: 0.0
-  real_credit: 20520.0
+  real_credit: 176.16
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 20520.0
-  resource_id: 8
+  real_debit: 176.16
+  resource_id: 7
   resource_type: OutgoingPayment
   state: draft
-  updated_at: 2016-10-26 15:31:44.306561000 Z
+  updated_at: 2016-10-04 07:17:54.436178000 Z
   updater_id: 1
 journal_entries_082:
   absolute_credit: 447.12
@@ -2655,4 +2656,245 @@ journal_entries_100:
   resource_type: Gap
   state: draft
   updated_at: 2016-11-20 22:15:36.524128000 Z
+  updater_id: 1
+journal_entries_101:
+  absolute_credit: 12.0
+  absolute_currency: EUR
+  absolute_debit: 12.0
+  balance: 0.0
+  created_at: 2016-12-20 08:52:57.274027000 Z
+  creator_id: 1
+  credit: 12.0
+  currency: EUR
+  debit: 12.0
+  financial_year_id: 26
+  id: 108
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0017
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 12.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 12.0
+  resource_id: 1
+  resource_type: Regularization
+  state: draft
+  updated_at: 2016-12-20 08:52:57.322238000 Z
+  updater_id: 1
+journal_entries_102:
+  absolute_credit: 400.0
+  absolute_currency: EUR
+  absolute_debit: 400.0
+  balance: 0.0
+  created_at: 2016-12-20 08:54:01.476185000 Z
+  creator_id: 1
+  credit: 400.0
+  currency: EUR
+  debit: 400.0
+  financial_year_id: 26
+  id: 109
+  journal_id: 3
+  lock_version: 3
+  number: SAL000006
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 400.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 400.0
+  resource_id: 25
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2016-12-20 08:54:01.539473000 Z
+  updater_id: 1
+journal_entries_103:
+  absolute_credit: 63.25
+  absolute_currency: EUR
+  absolute_debit: 63.25
+  balance: 0.0
+  created_at: 2016-12-20 08:55:32.983759000 Z
+  creator_id: 1
+  credit: 63.25
+  currency: EUR
+  debit: 63.25
+  financial_year_id: 26
+  id: 110
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0018
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 63.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 63.25
+  resource_id: 2
+  resource_type: Regularization
+  state: draft
+  updated_at: 2016-12-20 08:55:33.030435000 Z
+  updater_id: 1
+journal_entries_104:
+  absolute_credit: 463.25
+  absolute_currency: EUR
+  absolute_debit: 463.25
+  balance: 0.0
+  created_at: 2016-12-20 08:58:53.047477000 Z
+  creator_id: 1
+  credit: 463.25
+  currency: EUR
+  debit: 463.25
+  financial_year_id: 26
+  id: 111
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0019
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 463.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 463.25
+  resource_id: 10
+  resource_prism: waiting_incoming_payment
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2016-12-20 08:58:53.121152000 Z
+  updater_id: 1
+journal_entries_105:
+  absolute_credit: 4878.72
+  absolute_currency: EUR
+  absolute_debit: 4878.72
+  balance: 0.0
+  created_at: 2016-12-20 18:16:13.206799000 Z
+  creator_id: 1
+  credit: 4878.72
+  currency: EUR
+  debit: 4878.72
+  financial_year_id: 26
+  id: 112
+  journal_id: 4
+  lock_version: 3
+  number: PUR000006
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 4878.72
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 4878.72
+  resource_id: 16
+  resource_prism: purchase
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-12-20 18:16:13.284270000 Z
+  updater_id: 1
+journal_entries_106:
+  absolute_credit: 4878.72
+  absolute_currency: EUR
+  absolute_debit: 4878.72
+  balance: 0.0
+  created_at: 2016-12-20 18:16:17.958778000 Z
+  creator_id: 1
+  credit: 4878.72
+  currency: EUR
+  debit: 4878.72
+  financial_year_id: 26
+  id: 113
+  journal_id: 1
+  lock_version: 3
+  number: XYZ0020
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 4878.72
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 4878.72
+  resource_id: 7
+  resource_prism: purchase_gap
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-12-20 18:16:18.028603000 Z
+  updater_id: 1
+journal_entries_107:
+  absolute_credit: 489.75
+  absolute_currency: EUR
+  absolute_debit: 489.75
+  balance: 0.0
+  created_at: 2016-12-20 18:17:05.059294000 Z
+  creator_id: 1
+  credit: 489.75
+  currency: EUR
+  debit: 489.75
+  financial_year_id: 26
+  id: 114
+  journal_id: 4
+  lock_version: 3
+  number: PUR000007
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 489.75
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 489.75
+  resource_id: 17
+  resource_prism: purchase
+  resource_type: Purchase
+  state: draft
+  updated_at: 2016-12-20 18:17:05.120912000 Z
+  updater_id: 1
+journal_entries_108:
+  absolute_credit: 500.0
+  absolute_currency: EUR
+  absolute_debit: 500.0
+  balance: 0.0
+  created_at: 2016-12-20 18:17:18.708971000 Z
+  creator_id: 1
+  credit: 500.0
+  currency: EUR
+  debit: 500.0
+  financial_year_id: 26
+  id: 115
+  journal_id: 2
+  lock_version: 2
+  number: BNK000014
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 500.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 500.0
+  resource_id: 10
+  resource_prism: outgoing_payment
+  resource_type: OutgoingPayment
+  state: draft
+  updated_at: 2016-12-20 18:17:18.749377000 Z
+  updater_id: 1
+journal_entries_109:
+  absolute_credit: 10.25
+  absolute_currency: EUR
+  absolute_debit: 10.25
+  balance: 0.0
+  created_at: 2016-12-20 18:17:24.077584000 Z
+  creator_id: 1
+  credit: 10.25
+  currency: EUR
+  debit: 10.25
+  financial_year_id: 26
+  id: 116
+  journal_id: 1
+  lock_version: 2
+  number: XYZ0021
+  printed_on: 2016-12-20
+  real_balance: 0.0
+  real_credit: 10.25
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 10.25
+  resource_id: 8
+  resource_prism: purchase_gap
+  resource_type: Gap
+  state: draft
+  updated_at: 2016-12-20 18:17:24.123512000 Z
   updater_id: 1

@@ -1,0 +1,60 @@
+- if @worked_on
+  :ruby
+    intervention_participations = current_user.intervention_participations.includes(:crumbs).unprompted.on(@worked_on)
+
+    crumbs_serie = intervention_participations.collect do |intervention_participation|
+      name = :intervention_at.tl(intervention: intervention_participation.human_name, at: intervention_participation.created_at.l)
+
+      intervention_participation.unconverted_crumbs.collect do |crumb|
+        popup_content = []
+
+        unless name.blank?
+          popup_content << {label: name}
+        end
+        unless crumb.point?
+          popup_content << { label: Crumb.human_attribute_name(:nature), value: crumb.nature }
+        end
+        popup_content << { label: Crumb.human_attribute_name(:read_at), value: crumb.read_at.l }
+        unless crumb.start? or crumb.stop?
+          popup_content << render('form', crumb: crumb)
+        end
+        {
+          name:         name,
+          shape:        crumb.geolocation,
+          popup:        {content: popup_content},
+          read_at:      crumb.read_at,
+          crumb_id:     crumb.id,
+        }
+      end
+    end.flatten.compact
+
+    supports = []
+
+    if intervention_participations.any? and crumbs_serie.any?
+      crumbs = Crumb.where(id: crumbs_serie.collect{|k| k[:crumb_id]})
+      supports = ActivityProduction.of_crumbs(crumbs, campaigns: [current_campaign]).collect do |production|
+        {activity: production.activity_name, shape: (production.support_shape ? production.support_shape : nil), shapeColor: production.color, opacity: 0.8}
+      end
+    end
+
+  = kujaku do |k|
+    - k.needle_choice current_user.intervention_participations.unprompted.pluck(:created_at).map(&:to_date).uniq.map{ |d| [d.l, d] }, name: :worked_on, selected: @worked_on
+
+  - if crumbs_serie.any?
+    = visualization do |v|
+      - if supports.any?
+        - v.serie :production_supports, supports
+        - v.categories :activity, :production_supports
+      - v.serie :crumbs, crumbs_serie
+      - v.paths :name, :crumbs, label: Intervention.model_name.human
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+  - if intervention_participations.any?
+    = cobbles do |c|
+      - intervention_participations.each_with_index do |intervention_participation, index|
+        - c.cobble "intervention_#{index}".to_sym, title: intervention_participation.qualified_human_name do
+          = render 'intervention', participation: intervention_participation
+  - else
+    = :no_intervention_participations_to_check.tl

@@ -37,7 +37,6 @@ arb:
       events: "أحداث"
       exports: "صادرات"
       financial_years: "السنوات المالية"
-      first_run: "الجولة الأولى"
       fixed_assets: "أصول ثابتة"
       fungi: "الفطريات"
       gaps: "ثغرات"
@@ -61,7 +60,8 @@ arb:
       listings: "قوائم"
       loans: "القروض"
       manure_management_plans: "خطط إدارة السماد"
-      map_backgrounds: "خلفيات خريطة"
+      map_backgrounds: "خلفيات خريطة" #?
+      map_layers: "طبقات الخرائط"
       matters: "المسائل"
       # myselves: "Myselves"
       net_services: "صافي الخدمات"

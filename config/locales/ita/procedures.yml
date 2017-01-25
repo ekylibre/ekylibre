@@ -1,9 +1,10 @@
 ita:
-  killables:
-    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
-    # is_plant_destroyed_by_this_issue: "Is plant destroyed by this issue ?"
   procedure_handlers:
     stakes_by_hectare: "Stakes per ettaro"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "È coltivazione completamente distrutta da un intervento?"
+    is_it_completely_destroyed_by_intervention: "E ’questo completamente distrutta da un intervento?"
+    is_plant_completely_destroyed_by_intervention: "È a pianta completamente distrutta da un intervento?"
   procedure_parameters:
     adding_wine: "L'aggiunta di vino"
     animal: "Animale"
@@ -116,6 +117,7 @@ ita:
     tool: "Strumento"
     # topper: "Topper"
     tractor: "Trattore"
+    trailed_equipment: "Attrezzature trainati"
     # trailer: "Trailer"
     # tunnel: "Tunnel"
     # tunnel_implanter: "Tunnel implanter"
@@ -135,6 +137,7 @@ ita:
     worker: "Lavoratore"
     zone: "Zona"
   procedures:
+    administrative_tasks: "Funzioni amministrative"
     all_in_one_sowing: "Tutto in uno semina"
     animal_antibiotic_treatment: "trattamento antibiotico degli animali"
     animal_artificial_insemination: "fecondazione artificiale degli animali"
@@ -162,12 +165,15 @@ ita:
     greenhouse_assembling: "serra assemblaggio"
     ground_destratification: "destratificazione terra"
     hand_weeding: "diserbo a mano"
+    handling: "Maneggio"
     harvest_transportation: "Trasporto Harvest"
     harvesting: "Raccolta"
     hilling: "ridging"
     hilling_for_sifting: "Hilling per setacciatura"
     # hoeing: "Hoeing"
+    housing_soil_disinfection: "Disinfezione del terreno Housing"
     indirect_silage: "insilato indiretta"
+    installation_maintenance: "Installazione manutenzione"
     inter_row_hoeing: "Inter-fila zappatura"
     land_parcel_grinding: "macinazione delle parcelle agricole"
     lifting: "sollevamento"

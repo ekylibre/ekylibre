@@ -210,6 +210,10 @@ cmn:
     backend/exports:
       index: "出口"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "会计年度进口交流"
+      new: "新交易所"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       # close: "Close financial year: %{code}"
       compute_balances: "计算财政年度平衡"
@@ -280,6 +284,9 @@ cmn:
       # edit: "Edit integration: %{name}"
       index: "集成"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "干预参股"
     backend/interventions:
       edit: "编辑"
       edit_request: "编辑请求"
@@ -353,10 +360,17 @@ cmn:
       index: "粪便管理计划"
       new: "新的粪便管理计划"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "地图背景"
-      new: "新地图背景"
+    backend/map_backgrounds: #?
+      index: "地图背景" #?
+      new: "新地图背景" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "地图图层"
+      # load: "Load map layer: %{name}"
+      new: "新建图层"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事项"
@@ -376,6 +390,7 @@ cmn:
       new: "新观察"
     backend/outgoing_payment_lists:
       index: "汇出款项批名单"
+      new: "新的付款清单"
       show: "汇出款项批"
     backend/outgoing_payment_modes:
       edit: "编辑付款方式"
@@ -460,6 +475,10 @@ cmn:
       propose_and_invoice: "直接发票"
       refuse: "为了拒绝"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_purchases:
+      new: "新的采购/付款"
+    backend/quick_sales:
+      new: "新的销售/收款"
     backend/registrations:
       edit: "编辑注册"
       index: "注册"
@@ -664,7 +683,10 @@ cmn:
     accounts: "帐号"
     accounts_only_used_at: "账户仅用于在"
     accounts_to_load: "账户加载"
+    activate_entry_autocompletion: "激活自动完成入口"
     active: "活性"
+    active_finishing_after: "后主动整理"
+    active_finishing_within: "在活动结束"
     activities: "活动"
     activity: "活动"
     activity_production: "生产活动"
@@ -718,6 +740,7 @@ cmn:
     add_purchase_taxation: "添加购买税收"
     add_quickly_an_item: "添加快速线产品"
     add_reading: "添加值的指标"
+    add_regularization: "添加正规化"
     add_revenue: "添加收入"
     add_sale: "添加销售"
     add_sale_taxation: "添加销售税收"
@@ -770,6 +793,7 @@ cmn:
     average: "平均"
     back: "回到以前的页"
     balance: "平衡"
+    balance_of_selection: "选择平衡"
     bank_account: "银行账户"
     bank_statement_number: "银行对账单号"
     bank_statements: "银行对账单"
@@ -852,6 +876,7 @@ cmn:
     costs: "成本"
     costs_map: "成本地图" #?
     costs_per_hectare: "每公顷成本"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     # countings: "Countings"
     counts: "计数"
     counts_by_nature: "文档每个类型账户号码"
@@ -875,10 +900,13 @@ cmn:
     cultivable_zone: "可种植区"
     cultivable_zones: "可种植区"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
+    currency_conversion_rate: "货币转化率"
     current: "当前"
     current_cultivation: "目前种植"
     current_stocks_by_variety: "目前的库存按品种"
+    currently_subscribed_to: "目前订阅"
     custom_fields: "自定义字段"
+    # dated_cash: "%{cash}: %{on}"
     dates: "选择期限起始日期和周期的最后一天"
     days: "天"
     deals: "优惠"
@@ -970,6 +998,8 @@ cmn:
     # example: "Example: %{value}"
     exchange: "交换"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "交易所"
+    existing: "现有"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "开支"
@@ -1014,6 +1044,7 @@ cmn:
     harvested_at: "在收获"
     help: "帮帮我"
     help_center: "帮助中心"
+    hide_lettered_lines: "隐藏字母线"
     # hint: "Hint: %{value}"
     historic: "历史性"
     home: "家"
@@ -1059,6 +1090,8 @@ cmn:
     inventories: "存货"
     inventory: "库存"
     invitation_status: "状态"
+    invoice_status: "发票状态"
+    invoiced: "已开发票"
     invoiced_amount: "销售发票金额" #?
     invoices: "发票"
     is: "是"
@@ -1072,14 +1105,14 @@ cmn:
     journal_entries_states: "项国"
     journal_entry_items: "日记条目项目"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "参赛作品"
@@ -1106,6 +1139,7 @@ cmn:
     last_purchases: "上次购买"
     last_sales: "去年销售"
     letter: "信"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "线性选项"
     link: "链接"
@@ -1175,13 +1209,16 @@ cmn:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "新邮件"
+    new_financial_year_exchange: "新交易所"
     new_group: "新建组"
     new_incoming_parcel: "新进​​入的包裹"
+    new_incoming_payment: "新的收款"
     new_inventory: "新的库存"
     new_issue: "新问题"
     new_listing: "新品上市"
     new_organization: "新组织"
     new_outgoing_parcel: "新传出的包裹"
+    new_outgoing_payment: "新付款"
     new_production: "新的生产"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新报价"
@@ -1192,6 +1229,7 @@ cmn:
     no_crumbs_to_check: "无屑检查"
     no_data: "没有数据"
     no_deposits: "没有存款"
+    no_intervention_participations_to_check: "不干预参股检查"
     no_notifications: "没有通知"
     no_particular_periods: "无特殊时期"
     no_products: "没有产品"
@@ -1202,6 +1240,7 @@ cmn:
     none: "无"
     normal: "正常"
     not_delivered: "没送到"
+    not_letterable: "不能信"
     not_ready: "没有准备好"
     not_received: "没收到"
     now: "现在"
@@ -1283,6 +1322,7 @@ cmn:
     # printing_document: "Printing %{document}"
     procedures: "程序"
     product: "产品"
+    product_account_number: "产品帐号"
     product_category: "产品分类"
     product_name: "产品名称"
     product_natures: "产品类型"
@@ -1312,7 +1352,6 @@ cmn:
     ready_to_harvest: "准备收获"
     received: "收到"
     recent_events: "最近发生的事件"
-    reconciled_total: "不甘心总"
     record: "记录"
     record_maintenance: "维修记录"
     reflect: "反映"
@@ -1342,7 +1381,7 @@ cmn:
     rest: "休息"
     restore: "恢复"
     result: "结果"
-    results:  #?
+    results: #?
       one: "1结果" #?
     revenues: "收入"
     revenues_by_product_nature: "按产品类型的收入"
@@ -1363,12 +1402,14 @@ cmn:
     # same_variant_as_x: "Same variant as %{x}"
     save: "保存"
     save_in_draft: "保存为草稿"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "计划"
     search: "搜索"
     search_placeholder: "搜索…"
     # section_x: "Section %{x}"
     see_details: "查看具体信息"
     see_more_details: "查看更多详情"
+    select_a_journal: "选择日记"
     select_closure_date: "选择截止日期"
     select_columns: "选择列"
     select_date: "选择日期"
@@ -1427,6 +1468,8 @@ cmn:
     synthesis: "合成"
     target: "目标"
     tasks: "任务"
+    tax_declarations: "纳税申报"
+    tax_label: "税务标签"
     taxations: "税费"
     taxes: "税"
     thumb: "拇指"
@@ -1510,6 +1553,7 @@ cmn:
     undelivered: "未送达"
     undelivered_invoices: "未交付发票"
     undone: "未完成"
+    uninvoiced: "未开具发票"
     unit: "单元"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "未知"
@@ -1556,6 +1600,9 @@ cmn:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1622,6 +1669,9 @@ cmn:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1705,6 +1755,8 @@ cmn:
       warning: "警告！"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "会计师已通知"
+      accountant_without_email: "请设置会计电子邮件"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "所有包裹必须开发票和同一性质和第三位"
       all_purchases_must_be_ordered_or_invoiced: "所有购买必须订购或开具发票。"
       bookkeeping_is_finished: "商业数据传送已完成。"
@@ -1717,6 +1769,7 @@ cmn:
       cannot_merge_entities: "这是不可能合并这些人。"
       changes_have_been_reflected: "这些变化已经反映在股票的状态"
       changes_have_not_been_reflected: "这些变化尚未反映在股票的状态"
+      closed_financial_year_exchange: "财政年度交换已经成功关闭"
       closed_financial_years: "本财政年度已圆满闭幕"
       columns_are_already_uses: "一个或多个列选择多次"
       dashboard_is_being_developed: "仪表板仍处于开发状态"
@@ -1740,8 +1793,10 @@ cmn:
       integrate_tools_you_are_using_every_day: "整合您每天都在使用的工具"
       invalid_reference_name: "无效的参考名称"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "该日记条目已导入。"
       journal_entry_already_validated: "在记录已被验证，并且不能改变"
-      # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "这些电子邮件被送到"
@@ -1764,6 +1819,7 @@ cmn:
       no_payment_to_deposit: "有没有支付存款"
       no_production_defined_for_current_campaign: "没有当前活动定义生产"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "没有生产中。您可以添加新的或复制一些从以前的运动。"
+      no_purchase_affair_found_on_given_period: "没有在一定时期内购买找到外遇"
       no_purchases_given: "没有给出购买"
       no_reopenable_journal: "你不能重新打开该杂志。"
       no_replacements_since_beginning: "年初以来没有更换"
@@ -1859,6 +1915,8 @@ cmn:
       increment: "增量" #?
       index: "指数"
       invoice: "发票"
+      journal_entries_csv_export: "下载CSV"
+      journal_entries_import: "导入CSV"
       list: "名单"
       load: "加载"
       lock: "锁"
@@ -1869,9 +1927,13 @@ cmn:
       move: "移动" #?
       # negociate: "Negociate"
       new: "新"
+      new_purchase: "新购"
+      new_sale: "新发售"
+      notify_accountant: "通知会计师"
       open: "打开"
       order: "订购"
       pay: "工资"
+      payment_gap: "支付缺口"
       payment_mode: "付款方式"
       pick: "挑"
       picture: "图片"
@@ -1912,6 +1974,12 @@ cmn:
       update: "更新"
       update_password: "更新密码" #?
       win: "赢得"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "供应商发票号"
+    required:
+      text: "需要"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

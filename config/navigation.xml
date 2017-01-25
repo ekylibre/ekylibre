@@ -117,12 +117,16 @@
         <page to="backend/journal_entries#update"/>
         <page to="backend/journal_entries#index"/>
         <page to="backend/journal_entries#list"/>
+        <page to="backend/journal_entries#toggle_autocompletion"/>
         <page to="backend/journal_entries#unroll"/>
         <page to="backend/journal_entry_items#new"/>
         <page to="backend/journal_entry_items#index"/>
         <page to="backend/journal_entry_items#list"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
+        <page to="backend/regularizations#create"/>
+        <page to="backend/regularizations#destroy"/>
+        <page to="backend/regularizations#show"/>
       </item>
       <item name="draft">
         <page to="backend/draft_journals#show"/>
@@ -167,7 +171,6 @@
         <page to="backend/tax_declarations#destroy"/>
         <page to="backend/tax_declarations#edit"/>
         <page to="backend/tax_declarations#list"/>
-        <page to="backend/tax_declarations#list_items"/>
         <page to="backend/tax_declarations#confirm"/>
         <page to="backend/tax_declarations#propose"/>
         <page to="backend/tax_declarations#new"/>
@@ -203,6 +206,17 @@
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#reconciliation"/>
         <page to="backend/bank_statements#import"/>
+        <page to="backend/bank_reconciliation_gaps#create"/>
+        <page to="backend/quick_affairs#create"/>
+        <page to="backend/quick_affairs#new"/>
+        <page to="backend/quick_purchases#new"/>
+        <page to="backend/quick_purchases#create"/>
+        <page to="backend/quick_sales#new"/>
+        <page to="backend/quick_sales#create"/>
+        <page to="backend/bank_statements#letter"/>
+        <page to="backend/bank_statements#unletter"/>
+        <page to="backend/bank_statement_items#create"/>
+        <page to="backend/bank_statement_items#destroy"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -438,6 +452,8 @@
         <page to="backend/outgoing_payment_lists#show"/>
         <page to="backend/outgoing_payment_lists#export_to_sepa"/>
         <page to="backend/outgoing_payment_lists#list_payments"/>
+        <page to="backend/outgoing_payment_lists#create"/>
+        <page to="backend/outgoing_payment_lists#new"/>
       </item>
     </group>
   </part>
@@ -646,11 +662,9 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
-        <page to="backend/plant_density_abaci#index"/>
         <page to="backend/plant_density_abaci#create"/>
         <page to="backend/plant_density_abaci#destroy"/>
         <page to="backend/plant_density_abaci#edit"/>
-        <page to="backend/plant_density_abaci#list"/>
         <page to="backend/plant_density_abaci#new"/>
         <page to="backend/plant_density_abaci#show"/>
         <page to="backend/plant_density_abaci#update"/>
@@ -724,6 +738,10 @@
         <page to="backend/crumbs#update"/>
         <page to="backend/crumbs#convert"/>
         <page to="backend/crumbs#destroy"/>
+        <page to="backend/intervention_participations#index"/>
+        <page to="backend/intervention_participations#convert"/>
+        <page to="backend/intervention_participations#destroy"/>
+        <page to="backend/intervention_participations#update"/>
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#create"/>
         <page to="backend/prescriptions#destroy"/>
@@ -1105,17 +1123,17 @@
         <page to="backend/identifiers#show"/>
         <page to="backend/identifiers#update"/>
       </item>
-      <item name="map_backgrounds">
-        <page to="backend/map_backgrounds#index"/>
-        <page to="backend/map_backgrounds#create"/>
-        <page to="backend/map_backgrounds#destroy"/>
-        <page to="backend/map_backgrounds#new"/>
-        <page to="backend/map_backgrounds#update"/>
-        <page to="backend/map_backgrounds#edit"/>
-        <page to="backend/map_backgrounds#load"/>
-        <page to="backend/map_backgrounds#show"/>
-        <page to="backend/map_backgrounds#star"/>
-        <page to="backend/map_backgrounds#toggle"/>
+      <item name="map_layers">
+        <page to="backend/map_layers#index"/>
+        <page to="backend/map_layers#create"/>
+        <page to="backend/map_layers#destroy"/>
+        <page to="backend/map_layers#new"/>
+        <page to="backend/map_layers#update"/>
+        <page to="backend/map_layers#edit"/>
+        <page to="backend/map_layers#load"/>
+        <page to="backend/map_layers#show"/>
+        <page to="backend/map_layers#star"/>
+        <page to="backend/map_layers#toggle"/>
       </item>
       <item name="labels">
         <page to="backend/labels#index"/>
@@ -1277,11 +1295,20 @@
         <page to="backend/financial_years#generate_last_journal_entry"/>
         <page to="backend/financial_years#list"/>
         <page to="backend/financial_years#list_account_balances"/>
+        <page to="backend/financial_years#list_exchanges"/>
         <page to="backend/financial_years#list_fixed_asset_depreciations"/>
         <page to="backend/financial_years#new"/>
         <page to="backend/financial_years#show"/>
         <page to="backend/financial_years#unroll"/>
         <page to="backend/financial_years#update"/>
+        <page to="backend/financial_year_exchanges#new"/>
+        <page to="backend/financial_year_exchanges#create"/>
+        <page to="backend/financial_year_exchanges#list_journal_entries"/>
+        <page to="backend/financial_year_exchanges#show"/>
+        <page to="backend/financial_year_exchanges#journal_entries_export"/>
+        <page to="backend/financial_year_exchanges#journal_entries_import"/>
+        <page to="backend/financial_year_exchanges#notify_accountant"/>
+        <page to="backend/financial_year_exchanges#close"/>
       </item>
       <item name="taxes">
         <page to="backend/taxes#index"/>
@@ -1565,6 +1592,12 @@
     </group>
   </part>
   <inaccessible-actions>
+    <group name="public">
+      <item name="financial_year_exchange_exports">
+        <page to="public/financial_year_exchange_exports#csv"/>
+        <page to="public/financial_year_exchange_exports#show"/>
+      </item>
+    </group>
     <group>
       <item name="georeadings">
         <page to="backend/georeadings#index"/>
@@ -1828,7 +1861,6 @@
         <page to="backend/notifications#index"/>
         <page to="backend/notifications#destroy"/>
         <page to="backend/notifications#show"/>
-        <page to="backend/notifications#unread"/>
       </item>
     </group>
     <group>
@@ -1837,6 +1869,10 @@
       </item>
     </group>
     <group>
+      <item name="contacts">
+        <page to="api/v1/contacts#index"/>
+        <page to="api/v1/contacts#picture"/>
+      </item>
       <item name="crumbs">
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
@@ -1846,6 +1882,9 @@
       </item>
       <item name="intervention_participations">
         <page to="api/v1/intervention_participations#create"/>
+      </item>
+      <item name="intervention_targets">
+        <page to="api/v1/intervention_targets#show"/>
       </item>
       <item name="issues">
         <page to="api/v1/issues#index"/>

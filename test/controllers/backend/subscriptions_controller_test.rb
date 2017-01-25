@@ -20,6 +20,6 @@
 require 'test_helper'
 module Backend
   class SubscriptionsControllerTest < ActionController::TestCase
-    test_restfully_all_actions show: :redirected_get
+    test_restfully_all_actions
   end
 end

@@ -12,8 +12,7 @@ module Backend
         t.column :purchase, url: { controller: '/backend/purchases' }, hidden: true
       end
 
-      def show
-      end
+      def show; end
     end
   end
 end

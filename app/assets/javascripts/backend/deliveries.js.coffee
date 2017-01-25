@@ -66,8 +66,12 @@
 
                   if $(this).is ":ui-selector"
                     $(this).selector("value", newVal)
-                  else
+                  else if $(this).is "input"
                     $(this).val(newVal)
+                  else
+                    $(this).html(newVal)
+
+                  $(this).trigger 'change'
 
                   if typeof newVal == "string"
                     element = $(@)

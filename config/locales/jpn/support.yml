@@ -8,6 +8,9 @@ jpn:
     human:
       false_class: "偽"
       true_class: "本当"
+    polar:
+      false_class: "はい"
+      true_class: "いいえ"
   date:
     abbr_day_names: ["日", "月", "火", "水", "木", "金", "土"]
     abbr_month_names: ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"]
@@ -66,9 +69,6 @@ jpn:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  general:
-    # n: "No"
-    # y: "Yes"
   http:
     errors:
       internal_server_error:
@@ -93,7 +93,7 @@ jpn:
       delimiter: ","
       precision: 3
       separator: "."
-    formats:  #?
+    formats: #?
       JPY: #?
         unit: "円" #?
     human:
@@ -107,12 +107,6 @@ jpn:
       format:
         delimiter: ""
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "サプライヤーの請求書番号"
-    required:
-      text: "必須"
   support:
     array:
       last_word_connector: "と"

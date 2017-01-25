@@ -8,6 +8,9 @@ arb:
     human:
       false_class: "كاذب"
       true_class: "صحيح"
+    polar:
+      false_class: "نعم فعلا"
+      true_class: "لا"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
@@ -110,9 +113,6 @@ arb:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  general:
-    # n: "No"
-    # y: "Yes"
   http:
     errors:
       internal_server_error:
@@ -148,12 +148,6 @@ arb:
       format:
         delimiter: ""
   # rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "رقم الفاتورة المورد"
-    required:
-      text: "مطلوب"
   support:
     array:
       last_word_connector: " و "

@@ -31,19 +31,11 @@ module Backend
       t.column :created_at
       t.column :started_on
       t.column :stopped_on
-      t.column :deductible_tax_amount_balance
-      t.column :collected_tax_amount_balance
+      t.column :deductible_tax_amount_balance, hidden: true
+      t.column :collected_tax_amount_balance, hidden: true
+      t.column :global_balance
       t.column :description, hidden: true
       t.status
-    end
-
-    list(:items, model: :tax_declaration_items, conditions: { tax_declaration_id: 'params[:id]'.c }) do |t|
-      t.column :tax, url: true
-      t.column :deductible_tax_amount, currency: true
-      t.column :deductible_pretax_amount, currency: true
-      t.column :collected_tax_amount, currency: true
-      t.column :collected_pretax_amount, currency: true
-      t.column :balance, currency: true
     end
 
     # Displays details of one tax declaration selected with +params[:id]+

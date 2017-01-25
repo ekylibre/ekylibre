@@ -1,9 +1,10 @@
 cmn:
-  killables:
-    # is_plant_destroyed_by_this_intervention: "Is plant destroyed by this intervention ?"
-    # is_plant_destroyed_by_this_issue: "Is plant destroyed by this issue ?"
   procedure_handlers:
     stakes_by_hectare: "通过公顷锦标"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "就是修炼完全被摧毁的干预？"
+    is_it_completely_destroyed_by_intervention: "这是完全被摧毁的干预？"
+    is_plant_completely_destroyed_by_intervention: "是植物完全被破坏的干预？"
   procedure_parameters:
     adding_wine: "添加酒"
     animal: "动物"
@@ -116,6 +117,7 @@ cmn:
     tool: "工具"
     topper: "礼帽"
     tractor: "拖拉机"
+    trailed_equipment: "牵引设备"
     trailer: "拖车"
     tunnel: "隧道"
     tunnel_implanter: "隧道注入"
@@ -135,6 +137,7 @@ cmn:
     worker: "工人"
     zone: "区"
   procedures:
+    administrative_tasks: "管理任务"
     all_in_one_sowing: "在一个播种"
     animal_antibiotic_treatment: "动物抗生素治疗"
     animal_artificial_insemination: "动物人工授精"
@@ -162,12 +165,15 @@ cmn:
     greenhouse_assembling: "温室组装"
     ground_destratification: "地面去层理作用"
     hand_weeding: "手工除草"
+    handling: "处理"
     harvest_transportation: "嘉实交通"
     harvesting: "收获"
     hilling: "培土"
     hilling_for_sifting: "培土的筛选"
     hoeing: "锄"
+    housing_soil_disinfection: "房屋土壤消毒"
     indirect_silage: "间接青贮"
+    installation_maintenance: "安装维修"
     inter_row_hoeing: "行间锄"
     land_parcel_grinding: "地块磨"
     lifting: "吊装"

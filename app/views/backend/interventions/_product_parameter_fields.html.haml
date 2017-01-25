@@ -3,12 +3,12 @@
 .nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
   = link_to_remove_nested_association(:destroy.ta, f)
   = f.input :reference_name, as: :hidden
-  - started_at = Time.now
   - if f.object.intervention
     - if f.object.intervention.started_at
       - started_at = f.object.intervention.started_at
     - else
       - started_at = f.object.intervention.working_periods.map(&:started_at).min
+  - started_at ||= Time.now
   - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
@@ -46,7 +46,7 @@
       plants = Charta.new_collection(plants).to_json_object(true)
     = f.geometry :working_zone, { input_html: { data: { intervention_updater: prefix + 'working_zone' }}, show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }} }
   - if reference.attribute(:killable)
-    = f.yes_no_radio :dead, label: "is_#{reference.name.to_s}_destroyed_by_this_intervention".t(scope:[:killables])
+    = f.yes_no_radio :dead, label: reference.killable_question
   - if reference.component_of?
     = render 'component_field', f: f, reference: reference, prefix: prefix
 

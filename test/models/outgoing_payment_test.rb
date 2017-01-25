@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,6 +41,7 @@
 #  number            :string
 #  paid_at           :datetime
 #  payee_id          :integer          not null
+#  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -51,5 +52,14 @@ require 'test_helper'
 
 class OutgoingPaymentTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'create without mode' do
+    outgoing_payment = OutgoingPayment.new(
+      amount: 56,
+      payee: Entity.suppliers.first,
+      delivered: true
+    )
+    # Should not save without exception raise
+    refute outgoing_payment.save
+  end
 end

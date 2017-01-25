@@ -25,6 +25,8 @@ I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
 Ekylibre::Tenant.setup!('sekindovall')
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
+FactoryGirl.find_definitions
+
 class FixtureRetriever
   ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth).freeze
   @@truc = {}
@@ -88,6 +90,8 @@ end
 
 module ActiveSupport
   class TestCase
+    include FactoryGirl::Syntax::Methods
+
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
@@ -642,6 +646,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     file = Rails.root.join('tmp', 'screenshots', "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     wait_for_ajax
+    page.save_screenshot(file)
     save_page file.to_s.gsub(/\.png\z/, '.html')
     # , full: true
   end

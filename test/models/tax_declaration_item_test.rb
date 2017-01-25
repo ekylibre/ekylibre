@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,6 +34,8 @@
 #  fixed_asset_deductible_pretax_amount :decimal(19, 4)   default(0.0), not null
 #  fixed_asset_deductible_tax_amount    :decimal(19, 4)   default(0.0), not null
 #  id                                   :integer          not null, primary key
+#  intracommunity_payable_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  intracommunity_payable_tax_amount    :decimal(19, 4)   default(0.0), not null
 #  lock_version                         :integer          default(0), not null
 #  tax_declaration_id                   :integer          not null
 #  tax_id                               :integer          not null

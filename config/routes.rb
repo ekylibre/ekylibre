@@ -87,13 +87,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
+      resources :contacts, only: [:index] do
+        match 'picture(/:style)', via: :get, action: :picture, as: :picture
+      end
       resources :crumbs
       resources :interventions, only: [:index]
+      resources :intervention_participations, only: [:create]
+      resources :intervention_targets, only: [:show]
       resources :issues
       resources :plant_density_abaci
       resources :plant_countings
       resources :plants
-      resources :intervention_participations, only: [:create]
     end
   end
 
@@ -258,16 +262,21 @@ Rails.application.routes.draw do
     resources :attachments, only: [:show, :create, :destroy]
 
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
+      resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
+      resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
+
       collection do
         get :list_items
         match :import, via: [:get, :post]
       end
       member do
-        match :reconciliation, via: [:get, :post]
+        get  :reconciliation
+        put   :letter
+        patch :letter
+        put   :unletter
+        patch :unletter
       end
     end
-
-    resources :bank_statement_items, only: [:new]
 
     resources :beehives, only: [:update] do
       member do
@@ -473,16 +482,22 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
+        get :list_exchanges
+      end
+    end
+
+    resources :financial_year_exchanges, concerns: [:list], path: 'financial-year-exchanges', only: [:new, :create, :show] do
+      member do
+        get :list_journal_entries
+        get :journal_entries_export
+        get :journal_entries_import
+        post :journal_entries_import
+        get :notify_accountant
+        get :close
       end
     end
 
     resources :fungi, concerns: :products
-
-    # resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
-    #   member do
-    #     get :list_items
-    #   end
-    # end
 
     resource :general_ledger, only: [:show], path: 'general-ledger' do
       member do
@@ -551,6 +566,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :intervention_participations, only: [:index, :update, :destroy] do
+      member do
+        post :convert
+      end
+    end
+
     resources :inventories, concerns: [:list, :unroll] do
       member do
         post :reflect
@@ -592,6 +613,9 @@ Rails.application.routes.draw do
       member do
         get :list_items
       end
+      collection do
+        patch :toggle_autocompletion, path: 'toggle-autocompletion'
+      end
     end
 
     resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
@@ -630,7 +654,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :map_backgrounds do
+    resources :map_layers, path: 'map-layers' do
       collection do
         post :load
       end
@@ -658,7 +682,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:show, :index, :destroy] do
       collection do
         delete :destroy
-        get :unread
+        get :unread, action: :index, mode: :unread
       end
     end
 
@@ -666,7 +690,7 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
-    resources :outgoing_payment_lists, only: [:index, :show, :destroy], concerns: [:list] do
+    resources :outgoing_payment_lists, only: [:index, :show, :destroy, :new, :create], concerns: [:list] do
       member do
         get :list_payments
         get :export_to_sepa
@@ -697,7 +721,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
+    resources :plant_density_abaci, except: [:index], path: 'plant-density-abaci'
 
     resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'
 
@@ -783,6 +807,11 @@ Rails.application.routes.draw do
         post :refuse
       end
     end
+
+    resources :quick_purchases, only: [:new, :create], path: 'quick-purchases'
+    resources :quick_sales,     only: [:new, :create], path: 'quick-sales'
+
+    resources :regularizations
 
     resources :roles, concerns: [:incorporate, :list, :unroll] do
       member do
@@ -932,7 +961,6 @@ Rails.application.routes.draw do
 
     resources :tax_declarations, concerns: [:list, :unroll], path: 'tax-declarations' do
       member do
-        get :list_items
         post :propose
         post :confirm
       end
@@ -956,6 +984,12 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
+  end
+
+  namespace :public do
+    resources :financial_year_exchange_exports, path: 'financial-year-exchange-exports', only: [:show] do
+      get :csv, on: :member
+    end
   end
 
   root to: 'public#index'

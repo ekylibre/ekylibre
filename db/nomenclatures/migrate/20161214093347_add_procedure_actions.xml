@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add procedure actions">
+  <item-creation item="procedure_actions#handling"/>
+  <item-creation item="procedure_actions#administrative"/>
+  <item-creation item="procedure_actions#installation_maintenance"/>
+  <item-creation item="procedure_actions#installation_cleaning"/>
+  <item-creation item="procedure_actions#installation_construction"/>
+  <item-creation item="procedure_actions#installation_renovation"/>
+  <item-creation item="procedure_actions#installation_repairing"/>
+</migration>

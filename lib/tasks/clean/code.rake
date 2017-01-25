@@ -35,7 +35,22 @@ namespace :clean do
       File.write(file, source)
       count += 1
     end
-    log.close
+    log.write "\n"
     puts "#{count.to_s.rjust(3)} files updated"
+
+    print ' - Quality: '
+    files = `git status --porcelain`.split(/\n/).map do |l|
+      x = l.strip.split(/\ /)
+      file = x[1..-1].join(' ').strip.split(' -> ').last
+      [x.first, file]
+    end.select { |p| p.second =~ /\A(.+\.rb|.+\.rake|Rakefile)\z/ && p.first =~ /(A|M)/ }.map(&:second)
+    log.write "Inspect:\n"
+    files.each do |f|
+      log.write " - #{f}\n"
+    end
+    log.write "\n"
+    log.write `rubocop --auto-correct --no-color #{files.join(' ')}`
+    log.close
+    puts `tail -n 1 log/clean-code.log`
   end
 end
