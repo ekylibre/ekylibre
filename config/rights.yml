@@ -96,6 +96,15 @@
 #     - "backend/entities#list_incoming_parcels"
 #     - "backend/entities#list_outgoing_parcels"
 #     - "backend/equipments#take"
+#     - "backend/financial_year_exchanges#close"
+#     - "backend/financial_year_exchanges#create"
+#     - "backend/financial_year_exchanges#journal_entries_export"
+#     - "backend/financial_year_exchanges#journal_entries_import"
+#     - "backend/financial_year_exchanges#list_journal_entries"
+#     - "backend/financial_year_exchanges#new"
+#     - "backend/financial_year_exchanges#notify_accountant"
+#     - "backend/financial_year_exchanges#show"
+#     - "backend/financial_years#list_exchanges"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
@@ -161,6 +170,8 @@
 #     - "devise/unlocks#show"
 #     - "iot/analyses#create"
 #     - "public#index"
+#     - "public/financial_year_exchange_exports#csv"
+#     - "public/financial_year_exchange_exports#show"
 
 accounts:
   read:
@@ -1381,23 +1392,23 @@ manure_management_plans:
     - "backend/manure_management_plans#new"
     - "backend/manure_management_plans#update"
 
-map_backgrounds:
+map_layers:
   read:
     actions:
-    - "backend/map_backgrounds#index"
-    - "backend/map_backgrounds#new"
-    - "backend/map_backgrounds#show"
+    - "backend/map_layers#index"
+    - "backend/map_layers#new"
+    - "backend/map_layers#show"
   write:
     dependencies:
-    - read-map_backgrounds
+    - read-map_layers
     actions:
-    - "backend/map_backgrounds#create"
-    - "backend/map_backgrounds#destroy"
-    - "backend/map_backgrounds#edit"
-    - "backend/map_backgrounds#load"
-    - "backend/map_backgrounds#star"
-    - "backend/map_backgrounds#toggle"
-    - "backend/map_backgrounds#update"
+    - "backend/map_layers#create"
+    - "backend/map_layers#destroy"
+    - "backend/map_layers#edit"
+    - "backend/map_layers#load"
+    - "backend/map_layers#star"
+    - "backend/map_layers#toggle"
+    - "backend/map_layers#update"
 
 matters:
   read:

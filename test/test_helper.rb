@@ -25,6 +25,8 @@ I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
 Ekylibre::Tenant.setup!('sekindovall')
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
+FactoryGirl.find_definitions
+
 class FixtureRetriever
   ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth).freeze
   @@truc = {}
@@ -88,6 +90,8 @@ end
 
 module ActiveSupport
   class TestCase
+    include FactoryGirl::Syntax::Methods
+
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 

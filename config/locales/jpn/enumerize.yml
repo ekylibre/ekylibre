@@ -251,6 +251,10 @@ jpn:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "即納"
+    map_layer:
+      nature:
+        background: "バックグラウンド"
+        overlay: "オーバーレイ"
     notification:
       level:
         error: "エラー"

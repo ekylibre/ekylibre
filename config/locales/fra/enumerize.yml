@@ -242,6 +242,10 @@ fra:
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+    map_layer:
+      nature:
+        background: "Fond"
+        overlay: "Calque"
     notification:
       level:
         error: "Erreur"

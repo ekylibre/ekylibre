@@ -20,28 +20,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: map_backgrounds
+# == Table: financial_year_exchanges
 #
-#  attribution    :string
-#  by_default     :boolean          default(FALSE), not null
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  enabled        :boolean          default(FALSE), not null
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  managed        :boolean          default(FALSE), not null
-#  max_zoom       :integer
-#  min_zoom       :integer
-#  name           :string           not null
-#  reference_name :string
-#  subdomains     :string
-#  tms            :boolean          default(FALSE), not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer
-#  url            :string           not null
+#  closed_at                :datetime
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  financial_year_id        :integer          not null
+#  id                       :integer          not null, primary key
+#  import_file_content_type :string
+#  import_file_file_name    :string
+#  import_file_file_size    :integer
+#  import_file_updated_at   :datetime
+#  lock_version             :integer          default(0), not null
+#  public_token             :string
+#  public_token_expired_at  :datetime
+#  started_on               :date             not null
+#  stopped_on               :date             not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
-require 'test_helper'
-
-class MapBackgroundTest < ActiveSupport::TestCase
-  test_model_actions
-end
+--- {}

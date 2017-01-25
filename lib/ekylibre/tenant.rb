@@ -122,7 +122,7 @@ module Ekylibre
           format_version = manifest[:format_version].to_s
           if format_version == '3'
             restore_v3(archive_path, name, options)
-          elsif format_version =~ /\A2(\.0)?\Z/
+          elsif ['2.0', '2'].include? format_version
             restore_v2(archive_path, name, options)
           else
             raise "Cannot handle this version of archive: #{format_version.inspect}"
