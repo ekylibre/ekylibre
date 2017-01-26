@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Backend
-  class MapBackgroundsControllerTest < ActionController::TestCase
+  class MapLayersControllerTest < ActionController::TestCase
     setup do
       Ekylibre::Tenant.switch!('test')
       @locale = ENV['LOCALE'] || I18n.default_locale
@@ -10,22 +10,22 @@ module Backend
     end
 
     test 'loading defaults' do
-      MapBackground.destroy_all
-      assert_difference 'MapBackground.count', MapBackgrounds::Layer.items.count do
+      MapLayer.destroy_all
+      assert_difference 'MapLayer.count', Map::Layer.items.count do
         post :load
       end
-      assert_redirected_to backend_map_backgrounds_path
+      assert_redirected_to backend_map_layers_path
     end
 
     test 'toggling activation' do
-      m = MapBackground.first
+      m = MapLayer.available_backgrounds.first
       state = m.enabled
       post :toggle, id: m.id, format: :json
       assert_equal !state, m.reload.enabled
     end
 
     test 'toggling by_default' do
-      m = MapBackground.first
+      m = MapLayer.available_backgrounds.second
       state = m.by_default
       put :star, id: m.id
       assert_equal !state, m.reload.by_default

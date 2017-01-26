@@ -27,6 +27,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
@@ -126,6 +127,16 @@ class InterventionProductParameter < InterventionParameter
       end
     end
     true
+  end
+
+  after_save do
+    if product && dead && (!product.dead_at || product.dead_at > stopped_at)
+      product.update_columns(dead_at: stopped_at)
+    end
+  end
+
+  after_destroy do
+    product.update_columns(dead_at: product.dead_first_at) if product && dead
   end
 
   def name

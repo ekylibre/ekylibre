@@ -290,7 +290,8 @@ CREATE TABLE intervention_parameters (
     assembly_id integer,
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    merge_stocks boolean
+    merge_stocks boolean,
+    dead boolean DEFAULT false NOT NULL
 );
 
 
@@ -3355,7 +3356,8 @@ CREATE TABLE issues (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     geolocation postgis.geometry(Point,4326),
-    custom_fields jsonb
+    custom_fields jsonb,
+    dead boolean DEFAULT false
 );
 
 
@@ -3898,10 +3900,10 @@ ALTER SEQUENCE manure_management_plans_id_seq OWNED BY manure_management_plans.i
 
 
 --
--- Name: map_backgrounds; Type: TABLE; Schema: public; Owner: -
+-- Name: map_layers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE map_backgrounds (
+CREATE TABLE map_layers (
     id integer NOT NULL,
     name character varying NOT NULL,
     url character varying NOT NULL,
@@ -3918,15 +3920,18 @@ CREATE TABLE map_backgrounds (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    nature character varying,
+    "position" integer,
+    opacity integer
 );
 
 
 --
--- Name: map_backgrounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: map_layers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE map_backgrounds_id_seq
+CREATE SEQUENCE map_layers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3935,10 +3940,10 @@ CREATE SEQUENCE map_backgrounds_id_seq
 
 
 --
--- Name: map_backgrounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: map_layers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE map_backgrounds_id_seq OWNED BY map_backgrounds.id;
+ALTER SEQUENCE map_layers_id_seq OWNED BY map_layers.id;
 
 
 --
@@ -7173,7 +7178,7 @@ ALTER TABLE ONLY manure_management_plans ALTER COLUMN id SET DEFAULT nextval('ma
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY map_backgrounds ALTER COLUMN id SET DEFAULT nextval('map_backgrounds_id_seq'::regclass);
+ALTER TABLE ONLY map_layers ALTER COLUMN id SET DEFAULT nextval('map_layers_id_seq'::regclass);
 
 
 --
@@ -8279,11 +8284,11 @@ ALTER TABLE ONLY manure_management_plans
 
 
 --
--- Name: map_backgrounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: map_layers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY map_backgrounds
-    ADD CONSTRAINT map_backgrounds_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY map_layers
+    ADD CONSTRAINT map_layers_pkey PRIMARY KEY (id);
 
 
 --
@@ -12923,38 +12928,38 @@ CREATE INDEX index_manure_management_plans_on_updater_id ON manure_management_pl
 
 
 --
--- Name: index_map_backgrounds_on_created_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_map_layers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_backgrounds_on_created_at ON map_backgrounds USING btree (created_at);
-
-
---
--- Name: index_map_backgrounds_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_map_backgrounds_on_creator_id ON map_backgrounds USING btree (creator_id);
+CREATE INDEX index_map_layers_on_created_at ON map_layers USING btree (created_at);
 
 
 --
--- Name: index_map_backgrounds_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_map_layers_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_backgrounds_on_name ON map_backgrounds USING btree (name);
-
-
---
--- Name: index_map_backgrounds_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_map_backgrounds_on_updated_at ON map_backgrounds USING btree (updated_at);
+CREATE INDEX index_map_layers_on_creator_id ON map_layers USING btree (creator_id);
 
 
 --
--- Name: index_map_backgrounds_on_updater_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_map_layers_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_backgrounds_on_updater_id ON map_backgrounds USING btree (updater_id);
+CREATE INDEX index_map_layers_on_name ON map_layers USING btree (name);
+
+
+--
+-- Name: index_map_layers_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_map_layers_on_updated_at ON map_layers USING btree (updated_at);
+
+
+--
+-- Name: index_map_layers_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_map_layers_on_updater_id ON map_layers USING btree (updater_id);
 
 
 --
@@ -16915,5 +16920,11 @@ INSERT INTO schema_migrations (version) VALUES ('20161231234533');
 
 INSERT INTO schema_migrations (version) VALUES ('20170101110136');
 
+INSERT INTO schema_migrations (version) VALUES ('20170110083324');
+
 INSERT INTO schema_migrations (version) VALUES ('20170124095012');
+
+INSERT INTO schema_migrations (version) VALUES ('20170124133351');
+
+INSERT INTO schema_migrations (version) VALUES ('20170125162958');
 

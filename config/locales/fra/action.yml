@@ -417,10 +417,18 @@ fra:
       index: "Plans de fumure"
       new: "Nouveau plan de fumure"
       show: "Plan de fumure\_: %{name}"
-    backend/map_backgrounds:
-      edit: "Modifier le fond de carte\_: %{name}"
-      index: "Fonds de carte"
-      new: "Nouveau fond de carte"
+    backend/map_backgrounds: #?
+      edit: "Modifier le fond de carte\_: %{name}" #?
+      index: "Fonds de carte" #?
+      new: "Nouveau fond de carte" #?
+    backend/map_layers:
+      edit: "Modifier la couche de carte : %{name}"
+      index: "Couches de carte"
+      # load: "Load map layer: %{name}"
+      new: "Nouvelle couche de carte"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -2610,6 +2618,12 @@ fra:
       update: "Modifier"
       update_password: "Modifier le mot de passe" #?
       win: "Gagner"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Numéro de facture fournisseur"
+    required:
+      text: "Obligatoire"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

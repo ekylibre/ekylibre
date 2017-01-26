@@ -360,10 +360,17 @@ jpn:
       index: "肥料管理計画"
       new: "新しい肥料管理計画"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "地図の背景"
-      new: "新しいマップの背景"
+    backend/map_backgrounds: #?
+      index: "地図の背景" #?
+      new: "新しいマップの背景" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "マップレイヤ"
+      # load: "Load map layer: %{name}"
+      new: "新しいマップレイヤ"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事態"
@@ -2043,6 +2050,12 @@ jpn:
       update: "更新"
       update_password: "パスワードを更新します" #?
       win: "勝つ"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "サプライヤーの請求書番号"
+    required:
+      text: "必須"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

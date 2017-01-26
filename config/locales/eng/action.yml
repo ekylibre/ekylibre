@@ -445,16 +445,16 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      edit: "Edit map background: %{name}"
-      index: "Map backgrounds"
-      # load: "Load map background: %{name}"
-      new: "New map background"
-      # show: "Map background: %{name}"
-      # star: "Star map background: %{name}"
-      # toggle: "Toggle map background: %{name}"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
+    backend/map_layers:
+      edit: "Edit map layer: %{name}"
+      index: "Map layers"
+      load: "Load map layer: %{name}"
+      new: "New map layer"
+      show: "Map layer: %{name}"
+      star: "Star map layer: %{name}"
+      toggle: "Toggle map layer: %{name}"
     backend/matters:
       edit: "Edit matter: %{name}"
       index: "Matters"
@@ -1017,7 +1017,6 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
-    # by_default: "By default"
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
@@ -2205,6 +2204,12 @@ eng:
       # update_many: "Update many"
       # upload: "Upload"
       win: "Win"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Supplier invoice number"
+    required:
+      text: "Required"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

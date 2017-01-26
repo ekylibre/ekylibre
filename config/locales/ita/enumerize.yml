@@ -251,6 +251,10 @@ ita:
       shift_method:
         anatocism: "anatocismo"
         immediate_payment: "Pagamento immediato"
+    map_layer:
+      nature:
+        background: "Sfondo"
+        overlay: "Copertura"
     notification:
       level:
         error: "Errore"

@@ -54,6 +54,7 @@ require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
   test_model_actions
+
   test 'scopes' do
     parameter = InterventionProductParameter.first # intervention_parameters(:intervention_parameters_001)
     actor = parameter.product
@@ -119,6 +120,64 @@ class InterventionTest < ActiveSupport::TestCase
   test 'destroy intervention update intervention_activities_db_view' do
     first_activity_intervention = Intervention::HABTM_Activities.first
     assert Intervention.destroy(first_activity_intervention.intervention_id)
+  end
+
+  test 'killing target' do
+    plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
+    assert plant
+    now = Time.utc(2016, 10, 25, 20, 20, 20)
+
+    last_death_at = now + 1.year
+    last_intervention = add_harvesting_intervention(plant, last_death_at)
+    plant.reload
+    assert_equal last_death_at, plant.dead_at, 'Dead_at of plant should be updated'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    first_death_at = now + 1.month
+    first_intervention = add_harvesting_intervention(plant, first_death_at)
+    plant.reload
+    assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should be updated'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    middle_death_at = now + 6.months
+    middle_issue = Issue.create!(target: plant, nature: :issue, observed_at: middle_death_at, dead: true)
+    plant.reload
+    assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should not be updated'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    middle_issue.destroy
+    plant.reload
+    assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should not be restored to middle death datetime'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    first_intervention.destroy
+    plant.reload
+    assert_equal last_death_at, plant.dead_at, 'Dead_at of plant should be restored to last death datetime'
+    assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
+
+    last_intervention.destroy
+    plant.reload
+    assert plant.dead_at.nil?, 'Dead_at of plant should be nil when no death registered'
+  end
+
+  def add_harvesting_intervention(target, stopped_at)
+    Intervention.create!(
+      procedure_name: :harvesting,
+      working_periods_attributes: {
+        '0' => {
+          started_at: stopped_at - 4.hours,
+          stopped_at: stopped_at,
+          nature: 'intervention'
+        }
+      },
+      targets_attributes: {
+        '0' => {
+          reference_name: :plant,
+          product_id: target.id,
+          dead: true
+        }
+      }
+    )
   end
 
   def fake_working_periods

@@ -4,6 +4,7 @@
     <parameters>
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
       </target>
       <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>
       <tool name="grinder" filter="can grind(plant)" cardinality="*"/>

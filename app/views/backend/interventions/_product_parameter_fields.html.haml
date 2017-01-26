@@ -52,6 +52,8 @@
       end.compact
       plants = Charta.new_collection(plants).to_json_object(true)
     = f.geometry :working_zone, { input_html: { data: { intervention_updater: prefix + 'working_zone' }}, show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }} }
+  - if reference.attribute(:killable)
+    = f.yes_no_radio :dead, label: reference.killable_question
   - if reference.component_of?
     = render 'component_field', f: f, reference: reference, prefix: prefix
 

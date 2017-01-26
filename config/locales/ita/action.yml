@@ -360,10 +360,17 @@ ita:
       index: "piani di gestione del letame"
       new: "Nuovo piano di gestione del letame"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "Mappa sfondi"
-      new: "Nuova mappa di sfondo"
+    backend/map_backgrounds: #?
+      index: "Mappa sfondi" #?
+      new: "Nuova mappa di sfondo" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "Livelli della mappa"
+      # load: "Load map layer: %{name}"
+      new: "Nuovo livello mappa"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       # index: "Matters"
@@ -2032,6 +2039,12 @@ ita:
       update: "Aggiornare"
       update_password: "Aggiornamento della password" #?
       win: "Vincere"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Numero di fattura del fornitore"
+    required:
+      text: "Richiesto"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

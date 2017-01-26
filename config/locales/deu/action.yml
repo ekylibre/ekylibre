@@ -360,10 +360,17 @@ deu:
       index: "Dungsmanagementpläne"
       new: "New Gülle-Management-Plan"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "Karte Hintergründe"
-      new: "Neue Karte Hintergrund"
+    backend/map_backgrounds: #?
+      index: "Karte Hintergründe" #?
+      new: "Neue Karte Hintergrund" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "Kartenschichten"
+      # load: "Load map layer: %{name}"
+      new: "Neue Karten-Layer"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Angelegenheiten"
@@ -1965,6 +1972,12 @@ deu:
       update: "Aktualisieren"
       update_password: "Update-Passwort" #?
       win: "Gewinnen"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Lieferant Rechnungsnummer"
+    required:
+      text: "Erforderlich"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
