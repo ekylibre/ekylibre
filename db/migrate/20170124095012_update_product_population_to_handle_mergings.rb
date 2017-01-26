@@ -72,7 +72,7 @@ class UpdateProductPopulationToHandleMergings < ActiveRecord::Migration
       GROUP BY movements.id, movements.product_id, movements.started_at
     SQL
     execute 'CREATE OR REPLACE RULE delete_product_populations AS ON DELETE TO product_populations DO INSTEAD NOTHING;'
-    execute 'CREATE OR REPLACE RULE delete_product_movements AS ON DELETE TO product_movements DO INSTEAD NOTHING;'
+    execute 'CREATE OR REPLACE RULE delete_population_movements AS ON DELETE TO population_movements DO INSTEAD NOTHING;'
   end
 
   def down

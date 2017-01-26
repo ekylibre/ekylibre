@@ -16391,11 +16391,11 @@ CREATE RULE delete_campaigns_interventions AS
 
 
 --
--- Name: delete_product_movements; Type: RULE; Schema: public; Owner: -
+-- Name: delete_population_movements; Type: RULE; Schema: public; Owner: -
 --
 
-CREATE RULE delete_product_movements AS
-    ON DELETE TO product_movements DO INSTEAD NOTHING;
+CREATE RULE delete_population_movements AS
+    ON DELETE TO population_movements DO INSTEAD NOTHING;
 
 
 --
