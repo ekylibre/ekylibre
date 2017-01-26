@@ -64,11 +64,11 @@ class InterventionProductParameter < InterventionParameter
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :crumbs, dependent: :destroy, foreign_key: :intervention_parameter_id
   has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_parameter, foreign_key: :parameter_id
-  has_one :merging, class_name: 'ProductMerging', dependent: :destroy, inverse_of: :originator
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
   has_one :event,    through: :intervention
+  has_one :merging, class_name: 'ProductMerging', dependent: :destroy, inverse_of: :originator, foreign_key: :originator_id
 
   has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit_name unit)]

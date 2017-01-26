@@ -382,19 +382,19 @@ class Intervention < Ekylibre::Record::Base
     collection.find_each do |parameter|
       attributes = {
         product: parameter.product,
-        member: product,
+        member: parameter.product,
         intervention_id: parameter.intervention_id,
         started_at: at
       }
 
-      create_dependent(:group, attributes.except(:member).merge(dependent_class: ProductMembership, thing_class: Product))
-      create_dependent(:variant, attributes.except(:product).merge(dependent_class: ProductPhase, thing_class: ProductNatureVariant))
-      create_dependent(:container, attributes.except(:member).merge(dependent_class: ProductLocalization, thing_class: Product))
+      create_dependent(:group, parameter, attributes.except(:member).merge(dependent_class: ProductMembership, thing_class: Product))
+      create_dependent(:variant, parameter, attributes.except(:product).merge(dependent_class: ProductPhase, thing_class: ProductNatureVariant))
+      create_dependent(:container, parameter, attributes.except(:member).merge(dependent_class: ProductLocalization, thing_class: Product))
       create_merging(parameter, at)
     end
   end
 
-  def create_dependent(thing, **params)
+  def create_dependent(thing, parameter, **params)
     return unless new_thing = parameter.send(:"new_#{thing}_id")
     dependent_class = params.delete(:dependent_class)
     thing_class     = params.delete(:thing_class)
