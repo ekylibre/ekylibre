@@ -232,8 +232,8 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> {}
-  scope :availables, ->(**args) {
+  scope :available, -> { unmerged }
+  scope :availables, ->(**args) do
     at = args[:at]
     return available if at.blank?
     if at.is_a?(String)
@@ -246,7 +246,7 @@ class Product < Ekylibre::Record::Base
     else
       available.at(at)
     end
-  }
+  end
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
