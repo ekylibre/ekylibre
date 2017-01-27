@@ -40,4 +40,4 @@
   - if demo_mode && !flash[:alert]
     #autologin
       :javascript
-        $('#autologin').closest('form').submit()
+        $(document).ready(function(){ window.setTimeout(function(){ $('#autologin').closest('form').submit(); }, 300); });
