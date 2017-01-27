@@ -142,7 +142,7 @@ financial_years_008:
   lock_version: 0
   started_on: 1998-09-01
   stopped_on: 1999-08-31
-  tax_declaration_mode: payment
+  tax_declaration_mode: debit
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 financial_years_009:
