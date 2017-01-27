@@ -38,7 +38,12 @@ class ProductPopulationTest < ActiveSupport::TestCase
   test_model_actions
 
   setup do
-    @product = products(:matters_001)
+    @variant   = ProductNatureVariant.import_from_nomenclature(:beet)
+    @product   = @variant.products.create!(
+      name: 'Beets',
+      initial_population: 0,
+      initial_born_at: Time.now - 2.days
+    )
     @initial_population = @product.population
     @quantity = 5.in_ton.to_d
     @time = Time.now.utc
@@ -139,5 +144,42 @@ class ProductPopulationTest < ActiveSupport::TestCase
     @product.move! 4.in_ton.to_d, at: @time - 2.days
 
     assert_equal @initial_population + 4.in_ton.to_d, @product.population
+  end
+
+  test 'after a merge a product population gets the population of the one that was merged inside it' do
+    @product.move! 5.in_ton.to_d, at: @time - 2.days
+
+    other = @variant.products.create!(name: 'To be merged', initial_born_at: @time - 2.days)
+    other.move! 10.in_ton.to_d, at: @time - 2.days + 1.second
+    ProductMerging.create(product: other, merged_with: @product, merged_at: @time - 1.day)
+
+    assert_equal  0, other.population
+    assert_equal 15, @product.population
+  end
+
+  test 'after a merge is destroyed product populations get back to their initial values' do
+    @product.move! 5.in_ton.to_d, at: @time - 2.days
+
+    other = @variant.products.create!(name: 'To be merged', initial_born_at: @time - 2.days)
+    other.move! 10.in_ton.to_d, at: @time - 2.days + 1.second
+    merge = ProductMerging.create(product: other, merged_with: @product, merged_at: @time - 1.day)
+
+    merge.destroy!
+
+    assert_equal 10, other.population
+    assert_equal  5, @product.population
+  end
+
+  test 'the stock movements of a merged product apply to its merge destination' do
+    @product.move! 5.in_ton.to_d, at: @time - 2.days
+
+    other = @variant.products.create!(name: 'To be merged', initial_born_at: @time - 2.days)
+    other.move! 10.in_ton.to_d, at: @time - 2.days + 1.second
+    ProductMerging.create(product: other, merged_with: @product, merged_at: @time - 1.day)
+
+    other.move! 20.in_ton.to_d, at: @time - 2.days + 2.seconds
+
+    assert_equal  0, other.population
+    assert_equal 35, @product.population
   end
 end

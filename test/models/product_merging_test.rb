@@ -20,26 +20,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_movements
+# == Table: product_populations
 #
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  delta           :decimal(19, 4)   not null
-#  id              :integer          not null, primary key
-#  intervention_id :integer
-#  lock_version    :integer          default(0), not null
-#  originator_id   :integer
-#  originator_type :string
-#  population      :decimal(19, 4)   not null
-#  product_id      :integer          not null
-#  started_at      :datetime         not null
-#  stopped_at      :datetime
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  created_at   :datetime
+#  creator_id   :integer
+#  id           :integer          primary key
+#  lock_version :integer
+#  product_id   :integer
+#  started_at   :datetime
+#  updated_at   :datetime
+#  updater_id   :integer
+#  value        :decimal(, )
 #
 require 'test_helper'
 
-class ProductMovementTest < ActiveSupport::TestCase
+class ProductMergingTest < ActiveSupport::TestCase
   test_model_actions
 
   setup do
@@ -60,9 +55,8 @@ class ProductMovementTest < ActiveSupport::TestCase
     )
   end
 
-  test 'can\'t create a movement after a product has been merged' do
+  test 'product gets `killed` when merged into another' do
     ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 1.day)
-
-    assert_raise(ActiveRecord::RecordInvalid) { @other.move! 10.in_ton.to_d, at: @time }
+    assert_equal (@time - 1.day), @other.dead_at
   end
 end
