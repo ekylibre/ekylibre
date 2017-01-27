@@ -232,7 +232,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { unmerged }
+  scope :available, -> { }
   scope :availables, ->(**args) do
     at = args[:at]
     return available if at.blank?
@@ -255,6 +255,7 @@ class Product < Ekylibre::Record::Base
   scope :plants, -> { where(type: 'Plant') }
 
   scope :unmerged, -> { where.not(id: ProductMerging.select(:product_id).uniq) }
+  scope :mergeable, ->(**args) { unmerged.availables(**args) }
 
   scope :mine, -> { of_owner(:own) }
   scope :mine_or_undefined, ->(at = nil) {
