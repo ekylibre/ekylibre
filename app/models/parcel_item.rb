@@ -173,7 +173,9 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def status
-    prepared? ? :go : variant.present? ? :caution : :stop
+    return :go if prepared?
+    return :caution if variant.present?
+    :stop
   end
 
   def product_is_identifiable?
