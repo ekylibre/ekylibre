@@ -23,7 +23,7 @@ module Backend
     unroll
 
     list(line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
-      t.action :edit
+      t.action :edit, if: :draft?
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :responsible
@@ -52,6 +52,12 @@ module Backend
     def new
       financial_year = FinancialYear.find(params[:financial_year_id])
       if financial_year.tax_declaration_mode_none?
+        redirect_to params[:redirect] || { action: :index }
+      elsif !financial_year.previous_consecutives?
+        notify_error :financial_years_missing
+        redirect_to params[:redirect] || { action: :index }
+      elsif (codes = financial_year.previous_codes_with_missing_tax_declaration).any?
+        notify_error :financial_years_missing_tax_declarations, codes: codes.join(', ')
         redirect_to params[:redirect] || { action: :index }
       else
         if financial_year.tax_declaration_frequency_none?

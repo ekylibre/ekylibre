@@ -3518,7 +3518,8 @@ CREATE TABLE journal_entry_items (
     tax_declaration_item_id integer,
     resource_id integer,
     resource_type character varying,
-    resource_prism character varying
+    resource_prism character varying,
+    tax_declaration_mode character varying
 );
 
 
@@ -6173,6 +6174,47 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
+-- Name: tax_declaration_item_parts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declaration_item_parts (
+    id integer NOT NULL,
+    tax_declaration_item_id integer NOT NULL,
+    journal_entry_item_id integer NOT NULL,
+    account_id integer NOT NULL,
+    tax_amount numeric(19,4) NOT NULL,
+    pretax_amount numeric(19,4) NOT NULL,
+    total_tax_amount numeric(19,4) NOT NULL,
+    total_pretax_amount numeric(19,4) NOT NULL,
+    direction character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declaration_item_parts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declaration_item_parts_id_seq OWNED BY tax_declaration_item_parts.id;
+
+
+--
 -- Name: tax_declaration_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7499,6 +7541,13 @@ ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY tax_declaration_item_parts ALTER COLUMN id SET DEFAULT nextval('tax_declaration_item_parts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY tax_declaration_items ALTER COLUMN id SET DEFAULT nextval('tax_declaration_items_id_seq'::regclass);
 
 
@@ -8645,6 +8694,14 @@ ALTER TABLE ONLY target_distributions
 
 ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_declaration_item_parts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT tax_declaration_item_parts_pkey PRIMARY KEY (id);
 
 
 --
@@ -12457,6 +12514,13 @@ CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_ent
 
 
 --
+-- Name: index_journal_entry_items_on_tax_declaration_mode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_declaration_mode ON journal_entry_items USING btree (tax_declaration_mode);
+
+
+--
 -- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15873,6 +15937,62 @@ CREATE INDEX index_tasks_on_updater_id ON tasks USING btree (updater_id);
 
 
 --
+-- Name: index_tax_declaration_item_parts_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_account_id ON tax_declaration_item_parts USING btree (account_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_created_at ON tax_declaration_item_parts USING btree (created_at);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_creator_id ON tax_declaration_item_parts USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_direction; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_direction ON tax_declaration_item_parts USING btree (direction);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_journal_entry_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_journal_entry_item_id ON tax_declaration_item_parts USING btree (journal_entry_item_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_tax_declaration_item_id ON tax_declaration_item_parts USING btree (tax_declaration_item_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_updated_at ON tax_declaration_item_parts USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_updater_id ON tax_declaration_item_parts USING btree (updater_id);
+
+
+--
 -- Name: index_tax_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16380,6 +16500,14 @@ ALTER TABLE ONLY journal_entries
 
 
 --
+-- Name: fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16404,6 +16532,14 @@ ALTER TABLE ONLY intervention_participations
 
 
 --
+-- Name: fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id);
+
+
+--
 -- Name: fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16417,6 +16553,14 @@ ALTER TABLE ONLY alerts
 
 ALTER TABLE ONLY intervention_working_periods
     ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES journal_entry_items(id);
 
 
 --
@@ -16930,4 +17074,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170222100614');
 INSERT INTO schema_migrations (version) VALUES ('20170222222222');
 
 INSERT INTO schema_migrations (version) VALUES ('20170227143414');
+
+INSERT INTO schema_migrations (version) VALUES ('20170322082518');
+
+INSERT INTO schema_migrations (version) VALUES ('20170322082519');
+
+INSERT INTO schema_migrations (version) VALUES ('20170322082520');
 

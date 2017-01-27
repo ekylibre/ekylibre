@@ -197,6 +197,20 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
+  def previous_codes_with_missing_tax_declaration
+    FinancialYear
+      .joins('LEFT JOIN tax_declarations td ON td.financial_year_id = financial_years.id AND td.stopped_on = financial_years.stopped_on')
+      .where('td.id IS NULL')
+      .where('financial_years.stopped_on < ?', stopped_on)
+      .order('financial_years.started_on')
+      .pluck('code')
+  end
+
+  def previous_consecutives?
+    years = FinancialYear.select(:started_on, :stopped_on).where('started_on <= ?', started_on).order(:started_on)
+    years[1..-1].find.with_index { |year, index| year.started_on - years[index].stopped_on > 1 }.blank?
+  end
+
   def default_code
     tc('code.' + (started_on.year != stopped_on.year ? 'double' : 'single'), first_year: started_on.year, second_year: stopped_on.year)
   end

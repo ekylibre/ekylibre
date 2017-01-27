@@ -1396,6 +1396,9 @@ fra:
     journal_entries: "Écritures"
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
+    journal_entry_items_with_taxes_out_of_range:
+      one: "%{count} ligne d'écriture avec des taxes qui précèdent la date de début de la déclaration"
+      other: "%{count} lignes d'écritures avec des taxes qui précèdent la date de début de la déclaration"
     journal_entry_items_with_undeclared_taxes:
       one: "%{count} ligne d'écriture avec des taxes non déclarées"
       other: "%{count} lignes d'écriture avec des taxes non déclarées"
@@ -2388,6 +2391,8 @@ fra:
       exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+      financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"
+      financial_years_missing_tax_declarations: "Vous devez créer toutes les déclarations des exercices suivants: %{codes}"
       implemented_with_dummy_data: "Charger des données de test"
       import_failed: "L’import %{name} a échoué\_: %{message}"
       import_finished_successfully: "L’import %{name} s’est fini correctement"
