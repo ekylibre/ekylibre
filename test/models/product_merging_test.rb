@@ -59,4 +59,10 @@ class ProductMergingTest < ActiveSupport::TestCase
     ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 1.day)
     assert_equal (@time - 1.day), @other.dead_at
   end
+
+  test 'merged products cannot be merged again' do
+    ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 1.day)
+    assert_raises(ActiveRecord::RecordInvalid) { ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 12.hours) }
+    assert_raises(ActiveRecord::RecordInvalid) { ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 36.hours) }
+  end
 end
