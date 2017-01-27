@@ -65,4 +65,43 @@ class ProductMergingTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) { ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 12.hours) }
     assert_raises(ActiveRecord::RecordInvalid) { ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 36.hours) }
   end
+
+  test 'cant merge a dead product' do
+    @other.update(dead_at: @time)
+    assert_raises(ActiveRecord::RecordInvalid) { ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time + 12.hours) }
+  end
+
+  test 'destroying it brings back the dead_at from interventions' do
+    Intervention.create!(
+      procedure_name: :harvesting,
+      working_periods_attributes: {
+        '0' => {
+          started_at: @time - 2.hours,
+          stopped_at: @time - 1.hour,
+          nature: 'intervention'
+        }
+      },
+      targets_attributes: {
+        '0' => {
+          reference_name: :plant,
+          product_id: @other.id,
+          dead: true
+        }
+      }
+    )
+    merge = ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 1.day)
+
+    assert_equal (@time - 1.day).utc.to_a, @other.dead_at.utc.to_a
+    merge.destroy
+    assert_equal (@time - 1.hour).utc.to_a, @other.dead_at.utc.to_a
+  end
+
+  test 'destroying it brings back the dead_at from issues' do
+    Issue.create!(target: @other, nature: :issue, observed_at: @time - 1.hour, dead: true)
+    merge = ProductMerging.create!(product: @other, merged_with: @product, merged_at: @time - 1.day)
+
+    assert_equal (@time - 1.day).utc.to_a, @other.dead_at.utc.to_a
+    merge.destroy
+    assert_equal (@time - 1.hour).utc.to_a, @other.dead_at.utc.to_a
+  end
 end
