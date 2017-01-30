@@ -748,6 +748,9 @@ arb:
         price: #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
+        product_merging:
+          # cannot_merge_dead_product: "Cannot create a merge for a product that's dead."
+          # cannot_merge_product_thats_already_merged: "Cannot merge a product that has already been merged."
         product_nature_price: #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
@@ -1796,6 +1799,12 @@ arb:
     members_count: "عد الأعضاء"
     memberships: "عضوية"
     memo: "مذكرة"
+    # merge: "Merge"
+    # merge_stocks: "Merge stocks"
+    # merged_products: "Merged products"
+    # merged_with: "Merged with"
+    # merges: "Merges"
+    # merging: "Merging"
     message: "الرسالة"
     messages: "رسائل"
     metadata: "البيانات الوصفية"

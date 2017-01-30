@@ -1322,6 +1322,7 @@ spa:
     members: "Miembros"
     menus: "Menús"
     merge: "Unir"
+    # merged_with_x: "Merged with %{x}"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     missing_attributes: "Algunos atributos faltan"

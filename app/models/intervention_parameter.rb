@@ -33,6 +33,7 @@
 #  id                       :integer          not null, primary key
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
+#  merge_stocks             :boolean
 #  new_container_id         :integer
 #  new_group_id             :integer
 #  new_name                 :string
@@ -62,6 +63,7 @@ class InterventionParameter < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
+  validates :merge_stocks, inclusion: { in: [true, false] }, allow_blank: true
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }

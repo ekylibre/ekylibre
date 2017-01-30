@@ -172,6 +172,9 @@ por:
           unvalid_amounts: "A entrada de diário deve ser preenchido tanto de débito ou de crédito, mas não ao mesmo tempo."
         outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        product_merging:
+          # cannot_merge_dead_product: "Cannot create a merge for a product that's dead."
+          # cannot_merge_product_thats_already_merged: "Cannot merge a product that has already been merged."
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
@@ -971,6 +974,12 @@ por:
     members_count: "Membros contar"
     memberships: "Associações"
     memo: "Memorando"
+    # merge: "Merge"
+    # merge_stocks: "Merge stocks"
+    # merged_products: "Merged products"
+    # merged_with: "Merged with"
+    # merges: "Merges"
+    # merging: "Merging"
     message: "Mensagem"
     messages: "Mensagens"
     metadata: "Metadados"

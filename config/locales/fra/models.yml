@@ -302,6 +302,9 @@ fra:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        product_merging:
+          # cannot_merge_dead_product: "Cannot create a merge for a product that's dead."
+          # cannot_merge_product_thats_already_merged: "Cannot merge a product that has already been merged."
         purchase_item:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
@@ -1193,6 +1196,12 @@ fra:
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
     memo: "Note"
+    # merge: "Merge"
+    # merge_stocks: "Merge stocks"
+    # merged_products: "Merged products"
+    # merged_with: "Merged with"
+    # merges: "Merges"
+    # merging: "Merging"
     message: "Message"
     # messages: "Messages"
     metadata: "Méta-données"

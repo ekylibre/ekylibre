@@ -1174,6 +1174,7 @@ por:
     members: "Membros"
     menus: "Menus"
     merge: "Fundir"
+    # merged_with_x: "Merged with %{x}"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
     missing_attributes: "Alguns atributos estão faltando"

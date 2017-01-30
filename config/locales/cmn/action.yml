@@ -1170,6 +1170,7 @@ cmn:
     members: "会员"
     menus: "菜单"
     merge: "合并"
+    # merged_with_x: "Merged with %{x}"
     method: "方法"
     minimal_temperature: "最低温度"
     missing_attributes: "有些属性丢失"

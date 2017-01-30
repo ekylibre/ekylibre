@@ -170,11 +170,11 @@ eng:
           closed_entry: "The journal entry is locked. You can not update it."
           empty_amounts: "The journal entry must be filled either debit or credit"
           unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
+        outgoing_parcel_item:
+          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         product_merging:
           cannot_merge_dead_product: "Cannot create a merge for a product that's dead."
           cannot_merge_product_thats_already_merged: "Cannot merge a product that has already been merged."
-        outgoing_parcel_item:
-          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
           building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
@@ -324,6 +324,7 @@ eng:
       product_linkage: "Product linkage"
       product_localization: "Product localization"
       product_membership: "Product membership"
+      # product_merging: "Product merging"
       product_movement: "Product movement"
       product_nature: "Product type"
       product_nature_category: "Product category"
@@ -994,6 +995,13 @@ eng:
     members_count: "Members count" #?
     memberships: "Memberships"
     memo: "Memo"
+    merge: "Merge"
+    merge_stocks: "Merge stocks"
+    # merged_at: "Merged at"
+    merged_products: "Merged products"
+    merged_with: "Merged with"
+    merges: "Merges"
+    merging: "Merging"
     message: "Message"
     messages: "Messages"
     metadata: "Metadata"

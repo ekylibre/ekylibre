@@ -1169,6 +1169,7 @@ deu:
     members: "Mitglieder"
     menus: "Menüs"
     merge: "Verschmelzen"
+    # merged_with_x: "Merged with %{x}"
     method: "Verfahren"
     minimal_temperature: "minimale Temperatur"
     missing_attributes: "Einige Attribute fehlen"

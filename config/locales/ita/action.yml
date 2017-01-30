@@ -1235,6 +1235,7 @@ ita:
     members: "Utenti"
     menus: "Menu"
     merge: "Fondersi"
+    # merged_with_x: "Merged with %{x}"
     method: "metodo"
     minimal_temperature: "temperatura minima"
     missing_attributes: "Alcuni attributi mancano"

@@ -1498,7 +1498,8 @@ fra:
     members_count: "Nombre de membres" #?
     menus: "Menus"
     merge: "Fusionner"
-    merge_with_x: "Fusionner avec %{name}"
+    merge_with_x: "Fusionner avec %{name}" #?
+    # merged_with_x: "Merged with %{x}"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?

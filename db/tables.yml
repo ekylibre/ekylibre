@@ -3359,6 +3359,8 @@ intervention_parameters:
   lock_version:
     type: integer
     required: true
+  merge_stocks:
+    type: boolean
   new_container_id:
     type: integer
     references: product
@@ -5426,6 +5428,36 @@ product_memberships:
     required: true
   stopped_at:
     type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_mergings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  merged_at:
+    type: datetime
+  merged_with_id:
+    type: integer
+    references: product
+  originator_id:
+    type: integer
+    references: intervention_product_parameter
+  product_id:
+    type: integer
+    references: product
   updated_at:
     type: datetime
     required: true

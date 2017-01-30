@@ -20,17 +20,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_populations
+# == Table: product_mergings
 #
-#  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          primary key
-#  lock_version :integer
-#  product_id   :integer
-#  started_at   :datetime
-#  updated_at   :datetime
-#  updater_id   :integer
-#  value        :decimal(, )
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  merged_at      :datetime
+#  merged_with_id :integer
+#  originator_id  :integer
+#  product_id     :integer
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 require 'test_helper'
 
