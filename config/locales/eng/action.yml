@@ -1381,6 +1381,7 @@ eng:
     members: "Members"
     menus: "Menus"
     merge: "Merge"
+    merged_with_x: "Merged with %{x}"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
     missing_attributes: "Some attributes are missing" #?!
