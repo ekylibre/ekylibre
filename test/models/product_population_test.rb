@@ -175,7 +175,7 @@ class ProductPopulationTest < ActiveSupport::TestCase
 
     other = @variant.products.create!(name: 'To be merged', initial_born_at: @time - 2.days)
     other.move! 10.in_ton.to_d, at: @time - 2.days + 1.second
-    ProductMerging.create(product: other, merged_with: @product, merged_at: @time - 1.day)
+    ProductMerging.create(product: other, merged_with: @product, merged_at: @time)
 
     other.move! 20.in_ton.to_d, at: @time - 2.days + 2.seconds
 
