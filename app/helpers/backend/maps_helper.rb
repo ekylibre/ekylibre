@@ -144,6 +144,7 @@ module Backend
 
     # Build a map with a given list of object
     def collection_map(data, options = {}, &_block)
+      html_options = {}
       return nil unless data.any?
       backgrounds = options.delete(:backgrounds) || []
       options = {
@@ -157,8 +158,9 @@ module Backend
       if options.delete(:main)
         options[:box] ||= {}
         options[:box][:height] = '100%'
+        html_options.merge!(class: 'map-fullwidth')
       end
-      visualization(options) do |v|
+      visualization(options, html_options) do |v|
         backgrounds.each do |b|
           v.background(b)
         end
