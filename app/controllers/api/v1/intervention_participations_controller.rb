@@ -15,6 +15,7 @@ module Api
             name: current_user.name,
             variant: ProductNatureVariant.import_from_nomenclature(:technician)
           )
+          current_user.reload
         end
         if params[:request_intervention_id]
           intervention = Intervention.find(params[:request_intervention_id]).initialize_record(state: :in_progress)
