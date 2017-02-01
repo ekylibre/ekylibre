@@ -210,6 +210,10 @@ jpn:
     backend/exports:
       index: "輸出"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "会計年度の為替インポート"
+      new: "新しいExchange"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       # close: "Close financial year: %{code}"
       compute_balances: "会計年度の残高を計算"
@@ -280,6 +284,9 @@ jpn:
       # edit: "Edit integration: %{name}"
       index: "統合"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "介入参加"
     backend/interventions:
       edit: "編集"
       edit_request: "編集要求"
@@ -353,10 +360,17 @@ jpn:
       index: "肥料管理計画"
       new: "新しい肥料管理計画"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "地図の背景"
-      new: "新しいマップの背景"
+    backend/map_backgrounds: #?
+      index: "地図の背景" #?
+      new: "新しいマップの背景" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "マップレイヤ"
+      # load: "Load map layer: %{name}"
+      new: "新しいマップレイヤ"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事態"
@@ -376,6 +390,7 @@ jpn:
       new: "新しい観測"
     backend/outgoing_payment_lists:
       index: "支払のバッチリスト"
+      new: "新しい支払リスト"
       show: "支払バッチ"
     backend/outgoing_payment_modes:
       edit: "編集支出モード"
@@ -460,6 +475,10 @@ jpn:
       propose_and_invoice: "直接請求書"
       refuse: "拒否したため"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_purchases:
+      new: "新規購入/支払"
+    backend/quick_sales:
+      new: "新しいセール/入金"
     backend/registrations:
       edit: "編集登録"
       index: "登録"
@@ -574,7 +593,7 @@ jpn:
       index: "ホーム"
   errors:
     # format: "%{message}"
-    front-end:  #?
+    front-end: #?
       leaflet: #?
         draw: #?
           handlers: #?
@@ -730,7 +749,10 @@ jpn:
     accounts: "アカウント"
     accounts_only_used_at: "のみで使用するアカウント"
     accounts_to_load: "ロードするアカウント"
+    activate_entry_autocompletion: "エントリの自動補完を有効にします"
     active: "アクティブ"
+    active_finishing_after: "後のアクティブ仕上げ"
+    active_finishing_within: "内のアクティブな仕上げ"
     activities: "活動"
     activity: "アクティビティ"
     activity_production: "アクティビティ生産"
@@ -784,6 +806,7 @@ jpn:
     add_purchase_taxation: "購入課税を追加します。"
     add_quickly_an_item: "素早く製品の行を追加します。"
     add_reading: "指標の値を追加します。"
+    add_regularization: "正則を追加"
     add_revenue: "収益を追加"
     add_sale: "売却を追加"
     add_sale_taxation: "販売課税を追加します。"
@@ -837,6 +860,7 @@ jpn:
     average: "平均"
     back: "前のページに戻ります"
     balance: "バランス"
+    balance_of_selection: "選択のバランス"
     bank_account: "銀行口座"
     bank_statement_number: "銀行取引明細書番号"
     bank_statements: "銀行取引明細書"
@@ -920,6 +944,7 @@ jpn:
     costs: "費用"
     costs_map: "コストマップ" #?
     costs_per_hectare: "ヘクタールあたりの費用"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     # countings: "Countings"
     counts: "カウンツ"
     counts_by_nature: "タイプごとに考慮するドキュメントの数"
@@ -949,6 +974,7 @@ jpn:
     current_stocks_by_variety: "種々の方法により、現在の株式"
     currently_subscribed_to: "現在に加入"
     custom_fields: "カスタムフィールド"
+    # dated_cash: "%{cash}: %{on}"
     dates: "期間開始日と期間終了日を選択"
     days: "日々"
     deals: "お得な情報"
@@ -1041,6 +1067,8 @@ jpn:
     # example: "Example: %{value}"
     exchange: "交換"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "交流"
+    existing: "既存の"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "経費"
@@ -1085,6 +1113,7 @@ jpn:
     harvested_at: "で収穫"
     help: "助けて"
     help_center: "ヘルプセンター"
+    hide_lettered_lines: "文字入りのラインを隠します"
     # hint: "Hint: %{value}"
     historic: "歴史的"
     home: "持て成しの手伝いに帰り"
@@ -1130,6 +1159,8 @@ jpn:
     inventories: "棚卸"
     inventory: "インベントリ"
     invitation_status: "状態"
+    invoice_status: "請求書のステータス"
+    invoiced: "請求済み"
     invoiced_amount: "売上請求額" #?
     invoices: "請求書"
     is: "あります"
@@ -1143,14 +1174,14 @@ jpn:
     journal_entries_states: "エントリの状態"
     journal_entry_items: "仕訳項目"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "エントリー"
@@ -1176,6 +1207,7 @@ jpn:
     last_purchases: "最終購入"
     last_sales: "最終販売"
     letter: "文字"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "リニアオプション"
     link: "リンク"
@@ -1204,7 +1236,7 @@ jpn:
     mass: "マッセ"
     maximal_temperature: "最高温度"
     members: "メンバー"
-    menu:  #?
+    menu: #?
       accountancy_tasks: "用事" #?
       parameters: "パラメーター" #?
       tools: "道具" #?
@@ -1249,13 +1281,16 @@ jpn:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "新しい電子メール"
+    new_financial_year_exchange: "新しいExchange"
     new_group: "新しいグループ"
     new_incoming_parcel: "新しい着信小包"
+    new_incoming_payment: "新入金"
     new_inventory: "新しい在庫"
     new_issue: "新発債"
     new_listing: "新規上場"
     new_organization: "新組織"
     new_outgoing_parcel: "新しい発信小包"
+    new_outgoing_payment: "新しい支払"
     new_production: "新生産"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新しい引用"
@@ -1266,6 +1301,7 @@ jpn:
     no_crumbs_to_check: "チェックするパン粉いいえ"
     no_data: "データなし"
     no_deposits: "いいえ預金はありません"
+    no_intervention_participations_to_check: "チェックするために介入への参加はありません"
     no_notifications: "いいえ通知はありません"
     no_particular_periods: "特に期間はありません"
     no_products: "商品なし"
@@ -1276,6 +1312,7 @@ jpn:
     none: "なし"
     normal: "ノーマル"
     not_delivered: "配信されません"
+    not_letterable: "手紙することができません"
     not_ready: "準備ができていない"
     not_received: "受信していない"
     now: "今"
@@ -1357,6 +1394,7 @@ jpn:
     # printing_document: "Printing %{document}"
     procedures: "手続き"
     product: "製品"
+    product_account_number: "製品の口座番号"
     product_category: "製品カテゴリ"
     product_name: "商品名"
     product_natures: "製品の種類"
@@ -1386,7 +1424,6 @@ jpn:
     ready_to_harvest: "収穫の準備完了"
     received: "受け"
     recent_events: "最近のイベント"
-    reconciled_total: "和解合計"
     record: "記録"
     record_maintenance: "記録管理"
     reflect: "反映します"
@@ -1416,7 +1453,7 @@ jpn:
     rest: "残り"
     restore: "リストア"
     result: "結果"
-    results:  #?
+    results: #?
       one: "1の結果" #?
     revenues: "収入"
     revenues_by_product_nature: "製品タイプ別収益"
@@ -1437,12 +1474,14 @@ jpn:
     # same_variant_as_x: "Same variant as %{x}"
     save: "セーブ"
     save_in_draft: "下書きとして保存"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "予定の"
     search: "探す"
     search_placeholder: "サーチ…"
     # section_x: "Section %{x}"
     see_details: "詳細を見ます"
     see_more_details: "詳細を見ます"
+    select_a_journal: "ジャーナルの選択"
     select_closure_date: "閉じる日付を選択します。"
     select_columns: "列を選択します"
     select_date: "日付を選択"
@@ -1501,6 +1540,8 @@ jpn:
     synthesis: "合成"
     target: "ターゲット"
     tasks: "タスク"
+    tax_declarations: "税務申告"
+    tax_label: "税ラベル"
     # taxations: "Taxations"
     taxes: "税金"
     thumb: "親指"
@@ -1584,6 +1625,7 @@ jpn:
     undelivered: "未配達の"
     undelivered_invoices: "未配信の請求書"
     undone: "元に戻します"
+    uninvoiced: "未請求"
     unit: "単位"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "不明"
@@ -1631,6 +1673,9 @@ jpn:
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
+    x_cents:
+      # one: "%{count} cent"
+      # other: "%{count} cents"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1697,6 +1742,9 @@ jpn:
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
+    x_mills:
+      # one: "%{count} mill"
+      # other: "%{count} mills"
     x_minutes:
       # one: "%{count} minute"
       # other: "%{count} minutes"
@@ -1772,7 +1820,7 @@ jpn:
     yield: "産出"
     yield_by_calibration: "キャリブレーションによって収量"
     zones: "ゾーン"
-  list:  #?
+  list: #?
     pagination: #?
       x_to_y_of_total: "%{x}-%{y}/%{total}" #?
   notifications:
@@ -1783,6 +1831,8 @@ jpn:
       warning: "警告！"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "会計士が通知されました"
+      accountant_without_email: "会計士の電子メールを設定してください"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "すべての小包はinvoiceableと同じ性質と第三のものでなければなりません"
       all_purchases_must_be_ordered_or_invoiced: "すべての購入は、発注や請求しなければなりません。"
       bookkeeping_is_finished: "商用のデータ転送が終了します。"
@@ -1795,6 +1845,7 @@ jpn:
       cannot_merge_entities: "それはこれらの人々をマージすることは不可能です。"
       changes_have_been_reflected: "変更は、在庫状況に反映されています"
       changes_have_not_been_reflected: "変更は、株式の状態に反映されていません"
+      closed_financial_year_exchange: "会計年度の交換が正常にクローズされました"
       closed_financial_years: "会計年度は正常にクローズされました"
       columns_are_already_uses: "一つまたは多くの列が何度も選択されています"
       dashboard_is_being_developed: "ダッシュボードは重い開発中です"
@@ -1818,8 +1869,10 @@ jpn:
       integrate_tools_you_are_using_every_day: "あなたが毎日使用しているツールを統合"
       invalid_reference_name: "無効な参照名"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "ジャーナル・エントリがインポートされています。"
       journal_entry_already_validated: "レコードが既に確認されており、変更することはできません"
-      # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
+      # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "電子メールが送信されました"
@@ -1842,6 +1895,7 @@ jpn:
       no_payment_to_deposit: "預金への支払いはありません"
       no_production_defined_for_current_campaign: "現在のキャンペーンのために定義されませ生産はありません"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "生産見つかりません。あなたは、新しい追加したり、前のキャンペーンからいくつかをコピーすることができます。"
+      no_purchase_affair_found_on_given_period: "与えられた期間に見つかりませ購入事件ません"
       no_purchases_given: "いいえ購入は与えられていません"
       no_reopenable_journal: "あなたはこの雑誌を再度開くことができません。"
       no_replacements_since_beginning: "初めから無置換ません"
@@ -1937,6 +1991,8 @@ jpn:
       increment: "インクリメント" #?
       index: "インデックス"
       invoice: "請求書"
+      journal_entries_csv_export: "CSVをダウンロード"
+      journal_entries_import: "CSVのインポート"
       list: "リスト"
       load: "負荷"
       lock: "ロック"
@@ -1947,9 +2003,13 @@ jpn:
       move: "移動" #?
       # negociate: "Negociate"
       new: "新しい"
+      new_purchase: "新規購入"
+      new_sale: "新発売"
+      notify_accountant: "会計士に通知"
       open: "開いた"
       order: "注文"
       pay: "支払う"
+      payment_gap: "支払ギャップ"
       payment_mode: "お支払いモード"
       pick: "ピック"
       picture: "画像"
@@ -1990,6 +2050,12 @@ jpn:
       update: "更新"
       update_password: "パスワードを更新します" #?
       win: "勝つ"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "サプライヤーの請求書番号"
+    required:
+      text: "必須"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

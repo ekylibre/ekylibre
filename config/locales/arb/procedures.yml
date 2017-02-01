@@ -1,6 +1,10 @@
 arb:
   procedure_handlers:
     stakes_by_hectare: "المخاطر التي كتبها هكتار"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "وزراعة تدمرت بالكامل بسبب التدخل؟"
+    is_it_completely_destroyed_by_intervention: "وهذا دمرت تماما بسبب التدخل؟"
+    is_plant_completely_destroyed_by_intervention: "ومصنع تدمرت بالكامل بسبب التدخل؟"
   procedure_parameters:
     adding_wine: "مضيفا النبيذ"
     animal: "حيوان"
@@ -113,6 +117,7 @@ arb:
     tool: "أداة"
     topper: "شخص ممتاز"
     tractor: "جرار زراعى"
+    trailed_equipment: "معدات متأخرا."
     trailer: "مقطورة"
     tunnel: "نفق"
     tunnel_implanter: "نفق implanter"
@@ -132,6 +137,7 @@ arb:
     worker: "عامل"
     zone: "منطقة"
   procedures:
+    administrative_tasks: "المهام الإدارية"
     all_in_one_sowing: "كل ما في البذر واحد"
     animal_antibiotic_treatment: "العلاج بالمضادات الحيوية الحيوانية"
     animal_artificial_insemination: "التلقيح الاصطناعي الحيوان"
@@ -159,12 +165,15 @@ arb:
     greenhouse_assembling: "الاحتباس الحراري تجميع"
     ground_destratification: "destratification الأرض"
     hand_weeding: "التعشيب اليدوي"
+    handling: "معالجة"
     harvest_transportation: "النقل الحصاد"
     harvesting: "حصاد"
     hilling: "هيلينج"
     hilling_for_sifting: "هيلينج لغربلة"
     hoeing: "العزق"
+    housing_soil_disinfection: "تعقيم التربة الإسكان"
     indirect_silage: "السيلاج غير مباشر"
+    installation_maintenance: "صيانة تركيب"
     inter_row_hoeing: "أمور الصف عزق"
     land_parcel_grinding: "قطعة أرض طحن"
     lifting: "رفع"

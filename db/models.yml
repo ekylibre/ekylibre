@@ -59,6 +59,7 @@
 - event
 - event_participation
 - financial_year
+- financial_year_exchange
 - fixed_asset
 - fixed_asset_depreciation
 - fungus
@@ -105,7 +106,7 @@
 - loan_repayment
 - manure_management_plan
 - manure_management_plan_zone
-- map_background
+- map_layer
 - matter
 - net_service
 - notification
@@ -147,6 +148,7 @@
 - purchase_gap
 - purchase_item
 - purchase_nature
+- regularization
 - role
 - sale
 - sale_affair

@@ -6,8 +6,8 @@ ruby '2.2.3'
 gem 'rails', '4.2.7.1'
 
 # Database adapters
-gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
+gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
 gem 'apartment', '~> 1.0.0', '< 2.0'
@@ -17,8 +17,8 @@ gem 'apartment-sidekiq'
 gem 'possibly'
 
 # Code manipulation
-gem 'code_string'
 gem 'charlock_holmes'
+gem 'code_string'
 
 gem 'browser'
 
@@ -39,15 +39,15 @@ gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 2.0'
 gem 'jquery-turbolinks'
+gem 'turbolinks', '~> 2.0'
 
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
+gem 'bootstrap3-datetimepicker-rails'
 gem 'jquery-scrollto-rails'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -71,8 +71,6 @@ gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs'
 
-gem 'rufus-scheduler', '~> 3.2.0'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -86,23 +84,23 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
+gem 'active_list', '>= 6.8.1' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
-gem 'active_list', '>= 6.6.0' # , path: "../active_list"
 
 # Models helpers
-gem 'uuidtools'
 gem 'acts_as_list'
-gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0'
+gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
-gem 'deep_cloneable', '~> 2.2.1'
+gem 'state_machine'
+gem 'uuidtools'
 
 # Authentication & Authorization
 gem 'devise'
-gem 'devise_invitable'
 gem 'devise-i18n-views'
+gem 'devise_invitable'
 gem 'omniauth'
 gem 'omniauth-oauth2'
 
@@ -111,13 +109,14 @@ gem 'paperclip'
 gem 'paperclip-document', '> 0.0.8'
 
 # Forms
-gem 'simple_form', '~> 3.2.0'
 gem 'cocoon'
 gem 'remotipart', '~> 1.2'
+gem 'simple_form', '~> 3.2.0'
 
 # I18n and localeapp
-gem 'i18n-complements', '>= 0.0.14'
 gem 'http_accept_language'
+gem 'humanize'
+gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
 # XML Parsing/Writing, HTML extraction
@@ -133,15 +132,15 @@ gem 'beardley-barcode'
 gem 'beardley-batik'
 gem 'beardley-charts'
 gem 'beardley-groovy'
-gem 'beardley-xml'
 gem 'beardley-open_sans'
+gem 'beardley-xml'
 
 # Import/Export
 gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
-gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
-gem 'rubyzip'
+gem 'rgeo-shapefile'
 gem 'roo'
+gem 'rubyzip'
 gem 'sepa_king'
 # gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 gem 'rodf'
@@ -164,9 +163,9 @@ gem 'agric', '~> 3.0'
 
 # Web services
 gem 'mechanize'
-gem 'savon'
-gem 'rubyntlm', '>= 0.3.2'
 gem 'rest-client', require: false
+gem 'rubyntlm', '>= 0.3.2'
+gem 'savon'
 
 gem 'luhn'
 
@@ -188,14 +187,12 @@ group :development do
   gem 'spring'
 
   gem 'letter_opener'
-
-  gem 'minitest', '~> 5.9.1'
 end
 
 group :development, :test do
-  gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-inline'
+  gem 'pry-rails'
   gem 'teaspoon-jasmine'
 end
 
@@ -206,11 +203,13 @@ group :test do
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
 
-  gem 'database_cleaner'
-  gem 'coveralls', '>= 0.6', require: false
   gem 'codacy-coverage', require: false
+  gem 'coveralls', '>= 0.6', require: false
+  gem 'database_cleaner'
 
   gem 'minitest-reporters'
+
+  gem 'factory_girl'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

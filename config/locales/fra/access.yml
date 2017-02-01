@@ -37,7 +37,6 @@ fra:
       events: "Évènements"
       exports: "Exports"
       financial_years: "Exercices comptables"
-      first_run: "Assistant de démarrage"
       fixed_assets: "Immobilisations"
       fungi: "Champignons"
       gaps: "Écarts"
@@ -61,7 +60,8 @@ fra:
       listings: "Extractions"
       loans: "Emprunts"
       manure_management_plans: "Plans de fumure"
-      map_backgrounds: "Fonds de carte"
+      map_backgrounds: "Fonds de carte" #?
+      map_layers: "Couches de carte"
       matters: "Matières"
       myselves: "Mon compte"
       net_services: "Services en ligne"

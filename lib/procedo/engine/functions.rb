@@ -195,8 +195,6 @@ module Procedo
             product = product_or_set
             return product.member_variant unless product.nil?
           end
-        rescue
-          raise Procedo::Errors::FailedFunctionCall
         end
 
         def father_of(vial)

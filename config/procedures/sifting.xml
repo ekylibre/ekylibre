@@ -7,6 +7,7 @@
       </target>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <tool name="sieve_shaker" filter="can sieve" cardinality="*"/>
+      <tool name="trailer" filter="is equipment and can move and (can store(silage) or can store(raw_matter) or can store(grass) or can store(grain) or can store_fluid)" cardinality="*"/>
       <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>

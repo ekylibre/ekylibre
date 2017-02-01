@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -5,7 +6,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,33 +23,35 @@
 #
 # == Table: cashes
 #
-#  account_id               :integer          not null
-#  bank_account_holder_name :string
-#  bank_account_key         :string
-#  bank_account_number      :string
-#  bank_agency_address      :text
-#  bank_agency_code         :string
-#  bank_code                :string
-#  bank_identifier_code     :string
-#  bank_name                :string
-#  container_id             :integer
-#  country                  :string
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  currency                 :string           not null
-#  custom_fields            :jsonb
-#  iban                     :string
-#  id                       :integer          not null, primary key
-#  journal_id               :integer          not null
-#  last_number              :integer
-#  lock_version             :integer          default(0), not null
-#  mode                     :string           default("iban"), not null
-#  name                     :string           not null
-#  nature                   :string           default("bank_account"), not null
-#  owner_id                 :integer
-#  spaced_iban              :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
+#  bank_account_holder_name     :string
+#  bank_account_key             :string
+#  bank_account_number          :string
+#  bank_agency_address          :text
+#  bank_agency_code             :string
+#  bank_code                    :string
+#  bank_identifier_code         :string
+#  bank_name                    :string
+#  container_id                 :integer
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  currency                     :string           not null
+#  custom_fields                :jsonb
+#  iban                         :string
+#  id                           :integer          not null, primary key
+#  journal_id                   :integer          not null
+#  last_number                  :integer
+#  lock_version                 :integer          default(0), not null
+#  main_account_id              :integer          not null
+#  mode                         :string           default("iban"), not null
+#  name                         :string           not null
+#  nature                       :string           default("bank_account"), not null
+#  owner_id                     :integer
+#  spaced_iban                  :string
+#  suspend_until_reconciliation :boolean          default(FALSE), not null
+#  suspense_account_id          :integer
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
 #
 
 require 'test_helper'
@@ -107,5 +110,27 @@ class CashTest < ActiveSupport::TestCase
     cash.nature = :cash_box
     cash.iban = 'invalid_iban'
     assert cash.valid?
+  end
+
+  test 'accounts with or without suspense' do
+    main = Account.find_or_create_by_number('512001')
+    assert main
+    suspense = Account.find_or_create_by_number('511001')
+    assert suspense
+
+    currency = 'JPY'
+    cash = Cash.create!(
+      name: '¡Banky!',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by(nature: :bank, currency: currency)
+    )
+    assert_equal main, cash.account
+
+    cash.update!(suspend_until_reconciliation: true)
+
+    assert_equal suspense, cash.account
   end
 end

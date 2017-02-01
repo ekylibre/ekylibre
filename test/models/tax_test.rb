@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -47,7 +47,12 @@ require 'test_helper'
 
 class TaxTest < ActiveSupport::TestCase
   test_model_actions
-  test 'load the taxes' do
+  test 'load defaults' do
+    Tax.load_defaults
+  end
+
+  test 'load defaults with empty table' do
+    Tax.delete_all
     Tax.load_defaults
   end
 
@@ -79,7 +84,24 @@ class TaxTest < ActiveSupport::TestCase
     )
     assert tax.intracommunity
     assert_equal 1, tax.coefficient
+    assert_equal 0, tax.usable_amount
+    assert_equal 30, tax.amount
     assert_equal 100, tax.amount_of(100), 'Intracommunity tax should not impact amount'
     assert_equal 130, tax.intracommunity_amount_of(100), 'Intracommunity tax should impact intracommunity amount'
+  end
+
+  test 'change amount' do
+    tax = Tax.create!(
+      name: 'Standard',
+      amount: 25,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+    assert_equal 25, tax.amount
+    tax.amount = 40
+    assert tax.save
+    assert_equal 40, tax.amount
   end
 end

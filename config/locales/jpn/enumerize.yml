@@ -171,7 +171,7 @@ jpn:
         failed: "失敗しました"
         passed: "合格"
         passed_with_warnings: "警告付きで合格"
-      status:  #?
+      status: #?
         errored: "エラーの発生しました" #?
         failed: "失敗しました" #?
         passed: "合格" #?
@@ -251,6 +251,10 @@ jpn:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "即納"
+    map_layer:
+      nature:
+        background: "バックグラウンド"
+        overlay: "オーバーレイ"
     notification:
       level:
         error: "エラー"
@@ -272,7 +276,7 @@ jpn:
         incoming: "入ってきます"
         internal: "内部" #?
         outgoing: "出ていきます"
-      state:  #?
+      state: #?
         draft: "ドラフト" #?
         given: "与えられました" #?
         in_preparation: "準備中" #?
@@ -397,10 +401,18 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    purchase:
+      tax_payability:
+        at_invoicing: "請求書発行で"
+        at_paying: "支払う時"
     purchase_nature:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
+    sale_item:
+      compute_from:
+        pretax_amount: "税引前金額"
+        unit_pretax_amount: "ユニット税引前金額"
     sensor:
       retrieval_mode:
         integration: "統合"
@@ -443,7 +455,7 @@ jpn:
         subscriptions: "サブスクリプション"
         tax_declarations: "税務申告"
         transports: "トランスポートの記数" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "双方向の" #?
         direct: "直接" #?
@@ -476,7 +488,7 @@ jpn:
         doing: "実行"
         done: "終わりました"
         todo: "藤堂"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "量" #?
         percentage: "パーセンテージ" #?

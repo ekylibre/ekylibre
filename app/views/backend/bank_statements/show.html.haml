@@ -1,8 +1,17 @@
 - main_toolbar do |t|
   = t.edit resource
   = t.reconciliation resource
+  = t.destroy resource
 
 = main_informations attachment: true do
+  .pull-right
+    .med-info.important
+      - if resource.balance_debit != 0.0
+        %span.title= resource.human_attribute_name(:balance_debit)
+        %span.value= resource.balance_debit.l(currency: resource.currency)
+      - if resource.balance_credit != 0.0
+        %span.title= resource.human_attribute_name(:balance_credit)
+        %span.value= resource.balance_credit.l(currency: resource.currency)
   = attributes_list do |l|
     - l.attribute(:number)
     - l.attribute(:cash, url: true)
@@ -10,8 +19,10 @@
     - l.attribute(:debit, currency: true)
     - l.attribute(:started_on)
     - l.attribute(:stopped_on)
+    - l.attribute(:journal_entry, url: true)
+
 
 = cobbles do |c|
 
-  - c.cobble :items, label: BankStatement.human_attribute_name('items') do
+  - c.cobble :items, label: BankStatement.human_attribute_name(:items) do
     = cobble_list(:items)

@@ -1,5 +1,6 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
 #     - "api/v1/intervention_participations#create"
+#     - "api/v1/intervention_targets#show"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -30,6 +31,7 @@
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
+#     - "backend/bank_reconciliation_gaps#create"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
@@ -94,6 +96,15 @@
 #     - "backend/entities#list_incoming_parcels"
 #     - "backend/entities#list_outgoing_parcels"
 #     - "backend/equipments#take"
+#     - "backend/financial_year_exchanges#close"
+#     - "backend/financial_year_exchanges#create"
+#     - "backend/financial_year_exchanges#journal_entries_export"
+#     - "backend/financial_year_exchanges#journal_entries_import"
+#     - "backend/financial_year_exchanges#list_journal_entries"
+#     - "backend/financial_year_exchanges#new"
+#     - "backend/financial_year_exchanges#notify_accountant"
+#     - "backend/financial_year_exchanges#show"
+#     - "backend/financial_years#list_exchanges"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
@@ -102,6 +113,10 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
+#     - "backend/intervention_participations#convert"
+#     - "backend/intervention_participations#destroy"
+#     - "backend/intervention_participations#index"
+#     - "backend/intervention_participations#update"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
@@ -110,7 +125,6 @@
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
-#     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -118,6 +132,10 @@
 #     - "backend/product_nature_variants#picture"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
+#     - "backend/quick_purchases#create"
+#     - "backend/quick_purchases#new"
+#     - "backend/quick_sales#create"
+#     - "backend/quick_sales#new"
 #     - "backend/sensors#last_locations"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
@@ -152,6 +170,8 @@
 #     - "devise/unlocks#show"
 #     - "iot/analyses#create"
 #     - "public#index"
+#     - "public/financial_year_exchange_exports#csv"
+#     - "public/financial_year_exchange_exports#show"
 
 accounts:
   read:
@@ -199,8 +219,6 @@ activities:
     - "backend/inspections#list"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
-    - "backend/plant_density_abaci#index"
-    - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
     - "backend/plant_density_abacus_items#unroll"
     - "backend/target_distributions#index"
@@ -375,14 +393,20 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/bank_statement_items#create"
+    - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
     - "backend/bank_statements#import"
+    - "backend/bank_statements#letter"
     - "backend/bank_statements#new"
     - "backend/bank_statements#reconciliation"
+    - "backend/bank_statements#unletter"
     - "backend/bank_statements#update"
+    - "backend/quick_affairs#create"
+    - "backend/quick_affairs#new"
 
 building_divisions:
   read:
@@ -706,6 +730,8 @@ documents:
 entities:
   read:
     actions:
+    - "api/v1/contacts#index"
+    - "api/v1/contacts#picture"
     - "backend/entities#index"
     - "backend/entities#list"
     - "backend/entities#list_event_participations"
@@ -856,14 +882,6 @@ financial_years:
     - "backend/financial_years#generate_last_journal_entry"
     - "backend/financial_years#new"
     - "backend/financial_years#update"
-
-first_run:
-  write:
-    dependencies:
-    - read-first_run
-  execute:
-    dependencies:
-    - read-first_run
 
 fixed_assets:
   read:
@@ -1212,6 +1230,7 @@ journal_entries:
     - "backend/journal_entry_items#list"
     - "backend/journal_entry_items#show"
     - "backend/journal_entry_items#unroll"
+    - "backend/regularizations#show"
   write:
     dependencies:
     - read-journal_entries
@@ -1220,8 +1239,11 @@ journal_entries:
     - "backend/journal_entries#destroy"
     - "backend/journal_entries#edit"
     - "backend/journal_entries#new"
+    - "backend/journal_entries#toggle_autocompletion"
     - "backend/journal_entries#update"
     - "backend/journal_entry_items#new"
+    - "backend/regularizations#create"
+    - "backend/regularizations#destroy"
 
 journals:
   read:
@@ -1370,23 +1392,23 @@ manure_management_plans:
     - "backend/manure_management_plans#new"
     - "backend/manure_management_plans#update"
 
-map_backgrounds:
+map_layers:
   read:
     actions:
-    - "backend/map_backgrounds#index"
-    - "backend/map_backgrounds#new"
-    - "backend/map_backgrounds#show"
+    - "backend/map_layers#index"
+    - "backend/map_layers#new"
+    - "backend/map_layers#show"
   write:
     dependencies:
-    - read-map_backgrounds
+    - read-map_layers
     actions:
-    - "backend/map_backgrounds#create"
-    - "backend/map_backgrounds#destroy"
-    - "backend/map_backgrounds#edit"
-    - "backend/map_backgrounds#load"
-    - "backend/map_backgrounds#star"
-    - "backend/map_backgrounds#toggle"
-    - "backend/map_backgrounds#update"
+    - "backend/map_layers#create"
+    - "backend/map_layers#destroy"
+    - "backend/map_layers#edit"
+    - "backend/map_layers#load"
+    - "backend/map_layers#star"
+    - "backend/map_layers#toggle"
+    - "backend/map_layers#update"
 
 matters:
   read:
@@ -1509,7 +1531,9 @@ outgoing_payment_lists:
     dependencies:
     - read-outgoing_payment_lists
     actions:
+    - "backend/outgoing_payment_lists#create"
     - "backend/outgoing_payment_lists#destroy"
+    - "backend/outgoing_payment_lists#new"
     - "backend/purchases#pay"
     - "backend/purchases#payment_mode"
 
@@ -2105,7 +2129,6 @@ tax_declarations:
     actions:
     - "backend/tax_declarations#index"
     - "backend/tax_declarations#list"
-    - "backend/tax_declarations#list_items"
     - "backend/tax_declarations#show"
     - "backend/tax_declarations#unroll"
   write:

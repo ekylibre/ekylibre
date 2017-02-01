@@ -3,20 +3,5 @@
 .integrations-container
   - unless ActionIntegration.config.cipher_key.blank?
     - @integration_types.each do |type|
-      - integration_exists = Integration.find_by_nature(type.integration_name.underscore)
-      .integration
-        .integration-card{class: ("integration-active" if integration_exists) }
-          - if integration_exists
-            = link_to({ action: :destroy, controller: :integrations, nature: type.integration_name.underscore }, method: :delete, class: "integration-destroy") do
-              %i.icon.icon-sign-out
-          = link_to({ action: :new, controller: :integrations, nature: type.integration_name.underscore }, class: 'integration-body') do
-            .integration-logo
-              = image_tag(integration_logo_path(type.integration_name))
-            .integration-description
-              %h3= type.integration_name
-              %p= "#{type.integration_name.underscore}_short_description".tl
-.footnote
-  %p= :net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release.tn
-  .toolbar
-    = link_to('actions.backend/net_services.index'.t, { controller: :net_services, action: :index }, class: 'btn')
-    = link_to('actions.backend/identifiers.index'.t, { controller: :identifiers, action: :index }, class: 'btn')
+      = render 'integration', type: type, exists: Integration.find_by_nature(type.integration_name.underscore)
+= render 'net_services_deprecation'

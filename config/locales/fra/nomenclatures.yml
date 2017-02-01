@@ -501,6 +501,7 @@ fra:
         usual_bank_overdraft: "Concours bancaires courants"
         various_exceptional_revenues: "Autres produits exceptionnels"
         vat: "État ‒ Taxes sur le chiffre d’affaire"
+        vat_to_pay: "TVA à décaisser"
         vegetals_making_services_expenses: "Achats de prestations de services (production végétales)"
         veterinary_fees_expenses: "Honoraires veterinaires"
         waiting_vat: "Taxes sur le chiffres d’affaires à régulariser ou en attente"
@@ -1565,6 +1566,7 @@ fra:
         manure_management_plan_sheet: "Plan prévisionnel de fumure détaillé"
         outgoing_deliveries_journal: "Journal de livraison"
         outgoing_delivery_docket: "Bon de livraison sortante"
+        outgoing_payment_list: "Edition de décaissements"
         phytosanitary_certification: "Certi-Phyto"
         phytosanitary_register: "Registre phytosanitaire"
         prescription: "Prescription vétérinaire"
@@ -1623,7 +1625,7 @@ fra:
         entity: "Personne 1"
         linked: "Personne 2"
         symmetric: "Lien symétrique"
-    entity_natures:  #?
+    entity_natures: #?
       items: #?
         association: "Association" #?
         civil_society: "Société civile" #?
@@ -1799,6 +1801,7 @@ fra:
         fresh_mass: "Poids frais"
         fuel_consumption: "Consommation de carburant"
         geolocation: "Géolocalisation"
+        germination_rate: "Taux de germination"
         grains_area_density: "Grains par surface"
         grains_count: "Grains"
         hagberg_falling_number: "Temps de chute de Hagberg"
@@ -1892,6 +1895,7 @@ fra:
         solar_irradiance: "Rayonnement solaire"
         somatic_cell_concentration: "Dénombrement des cellules somatiques"
         spans_count: "Nombre de travées"
+        species_purity: "Pureté spécifique"
         specific_weight: "Poids spécifique"
         stakes_count: "Nombre de piquets"
         subsoil_nature: "Type de sous-sol"
@@ -2183,7 +2187,7 @@ fra:
         identifiers: "Identifiants"
         nature: "Type"
         url: "URL"
-    nmp_poitou_charentes_abacus_one:  #?
+    nmp_poitou_charentes_abacus_one: #?
       name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes" #?
     opportunity_origins:
       items:
@@ -2232,6 +2236,7 @@ fra:
     procedure_actions:
       items:
         acaricide: "Acaricide"
+        administrative: "Administratif"
         animal_artificial_insemination: "Insémination artificielle"
         animal_feeding: "Alimentation animale"
         animal_group_changing: "Déplacement d’un animal"
@@ -2244,8 +2249,8 @@ fra:
         bird_repellent: "Répulsif oiseaux"
         bridge_construction: "Construction d’un pont"
         building_construction: "Consruction d’un bâtiment"
-        building_extension_construction: "Building extension construction"
-        building_interior_design: "Extension d’un bâtiment"
+        building_extension_construction: "Extension d’un bâtiment"
+        building_interior_design: "Rénovation intérieure d’un bâtiment"
         building_renovation: "Rénovation d’un bâtiment"
         building_repairing: "Réparation d’un bâtiment"
         chaptalization: "Chaptalisation"
@@ -2285,6 +2290,7 @@ fra:
         greasing: "Graissage"
         greenhouse_assembling: "Montage serre"
         growth_regulator: "Régulateur de croissance"
+        handling: "Manutention"
         hardpan_destruction: "Destruction semelle de labour"
         harvest: "Récolte"
         herbicide: "Herbicide"
@@ -2297,6 +2303,11 @@ fra:
         indirect_silage: "Ensilage préfané"
         insect_repellent: "Répulsif instectes"
         insecticide: "Insecticide"
+        installation_cleaning: "Nettoyage"
+        installation_construction: "Construction"
+        installation_maintenance: "Maintenance des installations"
+        installation_renovation: "Rénovation"
+        installation_repairing: "Réparation"
         irrigation: "Irrigation"
         irrigation_pump_lifting: "Relevage pompe irrigation"
         irrigation_system_improvement: "Amélioration système d’irrigation"
@@ -2373,6 +2384,7 @@ fra:
       name: "Actions des procédures"
     procedure_categories:
       items:
+        administrative_tasks: "Tâches administratives"
         animal_breeding: "Reproduction animale"
         animal_feeding: "Alimentation et abreuvage"
         animal_production: "Produits animaux"
@@ -2387,17 +2399,18 @@ fra:
         fertilizing: "Fertilisation"
         fish_transformation: "Transformation produits de l’aquaculture et de la pêche"
         habitat_maintenance: "Entretien de l’habitat"
+        handling: "Manutention"
         harvesting: "Récolte"
         installations_modification: "Travaux fonciers sur installations"
         irrigating: "Irrigation"
         land_maintenance: "Travaux fonciers sur parcelles"
         meat_transformation: "Transformation produits à base de viande et escargots"
-        planting: "Plantation"
+        planting: "Implantation des cultures"
         plants_transformation: "Transformation produits végétaux"
         soil_working: "Travail du sol"
         textile_transformation: "Transformation produits textiles"
         troubleshooting: "Dépannage"
-        viticulture_transformation: "Viniculture"
+        viticulture_transformation: "Vinification"
         washing_packaging_transformation: "Transformation station lavage et conditionnement"
       name: "Catégories de procédures"
       property_natures:
@@ -3762,7 +3775,7 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
     production_natures:
-      items:  #?
+      items: #?
         administrative: "Administratif" #?
         annual_frost_fallow_land: "Gel annuel" #?
         apple: "Pomme" #?
@@ -3861,7 +3874,7 @@ fra:
         winter_soft_wheat: "Blé tendre d’hiver" #?
         without_crop: "Hors culture" #?
       name: "Types de productions"
-      property_natures:  #?
+      property_natures: #?
         activity: "Activité" #?
         production_code: "Code" #?
         telepac_crop_code: "Code de type de culture TéléPAC" #?
@@ -3990,7 +4003,7 @@ fra:
         fixed_asset_deduction_account: "Compte de déduction pour les immobilisations"
         suffix: "Suffixe"
     taxes:
-      choices:  #?
+      choices: #?
         computation_method: #?
           amount: "Montant fixe" #?
           percentage: "Pourcentage" #?

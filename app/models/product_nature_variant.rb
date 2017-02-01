@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -176,9 +176,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   validate do
     if nature
-      unless Nomen::Variety.find(nature_variety) >= self.variety
+      nv = Nomen::Variety.find(nature_variety)
+      unless nv >= self.variety
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
-        errors.add(:variety, :invalid)
+        errors.add(:variety, :is, thing: nv.human_name)
       end
       if Nomen::Variety.find(nature_derivative_of)
         if self.derivative_of
@@ -492,8 +493,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless nature_item = Nomen::ProductNature[item.nature]
         raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
-      unless !force && variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
-        attributes = {
+      unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
+        variant = new(
           name: item.human_name,
           active: true,
           nature: ProductNature.import_from_nomenclature(item.nature),
@@ -502,13 +503,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
           # :frozen_indicators => item.frozen_indicators_values.to_s,
           variety: item.variety || nil,
           derivative_of: item.derivative_of || nil
-        }
-        variant = new(attributes)
-        # puts variant.name.inspect.green
+        )
         unless variant.save
           raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
-
       end
 
       unless item.frozen_indicators_values.to_s.blank?

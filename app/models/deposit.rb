@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,18 +65,18 @@ class Deposit < Ekylibre::Record::Base
   scope :unvalidateds, -> { where(locked: false) }
 
   before_validation do
-    self.cash = mode.cash if mode
+    self.cash ||= mode.cash if mode
   end
 
   after_save do
     update_columns(amount: payments.sum(:amount), payments_count: payments.count)
   end
 
-  # validate do
-  #   if self.cash
-  #     error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
-  #   end
-  # end
+  validate do
+    if self.cash
+      error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
+    end
+  end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"

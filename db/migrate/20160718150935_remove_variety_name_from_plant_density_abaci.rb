@@ -1,5 +1,5 @@
 class RemoveVarietyNameFromPlantDensityAbaci < ActiveRecord::Migration
   def change
-    remove_column :plant_density_abaci, :variety_name
+    revert { add_column :plant_density_abaci, :variety_name, :string }
   end
 end

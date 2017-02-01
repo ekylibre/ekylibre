@@ -68,6 +68,11 @@ module Backend
       code << "    c << params[:delivery_mode]\n"
       code << "  end\n"
       code << "end\n"
+      code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
+      code << "  c[0] << ' AND (#{Parcel.table_name}.purchase_id IS NOT NULL OR #{Parcel.table_name}.sale_id IS NOT NULL) '\n"
+      code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
+      code << "  c[0] << ' AND (#{Parcel.table_name}.purchase_id IS NULL AND #{Parcel.table_name}.sale_id IS NULL) '\n"
+      code << "end\n"
       code << "if params[:nature].present? && params[:nature] != 'all'\n"
       code << "  if Parcel.nature.values.include?(params[:nature].to_sym)\n"
       code << "    c[0] << ' AND #{Parcel.table_name}.nature = ?'\n"
@@ -116,7 +121,7 @@ module Backend
       t.column :analysis, url: true
     end
 
-    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+    list(:incoming_items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name

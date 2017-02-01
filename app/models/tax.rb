@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -77,14 +77,16 @@ class Tax < Ekylibre::Record::Base
   scope :current, -> { where(active: true).order(:country, :amount) }
 
   before_validation do
-    self.name = short_label if name.blank?
+    if Nomen::TaxNature.find(nature)
+      self.name = short_label if name.blank?
+    end
     self.active = false if active.nil?
     true
   end
 
   protect(on: :destroy) do
     product_nature_category_taxations.any? || sale_items.any? || purchase_items.any? ||
-      tax_declaration_items.any?
+      tax_declaration_items.any? || journal_entry_items.any?
   end
 
   class << self
@@ -167,23 +169,13 @@ class Tax < Ekylibre::Record::Base
     end
   end
 
-  before_validation do
-    self.active = false if active.nil?
-    true
-  end
-
-  protect(on: :destroy) do
-    product_nature_category_taxations.any? || sale_items.any? ||
-      purchase_items.any? || journal_entry_items.any?
-  end
-
   # Compute the tax amount
   # If +with_taxes+ is true, it's considered that the given amount
   # is an amount with tax
   def compute(amount, *args)
     options = args.extract_options!
     all_taxes_included = args.shift || options[:all_taxes_included] || false
-    percentage = (options[:intracommunity] ? intracommunity_amount : self.amount).to_d / 100
+    percentage = (options[:intracommunity] ? self.amount : usable_amount).to_d / 100
     if all_taxes_included
       amount.to_d * percentage / (1 + percentage)
     else
@@ -197,8 +189,8 @@ class Tax < Ekylibre::Record::Base
   end
 
   # Returns the pretax amount of an amount
-  def pretax_amount_of(amount)
-    (amount.to_d / coefficient)
+  def pretax_amount_of(with_tax_amount)
+    (with_tax_amount.to_d / coefficient)
   end
 
   # Returns the amount of a pretax amount
@@ -214,15 +206,13 @@ class Tax < Ekylibre::Record::Base
   # Returns the matching coefficient k of the percentage
   # where pretax_amount * k = amount_with_tax
   def coefficient
-    (100 + amount) / 100
+    (100 + usable_amount) / 100
   end
 
-  def amount
-    intracommunity ? 0 : self['amount']
-  end
-
-  def intracommunity_amount
-    self['amount']
+  # Returns a usable amount for sale and purchase i.e. amount when tax is not
+  # selected as intracommunity tax
+  def usable_amount
+    intracommunity ? 0 : amount
   end
 
   # Returns the short label of a tax

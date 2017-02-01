@@ -171,7 +171,7 @@ deu:
         failed: "Gescheitert"
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
-      status:  #?
+      status: #?
         errored: "Fehlerhafte" #?
         failed: "Gescheitert" #?
         passed: "Bestanden" #?
@@ -251,6 +251,10 @@ deu:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "Sofortige Bezahlung"
+    map_layer:
+      nature:
+        background: "Hintergrund"
+        overlay: "Auflage"
     notification:
       level:
         error: "Fehler"
@@ -272,7 +276,7 @@ deu:
         incoming: "Eingehend"
         internal: "intern" #?
         outgoing: "abgehend"
-      state:  #?
+      state: #?
         draft: "Entwurf" #?
         given: "Gegeben" #?
         in_preparation: "In Vorbereitung" #?
@@ -397,10 +401,18 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    purchase:
+      tax_payability:
+        at_invoicing: "Bei Fakturierung"
+        at_paying: "Zu zahlen"
     purchase_nature:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
+    sale_item:
+      compute_from:
+        pretax_amount: "Vor Steuern in Höhe"
+        unit_pretax_amount: "Einheit vor Steuern Menge"
     sensor:
       retrieval_mode:
         # integration: "Integration"
@@ -442,7 +454,7 @@ deu:
         sales_invoices: "Verkaufsrechnungen"
         subscriptions: "Abonnements"
         tax_declarations: "Steuererklärungen"
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "bidirektionale" #?
         direct: "Direkt" #?
@@ -475,7 +487,7 @@ deu:
         doing: "Tun"
         done: "Erledigt"
         todo: "Tun"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Menge" #?
         percentage: "Prozentsatz" #?

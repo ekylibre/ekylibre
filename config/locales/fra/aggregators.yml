@@ -117,5 +117,5 @@ fra:
     vine_yield: "Rendement en vin"
     wages: "Salaires"
     working_area: "Superficie travaillée"
-  aggregators:  #?
+  aggregators: #?
     vat_register: "Registre de TVA" #?

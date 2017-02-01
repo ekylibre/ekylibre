@@ -6,7 +6,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -95,8 +95,8 @@ class Entity < Ekylibre::Record::Base
   belongs_to :supplier_account, class_name: 'Account'
   belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
-  with_options class_name: 'EntityAddress', inverse_of: :entity do
-    has_many :all_addresses, dependent: :destroy
+  with_options class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy do
+    has_many :all_addresses
     has_many :addresses, -> { actives }
     has_many :mails,     -> { actives.mails    }
     has_many :emails,    -> { actives.emails   }
@@ -137,6 +137,9 @@ class Entity < Ekylibre::Record::Base
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
   has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
+  has_many :booked_journals, class_name: 'Journal', foreign_key: :accountant_id
+  has_many :financial_years, class_name: 'FinancialYear', foreign_key: :accountant_id
+  has_many :purchase_affairs, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
 
   with_options class_name: 'EntityAddress' do
     has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }
@@ -240,7 +243,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || incoming_parcels.any? || outgoing_parcels.any?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || incoming_parcels.any? || outgoing_parcels.any? || financial_year_with_opened_exchange?
   end
 
   class << self
@@ -404,7 +407,7 @@ class Entity < Ekylibre::Record::Base
     picture.path(style)
   end
 
-  def description
+  def name_with_postal_code_and_city
     desc = (number.nil? ? '' : number) + '. ' + full_name
     c = default_mail_address
     desc += ' (' + c.mail_line_6.to_s + ')' unless c.nil?
@@ -480,6 +483,11 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       entity.destroy
     end
+  end
+
+  def financial_year_with_opened_exchange?
+    return false unless persisted?
+    financial_years.any?(&:opened_exchange?)
   end
 
   def self.best_clients(limit = -1)

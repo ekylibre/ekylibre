@@ -1,6 +1,10 @@
 por:
   procedure_handlers:
     stakes_by_hectare: "Stakes por hectare"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "É o cultivo completamente destruído pela intervenção?"
+    is_it_completely_destroyed_by_intervention: "É este completamente destruído pela intervenção?"
+    is_plant_completely_destroyed_by_intervention: "Planta está completamente destruído pela intervenção?"
   procedure_parameters:
     adding_wine: "Adicionando vinho"
     # animal: "Animal"
@@ -113,6 +117,7 @@ por:
     tool: "Ferramenta"
     topper: "Cartola"
     tractor: "Trator"
+    trailed_equipment: "Equipamentos de arrastar"
     trailer: "Reboque"
     tunnel: "Túnel"
     tunnel_implanter: "Implanter Tunnel"
@@ -132,6 +137,7 @@ por:
     worker: "Trabalhador"
     zone: "Zona"
   procedures:
+    administrative_tasks: "Tarefas administrativas"
     all_in_one_sowing: "Tudo em um semeadura"
     animal_antibiotic_treatment: "Tratamento antibiótico animal"
     animal_artificial_insemination: "Inseminação artificial de animais"
@@ -159,12 +165,15 @@ por:
     greenhouse_assembling: "montagem de efeito estufa"
     ground_destratification: "Desestratificação chão"
     hand_weeding: "Capina manual"
+    handling: "Manipulação"
     harvest_transportation: "Transporte da colheita"
     harvesting: "Colheita"
     hilling: "Amontoa"
     hilling_for_sifting: "Amontoa para peneirar"
     # hoeing: "Hoeing"
+    housing_soil_disinfection: "Desinfecção do solo de habitação"
     indirect_silage: "Silagem indireta"
+    installation_maintenance: "Manutenção da instalação"
     inter_row_hoeing: "Capina entre linhas"
     land_parcel_grinding: "Parcela de terra de moagem"
     lifting: "Elevação"

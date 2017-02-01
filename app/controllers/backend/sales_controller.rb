@@ -56,7 +56,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, selectable: :true, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
@@ -69,9 +69,9 @@ module Backend
       t.column :description, hidden: true
       t.status
       t.column :state_label
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
-      t.column :affair_balance, currency: true, hidden: true
+      t.column :pretax_amount, currency: true, on_select: :sum
+      t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
 
     # Displays the main page with the list of sales
@@ -125,7 +125,7 @@ module Backend
       # t.column :undelivered_quantity, :datatype => :decimal
     end
 
-    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: :position, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
+    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: { id: :asc }, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
       # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.column :name, through: :variant
@@ -137,6 +137,7 @@ module Backend
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
       t.column :reduction_percentage
+      t.column :tax, url: true, hidden: true
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
       t.column :activity_budget, hidden: true

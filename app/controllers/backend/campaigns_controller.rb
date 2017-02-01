@@ -63,7 +63,7 @@ module Backend
       activity = Activity.find(params[:activity_id])
       raise 'Cannot close used activity' if activity.productions.of_campaign(@campaign).any?
       activity_budget = activity.budgets.find_by(campaign: @campaign)
-      activity_budget.destroy
+      activity_budget.destroy if activity_budget
       redirect_to params[:redirect] || { action: :show, id: @campaign.id }
     end
 

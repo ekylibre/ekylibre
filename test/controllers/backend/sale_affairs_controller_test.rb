@@ -11,14 +11,14 @@ module Backend
     test 'should not attach invalid deal' do
       affair = affairs(:sale_affairs_001)
       assert affair.valid?, 'SaleAffair 001 must be valid'
-      post :attach, params: { id: affair.id }
+      post :attach, id: affair.id
       assert (flash['notifications'] && flash['notifications']['error'].any?), "Error expected with no given deal (got #{flash.inspect})"
     end
 
     test 'should not detach invalid deal' do
       affair = affairs(:sale_affairs_001)
       assert affair.valid?, 'SaleAffair 001 must be valid'
-      post :detach, params: { id: affair.id }
+      post :detach, id: affair.id
       assert (flash['notifications'] && flash['notifications']['error'].any?), "Error expected with no given deal (got #{flash.inspect})"
     end
   end

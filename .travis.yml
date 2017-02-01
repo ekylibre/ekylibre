@@ -4,11 +4,14 @@ cache: bundler
 rvm:
   - 2.2.3
 env:
-  - TEST_LOCALE=fra
-  - TEST_LOCALE=eng
+  - TEST_SUITE=libs
+  - TEST_SUITE=models
+  - TEST_SUITE=controllers
+  - TEST_SUITE=frontend
 before_install: test/ci/before_install
 before_script:  test/ci/before_script
-script: xvfb-run bundle exec rake test:run_all DRIVER=webkit LOCALE=$TEST_LOCALE
-# script: bundle exec rake test:core
+script: xvfb-run bundle exec rake test:$TEST_SUITE DRIVER=webkit
 services:
   - redis-server
+notifications:
+  webhooks: https://coveralls.io/webhook?repo_token=COVERALLS_REPO_TOKEN

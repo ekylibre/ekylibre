@@ -895,6 +895,8 @@ bank_statement_items:
   lock_version:
     type: integer
     required: true
+  memo:
+    type: string
   name:
     type: string
     required: true
@@ -910,6 +912,8 @@ bank_statement_items:
     type: integer
     references: user
 bank_statements:
+  accounted_at:
+    type: datetime
   cash_id:
     type: integer
     references: cash
@@ -948,6 +952,9 @@ bank_statements:
     precision: 19
     scale: 4
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -1301,10 +1308,6 @@ cash_transfers:
     type: integer
     references: user
 cashes:
-  account_id:
-    type: integer
-    references: account
-    required: true
   bank_account_holder_name:
     type: string
   bank_account_key:
@@ -1351,6 +1354,10 @@ cashes:
   lock_version:
     type: integer
     required: true
+  main_account_id:
+    type: integer
+    references: account
+    required: true
   mode:
     type: string
     required: true
@@ -1367,6 +1374,13 @@ cashes:
     references: entity
   spaced_iban:
     type: string
+  suspend_until_reconciliation:
+    type: boolean
+    required: true
+    default: false
+  suspense_account_id:
+    type: integer
+    references: account
   updated_at:
     type: datetime
     required: true
@@ -1581,6 +1595,9 @@ crumbs:
   intervention_parameter_id:
     type: integer
     references: intervention_parameter
+  intervention_participation_id:
+    type: integer
+    references: intervention_participation
   lock_version:
     type: integer
     required: true
@@ -2335,7 +2352,53 @@ events:
   updater_id:
     type: integer
     references: user
+financial_year_exchanges:
+  closed_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  import_file_content_type:
+    type: string
+  import_file_file_name:
+    type: string
+  import_file_file_size:
+    type: integer
+  import_file_updated_at:
+    type: datetime
+  lock_version:
+    type: integer
+    required: true
+  public_token:
+    type: string
+  public_token_expired_at:
+    type: datetime
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 financial_years:
+  accountant_id:
+    type: integer
+    references: entity
   closed:
     type: boolean
     required: true
@@ -2931,6 +2994,8 @@ incoming_payments:
     type: string
   bank_name:
     type: string
+  codes:
+    type: jsonb
   commission_account_id:
     type: integer
     references: account
@@ -3276,6 +3341,10 @@ intervention_parameters:
     type: string
   derivative_of:
     type: string
+  dead:
+    type: boolean
+    required: true
+    default: false
   event_participation_id:
     type: integer
     references: event_participation
@@ -3368,6 +3437,8 @@ intervention_participations:
   lock_version:
     type: integer
     required: true
+  procedure_name:
+    type: string
   product_id:
     type: integer
     references: product
@@ -3469,11 +3540,13 @@ interventions:
     references: intervention
   started_at:
     type: datetime
+    required: true
   state:
     type: string
     required: true
   stopped_at:
     type: datetime
+    required: true
   trouble_description:
     type: text
   trouble_encountered:
@@ -3596,6 +3669,9 @@ issues:
     references: user
   custom_fields:
     type: jsonb
+  dead:
+    type: boolean
+    default: false
   description:
     type: text
   geolocation:
@@ -3681,6 +3757,9 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  financial_year_exchange_id:
+    type: integer
+    references: financial_year_exchange
   financial_year_id:
     type: integer
     references: financial_year
@@ -3896,6 +3975,9 @@ journal_entry_items:
     type: integer
     references: user
 journals:
+  accountant_id:
+    type: integer
+    references: entity
   closed_on:
     type: date
     required: true
@@ -4378,7 +4460,7 @@ manure_management_plans:
   updater_id:
     type: integer
     references: user
-map_backgrounds:
+map_layers:
   attribution:
     type: string
   by_default:
@@ -4412,6 +4494,12 @@ map_backgrounds:
   name:
     type: string
     required: true
+  nature:
+    type: string
+  opacity:
+    type: integer
+  position:
+    type: integer
   reference_name:
     type: string
   subdomains:
@@ -4542,6 +4630,10 @@ outgoing_payment_lists:
   lock_version:
     type: integer
     required: true
+  mode_id:
+    type: integer
+    references: outgoing_payment_mode
+    required: true
   number:
     type: string
   updated_at:
@@ -4648,6 +4740,8 @@ outgoing_payments:
     type: integer
     references: entity
     required: true
+  position:
+    type: integer
   responsible_id:
     type: integer
     references: user
@@ -6255,9 +6349,42 @@ purchases:
     type: integer
     references: entity
     required: true
+  tax_payability:
+    type: string
+    required: true
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+regularizations:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  lock_version:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -6306,6 +6433,9 @@ sale_items:
     type: text
   codes:
     type: jsonb
+  compute_from:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true

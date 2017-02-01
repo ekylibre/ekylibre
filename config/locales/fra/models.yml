@@ -1,5 +1,5 @@
 fra:
-  activemodel:  #?
+  activemodel: #?
     errors: #?
       models: #?
         sepa/credit_transfer_transaction: #?
@@ -8,7 +8,7 @@ fra:
               greater_than: "Le montant à payer doit être supérieur à zéro" #?
   activerecord:
     attributes:
-      activity:  #?
+      activity: #?
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
         parent: "Activité parente" #?
@@ -16,14 +16,14 @@ fra:
       activity_budget:
         expenses_amount: "Montant des dépenses"
         revenues_amount: "Montant des recettes"
-      activity_production:  #?
+      activity_production: #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
       activity_tactic:
         bulk_quantity: "Volume prévisionnel" #?
         mode: "Type de planification"
         plan_on: "Date" #?
-      animal:  #?
+      animal: #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
       animal_group:
@@ -35,11 +35,11 @@ fra:
         variety: "Type" #?
       document:
         filename: "Fichier"
-      document_archive:  #?
+      document_archive: #?
         file_pages_count: "Nombre de page" #?
       document_template:
         managed: "Géré par le système"
-      entity:  #?
+      entity: #?
         active: "Active" #?
       equipment:
         born_at: "Mis en service le"
@@ -52,10 +52,10 @@ fra:
         initial_dead_at: "Demantelé au"
         parent_place: "Lieu de parking" #?
         variety: "Marque" #?
-      event:  #?
+      event: #?
         duration: "Durée (en minutes)" #?
         place: "Lieu" #?
-      event_nature:  #?
+      event_nature: #?
         duration: "Durée par défaut (en min.)" #?
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
@@ -63,20 +63,20 @@ fra:
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
-      incoming_payment:  #?
+      incoming_payment: #?
         to_bank_at: "À encaisser le" #?
-      inspection:  #?
+      inspection: #?
         points: "Points de contrôle" #?
-      inspection_calibration:  #?
+      inspection_calibration: #?
         items_count: "Nombre de pièces" #?
-      inspection_point:  #?
+      inspection_point: #?
         items_count: "Nombre de pièces" #?
-      intervention:  #?
+      intervention: #?
         production_support: "Support de production" #?
         storage: "Support" #?
-      inventory_item:  #?
+      inventory_item: #?
         quantity: "Quantité constatée" #?
-      journal_entry_item:  #?
+      journal_entry_item: #?
         closed: "Cloturée" #?
       land_parcel:
         born_at: "Créé le"
@@ -88,17 +88,17 @@ fra:
         children: "Sous-îlots" #?
         identification_number: "Numéro d’îlots PAC" #?
         real_quantity: "Surface" #?
-      matter:  #?
+      matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
-      outgoing_parcel:  #?
+      outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
         list: "Lot de décaissements"
       outgoing_payment_list:
         payments_sum: "Total"
-      outgoing_payment_mode:  #?
+      outgoing_payment_mode: #?
         payments: "Décaissements" #?
       parcel:
         contract: "Contrat"
@@ -126,24 +126,24 @@ fra:
       plant_density_abacus_item:
         plants_count: "Nombre théorique de graines"
         seeding_density_value: "Densité théorique de semis"
-      product_localization:  #?
+      product_localization: #?
         container: "Contenant" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
-      product_nature_category:  #?
+      product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
         fixed_asset_allocation_account: "Compte d’ammortissement" #?
         fixed_asset_expenses_account: "Compte de dotation aux ammortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
-      product_nature_variant:  #?
+      product_nature_variant: #?
         contour: "Contour de la forme" #?
         horizontal_rotation: "Rotation horizontale de la forme" #?
-      product_transfer:  #?
+      product_transfer: #?
         building: "Lieu de stockage de départ" #?
         second_building: "Lieu de stockage d’arrivée" #?
-      production:  #?
+      production: #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
       purchase:
@@ -153,7 +153,7 @@ fra:
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
-      purchase_item:  #?
+      purchase_item: #?
         amount: "Montant TTC" #?
       sale:
         affair_balance: "Solde"
@@ -161,7 +161,7 @@ fra:
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
         items: "Lignes de vente" #?
-      sale_item:  #?
+      sale_item: #?
         amount: "Montant TTC" #?
         label: "Produit" #?
         price: "Prix" #?
@@ -175,16 +175,21 @@ fra:
         status: "Statut"
       tax:
         amount: "Valeur"
-      tax_declaration:  #?
+      tax_declaration: #?
         address: "Adresse du service destinataire" #?
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
-      user:  #?
+      tax_declaration_item:
+        collected: "Collectée"
+        deductible: "Déductible"
+        fixed_asset_deductible: "Déductible sur immobilisation"
+        intracommunity_payable: "Intra-communautaire"
+      user: #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
         name: "Nom d’utilisateur" #?
-      worker:  #?
+      worker: #?
         variety: "Qualification" #?
     errors:
       messages:
@@ -212,6 +217,7 @@ fra:
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
@@ -238,6 +244,8 @@ fra:
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
+          initial_balance_credit: #?
+            unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
           ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
           ofx_file_invalid: "Fichier OFX invalide"
@@ -245,6 +253,7 @@ fra:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
+          different_of_main_account: "%{attribute} doit être différent du compte comptable principal (%{account})"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
         deposit:
           must_be_a_bank_account: "%{field} doit être un compte bancaire et non une caisse"
@@ -253,11 +262,20 @@ fra:
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
         financial_year:
           attributes:
+            accountant:
+              frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours"
             started_on:
               consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
+              frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé."
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
+          csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')"
+          csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides"
+          csv_file_invalid: "Fichier CSV invalide"
+          csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -266,11 +284,16 @@ fra:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
             closed_on:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})"
         journal_entry:
           closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
+          frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable."
           out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           unbalanced: "La pièce n’est pas équilibrée"
         journal_entry_item:
@@ -402,7 +425,7 @@ fra:
       loan_repayment: "Remboursement d’emprunt"
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
-      map_background: "Fond de carte"
+      map_layer: "Couche de carte"
       matter: "Matière"
       net_service: "Service en ligne"
       notification: "Notification"
@@ -445,6 +468,7 @@ fra:
       purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
+      regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"
@@ -494,6 +518,7 @@ fra:
     account_name: "Compte comptable"
     account_number: "N°Compte"
     accountable: "Comptabilisable"
+    accountant: "Comptable"
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"
     achieved_at: "Achevé le"
@@ -555,6 +580,7 @@ fra:
     attorney_journal: "Journal mandataire" #?
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
+    # attribution: "Attribution"
     authentication_token: "Clef d’authentification"
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
@@ -659,6 +685,7 @@ fra:
     components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
+    compute_from: "Calculer à partir"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
@@ -729,6 +756,7 @@ fra:
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
+    dead: "Mort"
     dead_at: "Date de décès"
     dead_line_at: "Date butoir"
     deal_type: "Type de transaction" #?
@@ -981,7 +1009,7 @@ fra:
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
-    initial_balance_credit: "Crédit d’équilibre initial"
+    initial_balance_credit: "Crédit du solde initial"
     initial_balance_debit: "Débit du solde initial"
     initial_born_at: "Date initiale de naissance"
     initial_container: "Emplacement initial"
@@ -1015,9 +1043,13 @@ fra:
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
     intervention_parameter: "Paramètre d’intervention"
+    intervention_participation: "Participation d’intervention"
+    intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
+    intracommunity: "Intracommunautaire"
+    intracommunity_payable_account: "Compte de taxe intracommunautaire due"
     introduction: "Introduction"
     inventory: "Inventaire"
     invitation_accepted_at: "Invitation acceptée à"
@@ -1160,6 +1192,7 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
+    memo: "Note"
     message: "Message"
     # messages: "Messages"
     metadata: "Méta-données"
@@ -1217,6 +1250,7 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
+    opacity: "Opacité"
     opened_at: "Ouvert le"
     operation: "Travail"
     operation_name: "Nom de l’opération"
@@ -1380,6 +1414,7 @@ fra:
     purchasable: "Achetable"
     purchase: "Achat"
     purchase_affair: "Affaire d’achat"
+    purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
@@ -1445,6 +1480,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
+    regularizations: "Régularisations"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
     remaining_lifespan: "Vie restante"
@@ -1611,10 +1647,12 @@ fra:
     tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration d’impôt"
     tax_declarations: "Déclarations fiscales"
+    tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
     theme: "Thème"
+    theoretical_number: "Numéro théorique"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers" #?
@@ -1789,13 +1827,13 @@ fra:
       unvalid_nature: "Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller."
     entity:
       client: "Client"
-      import:  #?
+      import: #?
         dont_use: "— Ne pas utiliser —" #?
         generate_string_custom_field: "— Créer un champ personnalisé (texte) —" #?
       no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "Fournisseur"
-    establishment:  #?
+    establishment: #?
       default: "Principal" #?
     financial_year:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
@@ -1874,10 +1912,10 @@ fra:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
-    outgoing_parcel:  #?
+    outgoing_parcel: #?
       label: "%{client} à %{address}" #?
       sale: "Vente %{number}" #?
-    outgoing_parcel_item:  #?
+    outgoing_parcel_item: #?
       sale: "Vente %{number}" #?
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
@@ -2036,7 +2074,7 @@ fra:
           done: "Fini"
           todo: "À faire"
     tax_declaration:
-      # bookkeep: "[%{resource} %{number}] From %{started_on} to %{stopped_on}"
+      bookkeep: "[%{resource} %{number}] - Période du %{started_on} au %{stopped_on}"
     team:
       default: "Général"
     user:

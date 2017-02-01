@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -73,6 +73,22 @@ class ProductGroup < Product
   belongs_to :parent, class_name: 'ProductGroup'
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :group_id, dependent: :destroy, inverse_of: :group
   has_many :members, through: :memberships
+
+  scope :available, -> {}
+  scope :availables, ->(**args) {
+    at = args[:at]
+    return available if at.blank?
+    if at.is_a?(String)
+      if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      else
+        logger.warn('Cannot parse: ' + at)
+        available
+      end
+    else
+      available.at(at)
+    end
+  }
 
   scope :groups_of, lambda { |member, viewed_at|
     where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, 'interior', viewed_at, viewed_at, viewed_at)
