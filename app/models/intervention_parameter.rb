@@ -27,8 +27,8 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
-#  derivative_of            :string
 #  dead                     :boolean          default(FALSE), not null
+#  derivative_of            :string
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
@@ -65,7 +65,6 @@ class InterventionParameter < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :derivative_of, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
-  validates :currency, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }

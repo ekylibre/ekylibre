@@ -3339,12 +3339,12 @@ intervention_parameters:
     references: user
   currency:
     type: string
-  derivative_of:
-    type: string
   dead:
     type: boolean
     required: true
     default: false
+  derivative_of:
+    type: string
   event_participation_id:
     type: integer
     references: event_participation

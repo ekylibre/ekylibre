@@ -27,8 +27,8 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
-#  derivative_of            :string
 #  dead                     :boolean          default(FALSE), not null
+#  derivative_of            :string
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key

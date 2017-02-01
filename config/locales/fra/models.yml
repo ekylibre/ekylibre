@@ -1563,6 +1563,7 @@ fra:
     serial: "N°Lot"
     serial_number: "Serial number"
     sessions: "Sessions"
+    # settings: "Settings"
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"

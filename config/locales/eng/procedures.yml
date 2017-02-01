@@ -122,6 +122,7 @@ eng:
     operator: "Operator"
     plant: "Culture"
     plant_medicine: "Plant medicine"
+    # plant_variant: "Plant variant"
     plants: "Plants"
     plow: "Plough"
     pollinating_insects: "Pollinating insects"

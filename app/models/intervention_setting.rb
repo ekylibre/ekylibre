@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +27,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  derivative_of            :string
 #  event_participation_id   :integer
 #  group_id                 :integer
@@ -59,6 +60,6 @@
 # intervention. The output generate a product with the given quantity.
 class InterventionSetting < InterventionParameter
   belongs_to :intervention, inverse_of: :outputs
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :product
 end
