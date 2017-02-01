@@ -275,6 +275,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
+    byebug
     end_of_intervention = working_periods.maximum(:stopped_at)
     create_dependent_records_for(targets, end_of_intervention)
     create_dependent_records_for(outputs, end_of_intervention)
@@ -390,23 +391,23 @@ class Intervention < Ekylibre::Record::Base
       create_dependent(:group, parameter, attributes.except(:member).merge(dependent_class: ProductMembership, thing_class: Product))
       create_dependent(:variant, parameter, attributes.except(:product).merge(dependent_class: ProductPhase, thing_class: ProductNatureVariant))
       create_dependent(:container, parameter, attributes.except(:member).merge(dependent_class: ProductLocalization, thing_class: Product))
-      create_merging(parameter, at)
+      create_merging(parameter)
     end
   end
 
-  def create_dependent(thing, parameter, **params)
+  def create_dependent(thing, parameter, params)
     return unless new_thing = parameter.send(:"new_#{thing}_id")
     dependent_class = params.delete(:dependent_class)
     thing_class     = params.delete(:thing_class)
 
-    dependent_class.find_or_create_by(attributes.merge(thing => thing_class.find(new_thing)))
+    dependent_class.find_or_create_by(params.merge(thing => thing_class.find(new_thing)))
   end
 
-  def create_merging(parameter, at)
+  def create_merging(parameter)
     product = parameter.product
     return unless parameter.merge_stocks
-    return unless dest = product.matching_product(at: at, container: parameter.new_container)
-    ProductMerging.create!(originator: parameter, product: product, merged_with: dest, merged_at: at)
+    return unless dest = product.matching_product(at: stopped_at, container: parameter.new_container)
+    ProductMerging.create!(originator: parameter, product: product, merged_with: dest, merged_at: stopped_at)
   end
 
   # Returns human activity names
@@ -513,9 +514,8 @@ class Intervention < Ekylibre::Record::Base
 
       movement = output.product_movement
       next unless movement
-      movement.started_at = self.started_at
-      movement.stopped_at = self.stopped_at
-      movement.save!
+      movement.update(started_at: self.started_at,
+                      stopped_at: self.stopped_at)
     end
 
     inputs.find_each do |input|

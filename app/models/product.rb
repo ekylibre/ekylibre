@@ -314,6 +314,7 @@ class Product < Ekylibre::Record::Base
            :frozen_indicators, :frozen_indicators_list, :variable_indicators,
            :variable_indicators_list, :linkage_points, :linkage_points_list,
            to: :nature
+  delegate :merged_at, to: :merge, allow_nil: true
 
   after_initialize :choose_default_name
   after_save :set_initial_values, if: :initializeable?

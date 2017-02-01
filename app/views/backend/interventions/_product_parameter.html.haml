@@ -49,7 +49,9 @@
       %h3
         = link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
         = lights('stop') if (product_parameter.dead or product_parameter.merge_stocks) and product_parameter.product.dead_at
-      %p= :merged_with_x.tl(x: actor.merged_with) if product_parameter.merge_stocks && actor.merged_with
+      - merged_with = actor.merged_with
+      - merged_link = merged_with && link_to(merged_with.name, {controller: merged_with.class.table_name, action: :show, id: merged_with.id})
+      %p= :merged_with_x.tl(x: merged_link).html_safe if product_parameter.merge_stocks && actor.merged_with
       %p= product_parameter.name
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
