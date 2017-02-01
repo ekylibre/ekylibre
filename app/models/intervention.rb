@@ -275,7 +275,6 @@ class Intervention < Ekylibre::Record::Base
   end
 
   after_save do
-    byebug
     end_of_intervention = working_periods.maximum(:stopped_at)
     create_dependent_records_for(targets, end_of_intervention)
     create_dependent_records_for(outputs, end_of_intervention)
