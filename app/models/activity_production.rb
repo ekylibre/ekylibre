@@ -274,8 +274,10 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def initialize_animal_group_support!
-    self.support = AnimalGroup.new unless support
-    support.name = computed_support_name
+    unless support
+      self.support = AnimalGroup.new
+      support.name = computed_support_name
+    end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
