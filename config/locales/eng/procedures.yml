@@ -246,6 +246,7 @@ eng:
     sifting: "Sifting"
     silage_unload: "Silage unload"
     sowing: "Seeding"
+    sowing_v2: "Seeding"
     sowing_with_spraying: "Seeding with spraying"
     spraying: "Spraying"
     standard_enclosing: "Standard enclosing"

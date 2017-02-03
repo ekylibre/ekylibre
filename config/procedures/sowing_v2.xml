@@ -1,19 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="old_sowing" categories="planting" actions="sowing" deprecated="true">
+  <procedure name="sowing_v2" categories="planting" actions="sowing">
     <parameters>
+      <setting name="plant_variant" type="variant" filter="is plant" />
       <group name="zone">
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
         <output name="plant" filter="is plant" cardinality="1" distribution="target">
-          <attribute name="new_name"/>
+          <attribute name="new_name" />
+          <attribute name="variant" value="setting_value(plant_variant)" />
+          <attribute name="variety" value="derivative_of(seeds)" />
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT? and VARIANT.net_surface_area != 0" to="population"/>
           </reading>
         </output>
       </group>
-      <input name="seeds" filter="is seed and derives from plant and can grow">
+      <input name="seeds" filter="is seed and can grow" compute-filter="'is seed and can grow and %{derives_from(variety_of(setting_value(plant_variant)))}'">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
