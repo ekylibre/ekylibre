@@ -277,7 +277,7 @@ eng:
       intervention_parameter_reading: "Product reading task"
       intervention_participation: "Intervention participation"
       intervention_product_parameter: "Intervention product parameter"
-      # intervention_setting: "Intervention setting"
+      intervention_setting: "Intervention setting"
       intervention_target: "Intervention target"
       intervention_tool: "Intervention tool"
       intervention_working_period: "Intervention working period"

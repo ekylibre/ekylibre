@@ -407,6 +407,7 @@ fra:
       intervention_parameter_reading: "Relevé d’indicateur d’intervention"
       intervention_participation: "Participation d’intervention"
       intervention_product_parameter: "Paramètre produit d’intervention"
+      intervention_setting: "Paramètre d’intervention"
       intervention_target: "Cible d’intervention"
       intervention_tool: "Outil d’intervention"
       intervention_working_period: "Période d’intervention"
