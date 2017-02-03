@@ -171,10 +171,6 @@
       $.extend(true, @options, @element.data("visualization"))
       @mapElement = $("<div>", class: "map").appendTo(@element)
 
-      if @options.box?
-        @element.css('height', @options.box.height)
-        @element.css('width', @options.box.width)
-
       @map = L.map(@mapElement[0], @options.map)
       @layers = []
 
