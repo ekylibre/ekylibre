@@ -90,6 +90,11 @@ class ProductGroup < Product
     end
   }
 
+  # TODO see STI scope in unroll
+  scope :of_expression, lambda { |expression|
+    joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
+  }
+
   scope :groups_of, lambda { |member, viewed_at|
     where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, 'interior', viewed_at, viewed_at, viewed_at)
   }
