@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +27,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
@@ -60,6 +61,7 @@ class InterventionParameter < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }

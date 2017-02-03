@@ -24,7 +24,7 @@ module Backend
 
     def show
       preference = current_user.preference("golumn.#{params[:id]}", {}.to_yaml)
-      render json: YAML.load(preference.value)
+      render json: YAML.safe_load(preference.value)
     end
 
     def reset

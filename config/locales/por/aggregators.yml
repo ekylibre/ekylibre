@@ -123,5 +123,5 @@ por:
     vine_yield: "Produção por planta"
     wages: "Salários"
     working_area: "Área de trabalho"
-  aggregators:  #?
+  aggregators: #?
     vat_register: "Registro de imposto" #?

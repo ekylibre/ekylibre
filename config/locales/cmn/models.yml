@@ -133,11 +133,20 @@ cmn:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "该财政年度必须consecutives。它必须与先前的结束后开始。"
+              frozen: "交易所已创建时的财政年度日期不能更改。"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "在CSV一些条目没有财政年度交换日期范围"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "CSV标头是无效"
+          csv_file_invalid: "CSV文件无效"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -146,10 +155,15 @@ cmn:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "会计师只能对各种操作日志设置"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "日记帐分录不能被记录在相应于一个财政年度交流的时间。"
           out_of_existing_financial_year: "日记帐分录必须记录在相应于现有财政年度期间。"
           unbalanced: "日记帐分录不平衡"
         journal_entry_item:
@@ -280,7 +294,8 @@ cmn:
       loan_repayment: "偿还借款"
       manure_management_plan: "粪便管理计划"
       manure_management_plan_zone: "粪便管理计划区"
-      map_background: "地图背景"
+      map_background: "地图背景" #?
+      map_layer: "地图图层"
       matter: "物"
       net_service: "网络服务"
       notification: "通知"
@@ -369,6 +384,7 @@ cmn:
     account_name: "用户名"
     account_number: "帐号"
     accountable: "负责"
+    accountant: "会计"
     accounted_at: "在占"
     accuracy: "准确性"
     achieved_at: "在实现"
@@ -420,6 +436,7 @@ cmn:
     assembly: "部件"
     attachments: "附件"
     attribute_name: "属性名"
+    attribution: "归因"
     authentication_token: "认证令牌"
     author: "作者"
     authorized_payments_count: "授权支付数"
@@ -570,6 +587,7 @@ cmn:
     customized_type: "定制型"
     daily_nitrogen_production: "每日制氮"
     dashboards: "仪表板"
+    dead: "死"
     dead_at: "死在"
     dead_line_at: "在死亡线"
     deals_count: "算上优惠"
@@ -815,6 +833,8 @@ cmn:
     intervention: "介入"
     intervention_cast: "干预投"
     intervention_parameter: "干预参数"
+    intervention_participation: "参与干预"
+    intervention_participations: "干预参股"
     intervention_product_parameters: "干预铸件"
     interventions: "干预"
     interventions_used_in: "干预中使用"
@@ -952,6 +972,7 @@ cmn:
     members: "会员"
     members_count: "会员数"
     memberships: "成员"
+    memo: "备忘录"
     message: "信息"
     messages: "消息"
     metadata: "元数据"
@@ -1000,6 +1021,7 @@ cmn:
     observed_at: "在观察"
     of_company: "该公司的"
     old_password: "旧密码"
+    opacity: "不透明度"
     opened_at: "在开业"
     operation: "手术"
     operation_name: "操作名称"

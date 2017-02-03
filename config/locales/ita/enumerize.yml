@@ -171,7 +171,7 @@ ita:
         failed: "Fallito"
         passed: "Passato"
         passed_with_warnings: "Superato con avvisi"
-      status:  #?
+      status: #?
         errored: "errored" #?
         failed: "fallito" #?
         passed: "Passato" #?
@@ -251,6 +251,10 @@ ita:
       shift_method:
         anatocism: "anatocismo"
         immediate_payment: "Pagamento immediato"
+    map_layer:
+      nature:
+        background: "Sfondo"
+        overlay: "Copertura"
     notification:
       level:
         error: "Errore"
@@ -272,7 +276,7 @@ ita:
         incoming: "in arrivo"
         internal: "Interno" #?
         outgoing: "Estroverso"
-      state:  #?
+      state: #?
         draft: "Bozza" #?
         given: "Dato" #?
         in_preparation: "In preparazione" #?
@@ -450,7 +454,7 @@ ita:
         sales_invoices: "Fatture di vendita"
         subscriptions: "Sottoscrizioni"
         tax_declarations: "Dichiarazioni fiscali"
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "bidirezionale" #?
         direct: "Diretto" #?
@@ -483,7 +487,7 @@ ita:
         doing: "Fare"
         done: "Fatto"
         todo: "Fare"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Quantità" #?
         percentage: "Percentuale" #?

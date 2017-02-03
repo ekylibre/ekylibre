@@ -263,6 +263,7 @@ Rails.application.routes.draw do
 
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
       resources :bank_statement_items, only: [:new, :create, :destroy], path: 'items'
+      resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
 
       collection do
         get :list_items
@@ -481,6 +482,18 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
+        get :list_exchanges
+      end
+    end
+
+    resources :financial_year_exchanges, concerns: [:list], path: 'financial-year-exchanges', only: [:new, :create, :show] do
+      member do
+        get :list_journal_entries
+        get :journal_entries_export
+        get :journal_entries_import
+        post :journal_entries_import
+        get :notify_accountant
+        get :close
       end
     end
 
@@ -553,6 +566,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :intervention_participations, only: [:index, :update, :destroy] do
+      member do
+        post :convert
+      end
+    end
+
     resources :inventories, concerns: [:list, :unroll] do
       member do
         post :reflect
@@ -594,6 +613,9 @@ Rails.application.routes.draw do
       member do
         get :list_items
       end
+      collection do
+        patch :toggle_autocompletion, path: 'toggle-autocompletion'
+      end
     end
 
     resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
@@ -632,7 +654,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :map_backgrounds do
+    resources :map_layers, path: 'map-layers' do
       collection do
         post :load
       end
@@ -660,7 +682,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:show, :index, :destroy] do
       collection do
         delete :destroy
-        get :unread
+        get :unread, action: :index, mode: :unread
       end
     end
 
@@ -786,7 +808,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :quick_affairs, only: [:new, :create], path: 'quick-affairs'
+    resources :quick_purchases, only: [:new, :create], path: 'quick-purchases'
+    resources :quick_sales,     only: [:new, :create], path: 'quick-sales'
 
     resources :regularizations
 
@@ -938,7 +961,6 @@ Rails.application.routes.draw do
 
     resources :tax_declarations, concerns: [:list, :unroll], path: 'tax-declarations' do
       member do
-        get :list_items
         post :propose
         post :confirm
       end
@@ -962,6 +984,12 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
+  end
+
+  namespace :public do
+    resources :financial_year_exchange_exports, path: 'financial-year-exchange-exports', only: [:show] do
+      get :csv, on: :member
+    end
   end
 
   root to: 'public#index'

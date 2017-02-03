@@ -1,6 +1,10 @@
 jpn:
   procedure_handlers:
     stakes_by_hectare: "ヘクタールによるステークス"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "栽培は完全に介入によって破壊されていますか？"
+    is_it_completely_destroyed_by_intervention: "これは完全に介入によって破壊されていますか？"
+    is_plant_completely_destroyed_by_intervention: "工場は完全に介入によって破壊されていますか？"
   procedure_parameters:
     adding_wine: "ワインを追加します"
     animal: "動物"
@@ -113,6 +117,7 @@ jpn:
     tool: "ツール"
     topper: "トッパー"
     tractor: "トラクター"
+    trailed_equipment: "後塵機器"
     trailer: "トレーラー"
     tunnel: "トンネル"
     tunnel_implanter: "トンネル注入"
@@ -166,6 +171,7 @@ jpn:
     hilling: "畝"
     hilling_for_sifting: "ふるい分けのための畝"
     # hoeing: "Hoeing"
+    housing_soil_disinfection: "住宅土壌消毒"
     indirect_silage: "間接サイレージ"
     installation_maintenance: "インストールのメンテナンス"
     inter_row_hoeing: "行間hoeing"

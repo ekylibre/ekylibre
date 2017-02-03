@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -124,6 +124,9 @@ class SaleItem < Ekylibre::Record::Base
     if tax
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
       if compute_from_unit_pretax_amount?
+        if credited_item
+          self.unit_pretax_amount ||= credited_item.unit_pretax_amount
+        end
         if sale.reference_number.blank?
           self.unit_amount = nil
           self.pretax_amount = nil

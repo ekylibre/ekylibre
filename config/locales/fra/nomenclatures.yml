@@ -2107,7 +2107,7 @@ fra:
         entity: "Personne 1"
         linked: "Personne 2"
         symmetric: "Lien symétrique"
-    entity_natures:  #?
+    entity_natures: #?
       items: #?
         association: "Association" #?
         civil_society: "Société civile" #?
@@ -2283,6 +2283,7 @@ fra:
         fresh_mass: "Poids frais"
         fuel_consumption: "Consommation de carburant"
         geolocation: "Géolocalisation"
+        germination_rate: "Taux de germination"
         grains_area_density: "Grains par surface"
         grains_count: "Grains"
         hagberg_falling_number: "Temps de chute de Hagberg"
@@ -2376,6 +2377,7 @@ fra:
         solar_irradiance: "Rayonnement solaire"
         somatic_cell_concentration: "Dénombrement des cellules somatiques"
         spans_count: "Nombre de travées"
+        species_purity: "Pureté spécifique"
         specific_weight: "Poids spécifique"
         stakes_count: "Nombre de piquets"
         subsoil_nature: "Type de sous-sol"
@@ -2667,7 +2669,7 @@ fra:
         identifiers: "Identifiants"
         nature: "Type"
         url: "URL"
-    nmp_poitou_charentes_abacus_one:  #?
+    nmp_poitou_charentes_abacus_one: #?
       name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes" #?
     opportunity_origins:
       items:
@@ -2885,7 +2887,7 @@ fra:
         irrigating: "Irrigation"
         land_maintenance: "Travaux fonciers sur parcelles"
         meat_transformation: "Transformation produits à base de viande et escargots"
-        planting: "Plantation"
+        planting: "Implantation des cultures"
         plants_transformation: "Transformation produits végétaux"
         soil_working: "Travail du sol"
         textile_transformation: "Transformation produits textiles"
@@ -4255,7 +4257,7 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
     production_natures:
-      items:  #?
+      items: #?
         administrative: "Administratif" #?
         annual_frost_fallow_land: "Gel annuel" #?
         apple: "Pomme" #?
@@ -4354,7 +4356,7 @@ fra:
         winter_soft_wheat: "Blé tendre d’hiver" #?
         without_crop: "Hors culture" #?
       name: "Types de productions"
-      property_natures:  #?
+      property_natures: #?
         activity: "Activité" #?
         production_code: "Code" #?
         telepac_crop_code: "Code de type de culture TéléPAC" #?
@@ -4483,7 +4485,7 @@ fra:
         fixed_asset_deduction_account: "Compte de déduction pour les immobilisations"
         suffix: "Suffixe"
     taxes:
-      choices:  #?
+      choices: #?
         computation_method: #?
           amount: "Montant fixe" #?
           percentage: "Pourcentage" #?

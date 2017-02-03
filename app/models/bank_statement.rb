@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -83,7 +83,7 @@ class BankStatement < Ekylibre::Record::Base
       errors.add(:stopped_on, :overlap_sibling)
     end
     if started_on && stopped_on
-      if started_on >= stopped_on
+      if started_on > stopped_on
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
@@ -106,12 +106,12 @@ class BankStatement < Ekylibre::Record::Base
     b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
       label = "BS #{cash.name} #{number}"
       balance = items.sum('credit - debit')
-      entry.add_debit(label, cash.main_account_id, balance, as: :bank)
-      entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
-      # items.each do |item|
-      #   entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
-      #   entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
-      # end
+      items.each do |item|
+        entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
+        entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+      end
+      # entry.add_debit(label, cash.main_account_id, balance, as: :bank)
+      # entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
     end
   end
 
@@ -143,9 +143,23 @@ class BankStatement < Ekylibre::Record::Base
     cash_next_reconciliation_letters.next
   end
 
+  def letter_items(statement_items, journal_entry_items)
+    new_letter = next_letter
+    return false if (journal_entry_items + statement_items).length.zero?
+
+    saved = true
+    saved &&= statement_items.update_all(letter: new_letter)
+    saved &&= journal_entry_items.update_all(
+      bank_statement_letter: new_letter,
+      bank_statement_id: id
+    )
+
+    saved && new_letter
+  end
+
   def eligible_journal_entry_items
-    margin = 20.days
-    unpointed = cash.unpointed_journal_entry_items.between(started_on - margin, stopped_on + margin)
+    # margin = 20.days
+    unpointed = cash.unpointed_journal_entry_items # .between(started_on - margin, stopped_on + margin)
     pointed = JournalEntryItem.pointed_by(self)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end

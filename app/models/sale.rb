@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -120,6 +120,8 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
+  scope :with_nature, ->(id) { where(nature_id: id) }
+
   scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
@@ -156,7 +158,7 @@ class Sale < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state = :draft
-    self.currency = nature.currency if nature
+    self.currency ||= nature.currency if nature
     self.created_at = Time.zone.now
   end
 
@@ -207,8 +209,12 @@ class Sale < Ekylibre::Record::Base
     true
   end
 
+  protect on: :update do
+    old_record.invoice?
+  end
+
   protect on: :destroy do
-    invoice? || order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
+    old_record.invoice? || old_record.order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
   end
 
   # This callback bookkeeps the sale depending on its state
@@ -267,6 +273,14 @@ class Sale < Ekylibre::Record::Base
 
   def self.third_attribute
     :client
+  end
+
+  def self.affair_class
+    "#{name}Affair".constantize
+  end
+
+  def default_currency
+    currency || nature.currency
   end
 
   def third

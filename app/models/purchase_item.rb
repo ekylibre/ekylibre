@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -123,6 +123,19 @@ class PurchaseItem < Ekylibre::Record::Base
       self.label ||= variant.commercial_name
       if fixed
         self.account = variant.fixed_asset_account || Account.find_in_nomenclature(:fixed_assets)
+
+        if fixed_asset
+          # if fixed asset is already registered BUT an identical name is going to be saved
+          attrs = { name: fixed_asset.name.dup }
+          if FixedAsset.where(name: attrs[:name]).where.not(id: fixed_asset.id).any?
+            if annotation
+              fixed_asset.update(name: attrs[:name] << ' ' + annotation)
+            else
+              fixed_asset.update(name: attrs[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase)
+            end
+            fixed_asset.reload
+          end
+        end
         unless fixed_asset
           # Create asset
           asset_attributes = {
@@ -142,6 +155,7 @@ class PurchaseItem < Ekylibre::Record::Base
           while FixedAsset.find_by(name: asset_attributes[:name])
             asset_attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
           end
+          binding.pry
           build_fixed_asset(asset_attributes)
         end
       else

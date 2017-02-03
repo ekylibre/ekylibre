@@ -180,10 +180,8 @@ module Ekylibre
           hash
         end
       end
-      @manifest[:cashes].each do |n, v|
-        if v[:account]
-          v[:account] = find_record(:accounts, v[:account].to_s)
-        end
+      @manifest[:cashes].each do |_n, v|
+        v[:account] = find_record(:accounts, v[:account].to_s) if v[:account]
       end
       create_records(:cashes)
       w.check_point
@@ -254,7 +252,7 @@ module Ekylibre
       end
       w.check_point
 
-      MapBackground.load_defaults
+      MapLayer.load_defaults
       w.check_point
     end
 

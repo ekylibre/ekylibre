@@ -133,11 +133,20 @@ eng:
           nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "The financial years must be consecutives. It must start after the end of the previous."
+              frozen: "The financial year date cannot be changed when an exchange has been created."
             stopped_on:
               end_of_month: "%{attribute} must be an end of month"
           overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
+          csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "CSV headers are invalid"
+          csv_file_invalid: "CSV file is invalid"
+          csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -146,10 +155,15 @@ eng:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Accountant can only be set for various operations journals"
+              previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
           out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
           unbalanced: "The journal entry is unbalanced"
         journal_entry_item:
@@ -234,6 +248,7 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
+      # financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
       fungus: "Fungus"
@@ -280,7 +295,7 @@ eng:
       loan_repayment: "Loan repayment"
       manure_management_plan: "Manure management plan"
       manure_management_plan_zone: "Manure management plan zone"
-      map_background: "Map background"
+      map_layer: "Map layer"
       matter: "Matter"
       net_service: "Net service"
       notification: "Notification"
@@ -370,6 +385,7 @@ eng:
     account_name: "Account name"
     account_number: "Account number"
     accountable: "Accountable"
+    accountant: "Accountant"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
@@ -421,7 +437,7 @@ eng:
     assembly: "Assembly"
     attachments: "Attachments"
     attribute_name: "Attribute name"
-    # attribution: "Attribution"
+    attribution: "Attribution"
     authentication_token: "Authentication token"
     author: "Author"
     authorized_payments_count: "Authorized payments count"
@@ -446,6 +462,7 @@ eng:
     base_amount: "Base amount"
     battery_level: "Battery level"
     body: "Body"
+    # booked_journals: "Booked journals"
     boolean_value: "Boolean value"
     born_at: "Born at"
     budgets: "Budgets"
@@ -574,6 +591,7 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
+    dead: "Dead"
     dead_at: "Dead on"
     dead_line_at: "Dead line at"
     deals_count: "Deals count"
@@ -668,6 +686,7 @@ eng:
     event_participation: "Event participation"
     events: "Events"
     evolvable: "Evolvable"
+    # exchanges: "Exchanges"
     execution_number: "Execution number"
     executor: "Executor"
     expected_population: "Expected population"
@@ -700,6 +719,8 @@ eng:
     filtered_columns: "Filtered columns"
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
+    # financial_year_exchange: "Financial year exchange"
+    # financial_years: "Financial years"
     finish: "Finish"
     finished_at: "Finished at"
     first_met_at: "First met on"
@@ -773,6 +794,10 @@ eng:
     implanter_application_width: "Implanter application width"
     implanter_rows_number: "Implanter rows number"
     implanter_working_width: "Implanter working width"
+    # import_file_content_type: "Import file content type"
+    # import_file_file_name: "Import file file name"
+    # import_file_file_size: "Import file file size"
+    # import_file_updated_at: "Import file updated at"
     importance: "Importance"
     imported_at: "Imported at"
     importer: "Importer"
@@ -824,8 +849,8 @@ eng:
     # intervention_labellings: "Intervention labellings"
     intervention_parameter: "Intervention parameter"
     # intervention_participated_to: "Intervention participated to"
-    # intervention_participation: "Intervention participation"
-    # intervention_participations: "Intervention participations"
+    intervention_participation: "Intervention participation"
+    intervention_participations: "Intervention participations"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_used_in: "Interventions used in"
@@ -968,6 +993,7 @@ eng:
     members: "Members"
     members_count: "Members count" #?
     memberships: "Memberships"
+    memo: "Memo"
     message: "Message"
     messages: "Messages"
     metadata: "Metadata"
@@ -1016,6 +1042,7 @@ eng:
     observed_at: "Observed at"
     of_company: "Of the company"
     old_password: "Old password"
+    opacity: "Opacity"
     opened_at: "Opened at"
     operation: "Operation"
     operation_name: "Operation name"
@@ -1153,6 +1180,8 @@ eng:
     # provider: "Provider"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
+    # public_token: "Public token"
+    # public_token_expired_at: "Public token expired at"
     purchasable: "Purchasable"
     purchase: "Purchase"
     purchase_affair: "Purchase affair" #?

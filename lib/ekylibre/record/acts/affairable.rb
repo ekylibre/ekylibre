@@ -59,8 +59,8 @@ module Ekylibre
             # Refresh after each save
             code << "validate do\n"
             code << "  if self.#{reflection_name}\n"
-            code << "    unless self.#{reflection_name}.currency == self.#{currency}\n"
-            code << "      raise 'Invalid currency in affair'\n"
+            code << "    if self.#{reflection_name}.currency? && self.#{currency}? && self.#{reflection_name}.currency != self.#{currency}\n"
+            code << "      raise \"Invalid currency in affair. Expecting: \#{self.currency}. Got: \#{self.#{reflection_name}.currency}\"\n"
             code << "      errors.add(:#{reflection_name}, :invalid_currency, got: self.#{currency}, expected: self.#{reflection_name}.currency)\n"
             code << "      errors.add(:#{foreign_key}, :invalid_currency, got: self.#{currency}, expected: self.#{reflection_name}.currency)\n"
             code << "    end\n"

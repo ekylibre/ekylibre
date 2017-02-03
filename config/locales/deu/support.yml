@@ -8,6 +8,9 @@ deu:
     human:
       false_class: "Falsch"
       true_class: "Wahr"
+    polar:
+      false_class: "Ja"
+      true_class: "Nein"
   date:
     abbr_day_names: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
     abbr_month_names: ["", "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
@@ -63,7 +66,7 @@ deu:
       today: "Heute"
       week: "Woche"
       year: "Jahr"
-    prompts:  #?
+    prompts: #?
       day: "Tag" #?
       hour: "Stunden" #?
       minute: "Minute" #?
@@ -73,7 +76,7 @@ deu:
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
-  errors:  #?
+  errors: #?
     format: "%{attribute} %{message}" #?
     messages: #?
       accepted: "muss akzeptiert werden" #?
@@ -109,7 +112,7 @@ deu:
       header: #?
         one: "Konnte %{model} nicht speichern: ein Fehler." #?
         other: "Konnte %{model} nicht speichern: %{count} Fehler." #?
-  helpers:  #?
+  helpers: #?
     select: #?
       prompt: "Bitte wählen" #?
     submit: #?
@@ -141,7 +144,7 @@ deu:
       precision: 2
       separator: ","
     human:
-      decimal_units:  #?
+      decimal_units: #?
         format: "%n %u" #?
         units: #?
           billion: #?
@@ -159,7 +162,7 @@ deu:
         precision: 3
         significant: "true" #?
         strip_insignificant_zeros: "true" #?
-      storage_units:  #?
+      storage_units: #?
         format: "%n %u" #?
         units: #?
           byte: #?
@@ -177,12 +180,6 @@ deu:
       format:
         delimiter: ""
   rank: "#%{number}"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Lieferant Rechnungsnummer"
-    required:
-      text: "Erforderlich"
   support:
     array:
       last_word_connector: " und "

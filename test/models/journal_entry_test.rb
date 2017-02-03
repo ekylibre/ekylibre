@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,32 +22,33 @@
 #
 # == Table: journal_entries
 #
-#  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4)   default(0.0), not null
-#  balance            :decimal(19, 4)   default(0.0), not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  financial_year_id  :integer
-#  id                 :integer          not null, primary key
-#  journal_id         :integer          not null
-#  lock_version       :integer          default(0), not null
-#  number             :string           not null
-#  printed_on         :date             not null
-#  real_balance       :decimal(19, 4)   default(0.0), not null
-#  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string           not null
-#  real_currency_rate :decimal(19, 10)  default(0.0), not null
-#  real_debit         :decimal(19, 4)   default(0.0), not null
-#  resource_id        :integer
-#  resource_prism     :string
-#  resource_type      :string
-#  state              :string           not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
+#  absolute_credit            :decimal(19, 4)   default(0.0), not null
+#  absolute_currency          :string           not null
+#  absolute_debit             :decimal(19, 4)   default(0.0), not null
+#  balance                    :decimal(19, 4)   default(0.0), not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credit                     :decimal(19, 4)   default(0.0), not null
+#  currency                   :string           not null
+#  debit                      :decimal(19, 4)   default(0.0), not null
+#  financial_year_exchange_id :integer
+#  financial_year_id          :integer
+#  id                         :integer          not null, primary key
+#  journal_id                 :integer          not null
+#  lock_version               :integer          default(0), not null
+#  number                     :string           not null
+#  printed_on                 :date             not null
+#  real_balance               :decimal(19, 4)   default(0.0), not null
+#  real_credit                :decimal(19, 4)   default(0.0), not null
+#  real_currency              :string           not null
+#  real_currency_rate         :decimal(19, 10)  default(0.0), not null
+#  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  resource_id                :integer
+#  resource_prism             :string
+#  resource_type              :string
+#  state                      :string           not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 
 require 'test_helper'
@@ -57,10 +58,16 @@ class JournalEntryTest < ActiveSupport::TestCase
   test 'a journal forbids to write records before its closure date' do
     journal = journals(:journals_001)
     assert_raise ActiveRecord::RecordInvalid do
-      record = journal.entries.create!(printed_on: journal.closed_on - 10)
+      record = journal.entries.create!(
+        printed_on: journal.closed_on - 10,
+        items: fake_items
+      )
     end
     assert_nothing_raised do
-      record = journal.entries.create!(printed_on: journal.closed_on + 1)
+      record = journal.entries.create!(
+        printed_on: journal.closed_on + 1,
+        items: fake_items
+      )
     end
   end
 
@@ -73,11 +80,11 @@ class JournalEntryTest < ActiveSupport::TestCase
       JournalEntry.create!(journal: journal)
     end
 
-    entry = JournalEntry.new(journal: journal, printed_on: Date.today)
-    assert entry.valid?
+    entry = JournalEntry.new(journal: journal, printed_on: Date.today, items: fake_items)
+    assert entry.valid?, entry.inspect + "\n" + entry.errors.full_messages.to_sentence
 
-    entry = journal.entries.new(printed_on: Date.today)
-    assert entry.valid?
+    entry = journal.entries.new(printed_on: Date.today, items: fake_items)
+    assert entry.valid?, entry.inspect + "\n" + entry.errors.full_messages.to_sentence
 
     Preference.set!(:currency, 'INR')
     assert_raise JournalEntry::IncompatibleCurrencies do
@@ -147,5 +154,33 @@ class JournalEntryTest < ActiveSupport::TestCase
     )
     assert journal_entry.balanced?
     assert_equal 4, journal_entry.items.count
+  end
+
+  test 'cannot be created when in financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    journal = create(:journal)
+    entry = JournalEntry.new(journal: journal, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    refute entry.valid?
+  end
+
+  test 'cannot be updated to a date in financial year exchange date range' do
+    financial_year = financial_years(:financial_years_025)
+    exchange = create(:financial_year_exchange, financial_year: financial_year)
+    entry = create(:journal_entry, printed_on: exchange.stopped_on + 1.day, items: fake_items)
+    assert entry.valid?
+    entry.printed_on = exchange.started_on + 1.day
+    refute entry.valid?
+  end
+
+  def fake_items(options = {})
+    amount = options[:amount] || (500 * rand + 1).round(2)
+    name = options[:name] || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+    [
+      JournalEntryItem.new(account: Account.first, real_debit: amount, real_credit: 0, name: name),
+      JournalEntryItem.new(account: Account.second, real_debit: 0, real_credit: amount, name: name)
+    ]
   end
 end

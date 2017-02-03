@@ -1,6 +1,10 @@
 spa:
   procedure_handlers:
     stakes_by_hectare: "Estacas por hectárea"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "Es el cultivo completamente destruido por la intervención?"
+    is_it_completely_destroyed_by_intervention: "Se esta completamente destruido por la intervención?"
+    is_plant_completely_destroyed_by_intervention: "Se planta completamente destruido por la intervención?"
   procedure_parameters:
     adding_wine: "La adición de vino"
     # animal: "Animal"
@@ -113,6 +117,7 @@ spa:
     tool: "Herramienta"
     topper: "Sombrero de copa"
     # tractor: "Tractor"
+    trailed_equipment: "Equipos remolcados"
     trailer: "Remolque"
     tunnel: "Túnel"
     tunnel_implanter: "Implantador túnel"
@@ -166,6 +171,7 @@ spa:
     hilling: "Aporque"
     hilling_for_sifting: "Aporque para tamizar"
     hoeing: "Azada"
+    housing_soil_disinfection: "Desinfección del suelo de vivienda"
     indirect_silage: "Ensilado indirecta"
     installation_maintenance: "Mantenimiento de la instalación"
     inter_row_hoeing: "Entre hileras azada"

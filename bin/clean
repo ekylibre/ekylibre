@@ -1,4 +1,6 @@
 #!/bin/bash
 
+git checkout -f -- private/
+git clean -f -d -- private/
 bundle exec rake clean CRON=0
-rubocop --auto-correct --no-color --out log/rubocop.log
+bundle exec rubocop --auto-correct --no-color --out log/rubocop.log

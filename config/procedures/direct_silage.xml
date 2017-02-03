@@ -4,6 +4,7 @@
     <parameters>
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
       </target>
       <output name="silage" filter="is silage and derives from plant">
         <handler name="population"/>

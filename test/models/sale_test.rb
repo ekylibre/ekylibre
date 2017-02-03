@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -260,5 +260,25 @@ class SaleTest < ActiveSupport::TestCase
       #   assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
       # end
     end
+  end
+
+  test 'default_currency is nature\'s currency if currency is not specified' do
+    Catalog.delete_all
+    SaleNature.delete_all
+    Entity.delete_all
+    Sale.delete_all
+
+    catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
+    nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog)
+    max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    with       = Sale.create!(client: max, nature: nature, currency: 'USD')
+    without    = Sale.create!(client: max, nature: nature)
+
+    assert_equal 'USD', with.default_currency
+    assert_equal 'EUR', without.default_currency
+  end
+
+  test 'affair_class points to correct class' do
+    assert_equal SaleAffair, Sale.affair_class
   end
 end

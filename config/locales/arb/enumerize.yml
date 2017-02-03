@@ -171,7 +171,7 @@ arb:
         failed: "فشل"
         passed: "مرت"
         passed_with_warnings: "مرت مع تحذيرات"
-      status:  #?
+      status: #?
         failed: "فشل" #?
         passed: "مرت" #?
         passed_with_warnings: "مرت مع تحذيرات" #?
@@ -250,6 +250,10 @@ arb:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "الدفع الفوري"
+    map_layer:
+      nature:
+        background: "خلفية"
+        overlay: "غطاء"
     notification:
       level:
         error: "خطأ"
@@ -271,7 +275,7 @@ arb:
         incoming: "الوارد"
         internal: "داخلي" #?
         outgoing: "المنتهية ولايته"
-      state:  #?
+      state: #?
         draft: "مسودة" #?
         given: "معطى" #?
         in_preparation: "قيد التحضير" #?
@@ -450,7 +454,7 @@ arb:
         subscriptions: "الاشتراكات"
         tax_declarations: "الإقرارات الضريبية"
         transports: "ترقيم وسائل النقل" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "ثنائي الاتجاه" #?
         direct: "مباشرة" #?
@@ -483,7 +487,7 @@ arb:
         doing: "فعل"
         done: "فعله"
         todo: "لكى يفعل"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "كمية" #?
         percentage: "نسبة مئوية" #?

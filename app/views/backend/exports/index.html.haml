@@ -1,8 +1,7 @@
-- categories = Nomen::DocumentCategory.to_a.select{|category| Aggeratio.of_category(category).any? }
-= cobbles do |c|
-  - categories.map{|c| Nomen::DocumentCategory[c] }.sort{|a,b| a.human_name.ascii <=> b.human_name.ascii }.each do |category|
-    - c.cobble category.name, title: category.human_name do
+- export_categories.each do |category|
+  .activity-family
+    .activity-family-heading
+      %h2.activity-family-title= category.human_name
+    .activity-family-body
       - Aggeratio.of_category(category.name).each do |aggregator|
-        = link_to({action: :show, id: aggregator.id}, class: "btn btn-big btn-#{aggregator.id} aggregator", title: aggregator.human_name, style: "min-width: 30ex") do
-          %i
-          = aggregator.human_name
+        = render 'export', aggregator: aggregator

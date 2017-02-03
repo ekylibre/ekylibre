@@ -1,0 +1,10 @@
+:ruby
+  cursors = [0]
+  config = {}
+  config[:crumbs] = crumbs
+  config[:cursors] = cursors
+
+- if crumbs.present?
+  = content_tag(:div, nil, data: {slider: config.to_json}) # TODO: implement slider
+- else
+  = no_data

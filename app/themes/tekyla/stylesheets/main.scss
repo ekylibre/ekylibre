@@ -573,7 +573,10 @@ html.exception {
 
 #core {
   clear: both;
-  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  @include calc(height, "100vh - #{$header-height + $topbar-height}");
+  .toolbar + & {
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  }
 }
 
 #about-us {
@@ -1785,6 +1788,10 @@ a[data-remove-closest], a[data-remove] {
       border-top: 1px solid #777;
     }
   }
+
+  .error {
+    color: $invalid-color;
+  }
 }
 
 
@@ -2360,10 +2367,14 @@ svg.map {
 
 #items-form {
   #total {
-    a {
+    .options {
       @include float(left);
     }
   }
+}
+
+.standalone-option {
+  margin: 0 $default-gap * 2;
 }
 
 .document-archives {
@@ -2498,6 +2509,9 @@ a[data-annotate] {
     &.inaccessible {
       cursor: not-allowed;
       background: $neutral-color;
+    }
+    &[disabled], &.disabled {
+      @include disabled;
     }
   }
   a.state:hover {
@@ -2725,4 +2739,21 @@ a[data-annotate] {
     line-height: 48px;
     width: 100%;
   }
+}
+
+.opacity-range {
+  margin-left: 1.5em;
+  &:before {
+    content: '0';
+    margin-left: -1.5em;
+  }
+  &:after {
+    content: '100';
+    margin-right: -2em;
+  }
+}
+
+.map-fullwidth{
+  width: 100%;
+  height: 100%;
 }

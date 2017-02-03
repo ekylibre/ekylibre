@@ -171,7 +171,7 @@ spa:
         failed: "Ha fallado"
         passed: "Pasado"
         passed_with_warnings: "Ha superado con advertencias"
-      status:  #?
+      status: #?
         errored: "Con error" #?
         failed: "Ha fallado" #?
         passed: "Pasado" #?
@@ -251,6 +251,10 @@ spa:
       shift_method:
         anatocism: "Anatocismo"
         immediate_payment: "Pago inmediato"
+    map_layer:
+      nature:
+        background: "Fondo"
+        overlay: "Cubrir"
     notification:
       level:
         # error: "Error"
@@ -272,7 +276,7 @@ spa:
         incoming: "Entrante"
         internal: "Interno" #?
         outgoing: "Saliente"
-      state:  #?
+      state: #?
         draft: "Borrador" #?
         given: "Dado" #?
         in_preparation: "En la preparación de" #?
@@ -451,7 +455,7 @@ spa:
         subscriptions: "Suscripciones"
         tax_declarations: "Declaraciones de impuestos"
         transports: "Numeración de los transportes" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "Bidireccional" #?
         direct: "Directo" #?
@@ -484,7 +488,7 @@ spa:
         doing: "Obra"
         done: "Hecho"
         todo: "Que hacer"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "Cantidad" #?
         percentage: "Porcentaje" #?

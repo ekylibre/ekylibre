@@ -210,6 +210,10 @@ deu:
     backend/exports:
       index: "Ausfuhr"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "Das Geschäftsjahr Austausch Import"
+      new: "Neue Austausch"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       # close: "Close financial year: %{code}"
       compute_balances: "Berechnen Geschäftsjahr Bilanz"
@@ -280,6 +284,9 @@ deu:
       # edit: "Edit integration: %{name}"
       index: "Integrationen"
       # new: "Activate integration: %{name}"
+    backend/intervention_participations:
+      # convert: "Convert intervention participation: %{name}"
+      index: "Intervention Beteiligungen"
     backend/interventions:
       edit: "Bearbeiten"
       edit_request: "Anfrage bearbeiten"
@@ -353,10 +360,17 @@ deu:
       index: "Dungsmanagementpläne"
       new: "New Gülle-Management-Plan"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "Karte Hintergründe"
-      new: "Neue Karte Hintergrund"
+    backend/map_backgrounds: #?
+      index: "Karte Hintergründe" #?
+      new: "Neue Karte Hintergrund" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "Kartenschichten"
+      # load: "Load map layer: %{name}"
+      new: "Neue Karten-Layer"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Angelegenheiten"
@@ -461,6 +475,10 @@ deu:
       propose_and_invoice: "Rechnung direkt"
       refuse: "weigerte sich um"
       # show: "Purchase: %{number} - %{state}"
+    backend/quick_purchases:
+      new: "Neukauf / Zahlungsausgang"
+    backend/quick_sales:
+      new: "New Verkauf / Zahlungseingang"
     backend/registrations:
       edit: "Bearbeiten Registrierung"
       index: "Anmeldungen"
@@ -665,6 +683,7 @@ deu:
     # accounts: "Accounts"
     accounts_only_used_at: "Konten nur verwendet, um"
     accounts_to_load: "Konten zu laden"
+    activate_entry_autocompletion: "Aktivieren Sie Eintrag Auto-Vervollständigung"
     active: "Aktiv"
     active_finishing_after: "Aktive Veredelung nach"
     active_finishing_within: "Aktive Veredelung innerhalb"
@@ -774,6 +793,7 @@ deu:
     average: "Durchschnittlich"
     back: "Zurück zur vorherigen Seite"
     # balance: "Balance"
+    balance_of_selection: "Saldo der Auswahl"
     bank_account: "Bank Konto"
     bank_statement_number: "Kontoauszugsnummer"
     bank_statements: "Kontoauszüge"
@@ -856,6 +876,7 @@ deu:
     costs: "Kosten"
     costs_map: "Kosten Karte" #?
     costs_per_hectare: "Die Kosten pro Hektar"
+    # could_not_attach_x_or_y_to_affair: "Could not attach %{trade} or %{payment} to affair."
     countings: "Zählungen"
     counts: "zählt"
     counts_by_nature: "Anzahl der Dokumente pro Typ zu berücksichtigen"
@@ -885,6 +906,7 @@ deu:
     current_stocks_by_variety: "Aktuelle Bestände durch Vielfalt"
     currently_subscribed_to: "Derzeit abonniert"
     custom_fields: "Benutzerdefinierte Felder"
+    # dated_cash: "%{cash}: %{on}"
     dates: "Wählen Sie Zeitraum Startdatum und Enddatum der Periode"
     days: "Tage"
     deals: "Angebote"
@@ -976,6 +998,8 @@ deu:
     # example: "Example: %{value}"
     exchange: "Austausch"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "Börsen"
+    existing: "Bestehende"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Kosten"
@@ -1066,6 +1090,8 @@ deu:
     inventories: "Die Vorräte"
     inventory: "Inventar"
     # invitation_status: "Status"
+    invoice_status: "Rechnungsstatus"
+    invoiced: "Die fakturierten"
     invoiced_amount: "Der Umsatz Rechnungsbetrag" #?
     invoices: "Rechnungen"
     is: "ist"
@@ -1079,14 +1105,14 @@ deu:
     journal_entries_states: "Staaten von Einträgen"
     journal_entry_items: "Journaleintrag Artikel"
     journal_entry_items_with_undeclared_taxes:
+      # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
-      # zero: "%{count} journal entry item with undeclared taxes"
     journal_entry_items_with_unidentified_expenses:
+      # one: "%{count} journal entry item with unidentified expenses"
       # other: "%{count} journal entry items with unidentified expenses"
-      # zero: "%{count} journal entry item with unidentified expenses"
     journal_entry_items_with_unidentified_revenues:
+      # one: "%{count} journal entry item with unidentified revenues"
       # other: "%{count} journal entry items with unidentified revenues"
-      # zero: "%{count} journal entry item with unidentified revenues"
     # journal_name: "%{name}"
     journal_view:
       entries: "Einträge"
@@ -1112,6 +1138,7 @@ deu:
     last_purchases: "Letzte Einkäufe"
     last_sales: "Letzte Verkaufs"
     letter: "Brief"
+    # letterable: "Letterable"
     # line_number: "Line #%{number}"
     linear_options: "linear Optionen"
     # link: "Link"
@@ -1181,6 +1208,7 @@ deu:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "Neue e-mail"
+    new_financial_year_exchange: "Neue Austausch"
     new_group: "Neue Gruppe"
     new_incoming_parcel: "Neu eingehende Paket"
     new_incoming_payment: "Neue Zahlungseingang"
@@ -1200,6 +1228,7 @@ deu:
     no_crumbs_to_check: "Keine Krümel zu überprüfen"
     no_data: "Keine Daten"
     no_deposits: "Keine Ablagerungen"
+    no_intervention_participations_to_check: "Keine Intervention Beteiligungen zu überprüfen"
     no_notifications: "Keine Benachrichtigungen"
     no_particular_periods: "Keine besondere Zeit"
     no_products: "Keine Produkte"
@@ -1210,6 +1239,7 @@ deu:
     none: "Keiner"
     # normal: "Normal"
     not_delivered: "Nicht zugestellt"
+    not_letterable: "Nicht in der Lage zu Brief"
     not_ready: "Nicht bereit"
     not_received: "Nicht erhalten"
     now: "Jetzt"
@@ -1321,7 +1351,6 @@ deu:
     ready_to_harvest: "Bereit zur Ernte"
     received: "Empfangen"
     recent_events: "Die jüngsten Ereignisse"
-    reconciled_total: "Reconciled Gesamt"
     record: "Aufzeichnen"
     record_maintenance: "Nehmen Wartung"
     reflect: "Reflektieren"
@@ -1351,7 +1380,7 @@ deu:
     rest: "Sich ausruhen"
     restore: "Wiederherstellen"
     result: "Ergebnis"
-    results:  #?
+    results: #?
       one: "1 Ergebnis" #?
     revenues: "Die Umsatzerlöse"
     revenues_by_product_nature: "Umsatz nach Produkttyp"
@@ -1372,6 +1401,7 @@ deu:
     # same_variant_as_x: "Same variant as %{x}"
     save: "sparen"
     save_in_draft: "Als Entwurf speichern"
+    # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Geplant"
     search: "Suche"
     search_placeholder: "Suche…"
@@ -1522,6 +1552,7 @@ deu:
     undelivered: "Nicht gesendet"
     undelivered_invoices: "Nicht zugestellte Rechnungen"
     undone: "unerledigt"
+    uninvoiced: "Nicht in Rechnung gestellte"
     unit: "Einheit"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unbekannt"
@@ -1723,6 +1754,8 @@ deu:
       warning: "Warnung!"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "Der Buchhalter wurde benachrichtigt"
+      accountant_without_email: "Bitte stellen Sie die E-Mail Buchhalter"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Alle Pakete müssen abrechenbaren und von gleicher Art und dritte sein"
       all_purchases_must_be_ordered_or_invoiced: "Alle Käufe müssen bestellt oder in Rechnung gestellt."
       bookkeeping_is_finished: "Die kommerzielle Datenübertragung beendet ist."
@@ -1735,6 +1768,7 @@ deu:
       cannot_merge_entities: "Es ist unmöglich, diese Menschen zu verschmelzen."
       changes_have_been_reflected: "Die Änderungen wurden in der Bestände Zustand reflektiert"
       changes_have_not_been_reflected: "Die Änderungen wurden nicht in die Bestände Zustand niedergeschlagen"
+      closed_financial_year_exchange: "Das Geschäftsjahr Austausch wurde erfolgreich geschlossen"
       closed_financial_years: "Das Geschäftsjahr wurde erfolgreich abgeschlossen"
       columns_are_already_uses: "oft werden eine oder mehrere Spalten ausgewählt"
       dashboard_is_being_developed: "Dashboard ist stark in der Entwicklung"
@@ -1758,6 +1792,7 @@ deu:
       integrate_tools_you_are_using_every_day: "Integrieren Sie Werkzeuge, die Sie jeden Tag verwenden"
       invalid_reference_name: "Ungültige Referenznamen"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "Die Journaleinträge importiert wurden."
       journal_entry_already_validated: "Der Datensatz wurde bereits validiert worden und kann nicht geändert werden"
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -1878,6 +1913,8 @@ deu:
       increment: "Zuwachs" #?
       # index: "Index"
       invoice: "Rechnung"
+      journal_entries_csv_export: "CSV-Datei herunterladen"
+      journal_entries_import: "CSV-Import"
       list: "Liste"
       load: "Belastung"
       lock: "Sperren"
@@ -1888,9 +1925,13 @@ deu:
       move: "Bewegung" #?
       negociate: "verhandeln"
       new: "Neu"
+      new_purchase: "Neuanschaffung"
+      new_sale: "Neuer Verkauf"
+      notify_accountant: "Benachrichtigen Buchhalter"
       open: "Öffnen"
       order: "Auftrag"
       pay: "Bezahlen"
+      payment_gap: "Zahlungslücke"
       payment_mode: "Zahlungsart"
       pick: "pflücken"
       picture: "Bild"
@@ -1931,6 +1972,12 @@ deu:
       update: "Aktualisieren"
       update_password: "Update-Passwort" #?
       win: "Gewinnen"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Lieferant Rechnungsnummer"
+    required:
+      text: "Erforderlich"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

@@ -111,16 +111,16 @@ ita:
         present: "deve essere lasciato in bianco" #?
         # record_invalid: "Validations failed: %{errors}"
         taken: "è già presente"
-        too_long:  #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-          one: "è troppo lungo (il massimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-          other: "è troppo lungo (il massimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
-        too_short:  #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
-          one: "è troppo corto (il minimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
-          other: "è troppo corto (il minimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+        too_long: #? String expected ("%{attribute} is too long (maximum is %{count} characters)")
+          one: "è troppo lungo (il massimo è 1 carattere)" #?
+          other: "è troppo lungo (il massimo è %{count} caratteri)" #?
+        too_short: #? String expected ("%{attribute} is too short (minimum is %{count} characters)")
+          one: "è troppo corto (il minimo è 1 carattere)" #?
+          other: "è troppo corto (il minimo è %{count} caratteri)" #?
         unitary_in_parcel: "elementi unitari possono essere inviati solo uno per uno"
-        wrong_length:  #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
-          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
-          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
+        wrong_length: #? String expected ("%{attribute} is the wrong length (should be %{count} characters)")
+          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
+          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
       models:
         activity:
           checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
@@ -142,11 +142,20 @@ ita:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente."
+              frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio."
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Alcune voci del CSV sono fuori dell’esercizio di date scambio"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "Intestazioni CSV non sono validi"
+          csv_file_invalid: "File CSV non è valido"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -155,10 +164,15 @@ ita:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Commercialista può essere impostato solo per varie riviste operazioni"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio."
           out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente."
           unbalanced: "La voce di diario è sbilanciato"
         journal_entry_item:
@@ -183,7 +197,7 @@ ita:
           nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che." #?
           one: "Non posso salvare questo %{model}: 1 errore"
           other: "Non posso salvare questo %{model}: %{count} errori."
-        models:  #?
+        models: #?
           cash: #?
             unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti." #?
           financial_year: #?
@@ -202,7 +216,7 @@ ita:
             error_no_found_price: "Nessun prezzo trovato" #?
           subscription: #?
             entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto" #?
-        template:  #?
+        template: #?
           body: "Ci sono stati problemi con i seguenti campi:" #?
     models:
       account: "account"
@@ -311,7 +325,8 @@ ita:
       loan_repayment: "Rimborso del prestito"
       manure_management_plan: "piano di gestione del letame"
       manure_management_plan_zone: "Concimi zona di piano di gestione"
-      map_background: "Mappa di sfondo"
+      map_background: "Mappa di sfondo" #?
+      map_layer: "Mappa strato"
       matter: "Importa"
       net_service: "il servizio net"
       notification: "Notifica"
@@ -400,6 +415,7 @@ ita:
     account_name: "Nome utente"
     account_number: "numero di conto"
     accountable: "Responsabile"
+    accountant: "Contabile"
     accounted_at: "rappresentato a"
     accuracy: "Precisione"
     achieved_at: "raggiunto a"
@@ -451,6 +467,7 @@ ita:
     assembly: "Montaggio"
     attachments: "allegati"
     attribute_name: "Nome attributo"
+    attribution: "Attribuzione"
     authentication_token: "token di autenticazione"
     author: "Autore"
     authorized_payments_count: "contano pagamenti autorizzati"
@@ -601,6 +618,7 @@ ita:
     customized_type: "tipo personalizzato"
     daily_nitrogen_production: "produzione di azoto giornaliera"
     dashboards: "Dashboard"
+    dead: "Morto"
     dead_at: "Morto"
     dead_line_at: "dead line a"
     deals_count: "contano offerte"
@@ -846,6 +864,8 @@ ita:
     intervention: "Intervento"
     intervention_cast: "getto di intervento"
     intervention_parameter: "parametro intervento"
+    intervention_participation: "Partecipazione intervento"
+    intervention_participations: "Partecipazioni di intervento"
     intervention_product_parameters: "calchi di intervento"
     interventions: "interventi"
     interventions_used_in: "Interventi utilizzato in"
@@ -983,6 +1003,7 @@ ita:
     members: "Utenti"
     members_count: "Numero dei membri"
     memberships: "Adesioni"
+    memo: "Promemoria"
     message: "Messaggio"
     messages: "Messaggi"
     metadata: "Metadati"
@@ -1031,6 +1052,7 @@ ita:
     observed_at: "osservata alle"
     of_company: "Della compagnia"
     old_password: "Vecchia Password"
+    opacity: "Opacità"
     opened_at: "aperto a"
     operation: "operazione"
     operation_name: "Nome dell’operazione"

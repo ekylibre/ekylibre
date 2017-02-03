@@ -1,0 +1,12 @@
+fra:
+  mailers:
+    financial_year_exchange_export:
+      notify_accountant: |
+        Bonjour,
+
+        Des nouvelles écritures sont disponibles en provenance de %{name}. Pour les télécharger : %{link}
+
+        Cordialement,
+
+        %{current_user_name}
+      notify_accountant_subject: "Des nouvelles écritures sont disponibles en provenance de %{name}."

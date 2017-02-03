@@ -38,6 +38,15 @@
 
     bankReconciliation.initialize()
 
+    position_space = new RegExp(".*scroll_to=(\\d+).*")
+    position = position_space.exec location.search
+    if position
+      $("#hide-lettered").attr('checked', false)
+      $("#hide-lettered").change()
+
+      scrollTo = $("[data-type=bank_statement_item][data-id=#{position[1]}]").parents('.date-section')[0]
+      $('.list').scrollTop(scrollTo.offsetTop - $('.list')[0].offsetTop)
+
   $(document).on "click", ".reconciliation-item[data-type=bank_statement_item] a#delete", ->
     # Remove bank statement item
     button = $(@)
@@ -80,11 +89,31 @@
   $(document).on "change", "#hide-lettered", ->
     bankReconciliation.uiUpdate()
 
+  $(document).on "datepicker-change", "#set_period", (event, dates) ->
+    current_params = document.location.search
+
+    start = dates.date1
+    start = "period_start=#{start.getFullYear()}-#{start.getMonth()+1}-#{start.getDate()}"
+    param_space = new RegExp("(&|\\?)period_start=[^\&]*")
+    if param_space.exec(current_params)
+      current_params = current_params.replace(param_space, "$1" + start)
+    else
+      current_params += (if current_params.length > 0 then '&' else '?') + start
+
+    end = dates.date2
+    end = "period_end=#{end.getFullYear()}-#{end.getMonth()+1}-#{end.getDate()}"
+    param_space = new RegExp("(&|\\?)period_end=[^\&]*")
+    if param_space.exec(current_params)
+      current_params = current_params.replace(param_space, "$1" + end)
+    else
+      current_params += (if current_params.length > 0 then '&' else '?') + end
+
+    document.location.search = current_params
+
   class BankReconciliation
     constructor: (@precision) ->
 
     initialize: ->
-      @autoReconciliate()
       @uiUpdate()
 
     # Accessors
@@ -211,7 +240,7 @@
         similarJournalItems = @_filterLinesBy(journalItems, date: date, credit: debit, debit: credit)
         return if similarJournalItems.length isnt 1
         @_letterItems $(e).add(similarJournalItems)
-        @uiUpdate()
+      @uiUpdate()
 
     _reconciliateSelectedLinesIfValid: ->
       selected = @_lines().filter(".selected")
@@ -256,7 +285,6 @@
       @_showOrHideCompleteButtons()
       @_showOrHideNewPaymentButtons()
       @_showOrHideReconciliatedLines()
-      @_updateReconciliationBalances()
 
     _showOrHideClearButtons: ->
       @_showAndHideLinkForCollection 'clear',
@@ -280,13 +308,25 @@
     _showOrHideNewPaymentButtons: ->
       selectedBankStatements = @_bankStatementLines().filter(".selected")
       selectedJournalItems   = @_journalEntryLines().filter(".selected")
-      if selectedBankStatements.length > 0 and selectedJournalItems.length == 0
+      if selectedBankStatements.length > 0
         @_updateIdsInButtons()
-        $("a.from-selected").show()
-        $("a.from-selected").parents('.btn-group').show()
+        $("a.from-selected-bank").show()
+        $("a.from-selected-bank").parents('.btn-group').show()
       else
-        $("a.from-selected").hide()
-        $("a.from-selected").parents('.btn-group').hide()
+        $("a.from-selected-bank").hide()
+        $("a.from-selected-bank").parents('.btn-group').hide()
+
+      if selectedJournalItems.length > 0
+        @_updateIdsInButtons()
+        $("a.from-selected-journal").show()
+        $("a.from-selected-journal").parents('.btn-group').show()
+      else
+        $("a.from-selected-journal").hide()
+        $("a.from-selected-journal").parents('.btn-group').hide()
+
+      unless selectedBankStatements.length > 0 and selectedJournalItems.length > 0
+        $("a.from-selected-journal.from-selected-bank").hide()
+        $("a.from-selected-journal.from-selected-bank").parents('.btn-group').hide()
 
     _showOrHideReconciliatedLines: ->
       if $("#hide-lettered").is(":checked")
@@ -295,58 +335,37 @@
         @_reconciliatedLines().show()
 
     _updateIdsInButtons: ->
-      selectedBankStatements = @_lines().filter("[data-type=bank_statement_item].selected")
-      ids = selectedBankStatements.get().map (line) =>
+      @_updateItemIdsInButtons()
+      @_updateEntryIdsInButtons()
+
+    _updateItemIdsInButtons: ->
+      @_updateIdsInButtonsFor('.from-selected-bank', 'bank_statement_item')
+
+    _updateEntryIdsInButtons: ->
+      @_updateIdsInButtonsFor('.from-selected-journal', 'journal_entry_item')
+
+    _updateIdsInButtonsFor: (selector, type) ->
+      selectedLines = @_lines().filter("[data-type=#{type}].selected")
+      ids = selectedLines.get().map (line) =>
         @_idForLine(line)
-      with_questionmark = new RegExp(".*/new(\\?).*?")
-      id_space = new RegExp("(.*/new\\?.*?)(&?bank_statement_item_ids\\[\\]=.*)+(&.*)?")
-      $("a.from-selected").each (i, button) ->
+      with_questionmark = new RegExp(".*/\\w+(\\?).*?")
+      id_space = new RegExp("(.(?!/)*/\\w+\\?.*?)(&?#{type}_ids\\[\\]=.*)+(&.*)?")
+      $(selector).each (i, button) ->
         url = $(button).attr('href')
         if with_questionmark.exec url
-          url = url + '&bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
+          url = url + "&#{type}_ids[]=PLACEHOLDER" unless id_space.exec url
         else
-          url = url + '?bank_statement_item_ids[]=PLACEHOLDER' unless id_space.exec url
-        url = url.replace(id_space, "$1&bank_statement_item_ids[]=#{ids.join('&bank_statement_item_ids[]=')}$3")
+          url = url + "?#{type}_ids[]=PLACEHOLDER" unless id_space.exec url
+        url = url.replace(id_space, "$1&#{type}_ids[]=#{ids.join("&#{type}_ids[]=")}$3")
         $(button).attr('href', url)
-
-    _updateReconciliationBalances: ->
-      all =  @_bankStatementLines()
-      allDebit = all.find(".debit").sum()
-      allCredit = all.find(".credit").sum()
-      allBalance = allDebit - allCredit
-
-      reconciliated = @_reconciliatedLines().filter("[data-type=bank_statement_item]")
-      reconciliatedDebit = reconciliated.find(".debit").sum()
-      reconciliatedCredit = reconciliated.find(".credit").sum()
-      reconciliatedBalance = reconciliatedDebit - reconciliatedCredit
-
-      remainingDebit = allDebit - reconciliatedDebit
-      remainingCredit = allCredit - reconciliatedCredit
-
-      @_updateReconciliationBalance reconciliatedDebit, reconciliatedCredit
-      @_updateRemainingReconciliationBalance remainingDebit, remainingCredit
-
-      $("#matching .debit").toggleClass("valid", allDebit is reconciliatedDebit)
-      $("#matching .credit").toggleClass("valid", allCredit is reconciliatedCredit)
-      $("#to-match .debit").toggleClass("valid", remainingDebit is 0)
-      $("#to-match .credit").toggleClass("valid", remainingCredit is 0)
-
-    _updateReconciliationBalance: (debit, credit) ->
-      $("#matching .debit").text debit.toFixed(@precision)
-      $("#matching .credit").text credit.toFixed(@precision)
-
-    _updateRemainingReconciliationBalance: (debit, credit) ->
-      $("#to-match .debit").text debit.toFixed(@precision)
-      $("#to-match .credit").text credit.toFixed(@precision)
-
 
     # AJAX CALLS
 
     _letterItems: (lines) ->
-      journalLines = lines.filter("[data-type=journal_entry_item]")
+      journalLines = lines.filter(":not(.lettered)[data-type=journal_entry_item]")
       journalIds = journalLines.get().map (line) =>
         @_idForLine line
-      bankLines = lines.filter("[data-type=bank_statement_item]")
+      bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
       url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letter'
@@ -359,6 +378,8 @@
         success: (response) =>
           lines.find(".details .letter").text response.letter
           lines.removeClass "selected"
+          lines.addClass "lettered"
+          $(lines).find(".debit, .credit").trigger "change"
           @uiUpdate()
           return true
         error: (data) ->
@@ -376,6 +397,8 @@
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""
+          lines.removeClass "lettered"
+          $(lines).find(".debit, .credit").trigger "change"
           @uiUpdate()
           return true
         error: (data) ->

@@ -1,5 +1,6 @@
 - main_toolbar do |t|
-  = t.edit resource
+  = t.edit resource if resource.updateable?
+  = t.destroy resource if resource.destroyable?
 
 = main_informations attachment: true do
   = attributes_list do |l|

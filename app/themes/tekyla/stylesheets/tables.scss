@@ -17,6 +17,15 @@ table {
   width: 100%;
   padding: 0;
   margin: 0;
+  .selected-count{
+    width: 100%;
+    text-align: left;
+    padding: $default-gap;
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+    background: white;
+    min-height: $lh-normal;
+  }
   th, td {
     background: white;
     padding: $default-gap;
@@ -86,10 +95,9 @@ table {
         margin: 0 auto;
         border: none;
         &.forbidden {
-          &, * {
-            cursor: default;
-            color: rgba(#000, 0.1);
-          }
+          filter: contrast(75%) grayscale(100%);
+          cursor: default;
+          pointer-events: none;
         }
       }
 
@@ -173,6 +181,9 @@ table {
   table.list {
     border-collapse: collapse;
     width: 100%;
+    th, td {
+      max-width: 20em;
+    }
     thead {
       th {
         padding: round($fs-normal*0.2) round($fs-normal*0.4);

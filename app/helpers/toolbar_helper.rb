@@ -75,7 +75,8 @@ module ToolbarHelper
       @template.dropdown_menu_button(name, options, &block)
     end
 
-    def destroy(options = {})
+    def destroy(*args)
+      options = args.extract_options!
       if @template.resource
         if @template.resource.destroyable?
           tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
@@ -93,6 +94,7 @@ module ToolbarHelper
       url[:controller] ||= @template.controller_path
       url[:action] ||= name
       url[:id] = record.id if record && record.class < ActiveRecord::Base
+      url[:format] = options.delete(:format) if options.key?(:format)
       action_label = options[:label] || I18n.t(name, scope: 'rest.actions')
       url[:nature] = options[:nature] if options[:nature]
       if options[:variants]
@@ -109,17 +111,6 @@ module ToolbarHelper
         end
       else
         tool(action_label, url, options)
-      end
-    end
-
-    def view_addons(options = {})
-      return nil unless options[:controller].present?
-
-      options[:action] ||= :index
-      options[:context] = :toolbar
-
-      Ekylibre::Plugin.find_addons(options).collect do |addon|
-        @template.render partial: addon, locals: { t: self }
       end
     end
 
@@ -146,8 +137,8 @@ module ToolbarHelper
         end
       end
     end
-    html << capture(toolbar) do |t|
-      t.view_addons(controller: controller_name, action: action_name).join.html_safe
+    if options[:name] == :main
+      html << Ekylibre::View::Addon.render(:main_toolbar, self, t: toolbar)
     end
 
     unless options[:wrap].is_a?(FalseClass)

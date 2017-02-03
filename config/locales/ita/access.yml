@@ -37,7 +37,6 @@ ita:
       events: "eventi"
       exports: "esportazioni"
       financial_years: "esercizi"
-      first_run: "Prima corsa"
       fixed_assets: "immobilizzazioni"
       fungi: "funghi"
       gaps: "lacune"
@@ -61,7 +60,8 @@ ita:
       listings: "Annunci"
       loans: "Prestiti"
       manure_management_plans: "piani di gestione del letame"
-      map_backgrounds: "Mappa sfondi"
+      map_backgrounds: "Mappa sfondi" #?
+      map_layers: "Livelli della mappa"
       # matters: "Matters"
       # myselves: "Myselves"
       net_services: "servizi di rete"
