@@ -229,7 +229,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def give_incoming
-    create_product_movement!(product: product, delta: population, started_at: parcel_given_at)
+    create_product_movement!(product: product, delta: population, started_at: parcel_given_at) unless product_is_unitary?
     create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
     create_product_enjoyment!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at)
     create_product_ownership!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at) unless parcel_remain_owner

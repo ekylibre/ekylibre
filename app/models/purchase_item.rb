@@ -155,7 +155,6 @@ class PurchaseItem < Ekylibre::Record::Base
           while FixedAsset.find_by(name: asset_attributes[:name])
             asset_attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
           end
-          binding.pry
           build_fixed_asset(asset_attributes)
         end
       else
