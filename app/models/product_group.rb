@@ -90,7 +90,7 @@ class ProductGroup < Product
     end
   }
 
-  # TODO see STI scope in unroll
+  # TODO: see STI scope in unroll
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
