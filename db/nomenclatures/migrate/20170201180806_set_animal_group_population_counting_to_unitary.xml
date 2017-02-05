@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Set animal group population counting to unitary">
+  <item-change item="product_natures#bee_band" population_counting="unitary" />
+  <item-change item="product_natures#bumblebee_band" population_counting="unitary" />
+  <item-change item="product_natures#cattle_herd" population_counting="unitary" />
+  <item-change item="product_natures#duck_band" population_counting="unitary" />
+  <item-change item="product_natures#duck_herd" population_counting="unitary" />
+  <item-change item="product_natures#female_adult_cattle_herd" population_counting="unitary" />
+  <item-change item="product_natures#female_adult_goat_herd" population_counting="unitary" />
+  <item-change item="product_natures#female_adult_sheep_herd" population_counting="unitary" />
+  <item-change item="product_natures#goat_herd" population_counting="unitary" />
+  <item-change item="product_natures#hen_band" population_counting="unitary" />
+  <item-change item="product_natures#hen_herd" population_counting="unitary" />
+  <item-change item="product_natures#horse_herd" population_counting="unitary" />
+  <item-change item="product_natures#male_adult_goat_herd" population_counting="unitary" />
+  <item-change item="product_natures#oyster_band" population_counting="unitary" />
+  <item-change item="product_natures#pig_band" population_counting="unitary" />
+  <item-change item="product_natures#pig_herd" population_counting="unitary" />
+  <item-change item="product_natures#piglet_band" population_counting="unitary" />
+  <item-change item="product_natures#rabbit_herd" population_counting="unitary" />
+  <item-change item="product_natures#salmon_band" population_counting="unitary" />
+  <item-change item="product_natures#sheep_herd" population_counting="unitary" />
+</migration>
