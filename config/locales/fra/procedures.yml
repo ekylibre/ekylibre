@@ -53,6 +53,7 @@ fra:
     chemical_storage: "Stockage de produits de protection des végétaux" #?
     child: "Nouveau né"
     cleaner: "Outil de nettoyage"
+    cleaner_product: "Produit de nettoyage"
     compressor: "Compresseur"
     construction_material: "Materiel de construction"
     consumable_part: "Consommable"
@@ -67,12 +68,13 @@ fra:
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
+    disinfectant: "Désinfectant"
     doer: "Opérateur"
     driver: "Conducteur"
     eggs: "Œufs"
     energy: "Energie"
     equipment: "Équipement"
-    excrement: "Excrément"
+    excrement: "Excrément" #?
     excrement_zone: "Fumière" #?
     fermented_juice: "Jus fermenté"
     fertilizer: "Engrais"
@@ -134,12 +136,13 @@ fra:
     juice_to_ferment: "Jus à fermenter"
     land_parcel: "Parcelle"
     lifter: "Souleveuse"
+    litter: "Litière"
     maintained: "Maintenu" #?
     mammal: "Animal" #?
     mammal_herd: "Troupeau à traire" #?
     mammal_herd_to_milk: "Troupeau à traire" #?
     mammal_to_milk: "Animal à traire"
-    manure: "Fumier" #?
+    manure: "Fumier"
     manure_to_spread: "Fumier à épandre" #?
     matters: "Matières"
     mechanic: "Mécanicien"
@@ -274,8 +277,9 @@ fra:
     animal_artificial_insemination: "Insémination artificielle"
     animal_birth: "Naissance d’un animal" #?
     animal_group_changing: "Déplacement d'un animal"
-    animal_housing_cleaning: "Nettoyage de stabulation"
-    animal_housing_mulching: "Paillage de stabulation"
+    animal_housing_cleaning: "Nettoyage"
+    animal_housing_disinfection: "Désinfection"
+    animal_housing_mulching: "Paillage"
     animal_treatment: "Traitement animal" #?
     attach: "Attellage" #?
     calving_one: "Vêlage unique" #?
@@ -326,7 +330,7 @@ fra:
     hilling: "Buttage"
     hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
-    housing_soil_disinfection: "Désinfection du sol"
+    housing_soil_disinfection: "Désinfection" #?
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
