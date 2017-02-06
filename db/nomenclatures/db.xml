@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170104161824">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170206163322">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2405,6 +2405,7 @@
     <items>
       <item name="animal_food" charge_account="livestock_feed_matter_expenses" product_account="revenues" stock_account="livestock_feed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="livestock_feed_stocks_variation"/>
       <item name="animal_housing_services" charge_account="animals_making_expenses_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
+      <item name="animal_litter" charge_account="raw_material_expenses" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="products_inventory_variations"/>
       <item name="animal_medicine" charge_account="animal_medicine_matter_expenses" product_account="revenues" stock_account="animal_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="pill" stock_movement_account="animal_medicine_stocks_variation"/>
       <item name="animal_reproduction" charge_account="animal_reproduction_matter_expenses" product_account="animal_derivatives_revenues" stock_account="animal_reproduction_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="animal_reproduction_stocks_variation"/>
       <item name="animals_making_services" charge_account="animals_making_expenses_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
@@ -2541,6 +2542,7 @@
       <item name="animal_food_division" nature="animal_food_building_division" frozen_indicators_values="" unit_name="room"/>
       <item name="animal_housing_cleaner" nature="animal_housing_cleaner" frozen_indicators_values="" unit_name="equipment"/>
       <item name="animal_housing_service" nature="animal_housing_services"/>
+      <item name="animal_litter" nature="animal_litter" derivative_of="plant" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="animal_medicine_tank" nature="animal_medicine_tank" frozen_indicators_values="" unit_name="equipment"/>
       <item name="animal_waste_building_division" nature="manure_division" frozen_indicators_values="" unit_name="room"/>
       <item name="animals_making_service" nature="animals_making_services"/>
@@ -2773,6 +2775,7 @@
       <item name="diesel" nature="fuel" frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram" unit_name="liter"/>
       <item name="disc_harrow" nature="superficial_plow" frozen_indicators_values="" unit_name="equipment"/>
       <item name="discount_and_reduction" nature="discount_and_reduction"/>
+      <item name="disinfectant_product" nature="disinfectant_product" variety="preparation" frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter" unit_name="liter"/>
       <item name="domain_name_subscription" nature="numeric_subscription" unit_name="domain"/>
       <item name="drain" nature="draining_item" unit_name="equipment"/>
       <item name="drying_making_service" nature="vegetals_making_services"/>
@@ -3232,6 +3235,7 @@
       <item name="animal_food_building_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(grass), store(mix)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="animal_housing_cleaner" category="equipment" variety="portable_equipment" population_counting="unitary" abilities="clean(settlement),clean(building_division)" variable_indicators="application_width" frozen_indicators=""/>
       <item name="animal_housing_services" category="animal_housing_services" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="animal_litter" category="animal_litter" variety="matter" derivative_of="plant" population_counting="decimal" abilities="cover(building_division)" frozen_indicators="net_mass, net_volume"/>
       <item name="animal_medicine" category="animal_medicine" variety="preparation" population_counting="decimal" abilities="kill(bacteria), kill(virus), kill(fungus), care(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"/>
       <item name="animal_medicine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(preparation)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
       <item name="animals_making_services" category="animals_making_services" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -3278,6 +3282,7 @@
       <item name="crop_residue" category="straw" variety="straw" derivative_of="plant" population_counting="decimal" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="cultivable_zone" category="cultivable_zone" variety="cultivable_zone" population_counting="decimal" abilities="consume(water), consume(seed), produce(plant), store(plant), store(animal), store(fungus)" variable_indicators="fence_perimeter, shape, soil_cultural_state" frozen_indicators="net_surface_area"/>
       <item name="discount_and_reduction" category="discount_and_reduction" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="disinfectant_product" category="other_consumable" variety="preparation" population_counting="decimal" abilities="clean(building_division), kill(bacteria)" frozen_indicators="net_mass, net_volume"/>
       <item name="draining_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="drain" variable_indicators="diameter, length"/>
       <item name="duck_band" category="aves_band" variety="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="healthy" derivatives="meat"/>
       <item name="duck_herd" category="aves_herd" variety="animal_group" derivative_of="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators=""/>
@@ -3481,7 +3486,7 @@
       <item name="squash" category="vegetable" variety="vegetable" derivative_of="cucurbita" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="stake" category="small_equipment" variety="stake" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="height, diameter"/>
       <item name="steam_engine" category="equipment" variety="portable_equipment" population_counting="unitary" abilities="store_liquid, kill(plant)" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
-      <item name="straw" category="straw" variety="straw" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
+      <item name="straw" category="straw" variety="straw" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal), cover(building_division)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="studies_and_research" category="studies_and_research" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="sugar" category="oenological_product" variety="saccharose" population_counting="decimal" abilities="chaptelise(fermented_juice), chaptelise(juice)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="superficial_plow" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="plow_superficially" variable_indicators="geolocation" frozen_indicators="application_width, theoretical_working_speed"/>
