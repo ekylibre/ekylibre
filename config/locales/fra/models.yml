@@ -1226,7 +1226,7 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
-    new_container: "Nouveau conteneur"
+    new_container: "Nouvel emplacement"
     new_group: "Nouveau groupe"
     new_name: "Nouveau nom"
     new_variant: "Nouveau variant"
