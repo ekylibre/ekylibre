@@ -20,9 +20,7 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
-                     group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c,
-                     targets_attributes: 'params[:targets_attributes] || []'.c,
+    manage_restfully t3e: {procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c},
                      continue: [:nature, :procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -152,7 +150,7 @@ module Backend
 
     # SHOW
 
-    list(:product_parameters, model: :intervention_product_parameters, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+    list(:product_parameters, model: :intervention_product_parameters, conditions: {intervention_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
       t.column :name, sort: :reference_name
       t.column :product, url: true
       # t.column :human_roles, sort: :roles, label: :roles
@@ -162,7 +160,7 @@ module Backend
       t.column :variant, url: true
     end
 
-    list(:record_interventions, model: :interventions, conditions: { request_intervention_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+    list(:record_interventions, model: :interventions, conditions: {request_intervention_id: 'params[:id]'.c}, order: 'interventions.started_at DESC') do |t|
       # t.column :roles, hidden: true
       t.column :name, sort: :reference_name
       t.column :started_at, datatype: :datetime
@@ -206,7 +204,20 @@ module Backend
 
       # , :doers, :inputs, :outputs, :tools
       [:group_parameters, :targets].each do |param|
-        options["#{param}_attributes"] = params["#{param}_attributes"] || []
+        next unless params.include? :intervention
+        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+
+        next unless options[:targets_attributes]
+
+        unless permitted_params.include? :working_periods
+          targets = options[:targets_attributes].collect { |_, v| v[:product_id] }
+
+          availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
+
+          options[:targets_attributes].select! do |_, v|
+            v.include? :product_id and availables.include? v[:product_id].to_i
+          end
+        end
       end
 
       @intervention = Intervention.new(options)
@@ -214,7 +225,7 @@ module Backend
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
-      render(locals: { cancel_url: { action: :index }, with_continue: true })
+      render(locals: {cancel_url: {action: :index}, with_continue: true})
     end
 
     def sell
@@ -255,12 +266,12 @@ module Backend
         # raise intervention.to_hash.inspect
         respond_to do |format|
           # format.xml  { render xml: intervention.to_xml }
-          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states }.to_json }
+          format.json { render json: {updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states}.to_json }
         end
       rescue Procedo::Error => e
         respond_to do |format|
           # format.xml  { render xml:  { errors: e.message }, status: 500 }
-          format.json { render json: { errors: e.message }, status: 500 }
+          format.json { render json: {errors: e.message}, status: 500 }
         end
       end
     end
@@ -268,16 +279,16 @@ module Backend
     def modal
       if params[:intervention_id]
         @intervention = Intervention.find(params[:intervention_id])
-        render partial: 'backend/interventions/details_modal', locals: { intervention: @intervention }
+        render partial: 'backend/interventions/details_modal', locals: {intervention: @intervention}
       end
 
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
 
         if params[:modal_type] == 'delete'
-          render partial: 'backend/interventions/delete_modal', locals: { interventions: @interventions }
+          render partial: 'backend/interventions/delete_modal', locals: {interventions: @interventions}
         else
-          render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+          render partial: 'backend/interventions/change_state_modal', locals: {interventions: @interventions}
         end
       end
     end
@@ -347,7 +358,7 @@ module Backend
       interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
       unless interventions.any?
         notify_error :no_interventions_given
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(params[:redirect] || {action: :index})
         return nil
       end
       interventions
