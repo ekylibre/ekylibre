@@ -61,7 +61,7 @@
           {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
         end
 
-      = visualization(box: {height: "100%"}) do |v|
+      = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
         - v.serie :land_parcels, land_parcels
         - v.serie :islets, islets
         - v.simple :cap_islets, :islets

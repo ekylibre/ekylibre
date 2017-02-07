@@ -1069,6 +1069,7 @@ por:
     incoming_payment: "Entrada de pagamento"
     incoming_payments: "Recebidos"
     incoming_payments_to_deposit: "Pagamentos recebidos para depositar"
+    # indicative_group_size: "Indicative group size"
     indicator: "Indicadores"
     indicator_value: "Valor do indicador"
     indicators: "Indicadores"
