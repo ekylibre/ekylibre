@@ -43,7 +43,6 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   delegate :name, to: :mode, prefix: true
   delegate :sepa?, to: :mode
-  delegate :count, to: :payments, prefix: true
   delegate :currency, to: :cash
 
   acts_as_numbered
@@ -85,7 +84,11 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   end
 
   def payments_sum
-    payments.sum(:amount)
+    cached_total_sum
+  end
+
+  def payments_count
+    cached_payment_count
   end
 
   def payer
