@@ -85,7 +85,8 @@ module Ekylibre
             list = record(&block) if block_given?
 
             if journal_entry && (!journal_entry.draft? || list.empty? ||
-                                 attributes[:journal_id] != journal_entry.journal_id)
+                                 attributes[:journal_id] != journal_entry.journal_id ||
+                                 @action == :destroy)
               journal_entry.cancel
               journal_entry = nil
             end

@@ -263,6 +263,80 @@ class BankStatementTest < ActiveSupport::TestCase
     assert_equal 0, IncomingPayment.sign_of_amount + OutgoingPayment.sign_of_amount
   end
 
+  test 'delete bank statement delete journal entry' do
+    now = Time.new(2016, 11, 17, 19)
+    currency = FinancialYear.at(now).currency
+    main = Account.find_or_create_by_number('512INR001')
+    suspense = Account.find_or_create_by_number('511INR001')
+    client = Entity.normal.order(:id).where(client: true).first
+    
+    cash = Cash.create!(
+      name: 'Namaste Bank',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspend_until_reconciliation: true,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by!(nature: :bank, currency: currency, name: 'Namaste', code: 'Nam')
+    )
+    assert_equal 0, cash.main_account.totals[:balance]
+
+    mode = IncomingPaymentMode.create!(
+      name: 'Check on Namaste',
+      cash: cash,
+      with_accounting: true
+    )
+
+    payment = IncomingPayment.create!(
+      to_bank_at: now - 1.hour,
+      paid_at: now - 5.days,
+      received: true,
+      payer: client,
+      amount: 248_600,
+      mode: mode
+    )
+    cash.reload
+    assert_equal 0, cash.main_account.totals[:balance]
+    assert_equal 1, cash.journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+    Rails.logger.info ('%' * 80).yellow + cash.account.inspect.red + BankStatement.pluck(:journal_entry_id).inspect.green
+    assert_equal 1, cash.unpointed_journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+
+    journal_entry = payment.journal_entry
+    assert journal_entry.present?, payment.inspect
+    assert_equal Date.civil(2016, 11, 17), journal_entry.printed_on
+    assert_equal 1, journal_entry.items.where(account: suspense).count, journal_entry.inspect
+    assert_equal 248_600, journal_entry.items.where(account: suspense).sum(:real_debit)
+
+    bank_statement = BankStatement.create!(
+      cash: cash,
+      number: 'NB201611',
+      started_on: '2016-11-01',
+      stopped_on: '2016-11-30',
+      items_attributes: [
+        {
+          transfered_on: '2016-11-25',
+          name: 'Check #856124',
+          credit: 248_600
+        },
+        {
+          transfered_on: '2016-11-15',
+          name: 'Bla bla bla',
+          debit: 17_500.50
+        }
+      ]
+    )
+    assert bank_statement.valid?
+    assert bank_statement.journal_entry.present?
+
+    journal_entry = bank_statement.journal_entry
+
+    journal_entries_count = journal_entry.journal.entries.count
+    bank_statement.destroy
+    new_journal_entries_count = journal_entry.journal.entries.count
+  
+    assert_equal journal_entries_count + 1, new_journal_entries_count
+  end 
+
   [IncomingPayment, OutgoingPayment].each do |payment|
     test "#{payment} can be lettered with bank_statement_items" do
       @payment_class = payment
