@@ -1164,6 +1164,7 @@ deu:
     mark_all_as_read: "Alles als gelesen markieren"
     mark_as_read: "als gelesen markieren"
     marketable_net_mass: "Marktgängige Nettomasse"
+    # mask_literate_elements: "Mask literate elements"
     # mass: "Masse"
     maximal_temperature: "Maximaltemperatur"
     members: "Mitglieder"
