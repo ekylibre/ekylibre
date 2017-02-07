@@ -210,12 +210,16 @@ module Backend
         next unless options[:targets_attributes]
 
         unless permitted_params.include? :working_periods
-          targets = options[:targets_attributes].collect { |_, v| v[:product_id] }
-
+          targets = if options[:targets_attributes].is_a? Array
+                      options[:targets_attributes].collect { |k, _| k[:product_id] }
+                    else
+                      options[:targets_attributes].collect { |_, v| v[:product_id] }
+                    end
           availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
 
-          options[:targets_attributes].select! do |_, v|
-            v.include? :product_id and availables.include? v[:product_id].to_i
+          options[:targets_attributes].select! do |k, v|
+            obj = k.is_a?(Hash) ? k : v
+            obj.include? :product_id and availables.include? obj[:product_id].to_i
           end
         end
       end
