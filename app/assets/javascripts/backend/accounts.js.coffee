@@ -2,6 +2,8 @@
   'use strict'
 
   $(document).ready ->
+    E.accounts.changeUnmarkVisibility()
+
     $('#lettersVisibility').on 'click', (e) ->
       E.accounts.changeUnmarkVisibility() 
 
