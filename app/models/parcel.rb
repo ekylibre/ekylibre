@@ -345,7 +345,7 @@ class Parcel < Ekylibre::Record::Base
     # values[:in_preparation_at] = now unless in_preparation_at
     update_columns(values)
     state = items.collect(&:check)
-    return false, state.collect(&:second) unless state == true or (state.is_a? Array and state.all? { |s| s.is_a?(Array) ? s.first : s })
+    return false, state.collect(&:second) unless (state == true) || (state.is_a?(Array) && state.all? { |s| s.is_a?(Array) ? s.first : s })
     super
     true
   end

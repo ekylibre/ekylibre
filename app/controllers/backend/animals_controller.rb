@@ -185,8 +185,8 @@ module Backend
         { product_id: id, reference_name: :animal }
       end
       parameters = {
-          procedure_name: :animal_group_changing,
-          intervention: {
+        procedure_name: :animal_group_changing,
+        intervention: {
           targets_attributes: targets
         }
       }

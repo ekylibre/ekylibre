@@ -1130,6 +1130,7 @@ ita:
     incoming_payment: "pagamento in entrata"
     incoming_payments: "pagamenti in entrata"
     incoming_payments_to_deposit: "Pagamenti in entrata di depositare"
+    # indicative_group_size: "Indicative group size"
     indicator: "indicatori"
     indicator_value: "valore dell'indicatore"
     indicators: "indicatori"

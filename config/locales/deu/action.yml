@@ -1064,6 +1064,7 @@ deu:
     incoming_payment: "Zahlungseingang"
     incoming_payments: "Eingehende Zahlungen"
     incoming_payments_to_deposit: "Eingehende Zahlungen zu hinterlegen"
+    # indicative_group_size: "Indicative group size"
     indicator: "Indikatoren"
     indicator_value: "Indikatorwert"
     indicators: "Indikatoren"

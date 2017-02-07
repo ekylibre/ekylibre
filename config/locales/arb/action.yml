@@ -1450,6 +1450,7 @@ arb:
     incoming_payments: "المدفوعات الواردة"
     incoming_payments_to_deposit: "المدفوعات الواردة إلى الودائع"
     index: "العودة الى دليل ادارة الاعمال" #?
+    # indicative_group_size: "Indicative group size"
     indicator: "لوحة التحكم"
     indicator_value: "قيمة مؤشر"
     indicators: "مؤشرات"

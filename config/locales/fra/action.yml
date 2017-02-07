@@ -1339,6 +1339,7 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
+    indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
     indicator_with_unit: "%{indicator} (%{unit})" #?

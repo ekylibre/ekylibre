@@ -1278,6 +1278,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
     indicators: "Indicators"

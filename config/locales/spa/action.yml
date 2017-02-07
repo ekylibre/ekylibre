@@ -1191,6 +1191,7 @@ spa:
     incoming_payment: "Pago recibido"
     incoming_payments: "Pagos recibidos"
     incoming_payments_to_deposit: "Pagos recibidos para depositar"
+    # indicative_group_size: "Indicative group size"
     indicator: "Indicadores"
     indicator_value: "Valor del indicador"
     indicators: "Indicadores"
