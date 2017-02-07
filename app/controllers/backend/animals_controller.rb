@@ -66,7 +66,7 @@ module Backend
       t.column :work_number, url: true
       t.column :name, url: true
       t.column :born_at
-      t.column :sex
+      t.column :sex, label_method: :sex_text, label: :sex
       t.status
       t.column :net_mass, datatype: :measure
       t.column :container, url: true
