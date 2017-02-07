@@ -179,6 +179,12 @@ module Backend
                                                                                           { localizations: { include: :container } }])
     end
 
+    def keep
+      return head :unprocessable_entity unless params[:id].nil? or (params[:id] and find_all)
+      current_user.prefer! 'products_for_intervention', params[:id], :string
+      render json: { id: 'products_for_intervention' }
+    end
+
     def add_to_group
       return unless find_all
       targets = @ids.collect do |id|

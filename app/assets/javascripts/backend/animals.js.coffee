@@ -20,6 +20,8 @@
 
       @counter = ko.observable 0
 
+      @keeper_id = undefined
+
 
       @enableDropZones = (state = false) =>
         ko.utils.arrayForEach @groups(), (group) =>
@@ -30,13 +32,13 @@
       @moveAnimals = (container, group) =>
 
         params = {}
-        params['container'] = container.id() unless container is undefined
+        params['new_container'] = container.id() unless container is undefined
         params['parameters'] = true
 
         # find if any group changed
         for id, item of @selectedItemsIndex
           if item.parent.parent.id != group.id and group isnt undefined
-            params['group'] = group.id
+            params['new_group'] = group.id
 
         E.dialog.open @rebuildUrl(params),
           returns:
@@ -52,31 +54,17 @@
 
       # by default, build url to move animals
       @rebuildUrl = =>
-        options = {}
-        options['intervention'] = Array.from(arguments).shift()
-        options['intervention']['reference_name'] ||= 'animal'
-        options['intervention']['targets_attributes'] ||= []
 
-        building_division_procedures = ['animal_housing']
+        options = Array.from(arguments).shift()
 
-        unless building_division_procedures.indexOf(options['intervention']['reference_name']) == -1
-          # set container instead of animals
-          for id, item of @selectedItemsIndex
-            if item.parent isnt undefined
-              options['intervention']['targets_attributes'].push { product_id: item.parent.id, reference_name: options['intervention']['reference_name'] }
+        base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
+        parameters = options['parameters'] || false
 
-        else
-          options['intervention']['targets_attributes'] = ko.utils.arrayMap Object.keys(@selectedItemsIndex), (id) ->
-            { product_id: id, reference_name: options['intervention']['reference_name'], new_container_id: options['intervention']['container'], new_group_id: options['intervention']['group'] }
+        options = Array.from(arguments).shift()
+        options['reference_name'] ||= 'animal'
+        options['keeper_id'] = @keeper_id if Object.keys(@selectedItemsIndex).length and @keeper_id
 
-        parameters = options['intervention']['parameters'] || false
-        base_url = options['intervention']['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
-
-        delete options['intervention']['base_url']
-        delete options['intervention']['parameters']
-        delete options['intervention']['container']
-        delete options['intervention']['group']
-        delete options['intervention']['reference_name']
+        delete options['parameters']
 
         base_url += "&#{$.param(options)}" if parameters
 
@@ -86,10 +74,18 @@
 
         @counter Object.keys(@selectedItemsIndex).length
 
+        $.post $('*[data-keep-animals-path]').first().data('keep-animals-path'), id: Object.keys(@selectedItemsIndex).join(',') , (data) =>
+          @keeper_id = data.id if data.id? and data.id
+
 
       @resetSelectedItems = =>
         for id, item  of @selectedItemsIndex
           item.checked(false)
+
+
+        $.post $('*[data-keep-animals-path]').first().data('keep-animals-path'), id: [], (data) =>
+          @keeper_id = undefined if data.id?
+
 
         @selectedItemsIndex = {}
 
