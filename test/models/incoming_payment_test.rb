@@ -116,30 +116,27 @@ class IncomingPaymentTest < ActiveSupport::TestCase
     # Update with confirmed entry
     entry.confirm!
 
-    payment.update!(amount: 405.21)
-    entry_v2 = payment.journal_entry
-
-    assert_not_nil entry_v2
-    assert_not_equal entry, entry_v2
-
-    entry.reload
-
-    assert_equal 504.12, entry.real_debit, entry.inspect
-    assert_equal 504.12, entry.real_credit, entry.inspect
-
-    entry_v2.reload
-
-    assert_equal 405.21, entry_v2.real_debit, entry_v2.inspect
-    assert_equal 405.21, entry_v2.real_credit, entry_v2.inspect
-
-    journal_entries_count = entry_v2.journal.entries.count
+    journal_entries_count = entry.journal.entries.count
     payment.destroy
-    new_journal_entries_count = entry_v2.journal.entries.count
+    new_journal_entries_count = entry.journal.entries.count
 
     assert_equal journal_entries_count + 1, new_journal_entries_count
 
-    # journal_entries = entry_v2.journal.entries
-    # reverse_entry = journal_entries.last
-    # assert journal_entries.map(&:real_debit).include? reverse_entry.real_debit
+    cancel_entry = entry.journal.entries.reorder(id: :desc).first
+
+    assert_equal entry.items.count, cancel_entry.items.count, 'Cancel entry should have the same count of items of the cancelled entry'
+
+    entry.items.each do |item|
+      candidates_count = cancel_entry.items.where(
+        account: item.account,
+        debit:  item.credit,
+        credit: item.debit,
+        real_debit:  item.real_credit,
+        real_credit: item.real_debit,
+        absolute_debit:  item.absolute_credit,
+        absolute_credit: item.absolute_debit
+      ).count
+      assert_equal 1, candidates_count, "Could not find reversed item in cancel entry for #{item.account.number}"
+    end
   end
 end
