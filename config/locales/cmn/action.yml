@@ -321,7 +321,7 @@ cmn:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "日记条目项目"
-      new: "新的入口项"
+      new: "新的入口项" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1505,7 +1505,6 @@ cmn:
     total_amount: "总金额"
     total_cost: "总成本"
     total_earn: "总收入" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "合计支付的金额" #?
     total_pretax_expenses: "总税前费用"
     total_pretax_revenues: "总计税前收入"

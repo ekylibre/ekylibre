@@ -326,7 +326,7 @@ por:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "Itens de entrada de diário"
-      new: "Item de nova entrada"
+      new: "Item de nova entrada" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1509,7 +1509,6 @@ por:
     total_amount: "Valor total"
     total_cost: "Custo total"
     total_earn: "Total de ganhar" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "Montante total pago" #?
     total_pretax_expenses: "As despesas totais antes de impostos"
     total_pretax_revenues: "Receitas totais antes de impostos"

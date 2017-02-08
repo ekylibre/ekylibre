@@ -394,6 +394,7 @@ eng:
     backend/januses:
       # toggle: "Toggle januse: %{name}"
     backend/journal_entries:
+      # currency_state: "Currency state journal entry: %{name}"
       edit: "Edit journal entry: %{number}"
       index: "Journal entries"
       new: "New entry"
@@ -401,7 +402,6 @@ eng:
       # toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
       index: "Journal entry items"
-      new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
@@ -1710,7 +1710,6 @@ eng:
     total: "Total"
     total_amount: "Total amount" #??
     total_cost: "Total cost"
-    total_in_currency: "Total (%{currency})"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
@@ -2114,6 +2113,7 @@ eng:
       correct: "Correct"
       create: "Create"
       # csv: "Csv"
+      # currency_state: "Currency state"
       # current: "Current"
       destroy: "Destroy"
       detach: "Detach"

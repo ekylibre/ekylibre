@@ -321,7 +321,7 @@ jpn:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "仕訳項目"
-      new: "新しいエントリ項目"
+      new: "新しいエントリ項目" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1577,7 +1577,6 @@ jpn:
     total_amount: "合計金額"
     total_cost: "総費用"
     total_earn: "稼ぐ合計" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "総支払額" #?
     total_pretax_expenses: "合計税引前費用"
     total_pretax_revenues: "合計税引前収入"

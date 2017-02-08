@@ -1,0 +1,29 @@
+:ruby
+  budget_size = budget_columns_count
+  team_size = team_columns_count
+
+%tbody.nested-fields
+  %tr
+    %td= f.input(:name, wrapper: :nested)
+    %td= f.referenced_association(:account, wrapper: :nested)
+    - if budget_size > 0
+      %td= f.referenced_association(:activity_budget, wrapper: :nested)
+    - if team_size > 0
+      %td= f.referenced_association(:team, wrapper: :nested)
+    %td.dec= f.input(:real_debit, wrapper: :nested, input_html: { size: 10, class: 'real-debit' })
+    %td= currency
+    %td.dec= f.input(:real_credit, wrapper: :nested, input_html: { size: 10, class: 'real-credit' })
+    %td= currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+
+  %tr.tr-add-on.currency-change
+    - financial_year = f.object.expected_financial_year
+    - precision = Nomen::Currency[financial_year.currency].precision
+    %td.dec{ colspan: 2 + budget_size + team_size }
+      .debit-without-error-correction.hidden=  f.object.debit
+      .credit-without-error-correction.hidden= f.object.credit
+    %td.debit.dec{ data: { calculate_round: precision } }= f.object.debit
+    %td.financial-year-currency= financial_year.currency
+    %td.credit.dec{ data: { calculate_round: precision } }= f.object.credit
+    %td.financial-year-currency= financial_year.currency
+    %td.act

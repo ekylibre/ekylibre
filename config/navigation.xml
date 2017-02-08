@@ -109,6 +109,7 @@
         <page to="backend/journals#unroll"/>
         <page to="backend/journals#update"/>
         <page to="backend/journal_entries#create"/>
+        <page to="backend/journal_entries#currency_state"/>
         <page to="backend/journal_entries#destroy"/>
         <page to="backend/journal_entries#edit"/>
         <page to="backend/journal_entries#list_items"/>
@@ -119,7 +120,6 @@
         <page to="backend/journal_entries#list"/>
         <page to="backend/journal_entries#toggle_autocompletion"/>
         <page to="backend/journal_entries#unroll"/>
-        <page to="backend/journal_entry_items#new"/>
         <page to="backend/journal_entry_items#index"/>
         <page to="backend/journal_entry_items#list"/>
         <page to="backend/journal_entry_items#show"/>
@@ -1926,6 +1926,9 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="journal_entries">
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

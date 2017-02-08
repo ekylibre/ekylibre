@@ -381,7 +381,7 @@ arb:
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
       index: "البنود إدخال دفتر اليومية"
-      new: "البند قيد جديد"
+      new: "البند قيد جديد" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "نظام المحاسبة المتغير"
@@ -2125,7 +2125,6 @@ arb:
     total_amount: "صافي اجمالي الكمية"
     total_cost: "التكلفة الإجمالية"
     total_earn: "إجمالي كسب" #?
-    # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     total_paid_amount: "إجمالي المبلغ المدفوع" #?
     total_pretax_expenses: "مجموع نفقات ما قبل الضريبة"

@@ -96,7 +96,7 @@ class JournalEntryTest < ActiveSupport::TestCase
     journal = Journal.find_or_create_by!(name: 'Wouhou', currency: 'BTN', nature: :various)
     journal_entry = JournalEntry.create!(
       journal: journal,
-      printed_on: Date.today - 200,
+      printed_on: Date.civil(2016, 11, 14),
       real_currency_rate: 12.2565237,
       items_attributes: {
         '0' => {
@@ -123,6 +123,19 @@ class JournalEntryTest < ActiveSupport::TestCase
     )
     assert journal_entry.balanced?
     assert_equal 4, journal_entry.items.count
+
+    assert_equal 55_154.36, journal_entry.items.find_by(real_credit: 4500).credit
+    assert_equal 1383.64, journal_entry.items.find_by(real_debit: 112.89).debit
+
+    assert_equal 55_154.36, journal_entry.items.find_by(real_credit: 4500).absolute_credit
+    assert_equal 1383.64, journal_entry.items.find_by(real_debit: 112.89).absolute_debit
+
+    assert_equal 4500, journal_entry.real_credit
+    assert_equal 4500, journal_entry.real_debit
+    assert_equal 55_154.36, journal_entry.credit
+    assert_equal 55_154.36, journal_entry.debit
+    assert_equal 55_154.36, journal_entry.absolute_credit
+    assert_equal 55_154.36, journal_entry.absolute_debit
   end
 
   test 'save with items' do

@@ -347,7 +347,7 @@ spa:
       show: "Pieza contable N°%{number}"
     backend/journal_entry_items:
       index: "Artículos entrada de diario"
-      new: "Nuevo elemento de la entrada"
+      new: "Nuevo elemento de la entrada" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bascula contable"
@@ -1733,7 +1733,6 @@ spa:
     total_amount: "Total importe HT"
     total_cost: "Coste total"
     total_earn: "Ganan total" #?
-    # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total importe facturado" #?
     total_paid_amount: "Cantidad pagada total" #?
     total_pretax_expenses: "Los gastos totales antes de impuestos"
