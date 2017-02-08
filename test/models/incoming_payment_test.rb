@@ -57,7 +57,7 @@ require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
   test_model_actions
-  
+
   test 'bookkeeping without commission' do
     mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
     payer = Entity.normal.find_by!(client: true)
@@ -98,46 +98,45 @@ class IncomingPaymentTest < ActiveSupport::TestCase
     refute incoming_payment.save
   end
 
-
   test 'delete incoming payment delete journal entry' do
     mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
     payer = Entity.normal.find_by!(client: true)
     payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true)
-   
+
     assert_not_nil payment
     assert_equal 504.12, payment.amount
-    
+
     entry = payment.journal_entry
-    
+
     assert_not_nil entry
     assert_equal 2, entry.items.count
     assert_equal 504.12, entry.real_debit, entry.inspect
     assert_equal 504.12, entry.real_credit, entry.inspect
-    
+
     # Update with confirmed entry
     entry.confirm!
 
     payment.update!(amount: 405.21)
     entry_v2 = payment.journal_entry
-    
+
     assert_not_nil entry_v2
     assert_not_equal entry, entry_v2
 
     entry.reload
-    
+
     assert_equal 504.12, entry.real_debit, entry.inspect
     assert_equal 504.12, entry.real_credit, entry.inspect
-    
+
     entry_v2.reload
-    
+
     assert_equal 405.21, entry_v2.real_debit, entry_v2.inspect
     assert_equal 405.21, entry_v2.real_credit, entry_v2.inspect
-  
+
     journal_entries_count = entry_v2.journal.entries.count
     payment.destroy
     new_journal_entries_count = entry_v2.journal.entries.count
-   
-    assert_equal journal_entries_count + 1, new_journal_entries_count 
+
+    assert_equal journal_entries_count + 1, new_journal_entries_count
 
     # journal_entries = entry_v2.journal.entries
     # reverse_entry = journal_entries.last

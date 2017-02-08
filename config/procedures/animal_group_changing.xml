@@ -3,8 +3,8 @@
   <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
     <parameters>
       <target name="animal" filter="is animal" cardinality="*">
-        <attribute name="new_container_id" filter="is building_division"/>
-        <attribute name="new_group_id" compute-filter="'is animal_group and includes %{variety_of(PRODUCT)}'"/>
+        <attribute name="new_container" filter="is building_division"/>
+        <attribute name="new_group" compute-filter="'is animal_group and includes %{variety_of(PRODUCT)}'"/>
         <attribute name="new_variant" value="variant_of(NEW_GROUP)"/>
       </target>
       <doer name="caregiver" filter="is worker" cardinality="*"/>

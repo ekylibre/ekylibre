@@ -66,7 +66,7 @@ module Backend
       t.column :work_number, url: true
       t.column :name, url: true
       t.column :born_at
-      t.column :sex
+      t.column :sex, label_method: :sex_text, label: :sex
       t.status
       t.column :net_mass, datatype: :measure
       t.column :container, url: true
@@ -177,6 +177,12 @@ module Backend
                                                                                           { intervention_parameters: { include: :intervention } },
                                                                                           { memberships: { include: :group } },
                                                                                           { localizations: { include: :container } }])
+    end
+
+    def keep
+      return head :unprocessable_entity unless params[:id].nil? or (params[:id] and find_all)
+      current_user.prefer! 'products_for_intervention', params[:id], :string
+      render json: { id: 'products_for_intervention' }
     end
 
     def add_to_group

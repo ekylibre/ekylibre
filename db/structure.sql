@@ -22,6 +22,47 @@ CREATE SCHEMA postgis;
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: compute_outgoing_payment_list_cache(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+          BEGIN
+            UPDATE outgoing_payment_lists
+               SET cached_payment_count = payments.count,
+                   cached_total_sum = payments.total
+              FROM (
+                SELECT outgoing_payments.list_id AS list_id,
+                       SUM(outgoing_payments.amount) AS total,
+                       COUNT(outgoing_payments.id) AS count
+                  FROM outgoing_payments
+                  GROUP BY outgoing_payments.list_id
+              ) AS payments
+              WHERE payments.list_id = id
+                AND ((TG_OP <> 'DELETE' AND id = NEW.list_id)
+                 OR  (TG_OP <> 'INSERT' AND id = OLD.list_id));
+            RETURN NEW;
+          END;
+          $$;
+
+
+--
+-- Name: prevent_cache_update(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION prevent_cache_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+          BEGIN
+            NEW.cached_payment_count := OLD.cached_payment_count;
+            NEW.cached_total_sum     := OLD.cached_total_sum;
+            RETURN NEW;
+          END;
+          $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -4071,7 +4112,9 @@ CREATE TABLE outgoing_payment_lists (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    mode_id integer NOT NULL
+    mode_id integer NOT NULL,
+    cached_payment_count integer,
+    cached_total_sum numeric
 );
 
 
@@ -16290,6 +16333,13 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON outgoing_payments FOR EACH ROW EXECUTE PROCEDURE compute_outgoing_payment_list_cache();
+
+
+--
 -- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16810,4 +16860,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170125162958');
 INSERT INTO schema_migrations (version) VALUES ('20170203135031');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203181700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 

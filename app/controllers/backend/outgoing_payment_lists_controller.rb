@@ -28,8 +28,8 @@ module Backend
       t.column :number, url: true
       t.column :created_at
       t.column :mode
-      t.column :payments_count, datatype: :integer
-      t.column :payments_sum, label: :total, datatype: :float, currency: true
+      t.column :cached_payment_count, datatype: :integer
+      t.column :cached_total_sum, label: :total, datatype: :float, currency: true
     end
 
     list(:payments, model: :outgoing_payment, conditions: { list_id: 'params[:id]'.c }) do |t|

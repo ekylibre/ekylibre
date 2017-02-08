@@ -10,6 +10,8 @@ por:
         born_at: "Criado em"
       building:
         born_at: "Construído no"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "Arquivo"
       document_template:

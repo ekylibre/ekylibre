@@ -10,6 +10,8 @@ eng:
         born_at: "Created at"
       building:
         born_at: "Built at"
+      cashes:
+        main_account: "Main account"
       document:
         filename: "File"
       document_template:
@@ -468,6 +470,8 @@ eng:
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
+    # cached_payment_count: "Cached payment count"
+    # cached_total_sum: "Cached total sum"
     calibrations: "Calibrations"
     # calls: "Calls"
     campaign: "Campaign"
@@ -527,10 +531,6 @@ eng:
     commission_base_amount: "Base amount of the commission"
     commission_percentage: "Commission percentage"
     commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
-    # compiled_content_type: "Compiled content type"
-    # compiled_file_name: "Compiled file name"
-    # compiled_file_size: "Compiled file size"
-    # compiled_updated_at: "Compiled updated at"
     component: "Component"
     components: "Components"
     computation_method: "Computation method"
@@ -1341,13 +1341,9 @@ eng:
     soil_nature: "Soil type"
     soil_production: "Soil production"
     source: "Source"
-    # source_content_type: "Source content type"
-    # source_file_name: "Source file name"
-    # source_file_size: "Source file size"
     source_product: "Source product"
     # source_product_movement: "Source product movement"
     # source_type: "Source type"
-    # source_updated_at: "Source updated at"
     spaced_iban: "Spaced IBAN"
     sql_type: "SQL type"
     ssl: "SSL"

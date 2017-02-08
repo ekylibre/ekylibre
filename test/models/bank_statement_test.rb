@@ -269,7 +269,7 @@ class BankStatementTest < ActiveSupport::TestCase
     main = Account.find_or_create_by_number('512INR001')
     suspense = Account.find_or_create_by_number('511INR001')
     client = Entity.normal.order(:id).where(client: true).first
-    
+
     cash = Cash.create!(
       name: 'Namaste Bank',
       nature: :bank_account,
@@ -333,9 +333,9 @@ class BankStatementTest < ActiveSupport::TestCase
     journal_entries_count = journal_entry.journal.entries.count
     bank_statement.destroy
     new_journal_entries_count = journal_entry.journal.entries.count
-  
+
     assert_equal journal_entries_count + 1, new_journal_entries_count
-  end 
+  end
 
   [IncomingPayment, OutgoingPayment].each do |payment|
     test "#{payment} can be lettered with bank_statement_items" do

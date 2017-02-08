@@ -250,6 +250,7 @@ Rails.application.routes.draw do
         match 'load_animals', via: [:get]
         post :change
         put :add_group
+        post :keep
       end
       member do
         match :add_to_group, via: [:get, :post]
