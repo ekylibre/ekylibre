@@ -78,6 +78,7 @@ eng:
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       index: "Animals"
+      # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
@@ -2139,6 +2140,7 @@ eng:
       journal_entries_csv_export: "Download CSV" #?
       # journal_entries_export: "Journal entries export"
       journal_entries_import: "Import CSV"
+      # keep: "Keep"
       # last_locations: "Last locations"
       # letter: "Letter"
       list: "List"

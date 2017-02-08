@@ -48,21 +48,6 @@ CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
           $$;
 
 
---
--- Name: prevent_cache_update(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION prevent_cache_update() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-          BEGIN
-            NEW.cached_payment_count := OLD.cached_payment_count;
-            NEW.cached_total_sum     := OLD.cached_total_sum;
-            RETURN NEW;
-          END;
-          $$;
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;

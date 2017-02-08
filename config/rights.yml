@@ -348,6 +348,7 @@ animals:
   read:
     actions:
     - "backend/animals#index"
+    - "backend/animals#keep"
     - "backend/animals#list"
     - "backend/animals#list_carried_linkages"
     - "backend/animals#list_carrier_linkages"

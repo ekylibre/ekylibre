@@ -882,6 +882,7 @@
         <page to="backend/animals#create"/>
         <page to="backend/animals#destroy"/>
         <page to="backend/animals#edit"/>
+        <page to="backend/animals#keep"/>
         <page to="backend/animals#list"/>
         <page to="backend/animals#list_children"/>
         <page to="backend/animals#new"/>

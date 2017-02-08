@@ -68,7 +68,7 @@
                         - displayed_label = existing.number
                         - displayed_label << " - " + amount.l(currency: existing.real_currency)
                         - displayed_label << " - " + existing.items.map(&:name).join(', ')
-                        
+
                         - l.item displayed_label, { controller: :regularizations, action: :create, affair_id: affair.id, journal_entry_id: existing.id, redirect: request.fullpath }, method: :post
                       - l.separator
                     - l.item :new.tl, { controller: :journal_entries, action: :new, affair_id: affair.id, nature: :various, currency: affair.currency, redirect: request.fullpath }

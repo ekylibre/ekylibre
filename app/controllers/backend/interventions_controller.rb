@@ -223,26 +223,24 @@ module Backend
         end
       end
 
-      #consume preference and erase
-      if params[:keeper_id] and p = current_user.preferences.get(params[:keeper_id]) and p.value.present?
+      # consume preference and erase
+      if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
 
         options[:targets_attributes] = p.value.split(',').collect do |v|
           hash = {}
 
-          if Product.find_by(id: v)
-            hash.merge!( product_id: v )
-          end
+          hash[:product_id] = v if Product.find_by(id: v)
 
           if params[:reference_name]
-            hash.merge!(reference_name: params[:reference_name])
+            hash[:reference_name] = params[:reference_name]
           end
 
-          if params[:new_group] and g = Product.find_by(id: params[:new_group])
-            hash.merge!(new_group_id: g.id)
+          if params[:new_group] && (g = Product.find_by(id: params[:new_group]))
+            hash[:new_group_id] = g.id
           end
 
-          if params[:new_container] and c = Product.find_by(id: params[:new_container])
-            hash.merge!(new_container_id: c.id)
+          if params[:new_container] && (c = Product.find_by(id: params[:new_container]))
+            hash[:new_container_id] = c.id
           end
 
           hash
