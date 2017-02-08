@@ -5,7 +5,7 @@
     E.accounts.changeUnmarkVisibility()
 
     $('#lettersVisibility').on 'click', (e) ->
-      E.accounts.changeUnmarkVisibility() 
+      E.accounts.changeUnmarkVisibility()
 
     $('#labelLettersVisibility').on 'click', (e) ->
       if $('#lettersVisibility').is(':checked')
@@ -13,7 +13,7 @@
       else
         $('#lettersVisibility').prop('checked', true)
 
-      E.accounts.changeUnmarkVisibility() 
+      E.accounts.changeUnmarkVisibility()
 
   E.accounts =
     changeUnmarkVisibility: ->

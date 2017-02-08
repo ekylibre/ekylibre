@@ -10,6 +10,8 @@ ita:
         born_at: "creato a"
       building:
         born_at: "costruito alla"
+      cashes:
+        # main_account: "Main account"
       document:
         # filename: "File"
       document_template:

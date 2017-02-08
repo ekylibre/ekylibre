@@ -10,6 +10,8 @@ spa:
         born_at: "Creado en"
       building:
         born_at: "Construido a"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "Archivo"
       document_template:

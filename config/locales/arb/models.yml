@@ -45,6 +45,8 @@ arb:
         number: "رقم الحساب المصرفي" #?
         outgoing_payment_modes: "طرق الصرف" #?
         updated_at: "تم تحديثها في" #?
+      cashes:
+        # main_account: "Main account"
       catalog: #?
         description: "مواصفات" #?
       company: #?

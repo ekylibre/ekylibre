@@ -10,6 +10,8 @@ cmn:
         born_at: "创建时间"
       building:
         born_at: "建于"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "文件"
       document_template:

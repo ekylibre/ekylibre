@@ -33,6 +33,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
+      cashes:
+        main_account: "Compte principal"
       document:
         filename: "Fichier"
       document_archive: #?

@@ -1377,7 +1377,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements" #?!
+    mask_literate_elements: "Mask literate elements"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"

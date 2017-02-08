@@ -10,6 +10,8 @@ jpn:
         born_at: "で作成されました"
       building:
         born_at: "で構築されました"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "ファイル"
       document_template:
