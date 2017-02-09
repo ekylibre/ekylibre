@@ -29,23 +29,34 @@ SET search_path = public, pg_catalog;
 CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-          BEGIN
-            UPDATE outgoing_payment_lists
-               SET cached_payment_count = payments.count,
-                   cached_total_sum = payments.total
-              FROM (
-                SELECT outgoing_payments.list_id AS list_id,
-                       SUM(outgoing_payments.amount) AS total,
-                       COUNT(outgoing_payments.id) AS count
-                  FROM outgoing_payments
-                  GROUP BY outgoing_payments.list_id
-              ) AS payments
-              WHERE payments.list_id = id
-                AND ((TG_OP <> 'DELETE' AND id = NEW.list_id)
-                 OR  (TG_OP <> 'INSERT' AND id = OLD.list_id));
-            RETURN NEW;
-          END;
-          $$;
+              DECLARE
+                new_id INTEGER DEFAULT NULL;
+                old_id INTEGER DEFAULT NULL;
+              BEGIN
+                IF TG_OP <> 'DELETE' THEN
+                  new_id := NEW.list_id;
+                END IF;
+
+                IF TG_OP <> 'INSERT' THEN
+                  old_id := OLD.list_id;
+                END IF;
+
+                UPDATE outgoing_payment_lists
+                   SET cached_payment_count = payments.count,
+                       cached_total_sum = payments.total
+                  FROM (
+                    SELECT outgoing_payments.list_id AS list_id,
+                           SUM(outgoing_payments.amount) AS total,
+                           COUNT(outgoing_payments.id) AS count
+                      FROM outgoing_payments
+                      GROUP BY outgoing_payments.list_id
+                  ) AS payments
+                  WHERE payments.list_id = id
+                    AND ((new_id IS NOT NULL AND id = new_id)
+                     OR  (old_id IS NOT NULL AND id = old_id));
+                RETURN NEW;
+              END
+            $$;
 
 
 SET default_tablespace = '';
@@ -16850,4 +16861,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170203181700');
 INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 
 INSERT INTO schema_migrations (version) VALUES ('20170208150219');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209151943');
 
