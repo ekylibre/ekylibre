@@ -3807,7 +3807,8 @@ CREATE TABLE loans (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    insurance_repayment_method character varying
 );
 
 
@@ -16847,4 +16848,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170203135031');
 INSERT INTO schema_migrations (version) VALUES ('20170203181700');
 
 INSERT INTO schema_migrations (version) VALUES ('20170207131958');
+
+INSERT INTO schema_migrations (version) VALUES ('20170208150219');
 

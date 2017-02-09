@@ -825,6 +825,7 @@ jpn:
     inspections: "検査"
     insurance_amount: "保険金額"
     insurance_percentage: "保険の割合"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "整数値"
     integration_name: "連動名"
     interest_amount: "利息額"

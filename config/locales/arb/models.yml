@@ -1617,6 +1617,7 @@ arb:
     inspections: "عمليات التفتيش"
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "قيمة العدد الصحيح"
     integration_name: "اسم التكامل"
     interest_amount: "مبلغ الفائدة"

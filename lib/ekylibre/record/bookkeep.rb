@@ -163,6 +163,7 @@ module Ekylibre
             code << "  if ::Preference[:bookkeep_automatically]\n"
             code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
             code << "  end\n"
+            code << "  true\n"
             code << "end\n"
           end
 

@@ -825,6 +825,7 @@ deu:
     inspections: "Inspektionen"
     insurance_amount: "Versicherungssumme"
     insurance_percentage: "Versicherungen Prozent"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "Integer Wert"
     integration_name: "Integration Name"
     interest_amount: "Zinsbetrag"

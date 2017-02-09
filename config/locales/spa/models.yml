@@ -829,6 +829,7 @@ spa:
     inspections: "inspecciones"
     insurance_amount: "El monto del seguro"
     insurance_percentage: "Porcentaje de Seguros"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "Valor entero"
     integration_name: "Nombre de la integración"
     interest_amount: "Cantidad de interés"

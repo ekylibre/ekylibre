@@ -132,8 +132,10 @@ class JournalEntryTest < ActiveSupport::TestCase
 
     assert_equal 4500, journal_entry.real_credit
     assert_equal 4500, journal_entry.real_debit
+
     assert_equal 55_154.36, journal_entry.credit
     assert_equal 55_154.36, journal_entry.debit
+
     assert_equal 55_154.36, journal_entry.absolute_credit
     assert_equal 55_154.36, journal_entry.absolute_debit
   end

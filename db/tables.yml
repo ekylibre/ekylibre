@@ -4277,6 +4277,8 @@ loans:
     precision: 19
     scale: 4
     required: true
+  insurance_repayment_method:
+    type: string
   interest_percentage:
     type: decimal
     precision: 19

@@ -1926,9 +1926,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="journal_entries">
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

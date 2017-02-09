@@ -825,6 +825,7 @@ por:
     inspections: "inspeções"
     insurance_amount: "Valor do seguro"
     insurance_percentage: "Porcentagem de seguros"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "Valor inteiro"
     integration_name: "Nome integração"
     interest_amount: "Montante de juros"

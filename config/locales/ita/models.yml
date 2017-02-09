@@ -856,6 +856,7 @@ ita:
     inspections: "ispezioni"
     insurance_amount: "importo di assicurazione"
     insurance_percentage: "percentuale di assicurazione"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "valore intero"
     integration_name: "Nome Integrazione"
     interest_amount: "importo interesse"

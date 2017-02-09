@@ -840,6 +840,7 @@ eng:
     inspections: "Inspections"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
+    insurance_repayment_method: "Insurance repayment method"
     integer_value: "Integer value"
     integration_name: "Integration name"
     interest_amount: "Interest amount"
