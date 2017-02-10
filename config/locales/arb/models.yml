@@ -1758,6 +1758,7 @@ arb:
     mail_postal_zone: "postal_zone الإلكتروني"
     mails: "رسائل"
     main: "رئيسي"
+    # main_account: "Main account"
     main_activity: "النشاط الرئيسي"
     main_crop_code: "كود المحصول الرئيسي"
     main_crop_commercialisation: "تسويق المحصول الرئيسي"
@@ -2317,7 +2318,10 @@ arb:
     support_variety: "دعم متنوعة"
     supports: "الدعم"
     surface_units: "وحدات المظهر الخارجي" #?
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "معطل"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     symbol: "نموذج" #?
     symmetric: "متساو" #?
     tactic: "تقنيات إدارة المحاصيل"
