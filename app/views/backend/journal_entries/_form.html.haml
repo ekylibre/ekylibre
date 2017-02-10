@@ -43,9 +43,9 @@
                     = :activate_entry_autocompletion.tl
 
                 %span= :total.tl
-              %td#entry-real-debit.decimal{ data: { use: "input.real-debit", calculate_round: precision } }=  f.object.real_debit
+              %td#entry-real-debit.decimal{ data: { use: "tbody.nested-fields input.real-debit", calculate_round: precision } }=  f.object.real_debit
               %td.txt= f.object.journal.currency
-              %td#entry-real-credit.decimal{data: { use: "input.real-credit", calculate_round: precision } }= f.object.real_credit
+              %td#entry-real-credit.decimal{data: { use: "tbody.nested-fields input.real-credit", calculate_round: precision } }= f.object.real_credit
               %td.txt= f.object.journal.currency
               %th.act
             %tr#subtotal.subtotal.currency-change{ data: { valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false } }
