@@ -56,7 +56,7 @@
               %td.financial-year-currency.txt= financial_year.currency
               %th.act
 
-          = f.simple_fields_for :items, f.object.items.sort_by(&:position) do |item|
+          = f.simple_fields_for :items, f.object.items.order(:position) do |item|
             = render 'item_fields', f: item, currency: f.object.journal.currency
 
   = f.attachments_field_set
