@@ -21,8 +21,36 @@ module Backend
     manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
 
     unroll
+    
+    # params:
+    #   :q Text search
+    #   :s State search
+    #   :period Two Dates with _ separator
+    #   :variant_id
+    #   :activity_id
+    def self.fixed_assets_conditions
+      code = ''
+      code = search_conditions(fixed_assets: [:name, :description]) + " ||= []\n"
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{FixedAsset.table_name}.started_on BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "if params[:fixed_asset_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{FixedAsset.table_name}.id = ?'\n"
+      code << "  c << params[:fixed_asset_id]\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
 
-    list do |t|
+    list(conditions: fixed_assets_conditions, left_joins: :products) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: true

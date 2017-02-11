@@ -12,6 +12,11 @@
     - l.attribute :stopped_on
     - l.attribute :description
 
+  - if resource.purchase_item
+    .info
+      %span.title= :purchase.tl
+      %span.value= link_to(resource.purchase_item.purchase.number, {controller: :purchases, action: :show, id: resource.purchase_item.purchase.id})
+
 = cobbles do |c|
 
   - c.cobble(:depreciations) do

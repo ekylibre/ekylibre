@@ -1,4 +1,11 @@
--# = kujaku
+= kujaku do |k|
+  - k.text
+  - k.helper :journal_period_crit
+  - products = Product.where.not(fixed_asset_id: nil)
+  - if products.any?
+    - k.helper do
+      %label= Product.human_attribute_name(:name)
+      = select_tag(:fixed_asset_id, options_for_select([[]] +  products.map{|u| [u.name, u.fixed_asset_id]}, params[:fixed_asset_id].to_i))
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
 = main_list
