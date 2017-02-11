@@ -470,7 +470,8 @@ Rails.application.routes.draw do
       member do
         # get :cede
         # get :sell
-        # post :depreciate
+        post :depreciate
+        get :depreciate_up_to
         get :list_depreciations
         get :list_products
       end

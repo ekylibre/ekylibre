@@ -16,7 +16,13 @@
     .info
       %span.title= :purchase.tl
       %span.value= link_to(resource.purchase_item.purchase.number, {controller: :purchases, action: :show, id: resource.purchase_item.purchase.id})
+      
+  - if resource.purchase_item && resource.purchase_item.journal_entry
+    .info
+      %span.title= :journal_entry.tl
+      %span.value= link_to(resource.purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: resource.purchase_item.journal_entry.id})
 
+  
 = cobbles do |c|
 
   - c.cobble(:depreciations) do

@@ -226,7 +226,11 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation.save!
     end
   end
-
+  
+  def depreciable?
+    !depreciations.any?
+  end
+  
   # Returns the duration in days of all the depreciations
   def duration
     self.class.duration(started_on, self.stopped_on, mode: depreciation_method.to_sym)

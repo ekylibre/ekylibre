@@ -51,6 +51,7 @@ module Backend
     end
 
     list(conditions: fixed_assets_conditions, left_joins: :products) do |t|
+      t.action :depreciate_up_to, on: :both, if: :depreciable?
       t.action :edit
       t.action :destroy
       t.column :number, url: true
@@ -75,6 +76,10 @@ module Backend
       t.column :name, url: true
       t.column :initial_born_at
     end
+    
+    def depreciate_up_to
+      # use view to select date for mass depreciation on fixed asset
+    end
 
     # def cede
     #   return unless @fixed_asset = find_and_check
@@ -84,10 +89,30 @@ module Backend
     #   return unless @fixed_asset = find_and_check
     # end
 
-    # def depreciate
-    #   return unless @fixed_asset = find_and_check
-    #   @fixed_asset.depreciate!
-    #   redirect_to fixed_asset_path(@fixed_asset)
-    # end
+    def depreciate
+      fixed_assets = find_fixed_assets
+      return unless fixed_assets
+      
+      unless fixed_assets.all? { |fixed_asset| fixed_asset.depreciable? }
+        notify_error(:all_fixed_assets_must_be_depreciable)
+        redirect_to(params[:redirect] || { action: :index })
+        return
+      end
+    
+    end
+    
+    protected
+
+    def find_fixed_assets
+      fixed_asset_ids = params[:id].split(',')
+      fixed_assets = fixed_asset_ids.map { |id| FixedAsset.find_by(id: id) }.compact
+      unless fixed_assets.any?
+        notify_error :no_fixed_assets_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      fixed_assets
+    end
+    
   end
 end
