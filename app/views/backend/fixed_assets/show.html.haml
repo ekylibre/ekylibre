@@ -11,16 +11,26 @@
     - l.attribute :started_on
     - l.attribute :stopped_on
     - l.attribute :description
+    
+  = infos do
+    - if resource.purchase_item
+      .med-info
+        %span.title= :purchase.tl
+        %span.value
+          %i.picto{class: "picto-shopping-cart"}
+          = link_to(resource.purchase_item.purchase.number, {controller: :purchases, action: :show, id: resource.purchase_item.purchase.id})
+      .med-info
+        %span.title= :supplier.tl
+        %span.value
+          %i.picto{class: "picto-group"}
+          = link_to(resource.purchase_item.purchase.supplier.full_name, {controller: :entities, action: :show, id: resource.purchase_item.purchase.supplier_id})
 
-  - if resource.purchase_item
-    .info
-      %span.title= :purchase.tl
-      %span.value= link_to(resource.purchase_item.purchase.number, {controller: :purchases, action: :show, id: resource.purchase_item.purchase.id})
-      
-  - if resource.purchase_item && resource.purchase_item.journal_entry
-    .info
-      %span.title= :journal_entry.tl
-      %span.value= link_to(resource.purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: resource.purchase_item.journal_entry.id})
+    - if resource.purchase_item && resource.purchase_item.journal_entry
+      .med-info
+        %span.title= Purchase.human_attribute_name(:journal_entry)
+        %span.value
+          %i.picto{class: "picto-book"}
+          = link_to(resource.purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: resource.purchase_item.journal_entry.id})
 
   
 = cobbles do |c|
