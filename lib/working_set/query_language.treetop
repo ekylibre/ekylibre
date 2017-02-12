@@ -16,7 +16,7 @@ module WorkingSet
     end
 
     rule test
-      abilitive / essence / non_essence / derivative / non_derivative / indicative / negative / "(" boolean_expression ")" <BooleanExpression>
+      abilitive / essence / non_essence / derivative / non_derivative / inclusion / indicative / negative / "(" boolean_expression ")" <BooleanExpression>
     end
 
     rule essence
@@ -33,6 +33,10 @@ module WorkingSet
 
     rule non_derivative
       "dont" spacer "derive" spacer "from" spacer variety_name <DerivativeTest>
+    end
+
+    rule inclusion
+      "includes" spacer variety_name <InclusionTest>
     end
 
     rule indicative

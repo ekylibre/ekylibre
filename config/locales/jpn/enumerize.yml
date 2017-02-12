@@ -242,6 +242,9 @@ jpn:
         root: "ルート"
         string: "文字列"
     loan:
+      insurance_repayment_method:
+        # initial: "Based on initial capital"
+        # to_repay: "Based on capital left to repay"
       repayment_method:
         constant_amount: "一定量"
         constant_rate: "一定の割合"

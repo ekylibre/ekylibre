@@ -632,6 +632,14 @@ html.exception {
   }
 }
 
+#journal-entry-form {
+  &[data-with-change="false"] {
+    .currency-change {
+      display: none;
+    }
+  }
+}
+
 #dashboards-nav {
   @include tab-pills;
 }
@@ -878,6 +886,13 @@ form.search {
 
 .pull-right {
   @include float(right);
+  .med-info {
+    min-width: 20em;
+  }
+}
+
+.pull-left {
+  @include float(left);
   .med-info {
     min-width: 20em;
   }

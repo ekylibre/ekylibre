@@ -9,6 +9,7 @@
   = f.input :insurance_percentage, wrapper: :append do
     = f.input_field(:insurance_percentage)
     %span.add-on= :by_year.tl
+  = f.input :insurance_repayment_method, as: :radio_buttons
   = f.input :started_on
   = f.input :repayment_period, as: :radio_buttons
   = f.input :repayment_duration, wrapper: :append do

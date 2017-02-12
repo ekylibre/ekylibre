@@ -10,6 +10,8 @@ cmn:
         born_at: "创建时间"
       building:
         born_at: "建于"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "文件"
       document_template:
@@ -824,6 +826,7 @@ cmn:
     inspections: "检查"
     insurance_amount: "保险金额"
     insurance_percentage: "保险比例"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "整数值"
     integration_name: "集成名字"
     interest_amount: "利息金额"
@@ -935,6 +938,7 @@ cmn:
     mail_postal_zone: "邮件postal_zone"
     mails: "邮件"
     main: "主要"
+    # main_account: "Main account"
     main_activity: "主要活动"
     main_crop_code: "主要农作物代码"
     main_crop_commercialisation: "主要作物商业化"
@@ -1359,7 +1363,10 @@ cmn:
     support_variant_unit: "支持单位变种"
     support_variety: "支持多种"
     supports: "支持"
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "暂停"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     tactic: "作物管理技术"
     tactics: "策略"
     target: "目标"

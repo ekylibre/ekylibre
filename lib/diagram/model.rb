@@ -40,6 +40,33 @@ module Diagram
         graph.node('AnyModel', style: :dashed) if polymorphism
         graph
       end
+
+      def physical(*models)
+        options = models.extract_options!
+        options[:name] ||= "#{models.first.name.underscore}-relational"
+        graph = Diagram::Graph.new(options.delete(:name), :digraph, rank_dir: 'LR', node: { font_color: '#999999', color: '#999999' }, edge: { color: '#999999' })
+        polymorphism = false
+        table_names = models.map(&:table_name).uniq.map(&:to_s)
+        tables = YAML.load_file(Rails.root.join('db', 'tables.yml')).delete_if { |t, _| !table_names.include?(t) }
+        tables.each do |table_name, columns|
+          columns = columns.delete_if { |k, _v| %w(creator_id created_at updater_id updated_at lock_version id).include?(k) }
+          label = '<f999> ' + table_name
+          columns.keys.each_with_index do |c, i|
+            label << " | <f#{i}> #{c}"
+          end
+          graph.record(table_name, label: label, font_color: '#002255', color: '#002255')
+          columns.each_with_index do |(_column, attributes), index|
+            references = attributes['references']
+            next unless references
+            next if references =~ /\A~/
+            if tables.keys.include?(references.pluralize)
+              graph.arrow(table_name + ':f' + index.to_s, references.pluralize + ':f999')
+            end
+          end
+        end
+        graph.record('any_models', style: :dashed) if polymorphism
+        graph
+      end
     end
   end
 end

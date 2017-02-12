@@ -78,6 +78,7 @@ eng:
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       index: "Animals"
+      # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
@@ -393,6 +394,7 @@ eng:
     backend/januses:
       # toggle: "Toggle januse: %{name}"
     backend/journal_entries:
+      # currency_state: "Currency state journal entry: %{name}"
       edit: "Edit journal entry: %{number}"
       index: "Journal entries"
       new: "New entry"
@@ -400,7 +402,6 @@ eng:
       # toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
       index: "Journal entry items"
-      new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
@@ -1278,6 +1279,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
     indicators: "Indicators"
@@ -1376,6 +1378,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
+    mask_literate_elements: "Mask literate elements"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
@@ -1708,7 +1711,6 @@ eng:
     total: "Total"
     total_amount: "Total amount" #??
     total_cost: "Total cost"
-    total_in_currency: "Total (%{currency})"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
@@ -2112,6 +2114,7 @@ eng:
       correct: "Correct"
       create: "Create"
       # csv: "Csv"
+      # currency_state: "Currency state"
       # current: "Current"
       destroy: "Destroy"
       detach: "Detach"
@@ -2138,6 +2141,7 @@ eng:
       journal_entries_csv_export: "Download CSV" #?
       # journal_entries_export: "Journal entries export"
       journal_entries_import: "Import CSV"
+      # keep: "Keep"
       # last_locations: "Last locations"
       # letter: "Letter"
       list: "List"

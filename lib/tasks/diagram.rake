@@ -26,6 +26,8 @@ namespace :diagrams do
     }.each do |name, models|
       graph = Diagram::Model.relational(*models, name: "#{name}-relational")
       graph.write
+      graph = Diagram::Model.physical(*models, name: "#{name}-physical")
+      graph.write
     end
   end
 
@@ -39,6 +41,11 @@ namespace :diagrams do
   task nomenclature: :environment do
     Diagram::Nomenclature.inheritance_all(Nomen::Variety)
     graph = Diagram::Nomenclature.inheritance(Nomen::Variety)
+    graph.write
+  end
+
+  task physical: :environment do
+    graph = Diagram::Schema.physical(YAML.load_file(Rails.root.join('db', 'tables.yml')))
     graph.write
   end
 end

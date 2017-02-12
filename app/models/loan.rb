@@ -22,28 +22,29 @@
 #
 # == Table: loans
 #
-#  accounted_at         :datetime
-#  amount               :decimal(19, 4)   not null
-#  cash_id              :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  currency             :string           not null
-#  custom_fields        :jsonb
-#  id                   :integer          not null, primary key
-#  insurance_percentage :decimal(19, 4)   not null
-#  interest_percentage  :decimal(19, 4)   not null
-#  journal_entry_id     :integer
-#  lender_id            :integer          not null
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  repayment_duration   :integer          not null
-#  repayment_method     :string           not null
-#  repayment_period     :string           not null
-#  shift_duration       :integer          default(0), not null
-#  shift_method         :string
-#  started_on           :date             not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  accounted_at               :datetime
+#  amount                     :decimal(19, 4)   not null
+#  cash_id                    :integer          not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  currency                   :string           not null
+#  custom_fields              :jsonb
+#  id                         :integer          not null, primary key
+#  insurance_percentage       :decimal(19, 4)   not null
+#  insurance_repayment_method :string
+#  interest_percentage        :decimal(19, 4)   not null
+#  journal_entry_id           :integer
+#  lender_id                  :integer          not null
+#  lock_version               :integer          default(0), not null
+#  name                       :string           not null
+#  repayment_duration         :integer          not null
+#  repayment_method           :string           not null
+#  repayment_period           :string           not null
+#  shift_duration             :integer          default(0), not null
+#  shift_method               :string
+#  started_on                 :date             not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 class Loan < Ekylibre::Record::Base
   include Attachable
@@ -51,6 +52,7 @@ class Loan < Ekylibre::Record::Base
   enumerize :repayment_method, in: [:constant_rate, :constant_amount], default: :constant_amount
   enumerize :shift_method, in: [:immediate_payment, :anatocism], default: :immediate_payment
   enumerize :repayment_period, in: [:month, :year], default: :month, predicates: { prefix: true }
+  enumerize :insurance_repayment_method, in: [:initial, :to_repay], default: :to_repay, predicates: true
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -82,25 +84,41 @@ class Loan < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today) do |entry|
+    existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', started_on).where(currency: [journal.currency, Preference[:currency]])
+    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, amount, as: :loan)
     end
+    true
   end
 
   def generate_repayments
     period = repayment_period_month? ? 12 : 1
     length = repayment_period_month? ? :month : :year
     ids = []
-    Calculus::Loan.new(amount, repayment_duration, interests: { interest_amount: interest_percentage / 100.0 }, insurances: { insurance_amount: insurance_percentage / 100.0 }, period: period, length: length, shift: self.shift_duration, shift_method: shift_method.to_sym, started_on: started_on).compute_repayments(repayment_method).each do |repayment|
-      if r = repayments.find_by(position: repayment[:position])
-        r.update_attributes!(repayment)
-      else
-        r = repayments.create!(repayment)
+    Calculus::Loan
+      .new(
+        amount,
+        repayment_duration,
+        interests:  { interest_amount:  interest_percentage  / 100.0 },
+        insurances: { insurance_amount: insurance_percentage / 100.0 },
+        period: period,
+        length: length,
+        shift: self.shift_duration,
+        shift_method: shift_method.to_sym,
+        insurance_method: insurance_repayment_method,
+        started_on: started_on
+      )
+      .compute_repayments(repayment_method)
+      .each do |repayment|
+        if r = repayments.find_by(position: repayment[:position])
+          r.update_attributes!(repayment)
+        else
+          r = repayments.create!(repayment)
+        end
+        ids << r.id
       end
-      ids << r.id
-    end
     repayments.destroy(repayments.where.not(id: ids))
     reload
   end
