@@ -106,7 +106,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, to: :account, prefix: true
-  delegate :entity_country, to: :entry
+  delegate :entity_country, :expected_financial_year, to: :entry
 
   acts_as_list scope: :entry
 
@@ -217,13 +217,13 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   before_destroy :clear_bank_statement_reconciliation
 
+  protect do
+    closed? || (entry && entry.protected_on_update?)
+  end
+
   def clear_bank_statement_reconciliation
     return unless bank_statement && bank_statement_letter
     bank_statement.items.where(letter: bank_statement_letter).update_all(letter: nil)
-  end
-
-  protect do
-    closed? || (entry && entry.protected_on_update?)
   end
 
   # Computes attribute for adding an item

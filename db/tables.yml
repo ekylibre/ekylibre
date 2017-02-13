@@ -4281,6 +4281,8 @@ loans:
     precision: 19
     scale: 4
     required: true
+  insurance_repayment_method:
+    type: string
   interest_percentage:
     type: decimal
     precision: 19
@@ -4619,6 +4621,10 @@ observations:
     type: integer
     references: user
 outgoing_payment_lists:
+  cached_payment_count:
+    type: integer
+  cached_total_sum:
+    type: decimal
   created_at:
     type: datetime
   creator_id:

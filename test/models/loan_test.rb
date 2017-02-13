@@ -22,28 +22,29 @@
 #
 # == Table: loans
 #
-#  accounted_at         :datetime
-#  amount               :decimal(19, 4)   not null
-#  cash_id              :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  currency             :string           not null
-#  custom_fields        :jsonb
-#  id                   :integer          not null, primary key
-#  insurance_percentage :decimal(19, 4)   not null
-#  interest_percentage  :decimal(19, 4)   not null
-#  journal_entry_id     :integer
-#  lender_id            :integer          not null
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  repayment_duration   :integer          not null
-#  repayment_method     :string           not null
-#  repayment_period     :string           not null
-#  shift_duration       :integer          default(0), not null
-#  shift_method         :string
-#  started_on           :date             not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  accounted_at               :datetime
+#  amount                     :decimal(19, 4)   not null
+#  cash_id                    :integer          not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  currency                   :string           not null
+#  custom_fields              :jsonb
+#  id                         :integer          not null, primary key
+#  insurance_percentage       :decimal(19, 4)   not null
+#  insurance_repayment_method :string
+#  interest_percentage        :decimal(19, 4)   not null
+#  journal_entry_id           :integer
+#  lender_id                  :integer          not null
+#  lock_version               :integer          default(0), not null
+#  name                       :string           not null
+#  repayment_duration         :integer          not null
+#  repayment_method           :string           not null
+#  repayment_period           :string           not null
+#  shift_duration             :integer          default(0), not null
+#  shift_method               :string
+#  started_on                 :date             not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 require 'test_helper'
 

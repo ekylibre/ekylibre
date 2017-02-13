@@ -10,6 +10,8 @@ deu:
         born_at: "Hergestellt in"
       building:
         born_at: "Erbaut an"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "Datei"
       document_template:
@@ -823,6 +825,7 @@ deu:
     inspections: "Inspektionen"
     insurance_amount: "Versicherungssumme"
     insurance_percentage: "Versicherungen Prozent"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "Integer Wert"
     integration_name: "Integration Name"
     interest_amount: "Zinsbetrag"
@@ -934,6 +937,7 @@ deu:
     # mail_postal_zone: "Mail postal_zone"
     # mails: "Mails"
     # main: "Main"
+    # main_account: "Main account"
     main_activity: "Hauptaktivität"
     main_crop_code: "Hauptkultur Code"
     main_crop_commercialisation: "Hauptkultur Kommerzialisierung"
@@ -1358,7 +1362,10 @@ deu:
     support_variant_unit: "Unterstützung Variante Einheit"
     support_variety: "Unterstützung Vielfalt"
     supports: "Unterstützungen"
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Suspendiert"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     tactic: "Crop-Management-Technik"
     tactics: "Taktik"
     target: "Ziel"

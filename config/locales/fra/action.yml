@@ -362,7 +362,7 @@ fra:
       show: "Écriture comptable\_: %{number}"
     backend/journal_entry_items:
       index: "Lignes d’écritures"
-      new: "Nouvelle ligne d’écriture"
+      new: "Nouvelle ligne d’écriture" #?
       show: "Ligne d’écriture: %{name}"
     backend/journals:
       bookkeep: "Bascule comptable"
@@ -1339,6 +1339,7 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
+    indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
     indicator_with_unit: "%{indicator} (%{unit})" #?
@@ -1485,6 +1486,7 @@ fra:
     markers: "Objectifs" #?
     marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
+    mask_literate_elements: "Masquer les éléments lettrés"
     mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
@@ -2027,7 +2029,6 @@ fra:
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
     total_earn: "Gain total" #?
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
-    total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé" #?
     total_pretax_expenses: "Dépenses (HT)"

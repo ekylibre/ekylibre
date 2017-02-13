@@ -62,4 +62,62 @@ class OutgoingPaymentTest < ActiveSupport::TestCase
     # Should not save without exception raise
     refute outgoing_payment.save
   end
+
+  test 'delete outgoing payment delete journal entry' do
+    now = Time.new(2016, 11, 17, 19)
+    currency = FinancialYear.at(now).currency
+    main = Account.find_or_create_by_number('512INR001')
+    suspense = Account.find_or_create_by_number('511INR001')
+
+    cash = Cash.create!(
+      name: 'Namaste Bank',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspend_until_reconciliation: true,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by!(nature: :bank, currency: currency, name: 'Namaste', code: 'Nam')
+    )
+
+    mode = OutgoingPaymentMode.find_by!(with_accounting: true)
+    payer = Entity.normal.find_by!(client: true)
+    responsible = User.find(1)
+
+    payment = OutgoingPayment.create!(mode: mode, payee: payer, amount: 504.12, delivered: true, currency: currency, cash: cash, responsible: responsible, to_bank_at: Time.now)
+
+    assert_not_nil payment
+    assert_equal 504.12, payment.amount
+
+    entry = payment.journal_entry
+
+    assert_not_nil entry
+    assert_equal 2, entry.items.count
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+
+    # Update with confirmed entry
+    entry.confirm!
+
+    payment.update!(amount: 405.21)
+    entry_v2 = payment.journal_entry
+
+    assert_not_nil entry_v2
+    assert_not_equal entry, entry_v2
+
+    entry.reload
+
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+
+    entry_v2.reload
+
+    assert_equal 405.21, entry_v2.real_debit, entry_v2.inspect
+    assert_equal 405.21, entry_v2.real_credit, entry_v2.inspect
+
+    journal_entries_count = entry_v2.journal.entries.count
+    payment.destroy
+    new_journal_entries_count = entry_v2.journal.entries.count
+
+    assert_equal journal_entries_count + 1, new_journal_entries_count
+  end
 end

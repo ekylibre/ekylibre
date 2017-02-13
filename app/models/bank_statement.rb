@@ -108,10 +108,10 @@ class BankStatement < Ekylibre::Record::Base
       balance = items.sum('credit - debit')
       items.each do |item|
         entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
-        entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+        # entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
       end
       # entry.add_debit(label, cash.main_account_id, balance, as: :bank)
-      # entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
+      entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
     end
   end
 

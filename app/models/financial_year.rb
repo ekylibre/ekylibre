@@ -81,28 +81,30 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   class << self
-    # Find or create if possible the requested financial year for the searched date
-    def at(searched_at = Time.zone.now)
-      searched_on = searched_at.to_date
+    def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
       # First
-      unless (first = first_of_all)
+      first = first_of_all
+      unless first
         started_on = Time.zone.today
-        first = create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
+        return create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
       end
-      if first.stopped_on == (first.started_on >> 12) - 1
+      if first.started_on > searched_on
+        return nil unless first.stopped_on == (first.started_on >> 12) - 1
         other = first
         other = other.find_or_create_previous! while other.started_on > searched_on
         return other
-      elsif first.started_on > searched_on
-        return nil
       end
-
       # Next years
       other = first
       other = other.find_or_create_next! while searched_on > other.stopped_on
       other
+    end
+
+    # Find or create if possible the requested financial year for the searched date
+    def at(searched_at = Time.zone.now)
+      on(searched_at.to_date)
     end
 
     def first_of_all
@@ -110,7 +112,7 @@ class FinancialYear < Ekylibre::Record::Base
     end
 
     def current
-      at(Time.zone.now)
+      on(Time.zone.today)
     end
 
     def closable

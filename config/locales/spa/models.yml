@@ -10,6 +10,8 @@ spa:
         born_at: "Creado en"
       building:
         born_at: "Construido a"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "Archivo"
       document_template:
@@ -827,6 +829,7 @@ spa:
     inspections: "inspecciones"
     insurance_amount: "El monto del seguro"
     insurance_percentage: "Porcentaje de Seguros"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "Valor entero"
     integration_name: "Nombre de la integración"
     interest_amount: "Cantidad de interés"
@@ -938,6 +941,7 @@ spa:
     mail_postal_zone: "Postal_zone electrónico"
     mails: "Mails"
     main: "Principal"
+    # main_account: "Main account"
     main_activity: "Actividad principal"
     main_crop_code: "Código principal cultivo"
     main_crop_commercialisation: "Comercialización cultivo principal"
@@ -1362,7 +1366,10 @@ spa:
     support_variant_unit: "Unidad de apoyo variante"
     support_variety: "Variedad de apoyo"
     supports: "Soportes"
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Suspendido"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     tactic: "Técnica de manejo del cultivo"
     tactics: "Táctica"
     target: "Objetivo"

@@ -143,6 +143,10 @@ module Diagram
       @content << ";\n"
     end
 
+    def record(name, options = {})
+      node(name, options.merge(shape: 'record'))
+    end
+
     def arrow(from, to, options = {})
       [:head, :size, :tail].each do |key|
         options["arrow_#{key}".to_sym] = options.delete(key) if options[key]

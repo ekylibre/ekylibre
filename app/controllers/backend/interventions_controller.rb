@@ -21,8 +21,6 @@ require_dependency 'procedo'
 module Backend
   class InterventionsController < Backend::BaseController
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
-                     group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c,
-                     targets_attributes: 'params[:targets_attributes] || []'.c,
                      continue: [:nature, :procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -206,7 +204,49 @@ module Backend
 
       # , :doers, :inputs, :outputs, :tools
       [:group_parameters, :targets].each do |param|
-        options["#{param}_attributes"] = params["#{param}_attributes"] || []
+        next unless params.include? :intervention
+        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+
+        next unless options[:targets_attributes]
+
+        next if permitted_params.include? :working_periods
+        targets = if options[:targets_attributes].is_a? Array
+                    options[:targets_attributes].collect { |k, _| k[:product_id] }
+                  else
+                    options[:targets_attributes].collect { |_, v| v[:product_id] }
+                  end
+        availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
+
+        options[:targets_attributes].select! do |k, v|
+          obj = k.is_a?(Hash) ? k : v
+          obj.include?(:product_id) && availables.include?(obj[:product_id].to_i)
+        end
+      end
+
+      # consume preference and erase
+      if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
+
+        options[:targets_attributes] = p.value.split(',').collect do |v|
+          hash = {}
+
+          hash[:product_id] = v if Product.find_by(id: v)
+
+          if params[:reference_name]
+            hash[:reference_name] = params[:reference_name]
+          end
+
+          if params[:new_group] && (g = Product.find_by(id: params[:new_group]))
+            hash[:new_group_id] = g.id
+          end
+
+          if params[:new_container] && (c = Product.find_by(id: params[:new_container]))
+            hash[:new_container_id] = c.id
+          end
+
+          hash
+        end.compact
+
+        p.set! nil
       end
 
       @intervention = Intervention.new(options)

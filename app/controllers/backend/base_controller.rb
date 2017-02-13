@@ -253,7 +253,8 @@ module Backend
 
     def fire_event(event)
       return unless record = find_and_check
-      record.send(event)
+      state, msg = record.send(event)
+      notify_error(msg.collect(&:messages).collect(&:values).flatten.join(', ')) if state == false
       redirect_to params[:redirect] || { action: :show, id: record.id }
     end
 
