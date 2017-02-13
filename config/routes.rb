@@ -251,6 +251,7 @@ Rails.application.routes.draw do
         post :change
         put :add_group
         post :keep
+        get :matching_interventions
       end
       member do
         match :add_to_group, via: [:get, :post]
