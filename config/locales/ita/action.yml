@@ -321,7 +321,7 @@ ita:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "Articoli voce di diario"
-      new: "Nuova voce di entrata"
+      new: "Nuova voce di entrata" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1130,6 +1130,7 @@ ita:
     incoming_payment: "pagamento in entrata"
     incoming_payments: "pagamenti in entrata"
     incoming_payments_to_deposit: "Pagamenti in entrata di depositare"
+    # indicative_group_size: "Indicative group size"
     indicator: "indicatori"
     indicator_value: "valore dell'indicatore"
     indicators: "indicatori"
@@ -1230,6 +1231,7 @@ ita:
     mark_all_as_read: "Segna tutti come letti"
     mark_as_read: "segna come letto"
     marketable_net_mass: "massa netta commerciabile"
+    # mask_literate_elements: "Mask literate elements"
     # mass: "Masse"
     maximal_temperature: "temperatura massima"
     members: "Utenti"
@@ -1569,7 +1571,6 @@ ita:
     total_amount: "Importo totale"
     total_cost: "Costo totale"
     total_earn: "totale guadagnare" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "importo totale versato" #?
     total_pretax_expenses: "le spese al lordo delle imposte totali"
     total_pretax_revenues: "I ricavi al lordo delle imposte totali"

@@ -20,6 +20,6 @@
 require 'test_helper'
 module Backend
   class JournalEntryItemsControllerTest < ActionController::TestCase
-    test_restfully_all_actions show: :redirected_get, new: { mode: :index_xhr, params: { journal_id: identify(:journals_001), printed_on: '2009-07-19' } }
+    test_restfully_all_actions show: :redirected_get
   end
 end

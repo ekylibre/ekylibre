@@ -321,7 +321,7 @@ cmn:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "日记条目项目"
-      new: "新的入口项"
+      new: "新的入口项" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1064,6 +1064,7 @@ cmn:
     incoming_payment: "收款"
     incoming_payments: "收款"
     incoming_payments_to_deposit: "收款存"
+    # indicative_group_size: "Indicative group size"
     indicator: "指标"
     indicator_value: "指标值"
     indicators: "指标"
@@ -1165,6 +1166,7 @@ cmn:
     mark_all_as_read: "标记为已读"
     mark_as_read: "标记为已读"
     marketable_net_mass: "适销对路的净质量"
+    # mask_literate_elements: "Mask literate elements"
     mass: "马塞"
     maximal_temperature: "最高温度"
     members: "会员"
@@ -1504,7 +1506,6 @@ cmn:
     total_amount: "总金额"
     total_cost: "总成本"
     total_earn: "总收入" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "合计支付的金额" #?
     total_pretax_expenses: "总税前费用"
     total_pretax_revenues: "总计税前收入"

@@ -10,6 +10,8 @@ eng:
         born_at: "Created at"
       building:
         born_at: "Built at"
+      cashes:
+        main_account: "Main account"
       document:
         filename: "File"
       document_template:
@@ -472,6 +474,8 @@ eng:
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
+    # cached_payment_count: "Cached payment count"
+    # cached_total_sum: "Cached total sum"
     calibrations: "Calibrations"
     # calls: "Calls"
     campaign: "Campaign"
@@ -840,6 +844,7 @@ eng:
     inspections: "Inspections"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
+    insurance_repayment_method: "Insurance repayment method"
     integer_value: "Integer value"
     integration_name: "Integration name"
     interest_amount: "Interest amount"
@@ -956,7 +961,7 @@ eng:
     mail_postal_zone: "Mail postal_zone"
     mails: "Mails"
     main: "Main"
-    # main_account: "Main account"
+    main_account: "Main account"
     main_activity: "Main activity"
     main_crop_code: "Main crop code"
     main_crop_commercialisation: "Main crop commercialisation"
@@ -1399,10 +1404,10 @@ eng:
     support_variant_unit: "Support variant unit" #?
     support_variety: "Support variety"
     supports: "Supports"
-    # suspend_until_reconciliation: "Suspend until reconciliation"
+    suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Suspended"
-    # suspended_journal_entry_items: "Suspended journal entry items"
-    # suspense_account: "Suspense account"
+    suspended_journal_entry_items: "Suspended journal entry items"
+    suspense_account: "Suspense account"
     # suspense_cashes: "Suspense cashes"
     # swim_lane_uuid: "Swim lane uuid"
     tactic: "Cropping technique"

@@ -165,6 +165,9 @@ table {
   table.list {
     border-collapse: collapse;
     width: 100%;
+    th, td {
+      max-width: 20em;
+    }
     thead {
       th {
         padding: round($fs-normal*0.2) round($fs-normal*0.4);

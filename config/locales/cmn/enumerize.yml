@@ -242,6 +242,9 @@ cmn:
         root: "根"
         string: "串"
     loan:
+      insurance_repayment_method:
+        # initial: "Based on initial capital"
+        # to_repay: "Based on capital left to repay"
       repayment_method:
         constant_amount: "恒量"
         constant_rate: "恒定速率"

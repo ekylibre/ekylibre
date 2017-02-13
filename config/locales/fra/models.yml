@@ -33,6 +33,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
+      cashes:
+        main_account: "Compte principal"
       document:
         filename: "Fichier"
       document_archive: #?
@@ -1037,6 +1039,7 @@ fra:
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
+    insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
     integration_name: "Nom d’intégration"
     interest_amount: "Montant de l’intérêt"
@@ -1156,6 +1159,7 @@ fra:
     mail_postal_zone: "Zone postale"
     mails: "Courriels"
     main: "Principal"
+    # main_account: "Main account"
     main_activity: "Activité principale"
     main_crop_code: "Code de la culture principale"
     main_crop_commercialisation: "Commercialisation"
@@ -1236,7 +1240,7 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
-    new_container: "Nouveau conteneur"
+    new_container: "Nouvel emplacement"
     new_group: "Nouveau groupe"
     new_name: "Nouveau nom"
     new_variant: "Nouveau variant"
@@ -1640,7 +1644,10 @@ fra:
     support_variant_unit: "Unité d’œuvre"
     support_variety: "Variété du support"
     supports: "Supports"
+    suspend_until_reconciliation: "Suspendre jusqu'à réconciliation"
     suspended: "Suspendu"
+    suspended_journal_entry_items: "Lignes d'écriture suspendues"
+    suspense_account: "Compte de suspens"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"

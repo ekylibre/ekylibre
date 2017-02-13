@@ -10,8 +10,9 @@ module Procedo
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           attributes = Maybe(attributes)
-          @new_group = Product.find_by(id: attributes[:new_group_id].to_i.or_else(0))
-          @new_variant = ProductNatureVariant.find_by(id: attributes[:new_variant_id].to_i.or_else(0))
+          @new_variant = ProductNatureVariant.find_by(id: attributes[:new_variant].to_i.or_else(0))
+          @new_group = Product.find_by(id: attributes[:new_group].to_i.or_else(0))
+          @new_container = Product.find_by(id: attributes[:new_container].to_i.or_else(0))
         end
 
         def new_group_id
@@ -42,15 +43,15 @@ module Procedo
 
         def to_hash
           hash = super
-          hash[:new_group_id] = new_group_id if @new_group
+          hash[:new_group] = new_group_id if @new_group
           hash[:attributes] ||= {}
-          hash[:attributes][:new_container_id] ||= {}
-          hash[:attributes][:new_container_id][:dynascope] ||= {}
-          hash[:attributes][:new_container_id][:dynascope][:of_expression] ||= 'is building_division'
-          hash[:attributes][:new_container_id][:dynascope][:of_expression] << " or can store(#{@product.variety})" if @product
+          hash[:attributes][:new_container] ||= {}
+          hash[:attributes][:new_container][:dynascope] ||= {}
+          hash[:attributes][:new_container][:dynascope][:of_expression] ||= 'is building_division'
+          hash[:attributes][:new_container][:dynascope][:of_expression] << " or can store(#{@product.variety})" if @product
           hash[:attributes][:merge_stocks] ||= {}
           hash[:attributes][:merge_stocks][:with] = mergeable_with
-          hash[:new_variant_id] = new_variant_id unless new_variant_id.nil?
+          hash[:new_variant] = new_variant_id unless new_variant_id.nil?
           hash
         end
 

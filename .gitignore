@@ -90,3 +90,6 @@ Procfile.*
 
 .byebug_history
 .gitconfig
+
+custom_plan.rb
+zeus.json

@@ -71,7 +71,7 @@ module Backend
       return unless @bank_statement = find_and_check
       bank_statement_items = @bank_statement.items.order('ABS(debit-credit)')
       @period_start = @bank_statement.started_on - 20.days
-      @period_end   = @bank_statement.started_on + 20.days
+      @period_end   = @bank_statement.stopped_on + 20.days
       @period_start = Date.strptime(params[:period_start], '%Y-%m-%d') if params[:period_start]
       @period_end   = Date.strptime(params[:period_end], '%Y-%m-%d') if params[:period_end]
       journal_entry_items = @bank_statement.eligible_journal_entry_items.between(@period_start, @period_end).order('ABS(real_debit-real_credit)')

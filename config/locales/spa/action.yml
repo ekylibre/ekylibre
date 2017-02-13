@@ -347,7 +347,7 @@ spa:
       show: "Pieza contable N°%{number}"
     backend/journal_entry_items:
       index: "Artículos entrada de diario"
-      new: "Nuevo elemento de la entrada"
+      new: "Nuevo elemento de la entrada" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bascula contable"
@@ -1191,6 +1191,7 @@ spa:
     incoming_payment: "Pago recibido"
     incoming_payments: "Pagos recibidos"
     incoming_payments_to_deposit: "Pagos recibidos para depositar"
+    # indicative_group_size: "Indicative group size"
     indicator: "Indicadores"
     indicator_value: "Valor del indicador"
     indicators: "Indicadores"
@@ -1317,6 +1318,7 @@ spa:
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
+    # mask_literate_elements: "Mask literate elements"
     # mass: "Masse"
     maximal_temperature: "La temperatura máxima"
     members: "Miembros"
@@ -1732,7 +1734,6 @@ spa:
     total_amount: "Total importe HT"
     total_cost: "Coste total"
     total_earn: "Ganan total" #?
-    # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total importe facturado" #?
     total_paid_amount: "Cantidad pagada total" #?
     total_pretax_expenses: "Los gastos totales antes de impuestos"

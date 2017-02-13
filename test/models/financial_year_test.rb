@@ -61,7 +61,13 @@ class FinancialYearTest < ActiveSupport::TestCase
     # Test that we can add a new financial year
     FinancialYear.create!(started_on: last_year.stopped_on + 1, stopped_on: last_year.stopped_on >> 15)
 
-    assert_not_nil FinancialYear.at(Time.zone.now + 49.years)
+    future = Time.zone.now + 25.years
+    year = FinancialYear.at(future)
+    assert_not_nil year
+    min = future - 1.year
+    max = future + 1.year
+    assert year.started_on > min, "Financial year at #{future.l} should start after #{min.l}: #{year.started_on.l}"
+    assert year.stopped_on < max, "Financial year at #{future.l} should end before #{max.l}: #{year.stopped_on.l}"
   end
 
   test 'accountant can be set' do
