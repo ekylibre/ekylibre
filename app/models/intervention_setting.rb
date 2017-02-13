@@ -34,7 +34,6 @@
 #  id                       :integer          not null, primary key
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
-#  merge_stocks             :boolean
 #  new_container_id         :integer
 #  new_group_id             :integer
 #  new_name                 :string
@@ -56,9 +55,11 @@
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-require 'test_helper'
 
-class InterventionParameterTest < ActiveSupport::TestCase
-  test_model_actions
-  # Add tests here...
+# An intervention output represents a product which is produced by the
+# intervention. The output generate a product with the given quantity.
+class InterventionSetting < InterventionParameter
+  belongs_to :intervention, inverse_of: :outputs
+  belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :product
 end

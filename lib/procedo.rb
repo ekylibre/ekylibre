@@ -78,8 +78,16 @@ module Procedo
     def load
       # Inventory procedures
       Dir.glob(root.join('*.xml')).sort.each do |path|
-        Procedo::XML.parse(path).each do |procedure|
-          @@list[procedure.name] = procedure
+        begin
+          Procedo::XML.parse(path).each do |procedure|
+            @@list[procedure.name] = procedure
+          end
+        rescue StandardError => e
+          message_with_path = "Error while parsing procedure '#{path}': " + e.message
+          error_kind = e.class
+          error_with_procedure = error_kind.new(message_with_path)
+          error_with_procedure.set_backtrace(e.backtrace)
+          raise error_with_procedure
         end
       end
       true

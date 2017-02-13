@@ -1974,6 +1974,7 @@ arb:
     plant_density_abaci: "الكثافة النباتية العدادات"
     plant_density_abacus: "الكثافة النباتية المعداد"
     plant_density_abacus_item: "مصنع كثافة البند المعداد"
+    # plant_variant: "Plant variant"
     plants_count: "عد النباتات"
     point: "نقطة"
     point_value: "قيمة النقطة"
@@ -2241,6 +2242,7 @@ arb:
     serial_number: "رقم سري"
     service_coeff: "معامل كمية الخدمة" #?
     sessions: "جلسات"
+    # settings: "Settings"
     sha256: "SHA256" #?
     shape: "شكل"
     shift_duration: "مدة التحول"

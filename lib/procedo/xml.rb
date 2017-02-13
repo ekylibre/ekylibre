@@ -103,6 +103,8 @@ module Procedo
             parse_parameter(procedure, child, options)
           elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
+          elsif %w(setting).include?(child.name)
+            parse_setting(procedure, child, options)
           elsif child.element?
             raise "Unexpected child: #{child.name}"
           end
@@ -112,6 +114,7 @@ module Procedo
       # Parse <parameter>
       def parse_parameter(procedure, element, options = {})
         locals = {}
+        options = options.dup
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
@@ -122,16 +125,13 @@ module Procedo
           type = element.attr('type').underscore.to_sym
         end
         raise "No type given for #{name} parameter" unless type
-        %w(filter cardinality).each do |info|
+
+        %w(compute-filter filter cardinality component-of).each do |info|
           if element.has_attribute?(info)
             locals[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        %w(component-of).each do |attribute|
-          if element.has_attribute?(attribute)
-            locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
-          end
-        end
+
         parent = options[:group] || procedure
         parameter = parent.add_product_parameter(name, type, options.merge(locals))
         # Handlers
@@ -146,6 +146,21 @@ module Procedo
         element.xpath('xmlns:reading').each do |el|
           parse_reading(parameter, el)
         end
+      end
+
+      def parse_setting(procedure, element, options)
+        locals = {}
+        options = options.dup
+        name = element.attr('name').to_sym
+
+        %w(compute-filter filter component-of).each do |info|
+          if element.has_attribute?(info)
+            locals[info.underscore.to_sym] = element.attr(info).to_s
+          end
+        end
+
+        parent = options[:group] || procedure
+        parent.add_setting(name, element.attr('type').to_sym, options.merge(locals))
       end
 
       # Parse <handler> of parameter

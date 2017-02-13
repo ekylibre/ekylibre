@@ -2,7 +2,11 @@ module WorkingSet
   grammar QueryLanguage
 
     rule boolean_expression
-      disjunctive / test
+      disjunctive / test / boolean_value
+    end
+
+    rule boolean_value
+      false / true
     end
 
     rule conjonctive
@@ -91,5 +95,12 @@ module WorkingSet
       [\s\n]*
     end
 
+    rule false
+      "false" <False>
+    end
+
+    rule true
+      "true" <True>
+    end
   end
 end

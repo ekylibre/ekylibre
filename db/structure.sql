@@ -327,8 +327,10 @@ CREATE TABLE intervention_parameters (
     assembly_id integer,
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    dead boolean DEFAULT false NOT NULL,
-    merge_stocks boolean
+    variety character varying,
+    derivative_of character varying,
+    merge_stocks boolean,
+    dead boolean DEFAULT false NOT NULL
 );
 
 
@@ -16878,6 +16880,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160923233801');
 INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 
 INSERT INTO schema_migrations (version) VALUES ('20160928121727');
+
+INSERT INTO schema_migrations (version) VALUES ('20160929154734');
 
 INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 
