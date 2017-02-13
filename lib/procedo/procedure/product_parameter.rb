@@ -31,7 +31,7 @@ module Procedo
         if output?
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
-          add_attribute(:new_container_id, filter: 'is building_division', allow_overload: true)
+          add_attribute(:new_container, filter: 'is building_division', allow_overload: true)
           add_attribute(:merge_stocks, default_value: false, allow_overload: true)
         end
         if (input? || target?) && options[:component_of]
