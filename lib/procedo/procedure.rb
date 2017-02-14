@@ -6,7 +6,7 @@ module Procedo
   class Procedure
     ROOT_NAME = 'root_'.freeze
 
-    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
+    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
              :product_parameters, :group_parameters,
@@ -50,7 +50,15 @@ module Procedo
         include_deprecated = options[:include_deprecated]
         Procedo.procedures.select do |p|
           (include_deprecated || (!include_deprecated && !p.deprecated?)) &&
-            yield(p)
+              yield(p)
+        end
+      end
+
+      # Return procedures of given varieties
+      def of_varieties(*varieties)
+        options = varieties.extract_options!
+        select(options) do |p|
+          p.has_varieties?(*varieties)
         end
       end
     end
@@ -60,12 +68,14 @@ module Procedo
       @categories = []
       @mandatory_actions = []
       @optional_actions = []
+      @varieties = []
       @root_group = Procedo::Procedure::GroupParameter.new(self, ROOT_NAME, cardinality: 1)
       @deprecated = !!options[:deprecated]
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
       options[:optional_actions].each { |c| add_action(c, true) } if options[:optional_actions]
+      options[:varieties].each { |v| add_variety(v) } if options[:varieties]
     end
 
     # All actions (mandatory and optional)
@@ -151,6 +161,23 @@ module Procedo
         end
       end
       messages
+    end
+
+    # Adds variety scope of procedure
+    def add_variety(name)
+      variety = Nomen::Variety.find(name)
+      raise "Invalid variety: #{name.inspect}".red unless variety
+      @varieties << variety unless @varieties.include?(variety)
+    end
+
+    # Returns +true+ if varieties are included in one of the procedure, +false+ otherwise.
+    def has_varieties?(*varieties)
+      @varieties.any? do |obj|
+        varieties.all? do |v|
+          variety = Nomen::Variety.find(v)
+          variety && obj >= variety
+        end
+      end
     end
 
     def of_activity_family?(*families)

@@ -46,5 +46,8 @@ class ProcedoTest < ActiveSupport::TestCase
       procedures = Procedo::Procedure.of_activity_family(family)
       assert procedures.any?, "Activity family #{family} should contains procedures"
     end
+
+    procedures = Procedo::Procedure.of_varieties(:bos_taurus)
+    assert procedures.any?, "Variety bos_taurus should contains procedures"
   end
 end
