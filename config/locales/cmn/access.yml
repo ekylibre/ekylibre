@@ -37,7 +37,6 @@ cmn:
       events: "活动"
       exports: "出口"
       financial_years: "财政年度"
-      first_run: "首先运行"
       fixed_assets: "固定资产"
       fungi: "真菌"
       gaps: "差距"
@@ -61,7 +60,8 @@ cmn:
       listings: "房源"
       loans: "贷款"
       manure_management_plans: "粪便管理计划"
-      map_backgrounds: "地图背景"
+      map_backgrounds: "地图背景" #?
+      map_layers: "地图图层"
       matters: "事项"
       # myselves: "Myselves"
       net_services: "网络服务"

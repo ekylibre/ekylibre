@@ -1,6 +1,10 @@
 arb:
   procedure_handlers:
     stakes_by_hectare: "المخاطر التي كتبها هكتار"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "وزراعة تدمرت بالكامل بسبب التدخل؟"
+    is_it_completely_destroyed_by_intervention: "وهذا دمرت تماما بسبب التدخل؟"
+    is_plant_completely_destroyed_by_intervention: "ومصنع تدمرت بالكامل بسبب التدخل؟"
   procedure_parameters:
     adding_wine: "مضيفا النبيذ"
     animal: "حيوان"
@@ -113,7 +117,7 @@ arb:
     tool: "أداة"
     topper: "شخص ممتاز"
     tractor: "جرار زراعى"
-    # trailed_equipment: "Trailed equipment"
+    trailed_equipment: "معدات متأخرا."
     trailer: "مقطورة"
     tunnel: "نفق"
     tunnel_implanter: "نفق implanter"

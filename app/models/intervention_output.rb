@@ -27,6 +27,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
@@ -91,7 +92,7 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def stock_amount
-    product_movement.population * unit_pretax_stock_amount if product_movement
+    product_movement ? product_movement.population * unit_pretax_stock_amount : 0
   end
 
   def earn_amount_computation

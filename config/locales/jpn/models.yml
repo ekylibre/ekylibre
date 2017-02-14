@@ -10,6 +10,8 @@ jpn:
         born_at: "で作成されました"
       building:
         born_at: "で構築されました"
+      cashes:
+        # main_account: "Main account"
       document:
         filename: "ファイル"
       document_template:
@@ -133,11 +135,20 @@ jpn:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "会計年度はconsecutivesでなければなりません。これは、前回の終了後に開始する必要があります。"
+              frozen: "交換が作成されたときの会計年度の日付を変更することはできません。"
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "CSVでのいくつかのエントリは、会計年度の為替日付範囲外であります"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "CSVヘッダーが無効です"
+          csv_file_invalid: "CSVファイルが不正です"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -146,10 +157,15 @@ jpn:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "会計士は、様々な動作雑誌のためにのみ設定することができます"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "ジャーナルエントリは、会計年度交換に対応する期間内に記録することはできません。"
           out_of_existing_financial_year: "ジャーナルエントリは、既存の会計年度に対応する期間内に記録されなければなりません。"
           unbalanced: "ジャーナルエントリはアンバランスであります"
         journal_entry_item:
@@ -280,7 +296,8 @@ jpn:
       loan_repayment: "ローン返済"
       manure_management_plan: "肥料管理計画"
       manure_management_plan_zone: "肥料管理計画ゾーン"
-      map_background: "マップの背景"
+      map_background: "マップの背景" #?
+      map_layer: "地図層"
       matter: "問題"
       net_service: "ネットサービス"
       notification: "お知らせ"
@@ -369,6 +386,7 @@ jpn:
     account_name: "アカウント名"
     account_number: "口座番号"
     accountable: "責任があります"
+    accountant: "会計士"
     accounted_at: "で会計処理"
     accuracy: "精度"
     achieved_at: "で達成"
@@ -420,6 +438,7 @@ jpn:
     assembly: "アセンブリ"
     attachments: "添付ファイル"
     attribute_name: "属性名"
+    attribution: "帰属"
     authentication_token: "認証トークン"
     author: "著者"
     authorized_payments_count: "認定支払いカウント"
@@ -570,6 +589,7 @@ jpn:
     customized_type: "カスタマイズされたタイプ"
     daily_nitrogen_production: "毎日の窒素製造"
     dashboards: "ダッシュボード"
+    dead: "デッド"
     dead_at: "デッドに"
     dead_line_at: "デッドライン"
     deals_count: "お得な情報を数えます"
@@ -805,6 +825,7 @@ jpn:
     inspections: "検査"
     insurance_amount: "保険金額"
     insurance_percentage: "保険の割合"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "整数値"
     integration_name: "連動名"
     interest_amount: "利息額"
@@ -916,6 +937,7 @@ jpn:
     mail_postal_zone: "メールpostal_zone"
     mails: "メール"
     main: "メイン"
+    # main_account: "Main account"
     main_activity: "主な活動"
     main_crop_code: "主作物コード"
     main_crop_commercialisation: "主な作物の商業化"
@@ -1001,6 +1023,7 @@ jpn:
     observed_at: "で観測"
     of_company: "会社の"
     old_password: "以前のパスワード"
+    opacity: "不透明度"
     opened_at: "開かれました"
     operation: "操作"
     operation_name: "オペレーション名"
@@ -1337,7 +1360,10 @@ jpn:
     support_variant_unit: "支持変形部"
     support_variety: "サポートさまざまな"
     supports: "サポート"
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "吊り"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     tactic: "作物管理手法"
     tactics: "戦術"
     target: "ターゲット"

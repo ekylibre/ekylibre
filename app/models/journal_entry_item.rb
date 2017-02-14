@@ -106,7 +106,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, to: :account, prefix: true
-  delegate :entity_country, to: :entry
+  delegate :entity_country, :expected_financial_year, to: :entry
 
   acts_as_list scope: :entry
 
@@ -190,7 +190,10 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   validate(on: :update) do
     old = old_record
-    errors.add(:account_id, :entry_has_been_already_validated) if old.closed?
+    list = changed - %w(cumulated_absolute_debit cumulated_absolute_credit)
+    if old.closed? && list.any?
+      errors.add(:account_id, :entry_has_been_already_validated)
+    end
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
     # if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
     #   errors.add(:letter, :invalid)
@@ -214,13 +217,13 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   before_destroy :clear_bank_statement_reconciliation
 
+  protect do
+    closed? || (entry && entry.protected_on_update?)
+  end
+
   def clear_bank_statement_reconciliation
     return unless bank_statement && bank_statement_letter
     bank_statement.items.where(letter: bank_statement_letter).update_all(letter: nil)
-  end
-
-  protect do
-    closed? || (entry && entry.protected_on_update?)
   end
 
   # Computes attribute for adding an item
@@ -376,5 +379,11 @@ class JournalEntryItem < Ekylibre::Record::Base
       entry_item.real_debit = balance.abs
     end
     entry_item
+  end
+
+  def third_party
+    return unless account
+    third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
+    third_parties.take if third_parties.count == 1
   end
 end

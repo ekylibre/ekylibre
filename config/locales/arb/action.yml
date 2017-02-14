@@ -268,6 +268,10 @@ arb:
       # show: "Export: %{name}"
     backend/finances: #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
+    backend/financial_year_exchanges:
+      journal_entries_import: "استيراد الصرف في العام المالي"
+      new: "الصرف الجديد"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       close: "نهاية الممارسة"
       compute_balances: "حساب التوازن العام المالي"
@@ -377,7 +381,7 @@ arb:
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
       index: "البنود إدخال دفتر اليومية"
-      new: "البند قيد جديد"
+      new: "البند قيد جديد" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "نظام المحاسبة المتغير"
@@ -429,10 +433,17 @@ arb:
       index: "خطط إدارة السماد"
       new: "خطة جديدة لإدارة السماد"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "خلفيات خريطة"
-      new: "خريطة خلفية جديدة"
+    backend/map_backgrounds: #?
+      index: "خلفيات خريطة" #?
+      new: "خريطة خلفية جديدة" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "طبقات الخرائط"
+      # load: "Load map layer: %{name}"
+      new: "طبقة خريطة جديدة"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "المسائل"
@@ -602,9 +613,9 @@ arb:
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "شراء الجديد / دفع المنتهية ولايته"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "بيع جديد / دفع الواردة"
     backend/registrations:
       edit: "تسجيل تحرير"
       index: "التسجيلات"
@@ -1347,8 +1358,9 @@ arb:
     example: "مثال&nbsp;: %{value}"
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "التبادل"
     executed: "انجز" #?
-    # existing: "Existing"
+    existing: "موجود"
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
@@ -1438,6 +1450,7 @@ arb:
     incoming_payments: "المدفوعات الواردة"
     incoming_payments_to_deposit: "المدفوعات الواردة إلى الودائع"
     index: "العودة الى دليل ادارة الاعمال" #?
+    # indicative_group_size: "Indicative group size"
     indicator: "لوحة التحكم"
     indicator_value: "قيمة مؤشر"
     indicators: "مؤشرات"
@@ -1578,6 +1591,7 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
+    # mask_literate_elements: "Mask literate elements"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
     meeting: "المقابلة(X)مكان" #?
@@ -1664,6 +1678,7 @@ arb:
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "بريد إلكتروني جديد"
     new_family: "اسرة جديدة" #?
+    new_financial_year_exchange: "الصرف الجديد"
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
     new_incoming_payment: "دفع الواردة الجديد"
@@ -1709,7 +1724,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
-    # not_letterable: "Not able to letter"
+    not_letterable: "لم يكن قادرا على بريد إلكتروني"
     not_ready: "ليس جاهزا"
     not_received: "لم تتلق"
     notifications: #?
@@ -2110,7 +2125,6 @@ arb:
     total_amount: "صافي اجمالي الكمية"
     total_cost: "التكلفة الإجمالية"
     total_earn: "إجمالي كسب" #?
-    # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     total_paid_amount: "إجمالي المبلغ المدفوع" #?
     total_pretax_expenses: "مجموع نفقات ما قبل الضريبة"
@@ -2425,6 +2439,8 @@ arb:
       warning: "!تحذير"
     messages:
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
+      accountant_notified: "وقد تم إخطار محاسب"
+      accountant_without_email: "الرجاء ضبط البريد الإلكتروني محاسب"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
       bad_file: "لا يبدو ان الملفات متطابقة" #?
@@ -2439,6 +2455,7 @@ arb:
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
       changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
       changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
+      closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
@@ -2468,6 +2485,7 @@ arb:
       invalid_reference_name: "اسم إشارة غير صالحة"
       journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "وقد تم استيراد إدخالات دفتر اليومية."
       journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
       journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -2676,6 +2694,8 @@ arb:
       increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
+      journal_entries_csv_export: "تنزيل ملف CSV"
+      journal_entries_import: "استيراد CSV"
       list: "قائمة"
       load: "حمل"
       lock: "قفل"
@@ -2686,12 +2706,13 @@ arb:
       move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "شراء جديدة"
+      new_sale: "بيع جديدة"
+      notify_accountant: "إبلاغ محاسب"
       open: "فتح"
       order: "طلب"
       pay: "دفع"
-      # payment_gap: "Payment gap"
+      payment_gap: "الفجوة الدفع"
       payment_mode: "طريقة الدفع"
       pick: "اختيار"
       picture: "صورة"
@@ -2732,6 +2753,12 @@ arb:
       update: "تحديث"
       update_password: "تحديث كلمة المرور" #?
       win: "انتصر"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "رقم الفاتورة المورد"
+    required:
+      text: "مطلوب"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

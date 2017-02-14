@@ -29,6 +29,7 @@ module Backend
     before_action :set_current_campaign
     before_action :set_current_period_interval
     before_action :set_current_period
+    before_action :publish_backend_action
 
     include Userstamp
 
@@ -212,6 +213,10 @@ module Backend
       true
     end
 
+    def publish_backend_action
+      Ekylibre::Hook.publish(:backend_action, action: action_name, controller: controller_name, user: current_user)
+    end
+
     def search_article(article = nil)
       # session[:help_history] = [] unless session[:help_history].is_a? [].class
       article ||= "#{controller_path}-#{action_name}"
@@ -248,7 +253,10 @@ module Backend
 
     def fire_event(event)
       return unless record = find_and_check
-      record.send(event)
+      state, msg = record.send(event)
+      if state == false && msg.respond_to?(:map)
+        notify_error(map.collect(&:messages).map(&:values).flatten.join(', '))
+      end
       redirect_to params[:redirect] || { action: :show, id: record.id }
     end
 

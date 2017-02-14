@@ -60,7 +60,7 @@ module Ekylibre
             code << "validate do\n"
             code << "  if self.#{reflection_name}\n"
             code << "    if self.#{reflection_name}.currency? && self.#{currency}? && self.#{reflection_name}.currency != self.#{currency}\n"
-            code << "      raise 'Invalid currency in affair'\n"
+            code << "      raise \"Invalid currency in affair. Expecting: \#{self.currency}. Got: \#{self.#{reflection_name}.currency}\"\n"
             code << "      errors.add(:#{reflection_name}, :invalid_currency, got: self.#{currency}, expected: self.#{reflection_name}.currency)\n"
             code << "      errors.add(:#{foreign_key}, :invalid_currency, got: self.#{currency}, expected: self.#{reflection_name}.currency)\n"
             code << "    end\n"
@@ -81,10 +81,8 @@ module Ekylibre
             code << "  if self.#{reflection_name}\n"
             code << "    self.#{reflection_name}.refresh!\n"
             code << "  else\n"
-            code << "    new_affair = #{class_name}.create!(currency: self.#{currency}, third: self.deal_third)\n"
-            code << "    self.deal_with!(new_affair)\n"
+            code << "    fetch_affair!\n"
             code << "  end\n"
-            # code << "  true\n"
             code << "end\n"
 
             # Refresh after each save
@@ -209,12 +207,20 @@ module Ekylibre
 
             # Returns other deals
             code << "def other_deals\n"
-            code << "  return self.#{reflection_name}.deals.delete_if{|x| x == self}\n"
+            code << "  fetch_affair!.deals.delete_if{|x| x == self}\n"
+            code << "end\n"
+
+            # Initialize linked affair
+            code << "def fetch_affair!\n"
+            code << "  return self.#{reflection_name} if self.#{reflection_name}\n"
+            code << "  new_affair = #{class_name}.create!(currency: self.#{currency}, third: self.deal_third)\n"
+            code << "  self.deal_with!(new_affair)\n"
+            code << "  new_affair\n"
             code << "end\n"
 
             # Returns other deals
             code << "def other_deals_of_same_type\n"
-            code << "  return self.#{reflection_name}.deals.delete_if{|x| x == self or !x.is_a?(self.class)}\n"
+            code << "  return fetch_affair!.deals.delete_if{|x| x == self or !x.is_a?(self.class)}\n"
             code << "end\n"
 
             code << "def self.deal_third\n"

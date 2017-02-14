@@ -241,6 +241,9 @@ arb:
         root: "جذر"
         string: "خيط"
     loan:
+      insurance_repayment_method:
+        # initial: "Based on initial capital"
+        # to_repay: "Based on capital left to repay"
       repayment_method:
         constant_amount: "مبلغ ثابت"
         constant_rate: "معدل ثابت"
@@ -250,6 +253,10 @@ arb:
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "الدفع الفوري"
+    map_layer:
+      nature:
+        background: "خلفية"
+        overlay: "غطاء"
     notification:
       level:
         error: "خطأ"

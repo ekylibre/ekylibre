@@ -1,0 +1,12 @@
+= field_set do
+  = f.input :name
+  = f.input :url
+  = f.input :attribution
+  = f.input :min_zoom
+  = f.input :max_zoom
+  = f.input :opacity, as: :range, input_html: {min: 0, max: 100, step: 10, value: f.object.opacity || 100, class: 'opacity-range'}
+  = f.input :subdomains
+  = f.input :tms
+  = f.input :nature, as: :radio_buttons
+  = f.input :enabled
+  = f.input :by_default

@@ -215,6 +215,10 @@ por:
     backend/exports:
       index: "Exportação"
       show: "Exportação: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "Importação de câmbio Exercício"
+      new: "Nova troca"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       close: "Fechar ano fiscal: %{code}"
       compute_balances: "Computar balanço do ano fiscal"
@@ -322,7 +326,7 @@ por:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "Itens de entrada de diário"
-      new: "Item de nova entrada"
+      new: "Item de nova entrada" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -361,10 +365,17 @@ por:
       index: "Planos de manejo de dejetos"
       new: "Novo plano de manejo de dejetos"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "Mapa fundos"
-      new: "Novo fundo do mapa"
+    backend/map_backgrounds: #?
+      index: "Mapa fundos" #?
+      new: "Novo fundo do mapa" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "Camadas do mapa"
+      # load: "Load map layer: %{name}"
+      new: "Camada de novo mapa"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Materiais"
@@ -470,9 +481,9 @@ por:
       refuse: "Fim recusou"
       # show: "Purchase: %{number} - %{state}"
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "Nova Compra / pagamento de saída"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "Novo Venda / entrada de pagamento"
     backend/registrations:
       edit: "Registro Editar"
       index: "Inscrições"
@@ -992,7 +1003,8 @@ por:
     # example: "Example: %{value}"
     exchange: "Trocas"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
-    # existing: "Existing"
+    exchanges: "Trocas"
+    existing: "Existir"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "Despesas"
@@ -1057,6 +1069,7 @@ por:
     incoming_payment: "Entrada de pagamento"
     incoming_payments: "Recebidos"
     incoming_payments_to_deposit: "Pagamentos recebidos para depositar"
+    # indicative_group_size: "Indicative group size"
     indicator: "Indicadores"
     indicator_value: "Valor do indicador"
     indicators: "Indicadores"
@@ -1157,6 +1170,7 @@ por:
     mark_all_as_read: "Marcar tudo como lido"
     mark_as_read: "Marcar como Lido"
     marketable_net_mass: "massa líquida comercializável"
+    # mask_literate_elements: "Mask literate elements"
     # mass: "Masse"
     maximal_temperature: "Temperatura máxima"
     members: "Membros"
@@ -1201,6 +1215,7 @@ por:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "Novo Email"
+    new_financial_year_exchange: "Nova troca"
     new_group: "Novo grupo"
     new_incoming_parcel: "Novo pacote de entrada"
     new_incoming_payment: "Nova entrada de pagamento"
@@ -1231,7 +1246,7 @@ por:
     none: "Nenhum"
     # normal: "Normal"
     not_delivered: "Não entregue"
-    # not_letterable: "Not able to letter"
+    not_letterable: "Não é capaz de letra"
     not_ready: "Não está pronto"
     not_received: "Não recebido"
     now: "Agora"
@@ -1494,7 +1509,6 @@ por:
     total_amount: "Valor total"
     total_cost: "Custo total"
     total_earn: "Total de ganhar" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "Montante total pago" #?
     total_pretax_expenses: "As despesas totais antes de impostos"
     total_pretax_revenues: "Receitas totais antes de impostos"
@@ -1746,6 +1760,8 @@ por:
       warning: "Aviso!"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "O contador foi notificado"
+      accountant_without_email: "Por favor, defina o email contador"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos os pacotes devem ser faturável e da mesma natureza e terceira"
       all_purchases_must_be_ordered_or_invoiced: "Todas as compras devem ser encomendado ou facturado."
       bookkeeping_is_finished: "A transferência de dados comercial está terminado."
@@ -1758,6 +1774,7 @@ por:
       cannot_merge_entities: "É impossível para mesclar essas pessoas."
       changes_have_been_reflected: "As mudanças têm se refletido no estado stocks"
       changes_have_not_been_reflected: "As mudanças não tenham sido reflectidos no estado stocks"
+      closed_financial_year_exchange: "A troca exercício foi encerrado com sucesso"
       closed_financial_years: "O exercício foi encerrado com sucesso"
       columns_are_already_uses: "Uma ou várias colunas são selecionadas muitas vezes"
       dashboard_is_being_developed: "Painel está sob forte desenvolvimento"
@@ -1781,6 +1798,7 @@ por:
       integrate_tools_you_are_using_every_day: "Integrar ferramentas que você está usando todos os dias"
       invalid_reference_name: "Nome de referência inválida"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "Os lançamentos foram importados."
       journal_entry_already_validated: "A ficha já foi validado e não pode ser alterado"
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -1902,6 +1920,8 @@ por:
       increment: "Incremento" #?
       index: "Índice"
       invoice: "Fatura"
+      journal_entries_csv_export: "Baixar CSV"
+      # journal_entries_import: "Import CSV"
       list: "Lista"
       load: "Carga"
       lock: "Trancar"
@@ -1912,12 +1932,13 @@ por:
       move: "Mover" #?
       negociate: "Negociar"
       new: "Novo"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "Nova compra"
+      new_sale: "Nova venda"
+      notify_accountant: "Notificar contador"
       open: "Aberto"
       order: "Ordem"
       pay: "Pagamento"
-      # payment_gap: "Payment gap"
+      payment_gap: "Gap de pagamento"
       payment_mode: "Modo de pagamento"
       pick: "Escolher"
       picture: "Fotografia"
@@ -1958,6 +1979,12 @@ por:
       update: "Atualizar"
       update_password: "Password atualização" #?
       win: "Ganhar"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Número da fatura fornecedor"
+    required:
+      text: "Requeridos"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

@@ -3,6 +3,7 @@
   = f.input :currency
   = f.input :started_on
   = f.input :stopped_on
+  = f.referenced_association :accountant
   = f.custom_fields
 
 = field_set(:tax_declarations) do

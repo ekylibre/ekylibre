@@ -233,6 +233,9 @@ fra:
         root: "Racine"
         string: "Chaîne"
     loan:
+      insurance_repayment_method:
+        initial: "Fraction du capital initial"
+        to_repay: "Fraction du capital à rembourser restant"
       repayment_method:
         constant_amount: "Montant constant"
         constant_rate: "Pourcentage constant"
@@ -242,6 +245,10 @@ fra:
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+    map_layer:
+      nature:
+        background: "Fond"
+        overlay: "Calque"
     notification:
       level:
         error: "Erreur"

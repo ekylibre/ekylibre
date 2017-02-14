@@ -432,7 +432,7 @@ class Product < Ekylibre::Record::Base
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
       movement.product = self
-      movement.delta = !initial_population && variant.population_counting_unitary? ? 1 : initial_population
+      movement.delta = !!initial_population && variant.population_counting_unitary? ? 1 : initial_population
       movement.started_at = born_at
       movement.save!
       update_column(:initial_movement_id, movement.id)
@@ -569,7 +569,13 @@ class Product < Ekylibre::Record::Base
   end
 
   def dead?
-    !finish_way.nil?
+    dead_at.present?
+  end
+
+  def dead_first_at
+    list = issues.where(dead: true).order(:observed_at).limit(1).pluck(:observed_at) +
+           intervention_product_parameters.where(dead: true).joins(:intervention).order('interventions.stopped_at').limit(1).pluck('interventions.stopped_at')
+    list.any? ? list.min : nil
   end
 
   # Returns groups of the product at a given time (or now by default)

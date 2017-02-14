@@ -632,6 +632,14 @@ html.exception {
   }
 }
 
+#journal-entry-form {
+  &[data-with-change="false"] {
+    .currency-change {
+      display: none;
+    }
+  }
+}
+
 #dashboards-nav {
   @include tab-pills;
 }
@@ -878,6 +886,13 @@ form.search {
 
 .pull-right {
   @include float(right);
+  .med-info {
+    min-width: 20em;
+  }
+}
+
+.pull-left {
+  @include float(left);
   .med-info {
     min-width: 20em;
   }
@@ -2510,6 +2525,9 @@ a[data-annotate] {
       cursor: not-allowed;
       background: $neutral-color;
     }
+    &[disabled], &.disabled {
+      @include disabled;
+    }
   }
   a.state:hover {
     opacity: 0.66;
@@ -2724,4 +2742,21 @@ a[data-annotate] {
   .progress {
     margin-bottom: 0;
   }
+}
+
+.opacity-range {
+  margin-left: 1.5em;
+  &:before {
+    content: '0';
+    margin-left: -1.5em;
+  }
+  &:after {
+    content: '100';
+    margin-right: -2em;
+  }
+}
+
+.map-fullwidth{
+  width: 100%;
+  height: 100%;
 }

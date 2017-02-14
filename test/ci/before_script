@@ -7,4 +7,4 @@ psql -U postgres -d ekylibre_test -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" 
 
 cp -f test/ci/database.yml config/database.yml
 
-bundle exec rake db:migrate RAILS_ENV=test
+bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false

@@ -250,6 +250,7 @@ Rails.application.routes.draw do
         match 'load_animals', via: [:get]
         post :change
         put :add_group
+        post :keep
       end
       member do
         match :add_to_group, via: [:get, :post]
@@ -482,6 +483,18 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
+        get :list_exchanges
+      end
+    end
+
+    resources :financial_year_exchanges, concerns: [:list], path: 'financial-year-exchanges', only: [:new, :create, :show] do
+      member do
+        get :list_journal_entries
+        get :journal_entries_export
+        get :journal_entries_import
+        post :journal_entries_import
+        get :notify_accountant
+        get :close
       end
     end
 
@@ -598,15 +611,16 @@ Rails.application.routes.draw do
     end
 
     resources :journal_entries, concerns: [:list, :unroll] do
+      collection do
+        get :currency_state, path: 'currency-state'
+        patch :toggle_autocompletion, path: 'toggle-autocompletion'
+      end
       member do
         get :list_items
       end
-      collection do
-        patch :toggle_autocompletion, path: 'toggle-autocompletion'
-      end
     end
 
-    resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
+    resources :journal_entry_items, only: [:show, :index], concerns: [:list, :unroll]
 
     resources :kujakus, only: [] do
       member do
@@ -642,7 +656,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :map_backgrounds do
+    resources :map_layers, path: 'map-layers' do
       collection do
         post :load
       end
@@ -670,7 +684,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:show, :index, :destroy] do
       collection do
         delete :destroy
-        get :unread
+        get :unread, action: :index, mode: :unread
       end
     end
 
@@ -972,6 +986,12 @@ Rails.application.routes.draw do
     post 'invitations', to: 'invitations#create'
 
     resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
+  end
+
+  namespace :public do
+    resources :financial_year_exchange_exports, path: 'financial-year-exchange-exports', only: [:show] do
+      get :csv, on: :member
+    end
   end
 
   root to: 'public#index'

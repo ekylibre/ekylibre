@@ -14,4 +14,8 @@
 
 #   # Append test for lib
 #   task run_all: ['test:units', 'test:functionals', 'test:integration', 'test:lib', 'test:javascripts']
+
+#   task frontend: ['test:integration', 'test:javascripts']
+
+#   task libs: ['test:helpers', 'test:lib']
 # end

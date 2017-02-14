@@ -210,6 +210,10 @@ cmn:
     backend/exports:
       index: "出口"
       # show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      journal_entries_import: "会计年度进口交流"
+      new: "新交易所"
+      # show: "Exchange: %{stopped_on}"
     backend/financial_years:
       # close: "Close financial year: %{code}"
       compute_balances: "计算财政年度平衡"
@@ -317,7 +321,7 @@ cmn:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "日记条目项目"
-      new: "新的入口项"
+      new: "新的入口项" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -356,10 +360,17 @@ cmn:
       index: "粪便管理计划"
       new: "新的粪便管理计划"
       # show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "地图背景"
-      new: "新地图背景"
+    backend/map_backgrounds: #?
+      index: "地图背景" #?
+      new: "新地图背景" #?
+    backend/map_layers:
+      # edit: "Edit map layer: %{name}"
+      index: "地图图层"
+      # load: "Load map layer: %{name}"
+      new: "新建图层"
+      # show: "Map layer: %{name}"
+      # star: "Star map layer: %{name}"
+      # toggle: "Toggle map layer: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "事项"
@@ -465,9 +476,9 @@ cmn:
       refuse: "为了拒绝"
       # show: "Purchase: %{number} - %{state}"
     backend/quick_purchases:
-      # new: "New Purchase/Outgoing payment"
+      new: "新的采购/付款"
     backend/quick_sales:
-      # new: "New Sale/Incoming payment"
+      new: "新的销售/收款"
     backend/registrations:
       edit: "编辑注册"
       index: "注册"
@@ -987,7 +998,8 @@ cmn:
     # example: "Example: %{value}"
     exchange: "交换"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
-    # existing: "Existing"
+    exchanges: "交易所"
+    existing: "现有"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "开支"
@@ -1052,6 +1064,7 @@ cmn:
     incoming_payment: "收款"
     incoming_payments: "收款"
     incoming_payments_to_deposit: "收款存"
+    # indicative_group_size: "Indicative group size"
     indicator: "指标"
     indicator_value: "指标值"
     indicators: "指标"
@@ -1153,6 +1166,7 @@ cmn:
     mark_all_as_read: "标记为已读"
     mark_as_read: "标记为已读"
     marketable_net_mass: "适销对路的净质量"
+    # mask_literate_elements: "Mask literate elements"
     mass: "马塞"
     maximal_temperature: "最高温度"
     members: "会员"
@@ -1197,6 +1211,7 @@ cmn:
       # one: "Make a deposit %{mode}: %{count} available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "新邮件"
+    new_financial_year_exchange: "新交易所"
     new_group: "新建组"
     new_incoming_parcel: "新进​​入的包裹"
     new_incoming_payment: "新的收款"
@@ -1227,7 +1242,7 @@ cmn:
     none: "无"
     normal: "正常"
     not_delivered: "没送到"
-    # not_letterable: "Not able to letter"
+    not_letterable: "不能信"
     not_ready: "没有准备好"
     not_received: "没收到"
     now: "现在"
@@ -1490,7 +1505,6 @@ cmn:
     total_amount: "总金额"
     total_cost: "总成本"
     total_earn: "总收入" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "合计支付的金额" #?
     total_pretax_expenses: "总税前费用"
     total_pretax_revenues: "总计税前收入"
@@ -1742,6 +1756,8 @@ cmn:
       warning: "警告！"
     messages:
       # access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "会计师已通知"
+      accountant_without_email: "请设置会计电子邮件"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "所有包裹必须开发票和同一性质和第三位"
       all_purchases_must_be_ordered_or_invoiced: "所有购买必须订购或开具发票。"
       bookkeeping_is_finished: "商业数据传送已完成。"
@@ -1754,6 +1770,7 @@ cmn:
       cannot_merge_entities: "这是不可能合并这些人。"
       changes_have_been_reflected: "这些变化已经反映在股票的状态"
       changes_have_not_been_reflected: "这些变化尚未反映在股票的状态"
+      closed_financial_year_exchange: "财政年度交换已经成功关闭"
       closed_financial_years: "本财政年度已圆满闭幕"
       columns_are_already_uses: "一个或多个列选择多次"
       dashboard_is_being_developed: "仪表板仍处于开发状态"
@@ -1777,6 +1794,7 @@ cmn:
       integrate_tools_you_are_using_every_day: "整合您每天都在使用的工具"
       invalid_reference_name: "无效的参考名称"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "该日记条目已导入。"
       journal_entry_already_validated: "在记录已被验证，并且不能改变"
       # journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       # journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -1898,6 +1916,8 @@ cmn:
       increment: "增量" #?
       index: "指数"
       invoice: "发票"
+      journal_entries_csv_export: "下载CSV"
+      journal_entries_import: "导入CSV"
       list: "名单"
       load: "加载"
       lock: "锁"
@@ -1908,12 +1928,13 @@ cmn:
       move: "移动" #?
       # negociate: "Negociate"
       new: "新"
-      # new_purchase: "New purchase"
-      # new_sale: "New sale"
+      new_purchase: "新购"
+      new_sale: "新发售"
+      notify_accountant: "通知会计师"
       open: "打开"
       order: "订购"
       pay: "工资"
-      # payment_gap: "Payment gap"
+      payment_gap: "支付缺口"
       payment_mode: "付款方式"
       pick: "挑"
       picture: "图片"
@@ -1954,6 +1975,12 @@ cmn:
       update: "更新"
       update_password: "更新密码" #?
       win: "赢得"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "供应商发票号"
+    required:
+      text: "需要"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

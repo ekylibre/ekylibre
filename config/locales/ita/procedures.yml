@@ -1,6 +1,10 @@
 ita:
   procedure_handlers:
     stakes_by_hectare: "Stakes per ettaro"
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "È coltivazione completamente distrutta da un intervento?"
+    is_it_completely_destroyed_by_intervention: "E ’questo completamente distrutta da un intervento?"
+    is_plant_completely_destroyed_by_intervention: "È a pianta completamente distrutta da un intervento?"
   procedure_parameters:
     adding_wine: "L'aggiunta di vino"
     animal: "Animale"
@@ -113,7 +117,7 @@ ita:
     tool: "Strumento"
     # topper: "Topper"
     tractor: "Trattore"
-    # trailed_equipment: "Trailed equipment"
+    trailed_equipment: "Attrezzature trainati"
     # trailer: "Trailer"
     # tunnel: "Tunnel"
     # tunnel_implanter: "Tunnel implanter"

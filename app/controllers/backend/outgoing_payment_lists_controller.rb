@@ -28,11 +28,11 @@ module Backend
       t.column :number, url: true
       t.column :created_at
       t.column :mode
-      t.column :payments_count, datatype: :integer
-      t.column :payments_sum, label: :total, datatype: :float, currency: true
+      t.column :cached_payment_count, datatype: :integer
+      t.column :cached_total_sum, label: :total, datatype: :float, currency: true
     end
 
-    list(:payments, model: 'OutgoingPayment', conditions: { list_id: 'params[:id]'.c }) do |t|
+    list(:payments, model: :outgoing_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -51,19 +51,25 @@ module Backend
 
       @entity_of_company_full_name = Entity.of_company.full_name
 
-      respond_with(@outgoing_payment_list, methods: [:currency, :payments_sum, :entity],
-                                           include: {
-                                             payer: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
-                                             payments: {
-                                               methods: [:amount_to_letter, :label, :affair_reference_numbers],
-                                               include: {
-                                                 responsible: {},
-                                                 affair: { include: { purchases: {} } },
-                                                 mode: {},
-                                                 payee: { include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } }
-                                               }
-                                             }
-                                           })
+      respond_with(@outgoing_payment_list,
+                   methods: [:currency, :payments_sum, :entity],
+                   include: {
+                     payer: {
+                       methods: [:picture_path],
+                       include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }
+                     },
+                     payments: {
+                       methods: [:amount_to_letter, :label, :affair_reference_numbers],
+                       include: {
+                         responsible: {},
+                         affair: { include: { purchases: {} } },
+                         mode: {},
+                         payee: {
+                           include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }
+                         }
+                       }
+                     }
+                   })
     end
 
     def export_to_sepa

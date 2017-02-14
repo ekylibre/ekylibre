@@ -43,7 +43,9 @@ class LoanRepayment < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :loan
   has_one :cash, through: :loan
+  has_one :lender, through: :loan
   has_one :journal, through: :cash
+  has_one :third, through: :loan # alias for lender
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -57,13 +59,15 @@ class LoanRepayment < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    b.journal_entry(journal, printed_on: due_on, if: (amount > 0 && due_on <= Time.zone.today)) do |entry|
+    existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', due_on).where(currency: [journal.currency, Preference[:currency]])
+    b.journal_entry(journal, printed_on: due_on, if: (amount > 0 && due_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
       entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, base_amount, as: :repayment) unless base_amount.zero?
       entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans_interests).id }, interest_amount, as: :interest) unless interest_amount.zero?
       entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:insurance_expenses).id }, insurance_amount, as: :insurance) unless insurance_amount.zero?
       entry.add_credit(label, cash.account_id, amount, as: :bank)
     end
+    true
   end
 
   def number

@@ -78,6 +78,7 @@ eng:
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       index: "Animals"
+      # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
@@ -270,6 +271,13 @@ eng:
     backend/exports:
       index: "Exports"
       show: "Export: %{name}"
+    backend/financial_year_exchanges:
+      # close: "Close financial year exchange: %{name}"
+      # journal_entries_export: "Journal entries export financial year exchange: %{name}"
+      journal_entries_import: "Financial year exchange import"
+      new: "New exchange"
+      # notify_accountant: "Notify accountant financial year exchange: %{name}"
+      show: "Exchange: %{stopped_on}"
     backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
@@ -386,6 +394,7 @@ eng:
     backend/januses:
       # toggle: "Toggle januse: %{name}"
     backend/journal_entries:
+      # currency_state: "Currency state journal entry: %{name}"
       edit: "Edit journal entry: %{number}"
       index: "Journal entries"
       new: "New entry"
@@ -393,7 +402,6 @@ eng:
       # toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
       index: "Journal entry items"
-      new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
@@ -438,16 +446,16 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
-    backend/map_backgrounds:
-      edit: "Edit map background: %{name}"
-      index: "Map backgrounds"
-      # load: "Load map background: %{name}"
-      new: "New map background"
-      # show: "Map background: %{name}"
-      # star: "Star map background: %{name}"
-      # toggle: "Toggle map background: %{name}"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
+    backend/map_layers:
+      edit: "Edit map layer: %{name}"
+      index: "Map layers"
+      load: "Load map layer: %{name}"
+      new: "New map layer"
+      show: "Map layer: %{name}"
+      star: "Star map layer: %{name}"
+      toggle: "Toggle map layer: %{name}"
     backend/matters:
       edit: "Edit matter: %{name}"
       index: "Matters"
@@ -465,7 +473,6 @@ eng:
     backend/notifications:
       index: "Notifications"
       # show: "Notification: %{name}"
-      # unread: "Unread notification: %{name}"
     backend/observations:
       edit: "Edit observation"
       new: "New observation"
@@ -793,6 +800,9 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    public/financial_year_exchange_exports:
+      # csv: "Csv financial year exchange export: %{name}"
+      # show: "Financial year exchange export: %{name}"
     public:
       index: "Home"
   errors:
@@ -1008,7 +1018,6 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
-    # by_default: "By default"
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
@@ -1202,6 +1211,7 @@ eng:
     example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
+    exchanges: "Exchanges"
     existing: "Existing" #?
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
@@ -1269,6 +1279,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
     indicators: "Indicators"
@@ -1367,6 +1378,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
+    mask_literate_elements: "Mask literate elements"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
@@ -1410,6 +1422,7 @@ eng:
       one: "Make a deposit %{mode}: %{count} available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
     new_email: "New email"
+    new_financial_year_exchange: "New exchange"
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_incoming_payment: "New incoming payment"
@@ -1697,7 +1710,6 @@ eng:
     total: "Total"
     total_amount: "Total amount" #??
     total_cost: "Total cost"
-    total_in_currency: "Total (%{currency})"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
@@ -1949,6 +1961,8 @@ eng:
       warning: "Warning!"
     messages:
       access_denied: "Access denied. %{reason} (%{url})"
+      accountant_notified: "The accountant has been notified"
+      accountant_without_email: "Please set the accountant email"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -1961,6 +1975,7 @@ eng:
       cannot_merge_entities: "It's impossible to merge these people."
       changes_have_been_reflected: "The changes have been reflected in the stocks state"
       changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
+      closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       # could_not_attach_x_or_y_to_affair: "Could not attach x or y to affair"
@@ -1985,6 +2000,7 @@ eng:
       integrate_tools_you_are_using_every_day: "Integrate tools you are using every day"
       invalid_reference_name: "Invalid reference name"
       journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
+      journal_entries_imported: "The journal entries have been imported."
       journal_entry_already_validated: "The journal entry has already been validated and can not be changed"
       journal_entry_has_been_saved: "The journal entry %{number} has been successfully saved"
       journal_entry_has_been_saved_with_a_new_number: "The journal entry has been successfully saved with a new number: %{number}"
@@ -2096,6 +2112,8 @@ eng:
       convert: "Convert"
       correct: "Correct"
       create: "Create"
+      # csv: "Csv"
+      # currency_state: "Currency state"
       # current: "Current"
       destroy: "Destroy"
       detach: "Detach"
@@ -2119,6 +2137,10 @@ eng:
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
+      journal_entries_csv_export: "Download CSV" #?
+      # journal_entries_export: "Journal entries export"
+      journal_entries_import: "Import CSV"
+      # keep: "Keep"
       # last_locations: "Last locations"
       # letter: "Letter"
       list: "List"
@@ -2135,6 +2157,7 @@ eng:
       new: "New"
       new_purchase: "New purchase" #?
       new_sale: "New sale" #?
+      notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
       # passthru: "Passthru"
@@ -2178,7 +2201,6 @@ eng:
       # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
-      # unread: "Unread"
       unroll: "Unroll"
       unvalidateds: "Unvalidateds"
       up: "Up"
@@ -2186,6 +2208,12 @@ eng:
       # update_many: "Update many"
       # upload: "Upload"
       win: "Win"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Supplier invoice number"
+    required:
+      text: "Required"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

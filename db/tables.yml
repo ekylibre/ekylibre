@@ -2352,7 +2352,53 @@ events:
   updater_id:
     type: integer
     references: user
+financial_year_exchanges:
+  closed_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  id:
+    type: integer
+    required: true
+  import_file_content_type:
+    type: string
+  import_file_file_name:
+    type: string
+  import_file_file_size:
+    type: integer
+  import_file_updated_at:
+    type: datetime
+  lock_version:
+    type: integer
+    required: true
+  public_token:
+    type: string
+  public_token_expired_at:
+    type: datetime
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 financial_years:
+  accountant_id:
+    type: integer
+    references: entity
   closed:
     type: boolean
     required: true
@@ -3293,6 +3339,10 @@ intervention_parameters:
     references: user
   currency:
     type: string
+  dead:
+    type: boolean
+    required: true
+    default: false
   event_participation_id:
     type: integer
     references: event_participation
@@ -3615,6 +3665,9 @@ issues:
     references: user
   custom_fields:
     type: jsonb
+  dead:
+    type: boolean
+    default: false
   description:
     type: text
   geolocation:
@@ -3700,6 +3753,9 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  financial_year_exchange_id:
+    type: integer
+    references: financial_year_exchange
   financial_year_id:
     type: integer
     references: financial_year
@@ -3915,6 +3971,9 @@ journal_entry_items:
     type: integer
     references: user
 journals:
+  accountant_id:
+    type: integer
+    references: entity
   closed_on:
     type: date
     required: true
@@ -4218,6 +4277,8 @@ loans:
     precision: 19
     scale: 4
     required: true
+  insurance_repayment_method:
+    type: string
   interest_percentage:
     type: decimal
     precision: 19
@@ -4397,7 +4458,7 @@ manure_management_plans:
   updater_id:
     type: integer
     references: user
-map_backgrounds:
+map_layers:
   attribution:
     type: string
   by_default:
@@ -4431,6 +4492,12 @@ map_backgrounds:
   name:
     type: string
     required: true
+  nature:
+    type: string
+  opacity:
+    type: integer
+  position:
+    type: integer
   reference_name:
     type: string
   subdomains:
@@ -4550,6 +4617,10 @@ observations:
     type: integer
     references: user
 outgoing_payment_lists:
+  cached_payment_count:
+    type: integer
+  cached_total_sum:
+    type: decimal
   created_at:
     type: datetime
   creator_id:

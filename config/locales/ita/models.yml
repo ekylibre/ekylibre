@@ -10,6 +10,8 @@ ita:
         born_at: "creato a"
       building:
         born_at: "costruito alla"
+      cashes:
+        # main_account: "Main account"
       document:
         # filename: "File"
       document_template:
@@ -142,11 +144,20 @@ ita:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente."
+              frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio."
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Alcune voci del CSV sono fuori dell’esercizio di date scambio"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "Intestazioni CSV non sono validi"
+          csv_file_invalid: "File CSV non è valido"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -155,10 +166,15 @@ ita:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Commercialista può essere impostato solo per varie riviste operazioni"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio."
           out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente."
           unbalanced: "La voce di diario è sbilanciato"
         journal_entry_item:
@@ -311,7 +327,8 @@ ita:
       loan_repayment: "Rimborso del prestito"
       manure_management_plan: "piano di gestione del letame"
       manure_management_plan_zone: "Concimi zona di piano di gestione"
-      map_background: "Mappa di sfondo"
+      map_background: "Mappa di sfondo" #?
+      map_layer: "Mappa strato"
       matter: "Importa"
       net_service: "il servizio net"
       notification: "Notifica"
@@ -400,6 +417,7 @@ ita:
     account_name: "Nome utente"
     account_number: "numero di conto"
     accountable: "Responsabile"
+    accountant: "Contabile"
     accounted_at: "rappresentato a"
     accuracy: "Precisione"
     achieved_at: "raggiunto a"
@@ -451,6 +469,7 @@ ita:
     assembly: "Montaggio"
     attachments: "allegati"
     attribute_name: "Nome attributo"
+    attribution: "Attribuzione"
     authentication_token: "token di autenticazione"
     author: "Autore"
     authorized_payments_count: "contano pagamenti autorizzati"
@@ -601,6 +620,7 @@ ita:
     customized_type: "tipo personalizzato"
     daily_nitrogen_production: "produzione di azoto giornaliera"
     dashboards: "Dashboard"
+    dead: "Morto"
     dead_at: "Morto"
     dead_line_at: "dead line a"
     deals_count: "contano offerte"
@@ -836,6 +856,7 @@ ita:
     inspections: "ispezioni"
     insurance_amount: "importo di assicurazione"
     insurance_percentage: "percentuale di assicurazione"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "valore intero"
     integration_name: "Nome Integrazione"
     interest_amount: "importo interesse"
@@ -947,6 +968,7 @@ ita:
     mail_postal_zone: "posta postal_zone"
     mails: "mails"
     main: "Principale"
+    # main_account: "Main account"
     main_activity: "Attività principale"
     main_crop_code: "codice coltura principale"
     main_crop_commercialisation: "Principale commercializzazione delle colture"
@@ -1032,6 +1054,7 @@ ita:
     observed_at: "osservata alle"
     of_company: "Della compagnia"
     old_password: "Vecchia Password"
+    opacity: "Opacità"
     opened_at: "aperto a"
     operation: "operazione"
     operation_name: "Nome dell’operazione"
@@ -1368,7 +1391,10 @@ ita:
     support_variant_unit: "unità di supporto variante"
     support_variety: "varietà di sostegno"
     supports: "supporti"
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Sospeso"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     tactic: "Tecnica gestione delle colture"
     tactics: "tattica"
     target: "Bersaglio"

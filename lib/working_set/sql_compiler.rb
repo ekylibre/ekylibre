@@ -46,6 +46,11 @@ module WorkingSet
         item = find_nomenclature_item(:varieties, object.variety_name.text_value)
         compliants = item.self_and_children.map { |i| "'#{i.name}'" }.join(', ')
         "#{column_for(column)} IN (#{compliants})"
+      elsif object.is_a?(WorkingSet::QueryLanguage::InclusionTest)
+        column = :derivative_of
+        item = find_nomenclature_item(:varieties, object.variety_name.text_value)
+        compliants = item.self_and_parents.map { |i| "'#{i.name}'" }.join(', ')
+        "#{column_for(column)} IN (#{compliants})"
       elsif object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) || object.is_a?(WorkingSet::QueryLanguage::NonDerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) ? :variety : :derivative_of
         item = find_nomenclature_item(:varieties, object.variety_name.text_value)

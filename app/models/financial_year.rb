@@ -22,6 +22,7 @@
 #
 # == Table: financial_years
 #
+#  accountant_id             :integer
 #  closed                    :boolean          default(FALSE), not null
 #  code                      :string           not null
 #  created_at                :datetime         not null
@@ -48,7 +49,9 @@ class FinancialYear < Ekylibre::Record::Base
   enumerize :tax_declaration_frequency, in: [:monthly, :quaterly, :yearly, :none], default: :monthly, predicates: { prefix: true }
   enumerize :tax_declaration_mode, in: [:debit, :payment, :none], default: :none, predicates: { prefix: true }
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
+  belongs_to :accountant, class_name: 'Entity'
   has_many :account_balances, dependent: :delete_all
+  has_many :exchanges, class_name: 'FinancialYearExchange', dependent: :destroy
   has_many :fixed_asset_depreciations, dependent: :restrict_with_exception
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
@@ -78,28 +81,30 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   class << self
-    # Find or create if possible the requested financial year for the searched date
-    def at(searched_at = Time.zone.now)
-      searched_on = searched_at.to_date
+    def on(searched_on)
       year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
       return year if year
       # First
-      unless (first = first_of_all)
+      first = first_of_all
+      unless first
         started_on = Time.zone.today
-        first = create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
+        return create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
       end
-      if first.stopped_on == (first.started_on >> 12) - 1
+      if first.started_on > searched_on
+        return nil unless first.stopped_on == (first.started_on >> 12) - 1
         other = first
         other = other.find_or_create_previous! while other.started_on > searched_on
         return other
-      elsif first.started_on > searched_on
-        return nil
       end
-
       # Next years
       other = first
       other = other.find_or_create_next! while searched_on > other.stopped_on
       other
+    end
+
+    # Find or create if possible the requested financial year for the searched date
+    def at(searched_at = Time.zone.now)
+      on(searched_at.to_date)
     end
 
     def first_of_all
@@ -107,7 +112,7 @@ class FinancialYear < Ekylibre::Record::Base
     end
 
     def current
-      at(Time.zone.now)
+      on(Time.zone.today)
     end
 
     def closable
@@ -146,6 +151,8 @@ class FinancialYear < Ekylibre::Record::Base
         errors.add(:stopped_on, :overlap) if others.where('? BETWEEN started_on AND stopped_on', stopped_on).any?
       end
     end
+    errors.add(:accountant, :frozen) if accountant_id_changed? && opened_exchange?
+    errors.add(:started_on, :frozen) if started_on_changed? && exchanges.any?
   end
 
   def journal_entries(conditions = nil)
@@ -397,5 +404,19 @@ class FinancialYear < Ekylibre::Record::Base
       end
     end
     self
+  end
+
+  def can_create_exchange?
+    accountant_with_booked_journal? && !opened_exchange?
+  end
+
+  def opened_exchange?
+    exchanges.opened.any?
+  end
+
+  private
+
+  def accountant_with_booked_journal?
+    accountant && accountant.booked_journals.any?
   end
 end

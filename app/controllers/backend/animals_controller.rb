@@ -66,7 +66,7 @@ module Backend
       t.column :work_number, url: true
       t.column :name, url: true
       t.column :born_at
-      t.column :sex
+      t.column :sex, label_method: :sex_text, label: :sex
       t.status
       t.column :net_mass, datatype: :measure
       t.column :container, url: true
@@ -174,22 +174,29 @@ module Backend
       t3e @animal, nature: @animal.nature_name
       respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
                                                                                           { readings: {} },
-                                                                                          { intervention_parameters: { include: :intervention } },
+                                                                                          { intervention_product_parameters: { include: :intervention } },
                                                                                           { memberships: { include: :group } },
                                                                                           { localizations: { include: :container } }])
     end
 
+    def keep
+      return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+      current_user.prefer! 'products_for_intervention', params[:id], :string
+      render json: { id: 'products_for_intervention' }
+    end
+
     def add_to_group
       return unless find_all
-      if request.post?
-        group = AnimalGroup.find(params[:group_id])
-        activity_production = ActivityProduction.find(params[:activity_production_id])
-        # TODO: fix intervention
-        group.add_animals(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_animal_group_path(group)
-      else
-        params[:started_at] ||= Time.zone.now
+      targets = @ids.collect do |id|
+        { product_id: id, reference_name: :animal }
       end
+      parameters = {
+        procedure_name: :animal_group_changing,
+        intervention: {
+          targets_attributes: targets
+        }
+      }
+      redirect_to new_backend_intervention_path(parameters)
     end
 
     def add_to_variant

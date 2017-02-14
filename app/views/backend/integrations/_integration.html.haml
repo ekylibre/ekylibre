@@ -1,0 +1,14 @@
+- classes = []
+- classes << "integration-active" if exists
+- classes << "integration-disabled" if local_assigns[:disabled] && disabled
+.integration{ class: classes.join(' ') }
+  .integration-card
+    - if exists
+      = link_to({ action: :destroy, controller: :integrations, nature: type.integration_name.underscore }, method: :delete, class: "integration-destroy") do
+        %i.icon.icon-sign-out
+    = link_to({ action: :new, controller: :integrations, nature: type.integration_name.underscore }, class: 'integration-body') do
+      .integration-logo
+        = image_tag(integration_logo_path(type.integration_name))
+      .integration-description
+        %h3= type.integration_name
+        %p= "#{type.integration_name.underscore}_short_description".tl

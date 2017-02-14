@@ -363,7 +363,7 @@ module Backend
           notify_error_now(:cannot_merge_an_entity_with_itself)
           return
         end
-        @master.merge_with(@double, current_user)
+        @master.merge_with(@double, author: current_user)
         begin
           notify_success(:merge_is_done)
           redirect_to action: :show, id: @master.id
