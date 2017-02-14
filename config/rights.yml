@@ -27,6 +27,7 @@
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
 #     - "backend/animal_groups#take"
+#     - "backend/animals#matching_interventions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"

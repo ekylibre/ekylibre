@@ -1135,6 +1135,8 @@ arb:
     battery_level: "مستوى البطارية"
     bban: "RIB" #?
     bic: "BIC" #?
+    # birth_date_completeness: "Birth date completeness"
+    # birth_farm_number: "Birth farm number"
     body: "الجسم"
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
@@ -1414,6 +1416,7 @@ arb:
     employment: "الوظيفة"
     enabled: "تمكين"
     encrypted_password: "كلمة المرور المشفرة"
+    # end_of_life_reason: "End of life reason"
     # enjoyer: "Enjoyer"
     enjoyments: "المتعة"
     entities: "الافراد" #?
@@ -1433,6 +1436,8 @@ arb:
     entry_id: "سجا المحاسبة" #?
     entry_items: "البنود دخول"
     entry_number: "رقم الدخول"
+    # entry_on: "Entry on"
+    # entry_reason: "Entry reason"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
@@ -1445,6 +1450,8 @@ arb:
     excise: "عدد رسوم الدفع" #?
     execution_number: "عدد التنفيذ"
     executor: "المنفذ"
+    # exit_on: "Exit on"
+    # exit_reason: "Exit reason"
     expected_population: "السكان المتوقع"
     expected_shape: "الشكل المتوقع"
     expected_stop_amount: "يتوقع كمية توقف"
@@ -1472,6 +1479,9 @@ arb:
     farm_name: "اسم مزرعة"
     farmer: "مزارع"
     father: "الآب"
+    # father_country: "Father country"
+    # father_identification_number: "Father identification number"
+    # father_variety: "Father variety"
     fax: "فاكس" #?
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
@@ -1485,6 +1495,7 @@ arb:
     file_updated_at: "تحديث في"
     filename: "الملف" #?
     filesize: "حجم الملف" #?
+    # filiation_status: "Filiation status"
     filtered_columns: "الأعمدة التي تمت تصفيتها"
     financial_year: "السنوات المالية"
     financial_year_as_last: "السنة المالية (كآخر إدخال دفتر اليومية)"
@@ -1492,6 +1503,7 @@ arb:
     financial_years: "المهن" #?
     finish: "النهاية"
     finished_at: "انتهت في"
+    # first_calving_on: "First calving on"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1817,6 +1829,9 @@ arb:
     mode_id: "طريقة تسديد دفعة" #?
     model_euid: "نموذج"
     mother: "أم"
+    # mother_country: "Mother country"
+    # mother_identification_number: "Mother identification number"
+    # mother_variety: "Mother variety"
     moved_at: "انجز يوم" #?
     movements: "الحركات"
     moves: "التحركات"
@@ -1877,7 +1892,9 @@ arb:
     organic_fertilizer_mineral_fraction: "جزء المعدنية الأسمدة العضوية"
     organization: "المنظمة" #?
     origin: "المنشأ"
+    # origin_country: "Origin country"
     origin_id: "المنشأ" #?
+    # origin_identification_number: "Origin identification number"
     origin_type: "نوع المنشأ" #?
     original_name: "الاسم الاصلي" #?
     originator: "منشئ"

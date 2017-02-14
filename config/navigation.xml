@@ -885,6 +885,7 @@
         <page to="backend/animals#keep"/>
         <page to="backend/animals#list"/>
         <page to="backend/animals#list_children"/>
+        <page to="backend/animals#matching_interventions"/>
         <page to="backend/animals#new"/>
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>

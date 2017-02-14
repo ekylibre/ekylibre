@@ -54,6 +54,76 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    animal:
+      birth_date_completeness:
+        full_date: "Full date"
+        month_year: "Month year"
+        year: "Year"
+      end_of_life_reason:
+        calculated_date: "Calculated date"
+        cutting_up: "Cutting up"
+        death: "Death"
+        slaughter: "Slaughter"
+      filiation_status:
+        certified: "Certified"
+        uncertified: "Uncertified"
+        unknown: "Unknown"
+    animal_group:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
+    bioproduct:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
+    building:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
+    building_division:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     call_message:
       nature:
         incoming: "Incoming"
@@ -111,6 +181,20 @@ eng:
         last_of_template: "Last of template"
         none: "None of type"
         none_of_template: "None of template"
+    easement:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     entity:
       nature:
         contact: "Contact"
@@ -123,6 +207,34 @@ eng:
         mobile: "Mobile phone"
         phone: "Phone"
         website: "Website"
+    equipment:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
+    equipment_fleet:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     event_participation:
       state:
         accepted: "Accepted"
@@ -143,6 +255,20 @@ eng:
       depreciation_method:
         linear: "Linear"
         simplified_linear: "Simplified linear"
+    fungus:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     gap:
       direction:
         loss: "Loss"
@@ -219,6 +345,20 @@ eng:
         sales: "Sales"
         stocks: "Stocks"
         various: "Various operations"
+    land_parcel:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     listing_node:
       nature:
         belongs_to: "Belongs to"
@@ -247,6 +387,20 @@ eng:
       nature:
         background: "Background"
         overlay: "Overlay"
+    matter:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     notification:
       level:
         error: "Error"
@@ -266,6 +420,20 @@ eng:
       nature:
         incoming: "Incoming"
         outgoing: "Outgoing"
+    plant:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     plant_counting:
       nature:
         germination: "At germination"
@@ -282,11 +450,39 @@ eng:
         record: "Record"
         spatial_reference_system: "Spatial reference system"
         string: "String"
+    product:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     product_enjoyment:
       nature:
         other: "Other"
         own: "Own"
         unknown: "Unknown"
+    product_group:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     product_linkage:
       nature:
         available: "Available"
@@ -304,6 +500,15 @@ eng:
       nature:
         exterior: "Exterior"
         interior: "Interior"
+    product_movement:
+      description:
+        birth: "Birth"
+        butchery: "Butchery"
+        consumption: "Consumption"
+        death: "Death"
+        loan: "Loan"
+        purchase: "Purchase"
+        sale: "Sale"
     product_nature:
       population_counting:
         decimal: "Decimal"
@@ -451,6 +656,34 @@ eng:
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+    settlement:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
+    sub_zone:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"
@@ -488,3 +721,31 @@ eng:
         create: "Create"
         destroy: "Destroy"
         update: "Update"
+    worker:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
+    zone:
+      birth_date_completeness:
+        # full_date: "Full date"
+        # month_year: "Month year"
+        # year: "Year"
+      end_of_life_reason:
+        # calculated_date: "Calculated date"
+        # cutting_up: "Cutting up"
+        # death: "Death"
+        # slaughter: "Slaughter"
+      filiation_status:
+        # certified: "Certified"
+        # uncertified: "Uncertified"
+        # unknown: "Unknown"
