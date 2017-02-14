@@ -111,12 +111,12 @@ module Backend
     end
 
     def edit
-      find_and_check_updateability
+      return unless find_and_check_updateability
       t3e @journal_entry.attributes
     end
 
     def update
-      find_and_check_updateability
+      return unless find_and_check_updateability
       if @journal_entry.update_attributes(permitted_params)
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
@@ -127,7 +127,7 @@ module Backend
 
     def currency_state
       state = {}
-      checked_on = Date.parse(params[:on])
+      checked_on = Date.parse(params[:on] || Time.zone.today)
       financial_year = FinancialYear.on(checked_on)
       state[:from] = params[:from]
       state[:to] = financial_year.currency
@@ -162,12 +162,13 @@ module Backend
     end
 
     def find_and_check_updateability
-      return unless @journal_entry = find_and_check
+      return false unless (@journal_entry = find_and_check)
       unless @journal_entry.updateable?
         notify_error(:journal_entry_already_validated)
         redirect_to_back
         return
       end
+      @journal_entry
     end
   end
 end

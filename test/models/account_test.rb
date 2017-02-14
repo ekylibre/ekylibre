@@ -42,10 +42,18 @@ require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
   test_model_actions
+
   test 'load the accounts' do
     Account.accounting_systems.each do |accounting_system|
       Account.accounting_system = accounting_system
       Account.load_defaults
     end
+  end
+
+  test 'merge' do
+    main = Account.first
+    double = Account.second
+    main.merge_with(double)
+    assert_nil Account.find_by(id: double.id)
   end
 end

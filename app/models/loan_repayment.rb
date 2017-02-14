@@ -43,7 +43,9 @@ class LoanRepayment < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :loan
   has_one :cash, through: :loan
+  has_one :lender, through: :loan
   has_one :journal, through: :cash
+  has_one :third, through: :loan # alias for lender
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
