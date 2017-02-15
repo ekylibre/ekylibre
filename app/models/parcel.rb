@@ -335,6 +335,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def check
+    state = true
     order if can_order?
     prepare if can_prepare?
     return false unless can_check?
@@ -343,14 +344,18 @@ class Parcel < Ekylibre::Record::Base
     # values[:ordered_at] = now unless ordered_at
     # values[:in_preparation_at] = now unless in_preparation_at
     update_columns(values)
-    items.each(&:check)
+    state = items.collect(&:check)
+    return false, state.collect(&:second) unless (state == true) || (state.is_a?(Array) && state.all? { |s| s.is_a?(Array) ? s.first : s })
     super
+    true
   end
 
   def give
+    state = true
     order if can_order?
     prepare if can_prepare?
-    check if can_check?
+    state, msg = check if can_check?
+    return false, msg unless state
     return false unless can_give?
     update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)

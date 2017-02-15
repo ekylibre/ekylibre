@@ -57,6 +57,7 @@ require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
   test_model_actions
+
   test 'bookkeeping without commission' do
     mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
     payer = Entity.normal.find_by!(client: true)
@@ -95,5 +96,47 @@ class IncomingPaymentTest < ActiveSupport::TestCase
     )
     # Should not save without exception raise
     refute incoming_payment.save
+  end
+
+  test 'delete incoming payment delete journal entry' do
+    mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
+    payer = Entity.normal.find_by!(client: true)
+    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, received: true)
+
+    assert_not_nil payment
+    assert_equal 504.12, payment.amount
+
+    entry = payment.journal_entry
+
+    assert_not_nil entry
+    assert_equal 2, entry.items.count
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+
+    # Update with confirmed entry
+    entry.confirm!
+
+    journal_entries_count = entry.journal.entries.count
+    payment.destroy
+    new_journal_entries_count = entry.journal.entries.count
+
+    assert_equal journal_entries_count + 1, new_journal_entries_count
+
+    cancel_entry = entry.journal.entries.reorder(id: :desc).first
+
+    assert_equal entry.items.count, cancel_entry.items.count, 'Cancel entry should have the same count of items of the cancelled entry'
+
+    entry.items.each do |item|
+      candidates_count = cancel_entry.items.where(
+        account: item.account,
+        debit:  item.credit,
+        credit: item.debit,
+        real_debit:  item.real_credit,
+        real_credit: item.real_debit,
+        absolute_debit:  item.absolute_credit,
+        absolute_credit: item.absolute_debit
+      ).count
+      assert_equal 1, candidates_count, "Could not find reversed item in cancel entry for #{item.account.number}"
+    end
   end
 end

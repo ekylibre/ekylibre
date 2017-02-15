@@ -14,15 +14,32 @@ module Ekylibre
 
     def import
       clusters = JSON.parse(file.read)
-      if clusters['type'] == 'FeatureCollection'
-        clusters['features'].each do |feature|
-          properties = feature['properties']
-          shape = ::Charta.from_geojson(feature)
-          CultivableZone.create!(properties.slice('name', 'work_number').merge(shape: shape))
-        end
-      else
-        raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'
+      ensure_clusters_valid_geojson(clusters)
+      clusters['features'].each do |feature|
+        shape = ::Charta.from_geojson(feature)
+        properties = feature['properties']
+        attributes = properties.slice('work_number')
+                               .merge(shape: shape)
+
+        cultivable_zone = zones_overlapping(shape).first ||
+                          CultivableZone.new(attributes)
+
+        cultivable_zone.name = properties['name'] if properties['name']
+        cultivable_zone.save!
       end
+    end
+
+    private
+
+    def ensure_clusters_valid_geojson(clusters)
+      raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.' if clusters['type'] != 'FeatureCollection'
+    end
+
+    def zones_overlapping(shape)
+      # check if current cluster cover or overlap an existing cultivable zone
+      shapes_over_zone = CultivableZone.shape_covering(shape, 0.02)
+      return shapes_over_zone if shapes_over_zone.any?
+      CultivableZone.shape_matching(shape, 0.02)
     end
   end
 end

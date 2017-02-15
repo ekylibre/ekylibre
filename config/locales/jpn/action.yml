@@ -321,7 +321,7 @@ jpn:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "仕訳項目"
-      new: "新しいエントリ項目"
+      new: "新しいエントリ項目" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1133,6 +1133,7 @@ jpn:
     incoming_payment: "入金"
     incoming_payments: "入金"
     incoming_payments_to_deposit: "預金へ入金"
+    # indicative_group_size: "Indicative group size"
     indicator: "インジケータ"
     indicator_value: "指針値"
     indicators: "インジケータ"
@@ -1233,6 +1234,7 @@ jpn:
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
     marketable_net_mass: "有価正味質量"
+    # mask_literate_elements: "Mask literate elements"
     mass: "マッセ"
     maximal_temperature: "最高温度"
     members: "メンバー"
@@ -1575,7 +1577,6 @@ jpn:
     total_amount: "合計金額"
     total_cost: "総費用"
     total_earn: "稼ぐ合計" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "総支払額" #?
     total_pretax_expenses: "合計税引前費用"
     total_pretax_revenues: "合計税引前収入"

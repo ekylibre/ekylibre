@@ -321,7 +321,7 @@ deu:
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
       index: "Journaleintrag Artikel"
-      new: "Neuer Eintrag Artikel"
+      new: "Neuer Eintrag Artikel" #?
       # show: "Journal entry item: %{name}"
     backend/journals:
       # bookkeep: "Bookkeep"
@@ -1064,6 +1064,7 @@ deu:
     incoming_payment: "Zahlungseingang"
     incoming_payments: "Eingehende Zahlungen"
     incoming_payments_to_deposit: "Eingehende Zahlungen zu hinterlegen"
+    # indicative_group_size: "Indicative group size"
     indicator: "Indikatoren"
     indicator_value: "Indikatorwert"
     indicators: "Indikatoren"
@@ -1164,6 +1165,7 @@ deu:
     mark_all_as_read: "Alles als gelesen markieren"
     mark_as_read: "als gelesen markieren"
     marketable_net_mass: "Marktgängige Nettomasse"
+    # mask_literate_elements: "Mask literate elements"
     # mass: "Masse"
     maximal_temperature: "Maximaltemperatur"
     members: "Mitglieder"
@@ -1502,7 +1504,6 @@ deu:
     total_amount: "Gesamtmenge"
     total_cost: "Gesamtkosten"
     total_earn: "insgesamt verdienen" #?
-    # total_in_currency: "Total (%{currency})"
     total_paid_amount: "Insgesamt gezahlte Betrag" #?
     total_pretax_expenses: "Insgesamt Aufwendungen vor Steuern"
     total_pretax_revenues: "Insgesamt Vorsteuereinnahmen"

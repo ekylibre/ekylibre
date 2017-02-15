@@ -94,7 +94,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :real_currency_rate, numericality: { greater_than: 0 }
   validates :number, uniqueness: { scope: [:journal_id, :financial_year_id] }
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_on, stopped_on|
     where(printed_on: started_on..stopped_on)
@@ -168,8 +168,9 @@ class JournalEntry < Ekylibre::Record::Base
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.real_currency = journal.currency if journal
-    if printed_on? && (self.financial_year = FinancialYear.at(printed_on))
-      self.currency = financial_year.currency
+    if printed_on?
+      self.financial_year = expected_financial_year
+      self.currency = financial_year.currency if financial_year
     end
     if real_currency && financial_year
       if real_currency == financial_year.currency
@@ -278,6 +279,23 @@ class JournalEntry < Ekylibre::Record::Base
     resource.nil?
   end
 
+  def need_currency_change?
+    return nil unless journal
+    year_currency = if financial_year
+                      financial_year.currency
+                    elsif printed_on? && (year = FinancialYear.on(printed_on))
+                      year.currency
+                    else
+                      Preference[:currency]
+                    end
+    year_currency != journal.currency
+  end
+
+  def expected_financial_year
+    raise 'Missing printed_on' unless printed_on
+    FinancialYear.on(printed_on)
+  end
+
   def self.state_label(state)
     tc('states.' + state.to_s)
   end
@@ -291,12 +309,15 @@ class JournalEntry < Ekylibre::Record::Base
     bank_statements.first.number if bank_statements.first
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country_code
-    resource.third && resource.third.country
+    resource && resource.respond_to?(:third) &&
+      resource.third && resource.third.country
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country
-    resource.third && resource.third.country && resource.third.country.l
+    entity_country_code && resource.third.country.l
   end
 
   # determines if the entry is balanced or not.

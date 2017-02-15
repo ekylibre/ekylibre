@@ -387,7 +387,7 @@ class Account < Ekylibre::Record::Base
   end
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder('letter DESC, je.printed_on')
+    journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder('je.printed_on, je.real_credit, je.real_debit')
   end
 
   def new_letter
@@ -425,7 +425,51 @@ class Account < Ekylibre::Record::Base
   def balanced_letter?(letter)
     items = journal_entry_items.where('letter = ?', letter.to_s)
     return true if items.count.zero?
-    items.sum('debit-credit').to_f.zero?
+    items.sum('debit - credit').to_f.zero?
+  end
+
+  # Merge given account into self. Given account is destroyed at the end, self
+  # remains.
+  def merge_with(other)
+    Ekylibre::Record::Base.transaction do
+      # Relations with DB approach to prevent missing reflection
+      connection = self.class.connection
+      base_class = self.class.base_class
+      base_model = base_class.name.underscore.to_sym
+      models_set = ([base_class] + base_class.descendants)
+      models_group = '(' + models_set.map do |model|
+        "'#{model.name}'"
+      end.join(', ') + ')'
+      Ekylibre::Schema.tables.each do |table, columns|
+        columns.each do |_name, column|
+          next unless column.references
+          if column.references.is_a?(String) # Polymorphic
+            connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id} AND #{column.references} IN #{models_group}")
+          elsif column.references == base_model # Straight
+            connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id}")
+          end
+        end
+      end
+
+      # Update attributes
+      self.class.columns_definition.each do |attr, column|
+        next if column.references
+        send("#{attr}=", other.send(attr)) if send(attr).blank?
+      end
+
+      # Update custom fields
+      self.custom_fields ||= {}
+      other.custom_fields ||= {}
+      Entity.custom_fields.each do |custom_field|
+        attr = custom_field.column_name
+        if self.custom_fields[attr].blank? && other.custom_fields[attr].present?
+          self.custom_fields[attr] = other.custom_fields[attr]
+        end
+      end
+
+      save!
+      other.destroy!
+    end
   end
 
   # Compute debit, credit, balance, balance_debit and balance_credit of the account

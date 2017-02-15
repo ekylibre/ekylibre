@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,6 +21,43 @@ CREATE SCHEMA postgis;
 
 
 SET search_path = public, pg_catalog;
+
+--
+-- Name: compute_outgoing_payment_list_cache(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+              DECLARE
+                new_id INTEGER DEFAULT NULL;
+                old_id INTEGER DEFAULT NULL;
+              BEGIN
+                IF TG_OP <> 'DELETE' THEN
+                  new_id := NEW.list_id;
+                END IF;
+
+                IF TG_OP <> 'INSERT' THEN
+                  old_id := OLD.list_id;
+                END IF;
+
+                UPDATE outgoing_payment_lists
+                   SET cached_payment_count = payments.count,
+                       cached_total_sum = payments.total
+                  FROM (
+                    SELECT outgoing_payments.list_id AS list_id,
+                           SUM(outgoing_payments.amount) AS total,
+                           COUNT(outgoing_payments.id) AS count
+                      FROM outgoing_payments
+                      GROUP BY outgoing_payments.list_id
+                  ) AS payments
+                  WHERE payments.list_id = id
+                    AND ((new_id IS NOT NULL AND id = new_id)
+                     OR  (old_id IS NOT NULL AND id = old_id));
+                RETURN NEW;
+              END
+            $$;
+
 
 SET default_tablespace = '';
 
@@ -3781,7 +3818,8 @@ CREATE TABLE loans (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    insurance_repayment_method character varying
 );
 
 
@@ -4071,7 +4109,9 @@ CREATE TABLE outgoing_payment_lists (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    mode_id integer NOT NULL
+    mode_id integer NOT NULL,
+    cached_payment_count integer,
+    cached_total_sum numeric
 );
 
 
@@ -4832,7 +4872,8 @@ CREATE TABLE product_movements (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    description character varying
 );
 
 
@@ -5342,7 +5383,21 @@ CREATE TABLE products (
     initial_movement_id integer,
     custom_fields jsonb,
     team_id integer,
-    member_variant_id integer
+    member_variant_id integer,
+    birth_date_completeness character varying,
+    birth_farm_number character varying,
+    country character varying,
+    filiation_status character varying,
+    first_calving_on timestamp without time zone,
+    mother_country character varying,
+    mother_variety character varying,
+    mother_identification_number character varying,
+    father_country character varying,
+    father_variety character varying,
+    father_identification_number character varying,
+    origin_country character varying,
+    origin_identification_number character varying,
+    end_of_life_reason character varying
 );
 
 
@@ -16290,6 +16345,13 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON outgoing_payments FOR EACH ROW EXECUTE PROCEDURE compute_outgoing_payment_list_cache();
+
+
+--
 -- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16809,6 +16871,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170125162958');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203131230');
 
+INSERT INTO schema_migrations (version) VALUES ('20170203135031');
+
+INSERT INTO schema_migrations (version) VALUES ('20170203181700');
+
 INSERT INTO schema_migrations (version) VALUES ('20170206085737');
 
 INSERT INTO schema_migrations (version) VALUES ('20170206102237');
@@ -16816,4 +16882,12 @@ INSERT INTO schema_migrations (version) VALUES ('20170206102237');
 INSERT INTO schema_migrations (version) VALUES ('20170206104614');
 
 INSERT INTO schema_migrations (version) VALUES ('20170206125705');
+
+INSERT INTO schema_migrations (version) VALUES ('20170207131958');
+
+INSERT INTO schema_migrations (version) VALUES ('20170208150219');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209151943');
+
+INSERT INTO schema_migrations (version) VALUES ('20170214130330');
 

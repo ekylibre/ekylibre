@@ -392,6 +392,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
     matching_model.create!(attributes.merge(variant: self))
   end
 
+  def create_product(attributes = {})
+    attributes[:initial_owner] ||= Entity.of_company
+    attributes[:initial_born_at] ||= Time.zone.now
+    attributes[:born_at] ||= attributes[:initial_born_at]
+    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
+    matching_model.create(attributes.merge(variant: self))
+  end
+
   def take(quantity)
     products.mine.each_with_object({}) do |product, result|
       reminder = quantity - result.values.sum

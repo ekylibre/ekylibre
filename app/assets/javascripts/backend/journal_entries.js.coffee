@@ -1,5 +1,28 @@
-(($) ->
+(($, E) ->
   "use strict"
+
+  E.checkFinancialYearCurrency = () ->
+    change_item = $(this).closest('*[data-change-url]')
+    date = $(this).val()
+    console.log date
+    return unless /^\d\d\d\d\-\d\d\-\d\d$/.test(date)
+    $.ajax
+      url: change_item.data('change-url')
+      data:
+        on: date
+      dataType: "json"
+      success: (data, status, request) ->
+        if data.from isnt data.to
+          change = 'true'
+        else
+          change = 'false'
+        change_item.attr('data-with-change', change)
+        change_item.find('#journal_entry_real_currency_rate').val(data.exchange_rate)
+        label = change_item.find('label[data-change-label]')
+        label.html(label.data('change-label').replace(/\{\{FROM\}\}/, data.from).replace(/\{\{TO\}\}/, data.to))
+        change_item.find('.financial-year-currency').html(data.to)
+
+  $(document).on('change keyup', '#journal-entry-form #journal_entry_printed_on', E.checkFinancialYearCurrency)
 
   $(document).ready () ->
     calculate_sum = (column) ->
@@ -100,9 +123,9 @@
             convertAll()
             evening()
 
-      observer.observe(document.getElementById("items"), childList: true)
+      observer.observe(document.getElementById("items-table"), childList: true)
 
       # to avoid autocalculate messing up our first error calculation.
       setTimeout(evening, 500)
 
-  ) (jQuery)
+) jQuery, ekylibre
