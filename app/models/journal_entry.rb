@@ -309,12 +309,15 @@ class JournalEntry < Ekylibre::Record::Base
     bank_statements.first.number if bank_statements.first
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country_code
-    resource.third && resource.third.country
+    resource && resource.respond_to?(:third) &&
+      resource.third && resource.third.country
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country
-    resource.third && resource.third.country && resource.third.country.l
+    entity_country_code && resource.third.country.l
   end
 
   # determines if the entry is balanced or not.
