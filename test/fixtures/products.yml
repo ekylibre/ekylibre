@@ -65,6 +65,7 @@
 #  number                       :string           not null
 #  origin_country               :string
 #  origin_identification_number :string
+#  originator_id                :integer
 #  parent_id                    :integer
 #  person_id                    :integer
 #  picture_content_type         :string

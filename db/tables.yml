@@ -6140,6 +6140,9 @@ products:
     type: string
   origin_identification_number:
     type: string
+  originator_id:
+    type: integer
+    references: synchronization_operation
   parent_id:
     type: integer
     references: product
@@ -6998,6 +7001,11 @@ synchronization_operations:
   operation_name:
     type: string
     required: true
+  originator_id:
+    type: integer
+    references: "~originator_type"
+  originator_type:
+    type: string
   request:
     type: jsonb
   response:

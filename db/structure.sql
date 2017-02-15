@@ -5397,7 +5397,8 @@ CREATE TABLE products (
     father_identification_number character varying,
     origin_country character varying,
     origin_identification_number character varying,
-    end_of_life_reason character varying
+    end_of_life_reason character varying,
+    originator_id integer
 );
 
 
@@ -6083,7 +6084,9 @@ CREATE TABLE synchronization_operations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    originator_id integer,
+    originator_type character varying
 );
 
 
@@ -14853,6 +14856,13 @@ CREATE UNIQUE INDEX index_products_on_number ON products USING btree (number);
 
 
 --
+-- Name: index_products_on_originator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_originator_id ON products USING btree (originator_id);
+
+
+--
 -- Name: index_products_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16869,9 +16879,19 @@ INSERT INTO schema_migrations (version) VALUES ('20170124133351');
 
 INSERT INTO schema_migrations (version) VALUES ('20170125162958');
 
+INSERT INTO schema_migrations (version) VALUES ('20170203131230');
+
 INSERT INTO schema_migrations (version) VALUES ('20170203135031');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203181700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206085737');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206102237');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206104614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206125705');
 
 INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 
@@ -16880,4 +16900,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170208150219');
 INSERT INTO schema_migrations (version) VALUES ('20170209151943');
 
 INSERT INTO schema_migrations (version) VALUES ('20170214130330');
+
+INSERT INTO schema_migrations (version) VALUES ('20170215155700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170215171400');
 

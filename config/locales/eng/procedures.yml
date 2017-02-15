@@ -51,6 +51,7 @@ eng:
   procedure_parameters:
     adding_wine: "Adding wine"
     animal: "Animal"
+    # animal_food: "Animal food"
     animal_housing: "Animal housing"
     animal_medicine: "Animal medicine"
     baler: "Baler"
@@ -210,6 +211,7 @@ eng:
     handling: "Handling"
     harvest_transportation: "Harvest transportation"
     harvesting: "Harvesting"
+    # herd_feeding: "Herd feeding"
     hilling: "Ridging"
     hilling_for_sifting: "Ridging for sifting"
     hoeing: "Hoeing"

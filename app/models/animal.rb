@@ -65,6 +65,7 @@
 #  number                       :string           not null
 #  origin_country               :string
 #  origin_identification_number :string
+#  originator_id                :integer
 #  parent_id                    :integer
 #  person_id                    :integer
 #  picture_content_type         :string
@@ -86,6 +87,7 @@ class Animal < Bioproduct
   refers_to :variety, scope: :animal
   belongs_to :initial_father, class_name: 'Animal'
   belongs_to :initial_mother, class_name: 'Animal'
+  belongs_to :originator, class_name: 'SynchronizationOperation'
 
   validates :identification_number, presence: true
   validates :identification_number, uniqueness: true
@@ -96,7 +98,6 @@ class Animal < Bioproduct
   enumerize :birth_date_completeness, in: [:year, :month_year, :full_date]
   enumerize :filiation_status, in: [:unknown, :certified, :uncertified]
   enumerize :end_of_life_reason, in: [:death, :slaughter, :cutting_up, :calculated_date]
-
 
   def status
     if dead_at?
@@ -130,5 +131,9 @@ class Animal < Bioproduct
   def best_activity_production(options = {})
     at = options[:at] || Time.zone.now
     ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  end
+
+  def synchronization_operations
+    SynchronizationOperation.of_product(self)
   end
 end
