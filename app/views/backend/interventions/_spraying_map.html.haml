@@ -3,7 +3,19 @@
   data = []
   data_crumbs = []
   issue = resource.issue
+  
   resource.targets.each do |parameter|
+    popup_content = []
+    
+    resource.inputs.each do |input|
+      h = input.reglementary_status(parameter).first
+      if h
+        popup_content << { label: :dose.tl, value: h[1][:name] }
+      end
+    end
+
+    popup_content << render('popup', product: parameter)
+    
     shape = parameter.working_zone
     shape ||= parameter.product.shape(at: resource.started_at) if parameter.product
     if shape
@@ -13,14 +25,16 @@
           name: parameter.product.name,
           shape: shape,
           activity: activity.name,
-          shape_color: activity.color
+          shape_color: activity.color,
+          popup: {header: true, content: popup_content}
         }
       else
         item = {
           name: parameter.product.name,
           shape: shape,
           activity: parameter.product.name,
-          shape_color: cycle(theme_colors)
+          shape_color: cycle(theme_colors),
+          popup: {header: true, content: popup_content}
         }
       end
       data << item
