@@ -203,23 +203,21 @@ class Parcel < Ekylibre::Record::Base
 
     # For permanent stock inventory
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
-    list = []
-    if Preference[:permanent_stock_inventory] && given?
+    b.journal_entry(journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && given?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human,
                             number: number, entity: entity.full_name, mode: nature.l)
       items.each do |item|
         variant = item.variant
         next unless variant && variant.storable? && item.stock_amount.nonzero?
-        if nature == :incoming
-          list << [:add_credit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
-          list << [:add_debit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
-        elsif nature == :outgoing
-          list << [:add_debit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
-          list << [:add_credit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
+        if incoming?
+          entry.add_credit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement)
+          entry.add_debit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock)
+        elsif outgoing?
+          entry.add_debit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement)
+          entry.add_credit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock)
         end
       end
     end
-    b.journal_entry(journal, printed_on: printed_on, list: list)
   end
 
   def entity

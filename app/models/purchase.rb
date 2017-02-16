@@ -188,25 +188,22 @@ class Purchase < Ekylibre::Record::Base
     # For undelivered invoice
     # exchange undelivered invoice from parcel
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: currency) }
-    list = []
-    if with_accounting && invoice?
+    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, if: (with_accounting && invoice?)) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.l)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          list << [:add_credit, label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item]
+          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item)
         end
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice, list: list)
 
     # For gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
-    list = []
-    if with_accounting && invoice? && items.any?
+    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
       items.each do |item|
         next unless item.variant.storable?
@@ -216,11 +213,10 @@ class Purchase < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        list << [:add_debit, label, item.variant.stock_account_id, gap_value, resource: item, as: :stock]
-        list << [:add_credit, label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement]
+        entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock)
+        entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement)
       end
     end
-    b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, list: list)
   end
 
   def self.third_attribute
