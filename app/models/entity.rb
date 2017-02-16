@@ -181,6 +181,7 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
   scope :employees,    -> { where(employee: true) }
+  scope :company,      -> { where(of_company: true).first }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
