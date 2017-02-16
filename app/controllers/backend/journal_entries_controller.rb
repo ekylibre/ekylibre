@@ -67,8 +67,8 @@ module Backend
         @journal_entry = JournalEntry.find_by(id: params[:duplicate_of])
                                      .deep_clone(include: :items, except: :number)
       else
-        journal = Journal.find_by!(id: params[:journal_id])
-        @journal_entry = JournalEntry.new(journal: journal, real_currency: journal.currency)
+        journal = Journal.find_by(id: params[:journal_id])
+        @journal_entry = JournalEntry.new(journal: journal, real_currency: Maybe(journal).currency.or_else(nil))
         @journal_entry.printed_on = params[:printed_on] || Time.zone.today
       end
       @journal_entry.real_currency_rate = if @journal_entry.need_currency_change?
@@ -80,7 +80,7 @@ module Backend
                                           else
                                             1
                                           end
-      t3e @journal_entry.journal.attributes
+      t3e Maybe(@journal_entry.journal).attributes.or_else({})
     end
 
     def create
