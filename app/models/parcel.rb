@@ -210,8 +210,13 @@ class Parcel < Ekylibre::Record::Base
       items.each do |item|
         variant = item.variant
         next unless variant && variant.storable? && item.stock_amount.nonzero?
-        list << [:add_credit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
-        list << [:add_debit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
+        if nature == :incoming
+          list << [:add_credit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
+          list << [:add_debit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
+        elsif nature == :outgoing
+          list << [:add_debit, label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement]
+          list << [:add_credit, label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock]
+        end
       end
     end
     b.journal_entry(journal, printed_on: printed_on, list: list)

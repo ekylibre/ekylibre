@@ -134,6 +134,75 @@ class ParcelTest < ActiveSupport::TestCase
 
     assert_equal 0, product.population
   end
+  
+  # bookkeep on incoming
+  test 'bookeep incoming items with separated stock' do
+    @variant.products.create!(
+      initial_container: @storage,
+      initial_population: 50
+    )
+    parcel = new_parcel
+    parcel.give!
+    @variant.reload
+    
+    a_ids = parcel.journal_entry.items.pluck(:account_id)
+    
+    sm = Account.where(id: a_ids).where("number LIKE '6%'").first
+    jei_sm = parcel.journal_entry.items.where(account_id: sm.id).first
+    
+    s = Account.where(id: a_ids).where("number LIKE '3%'").first
+    jei_s = parcel.journal_entry.items.where(account_id: s.id).first
+    
+    # must have 0 on credit to S ACCOUNT (3%)
+    assert_equal 0, jei_s.credit.to_i
+    assert_equal 0, jei_s.real_credit.to_i
+    # must have GTZ on debit to S ACCOUNT (3%)
+    assert_operator 0, :<, jei_s.debit.to_i
+    assert_operator 0, :<, jei_s.real_debit.to_i
+    
+    # must have 0 on débit to SM ACCOUNT (6%)
+    assert_equal 0, jei_sm.debit.to_i
+    assert_equal 0, jei_sm.real_debit.to_i
+    # must have GTZ on credit to SM ACCOUNT (6%)
+    assert_operator 0, :<, jei_sm.credit.to_i
+    assert_operator 0, :<, jei_sm.real_credit.to_i
+    
+  end
+  
+  # bookkeep on outgoing
+  test 'bookeep outgoing parcels' do
+    product = @variant.products.create!(initial_population: 30)
+    to_send = [{
+      population: product.population,
+      source_product: product
+    }]
+
+    parcel = new_parcel(nature: :outgoing, items_attributes: to_send)
+    parcel.give!
+    
+    a_ids = parcel.journal_entry.items.pluck(:account_id)
+    
+    sm = Account.where(id: a_ids).where("number LIKE '6%'").first
+    jei_sm = parcel.journal_entry.items.where(account_id: sm.id).first
+    
+    s = Account.where(id: a_ids).where("number LIKE '3%'").first
+    jei_s = parcel.journal_entry.items.where(account_id: s.id).first
+    
+    # must have 0 on credit to SM ACCOUNT (6%)
+    assert_equal 0, jei_sm.credit.to_i
+    assert_equal 0, jei_sm.real_credit.to_i
+    # must have GTZ on debit to SM ACCOUNT (6%)
+    assert_operator 0, :<, jei_sm.debit.to_i
+    assert_operator 0, :<, jei_sm.real_debit.to_i
+    
+    # must have 0 on débit to S ACCOUNT (3%)
+    assert_equal 0, jei_s.debit.to_i
+    assert_equal 0, jei_s.real_debit.to_i
+    # must have GTZ on credit to S ACCOUNT (3%)
+    assert_operator 0, :<, jei_s.credit.to_i
+    assert_operator 0, :<, jei_s.real_credit.to_i
+    
+  end
 
   test 'unitary items in parcels' do
     unitary_variant = ProductNatureVariant.import_from_nomenclature(:female_adult_cow, true)
