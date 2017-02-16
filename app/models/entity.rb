@@ -420,8 +420,8 @@ class Entity < Ekylibre::Record::Base
     author = options[:author]
     Ekylibre::Record::Base.transaction do
       # EntityAddress
-      threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread)
-      other_threads = EntityAddress.unscoped.where(entity_id: other.id).uniq.pluck(:thread)
+      threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread).delete_if(&:blank?)
+      other_threads = EntityAddress.unscoped.where(entity_id: other.id).uniq.pluck(:thread).delete_if(&:blank?)
       other_threads.each do |thread|
         thread.succ! while threads.include?(thread)
         threads << thread
