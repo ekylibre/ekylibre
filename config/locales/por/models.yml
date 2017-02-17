@@ -436,6 +436,7 @@ por:
     archiving: "Arquivamento"
     arguments: "Argumentos"
     assembly: "Montagem"
+    # asset_account: "Asset account"
     attachments: "Anexos"
     attribute_name: "Nome do atributo"
     attribution: "Atribuição"

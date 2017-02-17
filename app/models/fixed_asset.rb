@@ -22,7 +22,9 @@
 #
 # == Table: fixed_assets
 #
+#  accounted_at            :datetime
 #  allocation_account_id   :integer          not null
+#  asset_account_id        :integer
 #  ceded                   :boolean
 #  ceded_on                :date
 #  created_at              :datetime         not null
@@ -37,6 +39,7 @@
 #  description             :text
 #  expenses_account_id     :integer
 #  id                      :integer          not null, primary key
+#  journal_entry_id        :integer
 #  journal_id              :integer          not null
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
@@ -47,6 +50,7 @@
 #  sale_id                 :integer
 #  sale_item_id            :integer
 #  started_on              :date             not null
+#  state                   :string
 #  stopped_on              :date             not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
@@ -56,11 +60,13 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: [:simplified_linear, :linear, :regressive], predicates: { prefix: true } # graduated
   refers_to :currency
+  belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
   belongs_to :allocation_account, class_name: 'Account'
   belongs_to :journal, class_name: 'Journal'
+  belongs_to :journal_entry
   belongs_to :product
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation'
@@ -69,6 +75,7 @@ class FixedAsset < Ekylibre::Record::Base
   has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
   has_one :tool, class_name: 'Equipment'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
   validates :ceded_on, :purchased_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
@@ -77,16 +84,39 @@ class FixedAsset < Ekylibre::Record::Base
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :state, length: { maximum: 500 }, allow_blank: true
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
+
+  state_machine :state, initial: :draft do
+    state :draft
+    state :in_use
+    state :sold
+    state :scrapped
+    event :start_up do
+      transition draft: :in_use
+    end
+    event :sell do
+      transition [:draft, :in_use] => :sold
+    end
+    event :scrap do
+      transition [:draft, :in_use] => :scrapped
+    end
+  end
+
+  before_validation(on: :create) do
+    self.state = :draft
+    self.currency ||= Preferences[:currency]
+  end
 
   before_validation(on: :create) do
     self.depreciated_amount ||= 0
   end
 
   before_validation do
+    self.state ||= :draft
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
     if depreciation_method_linear?
@@ -148,6 +178,26 @@ class FixedAsset < Ekylibre::Record::Base
     depreciate! if @auto_depreciate
   end
 
+  def updateable?
+    (state != :scrapped || state != :sold) && !depreciations.any?
+  end
+
+  def destroyable?
+    state == :draft
+  end
+  
+  # This callback permits to add journal entries corresponding to the fixed asset
+  bookkeep do |b|
+    b.journal_entry(journal, printed_on: started_on, if: in_use?) do |entry|
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
+      purchase_items.each do |item|
+        #TODO exchange each item on self.account = Account.find_in_nomenclature(:outstanding_assets)
+        
+      end
+      # TODO bookkeep 21
+    end
+  end
+  
   def depreciate!
     planned_depreciations.clear
     # Computes periods
@@ -221,6 +271,11 @@ class FixedAsset < Ekylibre::Record::Base
       position += 1
       depreciation.save!
     end
+  end
+
+  # Depreciate using regressive method
+  def depreciate_with_regressive_method(starts)
+    # TODO
   end
 
   def depreciable?

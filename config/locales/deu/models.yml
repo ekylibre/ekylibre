@@ -436,6 +436,7 @@ deu:
     archiving: "Archivierung"
     arguments: "Argumente"
     assembly: "Versammlung"
+    # asset_account: "Asset account"
     attachments: "Zubehör"
     attribute_name: "Attributname"
     attribution: "Zuschreibung"

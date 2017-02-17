@@ -475,6 +475,9 @@ Rails.application.routes.draw do
         get :depreciate_up_to
         get :list_depreciations
         get :list_products
+        post :start_up
+        post :sell
+        post :scrap
       end
     end
 

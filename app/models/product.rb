@@ -224,6 +224,7 @@ class Product < Ekylibre::Record::Base
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
+  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }

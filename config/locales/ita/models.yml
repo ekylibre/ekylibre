@@ -467,6 +467,7 @@ ita:
     archiving: "Archiviazione"
     arguments: "Argomenti"
     assembly: "Montaggio"
+    # asset_account: "Asset account"
     attachments: "allegati"
     attribute_name: "Nome attributo"
     attribution: "Attribuzione"

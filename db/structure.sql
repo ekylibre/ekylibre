@@ -2484,7 +2484,11 @@ CREATE TABLE fixed_assets (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    product_id integer
+    product_id integer,
+    state character varying,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    asset_account_id integer
 );
 
 
@@ -11050,6 +11054,13 @@ CREATE INDEX index_fixed_assets_on_allocation_account_id ON fixed_assets USING b
 
 
 --
+-- Name: index_fixed_assets_on_asset_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_asset_account_id ON fixed_assets USING btree (asset_account_id);
+
+
+--
 -- Name: index_fixed_assets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11068,6 +11079,13 @@ CREATE INDEX index_fixed_assets_on_creator_id ON fixed_assets USING btree (creat
 --
 
 CREATE INDEX index_fixed_assets_on_expenses_account_id ON fixed_assets USING btree (expenses_account_id);
+
+
+--
+-- Name: index_fixed_assets_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_journal_entry_id ON fixed_assets USING btree (journal_entry_id);
 
 
 --
@@ -16857,4 +16875,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170208150219');
 INSERT INTO schema_migrations (version) VALUES ('20170209151943');
 
 INSERT INTO schema_migrations (version) VALUES ('20170217221501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170217231401');
 

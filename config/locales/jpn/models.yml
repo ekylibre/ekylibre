@@ -436,6 +436,7 @@ jpn:
     archiving: "アーカイブ"
     arguments: "引数"
     assembly: "アセンブリ"
+    # asset_account: "Asset account"
     attachments: "添付ファイル"
     attribute_name: "属性名"
     attribution: "帰属"

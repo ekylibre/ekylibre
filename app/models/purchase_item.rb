@@ -123,7 +123,8 @@ class PurchaseItem < Ekylibre::Record::Base
     if variant
       self.label ||= variant.commercial_name
       if fixed
-        self.account = variant.fixed_asset_account || Account.find_in_nomenclature(:fixed_assets)
+        # select outstanding_assets during purchase
+        self.account = Account.find_in_nomenclature(:outstanding_assets)
 
         if fixed_asset
           # if fixed asset is already registered BUT an identical name is going to be saved
@@ -146,6 +147,7 @@ class PurchaseItem < Ekylibre::Record::Base
             depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
             depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
             journal: Journal.find_by(nature: :various),
+            asset_account: variant.fixed_asset_account, # 2
             allocation_account: variant.fixed_asset_allocation_account, # 28
             expenses_account: variant.fixed_asset_expenses_account # 68
           }

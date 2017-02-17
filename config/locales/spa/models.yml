@@ -437,6 +437,7 @@ spa:
     archiving: "El archivado"
     arguments: "Argumentos"
     assembly: "Asamblea"
+    # asset_account: "Asset account"
     attachments: "Archivos adjuntos"
     attribute_name: "Nombre del Atributo"
     attribution: "Atribución"

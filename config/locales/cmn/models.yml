@@ -436,6 +436,7 @@ cmn:
     archiving: "存档"
     arguments: "参数"
     assembly: "部件"
+    # asset_account: "Asset account"
     attachments: "附件"
     attribute_name: "属性名"
     attribution: "归因"

@@ -84,6 +84,12 @@ module Backend
     #   return unless @fixed_asset = find_and_check
     # end
 
+    FixedAsset.state_machine.events.each do |event|
+      define_method event.name do
+        fire_event(event.name)
+      end
+    end
+
     def depreciate
       fixed_assets = find_fixed_assets
       return unless fixed_assets

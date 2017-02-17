@@ -437,6 +437,7 @@ eng:
     archiving: "Archiving"
     arguments: "Arguments"
     assembly: "Assembly"
+    asset_account: "Asset account"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     attribution: "Attribution"

@@ -2506,10 +2506,15 @@ fixed_asset_depreciations:
     type: integer
     references: user
 fixed_assets:
+  accounted_at:
+    type: datetime
   allocation_account_id:
     type: integer
     references: account
     required: true
+  asset_account_id:
+    type: integer
+    references: account
   ceded:
     type: boolean
   ceded_on:
@@ -2554,6 +2559,9 @@ fixed_assets:
   id:
     type: integer
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   journal_id:
     type: integer
     references: journal
@@ -2585,6 +2593,8 @@ fixed_assets:
   started_on:
     type: date
     required: true
+  state:
+    type: string
   stopped_on:
     type: date
     required: true

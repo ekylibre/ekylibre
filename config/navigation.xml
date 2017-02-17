@@ -1948,6 +1948,9 @@
       <item name="fixed_assets">
         <page to="backend/fixed_assets#depreciate"/>
         <page to="backend/fixed_assets#depreciate_up_to"/>
+        <page to="backend/fixed_assets#scrap"/>
+        <page to="backend/fixed_assets#sell"/>
+        <page to="backend/fixed_assets#start_up"/>
       </item>
       <item name="fungi">
         <page to="backend/fungi#list_fixed_assets"/>

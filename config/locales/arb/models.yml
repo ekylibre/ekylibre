@@ -1094,6 +1094,7 @@ arb:
     arguments: "الحجج"
     arrived_at: "وصل يوم" #?
     assembly: "جمعية"
+    # asset_account: "Asset account"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
     attachments: "مرفقات"
     attorney: "الوكيل" #?

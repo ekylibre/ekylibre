@@ -576,6 +576,7 @@ fra:
     archiving: "Méthode d’archivage"
     # arguments: "Arguments"
     assembly: "Assemblée"
+    # asset_account: "Asset account"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
