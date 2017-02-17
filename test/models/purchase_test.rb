@@ -154,6 +154,10 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 2, purchase.items.count
     assert_equal 1000, purchase.pretax_amount
     assert_equal 1020, purchase.amount
+
+    purchase.propose!
+    purchase.confirm!
+    purchase.invoice!
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do

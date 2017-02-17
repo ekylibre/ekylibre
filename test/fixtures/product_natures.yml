@@ -630,7 +630,7 @@ product_natures_026:
   lock_version: 0
   name: Troupeau de vaches
   number: BUILDINZ
-  population_counting: integer
+  population_counting: unitary
   reference_name: female_adult_cattle_herd
   subscribing: false
   subscription_days_count: 0
@@ -655,7 +655,7 @@ product_natures_027:
   lock_version: 0
   name: Troupeau de bovins
   number: BUILDIOA
-  population_counting: integer
+  population_counting: unitary
   reference_name: cattle_herd
   subscribing: false
   subscription_days_count: 0
