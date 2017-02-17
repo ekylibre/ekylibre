@@ -41,9 +41,8 @@
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
 #  number                  :string           not null
+#  product_id              :integer
 #  purchase_amount         :decimal(19, 4)
-#  purchase_id             :integer
-#  purchase_item_id        :integer
 #  purchased_on            :date
 #  sale_id                 :integer
 #  sale_item_id            :integer

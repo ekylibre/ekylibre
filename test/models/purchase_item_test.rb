@@ -30,6 +30,7 @@
 #  creator_id           :integer
 #  currency             :string           not null
 #  fixed                :boolean          default(FALSE), not null
+#  fixed_asset_id       :integer
 #  id                   :integer          not null, primary key
 #  label                :text
 #  lock_version         :integer          default(0), not null

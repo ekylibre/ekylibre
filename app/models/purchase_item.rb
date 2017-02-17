@@ -30,6 +30,7 @@
 #  creator_id           :integer
 #  currency             :string           not null
 #  fixed                :boolean          default(FALSE), not null
+#  fixed_asset_id       :integer
 #  id                   :integer          not null, primary key
 #  label                :text
 #  lock_version         :integer          default(0), not null
@@ -56,9 +57,9 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
+  belongs_to :fixed_asset, inverse_of: :purchase_items
   has_many :parcel_items
   has_many :products, through: :parcel_items
-  has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }

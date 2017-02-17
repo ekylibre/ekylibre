@@ -21,7 +21,7 @@ module Backend
     manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
 
     unroll
-    
+
     # params:
     #   :q Text search
     #   :s State search
@@ -42,9 +42,9 @@ module Backend
       code << "    c << interval.second\n"
       code << "  end\n"
       code << "end\n"
-      code << "if params[:fixed_asset_id].to_i > 0\n"
-      code << "  c[0] += ' AND #{FixedAsset.table_name}.id = ?'\n"
-      code << "  c << params[:fixed_asset_id]\n"
+      code << "if params[:product_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{FixedAsset.table_name}.product_id = ?'\n"
+      code << "  c << params[:product_id]\n"
       code << "end\n"
       code << "c\n"
       code.c
@@ -72,11 +72,6 @@ module Backend
       t.column :journal_entry, label_method: :number, url: true
     end
 
-    list(:products, model: :products, conditions: { fixed_asset_id: 'params[:id]'.c }, order: :initial_born_at) do |t|
-      t.column :name, url: true
-      t.column :initial_born_at
-    end
-    
     def depreciate_up_to
       # use view to select date for mass depreciation on fixed asset
     end
@@ -92,15 +87,14 @@ module Backend
     def depreciate
       fixed_assets = find_fixed_assets
       return unless fixed_assets
-      
-      unless fixed_assets.all? { |fixed_asset| fixed_asset.depreciable? }
+
+      unless fixed_assets.all?(&:depreciable?)
         notify_error(:all_fixed_assets_must_be_depreciable)
         redirect_to(params[:redirect] || { action: :index })
         return
       end
-    
     end
-    
+
     protected
 
     def find_fixed_assets
@@ -113,6 +107,5 @@ module Backend
       end
       fixed_assets
     end
-    
   end
 end

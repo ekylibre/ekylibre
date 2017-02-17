@@ -41,9 +41,8 @@
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
 #  number                  :string           not null
+#  product_id              :integer
 #  purchase_amount         :decimal(19, 4)
-#  purchase_id             :integer
-#  purchase_item_id        :integer
 #  purchased_on            :date
 #  sale_id                 :integer
 #  sale_item_id            :integer
@@ -62,12 +61,11 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :expenses_account, class_name: 'Account'
   belongs_to :allocation_account, class_name: 'Account'
   belongs_to :journal, class_name: 'Journal'
-  belongs_to :purchase_item, inverse_of: :fixed_asset
-  belongs_to :purchase
+  belongs_to :product
+  has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation'
   has_many :parcel_items, through: :purchase_item
   has_many :delivery_products, through: :parcel_items, source: :product
-  has_many :products
   has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
   has_one :tool, class_name: 'Equipment'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -83,8 +81,6 @@ class FixedAsset < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
-
-  accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: false
 
   before_validation(on: :create) do
     self.depreciated_amount ||= 0
@@ -140,15 +136,15 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   after_save do
-    if purchase_item
-      # Link products to fixed asset
-      delivery_products.each do |product|
-        product.fixed_asset = self
-        unless product.save
-          Rails.logger.warn('Cannot link fixed_asset to its products automatically')
-        end
-      end
-    end
+    # if purchase_item
+    # Link products to fixed asset
+    # delivery_products.each do |product|
+    # product.fixed_asset = self
+    # unless product.save
+    #  Rails.logger.warn('Cannot link fixed_asset to its products automatically')
+    # end
+    # end
+    # end
     depreciate! if @auto_depreciate
   end
 
@@ -226,11 +222,11 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation.save!
     end
   end
-  
+
   def depreciable?
     !depreciations.any?
   end
-  
+
   # Returns the duration in days of all the depreciations
   def duration
     self.class.duration(started_on, self.stopped_on, mode: depreciation_method.to_sym)

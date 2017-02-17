@@ -32,7 +32,6 @@
 #  default_storage_id    :integer
 #  derivative_of         :string
 #  description           :text
-#  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string
 #  initial_born_at       :datetime

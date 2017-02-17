@@ -2464,8 +2464,6 @@ CREATE TABLE fixed_assets (
     number character varying NOT NULL,
     description text,
     purchased_on date,
-    purchase_id integer,
-    purchase_item_id integer,
     ceded boolean,
     ceded_on date,
     sale_id integer,
@@ -2485,7 +2483,8 @@ CREATE TABLE fixed_assets (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    product_id integer
 );
 
 
@@ -5358,7 +5357,6 @@ CREATE TABLE products (
     variety character varying NOT NULL,
     derivative_of character varying,
     tracking_id integer,
-    fixed_asset_id integer,
     born_at timestamp without time zone,
     dead_at timestamp without time zone,
     description text,
@@ -5432,7 +5430,8 @@ CREATE TABLE purchase_items (
     fixed boolean DEFAULT false NOT NULL,
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    fixed_asset_id integer
 );
 
 
@@ -11079,17 +11078,10 @@ CREATE INDEX index_fixed_assets_on_journal_id ON fixed_assets USING btree (journ
 
 
 --
--- Name: index_fixed_assets_on_purchase_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_fixed_assets_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_fixed_assets_on_purchase_id ON fixed_assets USING btree (purchase_id);
-
-
---
--- Name: index_fixed_assets_on_purchase_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_fixed_assets_on_purchase_item_id ON fixed_assets USING btree (purchase_item_id);
+CREATE INDEX index_fixed_assets_on_product_id ON fixed_assets USING btree (product_id);
 
 
 --
@@ -14761,13 +14753,6 @@ CREATE INDEX index_products_on_default_storage_id ON products USING btree (defau
 
 
 --
--- Name: index_products_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_products_on_fixed_asset_id ON products USING btree (fixed_asset_id);
-
-
---
 -- Name: index_products_on_initial_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14926,6 +14911,13 @@ CREATE INDEX index_purchase_items_on_created_at ON purchase_items USING btree (c
 --
 
 CREATE INDEX index_purchase_items_on_creator_id ON purchase_items USING btree (creator_id);
+
+
+--
+-- Name: index_purchase_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btree (fixed_asset_id);
 
 
 --
@@ -16863,4 +16855,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 INSERT INTO schema_migrations (version) VALUES ('20170208150219');
 
 INSERT INTO schema_migrations (version) VALUES ('20170209151943');
+
+INSERT INTO schema_migrations (version) VALUES ('20170217221501');
 

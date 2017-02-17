@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get :list_carried_linkages
       get :list_carrier_linkages
       get :list_contained_products
+      get :list_fixed_assets
       get :list_groups
       get :list_inspections
       get :list_intervention_product_parameters

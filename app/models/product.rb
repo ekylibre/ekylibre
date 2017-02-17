@@ -32,7 +32,6 @@
 #  default_storage_id    :integer
 #  derivative_of         :string
 #  description           :text
-#  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string
 #  initial_born_at       :datetime
@@ -78,7 +77,6 @@ class Product < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :default_storage, class_name: 'Product'
-  belongs_to :fixed_asset
   belongs_to :initial_container, class_name: 'Product'
   belongs_to :initial_enjoyer, class_name: 'Entity'
   belongs_to :initial_movement, class_name: 'ProductMovement'
@@ -97,6 +95,7 @@ class Product < Ekylibre::Record::Base
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
+  has_many :fixed_assets, inverse_of: :product
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
