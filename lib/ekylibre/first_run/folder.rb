@@ -25,20 +25,13 @@ module Ekylibre
       end
 
       def run
-        byebug
         ActiveRecord::Base.transaction do
           puts 'Set locale...'
           ::I18n.locale = @preferences[:language] || :eng
-
-          byebug
           puts 'Load preferences...'
           load_preferences
-
-          byebug
           puts 'Load defaults...'
           load_defaults
-
-          byebug
           puts 'Load company...'
           load_company
           puts 'Load imports...'
@@ -77,7 +70,6 @@ module Ekylibre
         company = Entity.find_or_initialize_by(of_company: true, nature: :organization)
         company.last_name = @company[:name]
         company.born_at = @company[:born_at]
-        byebug
         company.save!
         # Create default phone number
         unless @company[:phone].blank?
