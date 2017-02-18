@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
-  = t.destroy if resource.destroyable?
+  = t.destroy resource if resource.destroyable?
 
 = main_state_bar(resource)
 
@@ -13,6 +13,7 @@
     - l.attribute :depreciation_percentage
     - l.attribute :started_on
     - l.attribute :stopped_on
+    - l.attribute :journal_entry, url: true
     - l.attribute :description
 
   = infos do

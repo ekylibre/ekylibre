@@ -179,22 +179,28 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def updateable?
-    (state != :scrapped || state != :sold) && !depreciations.any?
+    #(self.scrapped? || self.sold?)
+    true
   end
 
   def destroyable?
-    state == :draft
+    draft?
   end
   
-  # This callback permits to add journal entries corresponding to the fixed asset
+  # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   bookkeep do |b|
-    b.journal_entry(journal, printed_on: started_on, if: in_use?) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
-      purchase_items.each do |item|
-        #TODO exchange each item on self.account = Account.find_in_nomenclature(:outstanding_assets)
-        
+    b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
+      label = tc(:bookkeep_in_use_assets, resource: self.class.model_name.human, number: number)
+      waiting_asset_account = Account.find_in_nomenclature(:outstanding_assets)
+      amount = []
+      purchase_items.each do |p_item|
+        #TODO get entry item concerning
+        jei = JournalEntryItem.where(resource_id: p_item.id, resource_type: p_item.class.name, account_id: waiting_asset_account.id).first
+        next unless jei && jei.real_balance.nonzero?
+        entry.add_credit(label, jei.account.id, jei.real_balance)
+        amount << jei.real_balance
       end
-      # TODO bookkeep 21
+      entry.add_debit(label, asset_account.id, amount.compact.sum, resource: self, as: :fixed_asset)
     end
   end
   
