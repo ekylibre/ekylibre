@@ -1427,6 +1427,7 @@ ita:
         entity_sheet: "foglio di Entity"
         equipment_certification: "certificazione attrezzature"
         exchange_accountancy_file_fr: "fr file di contabilità Scambio"
+        # fixed_asset_registry: "Fixed asset registry"
         general_journal: "Journal Generale"
         general_ledger: "Libro mastro generale"
         income_statement: "Conto profitti e perdite"

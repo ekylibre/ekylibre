@@ -22,6 +22,8 @@ module Backend
 
     unroll
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     # params:
     #   :q Text search
     #   :s State search
@@ -73,6 +75,16 @@ module Backend
       t.column :stopped_on
       t.column :financial_year, url: true
       t.column :journal_entry, label_method: :number, url: true
+    end
+
+    # Show a list of fixed_assets
+    def index
+      @fixed_assets = FixedAsset.all.reorder(:started_on)
+      # passing a parameter to Jasper for company full name and id
+      @entity_of_company_full_name = Entity.of_company.full_name
+      @entity_of_company_id = Entity.of_company.id
+
+      respond_with @fixed_assets, methods: [], include: [:asset_account, :expenses_account, :allocation_account, :product]
     end
 
     def depreciate_up_to

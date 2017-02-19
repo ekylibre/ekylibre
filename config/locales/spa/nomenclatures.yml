@@ -1433,6 +1433,7 @@ spa:
         entity_sheet: "Ficha de entidad"
         equipment_certification: "Certificación del equipo"
         exchange_accountancy_file_fr: "Fr archivo de intercambio de contabilidad"
+        # fixed_asset_registry: "Fixed asset registry"
         general_journal: "Diario general"
         general_ledger: "Libro mayor"
         income_statement: "Declaración de ganancias y pérdidas"

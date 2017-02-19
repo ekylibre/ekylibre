@@ -1427,6 +1427,7 @@ cmn:
         entity_sheet: "实体表"
         equipment_certification: "设备认证"
         exchange_accountancy_file_fr: "外汇会计文件FR"
+        # fixed_asset_registry: "Fixed asset registry"
         general_journal: "普通日记"
         general_ledger: "总帐"
         income_statement: "损益表"

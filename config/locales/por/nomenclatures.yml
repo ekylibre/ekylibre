@@ -1427,6 +1427,7 @@ por:
         entity_sheet: "Ficha de identificação"
         equipment_certification: "Certificação de equipamentos"
         exchange_accountancy_file_fr: "Fr arquivo de contabilidade de câmbio"
+        # fixed_asset_registry: "Fixed asset registry"
         general_journal: "Jornal Geral"
         general_ledger: "Contabilidade geral"
         income_statement: "Demonstração de resultados"
