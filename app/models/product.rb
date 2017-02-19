@@ -708,7 +708,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_asset.present?)
+    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_assets.any?)
   end
 
   # TODO: Doc
