@@ -62,6 +62,9 @@ fra:
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
         stopped_on: "Date de clôture"
+      fixed_asset:
+        asset_account: "Compte d'immobilisation"
+        started_on: "Date de mise en service"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
@@ -1847,6 +1850,14 @@ fra:
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
+    fixed_asset:
+      bookkeep_in_use_assets: "Mise en service - [%{resource} %{number}]"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          in_use: "En service"
+          scrapped: "Mise au rebut"
+          sold: "Vendue"
     gap:
       bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:

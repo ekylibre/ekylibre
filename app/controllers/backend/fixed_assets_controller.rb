@@ -57,6 +57,7 @@ module Backend
       t.column :number, url: true
       t.column :name, url: true
       t.column :asset_account, url: true
+      t.status
       t.column :product, url: true
       t.column :depreciable_amount, currency: true
       t.column :started_on

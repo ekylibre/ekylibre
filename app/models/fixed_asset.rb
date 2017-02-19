@@ -178,6 +178,12 @@ class FixedAsset < Ekylibre::Record::Base
     depreciate! if @auto_depreciate
   end
 
+  def status
+    return :go if in_use?
+    return :caution if draft?
+    return :stop if scrapped? || sold?
+  end
+
   def updateable?
     # (self.scrapped? || self.sold?)
     true

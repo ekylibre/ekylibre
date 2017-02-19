@@ -202,6 +202,9 @@ arb:
         journal_records: "السجلات المحاسبية" #?
         started_on: "بدأ ب" #?
         stopped_on: "تاريخ الاغلاق"
+      fixed_asset:
+        # asset_account: "Fixed asset account"
+        # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "قيمة للمساءلة"
       incoming_payment: #?
@@ -2730,6 +2733,14 @@ arb:
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
+    fixed_asset:
+      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # in_use: "In use"
+          # scrapped: "Scrapped"
+          # sold: "Sold"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:

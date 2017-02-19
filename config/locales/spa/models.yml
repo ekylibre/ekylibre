@@ -23,6 +23,9 @@ spa:
         initial_dead_at: "Desechado en"
       financial_year:
         stopped_on: "Fecha de cierre"
+      fixed_asset:
+        # asset_account: "Fixed asset account"
+        # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
       land_parcel:
@@ -1562,6 +1565,14 @@ spa:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # in_use: "In use"
+          # scrapped: "Scrapped"
+          # sold: "Sold"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
