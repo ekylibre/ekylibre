@@ -149,7 +149,7 @@ class BankStatement < Ekylibre::Record::Base
 
     statement_entries = JournalEntryItem.where(resource: statement_items)
     to_letter = journal_entry_items + statement_entries
-    cash.suspend_account.mark(to_letter) if cash.suspend_until_reconciliation
+    cash.suspense_account.mark(to_letter) if cash.suspend_until_reconciliation
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
