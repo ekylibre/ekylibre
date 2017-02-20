@@ -97,3 +97,12 @@ $preview-modal-height: 80vh;
     padding: 0 1em;
   }
 }
+
+.nested-parameters {
+  .links {
+    position: relative;
+    .display-info {
+      position: absolute;
+    }
+  }
+}
