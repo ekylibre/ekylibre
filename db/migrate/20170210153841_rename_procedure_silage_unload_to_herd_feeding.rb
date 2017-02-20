@@ -1,6 +1,6 @@
 class RenameProcedureSilageUnloadToHerdFeeding < ActiveRecord::Migration
   def change
-        reversible do |d|
+    reversible do |d|
       d.up do
         execute "UPDATE interventions SET procedure_name = 'herd_feeding' WHERE procedure_name = 'silage_unload'"
       end

@@ -1,6 +1,6 @@
 class RenameProcedureAnimalAntibioticTreatmentToAnimalVeterinaryTreatment < ActiveRecord::Migration
   def change
-     reversible do |d|
+    reversible do |d|
       d.up do
         execute "UPDATE interventions SET procedure_name = 'animal_veterinary_treatment' WHERE procedure_name = 'animal_antibiotic_treatment'"
       end
