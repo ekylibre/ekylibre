@@ -45,9 +45,9 @@ fra:
     animal_housing: "Zone d'hébergement de l'animal"
     animal_medicine: "Produit vétérinaire"
     animal_medicine_to_give: "Produit vétérinaire à donner" #?
-    animal_movement: "Déplacement d'un animal"
+    animal_movement: "Déplacement d'un animal" #?
     baler: "Botteleuse"
-    bird_band: "Bande d'oiseaux"
+    bird_band: "Bande d'oiseaux" #?
     bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
     caregiver: "Soigneur"
@@ -182,6 +182,7 @@ fra:
     plow: "Charrue"
     pollinating_insects: "Insectes pollinisateurs"
     pollination_tool: "Outil de pollinisation"
+    poultry: "Volailles"
     press: "Presse"
     product: "Produit" #?
     product_to_sort: "Produits à trier"
@@ -280,7 +281,7 @@ fra:
     animal_antibiotic_treatment: "Traitement antibiotique" #?
     animal_artificial_insemination: "Insémination artificielle"
     animal_birth: "Naissance d’un animal" #?
-    animal_group_changing: "Déplacement"
+    animal_group_changing: "Déplacement d'animaux"
     animal_housing_cleaning: "Nettoyage"
     animal_housing_disinfection: "Désinfection"
     animal_housing_mulching: "Paillage"
@@ -303,7 +304,7 @@ fra:
     double_seed_mixing: "Mélange de semences avec deux semences" #?
     double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)" #?
     double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)" #?
-    egg_collecting: "Collecte d'œufs"
+    egg_collecting: "Ramassage d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
     equipment_item_replacement: "Équipement pièce de rechange"
@@ -320,6 +321,7 @@ fra:
     grains_harvest: "Moisson" #?
     grape_pressing: "Pressage de raisin"
     grape_transport: "Transport de raisin" #?
+    grazing: "Pâturage sur parcours"
     greenhouse_assembling: "Montage de serre"
     grinding: "Broyage" #?
     ground_destratification: "Déstratification"
@@ -337,9 +339,11 @@ fra:
     hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
     housing_soil_disinfection: "Désinfection" #?
+    identification: "Identification"
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
+    individual_feeding: "Alimentation individuelle"
     installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?

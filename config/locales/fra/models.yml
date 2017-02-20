@@ -1692,7 +1692,7 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
     trouble_description: "Description du problème"
-    trouble_encountered: "Probléme durant l'intervention"
+    trouble_encountered: "Problème durant l'intervention"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
