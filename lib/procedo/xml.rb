@@ -127,7 +127,7 @@ module Procedo
             locals[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        %w(component-of).each do |attribute|
+        %w(component-of display-status).each do |attribute|
           if element.has_attribute?(attribute)
             locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
