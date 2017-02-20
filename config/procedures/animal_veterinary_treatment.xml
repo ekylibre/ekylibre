@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_antibiotic_treatment" categories="animal_treating" actions="disease_treatment">
+  <procedure name="animal_veterinary_treatment" categories="animal_treating" actions="disease_treatment">
     <parameters>
       <target name="animal" filter="is animal"/>
-      <input name="animal_medicine" filter="can care(animal)">
+      <input name="animal_medicine" filter="is matter and can care(animal)">
         <handler name="population"/>
         <handler indicator="net_mass" unit="gram"
                  if="PRODUCT.net_mass(gram) > 0"
@@ -12,7 +12,7 @@
                  if="PRODUCT.net_volume(milliliter) > 0" to="population"
                  backward="(POPULATION * PRODUCT..net_volume(milliliter))" forward="(VALUE / PRODUCT..net_volume(milliliter))"/>
       </input>
-      <doer name="caregiver" filter="can administer_care(animal)"/>
+      <doer name="caregiver" filter="can administer_care(animal)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
