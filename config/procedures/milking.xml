@@ -7,16 +7,16 @@
         <attribute name="new_name" value="output_computed_name(VARIANT, working_periods)" />
         <!-- <attribute name="derivative-of" value="variety_of(first_product_of(mammal_to_milk))"/>   working_periods -->
         <handler name="population"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="VARIANT.net_volume?"
+                 backward="POPULATION * VARIANT.net_volume(liter)"
+                 forward="VALUE / VARIANT.net_volume(liter)"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="VARIANT.net_mass?"
-                 backward="VALUE * VARIANT.net_mass(kilogram)"
+                 backward="POPULATION * VARIANT.net_mass(kilogram)"
                  forward="VALUE / VARIANT.net_mass(kilogram)"/>
-        <handler name="kilogram_per_animal" indicator="net_mass" unit="kilogram"
-                 if="VARIANT.net_mass? and population_count(mammal_to_milk) != 0"
-                 backward="(POPULATION * VARIANT.net_mass(kilogram)) / population_count(mammal_to_milk)"
-                 forward="(VALUE * population_count(mammal_to_milk)) / VARIANT.net_mass(kilogram)"/>
       </output>
-      <doer name="caregiver"  filter="can milk(mammalia)" cardinality="*"/>
+      <doer name="doer"  filter="is worker and can milk(mammalia)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
