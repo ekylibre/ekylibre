@@ -250,6 +250,7 @@ Rails.application.routes.draw do
         match 'load_animals', via: [:get]
         post :change
         put :add_group
+        post :keep
       end
       member do
         match :add_to_group, via: [:get, :post]
@@ -610,15 +611,16 @@ Rails.application.routes.draw do
     end
 
     resources :journal_entries, concerns: [:list, :unroll] do
+      collection do
+        get :currency_state, path: 'currency-state'
+        patch :toggle_autocompletion, path: 'toggle-autocompletion'
+      end
       member do
         get :list_items
       end
-      collection do
-        patch :toggle_autocompletion, path: 'toggle-autocompletion'
-      end
     end
 
-    resources :journal_entry_items, only: [:new, :show, :index], concerns: [:list, :unroll]
+    resources :journal_entry_items, only: [:show, :index], concerns: [:list, :unroll]
 
     resources :kujakus, only: [] do
       member do

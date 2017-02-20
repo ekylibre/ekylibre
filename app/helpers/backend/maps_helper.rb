@@ -158,7 +158,7 @@ module Backend
       if options.delete(:main)
         options[:box] ||= {}
         options[:box][:height] = '100%'
-        html_options.merge!(class: 'map-fullwidth')
+        html_options[:class] = 'map-fullwidth'
       end
       visualization(options, html_options) do |v|
         backgrounds.each do |b|

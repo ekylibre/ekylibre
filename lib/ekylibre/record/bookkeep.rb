@@ -85,7 +85,8 @@ module Ekylibre
             list = record(&block) if block_given?
 
             if journal_entry && (!journal_entry.draft? || list.empty? ||
-                                 attributes[:journal_id] != journal_entry.journal_id)
+                                 attributes[:journal_id] != journal_entry.journal_id ||
+                                 @action == :destroy)
               journal_entry.cancel
               journal_entry = nil
             end
@@ -162,6 +163,7 @@ module Ekylibre
             code << "  if ::Preference[:bookkeep_automatically]\n"
             code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
             code << "  end\n"
+            code << "  true\n"
             code << "end\n"
           end
 

@@ -4,8 +4,8 @@
     <parameters>
       <group name="animal_movement">
         <target name="animal" filter="is animal" cardinality="1">
-          <attribute name="new_container_id" filter="is building_division and can store(animal)"/>
-          <attribute name="new_group_id" compute-filter="'is animal_group and derives from %{variety_of(PRODUCT)}'"/>
+          <attribute name="new_container" filter="is building_division and can store(animal)"/>
+          <attribute name="new_group" compute-filter="'is animal_group and derives from %{variety_of(PRODUCT)}'"/>
           <attribute name="new_variant" value="variant_of(NEW_GROUP)"/>
         </target>
       </group>

@@ -242,6 +242,9 @@ deu:
         root: "Wurzel"
         string: "Schnur"
     loan:
+      insurance_repayment_method:
+        # initial: "Based on initial capital"
+        # to_repay: "Based on capital left to repay"
       repayment_method:
         constant_amount: "konstante Menge"
         constant_rate: "Konstante Rate"

@@ -348,6 +348,7 @@ animals:
   read:
     actions:
     - "backend/animals#index"
+    - "backend/animals#keep"
     - "backend/animals#list"
     - "backend/animals#list_carried_linkages"
     - "backend/animals#list_carrier_linkages"
@@ -1236,12 +1237,12 @@ journal_entries:
     - read-journal_entries
     actions:
     - "backend/journal_entries#create"
+    - "backend/journal_entries#currency_state"
     - "backend/journal_entries#destroy"
     - "backend/journal_entries#edit"
     - "backend/journal_entries#new"
     - "backend/journal_entries#toggle_autocompletion"
     - "backend/journal_entries#update"
-    - "backend/journal_entry_items#new"
     - "backend/regularizations#create"
     - "backend/regularizations#destroy"
 

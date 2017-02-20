@@ -10,8 +10,8 @@ module Procedo
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           attributes = Maybe(attributes)
-          @new_group = Product.find_by(id: attributes[:new_group_id].to_i.or_else(0))
-          @new_container = Product.find_by(id: attributes[:new_container_id].to_i.or_else(0))
+          @new_group = Product.find_by(id: attributes[:new_group].to_i.or_else(0))
+          @new_container = Product.find_by(id: attributes[:new_container].to_i.or_else(0))
         end
 
         def new_group_id

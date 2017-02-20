@@ -10,6 +10,8 @@ ita:
         born_at: "creato a"
       building:
         born_at: "costruito alla"
+      cashes:
+        # main_account: "Main account"
       document:
         # filename: "File"
       document_template:
@@ -854,6 +856,7 @@ ita:
     inspections: "ispezioni"
     insurance_amount: "importo di assicurazione"
     insurance_percentage: "percentuale di assicurazione"
+    # insurance_repayment_method: "Insurance repayment method"
     integer_value: "valore intero"
     integration_name: "Nome Integrazione"
     interest_amount: "importo interesse"
@@ -965,6 +968,7 @@ ita:
     mail_postal_zone: "posta postal_zone"
     mails: "mails"
     main: "Principale"
+    # main_account: "Main account"
     main_activity: "Attività principale"
     main_crop_code: "codice coltura principale"
     main_crop_commercialisation: "Principale commercializzazione delle colture"
@@ -1387,7 +1391,10 @@ ita:
     support_variant_unit: "unità di supporto variante"
     support_variety: "varietà di sostegno"
     supports: "supporti"
+    # suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Sospeso"
+    # suspended_journal_entry_items: "Suspended journal entry items"
+    # suspense_account: "Suspense account"
     tactic: "Tecnica gestione delle colture"
     tactics: "tattica"
     target: "Bersaglio"
