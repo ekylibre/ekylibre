@@ -12,7 +12,7 @@
               -->
         </input>
       </group>
-      <doer name="inseminator" filter="is worker and can administer_care(bos)"/>
+      <doer name="inseminator" filter="is worker and can administer_inseminate(animal)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
