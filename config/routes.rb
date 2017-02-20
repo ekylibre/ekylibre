@@ -91,7 +91,7 @@ Rails.application.routes.draw do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
       end
       resources :crumbs
-      resources :interventions, only: [:index]
+      resources :interventions, only: [:index, :create]
       resources :intervention_participations, only: [:create]
       resources :intervention_targets, only: [:show]
       resources :issues
