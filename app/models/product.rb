@@ -364,6 +364,10 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
+    def miscibility_of(products)
+      true if products
+    end
   end
 
   def production(at = nil)

@@ -4,6 +4,13 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
+        def miscibility(set)
+          products = set.map do |parameter|
+           parameter.product || parameter.variant
+          end
+          Product.miscibility_of(products)
+        end
+
         # Test if population counting is as specified for given product
         def population_counting_is(product, expected)
           ((product && product.population_counting.to_sym) == expected ? 1 : 0)
