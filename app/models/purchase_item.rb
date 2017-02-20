@@ -126,18 +126,18 @@ class PurchaseItem < Ekylibre::Record::Base
         # select outstanding_assets during purchase
         self.account = Account.find_or_import_from_nomenclature(:outstanding_assets)
 
-        if fixed_asset && fixed_asset.state == :draft
-          # if fixed asset is already registered BUT an identical name is going to be saved
-          # attrs = { name: fixed_asset.name.dup }
-          # if FixedAsset.where(name: attrs[:name]).where.not(id: fixed_asset.id).any?
-          #  if annotation
-          #    fixed_asset.update(name: attrs[:name] << ' ' + annotation)
-          #  else
-          #    fixed_asset.update(name: attrs[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase)
-          #  end
-          #  fixed_asset.reload
-          # end
-        end
+        # if fixed_asset && fixed_asset.state == :draft
+        # if fixed asset is already registered BUT an identical name is going to be saved
+        # attrs = { name: fixed_asset.name.dup }
+        # if FixedAsset.where(name: attrs[:name]).where.not(id: fixed_asset.id).any?
+        #  if annotation
+        #    fixed_asset.update(name: attrs[:name] << ' ' + annotation)
+        #  else
+        #    fixed_asset.update(name: attrs[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase)
+        #  end
+        #  fixed_asset.reload
+        # end
+        # end
         unless fixed_asset
           # Create asset
           asset_attributes = {

@@ -60,7 +60,7 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: [:simplified_linear, :linear, :regressive], predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: [:simplified_linear, :linear, :regressive, :none], predicates: { prefix: true } # graduated
   refers_to :currency
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
@@ -144,7 +144,7 @@ class FixedAsset < Ekylibre::Record::Base
         end
       end
       if self.stopped_on
-        unless self.stopped_on > started_on
+        unless self.stopped_on >= started_on
           errors.add(:stopped_on, :posterior, to: started_on.l)
         end
       end
@@ -185,8 +185,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def updateable?
-    # (self.scrapped? || self.sold?)
-    true
+    draft?
   end
 
   def destroyable?
@@ -287,6 +286,11 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using regressive method
   def depreciate_with_regressive_method(starts)
+    # TODO
+  end
+  
+  # Depreciate using regressive method
+  def depreciate_with_none_method(starts)
     # TODO
   end
 

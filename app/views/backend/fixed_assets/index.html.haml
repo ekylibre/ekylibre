@@ -9,4 +9,5 @@
       = select_tag(:product_id, options_for_select([[]] +  products.map{|u| [u.name, u.id]}, params[:product_id].to_i))
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
+  = t.export :fixed_asset_registry, key: Time.zone.now.to_s, resource: @fixed_assets
 = main_list
