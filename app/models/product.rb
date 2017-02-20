@@ -366,7 +366,7 @@ class Product < Ekylibre::Record::Base
     alias_method_chain :new, :cast
 
     def miscibility_of(products)
-      true if products
+      :valid if products
     end
   end
 

@@ -14,6 +14,10 @@
   # The concept is: When an update is done, we ask server which are the impact on
   # other fields and on updater itself if necessary
   E.interventions =
+    updateProcedureLevelAttributes: (form, attributes) ->
+      for name, properties of attributes
+        parameterContainer = $("[data-intervention-parameter='#{name}']").parent('.nested-association')
+        $(parameterContainer).attr('data-display-status', properties.display)
 
     handleComponents: (form, attributes, prefix = '') ->
       for name, value of attributes
@@ -164,6 +168,7 @@
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
+            E.interventions.updateProcedureLevelAttributes(form, data.procedure_states)
             computing.prop 'state', 'ready'
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()

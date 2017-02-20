@@ -29,7 +29,7 @@ module Procedo
       end
 
       def to_hash
-        hash = { procedure_name: @procedure.name, working_periods_attributes: {}, procedure_attributes: {} }
+        hash = { procedure_name: @procedure.name, working_periods_attributes: {} }
         @working_periods.each do |id, period|
           hash[:working_periods_attributes][id] = period.to_hash
         end
@@ -37,12 +37,6 @@ module Procedo
           param_name = parameter.param_name
           hash[param_name] ||= {}
           hash[param_name][parameter.id.to_s] = parameter.to_hash
-        end
-        @procedure.parameters.each do |parameter|
-          param_name = parameter.name
-          concerned_params = @root_group.parameters_of_name(param_name)
-          display_method = parameter.display_status
-          hash[:procedure_attributes][param_name] = Functions.send(display_method, concerned_params) if display_method
         end
         hash
       end
@@ -56,6 +50,17 @@ module Procedo
           next if states.empty?
           hash[param_name] ||= {}
           hash[param_name][parameter.id.to_s] = states
+        end
+        hash
+      end
+
+      def procedure_states
+        hash = {}
+        @procedure.parameters.each do |parameter|
+          param_name = parameter.name
+          concerned_params = @root_group.parameters_of_name(param_name)
+          display_method = parameter.display_status
+          hash[param_name] = { display: Functions.send(display_method, concerned_params) } if display_method
         end
         hash
       end
