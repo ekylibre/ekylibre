@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170206163322">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170220222412">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2097,6 +2097,7 @@
       <item name="animal_feeding"/>
       <item name="animal_group_changing"/>
       <item name="animal_housing_mulching"/>
+      <item name="animal_identification"/>
       <item name="animal_penning"/>
       <item name="animal_sorting"/>
       <item name="animal_training"/>
@@ -2247,6 +2248,7 @@
       <item name="administrative_tasks" activity_family="administering"/>
       <item name="animal_breeding" activity_family="animal_farming"/>
       <item name="animal_feeding" activity_family="animal_farming"/>
+      <item name="animal_identification" activity_family="animal_farming"/>
       <item name="animal_production" activity_family="animal_farming"/>
       <item name="animal_treating" activity_family="animal_farming"/>
       <item name="building_maintenance" activity_family="tool_maintaining"/>
