@@ -80,9 +80,9 @@ module Procedo
         options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
         options[:varieties] = element.attr('varieties')
-                                   .to_s
-                                   .split(/[\s\,]+/)
-                                   .map(&:to_sym)
+                                     .to_s
+                                     .split(/[\s\,]+/)
+                                     .map(&:to_sym)
 
         procedure = Procedo::Procedure.new(name, options)
 

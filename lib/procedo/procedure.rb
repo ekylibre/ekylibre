@@ -50,7 +50,7 @@ module Procedo
         include_deprecated = options[:include_deprecated]
         Procedo.procedures.select do |p|
           (include_deprecated || (!include_deprecated && !p.deprecated?)) &&
-              yield(p)
+            yield(p)
         end
       end
 

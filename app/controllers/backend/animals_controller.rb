@@ -190,7 +190,7 @@ module Backend
       varieties = Animal.where(id: @ids).pluck(:variety).uniq if @ids
 
       respond_to do |format|
-        format.js { render partial: 'matching_interventions', locals: {varieties: varieties} }
+        format.js { render partial: 'matching_interventions', locals: { varieties: varieties } }
       end
     end
 

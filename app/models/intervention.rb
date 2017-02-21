@@ -288,7 +288,7 @@ class Intervention < Ekylibre::Record::Base
         ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
       end
 
-      if target.identification_number and target.product.identification_number.nil?
+      if target.identification_number && target.product.identification_number.nil?
         target.update_column! :identification_number, target.identification_number
       end
     end

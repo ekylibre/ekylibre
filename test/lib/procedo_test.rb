@@ -48,6 +48,6 @@ class ProcedoTest < ActiveSupport::TestCase
     end
 
     procedures = Procedo::Procedure.of_varieties(:bos_taurus)
-    assert procedures.any?, "Variety bos_taurus should contains procedures"
+    assert procedures.any?, 'Variety bos_taurus should contains procedures'
   end
 end
