@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
+  <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing" varieties="animal">
     <parameters>
         <target name="animal" filter="is animal">
           <attribute name="new_container" filter="is building_division and can store(animal)"/>
