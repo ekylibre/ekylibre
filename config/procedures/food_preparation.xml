@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="food_preparation" categories="animal_feeding" actions="food_preparation">
+  <procedure name="food_preparation" categories="animal_feeding" actions="food_preparation" varieties="animal">
     <parameters>
       <input name="food" filter="is preparation and can feed(animal)">
       	<handler name="population"/>

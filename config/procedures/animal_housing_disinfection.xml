@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_housing_disinfection" categories="habitat_maintenance" actions="hygiene">
+  <procedure name="animal_housing_disinfection" categories="habitat_maintenance" actions="hygiene" varieties="actinopterygii,aves,gastropoda,apidae,mammalia">
     <parameters>
       <target name="animal_housing" filter="is building_division and can store(animal) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>

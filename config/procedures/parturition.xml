@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="parturition" categories="animal_breeding" actions="parturition" optional-actions="animal_identification">
+  <procedure name="parturition" categories="animal_breeding" actions="parturition" optional-actions="animal_identification" varieties="mammalia">
     <parameters>
       <group name="parturition">
         <target name="mother" filter="is animal and can produce(animal)" cardinality="1"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="milking" categories="animal_production" actions="milking">
+  <procedure name="milking" categories="animal_production" actions="milking" varieties="mammalia">
     <parameters>
       <target name="mammal_to_milk" filter="is mammalia and can produce(milk)"/>
       <output name="milk" filter="is milk and derives from mammalia">
