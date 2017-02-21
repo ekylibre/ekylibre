@@ -110,8 +110,8 @@ $preview-modal-height: 80vh;
         display: inline-block;
         border: 1px solid $neutral-color;
         border-radius: 100%;
-        width: $lh-normal;
-        height: $lh-normal;
+        width: $lh-small;
+        height: $lh-small;
 
         &[data-display-status=valid] {
           background-color: lighten($brand-success, 10%);
