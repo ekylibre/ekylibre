@@ -17,7 +17,11 @@
     updateProcedureLevelAttributes: (form, attributes) ->
       for name, properties of attributes
         parameterContainer = $("[data-intervention-parameter='#{name}']").parent('.nested-association')
-        parameterContainer.find(".display-info .status").attr('data-display-status', properties.display)
+        if properties.display
+          statusDisplay = parameterContainer.find(".display-info")
+          statusDisplay.find(" .status")
+                       .attr('data-display-status', properties.display)
+          statusDisplay.show()
 
     handleComponents: (form, attributes, prefix = '') ->
       for name, value of attributes

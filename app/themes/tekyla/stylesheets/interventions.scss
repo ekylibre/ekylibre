@@ -103,6 +103,7 @@ $preview-modal-height: 80vh;
     position: relative;
     .display-info {
       position: absolute;
+      display: none;
 
       .status {
         @include margin-left(10px);
