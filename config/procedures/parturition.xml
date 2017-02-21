@@ -5,6 +5,7 @@
       <target name="mother" filter="is bos and can produce(bos)" cardinality="1"/>
       <output name="child" filter="is bos" cardinality="*">
         <attribute name="new_name"/>
+        <attribute name="identification_number"/>
         <!-- <attribute name="new_group"/>
              <attribute name="father_id"/> METHOD : mother.last_transplantation.input.father || mother.last_insemination.input.producer
              <attribute name="mother_id"/> METHOD : mother.last_transplantation.input.mother || mother

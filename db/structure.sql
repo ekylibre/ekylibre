@@ -327,7 +327,8 @@ CREATE TABLE intervention_parameters (
     assembly_id integer,
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    dead boolean DEFAULT false NOT NULL
+    dead boolean DEFAULT false NOT NULL,
+    identification_number character varying
 );
 
 
@@ -16879,19 +16880,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170124133351');
 
 INSERT INTO schema_migrations (version) VALUES ('20170125162958');
 
-INSERT INTO schema_migrations (version) VALUES ('20170203131230');
-
 INSERT INTO schema_migrations (version) VALUES ('20170203135031');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203181700');
-
-INSERT INTO schema_migrations (version) VALUES ('20170206085737');
-
-INSERT INTO schema_migrations (version) VALUES ('20170206102237');
-
-INSERT INTO schema_migrations (version) VALUES ('20170206104614');
-
-INSERT INTO schema_migrations (version) VALUES ('20170206125705');
 
 INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 
@@ -16904,4 +16895,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170214130330');
 INSERT INTO schema_migrations (version) VALUES ('20170215155700');
 
 INSERT INTO schema_migrations (version) VALUES ('20170215171400');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220192042');
 
