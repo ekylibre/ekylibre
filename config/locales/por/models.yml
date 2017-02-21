@@ -11,7 +11,7 @@ por:
       building:
         born_at: "Construído no"
       cashes:
-        # main_account: "Main account"
+        main_account: "Conta principal"
       document:
         filename: "Arquivo"
       document_template:
@@ -825,7 +825,7 @@ por:
     inspections: "inspeções"
     insurance_amount: "Valor do seguro"
     insurance_percentage: "Porcentagem de seguros"
-    # insurance_repayment_method: "Insurance repayment method"
+    insurance_repayment_method: "Método de reembolso de seguros"
     integer_value: "Valor inteiro"
     integration_name: "Nome integração"
     interest_amount: "Montante de juros"
@@ -937,7 +937,7 @@ por:
     mail_postal_zone: "Postal_zone correio"
     mails: "Mails"
     main: "A Principal"
-    # main_account: "Main account"
+    main_account: "Conta principal"
     main_activity: "Atividade principal"
     main_crop_code: "Código de cultura principal"
     main_crop_commercialisation: "Comercialização cultura principal"
@@ -1360,10 +1360,10 @@ por:
     support_variant_unit: "Unidade variante apoio"
     support_variety: "Variedade apoio"
     supports: "Suportes"
-    # suspend_until_reconciliation: "Suspend until reconciliation"
+    suspend_until_reconciliation: "Suspender até a reconciliação"
     suspended: "Suspenso"
-    # suspended_journal_entry_items: "Suspended journal entry items"
-    # suspense_account: "Suspense account"
+    suspended_journal_entry_items: "Itens de entrada de registos suspensos"
+    suspense_account: "Conta suspensa"
     tactic: "Técnica manejo da cultura"
     tactics: "tática"
     target: "Alvo"

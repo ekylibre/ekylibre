@@ -243,8 +243,8 @@ spa:
         string: "Cuerda"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "Sobre la base de capital inicial"
+        to_repay: "Basado en el capital dejó de reembolsar"
       repayment_method:
         constant_amount: "Cantidad constante"
         constant_rate: "Tasa constante"

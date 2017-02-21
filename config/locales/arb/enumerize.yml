@@ -242,8 +242,8 @@ arb:
         string: "خيط"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "على أساس رأس المال الأولي"
+        to_repay: "وبناء على رأس المال من اليسار إلى سداد"
       repayment_method:
         constant_amount: "مبلغ ثابت"
         constant_rate: "معدل ثابت"
