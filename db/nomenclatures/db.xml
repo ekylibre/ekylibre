@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170220222412">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170221102405">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1697,6 +1697,7 @@
       <item name="members_population" datatype="decimal" probe="true"/>
       <item name="milk_daily_production" datatype="measure" unit="kilogram_per_day"/>
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
+      <item name="milker_clusters_number" datatype="integer"/>
       <item name="minimal_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"/>
       <item name="minimal_relative_humidity" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
       <item name="minimal_solar_irradiance" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="period"/>
@@ -2981,6 +2982,7 @@
       <item name="milked_lamb_meat" nature="lamb_meat" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milked_pork_meat" nature="pork_meat" derivative_of="sus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="milking_division" nature="food_equipment_division" frozen_indicators_values="" unit_name="room"/>
+      <item name="milking_robot" nature="milking_robot"/>
       <item name="minced_beef_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="minced_ox_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="mineral_cleaner" nature="mineral_cleaner" frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter" unit_name="liter"/>
@@ -3404,6 +3406,7 @@
       <item name="melon_crop" category="crop" variety="cucumis" population_counting="decimal" abilities="consume(water), consume(preparation), produce(melon)" variable_indicators="fresh_mass, plant_life_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="melon"/>
       <item name="milk" category="milk" variety="milk" derivative_of="mammalia" population_counting="decimal" abilities="feed(mammalia)" variable_indicators="clostridial_spores_concentration, fat_matters_concentration, freezing_point_temperature, immunoglobulins_concentration, inhibitors_presence, lipolysis, protein_matters_concentration, somatic_cell_concentration, temperature, total_bacteria_concentration, urea_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="milk_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(milk), store_liquid" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
+      <item name="milking_robot" category="equipment" variety="equipment" population_counting="unitary" abilities="milk(mammalia)" frozen_indicators="milker_clusters_number"/>
       <item name="mineral_cleaner" category="other_consumable" variety="preparation" population_counting="decimal" abilities="clean(building_division)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="mixed_chemical_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="mixed_liquid_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="net_volume, nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_mass"/>
