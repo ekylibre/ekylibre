@@ -1296,6 +1296,7 @@ eng:
     interval: "Personalized Interval" #?
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
+    intervention_message_miscibility: "Mixing allowed"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
