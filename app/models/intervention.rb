@@ -287,6 +287,10 @@ class Intervention < Ekylibre::Record::Base
       if target.new_variant_id
         ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
       end
+
+      if target.identification_number and target.product.identification_number.nil?
+        target.update_column! :identification_number, target.identification_number
+      end
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
