@@ -3352,6 +3352,8 @@ intervention_parameters:
   id:
     type: integer
     required: true
+  identification_number:
+    type: string
   intervention_id:
     type: integer
     references: intervention
