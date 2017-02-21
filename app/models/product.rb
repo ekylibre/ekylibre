@@ -365,8 +365,8 @@ class Product < Ekylibre::Record::Base
     end
     alias_method_chain :new, :cast
 
-    def miscibility_of(products)
-      :valid if products
+    def miscibility_of(products_and_variants)
+      PhytosanitaryMiscibility.new(products_and_variants).legality
     end
   end
 
