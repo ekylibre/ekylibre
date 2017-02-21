@@ -22,50 +22,65 @@
 #
 # == Table: products
 #
-#  address_id            :integer
-#  born_at               :datetime
-#  category_id           :integer          not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  custom_fields         :jsonb
-#  dead_at               :datetime
-#  default_storage_id    :integer
-#  derivative_of         :string
-#  description           :text
-#  fixed_asset_id        :integer
-#  id                    :integer          not null, primary key
-#  identification_number :string
-#  initial_born_at       :datetime
-#  initial_container_id  :integer
-#  initial_dead_at       :datetime
-#  initial_enjoyer_id    :integer
-#  initial_father_id     :integer
-#  initial_geolocation   :geometry({:srid=>4326, :type=>"point"})
-#  initial_mother_id     :integer
-#  initial_movement_id   :integer
-#  initial_owner_id      :integer
-#  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  lock_version          :integer          default(0), not null
-#  member_variant_id     :integer
-#  name                  :string           not null
-#  nature_id             :integer          not null
-#  number                :string           not null
-#  parent_id             :integer
-#  person_id             :integer
-#  picture_content_type  :string
-#  picture_file_name     :string
-#  picture_file_size     :integer
-#  picture_updated_at    :datetime
-#  team_id               :integer
-#  tracking_id           :integer
-#  type                  :string
-#  updated_at            :datetime         not null
-#  updater_id            :integer
-#  uuid                  :uuid
-#  variant_id            :integer          not null
-#  variety               :string           not null
-#  work_number           :string
+#  address_id                   :integer
+#  birth_date_completeness      :string
+#  birth_farm_number            :string
+#  born_at                      :datetime
+#  category_id                  :integer          not null
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  custom_fields                :jsonb
+#  dead_at                      :datetime
+#  default_storage_id           :integer
+#  derivative_of                :string
+#  description                  :text
+#  end_of_life_reason           :string
+#  father_country               :string
+#  father_identification_number :string
+#  father_variety               :string
+#  filiation_status             :string
+#  first_calving_on             :datetime
+#  fixed_asset_id               :integer
+#  id                           :integer          not null, primary key
+#  identification_number        :string
+#  initial_born_at              :datetime
+#  initial_container_id         :integer
+#  initial_dead_at              :datetime
+#  initial_enjoyer_id           :integer
+#  initial_father_id            :integer
+#  initial_geolocation          :geometry({:srid=>4326, :type=>"point"})
+#  initial_mother_id            :integer
+#  initial_movement_id          :integer
+#  initial_owner_id             :integer
+#  initial_population           :decimal(19, 4)   default(0.0)
+#  initial_shape                :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  lock_version                 :integer          default(0), not null
+#  member_variant_id            :integer
+#  mother_country               :string
+#  mother_identification_number :string
+#  mother_variety               :string
+#  name                         :string           not null
+#  nature_id                    :integer          not null
+#  number                       :string           not null
+#  origin_country               :string
+#  origin_identification_number :string
+#  originator_id                :integer
+#  parent_id                    :integer
+#  person_id                    :integer
+#  picture_content_type         :string
+#  picture_file_name            :string
+#  picture_file_size            :integer
+#  picture_updated_at           :datetime
+#  team_id                      :integer
+#  tracking_id                  :integer
+#  type                         :string
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  uuid                         :uuid
+#  variant_id                   :integer          not null
+#  variety                      :string           not null
+#  work_number                  :string
 #
 
 require 'ffaker'
@@ -257,9 +272,9 @@ class Product < Ekylibre::Record::Base
   }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :initial_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }

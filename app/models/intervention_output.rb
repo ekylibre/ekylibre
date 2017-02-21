@@ -70,6 +70,7 @@ class InterventionOutput < InterventionProductParameter
       output.born_at = intervention.started_at
       output.initial_born_at = output.born_at
       output.name = new_name unless new_name.blank?
+      output.identification_number = identification_number unless identification_number.blank?
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
       output.initial_shape = reading.value if reading
