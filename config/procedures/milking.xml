@@ -16,6 +16,7 @@
                  backward="POPULATION * VARIANT.net_mass(kilogram)"
                  forward="VALUE / VARIANT.net_mass(kilogram)"/>
       </output>
+      <tool name="milking_robot" filter="is equipment and can milk(mammalia)" cardinality="*"/>
       <doer name="doer"  filter="is worker and can milk(mammalia)" cardinality="*"/>
     </parameters>
   </procedure>
