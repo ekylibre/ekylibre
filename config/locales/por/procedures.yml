@@ -74,6 +74,7 @@ por:
     mechanic: "Mecânico"
     mechanical_pollinator: "polinizador mecânica"
     milk: "Leite"
+    # milking_robot: "Milking robot"
     mother: "Mãe"
     movement: "Movimento" #?
     mower: "Segador"

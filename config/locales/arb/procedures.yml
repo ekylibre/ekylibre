@@ -74,6 +74,7 @@ arb:
     mechanic: "ميكانيكي"
     mechanical_pollinator: "الملقحات الميكانيكية"
     milk: "حليب"
+    # milking_robot: "Milking robot"
     mother: "أم"
     movement: "حركة" #?
     mower: "جزازة"

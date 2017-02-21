@@ -74,6 +74,7 @@ deu:
     mechanic: "Mechaniker"
     mechanical_pollinator: "Mechanische Bestäuber"
     milk: "Milch"
+    # milking_robot: "Milking robot"
     mother: "Mutter"
     movement: "Bewegung" #?
     mower: "Mäher"

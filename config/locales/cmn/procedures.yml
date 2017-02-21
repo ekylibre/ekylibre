@@ -74,6 +74,7 @@ cmn:
     mechanic: "机械"
     mechanical_pollinator: "机械授粉"
     milk: "牛奶"
+    # milking_robot: "Milking robot"
     mother: "母亲"
     movement: "运动" #?
     mower: "割草机"

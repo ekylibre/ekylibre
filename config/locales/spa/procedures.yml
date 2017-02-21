@@ -74,6 +74,7 @@ spa:
     mechanic: "Mecánico"
     mechanical_pollinator: "polinizador mecánica"
     milk: "Leche"
+    # milking_robot: "Milking robot"
     mother: "Madre"
     movement: "Movimiento" #?
     mower: "Cortacésped"
