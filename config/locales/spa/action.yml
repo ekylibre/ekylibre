@@ -1868,8 +1868,8 @@ spa:
       # one: "%{count} link"
       # other: "%{count} links"
     x_events:
-      one: "1 evento"
-      # other: "%{count} events"
+      one: "%{count} evento"
+      other: "%{count} eventos"
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
