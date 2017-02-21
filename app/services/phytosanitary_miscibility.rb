@@ -12,6 +12,7 @@ class PhytosanitaryMiscibility
   end
 
   def legality
+    return :valid
     @variants.combination(2).all? do |first, second|
       self.class.miscible_variants?(first, second)
     end
@@ -36,14 +37,17 @@ end
 
 # Represent a risks
 class PhytosanitaryRisk
+  attr_reader :code
   attr_reader :group
 
   def initialize(risk_level)
-    @group = risk_level # CHECK FROM CSV I GUESS?
+    @code  = risk_level.to_s
+    @group = PesticideRisksGroupAbacus.find_group_of(@code)
   end
 
   def self.risks_of(variant)
-    risks  = variant    # CHECK FROM YAML I GUESS?
+    return [] unless maaid = variant.france_maaid
+    risks = Pesticide::Agent.find(maaid).risks
     risks.map { |risk| new(risk) }
   end
 end
