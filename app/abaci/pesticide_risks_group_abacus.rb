@@ -18,7 +18,7 @@ class PesticideRiskGroup
 
   class << self
     def find_or_initialize(data)
-      existing = @groups.find { |group| group.number == data['group'].to_sym }
+      existing = find(data['group'])
       existing.tap    { |group| group && group.add_data(data) } ||
         new(data).tap { |group| @groups << group              }
     end
@@ -26,6 +26,11 @@ class PesticideRiskGroup
     def serialize_risks(list)
       list.split(', ').map(&:to_sym)
     end
+
+    def find(number)
+      @groups.find { |group| group.number == number.to_s.to_sym }
+    end
+    alias [] find
   end
 
   attr_reader :code, :number, :labels, :risk_codes
