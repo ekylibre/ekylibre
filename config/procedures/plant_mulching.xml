@@ -6,6 +6,7 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="mulching_material" filter="is matter and can cover(plant)" cardinality="*">
+        <handler name="population"/>
         <handler indicator="net_length" unit="meter"
                  if="PRODUCT.net_length? and PRODUCT.net_length != 0"
                  backward="(POPULATION / PRODUCT.net_length(meter))"

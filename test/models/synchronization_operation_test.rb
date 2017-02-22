@@ -29,6 +29,8 @@
 #  lock_version    :integer          default(0), not null
 #  notification_id :integer
 #  operation_name  :string           not null
+#  originator_id   :integer
+#  originator_type :string
 #  request         :jsonb
 #  response        :jsonb
 #  state           :string           not null

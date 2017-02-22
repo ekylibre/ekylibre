@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add procedure category">
+  <item-creation item="procedure_actions#animal_identification"/>
+</migration>

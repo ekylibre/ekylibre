@@ -885,6 +885,7 @@
         <page to="backend/animals#keep"/>
         <page to="backend/animals#list"/>
         <page to="backend/animals#list_children"/>
+        <page to="backend/animals#matching_interventions"/>
         <page to="backend/animals#new"/>
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>
@@ -1880,6 +1881,7 @@
       </item>
       <item name="interventions">
         <page to="api/v1/interventions#index"/>
+        <page to="api/v1/interventions#create"/>
       </item>
       <item name="intervention_participations">
         <page to="api/v1/intervention_participations#create"/>

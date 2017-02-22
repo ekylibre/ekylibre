@@ -89,7 +89,7 @@
                 %td= usage.pre_harvest_interval.l if usage.pre_harvest_interval
                 %td= usage.untreated_zone_margin.l if usage.untreated_zone_margin
 
-  - if resource.products.any?
+  -# if resource.products.any?
     - c.cobble(:stocks) do
       :ruby
         dataset = resource.products

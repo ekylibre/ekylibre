@@ -113,7 +113,7 @@ class EntityTest < ActiveSupport::TestCase
     observation_count = 0
     main = Entity.normal.first
     observation_count += main.observations.count
-    double = Entity.normal.second
+    double = Entity.normal.where(id: EntityAddress.where.not(entity_id: main.id).select(:entity_id)).first
     observation_count += double.observations.count
     main.merge_with(double)
     assert_nil Entity.find_by(id: double.id)
@@ -125,7 +125,7 @@ class EntityTest < ActiveSupport::TestCase
     observation_count = 0
     main = Entity.normal.first
     observation_count += main.observations.count
-    double = Entity.normal.second
+    double = Entity.normal.where(id: EntityAddress.where.not(entity_id: main.id).select(:entity_id)).first
     observation_count += double.observations.count
     main.merge_with(double, author: User.first)
     assert_nil Entity.find_by(id: double.id)

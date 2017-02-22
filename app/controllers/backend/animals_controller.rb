@@ -162,7 +162,7 @@ module Backend
     list(:children, model: :product_links, conditions: { linked_id: 'params[:id]'.c, nature: %w(father mother) }, order: { started_at: :desc }) do |t|
       t.column :name, through: :product, url: true
       t.column :born_at, through: :product, datatype: :datetime
-      t.column :sex, through: :product
+      t.column :sex, through: :product, label_method: :sex_text, label: :sex
     end
 
     # Show one animal with params_id
@@ -183,6 +183,15 @@ module Backend
       return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
       current_user.prefer! 'products_for_intervention', params[:id], :string
       render json: { id: 'products_for_intervention' }
+    end
+
+    def matching_interventions
+      return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+      varieties = Animal.where(id: @ids).pluck(:variety).uniq if @ids
+
+      respond_to do |format|
+        format.js { render partial: 'matching_interventions', locals: { varieties: varieties } }
+      end
     end
 
     def add_to_group

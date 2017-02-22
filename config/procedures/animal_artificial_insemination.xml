@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination">
+  <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination" varieties="mammalia">
     <parameters>
       <group name="insemination">
         <target name="animal" filter="is animal and can produce(animal)" cardinality="1"/>
@@ -12,7 +12,7 @@
               -->
         </input>
       </group>
-      <doer name="inseminator" filter="is worker and can administer_care(bos)"/>
+      <doer name="inseminator" filter="is worker and can administer_inseminate(animal)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
