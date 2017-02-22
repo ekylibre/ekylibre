@@ -8,7 +8,7 @@ module Procedo
           products = set.map do |parameter|
            parameter.product || parameter.variant
           end
-          PhytosanitaryMiscibility.new(products).legality
+          PhytosanitaryMiscibility.new(products).validity
         end
 
         # Test if population counting is as specified for given product
