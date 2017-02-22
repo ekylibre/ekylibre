@@ -8,14 +8,14 @@ class PhytosanitaryMiscibility
     end
   end
 
-  def legality
+  def valid?
     @variants.combination(2).all? do |first, second|
       self.class.miscible_variants?(first, second)
     end
   end
 
   def validity
-    legality ? :valid : :invalid
+    valid? ? :valid : :invalid
   end
 
   def self.miscible_variants?(first, second)
