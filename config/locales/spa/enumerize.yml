@@ -54,6 +54,20 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    animal:
+      birth_date_completeness:
+        full_date: "Fecha completa"
+        month_year: "Mes año"
+        year: "Año"
+      end_of_life_reason:
+        calculated_date: "Fecha calculada"
+        cutting_up: "Cortando"
+        death: "Muerte"
+        slaughter: "Sacrificio"
+      filiation_status:
+        certified: "Certificado"
+        uncertified: "Sin certificar"
+        unknown: "Desconocido"
     call_message:
       nature:
         incoming: "Entrante"
@@ -323,6 +337,15 @@ spa:
       nature:
         # exterior: "Exterior"
         # interior: "Interior"
+    product_movement:
+      description:
+        birth: "Nacimiento"
+        butchery: "Carnicería"
+        consumption: "Consumo"
+        death: "Muerte"
+        loan: "Préstamo"
+        purchase: "Compra"
+        sale: "Venta"
     product_nature:
       population_counting:
         # decimal: "Decimal"

@@ -185,6 +185,15 @@ module Backend
       render json: { id: 'products_for_intervention' }
     end
 
+    def matching_interventions
+      return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+      varieties = Animal.where(id: @ids).pluck(:variety).uniq if @ids
+
+      respond_to do |format|
+        format.js { render partial: 'matching_interventions', locals: { varieties: varieties } }
+      end
+    end
+
     def add_to_group
       return unless find_all
       targets = @ids.collect do |id|

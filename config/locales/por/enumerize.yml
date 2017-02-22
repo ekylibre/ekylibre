@@ -55,6 +55,20 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    animal:
+      birth_date_completeness:
+        full_date: "Data completa"
+        month_year: "Mês ano"
+        year: "Ano"
+      end_of_life_reason:
+        calculated_date: "Data calculada"
+        cutting_up: "Cortando"
+        death: "Morte"
+        slaughter: "Chacina"
+      filiation_status:
+        certified: "Certificado"
+        uncertified: "Não certificada"
+        unknown: "Desconhecido"
     call_message:
       nature:
         incoming: "Entrada"
@@ -325,6 +339,15 @@ por:
       nature:
         # exterior: "Exterior"
         # interior: "Interior"
+    product_movement:
+      description:
+        birth: "Nascimento"
+        butchery: "Açougue"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Empréstimo"
+        purchase: "Compra"
+        sale: "Venda"
     product_nature:
       population_counting:
         # decimal: "Decimal"

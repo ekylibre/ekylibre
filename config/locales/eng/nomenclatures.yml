@@ -1687,7 +1687,7 @@ eng:
         lipolysis: "Lipolysis"
         livestock_unit: "Livestock unit"
         magnesium_concentration: "Magnesium concentration"
-        mammalia_birth_condition: "Mammalia birth condition"
+        mammalia_birth_condition: "Mammalia parturtion condition"
         mammalia_birth_count: "Mammalia birth count"
         mammalia_reproduction_event_abortion: "Mammalia reproduction event abortion"
         mammalia_reproduction_method_embryo_transplant: "Mammalia reproduction method embryo transplant"
@@ -1711,6 +1711,7 @@ eng:
         members_population: "Members population"
         milk_daily_production: "Milk daily production"
         milk_withdrawal_period: "Milk withdrawal period"
+        milker_clusters_number: "Milker clusters number"
         minimal_atmospheric_pressure: "Minimal atmospheric pressure"
         minimal_relative_humidity: "Minimal relative humidity"
         minimal_solar_irradiance: "Minimal solar irradiance"
@@ -2111,6 +2112,7 @@ eng:
         animal_feeding: "Animal feeding"
         animal_group_changing: "Animal group changing"
         animal_housing_mulching: "Animal housing mulching"
+        animal_identification: "Animal identification"
         animal_penning: "Animal penning"
         animal_sorting: "Animal sorting"
         animal_training: "Animal training"
@@ -2257,6 +2259,7 @@ eng:
         administrative_tasks: "Administrative tasks"
         animal_breeding: "Animal breeding"
         animal_feeding: "Animal feeding"
+        animal_identification: "Identification"
         animal_production: "Animal production"
         animal_treating: "Animal treating"
         building_maintenance: "Building maintenance"
@@ -2442,8 +2445,11 @@ eng:
           wheat: "Wheat"
           wrench: "Wrench"
       items:
+        adult_cat: "Adult cat"
+        adult_dog: "Adult dog"
         animal_food: "Animal food"
         animal_housing_services: "Animal housing services"
+        animal_litter: "Animal litter"
         animal_medicine: "Animal medicine"
         animal_reproduction: "Animal reproduction"
         animals_making_services: "Animals making services"
@@ -2550,6 +2556,8 @@ eng:
         wine: "Wine"
         wine_package_consumable: "Wine package consumable"
         worker: "Worker"
+        young_cat: "Young cat"
+        young_dog: "Young dog"
       name: "Product nature categories"
       property_natures:
         charge_account: "Charge account"
@@ -2645,6 +2653,7 @@ eng:
         animal_food_division: "Animal food division"
         animal_housing_cleaner: "Animal housing cleaner"
         animal_housing_service: "Animal housing service"
+        animal_litter: "Animal litter"
         animal_medicine_tank: "Animal medicine tank"
         animal_waste_building_division: "Animal waste building division"
         animals_making_service: "Animals making service"
@@ -2877,6 +2886,7 @@ eng:
         diesel: "Diesel"
         disc_harrow: "Disc harrow"
         discount_and_reduction: "Discount and reduction"
+        disinfectant_product: "Disinfectant product"
         domain_name_subscription: "Domain name subscription"
         drain: "Drain"
         drying_making_service: "Drying making service"
@@ -2902,8 +2912,10 @@ eng:
         fallow_crop: "Fallow crop"
         farm_teaching_service: "Farm teaching service"
         fee: "Fee"
+        female_adult_cat: "Female adult cat"
         female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Female adult cow"
+        female_adult_dog: "Female adult dog"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
         female_adult_horse: "Female adult horse"
@@ -2914,8 +2926,10 @@ eng:
         female_adult_sheep_herd: "Female adult sheep herd"
         female_hen_band: "Female hen band"
         female_pig_band: "Female pig band"
+        female_young_cat: "Female young cat"
         female_young_cattle_herd: "Female young cattle herd"
         female_young_cow: "Female young cow"
+        female_young_dog: "Female young dog"
         female_young_goat: "Female young goat"
         female_young_pig_band: "Female young pig band"
         female_young_sheep: "Female young sheep"
@@ -3051,8 +3065,10 @@ eng:
         lucerne_seed: "Lucerne seed"
         lupin_crop: "Lupin crop"
         maintenance: "Maintenance"
+        male_adult_cat: "Male adult cat"
         male_adult_cattle_herd: "Male adult cattle herd"
         male_adult_cow: "Male adult cow"
+        male_adult_dog: "Male adult dog"
         male_adult_goat: "Male adult goat"
         male_adult_goat_herd: "Male adult goat herd"
         male_adult_horse: "Male adult horse"
@@ -3062,8 +3078,10 @@ eng:
         male_adult_sheep: "Male adult sheep"
         male_hen_band: "Male hen band"
         male_pig_band: "Male pig band"
+        male_young_cat: "Male young cat"
         male_young_cattle_herd: "Male young cattle herd"
         male_young_cow: "Male young cow"
+        male_young_dog: "Male young dog"
         male_young_goat: "Male young goat"
         male_young_pig_band: "Male young pig band"
         male_young_sheep: "Male young sheep"
@@ -3080,6 +3098,7 @@ eng:
         milked_lamb_meat: "Milked lamb meat"
         milked_pork_meat: "Milked pork meat"
         milking_division: "Milking division"
+        milking_robot: "Milking robot"
         minced_beef_meat: "Minced beef meat"
         minced_ox_meat: "Minced ox meat"
         mineral_cleaner: "Mineral cleaner"
@@ -3337,6 +3356,7 @@ eng:
         animal_food_building_division: "Animal food building division"
         animal_housing_cleaner: "Animal housing cleaner"
         animal_housing_services: "Animal housing services"
+        animal_litter: "Animal litter"
         animal_medicine: "Animal medicine"
         animal_medicine_tank: "Animal medicine tank"
         animals_making_services: "Animals making services"
@@ -3383,6 +3403,7 @@ eng:
         crop_residue: "Crop residue"
         cultivable_zone: "Cultivable zone"
         discount_and_reduction: "Discount and reduction"
+        disinfectant_product: "Disinfectant product"
         draining_item: "Draining item"
         duck_band: "Duck band"
         duck_herd: "Duck herd"
@@ -3395,8 +3416,10 @@ eng:
         exploitation_subsidies: "Exploitation subsidies"
         farm_teaching_services: "Farm teaching services"
         fee: "Fee"
+        female_adult_cat: "Female adult cat"
         female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Female adult cow"
+        female_adult_dog: "Female adult dog"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
         female_adult_horse: "Female adult horse"
@@ -3404,7 +3427,9 @@ eng:
         female_adult_sheep: "Female adult sheep"
         female_adult_sheep_herd: "Female adult sheep herd"
         female_rabbit: "Female rabbit"
+        female_young_cat: "Female young cat"
         female_young_cow: "Female young cow"
+        female_young_dog: "Female young dog"
         female_young_goat: "Female young goat"
         female_young_sheep: "Female young sheep"
         fence: "Fence"
@@ -3482,14 +3507,18 @@ eng:
         loan_interest: "Loan interest"
         mail_subscription: "Mail subscription"
         maintenance: "Maintenance"
+        male_adult_cat: "Male adult cat"
         male_adult_cow: "Male adult cow"
+        male_adult_dog: "Male adult dog"
         male_adult_goat: "Male adult goat"
         male_adult_goat_herd: "Male adult goat herd"
         male_adult_horse: "Male adult horse"
         male_adult_pig: "Male adult pig"
         male_adult_sheep: "Male adult sheep"
         male_rabbit: "Male rabbit"
+        male_young_cat: "Male young cat"
         male_young_cow: "Male young cow"
+        male_young_dog: "Male young dog"
         male_young_goat: "Male young goat"
         male_young_sheep: "Male young sheep"
         manager: "Manager"
@@ -3502,6 +3531,7 @@ eng:
         melon_crop: "Melon crop"
         milk: "Milk"
         milk_tank: "Milk tank"
+        milking_robot: "Milking robot"
         mineral_cleaner: "Mineral cleaner"
         mixed_chemical_fertilizer: "Mixed chemical fertilizer"
         mixed_liquid_fertilizer: "Mixed liquid fertilizer"
@@ -4225,6 +4255,9 @@ eng:
         cananga: "Cananga"                                 #< annonaceae
         cananga_odorata: "Cananga odorata"                 #< cananga
         canidae: "Canidae"                                 #< mammalia
+        canis: "Canis"                                     #< canidae
+        canis_lupus: "Canis lupus"                         #< canis
+        canis_lupus_familiaris: "Domestic dog"             #< canis_lupus
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
         cannabis_antal: "Hemp Antal"                       #< cannabis
@@ -4584,6 +4617,9 @@ eng:
         fagopyrum_tataricum: "Japanese buckwheat"          #< fagopyrum
         fagus: "Beech"                                     #< fagaceae
         felidae: "Felidae"                                 #< mammalia
+        felis: "Felis"                                     #< felidae
+        felis_silvestris: "Felis silvestris"               #< felis
+        felis_silvestris_catus: "Domestic cat"             #< felis_silvestris
         fermented_juice: "Fermented juice"                 #< preparation
         fermented_milk: "Fermented milk"                   #< preparation
         festuca: "Fescue"                                  #< poaceae

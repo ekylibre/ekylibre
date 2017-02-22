@@ -3352,6 +3352,8 @@ intervention_parameters:
   id:
     type: integer
     required: true
+  identification_number:
+    type: string
   intervention_id:
     type: integer
     references: intervention
@@ -5450,6 +5452,8 @@ product_movements:
     precision: 19
     scale: 4
     required: true
+  description:
+    type: string
   id:
     type: integer
     required: true
@@ -6027,12 +6031,18 @@ products:
   address_id:
     type: integer
     references: entity_address
+  birth_date_completeness:
+    type: string
+  birth_farm_number:
+    type: string
   born_at:
     type: datetime
   category_id:
     type: integer
     references: product_nature_category
     required: true
+  country:
+    type: string
   created_at:
     type: datetime
     required: true
@@ -6050,6 +6060,18 @@ products:
     type: string
   description:
     type: text
+  end_of_life_reason:
+    type: string
+  father_country:
+    type: string
+  father_identification_number:
+    type: string
+  father_variety:
+    type: string
+  filiation_status:
+    type: string
+  first_calving_on:
+    type: datetime
   fixed_asset_id:
     type: integer
     references: fixed_asset
@@ -6100,6 +6122,12 @@ products:
   member_variant_id:
     type: integer
     references: product_nature_variant
+  mother_country:
+    type: string
+  mother_identification_number:
+    type: string
+  mother_variety:
+    type: string
   name:
     type: string
     required: true
@@ -6110,6 +6138,13 @@ products:
   number:
     type: string
     required: true
+  origin_country:
+    type: string
+  origin_identification_number:
+    type: string
+  originator_id:
+    type: integer
+    references: synchronization_operation
   parent_id:
     type: integer
     references: product
@@ -6968,6 +7003,11 @@ synchronization_operations:
   operation_name:
     type: string
     required: true
+  originator_id:
+    type: integer
+    references: "~originator_type"
+  originator_type:
+    type: string
   request:
     type: jsonb
   response:

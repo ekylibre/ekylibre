@@ -608,6 +608,8 @@ fra:
     base_amount: "Montant de base"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
+    birth_date_completeness: "Complétude de la date de naissance"
+    birth_farm_number: "Numéro de la ferme de naissance"
     body: "Corps"
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
@@ -850,6 +852,7 @@ fra:
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
     end_junction: "Jonction finale" #?
+    end_of_life_reason: "Raison de fin de vie"
     end_way: "Voie finale" #?
     enjoyer: "Usufruitier"
     enjoyments: "Usufruits"
@@ -861,6 +864,8 @@ fra:
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
     entry_number: "N° Écriture"
+    entry_on: "Entrée le"
+    entry_reason: "Raison de l'entrée"
     establishment: "Établissement" #?
     # euid: "EUID"
     event: "Évènement"
@@ -870,6 +875,8 @@ fra:
     exclusive: "Exclusif" #?
     execution_number: "N° d’exécution"
     executor: "Exécutant"
+    exit_on: "Sortie le"
+    exit_reason: "Raison de la sortie"
     expected_population: "Population attendue"
     expected_shape: "Forme attendue"
     expected_stop_amount: "Montant final attendu"
@@ -891,6 +898,9 @@ fra:
     farm_name: "Nom de la ferme"
     farmer: "Exploitant"
     father: "Père"
+    father_country: "Pays du père"
+    father_identification_number: "Numéro d'identification du père"
+    father_variety: "Variété du père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
@@ -902,6 +912,7 @@ fra:
     file_fingerprint: "Empreinte du fichier"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
+    filiation_status: "Statut de la filiation"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -909,6 +920,7 @@ fra:
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
     finished_at: "Terminé à"
+    first_calving_on: "Premier vêlage le"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -1213,6 +1225,9 @@ fra:
     mode_delta: "Delta Mode"
     model_euid: "Modèle"
     mother: "Mère"
+    mother_country: "Pays de la mère"
+    mother_identification_number: "Numéro d'identification de la mère"
+    mother_variety: "Variété de la mère"
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Se déplace"
@@ -1263,6 +1278,8 @@ fra:
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
     origin: "Origine"
+    origin_country: "Pays d'origine"
+    origin_identification_number: "Numéro d'identification d'origine"
     originator: "Initiateur"
     originator_type: "Type de l’initiateur"
     outcoming_product: "Produit outcoming"
@@ -1692,7 +1709,7 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
     trouble_description: "Description du problème"
-    trouble_encountered: "Probléme durant l'intervention"
+    trouble_encountered: "Problème durant l'intervention"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"

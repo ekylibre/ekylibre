@@ -362,7 +362,7 @@ module ApplicationHelper
   def attributes_list(*args, &block)
     options = args.extract_options!
     record = args.shift || resource
-    columns = options[:columns] || 3
+    options[:columns] ||= []
     attribute_list = AttributesList.new(record)
     if block_given?
       unless block.arity == 1
@@ -380,6 +380,12 @@ module ApplicationHelper
       attribute_list.attribute :updater, label: :full_name
       attribute_list.attribute :updated_at
       # attribute_list.attribute :lock_version
+    end
+    unless options[:columns].empty?
+      options[:columns].each do |c|
+        next unless record.respond_to? c
+        attribute_list.attribute c
+      end
     end
     code = ''
     items = attribute_list.items # .delete_if { |x| x[0] == :custom_fields }

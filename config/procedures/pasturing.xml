@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="pasturing" categories="animal_feeding" actions="animal_feeding">
+  <procedure name="pasturing" categories="animal_feeding" actions="animal_feeding" deprecated="true">
     <parameters>
       <parameter name="herd" type="tool" filter="is animal_group and derives from animal"/>
       <parameter name="cultivation" type="target" filter="is plant">

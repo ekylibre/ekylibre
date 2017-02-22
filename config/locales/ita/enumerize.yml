@@ -54,6 +54,20 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    animal:
+      birth_date_completeness:
+        full_date: "Data completa"
+        month_year: "Mese anno"
+        year: "Anno"
+      end_of_life_reason:
+        calculated_date: "Data calcolato"
+        cutting_up: "Taglio"
+        death: "Morte"
+        slaughter: "Macello"
+      filiation_status:
+        certified: "Certificato"
+        uncertified: "Non certificato"
+        unknown: "Sconosciuto"
     call_message:
       nature:
         incoming: "In arrivo"
@@ -323,6 +337,15 @@ ita:
       nature:
         exterior: "Esterno"
         interior: "Interno"
+    product_movement:
+      description:
+        birth: "Nascita"
+        butchery: "La macelleria"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Prestito"
+        purchase: "Acquista"
+        sale: "Saldi"
     product_nature:
       population_counting:
         decimal: "Decimale"

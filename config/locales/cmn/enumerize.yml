@@ -54,6 +54,20 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    animal:
+      birth_date_completeness:
+        full_date: "完整的日期"
+        month_year: "月年"
+        year: "年"
+      end_of_life_reason:
+        calculated_date: "计算的日期"
+        cutting_up: "切碎"
+        death: "死亡"
+        slaughter: "屠宰"
+      filiation_status:
+        certified: "认证"
+        uncertified: "未认证"
+        unknown: "未知"
     call_message:
       nature:
         incoming: "来"
@@ -323,6 +337,15 @@ cmn:
       nature:
         exterior: "外观"
         interior: "室内"
+    product_movement:
+      description:
+        birth: "分娩"
+        butchery: "屠杀"
+        consumption: "消费"
+        death: "死亡"
+        loan: "贷款"
+        purchase: "采购"
+        sale: "拍卖"
     product_nature:
       population_counting:
         decimal: "十进制"
