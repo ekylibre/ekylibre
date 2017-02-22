@@ -195,6 +195,10 @@
         success: (stat, status, request) ->
           E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())
 
+  $(document).on 'cocoon:after-remove', (e, i) ->
+    $('#working-periods *[data-intervention-updater]').each ->
+      E.interventions.refresh $(this)
+
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
