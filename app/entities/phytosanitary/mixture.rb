@@ -24,7 +24,6 @@ module Phytosanitary
       def between?(first, other)
         [first, other].any?(&:unknown?)
       end
-    end
-                       .new(nil, nil, [], nil)
+    end.new(nil, nil, [], nil)
   end
 end
