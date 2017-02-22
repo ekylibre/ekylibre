@@ -5,7 +5,7 @@
       <target name="animal_housing" filter="is building_division and can store(animal) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <output name="manure" filter="is excrement and derives from animal" cardinality="*">
+      <output name="raised_manure" filter="is excrement and derives from animal" cardinality="*">
         <attribute name="new_name" value="output_computed_name(VARIANT, working_periods)" />
         <attribute name="new_container" filter="is building_division and can store(excrement)"/>
         <handler name="population"/>
