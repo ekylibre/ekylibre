@@ -257,8 +257,8 @@ deu:
         string: "Schnur"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "Basierend auf Anfangskapital"
+        to_repay: "Basierend auf Kapital links zur Rückzahlung"
       repayment_method:
         constant_amount: "konstante Menge"
         constant_rate: "Konstante Rate"

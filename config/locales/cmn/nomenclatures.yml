@@ -3772,6 +3772,11 @@ cmn:
         suffix: "后缀"
     taxes:
       items:
+        algerian_vat_normal: "阿尔及利亚正常增值税"
+        algerian_vat_normal_2017: "阿尔及利亚增值税普通2017"
+        algerian_vat_null: "阿尔及利亚增值税空"
+        algerian_vat_reduced: "阿尔及利亚增值税减少"
+        algerian_vat_reduced_2017: "阿尔及利亚减少增值税2017年"
         french_vat_eu: "法国欧盟增值税"
         french_vat_import_export: "法国增值税导入/导出"
         french_vat_intermediate_2012: "法国增值税中间2012"

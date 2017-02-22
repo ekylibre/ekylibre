@@ -516,6 +516,7 @@ class Product < Ekylibre::Record::Base
   def update_default_values
     if current_phase
       phase_variant = current_phase.variant
+      return if phase_variant.nil?
       self.nature_id = phase_variant.nature_id
       self.variety ||= phase_variant.variety
       if derivative_of.blank? && !phase_variant.derivative_of.nil?

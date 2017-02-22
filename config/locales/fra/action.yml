@@ -1044,7 +1044,7 @@ fra:
     configure: "Configurer"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
-    connect: "Entrer" #?
+    connect: "Se connecter"
     consult: "Consulter" #?
     consume: "Consommé"
     contact: "à l’adresse" #?

@@ -257,8 +257,8 @@ jpn:
         string: "文字列"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "初期資本に基づきます"
+        to_repay: "資本に基づいて返済する左"
       repayment_method:
         constant_amount: "一定量"
         constant_rate: "一定の割合"

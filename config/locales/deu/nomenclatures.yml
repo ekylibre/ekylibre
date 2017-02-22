@@ -3772,6 +3772,11 @@ deu:
         # suffix: "Suffix"
     taxes:
       items:
+        algerian_vat_normal: "Algerischen Mehrwertsteuer Normal"
+        algerian_vat_normal_2017: "Algerischen MwSt normalen 2017"
+        algerian_vat_null: "Algerischen Mehrwertsteuer null"
+        algerian_vat_reduced: "Algerischen Mehrwertsteuer reduziert"
+        algerian_vat_reduced_2017: "Algerischen Mehrwertsteuer reduziert 2017"
         french_vat_eu: "Frankreich MwSt EU"
         french_vat_import_export: "France Umsatz Import / Export"
         french_vat_intermediate_2012: "Französisch Bottich Zwischen 2012"

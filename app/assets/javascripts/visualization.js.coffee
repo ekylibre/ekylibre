@@ -471,7 +471,7 @@
     mapElement.data("refreshTimeout", timeoutId)
 
   $(document).ready $.loadVisualizations
-  $(document).on "page:load cocoon:after-insert cell:load", $.loadVisualizations
+  $(document).on "page:load cocoon:after-insert cell:load dialog:show", $.loadVisualizations
 
 ) visualization, jQuery
 

@@ -257,8 +257,8 @@ ita:
         string: "Corda"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "Sulla base di capitale iniziale"
+        to_repay: "Sulla base di capitale di sinistra per rimborsare"
       repayment_method:
         constant_amount: "quantità costante"
         constant_rate: "Tasso costante"

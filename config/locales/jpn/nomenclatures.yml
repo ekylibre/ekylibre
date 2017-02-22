@@ -3783,6 +3783,11 @@ jpn:
         suffix: "サフィックス"
     taxes:
       items:
+        algerian_vat_normal: "アルジェリアVATノーマル"
+        algerian_vat_normal_2017: "アルジェリアVAT通常の2017"
+        algerian_vat_null: "アルジェリアVATヌル"
+        algerian_vat_reduced: "アルジェリアVAT減少"
+        algerian_vat_reduced_2017: "アルジェリアの付加価値税は2017を減少させました"
         french_vat_eu: "フランスVAT EU"
         french_vat_import_export: "フランスの付加価値税（VAT）のインポート/エクスポート"
         french_vat_intermediate_2012: "2012年の中間フランスのバット"

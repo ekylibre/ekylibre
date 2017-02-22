@@ -3793,6 +3793,11 @@ eng:
         suffix: "Suffix"
     taxes:
       items:
+        algerian_vat_normal: "Algerian VAT normal"
+        algerian_vat_normal_2017: "Algerian VAT normal 2017"
+        algerian_vat_null: "Algerian VAT null"
+        algerian_vat_reduced: "Algerian VAT reduced"
+        algerian_vat_reduced_2017: "Algerian VAT reduced 2017"
         french_vat_eu: "France VAT EU"
         french_vat_import_export: "France VAT import/export"
         french_vat_intermediate_2012: "France VAT intermediate 2012"

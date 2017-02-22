@@ -9238,6 +9238,11 @@
       <property name="stopped_on" type="date"/>
     </properties>
     <items>
+      <item name="algerian_vat_normal" country="dz" nature="normal_vat" amount="17.0" started_on="1962-07-05" stopped_on="2016-12-31"/>
+      <item name="algerian_vat_normal_2017" country="dz" nature="normal_vat" amount="19.0" started_on="2017-01-01"/>
+      <item name="algerian_vat_null" country="dz" nature="null_vat" amount="0.0" started_on="1962-07-05"/>
+      <item name="algerian_vat_reduced" country="dz" nature="reduced_vat" amount="7.0" started_on="1962-07-05" stopped_on="2016-12-31"/>
+      <item name="algerian_vat_reduced_2017" country="dz" nature="reduced_vat" amount="9.0" started_on="2017-01-01"/>
       <item name="french_vat_eu" country="fr" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
       <item name="french_vat_import_export" country="fr" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
       <item name="french_vat_intermediate_2012" country="fr" nature="intermediate_vat" amount="7.0" started_on="2011-12-28" stopped_on="2011-12-31"/>

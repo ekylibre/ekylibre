@@ -257,8 +257,8 @@ cmn:
         string: "串"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "基于初始资本"
+        to_repay: "基于资本留下来偿还"
       repayment_method:
         constant_amount: "恒量"
         constant_rate: "恒定速率"

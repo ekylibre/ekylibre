@@ -1168,7 +1168,7 @@ fra:
     mail_postal_zone: "Zone postale"
     mails: "Courriels"
     main: "Principal"
-    # main_account: "Main account"
+    main_account: "Compte principal"
     main_activity: "Activité principale"
     main_crop_code: "Code de la culture principale"
     main_crop_commercialisation: "Commercialisation"

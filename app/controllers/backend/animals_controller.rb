@@ -162,7 +162,7 @@ module Backend
     list(:children, model: :product_links, conditions: { linked_id: 'params[:id]'.c, nature: %w(father mother) }, order: { started_at: :desc }) do |t|
       t.column :name, through: :product, url: true
       t.column :born_at, through: :product, datatype: :datetime
-      t.column :sex, through: :product
+      t.column :sex, through: :product, label_method: :sex_text, label: :sex
     end
 
     # Show one animal with params_id

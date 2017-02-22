@@ -1881,6 +1881,7 @@
       </item>
       <item name="interventions">
         <page to="api/v1/interventions#index"/>
+        <page to="api/v1/interventions#create"/>
       </item>
       <item name="intervention_participations">
         <page to="api/v1/intervention_participations#create"/>

@@ -11,7 +11,7 @@ jpn:
       building:
         born_at: "で構築されました"
       cashes:
-        # main_account: "Main account"
+        main_account: "メインアカウント"
       document:
         filename: "ファイル"
       document_template:
@@ -837,7 +837,7 @@ jpn:
     inspections: "検査"
     insurance_amount: "保険金額"
     insurance_percentage: "保険の割合"
-    # insurance_repayment_method: "Insurance repayment method"
+    insurance_repayment_method: "保険返済方法"
     integer_value: "整数値"
     integration_name: "連動名"
     interest_amount: "利息額"
@@ -949,7 +949,7 @@ jpn:
     mail_postal_zone: "メールpostal_zone"
     mails: "メール"
     main: "メイン"
-    # main_account: "Main account"
+    main_account: "メインアカウント"
     main_activity: "主な活動"
     main_crop_code: "主作物コード"
     main_crop_commercialisation: "主な作物の商業化"
@@ -1377,10 +1377,10 @@ jpn:
     support_variant_unit: "支持変形部"
     support_variety: "サポートさまざまな"
     supports: "サポート"
-    # suspend_until_reconciliation: "Suspend until reconciliation"
+    suspend_until_reconciliation: "和解するまで一時停止"
     suspended: "吊り"
-    # suspended_journal_entry_items: "Suspended journal entry items"
-    # suspense_account: "Suspense account"
+    suspended_journal_entry_items: "一時停止仕訳項目"
+    suspense_account: "仮勘定"
     tactic: "作物管理手法"
     tactics: "戦術"
     target: "ターゲット"
