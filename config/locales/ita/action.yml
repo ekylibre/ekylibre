@@ -924,6 +924,7 @@ ita:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"
     configure: "Configurazione"
+    connect: "Collegare"
     consume: "Consumare"
     contained_products: "prodotti contenuti"
     container: "Contenitore"

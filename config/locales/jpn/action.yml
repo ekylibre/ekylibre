@@ -925,7 +925,7 @@ jpn:
       filter_on_attribute_of_class: "クラスの属性にフィルター"
       special-subscriber: "特別加入者"
     configure: "設定します"
-    connect: "ログイン" #?
+    connect: "ログイン"
     consume: "消費します"
     contained_products: "含まれる製品"
     container: "コンテナ"

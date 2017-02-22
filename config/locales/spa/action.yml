@@ -951,7 +951,7 @@ spa:
       special-subscriber: "Especial abonado"
     configure: "Configurar"
     confirmed: "Confirmadas" #?
-    connect: "Entrar" #?
+    connect: "Entrar"
     consume: "Consumir"
     contained_products: "Productos contenidos"
     container: "Envase"

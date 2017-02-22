@@ -1073,6 +1073,7 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    connect: "Connect"
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"

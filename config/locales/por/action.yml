@@ -863,6 +863,7 @@ por:
       filter_on_attribute_of_class: "Filtrar atributo da classe"
       special-subscriber: "Especial assinante"
     configure: "Configurar"
+    connect: "Conectar"
     consume: "Consumir"
     contained_products: "Produtos contidos"
     container: "Recipiente"

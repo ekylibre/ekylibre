@@ -1162,7 +1162,7 @@ arb:
     configure: "تكوين"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
-    connect: "الدخول" #?
+    connect: "الدخول"
     consult: "استشارة" #?
     consume: "تستهلك"
     contact: "العنوان" #?

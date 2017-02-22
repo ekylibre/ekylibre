@@ -549,6 +549,7 @@ Rails.application.routes.draw do
 
     resources :integrations, except: [:show, :destroy] do
       collection do
+        get ':nature', action: :new
         delete :destroy
       end
     end

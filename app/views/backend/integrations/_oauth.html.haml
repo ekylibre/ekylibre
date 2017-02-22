@@ -1,2 +1,4 @@
 .integration-connect
-  = link_to "CONNECT", '#', class: :btn
+  - f.clear_actions!
+  - f.add do
+    = link_to :connect.tl, resource.integration_type.oauth_callback_url, class: :btn
