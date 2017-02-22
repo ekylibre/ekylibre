@@ -5099,11 +5099,11 @@ CREATE TABLE product_nature_variants (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    france_maaid character varying,
     gtin character varying,
     number character varying NOT NULL,
     stock_account_id integer,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    france_maaid character varying
 );
 
 
@@ -16671,8 +16671,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160407141401');
 
 INSERT INTO schema_migrations (version) VALUES ('20160408225701');
 
-INSERT INTO schema_migrations (version) VALUES ('20160410100101');
-
 INSERT INTO schema_migrations (version) VALUES ('20160420121330');
 
 INSERT INTO schema_migrations (version) VALUES ('20160421141812');
@@ -16928,4 +16926,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170220171804');
 INSERT INTO schema_migrations (version) VALUES ('20170220192042');
 
 INSERT INTO schema_migrations (version) VALUES ('20170222100614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222222222');
 
