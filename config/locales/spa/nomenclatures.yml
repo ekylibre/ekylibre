@@ -3748,6 +3748,11 @@ spa:
         suffix: "Sufijo"
     taxes:
       items:
+        algerian_vat_normal: "IVA Argelia normales"
+        algerian_vat_normal_2017: "IVA Argelia normal de 2017"
+        algerian_vat_null: "Nula Argelia IVA"
+        algerian_vat_reduced: "IVA reducido de Argelia"
+        algerian_vat_reduced_2017: "IVA reducido de Argelia 2017"
         french_vat_eu: "Francia IVA de la UE"
         french_vat_import_export: "Francia IVA de importación / exportación"
         french_vat_intermediate_2012: "IVA francés intermedia 2012"

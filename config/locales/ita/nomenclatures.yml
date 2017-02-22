@@ -3742,6 +3742,11 @@ ita:
         suffix: "Suffisso"
     taxes:
       items:
+        algerian_vat_normal: "IVA algerino normale"
+        algerian_vat_normal_2017: "IVA algerino normale 2017"
+        algerian_vat_null: "Algerino nullo IVA"
+        algerian_vat_reduced: "IVA ridotta algerino"
+        algerian_vat_reduced_2017: "IVA algerino ridotto 2017"
         french_vat_eu: "France P. IVA UE"
         french_vat_import_export: "France P. IVA import / export"
         french_vat_intermediate_2012: "IVA francese intermedio 2012"
