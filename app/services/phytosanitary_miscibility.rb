@@ -2,20 +2,20 @@
 class PhytosanitaryMiscibility
   def initialize(products_and_variants)
     @variants = products_and_variants.map do |prod_or_var|
-      if prod_or_var.respond_to?(:variant)
-        product = prod_or_var
-        product.variant
-      else
-        prod_or_var # <- variant
-      end
+      next prod_or_var unless prod_or_var.respond_to?(:variant)
+      product = prod_or_var
+      product.variant
     end
   end
 
   def legality
-    return :valid
     @variants.combination(2).all? do |first, second|
       self.class.miscible_variants?(first, second)
     end
+  end
+
+  def validity
+    legality ? :valid : :invalid
   end
 
   def self.miscible_variants?(first, second)
@@ -26,12 +26,12 @@ class PhytosanitaryMiscibility
   end
 
   def self.allowed_mix?(first_group, second_group)
-    true if first_group && second_group # CHECK FROM CSV I GUESS?
+    PesticideAllowedMixtureAbacus.mixture_allowed?(first_group, second_group)
   end
 
   def self.risk_groups_of(variant)
     variant_risk = PhytosanitaryRisk.risks_of(variant)
-    variant_risk.flat_map(&:group)
+    variant_risk.flat_map(&:group).uniq
   end
 end
 
@@ -42,7 +42,7 @@ class PhytosanitaryRisk
 
   def initialize(risk_level)
     @code  = risk_level.to_s
-    @group = PesticideRisksGroupAbacus.find_group_of(@code)
+    @group = PesticideRisksGroupAbacus.find_group_of(@code) || PesticideRiskGroup[5]
   end
 
   def self.risks_of(variant)
