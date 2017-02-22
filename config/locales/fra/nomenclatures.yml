@@ -1339,7 +1339,7 @@ fra:
         ghs_p501: "Éliminer le contenu/récipient dans …"
         ghs_toxic: "Toxique "
         ghs-h360fd2: "Peut nuire à la fertilité. Peut nuire au fœtus."
-      # name: "Chemical classifications"
+      name: "Classifications chimiques"
       property_natures:
         # code: "Code"
     chemical_elements:

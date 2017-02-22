@@ -1179,6 +1179,7 @@ eng:
     doer_cost: "Doer cost"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
+    # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
