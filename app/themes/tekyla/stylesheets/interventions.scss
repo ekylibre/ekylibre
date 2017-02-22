@@ -107,6 +107,16 @@ $preview-modal-height: 80vh;
 }
 
 .nested-parameters {
+  position: relative;
+  .errors {
+    position: absolute;
+    top: $spacing * 0.9;
+    @include right(40px);
+    & > * {
+      display: none;
+    }
+  }
+
   .links {
     position: relative;
 

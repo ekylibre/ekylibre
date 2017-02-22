@@ -98,6 +98,12 @@
         else
 #          console.log subprefix
           form.find("##{subprefix}").each (index) ->
+            if 'errors' in Object.keys(attributes)
+              $(this).parent('.nested-fields').find(".errors *").hide()
+              for error, message of attributes.errors
+                errorMessage = $(this).parent('.nested-fields').find(".errors .#{error}")
+                if typeof(message) != 'undefined'
+                  errorMessage.show()
             element = $(this)
             if element.is(':ui-selector')
               if value != element.selector('value')

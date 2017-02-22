@@ -1653,6 +1653,7 @@ fra:
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
+    parameter_error_miscibility: "Numéro d'AMM non renseigné"
     parameters: "Paramètres"
     parcel_items: "Articles de colis"
     parcels: "Colis"

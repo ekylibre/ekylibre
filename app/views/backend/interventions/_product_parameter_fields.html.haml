@@ -58,3 +58,8 @@
       - ref = reference.reading(r.object.indicator_name)
       - next unless ref
       = r.reading as: (ref.accessible? ? nil : :hidden), input_html: { data: { intervention_updater: prefix + 'readings' }}
+
+  .errors
+    - if reference.display_status
+      %span{class: reference.display_status}
+        = :"parameter_error_#{reference.display_status}".tl
