@@ -24,8 +24,6 @@ class PhytosanitaryMiscibility
     incomplete = mixtures.include? Phytosanitary::Mixture::Incomplete
     present_mixtures = mixtures - [Phytosanitary::Mixture::Incomplete]
 
-    # byebug
-
     valid = present_mixtures.all?(&:allowed)
 
     return :invalid unless valid
