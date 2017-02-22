@@ -46,6 +46,10 @@ module Procedo
         input? || output?
       end
 
+      def beta?
+        !@display_status.nil?
+      end
+
       # Adds a new handler
       def add_handler(name, options = {})
         handler = Procedo::Procedure::Handler.new(self, name, options)

@@ -957,6 +957,8 @@ fra:
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début"
     begins: "Commence par" #?
+    beta: "Beta"
+    beta_description: "Cette fonctionnalité est en cours de développement et ne doit pas être considérée comme source fiable d'information."
     body: "Corps du message"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Comptabiliser avec paiement"

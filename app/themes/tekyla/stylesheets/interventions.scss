@@ -98,9 +98,18 @@ $preview-modal-height: 80vh;
   }
 }
 
+.beta {
+  @include is-icon($fs-normal);
+  @include use-icon(flask);
+
+  color: $brand-warning;
+  margin: 10px;
+}
+
 .nested-parameters {
   .links {
     position: relative;
+
     .display-info {
       position: absolute;
       display: none;
