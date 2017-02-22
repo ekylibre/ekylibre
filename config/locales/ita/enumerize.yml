@@ -56,18 +56,18 @@ ita:
         string: "Corda"
     animal:
       birth_date_completeness:
-        # full_date: "Full date"
-        # month_year: "Month year"
-        # year: "Year"
+        full_date: "Data completa"
+        month_year: "Mese anno"
+        year: "Anno"
       end_of_life_reason:
-        # calculated_date: "Calculated date"
-        # cutting_up: "Cutting up"
-        # death: "Death"
-        # slaughter: "Slaughter"
+        calculated_date: "Data calcolato"
+        cutting_up: "Taglio"
+        death: "Morte"
+        slaughter: "Macello"
       filiation_status:
-        # certified: "Certified"
-        # uncertified: "Uncertified"
-        # unknown: "Unknown"
+        certified: "Certificato"
+        uncertified: "Non certificato"
+        unknown: "Sconosciuto"
     call_message:
       nature:
         incoming: "In arrivo"
@@ -339,13 +339,13 @@ ita:
         interior: "Interno"
     product_movement:
       description:
-        # birth: "Birth"
-        # butchery: "Butchery"
-        # consumption: "Consumption"
-        # death: "Death"
-        # loan: "Loan"
-        # purchase: "Purchase"
-        # sale: "Sale"
+        birth: "Nascita"
+        butchery: "La macelleria"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Prestito"
+        purchase: "Acquista"
+        sale: "Saldi"
     product_nature:
       population_counting:
         decimal: "Decimale"

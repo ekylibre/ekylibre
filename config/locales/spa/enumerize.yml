@@ -56,18 +56,18 @@ spa:
         string: "Cuerda"
     animal:
       birth_date_completeness:
-        # full_date: "Full date"
-        # month_year: "Month year"
-        # year: "Year"
+        full_date: "Fecha completa"
+        month_year: "Mes año"
+        year: "Año"
       end_of_life_reason:
-        # calculated_date: "Calculated date"
-        # cutting_up: "Cutting up"
-        # death: "Death"
-        # slaughter: "Slaughter"
+        calculated_date: "Fecha calculada"
+        cutting_up: "Cortando"
+        death: "Muerte"
+        slaughter: "Sacrificio"
       filiation_status:
-        # certified: "Certified"
-        # uncertified: "Uncertified"
-        # unknown: "Unknown"
+        certified: "Certificado"
+        uncertified: "Sin certificar"
+        unknown: "Desconocido"
     call_message:
       nature:
         incoming: "Entrante"
@@ -339,13 +339,13 @@ spa:
         # interior: "Interior"
     product_movement:
       description:
-        # birth: "Birth"
-        # butchery: "Butchery"
-        # consumption: "Consumption"
-        # death: "Death"
-        # loan: "Loan"
-        # purchase: "Purchase"
-        # sale: "Sale"
+        birth: "Nacimiento"
+        butchery: "Carnicería"
+        consumption: "Consumo"
+        death: "Muerte"
+        loan: "Préstamo"
+        purchase: "Compra"
+        sale: "Venta"
     product_nature:
       population_counting:
         # decimal: "Decimal"

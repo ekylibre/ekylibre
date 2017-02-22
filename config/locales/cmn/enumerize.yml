@@ -56,18 +56,18 @@ cmn:
         string: "串"
     animal:
       birth_date_completeness:
-        # full_date: "Full date"
-        # month_year: "Month year"
-        # year: "Year"
+        full_date: "完整的日期"
+        month_year: "月年"
+        year: "年"
       end_of_life_reason:
-        # calculated_date: "Calculated date"
-        # cutting_up: "Cutting up"
-        # death: "Death"
-        # slaughter: "Slaughter"
+        calculated_date: "计算的日期"
+        cutting_up: "切碎"
+        death: "死亡"
+        slaughter: "屠宰"
       filiation_status:
-        # certified: "Certified"
-        # uncertified: "Uncertified"
-        # unknown: "Unknown"
+        certified: "认证"
+        uncertified: "未认证"
+        unknown: "未知"
     call_message:
       nature:
         incoming: "来"
@@ -339,13 +339,13 @@ cmn:
         interior: "室内"
     product_movement:
       description:
-        # birth: "Birth"
-        # butchery: "Butchery"
-        # consumption: "Consumption"
-        # death: "Death"
-        # loan: "Loan"
-        # purchase: "Purchase"
-        # sale: "Sale"
+        birth: "分娩"
+        butchery: "屠杀"
+        consumption: "消费"
+        death: "死亡"
+        loan: "贷款"
+        purchase: "采购"
+        sale: "拍卖"
     product_nature:
       population_counting:
         decimal: "十进制"

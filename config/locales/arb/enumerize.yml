@@ -56,18 +56,18 @@ arb:
         string: "خيط"
     animal:
       birth_date_completeness:
-        # full_date: "Full date"
-        # month_year: "Month year"
-        # year: "Year"
+        full_date: "التاريخ الكامل"
+        month_year: "شهر سنة"
+        year: "عام"
       end_of_life_reason:
-        # calculated_date: "Calculated date"
-        # cutting_up: "Cutting up"
-        # death: "Death"
-        # slaughter: "Slaughter"
+        calculated_date: "تاريخ تحسب"
+        cutting_up: "تقطيع"
+        death: "الموت"
+        slaughter: "ذبح"
       filiation_status:
-        # certified: "Certified"
-        # uncertified: "Uncertified"
-        # unknown: "Unknown"
+        certified: "معتمد"
+        uncertified: "غير مصدق"
+        unknown: "غير معروف"
     call_message:
       nature:
         incoming: "الوارد"
@@ -338,13 +338,13 @@ arb:
         interior: "داخلي"
     product_movement:
       description:
-        # birth: "Birth"
-        # butchery: "Butchery"
-        # consumption: "Consumption"
-        # death: "Death"
-        # loan: "Loan"
-        # purchase: "Purchase"
-        # sale: "Sale"
+        birth: "ولادة"
+        butchery: "مجزرة"
+        consumption: "استهلاك"
+        death: "الموت"
+        loan: "قرض"
+        purchase: "شراء"
+        sale: "تخفيض السعر"
     product_nature:
       population_counting:
         decimal: "عدد عشري"

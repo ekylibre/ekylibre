@@ -56,18 +56,18 @@ deu:
         string: "Schnur"
     animal:
       birth_date_completeness:
-        # full_date: "Full date"
-        # month_year: "Month year"
-        # year: "Year"
+        full_date: "Voll Datum"
+        month_year: "Monat Jahr"
+        year: "Jahr"
       end_of_life_reason:
-        # calculated_date: "Calculated date"
-        # cutting_up: "Cutting up"
-        # death: "Death"
-        # slaughter: "Slaughter"
+        calculated_date: "Berechnete Datum"
+        cutting_up: "Zerlegung"
+        death: "Tod"
+        slaughter: "Schlachten"
       filiation_status:
-        # certified: "Certified"
+        certified: "Bescheinigt"
         # uncertified: "Uncertified"
-        # unknown: "Unknown"
+        unknown: "Unbekannt"
     call_message:
       nature:
         incoming: "Eingehend"
@@ -339,13 +339,13 @@ deu:
         interior: "Innere"
     product_movement:
       description:
-        # birth: "Birth"
-        # butchery: "Butchery"
-        # consumption: "Consumption"
-        # death: "Death"
-        # loan: "Loan"
-        # purchase: "Purchase"
-        # sale: "Sale"
+        birth: "Geburt"
+        butchery: "Schlächterei"
+        consumption: "Verbrauch"
+        death: "Tod"
+        loan: "Darlehen"
+        purchase: "Kauf"
+        sale: "Verkauf"
     product_nature:
       population_counting:
         decimal: "Dezimal"

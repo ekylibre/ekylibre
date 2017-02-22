@@ -56,18 +56,18 @@ jpn:
         string: "文字列"
     animal:
       birth_date_completeness:
-        # full_date: "Full date"
-        # month_year: "Month year"
-        # year: "Year"
+        full_date: "完全な日付"
+        month_year: "月の年"
+        year: "年"
       end_of_life_reason:
-        # calculated_date: "Calculated date"
-        # cutting_up: "Cutting up"
-        # death: "Death"
-        # slaughter: "Slaughter"
+        calculated_date: "計算された日付"
+        cutting_up: "デコパージュ"
+        death: "死"
+        slaughter: "虐殺"
       filiation_status:
-        # certified: "Certified"
-        # uncertified: "Uncertified"
-        # unknown: "Unknown"
+        certified: "認定されました"
+        uncertified: "保証されていません"
+        unknown: "未知の"
     call_message:
       nature:
         incoming: "入ってきます"
@@ -339,13 +339,13 @@ jpn:
         interior: "インテリア"
     product_movement:
       description:
-        # birth: "Birth"
-        # butchery: "Butchery"
-        # consumption: "Consumption"
-        # death: "Death"
-        # loan: "Loan"
-        # purchase: "Purchase"
-        # sale: "Sale"
+        birth: "誕生"
+        butchery: "肉屋"
+        consumption: "消費"
+        death: "死"
+        loan: "ローン"
+        purchase: "購入"
+        sale: "販売"
     product_nature:
       population_counting:
         decimal: "10進数"
