@@ -5102,7 +5102,8 @@ CREATE TABLE product_nature_variants (
     gtin character varying,
     number character varying NOT NULL,
     stock_account_id integer,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    france_maaid character varying
 );
 
 
@@ -16925,4 +16926,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170220171804');
 INSERT INTO schema_migrations (version) VALUES ('20170220192042');
 
 INSERT INTO schema_migrations (version) VALUES ('20170222100614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222222222');
 

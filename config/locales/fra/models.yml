@@ -945,8 +945,7 @@ fra:
     following: "Suivant"
     # format: "Format"
     formats: "Formats"
-    fourth_producer: "Quatrième producteur" #?
-    fourth_producer_way: "Voie du quatrième producteur" #?
+    france_maaid: "N° AMM"
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?
     frozen_indicators_list: "Liste des indicateurs fixes"
@@ -1187,6 +1186,7 @@ fra:
     marketable_quantity: "Quantité commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
+    max_inputs_count: "Nombre maximum d'applications"
     max_zoom: "Zoom maximal"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
@@ -1354,6 +1354,7 @@ fra:
     postal_code: "Code postal"
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
+    pre_harvest_interval: "DAR"
     preferences: "Préférences"
     prepared_at: "Préparé le"
     prereduction_amount: "Montant TTC avant réduction" #?
@@ -1728,6 +1729,7 @@ fra:
     unpaid_sales: "Ventes impayées"
     unpointed_journal_entry_items: "Articles d’entrée de journal jointoyées"
     unread_notifications: "Notifications non lus"
+    untreated_zone_margin: "IZNT"
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"

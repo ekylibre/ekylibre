@@ -89,7 +89,7 @@ module ApplicationHelper
 
   def human_age(born_at, options = {})
     options[:default] ||= '&ndash;'.html_safe
-    return options[:default] if born_at.nil?
+    return options[:default] if born_at.nil? || !born_at.is_a?(Time)
     at = options[:at] || Time.zone.now
     sign = ''
     if born_at > at

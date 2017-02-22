@@ -758,6 +758,7 @@ eng:
     following: "Following"
     format: "Format"
     formats: "Formats"
+    france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"
@@ -987,6 +988,7 @@ eng:
     marketable_quantity: "Marketable quantity"
     marketable_yield: "Marketable yield"
     mass: "Mass (kg)" #?
+    max_inputs_count: "Maximum inputs count" #?
     max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
@@ -1140,6 +1142,7 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    pre_harvest_interval: "Pre-harvest interval" #?
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -1481,6 +1484,7 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
+    untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
     uploaded: "Uploaded"

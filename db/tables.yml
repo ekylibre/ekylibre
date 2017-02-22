@@ -5729,6 +5729,8 @@ product_nature_variants:
     type: jsonb
   derivative_of:
     type: string
+  france_maaid:
+    type: string
   gtin:
     type: string
   id:

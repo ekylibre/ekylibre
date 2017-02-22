@@ -2744,6 +2744,18 @@ a[data-annotate] {
   }
 }
 
+.risk-picto {
+  @include margin-right($default-gap);
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  @include inline-block;
+  img {
+    line-height: 48px;
+    width: 100%;
+  }
+}
+
 .opacity-range {
   margin-left: 1.5em;
   &:before {

@@ -54,6 +54,17 @@ module Procedo
         hash
       end
 
+      def procedure_states
+        hash = {}
+        @procedure.parameters.each do |parameter|
+          param_name = parameter.name
+          concerned_params = @root_group.parameters_of_name(param_name)
+          display_method = parameter.display_status
+          hash[param_name] = { display: Functions.send(display_method, concerned_params) } if display_method
+        end
+        hash
+      end
+
       delegate :to_json, to: :to_hash
 
       def add_working_period(id, attributes = {})

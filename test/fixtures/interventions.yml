@@ -152,7 +152,7 @@ interventions_006:
   nature: record
   number: '13'
   prescription_id: 1
-  procedure_name: animal_antibiotic_treatment
+  procedure_name: animal_veterinary_treatment
   started_at: 2014-11-05 04:25:00.000000000 Z
   state: done
   stopped_at: 2014-11-05 08:25:00.000000000 Z

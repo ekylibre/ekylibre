@@ -311,7 +311,7 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
            to: :variant, prefix: true
-  delegate :unit_name, to: :variant
+  delegate :unit_name, :france_maaid, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
@@ -379,6 +379,10 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
+    def miscibility_of(products_and_variants)
+      PhytosanitaryMiscibility.new(products_and_variants).legality
+    end
   end
 
   def production(at = nil)

@@ -1528,7 +1528,7 @@ arb:
     for_sales: "منتجات البيع" #?
     format: "التصميم"
     formats: "صيغ"
-    fourth_producer: "رابع منتج" #?
+    france_maaid: "فرنسا maaid"
     frequency: "تردد"
     frozen_indicators_list: "قائمة مؤشرات المجمدة"
     full_name: "الاسم بالكامل"
@@ -1790,6 +1790,7 @@ arb:
     marketable_yield: "العائد للتسويق"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
+    max_inputs_count: "عد المدخلات القصوى"
     max_reduction_rate: "سعر التخفيض" #?
     max_zoom: "ماكس التكبير"
     maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
@@ -1997,6 +1998,7 @@ arb:
     postal_zone_id: "العنوان البريدي" #?
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
+    pre_harvest_interval: "فترة ما قبل الحصاد"
     preferences: "الاعدادات"
     prepared_at: "أعدت بناء"
     prescription: "وصفة طبية"
@@ -2427,6 +2429,7 @@ arb:
     unpointed_journal_entry_items: "البنود دخول مجلة مهمل"
     unquantifiable: "غير قابل للقياس" #?
     unread_notifications: "الإخطارات غير مقروءة"
+    untreated_zone_margin: "هامش منطقة غير المعالجة"
     updated_at: "تم تحديثه في"
     updater: "التحديث"
     updater_id: "التحديث" #?

@@ -14,6 +14,14 @@
   # The concept is: When an update is done, we ask server which are the impact on
   # other fields and on updater itself if necessary
   E.interventions =
+    updateProcedureLevelAttributes: (form, attributes) ->
+      for name, properties of attributes
+        parameterContainer = $("[data-intervention-parameter='#{name}']").parent('.nested-association')
+        if properties.display
+          statusDisplay = parameterContainer.find(".display-info")
+          statusDisplay.find(" .status")
+                       .attr('data-display-status', properties.display)
+          statusDisplay.show()
 
     handleComponents: (form, attributes, prefix = '') ->
       for name, value of attributes
@@ -90,6 +98,12 @@
         else
 #          console.log subprefix
           form.find("##{subprefix}").each (index) ->
+            if 'errors' in Object.keys(attributes)
+              $(this).parent('.nested-fields').find(".errors *").hide()
+              for error, message of attributes.errors
+                errorMessage = $(this).parent('.nested-fields').find(".errors .#{error}")
+                if typeof(message) != 'undefined'
+                  errorMessage.show()
             element = $(this)
             if element.is(':ui-selector')
               if value != element.selector('value')
@@ -164,6 +178,7 @@
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
+            E.interventions.updateProcedureLevelAttributes(form, data.procedure_states)
             computing.prop 'state', 'ready'
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
@@ -185,6 +200,10 @@
       E.interventions.refresh $(this),
         success: (stat, status, request) ->
           E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())
+
+  $(document).on 'cocoon:after-remove', (e, i) ->
+    $('#working-periods *[data-intervention-updater]').each ->
+      E.interventions.refresh $(this)
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->

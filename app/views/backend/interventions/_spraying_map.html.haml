@@ -1,12 +1,53 @@
 - count = 0
+:ruby
+  data = []
+  data_crumbs = []
+  issue = resource.issue
+
+  resource.targets.each do |parameter|
+    popup_content = []
+
+    resource.inputs.each do |input|
+      h = input.reglementary_status(parameter).first
+      if h
+        popup_content << { label: :dose.tl, value: h[1][:name] }
+      end
+    end
+
+    popup_content << render('popup', product: parameter)
+
+    shape = parameter.working_zone
+    shape ||= parameter.product.shape(at: resource.started_at) if parameter.product
+    if shape
+      activity = parameter.best_activity if parameter.is_a?(InterventionTarget)
+      if activity
+        item = {
+          name: parameter.product.name,
+          shape: shape,
+          activity: activity.name,
+          shape_color: activity.color,
+          popup: {header: true, content: popup_content}
+        }
+      else
+        item = {
+          name: parameter.product.name,
+          shape: shape,
+          activity: parameter.product.name,
+          shape_color: cycle(theme_colors),
+          popup: {header: true, content: popup_content}
+        }
+      end
+      data << item
+      count += 1
+    end
+  end
 - map = visualization do |v|
-  - for cast in resource.product_parameters
-    - shape = cast.shape
-    - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
-    - if shape
-      - v.serie cast.id, [{name: cast.name, shape: shape}]
-      - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
-      - count += 1
+  - if data.any?
+    - v.serie :main, data
+    - v.categories :activity, :main
+  - if issue
+    - v.serie :issue, [{name: issue.name, shape: issue.geolocation}]
+    - v.points :issue.tl, :issue
   - resource.product_parameters.each do |cast|
     - if cast.crumbs.any?
       -# raise cast.crumbs.reorder(:read_at).collect{|c| c.metadata.symbolize_keys.merge(name: cast.name, point: [c.geolocation.y, c.geolocation.x])}.inspect
