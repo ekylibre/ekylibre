@@ -6,9 +6,10 @@ module Procedo
       class << self
         def miscibility(set)
           products = set.map do |parameter|
-           parameter.product || parameter.variant
+            next parameter.variant if parameter.respond_to? :variant
+            parameter.product
           end
-          PhytosanitaryMiscibility.new(products).validity
+          PhytosanitaryMiscibility.new(products.compact).validity
         end
 
         # Test if population counting is as specified for given product
