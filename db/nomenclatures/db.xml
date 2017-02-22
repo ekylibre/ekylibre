@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170221102405">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170222113119">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2406,6 +2406,8 @@
       <property name="storable" type="boolean" required="true" default="false"/>
     </properties>
     <items>
+      <item name="adult_cat" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="adult_dog" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
       <item name="animal_food" charge_account="livestock_feed_matter_expenses" product_account="revenues" stock_account="livestock_feed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="livestock_feed_stocks_variation"/>
       <item name="animal_housing_services" charge_account="animals_making_expenses_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
       <item name="animal_litter" charge_account="raw_material_expenses" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="products_inventory_variations"/>
@@ -2515,6 +2517,8 @@
       <item name="wine" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
       <item name="wine_package_consumable" charge_account="packaging" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="other_supply_stocks_variation"/>
       <item name="worker" charge_account="staff_expenses" product_account="revenues" purchasable="true" saleable="true" pictogram="male"/>
+      <item name="young_cat" fixed_asset_account="young_animal_assets" fixed_asset_allocation_account="young_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="young_dog" fixed_asset_account="young_animal_assets" fixed_asset_allocation_account="young_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
     </items>
   </nomenclature>
   <nomenclature name="product_nature_variants" translateable="true">
@@ -2804,8 +2808,10 @@
       <item name="fallow_crop" nature="crop" variety="poa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="farm_teaching_service" nature="farm_teaching_services"/>
       <item name="fee" nature="fee"/>
+      <item name="female_adult_cat" nature="female_adult_cat" frozen_indicators_values="sex: female, reproductor: true"/>
       <item name="female_adult_cattle_herd" nature="female_adult_cattle_herd" derivative_of="bos" frozen_indicators_values="sex: female, reproductor: true" unit_name="band"/>
       <item name="female_adult_cow" nature="female_adult_cow" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 1.0" unit_name="head"/>
+      <item name="female_adult_dog" nature="female_adult_dog" frozen_indicators_values="sex: female, reproductor: true"/>
       <item name="female_adult_goat" nature="female_adult_goat" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.17" unit_name="head"/>
       <item name="female_adult_goat_herd" nature="female_adult_goat_herd" derivative_of="capra" frozen_indicators_values="sex: female, reproductor: true" unit_name="band"/>
       <item name="female_adult_horse" nature="female_adult_horse" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.79" unit_name="head"/>
@@ -2816,8 +2822,10 @@
       <item name="female_adult_sheep_herd" nature="female_adult_sheep_herd" derivative_of="ovis" frozen_indicators_values="sex: female, reproductor: true" unit_name="band"/>
       <item name="female_hen_band" nature="hen_band" frozen_indicators_values="sex: female, reproductor: true" unit_name="subject"/>
       <item name="female_pig_band" nature="pig_band" frozen_indicators_values="sex: female, reproductor: true" unit_name="head"/>
+      <item name="female_young_cat" nature="female_young_cat" frozen_indicators_values="sex: female, reproductor: false"/>
       <item name="female_young_cattle_herd" nature="cattle_herd" derivative_of="bos" frozen_indicators_values="sex: female" unit_name="band"/>
       <item name="female_young_cow" nature="female_young_cow" frozen_indicators_values="sex: female, reproductor: false, livestock_unit: 0.7" unit_name="head"/>
+      <item name="female_young_dog" nature="female_young_dog" frozen_indicators_values="sex: female, reproductor: false"/>
       <item name="female_young_goat" nature="female_young_goat" frozen_indicators_values="livestock_unit: 0.09, reproductor: false" unit_name="head"/>
       <item name="female_young_pig_band" nature="pig_band" derivative_of="sus" frozen_indicators_values="sex: female, reproductor: false" unit_name="band"/>
       <item name="female_young_sheep" nature="female_young_sheep" frozen_indicators_values="sex: female, reproductor: false, livestock_unit: 0.15" unit_name="head"/>
@@ -2953,8 +2961,10 @@
       <item name="lucerne_seed" nature="seed" derivative_of="medicago" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
       <item name="lupin_crop" nature="grain_crop" variety="lupinus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="maintenance" nature="maintenance"/>
+      <item name="male_adult_cat" nature="male_adult_cat" frozen_indicators_values="sex: male, reproductor: true"/>
       <item name="male_adult_cattle_herd" nature="cattle_herd" derivative_of="bos" frozen_indicators_values="sex: male" unit_name="band"/>
       <item name="male_adult_cow" nature="male_adult_cow" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 1.0" unit_name="head"/>
+      <item name="male_adult_dog" nature="male_adult_dog" frozen_indicators_values="sex: male, reproductor: true"/>
       <item name="male_adult_goat" nature="male_adult_goat" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.17" unit_name="head"/>
       <item name="male_adult_goat_herd" nature="male_adult_goat_herd" derivative_of="capra" frozen_indicators_values="sex: male, reproductor: true" unit_name="band"/>
       <item name="male_adult_horse" nature="female_adult_horse" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.83" unit_name="head"/>
@@ -2964,8 +2974,10 @@
       <item name="male_adult_sheep" nature="male_adult_sheep" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.15" unit_name="head"/>
       <item name="male_hen_band" nature="hen_band" frozen_indicators_values="sex: male, reproductor: false" unit_name="subject"/>
       <item name="male_pig_band" nature="pig_band" frozen_indicators_values="sex: male, reproductor: false" unit_name="head"/>
+      <item name="male_young_cat" nature="male_young_cat" frozen_indicators_values="sex: male, reproductor: false"/>
       <item name="male_young_cattle_herd" nature="cattle_herd" derivative_of="bos" frozen_indicators_values="sex: male" unit_name="band"/>
       <item name="male_young_cow" nature="male_young_cow" frozen_indicators_values="sex: male, reproductor: false, livestock_unit: 0.7" unit_name="head"/>
+      <item name="male_young_dog" nature="male_young_dog" frozen_indicators_values="sex: male, reproductor: false"/>
       <item name="male_young_goat" nature="male_young_goat" frozen_indicators_values="livestock_unit: 0.09, reproductor: false" unit_name="head"/>
       <item name="male_young_pig_band" nature="pig_band" derivative_of="sus" frozen_indicators_values="sex: male, reproductor: false" unit_name="band"/>
       <item name="male_young_sheep" nature="male_young_sheep" frozen_indicators_values="sex: male, reproductor: false, livestock_unit: 0.15" unit_name="head"/>
@@ -3299,8 +3311,10 @@
       <item name="exploitation_subsidies" category="exploitation_subsidies" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="farm_teaching_services" category="farm_teaching_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="fee" category="fee" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="female_adult_cat" category="adult_cat" variety="felis_silvestris_catus" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move, produce(animal)" variable_indicators="net_mass, healthy, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count" frozen_indicators="reproductor, sex"/>
       <item name="female_adult_cattle_herd" category="cattle_herd" variety="animal_group" derivative_of="bos" population_counting="unitary" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_adult_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
+      <item name="female_adult_dog" category="adult_dog" variety="canis_lupus_familiaris" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move, produce(animal)" variable_indicators="net_mass, healthy, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count" frozen_indicators="reproductor, sex"/>
       <item name="female_adult_goat" category="female_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
       <item name="female_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="unitary" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(animal)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy" frozen_indicators="livestock_unit, reproductor, sex"/>
@@ -3308,7 +3322,9 @@
       <item name="female_adult_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)" variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
       <item name="female_adult_sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="unitary" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)" frozen_indicators="reproductor, sex"/>
       <item name="female_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(oryctolagus)" variable_indicators="net_mass, animal_life_state, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="female_young_cat" category="young_cat" variety="felis_silvestris_catus" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="reproductor, sex"/>
       <item name="female_young_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat, milk"/>
+      <item name="female_young_dog" category="young_dog" variety="canis_lupus_familiaris" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="reproductor, sex"/>
       <item name="female_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="female_young_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="fence" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length, height"/>
@@ -3386,14 +3402,18 @@
       <item name="loan_interest" category="loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mail_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="maintenance" category="maintenance" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="male_adult_cat" category="adult_cat" variety="felis_silvestris_catus" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="reproductor, sex"/>
       <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_adult_dog" category="adult_dog" variety="canis_lupus_familiaris" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="reproductor, sex"/>
       <item name="male_adult_goat" category="male_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="unitary" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement)" frozen_indicators="reproductor, sex"/>
       <item name="male_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="livestock_unit, reproductor, sex"/>
       <item name="male_adult_pig" category="male_adult_pig" variety="sus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_adult_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="male_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_young_cat" category="young_cat" variety="felis_silvestris_catus" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="reproductor, sex"/>
       <item name="male_young_cow" category="male_young_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
+      <item name="male_young_dog" category="young_dog" variety="canis_lupus_familiaris" population_counting="unitary" abilities="consume(water), consume(meat), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="reproductor, sex"/>
       <item name="male_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="male_young_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="livestock_unit, reproductor, sex" derivatives="meat"/>
       <item name="manager" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), manage(worker), milk(mammalia), move, administer_care(animal)" variable_indicators="geolocation" frozen_indicators=""/>
@@ -9678,6 +9698,9 @@
       <item name="cananga" parent="annonaceae" itis_tsn="181838"/>
       <item name="cananga_odorata" parent="cananga" itis_tsn="181839"/>
       <item name="canidae" parent="mammalia" itis_tsn="180594"/>
+      <item name="canis" parent="canidae"/>
+      <item name="canis_lupus" parent="canis"/>
+      <item name="canis_lupus_familiaris" parent="canis_lupus"/>
       <item name="cannabaceae" parent="plant" itis_tsn="19118"/>
       <item name="cannabis" parent="cannabaceae" itis_tsn="19108"/>
       <item name="cannabis_antal" parent="cannabis"/>
@@ -10037,6 +10060,9 @@
       <item name="fagopyrum_tataricum" parent="fagopyrum" itis_tsn="21283"/>
       <item name="fagus" parent="fagaceae" itis_tsn="19461"/>
       <item name="felidae" parent="mammalia" itis_tsn="180580"/>
+      <item name="felis" parent="felidae"/>
+      <item name="felis_silvestris" parent="felis"/>
+      <item name="felis_silvestris_catus" parent="felis_silvestris"/>
       <item name="fermented_juice" parent="preparation" derivative_of="fruit"/>
       <item name="fermented_milk" parent="preparation" derivative_of="milk"/>
       <item name="festuca" parent="poaceae" itis_tsn="40792"/>

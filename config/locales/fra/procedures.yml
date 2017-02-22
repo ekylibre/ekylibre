@@ -14,7 +14,7 @@ fra:
     mass_volume_density: "Masse volumique" #?
     milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette" #?
-    net_mass: "Masse" #?
+    net_mass: "Masse nette" #?
     net_mass_in_kilogram: "Masse nette en kilogrammes" #?
     net_mass_in_ton: "Masse nette en tonnes" #?
     net_volume: "Volume" #?
@@ -144,7 +144,7 @@ fra:
     mammal_herd: "Troupeau à traire" #?
     mammal_herd_to_milk: "Troupeau à traire" #?
     mammal_to_milk: "Animal à traire"
-    manure: "Fumier"
+    manure: "Fumier" #?
     manure_to_spread: "Fumier à épandre" #?
     matters: "Matières"
     mechanic: "Mécanicien"
@@ -190,6 +190,7 @@ fra:
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
     pruner: "Sécateur" #?
+    raised_manure: "Fumier collecté"
     replacement_part: "Pièce de remplacement"
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
