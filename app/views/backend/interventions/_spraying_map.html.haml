@@ -3,10 +3,10 @@
   data = []
   data_crumbs = []
   issue = resource.issue
-  
+
   resource.targets.each do |parameter|
     popup_content = []
-    
+
     resource.inputs.each do |input|
       h = input.reglementary_status(parameter).first
       if h
@@ -15,7 +15,7 @@
     end
 
     popup_content << render('popup', product: parameter)
-    
+
     shape = parameter.working_zone
     shape ||= parameter.product.shape(at: resource.started_at) if parameter.product
     if shape

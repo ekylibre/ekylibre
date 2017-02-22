@@ -128,19 +128,19 @@ module Ekylibre
           end
 
           # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
-          
+
           intervention = nil
-          
+
           procedure = Procedo.find(:spraying)
-          started_at = "2014-06-01 09:00"
-          stopped_at = "2014-06-01 09:45"
-          
+          started_at = '2014-06-01 09:00'
+          stopped_at = '2014-06-01 09:45'
+
           # build base procedure
           attributes = {
             procedure_name: procedure.name,
             actions: procedure.mandatory_actions.map(&:name)
           }
-          
+
           ## working_periods
           attributes[:working_periods_attributes] = {
             '0' => {
@@ -148,18 +148,18 @@ module Ekylibre
               stopped_at: stopped_at.to_time.strftime('%Y-%m-%d %H:%M')
             }
           }
-          
+
           ## targets
           attributes[:targets_attributes] ||= {}
           attributes[:targets_attributes][0] = {
-          reference_name: 'cultivation',
-          product_id: plant.id,
-          working_zone: plant.shape.to_geojson
-           }
-           
+            reference_name: 'cultivation',
+            product_id: plant.id,
+            working_zone: plant.shape.to_geojson
+          }
+
           ## inputs
           updaters = []
-          
+
           attributes[:inputs_attributes] ||= {}
           attributes[:inputs_attributes][0] = {
             reference_name: 'plant_medicine',
@@ -167,9 +167,9 @@ module Ekylibre
             quantity_handler: 'population',
             quantity_value: intrant_population
           }
-          
-          updaters << "inputs[0]quantity_value"
-          
+
+          updaters << 'inputs[0]quantity_value'
+
           ## tools
           eqs = []
           eqs << sprayer
@@ -184,7 +184,7 @@ module Ekylibre
               break
             end
           end
-          
+
           ## doers
           doers = []
           doers << worker
@@ -199,12 +199,12 @@ module Ekylibre
               break
             end
           end
-          
+
           intervention = Procedo::Engine.new_intervention(attributes)
           updaters.each do |updater|
             intervention.impact_with!(updater)
           end
-    
+
           ## save
           intervention = ::Intervention.create!(intervention.to_hash)
 
@@ -213,7 +213,6 @@ module Ekylibre
             intervention.prescription = prescription if prescription
             intervention.save!
           end
-
 
           # 4 - COLLECT REAL INTERVENTION TRIP
           # populate crumbs for ticsad simulation
