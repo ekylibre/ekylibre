@@ -139,6 +139,11 @@ class InterventionProductParameter < InterventionParameter
     product.update_columns(dead_at: product.dead_first_at) if product && dead
   end
 
+  # FIXME: Worst ever fix for intervention_product_parameters#errors handling
+  def errors=(*args)
+    # Nop
+  end
+
   def name
     reference ? reference.human_name : reference_name.humanize
   end
