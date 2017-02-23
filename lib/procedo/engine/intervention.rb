@@ -41,6 +41,19 @@ module Procedo
         hash
       end
 
+      def to_attributes
+        hash = { procedure_name: @procedure.name, working_periods_attributes: {} }
+        @working_periods.each do |id, period|
+          hash[:working_periods_attributes][id] = period.to_attributes
+        end
+        @root_group.each_member do |parameter|
+          param_name = parameter.param_name
+          hash[param_name] ||= {}
+          hash[param_name][parameter.id.to_s] = parameter.to_attributes
+        end
+        hash
+      end
+
       def handlers_states
         hash = {}
         @root_group.each_member do |parameter|

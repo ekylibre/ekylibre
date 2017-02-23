@@ -36,6 +36,7 @@ module Procedo
         def to_hash
           { reference_name: @reference.name }
         end
+        alias to_attributes to_hash
 
         def param_name
           "#{type.to_s.pluralize}_attributes".to_sym
