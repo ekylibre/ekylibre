@@ -177,6 +177,11 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
   def compute
+    self.debit       ||= 0
+    self.credit      ||= 0
+    self.real_debit  ||= 0
+    self.real_credit ||= 0
+
     if entry
       self.entry_number = entry.number
       [:financial_year_id, :printed_on, :journal_id, :currency,
