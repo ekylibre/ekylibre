@@ -139,7 +139,7 @@ module Procedo
           end
 
           value = product.get(indicator.name.to_sym, @env['READ_AT'])
-          value = value.to_f(unit.name) if unit
+          value = value.is_a?(Measure) ? (value.to_f(unit.name) if unit) : value.to_f
           value = 1 if indicator.name =~ /net_surface_area/ && value.zero?
           value
         elsif node.nil?
