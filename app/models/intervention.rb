@@ -248,10 +248,7 @@ class Intervention < Ekylibre::Record::Base
 
   validate do
     if procedure
-      all_known = true
-      actions.each do |action|
-        all_known = false unless procedure.has_action?(action)
-      end
+      all_known = actions.all? { |action| procedure.has_action?(action) }
       errors.add(:actions, :invalid) unless all_known
     end
     if started_at && stopped_at && stopped_at <= started_at
