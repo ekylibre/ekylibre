@@ -136,4 +136,24 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert year.update_column(:accountant_id, accountant.id)
     refute year.opened_exchange?
   end
+
+  test 'get year if exist and superior to company born at' do
+    # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
+
+    searched_year = Time.new(2050, 06, 01)
+
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    assert searched_financial_year == nil
+
+    year = FinancialYear.on(searched_year)
+    assert year == nil                        
+
+    FinancialYear.create!(started_on: Time.new(2020, 01, 01), stopped_on: Time.new(2020, 12, 31), currency: 'EUR')    
+
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    assert searched_financial_year != nil
+
+    year = FinancialYear.on(searched_year)
+    assert year != nil                        
+  end
 end
