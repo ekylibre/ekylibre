@@ -51,13 +51,18 @@ module Ekylibre
             code << "  end\n"
             code << "end\n"
 
+            code << "def unique_predictable_#{column}\n"
+            code << "  last = #{last}\n"
+            code << "  #{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
+            code << "  while #{class_name}.find_by(#{column}: #{column}) do\n"
+            code << "    #{column} = #{column}.succ\n"
+            code << "  end\n"
+            code << "  #{column}\n"
+            code << "end\n"
+
             code << "def load_unique_predictable_#{column}\n"
             code << "  unless self.#{column}.present?\n" if options[:force].is_a?(FalseClass)
-            code << "    last = #{last}\n"
-            code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-            code << "    while #{class_name}.find_by(#{column}: self.#{column}) do\n"
-            code << "      self.#{column}.succ!\n"
-            code << "    end\n"
+            code << "    self.#{column} = unique_predictable_#{column}\n"
             code << "  end\n" if options[:force].is_a?(FalseClass)
             code << "  return true\n"
             code << "end\n"
