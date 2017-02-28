@@ -18,7 +18,7 @@
   = f.simple_fields_for(reflection, list) do |c|
     = render partial_name, f: c, reference: reference, namespace: prefix
   .links
-    - if reference.is_a?(Procedo::Procedure::ProductParameter) && reference.display_status
+    - if reference.display_status
       - if list.map(&:product).compact.blank?
         - invisible = 'display: none;'
       - else

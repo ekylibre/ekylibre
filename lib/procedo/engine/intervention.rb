@@ -72,7 +72,7 @@ module Procedo
         @procedure.parameters.each do |parameter|
           param_name = parameter.name
           concerned_params = @root_group.parameters_of_name(param_name)
-          display_method = parameter.display_status
+          display_method = parameter.display_status if parameter.respond_to? :display_status
           hash[param_name] = { display: Functions.send(display_method, concerned_params) } if display_method
         end
         hash
