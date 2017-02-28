@@ -137,23 +137,49 @@ class FinancialYearTest < ActiveSupport::TestCase
     refute year.opened_exchange?
   end
 
-  test 'get year if exist and superior to company born at' do
+  test 'Create years between company born at and searched year' do
     # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
 
-    searched_year = Time.new(2050, 06, 01)
+    searched_year = Time.now + 20.years
 
     searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
     assert searched_financial_year == nil
 
     year = FinancialYear.on(searched_year)
-    assert year == nil                        
+    refute year == nil
+    assert year.stopped_on.year == searched_year.year
 
-    FinancialYear.create!(started_on: Time.new(2020, 01, 01), stopped_on: Time.new(2020, 12, 31), currency: 'EUR')    
+    before_searched_year = Time.now + 19.years
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_year).order(started_on: :desc).first
+    
+    refute searched_financial_year == nil
+    assert searched_financial_year.stopped_on.year == before_searched_year.year
+ 
+
+    before_searched_year = Time.now + 10.years
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_year).order(started_on: :desc).first
+    
+    refute searched_financial_year == nil
+    assert searched_financial_year.stopped_on.year == before_searched_year.year
+  end
+
+  test 'get existed year if searched year is superior to company born at' do
+    # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
+
+    searched_year = Time.now + 25.years
+    future_started_date = searched_year.change(month: 1)
+    future_stopped_date = searched_year.change(month: 12).end_of_month 
 
     searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
-    assert searched_financial_year != nil
+    assert searched_financial_year == nil
+
+    FinancialYear.create!(started_on: future_started_date, stopped_on: future_stopped_date, currency: 'EUR')    
+   
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    refute searched_financial_year == nil
 
     year = FinancialYear.on(searched_year)
-    assert year != nil                        
+    refute year == nil
+    assert year.stopped_on.year == searched_year.year
   end
 end

@@ -68,6 +68,8 @@ class FinancialYear < Ekylibre::Record::Base
   validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }
   validates :tax_declaration_frequency, presence: { unless: :tax_declaration_mode_none? }
   
+  validate :started_at_validation
+
   # This order must be the natural order
   # It permit to find the first and the last financial year
   scope :closed, -> { where(closed: true).reorder(:started_on) }
@@ -102,12 +104,13 @@ class FinancialYear < Ekylibre::Record::Base
       if first_financial_year.started_on > searched_on
         return nil unless first_financial_year.stopped_on == (first_financial_year.started_on >> 12) - 1
         
-        new_financial_year = first_financial_year.find_or_create_previous! while first_financial_year.started_on > searched_on
+        new_financial_year = first_financial_year
+        new_financial_year = new_financial_year.find_or_create_previous! while new_financial_year.started_on > searched_on
         return new_financial_year
       end
 
-
-      new_financial_year = first_financial_year.find_or_create_next! while searched_on > first_financial_year.stopped_on
+      new_financial_year = first_financial_year
+      new_financial_year = new_financial_year.find_or_create_next! while searched_on > new_financial_year.stopped_on
       new_financial_year
 
       # year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
@@ -190,6 +193,14 @@ class FinancialYear < Ekylibre::Record::Base
       born_at = company.born_at.beginning_of_day
       errors.add(:started_on, :on_or_after, restriction: born_at) if born_at > started_on   
     end
+  end
+
+  def started_at_validation
+    # company = Entity.where(of_company: true).first
+    #
+    # unless company.nil?
+    #   errors.add(:started_on, :on_or_after, restriction: company.born_at) if company.born_at > started_on    
+    # end
   end
 
   def journal_entries(conditions = nil)
