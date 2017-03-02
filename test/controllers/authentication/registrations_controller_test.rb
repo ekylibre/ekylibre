@@ -34,9 +34,9 @@ module Authentication
         sign_up_request
       end
 
-      mail = ActionMailer::Base.deliveries.first
+      mail = ActionMailer::Base.deliveries.last
       assert_equal User.administrators.pluck(:email), mail.to
-      assert_equal 'New sign up', mail.subject
+      assert_equal 'New registration', mail.subject
     end
   end
 end
