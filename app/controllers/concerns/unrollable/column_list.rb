@@ -46,7 +46,7 @@ module Unrollable
       when Hash
         object.map do |k, v|
           a = [k, to_includes(object: v)]
-          a.last.nil? ? k : a.to_h
+          a.last.nil? ? k : [a].to_h
         end
       when Symbol, String then nil
       else raise "Don't know how to handle object: #{object.inspect}."
