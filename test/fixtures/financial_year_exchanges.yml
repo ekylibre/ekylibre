@@ -39,4 +39,11 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
---- {}
+financial_year_exchanges_001:
+  id: 2
+  financial_year_id: 12
+  started_on: 2002-09-21
+  stopped_on: 2002-09-25
+  created_at: 2017-03-02 14:16:22.654666997 Z
+  updated_at: 2017-03-02 14:16:22.654666997 Z
+  lock_version: 0
