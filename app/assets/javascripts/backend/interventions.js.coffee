@@ -243,6 +243,17 @@
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
+      $('#content').scroll ->
+        if $('#content').scrollTop() > $('#content').height() - 40
+          # $.ajax
+          #   url: "/backend/interventions/change_page",
+          #   data: {modal_type: "delete", interventions_ids: interventionsIds}
+          #   success: (data, status, request) ->
+
+      # $('.task').Lazy({
+      #
+      # })
+
 
   class InterventionsTaskboard
 

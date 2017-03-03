@@ -380,6 +380,10 @@ module Backend
       redirect_to_back
     end
 
+    def change_page
+      Interventions.with_unroll(params[:unroll]) 
+    end
+
     private
 
     def find_interventions
