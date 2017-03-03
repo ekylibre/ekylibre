@@ -42,10 +42,7 @@ class SequenceManager
   def load_reliable_into(record)
     return true if !@force && number_of(record)
 
-    unless sequence
-      set_number(record, unique_predictable)
-      return true
-    end
+    return load_predictable_into(record) unless sequence
 
     value = sequence.next_value!
     value = sequence.next_value! while @managed.find_by(@column => value)
