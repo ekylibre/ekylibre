@@ -7,71 +7,77 @@ module Ekylibre
         end
 
         module ClassMethods
+          def sequence_manager
+            @sequence_manager || superclass.sequence_manager
+          end
+
           # Use preference to select preferred sequence to attribute number
           # in column
           def acts_as_numbered(*args)
             options = args[-1].is_a?(Hash) ? args.delete_at(-1) : {}
-            column = args.shift || :number
-
-            unless columns_definition[column]
-              Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{table_name}"
-            end
+            numbered_column = args.shift || :number
 
             options = { start: '00000001' }.merge(options)
+                                           .merge(usage: options[:usage] || main_class.name.tableize)
+                                           .merge(column: numbered_column)
 
-            main_class = self
-            while main_class.superclass != Ekylibre::Record::Base && main_class.superclass != ActiveRecord::Base
-              main_class = superclass
+            ensure_validity!(options[:column], options[:usage])
+
+            @sequence_manager = SequenceManager.new(main_class, options)
+            delegate :sequence_manager, to: :class
+
+            attr_readonly :"#{options[:column]}" if options[:readonly]
+            validates :"#{options[:column]}", presence: true, uniqueness: true
+
+            define_sequence_methods(options[:column])
+          end
+
+          private
+
+          def define_sequence_methods(column)
+            define_next(column)
+            define_load_reliable(column)
+            define_load_predictable(column)
+            define_unique_predictable(column)
+          end
+
+          def ensure_validity!(column, usage)
+            raise "Usage #{usage} must be defined in Sequence usages" unless Sequence.usage.values.include?(usage)
+            return true if columns_definition[column]
+            Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{table_name}"
+          end
+
+          def main_class
+            klass = self
+            klass = superclass until [Ekylibre::Record::Base, ActiveRecord::Base].include? klass.superclass
+            klass
+          end
+
+          def define_next(column)
+            define_method :"next_#{column}" do
+              sequence_manager.next_number
             end
-            class_name = main_class.name
+          end
 
-            usage = options[:usage] || class_name.tableize
-            unless Sequence.usage.values.include?(usage)
-              raise "Usage #{usage} must be defined in Sequence usages"
+          def define_unique_predictable(column)
+            define_method :"unique_predictable_#{column}" do
+              sequence_manager.unique_predictable
             end
+          end
 
-            find_last = proc { main_class.where.not(column => nil).reorder("LENGTH(#{column}) DESC, #{column} DESC").first }
-
-            attr_readonly :"#{column}" unless options[:readonly] == false
-
-            validates :"#{column}", presence: true, uniqueness: true
-
-            before_validation :"load_unique_predictable_#{column}", on: :create
+          def define_load_reliable(column)
             before_validation :"load_unique_reliable_#{column}", on: :create
 
-            define_method :"next_#{column}" do
-              sequence = Sequence.of(usage)
-              return sequence.next_value if sequence
-              last = find_last.call
-              return options[:start] if last.nil? || last.blank?
-              last.send(column).succ
+            define_method :"load_unique_reliable_#{column}" do
+              sequence_manager.load_reliable_into self
             end
+          end
 
-            define_method :"unique_predictable_#{column}" do
-              last = find_last.call
-              value = options[:start]
-              value = last.send(column).succ unless last.nil? || last.blank?
-              value = value.succ while main_class.find_by(column => value)
-              value
-            end
+          def define_load_predictable(column)
+            before_validation :"load_unique_predictable_#{column}", on: :create
 
             define_method :"load_unique_predictable_#{column}" do
-              return true if options[:force] == false && send(column).present?
-              send(:"#{column}=", send(:"unique_predictable_#{column}"))
-              true
-            end
-
-            define_method :"load_unique_reliable_#{column}" do
-              return true if options[:force] == false && send(column)
-              unless sequence = Sequence.of(usage)
-                send(:"#{column}=", send(:"unique_predictable_#{column}"))
-                return true
-              end
-
-              value = sequence.next_value!
-              value = sequence.next_value! while main_class.find_by(column => value)
-              send(:"#{column}=", value)
-              true
+              sequence_manager.load_predictable_into self
             end
           end
         end
