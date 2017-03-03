@@ -30,62 +30,49 @@ module Ekylibre
               raise "Usage #{usage} must be defined in Sequence usages"
             end
 
-            last  = "#{class_name}.where('#{column} IS NOT NULL').reorder('LENGTH(#{column}) DESC, #{column} DESC').first"
+            find_last = proc { main_class.where.not(column => nil).reorder("LENGTH(#{column}) DESC, #{column} DESC").first }
 
-            code  = ''
+            attr_readonly :"#{column}" unless options[:readonly] == false
 
-            code << "attr_readonly :#{column}\n" unless options[:readonly].is_a? FalseClass
+            validates :"#{column}", presence: true, uniqueness: true
 
-            code << "validates :#{column}, presence: true, uniqueness: true\n"
+            before_validation :"load_unique_predictable_#{column}", on: :create
+            before_validation :"load_unique_reliable_#{column}", on: :create
 
-            code << "before_validation(:load_unique_predictable_#{column}, on: :create)\n"
-            code << "after_validation(:load_unique_reliable_#{column}, on: :create)\n"
+            define_method :"next_#{column}" do
+              sequence = Sequence.of(usage)
+              return sequence.next_value if sequence
+              last = find_last.call
+              return options[:start] if last.nil? || last.blank?
+              last.send(column).succ
+            end
 
-            code << "def next_#{column}\n"
-            code << "  sequence = Sequence.of('#{usage}')\n"
-            code << "  if sequence\n"
-            code << "    sequence.next_value\n"
-            code << "  else\n"
-            code << "    last = #{last}\n"
-            code << "    (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-            code << "  end\n"
-            code << "end\n"
+            define_method :"unique_predictable_#{column}" do
+              last = find_last.call
+              value = options[:start]
+              value = last.send(column).succ unless last.nil? || last.blank?
+              value = value.succ while main_class.find_by(column => value)
+              value
+            end
 
-            code << "def unique_predictable_#{column}\n"
-            code << "  last = #{last}\n"
-            code << "  #{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-            code << "  while #{class_name}.find_by(#{column}: #{column}) do\n"
-            code << "    #{column} = #{column}.succ\n"
-            code << "  end\n"
-            code << "  #{column}\n"
-            code << "end\n"
+            define_method :"load_unique_predictable_#{column}" do
+              return true if options[:force] == false && send(column).present?
+              send(:"#{column}=", send(:"unique_predictable_#{column}"))
+              true
+            end
 
-            code << "def load_unique_predictable_#{column}\n"
-            code << "  unless self.#{column}.present?\n" if options[:force].is_a?(FalseClass)
-            code << "    self.#{column} = unique_predictable_#{column}\n"
-            code << "  end\n" if options[:force].is_a?(FalseClass)
-            code << "  return true\n"
-            code << "end\n"
+            define_method :"load_unique_reliable_#{column}" do
+              return true if options[:force] == false && send(column)
+              unless sequence = Sequence.of(usage)
+                send(:"#{column}=", send(:"unique_predictable_#{column}"))
+                return true
+              end
 
-            code << "def load_unique_reliable_#{column}\n"
-            code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
-            code << "    if sequence = Sequence.of('#{usage}')\n"
-            code << "      self.#{column} = sequence.next_value!\n"
-            code << "      while #{class_name}.find_by(#{column}: self.#{column}) do\n"
-            code << "        self.#{column} = sequence.next_value!\n"
-            code << "      end\n"
-            code << "    else\n"
-            code << "      last = #{last}\n"
-            code << "      self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-            code << "      while #{class_name}.find_by(#{column}: self.#{column}) do\n"
-            code << "        self.#{column}.succ!\n"
-            code << "      end\n"
-            code << "    end\n"
-            code << "  end\n" if options[:force].is_a?(FalseClass)
-            code << "  return true\n"
-            code << "end\n"
-            # puts code
-            class_eval code
+              value = sequence.next_value!
+              value = sequence.next_value! while main_class.find_by(column => value)
+              send(:"#{column}=", value)
+              true
+            end
           end
         end
       end
