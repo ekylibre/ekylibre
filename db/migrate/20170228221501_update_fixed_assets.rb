@@ -1,4 +1,12 @@
 class UpdateFixedAssets < ActiveRecord::Migration
+  ACCOUNT = (YAML.safe_load <<-YAML).deep_symbolize_keys.freeze
+      name:
+        fra: Immobilisations en cours
+        eng: Outstanding assets
+        por: Ativos em circulação
+      number: 23
+    YAML
+
   def change
     add_reference :purchase_items, :fixed_asset, index: true
     add_reference :fixed_assets, :product, index: true
@@ -8,11 +16,23 @@ class UpdateFixedAssets < ActiveRecord::Migration
     add_reference :fixed_assets, :journal_entry, index: true
     add_reference :fixed_assets, :asset_account, index: true
 
-    # import :outstanding_assets account
-    outstanding_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
-
     reversible do |r|
       r.up do
+        language_pref = execute("SELECT preferences.* FROM preferences WHERE preferences.name = 'language' LIMIT 1").first
+        language      = language_pref ? language_pref['string_value'].to_sym : :eng
+        language      = (ACCOUNT[:name].keys & [language]).first || :eng
+        name          = ACCOUNT[:name][language]
+        number        = ACCOUNT[:number]
+        label         = "#{name} - #{number}"
+
+        account_exists = execute('SELECT accounts.* FROM accounts WHERE (usages ~ E\'\\moutstanding_assets\\M\') ORDER BY accounts.id ASC LIMIT 1').first
+
+        unless account_exists
+          execute "INSERT INTO accounts (name, number, usages, label, created_at, updated_at, lock_version)
+                   VALUES ('#{name}', '#{number}', 'outstanding_assets', '#{label}',
+                           '#{Time.zone.now}', '#{Time.zone.now}', 0)"
+        end
+
         execute 'UPDATE purchase_items pi SET fixed_asset_id = (SELECT fa.id FROM fixed_assets fa WHERE fa.purchase_item_id = pi.id LIMIT 1)'
         execute 'UPDATE fixed_assets fa SET product_id = (SELECT p.id FROM products p WHERE p.fixed_asset_id = fa.id LIMIT 1)'
         execute "UPDATE fixed_assets SET state = 'draft'"
@@ -46,9 +66,5 @@ class UpdateFixedAssets < ActiveRecord::Migration
         execute 'UPDATE products p SET fixed_asset_id = (SELECT fa.id FROM fixed_assets fa WHERE fa.product_id = p.id LIMIT 1)'
       end
     end
-
-    remove_column :fixed_assets, :purchase_item_id
-    remove_column :fixed_assets, :purchase_id
-    remove_column :products, :fixed_asset_id
   end
 end

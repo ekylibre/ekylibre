@@ -2465,6 +2465,8 @@ CREATE TABLE fixed_assets (
     number character varying NOT NULL,
     description text,
     purchased_on date,
+    purchase_id integer,
+    purchase_item_id integer,
     ceded boolean,
     ceded_on date,
     sale_id integer,
@@ -5364,6 +5366,7 @@ CREATE TABLE products (
     variety character varying NOT NULL,
     derivative_of character varying,
     tracking_id integer,
+    fixed_asset_id integer,
     born_at timestamp without time zone,
     dead_at timestamp without time zone,
     description text,
@@ -11123,6 +11126,20 @@ CREATE INDEX index_fixed_assets_on_product_id ON fixed_assets USING btree (produ
 
 
 --
+-- Name: index_fixed_assets_on_purchase_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_purchase_id ON fixed_assets USING btree (purchase_id);
+
+
+--
+-- Name: index_fixed_assets_on_purchase_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_purchase_item_id ON fixed_assets USING btree (purchase_item_id);
+
+
+--
 -- Name: index_fixed_assets_on_sale_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14791,6 +14808,13 @@ CREATE INDEX index_products_on_default_storage_id ON products USING btree (defau
 
 
 --
+-- Name: index_products_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_fixed_asset_id ON products USING btree (fixed_asset_id);
+
+
+--
 -- Name: index_products_on_initial_container_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16927,8 +16951,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170215155700');
 
 INSERT INTO schema_migrations (version) VALUES ('20170215171400');
 
-INSERT INTO schema_migrations (version) VALUES ('20170217221501');
-
 INSERT INTO schema_migrations (version) VALUES ('20170220123437');
 
 INSERT INTO schema_migrations (version) VALUES ('20170220164259');
@@ -16942,4 +16964,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170222100614');
 INSERT INTO schema_migrations (version) VALUES ('20170222222222');
 
 INSERT INTO schema_migrations (version) VALUES ('20170227143414');
+
+INSERT INTO schema_migrations (version) VALUES ('20170228221501');
 
