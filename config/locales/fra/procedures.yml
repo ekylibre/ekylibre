@@ -14,7 +14,7 @@ fra:
     mass_volume_density: "Masse volumique" #?
     milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette" #?
-    net_mass: "Masse" #?
+    net_mass: "Masse nette" #?
     net_mass_in_kilogram: "Masse nette en kilogrammes" #?
     net_mass_in_ton: "Masse nette en tonnes" #?
     net_volume: "Volume" #?
@@ -41,11 +41,13 @@ fra:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
     animal: "Animal"
+    animal_food: "Aliment"
     animal_housing: "Zone d'hébergement de l'animal"
     animal_medicine: "Produit vétérinaire"
     animal_medicine_to_give: "Produit vétérinaire à donner" #?
+    animal_movement: "Déplacement d'un animal" #?
     baler: "Botteleuse"
-    bird_band: "Bande d'oiseaux"
+    bird_band: "Bande d'oiseaux" #?
     bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
     caregiver: "Soigneur"
@@ -53,6 +55,7 @@ fra:
     chemical_storage: "Stockage de produits de protection des végétaux" #?
     child: "Nouveau né"
     cleaner: "Outil de nettoyage"
+    cleaner_product: "Produit de nettoyage"
     compressor: "Compresseur"
     construction_material: "Materiel de construction"
     consumable_part: "Consommable"
@@ -67,12 +70,13 @@ fra:
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
+    disinfectant: "Désinfectant"
     doer: "Opérateur"
     driver: "Conducteur"
     eggs: "Œufs"
     energy: "Energie"
     equipment: "Équipement"
-    excrement: "Excrément"
+    excrement: "Excrément" #?
     excrement_zone: "Fumière" #?
     fermented_juice: "Jus fermenté"
     fertilizer: "Engrais"
@@ -134,6 +138,7 @@ fra:
     juice_to_ferment: "Jus à fermenter"
     land_parcel: "Parcelle"
     lifter: "Souleveuse"
+    litter: "Litière"
     maintained: "Maintenu" #?
     mammal: "Animal" #?
     mammal_herd: "Troupeau à traire" #?
@@ -149,6 +154,7 @@ fra:
     medicine_to_spray: "Traitement à pulvériser" #?
     member: "Membre" #?
     milk: "Lait"
+    milking_robot: "Robot de traite"
     molluscicide: "Molluscicide" #?
     molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
@@ -167,6 +173,7 @@ fra:
     oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
+    parturition: "Mise bas"
     plant: "Culture"
     plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
@@ -176,12 +183,14 @@ fra:
     plow: "Charrue"
     pollinating_insects: "Insectes pollinisateurs"
     pollination_tool: "Outil de pollinisation"
+    poultry: "Volailles"
     press: "Presse"
     product: "Produit" #?
     product_to_sort: "Produits à trier"
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
     pruner: "Sécateur" #?
+    raised_manure: "Fumier collecté"
     replacement_part: "Pièce de remplacement"
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
@@ -204,7 +213,7 @@ fra:
     silage: "Ensilage"
     silage_to_deliver: "Ensilage à livrer" #?
     silage_to_give: "Ensilage à donner" #?
-    silage_unloader: "Désileuse"
+    silage_unloader: "Désileuse" #?
     silo: "Silo" #?
     soil_loosener: "Décompacteur"
     sortable: "Produit à trier"
@@ -244,6 +253,7 @@ fra:
     tunnel_remover: "Outil de retrait de tunnel/chenille"
     uncover: "Débâcheuse"
     variant: "Variant"
+    vehicle: "Véhicule"
     vial: "Paillette"
     vial_to_give: "Paillette à utiliser" #?
     walnuts: "Noix" #?
@@ -270,13 +280,15 @@ fra:
     administrative_task: "Tâche administrative générale" #?
     administrative_tasks: "Tâches administratives"
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
-    animal_antibiotic_treatment: "Traitement antibiotique"
+    animal_antibiotic_treatment: "Traitement antibiotique" #?
     animal_artificial_insemination: "Insémination artificielle"
     animal_birth: "Naissance d’un animal" #?
-    animal_group_changing: "Déplacement d'un animal"
-    animal_housing_cleaning: "Nettoyage de stabulation"
-    animal_housing_mulching: "Paillage de stabulation"
+    animal_group_changing: "Déplacement d'animaux"
+    animal_housing_cleaning: "Nettoyage"
+    animal_housing_disinfection: "Désinfection"
+    animal_housing_mulching: "Paillage"
     animal_treatment: "Traitement animal" #?
+    animal_veterinary_treatment: "Traitement vétérinaire"
     attach: "Attellage" #?
     calving_one: "Vêlage unique" #?
     calving_twin: "Vêlage jumeaux" #?
@@ -294,7 +306,7 @@ fra:
     double_seed_mixing: "Mélange de semences avec deux semences" #?
     double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)" #?
     double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)" #?
-    egg_collecting: "Collecte d'œufs"
+    egg_collecting: "Ramassage d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
     equipment_item_replacement: "Équipement pièce de rechange"
@@ -311,6 +323,7 @@ fra:
     grains_harvest: "Moisson" #?
     grape_pressing: "Pressage de raisin"
     grape_transport: "Transport de raisin" #?
+    grazing: "Pâturage sur parcours"
     greenhouse_assembling: "Montage de serre"
     grinding: "Broyage" #?
     ground_destratification: "Déstratification"
@@ -323,13 +336,16 @@ fra:
     harvesting: "Récolte"
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?
+    herd_feeding: "Alimentation d'un troupeau"
     hilling: "Buttage"
     hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
-    housing_soil_disinfection: "Désinfection du sol"
+    housing_soil_disinfection: "Désinfection" #?
+    identification: "Identification"
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
+    individual_feeding: "Alimentation individuelle"
     installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
@@ -375,7 +391,7 @@ fra:
     seedling_sorting: "Triage de plants"
     sifting: "Tamisage"
     silage_transport: "Transport d'ensilage" #?
-    silage_unload: "Alimentation d’un troupeau via désileuse"
+    silage_unload: "Alimentation d’un troupeau via désileuse" #?
     sowing: "Semis"
     sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
     sowing_with_spraying: "Semis avec pulvérisation"

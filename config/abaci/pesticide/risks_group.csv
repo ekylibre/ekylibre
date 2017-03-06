@@ -1,0 +1,10 @@
+code,label_fr,group,risks
+R1,Risks 1,1,"T, T+"
+R2,Risks 2,1,"H300, H301, H310, H311, H330, H331, H340, H350, H350i, H360F, H360D, H360FD, H360Fd, H360Df, H370, H372"
+R3,Risks 3,2,H373
+R4,Risks 4,2,"R48/20, R48/21, R48/22, R48/20/21, R48/20/22, R48/21/22, R48/20/21/22"
+R5,Risks 5,3,"H361d, H361f, H361fd, H362"
+R6,Risks 6,3,"R62, R63, R64"
+R7,Risks 7,4,"H341, H351, H371"
+R8,Risks 8,4,"R40, R68, R68/x"
+R9,Risks 9,5,""

@@ -80,6 +80,7 @@ eng:
       index: "Animals"
       # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
+      # matching_interventions: "Matching interventions animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
@@ -1018,6 +1019,8 @@ eng:
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
+    beta: "Beta feature"
+    beta_description: "This feature is currently under development and as such its results should not be taken at face value."
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
@@ -1079,6 +1082,7 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    connect: "Connect"
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
@@ -1181,6 +1185,7 @@ eng:
     doer_cost: "Doer cost"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
+    # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
@@ -1302,6 +1307,7 @@ eng:
     interval: "Personalized Interval" #?
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
+    intervention_message_miscibility: "Mixing allowed"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
@@ -1491,6 +1497,7 @@ eng:
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
+    parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
@@ -1515,6 +1522,7 @@ eng:
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     phosphorus_concentration: "Phosphorus concentration" #?
+    # phyto_data: "Phyto data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -2162,6 +2170,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"
       # models: "Models"

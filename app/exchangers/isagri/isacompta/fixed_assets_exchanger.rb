@@ -21,12 +21,11 @@ module Isagri
         exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses) # 68
 
         unless exchange_allocation_account && exchange_expenses_account
-          w.error "No way to have exchange accounts to build fixed asset"
+          w.error 'No way to have exchange accounts to build fixed asset'
           valid = false
         end
 
         rows.each_with_index do |row, index|
-
           line_number = index + 2
           prompt = "L#{line_number.to_s.yellow}"
 
@@ -34,7 +33,7 @@ module Isagri
             asset_account: row[0].blank? ? nil : row[0].to_s,
             number: row[1].blank? ? '' : row[1].to_s,
             name: row[2].blank? ? nil : row[2].to_s,
-            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%y'),  
+            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%y'),
             purchase_amount: row[5].blank? ? nil : row[5].tr(',', '.').to_d,
             depreciation_method: row[6].blank? ? nil : depreciation_method_transcode[row[6].to_s.strip],
             in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%y'),
@@ -69,23 +68,23 @@ module Isagri
             w.error "No depreciation method date exist in file on #{prompt}. You must have one of the following ('Linéaire', 'Non amortissable', 'Dégressif')"
             valid = false
           end
-          
+
           unless r.duration_in_year
             w.error "No valid duration exist in file on #{prompt}"
             valid = false
           end
 
           # check asset account must exist in DB
-          if r.asset_account && r.name
-            exchange_asset_account_name = r.number + ' | ' + r.name
-            exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
-            unless exchange_asset_account
-              w.error "No way to have matching asset account in DB or Nomenclature (#{r.asset_account.inspect}) to build fixed asset on #{prompt}"
-              valid = false
-            end
+          next unless r.asset_account && r.name
+          exchange_asset_account_name = r.number + ' | ' + r.name
+          exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
+          unless exchange_asset_account
+            w.error "No way to have matching asset account in DB or Nomenclature (#{r.asset_account.inspect}) to build fixed asset on #{prompt}"
+            valid = false
           end
         end
       end
+
       # Create or updates fixed assets
       def import
         source = File.read(file)
@@ -106,7 +105,6 @@ module Isagri
         exchange_expenses_account = Account.find_or_import_from_nomenclature(:depreciations_inputations_expenses) # 68
 
         rows.each_with_index do |row, index|
-
           line_number = index + 2
           prompt = "L#{line_number.to_s.yellow} | "
 
@@ -133,34 +131,15 @@ module Isagri
             exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end
-          
+
           # Check existing asset (name && in_use date && asset_amount)
           asset = FixedAsset.find_by(name: r.name)
           # Create asset
-          unless asset
-            asset_attributes = {
-              name: r.name,
-              currency: currency_preference,
-              description: description,
-              started_on: r.in_use_on,
-              stopped_on: r.in_use_on + (r.duration_in_year).years,
-              depreciable_amount: r.asset_amount,
-              depreciation_method: r.depreciation_method,
-              depreciation_percentage: r.depreciation_rate,
-              journal: Journal.find_by(nature: :various),
-              asset_account: exchange_asset_account,
-              allocation_account: exchange_allocation_account,
-              expenses_account: exchange_expenses_account
-            }
-            w.info prompt + "asset attributes : #{asset_attributes.inspect.green}"
-            asset = FixedAsset.create!(asset_attributes)
-            w.info prompt + "Fixed asset created : #{asset.name.inspect.green}"
-          # Update asset
-          else
+          if asset
             if asset.updateable?
               asset.description = description
               asset.started_on = r.in_use_on
-              asset.stopped_on = r.in_use_on + (r.duration_in_year).years
+              asset.stopped_on = r.in_use_on + r.duration_in_year.years
               asset.depreciable_amount = r.asset_amount
               asset.depreciation_method = r.depreciation_method
               asset.depreciation_percentage = r.depreciation_rate
@@ -172,8 +151,27 @@ module Isagri
             else
               w.info prompt + "Fixed asset are not updateable : #{asset.name.inspect.red}"
             end
+          else
+            asset_attributes = {
+              name: r.name,
+              currency: currency_preference,
+              description: description,
+              started_on: r.in_use_on,
+              stopped_on: r.in_use_on + r.duration_in_year.years,
+              depreciable_amount: r.asset_amount,
+              depreciation_method: r.depreciation_method,
+              depreciation_percentage: r.depreciation_rate,
+              journal: Journal.find_by(nature: :various),
+              asset_account: exchange_asset_account,
+              allocation_account: exchange_allocation_account,
+              expenses_account: exchange_expenses_account
+            }
+            w.info prompt + "asset attributes : #{asset_attributes.inspect.green}"
+            asset = FixedAsset.create!(asset_attributes)
+            w.info prompt + "Fixed asset created : #{asset.name.inspect.green}"
+            # Update asset
           end
-          
+
           w.check_point
         end
       end

@@ -67,6 +67,8 @@ class Account < Ekylibre::Record::Base
   has_many :stocks_movement_categories, class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
   has_many :employees,            class_name: 'Entity', foreign_key: :employee_account_id
+  has_many :stocks_variants,          class_name: 'ProductNatureVariant', foreign_key: :stock_account_id
+  has_many :stocks_movement_variants, class_name: 'ProductNatureVariant', foreign_key: :stock_movement_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true

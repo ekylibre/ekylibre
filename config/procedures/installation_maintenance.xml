@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="installation_maintenance" categories="installations_modification" actions="installation_maintenance" optional-actions="installation_cleaning, installation_repairing, installation_construction, installation_renovation">
+  <procedure name="installation_maintenance" categories="installations_modification" actions="installation_maintenance" optional-actions="installation_cleaning, installation_repairing, installation_construction, installation_renovation" varieties="animal">
     <parameters>
       <target name="zone" filter="(is zone or is building_division) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
@@ -8,7 +8,9 @@
       <input name="consumable_part" filter="is matter" cardinality="*">
         <handler name="population" />
       </input>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
       <doer name="doer" filter="is worker and can move" cardinality="*"/>
     </parameters>
   </procedure>

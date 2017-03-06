@@ -288,7 +288,7 @@ class FixedAsset < Ekylibre::Record::Base
   def depreciate_with_regressive_method(starts)
     # TODO
   end
-  
+
   # Depreciate using regressive method
   def depreciate_with_none_method(starts)
     # TODO

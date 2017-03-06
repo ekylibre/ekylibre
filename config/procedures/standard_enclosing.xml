@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="standard_enclosing" categories="installations_modification" optional-actions="animal_penning, game_protection">
+  <procedure name="standard_enclosing" categories="installations_modification" optional-actions="animal_penning, game_protection" varieties="animal">
     <parameters>
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>

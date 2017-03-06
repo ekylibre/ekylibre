@@ -1,5 +1,4 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
-#     - "api/v1/intervention_participations#create"
 #     - "api/v1/intervention_targets#show"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
@@ -29,6 +28,7 @@
 #     - "backend/animal_groups#list_fixed_assets"
 #     - "backend/animal_groups#take"
 #     - "backend/animals#list_fixed_assets"
+#     - "backend/animals#matching_interventions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
@@ -76,7 +76,6 @@
 #     - "backend/cells/main_settings_cells#show"
 #     - "backend/cells/map_cells#show"
 #     - "backend/cells/parts_cells#show"
-#     - "backend/cells/past_weather_cells#show"
 #     - "backend/cells/payable_taxes_cells#show"
 #     - "backend/cells/quandl_cells#show"
 #     - "backend/cells/revenues_by_product_nature_cells#show"
@@ -125,10 +124,6 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
-#     - "backend/intervention_participations#convert"
-#     - "backend/intervention_participations#destroy"
-#     - "backend/intervention_participations#index"
-#     - "backend/intervention_participations#update"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#list_fixed_assets"
@@ -1158,7 +1153,12 @@ interventions:
   read:
     actions:
     - "api/v1/crumbs#index"
+    - "api/v1/intervention_participations#create"
     - "api/v1/interventions#index"
+    - "backend/intervention_participations#convert"
+    - "backend/intervention_participations#destroy"
+    - "backend/intervention_participations#index"
+    - "backend/intervention_participations#update"
     - "backend/interventions#index"
     - "backend/interventions#list"
     - "backend/interventions#list_product_parameters"
@@ -1171,6 +1171,7 @@ interventions:
     - read-interventions
     actions:
     - "api/v1/crumbs#create"
+    - "api/v1/interventions#create"
     - "backend/crumbs#convert"
     - "backend/crumbs#destroy"
     - "backend/crumbs#index"

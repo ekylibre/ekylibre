@@ -78,9 +78,9 @@
     bankReconciliation.completeJournalEntryItems line
     return false
 
-  $(document).on "click", "#reset_reconciliation", ->
-    # Reset reconciliation
-    bankReconciliation.clearAllReconciliationLetters()
+  $(document).on "confirm:complete", "#reset_reconciliation", (e, response) ->
+    if response
+      bankReconciliation.clearAllReconciliationLetters()
 
   $(document).on "click", "#auto_reconciliation", ->
     # Automatic reconciliation

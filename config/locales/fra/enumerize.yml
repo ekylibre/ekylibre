@@ -54,6 +54,20 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    animal:
+      birth_date_completeness:
+        full_date: "Date complète"
+        month_year: "Mois et année"
+        year: "Année"
+      end_of_life_reason:
+        calculated_date: "Date calculée"
+        cutting_up: "Equarrissage"
+        death: "Mort"
+        slaughter: "Abattage"
+      filiation_status:
+        certified: "Certifié"
+        uncertified: "Non certifié"
+        unknown: "Inconnu"
     call_message:
       nature:
         incoming: "Nouveau"
@@ -306,6 +320,15 @@ fra:
       nature:
         exterior: "Extérieur"
         interior: "Intérieur"
+    product_movement:
+      description:
+        birth: "Naissance"
+        butchery: "Boucherie"
+        consumption: "Consommation"
+        death: "Mort"
+        loan: "Pension"
+        purchase: "Achat"
+        sale: "Vente"
     product_nature:
       population_counting:
         decimal: "Décimal"

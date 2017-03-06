@@ -57,6 +57,21 @@ module Api
         end
         @interventions = @interventions.where(nature: nature).where.not(state: :rejected).page(page).per(per_page).order(:id)
       end
+
+      def create
+        intervention = Intervention.new(permitted_params)
+        if intervention.save
+          render json: { id: intervention.id }, status: :created
+        else
+          render json: intervention.errors, status: :unprocessable_entity
+        end
+      end
+
+      protected
+
+      def permitted_params
+        super.permit(:procedure_name, :description, working_periods_attributes: [:started_at, :stopped_at])
+      end
     end
   end
 end

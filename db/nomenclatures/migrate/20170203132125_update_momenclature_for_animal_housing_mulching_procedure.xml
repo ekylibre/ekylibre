@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update momenclature for animal housing mulching procedure">
+  <item-change item="product_natures#straw" abilities="feed(animal), cover(building_division)"/>
+  <item-creation item="product_nature_categories#animal_litter" charge_account="raw_material_expenses" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="products_inventory_variations"/>
+  <item-creation item="product_natures#animal_litter" category="animal_litter" variety="matter" derivative_of="plant" population_counting="decimal" abilities="cover(building_division)" frozen_indicators="net_mass, net_volume"/>
+  <item-creation item="product_nature_variants#animal_litter" nature="animal_litter" derivative_of="plant" frozen_indicators_values ="net_mass: 1.00ton" unit_name="ton"/>
+</migration>

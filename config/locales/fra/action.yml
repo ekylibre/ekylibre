@@ -957,6 +957,8 @@ fra:
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début"
     begins: "Commence par" #?
+    beta: "Beta"
+    beta_description: "Cette fonctionnalité est en cours de développement et ne doit pas être considérée comme source fiable d'information."
     body: "Corps du message"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Comptabiliser avec paiement"
@@ -1044,7 +1046,7 @@ fra:
     configure: "Configurer"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
-    connect: "Entrer" #?
+    connect: "Se connecter"
     consult: "Consulter" #?
     consume: "Consommé"
     contact: "à l’adresse" #?
@@ -1361,6 +1363,7 @@ fra:
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
+    intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
@@ -1650,6 +1653,7 @@ fra:
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
+    parameter_error_miscibility: "Numéro d'AMM non renseigné"
     parameters: "Paramètres"
     parcel_items: "Articles de colis"
     parcels: "Colis"
@@ -2436,7 +2440,7 @@ fra:
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
-      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activitée pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
+      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activité pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."

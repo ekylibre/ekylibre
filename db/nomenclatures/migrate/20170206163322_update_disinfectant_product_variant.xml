@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update disinfectant product variant">
+  <item-change item="product_nature_variants#disinfectant_product" unit_name="liter"/>
+</migration>

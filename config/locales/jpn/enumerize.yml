@@ -54,6 +54,20 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    animal:
+      birth_date_completeness:
+        full_date: "完全な日付"
+        month_year: "月の年"
+        year: "年"
+      end_of_life_reason:
+        calculated_date: "計算された日付"
+        cutting_up: "デコパージュ"
+        death: "死"
+        slaughter: "虐殺"
+      filiation_status:
+        certified: "認定されました"
+        uncertified: "保証されていません"
+        unknown: "未知の"
     call_message:
       nature:
         incoming: "入ってきます"
@@ -243,8 +257,8 @@ jpn:
         string: "文字列"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "初期資本に基づきます"
+        to_repay: "資本に基づいて返済する左"
       repayment_method:
         constant_amount: "一定量"
         constant_rate: "一定の割合"
@@ -323,6 +337,15 @@ jpn:
       nature:
         exterior: "外観"
         interior: "インテリア"
+    product_movement:
+      description:
+        birth: "誕生"
+        butchery: "肉屋"
+        consumption: "消費"
+        death: "死"
+        loan: "ローン"
+        purchase: "購入"
+        sale: "販売"
     product_nature:
       population_counting:
         decimal: "10進数"
