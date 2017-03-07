@@ -205,6 +205,7 @@ module Backend
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
     end
 
     list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|

@@ -181,7 +181,11 @@ module Backend
 
     def keep
       return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
-      current_user.prefer! 'products_for_intervention', params[:id], :string
+
+      begin
+        current_user.prefer! 'products_for_intervention', params[:id], :string
+      end
+
       render json: { id: 'products_for_intervention' }
     end
 
