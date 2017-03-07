@@ -11,12 +11,12 @@
                <attribute name="father_id"/> METHOD : mother.last_transplantation.input.father || mother.last_insemination.input.producer
                <attribute name="mother_id"/> METHOD : mother.last_transplantation.input.mother || mother
                <attribute name="new_container"/> -->
-          <reading name="sex"/>
-          <reading name="net_mass"/>
-          <reading name="healthy"/>
-          <reading name="mammalia_birth_condition"/>
+               <reading name="sex"/>
+               <reading name="net_mass"/>
+               <reading name="healthy"/>
+               <reading name="mammalia_birth_condition"/>
         </output>
-       </group>
+      </group>
       <doer name="caregiver" filter="is worker and can administer_care(animal)" cardinality="*"/>
     </parameters>
   </procedure>

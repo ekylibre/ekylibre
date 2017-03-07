@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add procedure action conservation plowing">
   <item-creation item="procedure_actions#conservation_plowing"/>
-  </migration>
+</migration>

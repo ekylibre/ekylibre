@@ -979,21 +979,21 @@
     </group>
     <group name="decision_making" icon="compass">
       <!--
-      <item name="guides">
-        <page to="backend/guides#index"/>
-        <page to="backend/guides#create"/>
-        <page to="backend/guides#destroy"/>
-        <page to="backend/guides#edit"/>
-        <page to="backend/guides#list"/>
-        <page to="backend/guides#new"/>
-        <page to="backend/guides#run"/>
-        <page to="backend/guides#show"/>
-        <page to="backend/guides#unroll"/>
-        <page to="backend/guides#update"/>
-        <page to="backend/guides#list_analyses"/>
-        <page to="backend/guide_analyses#show"/>
-        <page to="backend/guide_analyses#list_points"/>
-      </item>
+	  <item name="guides">
+          <page to="backend/guides#index"/>
+          <page to="backend/guides#create"/>
+          <page to="backend/guides#destroy"/>
+          <page to="backend/guides#edit"/>
+          <page to="backend/guides#list"/>
+          <page to="backend/guides#new"/>
+          <page to="backend/guides#run"/>
+          <page to="backend/guides#show"/>
+          <page to="backend/guides#unroll"/>
+          <page to="backend/guides#update"/>
+          <page to="backend/guides#list_analyses"/>
+          <page to="backend/guide_analyses#show"/>
+          <page to="backend/guide_analyses#list_points"/>
+	  </item>
       -->
     </group>
     <group name="cartography" icon="layers">
@@ -1068,14 +1068,14 @@
       </item>
     </group>
     <!--
-    <group name="support" icon="question">
-      <item name="help">
+	<group name="support" icon="question">
+	<item name="help">
         <page to="backend/helps#index"/>
         <page to="backend/helps#show"/>
         <page to="backend/helps#toggle"/>
-      </item>
-    </group>
--->
+	</item>
+	</group>
+    -->
   </part>
   <part name="settings" icon="wrench">
     <page to="backend/dashboards#settings"/>

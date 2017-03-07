@@ -13,7 +13,7 @@
       <property name="address" value="company.default_mail_address.coordinate"/>
       <property name="financial_year_name" value="financial_year.code"/>
       <section name="title" legend="profits">
-      	<property name="label" value=":profits.tl" level="api"/>
+        <property name="label" value=":profits.tl" level="api"/>
         <section name="subtitle" legend="products_sales" >
           <property name="label" value=":products_sales.tl" level="api"/>
           <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7086X, 7087X, 7088X, 7097X').reorder(:number, :label)">
@@ -75,8 +75,8 @@
         <property name="exploitation_products_total" legend="exploitation_products_total" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755')"/>
       </section>
       <section name="title" legend="losses">
-      	<property name="label" value=":losses.tl" level="api"/>
-      	<property name="level" value="1" level="api"/>
+        <property name="label" value=":losses.tl" level="api"/>
+        <property name="level" value="1" level="api"/>
         <property name="loss_balance" value="financial_year.debit_balance('6X')"/>
         <section name="subtitle" legend="merchandises_purchases">
           <property name="label" value=":merchandises_purchases.tl" level="api"/>
@@ -162,7 +162,7 @@
       </section>
       <property name="exploitation_result" legend="exploitation_result" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755, -60X, -61X, -62X, -63X, -64X, -681X, -65X, ^655')"/>
       <section name="title" legend="financial_products">
-      	<property name="label" value=":financial_products.tl" level="api"/>
+        <property name="label" value=":financial_products.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('76X, 786X, 796X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="label" of="item"/>
@@ -182,7 +182,7 @@
       <property name="financial_result" legend="financial_result" value="financial_year.credit_balance('76X, -686X, -66X')"/>
       <property name="current_result_before_taxes" legend="current_result_before_taxes" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 75X, 76X, 781X, 791X, -60X, -61X, -62X, -63X, -64X, -65X, -66X, -681X, -686X')"/>
       <section name="title" legend="exceptional_products">
-      	<property name="label" value=":exceptional_products.tl" level="api"/>
+        <property name="label" value=":exceptional_products.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('77X, 787X, 797X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="label" of="item"/>
@@ -191,7 +191,7 @@
         <property name="exceptional_products_total" legend="exceptional_products_total" value="financial_year.credit_balance('77X, 787X, 797X')"/>
       </section>
       <section name="title" legend="exceptional_expenses">
-      	<property name="label" value=":exceptional_expenses.tl" level="api"/>
+        <property name="label" value=":exceptional_expenses.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('67X, 687X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="label" of="item"/>
@@ -200,7 +200,7 @@
         <property name="exceptional_expenses_total" legend="exceptional_expenses_total" value="financial_year.debit_balance('67X, 687X')"/>
       </section>
       <section name="title" legend="employee_involvement">
-      	<property name="label" value=":employee_involvement.tl" level="api"/>
+        <property name="label" value=":employee_involvement.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('691X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="label" of="item"/>
@@ -209,7 +209,7 @@
         <property name="employee_involvement_total" legend="employee_involvement_total" value="financial_year.debit_balance('691X')"/>
       </section>
       <section name="title" legend="profit_taxe">
-      	<property name="label" value=":profit_taxe.tl" level="api"/>
+        <property name="label" value=":profit_taxe.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('695X, 697X, 699X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="label" of="item"/>
