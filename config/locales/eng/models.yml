@@ -1378,6 +1378,8 @@ eng:
     stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
     # stocks_movement_categories: "Stocks movement categories"
+    # stocks_movement_variants: "Stocks movement variants"
+    # stocks_variants: "Stocks variants"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Storable"

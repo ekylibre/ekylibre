@@ -9,23 +9,23 @@ cmn:
     born_at: "出生于"
     breeding_number: "养殖数量"
     campaigns: "活动"
-    capitalised_production: "生产资本化"
+    capitalised_production: "生产资本化" #?
     company: "公司"
     container_name: "容器名称"
     current_result_before_taxes: "税前当前结果"
-    depreciations_inputations_expenses: "折旧费用inputations"
+    depreciations_inputations_expenses: "折旧费用inputations" #?
     doer_cost: "杜尔成本"
     doer_name: "杜尔名"
     doers_name: "实干家名"
     duration_in_hour: "持续时间小时"
     ede_cattling_number: "义德cattling号"
     ede_owner_number: "义德业主号"
-    employee_involvement: "员工参与"
+    employee_involvement: "员工参与" #?
     enterprise: "企业"
     entity_name: "实体名称"
-    exceptional_expenses: "特殊支出"
+    exceptional_expenses: "特殊支出" #?
     exceptional_expenses_total: "特殊支出总计"
-    exceptional_products: "卓越的产品"
+    exceptional_products: "卓越的产品" #?
     exceptional_products_total: "卓越的产品总"
     exceptional_result: "出色的结果"
     expenses_total: "总费用"
@@ -33,9 +33,9 @@ cmn:
     exploitation_products_total: "开发产品合计"
     exploitation_result: "开发成果"
     family: "家庭"
-    financial_expenses: "财务费用"
+    financial_expenses: "财务费用" #?
     financial_expenses_total: "财务费用合计"
-    financial_products: "理财产品"
+    financial_products: "理财产品" #?
     financial_products_total: "理财产品总"
     financial_result: "财务结果"
     financial_year_name: "会计年度名称"
@@ -47,7 +47,7 @@ cmn:
     implanted_at: "在植入"
     intervention_durations: "干预的持续时间"
     loss_balance: "盈亏平衡"
-    losses: "损失"
+    losses: "损失" #?
     meat_saleable_on: "肉类在出售"
     meat_withdrawal_period: "肉类停药期"
     milk_saleable_on: "牛奶出售的"
@@ -58,9 +58,9 @@ cmn:
     net_surface_area: "净面积"
     number: "数"
     observed_at: "在观察"
-    other_expenses: "其他费用"
-    other_products: "其他产品"
-    other_purchases: "其他购买"
+    other_expenses: "其他费用" #?
+    other_products: "其他产品" #?
+    other_purchases: "其他购买" #?
     owner_name: "所有者名称"
     payment_ratio: "付款比例"
     pictogram: "形符"
@@ -71,28 +71,28 @@ cmn:
     printed_on: "印上"
     product_account_label: "产品帐户标签"
     production_support: "生产支持"
-    productions_sales: "生产销售"
-    products_purchases: "产品采购"
-    products_sales: "产品销售"
+    productions_sales: "生产销售" #?
+    products_purchases: "产品采购" #?
+    products_sales: "产品销售" #?
     products_total: "产品共有"
     profit_or_loss: "利润或亏损"
-    profits: "利润"
+    profits: "利润" #?
     profits_taxes: "利得税"
     provisional_yield: "临时产量"
-    provisions_revenues: "收入的规定"
+    provisions_revenues: "收入的规定" #?
     quantity: "数量"
-    raw_matters_purchases: "原料采购事宜"
-    raw_matters_stocks_variation: "原材料股重要变化"
+    raw_matters_purchases: "原料采购事宜" #?
+    raw_matters_stocks_variation: "原材料股重要变化" #?
     sex: "性别"
-    social_expenses: "社会性支出"
+    social_expenses: "社会性支出" #?
     soil_varieties: "土品种" #?
-    stock_production: "按库存生产"
-    stocks_variation: "库存变化"
-    subsidies: "补贴"
+    stock_production: "按库存生产" #?
+    stocks_variation: "库存变化" #?
+    subsidies: "补贴" #?
     target_name: "指标名称" #?
     variable_name: "变量名" #?
     variant_name: "版本名称"
     variant_variety: "变异品种" #?
     vine_yield: "葡萄产量"
-    wages: "工资"
+    wages: "工资" #?
     working_area: "工作区域"

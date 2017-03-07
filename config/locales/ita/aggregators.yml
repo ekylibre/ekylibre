@@ -9,23 +9,23 @@ ita:
     born_at: "nato a"
     breeding_number: "numero di allevamento"
     campaigns: "campagne"
-    capitalised_production: "produzione capitalizzati"
+    capitalised_production: "produzione capitalizzati" #?
     company: "Società"
     container_name: "nome del contenitore"
     current_result_before_taxes: "risultato corrente al lordo delle imposte"
-    depreciations_inputations_expenses: "Ammortamenti inputations spese"
+    depreciations_inputations_expenses: "Ammortamenti inputations spese" #?
     doer_cost: "costo doer"
     doer_name: "nome doer"
     doers_name: "nome doers"
     duration_in_hour: "Periodo in un'ora"
     ede_cattling_number: "Ede numero cattling"
     ede_owner_number: "Ede numero proprietario"
-    employee_involvement: "Coinvolgimento dell'impiegato"
+    employee_involvement: "Coinvolgimento dell'impiegato" #?
     enterprise: "impresa"
     entity_name: "Nome dell'entità"
-    exceptional_expenses: "le spese eccezionali"
+    exceptional_expenses: "le spese eccezionali" #?
     exceptional_expenses_total: "le spese eccezionali totali"
-    exceptional_products: "prodotti eccezionali"
+    exceptional_products: "prodotti eccezionali" #?
     exceptional_products_total: "prodotti eccezionali totali"
     exceptional_result: "risultato eccezionale"
     expenses_total: "Totale spese"
@@ -33,9 +33,9 @@ ita:
     exploitation_products_total: "prodotti totale sfruttamento"
     exploitation_result: "risultato sfruttamento"
     family: "Famiglia"
-    financial_expenses: "Spese finanziarie"
+    financial_expenses: "Spese finanziarie" #?
     financial_expenses_total: "Totale oneri finanziari"
-    financial_products: "prodotti finanziari"
+    financial_products: "prodotti finanziari" #?
     financial_products_total: "Prodotti finanziari totali"
     financial_result: "risultato finanziario"
     financial_year_name: "Nome Esercizio"
@@ -46,7 +46,7 @@ ita:
     implanted_at: "impiantato a"
     intervention_durations: "durate di intervento"
     loss_balance: "equilibrio perdita"
-    losses: "Perdite"
+    losses: "Perdite" #?
     meat_saleable_on: "Carne su vendibile"
     meat_withdrawal_period: "periodo di sospensione"
     milk_saleable_on: "Latte su vendibile"
@@ -57,9 +57,9 @@ ita:
     net_surface_area: "superficie netta"
     number: "Numero"
     observed_at: "osservata alle"
-    other_expenses: "Altre spese"
-    other_products: "Altri prodotti"
-    other_purchases: "altri acquisti"
+    other_expenses: "Altre spese" #?
+    other_products: "Altri prodotti" #?
+    other_purchases: "altri acquisti" #?
     owner_name: "Nome del proprietario"
     payment_ratio: "rapporto di pagamento"
     pictogram: "pittogramma"
@@ -71,24 +71,24 @@ ita:
     printed_on: "stampato su"
     product_account_label: "Etichetta conto del prodotto"
     production_support: "supporto alla produzione"
-    productions_sales: "vendite Productions"
-    products_purchases: "Prodotti acquisti"
-    products_sales: "vendite di prodotti"
+    productions_sales: "vendite Productions" #?
+    products_purchases: "Prodotti acquisti" #?
+    products_sales: "vendite di prodotti" #?
     products_total: "prodotti totali"
     profit_or_loss: "Utile o perdita"
-    profits: "I profitti"
+    profits: "I profitti" #?
     profits_taxes: "tasse Utili"
     provisional_yield: "resa provvisorio"
-    provisions_revenues: "ricavi Accantonamenti"
+    provisions_revenues: "ricavi Accantonamenti" #?
     quantity: "Quantità"
-    raw_matters_purchases: "Raw conta acquisti"
-    raw_matters_stocks_variation: "Raw conta scorte variazione"
+    raw_matters_purchases: "Raw conta acquisti" #?
+    raw_matters_stocks_variation: "Raw conta scorte variazione" #?
     sex: "Sesso"
-    social_expenses: "spese sociali"
-    stock_production: "produzione della"
-    stocks_variation: "Azioni variazione"
-    subsidies: "sussidi"
+    social_expenses: "spese sociali" #?
+    stock_production: "produzione della" #?
+    stocks_variation: "Azioni variazione" #?
+    subsidies: "sussidi" #?
     variant_name: "nome variante"
     vine_yield: "Produzione in vigna"
-    wages: "Salari"
+    wages: "Salari" #?
     working_area: "Area di lavoro"

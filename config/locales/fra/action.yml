@@ -978,6 +978,7 @@ fra:
     cancelled: "Passées en avoir" #?
     cap_islets: "Ilots PAC"
     cap_land_parcels: "Parcelles PAC"
+    capitalised_production: "Production immobilisée"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -1155,6 +1156,7 @@ fra:
     deposits: "Dépôts"
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
+    depreciations_inputations_expenses: "Dotations aux ammortissements et aux provisions"
     description: "Description"
     desposits: "Remises en banque" #?
     destroy: "Supprimer"
@@ -1202,6 +1204,7 @@ fra:
     email: "Email:"
     employee: "Employé" #?
     employee_informations: "Informations sociales"
+    employee_involvement: "Participations des salariés"
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
@@ -1234,6 +1237,8 @@ fra:
     events: "Évènements"
     evolution: "Evolution"
     example: "Exemple\_: %{value}"
+    exceptional_expenses: "Charges exceptionnelles"
+    exceptional_products: "Produits exceptionnels"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     exchanges: "Échanges"
@@ -1263,6 +1268,8 @@ fra:
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     final_balance: "Solde final"
+    financial_expenses: "Charges financières"
+    financial_products: "Produits financiers"
     financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
@@ -1378,6 +1385,7 @@ fra:
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
+    inventory_variations: "Variations d'inventaire"
     invitation_status: "État"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -1463,6 +1471,7 @@ fra:
     localization: "Localisation géographique"
     lock: "Verrouiller"
     logout: "Déconnexion" #?
+    losses: "Charges d'exploitations"
     mail: "Envoyer un courriel"
     mailing: "Mailing"
     mails:
@@ -1502,6 +1511,8 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres" #?
     menus: "Menus"
+    merchandises_purchases: "Marchandises"
+    merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
@@ -1636,6 +1647,9 @@ fra:
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
     original_component: "D'origine"
+    other_expenses: "Autres charges d'exploitation"
+    other_products: "Autres produits"
+    other_purchases: "Autres achats"
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing: "Sortant" #?
@@ -1743,13 +1757,19 @@ fra:
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
+    productions_sales: "Ventes et variation d'inventaire"
     products: "Produits"
+    products_purchases: "Approvisionnement"
+    products_sales: "Ventes de marchandises"
     profile: "Profil"
     profitability: "Rentabilité" #?
+    profits: "Produits d'exploitation"
     profits_and_losses: "Les profits et pertes"
+    profits_taxe: "Impots sur les bénéfices (IS)"
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
+    provisions_revenues: "Reprises sur provisions et transfert de charges"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
@@ -1767,6 +1787,7 @@ fra:
       invoice: "Facture" #?
       order: "Commande" #?
       refused: "Refusée" #?
+    purchases_stocks_variation: "Variation de stocks d'approvisionnements"
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
@@ -1929,6 +1950,7 @@ fra:
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
+    social_expenses: "Charges sociales"
     soil_varieties: "Nature des sols" #?
     source: "Source de données"
     sowable: "Semable" #?
@@ -1968,6 +1990,7 @@ fra:
     subscription_natures_up: "Incrémenter le numéro actuel (+1)" #?
     subscriptions: "Abonnements"
     subscriptions_evolution: "Évolution des abonnements"
+    subsidies: "Indémnités et subventions d'exploitation"
     subtitle: "Informations générales" #?
     subtotal: "Sous-total %{name}"
     subtotals_at_level: "Sous-totaux aux niveaux"
@@ -2156,6 +2179,7 @@ fra:
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
+    wages: "Rémunérations"
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"

@@ -9,23 +9,23 @@ arb:
     born_at: "ولد في"
     breeding_number: "عدد التربية"
     campaigns: "حملات"
-    capitalised_production: "إنتاج يبلغ رأس مال"
+    capitalised_production: "إنتاج يبلغ رأس مال" #?
     company: "شركة"
     container_name: "اسم حاوية"
     current_result_before_taxes: "نتيجة الحالية قبل الضرائب"
-    depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations"
+    depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations" #?
     doer_cost: "تكلفة الفاعل"
     doer_name: "اسم الفاعل"
     doers_name: "اسم الظالمين"
     duration_in_hour: "مدة في ساعة"
     ede_cattling_number: "إيدي عدد cattling"
     ede_owner_number: "عدد مالك إيدي"
-    employee_involvement: "تورط موظف"
+    employee_involvement: "تورط موظف" #?
     enterprise: "مشروع"
     entity_name: "اسم الشركة"
-    exceptional_expenses: "نفقات استثنائية"
+    exceptional_expenses: "نفقات استثنائية" #?
     exceptional_expenses_total: "مجموع نفقات استثنائية"
-    exceptional_products: "منتجات استثنائية"
+    exceptional_products: "منتجات استثنائية" #?
     exceptional_products_total: "مجموع منتجات استثنائية"
     exceptional_result: "نتيجة استثنائية"
     expenses_total: "مجموع النفقات"
@@ -33,9 +33,9 @@ arb:
     exploitation_products_total: "مجموع استغلال المنتجات"
     exploitation_result: "نتيجة الاستغلال"
     family: "أسرة"
-    financial_expenses: "نفقات مالية"
+    financial_expenses: "نفقات مالية" #?
     financial_expenses_total: "مجموع النفقات المالية"
-    financial_products: "المنتجات المالية"
+    financial_products: "المنتجات المالية" #?
     financial_products_total: "مجموع المنتجات المالية"
     financial_result: "نتيجة المالية"
     financial_year_name: "اسم السنة المالية"
@@ -47,7 +47,7 @@ arb:
     implanted_at: "مزروع في"
     intervention_durations: "مدد تدخل"
     loss_balance: "ميزان الخسارة"
-    losses: "خسائر"
+    losses: "خسائر" #?
     meat_saleable_on: "اللحوم على القابلة للبيع"
     meat_withdrawal_period: "فترة الانسحاب اللحوم"
     milk_saleable_on: "الحليب على القابلة للبيع"
@@ -58,9 +58,9 @@ arb:
     net_surface_area: "مساحة صافية"
     number: "عدد"
     observed_at: "لوحظ في"
-    other_expenses: "نفقات أخرى"
-    other_products: "غيرها من المنتجات"
-    other_purchases: "مشتريات أخرى"
+    other_expenses: "نفقات أخرى" #?
+    other_products: "غيرها من المنتجات" #?
+    other_purchases: "مشتريات أخرى" #?
     owner_name: "اسم المالك"
     payment_ratio: "نسبة الدفع"
     pictogram: "الرسم التخطيطي لل"
@@ -71,28 +71,28 @@ arb:
     printed_on: "المطبوعة على"
     product_account_label: "تسمية حساب المنتج"
     production_support: "دعم الإنتاج"
-    productions_sales: "مبيعات المنتجات"
-    products_purchases: "منتجات مشتريات"
-    products_sales: "مبيعات المنتجات"
+    productions_sales: "مبيعات المنتجات" #?
+    products_purchases: "منتجات مشتريات" #?
+    products_sales: "مبيعات المنتجات" #?
     products_total: "عدد المنتجات"
     profit_or_loss: "الربح أو الخسارة"
-    profits: "الأرباح"
+    profits: "الأرباح" #?
     profits_taxes: "ضرائب الأرباح"
     provisional_yield: "العائد المؤقت"
-    provisions_revenues: "عائدات أحكام"
+    provisions_revenues: "عائدات أحكام" #?
     quantity: "كمية"
-    raw_matters_purchases: "يهم الخام مشتريات"
-    raw_matters_stocks_variation: "يهم الخام الأسهم الاختلاف"
+    raw_matters_purchases: "يهم الخام مشتريات" #?
+    raw_matters_stocks_variation: "يهم الخام الأسهم الاختلاف" #?
     sex: "جنس"
-    social_expenses: "النفقات الاجتماعية"
+    social_expenses: "النفقات الاجتماعية" #?
     soil_varieties: "أصناف التربة" #?
-    stock_production: "إنتاج الأوراق المالية"
-    stocks_variation: "الأسهم الاختلاف"
-    subsidies: "الدعم"
+    stock_production: "إنتاج الأوراق المالية" #?
+    stocks_variation: "الأسهم الاختلاف" #?
+    subsidies: "الدعم" #?
     target_name: "اسم الهدف" #?
     variable_name: "اسم المتغير" #?
     variant_name: "اسم البديل"
     variant_variety: "متنوعة متفاوتة" #?
     vine_yield: "العائد كرمة"
-    wages: "أجور"
+    wages: "أجور" #?
     working_area: "منطقة العمل"

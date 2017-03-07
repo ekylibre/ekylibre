@@ -1109,6 +1109,7 @@ arb:
     cancelled: "تم الالغاء" #?
     cap_islets: "الجزر كاب"
     cap_land_parcels: "قطع الأراضي كاب"
+    # capitalised_production: "Capitalised production"
     cartography: "خرائطية"
     cash: "حسابات بنكية"
     cash_balance: "الرصيد النقدي"
@@ -1270,6 +1271,7 @@ arb:
     deposits: "الودائع"
     depreciation: "الاستهلاك"
     depreciations: "انخفاض قيمة"
+    # depreciations_inputations_expenses: "Depreciations inputations expenses"
     description: "الوصف"
     destroy: "هدم"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1315,6 +1317,7 @@ arb:
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة" #?
     email: "البريد الإلكتروني:"
     employee_informations: "المعلومات موظف"
+    # employee_involvement: "Employee involvement"
     employee_name: "الموظف" #?
     end: "لغاية"
     entities: "الكيانات"
@@ -1358,6 +1361,8 @@ arb:
     events: "أحداث"
     evolution: "تطور"
     example: "مثال&nbsp;: %{value}"
+    # exceptional_expenses: "Exceptional expenses"
+    # exceptional_products: "Exceptional products"
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "التبادل"
@@ -1381,6 +1386,8 @@ arb:
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
     final_balance: "الرصيد النهائي"
+    # financial_expenses: "Financial expenses"
+    # financial_products: "Financial products"
     financial_state: "الوضع المالي" #?
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     financials_assets: "الأصول المالية"
@@ -1486,6 +1493,7 @@ arb:
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد" #?
+    # inventory_variations: "Inventory variations"
     invitation_status: "الحالة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
@@ -1574,6 +1582,7 @@ arb:
     locale: "اللغة"
     localization: "الموقع الجغرافي"
     lock: "القفل"
+    # losses: "Losses"
     mail: "ارسال البريد الالكتروني"
     mailing: "المراسلات"
     mails:
@@ -1622,6 +1631,8 @@ arb:
       production: "المنتج" #?
       relations: "العلاقات" #?
       trade: "التجارة" #?
+    # merchandises_purchases: "Merchandises purchases"
+    # merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation"
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
@@ -1763,7 +1774,10 @@ arb:
     organic_matter_concentration: "تركيز المواد العضوية"
     original_component: "أصلي"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
+    # other_expenses: "Other expenses"
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
+    # other_products: "Other products"
+    # other_purchases: "Other purchases"
     other_results: "...نتائج اخرى" #?
     other_services: "احتياجات وخدمات اخرى" #?
     others: "اقتطاع القيم الضريبية المضافة الاخرى"
@@ -1868,10 +1882,16 @@ arb:
     production_distribution: "توزيع الانتاج"
     production_support: "دعم الإنتاج"
     productions: "المنتجات"
+    # productions_sales: "Productions sales"
     products: "فئة المنتج"
+    # products_purchases: "Products purchases"
+    # products_sales: "Products sales"
     profile: "الملف الشخصي"
+    # profits: "Profits"
     profits_and_losses: "الأرباح والخسائر"
+    # profits_taxe: "Profits taxe"
     provisionnal_budget: "الميزانية Provisionnal" #?
+    # provisions_revenues: "Provisions revenues"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
     purchase_item_create: "اضافة طلب للمنتج" #?
@@ -1886,6 +1906,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    # purchases_stocks_variation: "Purchases stocks variation"
     quality: "جودة"
     # quandl: "Quandl"
     quantity: "الكمية"
@@ -2042,6 +2063,7 @@ arb:
     sign_out: "خروج"
     simplified: "نظام واقعي مبسط"
     simplified_linear_options: "خيارات الخطية المبسطة"
+    # social_expenses: "Social expenses"
     source: "مصدر البيانات"
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
@@ -2075,6 +2097,7 @@ arb:
     subscription_natures_up: "(+1) زيادة العدد الحالي" #?
     subscriptions: "الاشتراكات"
     subscriptions_evolution: "تطور الاشتراكات"
+    # subsidies: "Subsidies"
     subtitle: "معرفة المعلومات المتعلقة بالاستخلاص" #?
     subtotal: "المجموع الاجمالي %{name}"
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
@@ -2245,6 +2268,7 @@ arb:
     vat_paid: "خصم قيمة الضريبة المضافة" #?
     view: "معاينة"
     virtual_quantity: "الكمية العملية" #?
+    # wages: "Wages"
     waiting: "أ€ التسدسد لاحقا" #?
     watering_concentration: "استخدام المياه"
     weather: "طقس"

@@ -904,6 +904,7 @@ spa:
     cancelled: "Pasar en activos" #?
     cap_islets: "Islotes Cap"
     cap_land_parcels: "Parcelas Cap"
+    # capitalised_production: "Capitalised production"
     cartography: "Cartografía"
     cash: "Efectivo"
     cash_balance: "Saldo en efectivo"
@@ -1047,6 +1048,7 @@ spa:
     deposits: "Depósitos"
     depreciation: "Depreciación"
     depreciations: "Depreciaciones"
+    # depreciations_inputations_expenses: "Depreciations inputations expenses"
     description: "Descripción general"
     destroy: "Destruir"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1090,6 +1092,7 @@ spa:
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
     # email: "Email:"
     employee_informations: "Información sobre los empleados"
+    # employee_involvement: "Employee involvement"
     end: "al"
     entities: "Entidades"
     entity_links: "Enlaces entidad"
@@ -1118,6 +1121,8 @@ spa:
     events: "Eventos"
     evolution: "Evolución"
     # example: "Example: %{value}"
+    # exceptional_expenses: "Exceptional expenses"
+    # exceptional_products: "Exceptional products"
     exchange: "Intercambiar"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Intercambios"
@@ -1137,6 +1142,8 @@ spa:
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
     final_balance: "Saldo final"
+    # financial_expenses: "Financial expenses"
+    # financial_products: "Financial products"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     financials_assets: "Activos Finanzas"
     finish: "Acabado"
@@ -1227,6 +1234,7 @@ spa:
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
+    # inventory_variations: "Inventory variations"
     invitation_status: "Estado"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
@@ -1304,6 +1312,7 @@ spa:
     locale: "Idioma"
     localization: "Localisación geografica"
     lock: "Bloquear"
+    # losses: "Losses"
     mail: "Enviar un correo electrónico"
     mailing: "Envío"
     mails:
@@ -1326,6 +1335,8 @@ spa:
     maximal_temperature: "La temperatura máxima"
     members: "Miembros"
     menus: "Menús"
+    # merchandises_purchases: "Merchandises purchases"
+    # merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation"
     merge: "Unir"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
@@ -1433,7 +1444,10 @@ spa:
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
+    # other_expenses: "Other expenses"
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
+    # other_products: "Other products"
+    # other_purchases: "Other purchases"
     other_results: "Otros resultados" #?
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
@@ -1518,10 +1532,16 @@ spa:
     production_distribution: "Distribución de la producción"
     production_support: "Soporte de producción"
     productions: "Producciones"
+    # productions_sales: "Productions sales"
     products: "Productos"
+    # products_purchases: "Products purchases"
+    # products_sales: "Products sales"
     profile: "Perfil"
+    # profits: "Profits"
     profits_and_losses: "Las pérdidas y ganancias"
+    # profits_taxe: "Profits taxe"
     provisionnal_budget: "Presupuesto Provisionnal" #?
+    # provisions_revenues: "Provisions revenues"
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
@@ -1529,6 +1549,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     purchases: "Compras"
+    # purchases_stocks_variation: "Purchases stocks variation"
     quality: "Calidad"
     # quandl: "Quandl"
     quantity: "Quantidades"
@@ -1662,6 +1683,7 @@ spa:
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"
     simplified_linear_options: "Opciones lineales simplificados"
+    # social_expenses: "Social expenses"
     source: "Fuente de datos"
     start: "Del"
     start_new_intervention_here: "Comenzar una nueva intervención aquí"
@@ -1687,6 +1709,7 @@ spa:
     subscription_nature: "Tipo de suscripción"
     subscriptions: "Suscripciones"
     subscriptions_evolution: "evolución suscripciones"
+    # subsidies: "Subsidies"
     subtitle: "Informar la diferentes caracteristicas del nuevo utilizador" #?
     subtotal: "Subtotal %{name}"
     subtotals_at_level: "Subtotales al nivel"
@@ -1832,6 +1855,7 @@ spa:
     variants: "Variantes"
     vat: "TINA"
     view: "Ver"
+    # wages: "Wages"
     watering_concentration: "Uso del agua"
     weather: "Clima"
     website: "Sitio web"
