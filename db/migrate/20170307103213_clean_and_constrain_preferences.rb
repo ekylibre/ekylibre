@@ -1,10 +1,19 @@
 class CleanAndConstrainPreferences < ActiveRecord::Migration
   def change
-    # Removes preference 'products_for_intervention' used in animal Golumn. As this is a temp preference, there is no need to handle merging.
+
     execute <<-SQL
-      DELETE FROM preferences WHERE name='products_for_intervention'
+      DELETE FROM preferences
+      WHERE id IN (SELECT id
+                   FROM preferences
+                     JOIN (SELECT duplicates.name AS name, COUNT(id) AS number, MAX(duplicates.created_at) AS to_keep_date
+                           FROM preferences AS duplicates
+                           GROUP BY duplicates.name) AS incidences
+                     ON incidences.name = preferences.name
+                 WHERE incidences.number > 1
+                   AND preferences.created_at != incidences.to_keep_date)
     SQL
 
     add_index :preferences, [:user_id, :name], unique: true
+
   end
 end
