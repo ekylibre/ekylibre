@@ -13675,6 +13675,13 @@ CREATE INDEX index_preferences_on_user_id ON preferences USING btree (user_id);
 
 
 --
+-- Name: index_preferences_on_user_id_and_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_preferences_on_user_id_and_name ON preferences USING btree (user_id, name);
+
+
+--
 -- Name: index_prescriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16881,9 +16888,19 @@ INSERT INTO schema_migrations (version) VALUES ('20170124133351');
 
 INSERT INTO schema_migrations (version) VALUES ('20170125162958');
 
+INSERT INTO schema_migrations (version) VALUES ('20170203131230');
+
 INSERT INTO schema_migrations (version) VALUES ('20170203135031');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203181700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206085737');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206102237');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206104614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170206125705');
 
 INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 
@@ -16930,4 +16947,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170222100614');
 INSERT INTO schema_migrations (version) VALUES ('20170222222222');
 
 INSERT INTO schema_migrations (version) VALUES ('20170227143414');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307103213');
 
