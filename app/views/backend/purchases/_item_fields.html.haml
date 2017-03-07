@@ -17,7 +17,7 @@
     %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
   %tr.tr-add-on
-    %td{ colspan: 5 }
+    %td{ colspan: 10 }
       - attrs = {}
       - attrs[:style] = 'display: none' if item.annotation.blank?
       .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: 'annotation' })
