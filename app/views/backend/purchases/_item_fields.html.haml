@@ -23,10 +23,23 @@
       .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: 'annotation' })
       - attrs[:style] = 'display: none' unless item && item.variant && item.variant.depreciable?
       .fixed-asset{attrs}
-        = f.input :fixed, :show => :assets
+        = f.input :fixed, show: :assets
         - attrs = {style: 'display: none;'} if item.fixed
         #assets{attrs}
-          = f.referenced_association(:fixed_asset)
+          .control-group.boolean
+            = label_tag :assets_exists, item.fixed, class: 'boolean optional control-label'
+            .controls
+              = check_box_tag :asset_exists, nil, nil, { 'data-show': :'#existing_asset', 'data-hide': :'#new_asset' }
+          #existing_asset{attrs}
+            .control-group.boolean
+              = label_tag :fixed_asset, nil, class: 'boolean optional control-label'
+              .controls
+                = f.referenced_association_field(:fixed_asset)
+          #new_asset
+            .control-group.boolean
+              = label_tag :existing_product, nil, class: 'boolean optional control-label'
+              .controls
+                = text_field_tag(:asset_product_id, nil, data: { selector: url_for(controller: :products, action: :unroll, exclude: nil) })
       - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
         = f.referenced_association(:activity_budget, new: false)
       - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
