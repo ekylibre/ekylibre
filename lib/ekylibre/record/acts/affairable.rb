@@ -68,20 +68,19 @@ module Ekylibre
             # code << "  true\n"
             code << "end\n"
 
-            # # Updates affair if already given
-            # code << "after_create do\n"
-            # code << "  if self.#{reflection_name}\n"
-            # code << "    self.#{reflection_name}.refresh!\n"
-            # code << "  end\n"
-            # code << "  true\n"
-            # code << "end\n"
-
             # Create "empty" affair if missing before every save
             code << "after_save do\n"
             code << "  if self.#{reflection_name}\n"
             code << "    self.#{reflection_name}.refresh!\n"
             code << "  else\n"
             code << "    fetch_affair!\n"
+            code << "  end\n"
+            code << "end\n"
+
+            # Update affair after destroy
+            code << "after_destroy do\n"
+            code << "  if self.#{reflection_name}\n"
+            code << "    self.#{reflection_name}.refresh!\n"
             code << "  end\n"
             code << "end\n"
 

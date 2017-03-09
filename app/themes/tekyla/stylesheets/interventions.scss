@@ -97,3 +97,50 @@ $preview-modal-height: 80vh;
     padding: 0 1em;
   }
 }
+
+.beta {
+  @include is-icon($fs-normal);
+  @include use-icon(flask);
+
+  color: $brand-warning;
+  margin: 10px;
+}
+
+.nested-parameters {
+  position: relative;
+  .errors {
+    position: absolute;
+    top: $spacing * 0.9;
+    @include right(40px);
+    & > * {
+      display: none;
+    }
+  }
+
+  .links {
+    position: relative;
+
+    .display-info {
+      position: absolute;
+
+      .status {
+        @include margin-left(10px);
+        display: inline-block;
+        border: 1px solid $neutral-color;
+        border-radius: 100%;
+        width: $lh-small;
+        height: $lh-small;
+
+        &[data-display-status=valid] {
+          background-color: lighten($brand-success, 10%);
+        }
+        &[data-display-status=incomplete] {
+          background-color: lighten($brand-warning, 10%);
+        }
+        &[data-display-status=invalid] {
+          background-color: lighten($brand-danger, 10%);
+        }
+      }
+    }
+  }
+}

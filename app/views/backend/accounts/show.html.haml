@@ -22,6 +22,8 @@
       - k.helper :journal_period_crit, :p
       - k.helper :journal_entries_states_crit
 
+
+
     - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
     - totals = {}
     - totals[:debit]  = items.sum(:absolute_debit)
@@ -41,3 +43,9 @@
         %td.value= totals[:balance_debit].l(currency: currency)
         %td.value= totals[:balance_credit].l(currency: currency)
         %th
+
+    - content_for 'cobble_journal-entry-items_meta_toolbar'.to_sym do
+      .active-list-actions
+        %input#letters-visibility{ type: :checkbox, checked: true }
+        %label#label-letters-visibility
+          = :mask_literate_elements.tl

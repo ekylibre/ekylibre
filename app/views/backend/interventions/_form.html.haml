@@ -45,6 +45,10 @@
     - procedure.each_parameter do |parameter|
       = render 'parameter_form', reference: parameter, f: f, namespace: ''
 
+    - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
+      %span.beta
+        = :beta_description.tl
+
 - else # Root Procedure Natures
   - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|

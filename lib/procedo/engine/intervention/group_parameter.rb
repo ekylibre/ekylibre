@@ -38,6 +38,16 @@ module Procedo
           hash
         end
 
+        def to_attributes
+          hash = super
+          each_member do |parameter|
+            param_name = parameter.param_name
+            hash[param_name] ||= {}
+            hash[param_name][parameter.id.to_s] = parameter.to_attributes
+          end
+          hash
+        end
+
         def handlers_states
           hash = {}
           each_member do |parameter|

@@ -25,6 +25,7 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  delta           :decimal(19, 4)   not null
+#  description     :string
 #  id              :integer          not null, primary key
 #  intervention_id :integer
 #  lock_version    :integer          default(0), not null

@@ -91,7 +91,7 @@ Rails.application.routes.draw do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
       end
       resources :crumbs
-      resources :interventions, only: [:index]
+      resources :interventions, only: [:index, :create]
       resources :intervention_participations, only: [:create]
       resources :intervention_targets, only: [:show]
       resources :issues
@@ -251,6 +251,7 @@ Rails.application.routes.draw do
         post :change
         put :add_group
         post :keep
+        get :matching_interventions
       end
       member do
         match :add_to_group, via: [:get, :post]
@@ -549,6 +550,7 @@ Rails.application.routes.draw do
 
     resources :integrations, except: [:show, :destroy] do
       collection do
+        get ':nature', action: :new
         delete :destroy
       end
     end

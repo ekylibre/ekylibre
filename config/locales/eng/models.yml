@@ -463,6 +463,8 @@ eng:
     bank_statements: "Bank statements"
     base_amount: "Base amount"
     battery_level: "Battery level"
+    birth_date_completeness: "Birth date completeness"
+    birth_farm_number: "Birth farm number"
     body: "Body"
     # booked_journals: "Booked journals"
     boolean_value: "Boolean value"
@@ -675,6 +677,7 @@ eng:
     employment: "Employment"
     enabled: "Enabled"
     encrypted_password: "Encrypted password"
+    end_of_life_reason: "End of life reason"
     enjoyer: "Enjoyer"
     enjoyments: "Enjoyments"
     entity: "Person 1"
@@ -685,6 +688,8 @@ eng:
     entry: "Entry"
     entry_items: "Entry items"
     entry_number: "Entry number"
+    entry_on: "Entry on" #?
+    entry_reason: "Entry reason" #?
     euid: "EUID"
     event: "Event"
     event_participation: "Event participation"
@@ -693,6 +698,8 @@ eng:
     # exchanges: "Exchanges"
     execution_number: "Execution number"
     executor: "Executor"
+    exit_on: "Exit on" #?
+    exit_reason: "Exit reason" #?
     expected_population: "Expected population"
     expected_shape: "Expected shape" #?
     expected_stop_amount: "Expected stop amount"
@@ -711,6 +718,9 @@ eng:
     farm_name: "Farm name"
     farmer: "Farmer"
     father: "Father"
+    father_country: "Father country"
+    father_identification_number: "Father identification number"
+    father_variety: "Father variety"
     faxes: "Faxes"
     file: "File"
     file_content_text: "File content text"
@@ -720,6 +730,7 @@ eng:
     file_fingerprint: "File fingerprint"
     file_pages_count: "Pages count"
     file_updated_at: "Updated at"
+    filiation_status: "Filiation status"
     filtered_columns: "Filtered columns"
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
@@ -727,6 +738,7 @@ eng:
     # financial_years: "Financial years"
     finish: "Finish"
     finished_at: "Finished at"
+    first_calving_on: "First calving on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -746,6 +758,7 @@ eng:
     following: "Following"
     format: "Format"
     formats: "Formats"
+    france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"
@@ -975,6 +988,7 @@ eng:
     marketable_quantity: "Marketable quantity"
     marketable_yield: "Marketable yield"
     mass: "Mass (kg)" #?
+    max_inputs_count: "Maximum inputs count" #?
     max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
@@ -1010,6 +1024,9 @@ eng:
     mode_delta: "Mode delta"
     model_euid: "Model"
     mother: "Mother"
+    mother_country: "Mother country"
+    mother_identification_number: "Mother identification number"
+    mother_variety: "Mother variety"
     movements: "Movements"
     moves: "Moves" #?
     multi_polygon_value: "Multi polygon value"
@@ -1051,6 +1068,8 @@ eng:
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"
+    origin_country: "Origin country"
+    origin_identification_number: "Origin identification number"
     originator: "Originator"
     originator_type: "Originator type"
     outcoming_product: "Outcoming product"
@@ -1123,6 +1142,7 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    pre_harvest_interval: "Pre-harvest interval" #?
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -1358,6 +1378,8 @@ eng:
     stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
     # stocks_movement_categories: "Stocks movement categories"
+    # stocks_movement_variants: "Stocks movement variants"
+    # stocks_variants: "Stocks variants"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Storable"
@@ -1464,6 +1486,7 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
+    untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
     uploaded: "Uploaded"
