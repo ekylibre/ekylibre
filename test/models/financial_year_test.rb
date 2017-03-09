@@ -182,4 +182,12 @@ class FinancialYearTest < ActiveSupport::TestCase
     refute year == nil
     assert year.stopped_on.year == searched_year.year
   end
+
+  test 'financial year can t be created before company born at date' do
+    searched_year = Time.new(1900, 01, 01)
+
+    searched_financial_year = FinancialYear.on(searched_year)
+    refute searched_financial_year == nil
+    refute searched_financial_year.stopped_on.year == "2015"
+  end
 end
