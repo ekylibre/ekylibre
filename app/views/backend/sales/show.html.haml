@@ -5,7 +5,7 @@
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
   = t.export(*exports, key: :number)
   = t.duplicate resource, method: :post, params: {redirect: nil}
-  - if current_user.can?(:write, :parcels) && resource.can_generate_parcel?
+  - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
     = t.new(resource, params: { controller: :parcels, sale_id: resource.id, nature: :outgoing }, label: :generate_parcel.tl)
   - if resource.invoice?
     = t.cancel(resource) if resource.cancellable?
