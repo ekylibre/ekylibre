@@ -260,7 +260,10 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
   end
 
   test 'has accountant email when the accountant has an email' do
-    exchange = opened_financial_year_exchange
+    accountant = create(:entity, :accountant, :with_email)
+    financial_year = financial_years(:financial_years_025)
+    assert financial_year.update_column(:accountant_id, accountant.id)
+    exchange = create(:financial_year_exchange, :opened, financial_year: financial_year)
     accountant = exchange.accountant
     assert accountant, 'Accountant is missing'
     accountant.emails.delete_all if accountant.emails.any?
@@ -305,11 +308,10 @@ class FinancialYearExchangeTest < ActiveSupport::TestCase
                                     .where.not(stopped_on: FinancialYearExchange.where(closed_at: nil).select(:stopped_on))
                                     .order(stopped_on: :desc).first
       assert financial_year, 'Financial year is missing'
-      unless financial_year.accountant
-        financial_year.accountant = Entity.normal.first
-        financial_year.save!
-      end
       exchange = financial_year.exchanges.create!
+    end
+    unless exchange.accountant
+      exchange.financial_year.update_column(:accountant_id, Entity.normal.first.id)
     end
     assert exchange, 'An opened exchange is missing'
     exchange
