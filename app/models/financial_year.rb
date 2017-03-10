@@ -172,11 +172,11 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def started_at_validation
-    # company = Entity.where(of_company: true).first
-    #
-    # unless company.nil?
-    #   errors.add(:started_on, :on_or_after, restriction: company.born_at) if company.born_at > started_on    
-    # end
+    company = Entity.company
+    
+    unless company.nil?
+      errors.add(:started_on, :on_or_after, restriction: company.born_at) if company.born_at > started_on    
+    end
   end
 
   def journal_entries(conditions = nil)
