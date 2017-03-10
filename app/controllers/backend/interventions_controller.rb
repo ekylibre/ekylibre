@@ -232,6 +232,7 @@ module Backend
           hash[:product_id] = v if Product.find_by(id: v)
 
           if params[:reference_name]
+            next unless params[:reference_name] == 'animal'
             hash[:reference_name] = params[:reference_name]
           end
 

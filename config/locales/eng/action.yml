@@ -1037,6 +1037,7 @@ eng:
     cancelation: "Cancelation"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
+    capitalised_production: "Capitalised production" #?!
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1161,6 +1162,7 @@ eng:
     deposits: "Deposits" #?
     depreciation: "Depreciation"
     depreciations: "Depreciations"
+    depreciations_inputations_expenses: "Depreciations inputations expenses" #?
     description: "Description" #?
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1198,6 +1200,7 @@ eng:
     ekylibre: "www.ekylibre.org" #?
     email: "Email:" #?
     employee_informations: "Employee informations"
+    employee_involvement: "Employee involvement" #?!
     end: "to" #?
     entities: "Entities"
     entity_links: "Entity links" #?
@@ -1220,6 +1223,8 @@ eng:
     events: "Events"
     evolution: "Evolution"
     example: "Example: %{value}" #?
+    exceptional_expenses: "Exceptional expenses" #?!
+    exceptional_products: "Exceptional products" #?!
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
@@ -1237,6 +1242,8 @@ eng:
     file_to_upload: "File to upload"
     filter: "Filter" #?
     final_balance: "Final balance"
+    financial_expenses: "Financial expenses" #??
+    financial_products: "Financial products" #??
     financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
@@ -1316,6 +1323,7 @@ eng:
     invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
+    inventory_variations: "Inventory variations" #?
     invitation_status: "Status" #?
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -1374,6 +1382,7 @@ eng:
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
+    losses: "Losses" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
     mails:
@@ -1395,6 +1404,8 @@ eng:
     maximal_temperature: "Maximal temperature"
     members: "Members"
     menus: "Menus"
+    merchandises_purchases: "Merchandises purchases" #?!
+    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
@@ -1487,6 +1498,9 @@ eng:
     or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
+    other_expenses: "Other expenses" #??
+    other_products: "Other products" #?!
+    other_purchases: "Other purchases" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
@@ -1559,13 +1573,20 @@ eng:
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
+    productions_sales: "Productions sales" #??
     products: "Products"
+    products_purchases: "Products purchases" #??
+    products_sales: "Products sales" #??
     profile: "Profile"
+    profits: "Profits" #?
     profits_and_losses: "Profits and losses"
+    profits_taxe: "Profits taxe" #?!
+    provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
+    purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity" #?
@@ -1654,6 +1675,7 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
+    social_expenses: "Social expenses" #?!
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
@@ -1680,6 +1702,7 @@ eng:
     subscription_nature: "Subscription type" #?
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
+    subsidies: "Subsidies" #?!
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
@@ -1807,6 +1830,7 @@ eng:
     vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
+    wages: "Wages" #?!
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"

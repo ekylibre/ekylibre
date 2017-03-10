@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add production systems">
-	<nomenclature-creation nomenclature="production_systems" translateable="true"/>
+  <nomenclature-creation nomenclature="production_systems" translateable="true"/>
   <item-creation item="production_systems#organic_farming"/>
   <item-creation item="production_systems#intensive_farming"/>
   <item-creation item="production_systems#extensive_farming"/>
