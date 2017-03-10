@@ -1887,9 +1887,10 @@ arb:
     products_purchases: "منتجات مشتريات"
     products_sales: "مبيعات المنتجات"
     profile: "الملف الشخصي"
+    # profit_taxe: "Profit taxe"
     profits: "الأرباح"
     profits_and_losses: "الأرباح والخسائر"
-    profits_taxe: "الأرباح و taxe"
+    profits_taxe: "الأرباح و taxe" #?
     provisionnal_budget: "الميزانية Provisionnal" #?
     provisions_revenues: "عائدات أحكام"
     purchase: "الطلب"

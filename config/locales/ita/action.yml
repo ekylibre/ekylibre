@@ -1423,9 +1423,10 @@ ita:
     products_purchases: "Prodotti acquisti"
     products_sales: "Vendite di prodotti"
     profile: "Profilo"
+    # profit_taxe: "Profit taxe"
     profits: "I profitti"
     profits_and_losses: "Gli utili e le perdite"
-    profits_taxe: "I profitti taxe"
+    profits_taxe: "I profitti taxe" #?
     provisionnal_budget: "budget Provisionnal" #?
     provisions_revenues: "Ricavi Accantonamenti"
     purchase: "Acquista"

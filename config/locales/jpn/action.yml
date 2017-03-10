@@ -1429,9 +1429,10 @@ jpn:
     products_purchases: "製品の購入"
     products_sales: "製品販売"
     profile: "プロフィール"
+    # profit_taxe: "Profit taxe"
     profits: "利益"
     profits_and_losses: "利益および損失"
-    profits_taxe: "利益taxe"
+    profits_taxe: "利益taxe" #?
     provisionnal_budget: "Provisionnal予算" #?
     provisions_revenues: "引当金収入"
     purchase: "購入"

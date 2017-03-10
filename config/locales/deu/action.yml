@@ -1357,9 +1357,10 @@ deu:
     products_purchases: "Produkte Käufe"
     products_sales: "Produkte Verkäufe"
     profile: "Profil"
+    # profit_taxe: "Profit taxe"
     profits: "Gewinne"
     profits_and_losses: "Gewinne und Verluste"
-    profits_taxe: "Gewinne taxe"
+    profits_taxe: "Gewinne taxe" #?
     provisionnal_budget: "Provisionnal Budget" #?
     provisions_revenues: "Rückstellungen Erträge"
     purchase: "Kauf"

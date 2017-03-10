@@ -1909,6 +1909,7 @@ por:
         entity_sheet: "Ficha de identificação"
         equipment_certification: "Certificação de equipamentos"
         exchange_accountancy_file_fr: "Fr arquivo de contabilidade de câmbio"
+        # fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
         general_journal: "Jornal Geral"
         general_ledger: "Contabilidade geral"
         income_statement: "Demonstração de resultados"

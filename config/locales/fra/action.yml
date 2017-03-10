@@ -1762,8 +1762,8 @@ fra:
     products_purchases: "Approvisionnement"
     products_sales: "Ventes de marchandises"
     profile: "Profil"
-    profitability: "Rentabilité" #?
     profit_taxe: "Impots sur les bénéfices (IS)"
+    profitability: "Rentabilité" #?
     profits: "Produits d'exploitation"
     profits_and_losses: "Les profits et pertes"
     protein_matters_concentration: "Teneur en matières protéïques" #?

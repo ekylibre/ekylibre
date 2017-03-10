@@ -1362,9 +1362,10 @@ por:
     products_purchases: "Compras produtos"
     products_sales: "Vendas produtos"
     profile: "Perfil"
+    # profit_taxe: "Profit taxe"
     profits: "Lucros"
     profits_and_losses: "Os ganhos e perdas"
-    profits_taxe: "Lucros taxe"
+    profits_taxe: "Lucros taxe" #?
     provisionnal_budget: "Orçamento Provisionnal" #?
     provisions_revenues: "Receitas Provisões"
     purchase: "Compra"

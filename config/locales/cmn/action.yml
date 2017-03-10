@@ -1358,9 +1358,10 @@ cmn:
     products_purchases: "产品采购"
     products_sales: "产品销售"
     profile: "轮廓"
+    # profit_taxe: "Profit taxe"
     profits: "利润"
     profits_and_losses: "利润和亏损"
-    profits_taxe: "利润taxe"
+    profits_taxe: "利润taxe" #?
     provisionnal_budget: "Provisionnal预算" #?
     provisions_revenues: "收入的规定"
     purchase: "采购"

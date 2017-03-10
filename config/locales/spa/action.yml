@@ -1537,9 +1537,10 @@ spa:
     products_purchases: "Compras de productos"
     products_sales: "Las ventas de productos"
     profile: "Perfil"
+    # profit_taxe: "Profit taxe"
     profits: "Las ganancias"
     profits_and_losses: "Las pérdidas y ganancias"
-    profits_taxe: "Los beneficios taxe"
+    profits_taxe: "Los beneficios taxe" #?
     provisionnal_budget: "Presupuesto Provisionnal" #?
     provisions_revenues: "Provisiones ingresos"
     purchase: "Compra"
