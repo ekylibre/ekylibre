@@ -1572,9 +1572,9 @@ eng:
     products_purchases: "Products purchases" #??
     products_sales: "Products sales" #??
     profile: "Profile"
+    profit_taxe: "Profit taxe"
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
-    profits_taxe: "Profits taxe" #?!
     provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?

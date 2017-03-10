@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170222113119">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170308232701">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1925,6 +1925,7 @@
       <item name="entity_sheet" category="exploitation"/>
       <item name="equipment_certification" category="land_parcel_management"/>
       <item name="exchange_accountancy_file_fr" category="accountancy"/>
+      <item name="fr_pcga_profit_and_loss_statement"/>
       <item name="general_journal" category="accountancy"/>
       <item name="general_ledger" category="accountancy"/>
       <item name="income_statement" category="accountancy"/>

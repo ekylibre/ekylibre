@@ -1909,6 +1909,7 @@ deu:
         entity_sheet: "Entity Blatt"
         equipment_certification: "Ausrüstung Zertifizierung"
         exchange_accountancy_file_fr: "Austausch Buchhaltung Datei fr"
+        # fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
         general_journal: "Allgemeine Zeitschrift"
         general_ledger: "Hauptbuch"
         income_statement: "Gewinn-und Verlustrechnung"

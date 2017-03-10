@@ -1910,6 +1910,7 @@ eng:
         entity_sheet: "Entity sheet"
         equipment_certification: "Equipment certification"
         exchange_accountancy_file_fr: "Exchange accountancy file fr"
+        fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
         general_journal: "General journal"
         general_ledger: "General ledger"
         income_statement: "Profit and loss statement"

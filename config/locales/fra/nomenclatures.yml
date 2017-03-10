@@ -2035,6 +2035,7 @@ fra:
         entity_sheet: "Fiche tiers"
         equipment_certification: "Certification des équipements"
         exchange_accountancy_file_fr: "Écritures comptables (FEC)"
+        fr_pcga_profit_and_loss_statement: "Compte de résultat (FR - PCGA)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"

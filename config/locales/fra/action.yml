@@ -1763,9 +1763,9 @@ fra:
     products_sales: "Ventes de marchandises"
     profile: "Profil"
     profitability: "Rentabilité" #?
+    profit_taxe: "Impots sur les bénéfices (IS)"
     profits: "Produits d'exploitation"
     profits_and_losses: "Les profits et pertes"
-    profits_taxe: "Impots sur les bénéfices (IS)"
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?

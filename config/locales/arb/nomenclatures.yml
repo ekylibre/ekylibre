@@ -1918,6 +1918,7 @@ arb:
         entity_sheet: "ورقة كيان"
         equipment_certification: "شهادة المعدات"
         exchange_accountancy_file_fr: "الاب ملف المحاسبة الصرف"
+        # fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
         general_journal: "مجلة العامة"
         general_ledger: "دفتر الأستاذ العام"
         income_statement: "بيان الأرباح والخسائر"
