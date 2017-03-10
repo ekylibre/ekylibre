@@ -108,7 +108,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state = :draft
-    self.currency ||= Preferences[:currency]
+    self.currency ||= Preference[:currency]
   end
 
   before_validation(on: :create) do
