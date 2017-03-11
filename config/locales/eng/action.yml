@@ -1048,6 +1048,7 @@ eng:
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
+    # charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
     children: "Children"
@@ -1122,6 +1123,7 @@ eng:
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
     current_cultivation: "Current cultivation"
+    current_result_before_taxe: "Current result before taxe" #?!
     current_stocks_by_variety: "Current stocks by variety" #?
     currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
@@ -1219,6 +1221,7 @@ eng:
     example: "Example: %{value}" #?
     exceptional_expenses: "Exceptional expenses" #?!
     exceptional_products: "Exceptional products" #?!
+    exceptional_result: "Exceptional result" #?!
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"

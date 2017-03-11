@@ -311,6 +311,21 @@ class FinancialYear < Ekylibre::Record::Base
     Journal.sum_entry_items(expression, options)
   end
 
+  # get the equation to compute from accountancy abacus
+  def get_mandatory_line_calculation(document = :profit_and_loss_statement, line = nil)
+    ac = Account.accounting_system
+    source = Rails.root.join('config', 'accoutancy_mandatory_documents.yml')
+    data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source
+    if data && ac && document && line
+      data[ac.to_s][document][line] if data[ac.to_s] && data[ac.to_s][document]
+    end
+  end
+
+  def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil)
+    equation = get_mandatory_line_calculation(document, line) if line
+    sum_entry_items(equation)
+  end
+
   # Computes the value of list of accounts in a String
   # 123 will take all accounts 123*
   # ^456 will remove all accounts 456*

@@ -81,6 +81,8 @@ eng:
     #~ invoiced_at: "Invoiced on"
     #~ islet_number: "Islet number"
     #~ issue: "Issue"
+    #~ item: "Item"
+    #~ items: "Items"
     #~ journal: "Journal"
     #~ label: "Label"
     loss_balance: "Loss balance"

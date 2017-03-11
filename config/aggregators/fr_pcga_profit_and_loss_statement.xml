@@ -7,14 +7,17 @@
     </parameters>
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
-      <variable name="financial_year" value="FinancialYear.current"/>
+      <variable name="financial_year" value="FinancialYear.on(started_on)"/>
       <variable name="financial_year_compute" value="financial_year.compute_balances!"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <property name="financial_year_name" value="financial_year.code"/>
+      <property name="started_on" value="started_on"/>
+      <property name="stopped_on" value="stopped_on"/>
+      <!-- profits 7 -->
       <section name="title" legend="profits">
         <property name="label" value=":profits.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7086X, 7087X, 7088X, 7097X').reorder(:number, :label)">
+        <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7097X').reorder(:number, :label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":products_sales.tl" level="api"/>
           <cell name="ordering" value="01" level="api"/>
@@ -23,7 +26,7 @@
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
         </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7086, ^7087, ^7088, ^7097').reorder(:number, :label)">
+        <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7097').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="group" value=":productions_sales.tl" level="api"/>
             <cell name="ordering" value="02" level="api"/>
@@ -65,12 +68,11 @@
             <cell name="label" of="item"/>
             <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
         </matrix>
-        <property name="exploitation_products_total" legend="exploitation_products_total" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755')"/>
       </section>
+      <!-- losses 6 -->
       <section name="title" legend="losses">
         <property name="label" value=":losses.tl" level="api"/>
-        <property name="loss_balance" value="financial_year.debit_balance('6X')"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('607X, 6087X, 6097X').order(:label)">
+        <matrix name="items" for="item" in="Account.find_with_regexp('607X, 6097X').order(:label)">
             <cell name="id" of="item" level="api"/>
             <cell name="group" value=":merchandises_purchases.tl" level="api"/>
             <cell name="ordering" value="8" level="api"/>
@@ -84,7 +86,7 @@
             <cell name="label" of="item"/>
             <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('601X, 602X, 6081X, 6082X, 6091X, 6092X').order(:label)">
+        <matrix name="items" for="item" in="Account.find_with_regexp('601X, 602X, 6091X, 6092X').order(:label)">
             <cell name="id" of="item" level="api"/>
             <cell name="group" value=":products_purchases.tl" level="api"/>
             <cell name="ordering" value="10" level="api"/>
@@ -98,7 +100,14 @@
             <cell name="label" of="item"/>
             <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('604X, 605X, 606X, 6084X, 6085X, 6086X, 6094X, 6095X, 6096X, 61X, 62X').order(:label)">
+        <matrix name="items" for="item" in="Account.find_with_regexp('604X, 6094X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="group" value=":animal_purchases.tl" level="api"/>
+            <cell name="ordering" value="12" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+        </matrix>
+        <matrix name="items" for="item" in="Account.find_with_regexp('605X, 606X, 6095X, 6096X, 61X, 62X, 6098X').order(:label)">
             <cell name="id" of="item" level="api"/>
             <cell name="group" value=":other_purchases.tl" level="api"/>
             <cell name="ordering" value="12" level="api"/>
@@ -140,82 +149,140 @@
             <cell name="label" of="item"/>
             <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <property name="exploitation_expenses_total" legend="exploitation_expenses_total" value="financial_year.debit_balance('60X, 61X, 62X, 63X, 64X, 681X, 65X, ^655')"/>
       </section>
-      <property name="exploitation_result" legend="exploitation_result" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755, -60X, -61X, -62X, -63X, -64X, -681X, -65X, ^655')"/>
+      <!-- SUB OPERATION -->
+      <section name="title" legend="exploitation_result">
+        <property name="label" value=":exploitation_result.tl" level="api"/>
+        <variable name="total_1" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_subtotal)"/>
+        <variable name="total_2" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :charges_subtotal)"/>
+        <section name="items">
+	        <section name="item">
+	          <cell name="group" value=":exploitation_result.tl" level="api"/>
+	          <cell name="category" value=":suboperation" level="api"/>
+	          <cell name="ordering" value="18" level="api"/>
+	          <cell name="balance" value="total_1 - total_2" />
+	        </section>
+        </section>
+      </section>
+      <!-- financial_products -->
       <section name="title" legend="financial_products">
         <property name="label" value=":financial_products.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('76X, 786X, 796X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":financial_products.tl" level="api"/>
-          <cell name="ordering" value="18" level="api"/>
+          <cell name="ordering" value="19" level="api"/>
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <property name="financial_products_total" legend="financial_products_total" value="financial_year.credit_balance('76X, 786X, 796X')"/>
       </section>
+      <!-- financial_expenses -->
       <section name="title" legend="financial_expenses">
         <property name="label" value=":financial_expenses.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('686X, 66X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":financial_expenses.tl" level="api"/>
-          <cell name="ordering" value="19" level="api"/>
+          <cell name="ordering" value="20" level="api"/>
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
         <property name="financial_expenses_total" legend="financial_expenses_total" value="financial_year.debit_balance('686X, 66X')"/>
       </section>
-      <property name="financial_result" legend="financial_result" value="financial_year.credit_balance('76X, -686X, -66X')"/>
-      <property name="current_result_before_taxes" legend="current_result_before_taxes" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 75X, 76X, 781X, 791X, -60X, -61X, -62X, -63X, -64X, -65X, -66X, -681X, -686X')"/>
+       <!-- SUB OPERATION -->
+       <section name="title" legend="financial_result">
+        <property name="label" value=":financial_result.tl" level="api"/>
+        <variable name="total_3" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)"/>
+        <variable name="total_4" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)"/>
+        <section name="items">
+	        <section name="item">
+	          <cell name="group" value=":financial_result.tl" level="api"/>
+	          <cell name="category" value=":suboperation" level="api"/>
+	          <cell name="ordering" value="21" level="api"/>
+	          <cell name="balance" value="total_3 - total_4" />
+	        </section>
+        </section>
+      </section>
+      <!-- SUB OPERATION -->
+      <section name="title" legend="current_result_before_taxes">
+        <property name="label" value=":current_result_before_taxes.tl" level="api"/>
+        <section name="items">
+	        <section name="item">
+	          <cell name="group" value=":current_result_before_taxes.tl" level="api"/>
+	          <cell name="category" value=":suboperation" level="api"/>
+	          <cell name="ordering" value="22" level="api"/>
+	          <cell name="balance" value="total_1 - total_2 + total_3 - total_4" />
+	        </section>
+        </section>
+      </section>
+      <!-- exceptional_products -->
       <section name="title" legend="exceptional_products">
         <property name="label" value=":exceptional_products.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('77X, 787X, 797X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":exceptional_products.tl" level="api"/>
-          <cell name="ordering" value="20" level="api"/>
+          <cell name="ordering" value="23" level="api"/>
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <property name="exceptional_products_total" legend="exceptional_products_total" value="financial_year.credit_balance('77X, 787X, 797X')"/>
       </section>
+      <!-- exceptional_expenses -->
       <section name="title" legend="exceptional_expenses">
         <property name="label" value=":exceptional_expenses.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('67X, 687X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":exceptional_expenses.tl" level="api"/>
-          <cell name="ordering" value="21" level="api"/>
+          <cell name="ordering" value="24" level="api"/>
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <property name="exceptional_expenses_total" legend="exceptional_expenses_total" value="financial_year.debit_balance('67X, 687X')"/>
+      </section>
+      <!-- SUB OPERATION -->
+      <section name="title" legend="exceptional_result">
+        <property name="label" value=":exceptional_result.tl" level="api"/>
+        <variable name="total_5" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)"/>
+        <variable name="total_6" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)"/>
+        <section name="items">
+	        <section name="item">
+	          <cell name="group" value=":exceptional_result.tl" level="api"/>
+	          <cell name="category" value=":suboperation" level="api"/>
+	          <cell name="ordering" value="25" level="api"/>
+	          <cell name="balance" value="total_5 - total_6" />
+	        </section>
+        </section>
       </section>
       <section name="title" legend="employee_involvement">
         <property name="label" value=":employee_involvement.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('691X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":employee_involvement.tl" level="api"/>
-          <cell name="ordering" value="22" level="api"/>
+          <cell name="ordering" value="26" level="api"/>
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <property name="employee_involvement_total" legend="employee_involvement_total" value="financial_year.debit_balance('691X')"/>
       </section>
       <section name="title" legend="profit_taxe">
         <property name="label" value=":profit_taxe.tl" level="api"/>
         <matrix name="items" for="item" in="Account.find_with_regexp('695X, 697X, 699X').order(:label)">
           <cell name="id" of="item" level="api"/>
           <cell name="group" value=":profit_taxe.tl" level="api"/>
-          <cell name="ordering" value="23" level="api"/>
+          <cell name="ordering" value="27" level="api"/>
           <cell name="label" of="item"/>
           <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
         </matrix>
-        <property name="exceptional_expenses_total" legend="exceptional_expenses_total" value="financial_year.debit_balance('695X, 697X, 699X')"/>
       </section>
-      <property name="exceptional_result" legend="exceptional_result" value="financial_year.credit_balance('77X, 787X, 797X, -67X, -687X')"/>
-      <property name="profits_taxes" legend="profits_taxes" value="financial_year.debit_balance('695X, 696X, 697X, 689X, 698X, 699X, -789X')"/>
-      <property name="products_total" legend="products_total" value="financial_year.credit_balance('7X')"/>
-      <property name="expenses_total" legend="expenses_total" value="financial_year.credit_balance('6X')"/>
-      <property name="profit_or_loss" legend="profit_or_loss" value="financial_year.credit_balance('7X, -6X')"/>
+      <!-- SUB OPERATION -->
+      <section name="title" legend="result">
+        <property name="label" value=":result.tl" level="api"/>
+        <variable name="total_7" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)"/>
+        <variable name="total_8" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)"/>
+        <section name="items">
+	        <section name="item">
+	          <cell name="group" value=":result.tl" level="api"/>
+	          <cell name="category" value=":suboperation" level="api"/>
+	          <cell name="ordering" value="28" level="api"/>
+	          <cell name="balance" value="total_1 - total_2 + total_3 - total_4 + total_5 - total_6 - total_7 - total_8" />
+	        </section>
+        </section>
+      </section>
     </section>
   </aggregator>
 </aggregators>

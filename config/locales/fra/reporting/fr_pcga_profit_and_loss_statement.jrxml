@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fr_pcga_profit_and_loss_statement" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.4641000000000015"/>
+	<property name="ireport.zoom" value="1.3310000000000015"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="146"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -53,6 +53,12 @@
 	<field name="order" class="java.lang.String">
 		<fieldDescription><![CDATA[order]]></fieldDescription>
 	</field>
+	<field name="started_on" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::financial-years/@started-on]]></fieldDescription>
+	</field>
+	<field name="stopped_on" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::financial-years/@stopped-on]]></fieldDescription>
+	</field>
 	<sortField name="order"/>
 	<variable name="balance_sub_group" class="java.lang.Double" resetType="Group" resetGroup="sub_group" calculation="Sum">
 		<variableExpression><![CDATA[$F{balance}]]></variableExpression>
@@ -74,15 +80,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="35">
-				<textField evaluationTime="Group" evaluationGroup="group" isBlankWhenNull="true">
-					<reportElement x="377" y="1" width="178" height="34" uuid="52748fbe-8a93-46c8-801f-93111106f5a8"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{balance_group}]]></textFieldExpression>
-				</textField>
-			</band>
+			<band height="18"/>
 		</groupFooter>
 	</group>
 	<group name="sub_group" keepTogether="true">
@@ -96,7 +94,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{sub-group}]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="sub_group" isBlankWhenNull="true">
+				<textField evaluationTime="Group" evaluationGroup="sub_group" pattern="###0.00" isBlankWhenNull="true">
 					<reportElement x="461" y="0" width="94" height="28" uuid="b708422d-066f-471b-824c-c35973fe2f1a"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12"/>
@@ -139,11 +137,11 @@
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement style="label" x="481" y="0" width="73" height="15" uuid="4d907b10-d5e8-4bd3-9d40-5d9b30b59dc4"/>
-				<textFieldExpression><![CDATA[$F{started_on_period}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{started_on}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement style="label" x="481" y="14" width="74" height="15" uuid="da2b48f3-7ab6-4a98-a57c-7f3fe47f151f"/>
-				<textFieldExpression><![CDATA[$F{stopped_on_period}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{stopped_on}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="325" y="0" width="69" height="29" uuid="a696eb6a-db32-4d10-9610-2a9708c6027b"/>
@@ -164,7 +162,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="461" y="0" width="93" height="20" uuid="6510afd7-0f9b-4519-8bfe-f97864f9867c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
@@ -237,7 +235,7 @@
 	<summary>
 		<band height="152">
 			<crosstab>
-				<reportElement x="0" y="29" width="555" height="123" uuid="23880bf0-5de3-40c1-958f-0fe18459bcc1"/>
+				<reportElement x="0" y="42" width="555" height="110" uuid="23880bf0-5de3-40c1-958f-0fe18459bcc1"/>
 				<crosstabDataset isDataPreSorted="true"/>
 				<rowGroup name="group" width="70" totalPosition="End">
 					<bucket class="java.lang.String">
@@ -262,11 +260,6 @@
 							<box>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<staticText>
-								<reportElement x="0" y="0" width="416" height="25" forecolor="#FFFFFF" uuid="099e579d-1f9b-4a75-b721-0cec183e0668"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Total]]></text>
-							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
@@ -338,7 +331,7 @@
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
+						<textField pattern="###0.00" isBlankWhenNull="true">
 							<reportElement style="Crosstab Data Text" x="0" y="0" width="69" height="20" uuid="eb5115bd-0098-4ec0-829b-7b947782661a"/>
 							<textElement verticalAlignment="Middle">
 								<font size="8"/>
@@ -347,16 +340,11 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="69" height="25" rowTotalGroup="group">
+				<crosstabCell width="69" height="0" rowTotalGroup="group">
 					<cellContents backcolor="#005FB3" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="69" height="25" forecolor="#FFFFFF" uuid="039bf72d-fe54-407b-84f1-538a1779df54"/>
-							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{balanceMeasure}]]></textFieldExpression>
-						</textField>
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="70" height="20" columnTotalGroup="fy-name">
@@ -364,7 +352,7 @@
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
+						<textField pattern="###0.00" isBlankWhenNull="true">
 							<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="20" uuid="b6357b03-b421-485c-adeb-d724890a7f1d"/>
 							<textElement verticalAlignment="Middle">
 								<font size="8"/>
@@ -373,16 +361,11 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="70" height="25" rowTotalGroup="group" columnTotalGroup="fy-name">
+				<crosstabCell width="70" height="0" rowTotalGroup="group" columnTotalGroup="fy-name">
 					<cellContents backcolor="#005FB3" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" forecolor="#FFFFFF" uuid="1f27d4d5-2d56-4ef1-9f54-09d60ce13173"/>
-							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{balanceMeasure}]]></textFieldExpression>
-						</textField>
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="69" height="21" rowTotalGroup="sub-group">
@@ -390,7 +373,7 @@
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
+						<textField pattern="###0.00" isBlankWhenNull="true">
 							<reportElement style="Crosstab Data Text" x="0" y="0" width="69" height="20" uuid="9c6e13ad-caa1-4a10-b62a-c3e0d0834267"/>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{balanceMeasure}]]></textFieldExpression>
@@ -402,7 +385,7 @@
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
+						<textField pattern="###0.00" isBlankWhenNull="true">
 							<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="20" uuid="e60d7c21-c832-47a3-9b74-2d6eb3fd8d1d"/>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{balanceMeasure}]]></textFieldExpression>
@@ -411,14 +394,14 @@
 				</crosstabCell>
 			</crosstab>
 			<staticText>
-				<reportElement style="title" x="1" y="0" width="554" height="29" uuid="53575b73-f486-43ea-b4d6-f69084164a9f"/>
+				<reportElement style="title" x="1" y="2" width="554" height="29" uuid="53575b73-f486-43ea-b4d6-f69084164a9f"/>
 				<textElement>
 					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
 				</textElement>
-				<text><![CDATA[Compte de résultat FR-PCGA]]></text>
+				<text><![CDATA[Compte de résultat synthétique FR-PCGA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="2" y="28" width="571" height="2" backcolor="#7C9DDD" uuid="195aaebf-81ff-44ac-8f8d-48e54204fe42"/>
+				<reportElement style="strong" mode="Opaque" x="2" y="33" width="571" height="2" backcolor="#7C9DDD" uuid="195aaebf-81ff-44ac-8f8d-48e54204fe42"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
@@ -430,6 +413,19 @@
 					<font size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fy-name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="394" y="1" width="87" height="29" uuid="94097e6e-b796-47e5-87ad-e65e876ab569"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Période]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="label" x="480" y="16" width="74" height="15" uuid="77405631-8a52-4f84-9094-a0421ba4d08b"/>
+				<textFieldExpression><![CDATA[$F{stopped_on}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="label" x="481" y="1" width="73" height="15" uuid="36313d0c-1748-4af2-932f-5b7cba0d0aa1"/>
+				<textFieldExpression><![CDATA[$F{started_on}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

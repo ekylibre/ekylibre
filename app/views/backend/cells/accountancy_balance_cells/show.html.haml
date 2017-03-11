@@ -1,10 +1,10 @@
 - if @financial_year && Account.french_accounting_system?
   :ruby
     # operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
-    product_value = @financial_year.sum_entry_items('7 !75 !76 !77 !78 !79')
-    charge_value = @financial_year.sum_entry_items('60 61 62 63 64 !6355')
-    turnover_value = @financial_year.sum_entry_items('7 !707 !7086 !7087 !7088 !7097 !75 !76 !77 !78 !79')
-    operating_margin =  ( - product_value - charge_value ) if product_value && charge_value
+    product_value = @financial_year.sum_entry_items('7 C !75 C !76 C !77 C !78 C !79 C')
+    charge_value = @financial_year.sum_entry_items('60 D 61 D 62 D 63 D 64 D !6355 D')
+    turnover_value = @financial_year.sum_entry_items('7 C !707 C !7086 C !7087 C !7088 C !7097 C !75 C !76 C !77 C !78 C !79 C')
+    operating_margin =  ( product_value - charge_value ) if product_value && charge_value
     operating_profit = operating_margin - @financial_year.sum_entry_items('781 791 751 752 753 754 755 758') - @financial_year.sum_entry_items('681 651 653 654 655 658')
     operating_margin_on_turnover = ( operating_margin / - turnover_value) * 100 if operating_margin && turnover_value && turnover_value != 0.0
 
@@ -29,7 +29,11 @@
     - if product_value
       .big-info
         %span.title= :product_value.tl(financial_year: @financial_year.name)
-        %span.value= (-1 * product_value).l(currency: Preference[:currency])
+        %span.value= product_value.l(currency: Preference[:currency])
+    - if charge_value
+      .big-info
+        %span.title= :charge_value.tl(financial_year: @financial_year.name)
+        %span.value= charge_value.l(currency: Preference[:currency])
     - if operating_margin
       .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
         %span.title= :operating_margin.tl(financial_year: @financial_year.name)

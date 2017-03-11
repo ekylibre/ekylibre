@@ -1005,6 +1005,7 @@ spa:
     current: "Corriente"
     current_cultivation: "El cultivo actual"
     current_letter: "Carta en curso\_: %{letter}" #?
+    # current_result_before_taxe: "Current result before taxe"
     current_stocks_by_variety: "Existencias actuales de variedad"
     currently_subscribed_to: "Actualmente suscrito"
     custom_fields: "Campos Personalizados"
@@ -1123,6 +1124,7 @@ spa:
     # example: "Example: %{value}"
     exceptional_expenses: "Gastos de carácter excepcional"
     exceptional_products: "Productos excepcionales"
+    # exceptional_result: "Exceptional result"
     exchange: "Intercambiar"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Intercambios"

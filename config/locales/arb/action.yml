@@ -1220,6 +1220,7 @@ arb:
     current: "الحالية"
     current_cultivation: "زراعة الحالية"
     current_letter: "البيانات الحالية : %{letter}" #?
+    # current_result_before_taxe: "Current result before taxe"
     current_stocks_by_variety: "المخزونات الحالية من قبل متنوعة"
     currently_subscribed_to: "مشترك حاليا ل"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
@@ -1363,6 +1364,7 @@ arb:
     example: "مثال&nbsp;: %{value}"
     exceptional_expenses: "نفقات استثنائية"
     exceptional_products: "منتجات استثنائية"
+    # exceptional_result: "Exceptional result"
     exchange: "تبادل"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "التبادل"

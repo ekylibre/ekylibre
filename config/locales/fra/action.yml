@@ -1115,6 +1115,7 @@ fra:
     current: "En cours"
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
+    current_result_before_taxe: "Résulat courant avant impôts"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
@@ -1239,6 +1240,7 @@ fra:
     example: "Exemple\_: %{value}"
     exceptional_expenses: "Charges exceptionnelles"
     exceptional_products: "Produits exceptionnels"
+    exceptional_result: "Résultat exceptionnel"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     exchanges: "Échanges"
