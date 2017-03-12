@@ -1087,7 +1087,7 @@ ALTER SEQUENCE bank_statements_id_seq OWNED BY bank_statements.id;
 CREATE TABLE call_messages (
     id integer NOT NULL,
     status character varying,
-    headers character varying,
+    headers text,
     body text,
     type character varying,
     nature character varying NOT NULL,
@@ -16941,4 +16941,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170227143414');
 INSERT INTO schema_migrations (version) VALUES ('20170307103213');
 
 INSERT INTO schema_migrations (version) VALUES ('20170307171442');
+
+INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 

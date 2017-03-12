@@ -1120,6 +1120,7 @@ integrations:
     - "backend/identifiers#edit"
     - "backend/identifiers#new"
     - "backend/identifiers#update"
+    - "backend/integrations#check"
     - "backend/integrations#create"
     - "backend/integrations#destroy"
     - "backend/integrations#edit"

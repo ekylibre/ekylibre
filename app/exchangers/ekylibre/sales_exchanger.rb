@@ -66,10 +66,10 @@ module Ekylibre
         # find or create a purchase line
         if sale && variant && r.unit_pretax_amount && r.quantity && sale_item_tax
           unless sale_item = SaleItem.where(
-                   sale_id: sale.id,
-                   pretax_amount: r.pretax_amount,
-                   variant_id: variant.id
-                 ).first
+            sale_id: sale.id,
+            pretax_amount: r.pretax_amount,
+            variant_id: variant.id
+          ).first
             sale.items.create!(
               quantity: r.quantity,
               tax: sale_item_tax,
