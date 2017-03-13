@@ -2262,6 +2262,9 @@ arb:
     x_cents:
       # one: "%{count} cent"
       # other: "%{count} cents"
+    x_client_journal_entry_items:
+      # one: "%{count} clients journal entry item"
+      # other: "%{count} clients journal entry items"
     x_contacts:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
@@ -2399,6 +2402,9 @@ arb:
       one: "اشتراك واحد"
       other: "%{count} اشتراكات اخرى"
       zero: "ولا اية اشتراك" #?
+    x_supplier_journal_entry_items:
+      # one: "%{count} suppliers journal entry item"
+      # other: "%{count} suppliers journal entry items"
     x_tasks:
       # one: "%{count} task"
       # other: "%{count} tasks"

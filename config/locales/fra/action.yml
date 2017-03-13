@@ -2177,6 +2177,9 @@ fra:
     x_cents:
       one: "%{count} centime"
       other: "%{count} centimes"
+    x_client_journal_entry_items:
+      one: "%{count} ligne d'écritures comptables clients"
+      other: "%{count} lignes d'écritures comptables clients"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -2307,6 +2310,9 @@ fra:
     x_subscriptions:
       one: "%{count} abonnement"
       other: "%{count} abonnements"
+    x_supplier_journal_entry_items:
+      one: "%{count} ligne d'écritures comptables fournisseurs"
+      other: "%{count} lignes d'écritures comptables fournisseurs"
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"

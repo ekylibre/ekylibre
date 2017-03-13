@@ -289,6 +289,38 @@ module Backend
       t.column :executor, url: true
     end
 
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :journal, url: true
+      t.column :entry_number, url: true
+      t.column :printed_on, datatype: :date, label: :column
+      t.column :name
+      t.column :state_label
+      t.column :letter
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
+    end
+
+
+
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :journal, url: true
+      t.column :entry_number, url: true
+      t.column :printed_on, datatype: :date, label: :column
+      t.column :name
+      t.column :state_label
+      t.column :letter
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
+    end
+
     def toggle
       @entity = Entity.find_by!(id: params[:id])
       @entity.toggle!
