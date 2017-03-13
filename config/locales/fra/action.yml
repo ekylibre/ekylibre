@@ -1525,6 +1525,7 @@ fra:
     mode: "Mode"
     model: "Model"
     modes: "Modes"
+    month: "Mois"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
@@ -1827,6 +1828,7 @@ fra:
     renewed: "Renouvellés"
     reopen: "Déclôturer" #?
     reopen_journal: "Déclôturer le journal" #?
+    repayment_period: "Période de remboursement"
     repayments: "Remboursements"
     repayments_graph: "Graphique des remboursements"
     replace: "Remplacer" #?
@@ -2361,6 +2363,7 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
+    year: "Année"
     yearly: "Annuelle" #?
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?

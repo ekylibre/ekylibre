@@ -1643,6 +1643,7 @@ arb:
     model: "نموذج"
     modes: "وسائط"
     moment: "" #?
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensuelle"
     months: "أشهر"
@@ -1943,6 +1944,7 @@ arb:
     remove_subscription: "إزالة الاشتراك"
     renewed: "متجدد"
     reopen: "فتح الدفتر اليومي" #?
+    # repayment_period: "Repayment period"
     repayments: "تسديد"
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
@@ -2454,6 +2456,7 @@ arb:
       one: "1 سنة"
       # other: "%{count} years"
     y: "نعم" #?
+    # year: "Year"
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
     yield: "يخضع أو يستسلم"

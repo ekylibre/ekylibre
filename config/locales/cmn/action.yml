@@ -1195,6 +1195,7 @@ cmn:
     mode: "模式"
     model: "模型"
     modes: "模式"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "每月一次"
     months: "月"
@@ -1397,6 +1398,7 @@ cmn:
     remove_item: "除去项目"
     remove_subscription: "删除订阅"
     renewed: "更新"
+    # repayment_period: "Repayment period"
     repayments: "偿还"
     repayments_graph: "偿还图"
     report: "报告"
@@ -1774,6 +1776,7 @@ cmn:
     x_years:
       one: "1年"
       # other: "%{count} years"
+    # year: "Year"
     yield: "产量"
     yield_by_calibration: "产量由校准"
     zones: "区"

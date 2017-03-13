@@ -1266,6 +1266,7 @@ jpn:
     mode: "モード"
     model: "モデル"
     modes: "モード"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "毎月"
     months: "ヶ月"
@@ -1468,6 +1469,7 @@ jpn:
     remove_item: "項目を削除"
     remove_subscription: "サブスクリプションを削除します"
     renewed: "新たな"
+    # repayment_period: "Repayment period"
     repayments: "返済"
     repayments_graph: "返済グラフ"
     report: "報告する"
@@ -1846,6 +1848,7 @@ jpn:
     x_years:
       one: "1年"
       # other: "%{count} years"
+    # year: "Year"
     yield: "産出"
     yield_by_calibration: "キャリブレーションによって収量"
     zones: "ゾーン"

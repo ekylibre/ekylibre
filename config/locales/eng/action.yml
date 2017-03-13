@@ -1410,6 +1410,7 @@ eng:
     mode: "Mode" #?
     model: "Model" #?
     modes: "Modes" #?
+    month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
@@ -1609,6 +1610,7 @@ eng:
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
+    repayment_period: "Repayment period" #?
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
@@ -1981,6 +1983,7 @@ eng:
     x_years:
       one: "%{count} year"
       other: "%{count} years"
+    year: "Year" #?
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"

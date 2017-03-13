@@ -1260,6 +1260,7 @@ ita:
     mode: "modo"
     model: "Modello"
     modes: "Modalità"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensile"
     months: "mesi"
@@ -1462,6 +1463,7 @@ ita:
     remove_item: "Rimuovi oggetto"
     remove_subscription: "rimuovere abbonamento"
     renewed: "Rinnovato"
+    # repayment_period: "Repayment period"
     repayments: "rimborsi"
     repayments_graph: "grafico rimborsi"
     report: "rapporto"
@@ -1839,6 +1841,7 @@ ita:
     x_years:
       one: "1 anno"
       # other: "%{count} years"
+    # year: "Year"
     yield: "dare la precedenza"
     yield_by_calibration: "Resa mediante calibrazione"
     zones: "zone"

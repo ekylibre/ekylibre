@@ -1194,6 +1194,7 @@ deu:
     mode: "Modus"
     model: "Modell"
     modes: "Modi"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Monatlich"
     months: "Monate"
@@ -1396,6 +1397,7 @@ deu:
     remove_item: "Gegenstand entfernen"
     remove_subscription: "entfernen Abonnement"
     renewed: "Erneuert"
+    # repayment_period: "Repayment period"
     repayments: "Rückzahlungen"
     repayments_graph: "Rückzahlungen graph"
     report: "Bericht"
@@ -1773,6 +1775,7 @@ deu:
     x_years:
       one: "1 Jahr"
       # other: "%{count} years"
+    # year: "Year"
     yield: "Ausbeute"
     yield_by_calibration: "Ausbeute nach der Kalibrierung"
     # zones: "Zones"

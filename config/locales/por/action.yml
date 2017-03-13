@@ -1199,6 +1199,7 @@ por:
     mode: "Modo"
     model: "Modelo"
     modes: "Modos"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Por mês"
     months: "Meses"
@@ -1401,6 +1402,7 @@ por:
     remove_item: "Remover item"
     remove_subscription: "Remover subscrição"
     renewed: "renovado"
+    # repayment_period: "Repayment period"
     repayments: "Reembolsos"
     repayments_graph: "Gráfico reembolsos"
     report: "Relatório"
@@ -1778,6 +1780,7 @@ por:
     x_years:
       one: "1 ano"
       # other: "%{count} years"
+    # year: "Year"
     yield: "Produção"
     yield_by_calibration: "Rendimento por calibração"
     zones: "Zonas"

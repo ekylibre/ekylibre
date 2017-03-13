@@ -1,3 +1,7 @@
+= kujaku do |k|
+  - k.text
+  - k.multi_choice :repayment_period, [:month, :year].map{ |s| [s.tl, s] }, label: :repayment_period.tl
+
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
 

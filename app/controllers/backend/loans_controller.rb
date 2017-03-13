@@ -22,7 +22,17 @@ module Backend
 
     unroll
 
-    list(selectable: true) do |t|
+    def self.loans_conditions
+      code = ''
+      code = search_conditions(loans: [:name, :amount], cashes: [:bank_name]) + " ||= []\n"
+      code << "if params[:repayment_period].present?\n"
+      code << "  c[0] << ' AND #{Loan.table_name}.repayment_period IN (?)'\n"
+      code << "  c << params[:repayment_period]\n"
+      code << "end\n"
+      code.c
+    end
+
+    list(conditions: loans_conditions, selectable: true) do |t|
       t.action :edit
       t.action :destroy
       t.column :name, url: true

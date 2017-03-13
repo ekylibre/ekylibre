@@ -1346,6 +1346,7 @@ spa:
     mode: "Modo"
     model: "Modelo"
     modes: "Modos"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
     months: "Meses"
@@ -1584,6 +1585,7 @@ spa:
     remove_subscription: "Retirar la suscripción"
     renewed: "Renovado"
     reopen: "Volver a abrir el periodico" #?
+    # repayment_period: "Repayment period"
     repayments: "Reembolsos"
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
@@ -2012,6 +2014,7 @@ spa:
     x_years:
       one: "1 año"
       # other: "%{count} years"
+    # year: "Year"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
