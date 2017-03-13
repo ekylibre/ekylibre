@@ -22,7 +22,7 @@ module Backend
 
     unroll
 
-    list do |t|
+    list(selectable: true) do |t|
       t.action :edit
       t.action :destroy
       t.column :name, url: true
