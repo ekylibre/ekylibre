@@ -651,7 +651,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_repayments, only: [:index, :show], path: 'loan-repayments'
+    resources :loan_repayments, only: [:index, :show, :edit, :update], path: 'loan-repayments'
 
     resources :manure_management_plans, concerns: [:list, :unroll], path: 'manure-management-plans' do
       member do

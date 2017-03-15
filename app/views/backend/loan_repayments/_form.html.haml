@@ -1,0 +1,8 @@
+= field_set do
+  = f.input :due_on
+  = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+  = f.input :base_amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+  = f.input :interest_amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+  = f.input :insurance_amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+  = f.input :remaining_amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
+
