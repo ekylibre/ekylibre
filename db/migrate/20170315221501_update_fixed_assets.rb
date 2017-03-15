@@ -25,14 +25,6 @@ class UpdateFixedAssets < ActiveRecord::Migration
         number        = ACCOUNT[:number]
         label         = "#{name} - #{number}"
 
-        account_exists = execute('SELECT accounts.* FROM accounts WHERE (usages ~ E\'\\moutstanding_assets\\M\') ORDER BY accounts.id ASC LIMIT 1').first
-
-        unless account_exists
-          execute "INSERT INTO accounts (name, number, usages, label, created_at, updated_at, lock_version)
-                   VALUES ('#{name}', '#{number}', 'outstanding_assets', '#{label}',
-                           '#{Time.zone.now}', '#{Time.zone.now}', 0)"
-        end
-
         execute 'UPDATE purchase_items pi SET fixed_asset_id = (SELECT fa.id FROM fixed_assets fa WHERE fa.purchase_item_id = pi.id LIMIT 1)'
         execute 'UPDATE fixed_assets fa SET product_id = (SELECT p.id FROM products p WHERE p.fixed_asset_id = fa.id LIMIT 1)'
         execute "UPDATE fixed_assets SET state = 'draft'"
@@ -48,6 +40,27 @@ class UpdateFixedAssets < ActiveRecord::Migration
           AND a.number LIKE '2%'
           AND fa.id = pi.fixed_asset_id
         SQL
+
+        account_exists = execute('SELECT accounts.* FROM accounts WHERE (usages ~ E\'\\moutstanding_assets\\M\') ORDER BY accounts.id ASC LIMIT 1').first
+        items_to_change = execute <<-SQL
+          SELECT *
+          FROM journal_entry_items AS jei
+          JOIN purchase_items AS pi
+          ON pi.id = jei.resource_id
+          JOIN accounts AS a
+          ON a.id = jei.account_id
+          WHERE jei.resource_type = 'PurchaseItem'
+            AND jei.resource_prism = 'item_product'
+            AND pi.fixed_asset_id IS NOT NULL
+            AND a.number LIKE '2%'
+        SQL
+
+        if items_to_change.any? && !account_exists
+          execute "INSERT INTO accounts (name, number, usages, label, created_at, updated_at, lock_version)
+                   VALUES ('#{name}', '#{number}', 'outstanding_assets', '#{label}',
+                           '#{Time.zone.now}', '#{Time.zone.now}', 0)"
+        end
+
         # replace all account (like 21X) by 23 on initial purchase entry item.
         execute <<-SQL
           UPDATE journal_entry_items AS jei
