@@ -180,7 +180,6 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
   scope :employees,    -> { where(employee: true) }
-  scope :company,      -> { where(of_company: true).first }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
@@ -236,11 +235,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   before_save do
-    company = Entity.find_by(of_company: true)
-
-    if !company && of_company && born_at.nil?
-      self.born_at = Time.new(2008, 0o1, 0o1)
-    end
+    self.born_at ||= Time.new(2008, 1, 1) if of_company
   end
 
   after_save do
@@ -494,6 +489,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       other.destroy
     end
+  end
+
+  def born_on
+    born_at.to_date
   end
 
   def financial_year_with_opened_exchange?
