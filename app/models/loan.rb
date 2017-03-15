@@ -81,7 +81,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   after_commit do
-    generate_repayments
+    # generate_repayments
   end
 
   bookkeep do |b|
