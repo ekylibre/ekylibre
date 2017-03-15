@@ -88,9 +88,7 @@ class FinancialYear < Ekylibre::Record::Base
       return nil if searched_on < born_on
       year = FinancialYear.where('stopped_on < ?', searched_on).order(stopped_on: :desc).first
       year ||= FinancialYear.create_with(stopped_on: (born_on >> 11).end_of_month).find_or_create_by!(started_on: born_on)
-      while year.stopped_on < searched_on
-        year = year.find_or_create_next!
-      end
+      year = year.find_or_create_next! while year.stopped_on < searched_on
       year
     end
 
