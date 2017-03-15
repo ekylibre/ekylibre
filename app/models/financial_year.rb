@@ -67,7 +67,7 @@ class FinancialYear < Ekylibre::Record::Base
   validates :currency, presence: true, length: { allow_nil: true, maximum: 3 }
   validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }
   validates :tax_declaration_frequency, presence: { unless: :tax_declaration_mode_none? }
-  
+
   validate :started_at_validation
 
   # This order must be the natural order
@@ -84,29 +84,28 @@ class FinancialYear < Ekylibre::Record::Base
 
   class << self
     def on(searched_on)
-
       born_at = Entity.company.born_at.beginning_of_day
 
       if searched_on >= born_at
-        
+
         year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
         return year if year
       end
-   
-      first_financial_year = first_of_all 
-      
+
+      first_financial_year = first_of_all
+
       unless first_financial_year
 
         return create!(started_on: born_at, stopped_on: (born_at + 11).end_of_month)
       end
 
       if first_financial_year.started_on > searched_on
-        new_financial_year = first_financial_year        
+        new_financial_year = first_financial_year
         new_financial_year = new_financial_year.find_or_create_previous! while new_financial_year.started_on > searched_on && new_financial_year.started_on > born_at
         return new_financial_year
       end
 
-      new_financial_year = first_financial_year        
+      new_financial_year = first_financial_year
       new_financial_year = new_financial_year.find_or_create_next! while searched_on > new_financial_year.stopped_on
       new_financial_year
     end
@@ -162,20 +161,20 @@ class FinancialYear < Ekylibre::Record::Base
     end
     errors.add(:accountant, :frozen) if accountant_id_changed? && opened_exchange?
     errors.add(:started_on, :frozen) if started_on_changed? && exchanges.any?
- 
+
     company = Entity.company
-    
+
     unless company.nil?
       born_at = company.born_at.beginning_of_day
-      errors.add(:started_on, :on_or_after, restriction: born_at) if born_at > started_on   
+      errors.add(:started_on, :on_or_after, restriction: born_at) if born_at > started_on
     end
   end
 
   def started_at_validation
     company = Entity.company
-    
+
     unless company.nil?
-      errors.add(:started_on, :on_or_after, restriction: company.born_at) if company.born_at > started_on    
+      errors.add(:started_on, :on_or_after, restriction: company.born_at) if company.born_at > started_on
     end
   end
 
