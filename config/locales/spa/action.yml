@@ -1664,6 +1664,7 @@ spa:
     select_forward_journal: "Periodico utilizado para los aplazamientos de nuevo"
     select_number: "Seleccione el número de" #?
     selection: "Selección"
+    # semester: "Semester"
     send: "Enviar un correro electronico" #?
     send_mail: "Enviar correo"
     send_test: "Enviar un correo electronico de prueba" #?
@@ -1806,6 +1807,7 @@ spa:
     transfer: "Transferir"
     transformations: "Transformaciones" #?
     transport: "Transporte"
+    # trimester: "Trimester"
     unbilled_payables: "Cuentas a pagar no facturadas"
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"

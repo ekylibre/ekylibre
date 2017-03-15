@@ -1934,6 +1934,7 @@ fra:
     select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
     selection: "Sélection"
+    semester: "Semestre"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
     sensor_indicators: "Indicateurs de capteur" #?
@@ -2110,6 +2111,7 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
+    trimester: "Trimestre"
     true: "Vrai" #?
     unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"

@@ -264,6 +264,8 @@ jpn:
         constant_rate: "一定の割合"
       repayment_period:
         month: "月"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "年"
       shift_method:
         anatocism: "anatocism"

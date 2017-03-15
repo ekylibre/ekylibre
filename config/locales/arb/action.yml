@@ -2045,6 +2045,7 @@ arb:
     select_number_or_date: "ادخل رقم او تاريخ" #?
     select_organization: "منظمة" #?
     selection: "اختيار"
+    # semester: "Semester"
     send: "ارسل الرسالة" #?
     send_mail: "إرسال البريد"
     send_test: "ارسال رسالة تجريبية" #?
@@ -2200,6 +2201,7 @@ arb:
     transport: "المواصلات"
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
+    # trimester: "Trimester"
     unavailable: #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?

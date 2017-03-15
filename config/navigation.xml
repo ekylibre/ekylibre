@@ -1929,6 +1929,12 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="loan_repayments">
+        <page to="backend/loan_repayments#edit"/>
+        <page to="backend/loan_repayments#new"/>
+        <page to="backend/loan_repayments#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -1513,6 +1513,7 @@ ita:
     select_forward_journal: "Journal selezionati per rinnovare"
     select_number: "Selezionare il numero" #?
     selection: "Selezione"
+    # semester: "Semester"
     send_mail: "Inviare una mail"
     send_test_mail: "Invia mail di prova"
     sensor_model: "modello di sensore"
@@ -1643,6 +1644,7 @@ ita:
     transfer: "Trasferimento"
     transformations: "trasformazioni" #?
     transport: "Trasporto"
+    # trimester: "Trimester"
     unbilled_payables: "I debiti non ancora fatturate"
     undefined_activity: "L’attività non definita"
     undefined_container: "contenitore non definita"

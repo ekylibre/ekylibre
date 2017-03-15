@@ -436,7 +436,9 @@ eng:
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
+      # edit: "Edit loan repayment: %{name}"
       # index: "Loan repayments"
+      # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
       edit: "Edit loan: %{name}"
@@ -1610,7 +1612,7 @@ eng:
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
-    repayment_period: "Repayment period" #?
+    repayment_period: "Repayment period"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
@@ -1657,6 +1659,7 @@ eng:
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew"
     selection: "Selection" #?
+    semester: "Semester" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
@@ -1784,6 +1787,7 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
+    trimester: "Trimester" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"

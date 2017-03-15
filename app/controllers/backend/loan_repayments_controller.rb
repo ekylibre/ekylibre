@@ -19,7 +19,7 @@
 module Backend
   class LoanRepaymentsController < Backend::BaseController
     manage_restfully except: [:create, :show, :destroy]
-    
+
     def index
       redirect_to backend_loans_path
     end
@@ -31,23 +31,5 @@ module Backend
         redirect_to backend_root_path
       end
     end
- 
-    # def edit
-    #   return unless @loan_repayment = find_and_check(:loan_repayment)
-    #   t3e(@loan_repayment.attributes)
-    #   render(locals: { cancel_url: :back })
-    # end
-    #
-    #  def update
-    #    return unless @loan_repayment = find_and_check
-    #    return if save_and_redirect(@loan_repayment, attributes: permitted_params, url: { action: :show })
-    #    t3e @loan_repayment
-    #  end 
-    #
-    #  protected
-    #
-    #   def permitted_params
-    #     params.require(:loan_repayment).permit(:due_on, :amount, :base_amount, :interest_amount, :insurance_amount, :remaining_amount)
-    #   end 
   end
 end

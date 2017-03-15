@@ -45,7 +45,7 @@ module Backend
     end
 
     list :repayments, model: :loan_repayments, conditions: { loan_id: 'params[:id]'.c } do |t|
-      t.action :edit 
+      t.action :edit
       t.column :position
       t.column :due_on
       t.column :amount, currency: true

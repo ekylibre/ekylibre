@@ -253,6 +253,8 @@ eng:
         constant_rate: "Constant rate"
       repayment_period:
         month: "Month"
+        semester: "Semester"
+        trimester: "Trimester"
         year: "Year"
       shift_method:
         anatocism: "Anatocism"

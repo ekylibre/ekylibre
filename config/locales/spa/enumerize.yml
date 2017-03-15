@@ -264,6 +264,8 @@ spa:
         constant_rate: "Tasa constante"
       repayment_period:
         month: "Mes"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Año"
       shift_method:
         anatocism: "Anatocismo"

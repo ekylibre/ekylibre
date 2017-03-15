@@ -1447,6 +1447,7 @@ deu:
     select_forward_journal: "Ausgewählte Blatt zu erneuern"
     select_number: "Wählen Sie die Anzahl" #?
     selection: "Auswahl"
+    # semester: "Semester"
     send_mail: "E-Mail senden"
     send_test_mail: "Senden Test-Mail"
     sensor_model: "Sensor Modell"
@@ -1577,6 +1578,7 @@ deu:
     transfer: "Übertragung"
     transformations: "Transformationen" #?
     # transport: "Transport"
+    # trimester: "Trimester"
     unbilled_payables: "Nicht abgerechnete Verbindlichkeiten"
     undefined_activity: "Nicht definierte Aktivität"
     undefined_container: "undefined Behälter"

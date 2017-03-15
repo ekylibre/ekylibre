@@ -1452,6 +1452,7 @@ por:
     select_forward_journal: "Seleccionado Jornal de renovar"
     select_number: "Selecione o número" #?
     selection: "Seleção"
+    # semester: "Semester"
     send_mail: "Enviar correio"
     send_test_mail: "Enviar email de teste"
     sensor_model: "Modelo de sensor"
@@ -1582,6 +1583,7 @@ por:
     transfer: "Transferir"
     transformations: "Transformações" #?
     transport: "Transporte"
+    # trimester: "Trimester"
     unbilled_payables: "Contas a pagar não faturadas"
     undefined_activity: "Atividade indefinida"
     undefined_container: "Recipiente indefinido"

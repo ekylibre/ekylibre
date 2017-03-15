@@ -1448,6 +1448,7 @@ cmn:
     select_forward_journal: "所选期刊续约"
     select_number: "选择数量" #?
     selection: "选择"
+    # semester: "Semester"
     send_mail: "发送邮件"
     send_test_mail: "发送测试邮件"
     sensor_model: "传感器型号"
@@ -1578,6 +1579,7 @@ cmn:
     transfer: "转让"
     transformations: "转换" #?
     transport: "运输"
+    # trimester: "Trimester"
     unbilled_payables: "未开票应付账款"
     undefined_activity: "未定义活动"
     undefined_container: "未定义的容器"

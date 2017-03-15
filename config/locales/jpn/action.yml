@@ -1519,6 +1519,7 @@ jpn:
     select_forward_journal: "更新するジャーナルを選択しました"
     select_number: "番号を選択します" #?
     selection: "選択"
+    # semester: "Semester"
     send_mail: "メールを送信"
     send_test_mail: "テストメールを送信"
     sensor_model: "センサーモデル"
@@ -1649,6 +1650,7 @@ jpn:
     transfer: "転送"
     transformations: "変換" #?
     transport: "輸送"
+    # trimester: "Trimester"
     unbilled_payables: "未請求の支払債務"
     undefined_activity: "未定義の活動"
     undefined_container: "未定義のコンテナ"
