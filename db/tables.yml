@@ -988,7 +988,7 @@ call_messages:
   format:
     type: string
   headers:
-    type: string
+    type: text
   id:
     type: integer
     required: true

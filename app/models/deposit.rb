@@ -74,7 +74,7 @@ class Deposit < Ekylibre::Record::Base
 
   validate do
     if self.cash
-      error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
+      errors.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
     end
   end
 

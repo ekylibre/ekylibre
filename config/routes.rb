@@ -550,8 +550,9 @@ Rails.application.routes.draw do
 
     resources :integrations, except: [:show, :destroy] do
       collection do
+        get ':nature/check', action: :check
         get ':nature', action: :new
-        delete :destroy
+        delete ':nature', action: :destroy
       end
     end
 

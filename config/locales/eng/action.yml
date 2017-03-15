@@ -353,6 +353,7 @@ eng:
       new: "New product grading"
       show: "Product grading\_: %{number}"
     backend/integrations:
+      # check: "Check integration: %{name}"
       edit: "Edit integration: %{name}"
       index: "Integrations"
       new: "Activate integration: %{name}"
