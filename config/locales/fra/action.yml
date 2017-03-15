@@ -886,6 +886,8 @@ fra:
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
     address: "Adresse" #?
+    advance_charges: "Charges constatées d'avance"
+    advance_giveables: "Avances et acomptes versés"
     affair: "Affaire"
     affair_number: "N° d’affaire"
     affairs: "Affaires"
@@ -933,7 +935,10 @@ fra:
     area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
+    assets: "Actifs"
+    assets_gaps: "Ecarts actifs"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
+    associate_receivables: "Créances associés - comptes courants"
     at_the_address: "À l'adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
@@ -1018,6 +1023,7 @@ fra:
     client_code: "Code cl." #?
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
+    client_receivables: "Créances client"
     close: "Fermer"
     close_financial_year: "Clôturer l’exercice"
     close_journal: "Clôturer le journal"
@@ -1067,6 +1073,7 @@ fra:
     copy_from_previous_campaign: "Copier à partir de la campagne précédente"
     copy_of: "Copie de %{source}"
     copy_previous_budget: "Copier à partir du budget précédent"
+    corporeal_assets: "Immobilisations corporelles"
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
@@ -1113,6 +1120,7 @@ fra:
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
+    current_assets: "Actif circulant"
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
     current_result_before_taxe: "Résulat courant avant impôts"
@@ -1270,10 +1278,10 @@ fra:
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     final_balance: "Solde final"
+    financial_assets: "Immobilisations financières"
     financial_expenses: "Charges financières"
     financial_products: "Produits financiers"
     financial_state: "État financier" #?
-    financials_assets: "Immobilisations"
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -1350,6 +1358,7 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
+    incorporeal_assets: "Immobilisations incorporelles "
     indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
@@ -1388,6 +1397,7 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     inventory_variations: "Variations d'inventaire"
+    investment_security: "Valeur mobilière de placement"
     invitation_status: "État"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -1458,6 +1468,7 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
+    liabilities: "Passifs"
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
@@ -1652,6 +1663,7 @@ fra:
     other_expenses: "Autres charges d'exploitation"
     other_products: "Autres produits"
     other_purchases: "Autres achats"
+    other_receivables: "Autres créances"
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing: "Sortant" #?
@@ -1838,6 +1850,7 @@ fra:
     request: "Demande"
     request_maintenance: "Demander une maintenance"
     requests: "Demandes"
+    reserve: "Réserve"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
@@ -1962,6 +1975,7 @@ fra:
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"
     state: "État"
+    state_receivables: "Créances fiscales"
     statistics: "Statistiques"
     status: "État" #?
     stewardship: "Assistant"
@@ -2140,6 +2154,7 @@ fra:
     unparted: "Non affectés" #?
     unreceived: "Non reçus" #?
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
+    unsubcribed_capital: "Capital non appellé"
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?

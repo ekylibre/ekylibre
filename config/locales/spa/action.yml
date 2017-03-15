@@ -816,6 +816,8 @@ spa:
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
     # add_x: "Add “%{x}”"
+    # advance_charges: "Advance charges"
+    # advance_giveables: "Advance giveables"
     affair: "Asunto"
     affair_number: "Número asunto"
     affairs: "Asuntos"
@@ -851,7 +853,10 @@ spa:
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
     area: "Zona"
     assessable_operations: "Operaciones imponibles (H.T)" #?
+    # assets: "Assets"
+    # assets_gaps: "Assets gaps"
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
+    # associate_receivables: "Associate receivables"
     at_the_address: "En la dirección"
     attach_deal: "Añadir un acuerdo"
     attachment: "Pieza juntada"
@@ -937,6 +942,7 @@ spa:
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     client: "Cliente"
     client_informations: "Informaciones Atención al cliente"
+    # client_receivables: "Client receivables"
     close: "Cerrar"
     close_financial_year: "Fin del ejercicio contable"
     close_journal: "Cierre la revista"
@@ -969,6 +975,7 @@ spa:
     copy_from_previous_campaign: "Copia de la campaña anterior"
     # copy_of: "Copy of %{source}"
     copy_previous_budget: "Copia presupuesto anterior"
+    # corporeal_assets: "Corporeal assets"
     cost_income_statement: "Cargas" #?
     cost_per_net_surface_area: "El costo por unidad de superficie neta"
     cost_sum: "Total cargas de explotación" #?
@@ -1003,6 +1010,7 @@ spa:
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     currency_conversion_rate: "Tasa de conversión de moneda"
     current: "Corriente"
+    # current_assets: "Current assets"
     current_cultivation: "El cultivo actual"
     current_letter: "Carta en curso\_: %{letter}" #?
     # current_result_before_taxe: "Current result before taxe"
@@ -1144,10 +1152,11 @@ spa:
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
     final_balance: "Saldo final"
+    # financial_assets: "Financial assets"
     financial_expenses: "Gastos financieros"
     financial_products: "Productos financieros"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
-    financials_assets: "Activos Finanzas"
+    financials_assets: "Activos Finanzas" #?
     finish: "Acabado"
     finished: "Terminado"
     finished_income_statement: "Productos" #?
@@ -1202,6 +1211,7 @@ spa:
     incoming_payment: "Pago recibido"
     incoming_payments: "Pagos recibidos"
     incoming_payments_to_deposit: "Pagos recibidos para depositar"
+    # incorporeal_assets: "Incorporeal assets"
     indicative_group_size: "El tamaño del grupo indicativa"
     indicator: "Indicadores"
     indicator_value: "Valor del indicador"
@@ -1237,6 +1247,7 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     inventory_variations: "Variaciones de inventario"
+    # investment_security: "Investment security"
     invitation_status: "Estado"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
@@ -1300,6 +1311,7 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
+    # liabilities: "Liabilities"
     # line_number: "Line #%{number}"
     linear_options: "Opciones lineales"
     link: "Enlazar"
@@ -1450,6 +1462,7 @@ spa:
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
     other_products: "Otros productos"
     other_purchases: "Otras compras"
+    # other_receivables: "Other receivables"
     other_results: "Otros resultados" #?
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
@@ -1594,6 +1607,7 @@ spa:
     request: "Solicitud"
     request_maintenance: "Solicitud de mantenimiento"
     requests: "Peticiones"
+    # reserve: "Reserve"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
@@ -1692,6 +1706,7 @@ spa:
     start_new_intervention_here: "Comenzar una nueva intervención aquí"
     started: "Empezado"
     state: "Estado"
+    # state_receivables: "State receivables"
     statistics: "Estadística"
     stewardship: "Administración"
     stock: "Valores"
@@ -1833,6 +1848,7 @@ spa:
     unpaid_purchases: "Compra sin pagar"
     unpaid_sales: "Ventas no pagadas"
     unset_reconcilable_old_third_accounts: "Viejos terceros cuentas conciliables no definidas (clientes, proveedores y abogados)"
+    # unsubcribed_capital: "Unsubcribed capital"
     up: "Arriba"
     update: "Actualizar"
     # updated_at_by: "Updated at %{at} by %{author}"

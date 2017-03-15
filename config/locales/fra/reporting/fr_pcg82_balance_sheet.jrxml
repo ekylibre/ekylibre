@@ -56,6 +56,9 @@
 	<field name="depreciated-balance" class="java.lang.Double">
 		<fieldDescription><![CDATA[depreciated-balance]]></fieldDescription>
 	</field>
+	<field name="subgroup" class="java.lang.String">
+		<fieldDescription><![CDATA[subgroup]]></fieldDescription>
+	</field>
 	<sortField name="order"/>
 	<variable name="raw-balance-group" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
 		<variableExpression><![CDATA[$F{raw-balance}]]></variableExpression>
@@ -63,12 +66,18 @@
 	<variable name="depreciated-balance-group" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
 		<variableExpression><![CDATA[$F{depreciated-balance}]]></variableExpression>
 	</variable>
+	<variable name="raw-balance_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{raw-balance}]]></variableExpression>
+	</variable>
+	<variable name="raw-balance-subgroup" class="java.lang.Double" resetType="Group" resetGroup="subgroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{raw-balance}]]></variableExpression>
+	</variable>
 	<group name="group" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{group}]]></groupExpression>
 		<groupHeader>
-			<band height="50">
+			<band height="37">
 				<textField isBlankWhenNull="true">
-					<reportElement x="0" y="0" width="555" height="50" uuid="b43d7d6d-23af-4e32-b1b1-914384e29374"/>
+					<reportElement x="0" y="0" width="555" height="37" uuid="b43d7d6d-23af-4e32-b1b1-914384e29374"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Open Sans" size="24"/>
 					</textElement>
@@ -77,16 +86,53 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="38">
 				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
-					<reportElement x="325" y="10" width="130" height="20" uuid="2edc8fd8-0db3-41d4-8b8c-881f2e200c59"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<reportElement x="152" y="10" width="130" height="20" uuid="2edc8fd8-0db3-41d4-8b8c-881f2e200c59"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Lato" size="14"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{raw-balance-group}]]></textFieldExpression>
 				</textField>
 				<textField pattern="###0.00" isBlankWhenNull="true">
 					<reportElement x="455" y="10" width="100" height="20" uuid="35cbda69-21fa-4791-8755-64388b2ce4db"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{depreciated-balance-group}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="2" y="10" width="150" height="20" uuid="5ff5a310-77fe-4980-8043-515fbf2ba126"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Lato" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total " + $F{group}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="subgroup">
+		<groupExpression><![CDATA[$F{subgroup}]]></groupExpression>
+		<groupHeader>
+			<band height="26">
+				<textField>
+					<reportElement x="2" y="2" width="254" height="20" uuid="9e640b8e-1f2c-4290-8725-92dbaeec8462"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Lato" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{subgroup}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="24" width="552" height="1" uuid="00504599-1dd2-4551-a0e8-d4212844200d"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
+					<reportElement x="325" y="11" width="130" height="20" uuid="68c84c7e-a403-4fc0-b12c-54ab19196770"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Lato" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{raw-balance-subgroup}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -95,7 +141,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="65" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="2" y="29" width="571" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">

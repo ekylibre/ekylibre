@@ -1013,6 +1013,8 @@ arb:
     add_working_period: "إضافة working_period"
     # add_x: "Add “%{x}”"
     address: "العنوان" #?
+    # advance_charges: "Advance charges"
+    # advance_giveables: "Advance giveables"
     affair: "قضية"
     affair_number: "عدد غرامية"
     affairs: "شئون"
@@ -1053,7 +1055,10 @@ arb:
     area_create: "اضافة عنوان بريدي" #?
     area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
+    # assets: "Assets"
+    # assets_gaps: "Assets gaps"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
+    # associate_receivables: "Associate receivables"
     at_the_address: "على العنوان"
     attach_deal: "إضافة الى اتفاق"
     attachment: "المرفق"
@@ -1143,6 +1148,7 @@ arb:
     client: "اختيار العميل"
     client_balance: "رصيد العميل" #?
     client_informations: "المعلومات العميل"
+    # client_receivables: "Client receivables"
     close: "اغلاق الدفتر اليومي"
     close_financial_year: "وثيق السنة المالية"
     close_journal: "إغلاق مجلة"
@@ -1183,6 +1189,7 @@ arb:
     copy_from_previous_campaign: "نسخ من حملة السابقة"
     copy_of: "نسخ من %{source}"
     copy_previous_budget: "ميزانية نسخة سابقة"
+    # corporeal_assets: "Corporeal assets"
     cost_income_statement: "التكاليف" #?
     cost_per_net_surface_area: "تكلفة المساحة الصافية"
     cost_sum: "مجموع تكاليف الاستثمار" #?
@@ -1218,6 +1225,7 @@ arb:
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     currency_conversion_rate: "سعر تحويل العملة"
     current: "الحالية"
+    # current_assets: "Current assets"
     current_cultivation: "زراعة الحالية"
     current_letter: "البيانات الحالية : %{letter}" #?
     # current_result_before_taxe: "Current result before taxe"
@@ -1388,11 +1396,12 @@ arb:
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
     final_balance: "الرصيد النهائي"
+    # financial_assets: "Financial assets"
     financial_expenses: "نفقات مالية"
     financial_products: "المنتجات المالية"
     financial_state: "الوضع المالي" #?
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
-    financials_assets: "الأصول المالية"
+    financials_assets: "الأصول المالية" #?
     finish: "انهاء"
     finished: "تم الانتهاء من"
     finished_income_statement: "المنتجات" #?
@@ -1460,6 +1469,7 @@ arb:
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
     incoming_payments: "المدفوعات الواردة"
     incoming_payments_to_deposit: "المدفوعات الواردة إلى الودائع"
+    # incorporeal_assets: "Incorporeal assets"
     index: "العودة الى دليل ادارة الاعمال" #?
     indicative_group_size: "حجم المجموعة الإرشادي"
     indicator: "لوحة التحكم"
@@ -1496,6 +1506,7 @@ arb:
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد" #?
     inventory_variations: "الاختلافات المخزون"
+    # investment_security: "Investment security"
     invitation_status: "الحالة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
@@ -1568,6 +1579,7 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
+    # liabilities: "Liabilities"
     line: "سطر رقم%{index} :" #?
     # line_number: "Line #%{number}"
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}" #?
@@ -1780,6 +1792,7 @@ arb:
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
     other_products: "منتجات اخرى"
     other_purchases: "مشتريات أخرى"
+    # other_receivables: "Other receivables"
     other_results: "...نتائج اخرى" #?
     other_services: "احتياجات وخدمات اخرى" #?
     others: "اقتطاع القيم الضريبية المضافة الاخرى"
@@ -1953,6 +1966,7 @@ arb:
     request: "طلب"
     request_maintenance: "صيانة الطلب"
     requests: "طلبات"
+    # reserve: "Reserve"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -2072,6 +2086,7 @@ arb:
     start_new_intervention_here: "بدء التدخل الجديد هنا"
     started: "بدأت"
     state: "الحالة"
+    # state_receivables: "State receivables"
     statistics: "إحصائيات"
     stewardship: "إدارة"
     stock: "مخزون"
@@ -2237,6 +2252,7 @@ arb:
     unparted: "غير متضرر" #?
     unreceived: "غير مقبوضة" #?
     unset_reconcilable_old_third_accounts: "حسابات الثالثة القديمة للمصالحة ضبطه (العملاء والموردين والمحامين)"
+    # unsubcribed_capital: "Unsubcribed capital"
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?
     up: "يرتفع"

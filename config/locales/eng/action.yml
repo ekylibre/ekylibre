@@ -967,6 +967,8 @@ eng:
     add_website: "Add website"
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"
+    advance_charges: "Advance charges" #?!
+    advance_giveables: "Advance giveables" #?!
     affair: "Affair"
     affair_number: "Affair number" #?
     affairs: "Affairs" #?
@@ -996,6 +998,9 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    assets: "Assets" #?
+    assets_gaps: "Assets gaps" #??
+    associate_receivables: "Associate receivables" #?!
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
@@ -1062,6 +1067,7 @@ eng:
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
+    client_receivables: "Client receivables" #?!
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
@@ -1093,6 +1099,7 @@ eng:
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
+    corporeal_assets: "Corporeal assets" #?!
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1122,6 +1129,7 @@ eng:
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
+    current_assets: "Current assets" #?!
     current_cultivation: "Current cultivation"
     current_result_before_taxe: "Current result before taxe" #?!
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1239,9 +1247,10 @@ eng:
     file_to_upload: "File to upload"
     filter: "Filter" #?
     final_balance: "Final balance"
+    financial_assets: "Financial assets" #?
     financial_expenses: "Financial expenses" #??
     financial_products: "Financial products" #??
-    financials_assets: "Financials assets"
+    # financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
     first_line_as_title: "First line as title"
@@ -1294,6 +1303,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    incorporeal_assets: "Incorporeal assets" #?!
     indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
@@ -1321,6 +1331,7 @@ eng:
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     inventory_variations: "Inventory variations" #?
+    investment_security: "Investment security" #?!
     invitation_status: "Status" #?
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -1370,6 +1381,7 @@ eng:
     last_sales: "Last sales"
     letter: "Letter" #?
     letterable: "Letterable"
+    liabilities: "Liabilities" #?!
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
@@ -1498,6 +1510,7 @@ eng:
     other_expenses: "Other expenses" #??
     other_products: "Other products" #?!
     other_purchases: "Other purchases" #?!
+    other_receivables: "Other receivables" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
@@ -1617,6 +1630,7 @@ eng:
     request: "Request" #?
     request_maintenance: "Request maintenance"
     requests: "Requests"
+    reserve: "Reserve" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
@@ -1678,6 +1692,7 @@ eng:
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
     state: "State"
+    state_receivables: "State receivables" #?!
     statistics: "Statistics" #?
     stewardship: "Stewardship"
     stock: "Stock" #?
@@ -1805,6 +1820,7 @@ eng:
     unpaid_purchases: "Unpaid purchases" #?
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
+    unsubcribed_capital: "Unsubcribed capital" #?!
     up: "Up" #?
     update: "Update"
     updated_at_by: "Updated at %{at} by %{author}"

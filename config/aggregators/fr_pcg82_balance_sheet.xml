@@ -42,6 +42,7 @@
         <section name="items">
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":unsubcribed_capital.tl" level="api"/>
 	          <cell name="label" value=":unsubcribed_capital.tl" level="api"/>
 	          <cell name="ordering" value=":A01" level="api"/>
 	          <cell name="raw_balance" value="v_unsubcribed_capital" />
@@ -49,6 +50,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":fixed_assets.tl" level="api"/>
 	          <cell name="label" value=":incorporeal_assets.tl" level="api"/>
 	          <cell name="ordering" value=":A02" level="api"/>
 	          <cell name="raw_balance" value="v_incorporeal_assets" />
@@ -56,6 +58,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":fixed_assets.tl" level="api"/>
 	          <cell name="label" value=":corporeal_assets.tl" level="api"/>
 	          <cell name="ordering" value=":A03" level="api"/>
 	          <cell name="raw_balance" value="v_corporeal_assets" />
@@ -63,6 +66,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":fixed_assets.tl" level="api"/>
 	          <cell name="label" value=":financial_assets.tl" level="api"/>
 	          <cell name="ordering" value=":A05" level="api"/>
 	          <cell name="raw_balance" value="v_financial_assets" />
@@ -70,6 +74,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":stocks.tl" level="api"/>
 	          <cell name="ordering" value=":A08" level="api"/>
 	          <cell name="raw_balance" value="v_stocks" />
@@ -77,6 +82,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":advance_giveables.tl" level="api"/>
 	          <cell name="ordering" value=":A09" level="api"/>
 	          <cell name="raw_balance" value="v_advance_giveables" />
@@ -84,6 +90,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":client_receivables.tl" level="api"/>
 	          <cell name="ordering" value=":A10" level="api"/>
 	          <cell name="raw_balance" value="v_client_receivables" />
@@ -91,6 +98,7 @@
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":state_receivables.tl" level="api"/>
 	          <cell name="ordering" value=":A11" level="api"/>
 	          <cell name="raw_balance" value="v_state_receivables" />
@@ -98,6 +106,7 @@
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":associate_receivables.tl" level="api"/>
 	          <cell name="ordering" value=":A12" level="api"/>
 	          <cell name="raw_balance" value="v_associate_receivables" />
@@ -105,6 +114,7 @@
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":other_receivables.tl" level="api"/>
 	          <cell name="ordering" value=":A13" level="api"/>
 	          <cell name="raw_balance" value="v_other_receivables" />
@@ -112,6 +122,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":investment_security.tl" level="api"/>
 	          <cell name="ordering" value=":A14" level="api"/>
 	          <cell name="raw_balance" value="v_investment_security" />
@@ -119,6 +130,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":reserve.tl" level="api"/>
 	          <cell name="ordering" value=":A15" level="api"/>
 	          <cell name="raw_balance" value="v_reserve" />
@@ -126,6 +138,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":advance_charges.tl" level="api"/>
 	          <cell name="ordering" value=":A16" level="api"/>
 	          <cell name="raw_balance" value="v_advance_charges" />
@@ -133,6 +146,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
+	          <cell name="subgroup" value=":current_assets.tl" level="api"/>
 	          <cell name="label" value=":assets_gaps.tl" level="api"/>
 	          <cell name="ordering" value=":A17" level="api"/>
 	          <cell name="raw_balance" value="v_assets_gaps" />
@@ -168,6 +182,7 @@
          <section name="items">
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":capitals.tl" level="api"/>
 	          <cell name="ordering" value=":B01" level="api"/>
 	          <cell name="raw_balance" value="v_capitals" />
@@ -175,6 +190,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":emissions_and_reevaluation_gaps.tl" level="api"/>
 	          <cell name="ordering" value=":B02" level="api"/>
 	          <cell name="raw_balance" value="v_emissions_and_reevaluation_gaps" />
@@ -182,6 +198,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":liability_reserves.tl" level="api"/>
 	          <cell name="ordering" value=":B03" level="api"/>
 	          <cell name="raw_balance" value="v_liability_reserves" />
@@ -189,6 +206,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":anew_reports.tl" level="api"/>
 	          <cell name="ordering" value=":B04" level="api"/>
 	          <cell name="raw_balance" value="v_anew_reports" />
@@ -196,6 +214,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":profit_or_loss.tl" level="api"/>
 	          <cell name="ordering" value=":B05" level="api"/>
 	          <cell name="raw_balance" value="v_profit_or_loss" />
@@ -203,6 +222,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":investment_subsidies.tl" level="api"/>
 	          <cell name="ordering" value=":B06" level="api"/>
 	          <cell name="raw_balance" value="v_investment_subsidies" />
@@ -210,6 +230,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":derogatory_depreciations.tl" level="api"/>
 	          <cell name="ordering" value=":B07" level="api"/>
 	          <cell name="raw_balance" value="v_derogatory_depreciations" />
@@ -217,6 +238,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":mandatory_provisions.tl" level="api"/>
 	          <cell name="ordering" value=":B08" level="api"/>
 	          <cell name="raw_balance" value="v_mandatory_provisions" />
@@ -224,6 +246,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":equities.tl" level="api"/>
 	          <cell name="label" value=":risk_and_charges_provisions.tl" level="api"/>
 	          <cell name="ordering" value=":B09" level="api"/>
 	          <cell name="raw_balance" value="v_risk_and_charges_provisions" />
@@ -231,6 +254,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":loans_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B10" level="api"/>
 	          <cell name="raw_balance" value="v_loans_debts" />
@@ -238,6 +262,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":associate_locked_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B11" level="api"/>
 	          <cell name="raw_balance" value="v_associate_locked_debts" />
@@ -245,6 +270,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":cashe_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B12" level="api"/>
 	          <cell name="raw_balance" value="v_cashe_debts" />
@@ -252,6 +278,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":other_financial_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B13" level="api"/>
 	          <cell name="raw_balance" value="v_other_financial_debts" />
@@ -259,6 +286,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":advance_receivables.tl" level="api"/>
 	          <cell name="ordering" value=":B14" level="api"/>
 	          <cell name="raw_balance" value="v_advance_receivables" />
@@ -266,6 +294,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":supplier_receivables.tl" level="api"/>
 	          <cell name="ordering" value=":B15" level="api"/>
 	          <cell name="raw_balance" value="v_supplier_receivables" />
@@ -273,6 +302,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":state_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B16" level="api"/>
 	          <cell name="raw_balance" value="v_state_debts" />
@@ -280,6 +310,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":social_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B17" level="api"/>
 	          <cell name="raw_balance" value="v_social_debts" />
@@ -287,6 +318,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":associate_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B18" level="api"/>
 	          <cell name="raw_balance" value="v_associate_debts" />
@@ -294,6 +326,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":fixed_asset_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B19" level="api"/>
 	          <cell name="raw_balance" value="v_fixed_asset_debts" />
@@ -301,6 +334,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":other_debts.tl" level="api"/>
 	          <cell name="ordering" value=":B20" level="api"/>
 	          <cell name="raw_balance" value="v_other_debts" />
@@ -308,6 +342,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":advance_products.tl" level="api"/>
 	          <cell name="ordering" value=":B21" level="api"/>
 	          <cell name="raw_balance" value="v_advance_products" />
@@ -315,6 +350,7 @@
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
+	          <cell name="subgroup" value=":debts.tl" level="api"/>
 	          <cell name="label" value=":liabilities_gaps.tl" level="api"/>
 	          <cell name="ordering" value=":B22" level="api"/>
 	          <cell name="raw_balance" value="v_liabilities_gaps" />
