@@ -1002,7 +1002,7 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
-    # asset_exists: "Asset exists"
+    asset_exists: "Asset exists"
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
