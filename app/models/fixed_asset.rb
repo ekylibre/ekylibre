@@ -199,6 +199,10 @@ class FixedAsset < Ekylibre::Record::Base
     draft?
   end
 
+  def add_amount(amount)
+    update(purchase_amount: purchase_amount + amount)
+  end
+
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   bookkeep do |b|
     b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|

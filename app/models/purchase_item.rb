@@ -140,7 +140,15 @@ class PurchaseItem < Ekylibre::Record::Base
         #  fixed_asset.reload
         # end
         # end
-        new_fixed_asset unless fixed_asset
+        if fixed_asset
+          unless fixed_asset.draft?
+            errors.add(:fixed_asset, :fixed_asset_cannot_be_modified)
+          else
+            fixed_asset.add_amount(pretax_amount) unless depreciable_product
+          end
+        else
+          new_fixed_asset
+        end
       else
         self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
       end
