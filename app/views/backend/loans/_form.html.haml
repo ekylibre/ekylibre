@@ -21,4 +21,17 @@
     %span.add-on.period
   = f.input :shift_method, as: :radio_buttons
 
+
+= field_set(:loans) do
+  = f.referenced_association :loan_account, :source => :loans
+
+= field_set(:interests_loans) do
+  = f.referenced_association :interest_account, :source => :interests
+
+= field_set(:adis_loans) do
+  = f.referenced_association :adi_account, :source => :adis
+
+= field_set(:deposit_loans) do
+  = f.referenced_association :deposit_account, :source => :deposits
+
 = f.attachments_field_set

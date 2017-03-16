@@ -2126,7 +2126,8 @@ CREATE TABLE entities (
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
     iban character varying,
-    supplier_payment_mode_id integer
+    supplier_payment_mode_id integer,
+    CONSTRAINT company_born_at_not_null CHECK ((((of_company = true) AND (born_at IS NOT NULL)) OR (of_company = false)))
 );
 
 
@@ -3820,7 +3821,11 @@ CREATE TABLE loans (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    insurance_repayment_method character varying
+    insurance_repayment_method character varying,
+    loan_account_id integer,
+    interest_account_id integer,
+    adi_account_id integer,
+    deposit_account_id integer
 );
 
 
@@ -16942,5 +16947,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170307103213');
 
 INSERT INTO schema_migrations (version) VALUES ('20170307171442');
 
+INSERT INTO schema_migrations (version) VALUES ('20170310090000');
+
+INSERT INTO schema_migrations (version) VALUES ('20170310101431');
+
 INSERT INTO schema_migrations (version) VALUES ('20170312183557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
