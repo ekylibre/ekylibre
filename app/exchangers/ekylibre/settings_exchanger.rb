@@ -49,7 +49,8 @@ module Ekylibre
         language: language,
         currency: currency,
         nature: :organization,
-        last_name: 'Ekylibre'
+        last_name: 'Ekylibre',
+        born_at: @manifest[:financial_years].map { |_, v| v[:started_on] }.min
       }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
       # resolte siret to siret_number transcode
       siren_number = attributes.delete(:siren_number)

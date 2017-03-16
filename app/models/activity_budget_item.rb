@@ -84,9 +84,7 @@ class ActivityBudgetItem < Ekylibre::Record::Base
       errors.add(:currency, :invalid) if currency != unit_currency
     end
 
-    if unit_amount.blank?
-      errors.add(:unit_amount, :invalid)
-    end
+    errors.add(:unit_amount, :invalid) if unit_amount.blank?
   end
 
   after_validation do
