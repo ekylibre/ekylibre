@@ -58,6 +58,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
+  belongs_to :fixed_asset_product, class_name: 'Product'
   has_many :parcel_items
   has_many :products, through: :parcel_items
   has_one :product_nature_category, through: :variant, source: :category
@@ -138,28 +139,7 @@ class PurchaseItem < Ekylibre::Record::Base
         #  fixed_asset.reload
         # end
         # end
-        unless fixed_asset
-          # Create asset
-          asset_attributes = {
-            currency: currency,
-            started_on: purchase.invoiced_at.to_date,
-            depreciable_amount: pretax_amount,
-            depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
-            depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
-            journal: Journal.find_by(nature: :various),
-            asset_account: variant.fixed_asset_account, # 2
-            allocation_account: variant.fixed_asset_allocation_account, # 28
-            expenses_account: variant.fixed_asset_expenses_account # 68
-          }
-          if products.any?
-            asset_attributes[:name] = parcel_items.collect(&:name).to_sentence
-          end
-          asset_attributes[:name] = name if asset_attributes[:name].blank?
-          while FixedAsset.find_by(name: asset_attributes[:name])
-            asset_attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
-          end
-          build_fixed_asset(asset_attributes)
-        end
+        new_fixed_asset unless fixed_asset
       else
         self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
       end
@@ -185,6 +165,31 @@ class PurchaseItem < Ekylibre::Record::Base
         end
       end
     end
+  end
+
+  def new_fixed_asset
+    # Create asset
+    asset_attributes = {
+      currency: currency,
+      started_on: purchase.invoiced_at.to_date,
+      depreciable_amount: pretax_amount,
+      depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
+      depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
+      journal: Journal.find_by(nature: :various),
+      asset_account: variant.fixed_asset_account, # 2
+      allocation_account: variant.fixed_asset_allocation_account, # 28
+      expenses_account: variant.fixed_asset_expenses_account, # 68
+      product: fixed_asset_product
+    }
+    asset_name   = parcel_items.collect(&:name).to_sentence if products.any?
+    asset_name ||= name
+    name_duplicate_count = FixedAsset.where(name: asset_name).count
+    unless name_duplicate_count.zero?
+      unique_identifier = (name_duplicate_count + 1).to_s(36).upcase
+      asset_name = "#{asset_name} #{unique_identifier}"
+    end
+    asset_attributes[:name] = asset_name
+    build_fixed_asset(asset_attributes)
   end
 
   def reduction_coefficient
