@@ -8,7 +8,7 @@
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
       <variable name="financial_year" value="FinancialYear.on(started_on)"/>
-      <variable name="financial_year_compute" value="financial_year.compute_balances!"/>
+      <variable name="previous_financial_year" value="financial_year.previous"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <property name="financial_year_name" value="financial_year.code"/>
@@ -16,6 +16,7 @@
       <property name="stopped_on" value="stopped_on"/>
       <!-- assets-->
       <section name="title" legend="assets">
+      	<!-- financial_year -->
         <property name="label" value=":assets.tl" level="api"/>
         <variable name="v_unsubcribed_capital" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :unsubcribed_capital)"/>
         <variable name="v_incorporeal_assets" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :incorporeal_assets)"/>
@@ -39,6 +40,29 @@
 		<variable name="v_reserve" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :reserve)"/>
 		<variable name="v_advance_charges" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :advance_charges)"/>
 		<variable name="v_assets_gaps" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :assets_gaps)"/>
+		<!-- previous financial_year -->
+        <variable name="p_v_unsubcribed_capital" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :unsubcribed_capital)"/>
+        <variable name="p_v_incorporeal_assets" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :incorporeal_assets)"/>
+        <variable name="p_v_incorporeal_asset_depreciations" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :incorporeal_asset_depreciations)"/>
+        <variable name="p_v_corporeal_assets" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :corporeal_assets)"/>
+        <variable name="p_v_corporeal_asset_depreciations" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :corporeal_asset_depreciations)"/>
+        <variable name="p_v_financial_assets" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :financial_assets)"/>
+        <variable name="p_v_financial_asset_depreciations" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :financial_asset_depreciations)"/>
+		<variable name="p_v_stocks" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :stocks)"/>
+        <variable name="p_v_stock_depreciations" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :stock_depreciations)"/>
+		<variable name="p_v_advance_giveables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :advance_giveables)"/>
+		<variable name="p_v_client_receivables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :client_receivables)"/>
+		<variable name="p_v_client_receivable_provisions" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :client_receivable_provisions)"/>
+        <variable name="p_v_state_receivables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :state_receivables)"/>
+        <variable name="p_v_associate_receivables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :associate_receivables)"/>
+        <variable name="p_v_associate_receivable_provisions" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :associate_receivable_provisions)"/>
+        <variable name="p_v_other_receivables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :other_receivables)"/>
+        <variable name="p_v_other_receivable_provisions" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :other_receivable_provisions)"/>
+        <variable name="p_v_investment_security" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :investment_security)"/>
+        <variable name="p_v_investment_security_provisions" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :investment_security_provisions)"/>
+		<variable name="p_v_reserve" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :reserve)"/>
+		<variable name="p_v_advance_charges" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :advance_charges)"/>
+		<variable name="p_v_assets_gaps" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :assets_gaps)"/>
         <section name="items">
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -47,6 +71,8 @@
 	          <cell name="ordering" value=":A01" level="api"/>
 	          <cell name="raw_balance" value="v_unsubcribed_capital" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_unsubcribed_capital" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -55,6 +81,8 @@
 	          <cell name="ordering" value=":A02" level="api"/>
 	          <cell name="raw_balance" value="v_incorporeal_assets" />
 	          <cell name="depreciated_balance" value="v_incorporeal_asset_depreciations" />
+	          <cell name="previous_raw_balance" value="p_v_incorporeal_assets" />
+	          <cell name="previous_depreciated_balance" value="p_v_incorporeal_asset_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -63,6 +91,8 @@
 	          <cell name="ordering" value=":A03" level="api"/>
 	          <cell name="raw_balance" value="v_corporeal_assets" />
 	          <cell name="depreciated_balance" value="v_corporeal_asset_depreciations" />
+	          <cell name="previous_raw_balance" value="p_v_corporeal_assets" />
+	          <cell name="previous_depreciated_balance" value="p_v_corporeal_asset_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -71,6 +101,8 @@
 	          <cell name="ordering" value=":A05" level="api"/>
 	          <cell name="raw_balance" value="v_financial_assets" />
 	          <cell name="depreciated_balance" value="v_financial_asset_depreciations" />
+	          <cell name="previous_raw_balance" value="p_v_financial_assets" />
+	          <cell name="previous_depreciated_balance" value="p_v_financial_asset_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -79,6 +111,8 @@
 	          <cell name="ordering" value=":A08" level="api"/>
 	          <cell name="raw_balance" value="v_stocks" />
 	          <cell name="depreciated_balance" value="v_stock_depreciations" />
+	          <cell name="previous_raw_balance" value="p_v_stocks" />
+	          <cell name="previous_depreciated_balance" value="p_v_stock_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -87,6 +121,8 @@
 	          <cell name="ordering" value=":A09" level="api"/>
 	          <cell name="raw_balance" value="v_advance_giveables" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_advance_giveables" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -95,6 +131,8 @@
 	          <cell name="ordering" value=":A10" level="api"/>
 	          <cell name="raw_balance" value="v_client_receivables" />
 	          <cell name="depreciated_balance" value="v_client_receivable_provisions" />
+	          <cell name="previous_raw_balance" value="p_v_client_receivables" />
+	          <cell name="previous_depreciated_balance" value="p_v_client_receivable_provisions" />
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -103,6 +141,8 @@
 	          <cell name="ordering" value=":A11" level="api"/>
 	          <cell name="raw_balance" value="v_state_receivables" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_state_receivables" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -111,6 +151,8 @@
 	          <cell name="ordering" value=":A12" level="api"/>
 	          <cell name="raw_balance" value="v_associate_receivables" />
 	          <cell name="depreciated_balance" value="v_associate_receivable_provisions" />
+	          <cell name="previous_raw_balance" value="p_v_associate_receivables" />
+	          <cell name="previous_depreciated_balance" value="p_v_associate_receivable_provisions" />
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -119,6 +161,8 @@
 	          <cell name="ordering" value=":A13" level="api"/>
 	          <cell name="raw_balance" value="v_other_receivables" />
 	          <cell name="depreciated_balance" value="v_other_receivable_provisions" />
+	          <cell name="previous_raw_balance" value="p_v_other_receivables" />
+	          <cell name="previous_depreciated_balance" value="p_v_other_receivable_provisions" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -127,6 +171,8 @@
 	          <cell name="ordering" value=":A14" level="api"/>
 	          <cell name="raw_balance" value="v_investment_security" />
 	          <cell name="depreciated_balance" value="v_investment_security_provisions" />
+	          <cell name="previous_raw_balance" value="p_v_investment_security" />
+	          <cell name="previous_depreciated_balance" value="p_v_investment_security_provisions" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -135,6 +181,8 @@
 	          <cell name="ordering" value=":A15" level="api"/>
 	          <cell name="raw_balance" value="v_reserve" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_reserve" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -143,6 +191,8 @@
 	          <cell name="ordering" value=":A16" level="api"/>
 	          <cell name="raw_balance" value="v_advance_charges" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_advance_charges" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -151,12 +201,15 @@
 	          <cell name="ordering" value=":A17" level="api"/>
 	          <cell name="raw_balance" value="v_assets_gaps" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_assets_gaps" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
         </section>
       </section>
       <!-- liabilities -->
       <section name="title" legend="liabilities">
         <property name="label" value=":liabilities.tl" level="api"/>
+        <!-- financial_year -->
         <variable name="v_capitals" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :capitals)"/>
         <variable name="v_emissions_and_reevaluation_gaps" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :emissions_and_reevaluation_gaps)"/>
         <variable name="v_liability_reserves" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :liability_reserves)"/>
@@ -179,6 +232,29 @@
         <variable name="v_other_debts" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :other_debts)"/>
         <variable name="v_advance_products" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :advance_products)"/>
         <variable name="v_liabilities_gaps" value="financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :liabilities_gaps)"/>
+        <!-- previous financial_year -->
+        <variable name="p_v_capitals" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :capitals)"/>
+        <variable name="p_v_emissions_and_reevaluation_gaps" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :emissions_and_reevaluation_gaps)"/>
+        <variable name="p_v_liability_reserves" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :liability_reserves)"/>
+        <variable name="p_v_anew_reports" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :anew_reports)"/>
+        <variable name="p_v_profit_or_loss" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :profit_or_loss)"/>
+        <variable name="p_v_investment_subsidies" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :investment_subsidies)"/>
+        <variable name="p_v_derogatory_depreciations" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :derogatory_depreciations)"/>
+        <variable name="p_v_mandatory_provisions" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :mandatory_provisions)"/>
+        <variable name="p_v_risk_and_charges_provisions" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :risk_and_charges_provisions)"/>
+        <variable name="p_v_loans_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :loans_debts)"/>
+        <variable name="p_v_associate_locked_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :associate_locked_debts)"/>
+        <variable name="p_v_cashe_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :cashe_debts)"/>
+        <variable name="p_v_other_financial_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :other_financial_debts)"/>
+        <variable name="p_v_advance_receivables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :advance_receivables)"/>
+        <variable name="p_v_supplier_receivables" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :supplier_receivables)"/>
+        <variable name="p_v_state_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :state_debts)"/>
+        <variable name="p_v_social_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :social_debts)"/>
+        <variable name="p_v_associate_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :associate_debts)"/>
+        <variable name="p_v_fixed_asset_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :fixed_asset_debts)"/>
+        <variable name="p_v_other_debts" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :other_debts)"/>
+        <variable name="p_v_advance_products" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :advance_products)"/>
+        <variable name="p_v_liabilities_gaps" value="previous_financial_year.sum_entry_items_with_mandatory_line(:balance_sheet, :liabilities_gaps)"/>
          <section name="items">
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -187,6 +263,8 @@
 	          <cell name="ordering" value=":B01" level="api"/>
 	          <cell name="raw_balance" value="v_capitals" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_capitals" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -195,6 +273,8 @@
 	          <cell name="ordering" value=":B02" level="api"/>
 	          <cell name="raw_balance" value="v_emissions_and_reevaluation_gaps" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_emissions_and_reevaluation_gaps" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -203,6 +283,8 @@
 	          <cell name="ordering" value=":B03" level="api"/>
 	          <cell name="raw_balance" value="v_liability_reserves" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_liability_reserves" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -211,6 +293,8 @@
 	          <cell name="ordering" value=":B04" level="api"/>
 	          <cell name="raw_balance" value="v_anew_reports" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_anew_reports" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -219,6 +303,8 @@
 	          <cell name="ordering" value=":B05" level="api"/>
 	          <cell name="raw_balance" value="v_profit_or_loss" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_profit_or_loss" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -227,6 +313,8 @@
 	          <cell name="ordering" value=":B06" level="api"/>
 	          <cell name="raw_balance" value="v_investment_subsidies" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_investment_subsidies" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -235,6 +323,8 @@
 	          <cell name="ordering" value=":B07" level="api"/>
 	          <cell name="raw_balance" value="v_derogatory_depreciations" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_derogatory_depreciations" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -243,6 +333,8 @@
 	          <cell name="ordering" value=":B08" level="api"/>
 	          <cell name="raw_balance" value="v_mandatory_provisions" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_mandatory_provisions" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -251,6 +343,8 @@
 	          <cell name="ordering" value=":B09" level="api"/>
 	          <cell name="raw_balance" value="v_risk_and_charges_provisions" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_risk_and_charges_provisions" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -259,6 +353,8 @@
 	          <cell name="ordering" value=":B10" level="api"/>
 	          <cell name="raw_balance" value="v_loans_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_loans_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -267,6 +363,8 @@
 	          <cell name="ordering" value=":B11" level="api"/>
 	          <cell name="raw_balance" value="v_associate_locked_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_associate_locked_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -275,6 +373,8 @@
 	          <cell name="ordering" value=":B12" level="api"/>
 	          <cell name="raw_balance" value="v_cashe_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_cashe_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -283,6 +383,8 @@
 	          <cell name="ordering" value=":B13" level="api"/>
 	          <cell name="raw_balance" value="v_other_financial_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_other_financial_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -291,6 +393,8 @@
 	          <cell name="ordering" value=":B14" level="api"/>
 	          <cell name="raw_balance" value="v_advance_receivables" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_advance_receivables" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -299,6 +403,8 @@
 	          <cell name="ordering" value=":B15" level="api"/>
 	          <cell name="raw_balance" value="v_supplier_receivables" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_supplier_receivables" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -307,6 +413,8 @@
 	          <cell name="ordering" value=":B16" level="api"/>
 	          <cell name="raw_balance" value="v_state_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_state_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -315,6 +423,8 @@
 	          <cell name="ordering" value=":B17" level="api"/>
 	          <cell name="raw_balance" value="v_social_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_social_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -323,6 +433,8 @@
 	          <cell name="ordering" value=":B18" level="api"/>
 	          <cell name="raw_balance" value="v_associate_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_associate_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -331,6 +443,8 @@
 	          <cell name="ordering" value=":B19" level="api"/>
 	          <cell name="raw_balance" value="v_fixed_asset_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_fixed_asset_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -339,6 +453,8 @@
 	          <cell name="ordering" value=":B20" level="api"/>
 	          <cell name="raw_balance" value="v_other_debts" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_other_debts" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -347,6 +463,8 @@
 	          <cell name="ordering" value=":B21" level="api"/>
 	          <cell name="raw_balance" value="v_advance_products" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_advance_products" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -355,6 +473,8 @@
 	          <cell name="ordering" value=":B22" level="api"/>
 	          <cell name="raw_balance" value="v_liabilities_gaps" />
 	          <cell name="depreciated_balance" value="" />
+	          <cell name="previous_raw_balance" value="p_v_liabilities_gaps" />
+	          <cell name="previous_depreciated_balance" value="" />
 	        </section>
         </section>
       </section>
