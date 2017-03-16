@@ -69,6 +69,7 @@ module Ekylibre
       def load_company
         company = Entity.find_or_initialize_by(of_company: true, nature: :organization)
         company.last_name = @company[:name]
+        company.born_at = @company[:born_at]
         company.save!
         # Create default phone number
         unless @company[:phone].blank?

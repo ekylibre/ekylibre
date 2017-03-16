@@ -2127,7 +2127,7 @@ CREATE TABLE entities (
     bank_identifier_code character varying,
     iban character varying,
     supplier_payment_mode_id integer,
-    CONSTRAINT company_born_at_not_null CHECK ((((of_company = true) AND (born_at IS NOT NULL)) OR (of_company = false)))
+    CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
 
@@ -16953,5 +16953,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170310101431');
 
 INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+=======
+INSERT INTO schema_migrations (version) VALUES ('20170313090000');
+>>>>>>> 72a95a1c68371d4d524e611393fb4787d0d35678
 

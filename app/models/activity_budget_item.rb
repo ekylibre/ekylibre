@@ -83,10 +83,12 @@ class ActivityBudgetItem < Ekylibre::Record::Base
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
+
+    errors.add(:unit_amount, :invalid) if unit_amount.blank?
   end
 
   after_validation do
-    self.amount = unit_amount * quantity * coefficient
+    self.amount = unit_amount * quantity * coefficient unless unit_amount.blank?
   end
 
   # Computes the coefficient to use for amount computation

@@ -190,8 +190,8 @@ module Ekylibre
           end
           record.attributes = attributes
           unless record.valid?
-            w.error attributes.inspect
-            w.error record.errors.inspect
+            Rails.logger.warn attributes.inspect
+            Rails.logger.warn record.errors.inspect
           end
           record.save!
           record.id
