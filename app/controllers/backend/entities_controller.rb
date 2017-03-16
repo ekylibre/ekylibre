@@ -304,8 +304,6 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency
     end
 
-
-
     list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
