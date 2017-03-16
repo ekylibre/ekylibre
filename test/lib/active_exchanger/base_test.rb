@@ -13,6 +13,7 @@ module ActiveExchanger
     setup do
       # Ekylibre::Tenant.create(:sekindovall)
       Ekylibre::Tenant.switch!(:sekindovall)
+      Entity.of_company.update!(born_at: Date.civil(1992, 1, 1))
     end
 
     teardown do
