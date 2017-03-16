@@ -1107,6 +1107,7 @@
         <page to="backend/integrations#create"/>
         <page to="backend/integrations#update"/>
         <page to="backend/integrations#destroy"/>
+        <page to="backend/integrations#check"/>
         <page to="backend/net_services#index"/>
         <page to="backend/net_services#create"/>
         <page to="backend/net_services#destroy"/>

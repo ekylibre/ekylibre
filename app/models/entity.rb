@@ -234,6 +234,10 @@ class Entity < Ekylibre::Record::Base
     # end
   end
 
+  before_save do
+    self.born_at ||= Time.new(2008, 1, 1) if of_company
+  end
+
   after_save do
     auto_updateable_addresses.find_each do |a|
       a.mail_line_1 = full_name
@@ -485,6 +489,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       other.destroy
     end
+  end
+
+  def born_on
+    born_at.to_date
   end
 
   def financial_year_with_opened_exchange?

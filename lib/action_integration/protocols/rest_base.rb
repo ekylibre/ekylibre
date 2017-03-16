@@ -1,38 +1,42 @@
+require 'net/https'
+
 module ActionIntegration
   module Protocols
     # Methods used by every other protocol
     module RestBase
       private
 
-      def get_base(path, &block)
-        action_base(path, nil, :get, &block)
+      def get_base(path, headers = {}, &block)
+        action_base(path, nil, Net::HTTP::Get, headers, &block)
       end
 
-      def post_base(path, data, options = {}, &block)
-        action_base(path, data, :post, options, &block)
+      def post_base(path, data, headers = {}, &block)
+        action_base(path, data, Net::HTTP::Post, headers, &block)
       end
 
-      def put_base(path, data, options = {}, &block)
-        action_base(path, data, :put, options, &block)
+      def put_base(path, data, headers = {}, &block)
+        action_base(path, data, Net::HTTP::Put, headers, &block)
       end
 
-      def patch_base(path, data, options = {}, &block)
-        action_base(path, data, :patch, options, &block)
+      def patch_base(path, data, headers = {}, &block)
+        action_base(path, data, Net::HTTP::Patch, headers, &block)
       end
 
       def delete_base(path, &block)
-        action_base(path, nil, :delete, &block)
+        action_base(path, nil, Net::HTTP::Delete, &block)
       end
 
-      def action_base(path, data, action, options = {}, &block)
+      def action_base(path, data, action_class, headers = {}, &block)
         url = URI.parse(path)
         http = Net::HTTP.new(url.host, url.port)
-
-        action_class = "Net::HTTP::#{action.to_s.camelize}".constantize
+        http.use_ssl = true if url.scheme == 'https'
 
         request = action_class.new(url)
         request.body = data.to_json if data
-        request.content_type = options['content-type'] if options['content-type']
+        # request.content_type = headers['content-type'] if headers['content-type']
+        headers.each do |key, value|
+          request[key] = value
+        end
 
         handle_request(http, request, &block)
       end
