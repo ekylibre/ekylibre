@@ -41,6 +41,7 @@
 #  father_variety               :string
 #  filiation_status             :string
 #  first_calving_on             :datetime
+#  fixed_asset_id               :integer
 #  id                           :integer          not null, primary key
 #  identification_number        :string
 #  initial_born_at              :datetime

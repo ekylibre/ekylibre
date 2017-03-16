@@ -1098,6 +1098,7 @@ arb:
     arrived_at: "وصل يوم" #?
     assembly: "جمعية"
     # asset_account: "Asset account"
+    # asset_exists: "Asset exists"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
     attachments: "مرفقات"
     attorney: "الوكيل" #?
@@ -1366,6 +1367,7 @@ arb:
     deposits: "اقتطاعات البنك"
     depreciable: "للاستهلاك"
     depreciable_amount: "قيمة الاستهلاك"
+    # depreciable_product: "Depreciable product"
     depreciated_amount: "كمية المستهلكة"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
