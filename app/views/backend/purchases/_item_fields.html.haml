@@ -27,7 +27,7 @@
         - attrs = {style: 'display: none;'} if item.fixed
         #assets{attrs}
           .control-group.boolean
-            = label_tag :asset_exists, item.fixed, class: 'boolean optional control-label'
+            = label_tag :asset_exists.tl, item.fixed, class: 'boolean optional control-label'
             .controls
               = check_box_tag :purchase_items_attributes_new_items_asset_exists, :asset_exists, nil, { value: 0, 'data-show': :'#existing_asset', 'data-hide': :'#new_asset', name: "purchase[items_attributes][new_items][asset_exists]" }
           #existing_asset{attrs}

@@ -580,6 +580,7 @@ fra:
     # arguments: "Arguments"
     assembly: "Assemblée"
     # asset_account: "Asset account"
+    asset_exists: "Immobilisation existante."
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -808,6 +809,7 @@ fra:
     depreciable: "Amortissable"
     depreciable_amount: "Montant amortissable"
     depreciated_amount: "Montant amorti"
+    depreciable_product: "Produit amortissable"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
