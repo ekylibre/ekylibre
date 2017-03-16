@@ -156,8 +156,8 @@ eng:
     fixed_asset:
       depreciation_method:
         linear: "Linear"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "None"
+        regressive: "Regressive"
         simplified_linear: "Simplified linear"
     gap:
       direction:

@@ -155,9 +155,10 @@ fra:
         payment: "Encaissements"
     fixed_asset:
       depreciation_method:
-        graduated: "Dégressive" #?
         linear: "Linéaire"
+        none: "Aucune"
         simplified_linear: "Linéaire simplifiée"
+        regressive: "Dégressive"
     gap:
       direction:
         loss: "Perte"
