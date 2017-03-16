@@ -10,4 +10,13 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
   = t.export :fixed_asset_registry, key: Time.zone.now.to_s, resource: @fixed_assets
+  %span.depreciation-trigger.btn-group
+    - if reading_ltr?
+      %button#depreciate_up_to.btn.btn-default= :depreciate.tl
+      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
+      %input#depreciation_period{ type: 'date' }
+    - else
+      %input#depreciation_period{ type: 'date' }
+      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
+      %button#depreciate_up_to.btn.btn-default= :depreciate.tl
 = main_list

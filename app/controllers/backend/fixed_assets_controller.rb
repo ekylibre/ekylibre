@@ -53,7 +53,6 @@ module Backend
     end
 
     list(conditions: fixed_assets_conditions, left_joins: :products) do |t|
-      t.action :depreciate_up_to, on: :both, if: :depreciable?
       t.action :edit
       t.action :destroy
       t.column :number, url: true

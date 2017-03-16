@@ -1154,6 +1154,7 @@ fra:
     deposit: "Remise en banque"
     depositable_options: "Options de remise en banque"
     deposits: "Dépôts"
+    depreciate: "Amortir"
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
     depreciations_inputations_expenses: "Dotations aux ammortissements et aux provisions"
@@ -2142,6 +2143,7 @@ fra:
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
     up: "Monter"
+    up_to: "Jusqu'au"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
     updated_at_by: "Mis à jour le %{at} par %{author}"
