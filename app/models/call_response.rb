@@ -100,7 +100,7 @@ class CallResponse < CallMessage
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
-      format: response.headers['content-type'].split(';').first,
+      format: response.headers['Content-Type'].split(';').first,
       request: request
     )
     r.save!

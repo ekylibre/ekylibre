@@ -311,7 +311,7 @@ class User < Ekylibre::Record::Base
   end
 
   def current_period_interval
-    preference('current_period_interval', :years, :string).value
+    preference('current_period_interval', :year, :string).value
   end
 
   def current_period_interval=(period_interval)
