@@ -58,7 +58,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
-  belongs_to :fixed_asset_product, class_name: 'Product'
+  belongs_to :depreciable_product, class_name: 'Product'
   has_many :parcel_items
   has_many :products, through: :parcel_items
   has_one :product_nature_category, through: :variant, source: :category
@@ -179,7 +179,7 @@ class PurchaseItem < Ekylibre::Record::Base
       asset_account: variant.fixed_asset_account, # 2
       allocation_account: variant.fixed_asset_allocation_account, # 28
       expenses_account: variant.fixed_asset_expenses_account, # 68
-      product: fixed_asset_product,
+      product: depreciable_product,
       purchase_item: self,
       purchase: purchase
     }

@@ -8,7 +8,7 @@ class UpdateFixedAssets < ActiveRecord::Migration
     YAML
 
   def change
-    add_reference :purchase_items, :fixed_asset_product, index: true
+    add_reference :purchase_items, :depreciable_product, index: true
     add_reference :purchase_items, :fixed_asset, index: true
     add_reference :fixed_assets, :product, index: true
 

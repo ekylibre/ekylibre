@@ -5456,7 +5456,7 @@ CREATE TABLE purchase_items (
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
     team_id integer,
-    fixed_asset_product_id integer,
+    depreciable_product_id integer,
     fixed_asset_id integer
 );
 
@@ -14991,17 +14991,17 @@ CREATE INDEX index_purchase_items_on_creator_id ON purchase_items USING btree (c
 
 
 --
+-- Name: index_purchase_items_on_depreciable_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_depreciable_product_id ON purchase_items USING btree (depreciable_product_id);
+
+
+--
 -- Name: index_purchase_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btree (fixed_asset_id);
-
-
---
--- Name: index_purchase_items_on_fixed_asset_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_purchase_items_on_fixed_asset_product_id ON purchase_items USING btree (fixed_asset_product_id);
 
 
 --
