@@ -291,6 +291,10 @@ class Product < Ekylibre::Record::Base
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
+  # [DEPRECATIONS[
+  #  - fixed_asset_id
+  # ]DEPRECATIONS]
+
   def born_at_in_interventions
     return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
     first_used_at = first_intervention.started_at

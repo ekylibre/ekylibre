@@ -92,6 +92,11 @@ class FixedAsset < Ekylibre::Record::Base
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
 
+  # [DEPRECATIONS[
+  #  - purchase_id
+  #  - purchase_item_id
+  # ]DEPRECATIONS]
+
   state_machine :state, initial: :draft do
     state :draft
     state :in_use
