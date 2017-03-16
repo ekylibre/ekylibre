@@ -1222,6 +1222,7 @@ fra:
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d'émission"
     employee: "Employé" #?
+    employee_and_wages: "Salariés et impôts"
     employee_informations: "Informations sociales"
     employee_involvement: "Participations des salariés"
     employee_name: "Employé" #?
@@ -1273,6 +1274,7 @@ fra:
     expenses_by_product_nature_category: "Achats par catégories de produit"
     expired_since: "Expiré depuis"
     expired_within: "Expiré d'ici"
+    exploitation_results: "Résultats d'exploitation"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?

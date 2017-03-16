@@ -996,6 +996,7 @@ cmn:
     elapsed_interventions_times_by_activities: "经过干预倍活动" #?
     email: "电子邮件："
     # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    # employee_and_wages: "Employee and wages"
     employee_informations: "员工信息"
     employee_involvement: "员工参与"
     end: "至"
@@ -1035,6 +1036,7 @@ cmn:
     expenses_by_product_nature_category: "按产品类别性质的费用"
     expired_since: "因为过期（天）"
     expired_within: "内期满（天）"
+    # exploitation_results: "Exploitation results"
     export: "出口单证"
     field_distribution: "场分布"
     file_nature: "文件类型"

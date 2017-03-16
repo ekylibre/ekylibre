@@ -1064,6 +1064,7 @@ jpn:
     elapsed_interventions_times_by_activities: "活動による介入の時間経過" #?
     email: "Eメール："
     # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    # employee_and_wages: "Employee and wages"
     employee_informations: "従業員の情報"
     employee_involvement: "従業員の参画"
     end: "に"
@@ -1103,6 +1104,7 @@ jpn:
     expenses_by_product_nature_category: "製品の性質上カテゴリ別経費"
     expired_since: "（日）以降に期限切れに"
     expired_within: "（日中）以内に期限が切れ"
+    # exploitation_results: "Exploitation results"
     export: "輸出書類"
     field_distribution: "電界分布"
     file_nature: "ファイルの種類"

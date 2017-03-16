@@ -1335,6 +1335,7 @@ arb:
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة" #?
     email: "البريد الإلكتروني:"
     # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    # employee_and_wages: "Employee and wages"
     employee_informations: "المعلومات موظف"
     employee_involvement: "ادخال الموظفين"
     employee_name: "الموظف" #?
@@ -1396,6 +1397,7 @@ arb:
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
     expired_since: "انتهت منذ (بالأيام)"
     expired_within: "انتهت خلال (بالأيام)"
+    # exploitation_results: "Exploitation results"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"

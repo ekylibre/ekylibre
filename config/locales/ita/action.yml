@@ -1062,6 +1062,7 @@ ita:
     elapsed_interventions_times_by_activities: "interventi trascorsi i tempi di attività" #?
     email: "E-mail:"
     # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    # employee_and_wages: "Employee and wages"
     employee_informations: "Informazioni per i dipendenti"
     employee_involvement: "Coinvolgimento dell’impiegato"
     end: "a"
@@ -1101,6 +1102,7 @@ ita:
     expenses_by_product_nature_category: "Le spese per categoria di prodotto della natura"
     expired_since: "Scaduta dal (in giorni)"
     expired_within: "Scaduto entro (in giorni)"
+    # exploitation_results: "Exploitation results"
     export: "documenti di esportazione"
     field_distribution: "Distribuzione del campo"
     file_nature: "Tipo di file"

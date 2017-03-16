@@ -996,6 +996,7 @@ deu:
     elapsed_interventions_times_by_activities: "Abgelaufene Interventionen Zeiten von Aktivitäten" #?
     # email: "Email:"
     # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    # employee_and_wages: "Employee and wages"
     employee_informations: "Mitarbeiterinformationen"
     employee_involvement: "Angestellten Beteiligung"
     end: "zu"
@@ -1035,6 +1036,7 @@ deu:
     expenses_by_product_nature_category: "Die Aufwendungen nach Produkt Kategorie Natur"
     expired_since: "Abgelaufene da (in Tagen)"
     expired_within: "Abgelaufene innerhalb (in Tagen)"
+    # exploitation_results: "Exploitation results"
     export: "Export-Dokumente"
     field_distribution: "Feldverteilung"
     file_nature: "Dateityp"

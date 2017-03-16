@@ -8,6 +8,7 @@
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
       <variable name="financial_year" value="FinancialYear.on(started_on)"/>
+      <variable name="previous_financial_year" value="financial_year.previous"/>
       <variable name="financial_year_compute" value="financial_year.compute_balances!"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
@@ -17,270 +18,199 @@
       <!-- profits 7 -->
       <section name="title" legend="profits">
         <property name="label" value=":profits.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7097X').reorder(:number, :label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":products_sales.tl" level="api"/>
-          <cell name="ordering" value="01" level="api"/>
-          <cell name="number" of="item" level="api"/>
-          <cell name="usages" of="item" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7097').reorder(:number, :label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":productions_sales.tl" level="api"/>
-            <cell name="ordering" value="02" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('71X').reorder(:number, :label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":inventory_variations.tl" level="api"/>
-            <cell name="ordering" value="03" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('72X').reorder(:number, :label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":capitalised_production.tl" level="api"/>
-            <cell name="ordering" value="04" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('74X').reorder(:number, :label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":subsidies.tl" level="api"/>
-            <cell name="ordering" value="05" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('781X, 791X').reorder(:number, :label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":provisions_revenues.tl" level="api"/>
-            <cell name="ordering" value="06" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('73X, 75X, ^756').reorder(:number, :label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":other_products.tl" level="api"/>
-            <cell name="ordering" value="07" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
-        </matrix>
+        <section name="items">
+          <!-- 70/71 -->
+	      <section name="item">
+	        <cell name="group" value=":profits.tl" level="api"/>
+	        <cell name="subgroup" value=":sales.tl" level="api"/>
+	        <cell name="label" value=":productions_sales.tl" level="api"/>
+	        <cell name="ordering" value=":A01" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales)" />
+	        <cell name="depreciated_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales)" />
+	        <cell name="depreciated_previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales) - financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
+	      </section>
+	      <!-- 72 -->
+	      <section name="item">
+	      	<cell name="group" value=":profits.tl" level="api"/>
+	        <cell name="subgroup" value=":others.tl" level="api"/>
+	        <cell name="label" value=":capitalised_production.tl" level="api"/>
+	        <cell name="ordering" value=":A02" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
+	      </section>
+	      <!-- 74 -->
+	      <section name="item">
+	      	<cell name="group" value=":profits.tl" level="api"/>
+	        <cell name="subgroup" value=":others.tl" level="api"/>
+	        <cell name="label" value=":subsidies.tl" level="api"/>
+	        <cell name="ordering" value=":A03" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
+	      </section>
+	      <!-- 78/79 -->
+	      <section name="item">
+	      	<cell name="group" value=":profits.tl" level="api"/>
+	        <cell name="subgroup" value=":others.tl" level="api"/>
+	        <cell name="label" value=":provisions_revenues.tl" level="api"/>
+	        <cell name="ordering" value=":A04" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
+	      </section>
+	      <!-- 73/75-->
+	      <section name="item">
+	      	<cell name="group" value=":profits.tl" level="api"/>
+	        <cell name="subgroup" value=":others.tl" level="api"/>
+	        <cell name="label" value=":other_products.tl" level="api"/>
+	        <cell name="ordering" value=":A05" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
+	      </section>
+	    </section>
       </section>
       <!-- losses 6 -->
       <section name="title" legend="losses">
         <property name="label" value=":losses.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('607X, 6097X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":merchandises_purchases.tl" level="api"/>
-            <cell name="ordering" value="8" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('6037X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":merchandises_purchases_stocks_variation.tl" level="api"/>
-            <cell name="ordering" value="9" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('601X, 602X, 6091X, 6092X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":products_purchases.tl" level="api"/>
-            <cell name="ordering" value="10" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('6031X, 6032X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":purchases_stocks_variation.tl" level="api"/>
-            <cell name="ordering" value="11" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('604X, 6094X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":animal_purchases.tl" level="api"/>
-            <cell name="ordering" value="12" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('605X, 606X, 6095X, 6096X, 61X, 62X, 6098X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":other_purchases.tl" level="api"/>
-            <cell name="ordering" value="12" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('63X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":taxes.tl" level="api"/>
-            <cell name="ordering" value="13" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('641X, 644X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":wages.tl" level="api"/>
-            <cell name="ordering" value="14" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('645X, 646X, 647X, 648X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":social_expenses.tl" level="api"/>
-            <cell name="ordering" value="15" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('681X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":depreciations_inputations_expenses.tl" level="api"/>
-            <cell name="ordering" value="16" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <matrix name="items" for="item" in="Account.find_with_regexp('65X').order(:label)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="group" value=":other_expenses.tl" level="api"/>
-            <cell name="ordering" value="17" level="api"/>
-            <cell name="label" of="item"/>
-            <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
+	     <section name="items">
+	     <!-- 60/603 -->
+		   <section name="item">
+		   	 <cell name="group" value=":losses.tl" level="api"/>
+		     <cell name="subgroup" value=":purchases.tl" level="api"/>
+		     <cell name="label" value=":products_purchases.tl" level="api"/>
+		     <cell name="ordering" value=":B01" level="api"/>
+		     <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases)" />
+		     <cell name="depreciated_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation)" />
+		     <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases)" />
+		     <cell name="depreciated_previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation)" />
+		     <cell name="total_balance" value="- (financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases) - financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation))" />
+		   </section>
+		   <!-- 61-62-->
+	       <section name="item">
+	       	 <cell name="group" value=":losses.tl" level="api"/>
+	         <cell name="subgroup" value=":purchases.tl" level="api"/>
+	         <cell name="label" value=":other_purchases.tl" level="api"/>
+	         <cell name="ordering" value=":B02" level="api"/>
+	         <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
+	         <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
+	         <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
+	       </section>
+	       <!-- 63 -->
+	       <section name="item">
+	       	 <cell name="group" value=":losses.tl" level="api"/>
+	         <cell name="subgroup" value=":purchases.tl" level="api"/>
+	         <cell name="label" value=":other_products.tl" level="api"/>
+	         <cell name="ordering" value=":B03" level="api"/>
+	         <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
+	         <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
+	         <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
+	       </section>
+	       <!-- 641 644 -->
+	       <section name="item">
+	       	 <cell name="group" value=":losses.tl" level="api"/>
+	         <cell name="subgroup" value=":purchases.tl" level="api"/>
+	         <cell name="label" value=":wages.tl" level="api"/>
+	         <cell name="ordering" value=":B04" level="api"/>
+	         <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
+	         <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
+	         <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
+	       </section>
+	       <!-- 645 -->
+	       <section name="item">
+	       	 <cell name="group" value=":losses.tl" level="api"/>
+	         <cell name="subgroup" value=":purchases.tl" level="api"/>
+	         <cell name="label" value=":social_expenses.tl" level="api"/>
+	         <cell name="ordering" value=":B05" level="api"/>
+	         <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
+	         <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
+	         <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
+	       </section>
+	       <!-- 681 -->
+	       <section name="item">
+	       	 <cell name="group" value=":losses.tl" level="api"/>
+	         <cell name="subgroup" value=":purchases.tl" level="api"/>
+	         <cell name="label" value=":depreciations_inputations_expenses.tl" level="api"/>
+	         <cell name="ordering" value=":B06" level="api"/>
+	         <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
+	         <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
+	         <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
+	       </section>
+	       <!-- 65 -->
+	       <section name="item">
+	       	 <cell name="group" value=":losses.tl" level="api"/>
+	         <cell name="subgroup" value=":purchases.tl" level="api"/>
+	         <cell name="label" value=":other_expenses.tl" level="api"/>
+	         <cell name="ordering" value=":B07" level="api"/>
+	         <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
+	         <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
+	         <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
+	       </section>
+         </section>
       </section>
-      <!-- SUB OPERATION -->
-      <section name="title" legend="exploitation_result">
-        <property name="label" value=":exploitation_result.tl" level="api"/>
-        <variable name="total_1" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_subtotal)"/>
-        <variable name="total_2" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :charges_subtotal)"/>
+      <section name="title" legend="exploitation_results">
+        <property name="label" value=":exploitation_results.tl" level="api"/>
         <section name="items">
-	        <section name="item">
-	          <cell name="group" value=":exploitation_result.tl" level="api"/>
-	          <cell name="category" value=":suboperation" level="api"/>
-	          <cell name="ordering" value="18" level="api"/>
-	          <cell name="balance" value="total_1 - total_2" />
-	        </section>
-        </section>
-      </section>
-      <!-- financial_products -->
-      <section name="title" legend="financial_products">
-        <property name="label" value=":financial_products.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('76X, 786X, 796X').order(:label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":financial_products.tl" level="api"/>
-          <cell name="ordering" value="19" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-      </section>
-      <!-- financial_expenses -->
-      <section name="title" legend="financial_expenses">
-        <property name="label" value=":financial_expenses.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('686X, 66X').order(:label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":financial_expenses.tl" level="api"/>
-          <cell name="ordering" value="20" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-        <property name="financial_expenses_total" legend="financial_expenses_total" value="financial_year.debit_balance('686X, 66X')"/>
-      </section>
-       <!-- SUB OPERATION -->
-       <section name="title" legend="financial_result">
-        <property name="label" value=":financial_result.tl" level="api"/>
-        <variable name="total_3" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)"/>
-        <variable name="total_4" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)"/>
-        <section name="items">
-	        <section name="item">
-	          <cell name="group" value=":financial_result.tl" level="api"/>
-	          <cell name="category" value=":suboperation" level="api"/>
-	          <cell name="ordering" value="21" level="api"/>
-	          <cell name="balance" value="total_3 - total_4" />
-	        </section>
-        </section>
-      </section>
-      <!-- SUB OPERATION -->
-      <section name="title" legend="current_result_before_taxes">
-        <property name="label" value=":current_result_before_taxes.tl" level="api"/>
-        <section name="items">
-	        <section name="item">
-	          <cell name="group" value=":current_result_before_taxes.tl" level="api"/>
-	          <cell name="category" value=":suboperation" level="api"/>
-	          <cell name="ordering" value="22" level="api"/>
-	          <cell name="balance" value="total_1 - total_2 + total_3 - total_4" />
-	        </section>
-        </section>
-      </section>
-      <!-- exceptional_products -->
-      <section name="title" legend="exceptional_products">
-        <property name="label" value=":exceptional_products.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('77X, 787X, 797X').order(:label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":exceptional_products.tl" level="api"/>
-          <cell name="ordering" value="23" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-      </section>
-      <!-- exceptional_expenses -->
-      <section name="title" legend="exceptional_expenses">
-        <property name="label" value=":exceptional_expenses.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('67X, 687X').order(:label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":exceptional_expenses.tl" level="api"/>
-          <cell name="ordering" value="24" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-      </section>
-      <!-- SUB OPERATION -->
-      <section name="title" legend="exceptional_result">
-        <property name="label" value=":exceptional_result.tl" level="api"/>
-        <variable name="total_5" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)"/>
-        <variable name="total_6" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)"/>
-        <section name="items">
-	        <section name="item">
-	          <cell name="group" value=":exceptional_result.tl" level="api"/>
-	          <cell name="category" value=":suboperation" level="api"/>
-	          <cell name="ordering" value="25" level="api"/>
-	          <cell name="balance" value="total_5 - total_6" />
-	        </section>
-        </section>
-      </section>
-      <section name="title" legend="employee_involvement">
-        <property name="label" value=":employee_involvement.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('691X').order(:label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":employee_involvement.tl" level="api"/>
-          <cell name="ordering" value="26" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-      </section>
-      <section name="title" legend="profit_taxe">
-        <property name="label" value=":profit_taxe.tl" level="api"/>
-        <matrix name="items" for="item" in="Account.find_with_regexp('695X, 697X, 699X').order(:label)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="group" value=":profit_taxe.tl" level="api"/>
-          <cell name="ordering" value="27" level="api"/>
-          <cell name="label" of="item"/>
-          <cell name="balance" if="item.journal_entry_items.any?" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-        </matrix>
-      </section>
-      <!-- SUB OPERATION -->
-      <section name="title" legend="result">
-        <property name="label" value=":result.tl" level="api"/>
-        <variable name="total_7" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)"/>
-        <variable name="total_8" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)"/>
-        <section name="items">
-	        <section name="item">
-	          <cell name="group" value=":result.tl" level="api"/>
-	          <cell name="category" value=":suboperation" level="api"/>
-	          <cell name="ordering" value="28" level="api"/>
-	          <cell name="balance" value="total_1 - total_2 + total_3 - total_4 + total_5 - total_6 - total_7 - total_8" />
-	        </section>
+        <!-- financial_products -->
+          <section name="item">
+          	<cell name="group" value=":exploitation_results.tl" level="api"/>
+	        <cell name="subgroup" value=":financial_products.tl" level="api"/>
+	        <cell name="label" value=":financial_products.tl" level="api"/>
+	        <cell name="ordering" value=":C01" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
+	      </section>
+          <section name="item">
+          	<cell name="group" value=":exploitation_results.tl" level="api"/>
+	        <cell name="subgroup" value=":financial_products.tl" level="api"/>
+	        <cell name="label" value=":financial_expenses.tl" level="api"/>
+	        <cell name="ordering" value=":C02" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
+	        <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
+	      </section>
+        <!-- exceptional_products -->
+          <section name="item">
+          	<cell name="group" value=":exploitation_results.tl" level="api"/>
+	        <cell name="subgroup" value=":exceptional_products.tl" level="api"/>
+	        <cell name="label" value=":exceptional_products.tl" level="api"/>
+	        <cell name="ordering" value=":C03" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
+	        <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
+	      </section>
+          <section name="item">
+          	<cell name="group" value=":exploitation_results.tl" level="api"/>
+	        <cell name="subgroup" value=":exceptional_products.tl" level="api"/>
+	        <cell name="label" value=":exceptional_expenses.tl" level="api"/>
+	        <cell name="ordering" value=":C04" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
+	        <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
+	      </section>
+	    <!-- employee_and_wages -->
+          <section name="item">
+          	<cell name="group" value=":exploitation_results.tl" level="api"/>
+	        <cell name="subgroup" value=":employee_and_wages.tl" level="api"/>
+	        <cell name="label" value=":employee_involvement.tl" level="api"/>
+	        <cell name="ordering" value=":C03" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
+	        <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
+	      </section>
+          <section name="item">
+          	<cell name="group" value=":exploitation_results.tl" level="api"/>
+	        <cell name="subgroup" value=":employee_and_wages.tl" level="api"/>
+	        <cell name="label" value=":profit_taxe.tl" level="api"/>
+	        <cell name="ordering" value=":C04" level="api"/>
+	        <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
+	        <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
+	        <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
+	      </section>
         </section>
       </section>
     </section>

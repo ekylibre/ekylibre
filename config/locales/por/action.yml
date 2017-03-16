@@ -1001,6 +1001,7 @@ por:
     elapsed_interventions_times_by_activities: "Intervenções decorreram vezes por actividades" #?
     email: "O email:"
     # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
+    # employee_and_wages: "Employee and wages"
     employee_informations: "Informações do empregado"
     employee_involvement: "O envolvimento dos trabalhadores"
     end: "Para"
@@ -1040,6 +1041,7 @@ por:
     expenses_by_product_nature_category: "Despesas por categoria de produto da natureza"
     expired_since: "Expirado desde (em dias)"
     expired_within: "Expiradas (em dias)"
+    # exploitation_results: "Exploitation results"
     export: "Documentos de exportação"
     field_distribution: "Distribuição do campo"
     file_nature: "Tipo de arquivo"
