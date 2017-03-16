@@ -888,6 +888,8 @@ fra:
     address: "Adresse" #?
     advance_charges: "Charges constatées d'avance"
     advance_giveables: "Avances et acomptes versés"
+    advance_products: "Produits constatés d'avance"
+    advance_receivables: "Avances et acomptes reçus"
     affair: "Affaire"
     affair_number: "N° d’affaire"
     affairs: "Affaires"
@@ -912,6 +914,7 @@ fra:
     analytic_preferences: "Préférences analytiques"
     analytics: "Analytiques" #?
     and: "Et" #?
+    anew_reports: "Report à nouveau"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
@@ -938,6 +941,8 @@ fra:
     assets: "Actifs"
     assets_gaps: "Ecarts actifs"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
+    associate_debts: "Comptes courants"
+    associate_locked_debts: "Comptes courants bloqués"
     associate_receivables: "Créances associés - comptes courants"
     at_the_address: "À l'adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
@@ -984,10 +989,12 @@ fra:
     cap_islets: "Ilots PAC"
     cap_land_parcels: "Parcelles PAC"
     capitalised_production: "Production immobilisée"
+    capitals: "Capital social"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
     cash_balance: "Solde de trésorerie"
+    cashe_debts: "Découverts bancaires"
     cashes_balance: "Soldes des trésoreries"
     cashes_balance_evolution: "Évolution des soldes des trésoreries"
     casting: "Casting"
@@ -1137,6 +1144,7 @@ fra:
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
+    debts: "Dettes"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
     decimal_case: "Options pour un décimal" #?
     decision_making: "Décision"
@@ -1166,6 +1174,7 @@ fra:
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
     depreciations_inputations_expenses: "Dotations aux ammortissements et aux provisions"
+    derogatory_depreciations: "Ammortissements dérogatoires"
     description: "Description"
     desposits: "Remises en banque" #?
     destroy: "Supprimer"
@@ -1211,6 +1220,7 @@ fra:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité" #?
     email: "Email:"
+    emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d'émission"
     employee: "Employé" #?
     employee_informations: "Informations sociales"
     employee_involvement: "Participations des salariés"
@@ -1227,6 +1237,7 @@ fra:
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
+    equities: "Capitaux propres"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
     error_sale_already_paid: "La vente a déjà été payée en totalité" #?
@@ -1289,6 +1300,7 @@ fra:
     finishes: "Termine par" #?
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
+    fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     from: "À partir du"
@@ -1398,6 +1410,7 @@ fra:
     inventory_print: "Imprimer l’inventaire" #?
     inventory_variations: "Variations d'inventaire"
     investment_security: "Valeur mobilière de placement"
+    investment_subsidies: "Subventions d'investissement"
     invitation_status: "État"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -1469,6 +1482,8 @@ fra:
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
     liabilities: "Passifs"
+    liabilities_gaps: "Ecart de conversion passif"
+    liability_reserves: "Réserves"
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
@@ -1480,6 +1495,7 @@ fra:
     listings: "Extractions de données" #?
     load: "Charger"
     load_demo_data: "Charger des données de tests" #?
+    loans_debts: "Emprunts"
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
@@ -1500,6 +1516,7 @@ fra:
     mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs" #?
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs" #?
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
+    mandatory_provisions: "Provisions réglementées"
     manual: "Manuel"
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
@@ -1660,7 +1677,9 @@ fra:
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
     original_component: "D'origine"
+    other_debts: "Autres dettes"
     other_expenses: "Autres charges d'exploitation"
+    other_financial_debts: "Autres dettes financières"
     other_products: "Autres produits"
     other_purchases: "Autres achats"
     other_receivables: "Autres créances"
@@ -1776,6 +1795,7 @@ fra:
     products_purchases: "Approvisionnement"
     products_sales: "Ventes de marchandises"
     profile: "Profil"
+    profit_or_loss: "Résultat de l'exercice"
     profit_taxe: "Impots sur les bénéfices (IS)"
     profitability: "Rentabilité" #?
     profits: "Produits d'exploitation"
@@ -1875,6 +1895,7 @@ fra:
       relationship: "Droits module Relations" #?
       resources: "Droits module Ressources" #?
     rights: "Droits"
+    risk_and_charges_provisions: "Provisions pour risques et charges"
     role: "Rôle"
     role_name: "Entrez le nom du rôle puis attribuez lui ses droits" #?
     roles: "Rôles"
@@ -1965,6 +1986,7 @@ fra:
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
+    social_debts: "Dettes sociales"
     social_expenses: "Charges sociales"
     soil_varieties: "Nature des sols" #?
     source: "Source de données"
@@ -1975,6 +1997,7 @@ fra:
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"
     state: "État"
+    state_debts: "Dettes fiscales"
     state_receivables: "Créances fiscales"
     statistics: "Statistiques"
     status: "État" #?
@@ -2013,6 +2036,7 @@ fra:
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
+    supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"

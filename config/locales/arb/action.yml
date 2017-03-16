@@ -1015,6 +1015,8 @@ arb:
     address: "العنوان" #?
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
+    # advance_products: "Advance products"
+    # advance_receivables: "Advance receivables"
     affair: "قضية"
     affair_number: "عدد غرامية"
     affairs: "شئون"
@@ -1036,6 +1038,7 @@ arb:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "تحليلات"
     analytic_preferences: "تفضيلات التحليلية"
+    # anew_reports: "Anew report"
     animal_details: "تفاصيل الحيوان"
     animal_productions: "الإنتاج الحيواني" #?
     animals: "الحيوانات"
@@ -1058,6 +1061,8 @@ arb:
     # assets: "Assets"
     # assets_gaps: "Assets gaps"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
+    # associate_debts: "Associate debts"
+    # associate_locked_debts: "Associate locked debts"
     # associate_receivables: "Associate receivables"
     at_the_address: "على العنوان"
     attach_deal: "إضافة الى اتفاق"
@@ -1115,11 +1120,13 @@ arb:
     cap_islets: "الجزر كاب"
     cap_land_parcels: "قطع الأراضي كاب"
     capitalised_production: "إنتاج يبلغ رأس مال"
+    # capitals: "Capitals"
     cartography: "خرائطية"
     cash: "حسابات بنكية"
     cash_balance: "الرصيد النقدي"
     cash_create: "اضافة حساب بنكي جديد" #?
     cash_update: "تعديل الخزينة" #?
+    # cashe_debts: "Cashe debts"
     cashes_balance: "التوازن يصرف"
     cashes_balance_evolution: "يصرف تطور الميزان"
     casting: "صب"
@@ -1243,6 +1250,7 @@ arb:
     days: "أيام"
     deals: "عروض"
     debit: "الدين"
+    # debts: "Debts"
     debts_on_assets: "الديون على الأصول"
     decimal_case: "خيارات للكسر العشري" #?
     decision_making: "اتخاذ القرار"
@@ -1281,6 +1289,7 @@ arb:
     depreciation: "الاستهلاك"
     depreciations: "انخفاض قيمة"
     depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations"
+    # derogatory_depreciations: "Derogatory depreciations"
     description: "الوصف"
     destroy: "هدم"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1325,6 +1334,7 @@ arb:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة" #?
     email: "البريد الإلكتروني:"
+    # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
     employee_informations: "المعلومات موظف"
     employee_involvement: "ادخال الموظفين"
     employee_name: "الموظف" #?
@@ -1350,6 +1360,7 @@ arb:
     equipment: "معدات"
     equipment_name: "اسم معدات"
     equipments: "المعدات"
+    # equities: "Equities"
     error: "آسف..."
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
     errors_explanation: "هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد"
@@ -1407,6 +1418,7 @@ arb:
     finished_income_statement: "المنتجات" #?
     finished_sum: "مجموع منتجات الاستثمار" #?
     first_line_as_title: "السطر الأول كما لقب"
+    # fixed_asset_debts: "Fixed asset debts"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_assets: "أصول ثابتة"
     format_date: #?
@@ -1507,6 +1519,7 @@ arb:
     inventory_print: "طباعة الجرد" #?
     inventory_variations: "الاختلافات المخزون"
     # investment_security: "Investment security"
+    # investment_subsidies: "Investment subsidies"
     invitation_status: "الحالة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
@@ -1580,6 +1593,8 @@ arb:
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
     # liabilities: "Liabilities"
+    # liabilities_gaps: "Liabilities gaps"
+    # liability_reserves: "Liability reserves"
     line: "سطر رقم%{index} :" #?
     # line_number: "Line #%{number}"
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}" #?
@@ -1593,6 +1608,7 @@ arb:
     listings: "استحراج البيانات" #?
     load: "حمل"
     load_demo_data: "تحميل البيانات التجريبية" #?
+    # loans_debts: "Loans debts"
     locale: "اللغة"
     localization: "الموقع الجغرافي"
     lock: "القفل"
@@ -1609,6 +1625,7 @@ arb:
     management: "ادارة الاعمال" #?
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
+    # mandatory_provisions: "Mandatory provisions"
     manual: "كتيب"
     manual_period: "من %{start} الى %{finish}"
     manure_management_plan_chart: "السماد خطة إدارة التخطيط"
@@ -1788,7 +1805,9 @@ arb:
     organic_matter_concentration: "تركيز المواد العضوية"
     original_component: "أصلي"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
+    # other_debts: "Other debts"
     other_expenses: "نفقات أخرى"
+    # other_financial_debts: "Other financial debts"
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
     other_products: "منتجات اخرى"
     other_purchases: "مشتريات أخرى"
@@ -1902,6 +1921,7 @@ arb:
     products_purchases: "منتجات مشتريات"
     products_sales: "مبيعات المنتجات"
     profile: "الملف الشخصي"
+    # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "الأرباح"
     profits_and_losses: "الأرباح والخسائر"
@@ -1992,6 +2012,7 @@ arb:
       relations: "حقوق العلاقات" #?
       resources: "حقوق المصادر" #?
     rights: "الحقوق"
+    # risk_and_charges_provisions: "Risk and charges provisions"
     role: "دور"
     role_create: "اضافة مهام" #?
     role_name: "ادخل اسم المهام ومن ثم خصص له حقوقه" #?
@@ -2080,12 +2101,14 @@ arb:
     sign_out: "خروج"
     simplified: "نظام واقعي مبسط"
     simplified_linear_options: "خيارات الخطية المبسطة"
+    # social_debts: "Social debts"
     social_expenses: "النفقات الاجتماعية"
     source: "مصدر البيانات"
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
     started: "بدأت"
     state: "الحالة"
+    # state_debts: "State debts"
     # state_receivables: "State receivables"
     statistics: "إحصائيات"
     stewardship: "إدارة"
@@ -2121,6 +2144,7 @@ arb:
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
     supplier: "اسعار البيع للممولين"
     supplier_informations: "المعلومات المورد"
+    # supplier_receivables: "Supplier receivables"
     supply: "التسليم"
     support: "الدعم"
     supports: "الدعم"

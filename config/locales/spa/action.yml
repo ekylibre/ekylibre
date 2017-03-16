@@ -818,6 +818,8 @@ spa:
     # add_x: "Add “%{x}”"
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
+    # advance_products: "Advance products"
+    # advance_receivables: "Advance receivables"
     affair: "Asunto"
     affair_number: "Número asunto"
     affairs: "Asuntos"
@@ -838,6 +840,7 @@ spa:
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "Análisis"
     analytic_preferences: "Preferencias analíticas"
+    # anew_reports: "Anew report"
     animal_details: "Detalles de los animales"
     animal_productions: "Producciones animales" #?
     animals: "Animales"
@@ -856,6 +859,8 @@ spa:
     # assets: "Assets"
     # assets_gaps: "Assets gaps"
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
+    # associate_debts: "Associate debts"
+    # associate_locked_debts: "Associate locked debts"
     # associate_receivables: "Associate receivables"
     at_the_address: "En la dirección"
     attach_deal: "Añadir un acuerdo"
@@ -910,6 +915,7 @@ spa:
     cap_islets: "Islotes Cap"
     cap_land_parcels: "Parcelas Cap"
     capitalised_production: "La producción capitalizada"
+    # capitals: "Capitals"
     cartography: "Cartografía"
     cash: "Efectivo"
     cash_balance: "Saldo en efectivo"
@@ -917,6 +923,7 @@ spa:
       bank_statements: "Leventar de cuento" #?
       deposits: "Entregas en banca" #?
     cash_update: "Modificar la tresoreria" #?
+    # cashe_debts: "Cashe debts"
     cashes_balance: "Balance de cobros"
     cashes_balance_evolution: "Cobros en la evolución equilibrio"
     casting: "Fundición"
@@ -1024,6 +1031,7 @@ spa:
     days: "Días"
     deals: "Ofertas"
     debit: "Flujo"
+    # debts: "Debts"
     debts_on_assets: "Deudas de los activos"
     decision_making: "Toma de decisiones"
     default_letter_conclusion: "Por favor, acepte, Estimada Señora, Estimado Señor, el testimonio de mi más alta consideración."
@@ -1058,6 +1066,7 @@ spa:
     depreciation: "Depreciación"
     depreciations: "Depreciaciones"
     depreciations_inputations_expenses: "Gastos de depreciaciones inputations"
+    # derogatory_depreciations: "Derogatory depreciations"
     description: "Descripción general"
     destroy: "Destruir"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1100,6 +1109,7 @@ spa:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
     # email: "Email:"
+    # emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps"
     employee_informations: "Información sobre los empleados"
     employee_involvement: "Participación de los trabajadores"
     end: "al"
@@ -1113,6 +1123,7 @@ spa:
     equipment: "Equipo"
     equipment_name: "Nombre del equipo"
     equipments: "Equipamientos"
+    # equities: "Equities"
     error: "Lo siento..."
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
     errors_explanation: "Hay errores en el archivo. Si no se corrige ellos, las líneas incorrectas serán ignorados durante la importación."
@@ -1162,6 +1173,7 @@ spa:
     finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación" #?
     first_line_as_title: "Primera línea como el título"
+    # fixed_asset_debts: "Fixed asset debts"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_assets: "Los activos fijos"
     free_purchases: "Compras en franquisia" #?
@@ -1248,6 +1260,7 @@ spa:
     inventory_print: "Imprimir el inventario" #?
     inventory_variations: "Variaciones de inventario"
     # investment_security: "Investment security"
+    # investment_subsidies: "Investment subsidies"
     invitation_status: "Estado"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
@@ -1312,6 +1325,8 @@ spa:
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
     # liabilities: "Liabilities"
+    # liabilities_gaps: "Liabilities gaps"
+    # liability_reserves: "Liability reserves"
     # line_number: "Line #%{number}"
     linear_options: "Opciones lineales"
     link: "Enlazar"
@@ -1323,6 +1338,7 @@ spa:
     listings: "Extracciones de datos" #?
     load: "Carga"
     load_demo_data: "Cargar datos de prueba" #?
+    # loans_debts: "Loans debts"
     locale: "Idioma"
     localization: "Localisación geografica"
     lock: "Bloquear"
@@ -1336,6 +1352,7 @@ spa:
     make_your_production_support: "Haga su apoyo a la producción"
     manage_activities: "Gestionar las actividades"
     management: "Administración comercial" #?
+    # mandatory_provisions: "Mandatory provisions"
     # manual: "Manual"
     manual_period: "del %{start} al %{finish}"
     manure_management_plan_chart: "Gráfico de plan de manejo del estiércol"
@@ -1458,7 +1475,9 @@ spa:
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
+    # other_debts: "Other debts"
     other_expenses: "Otros gastos"
+    # other_financial_debts: "Other financial debts"
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
     other_products: "Otros productos"
     other_purchases: "Otras compras"
@@ -1552,6 +1571,7 @@ spa:
     products_purchases: "Compras de productos"
     products_sales: "Las ventas de productos"
     profile: "Perfil"
+    # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "Las ganancias"
     profits_and_losses: "Las pérdidas y ganancias"
@@ -1631,6 +1651,7 @@ spa:
       relations: "Derechos modulo relaciones" #?
       resources: "Derechos modulo recursos" #?
     rights: "Derechos"
+    # risk_and_charges_provisions: "Risk and charges provisions"
     role: "Papel"
     role_create: "Añadir un papel" #?
     role_name: "Entrar el nombre del papel y atribuirle sus derechos" #?
@@ -1700,12 +1721,14 @@ spa:
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"
     simplified_linear_options: "Opciones lineales simplificados"
+    # social_debts: "Social debts"
     social_expenses: "Los gastos sociales"
     source: "Fuente de datos"
     start: "Del"
     start_new_intervention_here: "Comenzar una nueva intervención aquí"
     started: "Empezado"
     state: "Estado"
+    # state_debts: "State debts"
     # state_receivables: "State receivables"
     statistics: "Estadística"
     stewardship: "Administración"
@@ -1733,6 +1756,7 @@ spa:
     subtotals_at_level: "Subtotales al nivel"
     supplier: "Los precios de compra del proveedor"
     supplier_informations: "Información sobre los proveedores"
+    # supplier_receivables: "Supplier receivables"
     supply: "Suministro"
     support: "Apoyo"
     supports: "Soportes"

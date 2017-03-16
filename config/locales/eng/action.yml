@@ -969,6 +969,8 @@ eng:
     add_x: "Add “%{x}”"
     advance_charges: "Advance charges" #?!
     advance_giveables: "Advance giveables" #?!
+    advance_products: "Advance products" #?!
+    advance_receivables: "Advance receivables" #?!
     affair: "Affair"
     affair_number: "Affair number" #?
     affairs: "Affairs" #?
@@ -984,6 +986,7 @@ eng:
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
+    anew_reports: "Anew report" #?!
     animal_details: "Animal details" #?!
     # animal_management: "Animal management"
     animals: "Animals"
@@ -1000,6 +1003,8 @@ eng:
     area: "Area" #?
     assets: "Assets" #?
     assets_gaps: "Assets gaps" #??
+    associate_debts: "Associate debts" #?!
+    associate_locked_debts: "Associate locked debts" #?!
     associate_receivables: "Associate receivables" #?!
     at_the_address: "At the address"
     attach_deal: "Add a deal"
@@ -1037,9 +1042,11 @@ eng:
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
     capitalised_production: "Capitalised production" #?!
+    capitals: "Capitals" #?!
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
+    cashe_debts: "Cashe debts" #?!
     cashes_balance: "Cashes balance"
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting" #?
@@ -1143,6 +1150,7 @@ eng:
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
+    debts: "Debts" #?
     debts_on_assets: "Debts on assets %{financial_year}"
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1167,6 +1175,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?
+    derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1203,6 +1212,7 @@ eng:
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
     email: "Email:" #?
+    emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
     employee_informations: "Employee informations"
     employee_involvement: "Employee involvement" #?!
     end: "to" #?
@@ -1216,6 +1226,7 @@ eng:
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
+    equities: "Equities" #?!
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
@@ -1254,6 +1265,7 @@ eng:
     finish: "Finish" #?
     finished: "Finished"
     first_line_as_title: "First line as title"
+    fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
@@ -1332,6 +1344,7 @@ eng:
     inventory: "Inventory" #?
     inventory_variations: "Inventory variations" #?
     investment_security: "Investment security" #?!
+    investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -1382,12 +1395,15 @@ eng:
     letter: "Letter" #?
     letterable: "Letterable"
     liabilities: "Liabilities" #?!
+    liabilities_gaps: "Liabilities gaps" #?!
+    liability_reserves: "Liability reserves" #?!
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
     list: "List" #?
     load: "Load"
+    loans_debts: "Loans debts" #?!
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
@@ -1400,6 +1416,7 @@ eng:
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
+    mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
@@ -1507,7 +1524,9 @@ eng:
     or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
+    other_debts: "Other debts" #?!
     other_expenses: "Other expenses" #??
+    other_financial_debts: "Other financial debts" #?!
     other_products: "Other products" #?!
     other_purchases: "Other purchases" #?!
     other_receivables: "Other receivables" #?!
@@ -1588,6 +1607,7 @@ eng:
     products_purchases: "Products purchases" #??
     products_sales: "Products sales" #??
     profile: "Profile"
+    profit_or_loss: "Fiscal year result" #?!
     profit_taxe: "Profit taxe" #??
     profits: "Profits" #?
     profits_and_losses: "Profits and losses"
@@ -1641,6 +1661,7 @@ eng:
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
     rights: "Rights"
+    risk_and_charges_provisions: "Risk and charges provisions" #?!
     role: "Role" #?
     roles: "Roles" #?
     rss: "RSS" #?
@@ -1686,12 +1707,14 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
+    social_debts: "Social debts" #?!
     social_expenses: "Social expenses" #?!
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
     state: "State"
+    state_debts: "State debts" #?!
     state_receivables: "State receivables" #?!
     statistics: "Statistics" #?
     stewardship: "Stewardship"
@@ -1719,6 +1742,7 @@ eng:
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier" #?
     supplier_informations: "Supplier informations"
+    supplier_receivables: "Supplier receivables" #?!
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
