@@ -3824,8 +3824,9 @@ CREATE TABLE loans (
     insurance_repayment_method character varying,
     loan_account_id integer,
     interest_account_id integer,
-    adi_account_id integer,
-    deposit_account_id integer
+    insurance_account_id integer,
+    bank_guarantee_account_id integer,
+    state character varying
 );
 
 
@@ -16947,15 +16948,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170307103213');
 
 INSERT INTO schema_migrations (version) VALUES ('20170307171442');
 
-INSERT INTO schema_migrations (version) VALUES ('20170310090000');
-
-INSERT INTO schema_migrations (version) VALUES ('20170310101431');
-
 INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 
-<<<<<<< HEAD
-INSERT INTO schema_migrations (version) VALUES ('20170316085711');
-=======
 INSERT INTO schema_migrations (version) VALUES ('20170313090000');
->>>>>>> 72a95a1c68371d4d524e611393fb4787d0d35678
+
+INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+
+INSERT INTO schema_migrations (version) VALUES ('20170316143820');
 

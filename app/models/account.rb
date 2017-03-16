@@ -71,8 +71,8 @@ class Account < Ekylibre::Record::Base
   has_many :stocks_movement_variants,     class_name: 'ProductNatureVariant', foreign_key: :stock_movement_account_id
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
   has_many :nterests_loans,               class_name: 'Loan', foreign_key: :interest_account_id
-  has_many :adis_loans,                   class_name: 'Loan', foreign_key: :adi_account_id
-  has_many :deposits_loans,               class_name: 'Loan', foreign_key: :deposit_account_id
+  has_many :insurances_loans, class_name: 'Loan', foreign_key: :insurance_account_id
+  has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
@@ -110,9 +110,9 @@ class Account < Ekylibre::Record::Base
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
   scope :loans, -> { of_usage(:loans) }
-  scope :interests, -> { of_usage(:interests) }
-  scope :adis, -> { of_usage(:adis) }
-  scope :deposits, -> { of_usage(:deposits) }
+  scope :interests, -> { of_usages(:campaigns_interests, :long_term_loans_interests, :short_term_loans_interests) }
+  scope :insurances, -> { of_usage(:equipment_maintenance_expenses, :exploitation_risk_insurance_expenses, :infirmity_and_death_insurance_expenses) }
+  scope :bank_guarantees, -> { of_usage(:bank_guarantee) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
   scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }

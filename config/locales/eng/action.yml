@@ -1012,6 +1012,7 @@ eng:
     balance: "Balance"
     balance_of_selection: "Balance of selection"
     bank_account: "Bank account"
+    # bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
@@ -1306,6 +1307,8 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
+    # insurances: "Insurances"
+    # interests: "Interests"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
@@ -1376,6 +1379,7 @@ eng:
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
     list: "List" #?
     load: "Load"
+    # loans: "Loans"
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?

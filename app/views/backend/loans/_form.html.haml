@@ -25,13 +25,13 @@
 = field_set(:loans) do
   = f.referenced_association :loan_account, :source => :loans
 
-= field_set(:interests_loans) do
+= field_set(:interests) do
   = f.referenced_association :interest_account, :source => :interests
 
-= field_set(:adis_loans) do
-  = f.referenced_association :adi_account, :source => :adis
+= field_set(:insurances) do
+  = f.referenced_association :insurance_account, :source => :insurances
 
-= field_set(:deposit_loans) do
-  = f.referenced_association :deposit_account, :source => :deposits
+= field_set(:bank_guarantees) do
+  = f.referenced_association :bank_guarantee_account, :source => :bank_guarantees
 
 = f.attachments_field_set

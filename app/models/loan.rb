@@ -60,8 +60,8 @@ class Loan < Ekylibre::Record::Base
   belongs_to :third, foreign_key: :lender_id, class_name: 'Entity' # alias for lender
   belongs_to :loan_account,         class_name: 'Account'
   belongs_to :interest_account,     class_name: 'Account'
-  belongs_to :adi_account,          class_name: 'Account'
-  belongs_to :deposit_account,      class_name: 'Account'
+  belongs_to :insurance_account,          class_name: 'Account'
+  belongs_to :bank_guarantee_account,      class_name: 'Account'
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
