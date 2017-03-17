@@ -13,6 +13,7 @@ class UpdateFixedAssets < ActiveRecord::Migration
     add_reference :fixed_assets, :product, index: true
 
     add_column :fixed_assets, :state, :string
+    add_column :fixed_assets, :depreciation_period, :string
     add_column :fixed_assets, :accounted_at, :datetime
     add_reference :fixed_assets, :journal_entry, index: true
     add_reference :fixed_assets, :asset_account, index: true
@@ -74,8 +75,12 @@ class UpdateFixedAssets < ActiveRecord::Migration
           AND pi.fixed_asset_id IS NOT NULL
           AND a.number LIKE '2%'
         SQL
+
+        execute "INSERT INTO preferences (name, nature, string_value, created_at, updated_at, lock_version)
+                 VALUES ('default_depreciation_period', 'string', 'yearly', '#{Time.zone.now}', '#{Time.zone.now}', 0)"
       end
       r.down do
+        execute "DELETE FROM preferences WHERE preferences.name = 'default_depreciation_period'"
         execute 'UPDATE fixed_assets fa SET purchase_item_id = (SELECT pi.id FROM purchase_items pi WHERE fa.id = pi.fixed_asset_id LIMIT 1)'
         execute 'UPDATE products p SET fixed_asset_id = (SELECT fa.id FROM fixed_assets fa WHERE fa.product_id = p.id LIMIT 1)'
       end

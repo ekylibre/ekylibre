@@ -2490,6 +2490,7 @@ CREATE TABLE fixed_assets (
     custom_fields jsonb,
     product_id integer,
     state character varying,
+    depreciation_period character varying,
     accounted_at timestamp without time zone,
     journal_entry_id integer,
     asset_account_id integer
