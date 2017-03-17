@@ -87,7 +87,13 @@ module Backend
     end
 
     def depreciate_up_to
-      # use view to select date for mass depreciation on fixed asset
+      # FIXME: To do -First Thing- once I have slept some.
+      #   1 - JS on the view side (index.html.haml)
+      #   2 - Action here that does like:
+      #   ```
+      #     FixedAssetDepreciation.with_active_asset.up_to(params[:date]).update(accountable: true)
+      #     render json: OK
+      #   ```
     end
 
     # def cede
