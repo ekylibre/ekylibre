@@ -269,6 +269,20 @@ module Backend
 
       render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
     end
+    
+    def main_financial_year_selector(financial_year)
+      content_for(:heading_toolbar) do
+        financial_year_selector(financial_year)
+      end
+    end
+    
+    def financial_year_selector(financial_year_id = nil, options = {})
+      unless FinancialYear.any?
+        @current_financial_year = FinancialYear.on(Date.current)
+      end
+      current_user.current_financial_year =  @current_financial_year || FinancialYear.find_by(id: financial_year_id)
+      render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year , param_name: options[:param_name] || :current_financial_year
+    end
 
     def lights(status, html_options = {})
       if html_options.key?(:class)
