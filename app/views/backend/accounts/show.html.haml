@@ -18,7 +18,7 @@
 
   - c.cobble(:journal_entry_items) do
     = kujaku do |k|
-      - k.text :b
+      - k.text name: :b
       - k.helper :journal_period_crit, :p
       - k.helper :journal_entries_states_crit
 
@@ -46,6 +46,6 @@
 
     - content_for 'cobble_journal-entry-items_meta_toolbar'.to_sym do
       .active-list-actions
-        %input#letters-visibility{ type: :checkbox, checked: true }
+        %input#letters-visibility{ type: :checkbox, checked: false }
         %label#label-letters-visibility
           = :mask_literate_elements.tl

@@ -59,6 +59,7 @@ class SequenceManager
   end
 
   def sequence
+    @sequence &&= Sequence.find_by(id: @sequence.id)
     @sequence ||= Sequence.of(@usage)
   end
 end

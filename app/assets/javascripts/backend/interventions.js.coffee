@@ -168,10 +168,12 @@
           data: form.serialize()
           beforeSend: ->
             computing.prop 'state', 'waiting'
+            $('.form-actions .primary').attr("disabled", true)
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
+            $('.form-actions .primary').attr("disabled", null)
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')

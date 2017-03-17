@@ -1,6 +1,5 @@
 class CleanAndConstrainPreferences < ActiveRecord::Migration
   def change
-
     execute <<-SQL
       DELETE FROM preferences
       WHERE id IN (SELECT id
@@ -14,6 +13,5 @@ class CleanAndConstrainPreferences < ActiveRecord::Migration
     SQL
 
     add_index :preferences, [:user_id, :name], unique: true
-
   end
 end

@@ -1107,6 +1107,7 @@
         <page to="backend/integrations#create"/>
         <page to="backend/integrations#update"/>
         <page to="backend/integrations#destroy"/>
+        <page to="backend/integrations#check"/>
         <page to="backend/net_services#index"/>
         <page to="backend/net_services#create"/>
         <page to="backend/net_services#destroy"/>
@@ -1928,6 +1929,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="entities">
+        <page to="backend/entities#list_client_journal_entry_items"/>
+        <page to="backend/entities#list_supplier_journal_entry_items"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

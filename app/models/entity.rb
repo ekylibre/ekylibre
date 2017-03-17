@@ -139,6 +139,8 @@ class Entity < Ekylibre::Record::Base
   has_many :booked_journals, class_name: 'Journal', foreign_key: :accountant_id
   has_many :financial_years, class_name: 'FinancialYear', foreign_key: :accountant_id
   has_many :purchase_affairs, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
+  has_many :client_journal_entry_items, through: :client_account, source: :journal_entry_items
+  has_many :supplier_journal_entry_items, through: :supplier_account, source: :journal_entry_items
 
   with_options class_name: 'EntityAddress' do
     has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }
@@ -232,6 +234,10 @@ class Entity < Ekylibre::Record::Base
     #     errors.add(:last_name, :missing_title, :title => self.nature.title)
     #   end
     # end
+  end
+
+  before_save do
+    self.born_at ||= Time.new(2008, 1, 1) if of_company
   end
 
   after_save do
@@ -485,6 +491,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       other.destroy
     end
+  end
+
+  def born_on
+    born_at.to_date
   end
 
   def financial_year_with_opened_exchange?

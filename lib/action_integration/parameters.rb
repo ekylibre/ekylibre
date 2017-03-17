@@ -2,6 +2,8 @@ module ActionIntegration
   class Parameters
     attr_accessor :ivs, :ciphered
 
+    delegate :keys, :values, to: :values
+
     def initialize(ciphered, ivs)
       @ciphered = ciphered || {}
       @ivs = ivs || {}
