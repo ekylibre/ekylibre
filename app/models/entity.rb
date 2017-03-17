@@ -139,6 +139,8 @@ class Entity < Ekylibre::Record::Base
   has_many :booked_journals, class_name: 'Journal', foreign_key: :accountant_id
   has_many :financial_years, class_name: 'FinancialYear', foreign_key: :accountant_id
   has_many :purchase_affairs, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
+  has_many :client_journal_entry_items, through: :client_account, source: :journal_entry_items
+  has_many :supplier_journal_entry_items, through: :supplier_account, source: :journal_entry_items
 
   with_options class_name: 'EntityAddress' do
     has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }
