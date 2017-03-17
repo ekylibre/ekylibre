@@ -91,6 +91,7 @@ class FixedAsset < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
+  enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference[:default_depreciation_period] }
 
   # [DEPRECATIONS[
   #  - purchase_id

@@ -154,6 +154,10 @@ eng:
         none: "None"
         payment: "Payment"
     fixed_asset:
+      depreciation_period:
+        yearly: "Yearly"
+        quarterly: "Quarterly"
+        monthly: "Monthly"
       depreciation_method:
         linear: "Linear"
         none: "None"

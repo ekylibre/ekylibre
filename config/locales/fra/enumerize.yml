@@ -154,6 +154,10 @@ fra:
         none: "Aucun"
         payment: "Encaissements"
     fixed_asset:
+      depreciation_period:
+        yearly: "Annuelle"
+        quarterly: "Trimestrielle"
+        monthly: "Mensuelle"
       depreciation_method:
         linear: "Linéaire"
         none: "Aucune"

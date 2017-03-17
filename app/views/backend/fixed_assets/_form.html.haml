@@ -8,6 +8,7 @@
   = f.money :depreciable_amount
   = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
   = f.input :started_on
+  = f.input :depreciation_period, as: :radio_buttons
 
 = field_set(:simplified_linear_options) do
   = f.input :depreciation_percentage
