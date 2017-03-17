@@ -1991,6 +1991,7 @@ cmn:
       refuse: "垃圾"
       renew: "更新"
       reopen: "重开"
+      # repay: "Repay"
       reset: "重置"
       retrieve: "取回"
       run: "跑"

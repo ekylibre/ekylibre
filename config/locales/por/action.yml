@@ -1995,6 +1995,7 @@ por:
       refuse: "Recusar"
       renew: "Renovar"
       reopen: "Reabrir"
+      # repay: "Repay"
       reset: "Restabelecer"
       retrieve: "Recuperar"
       run: "Corre"

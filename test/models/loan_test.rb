@@ -41,6 +41,8 @@
 #  loan_account_id            :integer
 #  lock_version               :integer          default(0), not null
 #  name                       :string           not null
+#  ongoing_at                 :datetime
+#  repaid_at                  :datetime
 #  repayment_duration         :integer          not null
 #  repayment_method           :string           not null
 #  repayment_period           :string           not null
@@ -50,6 +52,7 @@
 #  state                      :string
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  use_bank_guarantee         :boolean
 #
 require 'test_helper'
 

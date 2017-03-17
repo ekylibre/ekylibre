@@ -2066,6 +2066,7 @@ jpn:
       refuse: "ごみ"
       renew: "更新します"
       reopen: "再び開きます"
+      # repay: "Repay"
       reset: "リセット"
       retrieve: "検索します"
       run: "ラン"

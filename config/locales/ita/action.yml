@@ -2056,6 +2056,7 @@ ita:
       refuse: "Rifiuto"
       renew: "Rinnovare"
       reopen: "Riaprire"
+      # repay: "Repay"
       reset: "Azzerare"
       retrieve: "richiamare"
       run: "Correre"

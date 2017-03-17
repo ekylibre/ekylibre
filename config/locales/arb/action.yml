@@ -2768,6 +2768,7 @@ arb:
       refuse: "رفض"
       renew: "جدد"
       reopen: "إعادة فتح"
+      # repay: "Repay"
       reset: "إعادة تعيين"
       retrieve: "استرداد"
       run: "يجري"

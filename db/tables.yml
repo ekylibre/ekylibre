@@ -4258,7 +4258,7 @@ loans:
     required: true
   bank_guarantee_account_id:
     type: integer
-    references: ''
+    references: account
   cash_id:
     type: integer
     references: cash
@@ -4279,7 +4279,7 @@ loans:
     required: true
   insurance_account_id:
     type: integer
-    references: ''
+    references: account
   insurance_percentage:
     type: decimal
     precision: 19
@@ -4311,6 +4311,10 @@ loans:
   name:
     type: string
     required: true
+  ongoing_at:
+    type: datetime
+  repaid_at:
+    type: datetime
   repayment_duration:
     type: integer
     required: true
@@ -4336,6 +4340,8 @@ loans:
   updater_id:
     type: integer
     references: user
+  use_bank_guarantee:
+    type: boolean
 manure_management_plan_zones:
   absorbed_nitrogen_at_opening:
     type: decimal

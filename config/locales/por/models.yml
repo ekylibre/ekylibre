@@ -210,6 +210,7 @@ por:
       # animal: "Animal"
       animal_group: "Grupo de animais"
       attachment: "Acessório"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "Extrato bancário"
       bank_statement_item: "Linha extrato bancário"
       bioproduct: "Produto vivo"
@@ -266,7 +267,9 @@ por:
       inspection: "granulometria do produto"
       inspection_calibration: "calibre inspecção"
       inspection_point: "verificação de classificação de produtos"
+      # insurance_account: "Insurance account"
       integration: "Integração"
+      # interest_account: "Interest account"
       intervention: "Intervenção"
       intervention_agent: "Agente de intervenção"
       intervention_doer: "Fazedor de intervenção"
@@ -293,6 +296,7 @@ por:
       listing_node: "Listagem nó"
       listing_node_item: "Listagem item do nó"
       loan: "Empréstimo"
+      # loan_account: "Loan account"
       loan_repayment: "Pagamento de empréstimo"
       manure_management_plan: "Plano de gestão de estrume"
       manure_management_plan_zone: "Zona de plano de manejo de dejetos"
@@ -1459,6 +1463,7 @@ por:
     usage_limit_nature: "Usado por tipo"
     usage_limit_on: "Usado por sobre"
     usages: "Usos"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "Use contagens"
     use_grading_calibre: "Use calibre classificação" #?
     # use_gradings: "Use gradings"
@@ -1648,6 +1653,11 @@ por:
       reflections: "Tabelas associadas"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

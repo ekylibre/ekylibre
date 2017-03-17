@@ -121,6 +121,8 @@
 #     - "backend/loan_repayments#edit"
 #     - "backend/loan_repayments#new"
 #     - "backend/loan_repayments#update"
+#     - "backend/loans#confirm"
+#     - "backend/loans#repay"
 #     - "backend/map_editors#upload"
 #     - "backend/matters#take"
 #     - "backend/notifications#destroy"

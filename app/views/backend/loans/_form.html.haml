@@ -25,6 +25,10 @@
   = f.referenced_association :loan_account, :source => :loans
   = f.referenced_association :interest_account, :source => :interests
   = f.referenced_association :insurance_account, :source => :insurances
-  = f.referenced_association :bank_guarantee_account, :source => :payment_guarantees
+
+= field_set(:bank_guarantees) do
+  = f.input :use_bank_guarantee, :show => "#bank_guarantee_account"
+  #bank_guarantee_account
+    = f.referenced_association :bank_guarantee_account, :source => :payment_guarantees
 
 = f.attachments_field_set

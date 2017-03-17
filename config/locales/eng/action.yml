@@ -441,9 +441,11 @@ eng:
       # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
+      # confirm: "Confirm loan: %{name}"
       edit: "Edit loan: %{name}"
       index: "Loans"
       new: "New loan"
+      # repay: "Repay loan: %{name}"
       show: "Loan: %{name}"
     backend/manure_management_plans:
       edit: "Edit manure management plan: %{name}"
@@ -1307,8 +1309,6 @@ eng:
     input_cost: "Input cost"
     inputs: "Inputs"
     inspections: "Inspections"
-    # insurances: "Insurances"
-    # interests: "Interests"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
@@ -1379,7 +1379,6 @@ eng:
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
     list: "List" #?
     load: "Load"
-    # loans: "Loans"
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
@@ -2233,6 +2232,7 @@ eng:
       refuse: "Refuse"
       renew: "Renew"
       reopen: "Reopen"
+      repay: "Repay"
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"

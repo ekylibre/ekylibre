@@ -210,6 +210,7 @@ jpn:
       animal: "動物"
       animal_group: "動物群"
       attachment: "アタッチメント"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "銀行取引明細書"
       bank_statement_item: "銀行取引明細書行"
       bioproduct: "リビング製品"
@@ -266,7 +267,9 @@ jpn:
       inspection: "製品のグレーディング"
       inspection_calibration: "検査口径"
       inspection_point: "製品のグレーディングチェック"
+      # insurance_account: "Insurance account"
       integration: "統合"
+      # interest_account: "Interest account"
       intervention: "介入"
       intervention_agent: "介入エージェント"
       intervention_doer: "介入行為者"
@@ -293,6 +296,7 @@ jpn:
       listing_node: "リストノード"
       listing_node_item: "リストノード項目"
       loan: "ローン"
+      # loan_account: "Loan account"
       loan_repayment: "ローン返済"
       manure_management_plan: "肥料管理計画"
       manure_management_plan_zone: "肥料管理計画ゾーン"
@@ -1459,6 +1463,7 @@ jpn:
     usage_limit_nature: "種類によって使用されます"
     usage_limit_on: "上で使用されます"
     usages: "用途"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "countingsを使用してください"
     use_grading_calibre: "グレーディング口径を使用します" #?
     use_gradings: "グレーディングを使用してください"
@@ -1648,6 +1653,11 @@ jpn:
       reflections: "関連するテーブル"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

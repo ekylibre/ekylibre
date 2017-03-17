@@ -241,6 +241,7 @@ ita:
       animal: "Animale"
       animal_group: "gruppo di animali"
       attachment: "Allegati"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "estratto conto bancario"
       bank_statement_item: "Fila estratto conto bancario"
       bioproduct: "vivere prodotto"
@@ -297,7 +298,9 @@ ita:
       inspection: "classificazione del prodotto"
       inspection_calibration: "calibro di ispezione"
       inspection_point: "controllo di classificazione del prodotto"
+      # insurance_account: "Insurance account"
       integration: "Integrazione"
+      # interest_account: "Interest account"
       intervention: "Intervento"
       intervention_agent: "agente di intervento"
       intervention_doer: "intervento agente"
@@ -324,6 +327,7 @@ ita:
       listing_node: "nodo Listing"
       listing_node_item: "Listing voce nodo"
       loan: "Prestito"
+      # loan_account: "Loan account"
       loan_repayment: "Rimborso del prestito"
       manure_management_plan: "piano di gestione del letame"
       manure_management_plan_zone: "Concimi zona di piano di gestione"
@@ -1490,6 +1494,7 @@ ita:
     usage_limit_nature: "Usato per tipo"
     usage_limit_on: "Utilizzato da su"
     usages: "usi"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "Utilizzare i conteggi"
     use_grading_calibre: "Utilizzare calibro di classificazione" #?
     use_gradings: "Utilizzare classificazioni"
@@ -1679,6 +1684,11 @@ ita:
       reflections: "tabelle associate"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

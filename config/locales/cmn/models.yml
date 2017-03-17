@@ -210,6 +210,7 @@ cmn:
       animal: "动物"
       animal_group: "动物群"
       attachment: "附件"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "银行对帐单"
       bank_statement_item: "银行对账单行"
       bioproduct: "生活产品"
@@ -266,7 +267,9 @@ cmn:
       inspection: "产品分级"
       inspection_calibration: "检验口径"
       inspection_point: "产品分级检查"
+      # insurance_account: "Insurance account"
       integration: "积分"
+      # interest_account: "Interest account"
       intervention: "介入"
       intervention_agent: "干预剂"
       intervention_doer: "干预实干家"
@@ -293,6 +296,7 @@ cmn:
       listing_node: "清单节点"
       listing_node_item: "清单节点项目"
       loan: "贷款"
+      # loan_account: "Loan account"
       loan_repayment: "偿还借款"
       manure_management_plan: "粪便管理计划"
       manure_management_plan_zone: "粪便管理计划区"
@@ -1459,6 +1463,7 @@ cmn:
     usage_limit_nature: "按类型使用"
     usage_limit_on: "通过使用"
     usages: "用法"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "使用countings"
     use_grading_calibre: "使用分级口径" #?
     use_gradings: "采用放坡"
@@ -1648,6 +1653,11 @@ cmn:
       reflections: "相关表格"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

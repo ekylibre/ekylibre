@@ -600,6 +600,7 @@ fra:
     bank_agency_code: "Code guichet"
     bank_check_number: "N°Chèque"
     bank_code: "Code banque"
+    bank_guarantee_account: "Code comptable caution"
     bank_identifier_code: "BIC"
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
@@ -1002,6 +1003,7 @@ fra:
     id: "ID"
     identification_number: "Numéro d’identification"
     identifiers: "Identifiants"
+    interest_account: "Code comptable intérêt"
     implanter_application_width: "Largeur de l'outil de semis ou de plantation"
     implanter_rows_number: "Nombre de rangs lors de l'implantation"
     implanter_working_width: "Largeur inter-rangs"
@@ -1046,6 +1048,7 @@ fra:
     inspection_points: "Les points d’inspection"
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
+    insurance_account: "Compte comptable ADI"
     insurance_percentage: "Taux d’assurance (%)"
     insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
@@ -1143,6 +1146,7 @@ fra:
     list: "Liste"
     listing: "Extraction"
     loan: "Emprunt"
+    loan_account: "Code comptable emprunt"
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
@@ -1739,6 +1743,7 @@ fra:
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
+    use_bank_guarantee: "Caution"
     use_countings: "Utiliser les comptages"
     use_gradings: "Utiliser les agréages"
     use_seasons: "Utiliser les saisonnalités"
@@ -1935,6 +1940,11 @@ fra:
       reflections: "Tables liées"
     loan:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          ongoing: "En cours"
+          repaid: "Remboursé"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
     outgoing_parcel: #?

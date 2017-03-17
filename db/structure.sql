@@ -3826,7 +3826,10 @@ CREATE TABLE loans (
     interest_account_id integer,
     insurance_account_id integer,
     bank_guarantee_account_id integer,
-    state character varying
+    state character varying,
+    ongoing_at timestamp without time zone,
+    repaid_at timestamp without time zone,
+    use_bank_guarantee boolean
 );
 
 
@@ -16955,4 +16958,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170316143820');
+
+INSERT INTO schema_migrations (version) VALUES ('20170317112841');
 

@@ -1930,13 +1930,18 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="entities">
+        <page to="backend/entities#list_client_journal_entry_items"/>
+        <page to="backend/entities#list_supplier_journal_entry_items"/>
+      </item>
       <item name="loan_repayments">
         <page to="backend/loan_repayments#edit"/>
         <page to="backend/loan_repayments#new"/>
         <page to="backend/loan_repayments#update"/>
-      <item name="entities">
-        <page to="backend/entities#list_client_journal_entry_items"/>
-        <page to="backend/entities#list_supplier_journal_entry_items"/>
+      </item>
+      <item name="loans">
+        <page to="backend/loans#confirm"/>
+        <page to="backend/loans#repay"/>
       </item>
     </group>
   </untreated-actions>

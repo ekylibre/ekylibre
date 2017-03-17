@@ -55,5 +55,17 @@ module Backend
       t.column :remaining_amount, currency: true
       t.column :journal_entry, url: true, hidden: true
     end
+
+    def confirm
+      return unless @loan = find_and_check
+      @loan.confirm
+      redirect_to action: :show, id: @loan.id
+    end
+
+    def repay
+      return unless @loan = find_and_check
+      @loan.repay
+      redirect_to action: :show, id: @loan.id
+    end
   end
 end

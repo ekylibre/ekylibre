@@ -24,27 +24,35 @@
 #
 #  accounted_at               :datetime
 #  amount                     :decimal(19, 4)   not null
+#  bank_guarantee_account_id  :integer
 #  cash_id                    :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  currency                   :string           not null
 #  custom_fields              :jsonb
 #  id                         :integer          not null, primary key
+#  insurance_account_id       :integer
 #  insurance_percentage       :decimal(19, 4)   not null
 #  insurance_repayment_method :string
+#  interest_account_id        :integer
 #  interest_percentage        :decimal(19, 4)   not null
 #  journal_entry_id           :integer
 #  lender_id                  :integer          not null
+#  loan_account_id            :integer
 #  lock_version               :integer          default(0), not null
 #  name                       :string           not null
+#  ongoing_at                 :datetime
+#  repaid_at                  :datetime
 #  repayment_duration         :integer          not null
 #  repayment_method           :string           not null
 #  repayment_period           :string           not null
 #  shift_duration             :integer          default(0), not null
 #  shift_method               :string
 #  started_on                 :date             not null
+#  state                      :string
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  use_bank_guarantee         :boolean
 #
 class Loan < Ekylibre::Record::Base
   include Attachable
@@ -60,18 +68,39 @@ class Loan < Ekylibre::Record::Base
   belongs_to :third, foreign_key: :lender_id, class_name: 'Entity' # alias for lender
   belongs_to :loan_account,         class_name: 'Account'
   belongs_to :interest_account,     class_name: 'Account'
-  belongs_to :insurance_account,          class_name: 'Account'
-  belongs_to :bank_guarantee_account,      class_name: 'Account'
+  belongs_to :insurance_account, class_name: 'Account'
+  belongs_to :bank_guarantee_account, class_name: 'Account'
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :cash, :currency, :lender, :repayment_method, :repayment_period, :third, presence: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :repayment_duration, :shift_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :state, length: { maximum: 500 }, allow_blank: true
+  validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
+
+  state_machine :state, initial: :draft do
+    state :draft
+    state :ongoing
+    state :repaid
+
+    event :confirm do
+      transition draft: :ongoing, if: :draft?
+    end
+    event :repay do
+      transition ongoing: :repaid, if: :ongoing?
+    end
+  end
+
+  before_validation(on: :create) do
+    self.state = :draft
+    self.currency ||= cash.currency if cash
+    self.shift_duration ||= 0
+  end
 
   before_validation do
     self.currency ||= cash.currency if cash
@@ -126,5 +155,33 @@ class Loan < Ekylibre::Record::Base
       end
     repayments.destroy(repayments.where.not(id: ids))
     reload
+  end
+
+  def draft?
+    state.to_sym == :draft
+  end
+
+  def ongoing?
+    state.to_sym == :ongoing
+  end
+
+  def repaid?
+    state.to_sym == :repaid
+  end
+
+  def confirm(ongoing_at = nil)
+    return false unless can_confirm?
+    reload
+    self.ongoing_at ||= ongoing_at || Time.zone.now
+    save!
+    super
+  end
+
+  def repay(repaid_at = nil)
+    return false unless can_repay?
+    reload
+    self.repaid_at ||= repaid_at || Time.zone.now
+    save!
+    super
   end
 end

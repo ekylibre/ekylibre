@@ -1989,6 +1989,7 @@ deu:
       refuse: "Sich weigern"
       renew: "Erneuern"
       reopen: "Wieder öffnen"
+      # repay: "Repay"
       reset: "zurückstellen"
       retrieve: "Abrufen"
       run: "Lauf"
