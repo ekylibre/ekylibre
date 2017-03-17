@@ -227,10 +227,14 @@ class FixedAsset < Ekylibre::Record::Base
     starts = [started_on, self.stopped_on + 1]
     starts += depreciations.pluck(:started_on)
 
+    FinancialYear.ensure_exists_at!(self.stopped_on)
+    FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
+      start = financial_year.started_on
+      starts << start if started_on <= start && start <= self.stopped_on
+    end
+
     first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
     new_months = (started_on...stopped_on).select(&first_day_of_month)
-
-    FinancialYear.ensure_exists_at!(self.stopped_on)
 
     case depreciation_period
     when /monthly/
@@ -238,12 +242,8 @@ class FixedAsset < Ekylibre::Record::Base
     when /quarterly/
       new_trimesters = new_months.select { |date| date.month.multiple_of? 3 }
       starts += new_trimesters
-    else
-      FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
-        start = financial_year.started_on
-        starts << start if started_on <= start && start <= self.stopped_on
-      end
     end
+
     starts = starts.uniq.sort
     send("depreciate_with_#{depreciation_method}_method", starts)
     self
