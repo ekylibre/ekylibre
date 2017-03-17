@@ -26,6 +26,15 @@ fr_pcga:
     exceptional_expenses: '67 687 D'
     employee_involvement: '691 D'
     profit_taxe: '695 697 699 D'
+  ratio:
+    merchandise_sales: '707 C, - 7097 D'
+    merchandise_purchases: '607 D, - 6097 C, 6037 D'
+    commercial_margin: '707 C, - 7097 D, - 607 D, 6097 C, - 6037 D'
+    production_sales: '70 C, !707 !7097, 71 72 73 C'
+    production_purchases: '601 602 D, - 603 C, 604 605 606 607 608 609 61 62 D'
+    added_value: '707 C, - 7097 D, - 607 D, 6097 C, - 6037 D, 70 C, !707 !7097, 71 72 73 C, - 601 602 D, 603 C, - 604 605 606 607 608 609 61 62 D'
+    taxes_and_wages: '63 64 D'
+    operating_margin: '707 C, - 7097 D, - 607 D, 6097 C, - 6037 D, 70 C, !707 !7097, 71 72 73 C, - 601 602 D, 603 C, - 604 605 606 607 608 609 61 62 D, 74 C, - 63 64 D'
   balance_sheet:
     unsubcribed_capital: '109'
     incorporeal_assets: '20 237'
@@ -101,6 +110,15 @@ fr_pcg82:
     exceptional_expenses: '67 687 D'
     employee_involvement: '691 D'
     profit_taxe: '695 697 699 D'
+  ratio:
+    merchandise_sales: '707 C, - 7097 D'
+    merchandise_purchases: '607 D, - 6097 C, 6037 D'
+    commercial_margin: '707 C, - 7097 D, - 607 D, 6097 C, - 6037 D'
+    production_sales: '70 C, !707 !7097, 71 72 73 C'
+    production_purchases: '601 602 D, - 603 C, 604 605 606 607 608 609 61 62 D'
+    added_value: '707 C, - 7097 D, - 607 D, 6097 C, - 6037 D, 70 C, !707 !7097, 71 72 73 C, - 601 602 D, 603 C, - 604 605 606 607 608 609 61 62 D'
+    taxes_and_wages: '63 64 D'
+    operating_margin: '707 C, - 7097 D, - 607 D, 6097 C, - 6037 D, 70 C, !707 !7097, 71 72 73 C, - 601 602 D, 603 C, - 604 605 606 607 608 609 61 62 D, 74 C, - 63 64 D'
   balance_sheet:
     unsubcribed_capital: '109'
     incorporeal_assets: '20'
