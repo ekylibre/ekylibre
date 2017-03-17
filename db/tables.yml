@@ -2506,10 +2506,15 @@ fixed_asset_depreciations:
     type: integer
     references: user
 fixed_assets:
+  accounted_at:
+    type: datetime
   allocation_account_id:
     type: integer
     references: account
     required: true
+  asset_account_id:
+    type: integer
+    references: ''
   ceded:
     type: boolean
   ceded_on:
@@ -2554,6 +2559,9 @@ fixed_assets:
   id:
     type: integer
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   journal_id:
     type: integer
     references: journal
@@ -2567,6 +2575,9 @@ fixed_assets:
   number:
     type: string
     required: true
+  product_id:
+    type: integer
+    references: product
   purchase_amount:
     type: decimal
     precision: 19
@@ -2588,6 +2599,8 @@ fixed_assets:
   started_on:
     type: date
     required: true
+  state:
+    type: string
   stopped_on:
     type: date
     required: true
@@ -6230,10 +6243,16 @@ purchase_items:
   currency:
     type: string
     required: true
+  depreciable_product_id:
+    type: integer
+    references: ''
   fixed:
     type: boolean
     required: true
     default: false
+  fixed_asset_id:
+    type: integer
+    references: fixed_asset
   id:
     type: integer
     required: true

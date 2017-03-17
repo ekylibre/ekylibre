@@ -127,9 +127,11 @@ class Loan < Ekylibre::Record::Base
     true
   end
 
-  def generate_repayments
+  def generate_repayments(started_on: nil)
     period = repayment_period_month? ? 12 : 1
     length = repayment_period_month? ? :month : :year
+    self.started_on ||= started_on
+    
     ids = []
     Calculus::Loan
       .new(

@@ -1261,6 +1261,7 @@ eng:
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
+    generate_repayments: "Generate repayments"
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
@@ -1813,6 +1814,7 @@ eng:
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     up: "Up" #?
+    up_to: "Up to"
     update: "Update"
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"

@@ -67,5 +67,10 @@ module Backend
       @loan.repay
       redirect_to action: :show, id: @loan.id
     end
+
+    def generate_repayments
+      return unless @loan = find_and_check
+      @loan.generate_repayments(params[:started_on]) 
+    end
   end
 end

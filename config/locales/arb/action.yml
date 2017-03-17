@@ -1414,6 +1414,7 @@ arb:
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
     generate_parcel: "تولد لا يتجزأ"
+    # generate_repayments: "Generate repayments"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     global_preferences: "تفضيلات العالمية"
@@ -2241,6 +2242,7 @@ arb:
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?
     up: "يرتفع"
+    # up_to: "Up to"
     update: "تعديل"
     update_params: "تعديل البحث" #?
     # updated_at_by: "Updated at %{at} by %{author}"

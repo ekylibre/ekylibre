@@ -1294,6 +1294,7 @@ fra:
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Générer bon de préparation"
+    generate_repayments: "Générer les remboursements"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     global_preferences: "Préférences générales"
@@ -2146,6 +2147,7 @@ fra:
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
     up: "Monter"
+    up_to: "Jusqu'au"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
     updated_at_by: "Mis à jour le %{at} par %{author}"

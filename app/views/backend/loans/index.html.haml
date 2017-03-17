@@ -5,4 +5,14 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
 
+  %span.depreciation-trigger.btn-group
+    - if reading_ltr?
+      %button#generate_repayments_up_to.btn.btn-default= :generate_repayments.tl
+      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
+      %input#generate_repayments_period{ type: 'date' }
+    - else
+      %input#generate_repayments_period{ type: 'date' }
+      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
+      %button#generate_repayments_up_to.btn.btn-default= :generate_repayments.tl
+
 = main_list

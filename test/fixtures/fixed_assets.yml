@@ -22,7 +22,9 @@
 #
 # == Table: fixed_assets
 #
+#  accounted_at            :datetime
 #  allocation_account_id   :integer          not null
+#  asset_account_id        :integer
 #  ceded                   :boolean
 #  ceded_on                :date
 #  created_at              :datetime         not null
@@ -37,10 +39,12 @@
 #  description             :text
 #  expenses_account_id     :integer
 #  id                      :integer          not null, primary key
+#  journal_entry_id        :integer
 #  journal_id              :integer          not null
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
 #  number                  :string           not null
+#  product_id              :integer
 #  purchase_amount         :decimal(19, 4)
 #  purchase_id             :integer
 #  purchase_item_id        :integer
@@ -48,6 +52,7 @@
 #  sale_id                 :integer
 #  sale_item_id            :integer
 #  started_on              :date             not null
+#  state                   :string
 #  stopped_on              :date             not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
