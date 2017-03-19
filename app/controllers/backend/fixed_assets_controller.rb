@@ -87,13 +87,23 @@ module Backend
     end
 
     def depreciate_up_to
-      # FIXME: To do -First Thing- once I have slept some.
-      #   1 - JS on the view side (index.html.haml)
-      #   2 - Action here that does like:
-      #   ```
-      #     FixedAssetDepreciation.with_active_asset.up_to(params[:date]).update(accountable: true)
-      #     render json: OK
-      #   ```
+      begin
+        date = Date.parse(params[:'depreciation-date'])
+      rescue
+        notify_error(:error_while_depreciating)
+        return redirect_to(params[:redirect] || { action: :index })
+      end
+
+      depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
+      success = true
+      depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
+      unless success
+        byebug
+        notify_error(:error_while_depreciating)
+      else
+        notify_success(:depreciation_successful)
+      end
+      redirect_to(params[:redirect] || { action: :index })
     end
 
     # def cede
