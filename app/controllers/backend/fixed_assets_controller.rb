@@ -96,12 +96,14 @@ module Backend
 
       depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
       success = true
+
+      # trusting the bookkeep to take care of the accounting
       depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
-      unless success
-        byebug
-        notify_error(:error_while_depreciating)
-      else
+
+      if success
         notify_success(:depreciation_successful)
+      else
+        notify_error(:error_while_depreciating)
       end
       redirect_to(params[:redirect] || { action: :index })
     end
