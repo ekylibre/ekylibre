@@ -469,11 +469,14 @@ Rails.application.routes.draw do
     resources :exports, only: [:index, :show]
 
     resources :fixed_assets, concerns: [:list, :unroll], path: 'fixed-assets' do
+      collection do
+        get :depreciate_up_to
+      end
+
       member do
         # get :cede
         # get :sell
         post :depreciate
-        get :depreciate_up_to
         get :list_depreciations
         get :list_products
         post :start_up
