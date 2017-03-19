@@ -58,6 +58,8 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   validates :financial_year, presence: true
   delegate :currency, to: :fixed_asset
 
+  scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
+
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
   bookkeep do |b|
