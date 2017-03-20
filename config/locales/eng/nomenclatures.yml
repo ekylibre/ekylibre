@@ -466,6 +466,7 @@ eng:
         subcontracting_expenses: "Subcontracting expenses"
         subsidies: "Subsidies"
         subsidy_to_receive: "Subsidy to receive"
+        sundry_debtors_and_creditors: "Sundry debtors and creditors"
         suppliers: "Suppliers"
         suppliers_balance_after_compensation: "Suppliers balance after compensation"
         suppliers_invoices_not_received: "Suppliers invoices not received"

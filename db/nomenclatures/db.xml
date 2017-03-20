@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170222113119">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170320144338">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -471,6 +471,7 @@
       <item name="subcontracting_expenses" fr_pcg82="611"/>
       <item name="subsidies" fr_pcga="745"/>
       <item name="subsidy_to_receive" fr_pcg82="441"/>
+      <item name="sundry_debtors_and_creditors" fr_pcga="467" pt_snc="278"/>
       <item name="suppliers" fr_pcg82="401" pt_snc="221"/>
       <item name="suppliers_balance_after_compensation" fr_pcg82="402"/>
       <item name="suppliers_invoices_not_received" fr_pcg82="408" pt_snc="225"/>

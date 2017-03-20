@@ -466,6 +466,7 @@ deu:
         subcontracting_expenses: "Subcontracting Kosten"
         subsidies: "Subventionen"
         subsidy_to_receive: "Zuschuss erhalten"
+        # sundry_debtors_and_creditors: "Sundry debtors and creditors"
         suppliers: "Lieferanten"
         suppliers_balance_after_compensation: "Lieferanten Gleichgewicht nach der Kompensation"
         suppliers_invoices_not_received: "Lieferanten Rechnungen nicht empfangen"

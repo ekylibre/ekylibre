@@ -466,6 +466,7 @@ spa:
         subcontracting_expenses: "Los gastos de subcontratación"
         subsidies: "Subsidios"
         subsidy_to_receive: "Subvención para recibir"
+        # sundry_debtors_and_creditors: "Sundry debtors and creditors"
         suppliers: "Proveedores"
         suppliers_balance_after_compensation: "Proveedores equilibrio después de la compensación"
         suppliers_invoices_not_received: "Proveedores facturas no recibidas"

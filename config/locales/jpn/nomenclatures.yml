@@ -466,6 +466,7 @@ jpn:
         subcontracting_expenses: "外注費"
         subsidies: "補助金"
         subsidy_to_receive: "受信するための補助金"
+        # sundry_debtors_and_creditors: "Sundry debtors and creditors"
         suppliers: "サプライヤー"
         suppliers_balance_after_compensation: "サプライヤーバランス補正後"
         suppliers_invoices_not_received: "サプライヤーの請求書は受け取っていません"
