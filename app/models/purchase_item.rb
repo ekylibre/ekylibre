@@ -188,9 +188,7 @@ class PurchaseItem < Ekylibre::Record::Base
       asset_account: variant.fixed_asset_account, # 2
       allocation_account: variant.fixed_asset_allocation_account, # 28
       expenses_account: variant.fixed_asset_expenses_account, # 68
-      product: depreciable_product,
-      purchase_item: self,
-      purchase: purchase
+      product: depreciable_product
     }
     asset_name   = parcel_items.collect(&:name).to_sentence if products.any?
     asset_name ||= name
