@@ -97,13 +97,16 @@ module Backend
       depreciations = FixedAssetDepreciation.with_active_asset.up_to(date)
       success = true
 
-      # trusting the bookkeep to take care of the accounting
-      depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
+      ActiveRecord::Base.transaction do
+        # trusting the bookkeep to take care of the accounting
+        depreciations.find_each { |dep| success &&= dep.update(accountable: true) }
+        raise ActiveRecord::Rollback unless success
+      end
 
       if success
         notify_success(:depreciation_successful)
       else
-        notify_error(:error_while_depreciating)
+        notify_error(:depreciation_failed)
       end
       redirect_to(params[:redirect] || { action: :index })
     end
