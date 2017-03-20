@@ -2404,6 +2404,8 @@ fra:
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
+      depreciation_failed: "Les immobilisations n'ont pas pu être dépréciées."
+      depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
