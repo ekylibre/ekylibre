@@ -7,12 +7,13 @@
 
   %span.depreciation-trigger.btn-group
     - if reading_ltr?
-      %button#generate_repayments_up_to.btn.btn-default= :generate_repayments.tl
+      = link_to :generate_repayments.tl, { action: :generate_repayments_up_to, generate_repayments_date: params[:'generate-repayments-date'] }, { class: 'btn btn-default js-complete-links-with-ids', id: 'generate_repayments_up_to', 'data-update-link-with': '#generate_repayments_date', 'data-complete-link-with-ids': 'loans_ids' }
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      %input#generate_repayments_period{ type: 'date' }
+      %input#generate_repayments_date{ type: 'date', value: params[:'generate-repayments-date'] }
     - else
-      %input#generate_repayments_period{ type: 'date' }
+      %input#generate_repayments_date{ type: 'date', value: params[:'generate-repayments-date'] }
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
       %button#generate_repayments_up_to.btn.btn-default= :generate_repayments.tl
+      = link_to :generate_repayments.tl, { action: :generate_repayments_up_to, generate_repayments_date: params[:'generate-repayments-date'] }, { class: 'btn btn-default', id: 'generate_repayments_up_to', 'data-update-link-with': '#generate_repayments_date', 'data-complete-link-with-ids': 'loans_ids' }
 
 = main_list
