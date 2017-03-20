@@ -1922,6 +1922,7 @@ eng:
         intervention_sheet: "Intervention sheet"
         inventory_sheet: "Inventory sheet"
         journal: "Journal"
+        # journal_entry_sheet: "Journal entry sheet"
         land_parcel_register: "Land parcel register"
         manure_management_plan: "Manure management plan"
         manure_management_plan_sheet: "Manure management plan (detail)"

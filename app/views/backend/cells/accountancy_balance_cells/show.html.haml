@@ -2,13 +2,13 @@
   :ruby
     # get accoutancy ratio in financial_year.sum_entry_items_with_mandatory_line(:ratio, :products)
     # operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
-    
-    
+
+
     production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_sales)
     production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
     added_value = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :added_value)
     operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
-    
+
   = infos do
     - if production_sales
       .big-info

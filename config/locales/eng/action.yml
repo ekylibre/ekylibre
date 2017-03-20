@@ -968,6 +968,7 @@ eng:
     add_website: "Add website"
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"
+    # added_value: "Added value"
     advance_charges: "Advance charges" #?!
     advance_giveables: "Advance giveables" #?!
     advance_products: "Advance products" #?!
@@ -1151,8 +1152,8 @@ eng:
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
-    debts: "Debts" #?
-    debts_on_assets: "Debts on assets %{financial_year}"
+    debts: "Debts" #?!
+    debts_on_assets: "Debts on assets %{financial_year}" #?!
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
     default_letter_function_title: "Dear madam, dear sir"
@@ -1403,7 +1404,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
-    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
+    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
     list: "List" #?
     load: "Load"
     loans_debts: "Loans debts" #?!
@@ -1520,8 +1521,8 @@ eng:
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
     operating_margin: "Operating margin %{financial_year}"
-    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}"
-    operating_profit: "Operating profit %{financial_year}"
+    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
+    operating_profit: "Operating profit %{financial_year}" #?!
     operations: "Operations" #?
     options: "Options"
     or: "Or"

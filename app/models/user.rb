@@ -309,7 +309,7 @@ class User < Ekylibre::Record::Base
   def current_campaign=(campaign)
     prefer!('current_campaign.id', campaign.id, :integer)
   end
-  
+
   def current_financial_year
     return nil unless default_financial_year = FinancialYear.on(Date.current)
     preference = self.preference('current_financial_year', default_financial_year, :record)
