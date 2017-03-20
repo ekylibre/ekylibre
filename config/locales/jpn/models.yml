@@ -235,6 +235,7 @@ jpn:
       custom_field: "カスタムフィールド"
       custom_field_choice: "カスタムフィールドの選択"
       dashboard: "ダッシュボード"
+      # debt_transfer: "Debt transfer"
       delivery: "配信"
       delivery_tool: "配信ツール"
       deposit: "保証金"

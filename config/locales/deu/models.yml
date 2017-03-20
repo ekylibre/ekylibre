@@ -235,6 +235,7 @@ deu:
       custom_field: "Benutzerdefinierte Feld"
       custom_field_choice: "Kundenfeld Wahl"
       dashboard: "Instrumententafel"
+      # debt_transfer: "Debt transfer"
       delivery: "Lieferung"
       delivery_tool: "Liefer Werkzeug"
       deposit: "Anzahlung"

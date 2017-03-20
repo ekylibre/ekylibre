@@ -266,6 +266,7 @@ ita:
       custom_field: "Campo personalizzato"
       custom_field_choice: "scelta di campo personalizzato"
       dashboard: "Cruscotto"
+      # debt_transfer: "Debt transfer"
       delivery: "Consegna"
       delivery_tool: "strumento di consegna"
       deposit: "deposito"

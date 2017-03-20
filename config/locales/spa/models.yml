@@ -236,6 +236,7 @@ spa:
       custom_field: "Campo personalizado"
       custom_field_choice: "Elección campo personalizado"
       dashboard: "Tablero"
+      # debt_transfer: "Debt transfer"
       delivery: "Entrega"
       delivery_tool: "Herramienta de entrega"
       deposit: "Depositar"

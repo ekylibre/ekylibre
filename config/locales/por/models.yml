@@ -235,6 +235,7 @@ por:
       custom_field: "Campo customizado"
       custom_field_choice: "Escolha campo personalizado"
       dashboard: "Painel de instrumentos"
+      # debt_transfer: "Debt transfer"
       delivery: "Entrega"
       delivery_tool: "Ferramenta de entrega"
       deposit: "Depósito"

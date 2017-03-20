@@ -235,6 +235,7 @@ cmn:
       custom_field: "自定义字段"
       custom_field_choice: "自定义字段选择"
       dashboard: "仪表盘"
+      # debt_transfer: "Debt transfer"
       delivery: "交货"
       delivery_tool: "交付工具"
       deposit: "存款"

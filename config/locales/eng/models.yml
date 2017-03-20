@@ -235,6 +235,7 @@ eng:
       custom_field: "Custom field"
       custom_field_choice: "Custom field choice"
       dashboard: "Dashboard"
+      debt_transfer: "Debt transfer"
       delivery: "Delivery"
       delivery_tool: "Delivery tool"
       deposit: "Deposit"

@@ -365,6 +365,7 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       dashboard: "Tableau de bord"
+      debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
       delivery_tool: "Outil de livraison"
       deposit: "Remise en banque"

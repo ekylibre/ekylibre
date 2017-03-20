@@ -1776,6 +1776,48 @@ dashboards:
   updater_id:
     type: integer
     references: user
+debt_transfers:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  purchase_affair_id:
+    type: integer
+    references: purchase_affair
+    required: true
+  purchase_regularization_journal_entry_id:
+    type: integer
+    references: ''
+    required: true
+  sale_affair_id:
+    type: integer
+    references: sale_affair
+    required: true
+  sale_regularization_journal_entry_id:
+    type: integer
+    references: ''
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 deliveries:
   annotation:
     type: text
