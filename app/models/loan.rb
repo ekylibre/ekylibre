@@ -119,7 +119,7 @@ class Loan < Ekylibre::Record::Base
 
   bookkeep do |b|
     existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', started_on).where(currency: [journal.currency, Preference[:currency]])
-    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any?) do |entry|
+    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any? && ongoing?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, amount, as: :loan)
@@ -131,7 +131,7 @@ class Loan < Ekylibre::Record::Base
     period = repayment_period_month? ? 12 : 1
     length = repayment_period_month? ? :month : :year
     self.started_on ||= started_on
-    
+
     ids = []
     Calculus::Loan
       .new(

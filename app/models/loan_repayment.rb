@@ -54,13 +54,17 @@ class LoanRepayment < Ekylibre::Record::Base
   # ]VALIDATORS]
   delegate :currency, :name, to: :loan
 
+  scope :accountable_repayments, lambda { |input_date|
+    where('due_on <= ?', input_date)
+  }
+
   before_validation do
     self.amount = base_amount + insurance_amount + interest_amount
   end
 
   bookkeep do |b|
     existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', due_on).where(currency: [journal.currency, Preference[:currency]])
-    b.journal_entry(journal, printed_on: due_on, if: (amount > 0 && due_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any?)) do |entry|
+    b.journal_entry(journal, printed_on: due_on, if: (accountable && amount > 0 && due_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
       entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, base_amount, as: :repayment) unless base_amount.zero?
       entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans_interests).id }, interest_amount, as: :interest) unless interest_amount.zero?
