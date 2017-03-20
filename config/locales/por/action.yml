@@ -1637,6 +1637,9 @@ por:
     x_cents:
       # one: "%{count} cent"
       # other: "%{count} cents"
+    x_client_journal_entry_items:
+      # one: "%{count} clients journal entry item"
+      # other: "%{count} clients journal entry items"
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
@@ -1749,6 +1752,9 @@ por:
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"
+    x_supplier_journal_entry_items:
+      # one: "%{count} suppliers journal entry item"
+      # other: "%{count} suppliers journal entry items"
     x_tasks:
       # one: "%{count} task"
       # other: "%{count} tasks"

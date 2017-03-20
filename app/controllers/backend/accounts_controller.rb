@@ -62,7 +62,7 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
