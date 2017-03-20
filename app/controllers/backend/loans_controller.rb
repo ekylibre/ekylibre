@@ -68,9 +68,22 @@ module Backend
       redirect_to action: :show, id: @loan.id
     end
 
-    def generate_repayments
-      return unless @loan = find_and_check
-      @loan.generate_repayments(params[:started_on]) 
+    def generate_repayments_up_to
+
+      begin  
+        date = Date.parse(params[:generate_repayments_date])
+      rescue
+        notify_error(:error_while_depreciating)
+        return redirect_to(params[:redirect] || { action: :index })
+      end
+     
+      loans_ids = JSON.parse(params[:loans_ids])
+      loans_ids.find_each do |loan_id|
+        loan = Loan.find(loan_id)
+        loan.repayments.find_each { |repayment| repayment.update(accountable: true) }
+      end
+
+      return redirect_to(params[:redirect] || { action: :index })
     end
   end
 end
