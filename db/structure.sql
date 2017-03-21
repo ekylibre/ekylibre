@@ -3771,7 +3771,8 @@ CREATE TABLE loan_repayments (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    accountable boolean DEFAULT false NOT NULL
 );
 
 
@@ -16960,4 +16961,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 INSERT INTO schema_migrations (version) VALUES ('20170316143820');
 
 INSERT INTO schema_migrations (version) VALUES ('20170317112841');
+
+INSERT INTO schema_migrations (version) VALUES ('20170320113139');
 
