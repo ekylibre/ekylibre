@@ -652,6 +652,9 @@ Rails.application.routes.draw do
       
       member do
         get :list_repayments
+      
+        post :confirm
+        post :repay
       end
     end
 
