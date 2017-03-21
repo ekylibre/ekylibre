@@ -2,7 +2,7 @@
   - k.text
   - k.helper :journal_period_crit
   - p_ids = FixedAsset.all.pluck(:product_id).compact.uniq
-  - products = Product.where(id: p_ids)
+  - products = Product.where(id: p_ids).reorder(:name)
   - if products.any?
     - k.helper do
       %label= Product.human_attribute_name(:name)

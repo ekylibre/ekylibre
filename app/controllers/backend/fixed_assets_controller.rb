@@ -32,7 +32,7 @@ module Backend
     #   :activity_id
     def self.fixed_assets_conditions
       code = ''
-      code = search_conditions(fixed_assets: [:name, :description]) + " ||= []\n"
+      code = search_conditions(fixed_assets: [:name, :number, :description]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{FixedAsset.table_name}.started_on BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -44,6 +44,10 @@ module Backend
       code << "    c << interval.second\n"
       code << "  end\n"
       code << "end\n"
+      code << "if params[:fixed_asset_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{FixedAsset.table_name}.id = ?'\n"
+      code << "  c << params[:fixed_asset_id]\n"
+      code << "end\n"
       code << "if params[:product_id].to_i > 0\n"
       code << "  c[0] += ' AND #{FixedAsset.table_name}.product_id = ?'\n"
       code << "  c << params[:product_id]\n"
@@ -52,7 +56,7 @@ module Backend
       code.c
     end
 
-    list(conditions: fixed_assets_conditions, left_joins: :products) do |t|
+    list(conditions: fixed_assets_conditions) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: true
