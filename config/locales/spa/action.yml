@@ -851,6 +851,7 @@ spa:
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
     area: "Zona"
     assessable_operations: "Operaciones imponibles (H.T)" #?
+    # asset_exists: "Asset exists"
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
     at_the_address: "En la dirección"
     attach_deal: "Añadir un acuerdo"
@@ -1046,6 +1047,7 @@ spa:
     deposit_update: "Modifiar el aposto en banco" #?
     depositable_options: "Opciones de depósito"
     deposits: "Depósitos"
+    # depreciate: "Depreciate"
     depreciation: "Depreciación"
     depreciations: "Depreciaciones"
     depreciations_inputations_expenses: "Gastos de depreciaciones inputations"
@@ -1831,6 +1833,7 @@ spa:
     unpaid_sales: "Ventas no pagadas"
     unset_reconcilable_old_third_accounts: "Viejos terceros cuentas conciliables no definidas (clientes, proveedores y abogados)"
     up: "Arriba"
+    # up_to: "Up to"
     update: "Actualizar"
     # updated_at_by: "Updated at %{at} by %{author}"
     # updated_by_ago: "Updated by %{author} %{when}"
@@ -2052,6 +2055,8 @@ spa:
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
+      # depreciation_failed: "Assets could not be depreciated."
+      # depreciation_successful: "Assets have been successfully depreciated."
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?

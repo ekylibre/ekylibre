@@ -25,6 +25,7 @@ jpn:
         stopped_on: "閉鎖の日"
       fixed_asset:
         # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
         # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "責任値"
@@ -635,6 +636,7 @@ jpn:
     depreciated_amount: "減価償却額"
     depreciation_method: "減価償却法"
     depreciation_percentage: "減価償却率"
+    # depreciation_period: "Depreciation period"
     depreciations: "減価償却"
     depth: "深さ"
     derivative_of: "のデリバティブ"

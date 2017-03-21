@@ -25,6 +25,7 @@ ita:
         stopped_on: "Data di chiusura"
       fixed_asset:
         # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
         # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
@@ -666,6 +667,7 @@ ita:
     depreciated_amount: "importo ammortizzati"
     depreciation_method: "metodo di ammortamento"
     depreciation_percentage: "percentuale di ammortamento"
+    # depreciation_period: "Depreciation period"
     depreciations: "Ammortamenti"
     depth: "Profondità"
     derivative_of: "Derivata di"

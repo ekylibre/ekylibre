@@ -36,6 +36,7 @@
 #  depreciated_amount      :decimal(19, 4)   not null
 #  depreciation_method     :string           not null
 #  depreciation_percentage :decimal(19, 4)
+#  depreciation_period     :string
 #  description             :text
 #  expenses_account_id     :integer
 #  id                      :integer          not null, primary key
@@ -206,11 +207,10 @@ class FixedAsset < Ekylibre::Record::Base
 
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   bookkeep do |b|
-    
     label = tc(:bookkeep_in_use_assets, resource: self.class.model_name.human, number: number)
     waiting_asset_account = Account.find_in_nomenclature(:outstanding_assets)
     fixed_assets_suppliers_account = Account.find_in_nomenclature(:fixed_assets_suppliers)
-    
+
     # fixed asset link to purchase item
     if purchase_items.any?
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|

@@ -25,6 +25,7 @@ eng:
         stopped_on: "Date of closure"
       fixed_asset:
         asset_account: "Fixed asset account"
+        depreciation_period: "Depreciation period"
         started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
@@ -648,6 +649,7 @@ eng:
     depreciated_amount: "Depreciated amount"
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
+    depreciation_period: "Depreciation period"
     depreciations: "Depreciations"
     depth: "Depth"
     derivative_of: "Derivative of"

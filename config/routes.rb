@@ -486,7 +486,7 @@ Rails.application.routes.draw do
         post :scrap
       end
     end
-    
+
     resources :fixed_asset_depreciations, path: 'fixed-asset-depreciations', only: [:show]
 
     resources :financial_years, concerns: [:list, :unroll], path: 'financial-years' do

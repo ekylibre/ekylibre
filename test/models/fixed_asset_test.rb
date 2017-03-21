@@ -36,6 +36,7 @@
 #  depreciated_amount      :decimal(19, 4)   not null
 #  depreciation_method     :string           not null
 #  depreciation_percentage :decimal(19, 4)
+#  depreciation_period     :string
 #  description             :text
 #  expenses_account_id     :integer
 #  id                      :integer          not null, primary key

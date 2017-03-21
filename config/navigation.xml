@@ -1942,8 +1942,15 @@
       <item name="buildings">
         <page to="backend/buildings#list_fixed_assets"/>
       </item>
+      <item name="entities">
+        <page to="backend/entities#list_client_journal_entry_items"/>
+        <page to="backend/entities#list_supplier_journal_entry_items"/>
+      </item>
       <item name="equipments">
         <page to="backend/equipments#list_fixed_assets"/>
+      </item>
+      <item name="fixed_asset_depreciations">
+        <page to="backend/fixed_asset_depreciations#show"/>
       </item>
       <item name="fixed_assets">
         <page to="backend/fixed_assets#depreciate"/>
@@ -1975,10 +1982,6 @@
       </item>
       <item name="workers">
         <page to="backend/workers#list_fixed_assets"/>
-      </item>
-      <item name="entities">
-        <page to="backend/entities#list_client_journal_entry_items"/>
-        <page to="backend/entities#list_supplier_journal_entry_items"/>
       </item>
     </group>
   </untreated-actions>

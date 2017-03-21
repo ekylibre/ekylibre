@@ -204,6 +204,7 @@ arb:
         stopped_on: "تاريخ الاغلاق"
       fixed_asset:
         # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
         # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "قيمة للمساءلة"
@@ -1371,6 +1372,7 @@ arb:
     depreciated_amount: "كمية المستهلكة"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
+    # depreciation_period: "Depreciation period"
     depreciations: "انخفاض قيمة"
     depth: "عمق"
     derivative_of: "مشتق من"

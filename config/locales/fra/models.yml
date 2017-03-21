@@ -64,6 +64,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
+        depreciation_period: "Périodicité des ammortissements"
         started_on: "Date de mise en service"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
@@ -812,6 +813,7 @@ fra:
     depreciated_amount: "Montant amorti"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
+    # depreciation_period: "Depreciation period"
     depreciations: "Amortissements"
     depth: "Profondeur"
     derivative: "Dérivé" #?

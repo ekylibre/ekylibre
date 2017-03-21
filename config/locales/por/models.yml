@@ -25,6 +25,7 @@ por:
         stopped_on: "Data de encerramento"
       fixed_asset:
         # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
         # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Valor contábil"
@@ -635,6 +636,7 @@ por:
     depreciated_amount: "Montante depreciado"
     depreciation_method: "Método de depreciação"
     depreciation_percentage: "Percentual de depreciação"
+    # depreciation_period: "Depreciation period"
     depreciations: "Depreciações"
     depth: "Profundidade"
     derivative_of: "Derivada de"

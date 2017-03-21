@@ -25,6 +25,7 @@ cmn:
         stopped_on: "关闭日期"
       fixed_asset:
         # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
         # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "问责值"
@@ -635,6 +636,7 @@ cmn:
     depreciated_amount: "折旧金额"
     depreciation_method: "折旧方法"
     depreciation_percentage: "折旧率"
+    # depreciation_period: "Depreciation period"
     depreciations: "贬值"
     depth: "深度"
     derivative_of: "衍生"

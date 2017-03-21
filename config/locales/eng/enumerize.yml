@@ -154,15 +154,15 @@ eng:
         none: "None"
         payment: "Payment"
     fixed_asset:
-      depreciation_period:
-        yearly: "Yearly"
-        quarterly: "Quarterly"
-        monthly: "Monthly"
       depreciation_method:
         linear: "Linear"
         none: "None"
         regressive: "Regressive"
         simplified_linear: "Simplified linear"
+      depreciation_period:
+        monthly: "Monthly"
+        quarterly: "Quarterly"
+        yearly: "Yearly"
     gap:
       direction:
         loss: "Loss"

@@ -25,6 +25,7 @@ spa:
         stopped_on: "Fecha de cierre"
       fixed_asset:
         # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
         # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
@@ -638,6 +639,7 @@ spa:
     depreciated_amount: "Importe amortizado"
     depreciation_method: "Método de depreciación"
     depreciation_percentage: "Porcentaje de depreciación"
+    # depreciation_period: "Depreciation period"
     depreciations: "Depreciaciones"
     depth: "Profundidad"
     derivative_of: "Derivado de"
