@@ -232,12 +232,8 @@ class Parcel < Ekylibre::Record::Base
     printed_at.to_date
   end
 
-  def content_sentence(limit = 30)
+  def content_sentence
     sentence = items.map(&:name).compact.to_sentence
-    to_keep = limit || sentence.size
-    limited = sentence[0...to_keep - 3]
-    limited << '...' unless limited == sentence
-    limited
   end
 
   def separated_stock?
