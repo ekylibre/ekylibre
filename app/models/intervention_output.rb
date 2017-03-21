@@ -32,6 +32,7 @@
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -66,6 +67,19 @@ class InterventionOutput < InterventionProductParameter
 
   after_save do
     unless destroyed?
+
+      output = product
+      output ||= variant.products.new unless output
+      output.type = variant.matching_model.name
+      output.born_at = intervention.started_at
+      output.initial_born_at = output.born_at
+      output.name = new_name unless new_name.blank?
+      output.identification_number = identification_number unless identification_number.blank?
+      # output.attributes = product_attributes
+      reading = readings.find_by(indicator_name: :shape)
+      output.initial_shape = reading.value if reading
+      output.save!
+
       if intervention.record?
         output = product
         output ||= variant.products.new unless output

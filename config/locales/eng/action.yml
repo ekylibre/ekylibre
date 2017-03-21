@@ -80,6 +80,7 @@ eng:
       index: "Animals"
       # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
+      # matching_interventions: "Matching interventions animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
@@ -352,6 +353,7 @@ eng:
       new: "New product grading"
       show: "Product grading\_: %{number}"
     backend/integrations:
+      # check: "Check integration: %{name}"
       edit: "Edit integration: %{name}"
       index: "Integrations"
       new: "Activate integration: %{name}"
@@ -1012,6 +1014,8 @@ eng:
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
+    beta: "Beta feature"
+    beta_description: "This feature is currently under development and as such its results should not be taken at face value."
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
@@ -1028,6 +1032,7 @@ eng:
     cancelation: "Cancelation"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
+    capitalised_production: "Capitalised production" #?!
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1073,6 +1078,7 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    connect: "Connect"
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
@@ -1151,6 +1157,7 @@ eng:
     deposits: "Deposits" #?
     depreciation: "Depreciation"
     depreciations: "Depreciations"
+    depreciations_inputations_expenses: "Depreciations inputations expenses" #?
     description: "Description" #?
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1175,6 +1182,7 @@ eng:
     doer_cost: "Doer cost"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
+    # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
@@ -1187,6 +1195,7 @@ eng:
     ekylibre: "www.ekylibre.org" #?
     email: "Email:" #?
     employee_informations: "Employee informations"
+    employee_involvement: "Employee involvement" #?!
     end: "to" #?
     entities: "Entities"
     entity_links: "Entity links" #?
@@ -1209,6 +1218,8 @@ eng:
     events: "Events"
     evolution: "Evolution"
     example: "Example: %{value}" #?
+    exceptional_expenses: "Exceptional expenses" #?!
+    exceptional_products: "Exceptional products" #?!
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
@@ -1226,6 +1237,8 @@ eng:
     file_to_upload: "File to upload"
     filter: "Filter" #?
     final_balance: "Final balance"
+    financial_expenses: "Financial expenses" #??
+    financial_products: "Financial products" #??
     financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
@@ -1296,6 +1309,7 @@ eng:
     interval: "Personalized Interval" #?
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
+    intervention_message_miscibility: "Mixing allowed"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
@@ -1304,6 +1318,7 @@ eng:
     invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
+    inventory_variations: "Inventory variations" #?
     invitation_status: "Status" #?
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -1362,6 +1377,7 @@ eng:
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
+    losses: "Losses" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
     mails:
@@ -1383,6 +1399,8 @@ eng:
     maximal_temperature: "Maximal temperature"
     members: "Members"
     menus: "Menus"
+    merchandises_purchases: "Merchandises purchases" #?!
+    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
@@ -1475,6 +1493,9 @@ eng:
     or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
+    other_expenses: "Other expenses" #??
+    other_products: "Other products" #?!
+    other_purchases: "Other purchases" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
@@ -1485,6 +1506,7 @@ eng:
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
+    parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
@@ -1509,6 +1531,7 @@ eng:
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     phosphorus_concentration: "Phosphorus concentration" #?
+    # phyto_data: "Phyto data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -1545,13 +1568,20 @@ eng:
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
+    productions_sales: "Productions sales" #??
     products: "Products"
+    products_purchases: "Products purchases" #??
+    products_sales: "Products sales" #??
     profile: "Profile"
+    profits: "Profits" #?
     profits_and_losses: "Profits and losses"
+    profits_taxe: "Profits taxe" #?!
+    provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
+    purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity" #?
@@ -1640,6 +1670,7 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
+    social_expenses: "Social expenses" #?!
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
@@ -1665,6 +1696,7 @@ eng:
     subscription_nature: "Subscription type" #?
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
+    subsidies: "Subsidies" #?!
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
@@ -1792,6 +1824,7 @@ eng:
     vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
+    wages: "Wages" #?!
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
@@ -1807,6 +1840,9 @@ eng:
     x_cents:
       one: "%{count} cent"
       other: "%{count} cents"
+    x_client_journal_entry_items:
+      one: "%{count} clients journal entry item"
+      other: "%{count} clients journal entry items"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1919,6 +1955,10 @@ eng:
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
+    x_supplier_journal_entry_items:
+      one: "%{count} suppliers journal entry item"
+      other: "%{count} suppliers journal entry items"
+    # x_suppliers: "X suppliers"
     x_tasks:
       one: "%{count} task"
       other: "%{count} tasks"
@@ -2150,6 +2190,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"
       # models: "Models"

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -329,7 +329,8 @@ CREATE TABLE intervention_parameters (
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     variety character varying,
     derivative_of character varying,
-    dead boolean DEFAULT false NOT NULL
+    dead boolean DEFAULT false NOT NULL,
+    identification_number character varying
 );
 
 
@@ -1088,7 +1089,7 @@ ALTER SEQUENCE bank_statements_id_seq OWNED BY bank_statements.id;
 CREATE TABLE call_messages (
     id integer NOT NULL,
     status character varying,
-    headers character varying,
+    headers text,
     body text,
     type character varying,
     nature character varying NOT NULL,
@@ -2127,7 +2128,8 @@ CREATE TABLE entities (
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
     iban character varying,
-    supplier_payment_mode_id integer
+    supplier_payment_mode_id integer,
+    CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
 
@@ -4874,7 +4876,8 @@ CREATE TABLE product_movements (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    description character varying
 );
 
 
@@ -5102,7 +5105,8 @@ CREATE TABLE product_nature_variants (
     gtin character varying,
     number character varying NOT NULL,
     stock_account_id integer,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    france_maaid character varying
 );
 
 
@@ -5384,7 +5388,22 @@ CREATE TABLE products (
     initial_movement_id integer,
     custom_fields jsonb,
     team_id integer,
-    member_variant_id integer
+    member_variant_id integer,
+    birth_date_completeness character varying,
+    birth_farm_number character varying,
+    country character varying,
+    filiation_status character varying,
+    first_calving_on timestamp without time zone,
+    mother_country character varying,
+    mother_variety character varying,
+    mother_identification_number character varying,
+    father_country character varying,
+    father_variety character varying,
+    father_identification_number character varying,
+    origin_country character varying,
+    origin_identification_number character varying,
+    end_of_life_reason character varying,
+    originator_id integer
 );
 
 
@@ -6070,7 +6089,9 @@ CREATE TABLE synchronization_operations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    originator_id integer,
+    originator_type character varying
 );
 
 
@@ -13657,6 +13678,13 @@ CREATE INDEX index_preferences_on_user_id ON preferences USING btree (user_id);
 
 
 --
+-- Name: index_preferences_on_user_id_and_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_preferences_on_user_id_and_name ON preferences USING btree (user_id, name);
+
+
+--
 -- Name: index_prescriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14837,6 +14865,13 @@ CREATE INDEX index_products_on_nature_id ON products USING btree (nature_id);
 --
 
 CREATE UNIQUE INDEX index_products_on_number ON products USING btree (number);
+
+
+--
+-- Name: index_products_on_originator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_originator_id ON products USING btree (originator_id);
 
 
 --
@@ -16867,3 +16902,52 @@ INSERT INTO schema_migrations (version) VALUES ('20170207131958');
 INSERT INTO schema_migrations (version) VALUES ('20170208150219');
 
 INSERT INTO schema_migrations (version) VALUES ('20170209151943');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209191230');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209205737');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209212237');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209224614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209235705');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210132452');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210145316');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210153841');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210174219');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210175448');
+
+INSERT INTO schema_migrations (version) VALUES ('20170214130330');
+
+INSERT INTO schema_migrations (version) VALUES ('20170215155700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170215171400');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220123437');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220164259');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220171804');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220192042');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222100614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222222222');
+
+INSERT INTO schema_migrations (version) VALUES ('20170227143414');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307103213');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307171442');
+
+INSERT INTO schema_migrations (version) VALUES ('20170312183557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170313090000');
+

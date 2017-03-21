@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="herd_feeding" categories="animal_feeding" actions="animal_feeding" varieties="animal">
+    <parameters>
+      <target name="herd" filter="is animal_group and derives from animal"/>
+      <input name="animal_food" filter="is preparation and can feed(animal)">
+        <handler name="population"/>
+        <handler name="net_mass" indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
+                 if="members_count(herd) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * (PRODUCT..net_mass(kilogram) / members_count(herd))"
+                 forward="VALUE * (members_count(herd) / PRODUCT..net_mass(kilogram))"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT..net_volume(liter)"
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+        <handler name="dry_matter_mass" indicator="dry_matter_rate" unit="mass_percent"
+                 if="PRODUCT.net_mass? and PRODUCT.dry_matter_rate?"
+                 backward="POPULATION * (PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"
+                 forward="VALUE / ( PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"/>
+      </input>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="equipment" filter="can deliver(preparation)" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

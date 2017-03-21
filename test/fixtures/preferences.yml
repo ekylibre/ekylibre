@@ -4462,12 +4462,12 @@ preferences_384:
   updater_id: 1
   user_id: 1
 preferences_385:
+  boolean_value: false
   created_at: 2016-11-05 08:51:40.735006000 Z
   id: 385
   lock_version: 0
   name: demo
-  nature: string
-  string_value: boolean
+  nature: boolean
   updated_at: 2016-11-05 08:51:40.735006000 Z
 preferences_386:
   created_at: 2016-11-05 08:51:41.061458000 Z

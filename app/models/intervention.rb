@@ -249,10 +249,7 @@ class Intervention < Ekylibre::Record::Base
 
   validate do
     if procedure
-      all_known = true
-      actions.each do |action|
-        all_known = false unless procedure.has_action?(action)
-      end
+      all_known = actions.all? { |action| procedure.has_action?(action) }
       errors.add(:actions, :invalid) unless all_known
     end
     if started_at && stopped_at && stopped_at <= started_at
@@ -288,6 +285,10 @@ class Intervention < Ekylibre::Record::Base
       if target.new_variant_id
         ProductPhase.find_or_create_by(product: target.product, variant: ProductNatureVariant.find(target.new_variant_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
       end
+
+      if target.identification_number && target.product.identification_number.nil?
+        target.update_column! :identification_number, target.identification_number
+      end
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
@@ -312,9 +313,7 @@ class Intervention < Ekylibre::Record::Base
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
-
-    list = []
-    if Preference[:permanent_stock_inventory] && record?
+    b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
         stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
@@ -322,17 +321,11 @@ class Intervention < Ekylibre::Record::Base
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
-        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
-        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
+        entry.add_debit(label, debit_account, stock_amount, as: (input ? :stock_movement : :stock))
+        entry.add_credit(label, credit_account, stock_amount, as: (input ? :stock : :stock_movement))
       end
-      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
-      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
-    end
-
-    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
-      list.each do |item|
-        entry.send(*item)
-      end
+      inputs.each  { |input|  write_parameter_entry_items.call(input, true) }
+      outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
   end
 
@@ -378,6 +371,10 @@ class Intervention < Ekylibre::Record::Base
 
   def printed_at
     (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
+  end
+
+  def printed_on
+    printed_at.to_date
   end
 
   def with_undestroyable_products?

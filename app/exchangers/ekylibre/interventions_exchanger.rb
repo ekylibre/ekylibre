@@ -644,7 +644,7 @@ module Ekylibre
       end
 
       ## save
-      ::Intervention.create!(intervention.to_hash)
+      ::Intervention.create!(intervention.to_attributes)
     end
 
     def record_complex_intervention(r, targets, procedure)
@@ -729,7 +729,7 @@ module Ekylibre
         w.debug 'SOWING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
         w.debug "############################# #{Plant.count}".blue
         w.debug ''
 
@@ -811,7 +811,7 @@ module Ekylibre
         w.debug 'HARVESTING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
       else
         w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
       end

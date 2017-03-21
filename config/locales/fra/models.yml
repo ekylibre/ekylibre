@@ -609,6 +609,8 @@ fra:
     base_amount: "Montant de base"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
+    birth_date_completeness: "Complétude de la date de naissance"
+    birth_farm_number: "Numéro de la ferme de naissance"
     body: "Corps"
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
@@ -851,6 +853,7 @@ fra:
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
     end_junction: "Jonction finale" #?
+    end_of_life_reason: "Raison de fin de vie"
     end_way: "Voie finale" #?
     enjoyer: "Usufruitier"
     enjoyments: "Usufruits"
@@ -862,6 +865,8 @@ fra:
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
     entry_number: "N° Écriture"
+    entry_on: "Entrée le"
+    entry_reason: "Raison de l'entrée"
     establishment: "Établissement" #?
     # euid: "EUID"
     event: "Évènement"
@@ -871,6 +876,8 @@ fra:
     exclusive: "Exclusif" #?
     execution_number: "N° d’exécution"
     executor: "Exécutant"
+    exit_on: "Sortie le"
+    exit_reason: "Raison de la sortie"
     expected_population: "Population attendue"
     expected_shape: "Forme attendue"
     expected_stop_amount: "Montant final attendu"
@@ -892,6 +899,9 @@ fra:
     farm_name: "Nom de la ferme"
     farmer: "Exploitant"
     father: "Père"
+    father_country: "Pays du père"
+    father_identification_number: "Numéro d'identification du père"
+    father_variety: "Variété du père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
@@ -903,6 +913,7 @@ fra:
     file_fingerprint: "Empreinte du fichier"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
+    filiation_status: "Statut de la filiation"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -910,6 +921,7 @@ fra:
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
     finished_at: "Terminé à"
+    first_calving_on: "Premier vêlage le"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -934,8 +946,7 @@ fra:
     following: "Suivant"
     # format: "Format"
     formats: "Formats"
-    fourth_producer: "Quatrième producteur" #?
-    fourth_producer_way: "Voie du quatrième producteur" #?
+    france_maaid: "N° AMM"
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?
     frozen_indicators_list: "Liste des indicateurs fixes"
@@ -1157,7 +1168,7 @@ fra:
     mail_postal_zone: "Zone postale"
     mails: "Courriels"
     main: "Principal"
-    # main_account: "Main account"
+    main_account: "Compte principal"
     main_activity: "Activité principale"
     main_crop_code: "Code de la culture principale"
     main_crop_commercialisation: "Commercialisation"
@@ -1176,6 +1187,7 @@ fra:
     marketable_quantity: "Quantité commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
+    max_inputs_count: "Nombre maximum d'applications"
     max_zoom: "Zoom maximal"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
@@ -1214,6 +1226,9 @@ fra:
     mode_delta: "Delta Mode"
     model_euid: "Modèle"
     mother: "Mère"
+    mother_country: "Pays de la mère"
+    mother_identification_number: "Numéro d'identification de la mère"
+    mother_variety: "Variété de la mère"
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Se déplace"
@@ -1264,6 +1279,8 @@ fra:
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
     origin: "Origine"
+    origin_country: "Pays d'origine"
+    origin_identification_number: "Numéro d'identification d'origine"
     originator: "Initiateur"
     originator_type: "Type de l’initiateur"
     outcoming_product: "Produit outcoming"
@@ -1339,6 +1356,7 @@ fra:
     postal_code: "Code postal"
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
+    pre_harvest_interval: "DAR"
     preferences: "Préférences"
     prepared_at: "Préparé le"
     prereduction_amount: "Montant TTC avant réduction" #?
@@ -1695,7 +1713,7 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
     trouble_description: "Description du problème"
-    trouble_encountered: "Probléme durant l'intervention"
+    trouble_encountered: "Problème durant l'intervention"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
@@ -1714,6 +1732,7 @@ fra:
     unpaid_sales: "Ventes impayées"
     unpointed_journal_entry_items: "Articles d’entrée de journal jointoyées"
     unread_notifications: "Notifications non lus"
+    untreated_zone_margin: "IZNT"
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"

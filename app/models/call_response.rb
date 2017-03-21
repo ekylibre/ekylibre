@@ -27,7 +27,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  format       :string
-#  headers      :string
+#  headers      :text
 #  id           :integer          not null, primary key
 #  ip_address   :string
 #  lock_version :integer          default(0), not null
@@ -100,7 +100,7 @@ class CallResponse < CallMessage
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
-      format: response.headers['content-type'].split(';').first,
+      format: response.headers['Content-Type'].split(';').first,
       request: request
     )
     r.save!

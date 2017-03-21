@@ -186,6 +186,8 @@ class JournalEntry < Ekylibre::Record::Base
       self.real_currency_rate = 1
     end
 
+    items.to_a.each(&:compute)
+
     self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.real_debit  || 0) }
     self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.real_credit || 0) }
     self.real_balance = real_debit - real_credit
@@ -262,7 +264,15 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   after_save do
-    JournalEntryItem.where(entry_id: id).update_all(state: self.state, journal_id: journal_id, financial_year_id: financial_year_id, printed_on: printed_on, entry_number: self.number, real_currency: real_currency, real_currency_rate: real_currency_rate)
+    JournalEntryItem.where(entry_id: id).update_all(
+      state: self.state,
+      journal_id: journal_id,
+      financial_year_id: financial_year_id,
+      printed_on: printed_on,
+      entry_number: self.number,
+      real_currency: real_currency,
+      real_currency_rate: real_currency_rate
+    )
     regularizations.each(&:save)
   end
 
@@ -309,12 +319,15 @@ class JournalEntry < Ekylibre::Record::Base
     bank_statements.first.number if bank_statements.first
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country_code
-    resource.third && resource.third.country
+    resource && resource.respond_to?(:third) &&
+      resource.third && resource.third.country
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country
-    resource.third && resource.third.country && resource.third.country.l
+    entity_country_code && resource.third.country.l
   end
 
   # determines if the entry is balanced or not.
@@ -342,6 +355,7 @@ class JournalEntry < Ekylibre::Record::Base
   # Add a entry which cancel the entry
   # Create counter-entry_items
   def cancel
+    return nil unless useful_items.any?
     ActiveRecord::Base.transaction do
       reconcilable_accounts = []
       list = []

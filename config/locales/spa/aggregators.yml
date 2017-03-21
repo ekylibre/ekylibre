@@ -9,23 +9,23 @@ spa:
     born_at: "Nacido en"
     breeding_number: "Número de cría"
     campaigns: "Campañas"
-    capitalised_production: "La producción capitalizada"
+    capitalised_production: "La producción capitalizada" #?
     company: "Empresa"
     container_name: "Nombre de contenedor"
     current_result_before_taxes: "Resultado actual antes de impuestos"
-    depreciations_inputations_expenses: "Gastos de depreciaciones inputations"
+    depreciations_inputations_expenses: "Gastos de depreciaciones inputations" #?
     doer_cost: "Costo hacedor"
     doer_name: "Nombre del hacedor"
     doers_name: "Nombre hacedores"
     duration_in_hour: "Duración en horas"
     ede_cattling_number: "Número cattling Ede"
     ede_owner_number: "Número propietario Ede"
-    employee_involvement: "Participación de los empleados"
+    employee_involvement: "Participación de los empleados" #?
     enterprise: "Empresa"
     entity_name: "Nombre de la entidad"
-    exceptional_expenses: "Gastos de carácter excepcional"
+    exceptional_expenses: "Gastos de carácter excepcional" #?
     exceptional_expenses_total: "Gastos de carácter excepcional en total"
-    exceptional_products: "Productos excepcionales"
+    exceptional_products: "Productos excepcionales" #?
     exceptional_products_total: "Productos excepcionales en total"
     exceptional_result: "Resultados extraordinarios"
     expenses_total: "Los gastos totales"
@@ -33,9 +33,9 @@ spa:
     exploitation_products_total: "Productos de explotación totalizan"
     exploitation_result: "Resultado de la explotación"
     family: "Familia"
-    financial_expenses: "Gastos financieros"
+    financial_expenses: "Gastos financieros" #?
     financial_expenses_total: "Los gastos financieros totales"
-    financial_products: "Productos financieros"
+    financial_products: "Productos financieros" #?
     financial_products_total: "Productos financieros totales"
     financial_result: "Resultado financiero"
     financial_year_name: "Nombre del ejercicio"
@@ -47,7 +47,7 @@ spa:
     implanted_at: "Implantado en"
     intervention_durations: "Duraciones de intervención"
     loss_balance: "Pérdida de equilibrio"
-    losses: "Pérdidas"
+    losses: "Pérdidas" #?
     meat_saleable_on: "Carne en vendible"
     meat_withdrawal_period: "Tiempo de espera de la carne"
     milk_saleable_on: "Leche en vendible"
@@ -58,9 +58,9 @@ spa:
     net_surface_area: "Área de superficie Net"
     number: "Número"
     observed_at: "Observado a las"
-    other_expenses: "Otros gastos"
-    other_products: "Otros productos"
-    other_purchases: "Otras compras"
+    other_expenses: "Otros gastos" #?
+    other_products: "Otros productos" #?
+    other_purchases: "Otras compras" #?
     owner_name: "Nombre del dueño"
     payment_ratio: "Ratio de pago"
     pictogram: "Pictograma"
@@ -71,28 +71,28 @@ spa:
     printed_on: "Impreso en"
     product_account_label: "Etiqueta de la cuenta del producto"
     production_support: "Soporte de producción"
-    productions_sales: "Producciones ventas"
-    products_purchases: "Compras de productos"
-    products_sales: "Las ventas de productos"
+    productions_sales: "Producciones ventas" #?
+    products_purchases: "Compras de productos" #?
+    products_sales: "Las ventas de productos" #?
     products_total: "Total productos"
     profit_or_loss: "Ganancia o pérdida"
-    profits: "Las ganancias"
+    profits: "Las ganancias" #?
     profits_taxes: "Impuestos sobre los beneficios"
     provisional_yield: "Rendimiento provisional"
-    provisions_revenues: "Provisiones ingresos"
+    provisions_revenues: "Provisiones ingresos" #?
     quantity: "Cantidad"
-    raw_matters_purchases: "Prima importa compras"
-    raw_matters_stocks_variation: "Prima importa variación de existencias"
+    raw_matters_purchases: "Prima importa compras" #?
+    raw_matters_stocks_variation: "Prima importa variación de existencias" #?
     sex: "Sexo"
-    social_expenses: "Los gastos sociales"
+    social_expenses: "Los gastos sociales" #?
     soil_varieties: "Variedades de suelos" #?
-    stock_production: "De la producción"
-    stocks_variation: "Variación de las existencias"
-    subsidies: "Subsidios"
+    stock_production: "De la producción" #?
+    stocks_variation: "Variación de las existencias" #?
+    subsidies: "Subsidios" #?
     target_name: "Nombre del Destinatario" #?
     variable_name: "Nombre de la variable" #?
     variant_name: "Nombre variante"
     variant_variety: "Variedad variante" #?
     vine_yield: "El rendimiento de la vid"
-    wages: "Salario"
+    wages: "Salario" #?
     working_area: "Área de trabajo"

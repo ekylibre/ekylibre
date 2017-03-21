@@ -260,6 +260,7 @@ module ActionController
         # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
         unless options[:sign_in].is_a?(FalseClass)
           # Connect user
+          code << "  @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'\n"
           code << "  @user = users(:users_001)\n"
           code << "  @user.update_column(:language, @locale)\n"
           code << "  sign_in(@user)\n"

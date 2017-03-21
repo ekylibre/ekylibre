@@ -54,6 +54,20 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    animal:
+      birth_date_completeness:
+        full_date: "التاريخ الكامل"
+        month_year: "شهر سنة"
+        year: "عام"
+      end_of_life_reason:
+        calculated_date: "تاريخ تحسب"
+        cutting_up: "تقطيع"
+        death: "الموت"
+        slaughter: "ذبح"
+      filiation_status:
+        certified: "معتمد"
+        uncertified: "غير مصدق"
+        unknown: "غير معروف"
     call_message:
       nature:
         incoming: "الوارد"
@@ -242,8 +256,8 @@ arb:
         string: "خيط"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "على أساس رأس المال الأولي"
+        to_repay: "وبناء على رأس المال من اليسار إلى سداد"
       repayment_method:
         constant_amount: "مبلغ ثابت"
         constant_rate: "معدل ثابت"
@@ -322,6 +336,15 @@ arb:
       nature:
         exterior: "الخارج"
         interior: "داخلي"
+    product_movement:
+      description:
+        birth: "ولادة"
+        butchery: "مجزرة"
+        consumption: "استهلاك"
+        death: "الموت"
+        loan: "قرض"
+        purchase: "شراء"
+        sale: "تخفيض السعر"
     product_nature:
       population_counting:
         decimal: "عدد عشري"

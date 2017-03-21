@@ -1,0 +1,10 @@
+- filtering_varieties ||= []
+= t ||= ToolbarHelper::Toolbar.new(self)
+= t.menu :interventions, icon: false do |menu|
+  - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(Nomen::ActivityFamily[:animal_farming].name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each_with_index do |category, index|
+    - procedures = Procedo::Procedure.of_main_category(category.name.to_sym)
+    - procedures.select!{|p| p.has_varieties?(*filtering_varieties)} unless filtering_varieties.empty?
+    - menu.separator if index > 0 && procedures.any?
+    - procedures.select{|p| p}.sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
+      - reference_name = procedure.parameters_of_type(:target, false).first
+      - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {toggle: 'dialog', target: procedure.name, parameters: true, reference_name: reference_name.present? ? reference_name.name : '' }

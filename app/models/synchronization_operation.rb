@@ -29,6 +29,8 @@
 #  lock_version    :integer          default(0), not null
 #  notification_id :integer
 #  operation_name  :string           not null
+#  originator_id   :integer
+#  originator_type :string
 #  request         :jsonb
 #  response        :jsonb
 #  state           :string           not null
@@ -42,11 +44,18 @@ class SynchronizationOperation < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :finished_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :operation_name, :state, presence: true
+  validates :originator_type, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   has_many :calls, as: :source
   belongs_to :notification
 
   delegate :human_message, to: :notification, allow_nil: true
+
+  belongs_to :originator, polymorphic: true
+
+  has_many :targets, class_name: 'Animal', foreign_key: :originator_id, inverse_of: :originator
+
+  scope :of_product, ->(product) { joins(:originator).where('originator_id IS NOT NULL AND originator.product_id = ?', product.id) }
 
   scope :operation, lambda { |name, options = {}|
     options[:state] ||= :finished

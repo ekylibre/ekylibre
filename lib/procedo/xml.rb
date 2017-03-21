@@ -79,6 +79,11 @@ module Procedo
         options[:maintenance] = (element.attr('maintenance').to_s == 'true')
         options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
+        options[:varieties] = element.attr('varieties')
+                                     .to_s
+                                     .split(/[\s\,]+/)
+                                     .map(&:to_sym)
+
         procedure = Procedo::Procedure.new(name, options)
 
         # Adds parameters
@@ -129,6 +134,12 @@ module Procedo
         %w(compute-filter filter cardinality component-of).each do |info|
           if element.has_attribute?(info)
             locals[info.underscore.to_sym] = element.attr(info).to_s
+          end
+        end
+
+        %w(component-of display-status).each do |attribute|
+          if element.has_attribute?(attribute)
+            locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
 
