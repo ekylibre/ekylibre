@@ -28,7 +28,7 @@
     links = $(this)
     links.each ->
       link = $(this)
-      paramName = $(link).attr('data-complete-link-with-ids')  
+      paramName = $(link).attr('data-complete-link-with-ids')
       checkboxes = $('.list td input[type="checkbox"]')
 
       $(checkboxes).change ->
@@ -41,13 +41,14 @@
           idsLength = idsArray.length
           idsInLink = idsArray.substring(idsLength - 1, 2)
           ids = JSON.parse("[" + idsInLink + "]")
-          url = url.split("?#{paramName}")[0]
+          url = url.split("#{paramName}")[0]
 
         ids.push(id)
 
-        if url.indexOf('?') < 0 then url += '?' else url += '&'
+        if ids.length > 1
+          if url.indexOf('?') < 0 then url += '?' else url += '&'
+        
         url += "#{paramName}=[#{ids.join(', ')}]"
-
         link.attr('href', url)
 
 
