@@ -3823,14 +3823,15 @@ CREATE TABLE loans (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     insurance_repayment_method character varying,
-    loan_account_id integer,
-    interest_account_id integer,
-    insurance_account_id integer,
-    bank_guarantee_account_id integer,
     state character varying,
     ongoing_at timestamp without time zone,
     repaid_at timestamp without time zone,
-    use_bank_guarantee boolean
+    loan_account_id integer,
+    interest_account_id integer,
+    insurance_account_id integer,
+    use_bank_guarantee boolean,
+    bank_guarantee_account_id integer,
+    bank_guarantee_amount integer
 );
 
 
@@ -16957,10 +16958,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
-
-INSERT INTO schema_migrations (version) VALUES ('20170316143820');
-
-INSERT INTO schema_migrations (version) VALUES ('20170317112841');
 
 INSERT INTO schema_migrations (version) VALUES ('20170320113139');
 
