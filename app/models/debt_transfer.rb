@@ -42,4 +42,11 @@ class DebtTransfer < Ekylibre::Record::Base
   validates :amount, numericality: true, allow_blank: true
   validates :currency, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
+
+  belongs_to :purchase_regularization_journal_entry, class_name: 'JournalEntry'
+  belongs_to :sale_regularization_journal_entry, class_name: 'JournalEntry'
+
+  belongs_to :purchase_affair
+  belongs_to :sale_affair
+
 end

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     member do
       get :select
       post :attach
+      post :debt_transfer
       delete :detach
       delete :detach_gaps
       post :finish
