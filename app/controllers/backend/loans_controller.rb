@@ -69,21 +69,18 @@ module Backend
     end
 
     def generate_repayments_up_to
-
-      begin  
+      begin
         date = Date.parse(params[:generate_repayments_date])
       rescue
         notify_error(:error_while_depreciating)
         return redirect_to(params[:redirect] || { action: :index })
       end
-     
-      loans_ids = JSON.parse(params[:loans_ids])
-      loans_ids.find_each do |loan_id|
-        loan = Loan.find(loan_id)
-        loan.repayments.find_each { |repayment| repayment.update(accountable: true) }
-      end
 
-      return redirect_to(params[:redirect] || { action: :index })
+      loans_ids = JSON.parse(params[:loans_ids])
+      loan_repayments = LoanRepayment.accountable_repayments(loans_ids, date)
+      loan_repayments.find_each { |loan_repayment| loan_repayment.update(accountable: true) }
+
+      redirect_to(params[:redirect] || { action: :index })
     end
   end
 end
