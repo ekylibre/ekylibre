@@ -215,7 +215,7 @@
 
           - content_for 'cobble_client-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: false }
+              %input#letters-visibility{ type: :checkbox, checked: true }
               %label#label-letters-visibility
                 = :mask_literate_elements.tl
 
@@ -246,6 +246,6 @@
 
           - content_for 'cobble_supplier-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: false }
+              %input#letters-visibility{ type: :checkbox, checked: true }
               %label#label-letters-visibility
                 = :mask_literate_elements.tl
