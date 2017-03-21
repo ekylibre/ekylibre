@@ -25,7 +25,6 @@
 #  accounted_at               :datetime
 #  amount                     :decimal(19, 4)   not null
 #  bank_guarantee_account_id  :integer
-#  bank_guarantee_amount      :integer
 #  cash_id                    :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
@@ -76,7 +75,6 @@ class Loan < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :bank_guarantee_amount, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :cash, :currency, :lender, :repayment_method, :repayment_period, :third, presence: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :repayment_duration, :shift_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
@@ -85,6 +83,7 @@ class Loan < Ekylibre::Record::Base
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account_id, :interest_account_id, presence: true
+
 
   state_machine :state, initial: :draft do
     state :draft
@@ -124,7 +123,7 @@ class Loan < Ekylibre::Record::Base
     existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', started_on).where(currency: [journal.currency, Preference[:currency]])
     b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any? && ongoing?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
-
+      
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { loan_account_id }, amount, as: :loan)
 
@@ -137,8 +136,27 @@ class Loan < Ekylibre::Record::Base
   end
 
   def generate_repayments(started_on: nil)
-    period = repayment_period_month? ? 12 : 1
-    length = repayment_period_month? ? :month : :year
+    
+    period = if repayment_period_month?
+               12
+             elsif repayment_period_trimester?
+               4
+             elsif repayment_period_semester?
+               2
+             else
+               1
+             end    
+   
+    length = if repayment_period_month?
+               :month
+             elsif repayment_period_trimester?
+               :trimester
+             elsif repayment_period_semester?
+               :semester
+             else
+               :year
+             end    
+
     self.started_on ||= started_on
 
     ids = []
