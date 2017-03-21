@@ -54,8 +54,8 @@ class LoanRepayment < Ekylibre::Record::Base
   # ]VALIDATORS]
   delegate :currency, :name, to: :loan
 
-  scope :accountable_repayments, lambda { |input_date|
-    where('due_on <= ?', input_date)
+  scope :accountable_repayments, lambda { |loans_ids, input_date|
+    where('loan_id IN (?) AND accountable = FALSE AND due_on <= ?', loans_ids, input_date)
   }
 
   before_validation do
@@ -64,11 +64,11 @@ class LoanRepayment < Ekylibre::Record::Base
 
   bookkeep do |b|
     existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', due_on).where(currency: [journal.currency, Preference[:currency]])
-    b.journal_entry(journal, printed_on: due_on, if: (accountable && amount > 0 && due_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any?)) do |entry|
+    b.journal_entry(journal, printed_on: due_on, if: (accountable && amount > 0 && due_on <= Time.zone.today && existing_financial_years.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
-      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans).id }, base_amount, as: :repayment) unless base_amount.zero?
-      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:loans_interests).id }, interest_amount, as: :interest) unless interest_amount.zero?
-      entry.add_debit(label, unsuppress { Account.find_or_import_from_nomenclature(:insurance_expenses).id }, insurance_amount, as: :insurance) unless insurance_amount.zero?
+      entry.add_debit(label, unsuppress { loan.loan_account_id }, base_amount, as: :repayment)
+      entry.add_debit(label, unsuppress { loan.interest_account_id }, interest_amount, as: :interest)
+      entry.add_debit(label, unsuppress { loan.insurance_account_id }, insurance_amount, as: :insurance) unless insurance_amount.zero?
       entry.add_credit(label, cash.account_id, amount, as: :bank)
     end
     true
