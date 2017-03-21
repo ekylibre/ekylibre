@@ -605,6 +605,7 @@ fra:
     bank_check_number: "N°Chèque"
     bank_code: "Code banque"
     bank_guarantee_account: "Code comptable caution" #?
+    bank_guarantee_amount: "Montant de la caution"
     bank_identifier_code: "BIC"
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"

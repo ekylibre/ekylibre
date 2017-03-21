@@ -443,6 +443,7 @@ eng:
     backend/loans:
       # confirm: "Confirm loan: %{name}"
       edit: "Edit loan: %{name}"
+      # generate_repayments_up_to: "Generate repayments up to loan: %{name}"
       index: "Loans"
       new: "New loan"
       # repay: "Repay loan: %{name}"
@@ -1261,7 +1262,7 @@ eng:
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
-    generate_repayments: "Generate repayments"
+    generate_repayments: "Pass bookkeeping"
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
@@ -2041,6 +2042,7 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      # error_while_depreciating: "Error while depreciating"
       exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2184,6 +2186,7 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
+      # generate_repayments_up_to: "Generate repayments up to"
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

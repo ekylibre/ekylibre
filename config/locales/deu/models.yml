@@ -459,6 +459,7 @@ deu:
     bank_agency_code: "Bank Agentur Code"
     bank_check_number: "Bankscheck Nummer"
     bank_code: "Bankleitzahl"
+    # bank_guarantee_amount: "Bank guarantee amount"
     bank_identifier_code: "Bankleitzahl"
     bank_name: "Bank Name"
     bank_statement: "Kontoauszug"

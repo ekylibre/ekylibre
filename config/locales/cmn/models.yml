@@ -459,6 +459,7 @@ cmn:
     bank_agency_code: "银行机构代码。"
     bank_check_number: "银行支票号码"
     bank_code: "银行代码"
+    # bank_guarantee_amount: "Bank guarantee amount"
     bank_identifier_code: "银行识别码"
     bank_name: "银行名"
     bank_statement: "银行对帐单"

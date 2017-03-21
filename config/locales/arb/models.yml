@@ -1126,6 +1126,7 @@ arb:
     bank_agency_code: "كود كالة البنك"
     bank_check_number: "عدد شيك مصرفي"
     bank_code: "الرمز المصرفي"
+    # bank_guarantee_amount: "Bank guarantee amount"
     bank_identifier_code: "الرمز التعريفي للبنك"
     bank_journals: "دفاتر يومية مصرفية" #?
     bank_name: "اسم البنك"

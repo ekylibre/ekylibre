@@ -490,6 +490,7 @@ ita:
     bank_agency_code: "Banca codice agenzia"
     bank_check_number: "numero di assegno bancario"
     bank_code: "codice bancario"
+    # bank_guarantee_amount: "Bank guarantee amount"
     bank_identifier_code: "Bank Identifier Code"
     bank_name: "nome della banca"
     bank_statement: "estratto conto bancario"

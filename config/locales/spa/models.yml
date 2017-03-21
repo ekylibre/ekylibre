@@ -460,6 +460,7 @@ spa:
     bank_agency_code: "Código de la agencia bancaria"
     bank_check_number: "Número de cheque bancario"
     bank_code: "Codigo bancario"
+    # bank_guarantee_amount: "Bank guarantee amount"
     bank_identifier_code: "Código de identificación bancaria"
     bank_name: "Nombre del banco"
     bank_statement: "Extracto de cuenta"

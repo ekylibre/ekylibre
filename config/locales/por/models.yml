@@ -459,6 +459,7 @@ por:
     bank_agency_code: "Código da agência bancária"
     bank_check_number: "Número de cheque bancário"
     bank_code: "Código bancário"
+    # bank_guarantee_amount: "Bank guarantee amount"
     bank_identifier_code: "Código de identificação bancária"
     bank_name: "Nome do banco"
     bank_statement: "Extrato bancário"

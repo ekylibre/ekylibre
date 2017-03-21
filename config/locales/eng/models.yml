@@ -461,6 +461,7 @@ eng:
     bank_check_number: "Bank check number"
     bank_code: "Bank code"
     # bank_guarantee_account: "Bank guarantee account"
+    bank_guarantee_amount: "Bank guarantee amount"
     # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "Bank identifier code"
     bank_name: "Bank name"
