@@ -122,6 +122,7 @@
 #     - "backend/loan_repayments#new"
 #     - "backend/loan_repayments#update"
 #     - "backend/loans#confirm"
+#     - "backend/loans#generate_repayments_up_to"
 #     - "backend/loans#repay"
 #     - "backend/map_editors#upload"
 #     - "backend/matters#take"

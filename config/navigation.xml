@@ -1941,6 +1941,7 @@
       </item>
       <item name="loans">
         <page to="backend/loans#confirm"/>
+        <page to="backend/loans#generate_repayments_up_to"/>
         <page to="backend/loans#repay"/>
       </item>
     </group>
