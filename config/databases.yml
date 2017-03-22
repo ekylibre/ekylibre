@@ -1,0 +1,12 @@
+db1:
+  adapter: 'postgresql'
+  host: 127.0.0.1
+  database: "multi_db_1"
+  username: "ekylibre2"
+  password: "ekylibre"
+db2:
+  adapter: 'postgresql'
+  host: 127.0.0.1
+  database: "multi_db_2"
+  username: "ekylibre2"
+  password: "ekylibre"

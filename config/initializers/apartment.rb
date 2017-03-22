@@ -30,7 +30,9 @@ Apartment.configure do |config|
   # config.prepend_environment = false
   # config.append_environment = false
   # supply list of database names for migrations to run on
-  config.tenant_names = -> { Ekylibre::Tenant.list }
+  
+  config.with_multi_server_setup = true
+  config.tenant_names = -> { Ekylibre::Tenant.list_with_dbs }
 end
 
 module Apartment

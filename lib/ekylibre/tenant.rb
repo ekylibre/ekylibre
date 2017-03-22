@@ -51,7 +51,7 @@ module Ekylibre
 
       # Adds a tenant in config. No schema are created.
       def add(name)
-        list << name unless list.include?(name)
+        list[name] = Apartment.db_config_for(name) unless list.keys.include?(name)
         write
       end
 
@@ -168,13 +168,29 @@ module Ekylibre
 
       def list
         load! unless @list
-        @list[env] ||= []
+        @list[env] ||= {} 
+        @list.map {|env, tenant_list| [env, tenant_list.keys]}.to_h
+      end
+
+      def list_with_dbs
+        load! unless @list
+        @list[env] ||= {}
         @list[env]
       end
 
       def load!
         @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
         @list ||= {}
+
+        dbs = (File.exist?(database_file) ? YAML.load_file(database_file) : {})
+        @list.each do |env, tenant_list|
+          next @list[env] = {} if tenant_list.nil?
+          tenant_list.each do |tenant, db|
+            @list[env][tenant] = dbs[db]
+          end
+        end
+
+        @list
       end
 
       def drop_aggregation_schema!
@@ -284,6 +300,10 @@ module Ekylibre
 
       def config_file
         Rails.root.join('config', 'tenants.yml')
+      end
+
+      def database_file
+        Rails.root.join('config', 'databases.yml')
       end
 
       # Return the env
