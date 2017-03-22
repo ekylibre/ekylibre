@@ -163,8 +163,6 @@ class Loan < Ekylibre::Record::Base
                :year
              end
 
-    self.started_on ||= started_on
-
     ids = []
     Calculus::Loan
       .new(
