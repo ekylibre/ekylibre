@@ -1919,6 +1919,7 @@ eng:
         inventory_sheet: "Inventory sheet"
         journal: "Journal"
         land_parcel_register: "Land parcel register"
+        # loan_registry: "Loan registry"
         manure_management_plan: "Manure management plan"
         manure_management_plan_sheet: "Manure management plan (detail)"
         outgoing_deliveries_journal: "Outgoing deliveries journal"

@@ -74,6 +74,16 @@ module Backend
       t.column :journal_entry, url: true, hidden: true
     end
 
+    # Show a list of loans
+    def index
+      @loans = Loan.all.reorder(:started_on)
+      # passing a parameter to Jasper for company full name and id
+      @entity_of_company_full_name = Entity.of_company.full_name
+      @entity_of_company_id = Entity.of_company.id
+
+      respond_with @loans, methods: [], include: [:lender, :loan_account, :interest_account, :insurance_account, :cash, :journal_entry]
+    end
+
     def confirm
       return unless @loan = find_and_check
       @loan.confirm

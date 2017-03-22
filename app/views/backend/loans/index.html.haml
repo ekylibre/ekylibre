@@ -11,6 +11,7 @@
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
+  = t.export :loan_registry, key: Time.zone.now.to_s, resource: @loans
 
   %span.depreciation-trigger.btn-group
     - if reading_ltr?

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170222113119">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170322223101">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1934,6 +1934,7 @@
       <item name="inventory_sheet" category="exploitation"/>
       <item name="journal" category="accountancy"/>
       <item name="land_parcel_register" category="land_parcel_management"/>
+      <item name="loan_registry" category="accountancy"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
       <item name="manure_management_plan_sheet" category="land_parcel_management"/>
       <item name="outgoing_deliveries_journal" category="exploitation"/>
