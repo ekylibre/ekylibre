@@ -63,6 +63,11 @@ class LoanRepayment < Ekylibre::Record::Base
   before_validation do
     self.amount = base_amount + insurance_amount + interest_amount
   end
+  
+  # Prevents from deleting if entry exist
+  protect on: [:destroy, :update] do
+    journal_entry
+  end
 
   bookkeep do |b|
     existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', due_on).where(currency: [journal.currency, Preference[:currency]])
