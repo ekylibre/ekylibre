@@ -15,6 +15,15 @@
 
       E.accounts.changeUnmarkVisibility()
 
+    $('#letters-visibility').on 'change', (e) ->
+      $.ajax
+        url: ($('#letters-visibility').data('preference-url'))
+        type: 'PATCH'
+        data: 
+          checked: $('#letters-visibility').is(':checked')
+        success: (data, status, request) ->
+          console.log data
+
   E.accounts =
     changeUnmarkVisibility: ->
       unmarkLines = $('.active-list .unmark').closest('tr')
