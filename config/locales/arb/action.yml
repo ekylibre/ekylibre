@@ -1414,7 +1414,7 @@ arb:
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
     generate_parcel: "تولد لا يتجزأ"
-    # generate_repayments: "Generate repayments"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     global_preferences: "تفضيلات العالمية"

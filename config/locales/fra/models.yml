@@ -1945,6 +1945,7 @@ fra:
       reflections: "Tables liées"
     loan:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
+      bookkeep_guarantee_payment: "[%{resource} %{name}] Paiement de la caution"
       state_machine:
         states:
           draft: "Brouillon"

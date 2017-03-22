@@ -1108,7 +1108,7 @@ jpn:
     generate: "生成します"
     generate_last_journal_entry: "最後の仕訳を生成します"
     generate_parcel: "小包を生成します"
-    # generate_repayments: "Generate repayments"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "ジオロケーション"
     global_preferences: "グローバル環境設定"
     go: "行きます"

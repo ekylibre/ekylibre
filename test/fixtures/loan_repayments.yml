@@ -22,6 +22,7 @@
 #
 # == Table: loan_repayments
 #
+#  accountable      :boolean          default(FALSE), not null
 #  accounted_at     :datetime
 #  amount           :decimal(19, 4)   not null
 #  base_amount      :decimal(19, 4)   not null

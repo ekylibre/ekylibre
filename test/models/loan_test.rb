@@ -25,6 +25,7 @@
 #  accounted_at               :datetime
 #  amount                     :decimal(19, 4)   not null
 #  bank_guarantee_account_id  :integer
+#  bank_guarantee_amount      :integer
 #  cash_id                    :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer

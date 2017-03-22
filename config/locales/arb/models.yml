@@ -2839,6 +2839,7 @@ arb:
       reflections: "الجداول المرتبطة"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
       state_machine:
         states:
           # draft: "Draft"
