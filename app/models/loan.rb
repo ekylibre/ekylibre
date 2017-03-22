@@ -121,7 +121,7 @@ class Loan < Ekylibre::Record::Base
 
   bookkeep do |b|
     existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', started_on).where(currency: [journal.currency, Preference[:currency]])
-    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && !journal.closed_on? && existing_financial_years.any? && ongoing?) do |entry|
+    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && existing_financial_years.any? && ongoing?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
       
       entry.add_debit(label, cash.account_id, amount, as: :bank)
