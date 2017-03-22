@@ -29,6 +29,9 @@ por:
         born_at: "Criado em"
       land_parcel_group:
         born_at: "Criado em"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Dada a destinatário"
         list: "Lista de contas a pagar"

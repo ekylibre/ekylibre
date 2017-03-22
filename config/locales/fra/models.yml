@@ -90,6 +90,9 @@ fra:
         children: "Sous-îlots" #?
         identification_number: "Numéro d’îlots PAC" #?
         real_quantity: "Surface" #?
+      loan:
+        ongoing_at: "Date de déblocage des fonds"
+        started_on: "Date de la 1ère échéance"
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?

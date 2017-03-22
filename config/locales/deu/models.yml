@@ -29,6 +29,9 @@ deu:
         born_at: "Hergestellt in"
       land_parcel_group:
         born_at: "Hergestellt in"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Da an Empfänger"
         list: "Abgehende Zahlungsliste"

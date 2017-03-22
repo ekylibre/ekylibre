@@ -29,6 +29,9 @@ spa:
         born_at: "Creado en"
       land_parcel_group:
         born_at: "Creado en"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
         list: "Lista de salida de pago"

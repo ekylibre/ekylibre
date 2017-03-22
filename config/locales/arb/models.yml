@@ -261,6 +261,9 @@ arb:
         children: "عقد فرعية" #?
         created_at: "تم انشائه في" #?
         nature: "الطبيعي" #?
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       mandate: #?
         company_id: "الشركة" #?
         created_at: "تم انشائه في" #?

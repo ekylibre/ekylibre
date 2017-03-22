@@ -29,6 +29,9 @@ ita:
         born_at: "creato a"
       land_parcel_group:
         born_at: "creato a"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Dato al destinatario"
         list: "Lista pagamento in uscita"

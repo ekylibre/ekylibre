@@ -29,6 +29,9 @@ cmn:
         born_at: "创建时间"
       land_parcel_group:
         born_at: "创建时间"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "给收件人"
         list: "付款清单"

@@ -18,7 +18,7 @@ module Calculus
       array = send("compute_#{repayment_method}_repayments")
       array.last[:base_amount] += array.last[:remaining_amount]
       array.last[:remaining_amount] = 0.0
-      due_on = @started_on + 1.month
+      due_on = @started_on # why ? + 1.month
       array.each_with_index do |r, index|
         r[:due_on] = due_on
         r[:position] = index + 1

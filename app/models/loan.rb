@@ -121,17 +121,25 @@ class Loan < Ekylibre::Record::Base
   end
 
   # Prevents from deleting if entry exist
-  protect on: [:destroy, :update] do
+  protect on: :destroy do
     journal_entry && ongoing?
   end
 
   bookkeep do |b|
-    existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', started_on).where(currency: [journal.currency, Preference[:currency]])
-    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && existing_financial_years.any? && ongoing?) do |entry|
+    # when money arrive (ongoing_at)
+    # when first payment started (started_on)
+
+    ongoing_on = ongoing_at.to_date
+
+    existing_financial_year = FinancialYear.on(ongoing_on)
+
+    b.journal_entry(journal, printed_on: ongoing_on, if: ongoing_on <= Time.zone.today && existing_financial_year && ongoing?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
 
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { loan_account_id }, amount, as: :loan)
+
+      # puts entry.inspect.red
 
       if use_bank_guarantee?
         label_guarantee = tc(:bookkeep_guarantee_payment, resource: self.class.model_name.human, name: name)
@@ -139,10 +147,11 @@ class Loan < Ekylibre::Record::Base
         entry.add_credit(label_guarantee, cash.account_id, bank_guarantee_amount, as: :bank)
       end
     end
+
     true
   end
 
-  def generate_repayments(started_on: nil)
+  def generate_repayments
     period = if repayment_period_month?
                12
              elsif repayment_period_trimester?

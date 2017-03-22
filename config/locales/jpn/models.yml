@@ -29,6 +29,9 @@ jpn:
         born_at: "で作成されました"
       land_parcel_group:
         born_at: "で作成されました"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "受信者に与えられました"
         list: "支払一覧"
