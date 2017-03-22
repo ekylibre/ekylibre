@@ -169,7 +169,7 @@ class FixedAsset < Ekylibre::Record::Base
     @auto_depreciate = false
     old = self.class.find(id)
     [:depreciable_amount, :started_on, :stopped_on, :depreciation_method,
-     :depreciation_percentage, :currency].each do |attr|
+     :depreciation_period, :depreciation_percentage, :currency].each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
