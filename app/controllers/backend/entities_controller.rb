@@ -24,6 +24,7 @@ module Backend
       country: 'Preference[:country]'.c,
       active: true,
       scope: :normal,
+      #scope: :by_nature, -> (type) { where(nature: type) },
       continue: [:nature],
       t3e: { nature: 'RECORD.nature.text'.c }
     )
@@ -33,6 +34,7 @@ module Backend
     unroll fill_in: :full_name, scope: :normal
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
+
 
     # params:
     #   :q Text search
