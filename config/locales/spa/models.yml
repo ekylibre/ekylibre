@@ -1594,16 +1594,19 @@ spa:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
     fixed_asset:
-      # bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
-      # bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
-      # bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
-      # bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
       state_machine:
         states:
           # draft: "Draft"
           # in_use: "In use"
           # scrapped: "Scrapped"
           # sold: "Sold"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:

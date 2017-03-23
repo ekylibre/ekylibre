@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fixed_asset_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.8627639691774671"/>
+	<property name="ireport.zoom" value="1.156629868288596"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="875"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
 	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -89,7 +89,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="539" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="0" y="44" width="786" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
@@ -108,16 +108,17 @@
 				<reportElement x="746" y="0" width="40" height="40" uuid="67189d4d-4b8f-4f40-b8fa-66406ea6d2b3"/>
 				<imageExpression><![CDATA[new ByteArrayInputStream(new org.apache.commons.codec.binary.Base64().decodeBase64($V{bottom_img}.getBytes("UTF-8")))]]></imageExpression>
 			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="84" splitType="Stretch">
+			<textField evaluationTime="Group" evaluationGroup="campaign" pattern="yyyy" isBlankWhenNull="true">
+				<reportElement style="SubTitle" x="0" y="1" width="192" height="69" uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on})]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement style="table-th" mode="Transparent" x="279" y="349" width="238" height="70" uuid="6c3b38e3-fa18-4ce1-afca-00110dd02c2a"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Open Sans" size="10"/>
-					<paragraph leftIndent="5" spacingBefore="5"/>
-				</textElement>
-				<text><![CDATA[Status]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="base" mode="Transparent" x="295" y="371" width="56" height="37" uuid="edc9f11e-f430-4080-9bf8-bd2893724afb"/>
+				<reportElement style="base" mode="Transparent" x="716" y="22" width="56" height="37" uuid="edc9f11e-f430-4080-9bf8-bd2893724afb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
@@ -125,7 +126,7 @@
 				<text><![CDATA[Vendu / Rebut]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="base" mode="Transparent" x="374" y="371" width="49" height="37" uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276"/>
+				<reportElement style="base" mode="Transparent" x="564" y="22" width="49" height="37" uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
@@ -133,16 +134,16 @@
 				<text><![CDATA[Brouillon]]></text>
 			</staticText>
 			<rectangle radius="10">
-				<reportElement style="conditional_state" x="361" y="386" width="10" height="10" backcolor="#FFA500" uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c"/>
+				<reportElement style="conditional_state" x="551" y="37" width="10" height="10" backcolor="#FFA500" uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement style="conditional_state" positionType="FixRelativeToBottom" x="283" y="386" width="10" height="10" backcolor="#FF0000" uuid="23e8397b-4700-4711-8745-7a13f840a2b8"/>
+				<reportElement style="conditional_state" positionType="FixRelativeToBottom" x="704" y="37" width="10" height="10" backcolor="#FF0000" uuid="23e8397b-4700-4711-8745-7a13f840a2b8"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement style="conditional_state" x="437" y="386" width="10" height="10" backcolor="#33CC00" uuid="53c1eead-9594-4681-82f8-853e01b2aaec"/>
+				<reportElement style="conditional_state" x="627" y="37" width="10" height="10" backcolor="#33CC00" uuid="53c1eead-9594-4681-82f8-853e01b2aaec"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="conditional_state" mode="Transparent" x="452" y="371" width="49" height="37" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
+				<reportElement style="conditional_state" mode="Transparent" x="642" y="22" width="49" height="37" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
@@ -150,21 +151,13 @@
 				<text><![CDATA[En service]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="strong" x="-2" y="305" width="785" height="26" uuid="a9094feb-b92e-42e3-bd31-2eb03d359913"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<paragraph leftIndent="30"/>
+				<reportElement style="table-th" mode="Transparent" x="536" y="1" width="250" height="69" uuid="6c3b38e3-fa18-4ce1-afca-00110dd02c2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph leftIndent="5" spacingBefore="5"/>
 				</textElement>
-				<text><![CDATA[Légende]]></text>
+				<text><![CDATA[Status]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="84" splitType="Stretch">
-			<textField evaluationTime="Group" evaluationGroup="campaign" pattern="yyyy" isBlankWhenNull="true">
-				<reportElement style="SubTitle" x="0" y="26" width="192" height="44" uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on})]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -340,9 +333,9 @@
 				<reportElement style="conditional_state" x="2" y="3" width="15" height="15" uuid="b0f5c968-3a74-4f35-8b15-a68e8155e61b"/>
 			</rectangle>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="340" y="0" width="68" height="39" uuid="4d2ae4f7-a5eb-4535-b2f9-709d762306d6"/>
+				<reportElement x="340" y="0" width="68" height="20" uuid="4d2ae4f7-a5eb-4535-b2f9-709d762306d6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[($F{sold-on}.isEmpty() ? ($F{scrapped-on}.isEmpty() ? nil :  Date.parse("yyyy-mm-dd", $F{scrapped-on}) ) :   Date.parse("yyyy-mm-dd", $F{sold-on}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{sold-on})]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement mode="Transparent" x="340" y="0" width="68" height="39" uuid="dd3e9797-08e9-410f-8247-b1e9daa7368f"/>
@@ -350,6 +343,11 @@
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="340" y="20" width="68" height="19" uuid="8940e3d3-9af5-4066-ae20-3ac3cde956fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{scrapped-on})]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
