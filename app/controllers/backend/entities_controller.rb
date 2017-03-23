@@ -24,7 +24,6 @@ module Backend
       country: 'Preference[:country]'.c,
       active: true,
       scope: :normal,
-      #scope: :by_nature, -> (type) { where(nature: type) },
       continue: [:nature],
       t3e: { nature: 'RECORD.nature.text'.c }
     )
