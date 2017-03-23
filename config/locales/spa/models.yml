@@ -1311,6 +1311,8 @@ spa:
     sampling_temporal_mode: "El modo de muestreo temporal"
     scale: "Escala"
     scheduled: "Programado"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "Estacionalidad"
     seasons: "Estacionalidades"
     second_producer: "En segundo productor" #?
@@ -1342,6 +1344,8 @@ spa:
     size_value: "Valor de tamaño"
     soil_nature: "Tipo de suelo"
     soil_production: "La producción de suelos"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "Fuente"
     source_product: "Producto de código"
     # spaced_iban: "Spaced IBAN"
@@ -1590,7 +1594,10 @@ spa:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
     fixed_asset:
-      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      # bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
+      # bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
+      # bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
+      # bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
       state_machine:
         states:
           # draft: "Draft"

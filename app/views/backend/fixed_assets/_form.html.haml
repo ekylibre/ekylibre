@@ -16,6 +16,10 @@
 = field_set(:linear_options) do
   = f.input :stopped_on
 
+= field_set(:delay) do
+  = f.input :scrapped_on
+  = f.input :sold_on
+
 = field_set(:accountancy) do
   = f.referenced_association :journal
   = f.referenced_association :asset_account, :source => :assets

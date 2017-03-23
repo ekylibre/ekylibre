@@ -2234,6 +2234,8 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "موسمية"
     # seasons: "Seasonalities"
     second_building: "موقع تخزين الوصول" #?
@@ -2276,6 +2278,8 @@ arb:
     size_value: "قيمة حجم"
     soil_nature: "نوع التربة"
     soil_production: "إنتاج التربة"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     source_product: "مصدر المنتج"
@@ -2758,7 +2762,10 @@ arb:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
     fixed_asset:
-      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      # bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
+      # bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
+      # bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
+      # bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
       state_machine:
         states:
           # draft: "Draft"

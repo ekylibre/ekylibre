@@ -71,6 +71,8 @@ module Backend
 
     list(:depreciations, model: :fixed_asset_depreciations, conditions: { fixed_asset_id: 'params[:id]'.c }, order: :position) do |t|
       # t.action :edit, if: "RECORD.journal_entry.nil?".c
+      t.column :accountable
+      t.column :locked
       t.column :amount, currency: true
       t.column :depreciable_amount, currency: true
       t.column :depreciated_amount, currency: true
@@ -87,7 +89,7 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @fixed_assets, methods: [], include: [:asset_account, :expenses_account, :allocation_account, :product]
+      respond_with @fixed_assets, methods: [:net_book_value], include: [:asset_account, :expenses_account, :allocation_account, :product]
     end
 
     def depreciate_up_to

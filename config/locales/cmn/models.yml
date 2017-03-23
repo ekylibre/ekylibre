@@ -1307,6 +1307,8 @@ cmn:
     sampling_temporal_mode: "采样时间模式"
     scale: "规模"
     scheduled: "计划"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "季节性"
     # seasons: "Seasonalities"
     second_producer: "第二生成" #?
@@ -1338,6 +1340,8 @@ cmn:
     size_value: "大小值"
     soil_nature: "土壤类型"
     soil_production: "土壤生产"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "资源"
     source_product: "产品来源"
     spaced_iban: "间隔IBAN"
@@ -1586,7 +1590,10 @@ cmn:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
     fixed_asset:
-      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      # bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
+      # bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
+      # bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
+      # bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
       state_machine:
         states:
           # draft: "Draft"

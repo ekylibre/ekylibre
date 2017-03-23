@@ -1307,6 +1307,8 @@ deu:
     sampling_temporal_mode: "Sampling Temporalmodus"
     scale: "Rahmen"
     scheduled: "Geplant"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "Saisonalität"
     seasons: "Saisonalitäten"
     second_producer: "Zweitens Produzent" #?
@@ -1338,6 +1340,8 @@ deu:
     size_value: "Größenwert"
     soil_nature: "Bodenart"
     soil_production: "Boden Produktion"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "Quelle"
     source_product: "Source Produkt"
     # spaced_iban: "Spaced IBAN"
@@ -1585,7 +1589,10 @@ deu:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
     fixed_asset:
-      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      # bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
+      # bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
+      # bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
+      # bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
       state_machine:
         states:
           # draft: "Draft"

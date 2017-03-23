@@ -73,9 +73,9 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :expenses_account, class_name: 'Account'
   belongs_to :allocation_account, class_name: 'Account'
   belongs_to :journal, class_name: 'Journal'
-  belongs_to :journal_entry
-  belongs_to :sold_journal_entry, class_name: 'JournalEntry'
-  belongs_to :scrapped_journal_entry, class_name: 'JournalEntry'
+  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :sold_journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :scrapped_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :product
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation'
@@ -106,18 +106,18 @@ class FixedAsset < Ekylibre::Record::Base
   # ]DEPRECATIONS]
 
   state_machine :state, initial: :draft do
-    after_transition any => :sold do |fixed_asset, _transition|
-      fixed_asset.sold_on = Date.today
-      fixed_asset.save!
-    end
-    after_transition any => :scrapped do |fixed_asset, _transition|
-      fixed_asset.scrapped_on = Date.today
-      fixed_asset.save!
-    end
     state :draft
     state :in_use
     state :sold
     state :scrapped
+    after_transition any => :sold do |fixed_asset, _transition|
+      fixed_asset.sold_on ||= Date.today
+      fixed_asset.save!
+    end
+    after_transition any => :scrapped do |fixed_asset, _transition|
+      fixed_asset.scrapped_on ||= Date.today
+      fixed_asset.save!
+    end
     event :start_up do
       transition draft: :in_use
     end
@@ -228,7 +228,8 @@ class FixedAsset < Ekylibre::Record::Base
     exceptionnal_depreciations_inputations_expenses_account = Account.find_in_nomenclature(:exceptionnal_depreciations_inputations_expenses)
 
     # fixed asset link to purchase item
-    if purchase_items.any?
+    if purchase_items.any? && in_use?
+      # puts "with purchase".inspect.red
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
         amount = []
         purchase_items.each do |p_item|
@@ -240,34 +241,56 @@ class FixedAsset < Ekylibre::Record::Base
         end
         entry.add_debit(label, asset_account.id, amount.compact.sum, resource: self, as: :fixed_asset)
       end
+
     # fixed asset link to nothing
-    else
+    elsif in_use?
+      # puts "without purchase".inspect.green
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
         entry.add_credit(label, fixed_assets_suppliers_account.id, depreciable_amount)
         entry.add_debit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
       end
-    end
 
-    # fixed asset sold
-    if sold?
+    # fixed asset sold or scrapped
+    elsif sold? || scrapped?
+
+      # get last bookkeep depreciations
+      ## last_bookkeep_depreciation = depreciations.where('journal_entry_id IS NOT NULL').reorder(:position).last
+      # stop bookkeeping next depreciations
+      depreciations_to_closed = depreciations.where('position > ?', current_depreciation.position).where(journal_entry_id: nil)
+      depreciations_to_closed.update_all(accountable: false, locked: true)
+      # use amount to last bookkeep (net_book_value == current_depreciation.depreciable_amount)
+      # use amount to last bookkeep (already_depreciated_value == current_depreciation.depreciated_amount)
+      
+      # compute part time
+      out_on = sold_on || scrapped_on
+      first_period = (out_on - current_depreciation.started_on).days
+      global_period = current_depreciation.duration.days
+      ratio = (first_period / global_period).round(2) if global_period
+      ratio_for_out = (1 - ratio).round(2)
+      
+      current_depreciation_amount_ratio = current_depreciation.amount * ratio_for_out
+
+      # fixed asset sold
       label = tc(:bookkeep_in_sold_assets, resource: self.class.model_name.human, number: number)
       b.journal_entry(journal, printed_on: sold_on, as: :sold, if: sold?) do |entry|
         entry.add_credit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
-        entry.add_debit(label, fixed_assets_values_account.id, net_book_value)
-        entry.add_debit(label, allocation_account.id, already_depreciated_value)
+        entry.add_debit(label, fixed_assets_values_account.id, net_book_value + current_depreciation_amount_ratio)
+        entry.add_debit(label, allocation_account.id, already_depreciated_value - current_depreciation_amount_ratio)
       end
-    end
 
-    # fixed asset scrapped
-    if scrapped?
-      left_amount = 0
-      label = tc(:bookkeep_in_scrapped_assets, resource: self.class.model_name.human, number: number)
+      # fixed asset scrapped
+      label_1 = tc(:bookkeep_exceptionnal_scrapped_assets, resource: self.class.model_name.human, number: number)
+      label_2 = tc(:bookkeep_exit_assets, resource: self.class.model_name.human, number: number)
       b.journal_entry(journal, printed_on: scrapped_on, as: :scrapped, if: scrapped?) do |entry|
-        entry.add_debit(label, exceptionnal_depreciations_inputations_expenses_account.id, left_amount)
-        entry.add_credit(label, allocation_account.id, left_amount)
-        entry.add_debit(label, allocation_account.id, left_amount)
-        entry.add_credit(label, asset_account.id, left_amount, resource: self, as: :fixed_asset)
+        entry.add_debit(label_1, exceptionnal_depreciations_inputations_expenses_account.id, net_book_value + current_depreciation_amount_ratio)
+        entry.add_credit(label_1, allocation_account.id, net_book_value + current_depreciation_amount_ratio)
+        entry.add_debit(label_2, allocation_account.id, net_book_value + current_depreciation_amount_ratio)
+        entry.add_credit(label_2, asset_account.id, net_book_value + current_depreciation_amount_ratio, resource: self, as: :fixed_asset)
       end
+      
+      # TODO
+      # update current_depreciation with new value and bookkeep it
+      
     end
   end
 
@@ -372,9 +395,12 @@ class FixedAsset < Ekylibre::Record::Base
     !depreciations.any?
   end
 
-  # return the net book value (amount - sum(depreciations)) at current date
+  # return the current_depreciation at current date
   def current_depreciation(on = Date.today)
-    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).first
+    # get active depreciation (state  = in use)
+    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).where(locked: false).reorder(:position).last
+    # get last active depreciation (state = scrapped or sold)
+    asset_depreciation ||= depreciations.where('journal_entry_id IS NOT NULL').reorder(:position).last
     return nil unless asset_depreciation
     asset_depreciation
   end

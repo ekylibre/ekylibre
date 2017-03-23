@@ -59,15 +59,17 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   delegate :currency, to: :fixed_asset
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
-  scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on < ?', date) }
+  scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
 
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
   bookkeep do |b|
-    b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable) do |entry|
-      name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
-      entry.add_debit(name, fixed_asset.expenses_account, amount)
-      entry.add_credit(name, fixed_asset.allocation_account, amount)
+    if fixed_asset.in_use?
+      b.journal_entry(fixed_asset.journal, printed_on: stopped_on.end_of_month, if: accountable && !locked) do |entry|
+        name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)
+        entry.add_debit(name, fixed_asset.expenses_account, amount)
+        entry.add_credit(name, fixed_asset.allocation_account, amount)
+      end
     end
   end
 

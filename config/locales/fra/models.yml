@@ -1574,6 +1574,8 @@ fra:
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "Saisonnalité"
     seasons: "Saisonnalités"
     second_producer: "Second producteur" #?
@@ -1606,6 +1608,8 @@ fra:
     size_value: "Valeur Taille"
     soil_nature: "Nature du sol"
     soil_production: "Contribution en azote du sol (Po)"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "Source"
     source_product: "Produit Source"
     spaced_iban: "IBAN"
@@ -1874,6 +1878,9 @@ fra:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
     fixed_asset:
+      bookkeep_exceptionnal_scrapped_assets: "Ammortissement exceptionnel - [%{resource} %{number}]"
+      bookkeep_exit_assets: "Mise au rébut - [%{resource} %{number}]"
+      bookkeep_in_sold_assets: "Cession - [%{resource} %{number}]"
       bookkeep_in_use_assets: "Mise en service - [%{resource} %{number}]"
       state_machine:
         states:

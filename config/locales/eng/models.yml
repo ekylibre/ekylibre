@@ -1340,8 +1340,8 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
-    # scrapped_journal_entry: "Scrapped journal entry"
-    # scrapped_on: "Scrapped on"
+    scrapped_journal_entry: "Scrapped journal entry"
+    scrapped_on: "Scrapped on"
     season: "Seasonality"
     seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
@@ -1372,8 +1372,8 @@ eng:
     size_value: "Size value"
     soil_nature: "Soil type"
     soil_production: "Soil production"
-    # sold_journal_entry: "Sold journal entry"
-    # sold_on: "Sold on"
+    sold_journal_entry: "Sold journal entry"
+    sold_on: "Sold on"
     source: "Source"
     source_product: "Source product"
     # source_product_movement: "Source product movement"
@@ -1627,7 +1627,10 @@ eng:
         double: "FY%{first_year}/%{second_year}"
         single: "FY%{first_year}"
     fixed_asset:
-      bookkeep_in_use_assets: "[%{resource} %{number}]"
+      bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
+      bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
+      bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
+      bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
       state_machine:
         states:
           draft: "Draft"

@@ -1307,6 +1307,8 @@ jpn:
     sampling_temporal_mode: "サンプリング時間的モード"
     scale: "規模"
     scheduled: "予定の"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "季節性"
     seasons: "季節性"
     second_producer: "セカンドプロデューサー" #?
@@ -1338,6 +1340,8 @@ jpn:
     size_value: "サイズ値"
     soil_nature: "土壌型"
     soil_production: "土壌生産"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "ソース"
     source_product: "ソース製品"
     spaced_iban: "間隔をあけIBAN"
@@ -1586,7 +1590,10 @@ jpn:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
     fixed_asset:
-      # bookkeep_in_use_assets: "[%{resource} %{number}]"
+      # bookkeep_exceptionnal_scrapped_assets: "Exceptionnal depreciation - [%{resource} %{number}]"
+      # bookkeep_exit_assets: "Scrapped - [%{resource} %{number}]"
+      # bookkeep_in_sold_assets: "Sold - [%{resource} %{number}]"
+      # bookkeep_in_use_assets: "In use - [%{resource} %{number}]"
       state_machine:
         states:
           # draft: "Draft"

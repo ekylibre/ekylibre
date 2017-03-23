@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fixed_asset_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="2.049040366095214"/>
+	<property name="ireport.zoom" value="1.8627639691774671"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1051"/>
+	<property name="ireport.y" value="875"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
 	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -19,7 +19,7 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{state} == "sold" || $F{state} == "scrapped"]]></conditionExpression>
 			<style mode="Opaque" backcolor="#FF0000"/>
 		</conditionalStyle>
 		<conditionalStyle>
@@ -59,8 +59,8 @@
 	<field name="depreciable-amount" class="java.lang.String">
 		<fieldDescription><![CDATA[depreciable-amount]]></fieldDescription>
 	</field>
-	<field name="depreciated-amount" class="java.lang.String">
-		<fieldDescription><![CDATA[depreciated-amount]]></fieldDescription>
+	<field name="net-book-value" class="java.lang.String">
+		<fieldDescription><![CDATA[net-book-value]]></fieldDescription>
 	</field>
 	<field name="depreciation-method" class="java.lang.String">
 		<fieldDescription><![CDATA[depreciation-method]]></fieldDescription>
@@ -70,6 +70,12 @@
 	</field>
 	<field name="state" class="java.lang.String">
 		<fieldDescription><![CDATA[state]]></fieldDescription>
+	</field>
+	<field name="sold-on" class="java.lang.String">
+		<fieldDescription><![CDATA[sold-on]]></fieldDescription>
+	</field>
+	<field name="scrapped-on" class="java.lang.String">
+		<fieldDescription><![CDATA[scrapped-on]]></fieldDescription>
 	</field>
 	<sortField name="purchased-on"/>
 	<sortField name="number"/>
@@ -188,7 +194,7 @@
 				<text><![CDATA[Montant]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table-th" mode="Transparent" x="194" y="23" width="107" height="24" uuid="65c25c71-3249-488f-9c4a-4dfde2d7241a"/>
+				<reportElement style="table-th" mode="Transparent" x="194" y="23" width="73" height="24" uuid="65c25c71-3249-488f-9c4a-4dfde2d7241a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 					<paragraph leftIndent="5"/>
@@ -209,10 +215,10 @@
 					<font fontName="Open Sans" size="9"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Amorti]]></text>
+				<text><![CDATA[VNC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table-th" mode="Transparent" x="194" y="0" width="107" height="24" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
+				<reportElement style="table-th" mode="Transparent" x="194" y="0" width="73" height="24" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 					<paragraph leftIndent="5"/>
@@ -220,7 +226,7 @@
 				<text><![CDATA[Date début]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table-th" mode="Transparent" x="301" y="0" width="107" height="47" uuid="eaefbee5-d41c-41c0-806c-4820d65db273"/>
+				<reportElement style="table-th" mode="Transparent" x="267" y="0" width="73" height="47" uuid="eaefbee5-d41c-41c0-806c-4820d65db273"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 					<paragraph leftIndent="5"/>
@@ -234,6 +240,14 @@
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Comptes comptables]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="340" y="0" width="68" height="47" uuid="01764cb2-961e-4553-b068-789d23c7f8b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Date sortie (vente / rebut)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -275,28 +289,28 @@
 				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="194" y="0" width="107" height="20" uuid="8e5bd881-5049-40a2-b04b-4c7354d2e09b"/>
+				<reportElement x="194" y="0" width="73" height="20" uuid="8e5bd881-5049-40a2-b04b-4c7354d2e09b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="194" y="19" width="107" height="20" uuid="5e2e62a6-5abc-4a87-9309-61adf53b3138"/>
+				<reportElement x="194" y="19" width="73" height="20" uuid="5e2e62a6-5abc-4a87-9309-61adf53b3138"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{stopped-on})]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="194" y="0" width="107" height="39" uuid="cb757178-c34b-4263-a009-f5d3931ca8a5"/>
+				<reportElement mode="Transparent" x="194" y="0" width="73" height="39" uuid="cb757178-c34b-4263-a009-f5d3931ca8a5"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="301" y="0" width="106" height="39" uuid="e6b97850-f815-4ef1-bf0b-64a0a1067d2b"/>
+				<reportElement x="268" y="0" width="72" height="39" uuid="e6b97850-f815-4ef1-bf0b-64a0a1067d2b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{purchased-on})]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="301" y="0" width="106" height="39" uuid="620a58d7-4337-4836-ae05-c60c2ac860f8"/>
+				<reportElement mode="Transparent" x="267" y="0" width="73" height="39" uuid="620a58d7-4337-4836-ae05-c60c2ac860f8"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -309,7 +323,7 @@
 			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="481" y="0" width="79" height="39" uuid="a473a4a5-98d4-4ec1-9815-fc3915fa05ca"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{depreciated-amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{net-book-value}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="638" y="0" width="148" height="39" uuid="56b3d204-7a02-42c8-b04f-18167f50781e"/>
@@ -324,6 +338,17 @@
 			</rectangle>
 			<rectangle radius="10">
 				<reportElement style="conditional_state" x="2" y="3" width="15" height="15" uuid="b0f5c968-3a74-4f35-8b15-a68e8155e61b"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="340" y="0" width="68" height="39" uuid="4d2ae4f7-a5eb-4535-b2f9-709d762306d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{sold-on}.isEmpty() ? ($F{scrapped-on}.isEmpty() ? nil :  Date.parse("yyyy-mm-dd", $F{scrapped-on}) ) :   Date.parse("yyyy-mm-dd", $F{sold-on}))]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="340" y="0" width="68" height="39" uuid="dd3e9797-08e9-410f-8247-b1e9daa7368f"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
 			</rectangle>
 		</band>
 	</detail>
