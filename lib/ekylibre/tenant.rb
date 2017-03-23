@@ -42,16 +42,32 @@ module Ekylibre
 
       # Create a new tenant with tables and co
       def create(name)
-        name = name.to_s
+        name = name.to_sym
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
-        Apartment::Tenant.create(name)
         add(name)
+        Apartment::Tenant.create(name)
+      end
+
+      def db_for(name)
+        dbs = @list[name.to_sym]
+        dbs ||= @list[env]
+          .map { |key, value| [[key], value] }
+          .to_h
+          .reduce({}) { |hash, pair| hash.merge([pair.reverse].to_h) { |old_key, old_value, new_value| old_value + new_value } } 
+        
+        Rails.configuration.database_configuration
+             .select {|db, config| config["clustered"] && config["database"] }
+             .map { |config| [config.last, []] }
+             .to_h  
+             .merge(dbs) 
+             .min_by { |config, list| list.length }
+             .first 
       end
 
       # Adds a tenant in config. No schema are created.
       def add(name)
-        list[name] = Apartment.db_config_for(name) unless list.keys.include?(name)
+        @list[env][name.to_sym] = db_for(name) unless list.include?(name)
         write
       end
 
@@ -169,7 +185,7 @@ module Ekylibre
       def list
         load! unless @list
         @list[env] ||= {} 
-        @list.map {|env, tenant_list| [env, tenant_list.keys]}.to_h
+        @list[env].keys 
       end
 
       def list_with_dbs
@@ -182,15 +198,13 @@ module Ekylibre
         @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
         @list ||= {}
 
-        dbs = (File.exist?(database_file) ? YAML.load_file(database_file) : {})
-        @list.each do |env, tenant_list|
-          next @list[env] = {} if tenant_list.nil?
-          tenant_list.each do |tenant, db|
-            @list[env][tenant] = dbs[db]
-          end
-        end
-
-        @list
+        @list = @list.map do |env, tenant_list|
+          next @list[env] = [] if tenant_list.nil?
+          list = tenant_list.map do |tenant, db|
+            [tenant.to_sym, Rails.configuration.database_configuration[db]]
+          end.to_h
+          [env, list]
+        end.to_h
       end
 
       def drop_aggregation_schema!
@@ -313,9 +327,19 @@ module Ekylibre
 
       def write
         semaphore.synchronize do
+          new_list = @list.map do |env, tenant_list|
+            tenant_with_db = tenant_list.map do |tenant_name, config|
+              byebug unless Rails.configuration.database_configuration.find { |db, conf| conf == config }
+              [tenant_name, Rails.configuration.database_configuration.find { |db, conf| conf == config }.first]
+            end.to_h
+            [env, tenant_with_db]
+          end.to_h
+          
           FileUtils.mkdir_p(config_file.dirname)
-          File.write(config_file, @list.to_yaml)
+          File.write(config_file, new_list.to_yaml)
         end
+      rescue
+        byebug
       end
 
       def semaphore
