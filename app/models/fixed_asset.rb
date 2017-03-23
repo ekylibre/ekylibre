@@ -22,41 +22,45 @@
 #
 # == Table: fixed_assets
 #
-#  accounted_at            :datetime
-#  allocation_account_id   :integer          not null
-#  asset_account_id        :integer
-#  ceded                   :boolean
-#  ceded_on                :date
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string           not null
-#  current_amount          :decimal(19, 4)
-#  custom_fields           :jsonb
-#  depreciable_amount      :decimal(19, 4)   not null
-#  depreciated_amount      :decimal(19, 4)   not null
-#  depreciation_method     :string           not null
-#  depreciation_percentage :decimal(19, 4)
-#  depreciation_period     :string
-#  description             :text
-#  expenses_account_id     :integer
-#  id                      :integer          not null, primary key
-#  journal_entry_id        :integer
-#  journal_id              :integer          not null
-#  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  number                  :string           not null
-#  product_id              :integer
-#  purchase_amount         :decimal(19, 4)
-#  purchase_id             :integer
-#  purchase_item_id        :integer
-#  purchased_on            :date
-#  sale_id                 :integer
-#  sale_item_id            :integer
-#  started_on              :date             not null
-#  state                   :string
-#  stopped_on              :date             not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  accounted_at              :datetime
+#  allocation_account_id     :integer          not null
+#  asset_account_id          :integer
+#  ceded                     :boolean
+#  ceded_on                  :date
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  currency                  :string           not null
+#  current_amount            :decimal(19, 4)
+#  custom_fields             :jsonb
+#  depreciable_amount        :decimal(19, 4)   not null
+#  depreciated_amount        :decimal(19, 4)   not null
+#  depreciation_method       :string           not null
+#  depreciation_percentage   :decimal(19, 4)
+#  depreciation_period       :string
+#  description               :text
+#  expenses_account_id       :integer
+#  id                        :integer          not null, primary key
+#  journal_entry_id          :integer
+#  journal_id                :integer          not null
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  number                    :string           not null
+#  product_id                :integer
+#  purchase_amount           :decimal(19, 4)
+#  purchase_id               :integer
+#  purchase_item_id          :integer
+#  purchased_on              :date
+#  sale_id                   :integer
+#  sale_item_id              :integer
+#  scrapped_journal_entry_id :integer
+#  scrapped_on               :date
+#  sold_journal_entry_id     :integer
+#  sold_on                   :date
+#  started_on                :date             not null
+#  state                     :string
+#  stopped_on                :date             not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 class FixedAsset < Ekylibre::Record::Base
@@ -70,6 +74,8 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :allocation_account, class_name: 'Account'
   belongs_to :journal, class_name: 'Journal'
   belongs_to :journal_entry
+  belongs_to :sold_journal_entry, class_name: 'JournalEntry'
+  belongs_to :scrapped_journal_entry, class_name: 'JournalEntry'
   belongs_to :product
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation'
@@ -80,7 +86,7 @@ class FixedAsset < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
-  validates :ceded_on, :purchased_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -100,6 +106,14 @@ class FixedAsset < Ekylibre::Record::Base
   # ]DEPRECATIONS]
 
   state_machine :state, initial: :draft do
+    after_transition any => :sold do |fixed_asset, _transition|
+      fixed_asset.sold_on = Date.today
+      fixed_asset.save!
+    end
+    after_transition any => :scrapped do |fixed_asset, _transition|
+      fixed_asset.scrapped_on = Date.today
+      fixed_asset.save!
+    end
     state :draft
     state :in_use
     state :sold
@@ -210,6 +224,8 @@ class FixedAsset < Ekylibre::Record::Base
     label = tc(:bookkeep_in_use_assets, resource: self.class.model_name.human, number: number)
     waiting_asset_account = Account.find_in_nomenclature(:outstanding_assets)
     fixed_assets_suppliers_account = Account.find_in_nomenclature(:fixed_assets_suppliers)
+    fixed_assets_values_account = Account.find_in_nomenclature(:fixed_assets_values)
+    exceptionnal_depreciations_inputations_expenses_account = Account.find_in_nomenclature(:exceptionnal_depreciations_inputations_expenses)
 
     # fixed asset link to purchase item
     if purchase_items.any?
@@ -229,6 +245,28 @@ class FixedAsset < Ekylibre::Record::Base
       b.journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
         entry.add_credit(label, fixed_assets_suppliers_account.id, depreciable_amount)
         entry.add_debit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
+      end
+    end
+
+    # fixed asset sold
+    if sold?
+      label = tc(:bookkeep_in_sold_assets, resource: self.class.model_name.human, number: number)
+      b.journal_entry(journal, printed_on: sold_on, as: :sold, if: sold?) do |entry|
+        entry.add_credit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
+        entry.add_debit(label, fixed_assets_values_account.id, net_book_value)
+        entry.add_debit(label, allocation_account.id, already_depreciated_value)
+      end
+    end
+
+    # fixed asset scrapped
+    if scrapped?
+      left_amount = 0
+      label = tc(:bookkeep_in_scrapped_assets, resource: self.class.model_name.human, number: number)
+      b.journal_entry(journal, printed_on: scrapped_on, as: :scrapped, if: scrapped?) do |entry|
+        entry.add_debit(label, exceptionnal_depreciations_inputations_expenses_account.id, left_amount)
+        entry.add_credit(label, allocation_account.id, left_amount)
+        entry.add_debit(label, allocation_account.id, left_amount)
+        entry.add_credit(label, asset_account.id, left_amount, resource: self, as: :fixed_asset)
       end
     end
   end
@@ -332,6 +370,25 @@ class FixedAsset < Ekylibre::Record::Base
 
   def depreciable?
     !depreciations.any?
+  end
+
+  # return the net book value (amount - sum(depreciations)) at current date
+  def current_depreciation(on = Date.today)
+    asset_depreciation = depreciations.where('? BETWEEN started_on AND stopped_on', on).first
+    return nil unless asset_depreciation
+    asset_depreciation
+  end
+
+  # return the net book value at current date
+  def net_book_value(on = Date.today)
+    return nil unless current_depreciation(on)
+    current_depreciation(on).depreciable_amount
+  end
+
+  # return the global amount already depreciated
+  def already_depreciated_value(on = Date.today)
+    return nil unless current_depreciation(on)
+    current_depreciation(on).depreciated_amount
   end
 
   # Returns the duration in days of all the depreciations

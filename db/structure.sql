@@ -2493,7 +2493,11 @@ CREATE TABLE fixed_assets (
     depreciation_period character varying,
     accounted_at timestamp without time zone,
     journal_entry_id integer,
-    asset_account_id integer
+    asset_account_id integer,
+    sold_on date,
+    scrapped_on date,
+    sold_journal_entry_id integer,
+    scrapped_journal_entry_id integer
 );
 
 
@@ -11157,6 +11161,20 @@ CREATE INDEX index_fixed_assets_on_sale_item_id ON fixed_assets USING btree (sal
 
 
 --
+-- Name: index_fixed_assets_on_scrapped_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON fixed_assets USING btree (scrapped_journal_entry_id);
+
+
+--
+-- Name: index_fixed_assets_on_sold_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON fixed_assets USING btree (sold_journal_entry_id);
+
+
+--
 -- Name: index_fixed_assets_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16991,4 +17009,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 
 INSERT INTO schema_migrations (version) VALUES ('20170315221501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170323000501');
 

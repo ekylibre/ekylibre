@@ -2598,6 +2598,16 @@ fixed_assets:
   sale_item_id:
     type: integer
     references: sale_item
+  scrapped_journal_entry_id:
+    type: integer
+    references: journal_entry
+  scrapped_on:
+    type: date
+  sold_journal_entry_id:
+    type: integer
+    references: journal_entry
+  sold_on:
+    type: date
   started_on:
     type: date
     required: true
