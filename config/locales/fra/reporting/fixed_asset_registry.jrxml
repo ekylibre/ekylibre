@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fixed_asset_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.156629868288596"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fixed_asset_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="1.1566298682885963"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
@@ -59,7 +59,7 @@
 	<field name="depreciable-amount" class="java.lang.String">
 		<fieldDescription><![CDATA[depreciable-amount]]></fieldDescription>
 	</field>
-	<field name="net-book-value" class="java.lang.String">
+	<field name="net-book-value" class="java.lang.Double">
 		<fieldDescription><![CDATA[net-book-value]]></fieldDescription>
 	</field>
 	<field name="depreciation-method" class="java.lang.String">
@@ -82,14 +82,86 @@
 	<variable name="bottom_img" class="java.lang.String">
 		<variableExpression><![CDATA["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"]]></variableExpression>
 	</variable>
+	<variable name="number_1" class="java.lang.Integer" resetType="Group" resetGroup="campaign" calculation="Count">
+		<variableExpression><![CDATA[$F{number}]]></variableExpression>
+	</variable>
+	<variable name="net-book-value_2" class="java.lang.Double" resetType="Group" resetGroup="campaign" calculation="Sum">
+		<variableExpression><![CDATA[$F{net-book-value}]]></variableExpression>
+	</variable>
+	<variable name="sold-on_1" class="java.lang.Integer" resetType="Group" resetGroup="campaign" calculation="Count">
+		<variableExpression><![CDATA[$F{sold-on}]]></variableExpression>
+	</variable>
+	<variable name="scrapped-on_1" class="java.lang.Integer" resetType="Group" resetGroup="campaign" calculation="Count">
+		<variableExpression><![CDATA[$F{scrapped-on}]]></variableExpression>
+	</variable>
 	<group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on}).getYear() + 1900]]></groupExpression>
+		<groupFooter>
+			<band height="59">
+				<staticText>
+					<reportElement style="strong" mode="Opaque" x="2" y="8" width="784" height="2" backcolor="#7C9DDD" uuid="9455b4c3-1240-424a-b086-1860a3a1f408"/>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="2" y="11" width="51" height="39" uuid="73469b89-f613-4c52-8842-c37327b77ce9"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{number_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="53" y="11" width="141" height="39" uuid="da086f96-5c4a-445d-9d6e-d9857c33d732"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12" pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[immobilisations]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="486" y="11" width="75" height="39" uuid="71ec7909-f141-41f4-86be-a89f332ca8a8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{net-book-value_2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="340" y="11" width="28" height="20" uuid="ee236216-5175-454a-b89d-72d0a69056bf"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sold-on_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="340" y="30" width="28" height="20" uuid="d0833a35-3717-451a-884a-3dac232d8d4e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{scrapped-on_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="367" y="11" width="73" height="20" uuid="79481212-bc1e-49c7-91f8-bb0629f9be8b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12" pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[cession(s)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="367" y="30" width="73" height="20" uuid="a9326e28-7847-4f6e-955f-118331b7d767"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12" pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[rebut(s)]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="110" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="0" y="44" width="786" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
@@ -112,11 +184,6 @@
 	</title>
 	<pageHeader>
 		<band height="84" splitType="Stretch">
-			<textField evaluationTime="Group" evaluationGroup="campaign" pattern="yyyy" isBlankWhenNull="true">
-				<reportElement style="SubTitle" x="0" y="1" width="192" height="69" uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on})]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement style="base" mode="Transparent" x="716" y="22" width="56" height="37" uuid="edc9f11e-f430-4080-9bf8-bd2893724afb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -158,6 +225,18 @@
 				</textElement>
 				<text><![CDATA[Status]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="1" width="87" height="69" uuid="c55db622-6f3c-40b8-9698-38d3d6fca2a6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="18"/>
+				</textElement>
+				<text><![CDATA[Entrée en]]></text>
+			</staticText>
+			<textField evaluationTime="Group" evaluationGroup="campaign" pattern="yyyy" isBlankWhenNull="true">
+				<reportElement style="SubTitle" x="87" y="1" width="192" height="69" uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on})]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

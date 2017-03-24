@@ -281,9 +281,9 @@ class FixedAsset < Ekylibre::Record::Base
 
       # compute part time
       
-      first_period = (out_on - depreciation_out_on.started_on).days
-      global_period = depreciation_out_on.duration.days
-      first_ratio = (first_period / global_period) if global_period
+      first_period = (out_on).day
+      global_period = (depreciation_out_on.stopped_on - depreciation_out_on.started_on) + 1
+      first_ratio = (first_period.to_f / global_period.to_f) if global_period
       #second_ratio = (1 - first_ratio)
       puts first_ratio.inspect.red
       
