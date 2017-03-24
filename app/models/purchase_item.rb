@@ -141,10 +141,10 @@ class PurchaseItem < Ekylibre::Record::Base
         # end
         # end
         if fixed_asset
-          unless fixed_asset.draft?
-            errors.add(:fixed_asset, :fixed_asset_cannot_be_modified)
-          else
+          if fixed_asset.draft?
             fixed_asset.add_amount(pretax_amount) unless depreciable_product
+          else
+            errors.add(:fixed_asset, :fixed_asset_cannot_be_modified)
           end
         else
           new_fixed_asset

@@ -1,6 +1,7 @@
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
   = t.destroy resource if resource.destroyable?
+  = t.export :fixed_asset_sheet, key: :number
 
 = main_state_bar(resource)
 
@@ -44,13 +45,13 @@
       .med-info
         %span.title= :sold_on.tl
         %span.value
-          %i.picto{class: "picto-sale"}
+          %i.picto{class: "picto-bar-chart"}
           = resource.sold_on.l
     - if resource.scrapped_on
       .med-info
         %span.title= :scrapped_on.tl
         %span.value
-          %i.picto{class: "picto-sale"}
+          %i.picto{class: "picto-trash-o"}
           = resource.scrapped_on.l
 
 = cobbles do |c|

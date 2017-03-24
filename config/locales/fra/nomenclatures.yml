@@ -2036,6 +2036,7 @@ fra:
         equipment_certification: "Certification des équipements"
         exchange_accountancy_file_fr: "Écritures comptables (FEC)"
         fixed_asset_registry: "Registre des immobilisations"
+        fixed_asset_sheet: "Fiche immobilisation"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"

@@ -1919,6 +1919,7 @@ arb:
         equipment_certification: "شهادة المعدات"
         exchange_accountancy_file_fr: "الاب ملف المحاسبة الصرف"
         # fixed_asset_registry: "Fixed asset registry"
+        # fixed_asset_sheet: "Fixed asset sheet"
         general_journal: "مجلة العامة"
         general_ledger: "دفتر الأستاذ العام"
         income_statement: "بيان الأرباح والخسائر"

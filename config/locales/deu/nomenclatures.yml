@@ -1910,6 +1910,7 @@ deu:
         equipment_certification: "Ausrüstung Zertifizierung"
         exchange_accountancy_file_fr: "Austausch Buchhaltung Datei fr"
         # fixed_asset_registry: "Fixed asset registry"
+        # fixed_asset_sheet: "Fixed asset sheet"
         general_journal: "Allgemeine Zeitschrift"
         general_ledger: "Hauptbuch"
         income_statement: "Gewinn-und Verlustrechnung"

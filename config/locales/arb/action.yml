@@ -2020,6 +2020,7 @@ arb:
     save_in_draft: "حفظ في المسودات"
     # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "المقرر"
+    # scrapped_on: "Scrapped on"
     search: "البحث عن الشراء"
     search_go: "بدء البحث" #?
     search_placeholder: "بحث…"
@@ -2066,6 +2067,7 @@ arb:
     simplified: "نظام واقعي مبسط"
     simplified_linear_options: "خيارات الخطية المبسطة"
     social_expenses: "النفقات الاجتماعية"
+    # sold_on: "Sold on"
     source: "مصدر البيانات"
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
@@ -2085,6 +2087,7 @@ arb:
     stocks: "ادارة الاسهم"
     stop: "لغاية"
     stopped: "توقفت"
+    # stopped_on: "Stopped on"
     storage: "تخزين"
     string_case: "خيارات للنص" #?
     subject: "الموضوع"

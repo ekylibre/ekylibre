@@ -1652,7 +1652,7 @@ eng:
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
-    # scrapped_on: "Scrapped on"
+    scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
@@ -1682,7 +1682,7 @@ eng:
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
     social_expenses: "Social expenses" #?!
-    # sold_on: "Sold on"
+    sold_on: "Sold on"
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
@@ -1699,7 +1699,7 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     stopped: "Stopped"
-    # stopped_on: "Stopped on"
+    stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
     submit: "Submit" #?

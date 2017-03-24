@@ -1911,6 +1911,7 @@ eng:
         equipment_certification: "Equipment certification"
         exchange_accountancy_file_fr: "Exchange accountancy file fr"
         fixed_asset_registry: "Fixed asset registry"
+        fixed_asset_sheet: "Fixed asset sheet"
         general_journal: "General journal"
         general_ledger: "General ledger"
         income_statement: "Profit and loss statement"

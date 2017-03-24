@@ -92,6 +92,31 @@ module Backend
       respond_with @fixed_assets, methods: [:net_book_value], include: [:asset_account, :expenses_account, :allocation_account, :product]
     end
 
+    def show
+      # passing a parameter to Jasper for company full name and id
+      @entity_of_company_full_name = Entity.of_company.full_name
+      @entity_of_company_id = Entity.of_company.id
+
+      return unless @fixed_asset = find_and_check
+      t3e @fixed_asset
+      respond_with(@fixed_asset, methods: [:net_book_value, :duration],
+                                 include: [
+                                   {
+                                     depreciations: {
+                                       methods: [],
+                                       include: { journal_entry: {} }
+                                     },
+                                     purchase_items: {},
+                                     asset_account: {},
+                                     expenses_account: {},
+                                     allocation_account: {},
+                                     product: {}
+
+                                   }
+                                 ],
+                                 procs: proc { |options| options[:builder].tag!(:url, backend_fixed_asset_url(@fixed_asset)) })
+    end
+
     def depreciate_up_to
       begin
         date = Date.parse(params[:'depreciation-date'])

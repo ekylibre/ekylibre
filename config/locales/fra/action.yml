@@ -1905,6 +1905,7 @@ fra:
     save_in_draft: "Sauvegarder dans le brouillard"
     saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n'ont pas pu être lettrés."
     scheduled: "Échéance"
+    scrapped_on: "Mise au rebut le"
     search: "Rechercher"
     search_account: "Rechercher un compte" #?
     search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)" #?
@@ -1954,6 +1955,7 @@ fra:
     simplified_linear_options: "Options linéaire simplifié"
     social_expenses: "Charges sociales"
     soil_varieties: "Nature des sols" #?
+    sold_on: "Cédée le"
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
@@ -1980,6 +1982,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
+    # stopped_on: "Stopped on"
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
