@@ -27,6 +27,7 @@ class UpdateFixedAssets < ActiveRecord::Migration
         number        = ACCOUNT[:number]
         label         = "#{name} - #{number}"
 
+        execute "UPDATE fixed_assets SET depreciation_period = 'yearly'"
         execute 'UPDATE purchase_items pi SET fixed_asset_id = (SELECT fa.id FROM fixed_assets fa WHERE fa.purchase_item_id = pi.id LIMIT 1)'
         execute 'UPDATE fixed_assets fa SET product_id = (SELECT p.id FROM products p WHERE p.fixed_asset_id = fa.id LIMIT 1)'
         execute "UPDATE fixed_assets SET state = 'draft'"
