@@ -42,7 +42,7 @@ module Ekylibre
 
       # Create a new tenant with tables and co
       def create(name)
-        name = name.to_sym
+        name = name.to_s
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
         add(name)
@@ -50,7 +50,7 @@ module Ekylibre
       end
 
       def db_for(name)
-        dbs = @list[name.to_sym]
+        dbs = @list[name.to_s]
         dbs ||= @list[env]
           .map { |key, value| [[key], value] }
           .to_h
@@ -67,7 +67,7 @@ module Ekylibre
 
       # Adds a tenant in config. No schema are created.
       def add(name)
-        @list[env][name.to_sym] = db_for(name) unless list.include?(name)
+        @list[env][name.to_s] = db_for(name) unless list.include?(name)
         write
       end
 
@@ -201,7 +201,7 @@ module Ekylibre
         @list = @list.map do |env, tenant_list|
           next @list[env] = [] if tenant_list.nil?
           list = tenant_list.map do |tenant, db|
-            [tenant.to_sym, Rails.configuration.database_configuration[db]]
+            [tenant.to_s, Rails.configuration.database_configuration[db]]
           end.to_h
           [env, list]
         end.to_h
@@ -329,7 +329,6 @@ module Ekylibre
         semaphore.synchronize do
           new_list = @list.map do |env, tenant_list|
             tenant_with_db = tenant_list.map do |tenant_name, config|
-              byebug unless Rails.configuration.database_configuration.find { |db, conf| conf == config }
               [tenant_name, Rails.configuration.database_configuration.find { |db, conf| conf == config }.first]
             end.to_h
             [env, tenant_with_db]
@@ -338,8 +337,6 @@ module Ekylibre
           FileUtils.mkdir_p(config_file.dirname)
           File.write(config_file, new_list.to_yaml)
         end
-      rescue
-        byebug
       end
 
       def semaphore
