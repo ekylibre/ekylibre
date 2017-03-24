@@ -1,7 +1,4 @@
-- if resource.nature== 'contact'
-  - navigation resource, order: :full_name, naming_method: :label, scope: :contacts
-- elsif resource.nature== 'organization'
-  - navigation resource, order: :full_name, naming_method: :label, scope: :organizations   
+- navigation resource, order: :full_name, naming_method: :label, scope: resource.nature.to_sym
 
 - main_toolbar do |t|
   = t.export :entity_sheet
