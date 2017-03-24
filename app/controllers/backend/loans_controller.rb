@@ -81,7 +81,7 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @loans, methods: [], include: [:lender, :loan_account, :interest_account, :insurance_account, :cash, :journal_entry]
+      respond_with @loans, methods: [:current_remaining_amount], include: [:lender, :loan_account, :interest_account, :insurance_account, :cash, :journal_entry]
     end
 
     def confirm

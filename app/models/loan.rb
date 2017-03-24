@@ -198,6 +198,12 @@ class Loan < Ekylibre::Record::Base
     repayments.destroy(repayments.where.not(id: ids))
     reload
   end
+  
+  def current_remaining_amount(on = Date.today)
+    r = repayments.where('due_on <= ?', on).reorder(:position).last
+    return nil unless r
+    r.remaining_amount
+  end
 
   def draft?
     state.to_sym == :draft
