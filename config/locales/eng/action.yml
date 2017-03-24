@@ -1799,7 +1799,7 @@ eng:
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices" #?!
+    undelivered_invoices: "Undelivered invoices" #??
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
@@ -1973,7 +1973,6 @@ eng:
     x_supplier_journal_entry_items:
       one: "%{count} suppliers journal entry item"
       other: "%{count} suppliers journal entry items"
-    # x_suppliers: "X suppliers"
     x_tasks:
       one: "%{count} task"
       other: "%{count} tasks"
