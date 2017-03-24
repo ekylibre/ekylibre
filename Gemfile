@@ -10,7 +10,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '>= 1.2.0', '< 2.0', path: "../apartment"
+gem 'apartment', '>= 1.2.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions

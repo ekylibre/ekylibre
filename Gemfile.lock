@@ -6,14 +6,6 @@ GIT
     ofx-parser (1.1.0.20121129105223)
       hpricot (>= 0.6)
 
-PATH
-  remote: ../apartment
-  specs:
-    apartment (1.2.0)
-      activerecord (>= 3.1.2, < 6.0)
-      public_suffix (~> 2.0.5)
-      rack (>= 1.3.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -74,6 +66,9 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
+    apartment (1.2.0)
+      activerecord (>= 3.1.2, < 6.0)
+      rack (>= 1.3.6)
     apartment-sidekiq (1.1.0)
       apartment (~> 1.0)
       sidekiq (>= 2.11)
@@ -543,7 +538,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
-  apartment (>= 1.2.0, < 2.0)!
+  apartment (>= 1.2.0, < 2.0)
   apartment-sidekiq
   awesome_nested_set (~> 3.0.0)
   beardley (~> 1.3.0)
@@ -647,4 +642,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.14.4
+   1.14.6
