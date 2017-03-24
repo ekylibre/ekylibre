@@ -677,6 +677,7 @@ deu:
   labels:
     access: "Zugriff"
     access_parameters: "Zugangsparameter"
+    # account_for: "Account for"
     accountancy: "Buchhaltung"
     accountancy_balance: "Rechnungswesen Balance"
     accountancy_preferences: "Accountancy Präferenzen"
@@ -937,7 +938,6 @@ deu:
     deposit: "Anzahlung"
     depositable_options: "Zahlungsmöglichkeiten"
     deposits: "Einlagen"
-    # depreciate: "Depreciate"
     depreciation: "Abschreibung"
     depreciations: "Abschreibungen"
     depreciations_inputations_expenses: "Abschreibungen inputations Aufwendungen"

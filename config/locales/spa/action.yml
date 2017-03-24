@@ -722,6 +722,7 @@ spa:
     account_debt: "Deudas" #?
     account_equity: "Capitales propios" #?
     account_fixed_assets: "Activo inmobilisado" #?
+    # account_for: "Account for"
     account_inventories_assets: "Stocks" #?
     account_mark: "Letra de cuento" #?
     account_name: "Cuento contable" #?
@@ -1047,7 +1048,6 @@ spa:
     deposit_update: "Modifiar el aposto en banco" #?
     depositable_options: "Opciones de depósito"
     deposits: "Depósitos"
-    # depreciate: "Depreciate"
     depreciation: "Depreciación"
     depreciations: "Depreciaciones"
     depreciations_inputations_expenses: "Gastos de depreciaciones inputations"

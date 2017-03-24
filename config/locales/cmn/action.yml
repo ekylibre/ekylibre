@@ -677,6 +677,7 @@ cmn:
   labels:
     access: "访问"
     access_parameters: "访问参数"
+    # account_for: "Account for"
     accountancy: "会计"
     accountancy_balance: "会计平衡"
     accountancy_preferences: "会计偏好"
@@ -937,7 +938,6 @@ cmn:
     deposit: "存款"
     depositable_options: "存款选择"
     deposits: "存款"
-    # depreciate: "Depreciate"
     depreciation: "折旧"
     depreciations: "贬值"
     depreciations_inputations_expenses: "折旧费用inputations"

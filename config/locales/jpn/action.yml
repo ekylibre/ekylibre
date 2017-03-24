@@ -743,6 +743,7 @@ jpn:
   labels:
     access: "アクセス"
     access_parameters: "アクセス・パラメータ"
+    # account_for: "Account for"
     accountancy: "会計学"
     accountancy_balance: "会計収支"
     accountancy_preferences: "会計の好み"
@@ -1004,7 +1005,6 @@ jpn:
     deposit: "保証金"
     depositable_options: "入金オプション"
     deposits: "預金"
-    # depreciate: "Depreciate"
     depreciation: "減価償却費"
     depreciations: "減価償却"
     depreciations_inputations_expenses: "減価償却費inputations"

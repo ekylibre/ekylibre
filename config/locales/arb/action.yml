@@ -919,6 +919,7 @@ arb:
     account_debt: "الديون" #?
     account_equity: "رأس مال خاص" #?
     account_fixed_assets: "الموجودات الثابتة" #?
+    # account_for: "Account for"
     account_inventories_assets: "أسهم" #?
     account_mark: "تسجيل الحسابات" #?
     account_other_assets: "موجودات اخرى" #?
@@ -1270,7 +1271,6 @@ arb:
     depositable: "تكملة المعلومات" #?
     depositable_options: "خيارات الإيداع"
     deposits: "الودائع"
-    # depreciate: "Depreciate"
     depreciation: "الاستهلاك"
     depreciations: "انخفاض قيمة"
     depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations"

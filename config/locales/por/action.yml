@@ -682,6 +682,7 @@ por:
   labels:
     access: "Acesso"
     access_parameters: "Parâmetros de acesso"
+    # account_for: "Account for"
     accountancy: "Contabilidade"
     accountancy_balance: "Contabilidade do balanço de"
     accountancy_preferences: "Preferências de contabilidade"
@@ -942,7 +943,6 @@ por:
     deposit: "Depósito"
     depositable_options: "As opções de depósito"
     deposits: "Depósitos"
-    # depreciate: "Depreciate"
     depreciation: "Depreciação"
     depreciations: "Depreciações"
     depreciations_inputations_expenses: "As despesas de depreciação inputations"

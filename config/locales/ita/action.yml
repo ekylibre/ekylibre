@@ -743,6 +743,7 @@ ita:
   labels:
     access: "Accesso"
     access_parameters: "parametri di accesso"
+    # account_for: "Account for"
     accountancy: "Contabilità"
     accountancy_balance: "equilibrio Contabilità"
     accountancy_preferences: "Preferenze di contabilità"
@@ -1003,7 +1004,6 @@ ita:
     deposit: "deposito"
     depositable_options: "opzioni di deposito"
     deposits: "depositi"
-    # depreciate: "Depreciate"
     depreciation: "Ammortamento"
     depreciations: "Ammortamenti"
     depreciations_inputations_expenses: "Ammortamenti inputations spese"
