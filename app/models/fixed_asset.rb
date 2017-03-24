@@ -140,6 +140,8 @@ class FixedAsset < Ekylibre::Record::Base
 
   before_validation do
     self.state ||= :draft
+    self.depreciation_period ||= Preference.get(:default_depreciation_period)
+    self.depreciation_period ||= Preference.set!(:default_depreciation_period, :yearly, :string)
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
     if depreciation_method_linear?
