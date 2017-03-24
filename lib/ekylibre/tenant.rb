@@ -334,8 +334,9 @@ module Ekylibre
         semaphore.synchronize do
           new_list = @list.map do |env, tenant_list|
             tenant_with_db = tenant_list.map do |tenant_name, config|
-              [tenant_name, Rails.configuration.database_configuration.find { |db, conf| conf == config }.first]
-            end.to_h
+              db_name = Rails.configuration.database_configuration.find { |_db, conf| conf == config }.first
+              [[tenant_name, db_name]].to_h
+            end
             [env, tenant_with_db]
           end.to_h
 
