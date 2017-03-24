@@ -795,6 +795,7 @@ fra:
     account_debt: "Dettes" #?
     account_equity: "Capitaux propres" #?
     account_fixed_assets: "Actif immobilisé" #?
+    account_for: "Passer en comptabilité"
     account_inventories_assets: "Stocks" #?
     account_mark: "Lettrer le compte" #?
     account_other_assets: "Divers" #?
@@ -1155,7 +1156,6 @@ fra:
     deposit: "Remise en banque"
     depositable_options: "Options de remise en banque"
     deposits: "Dépôts"
-    depreciate: "Amortir"
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
     depreciations_inputations_expenses: "Dotations aux ammortissements et aux provisions"

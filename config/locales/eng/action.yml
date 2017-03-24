@@ -900,6 +900,7 @@ eng:
   labels:
     access: "Access"
     access_parameters: "Access parameters"
+    account_for: "Account for"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
@@ -1164,7 +1165,6 @@ eng:
     deposit: "Deposit"
     depositable_options: "Deposit options"
     deposits: "Deposits" #?
-    depreciate: "Depreciate"
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     depreciations_inputations_expenses: "Depreciations inputations expenses" #?

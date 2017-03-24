@@ -12,11 +12,11 @@
   = t.export :fixed_asset_registry, key: Time.zone.now.to_s, resource: @fixed_assets
   %span.depreciation-trigger.btn-group
     - if reading_ltr?
-      = link_to :depreciate.tl, { action: :depreciate_up_to, depreciation_date: params[:'depreciation-date'] }, { class: 'btn btn-default', id: 'depreciate_up_to', 'data-update-link-with': '#depreciation-date' }
+      = link_to :account_for.tl, { action: :depreciate_up_to, depreciation_date: params[:'depreciation-date'] }, { class: 'btn btn-default', id: 'depreciate_up_to', 'data-update-link-with': '#depreciation-date' }
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
       %input#depreciation-date{ type: 'date', value: params[:'depreciation-date'] }
     - else
       %input#depreciation-date{ type: 'date', value: params[:'depreciation-date'] }
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      = link_to :depreciate.tl, { action: :depreciate_up_to, depreciation_date: params[:'depreciation-date'] }, { class: 'btn btn-default', id: 'depreciate_up_to', 'data-update-link-with': '#depreciation-date' }
+      = link_to :account_for.tl, { action: :depreciate_up_to, depreciation_date: params[:'depreciation-date'] }, { class: 'btn btn-default', id: 'depreciate_up_to', 'data-update-link-with': '#depreciation-date' }
 = main_list
