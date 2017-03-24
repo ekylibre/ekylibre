@@ -56,7 +56,7 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   validates :fixed_asset, presence: true
   # ]VALIDATORS]
   validates :financial_year, presence: true
-  delegate :currency, to: :fixed_asset
+  delegate :currency, :number, to: :fixed_asset
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
