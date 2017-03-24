@@ -18,6 +18,11 @@ class UpdateFixedAssets < ActiveRecord::Migration
     add_reference :fixed_assets, :journal_entry, index: true
     add_reference :fixed_assets, :asset_account, index: true
 
+    add_column :fixed_assets, :sold_on, :date
+    add_column :fixed_assets, :scrapped_on, :date
+    add_reference :fixed_assets, :sold_journal_entry, index: true
+    add_reference :fixed_assets, :scrapped_journal_entry, index: true
+
     reversible do |r|
       r.up do
         language_pref = execute("SELECT preferences.* FROM preferences WHERE preferences.name = 'language' LIMIT 1").first
