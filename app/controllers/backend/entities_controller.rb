@@ -34,7 +34,6 @@ module Backend
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
-
     # params:
     #   :q Text search
     def self.entities_conditions
