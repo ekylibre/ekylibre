@@ -78,13 +78,14 @@ class Journal < Ekylibre::Record::Base
   scope :opened_on, lambda { |at|
     where(arel_table[:closed_on].lteq(at))
   }
-  scope :sales,     -> { where(nature: 'sales') }
-  scope :purchases, -> { where(nature: 'purchases') }
-  scope :banks,     -> { where(nature: 'bank') }
-  scope :forwards,  -> { where(nature: 'forward') }
-  scope :various,   -> { where(nature: 'various') }
-  scope :cashes,    -> { where(nature: 'cashes') }
-  scope :stocks,    -> { where(nature: 'stocks') }
+  scope :sales,           -> { where(nature: 'sales') }
+  scope :purchases,       -> { where(nature: 'purchases') }
+  scope :banks,           -> { where(nature: 'bank') }
+  scope :forwards,        -> { where(nature: 'forward') }
+  scope :various,         -> { where(nature: 'various') }
+  scope :cashes,          -> { where(nature: 'cashes') }
+  scope :stocks,          -> { where(nature: 'stocks') }
+  scope :fixed_assets,    -> { where(nature: 'stocks') }
   scope :banks_or_cashes, -> { where(nature: %w(cashes bank)) }
 
   before_validation(on: :create) do
