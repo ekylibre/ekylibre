@@ -72,6 +72,7 @@ fixed_assets_001:
   depreciated_amount: 150.0
   depreciation_method: linear
   depreciation_percentage: 4.9701
+  depreciation_period: yearly
   description: ''
   expenses_account_id: 451
   id: 1
@@ -95,6 +96,7 @@ fixed_assets_002:
   depreciated_amount: 0.0
   depreciation_method: linear
   depreciation_percentage: 4.9701
+  depreciation_period: yearly
   description: ''
   expenses_account_id: 466
   id: 2

@@ -4717,7 +4717,7 @@ preferences_410:
   id: 411
   lock_version: 0
   name: default_depreciation_period
-  nature: string_value
+  nature: string
   string_value: yearly
   updated_at: 2017-03-24 16:46:41.643427000 Z
   updater_id: 1
@@ -4730,3 +4730,4 @@ preferences_411:
   nature: string
   string_value: yearly
   updated_at: 2017-03-24 17:52:59.000000000 Z
+  updater_id: 1
