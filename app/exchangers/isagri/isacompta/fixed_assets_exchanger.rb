@@ -160,6 +160,7 @@ module Isagri
               stopped_on: r.in_use_on + r.duration_in_year.years,
               depreciable_amount: r.asset_amount,
               depreciation_method: r.depreciation_method,
+              depreciation_period: :yearly,
               depreciation_percentage: r.depreciation_rate,
               journal: Journal.find_by(nature: :various),
               asset_account: exchange_asset_account,
