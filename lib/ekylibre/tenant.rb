@@ -52,17 +52,19 @@ module Ekylibre
       def db_for(name)
         dbs = @list[name.to_s]
         dbs ||= @list[env]
-          .map { |key, value| [[key], value] }
-          .to_h
-          .reduce({}) { |hash, pair| hash.merge([pair.reverse].to_h) { |old_key, old_value, new_value| old_value + new_value } } 
-        
+                .map { |key, value| [[key], value] }
+                .to_h
+                .reduce({}) do |hash, pair|
+                  hash.merge([pair.reverse].to_h) { |_old_key, old_value, new_value| old_value + new_value }
+                end
+
         Rails.configuration.database_configuration
-             .select {|db, config| config["clustered"] && config["database"] }
+             .select {|_db, config| config['clustered'] && config['database'] }
              .map { |config| [config.last, []] }
-             .to_h  
-             .merge(dbs) 
-             .min_by { |config, list| list.length }
-             .first 
+             .to_h
+             .merge(dbs)
+             .min_by { |_config, list| list.length }
+             .first
       end
 
       # Adds a tenant in config. No schema are created.
@@ -184,8 +186,8 @@ module Ekylibre
 
       def list
         load! unless @list
-        @list[env] ||= {} 
-        @list[env].keys 
+        @list[env] ||= {}
+        @list[env].keys
       end
 
       def list_with_dbs
@@ -199,11 +201,14 @@ module Ekylibre
         @list ||= {}
 
         @list = @list.map do |env, tenant_list|
-          next @list[env] = [] if tenant_list.nil?
-          list = tenant_list.map do |tenant, db|
-            [tenant.to_s, Rails.configuration.database_configuration[db]]
-          end.to_h
-          [env, list]
+          with_configs = tenant_list.map do |tenant|
+            if tenant.is_a? Hash
+              [tenant.keys.first, Rails.configuration.database_configuration[tenant.values.first]]
+            else
+              [tenant.to_s, Rails.configuration.database_configuration[env]]
+            end
+          end
+          [env, with_configs.to_h]
         end.to_h
       end
 
@@ -333,7 +338,7 @@ module Ekylibre
             end.to_h
             [env, tenant_with_db]
           end.to_h
-          
+
           FileUtils.mkdir_p(config_file.dirname)
           File.write(config_file, new_list.to_yaml)
         end
