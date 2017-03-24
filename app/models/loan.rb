@@ -163,13 +163,13 @@ class Loan < Ekylibre::Record::Base
              end
 
     length = if repayment_period_month?
-               :month
+               1.month
              elsif repayment_period_trimester?
-               :trimester
+               3.month
              elsif repayment_period_semester?
-               :semester
+               6.month
              else
-               :year
+               1.year
              end
 
     ids = []
@@ -204,7 +204,8 @@ class Loan < Ekylibre::Record::Base
     return nil unless r
     r.remaining_amount
   end
-
+  
+  # why ? we have state machine ?
   def draft?
     state.to_sym == :draft
   end

@@ -59,5 +59,90 @@ require 'test_helper'
 
 class LoanTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+  
+  setup do
+    
+    @loan_account = Account.find_or_create_by_number('164')
+    @interest_account = Account.find_or_create_by_number('6611')
+    @insurance_account = Account.find_or_create_by_number('616')
+    main = Account.find_or_create_by_number('512001')
+    suspense = Account.find_or_create_by_number('511001')
+    currency = 'EUR'
+    
+    @cash = Cash.create!(
+      name: '¡Banky!',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by(nature: :bank, currency: currency)
+    )
+    
+    @entity = Entity.create!(last_name: 'CA')
+    @on = Date.parse("2017-01-01")
+    
+    attributes = {
+      name: "FENDT 820",
+      cash: @cash,
+      lender: @entity,
+      insurance_repayment_method: :initial,
+      repayment_method: :constant_amount,
+      shift_method: :immediate_payment,
+      ongoing_at: @on.to_time,
+      started_on: @on,
+      shift_duration: 0,
+      loan_account: @loan_account,
+      interest_account: @interest_account,
+      insurance_account: @insurance_account,
+      use_bank_guarantee: false
+    }
+    
+    @loan = Loan.new(attributes)
+
+  end
+  
+  test 'new 120 months loan' do
+    
+    l = @loan
+    
+    l.repayment_period = :month
+    l.repayment_duration = 120
+    l.amount = 100_000.00
+    l.interest_percentage = 1.2
+    l.insurance_percentage = 0.2
+    l.save!
+
+    assert_equal 120, l.repayments.count
+    assert_equal 901.42, l.repayments.first.amount
+    assert_equal 784.75, l.repayments.first.base_amount
+    assert_equal 100.00, l.repayments.first.interest_amount
+    assert_equal 16.67, l.repayments.first.insurance_amount
+    assert_equal 901.32, l.repayments.last.amount
+    assert_equal 883.77, l.repayments.last.base_amount
+    assert_equal 0.88, l.repayments.last.interest_amount
+    assert_equal 16.67, l.repayments.last.insurance_amount
+  end
+  
+  test 'new 10 years loan' do
+    
+    l = @loan
+    
+    l.repayment_period = :year
+    l.repayment_duration = 10
+    l.amount = 100_000.00
+    l.interest_percentage = 1.2
+    l.insurance_percentage = 0.2
+    l.save!
+
+    assert_equal 10, l.repayments.count
+    assert_equal 901.42, l.repayments.first.amount
+    assert_equal 784.75, l.repayments.first.base_amount
+    assert_equal 100.00, l.repayments.first.interest_amount
+    assert_equal 16.67, l.repayments.first.insurance_amount
+    assert_equal 901.32, l.repayments.last.amount
+    assert_equal 883.77, l.repayments.last.base_amount
+    assert_equal 0.88, l.repayments.last.interest_amount
+    assert_equal 16.67, l.repayments.last.insurance_amount
+  end
+  
 end
