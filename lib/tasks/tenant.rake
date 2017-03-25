@@ -100,6 +100,18 @@ namespace :tenant do
     Ekylibre::Tenant.restore(archive, options)
   end
 
+  namespace :restore do
+    task easy_login: :restore do
+      Ekylibre::Tenant.switch!(ENV['TENANT'] || ENV['name'])
+      puts
+      puts '== ' + 'Modifying User'.yellow + '=' * 61
+      User.first.update!(email: 'admin@ekylibre.org', password: '12345678')
+      puts
+      puts 'Done!'.yellow
+      puts
+    end
+  end
+
   desc 'List tenants'
   task list: :environment do
     puts Ekylibre::Tenant.list.join(', ') if Ekylibre::Tenant.list.any?
