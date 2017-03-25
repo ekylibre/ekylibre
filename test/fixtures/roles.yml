@@ -32,4 +32,27 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
---- {}
+---
+roles_001:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 1
+  name: Mini-Accountant
+  rights:
+    accounts:
+    - read
+  updated_at: 2014-11-01 18:23:28.572714000 Z
+  updater_id: 1
+roles_002:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 1
+  name: Nothing
+  rights:
+    accounts:
+    - read
+    - write
+  updated_at: 2014-11-01 18:23:38.419012000 Z
+  updater_id: 1
