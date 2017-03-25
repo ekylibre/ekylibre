@@ -22,8 +22,8 @@ Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
 
 # Configure tenants.yml
-Ekylibre::Tenant.setup!('sekindovall')
-Ekylibre::Tenant.setup!('test', keep_files: true)
+Ekylibre::Tenant.setup!('sekindovall', database: :test)
+Ekylibre::Tenant.setup!('test', database: :test, keep_files: true)
 
 FactoryGirl.find_definitions
 

@@ -41,11 +41,11 @@ module Ekylibre
       end
 
       # Create a new tenant with tables and co
-      def create(name)
+      def create(name, database = nil)
         name = name.to_s
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
-        add(name)
+        add(name, database)
         Apartment::Tenant.create(name)
       end
 
@@ -68,8 +68,10 @@ module Ekylibre
       end
 
       # Adds a tenant in config. No schema are created.
-      def add(name)
-        @list[env][name.to_s] = db_for(name) unless list.include?(name)
+      def add(name, database = nil)
+        db_config = db_for(name)
+        db_config = Rails.configuration.database_configuration[database.to_s] if database
+        @list[env][name.to_s] = db_config unless list.include?(name)
         write
       end
 
@@ -77,7 +79,7 @@ module Ekylibre
       # Nothing is done if already exist
       def setup!(name, options = {})
         check!(name, options)
-        create(name) unless exist?(name)
+        create(name, options[:database]) unless exist?(name)
         switch!(name)
       end
 

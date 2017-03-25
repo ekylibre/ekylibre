@@ -35,7 +35,7 @@ namespace :tenant do
   task init: :environment do
     tenant = ENV['TENANT']
     raise 'Need TENANT variable' unless tenant
-    Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
+    Ekylibre::Tenant.create(tenant, ENV['DATABASE']) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
       Preference.set! :language, ENV['LANGUAGE'] || 'fra'
