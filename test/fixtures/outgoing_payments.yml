@@ -47,4 +47,221 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
---- {}
+---
+outgoing_payments_001:
+  accounted_at: 2014-11-07 13:58:25.752963000 Z
+  affair_id: 23
+  amount: 116.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 1
+  journal_entry_id: 20
+  lock_version: 3
+  mode_id: 1
+  number: OP001
+  payee_id: 6
+  responsible_id: 1
+  to_bank_at: 2014-08-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 13:58:25.645961000 Z
+  updater_id: 1
+outgoing_payments_002:
+  accounted_at: 2014-11-07 13:58:35.193036000 Z
+  affair_id: 25
+  amount: 156.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 2
+  journal_entry_id: 25
+  lock_version: 1
+  mode_id: 1
+  number: OP002
+  payee_id: 6
+  responsible_id: 1
+  to_bank_at: 2013-07-18 22:00:00.000000000 Z
+  updated_at: 2014-11-07 13:58:35.126560000 Z
+  updater_id: 1
+outgoing_payments_003:
+  accounted_at: 2014-11-05 13:40:55.901993000 Z
+  affair_id: 15
+  amount: 171.6
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2014-11-05 13:40:55.895164000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: false
+  downpayment: true
+  id: 3
+  lock_version: 0
+  mode_id: 1
+  number: D20140001
+  paid_at: 2014-11-04 23:00:00.000000000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2014-10-04 22:00:00.000000000 Z
+  updated_at: 2014-11-05 13:40:55.895164000 Z
+  updater_id: 1
+outgoing_payments_004:
+  accounted_at: 2014-11-07 15:58:34.242278000 Z
+  affair_id: 26
+  amount: 1848.0
+  bank_check_number: '9636548'
+  cash_id: 1
+  created_at: 2014-11-07 15:58:34.235757000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: false
+  downpayment: true
+  id: 4
+  lock_version: 0
+  mode_id: 1
+  number: D20140002
+  paid_at: 2014-11-06 23:00:00.000000000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2014-11-06 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:58:34.235757000 Z
+  updater_id: 1
+outgoing_payments_005:
+  accounted_at: 2014-11-07 16:53:26.229792000 Z
+  affair_id: 30
+  amount: 9000.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2014-11-07 16:53:26.222034000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: false
+  downpayment: true
+  id: 5
+  lock_version: 0
+  mode_id: 1
+  number: D20140003
+  paid_at: 2014-11-06 23:00:00.000000000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2014-11-06 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:53:26.222034000 Z
+  updater_id: 1
+outgoing_payments_006:
+  accounted_at: 2016-10-01 14:33:26.229792000 Z
+  affair_id: 15
+  amount: 1800.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2016-10-01 14:43:26.229792000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 6
+  journal_entry_id: 86
+  list_id: 1
+  lock_version: 0
+  mode_id: 3
+  number: D20160003
+  paid_at: 2016-09-30 22:00:26.229792000 Z
+  payee_id: 4
+  responsible_id: 1
+  to_bank_at: 2016-09-30 22:00:26.229792000 Z
+  updated_at: 2016-10-01 14:43:26.229792000 Z
+  updater_id: 1
+outgoing_payments_007:
+  accounted_at: 2016-10-01 14:33:26.229792000 Z
+  affair_id: 17
+  amount: 1761.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2016-10-01 14:43:26.229792000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 7
+  journal_entry_id: 87
+  list_id: 1
+  lock_version: 0
+  mode_id: 3
+  number: D20160004
+  paid_at: 2016-09-30 22:00:26.229792000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2016-09-30 22:00:26.229792000 Z
+  updated_at: 2016-10-01 14:43:26.229792000 Z
+  updater_id: 1
+outgoing_payments_008:
+  accounted_at: 2016-10-26 15:31:44.310429000 Z
+  affair_id: 30
+  amount: 20520.0
+  cash_id: 3
+  created_at: 2016-10-26 15:31:44.113817000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 8
+  journal_entry_id: 88
+  list_id: 2
+  lock_version: 0
+  mode_id: 2
+  number: D20160002
+  paid_at: 2016-10-25 22:00:00.000000000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2016-10-25 22:00:00.000000000 Z
+  updated_at: 2016-10-26 15:31:44.113817000 Z
+  updater_id: 1
+outgoing_payments_009:
+  accounted_at: 2016-11-20 22:14:52.631615000 Z
+  affair_id: 49
+  amount: 717.12
+  bank_check_number: ''
+  cash_id: 3
+  created_at: 2016-11-20 22:14:52.572838000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 9
+  journal_entry_id: 104
+  lock_version: 0
+  mode_id: 2
+  number: D20160005
+  paid_at: 2016-11-19 23:00:00.000000000 Z
+  payee_id: 5
+  responsible_id: 1
+  to_bank_at: 2016-11-19 23:00:00.000000000 Z
+  updated_at: 2016-11-20 22:14:52.572838000 Z
+  updater_id: 1
+outgoing_payments_010:
+  accounted_at: 2016-12-20 18:17:18.756633000 Z
+  affair_id: 54
+  amount: 500.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2016-12-20 18:17:18.697888000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 10
+  journal_entry_id: 115
+  lock_version: 0
+  mode_id: 1
+  number: D20160006
+  paid_at: 2016-12-19 23:00:00.000000000 Z
+  payee_id: 4
+  responsible_id: 1
+  to_bank_at: 2016-12-19 23:00:00.000000000 Z
+  updated_at: 2016-12-20 18:17:18.697888000 Z
+  updater_id: 1

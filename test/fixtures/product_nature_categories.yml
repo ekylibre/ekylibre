@@ -45,33 +45,600 @@
 #  reference_name                      :string
 #  saleable                            :boolean          default(FALSE), not null
 #  stock_account_id                    :integer
-#  stock_movement_account_id           :integer
 #  storable                            :boolean          default(FALSE), not null
 #  subscribing                         :boolean          default(FALSE), not null
+#  subscription_duration               :string
+#  subscription_nature_id              :integer
 #  updated_at                          :datetime         not null
 #  updater_id                          :integer
 #
 ---
 product_nature_categories_001:
   active: true
-  charge_account_id: 4
-  created_at: 2017-03-24 21:39:18.212959000 Z
+  charge_account_id: 115
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   depreciable: true
+  description: ''
   fixed_asset_account_id: 1
-  fixed_asset_allocation_account_id: 2
-  fixed_asset_depreciation_method: simplified_linear
-  fixed_asset_depreciation_percentage: 15.0
-  fixed_asset_expenses_account_id: 3
+  fixed_asset_allocation_account_id: 450
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 451
   id: 1
+  lock_version: 2
+  name: Generic Product Nature Category
+  number: PNC001
+  product_account_id: 152
+  purchasable: true
+  reductible: true
+  saleable: true
+  stock_account_id: 1
+  stock_movement_account_id: 5
+  storable: true
+  subscribing: false
+  updated_at: 2014-12-24 11:11:19.130401000 Z
+  updater_id: 1
+product_nature_categories_002:
+  active: true
+  charge_account_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  depreciable: true
+  description: ''
+  fixed_asset_account_id: 1
+  fixed_asset_allocation_account_id: 450
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 510
+  id: 2
+  lock_version: 1
+  name: Obsolete Product Nature Category
+  number: PNC002
+  product_account_id: 1
+  purchasable: true
+  reductible: true
+  saleable: true
+  stock_account_id: 1
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-12-24 11:11:43.081342000 Z
+  updater_id: 1
+product_nature_categories_003:
+  active: true
+  charge_account_id: 140
+  created_at: 2014-10-31 20:11:19.871117000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 3
   lock_version: 0
-  name: Equipment
-  number: '00000001'
-  pictogram: tractor
+  name: Produit phytosanitaire
+  number: PNC003
+  pictogram: beaker
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: plant_medicine
+  saleable: true
+  stock_account_id: 141
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-10-31 20:11:19.871117000 Z
+  updater_id: 1
+product_nature_categories_004:
+  active: true
+  created_at: 2014-10-31 20:11:30.463762000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 4
+  lock_version: 0
+  name: Paille
+  number: PNC004
+  pictogram: wheat
   product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: straw
+  saleable: true
+  stock_account_id: 139
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-10-31 20:11:30.463762000 Z
+  updater_id: 1
+product_nature_categories_005:
+  active: true
+  charge_account_id: 154
+  created_at: 2014-10-31 20:11:42.132127000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 5
+  lock_version: 0
+  name: Semence
+  number: PNC005
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: seed
+  saleable: true
+  stock_account_id: 155
+  stock_movement_account_id: 585
+  storable: true
+  subscribing: false
+  updated_at: 2014-10-31 20:11:42.132127000 Z
+  updater_id: 1
+product_nature_categories_006:
+  active: true
+  charge_account_id: 134
+  created_at: 2014-10-31 20:13:23.311480000 Z
+  creator_id: 1
+  depreciable: true
+  description: ''
+  fixed_asset_account_id: 28
+  fixed_asset_allocation_account_id: 416
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 410
+  id: 6
+  lock_version: 1
+  name: Bâtiment
+  number: PNC006
+  pictogram: building
+  product_account_id: 153
+  purchasable: true
+  reductible: false
+  reference_name: building
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2014-12-24 11:13:37.552871000 Z
+  updater_id: 1
+product_nature_categories_007:
+  active: true
+  created_at: 2014-10-31 20:13:55.094715000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 7
+  lock_version: 0
+  name: Pièce ou zone d’un bâtiment
+  number: PNC007
+  pictogram: barn
+  purchasable: false
+  reductible: false
+  reference_name: building_division
+  saleable: false
+  storable: false
+  subscribing: false
+  updated_at: 2014-10-31 20:13:55.094715000 Z
+  updater_id: 1
+product_nature_categories_008:
+  active: true
+  created_at: 2014-11-01 19:06:50.017161000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 8
+  lock_version: 0
+  name: Culture
+  number: PNC008
+  pictogram: leaf
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: crop
+  saleable: true
+  stock_account_id: 160
+  stock_movement_account_id: 535
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:06:50.017161000 Z
+  updater_id: 1
+product_nature_categories_009:
+  active: true
+  charge_account_id: 11
+  created_at: 2014-11-01 19:08:36.210197000 Z
+  creator_id: 1
+  depreciable: true
+  description: ''
+  fixed_asset_account_id: 10
+  fixed_asset_allocation_account_id: 398
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 403
+  id: 9
+  lock_version: 1
+  name: Vache
+  number: PNC009
+  pictogram: cow
+  product_account_id: 12
+  purchasable: true
+  reductible: false
+  reference_name: female_adult_cow
+  saleable: true
+  stock_account_id: 99
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-12-24 11:14:06.381046000 Z
+  updater_id: 1
+product_nature_categories_010:
+  active: true
+  charge_account_id: 147
+  created_at: 2014-11-01 19:09:20.923402000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 10
+  lock_version: 0
+  name: Lait
+  number: PNC010
+  pictogram: drop
+  product_account_id: 15
+  purchasable: true
+  reductible: false
+  reference_name: milk
+  saleable: true
+  stock_account_id: 14
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:09:20.923402000 Z
+  updater_id: 1
+product_nature_categories_011:
+  active: true
+  created_at: 2014-11-01 19:10:35.057312000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 11
+  lock_version: 0
+  name: Graine
+  number: PNC011
+  pictogram: wheat
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: grain
+  saleable: true
+  stock_account_id: 139
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:10:35.057312000 Z
+  updater_id: 1
+product_nature_categories_012:
+  active: true
+  charge_account_id: 16
+  created_at: 2014-11-01 20:20:57.118801000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 12
+  lock_version: 0
+  name: Produit vétérinaire
+  number: PNC012
+  pictogram: pill
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: animal_medicine
+  saleable: true
+  stock_account_id: 17
+  stock_movement_account_id: 586
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 20:20:57.118801000 Z
+  updater_id: 1
+product_nature_categories_013:
+  active: true
+  charge_account_id: 171
+  created_at: 2014-11-01 20:26:13.040696000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 13
+  lock_version: 0
+  name: Responsable
+  number: PNC013
+  pictogram: male
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: worker
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-01 20:26:13.040696000 Z
+  updater_id: 1
+product_nature_categories_014:
+  active: true
+  charge_account_id: 47
+  created_at: 2014-11-02 18:19:37.942990000 Z
+  creator_id: 1
+  depreciable: true
+  description: ''
+  fixed_asset_account_id: 45
+  fixed_asset_allocation_account_id: 424
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 428
+  id: 14
+  lock_version: 1
+  name: "Équipement"
+  number: PNC014
+  pictogram: tractor
+  product_account_id: 153
   purchasable: true
   reductible: false
   reference_name: equipment
   saleable: true
   storable: false
   subscribing: false
-  updated_at: 2017-03-24 21:39:18.212959000 Z
+  updated_at: 2014-12-24 11:14:29.601420000 Z
+  updater_id: 1
+product_nature_categories_015:
+  active: true
+  created_at: 2014-11-02 18:31:53.721523000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 15
+  lock_version: 0
+  name: Zone cultivable
+  number: PNC015
+  pictogram: land_parcels
+  purchasable: false
+  reductible: false
+  reference_name: cultivable_zone
+  saleable: false
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-02 18:31:53.721523000 Z
+  updater_id: 1
+product_nature_categories_016:
+  active: true
+  created_at: 2014-11-04 17:27:32.635406000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 16
+  lock_version: 0
+  name: Troupeau de bovins
+  number: PNC016
+  pictogram: cow
+  purchasable: false
+  reductible: false
+  reference_name: cattle_herd
+  saleable: false
+  stock_account_id: 99
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-04 17:27:32.635406000 Z
+  updater_id: 1
+product_nature_categories_017:
+  active: true
+  charge_account_id: 54
+  created_at: 2014-11-07 15:24:11.118240000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 17
+  lock_version: 0
+  name: Engrais
+  number: PNC017
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: fertilizer
+  saleable: true
+  stock_account_id: 55
+  stock_movement_account_id: 590
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 15:24:11.118240000 Z
+  updater_id: 1
+product_nature_categories_018:
+  active: true
+  created_at: 2014-11-07 15:46:45.124919000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 18
+  lock_version: 0
+  name: Herbe
+  number: PNC018
+  pictogram: leaf
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: grass
+  saleable: true
+  stock_account_id: 139
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 15:46:45.124919000 Z
+  updater_id: 1
+product_nature_categories_019:
+  active: true
+  charge_account_id: 154
+  created_at: 2014-11-07 16:33:59.239806000 Z
+  creator_id: 1
+  depreciable: true
+  description: ''
+  fixed_asset_account_id: 184
+  fixed_asset_allocation_account_id: 424
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 510
+  id: 19
+  lock_version: 1
+  name: Plant
+  number: PNC019
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: plant
+  saleable: true
+  stock_account_id: 155
+  stock_movement_account_id: 477
+  storable: true
+  subscribing: false
+  updated_at: 2014-12-24 11:15:41.250449000 Z
+  updater_id: 1
+product_nature_categories_020:
+  active: true
+  created_at: 2014-11-07 17:05:38.057941000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 20
+  lock_version: 0
+  name: Fruit
+  number: PNC020
+  pictogram: leaf
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: fruit
+  saleable: true
+  stock_account_id: 139
+  stock_movement_account_id: 477
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 17:05:38.057941000 Z
+  updater_id: 1
+product_nature_categories_021:
+  active: true
+  created_at: 2014-11-07 17:10:23.458618000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 21
+  lock_version: 0
+  name: Vin
+  number: PNC021
+  pictogram: drop
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: wine
+  saleable: true
+  stock_account_id: 139
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 17:10:23.458618000 Z
+  updater_id: 1
+product_nature_categories_022:
+  active: true
+  charge_account_id: 147
+  created_at: 2014-11-07 19:03:43.632961000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 22
+  lock_version: 0
+  name: Produit œnologique
+  number: PNC022
+  pictogram: beaker
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: oenological_product
+  saleable: true
+  stock_account_id: 141
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 19:03:43.632961000 Z
+  updater_id: 1
+product_nature_categories_023:
+  active: true
+  charge_account_id: 115
+  created_at: 2014-11-07 19:29:27.376345000 Z
+  creator_id: 1
+  depreciable: false
+  fixed_asset_depreciation_percentage: 0.0
+  id: 23
+  lock_version: 0
+  name: Matières sèches (vin)
+  number: PNC023
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: wine_package_consumable
+  saleable: true
+  stock_account_id: 116
+  stock_movement_account_id: 591
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 19:29:27.376345000 Z
+  updater_id: 1
+product_nature_categories_024:
+  active: true
+  charge_account_id: 573
+  created_at: 2015-04-26 12:44:36.194987000 Z
+  creator_id: 1
+  depreciable: false
+  description: ''
+  fixed_asset_depreciation_method: ''
+  fixed_asset_depreciation_percentage: 0.0
+  id: 24
+  lock_version: 0
+  name: Médicament
+  number: PNC024
+  pictogram: undefined
+  product_account_id: 5
+  purchasable: true
+  reductible: true
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2015-04-26 12:44:36.194987000 Z
+  updater_id: 1
+product_nature_categories_025:
+  active: true
+  charge_account_id: 467
+  created_at: 2016-01-21 14:05:46.940411000 Z
+  depreciable: false
+  fixed_asset_depreciation_method: simplified_linear
+  fixed_asset_depreciation_percentage: 20.0
+  id: 25
+  lock_version: 0
+  name: Land parcel
+  number: PNC025
+  pictogram: land_parcels
+  product_account_id: 468
+  purchasable: true
+  reductible: false
+  reference_name: land_parcel
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2016-01-21 14:05:46.940411000 Z
+product_nature_categories_026:
+  active: true
+  created_at: 2016-05-26 21:22:59.404652000 Z
+  creator_id: 1
+  depreciable: false
+  description: ''
+  fixed_asset_depreciation_method: ''
+  fixed_asset_depreciation_percentage: 0.0
+  id: 26
+  lock_version: 0
+  name: Abonnement
+  number: PNC026
+  pictogram: bolt
+  product_account_id: 528
+  purchasable: false
+  reductible: false
+  saleable: true
+  storable: false
+  subscribing: true
+  updated_at: 2016-05-26 21:22:59.404652000 Z
+  updater_id: 1
