@@ -1913,6 +1913,8 @@ por:
         # fr_pcg82_profit_and_loss_statement: "French classical profit and loss statement"
         # fr_pcga_balance_sheet: "French agricultural balance sheet"
         # fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
+        # fixed_asset_registry: "Fixed asset registry"
+        # fixed_asset_sheet: "Fixed asset sheet"
         general_journal: "Jornal Geral"
         general_ledger: "Contabilidade geral"
         income_statement: "Demonstração de resultados"

@@ -96,6 +96,7 @@ class FinancialYear < Ekylibre::Record::Base
     def at(searched_at = Time.zone.now)
       on(searched_at.to_date)
     end
+    alias ensure_exists_at! at
 
     def first_of_all
       reorder(:started_on).first

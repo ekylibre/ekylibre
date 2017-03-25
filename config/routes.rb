@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get :list_carried_linkages
       get :list_carrier_linkages
       get :list_contained_products
+      get :list_fixed_assets
       get :list_groups
       get :list_inspections
       get :list_intervention_product_parameters
@@ -470,14 +471,23 @@ Rails.application.routes.draw do
     resources :exports, only: [:index, :show]
 
     resources :fixed_assets, concerns: [:list, :unroll], path: 'fixed-assets' do
+      collection do
+        get :depreciate_up_to
+      end
+
       member do
         # get :cede
         # get :sell
-        # post :depreciate
+        post :depreciate
         get :list_depreciations
         get :list_products
+        post :start_up
+        post :sell
+        post :scrap
       end
     end
+
+    resources :fixed_asset_depreciations, path: 'fixed-asset-depreciations', only: [:show]
 
     resources :financial_years, concerns: [:list, :unroll], path: 'financial-years' do
       member do

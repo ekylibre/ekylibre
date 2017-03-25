@@ -795,6 +795,7 @@ fra:
     account_debt: "Dettes" #?
     account_equity: "Capitaux propres" #?
     account_fixed_assets: "Actif immobilisé" #?
+    account_for: "Passer en comptabilité"
     account_inventories_assets: "Stocks" #?
     account_mark: "Lettrer le compte" #?
     account_other_assets: "Divers" #?
@@ -940,6 +941,7 @@ fra:
     assessable_operations: "Opérations imposables (H.T)" #?
     assets: "Actifs"
     assets_gaps: "Ecarts actifs"
+    asset_exists: "Immobilisation existante"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
     associate_debts: "Comptes courants"
     associate_locked_debts: "Comptes courants bloqués"
@@ -1941,6 +1943,7 @@ fra:
     save_in_draft: "Sauvegarder dans le brouillard"
     saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n'ont pas pu être lettrés."
     scheduled: "Échéance"
+    scrapped_on: "Mise au rebut le"
     search: "Rechercher"
     search_account: "Rechercher un compte" #?
     search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)" #?
@@ -1991,6 +1994,7 @@ fra:
     social_debts: "Dettes sociales"
     social_expenses: "Charges sociales"
     soil_varieties: "Nature des sols" #?
+    sold_on: "Cédée le"
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
@@ -2019,6 +2023,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
+    # stopped_on: "Stopped on"
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
@@ -2185,6 +2190,7 @@ fra:
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
     up: "Monter"
+    up_to: "Jusqu'au"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
     updated_at_by: "Mis à jour le %{at} par %{author}"
@@ -2450,6 +2456,8 @@ fra:
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
+      depreciation_failed: "Les immobilisations n'ont pas pu être dépréciées."
+      depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"

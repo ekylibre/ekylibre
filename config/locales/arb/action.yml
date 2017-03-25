@@ -919,6 +919,7 @@ arb:
     account_debt: "الديون" #?
     account_equity: "رأس مال خاص" #?
     account_fixed_assets: "الموجودات الثابتة" #?
+    # account_for: "Account for"
     account_inventories_assets: "أسهم" #?
     account_mark: "تسجيل الحسابات" #?
     account_other_assets: "موجودات اخرى" #?
@@ -1060,6 +1061,7 @@ arb:
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
     # assets: "Assets"
     # assets_gaps: "Assets gaps"
+    # asset_exists: "Asset exists"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
     # associate_debts: "Associate debts"
     # associate_locked_debts: "Associate locked debts"
@@ -2058,6 +2060,7 @@ arb:
     save_in_draft: "حفظ في المسودات"
     # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "المقرر"
+    # scrapped_on: "Scrapped on"
     search: "البحث عن الشراء"
     search_go: "بدء البحث" #?
     search_placeholder: "بحث…"
@@ -2105,6 +2108,7 @@ arb:
     simplified_linear_options: "خيارات الخطية المبسطة"
     # social_debts: "Social debts"
     social_expenses: "النفقات الاجتماعية"
+    # sold_on: "Sold on"
     source: "مصدر البيانات"
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
@@ -2126,6 +2130,7 @@ arb:
     stocks: "ادارة الاسهم"
     stop: "لغاية"
     stopped: "توقفت"
+    # stopped_on: "Stopped on"
     storage: "تخزين"
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
@@ -2282,6 +2287,7 @@ arb:
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?
     up: "يرتفع"
+    # up_to: "Up to"
     update: "تعديل"
     update_params: "تعديل البحث" #?
     # updated_at_by: "Updated at %{at} by %{author}"
@@ -2539,6 +2545,8 @@ arb:
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
+      # depreciation_failed: "Assets could not be depreciated."
+      # depreciation_successful: "Assets have been successfully depreciated."
       draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170320073301">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170324084701">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -359,7 +359,7 @@
       <item name="others_corporeals_depreciations_inputations_expenses" fr_pcga="68118"/>
       <item name="others_taxes_and_assimilated_payments" fr_pcg82="447"/>
       <item name="outstanding_adult_animal_assets" fr_pcga="2341"/>
-      <item name="outstanding_assets" fr_pcga="23"/>
+      <item name="outstanding_assets" fr_pcga="23" pt_snc="45"/>
       <item name="outstanding_construction_on_other_land_parcel_assets" fr_pcga="2314"/>
       <item name="outstanding_construction_on_own_land_parcel_assets" fr_pcga="2313"/>
       <item name="outstanding_corporeal_assets" fr_pcga="231"/>
@@ -1929,6 +1929,8 @@
       <item name="fr_pcg82_profit_and_loss_statement" category="accountancy"/>
       <item name="fr_pcga_balance_sheet" category="accountancy"/>
       <item name="fr_pcga_profit_and_loss_statement" category="accountancy"/>
+      <item name="fixed_asset_registry" category="accountancy"/>
+      <item name="fixed_asset_sheet" category="accountancy"/>
       <item name="general_journal" category="accountancy"/>
       <item name="general_ledger" category="accountancy"/>
       <item name="income_statement" category="accountancy"/>

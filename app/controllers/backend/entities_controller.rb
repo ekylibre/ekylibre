@@ -289,7 +289,16 @@ module Backend
       t.column :executor, url: true
     end
 
-    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    def self.entities_moves_client_conditions(_params)
+      code = ''
+      code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
+      code << "c << Entity.find(params[:id]).client_account_id\n"
+      code << "c\n"
+      eval code
+    end
+
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -304,7 +313,16 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency
     end
 
-    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    def self.entities_moves_supplier_conditions(_params)
+      code = ''
+      code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
+      code << "c << Entity.find(params[:id]).supplier_account_id\n"
+      code << "c\n"
+      eval code
+    end
+
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
