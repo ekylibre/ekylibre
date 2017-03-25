@@ -1011,12 +1011,12 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    asset_exists: "Asset exists"
     assets: "Assets" #?
     assets_gaps: "Assets gaps" #??
     associate_debts: "Associate debts" #?!
     associate_locked_debts: "Associate locked debts" #?!
     associate_receivables: "Associate receivables" #?!
-    asset_exists: "Asset exists"
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
@@ -1117,7 +1117,7 @@ eng:
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
-    corporeal_assets: "Corporeal assets" #?!
+    corporeal_assets: "Corporeal assets" #?
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1329,7 +1329,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
-    incorporeal_assets: "Incorporeal assets" #?!
+    incorporeal_assets: "Incorporeal assets" #?
     indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"

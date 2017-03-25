@@ -61,11 +61,11 @@ module Backend
     def index
       redirect_to controller: :journals, action: :index
     end
-    
+
     def show
       return unless @journal_entry = find_and_check
       respond_with(@journal_entry, methods: [],
-                                  include: [])
+                                   include: [])
       format.html do
         t3e @journal_entry.attributes
       end

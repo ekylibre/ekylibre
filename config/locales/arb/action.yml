@@ -1059,9 +1059,9 @@ arb:
     area_create: "اضافة عنوان بريدي" #?
     area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
+    # asset_exists: "Asset exists"
     # assets: "Assets"
     # assets_gaps: "Assets gaps"
-    # asset_exists: "Asset exists"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
     # associate_debts: "Associate debts"
     # associate_locked_debts: "Associate locked debts"
