@@ -112,7 +112,7 @@
 		</groupHeader>
 		<groupFooter>
 			<band height="29">
-				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
+				<textField pattern="#,##0.00 €" isBlankWhenNull="true">
 					<reportElement x="174" y="9" width="138" height="20" uuid="2a080678-8fdc-44a9-84f5-27355a155a89"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Lato" size="12"/>

@@ -12,6 +12,7 @@
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <property name="financial_year_name" value="financial_year.code"/>
+      <property name="previous_financial_year_name" value="previous_financial_year.code"/>
       <property name="started_on" value="started_on"/>
       <property name="stopped_on" value="stopped_on"/>
       <!-- assets-->
@@ -74,6 +75,7 @@
 	          <cell name="previous_raw_balance" value="p_v_unsubcribed_capital" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_unsubcribed_capital" />
+	          <cell name="previous_total_balance" value="p_v_unsubcribed_capital" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -84,7 +86,8 @@
 	          <cell name="depreciated_balance" value="v_incorporeal_asset_depreciations" />
 	          <cell name="previous_raw_balance" value="p_v_incorporeal_assets" />
 	          <cell name="previous_depreciated_balance" value="p_v_incorporeal_asset_depreciations" />
-	          <cell name="total_balance" value="v_incorporeal_assets - depreciated_balance" />
+	          <cell name="total_balance" value="v_incorporeal_assets - v_incorporeal_asset_depreciations" />
+	          <cell name="previous_total_balance" value="p_v_incorporeal_assets - p_v_incorporeal_asset_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -96,6 +99,7 @@
 	          <cell name="previous_raw_balance" value="p_v_corporeal_assets" />
 	          <cell name="previous_depreciated_balance" value="p_v_corporeal_asset_depreciations" />
 	          <cell name="total_balance" value="v_corporeal_assets - v_corporeal_asset_depreciations" />
+	          <cell name="previous_total_balance" value="p_v_corporeal_assets - p_v_corporeal_asset_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -107,6 +111,7 @@
 	          <cell name="previous_raw_balance" value="p_v_financial_assets" />
 	          <cell name="previous_depreciated_balance" value="p_v_financial_asset_depreciations" />
 	          <cell name="total_balance" value="v_financial_assets - v_financial_asset_depreciations" />
+	          <cell name="previous_total_balance" value="p_v_financial_assets - p_v_financial_asset_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -118,6 +123,7 @@
 	          <cell name="previous_raw_balance" value="p_v_stocks" />
 	          <cell name="previous_depreciated_balance" value="p_v_stock_depreciations" />
 	          <cell name="total_balance" value="v_stocks - v_stock_depreciations" />
+	          <cell name="previous_total_balance" value="p_v_stocks - p_v_stock_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -129,6 +135,7 @@
 	          <cell name="previous_raw_balance" value="p_v_advance_giveables" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_advance_giveables" />
+	          <cell name="previous_total_balance" value="p_v_advance_giveables" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -140,6 +147,7 @@
 	          <cell name="previous_raw_balance" value="p_v_client_receivables" />
 	          <cell name="previous_depreciated_balance" value="p_v_client_receivable_provisions" />
 	          <cell name="total_balance" value="v_client_receivables - v_client_receivable_provisions" />
+	          <cell name="previous_total_balance" value="p_v_client_receivables - p_v_client_receivable_provisions" />
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -151,6 +159,7 @@
 	          <cell name="previous_raw_balance" value="p_v_state_receivables" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_state_receivables" />
+	          <cell name="previous_total_balance" value="p_v_state_receivables" />
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -162,6 +171,7 @@
 	          <cell name="previous_raw_balance" value="p_v_associate_receivables" />
 	          <cell name="previous_depreciated_balance" value="p_v_associate_receivable_provisions" />
 	          <cell name="total_balance" value="v_associate_receivables - v_associate_receivable_provisions" />
+	          <cell name="previous_total_balance" value="p_v_associate_receivables - p_v_associate_receivable_provisions" />
 	        </section>
 			<section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -173,6 +183,7 @@
 	          <cell name="previous_raw_balance" value="p_v_other_receivables" />
 	          <cell name="previous_depreciated_balance" value="p_v_other_receivable_provisions" />
 	          <cell name="total_balance" value="v_other_receivables - v_other_receivable_provisions" />
+	          <cell name="previous_total_balance" value="p_v_other_receivables - p_v_other_receivable_provisions" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -184,6 +195,7 @@
 	          <cell name="previous_raw_balance" value="p_v_investment_security" />
 	          <cell name="previous_depreciated_balance" value="p_v_investment_security_provisions" />
 	          <cell name="total_balance" value="v_investment_security - v_investment_security_provisions" />
+	          <cell name="previous_total_balance" value="p_v_investment_security - p_v_investment_security_provisions" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -195,6 +207,7 @@
 	          <cell name="previous_raw_balance" value="p_v_reserve" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_reserve" />
+	          <cell name="previous_total_balance" value="p_v_reserve" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -206,6 +219,7 @@
 	          <cell name="previous_raw_balance" value="p_v_advance_charges" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_advance_charges" />
+	          <cell name="previous_total_balance" value="p_v_advance_charges" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
@@ -217,6 +231,7 @@
 	          <cell name="previous_raw_balance" value="p_v_assets_gaps" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_assets_gaps" />
+	          <cell name="previous_total_balance" value="p_v_assets_gaps" />
 	        </section>
         </section>
       </section>
@@ -280,6 +295,7 @@
 	          <cell name="previous_raw_balance" value="p_v_capitals" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_capitals" />
+	          <cell name="previous_total_balance" value="p_v_capitals" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -291,6 +307,7 @@
 	          <cell name="previous_raw_balance" value="p_v_emissions_and_reevaluation_gaps" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_emissions_and_reevaluation_gaps" />
+	          <cell name="previous_total_balance" value="p_v_emissions_and_reevaluation_gaps" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -302,6 +319,7 @@
 	          <cell name="previous_raw_balance" value="p_v_liability_reserves" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_liability_reserves" />
+	          <cell name="previous_total_balance" value="p_v_liability_reserves" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -313,6 +331,7 @@
 	          <cell name="previous_raw_balance" value="p_v_anew_reports" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_anew_reports" />
+	          <cell name="previous_total_balance" value="p_v_anew_reports" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -324,6 +343,7 @@
 	          <cell name="previous_raw_balance" value="p_v_profit_or_loss" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_profit_or_loss" />
+	          <cell name="previous_total_balance" value="p_v_profit_or_loss" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -335,6 +355,7 @@
 	          <cell name="previous_raw_balance" value="p_v_investment_subsidies" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_investment_subsidies" />
+	          <cell name="previous_total_balance" value="p_v_investment_subsidies" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -346,6 +367,7 @@
 	          <cell name="previous_raw_balance" value="p_v_derogatory_depreciations" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_derogatory_depreciations" />
+	          <cell name="previous_total_balance" value="p_v_derogatory_depreciations" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -357,6 +379,7 @@
 	          <cell name="previous_raw_balance" value="p_v_mandatory_provisions" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_mandatory_provisions" />
+	          <cell name="previous_total_balance" value="p_v_mandatory_provisions" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -368,6 +391,7 @@
 	          <cell name="previous_raw_balance" value="p_v_risk_and_charges_provisions" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_risk_and_charges_provisions" />
+	          <cell name="previous_total_balance" value="p_v_risk_and_charges_provisions" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -379,6 +403,7 @@
 	          <cell name="previous_raw_balance" value="p_v_loans_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_loans_debts" />
+	          <cell name="previous_total_balance" value="p_v_loans_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -390,6 +415,7 @@
 	          <cell name="previous_raw_balance" value="p_v_associate_locked_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_associate_locked_debts" />
+	          <cell name="previous_total_balance" value="p_v_associate_locked_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -401,6 +427,7 @@
 	          <cell name="previous_raw_balance" value="p_v_cashe_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_cashe_debts" />
+	          <cell name="previous_total_balance" value="p_v_cashe_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -412,6 +439,7 @@
 	          <cell name="previous_raw_balance" value="p_v_other_financial_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_other_financial_debts" />
+	          <cell name="previous_total_balance" value="p_v_other_financial_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -423,6 +451,7 @@
 	          <cell name="previous_raw_balance" value="p_v_advance_receivables" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_advance_receivables" />
+	          <cell name="previous_total_balance" value="p_v_advance_receivables" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -434,6 +463,7 @@
 	          <cell name="previous_raw_balance" value="p_v_supplier_receivables" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_supplier_receivables" />
+	          <cell name="previous_total_balance" value="p_v_supplier_receivables" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -445,6 +475,7 @@
 	          <cell name="previous_raw_balance" value="p_v_state_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_state_debts" />
+	          <cell name="previous_total_balance" value="p_v_state_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -456,6 +487,7 @@
 	          <cell name="previous_raw_balance" value="p_v_social_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_social_debts" />
+	          <cell name="previous_total_balance" value="p_v_social_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -467,6 +499,7 @@
 	          <cell name="previous_raw_balance" value="p_v_associate_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_associate_debts" />
+	          <cell name="previous_total_balance" value="p_v_associate_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -478,6 +511,7 @@
 	          <cell name="previous_raw_balance" value="p_v_fixed_asset_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_fixed_asset_debts" />
+	          <cell name="previous_total_balance" value="p_v_fixed_asset_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -489,6 +523,7 @@
 	          <cell name="previous_raw_balance" value="p_v_other_debts" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_other_debts" />
+	          <cell name="previous_total_balance" value="p_v_other_debts" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -500,6 +535,7 @@
 	          <cell name="previous_raw_balance" value="p_v_advance_products" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_advance_products" />
+	          <cell name="previous_total_balance" value="p_v_advance_products" />
 	        </section>
 	        <section name="item">
 	          <cell name="group" value=":liabilities.tl" level="api"/>
@@ -511,6 +547,7 @@
 	          <cell name="previous_raw_balance" value="p_v_liabilities_gaps" />
 	          <cell name="previous_depreciated_balance" value="" />
 	          <cell name="total_balance" value="v_liabilities_gaps" />
+	          <cell name="previous_total_balance" value="p_v_liabilities_gaps" />
 	        </section>
         </section>
       </section>

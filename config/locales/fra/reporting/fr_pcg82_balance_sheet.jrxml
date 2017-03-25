@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fr_pcga_profit_and_loss_statement" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.610510000000002"/>
+	<property name="ireport.zoom" value="1.7715610000000026"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
@@ -65,6 +65,15 @@
 	<field name="previous-depreciated-balance" class="java.lang.Double">
 		<fieldDescription><![CDATA[previous-depreciated-balance]]></fieldDescription>
 	</field>
+	<field name="total-balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[total-balance]]></fieldDescription>
+	</field>
+	<field name="previous-total-balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[previous-total-balance]]></fieldDescription>
+	</field>
+	<field name="previous-fy-name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::financial-years/@previous-financial-year-name]]></fieldDescription>
+	</field>
 	<sortField name="order"/>
 	<variable name="raw-balance-group" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
 		<variableExpression><![CDATA[$F{raw-balance}]]></variableExpression>
@@ -73,46 +82,91 @@
 		<variableExpression><![CDATA[$F{depreciated-balance}]]></variableExpression>
 	</variable>
 	<variable name="raw-balance-subgroup" class="java.lang.Double" resetType="Group" resetGroup="subgroup" calculation="Sum">
-		<variableExpression><![CDATA[$F{raw-balance}]]></variableExpression>
+		<variableExpression><![CDATA[$F{total-balance}]]></variableExpression>
 	</variable>
 	<variable name="previous-raw-balance-group" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
 		<variableExpression><![CDATA[$F{previous-raw-balance}]]></variableExpression>
 	</variable>
 	<variable name="previous-raw-balance-subgroup" class="java.lang.Double" resetType="Group" resetGroup="subgroup" calculation="Sum">
-		<variableExpression><![CDATA[$F{previous-raw-balance}]]></variableExpression>
+		<variableExpression><![CDATA[$F{previous-total-balance}]]></variableExpression>
+	</variable>
+	<variable name="total-balance_1" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
+		<variableExpression><![CDATA[$F{total-balance}]]></variableExpression>
+	</variable>
+	<variable name="previous-total-balance_1" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
+		<variableExpression><![CDATA[$F{previous-total-balance}]]></variableExpression>
 	</variable>
 	<group name="group" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{group}]]></groupExpression>
 		<groupHeader>
 			<band height="37">
 				<textField isBlankWhenNull="true">
-					<reportElement x="0" y="0" width="235" height="37" uuid="b43d7d6d-23af-4e32-b1b1-914384e29374"/>
+					<reportElement x="0" y="0" width="198" height="37" uuid="b43d7d6d-23af-4e32-b1b1-914384e29374"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="24"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{group}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="235" y="0" width="160" height="37" uuid="09c1fd4c-7e70-481e-8f3b-f3601a27a21c"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[N]]></text>
+					<reportElement x="198" y="16" width="77" height="21" uuid="e87f6b07-5ef9-4068-b93d-22bfaf935c33"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Brut]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="394" y="0" width="160" height="37" uuid="05794ff3-6bf0-40b1-9e59-b733cd6298ff"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[N - 1]]></text>
+					<reportElement x="275" y="16" width="59" height="21" uuid="42aaf370-4716-4036-91e3-5b3a13814f42"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Déduction]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="334" y="16" width="43" height="21" uuid="0d1928e5-c9d0-4e8f-b057-fcbf4281b764"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Net]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="511" y="16" width="43" height="21" uuid="1286b64b-6f41-422d-afda-de4ae1b02e2a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Net]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="452" y="16" width="59" height="21" uuid="221ddbbf-3483-451e-b222-2fcd1a32ea44"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Déduction]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="378" y="16" width="74" height="21" uuid="7780733b-efcc-475b-b3b5-bff96838ce31"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Brut]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="198" y="0" width="179" height="16" uuid="229d89bf-6424-4aea-8704-bbd4ed3baeb5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fy-name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="378" y="0" width="176" height="16" uuid="c8694660-3701-4f5c-9b03-7ad5c346f49b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{previous-fy-name}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="38">
-				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
-					<reportElement x="188" y="10" width="130" height="20" uuid="2edc8fd8-0db3-41d4-8b8c-881f2e200c59"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Lato" size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{raw-balance-group}]]></textFieldExpression>
-				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="2" y="10" width="186" height="20" uuid="5ff5a310-77fe-4980-8043-515fbf2ba126"/>
 					<textElement verticalAlignment="Middle">
@@ -120,13 +174,29 @@
 					</textElement>
 					<textFieldExpression><![CDATA["Total " + $F{group}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
-					<reportElement x="349" y="10" width="126" height="20" uuid="798ffa77-f6a9-4c9a-b7dc-39f02d5ccbb9"/>
+				<textField pattern="#,##0 €" isBlankWhenNull="true">
+					<reportElement x="188" y="10" width="189" height="20" uuid="9672d4e5-3f1e-4202-846c-34d07e35a320"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Lato" size="14" isBold="false"/>
+						<font fontName="Lato" size="14"/>
+						<paragraph rightIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{previous-raw-balance-group}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{total-balance_1}]]></textFieldExpression>
 				</textField>
+				<textField pattern="#,##0 €" isBlankWhenNull="true">
+					<reportElement x="377" y="10" width="177" height="20" uuid="ad7f1217-93df-40e6-aa08-ff59875ff83a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Lato" size="14"/>
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{previous-total-balance_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="strong" mode="Opaque" x="0" y="2" width="571" height="2" backcolor="#7C9DDD" uuid="c7fe8f06-db7d-4b53-b23d-2fdae881c1e9"/>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
@@ -148,17 +218,19 @@
 		</groupHeader>
 		<groupFooter>
 			<band height="31">
-				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
-					<reportElement x="188" y="11" width="130" height="20" uuid="68c84c7e-a403-4fc0-b12c-54ab19196770"/>
+				<textField pattern="#,##0 €" isBlankWhenNull="true">
+					<reportElement x="198" y="11" width="179" height="20" uuid="68c84c7e-a403-4fc0-b12c-54ab19196770"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Lato" size="12" isBold="true"/>
+						<paragraph rightIndent="5"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{raw-balance-subgroup}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
-					<reportElement x="349" y="11" width="126" height="20" uuid="cd8edf95-038f-4f0f-b983-f33f84ccfad9"/>
+				<textField pattern="#,##0 €" isBlankWhenNull="true">
+					<reportElement x="378" y="11" width="176" height="20" uuid="cd8edf95-038f-4f0f-b983-f33f84ccfad9"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Lato" size="12" isBold="true"/>
+						<paragraph rightIndent="5"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{previous-raw-balance-subgroup}]]></textFieldExpression>
 				</textField>
@@ -212,39 +284,73 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="235" height="20" uuid="0104fdea-3a7b-4bcf-9567-99ecb6cd8526"/>
+				<reportElement x="0" y="0" width="198" height="20" uuid="0104fdea-3a7b-4bcf-9567-99ecb6cd8526"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="235" y="0" width="80" height="20" uuid="0cccef78-ea24-4ba4-a788-4ca1f6ae0fca"/>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="198" y="0" width="77" height="20" uuid="0cccef78-ea24-4ba4-a788-4ca1f6ae0fca"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{raw-balance}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="315" y="0" width="80" height="20" uuid="c7b277aa-4720-4f34-b9c1-42208b262e28"/>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="275" y="0" width="43" height="20" uuid="c7b277aa-4720-4f34-b9c1-42208b262e28"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{depreciated-balance}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="395" y="0" width="80" height="20" uuid="ca3189c1-c269-4ed9-b629-0be1b44356ce"/>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="377" y="0" width="75" height="20" uuid="ca3189c1-c269-4ed9-b629-0be1b44356ce"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{previous-raw-balance}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement x="475" y="0" width="80" height="20" uuid="10e75bb6-c982-4c4a-8a89-e76f4d623c4f"/>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="452" y="0" width="59" height="20" uuid="10e75bb6-c982-4c4a-8a89-e76f4d623c4f"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{previous-depreciated-balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="318" y="0" width="59" height="20" uuid="06433f7b-402c-4ede-bb1b-df53d1dcd679"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total-balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="511" y="0" width="44" height="20" uuid="e58170cd-4edf-4363-9e17-9ce02ddbf9ec"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{previous-total-balance}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
