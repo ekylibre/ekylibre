@@ -1,4 +1,4 @@
-- navigation resource, order: :full_name, naming_method: :label, scope: resource.nature.to_sym
+- navigation resource, order: :full_name, naming_method: :label, scope: resource.nature.pluralize.to_sym
 
 - main_toolbar do |t|
   = t.export :entity_sheet
