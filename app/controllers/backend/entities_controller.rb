@@ -289,11 +289,11 @@ module Backend
       t.column :executor, url: true
     end
 
-    def self.entities_moves_client_conditions(_params)
+    def self.entities_moves_client_conditions(params)
       code = ''
       code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
-      code << "c << Entity.find(params[:id]).client_account_id\n"
+      code << "c << Entity.find(#{params[:id]}).client_account_id\n"
       code << "c\n"
       eval code
     end
@@ -313,11 +313,11 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency
     end
 
-    def self.entities_moves_supplier_conditions(_params)
+    def self.entities_moves_supplier_conditions(params)
       code = ''
       code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
-      code << "c << Entity.find(params[:id]).supplier_account_id\n"
+      code << "c << Entity.find(#{params[:id]}).supplier_account_id\n"
       code << "c\n"
       eval code
     end
