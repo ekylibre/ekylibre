@@ -18,7 +18,15 @@ module Ekylibre
       # and removes it if not exist
       def check!(name, options = {})
         if list.include?(name)
-          drop(name, options) unless Apartment.connection.schema_exists? name
+          current_conf = Apartment.connection_config
+          tenant_exists = Rails.configuration.database_configuration
+                               .select { |db, config| (config['clustered'] && config['database']) || db == env }
+                               .any? do |_env, conf|
+                                  Apartment.establish_connection conf
+                                  Apartment.connection.schema_exists? name
+                                end
+          drop(name, options) unless tenant_exists
+          Apartment.establish_connection current_conf
         end
       end
 
@@ -50,7 +58,7 @@ module Ekylibre
       end
 
       def db_for(name)
-        dbs = @list[name.to_s]
+        dbs = { name => @list[name.to_s] } if @list[name.to_s]
         dbs ||= @list[env]
                 .map { |key, value| [[key], value] }
                 .to_h
