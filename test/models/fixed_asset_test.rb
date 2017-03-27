@@ -96,7 +96,8 @@ class FixedAssetTest < ActiveSupport::TestCase
     @started_on = Date.parse('2017-01-01')
     
     @up_to = Date.parse('2017-04-20')
-
+    
+    @sold_on = Date.parse('2017-04-20')
     
   end
   
@@ -121,6 +122,8 @@ class FixedAssetTest < ActiveSupport::TestCase
     assert_equal 120, fixed_asset.depreciations.count
     assert_equal 1250, fixed_asset.depreciations.first.amount
     
+    # test when in_use fixed asset
+    
     fixed_asset.state = :in_use
     fixed_asset.save!
     
@@ -137,6 +140,22 @@ class FixedAssetTest < ActiveSupport::TestCase
     
     assert_equal 1250, f_d.journal_entry.real_credit
     assert_equal Date.parse('2017-01-31'), f_d.journal_entry.printed_on
+    
+    # test when sold fixed asset
+    
+    fixed_asset.sold_on = @sold_on
+    fixed_asset.state = :sold
+    fixed_asset.save!
+    
+    fixed_asset.reload
+    
+    fourth_f_d = fixed_asset.depreciations.where(position: 4).first
+    
+    assert_equal 833.33, fourth_f_d.amount
+    assert_equal 833.33, fourth_f_d.journal_entry.real_credit
+    assert_equal Date.parse('2017-04-30'), fourth_f_d.journal_entry.printed_on
+    assert_equal 150_000.00, fixed_asset.sold_journal_entry.real_credit
+    assert_equal @sold_on, fixed_asset.sold_journal_entry.printed_on
     
   end
   
