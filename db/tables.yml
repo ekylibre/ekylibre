@@ -4263,6 +4263,10 @@ loan_repayments:
   lock_version:
     type: integer
     required: true
+  locked:
+    type: boolean
+    required: true
+    default: false
   position:
     type: integer
     required: true
@@ -4278,6 +4282,8 @@ loan_repayments:
     type: integer
     references: user
 loans:
+  accountable_repayments_started_on:
+    type: date
   accounted_at:
     type: datetime
   amount:
@@ -4308,6 +4314,10 @@ loans:
   id:
     type: integer
     required: true
+  initial_releasing_amount:
+    type: boolean
+    required: true
+    default: false
   insurance_account_id:
     type: integer
     references: account

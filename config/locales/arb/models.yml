@@ -1046,6 +1046,7 @@ arb:
     account_name: "حسابات المحاسب"
     account_number: "رقم الحساب"
     accountable: "مسؤول"
+    # accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
     accounts: "الحسابات" #?
@@ -1135,7 +1136,9 @@ arb:
     bank_agency_code: "كود كالة البنك"
     bank_check_number: "عدد شيك مصرفي"
     bank_code: "الرمز المصرفي"
+    # bank_guarantee_account: "Bank guarantee account"
     # bank_guarantee_amount: "Bank guarantee amount"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "الرمز التعريفي للبنك"
     bank_journals: "دفاتر يومية مصرفية" #?
     bank_name: "اسم البنك"
@@ -1633,6 +1636,7 @@ arb:
     initial_number: "العدد الأولي"
     initial_owner: "صاحب الأولي"
     initial_population: "السكان الأولي"
+    # initial_releasing_amount: "Initial releasing amount"
     initial_shape: "الشكل الأولي"
     initialization_vectors: "ناقلات التهيئة"
     initiated_on: "بدأت يوم"

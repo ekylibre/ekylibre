@@ -22,38 +22,40 @@
 #
 # == Table: loans
 #
-#  accounted_at               :datetime
-#  amount                     :decimal(19, 4)   not null
-#  bank_guarantee_account_id  :integer
-#  bank_guarantee_amount      :integer
-#  cash_id                    :integer          not null
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  currency                   :string           not null
-#  custom_fields              :jsonb
-#  id                         :integer          not null, primary key
-#  insurance_account_id       :integer
-#  insurance_percentage       :decimal(19, 4)   not null
-#  insurance_repayment_method :string
-#  interest_account_id        :integer
-#  interest_percentage        :decimal(19, 4)   not null
-#  journal_entry_id           :integer
-#  lender_id                  :integer          not null
-#  loan_account_id            :integer
-#  lock_version               :integer          default(0), not null
-#  name                       :string           not null
-#  ongoing_at                 :datetime
-#  repaid_at                  :datetime
-#  repayment_duration         :integer          not null
-#  repayment_method           :string           not null
-#  repayment_period           :string           not null
-#  shift_duration             :integer          default(0), not null
-#  shift_method               :string
-#  started_on                 :date             not null
-#  state                      :string
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
-#  use_bank_guarantee         :boolean
+#  accountable_repayments_started_on :date
+#  accounted_at                      :datetime
+#  amount                            :decimal(19, 4)   not null
+#  bank_guarantee_account_id         :integer
+#  bank_guarantee_amount             :integer
+#  cash_id                           :integer          not null
+#  created_at                        :datetime         not null
+#  creator_id                        :integer
+#  currency                          :string           not null
+#  custom_fields                     :jsonb
+#  id                                :integer          not null, primary key
+#  initial_releasing_amount          :boolean          default(FALSE), not null
+#  insurance_account_id              :integer
+#  insurance_percentage              :decimal(19, 4)   not null
+#  insurance_repayment_method        :string
+#  interest_account_id               :integer
+#  interest_percentage               :decimal(19, 4)   not null
+#  journal_entry_id                  :integer
+#  lender_id                         :integer          not null
+#  loan_account_id                   :integer
+#  lock_version                      :integer          default(0), not null
+#  name                              :string           not null
+#  ongoing_at                        :datetime
+#  repaid_at                         :datetime
+#  repayment_duration                :integer          not null
+#  repayment_method                  :string           not null
+#  repayment_period                  :string           not null
+#  shift_duration                    :integer          default(0), not null
+#  shift_method                      :string
+#  started_on                        :date             not null
+#  state                             :string
+#  updated_at                        :datetime         not null
+#  updater_id                        :integer
+#  use_bank_guarantee                :boolean
 #
 class Loan < Ekylibre::Record::Base
   include Attachable
@@ -74,10 +76,12 @@ class Loan < Ekylibre::Record::Base
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accountable_repayments_started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_guarantee_amount, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :cash, :currency, :lender, :repayment_method, :repayment_period, :third, presence: true
+  validates :initial_releasing_amount, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :repayment_duration, :shift_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -106,6 +110,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   before_validation do
+    self.ongoing_at ||= started_on.to_time
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
   end
@@ -118,11 +123,20 @@ class Loan < Ekylibre::Record::Base
 
   after_commit do
     generate_repayments
+    if accountable_repayments_started_on
+      r = repayments.where('due_on < ?', accountable_repayments_started_on)
+      r.update_all(locked: true)
+    end
   end
 
   # Prevents from deleting if entry exist
   protect on: :destroy do
     journal_entry && ongoing?
+  end
+
+  # Prevents from deleting if entry exist
+  protect on: :update do
+    repayments.any? && repayments.map(&:journal_entry).any?
   end
 
   bookkeep do |b|
@@ -133,7 +147,7 @@ class Loan < Ekylibre::Record::Base
 
     existing_financial_year = FinancialYear.on(ongoing_on)
 
-    b.journal_entry(journal, printed_on: ongoing_on, if: ongoing_on <= Time.zone.today && existing_financial_year && ongoing?) do |entry|
+    b.journal_entry(journal, printed_on: ongoing_on, if: ongoing_on <= Time.zone.today && existing_financial_year && ongoing? && initial_releasing_amount) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
 
       entry.add_debit(label, cash.account_id, amount, as: :bank)

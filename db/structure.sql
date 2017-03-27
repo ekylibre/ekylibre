@@ -3782,7 +3782,8 @@ CREATE TABLE loan_repayments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    accountable boolean DEFAULT false NOT NULL
+    accountable boolean DEFAULT false NOT NULL,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -3841,7 +3842,9 @@ CREATE TABLE loans (
     insurance_account_id integer,
     use_bank_guarantee boolean,
     bank_guarantee_account_id integer,
-    bank_guarantee_amount integer
+    bank_guarantee_amount integer,
+    initial_releasing_amount boolean DEFAULT false NOT NULL,
+    accountable_repayments_started_on date
 );
 
 
@@ -17023,3 +17026,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170315221501');
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170320113139');
+
+INSERT INTO schema_migrations (version) VALUES ('20170327162301');
+

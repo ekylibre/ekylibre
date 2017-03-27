@@ -38,12 +38,12 @@
 
         if url.indexOf(paramName) > 0
           idsArray = url.split(paramName)[1]
-          
+
           if idsArray.indexOf('&') > 0
             index  = idsArray.indexOf('&')
             lastUrlParams = idsArray.substring(index)
             idsArray = idsArray.split('&')[0]
-          
+
           idsLength = idsArray.length
           idsInLink = idsArray.substring(idsLength - 1, 2)
           ids = JSON.parse("[" + idsInLink + "]")

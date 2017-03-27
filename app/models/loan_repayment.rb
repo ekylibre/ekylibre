@@ -35,6 +35,7 @@
 #  journal_entry_id :integer
 #  loan_id          :integer          not null
 #  lock_version     :integer          default(0), not null
+#  locked           :boolean          default(FALSE), not null
 #  position         :integer          not null
 #  remaining_amount :decimal(19, 4)   not null
 #  updated_at       :datetime         not null
@@ -48,7 +49,7 @@ class LoanRepayment < Ekylibre::Record::Base
   has_one :journal, through: :cash
   has_one :third, through: :loan # alias for lender
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accountable, inclusion: { in: [true, false] }
+  validates :accountable, :locked, inclusion: { in: [true, false] }
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :due_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -72,7 +73,7 @@ class LoanRepayment < Ekylibre::Record::Base
   bookkeep do |b|
     # when payment arrive (due_on)
     existing_financial_year = FinancialYear.on(due_on)
-    b.journal_entry(journal, printed_on: due_on, if: (accountable && amount > 0 && due_on <= Time.zone.today && existing_financial_year)) do |entry|
+    b.journal_entry(journal, printed_on: due_on, if: (!locked && accountable && amount > 0 && due_on <= Time.zone.today && existing_financial_year)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
       entry.add_debit(label, unsuppress { loan.loan_account_id }, base_amount, as: :repayment)
       entry.add_debit(label, unsuppress { loan.interest_account_id }, interest_amount, as: :interest)
