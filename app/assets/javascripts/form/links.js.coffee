@@ -23,7 +23,6 @@
 
   $(document).behave 'load', 'a[data-update-link-with]', setUpdateTriggers
 
-
   completeUrlWithIds = ->
     links = $(this)
     links.each ->

@@ -226,10 +226,10 @@ class FixedAsset < Ekylibre::Record::Base
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   bookkeep do |b|
     label = tc(:bookkeep_in_use_assets, resource: self.class.model_name.human, number: number, name: name)
-    waiting_asset_account = Account.find_in_nomenclature(:outstanding_assets)
-    fixed_assets_suppliers_account = Account.find_in_nomenclature(:fixed_assets_suppliers)
-    fixed_assets_values_account = Account.find_in_nomenclature(:fixed_assets_values)
-    exceptionnal_depreciations_inputations_expenses_account = Account.find_in_nomenclature(:exceptionnal_depreciations_inputations_expenses)
+    waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
+    fixed_assets_suppliers_account = Account.find_or_import_from_nomenclature(:fixed_assets_suppliers)
+    fixed_assets_values_account = Account.find_or_import_from_nomenclature(:fixed_assets_values)
+    exceptionnal_depreciations_inputations_expenses_account = Account.find_or_import_from_nomenclature(:exceptionnal_depreciations_inputations_expenses)
 
     # fixed asset link to purchase item
     if purchase_items.any? && in_use?
