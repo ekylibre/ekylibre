@@ -14,17 +14,23 @@ module Ekylibre
         list.include?(name)
       end
 
+      def exists_in_any_db?(name)
+        Rails
+          .configuration
+          .database_configuration
+          .select { |db, config| (config['clustered'] && config['database']) || db == env }
+          .any? do |_env, conf|
+            Apartment.establish_connection conf
+            Apartment.connection.schema_exists? name
+          end
+      end
+
       # Tests existence of a tenant in DB
       # and removes it if not exist
       def check!(name, options = {})
         if list.include?(name)
           current_conf = Apartment.connection_config
-          tenant_exists = Rails.configuration.database_configuration
-                               .select { |db, config| (config['clustered'] && config['database']) || db == env }
-                               .any? do |_env, conf|
-                                  Apartment.establish_connection conf
-                                  Apartment.connection.schema_exists? name
-                                end
+          tenant_exists = exists_in_any_db?(name)
           drop(name, options) unless tenant_exists
           Apartment.establish_connection current_conf
         end
@@ -95,7 +101,7 @@ module Ekylibre
       def drop(name, options = {})
         name = name.to_s
         raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
-        Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
+        Apartment::Tenant.drop(name) if exists_in_any_db? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
         write
