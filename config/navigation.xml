@@ -1949,6 +1949,11 @@
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
       </item>
+      <item name="loans">
+        <page to="backend/loans#confirm"/>
+        <page to="backend/loans#generate_repayments_up_to"/>
+        <page to="backend/loans#repay"/>
+      </item>
       <item name="equipments">
         <page to="backend/equipments#list_fixed_assets"/>
       </item>
