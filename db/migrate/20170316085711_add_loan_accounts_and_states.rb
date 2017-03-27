@@ -23,6 +23,11 @@ class AddLoanAccountsAndStates < ActiveRecord::Migration
     add_column :loans, :use_bank_guarantee, :boolean
     add_column :loans, :bank_guarantee_account_id, :integer
     add_column :loans, :bank_guarantee_amount, :integer
+    add_column :loans, :accountable_repayments_started_on, :date
+    add_column :loans, :initial_releasing_amount, :boolean, default: false, null: false
+
+    add_column :loan_repayments, :accountable, :boolean, default: false, null: false
+    add_column :loan_repayments, :locked, :boolean, default: false, null: false
 
     # # Update mandatory loans accounts
 
