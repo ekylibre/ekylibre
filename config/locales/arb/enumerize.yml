@@ -159,7 +159,13 @@ arb:
       depreciation_method:
         graduated: "تخرج" #?
         linear: "خطي"
+        # none: "None"
+        # regressive: "Regressive"
         simplified_linear: "الخطية المبسطة"
+      depreciation_period:
+        # monthly: "Monthly"
+        # quarterly: "Quarterly"
+        # yearly: "Yearly"
     gap:
       direction:
         loss: "خسارة"

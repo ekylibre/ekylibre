@@ -17,12 +17,10 @@
         else
           if url.indexOf('?') < 0 then url += '?' else url += '&'
           url += "#{id}=#{value}"
-
         link.attr('href', url)
 
 
   $(document).behave 'load', 'a[data-update-link-with]', setUpdateTriggers
-
 
   completeUrlWithIds = ->
     links = $(this)

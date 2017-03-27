@@ -1,0 +1,6 @@
+= form_tag(depreciate_backend_fixed_asset_path) do
+  = field_set do
+    = hidden_field_tag :fixed_asset_ids, params[:id]
+    = field :stopped_on.tl, date_field_tag(:stopped_on)
+  = form_actions do
+    = submit_tag :depreciate.ta

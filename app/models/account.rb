@@ -117,7 +117,25 @@ class Account < Ekylibre::Record::Base
   scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }
 
-  # scope :assets_depreciations, -> { where('number LIKE ?', '28%').order(:number, :name) }
+  scope :assets, -> {
+    of_usages(:fixed_assets, :adult_animal_assets, :brands_and_patents_assets, :building_assets, :concession_assets,
+              :construction_on_other_land_parcel_assets, :construction_on_own_land_parcel_assets, :cooperative_participation_assets,
+              :corporeal_assets, :equipment_assets, :equipment_cooperative_participation_assets, :establishment_charge_assets,
+              :general_installation_assets, :global_land_parcel_assets, :incorporeal_assets, :industrial_cooperative_participation_assets,
+              :installation_sustainable_plant_assets, :land_parcel_assets, :land_parcel_construction_assets, :living_corporeal_assets,
+              :office_equipment_assets, :other_corporeal_assets, :other_general_installation_assets, :other_incorporeal_assets,
+              :other_professional_agricultural_participation_assets, :outstanding_adult_animal_assets, :outstanding_assets,
+              :outstanding_construction_on_other_land_parcel_assets, :outstanding_construction_on_own_land_parcel_assets,
+              :outstanding_corporeal_assets, :outstanding_equipment_assets, :outstanding_land_parcel_assets,
+              :outstanding_land_parcel_construction_assets, :outstanding_living_corporeal_assets,
+              :outstanding_other_general_installation_assets, :outstanding_service_animal_assets,
+              :outstanding_sustainables_plants_assets, :outstanding_young_animal_assets, :ownership_assets,
+              :professional_agricultural_organization_assets, :redeemable_land_parcel_construction_assets,
+              :research_and_development_charge_assets, :service_animal_assets, :sustainable_packaging_assets,
+              :sustainables_plants_assets, :sustainables_plants_on_other_land_parcel_assets, :sustainables_plants_on_own_land_parcel_assets,
+              :technical_installation_equipment_and_tools_assets, :technical_installation_on_other_land_parcel_assets,
+              :technical_installation_on_own_land_parcel_assets, :tools_assets, :transport_vehicle_assets, :young_animal_assets)
+  }
   scope :assets_depreciations, lambda {
     of_usages(:incorporeal_asset_depreciations, :other_incorporeal_asset_depreciations, :corporeal_asset_depreciations,
               :land_parcel_asset_depreciations, :land_parcel_construction_asset_depreciations, :own_building_asset_depreciations,

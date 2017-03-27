@@ -157,7 +157,7 @@
         <page to="backend/fixed_assets#edit"/>
         <page to="backend/fixed_assets#list"/>
         <page to="backend/fixed_assets#list_depreciations"/>
-        <page to="backend/fixed_assets#list_products"/>
+        <page to="backend/fixed_assets#list_products" nonexistent="true"/>
         <page to="backend/fixed_assets#new"/>
         <page to="backend/fixed_assets#show"/>
         <page to="backend/fixed_assets#unroll"/>
@@ -1933,6 +1933,18 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#list_fixed_assets"/>
+      </item>
+      <item name="animals">
+        <page to="backend/animals#list_fixed_assets"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_fixed_assets"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_fixed_assets"/>
+      </item>
       <item name="entities">
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
@@ -1941,6 +1953,43 @@
         <page to="backend/loans#confirm"/>
         <page to="backend/loans#generate_repayments_up_to"/>
         <page to="backend/loans#repay"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_fixed_assets"/>
+      </item>
+      <item name="fixed_asset_depreciations">
+        <page to="backend/fixed_asset_depreciations#show"/>
+      </item>
+      <item name="fixed_assets">
+        <page to="backend/fixed_assets#depreciate"/>
+        <page to="backend/fixed_assets#depreciate_up_to"/>
+        <page to="backend/fixed_assets#scrap"/>
+        <page to="backend/fixed_assets#sell"/>
+        <page to="backend/fixed_assets#start_up"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#list_fixed_assets"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#list_fixed_assets"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#list_fixed_assets"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_fixed_assets"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_fixed_assets"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_fixed_assets"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#list_fixed_assets"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_fixed_assets"/>
       </item>
     </group>
   </untreated-actions>

@@ -101,6 +101,7 @@ module Backend
       t.column :amount, currency: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
+      t.column :fixed_asset, url: true, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
@@ -150,6 +151,24 @@ module Backend
         @purchase.delivery_address = address
       end
       render locals: { with_continue: true }
+    end
+
+    def create
+      safe_params = permitted_params.merge(
+        items_attributes: permitted_params[:items_attributes].map do |id, item_attr|
+          [id, item_attr.except(:asset_exists)]
+        end.to_h
+      )
+
+      @purchase = resource_model.new(safe_params)
+      url = if params[:create_and_continue]
+              { action: :new, continue: true, nature_id: @purchase.nature_id }
+            else
+              params[:redirect] || { action: :show, id: 'id'.c }
+            end
+
+      return if save_and_redirect(@purchase, url: url, notify: :record_x_created, identifier: :number)
+      render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
 
     def abort
