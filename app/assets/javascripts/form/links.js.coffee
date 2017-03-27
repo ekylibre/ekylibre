@@ -41,7 +41,13 @@
           idsLength = idsArray.length
           idsInLink = idsArray.substring(idsLength - 1, 2)
           ids = JSON.parse("[" + idsInLink + "]")
-          url = url.split("#{paramName}")[0]
+
+          paramToSplit = ""
+
+          if url.indexOf("?#{paramName}") > 0 then paramToSplit = '?' else paramToSplit += '&'
+          
+          paramToSplit += paramName
+          url = url.split("#{paramToSplit}")[0]
 
         if $(this).is(':checked')
           ids.push(id)
@@ -49,8 +55,7 @@
           index = ids.indexOf(id)
           ids.splice(index, 1)
 
-        if ids.length > 1
-          if url.indexOf('?') < 0 then url += '?' else url += '&'
+        if url.indexOf('?') < 0 then url += '?' else url += '&'
         
         url += "#{paramName}=[#{ids.join(', ')}]"
         link.attr('href', url)
