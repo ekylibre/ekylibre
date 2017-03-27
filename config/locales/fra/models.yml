@@ -64,7 +64,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
-        depreciation_period: "Périodicité des ammortissements"
+        depreciation_period: "Périodicité des amortissements"
         started_on: "Date de mise en service"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
@@ -139,8 +139,8 @@ fra:
       product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        fixed_asset_allocation_account: "Compte d’ammortissement" #?
-        fixed_asset_expenses_account: "Compte de dotation aux ammortissements" #?
+        fixed_asset_allocation_account: "Compte d’amortissement" #?
+        fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
       product_nature_variant: #?
@@ -1878,7 +1878,7 @@ fra:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
     fixed_asset:
-      bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Ammortissement exceptionnel de %{name}"
+      bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Amortissement exceptionnel de %{name}"
       bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
       bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"

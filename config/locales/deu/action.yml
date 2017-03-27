@@ -1907,6 +1907,7 @@ deu:
     country: "Land"
     create_activities_from_telepac: "Erstellen Aktivitäten während Telepac Import"
     currency: "Währung"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detail alle Zahlungen im Einlagen Buchhaltung"
     distribute_sales_and_purchases_on_activities: "Verteilen Sie Käufe und Verkäufe auf Aktivitäten"
     distribute_sales_and_purchases_on_teams: "Verteilen Sie Käufe und Verkäufe auf Teams"

@@ -101,6 +101,7 @@ module Backend
       t.column :amount, currency: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
+      t.column :fixed_asset, url: true, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|

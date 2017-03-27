@@ -1973,6 +1973,7 @@ ita:
     country: "Nazione"
     create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
     distribute_sales_and_purchases_on_activities: "Distribuire le vendite e gli acquisti a attività"
     distribute_sales_and_purchases_on_teams: "Distribuire le vendite e gli acquisti a squadre"

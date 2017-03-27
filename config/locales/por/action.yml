@@ -1912,6 +1912,7 @@ por:
     country: "País"
     create_activities_from_telepac: "Criar atividades durante Telepac importação"
     currency: "Moeda"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detalhe todos os pagamentos em contabilidade depósito"
     distribute_sales_and_purchases_on_activities: "Distribuir vendas e compras a actividades"
     distribute_sales_and_purchases_on_teams: "Distribuir as vendas e compras em equipes"

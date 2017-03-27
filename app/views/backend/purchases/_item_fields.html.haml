@@ -31,7 +31,7 @@
             .controls
               = check_box_tag :purchase_items_attributes_new_items_asset_exists, :asset_exists, item.fixed_asset, { value: 0, 'data-show': :'#existing_asset', 'data-hide': :'#new_asset', 'data-closest': :tr, name: "purchase[items_attributes][new_items][asset_exists]" }
           #existing_asset{attrs}
-            = f.referenced_association(:fixed_asset)
+            = f.referenced_association :fixed_asset, source: :drafts
           #new_asset
             = f.referenced_association(:depreciable_product)
       - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?

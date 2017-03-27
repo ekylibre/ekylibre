@@ -1908,6 +1908,7 @@ cmn:
     country: "国家"
     create_activities_from_telepac: "Telepac导入过程中创建活动"
     currency: "货币"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "详细所有存款簿记支付"
     distribute_sales_and_purchases_on_activities: "分布在活动的销售和采购"
     distribute_sales_and_purchases_on_teams: "分布在团队销售和采购"
