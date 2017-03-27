@@ -66,12 +66,13 @@ loans_001:
   creator_id: 1
   currency: EUR
   id: 1
-  interest_account_id: 461
-  loan_account_id: 460
+  initial_releasing_amount: false
   insurance_percentage: 0.1
+  interest_account_id: 461
   interest_percentage: 3.4
   journal_entry_id: 30
   lender_id: 6
+  loan_account_id: 460
   lock_version: 1
   name: Vélo
   repayment_duration: 2
@@ -79,8 +80,8 @@ loans_001:
   repayment_period: year
   shift_duration: 1
   shift_method: anatocism
-  state: draft
   started_on: 2015-05-01
+  state: draft
   updated_at: 2016-07-01 20:10:28.880207000 Z
   updater_id: 1
 loans_002:
@@ -91,12 +92,13 @@ loans_002:
   creator_id: 1
   currency: USD
   id: 2
-  interest_account_id: 461
-  loan_account_id: 460
+  initial_releasing_amount: false
   insurance_percentage: 0.78
+  interest_account_id: 461
   interest_percentage: 2.1
   journal_entry_id: 31
   lender_id: 13
+  loan_account_id: 460
   lock_version: 1
   name: Tracteur de folie
   repayment_duration: 64
@@ -104,8 +106,8 @@ loans_002:
   repayment_period: month
   shift_duration: 8
   shift_method: immediate_payment
-  state: draft
   started_on: 2012-03-24
+  state: draft
   updated_at: 2016-07-01 20:34:22.917241000 Z
   updater_id: 1
 loans_003:
@@ -116,12 +118,13 @@ loans_003:
   creator_id: 1
   currency: USD
   id: 3
-  interest_account_id: 461
-  loan_account_id: 460
+  initial_releasing_amount: false
   insurance_percentage: 0.78
+  interest_account_id: 461
   interest_percentage: 2.1
   journal_entry_id: 31
   lender_id: 13
+  loan_account_id: 460
   lock_version: 1
   name: Tracteur de folie updatable
   repayment_duration: 64
@@ -129,7 +132,7 @@ loans_003:
   repayment_period: month
   shift_duration: 8
   shift_method: immediate_payment
-  state: draft
   started_on: 2012-03-24
+  state: draft
   updated_at: 2016-07-01 20:34:22.917241000 Z
   updater_id: 1
