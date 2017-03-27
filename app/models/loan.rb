@@ -121,7 +121,7 @@ class Loan < Ekylibre::Record::Base
     end
   end
 
-  after_commit do
+  after_save do
     generate_repayments
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
