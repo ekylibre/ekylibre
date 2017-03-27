@@ -937,6 +937,7 @@ arb:
     accountancy: "المحاسبة"
     accountancy_balance: "ميزان المحاسبة"
     accountancy_preferences: "تفضيلات المحاسبة"
+    # accounting: "Accounting"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"
@@ -1441,6 +1442,7 @@ arb:
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
     generate_parcel: "تولد لا يتجزأ"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     global_preferences: "تفضيلات العالمية"
@@ -1678,6 +1680,7 @@ arb:
     model: "نموذج"
     modes: "وسائط"
     moment: "" #?
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensuelle"
     months: "أشهر"
@@ -1983,6 +1986,7 @@ arb:
     remove_subscription: "إزالة الاشتراك"
     renewed: "متجدد"
     reopen: "فتح الدفتر اليومي" #?
+    # repayment_period: "Repayment period"
     repayments: "تسديد"
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
@@ -2086,6 +2090,7 @@ arb:
     select_number_or_date: "ادخل رقم او تاريخ" #?
     select_organization: "منظمة" #?
     selection: "اختيار"
+    # semester: "Semester"
     send: "ارسل الرسالة" #?
     send_mail: "إرسال البريد"
     send_test: "ارسال رسالة تجريبية" #?
@@ -2247,6 +2252,7 @@ arb:
     transport: "المواصلات"
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
+    # trimester: "Trimester"
     unavailable: #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?
@@ -2511,6 +2517,7 @@ arb:
       one: "1 سنة"
       # other: "%{count} years"
     y: "نعم" #?
+    # year: "Year"
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
     yield: "يخضع أو يستسلم"
@@ -2710,6 +2717,7 @@ arb:
     country: "بلد"
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "التفاصيل جميع المدفوعات في مسك الدفاتر وديعة"
     distribute_sales_and_purchases_on_activities: "توزيع البيع والشراء على الأنشطة"
     distribute_sales_and_purchases_on_teams: "توزيع البيع والشراء على فرق"
@@ -2816,6 +2824,7 @@ arb:
       refuse: "رفض"
       renew: "جدد"
       reopen: "إعادة فتح"
+      # repay: "Repay"
       reset: "إعادة تعيين"
       retrieve: "استرداد"
       run: "يجري"

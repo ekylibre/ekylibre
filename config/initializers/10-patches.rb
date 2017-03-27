@@ -82,6 +82,17 @@ class ::Numeric
     end
     count - integers_count
   end
+
+  def semester
+    self.months * 6
+  end
+
+  def trimester
+    self.months * 3
+  end
+
+  alias trimesters trimester
+  alias semesters semester
 end
 
 class ::BigDecimal

@@ -64,7 +64,7 @@ fra:
         stopped_on: "Date de clôture"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
-        depreciation_period: "Périodicité des ammortissements"
+        depreciation_period: "Périodicité des amortissements"
         started_on: "Date de mise en service"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
@@ -94,6 +94,9 @@ fra:
         children: "Sous-îlots" #?
         identification_number: "Numéro d’îlots PAC" #?
         real_quantity: "Surface" #?
+      loan:
+        ongoing_at: "Date de déblocage des fonds"
+        started_on: "Date de la 1ère échéance"
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
@@ -139,8 +142,8 @@ fra:
       product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        fixed_asset_allocation_account: "Compte d’ammortissement" #?
-        fixed_asset_expenses_account: "Compte de dotation aux ammortissements" #?
+        fixed_asset_allocation_account: "Compte d’amortissement" #?
+        fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
       product_nature_variant: #?
@@ -344,6 +347,7 @@ fra:
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "Relevé de compte bancaire"
       bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
@@ -401,7 +405,9 @@ fra:
       inspection: "Agréage produit"
       inspection_calibration: "Calibre de l'agréage"
       inspection_point: "Point de contrôle"
+      insurance_account: "Compte d'assurance"
       integration: "L’intégration"
+      interest_account: "Compte d'intérêt"
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
       intervention_doer: "Opérateur d’intervention"
@@ -428,6 +434,7 @@ fra:
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
       loan: "Emprunt"
+      # loan_account: "Loan account"
       loan_repayment: "Remboursement d’emprunt"
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
@@ -524,6 +531,7 @@ fra:
     account_name: "Compte comptable"
     account_number: "N°Compte"
     accountable: "Comptabilisable"
+    accountable_repayments_started_on: "Date de début de prise en compte des échéances"
     accountant: "Comptable"
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"
@@ -606,6 +614,9 @@ fra:
     bank_agency_code: "Code guichet"
     bank_check_number: "N°Chèque"
     bank_code: "Code banque"
+    bank_guarantee_account: "Code comptable caution"
+    bank_guarantee_amount: "Montant de la caution"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "BIC"
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
@@ -1043,6 +1054,7 @@ fra:
     initial_number: "Numéro initial"
     initial_owner: "Propriétaire initial"
     initial_population: "Population initiale"
+    initial_releasing_amount: "Déblocage initial du montant emprunté"
     initial_shape: "Forme initiale"
     initialization_vectors: "Vecteurs d’initialisation"
     initiated_on: "Lancé le"
@@ -1053,11 +1065,13 @@ fra:
     inspection_point_natures: "Point d’inspection des natures"
     inspection_points: "Les points d’inspection"
     inspections: "Agréages"
+    insurance_account: "Compte comptable ADI" #?
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
     insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
     integration_name: "Nom d’intégration"
+    interest_account: "Code comptable intérêt" #?
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
@@ -1151,6 +1165,7 @@ fra:
     list: "Liste"
     listing: "Extraction"
     loan: "Emprunt"
+    loan_account: "Code comptable emprunt" #?
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
@@ -1751,6 +1766,7 @@ fra:
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
+    use_bank_guarantee: "Caution"
     use_countings: "Utiliser les comptages"
     use_gradings: "Utiliser les agréages"
     use_seasons: "Utiliser les saisonnalités"
@@ -1878,7 +1894,7 @@ fra:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
     fixed_asset:
-      bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Ammortissement exceptionnel de %{name}"
+      bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Amortissement exceptionnel de %{name}"
       bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
       bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
       bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"
@@ -1961,6 +1977,12 @@ fra:
       reflections: "Tables liées"
     loan:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
+      bookkeep_guarantee_payment: "[%{resource} %{name}] Paiement de la caution"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          ongoing: "En cours"
+          repaid: "Remboursé"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
     outgoing_parcel: #?

@@ -4215,6 +4215,10 @@ listings:
     type: integer
     references: user
 loan_repayments:
+  accountable:
+    type: boolean
+    required: true
+    default: false
   accounted_at:
     type: datetime
   amount:
@@ -4259,6 +4263,10 @@ loan_repayments:
   lock_version:
     type: integer
     required: true
+  locked:
+    type: boolean
+    required: true
+    default: false
   position:
     type: integer
     required: true
@@ -4274,6 +4282,8 @@ loan_repayments:
     type: integer
     references: user
 loans:
+  accountable_repayments_started_on:
+    type: date
   accounted_at:
     type: datetime
   amount:
@@ -4281,6 +4291,11 @@ loans:
     precision: 19
     scale: 4
     required: true
+  bank_guarantee_account_id:
+    type: integer
+    references: account
+  bank_guarantee_amount:
+    type: integer
   cash_id:
     type: integer
     references: cash
@@ -4299,6 +4314,13 @@ loans:
   id:
     type: integer
     required: true
+  initial_releasing_amount:
+    type: boolean
+    required: true
+    default: false
+  insurance_account_id:
+    type: integer
+    references: account
   insurance_percentage:
     type: decimal
     precision: 19
@@ -4306,6 +4328,9 @@ loans:
     required: true
   insurance_repayment_method:
     type: string
+  interest_account_id:
+    type: integer
+    references: account
   interest_percentage:
     type: decimal
     precision: 19
@@ -4318,12 +4343,19 @@ loans:
     type: integer
     references: entity
     required: true
+  loan_account_id:
+    type: integer
+    references: account
   lock_version:
     type: integer
     required: true
   name:
     type: string
     required: true
+  ongoing_at:
+    type: datetime
+  repaid_at:
+    type: datetime
   repayment_duration:
     type: integer
     required: true
@@ -4341,12 +4373,16 @@ loans:
   started_on:
     type: date
     required: true
+  state:
+    type: string
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+  use_bank_guarantee:
+    type: boolean
 manure_management_plan_zones:
   absorbed_nitrogen_at_opening:
     type: decimal

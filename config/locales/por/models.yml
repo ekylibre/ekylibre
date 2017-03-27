@@ -33,6 +33,9 @@ por:
         born_at: "Criado em"
       land_parcel_group:
         born_at: "Criado em"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Dada a destinatário"
         list: "Lista de contas a pagar"
@@ -214,6 +217,7 @@ por:
       # animal: "Animal"
       animal_group: "Grupo de animais"
       attachment: "Acessório"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "Extrato bancário"
       bank_statement_item: "Linha extrato bancário"
       bioproduct: "Produto vivo"
@@ -270,7 +274,9 @@ por:
       inspection: "granulometria do produto"
       inspection_calibration: "calibre inspecção"
       inspection_point: "verificação de classificação de produtos"
+      # insurance_account: "Insurance account"
       integration: "Integração"
+      # interest_account: "Interest account"
       intervention: "Intervenção"
       intervention_agent: "Agente de intervenção"
       intervention_doer: "Fazedor de intervenção"
@@ -297,6 +303,7 @@ por:
       listing_node: "Listagem nó"
       listing_node_item: "Listagem item do nó"
       loan: "Empréstimo"
+      # loan_account: "Loan account"
       loan_repayment: "Pagamento de empréstimo"
       manure_management_plan: "Plano de gestão de estrume"
       manure_management_plan_zone: "Zona de plano de manejo de dejetos"
@@ -390,6 +397,7 @@ por:
     account_name: "Nome da conta"
     account_number: "Número da conta"
     accountable: "Responsável"
+    # accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Contador"
     accounted_at: "Contabilizados ao"
     accuracy: "Precisão"
@@ -461,6 +469,9 @@ por:
     bank_agency_code: "Código da agência bancária"
     bank_check_number: "Número de cheque bancário"
     bank_code: "Código bancário"
+    # bank_guarantee_account: "Bank guarantee account"
+    # bank_guarantee_amount: "Bank guarantee amount"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "Código de identificação bancária"
     bank_name: "Nome do banco"
     bank_statement: "Extrato bancário"
@@ -833,6 +844,7 @@ por:
     initial_number: "Número inicial"
     initial_owner: "Proprietário inicial"
     initial_population: "População inicial"
+    # initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Forma inicial"
     initialization_vectors: "Vetores de inicialização"
     initiated_on: "Iniciado em"
@@ -1471,6 +1483,7 @@ por:
     usage_limit_nature: "Usado por tipo"
     usage_limit_on: "Usado por sobre"
     usages: "Usos"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "Use contagens"
     use_grading_calibre: "Use calibre classificação" #?
     # use_gradings: "Use gradings"
@@ -1674,6 +1687,12 @@ por:
       reflections: "Tabelas associadas"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

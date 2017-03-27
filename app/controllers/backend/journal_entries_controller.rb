@@ -46,6 +46,7 @@ module Backend
       # t.column :number, through: :account, url: true
       # t.column :name, through: :account, url: true
       # t.column :number, through: :bank_statement, url: true, hidden: true
+      t.column :letter, through: :journal_entry
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :debit,  currency: true, hidden: true

@@ -272,6 +272,8 @@ por:
         constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Ano"
       shift_method:
         anatocism: "Anatocismo"

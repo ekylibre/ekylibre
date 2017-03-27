@@ -231,6 +231,9 @@
         <page to="backend/loans#update"/>
         <page to="backend/loan_repayments#index"/>
         <page to="backend/loan_repayments#show"/>
+        <page to="backend/loan_repayments#edit"/>
+        <page to="backend/loan_repayments#new"/>
+        <page to="backend/loan_repayments#update"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>
@@ -1964,6 +1967,11 @@
       </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#list_fixed_assets"/>
+      </item>
+      <item name="loans">
+        <page to="backend/loans#accounting"/>
+        <page to="backend/loans#confirm"/>
+        <page to="backend/loans#repay"/>
       </item>
       <item name="matters">
         <page to="backend/matters#list_fixed_assets"/>

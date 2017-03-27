@@ -443,12 +443,17 @@ eng:
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
+      # edit: "Edit loan repayment: %{name}"
       # index: "Loan repayments"
+      # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
+      # accounting: "Accounting loan: %{name}"
+      # confirm: "Confirm loan: %{name}"
       edit: "Edit loan: %{name}"
       index: "Loans"
       new: "New loan"
+      # repay: "Repay loan: %{name}"
       show: "Loan: %{name}"
     backend/manure_management_plans:
       edit: "Edit manure management plan: %{name}"
@@ -904,6 +909,7 @@ eng:
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
+    accounting: "Accounting"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -1030,6 +1036,7 @@ eng:
     balance: "Balance"
     balance_of_selection: "Balance of selection"
     bank_account: "Bank account"
+    # bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
@@ -1293,6 +1300,7 @@ eng:
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
+    generate_repayments: "Pass bookkeeping" #?
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
@@ -1455,6 +1463,7 @@ eng:
     mode: "Mode" #?
     model: "Model" #?
     modes: "Modes" #?
+    month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
@@ -1658,6 +1667,7 @@ eng:
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
+    repayment_period: "Repayment period"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
@@ -1707,6 +1717,7 @@ eng:
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew"
     selection: "Selection" #?
+    semester: "Semester" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
@@ -1840,6 +1851,7 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
+    trimester: "Trimester" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
@@ -2048,6 +2060,7 @@ eng:
     x_years:
       one: "%{count} year"
       other: "%{count} years"
+    year: "Year" #?
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"
@@ -2178,6 +2191,7 @@ eng:
     country: "Country"
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
+    default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
@@ -2196,6 +2210,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
@@ -2289,6 +2304,7 @@ eng:
       refuse: "Refuse"
       renew: "Renew"
       reopen: "Reopen"
+      repay: "Repay"
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"

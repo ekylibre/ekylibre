@@ -741,6 +741,7 @@ spa:
     accountancy: "contabilidad"
     accountancy_balance: "Balance de contabilidad"
     accountancy_preferences: "Preferencias de contabilidad"
+    # accounting: "Accounting"
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"
@@ -1193,6 +1194,7 @@ spa:
     generate: "Generar"
     generate_last_journal_entry: "Generar última entrada en el diario"
     generate_parcel: "generar parcela"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "Geolocalización"
     global_preferences: "Preferencias globales"
     go: "Ir"
@@ -1381,6 +1383,7 @@ spa:
     mode: "Modo"
     model: "Modelo"
     modes: "Modos"
+    # month: "Month"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
     months: "Meses"
@@ -1624,6 +1627,7 @@ spa:
     remove_subscription: "Retirar la suscripción"
     renewed: "Renovado"
     reopen: "Volver a abrir el periodico" #?
+    # repayment_period: "Repayment period"
     repayments: "Reembolsos"
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
@@ -1705,6 +1709,7 @@ spa:
     select_forward_journal: "Periodico utilizado para los aplazamientos de nuevo"
     select_number: "Seleccione el número de" #?
     selection: "Selección"
+    # semester: "Semester"
     send: "Enviar un correro electronico" #?
     send_mail: "Enviar correo"
     send_test: "Enviar un correo electronico de prueba" #?
@@ -1853,6 +1858,7 @@ spa:
     transfer: "Transferir"
     transformations: "Transformaciones" #?
     transport: "Transporte"
+    # trimester: "Trimester"
     unbilled_payables: "Cuentas a pagar no facturadas"
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
@@ -2069,6 +2075,7 @@ spa:
     x_years:
       one: "1 año"
       # other: "%{count} years"
+    # year: "Year"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
@@ -2245,6 +2252,7 @@ spa:
     country: "País"
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
     distribute_sales_and_purchases_on_activities: "Distribuir las ventas y compras a las actividades"
     distribute_sales_and_purchases_on_teams: "Distribuir las ventas y compras a los equipos"
@@ -2331,6 +2339,7 @@ spa:
       refuse: "Desperdicios"
       renew: "Renovar"
       reopen: "Reabrir"
+      # repay: "Repay"
       reset: "Restablecer"
       retrieve: "Recuperar"
       run: "Correr"

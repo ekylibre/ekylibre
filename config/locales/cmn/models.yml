@@ -33,6 +33,9 @@ cmn:
         born_at: "创建时间"
       land_parcel_group:
         born_at: "创建时间"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "给收件人"
         list: "付款清单"
@@ -214,6 +217,7 @@ cmn:
       animal: "动物"
       animal_group: "动物群"
       attachment: "附件"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "银行对帐单"
       bank_statement_item: "银行对账单行"
       bioproduct: "生活产品"
@@ -270,7 +274,9 @@ cmn:
       inspection: "产品分级"
       inspection_calibration: "检验口径"
       inspection_point: "产品分级检查"
+      # insurance_account: "Insurance account"
       integration: "积分"
+      # interest_account: "Interest account"
       intervention: "介入"
       intervention_agent: "干预剂"
       intervention_doer: "干预实干家"
@@ -297,6 +303,7 @@ cmn:
       listing_node: "清单节点"
       listing_node_item: "清单节点项目"
       loan: "贷款"
+      # loan_account: "Loan account"
       loan_repayment: "偿还借款"
       manure_management_plan: "粪便管理计划"
       manure_management_plan_zone: "粪便管理计划区"
@@ -390,6 +397,7 @@ cmn:
     account_name: "用户名"
     account_number: "帐号"
     accountable: "负责"
+    # accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "会计"
     accounted_at: "在占"
     accuracy: "准确性"
@@ -461,6 +469,9 @@ cmn:
     bank_agency_code: "银行机构代码。"
     bank_check_number: "银行支票号码"
     bank_code: "银行代码"
+    # bank_guarantee_account: "Bank guarantee account"
+    # bank_guarantee_amount: "Bank guarantee amount"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "银行识别码"
     bank_name: "银行名"
     bank_statement: "银行对帐单"
@@ -833,6 +844,7 @@ cmn:
     initial_number: "最初数量"
     initial_owner: "最初的主人"
     initial_population: "初始种群"
+    # initial_releasing_amount: "Initial releasing amount"
     initial_shape: "初步形成"
     initialization_vectors: "初始化向量"
     initiated_on: "启动了"
@@ -1471,6 +1483,7 @@ cmn:
     usage_limit_nature: "按类型使用"
     usage_limit_on: "通过使用"
     usages: "用法"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "使用countings"
     use_grading_calibre: "使用分级口径" #?
     use_gradings: "采用放坡"
@@ -1674,6 +1687,12 @@ cmn:
       reflections: "相关表格"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

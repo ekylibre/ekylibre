@@ -270,6 +270,8 @@ cmn:
         constant_rate: "恒定速率"
       repayment_period:
         month: "月"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "年"
       shift_method:
         anatocism: "anatocism"

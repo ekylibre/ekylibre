@@ -270,6 +270,8 @@ deu:
         constant_rate: "Konstante Rate"
       repayment_period:
         month: "Monat"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Jahr"
       shift_method:
         anatocism: "anatocism"

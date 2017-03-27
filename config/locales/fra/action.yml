@@ -808,6 +808,7 @@ fra:
     accountancy: "Comptabilité"
     accountancy_balance: "Soldes intermédiaires de gestion et ratios"
     accountancy_preferences: "Préférences de la comptabilité"
+    accounting: "Passer en comptabilité"
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
@@ -1173,10 +1174,10 @@ fra:
     deposit: "Remise en banque"
     depositable_options: "Options de remise en banque"
     deposits: "Dépôts"
-    depreciation: "Ammortissement"
+    depreciation: "Amortissement"
     depreciations: "Dépréciations"
-    depreciations_inputations_expenses: "Dotations aux ammortissements et aux provisions"
-    derogatory_depreciations: "Ammortissements dérogatoires"
+    depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
+    derogatory_depreciations: "Amortissements dérogatoires"
     description: "Description"
     desposits: "Remises en banque" #?
     destroy: "Supprimer"
@@ -1320,6 +1321,7 @@ fra:
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Générer bon de préparation"
+    generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     global_preferences: "Préférences générales"
@@ -1559,6 +1561,7 @@ fra:
     mode: "Mode"
     model: "Model"
     modes: "Modes"
+    month: "Mois"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
@@ -1865,6 +1868,7 @@ fra:
     renewed: "Renouvellés"
     reopen: "Déclôturer" #?
     reopen_journal: "Déclôturer le journal" #?
+    repayment_period: "Période de remboursement"
     repayments: "Remboursements"
     repayments_graph: "Graphique des remboursements"
     replace: "Remplacer" #?
@@ -1973,6 +1977,7 @@ fra:
     select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
     selection: "Sélection"
+    semester: "Semestre"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
     sensor_indicators: "Indicateurs de capteur" #?
@@ -2155,6 +2160,7 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
+    trimester: "Trimestre"
     true: "Vrai" #?
     unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"
@@ -2416,6 +2422,7 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
+    year: "Année"
     yearly: "Annuelle" #?
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
@@ -2589,6 +2596,7 @@ fra:
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
+    default_depreciation_period: "Période d'amortissement par default"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     distribute_sales_and_purchases_on_activities: "Répartir les ventes et les achats sur les activités"
     distribute_sales_and_purchases_on_teams: "Répartir les ventes et les achats sur les équipes"
@@ -2678,6 +2686,7 @@ fra:
       refuse: "Refuser"
       renew: "Renouveller"
       reopen: "Réouvrir"
+      repay: "Rembourser"
       reset: "Ré-initialiser"
       retrieve: "Relever"
       run: "Éxécuter"

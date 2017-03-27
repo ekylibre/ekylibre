@@ -33,6 +33,9 @@ deu:
         born_at: "Hergestellt in"
       land_parcel_group:
         born_at: "Hergestellt in"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Da an Empfänger"
         list: "Abgehende Zahlungsliste"
@@ -214,6 +217,7 @@ deu:
       animal: "Tier"
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "Kontoauszug"
       bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
@@ -270,7 +274,9 @@ deu:
       inspection: "Produktklassifizierung"
       inspection_calibration: "Inspektion Kaliber"
       inspection_point: "Produktsortierprüfung"
+      # insurance_account: "Insurance account"
       # integration: "Integration"
+      # interest_account: "Interest account"
       # intervention: "Intervention"
       intervention_agent: "Interventionsmittel"
       intervention_doer: "Intervention Macher"
@@ -297,6 +303,7 @@ deu:
       listing_node: "Listing Knoten"
       listing_node_item: "Listing Knotenpunkt"
       loan: "Darlehen"
+      # loan_account: "Loan account"
       loan_repayment: "Kreditrückzahlung"
       manure_management_plan: "Gülle-Management-Plan"
       manure_management_plan_zone: "Gülle-Management-Plan Zone"
@@ -390,6 +397,7 @@ deu:
     account_name: "Kontobezeichnung"
     account_number: "Accountnummer"
     accountable: "Verantwortlich"
+    # accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Buchhalter"
     accounted_at: "entfielen auf"
     accuracy: "Genauigkeit"
@@ -461,6 +469,9 @@ deu:
     bank_agency_code: "Bank Agentur Code"
     bank_check_number: "Bankscheck Nummer"
     bank_code: "Bankleitzahl"
+    # bank_guarantee_account: "Bank guarantee account"
+    # bank_guarantee_amount: "Bank guarantee amount"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "Bankleitzahl"
     bank_name: "Bank Name"
     bank_statement: "Kontoauszug"
@@ -833,6 +844,7 @@ deu:
     initial_number: "Anfangszahl"
     initial_owner: "Erste Besitzer"
     initial_population: "Anfangspopulation"
+    # initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Ausgangsform"
     initialization_vectors: "Initialisierung Vektoren"
     initiated_on: "Initiiert auf"
@@ -1470,6 +1482,7 @@ deu:
     usage_limit_nature: "Wird von Typ"
     usage_limit_on: "Wird von auf"
     usages: "Nutzungen"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "Verwenden Zählungen"
     use_grading_calibre: "Verwenden Sie Grading Kaliber" #?
     use_gradings: "Verwenden Sie Sortierungen"
@@ -1673,6 +1686,12 @@ deu:
       reflections: "gehörigen Tabellen"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

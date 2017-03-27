@@ -270,6 +270,8 @@ ita:
         constant_rate: "Tasso costante"
       repayment_period:
         month: "Mese"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Anno"
       shift_method:
         anatocism: "anatocismo"

@@ -33,6 +33,9 @@ jpn:
         born_at: "で作成されました"
       land_parcel_group:
         born_at: "で作成されました"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "受信者に与えられました"
         list: "支払一覧"
@@ -214,6 +217,7 @@ jpn:
       animal: "動物"
       animal_group: "動物群"
       attachment: "アタッチメント"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "銀行取引明細書"
       bank_statement_item: "銀行取引明細書行"
       bioproduct: "リビング製品"
@@ -270,7 +274,9 @@ jpn:
       inspection: "製品のグレーディング"
       inspection_calibration: "検査口径"
       inspection_point: "製品のグレーディングチェック"
+      # insurance_account: "Insurance account"
       integration: "統合"
+      # interest_account: "Interest account"
       intervention: "介入"
       intervention_agent: "介入エージェント"
       intervention_doer: "介入行為者"
@@ -297,6 +303,7 @@ jpn:
       listing_node: "リストノード"
       listing_node_item: "リストノード項目"
       loan: "ローン"
+      # loan_account: "Loan account"
       loan_repayment: "ローン返済"
       manure_management_plan: "肥料管理計画"
       manure_management_plan_zone: "肥料管理計画ゾーン"
@@ -390,6 +397,7 @@ jpn:
     account_name: "アカウント名"
     account_number: "口座番号"
     accountable: "責任があります"
+    # accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "会計士"
     accounted_at: "で会計処理"
     accuracy: "精度"
@@ -461,6 +469,9 @@ jpn:
     bank_agency_code: "銀行代理コード"
     bank_check_number: "銀行小切手番号"
     bank_code: "金融機関コード"
+    # bank_guarantee_account: "Bank guarantee account"
+    # bank_guarantee_amount: "Bank guarantee amount"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "バンク識別子コード"
     bank_name: "銀行名"
     bank_statement: "銀行取引明細書"
@@ -833,6 +844,7 @@ jpn:
     initial_number: "初期数"
     initial_owner: "最初の所有者"
     initial_population: "初期集団"
+    # initial_releasing_amount: "Initial releasing amount"
     initial_shape: "初期形状"
     initialization_vectors: "初期化ベクトル"
     initiated_on: "で開始"
@@ -1471,6 +1483,7 @@ jpn:
     usage_limit_nature: "種類によって使用されます"
     usage_limit_on: "上で使用されます"
     usages: "用途"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "countingsを使用してください"
     use_grading_calibre: "グレーディング口径を使用します" #?
     use_gradings: "グレーディングを使用してください"
@@ -1674,6 +1687,12 @@ jpn:
       reflections: "関連するテーブル"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:
