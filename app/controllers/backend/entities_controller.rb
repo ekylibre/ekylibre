@@ -98,7 +98,6 @@ module Backend
       code.c
     end
 
-
     list(conditions: entities_conditions, order: 'entities.last_name, entities.first_name') do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -294,12 +293,12 @@ module Backend
       code = ''
       code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
-      code << "c << Entity.find(params[:id]).client_account_id\n"
+      code << "c << Entity.find(#{params[:id]}).client_account_id\n"
       code << "c\n"
       eval code
     end
 
-    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c },line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -314,17 +313,16 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency
     end
 
-
     def self.entities_moves_supplier_conditions(params)
       code = ''
       code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
-      code << "c << Entity.find(params[:id]).supplier_account_id\n"
+      code << "c << Entity.find(#{params[:id]}).supplier_account_id\n"
       code << "c\n"
       eval code
     end
 
-    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c },line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column

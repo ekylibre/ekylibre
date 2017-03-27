@@ -11,7 +11,7 @@
         id = triggeredInput.attr 'id'
         value = triggeredInput.val()
         regExp = new RegExp "(\\?|\\&)(#{id})\\=([^&]+)"
-
+        
         if url.match(regExp)
           url = url.replace(regExp, "$1$2=#{value}")
         else
@@ -23,7 +23,7 @@
 
   $(document).behave 'load', 'a[data-update-link-with]', setUpdateTriggers
 
-
+  
   completeUrlWithIds = ->
     links = $(this)
     links.each ->

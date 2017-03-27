@@ -23,6 +23,10 @@ spa:
         initial_dead_at: "Desechado en"
       financial_year:
         stopped_on: "Fecha de cierre"
+      fixed_asset:
+        # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
+        # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
       land_parcel:
@@ -441,6 +445,8 @@ spa:
     archiving: "El archivado"
     arguments: "Argumentos"
     assembly: "Asamblea"
+    # asset_account: "Asset account"
+    # asset_exists: "Asset exists"
     attachments: "Archivos adjuntos"
     attribute_name: "Nombre del Atributo"
     attribution: "Atribución"
@@ -634,9 +640,11 @@ spa:
     deposits: "Depósitos"
     depreciable: "Depreciable"
     depreciable_amount: "Importe depreciable"
+    # depreciable_product: "Depreciable product"
     depreciated_amount: "Importe amortizado"
     depreciation_method: "Método de depreciación"
     depreciation_percentage: "Porcentaje de depreciación"
+    # depreciation_period: "Depreciation period"
     depreciations: "Depreciaciones"
     depth: "Profundidad"
     derivative_of: "Derivado de"
@@ -1308,6 +1316,8 @@ spa:
     sampling_temporal_mode: "El modo de muestreo temporal"
     scale: "Escala"
     scheduled: "Programado"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "Estacionalidad"
     seasons: "Estacionalidades"
     second_producer: "En segundo productor" #?
@@ -1339,6 +1349,8 @@ spa:
     size_value: "Valor de tamaño"
     soil_nature: "Tipo de suelo"
     soil_production: "La producción de suelos"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "Fuente"
     source_product: "Producto de código"
     # spaced_iban: "Spaced IBAN"
@@ -1587,6 +1599,20 @@ spa:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # in_use: "In use"
+          # scrapped: "Scrapped"
+          # sold: "Sold"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:

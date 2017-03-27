@@ -722,6 +722,7 @@ spa:
     account_debt: "Deudas" #?
     account_equity: "Capitales propios" #?
     account_fixed_assets: "Activo inmobilisado" #?
+    # account_for: "Account for"
     account_inventories_assets: "Stocks" #?
     account_mark: "Letra de cuento" #?
     account_name: "Cuento contable" #?
@@ -851,6 +852,7 @@ spa:
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
     area: "Zona"
     assessable_operations: "Operaciones imponibles (H.T)" #?
+    # asset_exists: "Asset exists"
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
     at_the_address: "En la dirección"
     attach_deal: "Añadir un acuerdo"
@@ -1647,6 +1649,7 @@ spa:
     save_in_draft: "Salvar en la niebla"
     # saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Programado"
+    # scrapped_on: "Scrapped on"
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
@@ -1688,6 +1691,7 @@ spa:
     simplified: "Regimen del real simplificado"
     simplified_linear_options: "Opciones lineales simplificados"
     social_expenses: "Los gastos sociales"
+    # sold_on: "Sold on"
     source: "Fuente de datos"
     start: "Del"
     start_new_intervention_here: "Comenzar una nueva intervención aquí"
@@ -1704,6 +1708,7 @@ spa:
     stocks: "Cepo"
     stop: "Detener"
     stopped: "Detenido"
+    # stopped_on: "Stopped on"
     storage: "Almacenamiento"
     subject: "Tema"
     submit: "Enviar"
@@ -2059,6 +2064,8 @@ spa:
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
+      # depreciation_failed: "Assets could not be depreciated."
+      # depreciation_successful: "Assets have been successfully depreciated."
       draft_entries_are_validated: #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "%{count} han sido validadas y son sacadas de la niebla" #?
@@ -2199,6 +2206,7 @@ spa:
     country: "País"
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
     distribute_sales_and_purchases_on_activities: "Distribuir las ventas y compras a las actividades"
     distribute_sales_and_purchases_on_teams: "Distribuir las ventas y compras a los equipos"

@@ -2514,7 +2514,7 @@ fixed_assets:
     required: true
   asset_account_id:
     type: integer
-    references: ''
+    references: account
   ceded:
     type: boolean
   ceded_on:
@@ -2551,6 +2551,8 @@ fixed_assets:
     type: decimal
     precision: 19
     scale: 4
+  depreciation_period:
+    type: string
   description:
     type: text
   expenses_account_id:
@@ -2596,6 +2598,16 @@ fixed_assets:
   sale_item_id:
     type: integer
     references: sale_item
+  scrapped_journal_entry_id:
+    type: integer
+    references: journal_entry
+  scrapped_on:
+    type: date
+  sold_journal_entry_id:
+    type: integer
+    references: journal_entry
+  sold_on:
+    type: date
   started_on:
     type: date
     required: true
@@ -6245,7 +6257,11 @@ purchase_items:
     required: true
   depreciable_product_id:
     type: integer
+<<<<<<< HEAD
     references: ''
+=======
+    references: product
+>>>>>>> 7f77c9c67a935ab1d248f05e9a955f74cce7c959
   fixed:
     type: boolean
     required: true

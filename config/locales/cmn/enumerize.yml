@@ -159,7 +159,13 @@ cmn:
       depreciation_method:
         graduated: "毕业" #?
         linear: "线性"
+        # none: "None"
+        # regressive: "Regressive"
         simplified_linear: "线性简化"
+      depreciation_period:
+        # monthly: "Monthly"
+        # quarterly: "Quarterly"
+        # yearly: "Yearly"
     gap:
       direction:
         loss: "失利"
