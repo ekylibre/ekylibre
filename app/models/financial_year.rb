@@ -311,7 +311,7 @@ class FinancialYear < Ekylibre::Record::Base
   def get_mandatory_line_calculation(document = :profit_and_loss_statement, line = nil)
     ac = Account.accounting_system
     source = Rails.root.join('config', 'accoutancy_mandatory_documents.yml')
-    data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source
+    data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source.file?
     if data && ac && document && line
       data[ac.to_s][document][line] if data[ac.to_s] && data[ac.to_s][document]
     end
