@@ -33,7 +33,7 @@
 
       $(checkboxes).change ->
         ids = []
-        id = $(this).closest('tr').attr('id').substring(1)
+        id = parseInt($(this).closest('tr').attr('id').substring(1))
         url = link.attr('href')
 
         if url.indexOf(paramName) > 0
@@ -43,13 +43,26 @@
           ids = JSON.parse("[" + idsInLink + "]")
           url = url.split("#{paramName}")[0]
 
-        ids.push(id)
+        if $(this).is(':checked')
+          ids.push(id)
+        else
+          index = ids.indexOf(id)
+          ids.splice(index, 1)
 
         if ids.length > 1
           if url.indexOf('?') < 0 then url += '?' else url += '&'
         
         url += "#{paramName}=[#{ids.join(', ')}]"
         link.attr('href', url)
+
+        if link.attr('data-display-class-on-click')
+          elementDisplayOnClick = '.' + link.attr('data-display-class-on-click')
+          
+          if ids.length == 0
+            $(elementDisplayOnClick).hide()
+          
+          if ids.length == 1
+            $(elementDisplayOnClick).show()
 
 
   $(document).behave 'load', 'a.js-complete-links-with-ids', completeUrlWithIds
