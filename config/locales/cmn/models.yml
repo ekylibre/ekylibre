@@ -33,6 +33,9 @@ cmn:
         born_at: "创建时间"
       land_parcel_group:
         born_at: "创建时间"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "给收件人"
         list: "付款清单"
@@ -1680,6 +1683,7 @@ cmn:
       reflections: "相关表格"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
       state_machine:
         states:
           # draft: "Draft"

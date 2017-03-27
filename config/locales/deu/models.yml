@@ -33,6 +33,9 @@ deu:
         born_at: "Hergestellt in"
       land_parcel_group:
         born_at: "Hergestellt in"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Da an Empfänger"
         list: "Abgehende Zahlungsliste"
@@ -1679,6 +1682,7 @@ deu:
       reflections: "gehörigen Tabellen"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
       state_machine:
         states:
           # draft: "Draft"

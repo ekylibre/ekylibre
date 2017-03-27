@@ -265,6 +265,9 @@ arb:
         children: "عقد فرعية" #?
         created_at: "تم انشائه في" #?
         nature: "الطبيعي" #?
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       mandate: #?
         company_id: "الشركة" #?
         created_at: "تم انشائه في" #?
@@ -2865,6 +2868,7 @@ arb:
       reflections: "الجداول المرتبطة"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
       state_machine:
         states:
           # draft: "Draft"

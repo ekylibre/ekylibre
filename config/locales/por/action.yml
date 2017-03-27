@@ -1047,7 +1047,7 @@ por:
     generate: "Gerar"
     generate_last_journal_entry: "Gerar última entrada do diário"
     generate_parcel: "gerar parcel"
-    # generate_repayments: "Generate repayments"
+    # generate_repayments: "Pass bookkeeping"
     # geolocation: "Geolocation"
     global_preferences: "Preferências globais"
     go: "Ir"

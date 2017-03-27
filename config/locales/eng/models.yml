@@ -33,6 +33,9 @@ eng:
         born_at: "Created at"
       land_parcel_group:
         born_at: "Created at"
+      loan:
+        ongoing_at: "Fund raising at"
+        started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Outgoing payment list"
@@ -1725,6 +1728,7 @@ eng:
       reflections: "Associated tables"
     loan:
       bookkeep: "[%{resource} %{name}] Fund reception"
+      bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
       state_machine:
         states:
           draft: "Draft"

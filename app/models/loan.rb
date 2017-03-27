@@ -25,6 +25,7 @@
 #  accounted_at               :datetime
 #  amount                     :decimal(19, 4)   not null
 #  bank_guarantee_account_id  :integer
+#  bank_guarantee_amount      :integer
 #  cash_id                    :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
@@ -75,6 +76,7 @@ class Loan < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :bank_guarantee_amount, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :cash, :currency, :lender, :repayment_method, :repayment_period, :third, presence: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :repayment_duration, :shift_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
@@ -83,7 +85,6 @@ class Loan < Ekylibre::Record::Base
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account_id, :interest_account_id, presence: true
-
 
   state_machine :state, initial: :draft do
     state :draft
@@ -119,24 +120,38 @@ class Loan < Ekylibre::Record::Base
     generate_repayments
   end
 
+  # Prevents from deleting if entry exist
+  protect on: :destroy do
+    journal_entry && ongoing?
+  end
+
   bookkeep do |b|
-    existing_financial_years = FinancialYear.opened.where('? BETWEEN started_on AND stopped_on', started_on).where(currency: [journal.currency, Preference[:currency]])
-    b.journal_entry(journal, printed_on: started_on, if: started_on <= Time.zone.today && existing_financial_years.any? && ongoing?) do |entry|
+    # when money arrive (ongoing_at)
+    # when first payment started (started_on)
+
+    ongoing_on = ongoing_at.to_date
+
+    existing_financial_year = FinancialYear.on(ongoing_on)
+
+    b.journal_entry(journal, printed_on: ongoing_on, if: ongoing_on <= Time.zone.today && existing_financial_year && ongoing?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
-      
+
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { loan_account_id }, amount, as: :loan)
 
+      # puts entry.inspect.red
+
       if use_bank_guarantee?
-        entry.add_debit(label, unsuppress { bank_guarantee_account_id }, bank_guarantee_amount, as: :bank_guarantee)
-        entry.add_credit(label, cash.account_id, amount, as: :bank)
+        label_guarantee = tc(:bookkeep_guarantee_payment, resource: self.class.model_name.human, name: name)
+        entry.add_debit(label_guarantee, unsuppress { bank_guarantee_account_id }, bank_guarantee_amount, as: :bank_guarantee)
+        entry.add_credit(label_guarantee, cash.account_id, bank_guarantee_amount, as: :bank)
       end
     end
+
     true
   end
 
   def generate_repayments
-    
     period = if repayment_period_month?
                12
              elsif repayment_period_trimester?
@@ -145,17 +160,17 @@ class Loan < Ekylibre::Record::Base
                2
              else
                1
-             end    
-   
+             end
+
     length = if repayment_period_month?
-               :month
+               1.month
              elsif repayment_period_trimester?
-               :trimester
+               3.month
              elsif repayment_period_semester?
-               :semester
+               6.month
              else
-               :year
-             end    
+               1.year
+             end
 
     ids = []
     Calculus::Loan
@@ -183,7 +198,14 @@ class Loan < Ekylibre::Record::Base
     repayments.destroy(repayments.where.not(id: ids))
     reload
   end
-
+  
+  def current_remaining_amount(on = Date.today)
+    r = repayments.where('due_on <= ?', on).reorder(:position).last
+    return nil unless r
+    r.remaining_amount
+  end
+  
+  # why ? we have state machine ?
   def draft?
     state.to_sym == :draft
   end

@@ -1108,7 +1108,7 @@ ita:
     generate: "creare"
     generate_last_journal_entry: "Generare ultima voce di diario"
     generate_parcel: "genera pacchi"
-    # generate_repayments: "Generate repayments"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "geolocalizzazione"
     global_preferences: "Preferenze globali"
     go: "Partire"

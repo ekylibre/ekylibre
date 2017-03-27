@@ -22,19 +22,37 @@ module Backend
 
     unroll
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     def self.loans_conditions
       code = ''
       code = search_conditions(loans: [:name, :amount], cashes: [:bank_name]) + " ||= []\n"
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{Loan.table_name}.started_on BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "end\n"
       code << "if params[:repayment_period].present?\n"
       code << "  c[0] << ' AND #{Loan.table_name}.repayment_period IN (?)'\n"
       code << "  c << params[:repayment_period]\n"
       code << "end\n"
+      code << "if params[:cash_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Loan.table_name}.cash_id = ?'\n"
+      code << "  c << params[:cash_id]\n"
+      code << "end\n"
+      code << "c\n"
       code.c
     end
 
     list(conditions: loans_conditions, selectable: true) do |t|
-      t.action :edit
-      t.action :destroy
+      t.action :edit, if: :updateable?
+      t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :amount, currency: true
       t.column :cash, url: true
@@ -54,6 +72,16 @@ module Backend
       t.column :insurance_amount, currency: true
       t.column :remaining_amount, currency: true
       t.column :journal_entry, url: true, hidden: true
+    end
+
+    # Show a list of loans
+    def index
+      @loans = Loan.all.reorder(:started_on)
+      # passing a parameter to Jasper for company full name and id
+      @entity_of_company_full_name = Entity.of_company.full_name
+      @entity_of_company_id = Entity.of_company.id
+
+      respond_with @loans, methods: [:current_remaining_amount], include: [:lender, :loan_account, :interest_account, :insurance_account, :cash, :journal_entry]
     end
 
     def confirm

@@ -33,6 +33,9 @@ spa:
         born_at: "Creado en"
       land_parcel_group:
         born_at: "Creado en"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
         list: "Lista de salida de pago"
@@ -1684,6 +1687,7 @@ spa:
       reflections: "Tablas asociadas"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
       state_machine:
         states:
           # draft: "Draft"

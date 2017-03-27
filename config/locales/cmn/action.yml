@@ -1042,7 +1042,7 @@ cmn:
     generate: "生成"
     generate_last_journal_entry: "最后生成日记帐分录"
     generate_parcel: "生成包裹"
-    # generate_repayments: "Generate repayments"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "地理位置"
     global_preferences: "全球首"
     go: "走"

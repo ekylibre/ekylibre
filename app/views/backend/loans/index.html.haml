@@ -1,9 +1,17 @@
 = kujaku do |k|
   - k.text
+  - k.helper :journal_period_crit
   - k.multi_choice :repayment_period, resource_model.repayment_period.values.map{ |s| [s.tl, s] }, label: :repayment_period.tl
+  - cash_ids = Loan.all.pluck(:cash_id).compact.uniq
+  - cashes = Cash.where(id: cash_ids).reorder(:name)
+  - if cashes.any?
+    - k.helper do
+      %label= Cash.human_attribute_name(:name)
+      = select_tag(:cash_id, options_for_select([[]] +  cashes.map{|u| [u.name, u.id]}, params[:cash_id].to_i))
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
+  = t.export :loan_registry, key: Time.zone.now.to_s, resource: @loans
 
   %span.depreciation-trigger.btn-group.hidden
     - if reading_ltr?

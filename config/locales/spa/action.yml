@@ -1168,7 +1168,7 @@ spa:
     generate: "Generar"
     generate_last_journal_entry: "Generar última entrada en el diario"
     generate_parcel: "generar parcela"
-    # generate_repayments: "Generate repayments"
+    # generate_repayments: "Pass bookkeeping"
     geolocation: "Geolocalización"
     global_preferences: "Preferencias globales"
     go: "Ir"
