@@ -4215,6 +4215,10 @@ listings:
     type: integer
     references: user
 loan_repayments:
+  accountable:
+    type: boolean
+    required: true
+    default: false
   accounted_at:
     type: datetime
   amount:
@@ -4284,6 +4288,8 @@ loans:
   bank_guarantee_account_id:
     type: integer
     references: account
+  bank_guarantee_amount:
+    type: integer
   cash_id:
     type: integer
     references: cash
@@ -6257,11 +6263,7 @@ purchase_items:
     required: true
   depreciable_product_id:
     type: integer
-<<<<<<< HEAD
-    references: ''
-=======
     references: product
->>>>>>> 7f77c9c67a935ab1d248f05e9a955f74cce7c959
   fixed:
     type: boolean
     required: true

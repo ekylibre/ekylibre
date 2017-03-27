@@ -681,6 +681,7 @@ cmn:
     accountancy: "会计"
     accountancy_balance: "会计平衡"
     accountancy_preferences: "会计偏好"
+    # accounting: "Accounting"
     accounts: "帐号"
     accounts_only_used_at: "账户仅用于在"
     accounts_to_load: "账户加载"

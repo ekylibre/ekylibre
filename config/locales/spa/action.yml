@@ -741,6 +741,7 @@ spa:
     accountancy: "contabilidad"
     accountancy_balance: "Balance de contabilidad"
     accountancy_preferences: "Preferencias de contabilidad"
+    # accounting: "Accounting"
     accounts: "Cuentos contables utilizados"
     accounts_only_used_at: "Solo las utilizan en"
     accounts_to_load: "Cuentas para cargar"

@@ -747,6 +747,7 @@ ita:
     accountancy: "Contabilità"
     accountancy_balance: "equilibrio Contabilità"
     accountancy_preferences: "Preferenze di contabilità"
+    # accounting: "Accounting"
     accounts: "conti"
     accounts_only_used_at: "Conti utilizzati solo a"
     accounts_to_load: "Conti per caricare"

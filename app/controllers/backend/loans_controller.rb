@@ -96,9 +96,9 @@ module Backend
       redirect_to action: :show, id: @loan.id
     end
 
-    def generate_repayments_up_to
+    def accounting
       begin
-        date = Date.parse(params[:generate_repayments_date])
+        date = Date.parse(params[:accounting_date])
       rescue
         notify_error(:error_while_depreciating)
         return redirect_to(params[:redirect] || { action: :index })

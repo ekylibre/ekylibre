@@ -657,12 +657,12 @@ Rails.application.routes.draw do
 
     resources :loans, concerns: [:list, :unroll] do
       collection do
-        get :generate_repayments_up_to
-      end 
-      
+        get :accounting
+      end
+
       member do
         get :list_repayments
-      
+
         post :confirm
         post :repay
       end

@@ -686,6 +686,7 @@ por:
     accountancy: "Contabilidade"
     accountancy_balance: "Contabilidade do balanço de"
     accountancy_preferences: "Preferências de contabilidade"
+    # accounting: "Accounting"
     accounts: "Contas"
     accounts_only_used_at: "Contas utilizada apenas na"
     accounts_to_load: "Contas para carregar"

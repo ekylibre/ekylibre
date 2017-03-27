@@ -747,6 +747,7 @@ jpn:
     accountancy: "会計学"
     accountancy_balance: "会計収支"
     accountancy_preferences: "会計の好み"
+    # accounting: "Accounting"
     accounts: "アカウント"
     accounts_only_used_at: "のみで使用するアカウント"
     accounts_to_load: "ロードするアカウント"

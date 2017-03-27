@@ -937,6 +937,7 @@ arb:
     accountancy: "المحاسبة"
     accountancy_balance: "ميزان المحاسبة"
     accountancy_preferences: "تفضيلات المحاسبة"
+    # accounting: "Accounting"
     accounts: "حسابات المحاسب المستخدمة"
     accounts_only_used_at: "حسابات تستخدم فقط في"
     accounts_to_load: "حسابات لتحميل"

@@ -13,15 +13,15 @@
   = t.new params: { redirect: nil }
   = t.export :loan_registry, key: Time.zone.now.to_s, resource: @loans
 
-  %span.depreciation-trigger.btn-group.hidden
+  %span.accounting-trigger.btn-group.hidden
     - if reading_ltr?
-      = link_to :generate_repayments.tl, { action: :generate_repayments_up_to, generate_repayments_date: params[:'generate-repayments-date'] }, { class: 'btn btn-default js-complete-links-with-ids', id: 'generate_repayments_up_to', data: {confirm: :are_you_sure.tl, 'update-link-with': '#generate_repayments_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': 'depreciation-trigger'}}
+      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default js-complete-links-with-ids', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': 'accounting-trigger'}}
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      %input#generate_repayments_date{ type: 'date', value: params[:'generate-repayments-date'] }
+      %input#accounting_date{ type: 'date', value: params[:'accounting-date'] }
     - else
-      %input#generate_repayments_date{ type: 'date', value: params[:'generate-repayments-date'] }
+      %input#accounting_date{ type: 'date', value: params[:'accounting-date'] }
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      %button#generate_repayments_up_to.btn.btn-default= :generate_repayments.tl
-      = link_to :generate_repayments.tl, { action: :generate_repayments_up_to, generate_repayments_date: params[:'generate-repayments-date'] }, { class: 'btn btn-default', id: 'generate_repayments_up_to', data: {confirm: :are_you_sure.tl, 'update-link-with': '#generate_repayments_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': '.depreciation-trigger'}}
+      %button#accounting.btn.btn-default= :accounting.tl
+      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': '.accounting-trigger'}}
 
 = main_list

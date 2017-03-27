@@ -448,9 +448,9 @@ eng:
       # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
+      # accounting: "Accounting loan: %{name}"
       # confirm: "Confirm loan: %{name}"
       edit: "Edit loan: %{name}"
-      # generate_repayments_up_to: "Generate repayments up to loan: %{name}"
       index: "Loans"
       new: "New loan"
       # repay: "Repay loan: %{name}"
@@ -909,6 +909,7 @@ eng:
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
+    accounting: "Accounting"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -1272,7 +1273,7 @@ eng:
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
-    generate_repayments: "Pass bookkeeping"
+    generate_repayments: "Pass bookkeeping" #?
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
@@ -2163,6 +2164,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
@@ -2206,7 +2208,6 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
-      # generate_repayments_up_to: "Generate repayments up to"
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

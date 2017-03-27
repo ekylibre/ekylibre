@@ -681,6 +681,7 @@ deu:
     accountancy: "Buchhaltung"
     accountancy_balance: "Rechnungswesen Balance"
     accountancy_preferences: "Accountancy Präferenzen"
+    # accounting: "Accounting"
     # accounts: "Accounts"
     accounts_only_used_at: "Konten nur verwendet, um"
     accounts_to_load: "Konten zu laden"

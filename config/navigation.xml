@@ -1949,10 +1949,6 @@
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
       </item>
-      <item name="loans">
-        <page to="backend/loans#confirm"/>
-        <page to="backend/loans#generate_repayments_up_to"/>
-        <page to="backend/loans#repay"/>
       <item name="equipments">
         <page to="backend/equipments#list_fixed_assets"/>
       </item>
@@ -1972,6 +1968,11 @@
       <item name="land_parcels">
         <page to="backend/land_parcels#list_fixed_assets"/>
       </item>
+      <item name="loans">
+        <page to="backend/loans#accounting"/>
+        <page to="backend/loans#confirm"/>
+        <page to="backend/loans#repay"/>
+      </item>
       <item name="matters">
         <page to="backend/matters#list_fixed_assets"/>
       </item>
@@ -1989,7 +1990,6 @@
       </item>
       <item name="workers">
         <page to="backend/workers#list_fixed_assets"/>
->>>>>>> 7f77c9c67a935ab1d248f05e9a955f74cce7c959
       </item>
     </group>
   </untreated-actions>

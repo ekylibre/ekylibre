@@ -59,16 +59,15 @@ require 'test_helper'
 
 class LoanTest < ActiveSupport::TestCase
   test_model_actions
-  
+
   setup do
-    
     @loan_account = Account.find_or_create_by_number('164')
     @interest_account = Account.find_or_create_by_number('6611')
     @insurance_account = Account.find_or_create_by_number('616')
     main = Account.find_or_create_by_number('512001')
     suspense = Account.find_or_create_by_number('511001')
     currency = 'EUR'
-    
+
     @cash = Cash.create!(
       name: '¡Banky!',
       nature: :bank_account,
@@ -77,12 +76,12 @@ class LoanTest < ActiveSupport::TestCase
       suspense_account: suspense,
       journal: Journal.find_or_create_by(nature: :bank, currency: currency)
     )
-    
+
     @entity = Entity.create!(last_name: 'CA')
-    @on = Date.parse("2017-01-01")
-    
+    @on = Date.parse('2017-01-01')
+
     attributes = {
-      name: "FENDT 820",
+      name: 'FENDT 820',
       cash: @cash,
       lender: @entity,
       insurance_repayment_method: :initial,
@@ -96,15 +95,13 @@ class LoanTest < ActiveSupport::TestCase
       insurance_account: @insurance_account,
       use_bank_guarantee: false
     }
-    
-    @loan = Loan.new(attributes)
 
+    @loan = Loan.new(attributes)
   end
-  
+
   test 'new 120 months loan' do
-    
     l = @loan
-    
+
     l.repayment_period = :month
     l.repayment_duration = 120
     l.amount = 100_000.00
@@ -122,11 +119,10 @@ class LoanTest < ActiveSupport::TestCase
     assert_equal 0.88, l.repayments.last.interest_amount
     assert_equal 16.67, l.repayments.last.insurance_amount
   end
-  
+
   test 'new 10 years loan' do
-    
     l = @loan
-    
+
     l.repayment_period = :year
     l.repayment_duration = 10
     l.amount = 100_000.00
@@ -144,5 +140,4 @@ class LoanTest < ActiveSupport::TestCase
     assert_equal 0.88, l.repayments.last.interest_amount
     assert_equal 16.67, l.repayments.last.insurance_amount
   end
-  
 end
