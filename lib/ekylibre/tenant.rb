@@ -71,7 +71,7 @@ module Ekylibre
 
       def db_for(name)
         return Rails.configuration.database_configuration['test'] if env == 'test'
-        dbs = { name => @list[name.to_s] } if @list[name.to_s]
+        dbs = { name.to_s => @list[env][name.to_s] } if @list[env][name.to_s]
         dbs ||= @list[env]
                 .map { |key, value| [[key], value] }
                 .to_h
