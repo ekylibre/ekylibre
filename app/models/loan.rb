@@ -165,9 +165,9 @@ class Loan < Ekylibre::Record::Base
     length = if repayment_period_month?
                1.month
              elsif repayment_period_trimester?
-               3.month
+               3.months
              elsif repayment_period_semester?
-               6.month
+               6.months
              else
                1.year
              end
@@ -198,13 +198,13 @@ class Loan < Ekylibre::Record::Base
     repayments.destroy(repayments.where.not(id: ids))
     reload
   end
-  
+
   def current_remaining_amount(on = Date.today)
     r = repayments.where('due_on <= ?', on).reorder(:position).last
     return nil unless r
     r.remaining_amount
   end
-  
+
   # why ? we have state machine ?
   def draft?
     state.to_sym == :draft

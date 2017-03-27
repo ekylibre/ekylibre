@@ -101,7 +101,7 @@ class FixedAsset < Ekylibre::Record::Base
   enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
   scope :drafts, -> { where(state: %w(draft)) }
-  
+
   # [DEPRECATIONS[
   #  - purchase_id
   #  - purchase_item_id

@@ -4215,6 +4215,10 @@ listings:
     type: integer
     references: user
 loan_repayments:
+  accountable:
+    type: boolean
+    required: true
+    default: false
   accounted_at:
     type: datetime
   amount:
@@ -4284,6 +4288,8 @@ loans:
   bank_guarantee_account_id:
     type: integer
     references: account
+  bank_guarantee_amount:
+    type: integer
   cash_id:
     type: integer
     references: cash

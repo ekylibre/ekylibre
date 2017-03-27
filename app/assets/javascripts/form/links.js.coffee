@@ -45,7 +45,7 @@
 
         if ids.length > 1
           if url.indexOf('?') < 0 then url += '?' else url += '&'
-        
+
         url += "#{paramName}=[#{ids.join(', ')}]"
         link.attr('href', url)
 
