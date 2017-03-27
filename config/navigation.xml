@@ -1945,6 +1945,9 @@
       <item name="buildings">
         <page to="backend/buildings#list_fixed_assets"/>
       </item>
+      <item name="profit_and_loss_cells">
+        <page to="backend/cells/profit_and_loss_cells#show"/>
+      </item>
       <item name="entities">
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>

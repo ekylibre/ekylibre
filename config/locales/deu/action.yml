@@ -754,6 +754,7 @@ deu:
     add_website: "In Website"
     add_working_period: "In working_period"
     # add_x: "Add “%{x}”"
+    # added_value: "Added value"
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
     # advance_products: "Advance products"
@@ -848,6 +849,7 @@ deu:
     change_password: "Passwort ändern"
     change_state: "ÄndStat"
     change_status_of_selected_interventions: "Ändern Sie den Status der ausgewählten Interventionen"
+    # charge_value: "Charge value"
     chart: "Diagramm"
     check: "Prüfen"
     children: "Kinder"
@@ -1241,6 +1243,7 @@ deu:
     nature: "Art"
     nature_changed: "Le Art des animaux eine Änderung"
     natures: "Typen"
+    # net_income: "Net income"
     net_margin: "Nettomarge" #?
     net_mass: "Eigenmasse"
     net_surface_area: "Nettofläche"
@@ -1398,6 +1401,7 @@ deu:
     products_purchases: "Produkte Käufe"
     products_sales: "Produkte Verkäufe"
     profile: "Profil"
+    # profit_and_loss: "Profit and loss"
     # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "Gewinne"
@@ -1415,6 +1419,7 @@ deu:
     quantity: "Menge"
     quantity_rest: "Verbleibende Menge" #?
     query: "Abfrage:"
+    # raw_income: "Raw income"
     raw_margin: "Rohmarge" #?
     reading_tasks: "Leseaufgaben"
     readings: "Lesungen"
@@ -1555,6 +1560,7 @@ deu:
     tax_label: "Steuerbanderole"
     taxations: "Besteuerungen"
     taxes: "Steuern"
+    # taxes_and_wages: "Taxes and wages"
     thumb: "Daumen"
     time_cost: "Zeitkosten"
     time_spent_by_activity: "Zeit durch die Tätigkeit aufgewendeten"

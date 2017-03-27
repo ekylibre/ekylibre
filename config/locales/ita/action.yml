@@ -820,6 +820,7 @@ ita:
     add_website: "Aggiungere sito"
     add_working_period: "Aggiungere working_period"
     # add_x: "Add “%{x}”"
+    # added_value: "Added value"
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
     # advance_products: "Advance products"
@@ -914,6 +915,7 @@ ita:
     change_password: "Cambia la password"
     change_state: "Cambiamento di stato"
     change_status_of_selected_interventions: "Modificare lo stato degli interventi selezionati"
+    # charge_value: "Charge value"
     chart: "Grafico"
     check: "Dai un'occhiata"
     children: "Bambini"
@@ -1307,6 +1309,7 @@ ita:
     nature: "Digitare"
     nature_changed: "Le tipo des animaux a changé"
     natures: "tipi"
+    # net_income: "Net income"
     net_margin: "margine netto" #?
     net_mass: "massa netta"
     net_surface_area: "superficie netta"
@@ -1464,6 +1467,7 @@ ita:
     products_purchases: "Prodotti acquisti"
     products_sales: "Vendite di prodotti"
     profile: "Profilo"
+    # profit_and_loss: "Profit and loss"
     # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "I profitti"
@@ -1481,6 +1485,7 @@ ita:
     quantity: "Quantità"
     quantity_rest: "Quantità rimanente" #?
     # query: "Query:"
+    # raw_income: "Raw income"
     raw_margin: "margine di Raw" #?
     reading_tasks: "compiti di lettura"
     readings: "letture"
@@ -1621,6 +1626,7 @@ ita:
     tax_label: "Etichetta fiscale"
     taxations: "tassazioni"
     taxes: "Le tasse"
+    # taxes_and_wages: "Taxes and wages"
     thumb: "Pollice"
     time_cost: "tempo costo"
     time_spent_by_activity: "Il tempo speso per attività"

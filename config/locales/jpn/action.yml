@@ -820,6 +820,7 @@ jpn:
     add_website: "ウェブサイトを追加"
     add_working_period: "working_periodを追加"
     # add_x: "Add “%{x}”"
+    # added_value: "Added value"
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
     # advance_products: "Advance products"
@@ -915,6 +916,7 @@ jpn:
     change_password: "パスワードを変更する"
     change_state: "状態遷移"
     change_status_of_selected_interventions: "選択された介入のステータスを変更"
+    # charge_value: "Charge value"
     chart: "チャート"
     check: "チェック"
     children: "子供"
@@ -1313,6 +1315,7 @@ jpn:
     nature: "タイプ"
     nature_changed: "ル型デanimaux変更"
     natures: "タイプ"
+    # net_income: "Net income"
     net_margin: "売上純利益率" #?
     net_mass: "正味質量"
     net_surface_area: "正味の表面積"
@@ -1470,6 +1473,7 @@ jpn:
     products_purchases: "製品の購入"
     products_sales: "製品販売"
     profile: "プロフィール"
+    # profit_and_loss: "Profit and loss"
     # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "利益"
@@ -1487,6 +1491,7 @@ jpn:
     quantity: "量"
     quantity_rest: "残量" #?
     query: "クエリ："
+    # raw_income: "Raw income"
     raw_margin: "生のマージン" #?
     reading_tasks: "読書のタスク"
     readings: "音読み"
@@ -1627,6 +1632,7 @@ jpn:
     tax_label: "税ラベル"
     # taxations: "Taxations"
     taxes: "税金"
+    # taxes_and_wages: "Taxes and wages"
     thumb: "親指"
     time_cost: "時間費用"
     time_spent_by_activity: "活動によって費やされた時間"

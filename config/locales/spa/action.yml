@@ -818,6 +818,7 @@ spa:
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
     # add_x: "Add “%{x}”"
+    # added_value: "Added value"
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
     # advance_products: "Advance products"
@@ -939,6 +940,7 @@ spa:
     change_password: "Cambia la contraseña"
     change_state: "Cambio de estado"
     change_status_of_selected_interventions: "Cambiar el estado de las intervenciones seleccionadas"
+    # charge_value: "Charge value"
     chart: "Gráfico"
     check: "Comprobar"
     children: "Niños"
@@ -1403,6 +1405,7 @@ spa:
     nb_purchases: #?
       one: "Una compra en espera de recepción" #?
       other: "%{count} Compras en espera de recepción" #?
+    # net_income: "Net income"
     net_margin: "Margen neto" #?
     net_mass: "Masa neta"
     net_surface_area: "Área de superficie Net"
@@ -1578,6 +1581,7 @@ spa:
     products_purchases: "Compras de productos"
     products_sales: "Las ventas de productos"
     profile: "Perfil"
+    # profit_and_loss: "Profit and loss"
     # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "Las ganancias"
@@ -1600,6 +1604,7 @@ spa:
     quantity_to_credit: "Cantidad a pasar en activo" #?
     quarterly: "Trimestral" #?
     query: "Demanda:"
+    # raw_income: "Raw income"
     raw_margin: "Margen en bruto" #?
     reading_tasks: "Tareas de lectura"
     readings: "Lecturas"
@@ -1782,6 +1787,7 @@ spa:
     tax_label: "Etiqueta de impuestos"
     taxations: "Tasaciones"
     taxes: "Impuestos"
+    # taxes_and_wages: "Taxes and wages"
     theoric_quantity: "cantidad teorica" #?
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"

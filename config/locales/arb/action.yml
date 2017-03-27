@@ -1014,6 +1014,7 @@ arb:
     add_website: "أضف موقعك"
     add_working_period: "إضافة working_period"
     # add_x: "Add “%{x}”"
+    # added_value: "Added value"
     address: "العنوان" #?
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
@@ -1143,6 +1144,7 @@ arb:
     change_price: "تغيير وحدة السعر" #?
     change_state: "تغيير الدولة"
     change_status_of_selected_interventions: "تغيير حالة بعض المداخلات المختارة"
+    # charge_value: "Charge value"
     chart: "خريطة"
     check: "نحقق"
     children: "الأطفال"
@@ -1706,6 +1708,7 @@ arb:
       one: "تم تسجيل منتج واحد" #?
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
+    # net_income: "Net income"
     net_margin: "هامش صافي" #?
     net_mass: "الكتلة الصافية"
     net_surface_area: "مساحة صافية"
@@ -1928,6 +1931,7 @@ arb:
     products_purchases: "منتجات مشتريات"
     products_sales: "مبيعات المنتجات"
     profile: "الملف الشخصي"
+    # profit_and_loss: "Profit and loss"
     # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "الأرباح"
@@ -1957,6 +1961,7 @@ arb:
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
     quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
+    # raw_income: "Raw income"
     raw_margin: "هامش الخام" #?
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
@@ -2170,6 +2175,7 @@ arb:
     tax_label: "التسمية الضرائب"
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب"
+    # taxes_and_wages: "Taxes and wages"
     theoric_quantity: "الكمية النظرية" #?
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"

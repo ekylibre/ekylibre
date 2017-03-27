@@ -63,14 +63,14 @@ module Backend
       redirect_to controller: :journals, action: :index
     end
 
-    #def show
+    # def show
     #  return unless @journal_entry = find_and_check
     # respond_with(@journal_entry, methods: [],
     #                              include: [])
     #  format.html do
     #    t3e @journal_entry.attributes.or_else({})
     #  end
-    #end
+    # end
 
     def new
       if params[:duplicate_of]

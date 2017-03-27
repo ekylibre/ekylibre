@@ -754,6 +754,7 @@ cmn:
     add_website: "添加网站"
     add_working_period: "添加working_period"
     # add_x: "Add “%{x}”"
+    # added_value: "Added value"
     # advance_charges: "Advance charges"
     # advance_giveables: "Advance giveables"
     # advance_products: "Advance products"
@@ -848,6 +849,7 @@ cmn:
     change_password: "更改密码"
     change_state: "更改状态"
     change_status_of_selected_interventions: "更改选定干预的状态"
+    # charge_value: "Charge value"
     chart: "图表"
     check: "检查"
     children: "孩子"
@@ -1242,6 +1244,7 @@ cmn:
     nature: "类型"
     nature_changed: "乐宫型一ANIMAUX变化"
     natures: "类型"
+    # net_income: "Net income"
     net_margin: "净利率" #?
     net_mass: "净质量"
     net_surface_area: "净面积"
@@ -1399,6 +1402,7 @@ cmn:
     products_purchases: "产品采购"
     products_sales: "产品销售"
     profile: "轮廓"
+    # profit_and_loss: "Profit and loss"
     # profit_or_loss: "Fiscal year result"
     # profit_taxe: "Profit taxe"
     profits: "利润"
@@ -1416,6 +1420,7 @@ cmn:
     quantity: "数量"
     quantity_rest: "剩余数量" #?
     query: "查询："
+    # raw_income: "Raw income"
     raw_margin: "原始保证金" #?
     reading_tasks: "阅读任务"
     readings: "阅读"
@@ -1556,6 +1561,7 @@ cmn:
     tax_label: "税务标签"
     taxations: "税费"
     taxes: "税"
+    # taxes_and_wages: "Taxes and wages"
     thumb: "拇指"
     time_cost: "时间成本"
     time_spent_by_activity: "按时间花在活动"

@@ -171,6 +171,7 @@ Rails.application.routes.draw do
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
       resource :parts_cell, only: :show
+      resource :profit_and_loss_cell, only: :show
       resource :quandl_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show

@@ -172,7 +172,7 @@
 	          <cell name="total_balance" value="v_stocks - v_stock_depreciations" />
 	          <cell name="previous_total_balance" value="p_v_stocks - p_v_stock_depreciations" />
 	        </section>
-	        
+
 	        <section name="item">
 	          <cell name="group" value=":assets.tl" level="api"/>
 	          <cell name="subgroup" value=":current_assets.tl" level="api"/>

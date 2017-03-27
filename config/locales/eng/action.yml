@@ -982,7 +982,7 @@ eng:
     add_website: "Add website"
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"
-    # added_value: "Added value"
+    added_value: "Added value"
     advance_charges: "Advance charges" #?!
     advance_giveables: "Advance giveables" #?!
     advance_products: "Advance products" #?!
@@ -1078,7 +1078,7 @@ eng:
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
-    # charge_value: "Charge value"
+    charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
     children: "Children"
@@ -1473,6 +1473,7 @@ eng:
     nature: "Type"
     nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
+    net_income: "Net income"
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New"
@@ -1571,7 +1572,7 @@ eng:
     participations: "Participations"
     parts: "Modules"
     password: "Password" #?
-    payable_taxes: "Payable taxes"
+    payable_taxes: "Payable taxes" #?
     payment_amount: "Amount of payment" #?
     payment_at: "Payment on" #?
     payment_conditions: "Payment conditions"
@@ -1630,6 +1631,7 @@ eng:
     products_purchases: "Products purchases" #??
     products_sales: "Products sales" #??
     profile: "Profile"
+    profit_and_loss: "Profit and loss"
     profit_or_loss: "Fiscal year result" #?!
     profit_taxe: "Profit taxe" #??
     profits: "Profits" #?
@@ -1644,6 +1646,7 @@ eng:
     quandl: "Quandl" #?
     quantity: "Quantity" #?
     query: "Query:" #?
+    raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     ready: "Ready"
@@ -1764,7 +1767,7 @@ eng:
     subscription_nature: "Subscription type" #?
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
-    subsidies: "Subsidies" #?!
+    subsidies: "Subsidies"
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
@@ -1781,6 +1784,7 @@ eng:
     tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
+    taxes_and_wages: "Taxes and wages"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1896,7 +1900,7 @@ eng:
     vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
-    wages: "Wages" #?!
+    wages: "Wages" #?
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"

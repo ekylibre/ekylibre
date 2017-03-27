@@ -8,23 +8,26 @@
     production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
     added_value = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :added_value)
     operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
+    raw_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income)
+    raw_income_before_taxe = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income_before_taxe)
+    net_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_income)
 
   = infos do
     - if production_sales
       .big-info
         %span.title= :product_value.tl(financial_year: @financial_year.name)
         %span.value= production_sales.l(currency: Preference[:currency])
-    - if production_purchases
-      .big-info
-        %span.title= :charge_value.tl(financial_year: @financial_year.name)
-        %span.value= production_purchases.l(currency: Preference[:currency])
-    - if added_value
-      .big-info{class: (added_value > 0 ? :positive : added_value < 0 ? :negative : :caution)}
-        %span.title= :added_value.tl(financial_year: @financial_year.name)
-        %span.value= added_value.l(currency: Preference[:currency])
     - if operating_margin
       .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
         %span.title= :operating_margin.tl(financial_year: @financial_year.name)
         %span.value= operating_margin.l(currency: Preference[:currency])
+    - if raw_income
+      .big-info{class: (raw_income > 0 ? :positive : raw_income < 0 ? :negative : :caution)}
+        %span.title= :raw_income.tl(financial_year: @financial_year.name)
+        %span.value= raw_income.l(currency: Preference[:currency])
+    - if net_income
+      .big-info{class: (net_income > 0 ? :positive : net_income < 0 ? :negative : :caution)}
+        %span.title= :net_income.tl(financial_year: @financial_year.name)
+        %span.value= net_income.l(currency: Preference[:currency])
 - else
   = no_data
