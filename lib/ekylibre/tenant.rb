@@ -36,6 +36,12 @@ module Ekylibre
         end
       end
 
+      def recreate(name, options = {})
+        check!(name, options)
+        drop(name) if exist?(name)
+        create(name, options[:database])
+      end
+
       # Returns the current tenant
       def current
         unless name = Apartment::Tenant.current
@@ -64,6 +70,7 @@ module Ekylibre
       end
 
       def db_for(name)
+        return Rails.configuration.database_configuration['test'] if env == 'test'
         dbs = { name => @list[name.to_s] } if @list[name.to_s]
         dbs ||= @list[env]
                 .map { |key, value| [[key], value] }
