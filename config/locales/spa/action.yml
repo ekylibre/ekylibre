@@ -2200,6 +2200,7 @@ spa:
     country: "País"
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
+    # default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
     distribute_sales_and_purchases_on_activities: "Distribuir las ventas y compras a las actividades"
     distribute_sales_and_purchases_on_teams: "Distribuir las ventas y compras a los equipos"

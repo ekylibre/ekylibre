@@ -98,8 +98,10 @@ class FixedAsset < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
-  enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference.get(:default_depreciation_period) || Preference.set!(:default_depreciation_period, :yearly, :string) }
+  enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
+  scope :drafts, -> { where(state: %w(draft)) }
+  
   # [DEPRECATIONS[
   #  - purchase_id
   #  - purchase_item_id
@@ -122,10 +124,10 @@ class FixedAsset < Ekylibre::Record::Base
       transition draft: :in_use
     end
     event :sell do
-      transition [:draft, :in_use] => :sold
+      transition in_use: :sold
     end
     event :scrap do
-      transition [:draft, :in_use] => :scrapped
+      transition in_use: :scrapped
     end
   end
 
@@ -224,10 +226,10 @@ class FixedAsset < Ekylibre::Record::Base
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   bookkeep do |b|
     label = tc(:bookkeep_in_use_assets, resource: self.class.model_name.human, number: number, name: name)
-    waiting_asset_account = Account.find_in_nomenclature(:outstanding_assets)
-    fixed_assets_suppliers_account = Account.find_in_nomenclature(:fixed_assets_suppliers)
-    fixed_assets_values_account = Account.find_in_nomenclature(:fixed_assets_values)
-    exceptionnal_depreciations_inputations_expenses_account = Account.find_in_nomenclature(:exceptionnal_depreciations_inputations_expenses)
+    waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
+    fixed_assets_suppliers_account = Account.find_or_import_from_nomenclature(:fixed_assets_suppliers)
+    fixed_assets_values_account = Account.find_or_import_from_nomenclature(:fixed_assets_values)
+    exceptionnal_depreciations_inputations_expenses_account = Account.find_or_import_from_nomenclature(:exceptionnal_depreciations_inputations_expenses)
 
     # fixed asset link to purchase item
     if purchase_items.any? && in_use?
@@ -261,64 +263,66 @@ class FixedAsset < Ekylibre::Record::Base
       # get last depreciation for date out_on
       depreciation_out_on = current_depreciation(out_on)
 
-      # check if next depreciation have journal_entry
-      if depreciation_out_on.journal_entry
-        raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{depreciation_out_on.journal_entry.number})"
-      end
+      if depreciation_out_on
 
-      next_depreciations = depreciations.where('position > ?', depreciation_out_on.position)
+        # check if next depreciation have journal_entry
+        if depreciation_out_on.journal_entry
+          raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{depreciation_out_on.journal_entry.number})"
+        end
 
-      next_depreciations.each do |d|
-        if d.journal_entry
-          raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{d.journal_entry.number})"
+        next_depreciations = depreciations.where('position > ?', depreciation_out_on.position)
+
+        next_depreciations.each do |d|
+          if d.journal_entry
+            raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{d.journal_entry.number})"
+          end
+        end
+
+        # stop bookkeeping next depreciations
+        depreciations_to_closed = next_depreciations.where(journal_entry_id: nil)
+        depreciations_to_closed.update_all(accountable: false, locked: true)
+
+        # use amount to last bookkeep (net_book_value == current_depreciation.depreciable_amount)
+        # use amount to last bookkeep (already_depreciated_value == current_depreciation.depreciated_amount)
+
+        # compute part time
+
+        first_period = out_on.day
+        global_period = (depreciation_out_on.stopped_on - depreciation_out_on.started_on) + 1
+        first_ratio = (first_period.to_f / global_period.to_f) if global_period
+        # second_ratio = (1 - first_ratio)
+
+        first_depreciation_amount_ratio = (depreciation_out_on.amount * first_ratio).round(2)
+        # second_depreciation_amount_ratio = (depreciation_out_on.amount * second_ratio).round(2)
+
+        # update current_depreciation with new value and bookkeep it
+        depreciation_out_on.stopped_on = out_on
+        depreciation_out_on.amount = first_depreciation_amount_ratio
+        depreciation_out_on.accountable = true
+        depreciation_out_on.save!
+
+        scrapped_value = depreciation_out_on.depreciable_amount
+        scrapped_unvalue = depreciation_out_on.depreciated_amount
+
+        # fixed asset sold
+        label = tc(:bookkeep_in_sold_assets, resource: self.class.model_name.human, number: number, name: name)
+        b.journal_entry(journal, printed_on: sold_on, as: :sold, if: sold?) do |entry|
+          entry.add_credit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
+          entry.add_debit(label, fixed_assets_values_account.id, scrapped_value)
+          entry.add_debit(label, allocation_account.id, scrapped_unvalue)
+        end
+
+        # fixed asset scrapped
+        label_1 = tc(:bookkeep_exceptionnal_scrapped_assets, resource: self.class.model_name.human, number: number, name: name)
+        label_2 = tc(:bookkeep_exit_assets, resource: self.class.model_name.human, number: number, name: name)
+
+        b.journal_entry(journal, printed_on: scrapped_on, as: :scrapped, if: scrapped?) do |entry|
+          entry.add_debit(label_1, exceptionnal_depreciations_inputations_expenses_account.id, scrapped_value)
+          entry.add_credit(label_1, allocation_account.id, scrapped_value)
+          entry.add_debit(label_2, allocation_account.id, scrapped_value)
+          entry.add_credit(label_2, asset_account.id, scrapped_value, resource: self, as: :fixed_asset)
         end
       end
-
-      # stop bookkeeping next depreciations
-      depreciations_to_closed = next_depreciations.where(journal_entry_id: nil)
-      depreciations_to_closed.update_all(accountable: false, locked: true)
-
-      # use amount to last bookkeep (net_book_value == current_depreciation.depreciable_amount)
-      # use amount to last bookkeep (already_depreciated_value == current_depreciation.depreciated_amount)
-
-      # compute part time
-
-      first_period = out_on.day
-      global_period = (depreciation_out_on.stopped_on - depreciation_out_on.started_on) + 1
-      first_ratio = (first_period.to_f / global_period.to_f) if global_period
-      # second_ratio = (1 - first_ratio)
-
-      first_depreciation_amount_ratio = (depreciation_out_on.amount * first_ratio).round(2)
-      # second_depreciation_amount_ratio = (depreciation_out_on.amount * second_ratio).round(2)
-
-      # update current_depreciation with new value and bookkeep it
-      depreciation_out_on.stopped_on = out_on
-      depreciation_out_on.amount = first_depreciation_amount_ratio
-      depreciation_out_on.accountable = true
-      depreciation_out_on.save!
-
-      scrapped_value = depreciation_out_on.depreciable_amount
-      scrapped_unvalue = depreciation_out_on.depreciated_amount
-
-      # fixed asset sold
-      label = tc(:bookkeep_in_sold_assets, resource: self.class.model_name.human, number: number, name: name)
-      b.journal_entry(journal, printed_on: sold_on, as: :sold, if: sold?) do |entry|
-        entry.add_credit(label, asset_account.id, depreciable_amount, resource: self, as: :fixed_asset)
-        entry.add_debit(label, fixed_assets_values_account.id, scrapped_value)
-        entry.add_debit(label, allocation_account.id, scrapped_unvalue)
-      end
-
-      # fixed asset scrapped
-      label_1 = tc(:bookkeep_exceptionnal_scrapped_assets, resource: self.class.model_name.human, number: number, name: name)
-      label_2 = tc(:bookkeep_exit_assets, resource: self.class.model_name.human, number: number, name: name)
-
-      b.journal_entry(journal, printed_on: scrapped_on, as: :scrapped, if: scrapped?) do |entry|
-        entry.add_debit(label_1, exceptionnal_depreciations_inputations_expenses_account.id, scrapped_value)
-        entry.add_credit(label_1, allocation_account.id, scrapped_value)
-        entry.add_debit(label_2, allocation_account.id, scrapped_value)
-        entry.add_credit(label_2, asset_account.id, scrapped_value, resource: self, as: :fixed_asset)
-      end
-
     end
   end
 

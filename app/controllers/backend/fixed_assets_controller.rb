@@ -71,6 +71,7 @@ module Backend
 
     list(:depreciations, model: :fixed_asset_depreciations, conditions: { fixed_asset_id: 'params[:id]'.c }, order: :position) do |t|
       # t.action :edit, if: "RECORD.journal_entry.nil?".c
+      t.column :position
       t.column :accountable
       t.column :locked
       t.column :amount, currency: true

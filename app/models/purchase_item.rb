@@ -147,7 +147,8 @@ class PurchaseItem < Ekylibre::Record::Base
             errors.add(:fixed_asset, :fixed_asset_cannot_be_modified)
           end
         else
-          new_fixed_asset
+          a = new_fixed_asset
+          a.save!
         end
       else
         self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
@@ -182,6 +183,7 @@ class PurchaseItem < Ekylibre::Record::Base
       currency: currency,
       started_on: purchase.invoiced_at.to_date,
       depreciable_amount: pretax_amount,
+      depreciation_period: Preference.get(:default_depreciation_period).value,
       depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
       depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
       journal: Journal.find_by(nature: :various),
@@ -190,7 +192,7 @@ class PurchaseItem < Ekylibre::Record::Base
       expenses_account: variant.fixed_asset_expenses_account, # 68
       product: depreciable_product
     }
-    asset_name   = parcel_items.collect(&:name).to_sentence if products.any?
+    asset_name = parcel_items.collect(&:name).to_sentence if products.any?
     asset_name ||= name
     name_duplicate_count = FixedAsset.where(name: asset_name).count
     unless name_duplicate_count.zero?
@@ -198,6 +200,7 @@ class PurchaseItem < Ekylibre::Record::Base
       asset_name = "#{asset_name} #{unique_identifier}"
     end
     asset_attributes[:name] = asset_name
+
     build_fixed_asset(asset_attributes)
   end
 
