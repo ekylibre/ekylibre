@@ -300,7 +300,7 @@ class User < Ekylibre::Record::Base
     return nil unless default_campaign = Campaign.order(harvest_year: :desc).first
     preference = self.preference('current_campaign.id', default_campaign.id, :integer)
     unless campaign = Campaign.find_by(id: preference.value)
-      campaign = default
+      campaign = default_campaign
       prefer!('current_campaign.id', campaign.id)
     end
     campaign
@@ -308,6 +308,20 @@ class User < Ekylibre::Record::Base
 
   def current_campaign=(campaign)
     prefer!('current_campaign.id', campaign.id, :integer)
+  end
+
+  def current_financial_year
+    return nil unless default_financial_year = FinancialYear.on(Date.current)
+    preference = self.preference('current_financial_year', default_financial_year, :record)
+    unless financial_year = preference.value
+      financial_year = default_financial_year
+      prefer!('current_financial_year', financial_year)
+    end
+    financial_year
+  end
+
+  def current_financial_year=(financial_year)
+    prefer!('current_financial_year', financial_year, :record)
   end
 
   def current_period_interval

@@ -53,7 +53,7 @@ class Journal < Ekylibre::Record::Base
   has_many :incoming_payment_modes, foreign_key: :depositables_journal_id, dependent: :restrict_with_exception
   has_many :purchase_natures, dependent: :restrict_with_exception
   has_many :sale_natures, dependent: :restrict_with_exception
-  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
+  enumerize :nature, in: [:sales, :purchases, :fixed_assets, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
@@ -78,13 +78,14 @@ class Journal < Ekylibre::Record::Base
   scope :opened_on, lambda { |at|
     where(arel_table[:closed_on].lteq(at))
   }
-  scope :sales,     -> { where(nature: 'sales') }
-  scope :purchases, -> { where(nature: 'purchases') }
-  scope :banks,     -> { where(nature: 'bank') }
-  scope :forwards,  -> { where(nature: 'forward') }
-  scope :various,   -> { where(nature: 'various') }
-  scope :cashes,    -> { where(nature: 'cashes') }
-  scope :stocks,    -> { where(nature: 'stocks') }
+  scope :sales,           -> { where(nature: 'sales') }
+  scope :purchases,       -> { where(nature: 'purchases') }
+  scope :banks,           -> { where(nature: 'bank') }
+  scope :forwards,        -> { where(nature: 'forward') }
+  scope :various,         -> { where(nature: 'various') }
+  scope :cashes,          -> { where(nature: 'cashes') }
+  scope :stocks,          -> { where(nature: 'stocks') }
+  scope :fixed_assets,    -> { where(nature: 'stocks') }
   scope :banks_or_cashes, -> { where(nature: %w(cashes bank)) }
 
   before_validation(on: :create) do

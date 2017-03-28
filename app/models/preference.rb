@@ -189,6 +189,8 @@ class Preference < Ekylibre::Record::Base
   prefer :client_account_radix, :string, ''
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
+  # TODO: manage period as list selector
+  prefer :default_depreciation_period, :string, 'yearly'
 
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false

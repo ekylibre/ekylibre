@@ -93,7 +93,6 @@ class Product < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :default_storage, class_name: 'Product'
-  belongs_to :fixed_asset
   belongs_to :initial_container, class_name: 'Product'
   belongs_to :initial_enjoyer, class_name: 'Entity'
   belongs_to :initial_movement, class_name: 'ProductMovement'
@@ -112,6 +111,7 @@ class Product < Ekylibre::Record::Base
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
+  has_many :fixed_assets, inverse_of: :product
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
@@ -240,6 +240,7 @@ class Product < Ekylibre::Record::Base
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
+  scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
@@ -271,6 +272,8 @@ class Product < Ekylibre::Record::Base
     where.not(id: ProductOwnership.select(:product_id).where(nature: :other).at(at))
   }
 
+  scope :usable_in_fixed_asset, -> { depreciables.joins('LEFT JOIN fixed_assets ON products.id = fixed_assets.product_id').where('fixed_assets.id IS NULL') }
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -287,6 +290,10 @@ class Product < Ekylibre::Record::Base
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
+
+  # [DEPRECATIONS[
+  #  - fixed_asset_id
+  # ]DEPRECATIONS]
 
   def born_at_in_interventions
     return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
@@ -728,7 +735,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_asset.present?)
+    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_assets.any?)
   end
 
   # TODO: Doc

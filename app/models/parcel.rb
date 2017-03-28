@@ -187,19 +187,31 @@ class Parcel < Ekylibre::Record::Base
   # | outgoing parcel        | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     # For purchase_not_received or sale_not_emitted
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: Preference[:permanent_stock_inventory] && given?) do |entry|
-      label = tc(:undelivered_invoice,
-                 resource: self.class.model_name.human,
-                 number: number, entity: entity.full_name, mode: nature.l)
-      account = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
-      items.each do |item|
-        amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
-        next unless item.variant && item.variant.charge_account && amount.nonzero?
-        entry.add_credit label, account.id, amount, resource: item, as: :unbilled
-        entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense
+    invoice = lambda do |usage, order|
+      lambda do |entry|
+        label = tc(:undelivered_invoice,
+                   resource: self.class.model_name.human,
+                   number: number, entity: entity.full_name, mode: nature.l)
+        account = Account.find_or_import_from_nomenclature(usage)
+        items.each do |item|
+          amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
+          next unless item.variant && item.variant.charge_account && amount.nonzero?
+          if order
+            entry.add_credit label, account.id, amount, resource: item, as: :unbilled
+            entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense
+          else
+            entry.add_debit  label, account.id, amount, resource: item, as: :unbilled
+            entry.add_credit label, item.variant.charge_account.id, amount, resource: item, as: :expense
+          end
+        end
       end
     end
+
+    accountable = Preference[:permanent_stock_inventory] && given?
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: accountable && incoming?, &invoice.call(:suppliers_invoices_not_received, true))
+
+    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: accountable && outgoing?, &invoice.call(:invoice_to_create_clients, false))
 
     # For permanent stock inventory
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
@@ -232,12 +244,8 @@ class Parcel < Ekylibre::Record::Base
     printed_at.to_date
   end
 
-  def content_sentence(limit = 30)
+  def content_sentence
     sentence = items.map(&:name).compact.to_sentence
-    to_keep = limit || sentence.size
-    limited = sentence[0...to_keep - 3]
-    limited << '...' unless limited == sentence
-    limited
   end
 
   def separated_stock?

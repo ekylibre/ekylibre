@@ -22,29 +22,31 @@
 #
 # == Table: purchase_items
 #
-#  account_id           :integer          not null
-#  activity_budget_id   :integer
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  annotation           :text
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  currency             :string           not null
-#  fixed                :boolean          default(FALSE), not null
-#  id                   :integer          not null, primary key
-#  label                :text
-#  lock_version         :integer          default(0), not null
-#  position             :integer
-#  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  purchase_id          :integer          not null
-#  quantity             :decimal(19, 4)   default(1.0), not null
-#  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  tax_id               :integer          not null
-#  team_id              :integer
-#  unit_amount          :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount   :decimal(19, 4)   not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variant_id           :integer          not null
+#  account_id             :integer          not null
+#  activity_budget_id     :integer
+#  amount                 :decimal(19, 4)   default(0.0), not null
+#  annotation             :text
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  currency               :string           not null
+#  depreciable_product_id :integer
+#  fixed                  :boolean          default(FALSE), not null
+#  fixed_asset_id         :integer
+#  id                     :integer          not null, primary key
+#  label                  :text
+#  lock_version           :integer          default(0), not null
+#  position               :integer
+#  pretax_amount          :decimal(19, 4)   default(0.0), not null
+#  purchase_id            :integer          not null
+#  quantity               :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage   :decimal(19, 4)   default(0.0), not null
+#  tax_id                 :integer          not null
+#  team_id                :integer
+#  unit_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount     :decimal(19, 4)   not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer          not null
 #
 
 class PurchaseItem < Ekylibre::Record::Base
@@ -56,9 +58,10 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
+  belongs_to :fixed_asset, inverse_of: :purchase_items
+  belongs_to :depreciable_product, class_name: 'Product'
   has_many :parcel_items
   has_many :products, through: :parcel_items
-  has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -70,7 +73,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :account, :tax, :reduction_percentage, presence: true
   validates_associated :fixed_asset
 
-  delegate :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
+  delegate :invoiced_at, :journal_entry, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
@@ -121,41 +124,31 @@ class PurchaseItem < Ekylibre::Record::Base
 
     if variant
       self.label ||= variant.commercial_name
-      if fixed
-        self.account = variant.fixed_asset_account || Account.find_in_nomenclature(:fixed_assets)
+      if fixed && purchase.purchased?
+        # select outstanding_assets during purchase
+        self.account = Account.find_or_import_from_nomenclature(:outstanding_assets)
 
+        # if fixed_asset && fixed_asset.state == :draft
+        # if fixed asset is already registered BUT an identical name is going to be saved
+        # attrs = { name: fixed_asset.name.dup }
+        # if FixedAsset.where(name: attrs[:name]).where.not(id: fixed_asset.id).any?
+        #  if annotation
+        #    fixed_asset.update(name: attrs[:name] << ' ' + annotation)
+        #  else
+        #    fixed_asset.update(name: attrs[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase)
+        #  end
+        #  fixed_asset.reload
+        # end
+        # end
         if fixed_asset
-          # if fixed asset is already registered BUT an identical name is going to be saved
-          attrs = { name: fixed_asset.name.dup }
-          if FixedAsset.where(name: attrs[:name]).where.not(id: fixed_asset.id).any?
-            if annotation
-              fixed_asset.update(name: attrs[:name] << ' ' + annotation)
-            else
-              fixed_asset.update(name: attrs[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase)
-            end
-            fixed_asset.reload
+          if fixed_asset.draft?
+            fixed_asset.add_amount(pretax_amount) unless depreciable_product
+          else
+            errors.add(:fixed_asset, :fixed_asset_cannot_be_modified)
           end
-        end
-        unless fixed_asset
-          # Create asset
-          asset_attributes = {
-            currency: currency,
-            started_on: purchase.invoiced_at.to_date,
-            depreciable_amount: pretax_amount,
-            depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
-            depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
-            journal: Journal.find_by(nature: :various),
-            allocation_account: variant.fixed_asset_allocation_account, # 28
-            expenses_account: variant.fixed_asset_expenses_account # 68
-          }
-          if products.any?
-            asset_attributes[:name] = parcel_items.collect(&:name).to_sentence
-          end
-          asset_attributes[:name] = name if asset_attributes[:name].blank?
-          while FixedAsset.find_by(name: asset_attributes[:name])
-            asset_attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
-          end
-          build_fixed_asset(asset_attributes)
+        else
+          a = new_fixed_asset
+          a.save!
         end
       else
         self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
@@ -182,6 +175,33 @@ class PurchaseItem < Ekylibre::Record::Base
         end
       end
     end
+  end
+
+  def new_fixed_asset
+    # Create asset
+    asset_attributes = {
+      currency: currency,
+      started_on: purchase.invoiced_at.to_date,
+      depreciable_amount: pretax_amount,
+      depreciation_period: Preference.get(:default_depreciation_period).value,
+      depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
+      depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
+      journal: Journal.find_by(nature: :purchases),
+      asset_account: variant.fixed_asset_account, # 2
+      allocation_account: variant.fixed_asset_allocation_account, # 28
+      expenses_account: variant.fixed_asset_expenses_account, # 68
+      product: depreciable_product
+    }
+    asset_name = parcel_items.collect(&:name).to_sentence if products.any?
+    asset_name ||= name
+    name_duplicate_count = FixedAsset.where(name: asset_name).count
+    unless name_duplicate_count.zero?
+      unique_identifier = (name_duplicate_count + 1).to_s(36).upcase
+      asset_name = "#{asset_name} #{unique_identifier}"
+    end
+    asset_attributes[:name] = asset_name
+
+    build_fixed_asset(asset_attributes)
   end
 
   def reduction_coefficient
