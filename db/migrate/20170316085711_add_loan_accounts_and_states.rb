@@ -1,11 +1,4 @@
 class AddLoanAccountsAndStates < ActiveRecord::Migration
-  ACCOUNTS = (YAML.safe_load <<-YAML).deep_symbolize_keys.freeze
-    loans:
-      fr_pcg82: 164
-    loans_interests:
-      fr_pcg82: 661
-  YAML
-
   def change
     ## Add states
 
@@ -15,7 +8,7 @@ class AddLoanAccountsAndStates < ActiveRecord::Migration
 
     execute "UPDATE loans SET state = 'ongoing', ongoing_at = NOW()"
 
-    # # Add loan accounts
+    ## Add loan accounts
 
     add_column :loans, :loan_account_id, :integer
     add_column :loans, :interest_account_id, :integer
@@ -29,16 +22,13 @@ class AddLoanAccountsAndStates < ActiveRecord::Migration
     add_column :loan_repayments, :accountable, :boolean, default: false, null: false
     add_column :loan_repayments, :locked, :boolean, default: false, null: false
 
-    # # Update mandatory loans accounts
+    ## Update mandatory loans accounts
 
-    loan_account = execute("select id from accounts where number = '#{ACCOUNTS[:loans][:fr_pcg82]}'").first
-    interest_account = execute("select id from accounts where number = '#{ACCOUNTS[:loans_interests][:fr_pcg82]}'").first
+    loans_account = Account.find_or_import_from_nomenclature(:loans)
+    interests_account = Account.find_or_import_from_nomenclature(:loans_interests)
 
-    unless loan_account.nil? && interest_account.nil?
-      loan_account_id = loan_account['id']
-      interest_account_id = interest_account['id']
-
-      execute("UPDATE loans SET loan_account_id = #{loan_account_id}, interest_account_id = #{interest_account_id}")
+    unless loans_account.nil? && interests_account.nil?
+      execute("UPDATE loans SET loan_account_id = #{loans_account.id}, interest_account_id = #{interests_account.id}")
     end
   end
 end
