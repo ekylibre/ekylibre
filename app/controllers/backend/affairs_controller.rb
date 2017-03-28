@@ -85,22 +85,6 @@ module Backend
       redirect_to_best_page
     end
 
-    def debt_transfer
-      return unless @affair = find_and_check
-      if deal = begin
-        params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
-      rescue
-        nil
-      end
-        @affair.debt_transfer!(deal.affair)
-        redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }
-      else
-        notify_error(:cannot_find_deal_to_attach)
-        redirect_to_best_page
-      end
-    end
-
-
     protected
 
     def redirect_to_best_page(affair = nil)

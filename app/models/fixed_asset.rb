@@ -22,7 +22,9 @@
 #
 # == Table: fixed_assets
 #
+#  accounted_at            :datetime
 #  allocation_account_id   :integer          not null
+#  asset_account_id        :integer
 #  ceded                   :boolean
 #  ceded_on                :date
 #  created_at              :datetime         not null
@@ -34,13 +36,16 @@
 #  depreciated_amount      :decimal(19, 4)   not null
 #  depreciation_method     :string           not null
 #  depreciation_percentage :decimal(19, 4)
+#  depreciation_period     :string
 #  description             :text
 #  expenses_account_id     :integer
 #  id                      :integer          not null, primary key
+#  journal_entry_id        :integer
 #  journal_id              :integer          not null
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
 #  number                  :string           not null
+#  product_id              :integer
 #  purchase_amount         :decimal(19, 4)
 #  purchase_id             :integer
 #  purchase_item_id        :integer
@@ -48,6 +53,7 @@
 #  sale_id                 :integer
 #  sale_item_id            :integer
 #  started_on              :date             not null
+#  state                   :string
 #  stopped_on              :date             not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
@@ -71,11 +77,13 @@ class FixedAsset < Ekylibre::Record::Base
   has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
   has_one :tool, class_name: 'Equipment'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
   validates :ceded_on, :purchased_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :depreciation_period, :state, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }

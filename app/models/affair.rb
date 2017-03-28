@@ -194,50 +194,6 @@ class Affair < Ekylibre::Record::Base
     self
   end
 
-  def debt_transfer!(other)
-    unless other.is_a?(Affair)
-      raise "#{other.class.name} (ID=#{other.id}) cannot be merged in Affair"
-    end
-
-    Ekylibre::Record::Base.transaction do
-      if self.is_a?(SaleAffair) and other.is_a? PurchaseAffair
-        jei = other.third.supplier_journal_entry_items.first
-
-        options = {
-            currency: other.currency,
-            journal: jei.journal,
-            entry: jei.entry,
-            financial_year: jei.financial_year
-        }
-
-        supplier_regularization = JournalEntryItem.new_for(:purchase_regularization, other.third.supplier_account, -other.credit, options)
-        supplier_regularization.save!
-
-        journal = deals_of_type(Sale).first.journal_entry
-        debt = journal.items.new_for(:purchase_regularization, Account.find_or_import_from_nomenclature(:sundry_debtors_and_creditors), other.credit, options.merge(credit: true))
-        debt.save!
-      end
-
-      if self.is_a?(PurchaseAffair) and other.is_a? SaleAffair
-        jei = other.third.client_journal_entry_items.first
-
-        options = {
-            currency: other.currency,
-            journal: jei.journal,
-            entry: jei.entry,
-            financial_year: jei.financial_year
-        }
-
-        client_regularization = JournalEntryItem.new_for(:sale_regularization, other.third.client_account, -other.credit, options)
-        client_regularization.save!
-
-        journal = deals_of_type(Purchase).first.journal_entry
-        debt = journal.items.new_for(:sale_regularization, Account.find_or_import_from_nomenclature(:sundry_debtors_and_creditors), other.credit, options.merge(credit: true))
-        debt.save!
-      end
-    end
-  end
-
   def extract!(deal)
     unless deals.include?(deal)
       raise ArgumentError, 'Given deal is not one of the affair'
@@ -285,7 +241,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   def debt_transferable?
-    #unbalanced
+    # unbalanced
     !closed
   end
 
