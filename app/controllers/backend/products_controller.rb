@@ -28,7 +28,7 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-    unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
+    unroll :name, :number, :work_number, :identification_number, container: :name  # , 'population:!', 'unit_name:!'
 
     # params:
     #   :q Text search
