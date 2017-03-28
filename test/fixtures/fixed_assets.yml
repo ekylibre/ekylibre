@@ -75,6 +75,7 @@ fixed_assets_001:
   depreciation_period: yearly
   description: ''
   expenses_account_id: 451
+  asset_account_id: 424
   id: 1
   journal_id: 1
   lock_version: 1
@@ -99,6 +100,7 @@ fixed_assets_002:
   depreciation_period: yearly
   description: ''
   expenses_account_id: 466
+  asset_account_id: 424
   id: 2
   journal_id: 1
   lock_version: 1
