@@ -941,7 +941,7 @@ fra:
     area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
-    asset_exists: "Immobilisation existante"
+    asset_exists: "Immobilisation en cours existante"
     assets: "Actifs"
     assets_gaps: "Ecarts actifs"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?

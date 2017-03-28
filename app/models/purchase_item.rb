@@ -186,7 +186,7 @@ class PurchaseItem < Ekylibre::Record::Base
       depreciation_period: Preference.get(:default_depreciation_period).value,
       depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
       depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
-      journal: Journal.find_by(nature: :various),
+      journal: Journal.find_by(nature: :purchases),
       asset_account: variant.fixed_asset_account, # 2
       allocation_account: variant.fixed_asset_allocation_account, # 28
       expenses_account: variant.fixed_asset_expenses_account, # 68
