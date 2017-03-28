@@ -4,7 +4,6 @@ deu:
     # grains_area_density_in_thousand_per_hectare: "Grains area density in thousand per hectare"
     # grains_count: "Grains count"
     # mass_area_density: "Mass area density"
-    # mass_area_density_in_ton: "Mass area density in ton"
     # mass_area_density_in_ton_per_hectare: "Mass area density in ton per hectare"
     # net_mass: "Net mass"
     # seedling_area_density: "Seedling area density"

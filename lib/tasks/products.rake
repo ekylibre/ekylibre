@@ -1,7 +1,6 @@
 require 'csv'
 
 namespace :products do
-
   desc 'Change product natures with a CSV file. First column: product nature id, second column : variety to replace, third column: derivative of to replace'
   task change_product_natures: :environment do
     if ENV['TENANT'].blank?
@@ -31,7 +30,6 @@ namespace :products do
   end
 
   def change_product_attributes(file_path, model)
-
     CSV.foreach(file_path, headers: true) do |row|
       id = row[0].to_s
       variety = row[1].to_s
@@ -40,12 +38,12 @@ namespace :products do
       next if id.blank? && variety.blank? && derivative_of.blank?
 
       if id.blank?
-        puts "You must specify a product nature id"
+        puts 'You must specify a product nature id'
         next 3
       end
 
       if derivative_of.blank?
-        puts "You must specify a derivative_of"
+        puts 'You must specify a derivative_of'
         next 3
       end
 
