@@ -30,9 +30,9 @@
 #  id                                       :integer          not null, primary key
 #  lock_version                             :integer          default(0), not null
 #  purchase_affair_id                       :integer          not null
-#  purchase_regularization_journal_entry_id :integer          not null
+#  purchase_regularization_journal_entry_id :integer
 #  sale_affair_id                           :integer          not null
-#  sale_regularization_journal_entry_id     :integer          not null
+#  sale_regularization_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
 #
