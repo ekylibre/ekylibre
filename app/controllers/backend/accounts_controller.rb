@@ -142,11 +142,20 @@ module Backend
       end
     end
 
-    # Save the shown/hidden state of the checkbox
-    def checked_literate_element
-      checked = !params[:checked].to_i.zero?
-      current_user.prefer!('interface.journal_entry_item.checked', checked, :boolean)
-      head :ok
+    def account_mask_literate_element_is_checked
+      checked_literate_element('current_account_mask_literate_element_is_checked')
     end
+
+    def account_mark_mask_literate_element_is_checked
+      checked_literate_element('current_account_mark_mask_literate_element_is_checked')
+    end
+
+    # Save the shown/hidden state of the checkbox
+    private
+      def checked_literate_element(preference_string)
+        checked = params[:checked].to_s == "true" ? true : false
+        current_user.prefer!(preference_string, checked, :boolean)
+        head :ok
+      end
   end
 end

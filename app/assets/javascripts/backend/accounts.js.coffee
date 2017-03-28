@@ -2,7 +2,8 @@
   'use strict'
 
   $(document).ready ->
-    E.accounts.changeUnmarkVisibility()
+    if $('#letters-visibility').is(':checked')
+      E.accounts.changeUnmarkVisibility()
 
     $('#letters-visibility').on 'click', (e) ->
       E.accounts.changeUnmarkVisibility()
@@ -12,6 +13,14 @@
         $('#letters-visibility').prop('checked', false)
       else
         $('#letters-visibility').prop('checked', true)
+
+      $.ajax
+        url: ($('#letters-visibility').data('preference-url'))
+        type: 'PATCH'
+        data: 
+          checked: $('#letters-visibility').is(':checked')
+        success: (data, status, request) ->
+          console.log data
 
       E.accounts.changeUnmarkVisibility()
 

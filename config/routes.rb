@@ -185,7 +185,9 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        patch :checked_literate_element
+        patch :account_mask_literate_element_is_checked
+        patch :account_mark_mask_literate_element_is_checked
+
         match 'load', via: [:get, :post]
       end
       member do
@@ -428,6 +430,8 @@ Rails.application.routes.draw do
       collection do
         match 'import', via: [:get, :post]
         match 'merge',  via: [:get, :post]
+        patch :entity_client_mask_literate_element_is_checked
+        patch :entity_supplier_mask_literate_element_is_checked
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture

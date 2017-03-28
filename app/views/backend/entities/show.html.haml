@@ -215,7 +215,7 @@
 
           - content_for 'cobble_client-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: true }
+              %input#letters-visibility{ type: :checkbox, checked: current_user.current_entity_client_mask_literate_element_is_checked, data: { 'preference-url': entity_client_mask_literate_element_is_checked_backend_entities_path } }
               %label#label-letters-visibility
                 = :mask_literate_elements.tl
 
@@ -246,6 +246,6 @@
 
           - content_for 'cobble_supplier-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: true }
+              %input#letters-visibility{ type: :checkbox, checked: current_user.current_entity_supplier_mask_literate_element_is_checked, data: { 'preference-url': entity_supplier_mask_literate_element_is_checked_backend_entities_path } }
               %label#label-letters-visibility
                 = :mask_literate_elements.tl
