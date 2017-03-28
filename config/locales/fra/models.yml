@@ -65,6 +65,7 @@ fra:
       fixed_asset:
         asset_account: "Compte d'immobilisation"
         depreciation_period: "Périodicité des amortissements"
+        net_book_value: "Valeur nette comptable (VNC)" #?
         started_on: "Date de mise en service"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"

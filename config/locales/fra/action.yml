@@ -2295,6 +2295,9 @@ fra:
     x_events_of_nature_y:
       one: "%{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: "%{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
+    x_fixed_assets:
+      one: "%{count} immobilisation"
+      other: "%{count} immobilisations"
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"

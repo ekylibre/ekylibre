@@ -120,6 +120,7 @@ module Backend
       t.column :number, url: true
       t.column :name, url: true
       t.column :depreciable_amount, currency: true
+      t.column :net_book_value, currency: true
       t.column :started_on
       t.column :stopped_on
     end

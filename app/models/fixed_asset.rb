@@ -98,6 +98,7 @@ class FixedAsset < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
+  validates :asset_account, presence: true
   enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
   scope :drafts, -> { where(state: %w(draft)) }
