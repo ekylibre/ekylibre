@@ -113,14 +113,6 @@ class FixedAsset < Ekylibre::Record::Base
     state :in_use
     state :sold
     state :scrapped
-    after_transition any => :sold do |fixed_asset, _transition|
-      fixed_asset.sold_on ||= Date.today
-      fixed_asset.save!
-    end
-    after_transition any => :scrapped do |fixed_asset, _transition|
-      fixed_asset.scrapped_on ||= Date.today
-      fixed_asset.save!
-    end
     event :start_up do
       transition draft: :in_use
     end
@@ -212,6 +204,18 @@ class FixedAsset < Ekylibre::Record::Base
     return :stop if scrapped? || sold?
   end
 
+  def sell
+    return false unless can_sell?
+    update_column(:sold_on, Date.today) unless sold_on
+    super
+  end
+
+  def scrap
+    return false unless can_scrap?
+    update_column(:scrapped_on, Date.today) unless scrapped_on
+    super
+  end
+
   def updateable?
     draft? || in_use?
   end
@@ -266,22 +270,20 @@ class FixedAsset < Ekylibre::Record::Base
 
       if depreciation_out_on
 
-        # check if next depreciation have journal_entry
+        # check if depreciation have journal_entry
         if depreciation_out_on.journal_entry
           raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{depreciation_out_on.journal_entry.number})"
         end
 
         next_depreciations = depreciations.where('position > ?', depreciation_out_on.position)
 
-        next_depreciations.each do |d|
-          if d.journal_entry
-            raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{d.journal_entry.number})"
-          end
+        # check if next depreciations have journal_entry
+        if next_depreciations.any?(&:journal_entry)
+          raise StandardError, "The next fixed assets depreciations are already bookkeep ( Entry : #{d.journal_entry.number})"
         end
 
         # stop bookkeeping next depreciations
-        depreciations_to_closed = next_depreciations.where(journal_entry_id: nil)
-        depreciations_to_closed.update_all(accountable: false, locked: true)
+        next_depreciations.update_all(accountable: false, locked: true)
 
         # use amount to last bookkeep (net_book_value == current_depreciation.depreciable_amount)
         # use amount to last bookkeep (already_depreciated_value == current_depreciation.depreciated_amount)
