@@ -225,7 +225,9 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def add_amount(amount)
-    update(purchase_amount: purchase_amount + amount)
+    unless depreciations.any?(&:journal_entry)
+      update(purchase_amount: purchase_amount + amount, depreciable_amount: depreciable_amount + amount)
+    end
   end
 
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
