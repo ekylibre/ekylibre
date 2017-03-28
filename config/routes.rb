@@ -433,6 +433,7 @@ Rails.application.routes.draw do
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
         post :toggle
+        get :list_client_journal_entry_items
         get :list_contracts
         get :list_event_participations
         get :list_incoming_payments
@@ -446,6 +447,7 @@ Rails.application.routes.draw do
         get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions
+        get :list_supplier_journal_entry_items
         get :list_tasks
       end
     end
