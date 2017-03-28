@@ -28,4 +28,23 @@ module Backend
     #   t.column :name, url: true
     # end
   end
+
+  def create
+    # target: Affair which absorb the debt transfer
+    # Deal affair: Affair whose balance is used to transfer
+
+    deal_affair = Affair.find_by(id: debt_transfer_params[:deal_affair_id])
+    target_affair = Affair.find_by(id: debt_transfer_params[:id])
+
+    return :unprocessable_entity unless [deal_affair, target_affair].all?
+
+    amount = deal_affair.third_credit_balance
+    amount = -amount.abs if deal_affair.type.is_a?(PurchaseAffair)
+
+    DebtTransfer.create!(target_affair.type.underscore => target_affair, deal_affair.type.underscore => deal_affair, amount: amount)
+  end
+
+  def debt_transfer_params
+    params.permit!(:deal_affair_id)
+  end
 end

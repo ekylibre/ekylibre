@@ -83,7 +83,7 @@
                     - existings = klass.where(klass.deal_third.name => affair.third).affairable.where.not(id: excluded)
                     - if existings.any?
                       - existings.each do |existing|
-                        - l.item existing.label, { controller: affairs_controller, action: :debt_transfer, id: affair.id, deal_id: existing.id, deal_type: model, redirect: request.fullpath }, method: :post
+                        - l.item existing.label, { controller: :debt_transfers, action: :create, id: affair.id, deal_affair_id: existing.affair.id, redirect: request.fullpath }, method: :post
                       - l.separator
                     - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
             %th= :balance.tl
