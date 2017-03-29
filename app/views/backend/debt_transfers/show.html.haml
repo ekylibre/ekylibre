@@ -1,6 +1,4 @@
-= main_toolbar do |t|
-  = t.edit resource
-
 = main_informations do
   = attributes_list do |l|
-    - l.attribute :name
+    - l.attribute(:debt_transfer_affair, label: :number, url: true)
+    - l.attribute(:affair, label: :number, url: true)
