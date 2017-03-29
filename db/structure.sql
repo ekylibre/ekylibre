@@ -5476,7 +5476,8 @@ CREATE TABLE purchase_items (
     activity_budget_id integer,
     team_id integer,
     depreciable_product_id integer,
-    fixed_asset_id integer
+    fixed_asset_id integer,
+    preexisting_asset boolean
 );
 
 
@@ -17024,4 +17025,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 INSERT INTO schema_migrations (version) VALUES ('20170315221501');
 
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+
+INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 

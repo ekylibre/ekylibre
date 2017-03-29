@@ -109,6 +109,12 @@ class PurchaseItem < Ekylibre::Record::Base
     self.quantity ||= 0
     self.reduction_percentage ||= 0
 
+    if preexisting_asset
+      self.depreciable_product = nil
+    else
+      self.fixed_asset = nil
+    end
+
     if tax && unit_pretax_amount
       precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
@@ -127,33 +133,18 @@ class PurchaseItem < Ekylibre::Record::Base
       if fixed && purchase.purchased?
         # select outstanding_assets during purchase
         self.account = Account.find_or_import_from_nomenclature(:outstanding_assets)
-
-        # if fixed_asset && fixed_asset.state == :draft
-        # if fixed asset is already registered BUT an identical name is going to be saved
-        # attrs = { name: fixed_asset.name.dup }
-        # if FixedAsset.where(name: attrs[:name]).where.not(id: fixed_asset.id).any?
-        #  if annotation
-        #    fixed_asset.update(name: attrs[:name] << ' ' + annotation)
-        #  else
-        #    fixed_asset.update(name: attrs[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase)
-        #  end
-        #  fixed_asset.reload
-        # end
-        # end
-        if fixed_asset
-          if fixed_asset.draft?
-            fixed_asset.add_amount(- old_record.pretax_amount.to_f + pretax_amount) unless depreciable_product
-          else
-            errors.add(:fixed_asset, :fixed_asset_cannot_be_modified)
-          end
-        else
-          a = new_fixed_asset
-          a.save!
-        end
       else
         self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
       end
     end
+  end
+
+  after_update do
+    if fixed && purchase.purchased?
+      amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
+      fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
+    end
+    true
   end
 
   validate do
@@ -166,13 +157,12 @@ class PurchaseItem < Ekylibre::Record::Base
       [:stock, :purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
-        unless catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
+        next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
                unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(
-            catalog: catalog,
-            amount: unit_pretax_amount, currency: currency
-          )
-        end
+        variant.catalog_items.create!(
+          catalog: catalog,
+          amount: unit_pretax_amount, currency: currency
+        )
       end
     end
   end
@@ -182,7 +172,7 @@ class PurchaseItem < Ekylibre::Record::Base
     asset_attributes = {
       currency: currency,
       started_on: purchase.invoiced_at.to_date,
-      depreciable_amount: pretax_amount,
+      depreciable_amount: pretax_amount.to_f,
       depreciation_period: Preference.get(:default_depreciation_period).value,
       depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
       depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
@@ -202,6 +192,21 @@ class PurchaseItem < Ekylibre::Record::Base
     asset_attributes[:name] = asset_name
 
     build_fixed_asset(asset_attributes)
+  end
+
+  def update_fixed_asset
+    return unless fixed
+    if preexisting_asset
+      return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
+      return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+      fixed_asset.add_amount(pretax_amount.to_f)
+    else
+      a = new_fixed_asset
+      a.save!
+      self.fixed_asset = a
+      self.preexisting_asset = true
+      save!
+    end
   end
 
   def reduction_coefficient
