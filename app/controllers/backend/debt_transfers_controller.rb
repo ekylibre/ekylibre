@@ -18,33 +18,31 @@
 
 module Backend
   class DebtTransfersController < Backend::BaseController
-    # manage_restfully
-    #
-    # unroll
-    #
-    # list do |t|
-    #   t.action :edit
-    #   t.action :destroy
-    #   t.column :name, url: true
-    # end
-  end
+    manage_restfully except: :create
+    def create
+      # target: Affair which absorb the debt transfer
+      # debt transfer: Affair whose balance is used to transfer
 
-  def create
-    # target: Affair which absorb the debt transfer
-    # Deal affair: Affair whose balance is used to transfer
+      debt_transfer_affair = Affair.find_by(id: debt_transfer_params[:deal_affair_id])
+      target_affair = Affair.find_by(id: debt_transfer_params[:id])
 
-    deal_affair = Affair.find_by(id: debt_transfer_params[:deal_affair_id])
-    target_affair = Affair.find_by(id: debt_transfer_params[:id])
+      return :unprocessable_entity unless [debt_transfer_affair, target_affair].all?
 
-    return :unprocessable_entity unless [deal_affair, target_affair].all?
+      transfer = DebtTransfer.create_and_reflect!(affair: target_affair, debt_transfer_affair: debt_transfer_affair)
 
-    amount = deal_affair.third_credit_balance
-    amount = -amount.abs if deal_affair.type.is_a?(PurchaseAffair)
+      redirect_to backend_debt_transfer_url(transfer)
+    end
 
-    DebtTransfer.create!(target_affair.type.underscore => target_affair, deal_affair.type.underscore => deal_affair, amount: amount)
-  end
+    list(joins: [:debt_transfer_affair], order: { created_at: :desc, number: :desc }) do |t|
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: { action: :show }
+      t.column :created_at
+      t.column :accounted_at
+      t.column :nature
+    end
 
-  def debt_transfer_params
-    params.permit!(:deal_affair_id)
+    def debt_transfer_params
+      params.permit(:deal_affair_id, :id)
+    end
   end
 end
