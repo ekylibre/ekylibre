@@ -23,6 +23,10 @@ cmn:
         initial_dead_at: "在瞎折腾"
       financial_year:
         stopped_on: "关闭日期"
+      fixed_asset:
+        # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
+        # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "问责值"
       land_parcel:
@@ -436,6 +440,8 @@ cmn:
     archiving: "存档"
     arguments: "参数"
     assembly: "部件"
+    # asset_account: "Asset account"
+    # asset_exists: "Asset exists"
     attachments: "附件"
     attribute_name: "属性名"
     attribution: "归因"
@@ -626,9 +632,11 @@ cmn:
     deposits: "存款"
     depreciable: "折旧"
     depreciable_amount: "折旧额"
+    # depreciable_product: "Depreciable product"
     depreciated_amount: "折旧金额"
     depreciation_method: "折旧方法"
     depreciation_percentage: "折旧率"
+    # depreciation_period: "Depreciation period"
     depreciations: "贬值"
     depth: "深度"
     derivative_of: "衍生"
@@ -1299,6 +1307,8 @@ cmn:
     sampling_temporal_mode: "采样时间模式"
     scale: "规模"
     scheduled: "计划"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "季节性"
     # seasons: "Seasonalities"
     second_producer: "第二生成" #?
@@ -1330,6 +1340,8 @@ cmn:
     size_value: "大小值"
     soil_nature: "土壤类型"
     soil_production: "土壤生产"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "资源"
     source_product: "产品来源"
     spaced_iban: "间隔IBAN"
@@ -1577,6 +1589,20 @@ cmn:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # in_use: "In use"
+          # scrapped: "Scrapped"
+          # sold: "Sold"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:

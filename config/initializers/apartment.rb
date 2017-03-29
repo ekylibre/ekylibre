@@ -3,6 +3,7 @@
 # require 'apartment/elevators/generic'
 # require 'apartment/elevators/domain'
 require 'apartment/elevators/subdomain'
+require 'apartment/adapters/postgresql_adapter'
 #
 # Apartment Configuration
 #
@@ -30,7 +31,7 @@ Apartment.configure do |config|
   # config.prepend_environment = false
   # config.append_environment = false
   # supply list of database names for migrations to run on
-  
+
   config.with_multi_server_setup = true
   config.tenant_names = -> { Ekylibre::Tenant.list_with_dbs }
 end
@@ -56,6 +57,30 @@ module Apartment
         request = Rack::Request.new(env)
         Rails.logger.error "Apartment Tenant not found: #{subdomain(request.host)}"
         return [404, { 'Content-Type' => 'text/html' }, [File.read(Rails.root.join('public', '404.html'))]]
+      end
+    end
+  end
+
+  module Adapters
+    class PostgresqlSchemaAdapter < Apartment::Adapters::AbstractAdapter
+      protected
+
+      def connect_to_new(tenant = nil)
+        return reset if tenant.nil?
+
+        # no switching unless we are in another DB
+        unless Ekylibre::Tenant.db_for(tenant.to_s) == Ekylibre::Tenant.db_for(@current)
+          Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-db setup
+          raise ActiveRecord::StatementInvalid.new("Could not establish connection to database for schema #{tenant}") unless Apartment.connection.active?
+        end
+
+        raise ActiveRecord::StatementInvalid.new("Could not find schema #{tenant}") unless Apartment.connection.schema_exists? tenant
+
+        @current = tenant.to_s
+        Apartment.connection.schema_search_path = full_search_path
+
+      rescue *rescuable_exceptions
+        raise TenantNotFound, "One of the following schema(s) is invalid: \"#{tenant}\" #{full_search_path}"
       end
     end
   end

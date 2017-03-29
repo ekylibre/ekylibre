@@ -24,6 +24,13 @@ namespace :first_run do
             last_name: 'Doe',
             password: '12345678'
           }
+        },
+        financial_years: {
+          EX1998: {
+            started_on: Date.parse('1998-01-01'),
+            stopped_on: Date.parse('1998-12-31'),
+            currency: 'FRF'
+          }
         }
       }
       File.write(dir.join('manifest.yml'), manifest.deep_stringify_keys.to_yaml)

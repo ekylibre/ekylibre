@@ -287,11 +287,18 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
+    backend/fixed_asset_depreciations:
+      # show: "Fixed asset depreciation: %{name}"
     backend/fixed_assets:
+      # depreciate: "Depreciate fixed asset: %{name}"
+      # depreciate_up_to: "Depreciate up to fixed asset: %{name}"
       edit: "Edit fixed asset: %{name}"
       index: "Fixed assets"
       new: "New fixed asset"
+      # scrap: "Scrap fixed asset: %{name}"
+      # sell: "Sell fixed asset: %{name}"
       show: "Fixed asset: %{name}"
+      # start_up: "Start up fixed asset: %{name}"
     backend/fungi:
       edit: "Edit fungus: %{name}"
       index: "Fungi"
@@ -893,6 +900,7 @@ eng:
   labels:
     access: "Access"
     access_parameters: "Access parameters"
+    account_for: "Account for"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
@@ -997,6 +1005,7 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    asset_exists: "Asset exists"
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
@@ -1144,6 +1153,7 @@ eng:
     deformity: "Deformity" #?
     deformity_percentage: "Deformity (%)" #?
     deformity_percentage_evolution: "Deformity percentage evolution"
+    # delay: "Delay"
     delete: "Delete"
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
@@ -1642,6 +1652,7 @@ eng:
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
+    scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
@@ -1671,6 +1682,7 @@ eng:
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
     social_expenses: "Social expenses" #?!
+    sold_on: "Sold on"
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
@@ -1687,6 +1699,7 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     stopped: "Stopped"
+    stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
     submit: "Submit" #?
@@ -1700,7 +1713,7 @@ eng:
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
-    supplier: "Purchase prices of the supplier" #?
+    supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
     supply: "Supply" #?
     support: "Support" #?
@@ -1786,7 +1799,7 @@ eng:
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices" #?!
+    undelivered_invoices: "Undelivered invoices" #??
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
@@ -1804,6 +1817,7 @@ eng:
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     up: "Up" #?
+    up_to: "Up to"
     update: "Update"
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
@@ -1873,6 +1887,7 @@ eng:
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
+    # x_fixed_assets: "X fixed assets"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1958,7 +1973,6 @@ eng:
     x_supplier_journal_entry_items:
       one: "%{count} suppliers journal entry item"
       other: "%{count} suppliers journal entry items"
-    # x_suppliers: "X suppliers"
     x_tasks:
       one: "%{count} task"
       other: "%{count} tasks"
@@ -2003,6 +2017,7 @@ eng:
       access_denied: "Access denied. %{reason} (%{url})"
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
+      # all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -2021,6 +2036,8 @@ eng:
       # could_not_attach_x_or_y_to_affair: "Could not attach x or y to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      depreciation_failed: "Assets could not be depreciated."
+      depreciation_successful: "Assets have been successfully depreciated."
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2029,6 +2046,7 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      # error_while_depreciating: "Error while depreciating"
       exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2060,6 +2078,7 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_fixed_assets_given: "No fixed assets given"
       no_inspections_given: "No inspections given"
       no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
@@ -2113,6 +2132,7 @@ eng:
     country: "Country"
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
+    default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
@@ -2155,6 +2175,8 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # depreciate: "Depreciate"
+      # depreciate_up_to: "Depreciate up to"
       destroy: "Destroy"
       detach: "Detach"
       # detach_gaps: "Detach gaps"
@@ -2225,6 +2247,7 @@ eng:
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"
+      # scrap: "Scrap"
       search: "Search" #?
       select: "Select"
       sell: "Turn into sale"
@@ -2233,6 +2256,7 @@ eng:
       sort: "Sort"
       star: "Star"
       start: "Start"
+      # start_up: "Start up"
       stop: "Stop" #?
       suspend: "Suspend"
       take: "Take"

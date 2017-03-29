@@ -35,7 +35,7 @@ namespace :tenant do
   task init: :environment do
     tenant = ENV['TENANT']
     raise 'Need TENANT variable' unless tenant
-    Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
+    Ekylibre::Tenant.create(tenant, ENV['DATABASE']) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
       Preference.set! :language, ENV['LANGUAGE'] || 'fra'
@@ -98,6 +98,18 @@ namespace :tenant do
     end
     raise 'Need ARCHIVE env variable to find archive' unless archive
     Ekylibre::Tenant.restore(archive, options)
+  end
+
+  namespace :restore do
+    task easy_login: :restore do
+      Ekylibre::Tenant.switch!(ENV['TENANT'] || ENV['name'])
+      puts
+      puts '== ' + 'Modifying User'.yellow + '=' * 61
+      User.first.update!(email: 'admin@ekylibre.org', password: '12345678')
+      puts
+      puts 'Done!'.yellow
+      puts
+    end
   end
 
   desc 'List tenants'
