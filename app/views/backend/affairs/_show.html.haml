@@ -24,6 +24,10 @@
                       = link_to({ action: :destroy, controller: :regularizations, id: deal.id, redirect: request.fullpath }, method: :delete, data: { confirm: :are_you_sure.tl }, class: "remove") do
                         %i
                         = :destroy.ta
+                    - if deal.is_a? DebtTransfer
+                      = link_to({ action: :destroy, controller: :debt_transfers, id: deal.id, redirect: request.fullpath }, method: :delete, data: { confirm: :are_you_sure.tl }, class: "remove") do
+                        %i
+                        = :destroy.ta
                     - else
                       = link_to({action: :detach, controller: affairs_controller, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "unlink") do
                         %i
@@ -86,17 +90,17 @@
                         - l.item existing.label, { controller: :debt_transfers, action: :create, id: affair.id, deal_affair_id: existing.affair.id, redirect: request.fullpath }, method: :post
                       - l.separator
                     - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
-            %th= :balance.tl
-            %td.total.amount.sum{class: (affair.balance.zero? ? "debit" : "credit")}
-              = affair.balance.l(currency: affair.currency)
-            - if affair.balanced? && !affair.letterable?
-              %p.inline-message.warning
-                %i.icon.icon-warning
-                - if affair.multi_thirds?
-                  = :the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present.tn
-                - elsif affair.journal_entry_items_unbalanced?
-                  = :the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet.tn
-                - elsif affair.journal_entry_items_already_lettered?
-                  = :the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user.tn
-                - else
-                  = :the_automatic_lettering_cannot_be_done_in_accountancy.tn
+          %th= :balance.tl
+          %td.total.amount.sum{class: (affair.balance.zero? ? "debit" : "credit")}
+            = affair.balance.l(currency: affair.currency)
+          - if affair.balanced? && !affair.letterable?
+            %p.inline-message.warning
+              %i.icon.icon-warning
+              - if affair.multi_thirds?
+                = :the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present.tn
+              - elsif affair.journal_entry_items_unbalanced?
+                = :the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet.tn
+              - elsif affair.journal_entry_items_already_lettered?
+                = :the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user.tn
+              - else
+                = :the_automatic_lettering_cannot_be_done_in_accountancy.tn
