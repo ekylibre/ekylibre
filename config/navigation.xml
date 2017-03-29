@@ -455,6 +455,17 @@
         <page to="backend/outgoing_payment_lists#create"/>
         <page to="backend/outgoing_payment_lists#new"/>
       </item>
+      <item name="debt_transfers">
+        <page to="backend/debt_transfers#index"/>
+        <page to="backend/debt_transfers#create"/>
+        <page to="backend/debt_transfers#debt_transfer_params"/>
+        <page to="backend/debt_transfers#destroy"/>
+        <page to="backend/debt_transfers#edit"/>
+        <page to="backend/debt_transfers#list"/>
+        <page to="backend/debt_transfers#new"/>
+        <page to="backend/debt_transfers#show"/>
+        <page to="backend/debt_transfers#update"/>
+      </item>
     </group>
   </part>
   <part name="stocks" icon="truck">

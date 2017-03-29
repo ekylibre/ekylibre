@@ -173,6 +173,10 @@ arb:
       stocks: "الأسهم لوحة القيادة"
       tools: "أدوات لوحة القيادة"
       trade: "لوحة أجهزة القياس التجارة"
+    backend/debt_transfers:
+      # index: "Debt transfers"
+      # new: "New debt transfer"
+      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?

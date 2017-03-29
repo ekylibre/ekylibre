@@ -597,6 +597,9 @@ por:
     dead_line_at: "Linha de mortos em"
     deals_count: "Ofertas de contar"
     debit: "Débito"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "Devedor"
     decimal_value: "Valor decimal"
     declarant: "Declarante"
@@ -1177,7 +1180,7 @@ por:
     provisional_intervention: "Intervenção provisória"
     purchasable: "Comprável"
     purchase: "Compra"
-    purchase_affair: "Caso de compra"
+    purchase_affair: "Caso de compra" #?
     purchase_affairs: "Assuntos de compra"
     purchase_amount: "Valor da compra"
     purchase_invoices: "Facturas de compra"

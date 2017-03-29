@@ -597,6 +597,9 @@ cmn:
     dead_line_at: "在死亡线"
     deals_count: "算上优惠"
     debit: "借方"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "债务人"
     decimal_value: "十进制值"
     declarant: "报关员"
@@ -1177,7 +1180,7 @@ cmn:
     provisional_intervention: "临时干预"
     purchasable: "购买"
     purchase: "采购"
-    purchase_affair: "购买外遇"
+    purchase_affair: "购买外遇" #?
     purchase_affairs: "采购事务"
     purchase_amount: "购买量"
     purchase_invoices: "购买发票"

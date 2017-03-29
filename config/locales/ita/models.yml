@@ -628,6 +628,9 @@ ita:
     dead_line_at: "dead line a"
     deals_count: "contano offerte"
     debit: "Addebito"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "Debitore"
     decimal_value: "valore decimale"
     declarant: "dichiarante"
@@ -1208,7 +1211,7 @@ ita:
     provisional_intervention: "intervento provvisorio"
     purchasable: "acquistabile"
     purchase: "Acquista"
-    purchase_affair: "Acquisto vicenda"
+    purchase_affair: "Acquisto vicenda" #?
     purchase_affairs: "Affari di acquisto"
     purchase_amount: "Ammontare dell'acquisto"
     purchase_invoices: "fatture di acquisto"

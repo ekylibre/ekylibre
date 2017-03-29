@@ -1779,8 +1779,14 @@ dashboards:
 debt_transfers:
   accounted_at:
     type: datetime
+  affair_id:
+    type: integer
+    references: affair
+    required: true
   amount:
     type: decimal
+    precision: 19
+    scale: 4
   created_at:
     type: datetime
     required: true
@@ -1790,26 +1796,24 @@ debt_transfers:
   currency:
     type: string
     required: true
+  debt_transfer_affair_id:
+    type: integer
+    references: affair
+    required: true
   id:
     type: integer
     required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
-  purchase_affair_id:
-    type: integer
-    references: purchase_affair
+  nature:
+    type: string
     required: true
-  purchase_regularization_journal_entry_id:
-    type: integer
-    references: journal_entry
-  sale_affair_id:
-    type: integer
-    references: sale_affair
-    required: true
-  sale_regularization_journal_entry_id:
-    type: integer
-    references: journal_entry
+  number:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -2546,15 +2550,10 @@ fixed_asset_depreciations:
     type: integer
     references: user
 fixed_assets:
-  accounted_at:
-    type: datetime
   allocation_account_id:
     type: integer
     references: account
     required: true
-  asset_account_id:
-    type: integer
-    references: ''
   ceded:
     type: boolean
   ceded_on:
@@ -2591,8 +2590,6 @@ fixed_assets:
     type: decimal
     precision: 19
     scale: 4
-  depreciation_period:
-    type: string
   description:
     type: text
   expenses_account_id:
@@ -2601,9 +2598,6 @@ fixed_assets:
   id:
     type: integer
     required: true
-  journal_entry_id:
-    type: integer
-    references: journal_entry
   journal_id:
     type: integer
     references: journal
@@ -2617,9 +2611,6 @@ fixed_assets:
   number:
     type: string
     required: true
-  product_id:
-    type: integer
-    references: product
   purchase_amount:
     type: decimal
     precision: 19
@@ -2641,8 +2632,6 @@ fixed_assets:
   started_on:
     type: date
     required: true
-  state:
-    type: string
   stopped_on:
     type: date
     required: true
@@ -6265,16 +6254,10 @@ purchase_items:
   currency:
     type: string
     required: true
-  depreciable_product_id:
-    type: integer
-    references: ''
   fixed:
     type: boolean
     required: true
     default: false
-  fixed_asset_id:
-    type: integer
-    references: fixed_asset
   id:
     type: integer
     required: true

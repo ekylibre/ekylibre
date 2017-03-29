@@ -597,6 +597,9 @@ jpn:
     dead_line_at: "デッドライン"
     deals_count: "お得な情報を数えます"
     debit: "借方"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "債務者"
     decimal_value: "10進値"
     declarant: "申告者"
@@ -1177,7 +1180,7 @@ jpn:
     provisional_intervention: "暫定介入"
     purchasable: "購入"
     purchase: "購入"
-    purchase_affair: "購入事件"
+    purchase_affair: "購入事件" #?
     purchase_affairs: "購入業務"
     purchase_amount: "購入金額"
     purchase_invoices: "請求書を購入"

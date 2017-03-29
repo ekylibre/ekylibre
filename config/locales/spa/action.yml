@@ -169,6 +169,10 @@ spa:
       stocks: "Stock"
       tools: "Herramientas"
       trade: "Ventas/Compras"
+    backend/debt_transfers:
+      # index: "Debt transfers"
+      # new: "New debt transfer"
+      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "Modificación del plazo\_: %{name}" #?
       index: "plazos" #?

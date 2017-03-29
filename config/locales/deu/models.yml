@@ -597,6 +597,9 @@ deu:
     dead_line_at: "Anmeldeschluss an"
     deals_count: "Angeboten zählen"
     debit: "Soll"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "Schuldner"
     decimal_value: "Dezimalwert"
     declarant: "Anmelder"
@@ -1177,7 +1180,7 @@ deu:
     provisional_intervention: "Vorläufige Intervention"
     purchasable: "käuflich"
     purchase: "Kauf"
-    purchase_affair: "Kauf-Affäre"
+    purchase_affair: "Kauf-Affäre" #?
     purchase_affairs: "Purchase Angelegenheiten"
     purchase_amount: "Gesamtbetrag des Einkaufs"
     purchase_invoices: "Eingangsrechnungen"

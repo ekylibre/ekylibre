@@ -1314,6 +1314,9 @@ arb:
     dead_line_at: "خط الموتى في"
     deals_count: "عد عروض"
     debit: "الدين"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "مدين"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
@@ -2072,7 +2075,7 @@ arb:
     published: "تم نشره" #?
     purchasable: "للشراء"
     purchase: "شراء"
-    purchase_affair: "قضية شراء"
+    purchase_affair: "قضية شراء" #?
     purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"

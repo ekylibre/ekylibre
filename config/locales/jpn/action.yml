@@ -153,6 +153,10 @@ jpn:
       stocks: "株式のダッシュボード"
       tools: "ツールのダッシュボード"
       trade: "貿易ダッシュボード"
+    backend/debt_transfers:
+      # index: "Debt transfers"
+      # new: "New debt transfer"
+      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "出荷"

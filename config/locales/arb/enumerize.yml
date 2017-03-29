@@ -112,6 +112,10 @@ arb:
         datetime: "التاريخ و الوقت"
         decimal: "عدد عشري"
         text: "نص"
+    debt_transfer:
+      nature:
+        # purchase_regularization: "Purchase regularization"
+        # sale_regularization: "Sale regularization"
     delivery:
       mode:
         third: "ثلث"
@@ -455,6 +459,7 @@ arb:
         animals: "الحيوانات"
         cash_transfers: "التحويلات النقدية"
         contracts: "عقود"
+        # debt_transfers: "Debt transfers"
         deliveries: "التسليم"
         deposits: "الودائع"
         documents: "وثائق"

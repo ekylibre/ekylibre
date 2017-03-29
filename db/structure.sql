@@ -1830,12 +1830,13 @@ ALTER SEQUENCE dashboards_id_seq OWNED BY dashboards.id;
 
 CREATE TABLE debt_transfers (
     id integer NOT NULL,
-    sale_affair_id integer NOT NULL,
-    purchase_affair_id integer NOT NULL,
-    amount numeric,
+    affair_id integer NOT NULL,
+    debt_transfer_affair_id integer NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0,
+    number character varying,
+    nature character varying NOT NULL,
     currency character varying NOT NULL,
-    sale_regularization_journal_entry_id integer,
-    purchase_regularization_journal_entry_id integer,
+    journal_entry_id integer,
     accounted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -10427,6 +10428,13 @@ CREATE INDEX index_dashboards_on_updater_id ON dashboards USING btree (updater_i
 
 
 --
+-- Name: index_debt_transfers_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_affair_id ON debt_transfers USING btree (affair_id);
+
+
+--
 -- Name: index_debt_transfers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10441,17 +10449,10 @@ CREATE INDEX index_debt_transfers_on_creator_id ON debt_transfers USING btree (c
 
 
 --
--- Name: index_debt_transfers_on_purchase_affair_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_debt_transfers_on_debt_transfer_affair_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_debt_transfers_on_purchase_affair_id ON debt_transfers USING btree (purchase_affair_id);
-
-
---
--- Name: index_debt_transfers_on_sale_affair_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_debt_transfers_on_sale_affair_id ON debt_transfers USING btree (sale_affair_id);
+CREATE INDEX index_debt_transfers_on_debt_transfer_affair_id ON debt_transfers USING btree (debt_transfer_affair_id);
 
 
 --
@@ -17044,5 +17045,5 @@ INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 
 INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 
-INSERT INTO schema_migrations (version) VALUES ('20170320104408');
+INSERT INTO schema_migrations (version) VALUES ('20170329094408');
 

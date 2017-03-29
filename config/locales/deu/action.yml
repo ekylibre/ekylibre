@@ -153,6 +153,10 @@ deu:
       stocks: "Aktien Armaturenbrett"
       tools: "Werkzeuge Armaturenbrett"
       trade: "Handels Armaturenbrett"
+    backend/debt_transfers:
+      # index: "Debt transfers"
+      # new: "New debt transfer"
+      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "Lieferungen"

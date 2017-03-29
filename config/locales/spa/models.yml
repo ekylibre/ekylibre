@@ -600,6 +600,9 @@ spa:
     dead_line_at: "Línea de muertos en"
     deals_count: "Ofertas cuentan"
     debit: "Débito"
+    # debt_regularizations: "Debt regularizations"
+    # debt_transfer_affair: "Debt transfer affair"
+    # debt_transfers: "Debt transfers"
     debtor: "Deudor"
     decimal_value: "Valor decimal"
     declarant: "Declarante"
@@ -1181,7 +1184,7 @@ spa:
     provisional_intervention: "La intervención provisional"
     purchasable: "Comprable"
     purchase: "Compra"
-    purchase_affair: "Compra asunto"
+    purchase_affair: "Compra asunto" #?
     purchase_affairs: "Asuntos de compra"
     purchase_amount: "Monto de la compra"
     purchase_invoices: "Facturas de compra"

@@ -112,6 +112,10 @@ spa:
         datetime: "Fecha y hora"
         # decimal: "Decimal"
         text: "Texto"
+    debt_transfer:
+      nature:
+        # purchase_regularization: "Purchase regularization"
+        # sale_regularization: "Sale regularization"
     delivery:
       mode:
         third: "Tercero"
@@ -456,6 +460,7 @@ spa:
         animals: "Animales"
         cash_transfers: "Las transferencias de dinero"
         contracts: "Contratos"
+        # debt_transfers: "Debt transfers"
         deliveries: "Las entregas"
         deposits: "Depósitos"
         documents: "Documentos"
