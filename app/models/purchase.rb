@@ -310,6 +310,7 @@ class Purchase < Ekylibre::Record::Base
     self.invoiced_at ||= invoiced_at || Time.zone.now
     self.payment_at ||= Delay.new(payment_delay).compute(self.invoiced_at)
     save!
+    items.each(&:update_fixed_asset)
     super
   end
 
