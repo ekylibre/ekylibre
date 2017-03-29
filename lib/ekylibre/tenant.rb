@@ -320,6 +320,10 @@ module Ekylibre
         Rails.root.join('config', 'databases.yml')
       end
 
+      def tenant_databases_file
+        Rails.root.join('config', 'tenant_databases.yml')
+      end
+
       # Return the env
       def env
         Rails.env.to_s
@@ -331,11 +335,11 @@ module Ekylibre
             tenant_with_db = tenant_list.map do |tenant_name, config|
               [tenant_name, Rails.configuration.database_configuration.find { |db, conf| conf == config }.first]
             end.to_h
-            [env, tenant_with_db]
+            [tenant_with_db]
           end.to_h
           
-          FileUtils.mkdir_p(config_file.dirname)
-          File.write(config_file, new_list.to_yaml)
+          FileUtils.mkdir_p(tenant_databases_file.dirname)
+          File.write(tenant_databases_file, new_list.to_yaml)
         end
       end
 
