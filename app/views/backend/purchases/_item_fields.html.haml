@@ -26,10 +26,7 @@
         = f.input :fixed, show: :assets, input_html: { 'data-closest': :tr }
         - attrs = item.fixed ? {} : {style: 'display: none;'}
         #assets{attrs}
-          .control-group.boolean
-            = label_tag :asset_exists.tl, nil, class: 'boolean optional control-label'
-            .controls
-              = check_box_tag :purchase_items_attributes_new_items_asset_exists, :asset_exists, item.fixed_asset, { value: 0, 'data-show': :'#existing_asset', 'data-hide': :'#new_asset', 'data-closest': :tr, name: "purchase[items_attributes][new_items][asset_exists]" }
+          = f.input :preexisting_asset, show: :existing_asset, hide: :new_asset, label: :asset_exists.tl, input_html: { 'data-closest': :tr }
           #existing_asset{attrs}
             = f.referenced_association :fixed_asset, source: :drafts
           #new_asset
