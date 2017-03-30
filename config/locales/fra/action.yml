@@ -1161,6 +1161,7 @@ fra:
     deformity: "Malformation"
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
+    delay: "Délai"
     delete: "Supprimer"
     delete_only_record: #? String expected ("Or only delete the selected intervention(s) and display the request associate ?")
       one: "Ou supprimer uniquement l'intervention" #?
