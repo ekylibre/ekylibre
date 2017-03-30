@@ -73,7 +73,7 @@ class LoanRepayment < Ekylibre::Record::Base
   bookkeep do |b|
     # when payment arrive (due_on)
     existing_financial_year = FinancialYear.on(due_on)
-    b.journal_entry(journal, printed_on: due_on, if: (!locked && accountable && amount > 0 && due_on <= Time.zone.today && existing_financial_year)) do |entry|
+    b.journal_entry(journal, printed_on: due_on, if: (!locked && accountable && amount > 0 && due_on <= Time.zone.today && existing_financial_year && loan.ongoing?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
       entry.add_debit(label, unsuppress { loan.loan_account_id }, base_amount, as: :repayment)
       entry.add_debit(label, unsuppress { loan.interest_account_id }, interest_amount, as: :interest)
