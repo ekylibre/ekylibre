@@ -46,6 +46,7 @@ module Backend
       # t.column :number, through: :account, url: true
       # t.column :name, through: :account, url: true
       # t.column :number, through: :bank_statement, url: true, hidden: true
+      t.column :letter, through: :journal_entry
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :debit,  currency: true, hidden: true
@@ -61,6 +62,15 @@ module Backend
     def index
       redirect_to controller: :journals, action: :index
     end
+
+    # def show
+    #  return unless @journal_entry = find_and_check
+    # respond_with(@journal_entry, methods: [],
+    #                              include: [])
+    #  format.html do
+    #    t3e @journal_entry.attributes.or_else({})
+    #  end
+    # end
 
     def new
       if params[:duplicate_of]

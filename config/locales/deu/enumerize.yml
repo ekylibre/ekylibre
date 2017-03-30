@@ -159,7 +159,13 @@ deu:
       depreciation_method:
         graduated: "abgestufte" #?
         # linear: "Linear"
+        # none: "None"
+        # regressive: "Regressive"
         simplified_linear: "vereinfachte lineare"
+      depreciation_period:
+        # monthly: "Monthly"
+        # quarterly: "Quarterly"
+        # yearly: "Yearly"
     gap:
       direction:
         loss: "Verlust"
@@ -264,6 +270,8 @@ deu:
         constant_rate: "Konstante Rate"
       repayment_period:
         month: "Monat"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Jahr"
       shift_method:
         anatocism: "anatocism"

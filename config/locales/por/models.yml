@@ -23,12 +23,19 @@ por:
         initial_dead_at: "Desfeito em"
       financial_year:
         stopped_on: "Data de encerramento"
+      fixed_asset:
+        # asset_account: "Fixed asset account"
+        # depreciation_period: "Depreciation period"
+        # started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Valor contábil"
       land_parcel:
         born_at: "Criado em"
       land_parcel_group:
         born_at: "Criado em"
+      loan:
+        # ongoing_at: "Fund raising at"
+        # started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Dada a destinatário"
         list: "Lista de contas a pagar"
@@ -210,6 +217,7 @@ por:
       # animal: "Animal"
       animal_group: "Grupo de animais"
       attachment: "Acessório"
+      # bank_guarantee_account: "Bank guarantee account"
       bank_statement: "Extrato bancário"
       bank_statement_item: "Linha extrato bancário"
       bioproduct: "Produto vivo"
@@ -266,7 +274,9 @@ por:
       inspection: "granulometria do produto"
       inspection_calibration: "calibre inspecção"
       inspection_point: "verificação de classificação de produtos"
+      # insurance_account: "Insurance account"
       integration: "Integração"
+      # interest_account: "Interest account"
       intervention: "Intervenção"
       intervention_agent: "Agente de intervenção"
       intervention_doer: "Fazedor de intervenção"
@@ -293,6 +303,7 @@ por:
       listing_node: "Listagem nó"
       listing_node_item: "Listagem item do nó"
       loan: "Empréstimo"
+      # loan_account: "Loan account"
       loan_repayment: "Pagamento de empréstimo"
       manure_management_plan: "Plano de gestão de estrume"
       manure_management_plan_zone: "Zona de plano de manejo de dejetos"
@@ -386,6 +397,7 @@ por:
     account_name: "Nome da conta"
     account_number: "Número da conta"
     accountable: "Responsável"
+    # accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Contador"
     accounted_at: "Contabilizados ao"
     accuracy: "Precisão"
@@ -436,6 +448,8 @@ por:
     archiving: "Arquivamento"
     arguments: "Argumentos"
     assembly: "Montagem"
+    # asset_account: "Asset account"
+    # asset_exists: "Asset exists"
     attachments: "Anexos"
     attribute_name: "Nome do atributo"
     attribution: "Atribuição"
@@ -455,6 +469,9 @@ por:
     bank_agency_code: "Código da agência bancária"
     bank_check_number: "Número de cheque bancário"
     bank_code: "Código bancário"
+    # bank_guarantee_account: "Bank guarantee account"
+    # bank_guarantee_amount: "Bank guarantee amount"
+    # bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "Código de identificação bancária"
     bank_name: "Nome do banco"
     bank_statement: "Extrato bancário"
@@ -626,9 +643,11 @@ por:
     deposits: "Depósitos"
     depreciable: "Depreciável"
     depreciable_amount: "Quantia depreciável"
+    # depreciable_product: "Depreciable product"
     depreciated_amount: "Montante depreciado"
     depreciation_method: "Método de depreciação"
     depreciation_percentage: "Percentual de depreciação"
+    # depreciation_period: "Depreciation period"
     depreciations: "Depreciações"
     depth: "Profundidade"
     derivative_of: "Derivada de"
@@ -825,6 +844,7 @@ por:
     initial_number: "Número inicial"
     initial_owner: "Proprietário inicial"
     initial_population: "População inicial"
+    # initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Forma inicial"
     initialization_vectors: "Vetores de inicialização"
     initiated_on: "Iniciado em"
@@ -1299,6 +1319,8 @@ por:
     sampling_temporal_mode: "Modo temporais de amostragem"
     scale: "Escala"
     scheduled: "Programado"
+    # scrapped_journal_entry: "Scrapped journal entry"
+    # scrapped_on: "Scrapped on"
     season: "sazonalidade"
     seasons: "sazonalidades"
     second_producer: "Segundo produtor" #?
@@ -1330,6 +1352,8 @@ por:
     size_value: "Valor do tamanho"
     soil_nature: "Tipo de solo"
     soil_production: "Produção do solo"
+    # sold_journal_entry: "Sold journal entry"
+    # sold_on: "Sold on"
     source: "Fonte"
     source_product: "Produto de origem"
     spaced_iban: "Espaçados IBAN"
@@ -1459,6 +1483,7 @@ por:
     usage_limit_nature: "Usado por tipo"
     usage_limit_on: "Usado por sobre"
     usages: "Usos"
+    # use_bank_guarantee: "Bank guarantee"
     use_countings: "Use contagens"
     use_grading_calibre: "Use calibre classificação" #?
     # use_gradings: "Use gradings"
@@ -1577,6 +1602,20 @@ por:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # in_use: "In use"
+          # scrapped: "Scrapped"
+          # sold: "Sold"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1648,6 +1687,12 @@ por:
       reflections: "Tabelas associadas"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          # draft: "Draft"
+          # ongoing: "Ongoing"
+          # repaid: "Repaid"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

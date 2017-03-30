@@ -1,5 +1,14 @@
 ita:
   procedure_handlers:
+    # grains_area_density: "Grains area density"
+    # grains_area_density_in_thousand_per_hectare: "Grains area density in thousand per hectare"
+    # grains_count: "Grains count"
+    # mass_area_density: "Mass area density"
+    # mass_area_density_in_ton_per_hectare: "Mass area density in ton per hectare"
+    # net_mass: "Net mass"
+    # seedling_area_density: "Seedling area density"
+    # seedling_area_density_in_thousand_per_hectare: "Seedling area density in thousand per hectare"
+    # seedling_count: "Seedling count"
     stakes_by_hectare: "Stakes per ettaro"
   procedure_killable_parameters:
     is_cultivation_completely_destroyed_by_intervention: "È coltivazione completamente distrutta da un intervento?"

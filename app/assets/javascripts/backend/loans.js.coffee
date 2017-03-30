@@ -12,10 +12,27 @@
         form.find("input[name='loan[repayment_duration]'], input[name='loan[shift_duration]']").each ->
           duration = $(this)
           x = duration.val()
-          # Back to month
-          x *= 12 if period == "year"
-          # Back to wanted duration
-          x /= 12 if input.val() == "year"
+
+          if period == "month"
+            x /= 12 if input.val() == "year"
+            x /= 6 if input.val() == "semester"
+            x /= 3 if input.val() == "trimester"
+
+          if period == "year"
+            x *= 12 if input.val() == "month"
+            x *= 2 if input.val() == "semester"
+            x *= 4 if input.val() == "trimester"
+
+          if period == "semester"
+            x *= 6 if input.val() == "month"
+            x /= 2 if input.val() == "year"
+            x *= 2 if input.val() == "trimester"
+
+          if period == "trimester"
+            x *= 3 if input.val() == "month"
+            x /= 4 if input.val() == "year"
+            x /= 2 if input.val() == "semester"
+
           duration.val(x.toFixed(0))
     form.prop("lastRepaymentPeriod", input.val())
 

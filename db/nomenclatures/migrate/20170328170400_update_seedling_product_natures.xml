@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update seedling product natures">
+  <item-change item="product_natures#seedling" derivative_of="plant"/>
+</migration>

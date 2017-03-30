@@ -159,7 +159,13 @@ ita:
       depreciation_method:
         graduated: "Laureato" #?
         linear: "Lineare"
+        # none: "None"
+        # regressive: "Regressive"
         simplified_linear: "lineari semplificato"
+      depreciation_period:
+        # monthly: "Monthly"
+        # quarterly: "Quarterly"
+        # yearly: "Yearly"
     gap:
       direction:
         loss: "Perdita"
@@ -264,6 +270,8 @@ ita:
         constant_rate: "Tasso costante"
       repayment_period:
         month: "Mese"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Anno"
       shift_method:
         anatocism: "anatocismo"

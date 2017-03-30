@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get :list_carried_linkages
       get :list_carrier_linkages
       get :list_contained_products
+      get :list_fixed_assets
       get :list_groups
       get :list_inspections
       get :list_intervention_product_parameters
@@ -170,6 +171,7 @@ Rails.application.routes.draw do
       resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
       resource :parts_cell, only: :show
+      resource :profit_and_loss_cell, only: :show
       resource :quandl_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
@@ -436,9 +438,8 @@ Rails.application.routes.draw do
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
         post :toggle
-        get :list_contracts
         get :list_client_journal_entry_items
-        get :list_supplier_journal_entry_items
+        get :list_contracts
         get :list_event_participations
         get :list_incoming_payments
         get :list_incoming_parcels
@@ -451,6 +452,7 @@ Rails.application.routes.draw do
         get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions
+        get :list_supplier_journal_entry_items
         get :list_tasks
       end
     end
@@ -475,14 +477,23 @@ Rails.application.routes.draw do
     resources :exports, only: [:index, :show]
 
     resources :fixed_assets, concerns: [:list, :unroll], path: 'fixed-assets' do
+      collection do
+        get :depreciate_up_to
+      end
+
       member do
         # get :cede
         # get :sell
-        # post :depreciate
+        post :depreciate
         get :list_depreciations
         get :list_products
+        post :start_up
+        post :sell
+        post :scrap
       end
     end
+
+    resources :fixed_asset_depreciations, path: 'fixed-asset-depreciations', only: [:show]
 
     resources :financial_years, concerns: [:list, :unroll], path: 'financial-years' do
       member do
@@ -653,12 +664,19 @@ Rails.application.routes.draw do
     end
 
     resources :loans, concerns: [:list, :unroll] do
+      collection do
+        get :accounting
+      end
+
       member do
         get :list_repayments
+
+        post :confirm
+        post :repay
       end
     end
 
-    resources :loan_repayments, only: [:index, :show], path: 'loan-repayments'
+    resources :loan_repayments, only: [:index, :show, :edit, :update], path: 'loan-repayments'
 
     resources :manure_management_plans, concerns: [:list, :unroll], path: 'manure-management-plans' do
       member do

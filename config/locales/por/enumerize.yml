@@ -161,7 +161,13 @@ por:
       depreciation_method:
         graduated: "Gradual" #?
         linear: "Linear"
+        # none: "None"
+        # regressive: "Regressive"
         simplified_linear: "Linear simplificado"
+      depreciation_period:
+        # monthly: "Monthly"
+        # quarterly: "Quarterly"
+        # yearly: "Yearly"
     gap:
       direction:
         loss: "Perda"
@@ -266,6 +272,8 @@ por:
         constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Ano"
       shift_method:
         anatocism: "Anatocismo"

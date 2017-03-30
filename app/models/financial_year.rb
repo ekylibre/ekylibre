@@ -96,6 +96,7 @@ class FinancialYear < Ekylibre::Record::Base
     def at(searched_at = Time.zone.now)
       on(searched_at.to_date)
     end
+    alias ensure_exists_at! at
 
     def first_of_all
       reorder(:started_on).first
@@ -304,6 +305,21 @@ class FinancialYear < Ekylibre::Record::Base
     options[:started_on] = started_on
     options[:stopped_on] = stopped_on
     Journal.sum_entry_items(expression, options)
+  end
+
+  # get the equation to compute from accountancy abacus
+  def get_mandatory_line_calculation(document = :profit_and_loss_statement, line = nil)
+    ac = Account.accounting_system
+    source = Rails.root.join('config', 'accoutancy_mandatory_documents.yml')
+    data = YAML.load_file(source).deep_symbolize_keys.stringify_keys if source.file?
+    if data && ac && document && line
+      data[ac.to_s][document][line] if data[ac.to_s] && data[ac.to_s][document]
+    end
+  end
+
+  def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil)
+    equation = get_mandatory_line_calculation(document, line) if line
+    sum_entry_items(equation) if equation
   end
 
   # Computes the value of list of accounts in a String

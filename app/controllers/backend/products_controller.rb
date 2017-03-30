@@ -113,6 +113,18 @@ module Backend
       t.column :stopped_at
     end
 
+    # Lists fixed_assets of a product
+    list(:fixed_assets, conditions: { product_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :name, url: true
+      t.column :depreciable_amount, currency: true
+      t.column :net_book_value, currency: true
+      t.column :started_on
+      t.column :stopped_on
+    end
+
     # Lists groups of the current product
     list(:inspections, conditions: { product_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
       t.column :number, url: true

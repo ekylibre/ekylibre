@@ -44,6 +44,7 @@ fra:
     fiea_galactea: "Analyses de lait par animal Galactea ‒ FIEA"
     galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
     isagri_isacompta_export: "Export isacompta ‒ Isagri"
+    isagri_isacompta_fixed_assets: "Immobilisation isacompta ‒ Isagri"
     isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri"
     la_graine_informatique_vinifera_entities: "Tiers vinifera - La graine informatique"
     la_graine_informatique_vinifera_products: "Produits vinifera - La graine informatique"
