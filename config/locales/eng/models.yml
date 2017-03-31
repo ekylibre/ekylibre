@@ -1171,6 +1171,7 @@ eng:
     postal_code: "Postal code"
     postal_zones: "Postal zones"
     pre_harvest_interval: "Pre-harvest interval" #?
+    # preexisting_asset: "Preexisting asset"
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"

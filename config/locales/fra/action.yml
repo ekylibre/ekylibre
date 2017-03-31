@@ -2034,7 +2034,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
-    # stopped_on: "Stopped on"
+    stopped_on: "Nous nous sommes arrêtés sur"
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"

@@ -6291,6 +6291,8 @@ purchase_items:
     required: true
   position:
     type: integer
+  preexisting_asset:
+    type: boolean
   pretax_amount:
     type: decimal
     precision: 19

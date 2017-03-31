@@ -36,6 +36,7 @@
 #  label                  :text
 #  lock_version           :integer          default(0), not null
 #  position               :integer
+#  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
 #  quantity               :decimal(19, 4)   default(1.0), not null

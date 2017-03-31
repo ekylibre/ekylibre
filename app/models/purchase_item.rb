@@ -36,6 +36,7 @@
 #  label                  :text
 #  lock_version           :integer          default(0), not null
 #  position               :integer
+#  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
 #  quantity               :decimal(19, 4)   default(1.0), not null
@@ -68,6 +69,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, :variant, presence: true
   validates :fixed, inclusion: { in: [true, false] }
+  validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :account, :tax, :reduction_percentage, presence: true
@@ -130,12 +132,12 @@ class PurchaseItem < Ekylibre::Record::Base
 
     if variant
       self.label ||= variant.commercial_name
-      if fixed && purchase.purchased?
-        # select outstanding_assets during purchase
-        self.account = Account.find_or_import_from_nomenclature(:outstanding_assets)
-      else
-        self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
-      end
+      self.account = if fixed && purchase.purchased?
+                       # select outstanding_assets during purchase
+                       Account.find_or_import_from_nomenclature(:outstanding_assets)
+                     else
+                       variant.charge_account || Account.find_in_nomenclature(:expenses)
+                     end
     end
   end
 
@@ -165,7 +167,7 @@ class PurchaseItem < Ekylibre::Record::Base
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
-               unit_pretax_amount.blank? || unit_pretax_amount.zero?
+                unit_pretax_amount.blank? || unit_pretax_amount.zero?
         variant.catalog_items.create!(
           catalog: catalog,
           amount: unit_pretax_amount, currency: currency

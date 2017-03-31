@@ -36,7 +36,7 @@ por:
     ekylibre_zones: "Zonas Ekylibre"
     fiea_galactea: "Fiea galactea"
     isagri_isacompta_export: "Exportação isacompta Isagri"
-    # isagri_isacompta_fixed_assets: "Isagri isacompta fixed assets"
+    isagri_isacompta_fixed_assets: "Ativos isacompta fixo ISAGRI"
     isagri_isaculture_csv_import: "Isaculture Isagri de importação CSV"
     la_graine_informatique_vinifera_entities: "Entidades vinifera La graine informatique"
     la_graine_informatique_vinifera_products: "La produtos vinifera graine informatique"
