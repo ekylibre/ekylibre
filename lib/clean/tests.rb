@@ -53,6 +53,28 @@ module Clean
         end
       end
 
+      def write_exchanger_test_file(klass)
+        code = ''
+        code << "require 'test_helper'\n\n"
+        main_klass = klass.gsub(/Test$/, '')
+        code << modularize(klass, 'ActiveExchanger::TestCase') do |c|
+          path = Rails.root.join('test', 'fixture-files', 'imports', main_klass.underscore.gsub(/\_exchanger\z/, '') + '.*').to_s
+          files = Dir.glob(path)
+          extension = 'csv'
+          extension = files.first.split('.').last if files.any?
+          x = "test 'import' do\n"
+          x << "  #{main_klass}.import(fixture_files_path.join('imports', '" + main_klass.underscore.gsub(/\_exchanger\z/, '').split(/\//).join("', '") + ".#{extension}'))\n"
+          x << "end\n"
+          x.gsub!(/^/, '# ') if files.empty?
+          c << x
+        end
+        file = Rails.root.join('test', 'exchangers', klass.underscore + '.rb')
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, 'wb') do |f|
+          f.write(code)
+        end
+      end
+
       # Check Class test for a dir in app/<name>
       # Check mirror test in test/<name>/
       def check_class_test(name, log, verbose = true)
@@ -107,7 +129,7 @@ module Clean
         if compounds.size > 1
           # TODO: More reliability shoud be appreciable
           compounds.each_with_index do |name, depth|
-            return false unless source =~ /^#{'  ' * depth}(module|class)\s+#{name}(\s+|\s*\<|$)/
+            return false unless source =~ /^#{'  ' * depth}(module|class)\s+#{name}(\s+|\s*\<|$)/i
           end
           return true
         end

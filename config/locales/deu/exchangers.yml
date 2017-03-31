@@ -10,7 +10,7 @@ deu:
     ekylibre_activities: "Ekylibre Aktivitäten"
     ekylibre_animal_groups: "Ekylibre Tiergruppen"
     ekylibre_animals: "Ekylibre Tiere"
-    ekylibre_backup: "Ekylibre Backup"
+    ekylibre_backup: "Ekylibre Backup" #?
     ekylibre_bank_statements: "Ekylibre Kontoauszüge"
     ekylibre_budgets: "Ekylibre Budgets"
     ekylibre_buildings_json: "Ekylibre Gebäude JSON"

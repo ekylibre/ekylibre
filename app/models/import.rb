@@ -90,7 +90,7 @@ class Import < Ekylibre::Record::Base
     update_columns(state: :in_progress, progression_percentage: 0)
     File.write(progress_file, 0.to_s)
     Ekylibre::Record::Base.transaction do
-      ActiveExchanger::Base.import(nature.to_sym, archive.path) do |progression, count|
+      ActiveExchanger::Base.find_and_import(nature.to_sym, archive.path) do |progression, count|
         update_columns(progression_percentage: progression)
         raise InterruptRequest unless File.exist? progress_file
         File.write(progress_file, progression.to_i.to_s)

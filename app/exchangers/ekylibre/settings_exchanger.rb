@@ -50,7 +50,7 @@ module Ekylibre
         currency: currency,
         nature: :organization,
         last_name: 'Ekylibre',
-        born_at: @manifest[:financial_years].map { |_, v| v[:started_on] }.min
+        born_at: (@manifest[:financial_years] || {}).map { |_, v| v[:started_on] }.min
       }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
       # resolte siret to siret_number transcode
       siren_number = attributes.delete(:siren_number)
@@ -151,7 +151,7 @@ module Ekylibre
       w.check_point
 
       # Load financial_years
-      create_records(:financial_years, :code)
+      create_records(:financial_years, :code, unless_exist: true)
       w.check_point
 
       # Load taxes from nomenclatures
@@ -245,9 +245,10 @@ module Ekylibre
 
       # Load net services
       @manifest[:net_services].each do |name, identifiers|
-        net_service = NetService.create!(reference_name: name)
+        net_service = NetService.find_or_create_by!(reference_name: name)
         identifiers.each do |nature, value|
-          net_service.identifiers.create!(nature: nature, value: value)
+          identifier = net_service.identifiers.create_with(value: value).find_or_create_by!(nature: nature)
+          identifier.update!(value: value)
         end
       end
       w.check_point
@@ -290,7 +291,8 @@ module Ekylibre
               attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
             end
           end
-          record = model.new(attributes)
+          record = options[:unless_exist] ? model.find_by(main_column => identifier) : model.new
+          record.attributes = attributes
           if record.save(attributes)
             @records[records][identifier.to_s] = record
           else

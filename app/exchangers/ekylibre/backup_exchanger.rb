@@ -1,5 +1,7 @@
 module Ekylibre
   class BackupExchanger < ActiveExchanger::Base
+    self.deprecated = true
+
     class Backup < Hash
       class << self
         def models

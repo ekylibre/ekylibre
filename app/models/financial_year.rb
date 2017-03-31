@@ -319,7 +319,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil)
     equation = get_mandatory_line_calculation(document, line) if line
-    sum_entry_items(equation) if equation
+    equation ? sum_entry_items(equation) : 0
   end
 
   # Computes the value of list of accounts in a String

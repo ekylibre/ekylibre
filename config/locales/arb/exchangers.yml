@@ -10,7 +10,7 @@ arb:
     ekylibre_activities: "أنشطة Ekylibre"
     ekylibre_animal_groups: "المجموعات الحيوانية Ekylibre"
     ekylibre_animals: "الحيوانات Ekylibre"
-    ekylibre_backup: "احتياطية Ekylibre"
+    ekylibre_backup: "احتياطية Ekylibre" #?
     ekylibre_bank_statements: "البيانات المصرفية Ekylibre"
     ekylibre_budgets: "الميزانيات Ekylibre"
     ekylibre_buildings_json: "المباني Ekylibre JSON"

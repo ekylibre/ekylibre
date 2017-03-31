@@ -173,15 +173,7 @@ class JournalEntry < Ekylibre::Record::Base
       self.currency = financial_year.currency if financial_year
     end
     if real_currency && financial_year
-      if real_currency == financial_year.currency
-        self.real_currency_rate = 1
-      else
-        # TODO: Find a better way to manage currency rates!
-        # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        if real_currency_rate.blank? || real_currency_rate.zero?
-          self.real_currency_rate = I18n.currency_rate(real_currency, currency)
-        end
-      end
+      self.real_currency_rate = 1 if real_currency == financial_year.currency
     else
       self.real_currency_rate = 1
     end

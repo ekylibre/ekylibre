@@ -115,14 +115,14 @@
 				<textField pattern="#,##0.00 €" isBlankWhenNull="true">
 					<reportElement x="174" y="9" width="138" height="20" uuid="2a080678-8fdc-44a9-84f5-27355a155a89"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Lato" size="12"/>
+						<font fontName="Open Sans" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{total-balance_group}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="0" y="9" width="174" height="20" printWhenGroupChanges="group" uuid="70d92c62-e607-42e4-aead-c3c30f905713"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Lato" size="12"/>
+						<font fontName="Open Sans" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Sous-total  " + $F{group}]]></textFieldExpression>
 				</textField>
@@ -139,7 +139,7 @@
 				<textField evaluationTime="Group" evaluationGroup="sub_group" isBlankWhenNull="true">
 					<reportElement x="2" y="0" width="459" height="28" uuid="3a46f840-e31b-4c09-b417-ebdb85f8a752"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Lato" size="12" isBold="true"/>
+						<font fontName="Open Sans" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{sub-group}]]></textFieldExpression>
 				</textField>
@@ -293,7 +293,7 @@
 			<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
 				<reportElement x="174" y="0" width="138" height="20" uuid="8a7168ba-50d2-4c4e-b25e-fe339eba1ce0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Lato" size="14" isBold="true"/>
+					<font fontName="Open Sans" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total-balance_global}]]></textFieldExpression>
 			</textField>
