@@ -80,7 +80,7 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :name, :amount, :short_label, to: :tax, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
-  accepts_nested_attributes_for :fixed_asset
+  # accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
 
@@ -141,12 +141,19 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_update do
     if fixed && purchase.purchased?
+      fixed_asset.reload
       amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
       fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
     end
     true
   end
 
+  after_destroy do
+    if fixed && purchase.purchased?
+      fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
+    end
+    true
+  end
   validate do
     errors.add(:currency, :invalid) if purchase && currency != purchase_currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
