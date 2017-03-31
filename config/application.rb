@@ -8,8 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Ekylibre
   class Application < Rails::Application
-    require_relative 'initializers/tenant_aware_logger'
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -30,8 +28,6 @@ module Ekylibre
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :eng
     config.i18n.locale = :eng
-
-    config.log_formatter = TenantAwareLogger.new
 
     # Confiure ActiveJob queue adapter
     config.active_job.queue_adapter = :sidekiq
