@@ -199,6 +199,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+      fixed_asset.reload
       fixed_asset.add_amount(pretax_amount.to_f)
     else
       a = new_fixed_asset
