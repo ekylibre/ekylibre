@@ -73,7 +73,7 @@ module NavigationHelper
                end
     lambda do |resources, condition|
       key, value = *condition
-      resources.where("#{key} #{operator} #{value.inspect.tr('"', "'")}")
+      resources.where("#{key} #{operator} ?", value)
     end
   end
 end
