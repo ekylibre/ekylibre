@@ -117,7 +117,7 @@ module Backend
         return
       end
       notify_global_errors
-      t3e @journal_entry.journal.attributes
+      t3e @journal_entry.journal.attributes if @journal_entry.journal
     end
 
     def edit
@@ -137,7 +137,7 @@ module Backend
 
     def currency_state
       state = {}
-      checked_on = Date.parse(params[:on] || Time.zone.today)
+      checked_on = params[:on] ? Date.parse(params[:on]) : Time.zone.today
       financial_year = FinancialYear.on(checked_on)
       state[:from] = params[:from]
       state[:to] = financial_year.currency
@@ -150,9 +150,8 @@ module Backend
     end
 
     def toggle_autocompletion
-      set_preference = params.require(:autocompletion)
-      choice = (set_preference == 'true')
-      return unless Preference.set!(:entry_autocompletion, choice)
+      choice = (params[:autocompletion] == 'true')
+      return unless Preference.set!(:entry_autocompletion, choice, :boolean)
       respond_to do |format|
         format.json { render json: { status: :success, preference: choice } }
       end
