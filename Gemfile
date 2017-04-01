@@ -32,7 +32,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -111,7 +111,7 @@ gem 'paperclip-document', '> 0.0.8'
 # Forms
 gem 'cocoon'
 gem 'remotipart', '~> 1.2'
-gem 'simple_form', '~> 3.2.0'
+gem 'simple_form', '~> 3.4'
 
 # I18n and localeapp
 gem 'http_accept_language'
@@ -175,7 +175,7 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', '~> 0.47.0', require: false
+  gem 'rubocop', require: false
 
   # Webservers
   gem 'thin'
