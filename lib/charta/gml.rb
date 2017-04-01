@@ -40,7 +40,7 @@ module Charta
       @gml = Nokogiri::XML(@gml.to_xml) if up
 
       boundaries = @gml.css("#{GML_PREFIX}|boundedBy")
-      unless boundaries.blank?
+      if boundaries.present?
         boundaries.each do |node|
           srid = Charta.find_srid(node['srsName']) unless node['srsName'].nil?
         end

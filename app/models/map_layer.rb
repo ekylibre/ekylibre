@@ -44,7 +44,7 @@
 #  url            :string           not null
 #
 class MapLayer < Ekylibre::Record::Base
-  enumerize :nature, in: [:background, :overlay], default: :background, predicates: true
+  enumerize :nature, in: %i(background overlay), default: :background, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
@@ -98,6 +98,6 @@ class MapLayer < Ekylibre::Record::Base
   end
 
   def to_json_object
-    JSON.parse(to_json).compact.select { |_, value| value != '' }.deep_transform_keys { |key| key.to_s.camelize(:lower) }
+    JSON.parse(to_json).compact.reject { |_, value| value == '' }.deep_transform_keys { |key| key.to_s.camelize(:lower) }
   end
 end

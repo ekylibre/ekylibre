@@ -184,8 +184,8 @@ class JournalEntryItem < Ekylibre::Record::Base
 
     if entry
       self.entry_number = entry.number
-      [:financial_year_id, :printed_on, :journal_id, :currency,
-       :absolute_currency, :real_currency, :real_currency_rate].each do |replicated|
+      %i(financial_year_id printed_on journal_id currency
+         absolute_currency real_currency real_currency_rate).each do |replicated|
         send("#{replicated}=", entry.send(replicated))
       end
       unless closed?
@@ -283,7 +283,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Unmark all the journal entry items with the same mark in the same account
   def unmark
-    account.unmark(letter) unless letter.blank?
+    account.unmark(letter) if letter.present?
   end
 
   # Returns the previous item

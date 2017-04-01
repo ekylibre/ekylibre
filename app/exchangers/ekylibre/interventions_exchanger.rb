@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   class InterventionsExchanger < ActiveExchanger::Base
     def check

@@ -32,7 +32,7 @@ module Backend
     #   :activity_id
     def self.fixed_assets_conditions
       code = ''
-      code = search_conditions(fixed_assets: [:name, :number, :description]) + " ||= []\n"
+      code = search_conditions(fixed_assets: %i(name number description)) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{FixedAsset.table_name}.started_on BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -90,7 +90,7 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @fixed_assets, methods: [:net_book_value], include: [:asset_account, :expenses_account, :allocation_account, :product]
+      respond_with @fixed_assets, methods: [:net_book_value], include: %i(asset_account expenses_account allocation_account product)
     end
 
     def show
@@ -100,7 +100,7 @@ module Backend
 
       return unless @fixed_asset = find_and_check
       t3e @fixed_asset
-      respond_with(@fixed_asset, methods: [:net_book_value, :duration],
+      respond_with(@fixed_asset, methods: %i(net_book_value duration),
                                  include: [
                                    {
                                      depreciations: {

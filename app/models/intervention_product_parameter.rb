@@ -122,7 +122,7 @@ class InterventionProductParameter < InterventionParameter
         if reference.handled? && quantity_handler?
           errors.add(:quantity_handler, :invalid) unless reference.handler(quantity_handler)
         end
-      elsif !reference_name.blank?
+      elsif reference_name.present?
         errors.add(:reference_name, :invalid)
       end
     end
@@ -163,7 +163,7 @@ class InterventionProductParameter < InterventionParameter
     quantity_indicator_name == 'population'
   end
 
-  [:doer, :input, :output, :target, :tool].each do |role|
+  %i(doer input output target tool).each do |role|
     role_class_name = ('Intervention' + role.to_s.camelize).freeze
     define_method role.to_s + '?' do
       type.to_s == role_class_name

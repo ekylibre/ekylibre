@@ -51,7 +51,7 @@ module Ekylibre
         nature: :organization,
         last_name: 'Ekylibre',
         born_at: (@manifest[:financial_years] || {}).map { |_, v| v[:started_on] }.min
-      }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
+      }.merge(@manifest[:company].reject { |k, _v| [:addresses].include?(k) }).merge(of_company: true)
       # resolte siret to siret_number transcode
       siren_number = attributes.delete(:siren_number)
       siren_number ||= attributes.delete(:siren)
@@ -101,7 +101,7 @@ module Ekylibre
       for email, attributes in @manifest[:users]
         attributes[:administrator] = true unless attributes.key?(:administrator)
         attributes[:language] ||= language
-        for ref in [:role, :team]
+        for ref in %i(role team)
           attributes[ref] ||= :default
           attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
         end
@@ -174,7 +174,7 @@ module Ekylibre
 
       # Load cashes
       if can_load_default?(:cashes)
-        @manifest[:cashes] = [:bank_account, :cash_box].each_with_object({}) do |nature, hash|
+        @manifest[:cashes] = %i(bank_account cash_box).each_with_object({}) do |nature, hash|
           unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
             raise StandardError, 'Need a valid journal nature to register a cash'
           end

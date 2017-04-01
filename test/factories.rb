@@ -133,7 +133,7 @@ FactoryGirl.define do
   end
 
   factory :journal_entry_item do
-    association :entry, factory: [:journal_entry, :with_items]
+    association :entry, factory: %i(journal_entry with_items)
     account
     absolute_credit 0
     absolute_debit 0

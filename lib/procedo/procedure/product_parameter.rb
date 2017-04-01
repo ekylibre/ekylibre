@@ -14,7 +14,7 @@ module Procedo
 
       attr_accessor :variety, :derivative_of
 
-      TYPES = [:target, :tool, :doer, :input, :output].freeze
+      TYPES = %i(target tool doer input output).freeze
 
       code_trees :component_of
 
@@ -106,7 +106,7 @@ module Procedo
       end
 
       def others
-        @procedure.parameters.select { |v| v != self }
+        @procedure.parameters.reject { |v| v == self }
       end
 
       #
@@ -152,7 +152,7 @@ module Procedo
       end
 
       def default_name?
-        !@default_name.blank?
+        @default_name.present?
       end
 
       TYPES.each do |the_type|
@@ -196,7 +196,7 @@ module Procedo
       # Returns scope hash for unroll
       def scope_hash
         hash = {}
-        hash[:of_expression] = @filter unless @filter.blank?
+        hash[:of_expression] = @filter if @filter.present?
         # hash[:can_each] = @abilities.join(',') unless @abilities.empty?
         hash[:of_variety] = computed_variety if computed_variety
         hash[:derivative_of] = computed_derivative_of if computed_derivative_of

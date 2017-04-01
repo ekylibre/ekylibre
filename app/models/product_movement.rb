@@ -53,7 +53,7 @@ class ProductMovement < Ekylibre::Record::Base
   validates :product, presence: true
   # ]VALIDATORS]
 
-  enumerize :description, in: [:birth, :purchase, :loan, :butchery, :consumption, :sale, :death]
+  enumerize :description, in: %i(birth purchase loan butchery consumption sale death)
 
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0

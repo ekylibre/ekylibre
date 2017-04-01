@@ -26,7 +26,7 @@ module Ekylibre
         def saleables
           @list.select do |v|
             start = Date.today - ((v.sale_frequency * 365.25) * 0.05).to_i
-            last_quantity = SaleItem.where(variant: v.id, sale: Sale.where(state: [:order, :invoice], confirmed_at: start..Date.today)).sum(:quantity)
+            last_quantity = SaleItem.where(variant: v.id, sale: Sale.where(state: %i(order invoice), confirmed_at: start..Date.today)).sum(:quantity)
             v.saleable? && last_quantity < 0.8 * v.sale_default_quantity
           end
         end
@@ -35,7 +35,7 @@ module Ekylibre
           supplier_type ||= self.class.supplier_types.sample
           @list.select do |v|
             start = Date.today - ((v.sale_frequency * 365.25) * 0.05).to_i
-            last_quantity = SaleItem.where(variant: v.id, sale: Sale.where(state: [:order, :invoice], confirmed_at: start..Date.today)).sum(:quantity)
+            last_quantity = SaleItem.where(variant: v.id, sale: Sale.where(state: %i(order invoice), confirmed_at: start..Date.today)).sum(:quantity)
             v.purchaseable? && last_quantity < 0.8 * v.purchase_default_quantity
           end
         end

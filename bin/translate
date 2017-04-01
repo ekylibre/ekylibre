@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # coding: utf-8
+
 require 'yaml'
 require 'pathname'
 require 'active_support'
@@ -121,7 +122,7 @@ class Translator
       response.translations.each_with_index do |t, i|
         text = t.translated_text
         next if text.blank?
-        if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
+        if %i(spa por eng fra ita deu).include?(@target)
           text = (text.mb_chars.slice(0).upcase + text.mb_chars.slice(1..-1)).to_s
         end
         text.gsub!('&#39;', '’')

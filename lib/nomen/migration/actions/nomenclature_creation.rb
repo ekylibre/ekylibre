@@ -10,7 +10,7 @@ module Nomen
           @options = {}
           notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
           @options[:notions] = notions if notions.any?
-          @options[:translateable] = !(element.attr('translateable').to_s == 'false')
+          @options[:translateable] = element.attr('translateable').to_s != 'false'
         end
 
         alias name nomenclature

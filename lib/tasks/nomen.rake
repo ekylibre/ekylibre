@@ -14,7 +14,7 @@ namespace :nomen do
           properties.each do |p|
             attrs = { property: "#{nomenclature.name}.#{p.name}", type: p.type }
             attrs[:required] = 'true' if p.required?
-            attrs[:default] = p.default unless p.default.blank?
+            attrs[:default] = p.default if p.default.present?
             attrs[:fallbacks] = p.fallbacks.join(', ') if p.fallbacks
             if p.source
               if p.inline_choices? && p.choices.any?
@@ -29,7 +29,7 @@ namespace :nomen do
             attrs = { item: "#{name}##{item.name}" }
             attrs[:parent] = item.parent.name if item.parent
             item.properties.each do |pname, pvalue|
-              next unless pvalue.present?
+              next if pvalue.blank?
               if p = nomenclature.property_natures[pname.to_s]
                 if p.type == :decimal
                   pvalue = pvalue.to_s.to_f
@@ -166,7 +166,7 @@ namespace :nomen do
       xml.migration name: migration_name do
         nomenclature_name = 'spatial_reference_systems'
 
-        unless Nomen.find(nomenclature_name).present?
+        if Nomen.find(nomenclature_name).blank?
           attrs = { name: nomenclature_name }
           attrs[:translateable] = 'false'
           xml.send('nomenclature-creation', attrs)
@@ -198,7 +198,7 @@ namespace :nomen do
           item = systems.find_by(srid: row['auth_srid'].to_i)
           if systems && item
             # if properties are different
-            if item.properties.length != properties.length || !properties.select { |p| attrs[p[:name]] != item.property(p[:name]).to_s }.empty?
+            if item.properties.length != properties.length || !properties.reject { |p| attrs[p[:name]] == item.property(p[:name]).to_s }.empty?
               # be sure to keep current item name
               attrs[:item] = "#{nomenclature_name}##{item.name}"
               xml.send('item-change', attrs)

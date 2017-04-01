@@ -53,7 +53,7 @@ module NavigationHelper
   end
 
   def name_for(record, method)
-    return nil unless method.present?
+    return nil if method.blank?
     Maybe(record).send(method.to_sym).or_nil
   end
 

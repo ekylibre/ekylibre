@@ -213,7 +213,7 @@ class Affair < Ekylibre::Record::Base
 
   # Check if debit is equal to credit
   def unbalanced?
-    !(self.debit == self.credit)
+    self.debit != self.credit
   end
 
   # Check if debit is equal to credit
@@ -255,7 +255,7 @@ class Affair < Ekylibre::Record::Base
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
-        [:debit, :credit].map do |mode|
+        %i(debit credit).map do |mode|
           # Get the items of the deal with their VAT %
           # then add 0% VAT to untaxed deals
           deal.deal_taxes(mode)

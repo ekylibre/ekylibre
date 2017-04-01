@@ -9,7 +9,7 @@ module RestfullyManageable
       options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url, :scope, :identifier, :continue)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
-      actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
+      actions  = %i(index show new create edit update destroy)
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
@@ -137,7 +137,7 @@ module RestfullyManageable
         code << "def new\n"
         # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
         columns = model.columns_definition.keys
-        columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+        columns = columns.delete_if { |c| %i(depth rgt lft id lock_version updated_at updater_id creator_id created_at).include?(c.to_sym) }
         values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
           hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
           hash
@@ -298,7 +298,7 @@ module RestfullyManageable
       code = ''
 
       columns = model.columns_definition.keys
-      columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      columns = columns.delete_if { |c| %i(depth rgt lft id lock_version updated_at updater_id creator_id created_at).include?(c.to_sym) }
       values = columns.each_with_object({}) do |attr, hash|
         hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash

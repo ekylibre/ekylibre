@@ -18,7 +18,7 @@
 
 module Backend
   class LoanRepaymentsController < Backend::BaseController
-    manage_restfully except: [:create, :show, :destroy]
+    manage_restfully except: %i(create show destroy)
 
     def index
       redirect_to backend_loans_path
