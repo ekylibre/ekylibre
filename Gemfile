@@ -206,6 +206,7 @@ group :test do
   gem 'codacy-coverage', require: false
   gem 'coveralls', '>= 0.6', require: false
   gem 'database_cleaner'
+  gem 'simplecov', require: false
 
   gem 'minitest-reporters'
 

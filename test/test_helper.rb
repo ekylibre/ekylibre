@@ -1,19 +1,35 @@
-require 'codacy-coverage'
-require 'coveralls'
+if ENV['CI']
+  require 'codacy-coverage'
+  require 'coveralls'
+else
+  require 'simplecov'
+end
 ENV['RAILS_ENV'] ||= 'test'
+
+if ENV['CI']
+  Coveralls.setup!
+
+  SimpleCov.formatters = [
+    Codacy::Formatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+
+  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
+  SimpleCov.start
+else
+  SimpleCov.start do
+    load_profile 'rails'
+    add_group 'Echangers', 'app/exchangers'
+    add_group 'Inputs', 'app/inputs'
+    add_group 'Integrations', 'app/integrations'
+    add_group 'Services', 'app/services'
+    add_group 'Validators', 'app/validators'
+  end
+end
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
-
-Coveralls.setup!
-
-SimpleCov.formatters = [
-  Codacy::Formatter,
-  Coveralls::SimpleCov::Formatter
-]
-
-Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
-SimpleCov.start
 
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new

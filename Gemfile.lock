@@ -626,6 +626,7 @@ DEPENDENCIES
   sidekiq-unique-jobs
   simple_calendar
   simple_form (~> 3.4)
+  simplecov
   spring
   state_machine
   teaspoon-jasmine
