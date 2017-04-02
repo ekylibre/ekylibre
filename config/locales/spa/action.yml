@@ -1047,6 +1047,7 @@ spa:
     deformity: "Deformidad"
     deformity_percentage: "Deformidad (%)"
     deformity_percentage_evolution: "Deformidad de la evolución porcentaje"
+    # delay: "Delay"
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
@@ -2271,6 +2272,7 @@ spa:
     permanent_stock_inventory: "Modo de inventario de existencias permanentes"
     sales_conditions: "Condiciones de ventas"
     supplier_account_radix: "Radix de la cuenta del proveedor"
+    # unbilled_payables: "Unbilled payables"
     use_contextual_help: "Utilice la ayuda contextual"
     use_entity_codes_for_account_numbers: "Utilice el código para la creación de números de cuenta"
     use_global_search: "Usar la búsqueda mundial"

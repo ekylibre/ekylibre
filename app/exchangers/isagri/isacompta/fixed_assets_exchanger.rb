@@ -131,9 +131,9 @@ module Isagri
             exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end
-          
+
           computed_name = r.number + ' | ' + r.name
-          
+
           # Check existing asset (name && in_use date && asset_amount)
           asset = FixedAsset.find_by(name: computed_name) if computed_name
           # Create asset
@@ -155,7 +155,7 @@ module Isagri
             end
           else
             asset_attributes = {
-              name: computed_name ,
+              name: computed_name,
               currency: currency_preference,
               description: description,
               started_on: r.in_use_on,

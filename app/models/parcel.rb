@@ -207,12 +207,14 @@ class Parcel < Ekylibre::Record::Base
       end
     end
 
-    accountable = Preference[:permanent_stock_inventory] && given?
+    ufb_accountable = Preference[:unbilled_payables] && given?
+    # For unbilled payables
     journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
-    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: accountable && incoming?, &invoice.call(:suppliers_invoices_not_received, true))
+    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: ufb_accountable && incoming?, &invoice.call(:suppliers_invoices_not_received, true))
 
-    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: accountable && outgoing?, &invoice.call(:invoice_to_create_clients, false))
+    b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: ufb_accountable && outgoing?, &invoice.call(:invoice_to_create_clients, false))
 
+    accountable = Preference[:permanent_stock_inventory] && given?
     # For permanent stock inventory
     journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
     b.journal_entry(journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && given?)) do |entry|

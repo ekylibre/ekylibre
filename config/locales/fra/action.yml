@@ -2616,6 +2616,7 @@ fra:
     permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"
     sales_conditions: "Conditions de vente"
     supplier_account_radix: "Radical comptable du compte fournisseur"
+    unbilled_payables: "Générer les factures non parvenues"
     use_contextual_help: "Utiliser l’aide contextuelle"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     use_global_search: "Utiliser la recherche globale"
