@@ -33,10 +33,10 @@ module Isagri
             asset_account: row[0].blank? ? nil : row[0].to_s,
             number: row[1].blank? ? '' : row[1].to_s,
             name: row[2].blank? ? nil : row[2].to_s,
-            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%y'),
+            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%Y'),
             purchase_amount: row[5].blank? ? nil : row[5].tr(',', '.').to_d,
             depreciation_method: row[6].blank? ? nil : depreciation_method_transcode[row[6].to_s.strip],
-            in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%y'),
+            in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%Y'),
             asset_amount: row[8].blank? ? nil : row[8].tr(',', '.').to_d,
             duration_in_year: row[9].blank? ? nil : row[9].to_i,
             depreciation_rate: row[10].blank? ? nil : row[10].tr(',', '.').to_f,
@@ -112,10 +112,10 @@ module Isagri
             asset_account: row[0].blank? ? nil : row[0].to_s,
             number: row[1].blank? ? '' : row[1].to_s.strip,
             name: row[2].blank? ? nil : row[2].to_s.strip,
-            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%y'),
+            purchase_on: row[4].blank? ? nil : Date.strptime(row[4].to_s, '%d/%m/%Y'),
             purchase_amount: row[5].blank? ? nil : row[5].tr(',', '.').to_d,
             depreciation_method: row[6].blank? ? nil : depreciation_method_transcode[row[6].to_s.strip],
-            in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%y'),
+            in_use_on: row[7].blank? ? nil : Date.strptime(row[7].to_s, '%d/%m/%Y'),
             asset_amount: row[8].blank? ? nil : row[8].tr(',', '.').to_d,
             duration_in_year: row[9].blank? ? nil : row[9].to_i,
             depreciation_rate: row[10].blank? ? nil : row[10].tr(',', '.').to_f,
@@ -131,9 +131,11 @@ module Isagri
             exchange_asset_account = Account.find_or_create_by_number(r.asset_account, name: exchange_asset_account_name)
             w.info prompt + "exchange asset account : #{exchange_asset_account.label.inspect.red}"
           end
-
+          
+          computed_name = r.number + ' | ' + r.name
+          
           # Check existing asset (name && in_use date && asset_amount)
-          asset = FixedAsset.find_by(name: r.name)
+          asset = FixedAsset.find_by(name: computed_name) if computed_name
           # Create asset
           if asset
             if asset.updateable?
@@ -153,7 +155,7 @@ module Isagri
             end
           else
             asset_attributes = {
-              name: r.name,
+              name: computed_name ,
               currency: currency_preference,
               description: description,
               started_on: r.in_use_on,
