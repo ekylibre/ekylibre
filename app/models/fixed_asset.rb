@@ -94,7 +94,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :state, length: { maximum: 500 }, allow_blank: true
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: -> { Time.zone.today - 150.years }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
@@ -158,11 +158,6 @@ class FixedAsset < Ekylibre::Record::Base
       errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
-      if (fy = FinancialYear.reorder(:started_on).first)
-        unless fy.started_on <= started_on
-          errors.add(:started_on, :greater_than_or_equal_to, count: fy.started_on.l)
-        end
-      end
       if self.stopped_on
         unless self.stopped_on >= started_on
           errors.add(:stopped_on, :posterior, to: started_on.l)
@@ -337,11 +332,11 @@ class FixedAsset < Ekylibre::Record::Base
     starts = [started_on, self.stopped_on + 1]
     starts += depreciations.pluck(:started_on)
 
-    FinancialYear.ensure_exists_at!(self.stopped_on)
-    FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
-      start = financial_year.started_on
-      starts << start if started_on <= start && start <= self.stopped_on
-    end
+    # FinancialYear.ensure_exists_at!(self.stopped_on)
+    # FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
+      #start = financial_year.started_on
+      # starts << start if started_on <= start && start <= self.stopped_on
+    #end
 
     first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
     new_months = (started_on...stopped_on).select(&first_day_of_month)
@@ -380,7 +375,7 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
       end
-      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
       position += 1
@@ -410,7 +405,7 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
       end
-      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
       position += 1

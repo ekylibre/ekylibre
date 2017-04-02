@@ -55,7 +55,6 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset_depreciation) { fixed_asset_depreciation.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :fixed_asset, presence: true
   # ]VALIDATORS]
-  validates :financial_year, presence: true
   delegate :currency, :number, to: :fixed_asset
 
   scope :with_active_asset, -> { joins(:fixed_asset).where(fixed_assets: { state: :in_use }) }
