@@ -127,7 +127,7 @@ module Clean
                                []
                              end
           translateable_actions = []
-          translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
+          translateable_actions += (actions.delete_if { |a| %i(update create picture destroy up down decrement increment duplicate reflect).include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
@@ -327,7 +327,7 @@ module Clean
         ref[:aggregator_properties] ||= {}
         all_properties = []
         Aggeratio.each_xml_aggregator do |element|
-          all_properties += Aggeratio::Base.new(element).properties.select { |e| e.attr('level').to_s != 'api' }.collect { |e| e.attr('name').to_sym }
+          all_properties += Aggeratio::Base.new(element).properties.reject { |e| e.attr('level').to_s == 'api' }.collect { |e| e.attr('name').to_sym }
         end
         all_properties.uniq!.sort!
         all_properties.each do |property_name|
@@ -520,7 +520,7 @@ module Clean
                   end
                 end
               end
-              unless choices.blank?
+              if choices.present?
                 choices = "choices:\n" + choices.dig
                 trl[:choices] = choices.dig(3)
               end
@@ -560,7 +560,7 @@ module Clean
               end
             end
 
-            [:choices, :items, :name, :notions, :properties].each do |info|
+            %i(choices items name notions properties).each do |info|
               translation << trl[info] if trl[info]
             end
           end

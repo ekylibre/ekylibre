@@ -201,7 +201,7 @@ module Clean
                  controller_name.humanize.singularize + ': %{name}'
                elsif [:new].include? action_name
                  "#{action_name} #{controller_name.humanize.singularize}".humanize
-               elsif [:list, :import, :export].include? action_name
+               elsif %i(list import export).include? action_name
                  "#{action_name} #{controller_name}".humanize
                else
                  "#{action_name} #{controller_name.humanize.singularize}: %{name}".humanize
@@ -258,6 +258,15 @@ module Clean
       # Lists jobs paths
       def jobs_in_file
         dir = Rails.root.join('app', 'jobs')
+        list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
+          Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+        end
+        list
+      end
+
+      # Lists exchangers paths
+      def exchangers_in_file
+        dir = Rails.root.join('app', 'exchangers')
         list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
           Pathname.new(h).relative_path_from(dir).to_s[0..-4]
         end

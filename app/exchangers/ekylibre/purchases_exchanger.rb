@@ -117,7 +117,7 @@ module Ekylibre
               end
               r.variant[key] = account
             end
-            attrs = r.variant.select { |k, v| !v.blank? && k != :variety }
+            attrs = r.variant.select { |k, v| v.present? && k != :variety }
             attrs[:name] = r.variant_code
             attrs[:saleable] = true if attrs[:product_account]
             attrs[:purchasable] = true if attrs[:charge_account]

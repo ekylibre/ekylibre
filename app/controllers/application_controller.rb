@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
     end
     unless url_options[:controller] =~ /\/\w+/
       namespace = controller_path.gsub(/\/\w+$/, '')
-      unless namespace.blank?
+      if namespace.present?
         url_options[:controller] = "/#{namespace}/#{url_options[:controller]}"
       end
     end

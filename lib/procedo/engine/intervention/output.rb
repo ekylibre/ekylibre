@@ -43,16 +43,16 @@ module Procedo
         def to_hash
           hash = super
           hash[:variant_id] = @variant.id if @variant
-          hash[:new_name] = @new_name unless @new_name.blank?
-          hash[:identification_number] = @identification_number unless @identification_number.blank?
+          hash[:new_name] = @new_name if @new_name.present?
+          hash[:identification_number] = @identification_number if @identification_number.present?
           hash
         end
 
         def to_attributes
           hash = super
           hash[:variant_id] = @variant.id if @variant
-          hash[:new_name] = @new_name unless @new_name.blank?
-          hash[:identification_number] = @identification_number unless @identification_number.blank?
+          hash[:new_name] = @new_name if @new_name.present?
+          hash[:identification_number] = @identification_number if @identification_number.present?
           hash
         end
 

@@ -113,7 +113,7 @@ class InterventionTest < ActiveSupport::TestCase
     assert intervention.save, 'Intervention with invalid actions should be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
     intervention = Intervention.new(procedure_name: :sowing, actions: [:loosening], working_periods: fake_working_periods)
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
-    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening], working_periods: fake_working_periods)
+    intervention = Intervention.new(procedure_name: :sowing, actions: %i(sowing loosening), working_periods: fake_working_periods)
     refute intervention.save, 'Intervention with invalid actions should not be saved: ' + intervention.errors.full_messages.to_sentence(locale: :eng)
   end
 

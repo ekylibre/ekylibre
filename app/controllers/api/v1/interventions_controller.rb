@@ -70,7 +70,7 @@ module Api
       protected
 
       def permitted_params
-        super.permit(:procedure_name, :description, working_periods_attributes: [:started_at, :stopped_at])
+        super.permit(:procedure_name, :description, working_periods_attributes: %i(started_at stopped_at))
       end
     end
   end

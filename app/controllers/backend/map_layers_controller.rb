@@ -2,7 +2,7 @@ module Backend
   class MapLayersController < Backend::BaseController
     manage_restfully except: :index, identifier: :name
 
-    respond_to :json, only: [:toggle, :star]
+    respond_to :json, only: %i(toggle star)
 
     def index
       @map_layers = MapLayer.order('nature, by_default DESC, enabled DESC, name')

@@ -36,21 +36,21 @@ users:
     password: 12345678                           # Mot de passe
 accounting_system: fr_pcga                        # Code plan comptable
 financial_years:
-  EX1998:                                        # Code d'un exercice comptable
-    started_on: 1998-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 1998-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+  EX1998-99:                                        # Code d'un exercice comptable
+    started_on: 1998-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 1999-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
     currency: FRF
-  EX1999:                                        # Code d'un exercice comptable
-    started_on: 1999-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 1999-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+  EX1999-00:                                        # Code d'un exercice comptable
+    started_on: 1999-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2000-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
     currency: FRF
-  EX2000:                                        # Code d'un exercice comptable
-    started_on: 2000-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 2000-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+  EX2000-01:                                        # Code d'un exercice comptable
+    started_on: 2000-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2001-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
     currency: FRF
-  EX2001:                                        # Code d'un exercice comptable
-    started_on: 2001-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_on: 2001-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+  EX2001-02:                                        # Code d'un exercice comptable
+    started_on: 2001-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2002-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
     currency: EUR
 journals:
   21:
@@ -71,16 +71,16 @@ journals:
     nature: bank
     currency: EUR
 catalogs:
-  VENTE:                                         # Code d'un catalogue de prix
+  TESTVENTE:                                         # Code d'un catalogue de prix
     name: Prix de vente                          # Nom d'un catalogue de prix
     usage: sale                                  # Usage d'un catalogue de prix
-  COUT:
+  TESTCOUT:
     name: "Prix d'usage"
     usage: cost
-  ACHAT:
+  TESTACHAT:
     name: "Prix d'achat"
     usage: purchase
-  STOCK:
+  TESTSTOCK:
     name: "Prix d'achat"
     usage: stock
 accounts:                                        # Description de compte comptables

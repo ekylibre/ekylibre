@@ -352,7 +352,7 @@ class Account < Ekylibre::Record::Base
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
       expression = ''
-      unless range.blank?
+      if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
         for expr in range.split(/[^0-9A-Z\-\*]+/)
           if expr =~ /\-/
@@ -391,7 +391,7 @@ class Account < Ekylibre::Record::Base
 
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
-      [:clients, :suppliers, :attorneys].collect do |mode|
+      %i(clients suppliers attorneys).collect do |mode|
         Nomen::Account[mode].send(accounting_system).to_s
       end
     end

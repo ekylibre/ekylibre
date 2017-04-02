@@ -82,7 +82,7 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :name, :amount, :short_label, to: :tax, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
-  accepts_nested_attributes_for :fixed_asset
+  # accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
 
@@ -143,12 +143,19 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_update do
     if fixed && purchase.purchased?
+      fixed_asset.reload
       amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
       fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
     end
     true
   end
 
+  after_destroy do
+    if fixed && purchase.purchased?
+      fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
+    end
+    true
+  end
   validate do
     errors.add(:currency, :invalid) if purchase && currency != purchase_currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
@@ -156,7 +163,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      [:stock, :purchase].each do |usage|
+      %i(stock purchase).each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
@@ -201,6 +208,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+      fixed_asset.reload
       fixed_asset.add_amount(pretax_amount.to_f)
     else
       a = new_fixed_asset
@@ -225,7 +233,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   def designation
     d = product_name
-    d << "\n" + annotation.to_s unless annotation.blank?
+    d << "\n" + annotation.to_s if annotation.present?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d
   end

@@ -159,13 +159,13 @@ cmn:
       depreciation_method:
         graduated: "毕业" #?
         linear: "线性"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "没有"
+        regressive: "累退"
         simplified_linear: "线性简化"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "每月一次"
+        quarterly: "季刊"
+        yearly: "每年"
     gap:
       direction:
         loss: "失利"
@@ -270,8 +270,8 @@ cmn:
         constant_rate: "恒定速率"
       repayment_period:
         month: "月"
-        # semester: "Semester"
-        # trimester: "Trimester"
+        semester: "学期"
+        trimester: "孕期"
         year: "年"
       shift_method:
         anatocism: "anatocism"

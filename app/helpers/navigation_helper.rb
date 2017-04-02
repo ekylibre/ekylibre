@@ -53,7 +53,7 @@ module NavigationHelper
   end
 
   def name_for(record, method)
-    return nil unless method.present?
+    return nil if method.blank?
     Maybe(record).send(method.to_sym).or_nil
   end
 
@@ -73,7 +73,7 @@ module NavigationHelper
                end
     lambda do |resources, condition|
       key, value = *condition
-      resources.where("#{key} #{operator} #{value.inspect.tr('"', "'")}")
+      resources.where("#{key} #{operator} ?", value)
     end
   end
 end

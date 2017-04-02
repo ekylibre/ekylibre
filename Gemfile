@@ -32,7 +32,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -90,7 +90,7 @@ gem 'simple_calendar'
 
 # Models helpers
 gem 'acts_as_list'
-gem 'awesome_nested_set', '~> 3.0.0'
+gem 'awesome_nested_set', '~> 3.1.1'
 gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
@@ -111,7 +111,7 @@ gem 'paperclip-document', '> 0.0.8'
 # Forms
 gem 'cocoon'
 gem 'remotipart', '~> 1.2'
-gem 'simple_form', '~> 3.2.0'
+gem 'simple_form', '~> 3.4'
 
 # I18n and localeapp
 gem 'http_accept_language'
@@ -120,7 +120,7 @@ gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.6.0'
+gem 'nokogiri', '~> 1.7.1'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -206,6 +206,7 @@ group :test do
   gem 'codacy-coverage', require: false
   gem 'coveralls', '>= 0.6', require: false
   gem 'database_cleaner'
+  gem 'simplecov', require: false
 
   gem 'minitest-reporters'
 

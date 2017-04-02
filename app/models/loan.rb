@@ -60,10 +60,10 @@
 class Loan < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :repayment_method, in: [:constant_rate, :constant_amount], default: :constant_amount
-  enumerize :shift_method, in: [:immediate_payment, :anatocism], default: :immediate_payment
-  enumerize :repayment_period, in: [:month, :year, :trimester, :semester], default: :month, predicates: { prefix: true }
-  enumerize :insurance_repayment_method, in: [:initial, :to_repay], default: :to_repay, predicates: true
+  enumerize :repayment_method, in: %i(constant_rate constant_amount), default: :constant_amount
+  enumerize :shift_method, in: %i(immediate_payment anatocism), default: :immediate_payment
+  enumerize :repayment_period, in: %i(month year trimester semester), default: :month, predicates: { prefix: true }
+  enumerize :insurance_repayment_method, in: %i(initial to_repay), default: :to_repay, predicates: true
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry

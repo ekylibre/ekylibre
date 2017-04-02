@@ -45,7 +45,7 @@
 # Class representing any message linked to APIs in DB, whether ours or others.
 class CallMessage < Ekylibre::Record::Base
   belongs_to :operation, class_name: 'Call', foreign_key: :call_id
-  enumerize :nature, in: [:incoming, :outgoing], predicates: true
+  enumerize :nature, in: %i(incoming outgoing), predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :body, :headers, length: { maximum: 500_000 }, allow_blank: true

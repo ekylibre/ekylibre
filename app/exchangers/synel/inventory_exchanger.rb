@@ -59,7 +59,7 @@ module Synel
         father_bos_variety = father_items ? father_items.first.name : 'bos'
 
         # Find or create father
-        unless r.father_identification_number.blank?
+        if r.father_identification_number.present?
           father = parents[:father][r.father_identification_number] ||=
                      Animal.find_by(identification_number: r.father_identification_number) ||
                      Animal.create!(

@@ -45,8 +45,8 @@ module ActionIntegration
         unless method_name.present? || block_given?
           raise ArgumentError, 'Please specify either a method or a block.'
         end
-        raise ArgumentError, 'Please specify a frequency.' unless every.present?
-        raise ArgumentError, 'Invalid frequency.' unless [:day, :hour].include? every
+        raise ArgumentError, 'Please specify a frequency.' if every.blank?
+        raise ArgumentError, 'Invalid frequency.' unless %i(day hour).include? every
         proc = lambda do
           begin
             to_execute = block || send(method_name).method(:execute)

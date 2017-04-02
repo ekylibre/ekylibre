@@ -3260,6 +3260,7 @@ workers_001:
   uuid: 083b01a3-e576-49ee-8ba2-602db54b681e
   variant_id: 1
   variety: worker
+  work_number: AB
 workers_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z

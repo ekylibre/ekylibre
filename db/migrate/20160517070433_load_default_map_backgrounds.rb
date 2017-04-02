@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # Load default set of map backgrounds
 class LoadDefaultMapBackgrounds < ActiveRecord::Migration
   MAP_BACKGROUNDS = [
