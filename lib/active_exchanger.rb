@@ -18,8 +18,6 @@ end
 require 'active_exchanger/base'
 require 'active_exchanger/supervisor'
 
-if Rails.env.development?
-  Dir.glob(Rails.root.join('app', 'exchangers', '**', '*.rb')).each do |path|
-    require_dependency path
-  end
+Dir.glob(Rails.root.join('app', 'exchangers', '**', '*.rb')).each do |path|
+  require_dependency path
 end
