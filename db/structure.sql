@@ -3529,7 +3529,8 @@ CREATE TABLE journal_entry_items (
     tax_declaration_item_id integer,
     resource_id integer,
     resource_type character varying,
-    resource_prism character varying
+    resource_prism character varying,
+    variant_id integer
 );
 
 
@@ -17027,4 +17028,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170315221501');
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
+
+INSERT INTO schema_migrations (version) VALUES ('20170403073501');
 

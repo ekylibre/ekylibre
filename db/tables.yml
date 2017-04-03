@@ -3997,6 +3997,9 @@ journal_entry_items:
   updater_id:
     type: integer
     references: user
+  variant_id:
+    type: integer
+    references: ''
 journals:
   accountant_id:
     type: integer
@@ -6291,6 +6294,8 @@ purchase_items:
     required: true
   position:
     type: integer
+  preexisting_asset:
+    type: boolean
   pretax_amount:
     type: decimal
     precision: 19
