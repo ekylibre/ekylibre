@@ -19,7 +19,7 @@ if ENV['CI']
 else
   SimpleCov.start do
     load_profile 'rails'
-    add_group 'Echangers', 'app/exchangers'
+    add_group 'Exchangers', 'app/exchangers'
     add_group 'Inputs', 'app/inputs'
     add_group 'Integrations', 'app/integrations'
     add_group 'Services', 'app/services'
