@@ -291,7 +291,8 @@ module Ekylibre
               attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
             end
           end
-          record = options[:unless_exist] ? model.find_by(main_column => identifier) : model.new
+          record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
+          record ||= model.new
           record.attributes = attributes
           if record.save(attributes)
             @records[records][identifier.to_s] = record

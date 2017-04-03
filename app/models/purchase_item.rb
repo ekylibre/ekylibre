@@ -142,7 +142,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   after_update do
-    if fixed && purchase.purchased?
+    if fixed && fixed_asset && purchase.purchased?
       fixed_asset.reload
       amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
       fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
@@ -151,7 +151,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   after_destroy do
-    if fixed && purchase.purchased?
+    if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
     end
     true
