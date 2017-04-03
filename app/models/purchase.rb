@@ -170,16 +170,16 @@ class Purchase < Ekylibre::Record::Base
     b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice? && items.any?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       items.each do |item|
-        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
+        entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant_id: item.variant_id)
         tax = item.tax
         account_id = item.fixed? ? tax.fixed_asset_deduction_account_id : nil
         account_id ||= tax.deduction_account_id # TODO: Check if it is good to do that
         if tax.intracommunity
           reverse_charge_amount = tax.compute(item.pretax_amount, intracommunity: true).round(precision)
-          entry.add_debit(label, account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
-          entry.add_credit(label, tax.intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge)
+          entry.add_debit(label, account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant_id: item.variant_id)
+          entry.add_credit(label, tax.intracommunity_payable_account_id, reverse_charge_amount, tax: tax, pretax_amount: item.pretax_amount, resource: item, as: :item_tax_reverse_charge, variant_id: item.variant_id)
         else
-          entry.add_debit(label, account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+          entry.add_debit(label, account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant_id: item.variant_id)
         end
       end
       entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount, as: :supplier)
@@ -195,7 +195,7 @@ class Purchase < Ekylibre::Record::Base
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item)
+          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item, variant_id: undelivered_item.variant_id)
         end
       end
     end
@@ -213,8 +213,8 @@ class Purchase < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock)
-        entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement)
+        entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant_id: item.variant_id)
+        entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant_id: item.variant_id)
       end
     end
   end

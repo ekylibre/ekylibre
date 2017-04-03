@@ -197,11 +197,11 @@ class Parcel < Ekylibre::Record::Base
           amount = (item.trade_item && item.trade_item.pretax_amount) || item.stock_amount
           next unless item.variant && item.variant.charge_account && amount.nonzero?
           if order
-            entry.add_credit label, account.id, amount, resource: item, as: :unbilled
-            entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense
+            entry.add_credit label, account.id, amount, resource: item, as: :unbilled, variant_id: item.variant_id
+            entry.add_debit  label, item.variant.charge_account.id, amount, resource: item, as: :expense, variant_id: item.variant_id
           else
-            entry.add_debit  label, account.id, amount, resource: item, as: :unbilled
-            entry.add_credit label, item.variant.charge_account.id, amount, resource: item, as: :expense
+            entry.add_debit  label, account.id, amount, resource: item, as: :unbilled, variant_id: item.variant_id
+            entry.add_credit label, item.variant.charge_account.id, amount, resource: item, as: :expense, variant_id: item.variant_id
           end
         end
       end
@@ -222,11 +222,11 @@ class Parcel < Ekylibre::Record::Base
         variant = item.variant
         next unless variant && variant.storable? && item.stock_amount.nonzero?
         if incoming?
-          entry.add_credit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement)
-          entry.add_debit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock)
+          entry.add_credit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, variant_id: item.variant_id)
+          entry.add_debit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock, variant_id: item.variant_id)
         elsif outgoing?
-          entry.add_debit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement)
-          entry.add_credit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock)
+          entry.add_debit(label, variant.stock_movement_account_id, item.stock_amount, resource: item, as: :stock_movement, variant_id: item.variant_id)
+          entry.add_credit(label, variant.stock_account_id, item.stock_amount, resource: item, as: :stock, variant_id: item.variant_id)
         end
       end
     end

@@ -95,8 +95,8 @@ class Inventory < Ekylibre::Record::Base
         # step 1 : neutralize last current stock in stock journal for current variant
         # by exchanging the current balance
         label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, sm.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_movement_reset)
-        entry.add_credit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_reset)
+        entry.add_credit(label, sm.id, sm.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_movement_reset, variant_id: variant.variant_id)
+        entry.add_credit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_reset, variant_id: variant.variant_id)
 
         # step 2 : record inventory stock in stock journal
         # TODO update methods to evaluates price stock or open unit_pretax-
@@ -108,8 +108,8 @@ class Inventory < Ekylibre::Record::Base
         # bookkeep step 2
         next if values.compact.sum.zero?
         label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, values.compact.sum, resource: variant, as: :stock)
-        entry.add_debit(label, s.id, values.compact.sum, resource: variant, as: :stock_movement)
+        entry.add_credit(label, sm.id, values.compact.sum, resource: variant, as: :stock, variant_id: variant.variant_id)
+        entry.add_debit(label, s.id, values.compact.sum, resource: variant, as: :stock_movement, variant_id: variant.variant_id)
       end
     end
   end
