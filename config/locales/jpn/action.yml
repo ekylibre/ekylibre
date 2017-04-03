@@ -1256,16 +1256,13 @@ jpn:
     letter: "文字"
     # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-<<<<<<< HEAD
     # lettered: "Lettered"
     # liabilities: "Liabilities"
     # liabilities_gaps: "Liabilities gaps"
     # liability_reserves: "Liability reserves"
-=======
     liabilities: "負債"
     liabilities_gaps: "負債ギャップ"
     liability_reserves: "責任準備金"
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
     # line_number: "Line #%{number}"
     linear_options: "リニアオプション"
     link: "リンク"

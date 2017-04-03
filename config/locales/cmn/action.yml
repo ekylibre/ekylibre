@@ -1189,16 +1189,13 @@ cmn:
     letter: "信"
     # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-<<<<<<< HEAD
     # lettered: "Lettered"
     # liabilities: "Liabilities"
     # liabilities_gaps: "Liabilities gaps"
     # liability_reserves: "Liability reserves"
-=======
     liabilities: "负债"
     liabilities_gaps: "负债缺口"
     liability_reserves: "责任准备金"
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
     # line_number: "Line #%{number}"
     linear_options: "线性选项"
     link: "链接"

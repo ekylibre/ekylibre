@@ -1193,16 +1193,13 @@ por:
     letter: "Carta"
     # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-<<<<<<< HEAD
     # lettered: "Lettered"
     # liabilities: "Liabilities"
     # liabilities_gaps: "Liabilities gaps"
     # liability_reserves: "Liability reserves"
-=======
     liabilities: "Passivo"
     liabilities_gaps: "Passivo lacunas"
     liability_reserves: "Reservas de responsabilidade"
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
     # line_number: "Line #%{number}"
     linear_options: "Opções lineares"
     link: "Ligação"

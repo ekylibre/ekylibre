@@ -1254,16 +1254,13 @@ ita:
     letter: "Lettera"
     # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-<<<<<<< HEAD
     # lettered: "Lettered"
     # liabilities: "Liabilities"
     # liabilities_gaps: "Liabilities gaps"
     # liability_reserves: "Liability reserves"
-=======
     liabilities: "Passivo"
     liabilities_gaps: "Passivo lacune"
     liability_reserves: "Fondi del passivo"
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
     # line_number: "Line #%{number}"
     linear_options: "opzioni lineari"
     link: "collegamento"

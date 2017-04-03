@@ -187,14 +187,10 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-<<<<<<< HEAD
         patch :account_mask_literate_element_is_checked
         patch :account_mark_mask_literate_element_is_checked
 
-        match 'load', via: [:get, :post]
-=======
         match 'load', via: %i(get post)
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
       end
       member do
         match 'mark', via: %i(get post)
@@ -434,15 +430,10 @@ Rails.application.routes.draw do
 
     resources :entities, concerns: %i(autocomplete list unroll) do
       collection do
-<<<<<<< HEAD
-        match 'import', via: [:get, :post]
-        match 'merge',  via: [:get, :post]
         patch :entity_client_mask_literate_element_is_checked
         patch :entity_supplier_mask_literate_element_is_checked
-=======
         match 'import', via: %i(get post)
         match 'merge',  via: %i(get post)
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture

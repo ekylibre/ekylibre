@@ -1188,16 +1188,13 @@ deu:
     letter: "Brief"
     # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-<<<<<<< HEAD
     # lettered: "Lettered"
     # liabilities: "Liabilities"
     # liabilities_gaps: "Liabilities gaps"
     # liability_reserves: "Liability reserves"
-=======
     liabilities: "Verbindlichkeiten"
     liabilities_gaps: "Verbindlichkeiten Lücken"
     liability_reserves: "Haftungsreserven"
->>>>>>> 453028174081ae3853559671b50c255f9ff5c26d
     # line_number: "Line #%{number}"
     linear_options: "linear Optionen"
     # link: "Link"
