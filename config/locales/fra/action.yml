@@ -1482,7 +1482,9 @@ fra:
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
+    letter_state: "Etat du lettrage"
     letterable: "Lettrable"
+    lettered: "Lettré"
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
     lettering_modes: #?
@@ -1716,6 +1718,7 @@ fra:
     parcel_items: "Articles de colis"
     parcels: "Colis"
     part: "Pièce" #?
+    partially_lettered: "Partiellement lettré"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -2186,6 +2189,7 @@ fra:
     unknown_condition: "Type de condition inconnue"
     unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue"
+    unlettered: "Non lettré"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
     unmarketable_inspection_categories_evolution: "Évolution du pourcentage de maladies et malformations"

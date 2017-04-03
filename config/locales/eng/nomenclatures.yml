@@ -4665,7 +4665,7 @@ eng:
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_napus_annua: "Brassica napus annua"       #< brassica_napus
         brassica_napus_napus: "Brassica napus napus"       #< brassica_napus
-        brassica_napus_napus_dk_exalte: "Brassica napus napus dk exalte" #< brassica_napus
+        brassica_napus_napus_dk_exalte: "Brassica napus napus dk exalte" #< brassica_napus_napus
         brassica_napus_rapifera: "Rutabaga"                #< brassica_napus
         brassica_nigra: "Black mustard"                    #< brassica
         brassica_oleracea: "Cabbage"                       #< brassica

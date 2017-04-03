@@ -1267,6 +1267,7 @@ arb:
     deformity: "تشويه"
     deformity_percentage: "تشوه (٪)"
     deformity_percentage_evolution: "تطور نسبة التشوه"
+    # delay: "Delay"
     delay_create: "اضافة مهلة جديدة" #?
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
@@ -1592,7 +1593,9 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
+    # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
+    # lettered: "Lettered"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes: #?
@@ -1846,6 +1849,7 @@ arb:
     parameters: "عامل متغير"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
+    # partially_lettered: "Partially lettered"
     participants: "مشتركين"
     participations: "بالمشاركات"
     parts: "وحدات"
@@ -2283,6 +2287,7 @@ arb:
     unknown_condition: "غير معروف نوع الشرط"
     unknown_user: "مستخدم غير معروف"
     unknown_variant: "البديل غير معروف"
+    # unlettered: "Unlettered"
     unlock: "فتح القفل"
     unmark: "غير علامة"
     unmarketable_inspection_categories_evolution: "غير قابلة للتسويق تطور فئات التفتيش"

@@ -18,6 +18,8 @@ eng:
       destroy: "Log out" #?
       new: "New session"
     backend/accounts:
+      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked account: %{name}"
+      # account_mask_literate_element_is_checked: "Account mask literate element is checked account: %{name}"
       edit: "Edit account: %{number} - %{name}"
       index: "Accounting plans"
       load: "Load an accounting plan"
@@ -234,6 +236,8 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
+      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked entity: %{name}"
+      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked entity: %{name}"
       export: "Export people" #?
       import: "Import people"
       index: "People"
@@ -1415,7 +1419,9 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     letter: "Letter" #?
+    letter_state: "Etat du lettrage"
     letterable: "Letterable"
+    lettered: "Lettered" #?
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
     liability_reserves: "Liability reserves" #?!
@@ -1568,6 +1574,7 @@ eng:
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
+    partially_lettered: "Partially lettered" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1869,6 +1876,7 @@ eng:
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
+    unlettered: "Unlettered" #?
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
@@ -2216,6 +2224,8 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked"
+      # account_mask_literate_element_is_checked: "Account mask literate element is checked"
       # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
@@ -2252,6 +2262,8 @@ eng:
       edit: "Edit"
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
+      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked"
+      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked"
       evaluate: "Evaluate"
       export: "Export"
       export_to_sepa: "Export to SEPA"

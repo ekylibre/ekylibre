@@ -1047,6 +1047,7 @@ spa:
     deformity: "Deformidad"
     deformity_percentage: "Deformidad (%)"
     deformity_percentage_evolution: "Deformidad de la evolución porcentaje"
+    # delay: "Delay"
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
@@ -1324,7 +1325,9 @@ spa:
     last_sales: "Última oferta de venta"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
+    # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
+    # lettered: "Lettered"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
     lettering_modes: #?
@@ -1510,6 +1513,7 @@ spa:
     parameters: "Parametros"
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
+    # partially_lettered: "Partially lettered"
     participants: "Los participantes"
     participations: "Participaciones"
     parts: "Modulos"
@@ -1882,6 +1886,7 @@ spa:
     unknown_condition: "Condición desconocida"
     unknown_user: "Usuario desconocido"
     unknown_variant: "Variante desconocida"
+    # unlettered: "Unlettered"
     unlock: "Desbloquear"
     unmark: "Desmarcar"
     unmarketable_inspection_categories_evolution: "Invendibles evolución categorías de inspección"
