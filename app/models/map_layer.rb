@@ -44,14 +44,14 @@
 #  url            :string           not null
 #
 class MapLayer < Ekylibre::Record::Base
-  enumerize :nature, in: %i(background overlay), default: :background, predicates: true
+  enumerize :nature, in: %i[background overlay], default: :background, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
   validates :max_zoom, :min_zoom, :opacity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, :url, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates :url, format: { with: URI.regexp(%w(http https)) }
+  validates :url, format: { with: URI.regexp(%w[http https]) }
   validates :opacity, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_blank: true
 
   selects_among_all subset: :backgrounds

@@ -24,6 +24,6 @@ module Backend
       ListingNode.rebuild!
     end
 
-    test_restfully_all_actions except: %i(mail extract)
+    test_restfully_all_actions except: %i[mail extract]
   end
 end

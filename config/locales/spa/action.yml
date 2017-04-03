@@ -1098,6 +1098,8 @@ spa:
     documentation: "Documentación"
     doer_cost: "Costo hacedor"
     done: "Hecho"
+    dont_generate_carrying_forward_entries: "- No generar llevar adelante las entradas -"
+    dont_generate_closure_entries: "- no generan entradas de cierre -"
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?
@@ -2272,7 +2274,7 @@ spa:
     permanent_stock_inventory: "Modo de inventario de existencias permanentes"
     sales_conditions: "Condiciones de ventas"
     supplier_account_radix: "Radix de la cuenta del proveedor"
-    # unbilled_payables: "Unbilled payables"
+    unbilled_payables: "Cuentas a pagar no facturadas"
     use_contextual_help: "Utilice la ayuda contextual"
     use_entity_codes_for_account_numbers: "Utilice el código para la creación de números de cuenta"
     use_global_search: "Usar la búsqueda mundial"

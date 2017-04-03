@@ -101,7 +101,7 @@ module Ekylibre
       for email, attributes in @manifest[:users]
         attributes[:administrator] = true unless attributes.key?(:administrator)
         attributes[:language] ||= language
-        for ref in %i(role team)
+        for ref in %i[role team]
           attributes[ref] ||= :default
           attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
         end
@@ -174,7 +174,7 @@ module Ekylibre
 
       # Load cashes
       if can_load_default?(:cashes)
-        @manifest[:cashes] = %i(bank_account cash_box).each_with_object({}) do |nature, hash|
+        @manifest[:cashes] = %i[bank_account cash_box].each_with_object({}) do |nature, hash|
           unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
             raise StandardError, 'Need a valid journal nature to register a cash'
           end
@@ -194,7 +194,7 @@ module Ekylibre
 
       # Load incoming payment modes
       if can_load_default?(:incoming_payment_modes)
-        @manifest[:incoming_payment_modes] = %w(cash check transfer).each_with_object({}) do |nature, hash|
+        @manifest[:incoming_payment_modes] = %w[cash check transfer].each_with_object({}) do |nature, hash|
           if cash = Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)
             hash[nature] = { name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == 'check' ? true : false) }
             if hash[nature][:with_deposit] && journal = Journal.find_by(nature: 'bank')
@@ -212,7 +212,7 @@ module Ekylibre
 
       # Load outgoing payment modes
       if can_load_default?(:outgoing_payment_modes)
-        @manifest[:outgoing_payment_modes] = %w(cash check transfer).each_with_object({}) do |nature, hash|
+        @manifest[:outgoing_payment_modes] = %w[cash check transfer].each_with_object({}) do |nature, hash|
           hash[nature] = { name: OutgoingPaymentMode.tc("default.#{nature}.name"),
                            with_accounting: true,
                            cash: Cash.find_by(nature:

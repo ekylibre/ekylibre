@@ -55,9 +55,9 @@ module Ekylibre
 
       # Load default data of models with default data
       def load_defaults
-        %i(sequences accounts document_templates taxes journals cashes
+        %i[sequences accounts document_templates taxes journals cashes
            sale_natures purchase_natures incoming_payment_modes
-           outgoing_payment_modes product_nature_variants map_layers).each do |dataset|
+           outgoing_payment_modes product_nature_variants map_layers].each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
           model = dataset.to_s.classify.constantize

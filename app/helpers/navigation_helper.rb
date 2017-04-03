@@ -45,7 +45,7 @@ module NavigationHelper
     other_records  = navigable(resource.class, order, scope, resource.id).order(**order)
     reversed = (order.first.last =~ /desc/)
 
-    lists = %i(down up).map do |dir|
+    lists = %i[down up].map do |dir|
       [dir, matching_attrs.reduce(other_records, &get_next_record_method(going: dir, reverse: reversed))]
     end.to_h
     lists[:down] = lists[:down].reverse_order

@@ -44,7 +44,7 @@ Ekylibre::Tenant.setup!('test', keep_files: true)
 FactoryGirl.find_definitions
 
 class FixtureRetriever
-  ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth).freeze
+  ROLES = %w[zeroth first second third fourth fifth sixth seventh eighth nineth tenth].freeze
   @@truc = {}
 
   def initialize(model, options = {}, fixture_options = nil)
@@ -244,7 +244,7 @@ module ActionController
             end
           end
           attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do |c|
-            %i(depth lft rgt).include?(c)
+            %i[depth lft rgt].include?(c)
           end
 
           attributes += options.delete(:other_attributes) || []
@@ -408,7 +408,7 @@ module ActionController
             test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :success, #{context}\n"
-            %i(csv ods).each do |format| # :xcsv,
+            %i[csv ods].each do |format| # :xcsv,
               test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
@@ -426,7 +426,7 @@ module ActionController
           elsif mode == :list
             test_code << "get :#{action}, #{sanitized_params[]}\n"
             test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-            %i(csv ods).each do |format| # , :xcsv
+            %i[csv ods].each do |format| # , :xcsv
               test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end

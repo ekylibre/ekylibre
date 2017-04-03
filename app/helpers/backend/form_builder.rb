@@ -131,7 +131,7 @@ module Backend
       unit_column = options[:unit_column] || "#{association}_unit"
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
       # Adds quantifier
-      %i(population working_duration).each do |quantifier|
+      %i[population working_duration].each do |quantifier|
         html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if options[quantifier]
       end
       # Specify scope
@@ -291,7 +291,7 @@ module Backend
       editor[:controls] ||= {}
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
-      editor[:controls][:importers] ||= { formats: %i(gml kml geojson), title: :import.tl, okText: :import.tl, cancelText: :close.tl }
+      editor[:controls][:importers] ||= { formats: %i[gml kml geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
       editor[:withoutLabel] = true
@@ -534,7 +534,7 @@ module Backend
 
         # Add first indicators
         indicators = variant.variable_indicators.delete_if do |i|
-          whole_indicators.include?(i) || %i(geolocation shape).include?(i.name.to_sym)
+          whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
         end
         if object.new_record? && indicators.any?
 

@@ -122,7 +122,7 @@ class Sale < Ekylibre::Record::Base
 
   scope :with_nature, ->(id) { where(nature_id: id) }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -148,7 +148,7 @@ class Sale < Ekylibre::Record::Base
       transition estimate: :order, if: :has_content?
     end
     event :invoice do
-      transition %i(draft estimate order) => :invoice, if: :has_content?
+      transition %i[draft estimate order] => :invoice, if: :has_content?
     end
     event :abort do
       transition draft: :aborted
@@ -188,7 +188,7 @@ class Sale < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
-    %i(address delivery_address invoice_address).each do |mail_address|
+    %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
       unless send(mail_address).mail?
         errors.add(mail_address, :must_be_a_mail_address)
@@ -388,19 +388,19 @@ class Sale < Ekylibre::Record::Base
   # subscriptions
   def duplicate(attributes = {})
     raise StandardError, 'Uncancelable sale' unless duplicatable?
-    hash = %i(
+    hash = %i[
       client_id nature_id letter_format annotation subject
       function_title introduction conclusion description
-    ).each_with_object({}) do |field, h|
+    ].each_with_object({}) do |field, h|
       h[field] = send(field)
     end
     # Items
     items_attributes = {}
     items.order(:position).each_with_index do |item, index|
-      attrs = %i(
+      attrs = %i[
         variant_id quantity amount label pretax_amount annotation
         reduction_percentage tax_id unit_amount unit_pretax_amount
-      ).each_with_object({}) do |field, h|
+      ].each_with_object({}) do |field, h|
         h[field] = item.send(field)
       end
       # Subscription
@@ -492,8 +492,8 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = %i(affair client address responsible nature
-               currency invoice_address transporter).each_with_object({}) do |attribute, hash|
+    attrs = %i[affair client address responsible nature
+               currency invoice_address transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -503,12 +503,12 @@ class Sale < Ekylibre::Record::Base
     sale_credit = Sale.new(attrs)
     x = []
     items.each do |item|
-      attrs = %i(account currency variant reduction_percentage tax
-                 compute_from unit_pretax_amount unit_amount).each_with_object({}) do |attribute, hash|
+      attrs = %i[account currency variant reduction_percentage tax
+                 compute_from unit_pretax_amount unit_amount].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
-      %i(pretax_amount amount).each do |v|
+      %i[pretax_amount amount].each do |v|
         attrs[v] = -1 * item.send(v)
       end
       attrs[:credited_quantity] = item.creditable_quantity

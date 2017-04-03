@@ -66,7 +66,7 @@ module Api
       private
 
       def permitted_params
-        super.permit(:request_intervention_id, :procedure_name, { working_periods: %i(started_at stopped_at nature) }, :request_compliant, :state, :device_uid, crumbs: %i(read_at accuracy geolocation nature))
+        super.permit(:request_intervention_id, :procedure_name, { working_periods: %i[started_at stopped_at nature] }, :request_compliant, :state, :device_uid, crumbs: %i[read_at accuracy geolocation nature])
       end
     end
   end

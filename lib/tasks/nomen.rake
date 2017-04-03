@@ -132,7 +132,7 @@ namespace :nomen do
       next unless dir.exist?
       cache[folder] = {}
       nomenclature.find_each do |i|
-        %w(jpg png).each do |format|
+        %w[jpg png].each do |format|
           image_path = dir.join(i.name + '.' + format)
           if image_path.exist?
             cache[folder][i.name] = image_path.relative_path_from(avatars_dir).to_s
@@ -154,7 +154,7 @@ namespace :nomen do
     Rake::Task['nomen:migrate:generate'].invoke
 
     # filename
-    filename = %W(#{Nomen.missing_migrations.last.number} #{Nomen.missing_migrations.last.name.downcase.split(' ').join('_')}).join('_')
+    filename = %W[#{Nomen.missing_migrations.last.number} #{Nomen.missing_migrations.last.name.downcase.split(' ').join('_')}].join('_')
     file = Nomen.migrations_path.join("#{filename}.xml")
 
     # already existing nomenclature ?
@@ -187,7 +187,7 @@ namespace :nomen do
         end
 
         table.each do |row|
-          auth_ref = %W(#{row['auth_name']} #{row['auth_srid']})
+          auth_ref = %W[#{row['auth_name']} #{row['auth_srid']}]
           attrs = { item: "#{nomenclature_name}##{auth_ref.join('_')}" }.with_indifferent_access
           attrs[:authority_reference] = auth_ref.join(':')
           attrs[:srid] = row['srid']

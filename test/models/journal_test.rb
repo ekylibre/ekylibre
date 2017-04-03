@@ -105,7 +105,7 @@ class JournalTest < ActiveSupport::TestCase
 
   test 'cannot be closed with an accountant' do
     journal = create(:journal, :various)
-    assert journal.closable?
+    assert journal.closable?, 'Journal should be closable'
     journal.accountant = create(:entity, :accountant)
     refute journal.closable?
   end

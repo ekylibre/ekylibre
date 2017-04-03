@@ -57,8 +57,8 @@ class Intervention < Ekylibre::Record::Base
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
-  enumerize :nature, in: %i(request record), default: :record, predicates: true
-  enumerize :state, in: %i(in_progress done validated rejected), default: :done, predicates: true
+  enumerize :nature, in: %i[request record], default: :record, predicates: true
+  enumerize :state, in: %i[in_progress done validated rejected], default: :done, predicates: true
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
@@ -332,14 +332,14 @@ class Intervention < Ekylibre::Record::Base
     raise 'Can only generate record for an intervention request' unless request?
     return record_interventions.first if record_interventions.any?
     new_record = deep_clone(
-      only: %i(actions custom_fields description event_id issue_id
+      only: %i[actions custom_fields description event_id issue_id
                nature number prescription_id procedure_name
                request_intervention_id started_at state
                stopped_at trouble_description trouble_encountered
-               whole_duration working_duration),
+               whole_duration working_duration],
       include:
         [
-          { group_parameters: %i(
+          { group_parameters: %i[
             parameters
             group_parameters
             doers
@@ -347,10 +347,10 @@ class Intervention < Ekylibre::Record::Base
             outputs
             targets
             tools
-          ) },
+          ] },
           { root_parameters: :group },
           { parameters: :group },
-          { product_parameters: %i(readings group) },
+          { product_parameters: %i[readings group] },
           { doers: :group },
           { inputs: :group },
           { outputs: :group },
@@ -521,13 +521,13 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost
-    %i(input tool doer).map do |type|
+    %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
     end.sum
   end
 
   def human_total_cost
-    %i(input tool doer).map do |type|
+    %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
     end.sum.round(Nomen::Currency.find(currency).precision)
   end

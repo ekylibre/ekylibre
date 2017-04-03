@@ -25,7 +25,7 @@ module Backend
         kontroller, aktion = name.to_s.split('-')[0..1]
         possibilities = [name]
         possibilities << kontroller + '-edit' if aktion == 'update'
-        possibilities << kontroller + '-new' if %w(create update edit).include?(aktion)
+        possibilities << kontroller + '-new' if %w[create update edit].include?(aktion)
         possibilities << kontroller + '-index'
         return possibilities.detect do |p|
           Ekylibre.helps[I18n.locale].key?(p)

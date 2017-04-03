@@ -163,7 +163,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      %i(stock purchase).each do |usage|
+      %i[stock purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||

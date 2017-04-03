@@ -46,7 +46,7 @@ class ::Symbol
     args.each_with_index do |arg, _index|
       next unless arg.is_a?(Hash)
       for k, v in arg
-        unless %i(locale scope default).include?(k)
+        unless %i[locale scope default].include?(k)
           arg[k] = (v.html_safe? ? v : ('<em>' + CGI.escapeHTML(v) + '</em>').html_safe)
         end
       end

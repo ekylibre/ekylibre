@@ -131,7 +131,7 @@ class ParcelItem < Ekylibre::Record::Base
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
       if parcel_incoming?
-        for usage in %i(stock purchase)
+        for usage in %i[stock purchase]
           # set stock catalog price if blank
           catalog = Catalog.by_default!(usage)
           unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
@@ -142,7 +142,7 @@ class ParcelItem < Ekylibre::Record::Base
     end
   end
 
-  ALLOWED = %w(
+  ALLOWED = %w[
     product_localization_id
     product_movement_id
     product_enjoyment_id
@@ -154,8 +154,8 @@ class ParcelItem < Ekylibre::Record::Base
     sale_item_id
     updated_at
     updater_id
-  ).freeze
-  protect(allow_update_on: ALLOWED, on: %i(create destroy update)) do
+  ].freeze
+  protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
     !parcel_allow_items_update?
   end
 

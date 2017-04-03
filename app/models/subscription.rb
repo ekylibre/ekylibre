@@ -132,10 +132,10 @@ class Subscription < Ekylibre::Record::Base
       letter_format: false
     }
     # Items
-    attrs = %i(
+    attrs = %i[
       variant_id quantity amount label pretax_amount annotation
       reduction_percentage tax_id unit_amount unit_pretax_amount
-    ).each_with_object({}) do |field, h|
+    ].each_with_object({}) do |field, h|
       v = sale_item.send(field)
       h[field] = v if v.present?
     end

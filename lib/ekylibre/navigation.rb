@@ -23,7 +23,7 @@ module Ekylibre
         end
         f.close
 
-        @tree = Tree.load_file(file, :navigation, %i(part group item))
+        @tree = Tree.load_file(file, :navigation, %i[part group item])
       end
 
       def parts

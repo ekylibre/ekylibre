@@ -42,7 +42,7 @@
 class Import < Ekylibre::Record::Base
   belongs_to :importer, class_name: 'User'
   enumerize :nature, in: ActiveExchanger::Base.importers.keys, i18n_scope: ['exchangers']
-  enumerize :state, in: %i(undone in_progress errored aborted finished), predicates: true, default: :undone
+  enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :archive_content_type, :archive_file_name, length: { maximum: 500 }, allow_blank: true

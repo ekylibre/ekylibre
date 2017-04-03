@@ -182,7 +182,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
     # Moves columns of support to production
     reversible do |dir|
       dir.up do
-        %w(started_at stopped_at).each do |column|
+        %w[started_at stopped_at].each do |column|
           execute "UPDATE productions SET #{column} = s.#{column} FROM production_supports AS s WHERE s.production_id = productions.id AND productions.#{column} IS NULL AND s.#{column} IS NOT NULL"
         end
         execute 'UPDATE productions SET irrigated = id IN (SELECT production_id FROM production_supports WHERE irrigated)'
@@ -199,7 +199,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
         add_column :production_supports, :nature, :string
         execute "UPDATE production_supports SET nature = CASE WHEN p.nitrate_fixing THEN 'nitrat_trap' ELSE 'main' END FROM productions AS p WHERE p.id = production_id"
         execute 'UPDATE production_supports SET irrigated = p.irrigated FROM productions AS p WHERE p.irrigated AND p.id = production_id'
-        %w(started_at stopped_at).each do |column|
+        %w[started_at stopped_at].each do |column|
           execute "UPDATE production_supports SET #{column} = p.#{column} FROM productions AS p WHERE p.id = production_supports.production_id AND production_supports.#{column} IS NULL AND p.#{column} IS NOT NULL"
         end
         change_column_null :production_supports, :nature, false

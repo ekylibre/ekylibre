@@ -201,7 +201,7 @@ module Clean
                  controller_name.humanize.singularize + ': %{name}'
                elsif [:new].include? action_name
                  "#{action_name} #{controller_name.humanize.singularize}".humanize
-               elsif %i(list import export).include? action_name
+               elsif %i[list import export].include? action_name
                  "#{action_name} #{controller_name}".humanize
                else
                  "#{action_name} #{controller_name.humanize.singularize}: %{name}".humanize

@@ -244,6 +244,8 @@ arb:
       nature:
         bank: "بنك"
         cash: "السيولة النقدية"
+        closure: "إغلاق"
+        fixed_assets: "أصول ثابتة"
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
         sales: "مبيعات"

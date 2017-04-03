@@ -26,7 +26,7 @@ module Backend
 
     def self.loans_conditions
       code = ''
-      code = search_conditions(loans: %i(name amount), cashes: [:bank_name]) + " ||= []\n"
+      code = search_conditions(loans: %i[name amount], cashes: [:bank_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Loan.table_name}.started_on BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -82,7 +82,7 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @loans, methods: [:current_remaining_amount], include: %i(lender loan_account interest_account insurance_account cash journal_entry)
+      respond_with @loans, methods: [:current_remaining_amount], include: %i[lender loan_account interest_account insurance_account cash journal_entry]
     end
 
     def confirm

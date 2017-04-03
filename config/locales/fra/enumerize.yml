@@ -235,6 +235,8 @@ fra:
       nature:
         bank: "Banque"
         cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
         sales: "Ventes"

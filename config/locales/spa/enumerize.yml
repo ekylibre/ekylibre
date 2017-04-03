@@ -245,6 +245,8 @@ spa:
       nature:
         bank: "Banco"
         cash: "Efectivo"
+        closure: "Cierre"
+        fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
         sales: "Ventas"
