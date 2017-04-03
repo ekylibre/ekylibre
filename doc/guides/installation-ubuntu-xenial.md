@@ -13,7 +13,7 @@ If you are on Debian Jessie, please take a look at [detailed installation guide]
 *   Then, install all dependencies. Command and package can differ between
     distributions or OS:
 
-        sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
+        sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu-dev redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
 
 
 ## 2. Ruby
@@ -61,7 +61,7 @@ If you are on Debian Jessie, please take a look at [detailed installation guide]
 *   Move to Ekylibre directory root and install gems with bundler:
 
         cd /path/to/ekylibre
-        JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
+        JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
 
     Or you can add the following lines in your +~/.bash_profile+ in your home
     directory and run +bundle install+ after:
