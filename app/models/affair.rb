@@ -380,7 +380,7 @@ class Affair < Ekylibre::Record::Base
     raise NotImplementedError
   end
 
-  before_save :letter_journal_entries!
+  before_save :letter_journal_entries
 
   def letterable?
     !unletterable?
