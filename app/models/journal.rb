@@ -401,7 +401,8 @@ class Journal < Ekylibre::Record::Base
 
     journal_entries_states = ' AND (' + JournalEntry.state_condition(options[:states], journal_entries) + ')'
 
-    account_range = ' AND (' + Account.range_condition(options[:accounts], accounts) + ')'
+    account_range_condition = Account.range_condition(options[:accounts], accounts)
+    account_range = ' AND (' + account_range_condition + ')' if account_range_condition
 
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
     centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
@@ -414,7 +415,7 @@ class Journal < Ekylibre::Record::Base
     query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
     query << from_where
     query << journal_entries_states
-    query << account_range
+    query << account_range unless account_range.nil?
     items += conn.select_rows(query)
 
     # Sub-totals
@@ -423,7 +424,7 @@ class Journal < Ekylibre::Record::Base
       query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
       query << from_where
       query << journal_entries_states
-      query << account_range
+      query << account_range unless account_range.nil?
       query << " AND LENGTH(#{accounts}.number) >= #{level}"
       query << ' GROUP BY subtotal'
       items += conn.select_rows(query)
@@ -433,7 +434,7 @@ class Journal < Ekylibre::Record::Base
     query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
     query << from_where
     query << journal_entries_states
-    query << account_range
+    query << account_range unless account_range.nil?
     query << " AND NOT #{centralized}" unless centralize.empty?
     query << " GROUP BY #{accounts}.id, #{accounts}.number"
     query << " ORDER BY #{accounts}.number"
@@ -444,7 +445,7 @@ class Journal < Ekylibre::Record::Base
       query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
       query << from_where
       query << journal_entries_states
-      query << account_range
+      query << account_range unless account_range.nil?
       query << " AND #{accounts}.number LIKE #{conn.quote(prefix + '%')}"
       query << ' GROUP BY centralize'
       items += conn.select_rows(query)

@@ -386,6 +386,7 @@ class Account < Ekylibre::Record::Base
           end
         end
       end
+      return false if conditions.empty?
       '(' + conditions.join(' OR ') + ')'
     end
 
