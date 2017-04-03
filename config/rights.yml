@@ -914,7 +914,6 @@ fixed_assets:
     - "backend/fixed_assets#index"
     - "backend/fixed_assets#list"
     - "backend/fixed_assets#list_depreciations"
-    - "backend/fixed_assets#list_products" #?
     - "backend/fixed_assets#show"
     - "backend/fixed_assets#unroll"
   write:

@@ -11,6 +11,14 @@ module ActiveExchanger
         super
       end
 
+      attr_accessor :deprecated do
+        false
+      end
+
+      def deprecated?
+        deprecated
+      end
+
       def exchanger_name
         name.to_s.underscore.gsub(/_exchanger$/, '').tr('/', '_').to_sym
       end
@@ -24,25 +32,31 @@ module ActiveExchanger
       end
 
       def importers
-        @@exchangers.select { |_k, v| v.method_defined?(:import) }
+        @@exchangers.select { |_, v| v.method_defined?(:import) }
       end
 
-      def importers_selection
-        importers.collect { |i, e| [e.human_name, i] }.sort_by { |a| a.first.lower_ascii }
+      def importers_selection(options = {})
+        list = importers
+        list = list.reject { |_, v| v.deprecated? } unless options[:with_deprecated]
+        list.collect { |i, e| [e.human_name, i] }.sort_by { |a| a.first.lower_ascii }
       end
 
       def exporters
         @@exchangers.select { |_k, v| v.method_defined?(:export) }
       end
 
+      def find_and_import(nature, file, options = {}, &block)
+        find(nature).import(file, options, &block)
+      end
+
       # Import file without check
-      def import!(nature, file, options = {}, &block)
-        build(nature, file, options, &block).import
+      def import!(file, options = {}, &block)
+        build(file, options, &block).import
       end
 
       # Import file with check if possible
-      def import(nature, file, options = {}, &block)
-        exchanger = build(nature, file, options, &block)
+      def import(file, options = {}, &block)
+        exchanger = build(file, options, &block)
         if exchanger.respond_to? :check
           if exchanger.check
             exchanger.import
@@ -55,13 +69,13 @@ module ActiveExchanger
         end
       end
 
-      def export(nature, file, options = {}, &block)
-        build(nature, file, options, &block).export
+      def export(file, options = {}, &block)
+        build(file, options, &block).export
       end
 
-      def check(nature, file, _options = {}, &block)
+      def check(file, _options = {}, &block)
         supervisor = Supervisor.new(:check, &block)
-        exchanger = find(nature).new(file, supervisor)
+        exchanger = new(file, supervisor)
         valid = false
         ActiveRecord::Base.transaction do
           if exchanger.respond_to? :check
@@ -78,9 +92,9 @@ module ActiveExchanger
         false
       end
 
-      def build(nature, file, _options = {}, &block)
+      def build(file, _options = {}, &block)
         supervisor = Supervisor.new(&block)
-        find(nature).new(file, supervisor)
+        new(file, supervisor)
       end
 
       def find(nature)

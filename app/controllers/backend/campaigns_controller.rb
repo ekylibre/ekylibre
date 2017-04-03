@@ -68,7 +68,7 @@ module Backend
     end
 
     def current
-      unless current_campaign.present?
+      if current_campaign.blank?
         @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
         current_user.current_campaign = @current_campaign
       end

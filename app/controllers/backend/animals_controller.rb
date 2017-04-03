@@ -26,7 +26,7 @@ module Backend
     #   :variant_id
     def self.list_conditions
       code = ''
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: %i(name work_number number description uuid), product_nature_variants: [:name]) + " ||= []\n"
       code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
       code << "  if params[:period] != 'all'\n"
       code << "    interval = params[:period].split('_')\n"
@@ -155,7 +155,7 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @animals, methods: [:picture_path, :sex_text, :variety_text], include: [:initial_father, :initial_mother, :nature, :variant]
+      respond_with @animals, methods: %i(picture_path sex_text variety_text), include: %i(initial_father initial_mother nature variant)
     end
 
     # Children list
@@ -172,11 +172,11 @@ module Backend
       params.delete('dialog')
 
       t3e @animal, nature: @animal.nature_name
-      respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
-                                                                                          { readings: {} },
-                                                                                          { intervention_product_parameters: { include: :intervention } },
-                                                                                          { memberships: { include: :group } },
-                                                                                          { localizations: { include: :container } }])
+      respond_with(@animal, methods: %i(picture_path sex_text variety_text), include: [:father, :mother, :variant, :nature, :variety,
+                                                                                       { readings: {} },
+                                                                                       { intervention_product_parameters: { include: :intervention } },
+                                                                                       { memberships: { include: :group } },
+                                                                                       { localizations: { include: :container } }])
     end
 
     def keep

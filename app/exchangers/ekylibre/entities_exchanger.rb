@@ -66,7 +66,7 @@ module Ekylibre
         end
 
         # Add SIREN, VAT or APE numbers if given
-        unless r.siren_number.blank?
+        if r.siren_number.present?
           if r.siren_number =~ /\A\d{9}\z/
             code = r.siren_number + '0001'
             person.siret_number = code + Luhn.control_digit(code).to_s
@@ -110,7 +110,7 @@ module Ekylibre
         end
 
         # Add email if given
-        person.emails.create!(coordinate: r.email) unless r.email.blank?
+        person.emails.create!(coordinate: r.email) if r.email.present?
 
         # Update account name
         natures = {

@@ -199,7 +199,7 @@ class Inspection < Ekylibre::Record::Base
   end
 
   def any_quantity?
-    [:net_mass, :items_count].any? { |dim| quantity_measured?(dim) }
+    %i(net_mass items_count).any? { |dim| quantity_measured?(dim) }
   end
 
   # CODE HELPERS

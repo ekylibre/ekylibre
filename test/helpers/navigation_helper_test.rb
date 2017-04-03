@@ -95,12 +95,12 @@ class NavigationHelperTest < ActionView::TestCase
   end
 
   def label_in(link)
-    return nil unless link.present?
+    return nil if link.blank?
     link.label
   end
 
   def record_id_in(link)
-    return nil unless link.present?
+    return nil if link.blank?
     link.url.split('/').last.to_i
   end
 end

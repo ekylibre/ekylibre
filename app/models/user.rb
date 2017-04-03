@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -257,7 +258,7 @@ class User < Ekylibre::Record::Base
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
-    elsif (rights & [:__minimum__, :__public__]).empty? && (rights_list & rights).empty? && !administrator?
+    elsif (rights & %i(__minimum__ __public__)).empty? && (rights_list & rights).empty? && !administrator?
       message = :no_right_defined_for_this_part_of_the_application_and_this_user.tl
     end
     message

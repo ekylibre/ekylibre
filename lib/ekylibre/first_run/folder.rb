@@ -55,9 +55,9 @@ module Ekylibre
 
       # Load default data of models with default data
       def load_defaults
-        [:sequences, :accounts, :document_templates, :taxes, :journals, :cashes,
-         :sale_natures, :purchase_natures, :incoming_payment_modes,
-         :outgoing_payment_modes, :product_nature_variants, :map_layers].each do |dataset|
+        %i(sequences accounts document_templates taxes journals cashes
+           sale_natures purchase_natures incoming_payment_modes
+           outgoing_payment_modes product_nature_variants map_layers).each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
           model = dataset.to_s.classify.constantize
@@ -72,7 +72,7 @@ module Ekylibre
         company.born_at = @company[:born_at]
         company.save!
         # Create default phone number
-        unless @company[:phone].blank?
+        if @company[:phone].present?
           phone = company.phones.find_or_initialize_by(by_default: true)
           phone.coordinate = @company[:phone]
           phone.save!

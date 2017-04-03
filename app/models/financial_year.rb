@@ -46,8 +46,8 @@ class FinancialYear < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
   refers_to :currency
-  enumerize :tax_declaration_frequency, in: [:monthly, :quaterly, :yearly, :none], default: :monthly, predicates: { prefix: true }
-  enumerize :tax_declaration_mode, in: [:debit, :payment, :none], default: :none, predicates: { prefix: true }
+  enumerize :tax_declaration_frequency, in: %i(monthly quaterly yearly none), default: :monthly, predicates: { prefix: true }
+  enumerize :tax_declaration_mode, in: %i(debit payment none), default: :none, predicates: { prefix: true }
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   belongs_to :accountant, class_name: 'Entity'
   has_many :account_balances, dependent: :delete_all
@@ -153,7 +153,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def journal_entries(conditions = nil)
     entries = JournalEntry.where(printed_on: started_on..stopped_on)
-    entries = entries.where(conditions) unless conditions.blank?
+    entries = entries.where(conditions) if conditions.present?
     entries
   end
 
@@ -319,7 +319,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil)
     equation = get_mandatory_line_calculation(document, line) if line
-    sum_entry_items(equation) if equation
+    equation ? sum_entry_items(equation) : 0
   end
 
   # Computes the value of list of accounts in a String
@@ -375,7 +375,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def self.balance_expr(credit = false, options = {})
-    columns = [:debit, :credit]
+    columns = %i(debit credit)
     columns.reverse! if credit
     prefix = (options[:record] ? options.delete(:record).to_s + '.' : '') + 'local_'
     if options[:forced]

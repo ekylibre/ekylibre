@@ -1,14 +1,14 @@
 cmn:
   procedure_handlers:
-    # grains_area_density: "Grains area density"
-    # grains_area_density_in_thousand_per_hectare: "Grains area density in thousand per hectare"
-    # grains_count: "Grains count"
-    # mass_area_density: "Mass area density"
-    # mass_area_density_in_ton_per_hectare: "Mass area density in ton per hectare"
-    # net_mass: "Net mass"
-    # seedling_area_density: "Seedling area density"
-    # seedling_area_density_in_thousand_per_hectare: "Seedling area density in thousand per hectare"
-    # seedling_count: "Seedling count"
+    grains_area_density: "谷物面积密度"
+    grains_area_density_in_thousand_per_hectare: "在千元每公顷谷物面积密度"
+    grains_count: "谷物算"
+    mass_area_density: "面积质量密度"
+    mass_area_density_in_ton_per_hectare: "在吨每公顷面积的质量密度"
+    net_mass: "净质量"
+    seedling_area_density: "育苗面积密度"
+    seedling_area_density_in_thousand_per_hectare: "在千元每公顷育苗面积密度"
+    seedling_count: "苗数"
     stakes_by_hectare: "通过公顷锦标"
   procedure_killable_parameters:
     is_cultivation_completely_destroyed_by_intervention: "就是修炼完全被摧毁的干预？"

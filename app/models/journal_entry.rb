@@ -92,7 +92,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :real_currency, presence: true
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
-  validates :number, uniqueness: { scope: [:journal_id, :financial_year_id] }
+  validates :number, uniqueness: { scope: %i(journal_id financial_year_id) }
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -173,15 +173,7 @@ class JournalEntry < Ekylibre::Record::Base
       self.currency = financial_year.currency if financial_year
     end
     if real_currency && financial_year
-      if real_currency == financial_year.currency
-        self.real_currency_rate = 1
-      else
-        # TODO: Find a better way to manage currency rates!
-        # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        if real_currency_rate.blank? || real_currency_rate.zero?
-          self.real_currency_rate = I18n.currency_rate(real_currency, currency)
-        end
-      end
+      self.real_currency_rate = 1 if real_currency == financial_year.currency
     else
       self.real_currency_rate = 1
     end
@@ -204,7 +196,7 @@ class JournalEntry < Ekylibre::Record::Base
 
       error_sum = error_sum.abs
 
-      even_items = items.select { |item| !item.send(column).zero? }
+      even_items = items.reject { |item| item.send(column).zero? }
       proratas = even_items.map { |item| [item, item.send(column) / send(column)] }.to_h
       proratas.reduce(error_sum) do |left, (item, prorata)|
         error_to_update = [(error_sum * prorata).ceil / magnitude.to_f, left].min

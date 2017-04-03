@@ -67,7 +67,7 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: [:simplified_linear, :linear, :regressive, :none], predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: %i(simplified_linear linear regressive none), predicates: { prefix: true } # graduated
   refers_to :currency
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
@@ -99,7 +99,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, :expenses_account, presence: true
-  enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
+  enumerize :depreciation_period, in: %i(monthly quarterly yearly), default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
   scope :drafts, -> { where(state: %w(draft)) }
 
@@ -158,11 +158,6 @@ class FixedAsset < Ekylibre::Record::Base
       errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
-      if (fy = FinancialYear.reorder(:started_on).first)
-        unless fy.started_on <= started_on
-          errors.add(:started_on, :greater_than_or_equal_to, count: fy.started_on.l)
-        end
-      end
       if self.stopped_on
         unless self.stopped_on >= started_on
           errors.add(:stopped_on, :posterior, to: started_on.l)
@@ -179,8 +174,8 @@ class FixedAsset < Ekylibre::Record::Base
   before_update do
     @auto_depreciate = false
     old = self.class.find(id)
-    [:depreciable_amount, :started_on, :stopped_on, :depreciation_method,
-     :depreciation_period, :depreciation_percentage, :currency].each do |attr|
+    %i(depreciable_amount started_on stopped_on depreciation_method
+       depreciation_period depreciation_percentage currency).each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
@@ -337,11 +332,11 @@ class FixedAsset < Ekylibre::Record::Base
     starts = [started_on, self.stopped_on + 1]
     starts += depreciations.pluck(:started_on)
 
-    FinancialYear.ensure_exists_at!(self.stopped_on)
-    FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
-      start = financial_year.started_on
-      starts << start if started_on <= start && start <= self.stopped_on
-    end
+    # FinancialYear.ensure_exists_at!(self.stopped_on)
+    # FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
+    # start = financial_year.started_on
+    # starts << start if started_on <= start && start <= self.stopped_on
+    # end
 
     first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
     new_months = (started_on...stopped_on).select(&first_day_of_month)
@@ -380,7 +375,7 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
       end
-      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
       position += 1
@@ -410,7 +405,7 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
       end
-      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
       position += 1
@@ -429,7 +424,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def depreciable?
-    !depreciations.any?
+    depreciations.none?
   end
 
   # return the current_depreciation at current date

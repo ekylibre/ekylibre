@@ -21,7 +21,7 @@ module Nomen
       def harvest(element, options = {})
         notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
         options[:notions] = notions if notions.any?
-        options[:translateable] = !(element.attr('translateable').to_s == 'false')
+        options[:translateable] = element.attr('translateable').to_s != 'false'
         name = element.attr('name').to_s
         nomenclature = new(name, options)
         element.xpath('xmlns:properties/xmlns:property').each do |property|
@@ -112,7 +112,7 @@ module Nomen
       if element.has_attribute?('default')
         options[:default] = element.attr('default').to_sym
       end
-      options[:required] = !!(element.attr('required').to_s == 'true')
+      options[:required] = !element.attr('required').to_s != 'true'
       # options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
       if type == :list
         type = element.has_attribute?('nomenclature') ? :item_list : :choice_list
@@ -159,7 +159,7 @@ module Nomen
       new_parent = changes[:parent]
       new_name = changes[:name]
       changes.each do |k, v|
-        next if [:parent, :name].include? k
+        next if %i(parent name).include? k
         i.set(k, v)
       end
       if has_parent
@@ -460,8 +460,8 @@ module Nomen
 
     def without(*names)
       excluded = names.flatten.compact.map(&:to_sym)
-      list.select do |item|
-        !excluded.include?(item.name)
+      list.reject do |item|
+        excluded.include?(item.name)
       end
     end
 

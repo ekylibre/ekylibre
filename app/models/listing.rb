@@ -84,7 +84,7 @@ class Listing < Ekylibre::Record::Base
       columns_to_export = columns_to_export.sort_by(&:first).map(&:last)
       query = 'SELECT ' + columns_to_export.join(', ')
       query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
-      query << ' WHERE ' + compute_where unless compute_where.blank?
+      query << ' WHERE ' + compute_where if compute_where.present?
       unless columns_to_export.size.zero?
         query << ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
       end
@@ -110,12 +110,12 @@ class Listing < Ekylibre::Record::Base
     return c unless reflection_nodes.any?
     # Filter on columns
     if filtered_columns.any?
-      c << ' AND ' unless c.blank?
+      c << ' AND ' if c.present?
       c << filtered_columns.map(&:condition).join(' AND ')
     end
     # General conditions
-    unless conditions.blank?
-      c << ' AND ' unless c.blank?
+    if conditions.present?
+      c << ' AND ' if c.present?
       c << '(' + conditions + ')'
     end
     c

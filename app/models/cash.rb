@@ -82,8 +82,8 @@ class Cash < Ekylibre::Record::Base
            through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
-  enumerize :nature, in: [:bank_account, :cash_box, :associate_account], default: :bank_account, predicates: true
-  enumerize :mode, in: [:iban, :bban], default: :iban, predicates: { prefix: true }
+  enumerize :nature, in: %i(bank_account cash_box associate_account), default: :bank_account, predicates: true
+  enumerize :mode, in: %i(iban bban), default: :iban, predicates: { prefix: true }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :bank_account_holder_name, :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
@@ -116,7 +116,7 @@ class Cash < Ekylibre::Record::Base
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
-    mode.lower! unless mode.blank?
+    mode.lower! if mode.present?
     self.mode = self.class.mode.default_value if mode.blank?
     self.suspend_until_reconciliation = false unless bank_account?
     unless bank_account_holder_name.nil?
@@ -134,7 +134,7 @@ class Cash < Ekylibre::Record::Base
     elsif mode_bban? && bank_code? && bank_agency_code? && bank_account_number? && bank_account_key
       self.iban = self.class.generate_iban(country, bank_code + bank_agency_code + bank_account_number + bank_account_key)
     end
-    unless iban.blank?
+    if iban.present?
       self.spaced_iban = iban.split(/(\w\w\w\w)/).delete_if(&:empty?).join(' ')
     end
   end
@@ -225,8 +225,8 @@ class Cash < Ekylibre::Record::Base
   # Load default cashes (1 bank account and 1 cash box)
   def self.load_defaults
     [
-      [:bank_account, :bank, :banks],
-      [:cash_box, :cash, :cashes]
+      %i(bank_account bank banks),
+      %i(cash_box cash cashes)
     ].each do |nature, journal_nature, account_usage|
       next if find_by(nature: nature)
       journal = Journal.find_by(nature: journal_nature)

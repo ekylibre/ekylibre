@@ -53,7 +53,7 @@ class Journal < Ekylibre::Record::Base
   has_many :incoming_payment_modes, foreign_key: :depositables_journal_id, dependent: :restrict_with_exception
   has_many :purchase_natures, dependent: :restrict_with_exception
   has_many :sale_natures, dependent: :restrict_with_exception
-  enumerize :nature, in: [:sales, :purchases, :fixed_assets, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
+  enumerize :nature, in: %i(sales purchases fixed_assets bank forward various cash stocks), default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
@@ -116,7 +116,7 @@ class Journal < Ekylibre::Record::Base
         errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l)
       end
     end
-    unless code.blank?
+    if code.present?
       errors.add(:code, :taken) if others.find_by(code: code.to_s[0..3])
     end
     if persisted? && accountant_id_changed?

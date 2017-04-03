@@ -58,7 +58,7 @@ class Purchase < Ekylibre::Record::Base
   include Attachable
   include Customizable
   attr_readonly :currency, :nature_id
-  enumerize :tax_payability, in: [:at_paying, :at_invoicing], default: :at_invoicing
+  enumerize :tax_payability, in: %i(at_paying at_invoicing), default: :at_invoicing
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
@@ -118,7 +118,7 @@ class Purchase < Ekylibre::Record::Base
       transition draft: :estimate, if: :has_content?
     end
     event :correct do
-      transition [:estimate, :refused, :order] => :draft
+      transition %i(estimate refused order) => :draft
     end
     event :refuse do
       transition estimate: :refused, if: :has_content?
@@ -132,7 +132,7 @@ class Purchase < Ekylibre::Record::Base
       transition draft: :invoice
     end
     event :abort do
-      transition [:draft, :estimate] => :aborted # , :order
+      transition %i(draft estimate) => :aborted # , :order
     end
   end
 

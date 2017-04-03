@@ -2217,6 +2217,7 @@ eng:
     permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
+    unbilled_payables: "Unbilled payables"
     use_contextual_help: "Use contextual help"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     use_global_search: "Use global search"

@@ -1,19 +1,35 @@
-require 'codacy-coverage'
-require 'coveralls'
+if ENV['CI']
+  require 'codacy-coverage'
+  require 'coveralls'
+else
+  require 'simplecov'
+end
 ENV['RAILS_ENV'] ||= 'test'
+
+if ENV['CI']
+  Coveralls.setup!
+
+  SimpleCov.formatters = [
+    Codacy::Formatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+
+  Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
+  SimpleCov.start
+else
+  SimpleCov.start do
+    load_profile 'rails'
+    add_group 'Echangers', 'app/exchangers'
+    add_group 'Inputs', 'app/inputs'
+    add_group 'Integrations', 'app/integrations'
+    add_group 'Services', 'app/services'
+    add_group 'Validators', 'app/validators'
+  end
+end
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
-
-Coveralls.setup!
-
-SimpleCov.formatters = [
-  Codacy::Formatter,
-  Coveralls::SimpleCov::Formatter
-]
-
-Coveralls.start!('rails') unless ENV['COVERALL'] == 'off'
-SimpleCov.start
 
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
@@ -228,7 +244,7 @@ module ActionController
             end
           end
           attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do |c|
-            [:depth, :lft, :rgt].include?(c)
+            %i(depth lft rgt).include?(c)
           end
 
           attributes += options.delete(:other_attributes) || []
@@ -392,7 +408,7 @@ module ActionController
             test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :success, #{context}\n"
-            [:csv, :ods].each do |format| # :xcsv,
+            %i(csv ods).each do |format| # :xcsv,
               test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
@@ -410,7 +426,7 @@ module ActionController
           elsif mode == :list
             test_code << "get :#{action}, #{sanitized_params[]}\n"
             test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-            [:csv, :ods].each do |format| # , :xcsv
+            %i(csv ods).each do |format| # , :xcsv
               test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
               test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
             end
