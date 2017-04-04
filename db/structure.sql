@@ -6453,6 +6453,56 @@ ALTER SEQUENCE trackings_id_seq OWNED BY trackings.id;
 
 
 --
+-- Name: unbalanced_entities; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW unbalanced_entities AS
+ SELECT entities.id,
+    COALESCE(client_accountancy.balance, (0)::numeric) AS client_accounting_balance,
+    COALESCE(supplier_accountancy.balance, (0)::numeric) AS supplier_accounting_balance,
+    COALESCE(trade.balance, (0)::numeric) AS trade_balance,
+    0 AS lock_version
+   FROM (((entities
+     LEFT JOIN ( SELECT entities_1.id AS entity_id,
+            (- sum(client_items.balance)) AS balance
+           FROM ((entities entities_1
+             JOIN accounts clients ON ((entities_1.client_account_id = clients.id)))
+             JOIN journal_entry_items client_items ON ((clients.id = client_items.account_id)))
+          GROUP BY entities_1.id) client_accountancy ON ((entities.id = client_accountancy.entity_id)))
+     LEFT JOIN ( SELECT entities_1.id AS entity_id,
+            (- sum(supplier_items.balance)) AS balance
+           FROM ((entities entities_1
+             JOIN accounts suppliers ON ((entities_1.supplier_account_id = suppliers.id)))
+             JOIN journal_entry_items supplier_items ON ((suppliers.id = supplier_items.account_id)))
+          GROUP BY entities_1.id) supplier_accountancy ON ((entities.id = supplier_accountancy.entity_id)))
+     LEFT JOIN ( SELECT trades.entity_id,
+            sum(trades.amount) AS balance
+           FROM ( SELECT entities_1.id AS entity_id,
+                    (- sale_items.amount) AS amount
+                   FROM ((entities entities_1
+                     JOIN sales ON ((entities_1.id = sales.client_id)))
+                     JOIN sale_items ON ((sales.id = sale_items.sale_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    incoming_payments.amount
+                   FROM (entities entities_1
+                     JOIN incoming_payments ON ((entities_1.id = incoming_payments.payer_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    purchase_items.amount
+                   FROM ((entities entities_1
+                     JOIN purchases ON ((entities_1.id = purchases.supplier_id)))
+                     JOIN purchase_items ON ((purchases.id = purchase_items.purchase_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    (- outgoing_payments.amount) AS amount
+                   FROM (entities entities_1
+                     JOIN outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) trades
+          GROUP BY trades.entity_id) trade ON ((entities.id = trade.entity_id)))
+  WHERE ((trade.balance <> client_accountancy.balance) OR (trade.balance <> supplier_accountancy.balance));
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -17027,4 +17077,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170315221501');
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
+
+INSERT INTO schema_migrations (version) VALUES ('20170403085630');
 
