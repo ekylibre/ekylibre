@@ -295,6 +295,20 @@ class Entity < Ekylibre::Record::Base
     save!
   end
 
+	def unbalanced?
+   UnbalancedEntity.include? self 
+  end
+
+  def balance_comparison
+    return {} unless unbalanced?
+    UnbalancedEntity.find_by(id: self)
+                    .attributes
+                    .slice("id",
+                           "trade_balance",
+                           "client_accounting_balance",
+                           "supplier_accounting_balance")
+  end
+
   # Returns an entity scope for.all other entities
   def others
     self.class.where('id != ?', (id || 0))
