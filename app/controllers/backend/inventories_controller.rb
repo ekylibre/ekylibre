@@ -67,11 +67,12 @@ module Backend
 
     def reflect
       return unless @inventory = find_and_check
-      if @inventory.reflect
-        notify_success(:changes_have_been_reflected)
-      else
-        notify_error(:changes_have_not_been_reflected)
-      end
+      ReflectInventoryJob.perform_later(@inventory, current_user)
+      # if @inventory.reflect
+      #   notify_success(:changes_have_been_reflected)
+      # else
+      #   notify_error(:changes_have_not_been_reflected)
+      # end
       redirect_to action: :index
     end
   end
