@@ -93,7 +93,7 @@ module Nomen
       name = element.attr('name').to_s
       parent = attributes[:parent] || (element.key?('parent') ? element['parent'] : nil)
       attributes = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
-        next if %w(name parent).include?(k)
+        next if %w[name parent].include?(k)
         h[k] = cast_property(k, v.to_s)
       end
       attributes[:parent] = parent if parent
@@ -159,7 +159,7 @@ module Nomen
       new_parent = changes[:parent]
       new_name = changes[:name]
       changes.each do |k, v|
-        next if %i(parent name).include? k
+        next if %i[parent name].include? k
         i.set(k, v)
       end
       if has_parent
@@ -524,7 +524,7 @@ module Nomen
           end
           value = value.to_sym
         end
-      elsif !%w(name parent aliases).include?(name.to_s)
+      elsif !%w[name parent aliases].include?(name.to_s)
         raise ArgumentError, "Undefined property '#{name}' in #{@name}"
       end
       value

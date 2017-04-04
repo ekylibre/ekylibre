@@ -245,6 +245,8 @@ ita:
       nature:
         bank: "Banca"
         cash: "Contanti"
+        closure: "Chiusura"
+        fixed_assets: "Immobilizzazioni"
         forward: "Portato avanti"
         purchases: "acquisti"
         sales: "Vendite"

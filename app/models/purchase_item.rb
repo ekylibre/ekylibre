@@ -142,7 +142,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   after_update do
-    if fixed && purchase.purchased?
+    if fixed && fixed_asset && purchase.purchased?
       fixed_asset.reload
       amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
       fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
@@ -151,7 +151,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   after_destroy do
-    if fixed && purchase.purchased?
+    if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
     end
     true
@@ -163,7 +163,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      %i(stock purchase).each do |usage|
+      %i[stock purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||

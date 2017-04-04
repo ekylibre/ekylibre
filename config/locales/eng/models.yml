@@ -530,6 +530,7 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
     codes: "Codes"
@@ -778,6 +779,7 @@ eng:
     following: "Following"
     format: "Format"
     formats: "Formats"
+    forward_journal: "Carrying forward journal" #?
     france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"

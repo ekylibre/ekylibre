@@ -4,8 +4,6 @@
   - k.helper :journal_entries_states_crit
   - k.helper :accounts_range_crit
   - k.helper :journals_crit
-  // All choices are selected by default
-  - params[:letter_state] ||= %w(lettered unlettered partially_lettered)
   - k.multi_choice :letter_state, [:lettered, :unlettered, :partially_lettered].map{ |s| [s.tl, s] }, label: :letter_state.tl
 
 = main_list(:journal_entry_items)

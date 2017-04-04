@@ -65,8 +65,8 @@ class Parcel < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
   refers_to :currency
-  enumerize :nature, in: %i(incoming outgoing), predicates: true, scope: true, default: :incoming
-  enumerize :delivery_mode, in: %i(transporter us third), predicates: { prefix: true }, scope: true, default: :us
+  enumerize :nature, in: %i[incoming outgoing], predicates: true, scope: true, default: :incoming
+  enumerize :delivery_mode, in: %i[transporter us third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
   belongs_to :journal_entry, dependent: :destroy

@@ -5,7 +5,7 @@ module Ekylibre
     class Backup < Hash
       class << self
         def models
-          %i(account account_balance area asset asset_depreciation
+          %i[account account_balance area asset asset_depreciation
              bank_statement cash cash_transfer contact cultivation
              custom_field custom_field_choice custom_field_datum delay
              department deposit deposit_line district document
@@ -27,7 +27,7 @@ module Ekylibre
              sale sale_line sale_nature sequence stock stock_move
              stock_transfer subscription subscription_nature tax
              tax_declaration tool tracking tracking_state transfer
-             transport unit user warehouse)
+             transport unit user warehouse]
         end
 
         def schema
@@ -150,7 +150,7 @@ module Ekylibre
         keys = args
         keys << :name if keys.empty?
         columns = self.class.schema[backup_model.to_s.pluralize.to_sym].delete_if do |c|
-          %i(company_id creator_id updater_id id lock_version).include? c
+          %i[company_id creator_id updater_id id lock_version].include? c
         end
         keys.each do |key|
           raise "Invalid key for record identification: #{key}" unless columns.include? key

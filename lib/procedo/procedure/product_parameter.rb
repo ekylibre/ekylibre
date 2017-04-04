@@ -14,7 +14,7 @@ module Procedo
 
       attr_accessor :variety, :derivative_of
 
-      TYPES = %i(target tool doer input output).freeze
+      TYPES = %i[target tool doer input output].freeze
 
       code_trees :component_of
 

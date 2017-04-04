@@ -287,7 +287,7 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
-      generate_last_journal_entry: "Generate last journal entry of %{code}"
+      generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
@@ -1222,7 +1222,9 @@ eng:
     documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done" #?
-    dont_use_journal: "— Do not use journal —"
+    dont_generate_carrying_forward_entries: "— Do not generate carrying forward entries —"
+    dont_generate_closure_entries: "— Do not generate closure entries —"
+    dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
@@ -1725,7 +1727,7 @@ eng:
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
-    select_forward_journal: "Selected Journal to renew"
+    select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
     semester: "Semester" #?
     send_mail: "Send mail"
@@ -2272,7 +2274,7 @@ eng:
       # failure: "Failure"
       family: "Family"
       finish: "Finish"
-      generate_last_journal_entry: "Generate last journal entry"
+      generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

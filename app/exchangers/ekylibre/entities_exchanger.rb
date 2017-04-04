@@ -10,7 +10,7 @@ module Ekylibre
         r = {
           first_name: row[0].blank? ? '' : row[0].to_s,
           last_name: row[1].blank? ? '' : row[1].to_s,
-          nature: (%w(person contact sir madam doctor professor sir_and_madam).include?(row[2].to_s.downcase) ? :contact : :organization),
+          nature: (%w[person contact sir madam doctor professor sir_and_madam].include?(row[2].to_s.downcase) ? :contact : :organization),
           client_account_number: row[3].blank? ? nil : row[3].to_s,
           supplier_account_number: row[4].blank? ? nil : row[4].to_s,
           address: row[5].to_s,

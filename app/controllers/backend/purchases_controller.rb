@@ -31,7 +31,7 @@ module Backend
     #   :period Two dates with "_" separator
     def self.purchases_conditions
       code = ''
-      code = search_conditions(purchases: %i(created_at pretax_amount amount number reference_number description state), entities: %i(number full_name)) + " ||= []\n"
+      code = search_conditions(purchases: %i[created_at pretax_amount amount number reference_number description state], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Purchase.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -64,7 +64,7 @@ module Backend
       code.c
     end
 
-    list(conditions: purchases_conditions, joins: %i(affair supplier), line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+    list(conditions: purchases_conditions, joins: %i[affair supplier], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
       t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -119,12 +119,12 @@ module Backend
     # Displays details of one purchase selected with +params[:id]+
     def show
       return unless @purchase = find_and_check
-      respond_with(@purchase, methods: %i(taxes_amount affair_closed),
+      respond_with(@purchase, methods: %i[taxes_amount affair_closed],
                               include: { delivery_address: { methods: [:mail_coordinate] },
                                          supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
                                          parcels: { include: :items },
                                          affair: { methods: [:balance], include: [outgoing_payments: { include: :mode }] },
-                                         items: { methods: %i(taxes_amount tax_name tax_short_label), include: [:variant] } }) do |format|
+                                         items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
         format.html do
           t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label, label: @purchase.label
         end

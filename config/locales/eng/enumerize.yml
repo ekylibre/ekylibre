@@ -234,7 +234,8 @@ eng:
       nature:
         bank: "Bank"
         cash: "Cash"
-        # fixed_assets: "Fixed assets"
+        closure: "Closure"
+        fixed_assets: "Fixed assets"
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"

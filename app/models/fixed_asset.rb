@@ -67,7 +67,7 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: %i(simplified_linear linear regressive none), predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: %i[simplified_linear linear regressive none], predicates: { prefix: true } # graduated
   refers_to :currency
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
@@ -99,9 +99,9 @@ class FixedAsset < Ekylibre::Record::Base
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
   validates :asset_account, :expenses_account, presence: true
-  enumerize :depreciation_period, in: %i(monthly quarterly yearly), default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
+  enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
-  scope :drafts, -> { where(state: %w(draft)) }
+  scope :drafts, -> { where(state: %w[draft]) }
 
   # [DEPRECATIONS[
   #  - purchase_id
@@ -174,8 +174,8 @@ class FixedAsset < Ekylibre::Record::Base
   before_update do
     @auto_depreciate = false
     old = self.class.find(id)
-    %i(depreciable_amount started_on stopped_on depreciation_method
-       depreciation_period depreciation_percentage currency).each do |attr|
+    %i[depreciable_amount started_on stopped_on depreciation_method
+       depreciation_period depreciation_percentage currency].each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end

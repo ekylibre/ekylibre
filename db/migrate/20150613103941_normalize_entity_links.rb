@@ -10,7 +10,7 @@ class NormalizeEntityLinks < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         execute "UPDATE entity_links SET nature = 'membership' WHERE nature IN ('cooperation', 'association', 'work')"
-        %w(entity linked).each do |type|
+        %w[entity linked].each do |type|
           execute "UPDATE entity_links SET #{type}_role = 'organization' WHERE #{type}_role IN ('employer', 'cooperative', 'association') AND nature = 'membership'"
           execute "UPDATE entity_links SET #{type}_role = 'member' WHERE #{type}_role IN ('member', 'employee') AND nature = 'membership'"
         end
@@ -24,7 +24,7 @@ class NormalizeEntityLinks < ActiveRecord::Migration
 
         execute "UPDATE entity_links SET nature = 'management' WHERE nature = 'hierarchy'"
 
-        %w(entity linked).each do |type|
+        %w[entity linked].each do |type|
           execute "UPDATE entity_links SET #{type}_role = 'employer' WHERE #{type}_role = 'organization' AND nature = 'membership'"
           execute "UPDATE entity_links SET #{type}_role = 'employee' WHERE #{type}_role = 'member' AND nature = 'membership'"
         end

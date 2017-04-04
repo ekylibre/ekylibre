@@ -6,11 +6,11 @@
     iso2: 'pt',
     name: 'Português',
     plural: {
-      keys: %i(one other),
+      keys: %i[one other],
       rule: ->(n) { n < 2 ? :one : :other }
     }
   },
   date: {
-    order: %i(day month year)
+    order: %i[day month year]
   }
 } }

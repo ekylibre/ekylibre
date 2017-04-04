@@ -9,9 +9,9 @@ module Procedo
   module Engine
     class Intervention
       class GroupParameter < Procedo::Engine::Intervention::Parameter
-        CHILDREN_PARAM_NAMES = %i(doers_attributes inputs_attributes
+        CHILDREN_PARAM_NAMES = %i[doers_attributes inputs_attributes
                                   outputs_attributes targets_attributes
-                                  tools_attributes group_parameters_attributes).freeze
+                                  tools_attributes group_parameters_attributes].freeze
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)

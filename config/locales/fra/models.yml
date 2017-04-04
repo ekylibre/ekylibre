@@ -681,6 +681,7 @@ fra:
     closed: "Clôturé"
     closed_at: "Date de clôture"
     closed_on: "Clôturé le"
+    closure_journal: "Journal de clôture"
     clusters_work_number: "Ilôts PAC"
     code: "Code"
     # codes: "Codes"
@@ -965,6 +966,7 @@ fra:
     following: "Suivant"
     # format: "Format"
     formats: "Formats"
+    forward_journal: "Journal des reports à nouveaux"
     france_maaid: "N° AMM"
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?

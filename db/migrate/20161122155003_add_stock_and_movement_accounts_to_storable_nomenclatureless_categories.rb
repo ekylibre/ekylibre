@@ -33,7 +33,7 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
         accounting_system = select_value("SELECT string_value FROM preferences WHERE name = 'accounting_system'")
         return if accounting_system.blank?
         accounting_system = accounting_system.to_sym
-        %i(stock stock_movement).each do |account_type|
+        %i[stock stock_movement].each do |account_type|
           @type = account_type
           account_number = ACCOUNT_LABELS[accounting_system][@type][:number]
           label = ACCOUNT_LABELS[accounting_system][@type][:label]

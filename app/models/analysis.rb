@@ -50,7 +50,7 @@
 class Analysis < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :retrieval_status, in: %i(ok controller_error internal_error sensor_error error), predicates: true
+  enumerize :retrieval_status, in: %i[ok controller_error internal_error sensor_error error], predicates: true
   refers_to :nature, class_name: 'AnalysisNature'
   belongs_to :analyser, class_name: 'Entity'
   belongs_to :sampler, class_name: 'Entity'

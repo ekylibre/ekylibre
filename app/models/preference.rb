@@ -41,9 +41,9 @@
 
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
-  enumerize :nature, in: %i(accounting_system country currency boolean
+  enumerize :nature, in: %i[accounting_system country currency boolean
                             decimal language integer record
-                            spatial_reference_system string), predicates: true
+                            spatial_reference_system string], predicates: true
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
@@ -98,11 +98,11 @@ class Preference < Ekylibre::Record::Base
       klass = object.class.to_s
       if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.values.include?(nature)
         nature
-      elsif %w(String Symbol NilClass).include? klass
+      elsif %w[String Symbol NilClass].include? klass
         :string
-      elsif %w(Integer Fixnum Bignum).include? klass
+      elsif %w[Integer Fixnum Bignum].include? klass
         :integer
-      elsif %w(TrueClass FalseClass Boolean).include? klass
+      elsif %w[TrueClass FalseClass Boolean].include? klass
         :boolean
       elsif ['BigDecimal'].include? klass
         :decimal

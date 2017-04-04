@@ -245,6 +245,8 @@ cmn:
       nature:
         bank: "银行"
         cash: "现金"
+        closure: "关闭"
+        fixed_assets: "固定资产"
         forward: "结转"
         purchases: "购买"
         sales: "销售"

@@ -1324,6 +1324,8 @@ arb:
     documentation: "توثيق"
     doer_cost: "تكلفة الفاعل"
     done: "فعله"
+    dont_generate_carrying_forward_entries: "- لا تولد تحمل إدخالات إلى الأمام -"
+    dont_generate_closure_entries: "- لا تولد إدخالات إغلاق -"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
@@ -2761,7 +2763,7 @@ arb:
         numeration: "احصاء ملفات العملاء / الممولين" #?
     sales_conditions: "شروط البيع"
     supplier_account_radix: "جذر حساب المورد"
-    # unbilled_payables: "Unbilled payables"
+    unbilled_payables: "دائنة غير المفوترة"
     use_contextual_help: "استخدام المساعدة السياقية"
     use_entity_codes_for_account_numbers: "استخدام رمز لخلق أرقام الحسابات"
     use_global_search: "استخدام البحث العالمية"

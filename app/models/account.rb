@@ -310,7 +310,7 @@ class Account < Ekylibre::Record::Base
 
     # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
-      %w(fr_pcg82 fr_pcga).include?(accounting_system)
+      %w[fr_pcg82 fr_pcga].include?(accounting_system)
     end
 
     # Returns the name of the used accounting system
@@ -386,12 +386,13 @@ class Account < Ekylibre::Record::Base
           end
         end
       end
+      return false if conditions.empty?
       '(' + conditions.join(' OR ') + ')'
     end
 
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
-      %i(clients suppliers attorneys).collect do |mode|
+      %i[clients suppliers attorneys].collect do |mode|
         Nomen::Account[mode].send(accounting_system).to_s
       end
     end

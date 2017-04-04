@@ -10,6 +10,6 @@
     }
   },
   date: {
-    order: %i(month day year)
+    order: %i[month day year]
   }
 } }

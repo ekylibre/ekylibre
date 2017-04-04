@@ -88,7 +88,7 @@ class User < Ekylibre::Record::Base
   has_many :sales_invoices, -> { where(state: 'invoice') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_many :sales, through: :person, source: :managed_sales
   has_many :deliveries, foreign_key: :responsible_id
-  has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
+  has_many :unpaid_sales, -> { order(:created_at).where(state: %w[order invoice]).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
   has_many :intervention_participations, through: :worker
 
@@ -258,7 +258,7 @@ class User < Ekylibre::Record::Base
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
-    elsif (rights & %i(__minimum__ __public__)).empty? && (rights_list & rights).empty? && !administrator?
+    elsif (rights & %i[__minimum__ __public__]).empty? && (rights_list & rights).empty? && !administrator?
       message = :no_right_defined_for_this_part_of_the_application_and_this_user.tl
     end
     message
@@ -399,11 +399,11 @@ class User < Ekylibre::Record::Base
     return '' if password_length.blank? || password_length < 1
     letters = case mode
               when :dummy then
-                %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
+                %w[a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9]
               when :simple then
-                %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
+                %w[a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9]
               when :normal then
-                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
+                %w[a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9]
               else
                 %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
               end

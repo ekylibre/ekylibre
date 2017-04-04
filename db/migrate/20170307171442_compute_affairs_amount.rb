@@ -55,7 +55,7 @@ class ComputeAffairsAmount < ActiveRecord::Migration
       LEFT JOIN journal_entry_items AS jei ON (jei.entry_id = d.journal_entry_id AND jei.account_id = CASE WHEN a.type = 'SaleAffair' THEN e.client_account_id ELSE e.supplier_account_id END)
     GROUP BY 1, 2, 3, 4, 5, 6
 ;".gsub(/\s*\n\s*/, ' ')
-    %w(affair_id account_id journal_entry_id third_id id).each do |col|
+    %w[affair_id account_id journal_entry_id third_id id].each do |col|
       execute "CREATE INDEX letterable_deals_#{col} ON letterable_deals (#{col})"
     end
 

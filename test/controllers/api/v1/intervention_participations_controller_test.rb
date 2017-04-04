@@ -102,7 +102,7 @@ module Api
         part_id = JSON(post(:create, payload).body)['id']
         natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
 
-        assert_equal %i(preparation travel intervention travel preparation travel intervention travel preparation), natures
+        assert_equal %i[preparation travel intervention travel preparation travel intervention travel preparation], natures
       end
 
       private
