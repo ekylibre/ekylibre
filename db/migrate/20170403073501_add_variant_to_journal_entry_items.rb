@@ -21,13 +21,14 @@ class AddVariantToJournalEntryItems < ActiveRecord::Migration
             '  WHERE je.id = jei.entry_id' \
 
 
-    # execute 'UPDATE journal_entry_items AS jei' \
-    #         " SET variant_id = ii.variant_id" \
-    #         ' FROM' \
-    #         '    journal_entries AS je' \
-    #         '    JOIN inventories AS i ON i.journal_entry_id = je.id' \
-    #         '    JOIN inventory_items AS ii ON ii.inventory_id = i.id' \
-    #         ' WHERE je.id = jei.entry_id' \
+    execute 'UPDATE journal_entry_items AS jei' \
+            ' SET variant_id = p.variant_id' \
+            ' FROM' \
+            '    journal_entries AS je' \
+            '    JOIN inventories AS i ON i.journal_entry_id = je.id' \
+            '    JOIN inventory_items AS ii ON ii.inventory_id = i.id' \
+            '    JOIN products AS p ON p.id = ii.product_id' \
+            ' WHERE je.id = jei.entry_id' \
 
     execute 'UPDATE journal_entry_items AS jei' \
             ' SET variant_id = pi.variant_id' \
