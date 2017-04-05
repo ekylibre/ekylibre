@@ -353,7 +353,7 @@ module Backend
         code << "unless #{variable}[:letter_state].blank?\n"
         code << "  #{variable}[:letter_state].each_with_index do |current_letter_state, index|\n"
         code << "    if index == 0\n"
-        code << "      c[0] << ' AND '\n"
+        code << "      c[0] << ' AND('\n"
         code << "      if current_letter_state == 'lettered'\n"
         code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
         code << "        c << '%*'\n"
@@ -383,6 +383,7 @@ module Backend
         code << "      end\n"
         code << "    end\n"
         code << "  end\n"
+        code << "  c[0] << ')'\n"
         code << "end\n"
         code.c
       end
@@ -397,10 +398,6 @@ module Backend
 
         code << "  if #{variable}[:amount_max].blank?\n"
         code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit >= ' + params[:amount_min] + ' OR #{JournalEntryItem.table_name}.absolute_debit >= ' + params[:amount_min] + ')'\n"
-        code << "  end\n"
-
-        code << "  if #{variable}[:amount_max] == #{variable}[:amount_min]\n"
-        code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit = ' + params[:amount_min] + ' OR #{JournalEntryItem.table_name}.absolute_debit = ' + params[:amount_min] + ')'\n"
         code << "  end\n"
 
         code << "  if !#{variable}[:amount_min].blank? && !#{variable}[:amount_max].blank?\n"
