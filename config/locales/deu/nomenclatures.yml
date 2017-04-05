@@ -1900,7 +1900,7 @@ deu:
         acta_category: "Acta Kategorie"
     document_natures:
       items:
-        # account_journal_entry_sheet: "Account journal entry sheet"
+        account_journal_entry_sheet: "Kontoblatt Erfassungsblatt"
         activity_cost: "Aktivität Kosten"
         animal_husbandry_register: "Tierhaltung Register"
         animal_list: "Tier Liste"
@@ -1924,9 +1924,9 @@ deu:
         intervention_sheet: "Intervention Blatt"
         inventory_sheet: "Inventarliste"
         journal: "Zeitschrift"
-        # journal_entry_sheet: "Journal entry sheet"
+        journal_entry_sheet: "Journal Erfassungsblatt"
         land_parcel_register: "Registrieren Flurstück"
-        # loan_registry: "Loan registry"
+        loan_registry: "Loan-Registrierung"
         manure_management_plan: "Gülle-Management-Plan"
         manure_management_plan_sheet: "Gülle-Management-Plan (Ausschnitt)"
         outgoing_deliveries_journal: "Ausgehende Lieferungen Zeitschrift"
