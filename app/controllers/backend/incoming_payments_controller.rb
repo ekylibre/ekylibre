@@ -53,7 +53,7 @@ module Backend
 
     list(conditions: incoming_payments_conditions, joins: :payer, order: { to_bank_at: :desc }) do |t|
       t.action :edit, unless: :deposit?
-      t.action :destroy, if: :destroyable?
+      t.action :destroy, if: :destroyable? && 'RECORD.journal_entry.bank_statement_number.blank?'.c
       t.column :number, url: true
       t.column :payer, url: true
       t.column :paid_at
