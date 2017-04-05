@@ -46,7 +46,7 @@ class PlantCounting < Ekylibre::Record::Base
   belongs_to :plant_density_abacus_item
   has_one :activity, through: :plant_density_abacus
   has_many :items, class_name: 'PlantCountingItem', dependent: :delete_all, inverse_of: :plant_counting
-  enumerize :nature, in: [:sowing, :germination]
+  enumerize :nature, in: %i[sowing germination]
 
   validates :nature, presence: true
   validates :rows_count_value, numericality: { greater_than: 0 }, allow_blank: true
@@ -78,7 +78,7 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def values_expected?(threshold = 23.0)
-    return false unless average_value.present?
+    return false if average_value.blank?
 
     pct_threshold = threshold / 100.0
     qt_threshold = pct_threshold * expected_plants_count
@@ -125,7 +125,7 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def indicator_working_width
-    return nil unless plant_sower.present?
+    return nil if plant_sower.blank?
     plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
@@ -135,7 +135,7 @@ class PlantCounting < Ekylibre::Record::Base
   end
 
   def indicator_rows_count
-    return nil unless plant_sower.present?
+    return nil if plant_sower.blank?
     plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 

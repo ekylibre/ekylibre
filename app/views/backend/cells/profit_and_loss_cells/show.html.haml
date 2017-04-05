@@ -1,0 +1,36 @@
+- if @financial_year && Account.french_accounting_system?
+  :ruby
+    # get accoutancy ratio in financial_year.sum_entry_items_with_mandatory_line(:ratio, :products)
+    # operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
+
+    series = []
+    data = []
+
+    production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_sales)
+    data << {name: :product_value.tl(financial_year: @financial_year.name) , y: production_sales.to_s.to_f, color: :green}
+
+    production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
+    data << {name: :charge_value.tl , y: - production_purchases.to_s.to_f, color: :red}
+
+    data << {name: :added_value.tl, isIntermediateSum: true}
+
+    subsidies = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :subsidies)
+    data << {name: :subsidies.tl , y: subsidies.to_s.to_f, color: :green}
+
+    taxes_and_wages = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :taxes_and_wages)
+    data << {name: :taxes_and_wages.tl , y: - taxes_and_wages.to_s.to_f, color: :red}
+
+    data << {name: :operating_margin.tl, isSum: true}
+
+    operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
+    #data << [:operating_margin.l , operating_margin]
+    raw_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income)
+    #data << [:raw_income.l , raw_income]
+    raw_income_before_taxe = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income_before_taxe)
+    net_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_income)
+
+    series << { data: data }
+
+  = waterfall_highcharts(series, title: {text: :profit_and_loss.tl}, x_axis: { type: 'category'}, y_axis: {title: {text: 'EUR'}}, legend: { enabled: false }, tooltip: {point_format: '<b>{point.y:,.2f}</b>'})
+- else
+  = no_data

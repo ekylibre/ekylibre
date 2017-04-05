@@ -331,7 +331,7 @@ module Fixturing
       value = if type == :float || type == :decimal || type == :integer
                 value
               elsif type == :boolean
-                (%w(1 t T true yes TRUE).include?(value) ? 'true' : 'false')
+                (%w[1 t T true yes TRUE].include?(value) ? 'true' : 'false')
               else
                 value.to_yaml.gsub(/^\-\-\-\s*/, '').strip
               end
@@ -353,11 +353,11 @@ module Fixturing
               elsif type == :datetime
                 value.to_time(:utc)
               elsif type == :boolean
-                (%w(1 t T true yes TRUE).include?(value) ? true : false)
+                (%w[1 t T true yes TRUE].include?(value) ? true : false)
               elsif type == :json || type == :jsonb
                 JSON.parse(value)
               else
-                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string, :uuid].include?(type)
+                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless %i[text string uuid].include?(type)
                 value =~ /\A\-\-\-(\s+|\z)/ ? YAML.safe_load(value, [ActionController::Parameters, ActiveSupport::HashWithIndifferentAccess, Symbol, Time, BigDecimal, RGeo::Geos::CAPIGeometryCollectionImpl, RGeo::Geos::CAPIFactory, RGeo::Geos::CAPIMultiPolygonImpl, OpenStruct, RGeo::Geos::CAPIPointImpl]) : value
               end
       value

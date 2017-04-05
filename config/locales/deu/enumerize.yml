@@ -159,13 +159,13 @@ deu:
       depreciation_method:
         graduated: "abgestufte" #?
         # linear: "Linear"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "Keiner"
+        regressive: "Regressiv"
         simplified_linear: "vereinfachte lineare"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "Monatlich"
+        quarterly: "Vierteljährlich"
+        yearly: "Jährlich"
     gap:
       direction:
         loss: "Verlust"
@@ -245,6 +245,8 @@ deu:
       nature:
         # bank: "Bank"
         cash: "Kasse"
+        closure: "Schließung"
+        fixed_assets: "Anlagevermögen"
         forward: "Vorwärts getragen"
         purchases: "Käufe"
         sales: "Der Umsatz"
@@ -270,6 +272,8 @@ deu:
         constant_rate: "Konstante Rate"
       repayment_period:
         month: "Monat"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Jahr"
       shift_method:
         anatocism: "anatocism"

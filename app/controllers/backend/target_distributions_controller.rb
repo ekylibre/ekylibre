@@ -52,7 +52,7 @@ module Backend
           targets = targets.of_variety(activity.cultivation_variety, activity.support_variety)
         end
       else
-        targets = targets.where(type: %w(Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet)) # .where(id: InterventionTarget.includes(:product)) #.where.not(product_id: TargetDistribution.select(:target_id)))
+        targets = targets.where(type: %w[Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet]) # .where(id: InterventionTarget.includes(:product)) #.where.not(product_id: TargetDistribution.select(:target_id)))
       end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')

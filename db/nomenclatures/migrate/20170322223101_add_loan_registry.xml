@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add loan registry">
+  <item-creation item="document_natures#loan_registry" category="accountancy"/>
+</migration>

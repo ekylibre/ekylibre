@@ -133,7 +133,7 @@ class Tax < Ekylibre::Record::Base
         active: (active.nil? ? true : active),
         reference_name: item.name
       }
-      [:deduction, :collect, :fixed_asset_deduction, :fixed_asset_collect].each do |account|
+      %i[deduction collect fixed_asset_deduction fixed_asset_collect].each do |account|
         next unless name = nature.send("#{account}_account")
         tax_radical = Account.find_or_import_from_nomenclature(name)
         # find if already account tax  by number was created

@@ -35,7 +35,7 @@
 #  updater_id   :integer
 #
 class ActivityTactic < Ekylibre::Record::Base
-  enumerize :mode, in: [:sowed, :harvested], default: :sowed
+  enumerize :mode, in: %i[sowed harvested], default: :sowed
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic, foreign_key: :tactic_id

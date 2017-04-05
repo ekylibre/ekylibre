@@ -38,7 +38,7 @@
 class GuideAnalysis < Ekylibre::Record::Base
   belongs_to :guide, inverse_of: :analyses
   has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id, dependent: :destroy
-  enumerize :acceptance_status, in: [:passed, :passed_with_warnings, :failed, :errored], predicates: true
+  enumerize :acceptance_status, in: %i[passed passed_with_warnings failed errored], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :acceptance_status, :guide, presence: true
   validates :execution_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }

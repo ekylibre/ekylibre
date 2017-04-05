@@ -67,7 +67,7 @@ class FixedAsset < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :depreciation_method, in: [:simplified_linear, :linear, :regressive, :none], predicates: { prefix: true } # graduated
+  enumerize :depreciation_method, in: %i[simplified_linear linear regressive none], predicates: { prefix: true } # graduated
   refers_to :currency
   belongs_to :asset_account, class_name: 'Account'
   belongs_to :expenses_account, class_name: 'Account'
@@ -98,10 +98,11 @@ class FixedAsset < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :depreciation_method, inclusion: { in: depreciation_method.values }
-  enumerize :depreciation_period, in: [:monthly, :quarterly, :yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
+  validates :asset_account, :expenses_account, presence: true
+  enumerize :depreciation_period, in: %i[monthly quarterly yearly], default: -> { Preference.get(:default_depreciation_period).value || Preference.set!(:default_depreciation_period, :yearly, :string) }
 
-  scope :drafts, -> { where(state: %w(draft)) }
-  
+  scope :drafts, -> { where(state: %w[draft]) }
+
   # [DEPRECATIONS[
   #  - purchase_id
   #  - purchase_item_id
@@ -112,14 +113,6 @@ class FixedAsset < Ekylibre::Record::Base
     state :in_use
     state :sold
     state :scrapped
-    after_transition any => :sold do |fixed_asset, _transition|
-      fixed_asset.sold_on ||= Date.today
-      fixed_asset.save!
-    end
-    after_transition any => :scrapped do |fixed_asset, _transition|
-      fixed_asset.scrapped_on ||= Date.today
-      fixed_asset.save!
-    end
     event :start_up do
       transition draft: :in_use
     end
@@ -165,11 +158,6 @@ class FixedAsset < Ekylibre::Record::Base
       errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
-      if (fy = FinancialYear.reorder(:started_on).first)
-        unless fy.started_on <= started_on
-          errors.add(:started_on, :greater_than_or_equal_to, count: fy.started_on.l)
-        end
-      end
       if self.stopped_on
         unless self.stopped_on >= started_on
           errors.add(:stopped_on, :posterior, to: started_on.l)
@@ -186,8 +174,8 @@ class FixedAsset < Ekylibre::Record::Base
   before_update do
     @auto_depreciate = false
     old = self.class.find(id)
-    [:depreciable_amount, :started_on, :stopped_on, :depreciation_method,
-     :depreciation_period, :depreciation_percentage, :currency].each do |attr|
+    %i[depreciable_amount started_on stopped_on depreciation_method
+       depreciation_period depreciation_percentage currency].each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
@@ -211,6 +199,18 @@ class FixedAsset < Ekylibre::Record::Base
     return :stop if scrapped? || sold?
   end
 
+  def sell
+    return false unless can_sell?
+    update_column(:sold_on, Date.today) unless sold_on
+    super
+  end
+
+  def scrap
+    return false unless can_scrap?
+    update_column(:scrapped_on, Date.today) unless scrapped_on
+    super
+  end
+
   def updateable?
     draft? || in_use?
   end
@@ -220,7 +220,9 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def add_amount(amount)
-    update(purchase_amount: purchase_amount + amount)
+    unless depreciations.any?(&:journal_entry)
+      update(purchase_amount: purchase_amount + amount, depreciable_amount: depreciable_amount + amount)
+    end
   end
 
   # This callback permits to add journal entry corresponding to the fixed asset when entering in use
@@ -265,22 +267,20 @@ class FixedAsset < Ekylibre::Record::Base
 
       if depreciation_out_on
 
-        # check if next depreciation have journal_entry
+        # check if depreciation have journal_entry
         if depreciation_out_on.journal_entry
           raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{depreciation_out_on.journal_entry.number})"
         end
 
         next_depreciations = depreciations.where('position > ?', depreciation_out_on.position)
 
-        next_depreciations.each do |d|
-          if d.journal_entry
-            raise StandardError, "This fixed asset depreciation is already bookkeep ( Entry : #{d.journal_entry.number})"
-          end
+        # check if next depreciations have journal_entry
+        if next_depreciations.any?(&:journal_entry)
+          raise StandardError, "The next fixed assets depreciations are already bookkeep ( Entry : #{d.journal_entry.number})"
         end
 
         # stop bookkeeping next depreciations
-        depreciations_to_closed = next_depreciations.where(journal_entry_id: nil)
-        depreciations_to_closed.update_all(accountable: false, locked: true)
+        next_depreciations.update_all(accountable: false, locked: true)
 
         # use amount to last bookkeep (net_book_value == current_depreciation.depreciable_amount)
         # use amount to last bookkeep (already_depreciated_value == current_depreciation.depreciated_amount)
@@ -332,11 +332,11 @@ class FixedAsset < Ekylibre::Record::Base
     starts = [started_on, self.stopped_on + 1]
     starts += depreciations.pluck(:started_on)
 
-    FinancialYear.ensure_exists_at!(self.stopped_on)
-    FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
-      start = financial_year.started_on
-      starts << start if started_on <= start && start <= self.stopped_on
-    end
+    # FinancialYear.ensure_exists_at!(self.stopped_on)
+    # FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on).each do |financial_year|
+    # start = financial_year.started_on
+    # starts << start if started_on <= start && start <= self.stopped_on
+    # end
 
     first_day_of_month = ->(date) { date.day == 1 } # date.succ.day < date.day }
     new_months = (started_on...stopped_on).select(&first_day_of_month)
@@ -375,7 +375,7 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
       end
-      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
       position += 1
@@ -405,7 +405,7 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
       end
-      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
       position += 1
@@ -424,7 +424,7 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def depreciable?
-    !depreciations.any?
+    depreciations.none?
   end
 
   # return the current_depreciation at current date

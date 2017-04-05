@@ -28,7 +28,7 @@ class SequenceManager
   def unique_predictable
     last  = last_numbered_record
     value = @start
-    value = number_of(last).succ unless last.blank?
+    value = number_of(last).succ if last.present?
     value = value.succ while @managed.find_by(@column => value)
     value
   end

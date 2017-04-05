@@ -3781,7 +3781,9 @@ CREATE TABLE loan_repayments (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    accountable boolean DEFAULT false NOT NULL,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -3831,7 +3833,18 @@ CREATE TABLE loans (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    insurance_repayment_method character varying
+    insurance_repayment_method character varying,
+    state character varying,
+    ongoing_at timestamp without time zone,
+    repaid_at timestamp without time zone,
+    loan_account_id integer,
+    interest_account_id integer,
+    insurance_account_id integer,
+    use_bank_guarantee boolean,
+    bank_guarantee_account_id integer,
+    bank_guarantee_amount integer,
+    accountable_repayments_started_on date,
+    initial_releasing_amount boolean DEFAULT false NOT NULL
 );
 
 
@@ -5463,7 +5476,8 @@ CREATE TABLE purchase_items (
     activity_budget_id integer,
     team_id integer,
     depreciable_product_id integer,
-    fixed_asset_id integer
+    fixed_asset_id integer,
+    preexisting_asset boolean
 );
 
 
@@ -17009,4 +17023,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 
 INSERT INTO schema_migrations (version) VALUES ('20170315221501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+
+INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 

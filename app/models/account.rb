@@ -55,20 +55,24 @@ class Account < Ekylibre::Record::Base
   has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode',
                                                  foreign_key: :depositables_account_id
   has_many :journal_entries, through: :journal_entry_items, source: :entry
-  has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
-  has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
-  has_many :collected_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
-  has_many :deductible_fixed_asset_taxes,           class_name: 'Tax', foreign_key: :fixed_asset_deduction_account_id
-  has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
-  has_many :purchase_items,       class_name: 'PurchaseItem', dependent: :restrict_with_exception
-  has_many :sale_items,           class_name: 'SaleItem'
-  has_many :products_categories,  class_name: 'ProductNatureCategory', foreign_key: :product_account_id
-  has_many :stocks_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
-  has_many :stocks_movement_categories, class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
-  has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
-  has_many :employees,            class_name: 'Entity', foreign_key: :employee_account_id
-  has_many :stocks_variants,          class_name: 'ProductNatureVariant', foreign_key: :stock_account_id
-  has_many :stocks_movement_variants, class_name: 'ProductNatureVariant', foreign_key: :stock_movement_account_id
+  has_many :journal_entry_items,          class_name: 'JournalEntryItem', dependent: :restrict_with_exception
+  has_many :paid_taxes,                   class_name: 'Tax', foreign_key: :deduction_account_id
+  has_many :collected_fixed_asset_taxes,  class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
+  has_many :deductible_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_deduction_account_id
+  has_many :charges_categories,           class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
+  has_many :purchase_items,               class_name: 'PurchaseItem', dependent: :restrict_with_exception
+  has_many :sale_items,                   class_name: 'SaleItem'
+  has_many :products_categories,          class_name: 'ProductNatureCategory', foreign_key: :product_account_id
+  has_many :stocks_categories,            class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
+  has_many :stocks_movement_categories,   class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
+  has_many :suppliers,                    class_name: 'Entity', foreign_key: :supplier_account_id
+  has_many :employees,                    class_name: 'Entity', foreign_key: :employee_account_id
+  has_many :stocks_variants,              class_name: 'ProductNatureVariant', foreign_key: :stock_account_id
+  has_many :stocks_movement_variants,     class_name: 'ProductNatureVariant', foreign_key: :stock_movement_account_id
+  has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
+  has_many :nterests_loans,               class_name: 'Loan', foreign_key: :interest_account_id
+  has_many :insurances_loans, class_name: 'Loan', foreign_key: :insurance_account_id
+  has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
@@ -105,6 +109,10 @@ class Account < Ekylibre::Record::Base
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
+  scope :loans, -> { of_usage(:loans) }
+  scope :interests, -> { of_usages(:campaigns_interests, :long_term_loans_interests, :short_term_loans_interests) }
+  scope :insurances, -> { of_usages(:equipment_maintenance_expenses, :exploitation_risk_insurance_expenses, :infirmity_and_death_insurance_expenses, :insurance_expenses) }
+  scope :payment_guarantees, -> { of_usage(:payment_guarantees) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
   scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }
@@ -302,7 +310,7 @@ class Account < Ekylibre::Record::Base
 
     # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
-      %w(fr_pcg82 fr_pcga).include?(accounting_system)
+      %w[fr_pcg82 fr_pcga].include?(accounting_system)
     end
 
     # Returns the name of the used accounting system
@@ -344,7 +352,7 @@ class Account < Ekylibre::Record::Base
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
       expression = ''
-      unless range.blank?
+      if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
         for expr in range.split(/[^0-9A-Z\-\*]+/)
           if expr =~ /\-/
@@ -378,12 +386,13 @@ class Account < Ekylibre::Record::Base
           end
         end
       end
+      return false if conditions.empty?
       '(' + conditions.join(' OR ') + ')'
     end
 
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
-      [:clients, :suppliers, :attorneys].collect do |mode|
+      %i[clients suppliers attorneys].collect do |mode|
         Nomen::Account[mode].send(accounting_system).to_s
       end
     end

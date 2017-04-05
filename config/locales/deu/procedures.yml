@@ -1,5 +1,14 @@
 deu:
   procedure_handlers:
+    grains_area_density: "Körner Flächendichte"
+    grains_area_density_in_thousand_per_hectare: "Körner Flächendichte in Tausend pro Hektar"
+    grains_count: "Körner zählen"
+    mass_area_density: "Massenflächendichte"
+    mass_area_density_in_ton_per_hectare: "Massenflächendichte in Tonnen pro Hektar"
+    net_mass: "Nettomasse"
+    seedling_area_density: "Sämling Flächendichte"
+    seedling_area_density_in_thousand_per_hectare: "Sämling Flächendichte in Tausend pro Hektar"
+    seedling_count: "Sämling Zahl"
     stakes_by_hectare: "Stakes von Hektar"
   procedure_killable_parameters:
     is_cultivation_completely_destroyed_by_intervention: "Ist Anbau vollständig durch Eingriffe zerstört?"

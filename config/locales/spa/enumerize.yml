@@ -159,13 +159,13 @@ spa:
       depreciation_method:
         graduated: "Graduado" #?
         linear: "Lineal"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "Ninguna"
+        regressive: "Regresivo"
         simplified_linear: "Lineal simplificado"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "Mensual"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Pérdida"
@@ -245,6 +245,8 @@ spa:
       nature:
         bank: "Banco"
         cash: "Efectivo"
+        closure: "Cierre"
+        fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
         sales: "Ventas"
@@ -270,6 +272,8 @@ spa:
         constant_rate: "Tasa constante"
       repayment_period:
         month: "Mes"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Año"
       shift_method:
         anatocism: "Anatocismo"

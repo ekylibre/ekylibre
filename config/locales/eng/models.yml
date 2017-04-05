@@ -33,6 +33,9 @@ eng:
         born_at: "Created at"
       land_parcel_group:
         born_at: "Created at"
+      loan:
+        ongoing_at: "Fund raising at"
+        started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Outgoing payment list"
@@ -214,6 +217,7 @@ eng:
       animal: "Animal"
       animal_group: "Animal group"
       attachment: "Attachment"
+      bank_guarantee_account: "Bank guarantee account" #?
       bank_statement: "Bank statement"
       bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
@@ -271,7 +275,9 @@ eng:
       inspection: "Product grading"
       inspection_calibration: "Inspection calibre"
       inspection_point: "Product grading check"
+      insurance_account: "Insurance account" #?
       integration: "Integration"
+      interest_account: "Interest account" #?
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
       intervention_doer: "Intervention doer"
@@ -298,6 +304,7 @@ eng:
       listing_node: "Listing node"
       listing_node_item: "Listing node item"
       loan: "Loan"
+      loan_account: "Loan account" #?
       loan_repayment: "Loan repayment"
       manure_management_plan: "Manure management plan"
       manure_management_plan_zone: "Manure management plan zone"
@@ -391,6 +398,7 @@ eng:
     account_name: "Account name"
     account_number: "Account number"
     accountable: "Accountable"
+    accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
@@ -462,6 +470,9 @@ eng:
     bank_agency_code: "Bank agency code"
     bank_check_number: "Bank check number"
     bank_code: "Bank code"
+    bank_guarantee_account: "Bank guarantee account"
+    bank_guarantee_amount: "Bank guarantee amount"
+    bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "Bank identifier code"
     bank_name: "Bank name"
     bank_statement: "Bank statement"
@@ -519,6 +530,7 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
     codes: "Codes"
@@ -767,6 +779,7 @@ eng:
     following: "Following"
     format: "Format"
     formats: "Formats"
+    forward_journal: "Carrying forward journal" #?
     france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
@@ -849,6 +862,7 @@ eng:
     initial_number: "Initial number"
     initial_owner: "Initial owner"
     initial_population: "Initial population"
+    initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Initial shape"
     initialization_vectors: "Initialization vectors"
     initiated_on: "Initiated on"
@@ -860,11 +874,14 @@ eng:
     inspection_point_natures: "Inspection point types"
     inspection_points: "Inspection points"
     inspections: "Inspections"
+    # insurance_account: "Insurance account"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
     insurance_repayment_method: "Insurance repayment method"
+    # insurances_loans: "Insurances loans"
     integer_value: "Integer value"
     integration_name: "Integration name"
+    # interest_account: "Interest account"
     interest_amount: "Interest amount"
     interest_percentage: "Interest percentage"
     intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
@@ -957,6 +974,8 @@ eng:
     list: "List"
     listing: "Listing"
     loan: "Loan"
+    # loan_account: "Loan account"
+    # loans: "Loans"
     local_balance: "Local balance"
     local_count: "Local count"
     local_credit: "Local credit"
@@ -1062,6 +1081,7 @@ eng:
     noticed_stop_amount: "Noticed stop amount"
     notification: "Notification"
     notifications: "Notifications"
+    # nterests_loans: "Nterests loans"
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"
@@ -1070,6 +1090,7 @@ eng:
     observed_at: "Observed at"
     of_company: "Of the company"
     old_password: "Old password"
+    # ongoing_at: "Ongoing at"
     opacity: "Opacity"
     opened_at: "Opened at"
     operation: "Operation"
@@ -1152,6 +1173,7 @@ eng:
     postal_code: "Postal code"
     postal_zones: "Postal zones"
     pre_harvest_interval: "Pre-harvest interval" #?
+    # preexisting_asset: "Preexisting asset"
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -1241,10 +1263,10 @@ eng:
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
-    real_credit: "Original credit"
-    real_currency: "Original currency"
-    real_currency_rate: "Original currency rate"
-    real_debit: "Original debit"
+    real_credit: "Real credit"
+    real_currency: "Real currency"
+    real_currency_rate: "Real currency rate"
+    real_debit: "Real debit"
     # real_pretax_amount: "Real pretax amount"
     receipt: "Receipt"
     received: "Received"
@@ -1282,6 +1304,7 @@ eng:
     remember_created_at: "Remember created at"
     remember_me: "Remember me"
     reminder_submissive: "Reminder submissive"
+    # repaid_at: "Repaid at"
     repayment_duration: "Repayment duration"
     repayment_method: "Repayment method"
     repayment_period: "Repayment period"
@@ -1510,6 +1533,7 @@ eng:
     usage_limit_nature: "Used by type"
     usage_limit_on: "Used by on"
     usages: "Usages"
+    use_bank_guarantee: "Bank guarantee"
     use_countings: "Use countings"
     use_gradings: "Use gradings"
     use_seasons: "Use seasonalities"
@@ -1709,6 +1733,12 @@ eng:
       reflections: "Associated tables"
     loan:
       bookkeep: "[%{resource} %{name}] Fund reception"
+      bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "Draft"
+          ongoing: "Ongoing"
+          repaid: "Repaid"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

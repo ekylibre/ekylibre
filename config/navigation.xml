@@ -25,6 +25,8 @@
         <page to="backend/entities#list_sales"/>
         <page to="backend/entities#list_subscriptions"/>
         <page to="backend/entities#list_tasks"/>
+        <page to="backend/entities#list_client_journal_entry_items"/>
+        <page to="backend/entities#list_supplier_journal_entry_items"/>
         <page to="backend/entities#picture"/>
         <page to="backend/entities#unroll"/>
         <page to="backend/entities#merge"/>
@@ -157,11 +159,16 @@
         <page to="backend/fixed_assets#edit"/>
         <page to="backend/fixed_assets#list"/>
         <page to="backend/fixed_assets#list_depreciations"/>
-        <page to="backend/fixed_assets#list_products" nonexistent="true"/>
         <page to="backend/fixed_assets#new"/>
         <page to="backend/fixed_assets#show"/>
         <page to="backend/fixed_assets#unroll"/>
         <page to="backend/fixed_assets#update"/>
+        <page to="backend/fixed_asset_depreciations#show"/>
+        <page to="backend/fixed_assets#depreciate"/>
+        <page to="backend/fixed_assets#depreciate_up_to"/>
+        <page to="backend/fixed_assets#scrap"/>
+        <page to="backend/fixed_assets#sell"/>
+        <page to="backend/fixed_assets#start_up"/>
       </item>
     </group>
     <group name="vat" icon="legal">
@@ -229,8 +236,14 @@
         <page to="backend/loans#show"/>
         <page to="backend/loans#unroll"/>
         <page to="backend/loans#update"/>
+        <page to="backend/loans#accounting"/>
+        <page to="backend/loans#confirm"/>
+        <page to="backend/loans#repay"/>
         <page to="backend/loan_repayments#index"/>
         <page to="backend/loan_repayments#show"/>
+        <page to="backend/loan_repayments#edit"/>
+        <page to="backend/loan_repayments#new"/>
+        <page to="backend/loan_repayments#update"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>
@@ -470,6 +483,7 @@
         <page to="backend/matters#list_carrier_linkages"/>
         <page to="backend/matters#list_contained_products"/>
         <page to="backend/matters#list_inspections"/>
+        <page to="backend/matters#list_fixed_assets"/>
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_product_parameters"/>
@@ -499,6 +513,7 @@
         <page to="backend/products#list_groups"/>
         <page to="backend/products#list_issues"/>
         <page to="backend/products#list_readings"/>
+        <page to="backend/products#list_fixed_assets"/>
         <page to="backend/products#list_intervention_product_parameters"/>
         <page to="backend/products#list_parcel_items"/>
         <page to="backend/products#list_members"/>
@@ -520,6 +535,7 @@
         <page to="backend/product_groups#list_carried_linkages"/>
         <page to="backend/product_groups#list_carrier_linkages"/>
         <page to="backend/product_groups#list_contained_products"/>
+        <page to="backend/product_groups#list_fixed_assets"/>
         <page to="backend/product_groups#list_inspections"/>
         <page to="backend/product_groups#list_parcel_items"/>
         <page to="backend/product_groups#list_groups"/>
@@ -681,6 +697,7 @@
         <page to="backend/fungi#list_carried_linkages"/>
         <page to="backend/fungi#list_carrier_linkages"/>
         <page to="backend/fungi#list_contained_products"/>
+        <page to="backend/fungi#list_fixed_assets"/>
         <page to="backend/fungi#list_groups"/>
         <page to="backend/fungi#list_intervention_product_parameters"/>
         <page to="backend/fungi#list_parcel_items"/>
@@ -831,6 +848,7 @@
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_inspections"/>
+        <page to="backend/land_parcels#list_fixed_assets"/>
         <page to="backend/land_parcels#list_groups"/>
         <page to="backend/land_parcels#list_readings"/>
         <page to="backend/land_parcels#list_intervention_product_parameters"/>
@@ -854,8 +872,9 @@
         <page to="backend/plants#list_carried_linkages"/>
         <page to="backend/plants#list_carrier_linkages"/>
         <page to="backend/plants#list_contained_products"/>
-        <page to="backend/plants#list_inspections"/>
+        <page to="backend/plants#list_fixed_assets"/>
         <page to="backend/plants#list_groups"/>
+        <page to="backend/plants#list_inspections"/>
         <page to="backend/plants#list_parcel_items"/>
         <page to="backend/plants#list_plant_countings"/>
         <page to="backend/plants#list_readings"/>
@@ -902,6 +921,7 @@
         <page to="backend/animals#list_carried_linkages"/>
         <page to="backend/animals#list_carrier_linkages"/>
         <page to="backend/animals#list_trackings"/>
+        <page to="backend/animals#list_fixed_assets"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
         <page to="backend/animals#change"/>
@@ -929,6 +949,7 @@
         <page to="backend/animal_groups#list_parcel_items"/>
         <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#list_trackings"/>
+        <page to="backend/animal_groups#list_fixed_assets"/>
         <page to="backend/animal_groups#unroll"/>
         <page to="backend/animal_groups#picture"/>
         <page to="backend/animal_groups#take"/>
@@ -979,7 +1000,7 @@
     </group>
     <group name="decision_making" icon="compass">
       <!--
-	  <item name="guides">
+          <item name="guides">
           <page to="backend/guides#index"/>
           <page to="backend/guides#create"/>
           <page to="backend/guides#destroy"/>
@@ -993,7 +1014,7 @@
           <page to="backend/guides#list_analyses"/>
           <page to="backend/guide_analyses#show"/>
           <page to="backend/guide_analyses#list_points"/>
-	  </item>
+          </item>
       -->
     </group>
     <group name="cartography" icon="layers">
@@ -1068,14 +1089,14 @@
       </item>
     </group>
     <!--
-	<group name="support" icon="question">
-	<item name="help">
-        <page to="backend/helps#index"/>
-        <page to="backend/helps#show"/>
-        <page to="backend/helps#toggle"/>
-	</item>
-	</group>
-    -->
+        <group name="support" icon="question">
+          <item name="help">
+            <page to="backend/helps#index"/>
+            <page to="backend/helps#show"/>
+            <page to="backend/helps#toggle"/>
+          </item>
+        </group>
+	-->
   </part>
   <part name="settings" icon="wrench">
     <page to="backend/dashboards#settings"/>
@@ -1295,7 +1316,6 @@
         <page to="backend/financial_years#create"/>
         <page to="backend/financial_years#destroy"/>
         <page to="backend/financial_years#edit"/>
-        <page to="backend/financial_years#generate_last_journal_entry"/>
         <page to="backend/financial_years#list"/>
         <page to="backend/financial_years#list_account_balances"/>
         <page to="backend/financial_years#list_exchanges"/>
@@ -1480,6 +1500,7 @@
         <page to="backend/workers#list_contained_products"/>
         <page to="backend/workers#list_inspections"/>
         <page to="backend/workers#list_groups"/>
+        <page to="backend/workers#list_fixed_assets"/>
         <page to="backend/workers#list_readings"/>
         <page to="backend/workers#list_intervention_product_parameters"/>
         <page to="backend/workers#list_issues"/>
@@ -1506,6 +1527,7 @@
         <page to="backend/equipments#list_parcel_items"/>
         <page to="backend/equipments#list_contained_products"/>
         <page to="backend/equipments#list_inspections"/>
+        <page to="backend/equipments#list_fixed_assets"/>
         <page to="backend/equipments#list_groups"/>
         <page to="backend/equipments#list_issues"/>
         <page to="backend/equipments#list_readings"/>
@@ -1528,6 +1550,7 @@
         <page to="backend/buildings#list_divisions"/>
         <page to="backend/buildings#take"/>
         <page to="backend/buildings#unroll"/>
+        <page to="backend/buildings#list_fixed_assets"/>
         <page to="backend/buildings#list_contained_products"/>
         <page to="backend/buildings#list_inspections"/>
         <page to="backend/buildings#list_groups"/>
@@ -1565,6 +1588,7 @@
         <page to="backend/building_divisions#list_carried_linkages"/>
         <page to="backend/building_divisions#list_carrier_linkages"/>
         <page to="backend/building_divisions#list_trackings"/>
+        <page to="backend/building_divisions#list_fixed_assets"/>
         <page to="backend/building_divisions#picture"/>
       </item>
       <item name="settlements">
@@ -1577,6 +1601,7 @@
         <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
         <page to="backend/settlements#list_inspections"/>
+        <page to="backend/settlements#list_fixed_assets"/>
         <page to="backend/settlements#list_groups"/>
         <page to="backend/settlements#list_readings"/>
         <page to="backend/settlements#list_intervention_product_parameters"/>
@@ -1800,6 +1825,9 @@
         <page to="backend/cells/last_products_cells#list"/>
         <page to="backend/cells/last_products_cells#show"/>
       </item>
+      <item name="profit_and_loss_cells">
+        <page to="backend/cells/profit_and_loss_cells#show"/>
+      </item>
       <item name="quandl_cells">
         <page to="backend/cells/quandl_cells#show"/>
       </item>
@@ -1929,60 +1957,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="animal_groups">
-        <page to="backend/animal_groups#list_fixed_assets"/>
-      </item>
-      <item name="animals">
-        <page to="backend/animals#list_fixed_assets"/>
-      </item>
-      <item name="building_divisions">
-        <page to="backend/building_divisions#list_fixed_assets"/>
-      </item>
-      <item name="buildings">
-        <page to="backend/buildings#list_fixed_assets"/>
-      </item>
-      <item name="entities">
-        <page to="backend/entities#list_client_journal_entry_items"/>
-        <page to="backend/entities#list_supplier_journal_entry_items"/>
-      </item>
-      <item name="equipments">
-        <page to="backend/equipments#list_fixed_assets"/>
-      </item>
-      <item name="fixed_asset_depreciations">
-        <page to="backend/fixed_asset_depreciations#show"/>
-      </item>
-      <item name="fixed_assets">
-        <page to="backend/fixed_assets#depreciate"/>
-        <page to="backend/fixed_assets#depreciate_up_to"/>
-        <page to="backend/fixed_assets#scrap"/>
-        <page to="backend/fixed_assets#sell"/>
-        <page to="backend/fixed_assets#start_up"/>
-      </item>
-      <item name="fungi">
-        <page to="backend/fungi#list_fixed_assets"/>
-      </item>
-      <item name="land_parcels">
-        <page to="backend/land_parcels#list_fixed_assets"/>
-      </item>
-      <item name="matters">
-        <page to="backend/matters#list_fixed_assets"/>
-      </item>
-      <item name="plants">
-        <page to="backend/plants#list_fixed_assets"/>
-      </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#list_fixed_assets"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#list_fixed_assets"/>
-      </item>
-      <item name="settlements">
-        <page to="backend/settlements#list_fixed_assets"/>
-      </item>
-      <item name="workers">
-        <page to="backend/workers#list_fixed_assets"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

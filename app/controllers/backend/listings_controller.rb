@@ -62,7 +62,6 @@ module Backend
             send_data(csv_string, filename: @listing.name.simpleize + '.csv', type: Mime::CSV)
           end
         end
-
       rescue Exception => e
         notify_error(:fails_to_extract_listing, message: e.message)
         redirect_to_back
@@ -122,7 +121,7 @@ module Backend
         full_results = ActiveRecord::Base.connection.select_all(query)
         listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_node, session[:listing_coordinate_column])
         # raise StandardError.new listing_coordinate_column.inspect
-        results = full_results.select { |c| !c[listing_coordinate_column.label].blank? }
+        results = full_results.reject { |c| c[listing_coordinate_column.label].blank? }
         @mails = results.collect { |c| c[listing_coordinate_column.label] }
         # @mails.uniq! ### CHECK ????????
         @columns = (!full_results.empty? ? full_results[0].keys.sort : [])

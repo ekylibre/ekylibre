@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Backend
   class CampaignsControllerTest < ActionController::TestCase
-    test_restfully_all_actions except: [:open, :current]
+    test_restfully_all_actions except: %i[open current]
 
     test 'open action in post mode' do
       post :open, locale: @locale, activity_id: activities(:activities_001).id, id: campaigns(:campaigns_001).id

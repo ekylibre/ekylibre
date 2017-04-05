@@ -3,7 +3,8 @@
     = field FinancialYear.model_name.human, @financial_year.code
     = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l
     = hidden_field_tag("financial_year[stopped_on]", @financial_year.stopped_on)
-    = field :select_forward_journal.tl, select_tag("journal_id", options_for_select([[:dont_use_journal.tl, ""], [:create_journal.tl, 0]] + Journal.all.collect{|j| [j.name, j.id]}, :selected => params[:journal_id]))
+    = field FinancialYear.human_attribute_name(:closure_journal), select_tag("closure_journal_id", options_for_select([[:dont_generate_closure_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :closure).collect{|j| [j.name, j.id]}, selected: params[:closure_journal_id]))
+    = field FinancialYear.human_attribute_name(:forward_journal), select_tag("forward_journal_id", options_for_select([[:dont_generate_carrying_forward_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :forward).collect{|j| [j.name, j.id]}, selected: params[:forward_journal_id]))
   = form_actions do
-    = submit_tag(:close_financial_year.tl, "data-confirm" => :are_you_sure.tl, class: "primary")
+    = submit_tag(:close_financial_year.tl, data: { confirm: :are_you_sure.tl }, class: "primary")
     = link_to(:cancel.tl, (params[:redirect] || {action: :index}), class: "btn")

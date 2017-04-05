@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add indicators2">
+   <item-creation item="indicators#seedling_count" datatype="measure" unit="thousand"/>
+</migration>

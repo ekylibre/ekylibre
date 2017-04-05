@@ -115,7 +115,7 @@ module Visualization
       if object.is_a?(TrueClass)
         hash = { header: item[:name] }
         for key, value in item
-          unless [:header, :footer, :name, :shape].include?(key)
+          unless %i[header footer name shape].include?(key)
             hash[key] = value.to_s
           end
         end

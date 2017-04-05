@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2014 Brice Texier, David Joulin
@@ -37,7 +38,7 @@ module Api
       protected
 
       def permitted_params
-        super.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: [:procedure_nature, :name, :scanned_code, :quantity, :unit])
+        super.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: %i[procedure_nature name scanned_code quantity unit])
       end
     end
   end

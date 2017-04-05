@@ -60,7 +60,7 @@ class ProductNature < Ekylibre::Record::Base
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   refers_to :reference_name, class_name: 'ProductNature'
-  enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: { prefix: true }
+  enumerize :population_counting, in: %i[unitary integer decimal], predicates: { prefix: true }
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :subscription_nature
   has_many :subscriptions, through: :subscription_nature
