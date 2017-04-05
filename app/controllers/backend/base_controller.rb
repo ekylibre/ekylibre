@@ -386,6 +386,31 @@ module Backend
         code << "end\n"
         code.c
       end
+
+      def amount_range_crit(variable, conditions = 'c')
+        variable = "params[:#{variable}]" unless variable.is_a? String
+        code =''
+        code << "unless #{variable}[:amount_min].blank? && #{variable}[:amount_max].blank?\n"
+        code << "  if #{variable}[:amount_min].blank?\n"
+        code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit <= ' + params[:amount_max] + ' AND #{JournalEntryItem.table_name}.absolute_debit <= ' + params[:amount_max] + ')'\n"
+        code << "  end\n"
+
+        code << "  if #{variable}[:amount_max].blank?\n"
+        code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit >= ' + params[:amount_min] + ' OR #{JournalEntryItem.table_name}.absolute_debit >= ' + params[:amount_min] + ')'\n"
+        code << "  end\n"
+
+        code << "  if #{variable}[:amount_max] == #{variable}[:amount_min]\n"
+        code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit = ' + params[:amount_min] + ' OR #{JournalEntryItem.table_name}.absolute_debit = ' + params[:amount_min] + ')'\n"
+        code << "  end\n"
+
+        code << "  if !#{variable}[:amount_min].blank? && !#{variable}[:amount_max].blank?\n"
+        code << "    c[0] << ' AND ((#{JournalEntryItem.table_name}.absolute_credit >= ' + params[:amount_min] + ' AND #{JournalEntryItem.table_name}.absolute_credit <= ' + params[:amount_max] + ') OR (#{JournalEntryItem.table_name}.absolute_debit >= ' + params[:amount_min] + ' AND #{JournalEntryItem.table_name}.absolute_debit <= ' + params[:amount_max] +'))'\n"
+        code << "  end\n"
+
+        code << "end\n"
+
+        code.c
+      end
     end
   end
 end

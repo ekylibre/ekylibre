@@ -29,6 +29,7 @@ module Backend
       code << accounts_range_crit('params')
       code << journals_crit('params')
       code << journal_letter_crit('params')
+      code << amount_range_crit('params')
       code << "c\n"
       # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
       code.c # .gsub(/\s*\n\s*/, ";")

@@ -96,6 +96,25 @@ module Backend
         end
       end
 
+      class NumberFeather < Feather
+        def configure(*_args)
+          @name = @options.delete(:name) || :n
+        end
+
+        def to_html
+          p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
+          @template.params[@name] ||= p.value
+          p.set!(@template.params[@name])
+          html = @template.content_tag(:label, @options[:label] || :amount_min.tl)
+          html << ' '.html_safe
+          html << @template.number_field_tag("amount_min", @template.params[:amount_min], min: 0)
+          html << ' '.html_safe
+          html << @template.content_tag(:label, @options[:label] || :amount_max.tl)
+          html << ' '.html_safe
+          html << @template.number_field_tag("amount_max", @template.params[:amount_max], min: 0)
+        end
+      end
+
       # Choice feather permit to select one among many choice to filter
       class ChoiceFeather < Feather
         def configure(*args)
