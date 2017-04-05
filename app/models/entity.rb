@@ -300,6 +300,16 @@ class Entity < Ekylibre::Record::Base
    EntityBalance.unbalanced.include? self 
   end
 
+  def client_balance
+    return 0.0 unless client?
+    balance_amounts[:client_accounting_balance]
+  end
+
+  def supplier_balance
+    return 0.0 unless supplier?
+    balance_amounts[:supplier_accounting_balance]
+  end
+
   # Returns an entity scope for.all other entities
   def others
     self.class.where('id != ?', (id || 0))
