@@ -1900,6 +1900,7 @@ cmn:
         acta_category: "ACTA类别"
     document_natures:
       items:
+        # account_journal_entry_sheet: "Account journal entry sheet"
         activity_cost: "活动费用"
         animal_husbandry_register: "畜牧业寄存器"
         animal_list: "动物名单"
@@ -1923,7 +1924,9 @@ cmn:
         intervention_sheet: "干预片"
         inventory_sheet: "库存表"
         journal: "日志"
+        # journal_entry_sheet: "Journal entry sheet"
         land_parcel_register: "地块寄存器"
+        # loan_registry: "Loan registry"
         manure_management_plan: "粪便管理计划"
         manure_management_plan_sheet: "粪便管理计划（详细）"
         outgoing_deliveries_journal: "即将离任的交付日记"

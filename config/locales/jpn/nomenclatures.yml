@@ -1911,6 +1911,7 @@ jpn:
         acta_category: "アクタカテゴリ"
     document_natures:
       items:
+        # account_journal_entry_sheet: "Account journal entry sheet"
         activity_cost: "活動費"
         animal_husbandry_register: "畜産・レジスタ"
         animal_list: "動物のリスト"
@@ -1934,7 +1935,9 @@ jpn:
         intervention_sheet: "介入シート"
         inventory_sheet: "インベントリシート"
         journal: "ジャーナル"
+        # journal_entry_sheet: "Journal entry sheet"
         land_parcel_register: "土地区画レジスタ"
+        # loan_registry: "Loan registry"
         manure_management_plan: "肥料管理計画"
         manure_management_plan_sheet: "肥料管理計画（詳細）"
         outgoing_deliveries_journal: "発信配達ジャーナル"
