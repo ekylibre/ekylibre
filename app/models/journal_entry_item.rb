@@ -239,7 +239,9 @@ class JournalEntryItem < Ekylibre::Record::Base
     credit = options.delete(:credit) ? true : false
     credit = !credit if amount < 0
     attributes = options.merge(name: name)
-    attributes[:account_id] = account.is_a?(Integer) ? account : account.id
+    if attributes[:account_id].present?
+      attributes[:account_id] = account.is_a?(Integer) ? account : account.id
+    end
     attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
     attributes[:team_id] = options[:team].id if options[:team]
     attributes[:tax_id] = options[:tax].id if options[:tax]
