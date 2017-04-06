@@ -5,7 +5,7 @@ module Procedo
   class Procedure
     # An Handler define a way to quantify a population
     class Handler < Procedo::Procedure::Field
-      TYPES = %i(indicator population).freeze
+      TYPES = %i[indicator population].freeze
 
       code_trees :condition, root: 'boolean_expression'
       code_trees :forward, :backward

@@ -533,6 +533,7 @@ eng:
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
     codes: "Codes"
@@ -781,6 +782,7 @@ eng:
     following: "Following"
     format: "Format"
     formats: "Formats"
+    forward_journal: "Carrying forward journal" #?
     france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
@@ -879,7 +881,6 @@ eng:
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
     insurance_repayment_method: "Insurance repayment method"
-    # insurances_loans: "Insurances loans"
     integer_value: "Integer value"
     integration_name: "Integration name"
     # interest_account: "Interest account"
@@ -977,6 +978,8 @@ eng:
     loan: "Loan"
     # loan_account: "Loan account"
     # loans: "Loans"
+    # loans_as_insurance: "Loans as insurance"
+    # loans_as_interest: "Loans as interest"
     local_balance: "Local balance"
     local_count: "Local count"
     local_credit: "Local credit"
@@ -1082,7 +1085,6 @@ eng:
     noticed_stop_amount: "Noticed stop amount"
     notification: "Notification"
     notifications: "Notifications"
-    # nterests_loans: "Nterests loans"
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"

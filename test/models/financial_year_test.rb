@@ -187,4 +187,19 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert FinancialYear.on(Date.civil(2015, 5, 4))
     assert FinancialYear.on(Date.civil(Date.today.year + 25, 5, 4))
   end
+
+  test 'close' do
+    FinancialYear.where('stopped_on < ?', Date.today).order(:started_on).each do |f|
+      next if f.closed?
+      assert f.closable?, "Financial year #{f.code} should be closable"
+
+      options = {
+        forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
+                         Journal.create_one!(:forward, f.currency),
+        closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||
+                         Journal.create_one!(:closure, f.currency)
+      }
+      assert f.close(nil, options), "Financial year #{f.code} should be closed"
+    end
+  end
 end

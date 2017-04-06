@@ -60,10 +60,10 @@
 class Loan < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :repayment_method, in: %i(constant_rate constant_amount), default: :constant_amount
-  enumerize :shift_method, in: %i(immediate_payment anatocism), default: :immediate_payment
-  enumerize :repayment_period, in: %i(month year trimester semester), default: :month, predicates: { prefix: true }
-  enumerize :insurance_repayment_method, in: %i(initial to_repay), default: :to_repay, predicates: true
+  enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
+  enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
+  enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
+  enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -88,7 +88,7 @@ class Loan < Ekylibre::Record::Base
   validates :state, length: { maximum: 500 }, allow_blank: true
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
-  validates :loan_account_id, :interest_account_id, presence: true
+  validates :loan_account, :interest_account, presence: true
 
   state_machine :state, initial: :draft do
     state :draft

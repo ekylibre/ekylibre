@@ -1316,7 +1316,6 @@
         <page to="backend/financial_years#create"/>
         <page to="backend/financial_years#destroy"/>
         <page to="backend/financial_years#edit"/>
-        <page to="backend/financial_years#generate_last_journal_entry"/>
         <page to="backend/financial_years#list"/>
         <page to="backend/financial_years#list_account_balances"/>
         <page to="backend/financial_years#list_exchanges"/>

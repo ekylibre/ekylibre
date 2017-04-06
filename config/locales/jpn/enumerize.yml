@@ -245,6 +245,8 @@ jpn:
       nature:
         bank: "バンク"
         cash: "現金"
+        closure: "閉鎖"
+        fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
         sales: "セールス"

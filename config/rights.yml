@@ -895,7 +895,6 @@ financial_years:
     actions:
     - "backend/financial_years#close"
     - "backend/financial_years#compute_balances"
-    - "backend/financial_years#generate_last_journal_entry"
   reopen:
     dependencies:
     - read-financial_years
@@ -904,7 +903,6 @@ financial_years:
     - "backend/financial_years#create"
     - "backend/financial_years#destroy"
     - "backend/financial_years#edit"
-    - "backend/financial_years#generate_last_journal_entry"
     - "backend/financial_years#new"
     - "backend/financial_years#update"
 

@@ -114,9 +114,9 @@ class Product < Ekylibre::Record::Base
   has_many :fixed_assets, inverse_of: :product
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
-  has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles(%i(input output target doer tool)) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
+  has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles(%i[input output target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
-  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles(%i(input target doer tool)) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
+  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles(%i[input target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
   has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
   has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
   has_many :labels, through: :labellings
@@ -242,7 +242,7 @@ class Product < Ekylibre::Record::Base
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :depreciables, -> { joins(:nature).merge(ProductNature.depreciables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
-  scope :supportables, -> { of_variety(%i(cultivable_zone animal_group equipment)) }
+  scope :supportables, -> { of_variety(%i[cultivable_zone animal_group equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
   scope :availables, ->(**args) {
@@ -735,7 +735,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles(%i(input output target doer tool)).of_actor(self).any? || fixed_assets.any?)
+    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles(%i[input output target doer tool]).of_actor(self).any? || fixed_assets.any?)
   end
 
   # TODO: Doc
@@ -763,7 +763,7 @@ class Product < Ekylibre::Record::Base
   def net_surface_area(options = {})
     # TODO: Manage global preferred surface unit or system
     area_unit = options[:unit] || :hectare
-    if !options.keys.detect { |k| %i(gathering interpolate cast).include?(k) } &&
+    if !options.keys.detect { |k| %i[gathering interpolate cast].include?(k) } &&
        has_indicator?(:shape) && !options[:compute].is_a?(FalseClass)
       unless options[:strict]
         options[:at] = born_at if born_at && born_at > Time.zone.now

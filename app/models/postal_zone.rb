@@ -66,6 +66,6 @@ class PostalZone < Ekylibre::Record::Base
   end
 
   def self.exportable_columns
-    content_columns.delete_if { |c| !%i(city postal_code).include?(c.name.to_sym) }
+    content_columns.delete_if { |c| !%i[city postal_code].include?(c.name.to_sym) }
   end
 end

@@ -1212,6 +1212,7 @@ arb:
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
     closed_on: "تم إغلاقه"
+    closure_journal: "مجلة إغلاق"
     clusters_work_number: "مجموعات العمل رقم"
     code: "الرمز"
     code2: "الرمز الثاني" #?
@@ -1547,6 +1548,7 @@ arb:
     for_sales: "منتجات البيع" #?
     format: "التصميم"
     formats: "صيغ"
+    forward_journal: "حمل مجلة إلى الأمام"
     france_maaid: "فرنسا maaid"
     frequency: "تردد"
     frozen_indicators_list: "قائمة مؤشرات المجمدة"

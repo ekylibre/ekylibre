@@ -404,7 +404,7 @@ module Ekylibre
       # Get supports
       w.debug "Support code in method parse_row #{r.support_codes}".inspect.green
       r.supports = parse_record_list(r.support_codes, CultivableZone, :work_number)
-      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w(EXPLOITATION).include?(s) }, Product, :work_number)
+      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w[EXPLOITATION].include?(s) }, Product, :work_number)
       w.debug "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
       # Get equipments
       r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)

@@ -29,7 +29,8 @@
             <cell name="depreciated_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales)" />
             <cell name="depreciated_previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
-            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales) - financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
+            <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales) + financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :productions_sales) + previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :inventory_variations)" />
           </section>
           <!-- 72 -->
           <section name="item">
@@ -40,6 +41,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
             <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :capitalised_production)" />
           </section>
           <!-- 74 -->
           <section name="item">
@@ -50,6 +52,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
             <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :subsidies)" />
           </section>
           <!-- 78/79 -->
           <section name="item">
@@ -60,6 +63,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
             <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :provisions_revenues)" />
           </section>
           <!-- 73/75-->
           <section name="item">
@@ -70,6 +74,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
             <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_products)" />
           </section>
         </section>
       </section>
@@ -87,7 +92,8 @@
             <cell name="depreciated_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases)" />
             <cell name="depreciated_previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation)" />
-            <cell name="total_balance" value="- (financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases) - financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation))" />
+            <cell name="total_balance" value="- (financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases) + financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation))" />
+            <cell name="previous_total_balance" value="- (previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :products_purchases) + previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :purchases_stocks_variation))" />
           </section>
           <!-- 61-62-->
           <section name="item">
@@ -98,16 +104,18 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_purchases)" />
           </section>
           <!-- 63 -->
           <section name="item">
             <cell name="group" value=":losses.tl" level="api"/>
             <cell name="subgroup" value=":purchases.tl" level="api"/>
-            <cell name="label" value=":other_products.tl" level="api"/>
+            <cell name="label" value=":taxes.tl" level="api"/>
             <cell name="ordering" value=":B03" level="api"/>
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :taxes)" />
           </section>
           <!-- 641 644 -->
           <section name="item">
@@ -118,6 +126,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :wages)" />
           </section>
           <!-- 645 -->
           <section name="item">
@@ -128,6 +137,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :social_expenses)" />
           </section>
           <!-- 681 -->
           <section name="item">
@@ -138,6 +148,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :depreciations_inputations_expenses)" />
           </section>
           <!-- 65 -->
           <section name="item">
@@ -148,6 +159,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :other_expenses)" />
           </section>
         </section>
       </section>
@@ -163,6 +175,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
             <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_products)" />
           </section>
           <section name="item">
             <cell name="group" value=":exploitation_results.tl" level="api"/>
@@ -172,6 +185,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :financial_expenses)" />
           </section>
           <!-- exceptional_products -->
           <section name="item">
@@ -182,6 +196,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
             <cell name="total_balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
+            <cell name="previous_total_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_products)" />
           </section>
           <section name="item">
             <cell name="group" value=":exploitation_results.tl" level="api"/>
@@ -191,6 +206,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :exceptional_expenses)" />
           </section>
           <!-- employee_and_wages -->
           <section name="item">
@@ -201,6 +217,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :employee_involvement)" />
           </section>
           <section name="item">
             <cell name="group" value=":exploitation_results.tl" level="api"/>
@@ -210,6 +227,7 @@
             <cell name="balance" value="financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
             <cell name="previous_balance" value="previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
             <cell name="total_balance" value="- financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
+            <cell name="previous_total_balance" value="- previous_financial_year.sum_entry_items_with_mandatory_line(:profit_and_loss_statement, :profit_taxe)" />
           </section>
         </section>
       </section>

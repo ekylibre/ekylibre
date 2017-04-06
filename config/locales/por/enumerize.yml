@@ -247,6 +247,8 @@ por:
       nature:
         bank: "Banco"
         cash: "Dinheiro"
+        closure: "Fecho"
+        fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"

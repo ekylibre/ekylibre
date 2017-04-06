@@ -70,9 +70,9 @@ class Activity < Ekylibre::Record::Base
   refers_to :grading_sizes_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
   refers_to :grading_sizes_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
   refers_to :production_system
-  enumerize :nature, in: %i(main auxiliary standalone), default: :main, predicates: true
-  enumerize :production_cycle, in: %i(annual perennial), predicates: true
-  enumerize :production_campaign, in: %i(at_cycle_start at_cycle_end), default: :at_cycle_end, predicates: true
+  enumerize :nature, in: %i[main auxiliary standalone], default: :main, predicates: true
+  enumerize :production_cycle, in: %i[annual perennial], predicates: true
+  enumerize :production_campaign, in: %i[at_cycle_start at_cycle_end], default: :at_cycle_end, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
@@ -405,7 +405,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   def unit_choices
-    %i(items_count net_mass)
+    %i[items_count net_mass]
       .reject { |e| e == :items_count && !measure_grading_items_count }
       .reject { |e| e == :net_mass && !measure_grading_net_mass }
   end

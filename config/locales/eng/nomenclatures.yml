@@ -1901,6 +1901,7 @@ eng:
         acta_category: "Acta category"
     document_natures:
       items:
+        account_journal_entry_sheet: "Account journal entry sheet"
         activity_cost: "Activity cost"
         animal_husbandry_register: "Animal husbandry register"
         animal_list: "Animal list"
@@ -1924,9 +1925,9 @@ eng:
         intervention_sheet: "Intervention sheet"
         inventory_sheet: "Inventory sheet"
         journal: "Journal"
-        # journal_entry_sheet: "Journal entry sheet"
+        journal_entry_sheet: "Journal entry sheet"
         land_parcel_register: "Land parcel register"
-        # loan_registry: "Loan registry"
+        loan_registry: "Loan registry"
         manure_management_plan: "Manure management plan"
         manure_management_plan_sheet: "Manure management plan (detail)"
         outgoing_deliveries_journal: "Outgoing deliveries journal"

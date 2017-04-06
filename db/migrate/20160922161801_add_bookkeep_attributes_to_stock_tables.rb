@@ -684,7 +684,7 @@ YAML
         # Fill number column
         execute 'UPDATE product_nature_variants SET number = LPAD(id::VARCHAR, 8, \'0\')'
 
-        %w(stock stock_movement).each do |account|
+        %w[stock stock_movement].each do |account|
           # Create missing stock accounts
           execute 'INSERT INTO accounts (name, number, label, usages, created_at, updated_at) ' \
                   '  SELECT sa.name || \' – \' || pnv.name, ' \

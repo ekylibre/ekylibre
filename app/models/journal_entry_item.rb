@@ -145,7 +145,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   validate(on: :update) do
     old = old_record
-    list = changed - %w(cumulated_absolute_debit cumulated_absolute_credit)
+    list = changed - %w[cumulated_absolute_debit cumulated_absolute_credit]
     if old.closed? && list.any?
       errors.add(:account_id, :entry_has_been_already_validated)
     end
@@ -184,8 +184,8 @@ class JournalEntryItem < Ekylibre::Record::Base
 
     if entry
       self.entry_number = entry.number
-      %i(financial_year_id printed_on journal_id currency
-         absolute_currency real_currency real_currency_rate).each do |replicated|
+      %i[financial_year_id printed_on journal_id currency
+         absolute_currency real_currency real_currency_rate].each do |replicated|
         send("#{replicated}=", entry.send(replicated))
       end
       unless closed?

@@ -85,14 +85,14 @@ module Backend
       params.require(:trade)
             .permit :invoiced_at,
                     :nature_id,
-                    items_attributes: %i(
+                    items_attributes: %i[
                       variant_id
                       quantity
                       amount
                       tax_id
                       reduction_percentage
                       unit_pretax_amount
-                    )
+                    ]
     end
 
     def payment_params

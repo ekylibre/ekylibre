@@ -1,6 +1,6 @@
 module Aggeratio
   class Base
-    LEVELS = %i(api human).freeze
+    LEVELS = %i[api human].freeze
 
     attr_reader :name, :parameters, :root, :aggregator
 
@@ -29,7 +29,7 @@ module Aggeratio
     def properties(element = nil)
       element ||= @root
       array = []
-      array << element if %w(section cell property title).include?(element.name)
+      array << element if %w[section cell property title].include?(element.name)
       for child in element.children
         if child.has_attribute?('name') && child.attr('name') !~ /^\w+(\_\w+)*$/
           raise InvalidDocument, "#{child.name} element has invalid name attribute: #{child.attr('name')}"
@@ -121,9 +121,9 @@ module Aggeratio
     private
 
     def xpath(element)
-      return nil if %w(comment variable).include?(element.name)
+      return nil if %w[comment variable].include?(element.name)
       name = element.name.to_s.upcase
-      if %w(matrix sections).include?(element.name)
+      if %w[matrix sections].include?(element.name)
         name = normalize_name(element.attr('for'))
         if element.has_attribute?('name')
           name = normalize_name(element.attr('name')) + '/' + name
@@ -131,7 +131,7 @@ module Aggeratio
       elsif element.has_attribute?('name')
         name = normalize_name(element.attr('name'))
       end
-      prefix = (%w(property title).include?(element.name) ? '/@' : '/')
+      prefix = (%w[property title].include?(element.name) ? '/@' : '/')
       if element == @root
         return prefix + name
       elsif element.parent && !element.parent.is_a?(Nokogiri::XML::Document)

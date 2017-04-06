@@ -92,7 +92,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :real_currency, presence: true
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
-  validates :number, uniqueness: { scope: %i(journal_id financial_year_id) }
+  validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -108,6 +108,7 @@ class JournalEntry < Ekylibre::Record::Base
       transition draft: :confirmed, if: :balanced?
     end
     event :close do
+      transition draft: :closed, if: :balanced?
       transition confirmed: :closed, if: :balanced?
     end
     #     event :reopen do
