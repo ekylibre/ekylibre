@@ -2169,6 +2169,8 @@ fra:
     treatment: "Traitement" #?
     trimester: "Trimestre"
     true: "Vrai" #?
+    unbalanced_clients: "Comptes à réconcilier - Clients"
+    unbalanced_suppliers: "Comptes à réconcilier - Fournisseurs"
     unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"

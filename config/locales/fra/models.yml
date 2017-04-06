@@ -43,6 +43,8 @@ fra:
         managed: "Géré par le système"
       entity: #?
         active: "Active" #?
+        client_balance: "Solde comptable client"
+        supplier_balance: "Solde comptable fournisseur"
       equipment:
         born_at: "Mis en service le"
         content_indicator: "Indicateur de mesure du réservoir" #?

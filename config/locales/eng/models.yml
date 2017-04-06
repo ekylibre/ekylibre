@@ -16,6 +16,9 @@ eng:
         filename: "File"
       document_template:
         managed: "Managed by the system"
+      entity:
+        client_balance: "Client account balance"
+        supplier_balance: "Supplier account balance"
       equipment:
         born_at: "Built at"
         dead_at: "Scrapped at"
