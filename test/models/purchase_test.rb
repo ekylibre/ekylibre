@@ -59,6 +59,10 @@ require 'test_helper'
 class PurchaseTest < ActiveSupport::TestCase
   test_model_actions
 
+  setup do
+    @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
+  end
+
   test 'rounds' do
     nature = PurchaseNature.first
     assert nature
@@ -176,5 +180,33 @@ class PurchaseTest < ActiveSupport::TestCase
 
   test 'affair_class points to correct class' do
     assert_equal PurchaseAffair, Purchase.affair_class
+  end
+
+  test 'Test variant specified when bookkeep' do
+    nature = PurchaseNature.first
+    tax = Tax.create!(
+      name: 'Reduced',
+      amount: 5.5,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('4566'),
+      deduction_account: Account.find_or_create_by_number('4567'),
+      country: :fr
+    )
+
+    purchase = Purchase.create!(nature: nature, supplier: Entity.normal.first)
+    purchase.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 3.791, tax: tax)
+    purchase.reload
+    
+    assert purchase.invoice
+    
+    journal_entry_items = purchase.journal_entry.items
+    account_ids = journal_entry_items.pluck(:account_id)
+
+    purchase_account = Account.where(id: account_ids).where("number LIKE '6%'").first
+    jei_s = journal_entry_items.where(account_id: purchase_account.id).first
+
+    # jei_s variant must be defined
+    assert_not jei_s.variant.nil? 
+    assert_equal jei_s.variant, @variant
   end
 end
