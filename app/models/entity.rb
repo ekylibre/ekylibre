@@ -150,7 +150,7 @@ class Entity < Ekylibre::Record::Base
     has_one :default_fax_address, -> { where(by_default: true, canal: 'fax') }
     has_one :default_website_address, -> { where(by_default: true, canal: 'website') }
   end
-  has_one :balance_amounts, class_name: 'EntityBalance', foreign_key: :id
+  has_one :entity_balance, class_name: 'EntityBalance', foreign_key: :id
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
   has_one :user, foreign_key: :person_id
@@ -302,12 +302,12 @@ class Entity < Ekylibre::Record::Base
 
   def client_balance
     return 0.0 unless client?
-    balance_amounts[:client_accounting_balance]
+    entity_balance[:client_accounting_balance]
   end
 
   def supplier_balance
     return 0.0 unless supplier?
-    balance_amounts[:supplier_accounting_balance]
+    entity_balance[:supplier_accounting_balance]
   end
 
   # Returns an entity scope for.all other entities
@@ -334,7 +334,7 @@ class Entity < Ekylibre::Record::Base
 
   #
   def balance
-    balance_amounts[:trade_balance]
+    entity_balance[:trade_balance]
   end
 
   def has_another_tracking?(serial, product_id)
