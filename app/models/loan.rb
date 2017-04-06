@@ -78,7 +78,7 @@ class Loan < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accountable_repayments_started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :amount, :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_guarantee_amount, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :cash, :currency, :lender, :repayment_method, :repayment_period, :third, presence: true
   validates :initial_releasing_amount, inclusion: { in: [true, false] }
@@ -89,6 +89,7 @@ class Loan < Ekylibre::Record::Base
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account, :interest_account, presence: true
+  validates :amount, presence: true, numericality: { greater_than: 0 }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -110,7 +111,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.ongoing_at ||= started_on.to_time
+    self.ongoing_at ||= started_on.try(:to_time)
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
   end
