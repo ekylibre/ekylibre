@@ -1785,6 +1785,7 @@ eng:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"

@@ -2073,6 +2073,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
