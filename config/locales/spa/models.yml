@@ -16,6 +16,9 @@ spa:
         filename: "Archivo"
       document_template:
         managed: "Gestionado por el sistema"
+      entity:
+        # client_balance: "Client account balance"
+        # supplier_balance: "Supplier account balance"
       equipment:
         born_at: "Puesto en servicio en"
         dead_at: "Desechado en"

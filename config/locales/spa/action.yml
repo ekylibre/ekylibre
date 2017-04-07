@@ -1792,6 +1792,7 @@ spa:
     taxes: "Impuestos"
     taxes_and_wages: "Impuestos y salarios"
     theoric_quantity: "cantidad teorica" #?
+    # third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
     time_spent_by_activity: "El tiempo dedicado por la actividad"
@@ -1868,6 +1869,8 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    # unbalanced_clients: "Unbalanced clients"
+    # unbalanced_suppliers: "Unbalanced suppliers"
     unbilled_payables: "Cuentas a pagar no facturadas"
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"

@@ -1957,6 +1957,15 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="unbalanced_clients_cells">
+        <page to="backend/cells/unbalanced_clients_cells#list"/>
+        <page to="backend/cells/unbalanced_clients_cells#show"/>
+      </item>
+      <item name="unbalanced_suppliers_cells">
+        <page to="backend/cells/unbalanced_suppliers_cells#list"/>
+        <page to="backend/cells/unbalanced_suppliers_cells#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -16,6 +16,9 @@ cmn:
         filename: "文件"
       document_template:
         managed: "由系统管理"
+      entity:
+        # client_balance: "Client account balance"
+        # supplier_balance: "Supplier account balance"
       equipment:
         born_at: "把服务于"
         dead_at: "在瞎折腾"

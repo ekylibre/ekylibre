@@ -2132,75 +2132,6 @@ CREATE TABLE entities (
 
 
 --
--- Name: entities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE entities_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: entities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE entities_id_seq OWNED BY entities.id;
-
-
---
--- Name: entity_addresses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE entity_addresses (
-    id integer NOT NULL,
-    entity_id integer NOT NULL,
-    canal character varying NOT NULL,
-    coordinate character varying NOT NULL,
-    by_default boolean DEFAULT false NOT NULL,
-    deleted_at timestamp without time zone,
-    thread character varying,
-    name character varying,
-    mail_line_1 character varying,
-    mail_line_2 character varying,
-    mail_line_3 character varying,
-    mail_line_4 character varying,
-    mail_line_5 character varying,
-    mail_line_6 character varying,
-    mail_country character varying,
-    mail_postal_zone_id integer,
-    mail_geolocation postgis.geometry(Point,4326),
-    mail_auto_update boolean DEFAULT false NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: entity_addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE entity_addresses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: entity_addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE entity_addresses_id_seq OWNED BY entity_addresses.id;
-
-
---
 -- Name: incoming_payments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2479,10 +2410,10 @@ CREATE TABLE sales (
 
 
 --
--- Name: entity_balances; Type: VIEW; Schema: public; Owner: -
+-- Name: economic_situations; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW entity_balances AS
+CREATE VIEW economic_situations AS
  SELECT entities.id,
     COALESCE(client_accounting.balance, (0)::numeric) AS client_accounting_balance,
     COALESCE(supplier_accounting.balance, (0)::numeric) AS supplier_accounting_balance,
@@ -2530,6 +2461,75 @@ CREATE VIEW entity_balances AS
                    FROM (entities entities_1
                      JOIN outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) supplier_tradings
           GROUP BY supplier_tradings.entity_id) supplier_trade ON ((entities.id = supplier_trade.entity_id)));
+
+
+--
+-- Name: entities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE entities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: entities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE entities_id_seq OWNED BY entities.id;
+
+
+--
+-- Name: entity_addresses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE entity_addresses (
+    id integer NOT NULL,
+    entity_id integer NOT NULL,
+    canal character varying NOT NULL,
+    coordinate character varying NOT NULL,
+    by_default boolean DEFAULT false NOT NULL,
+    deleted_at timestamp without time zone,
+    thread character varying,
+    name character varying,
+    mail_line_1 character varying,
+    mail_line_2 character varying,
+    mail_line_3 character varying,
+    mail_line_4 character varying,
+    mail_line_5 character varying,
+    mail_line_6 character varying,
+    mail_country character varying,
+    mail_postal_zone_id integer,
+    mail_geolocation postgis.geometry(Point,4326),
+    mail_auto_update boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: entity_addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE entity_addresses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: entity_addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE entity_addresses_id_seq OWNED BY entity_addresses.id;
 
 
 --

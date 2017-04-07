@@ -135,7 +135,8 @@ arb:
         managed: "تدار من قبل النظام"
         nature: "طبيعية" #?
         nature_label: "طبيعة" #?
-      entity: #?
+      entity:
+        # client_balance: "Client account balance"
         contacts: "الاشخاص المراد الاتصال بهم" #?
         created_at: "انشأ في" #?
         last_name: "الاسم" #?
@@ -147,6 +148,7 @@ arb:
         salt: "Sel" #?
         siren: "رمز صفارات الانذا" #?
         subscriptions: "الاشتراكات" #?
+        # supplier_balance: "Supplier account balance"
         updated_at: "تم تحديثها في" #?
         usable_incoming_payments: "الدفعات المستخدمة" #?
       entity_category: #?

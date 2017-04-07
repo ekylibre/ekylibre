@@ -16,6 +16,9 @@ jpn:
         filename: "ファイル"
       document_template:
         managed: "システムによって管理"
+      entity:
+        # client_balance: "Client account balance"
+        # supplier_balance: "Supplier account balance"
       equipment:
         born_at: "で、サービスに入れ"
         dead_at: "で廃車"

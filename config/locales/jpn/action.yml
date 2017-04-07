@@ -1636,6 +1636,7 @@ jpn:
     # taxations: "Taxations"
     taxes: "税金"
     taxes_and_wages: "税と賃金"
+    # third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "親指"
     time_cost: "時間費用"
     time_spent_by_activity: "活動によって費やされた時間"
@@ -1711,6 +1712,8 @@ jpn:
     transformations: "変換" #?
     transport: "輸送"
     trimester: "学期"
+    # unbalanced_clients: "Unbalanced clients"
+    # unbalanced_suppliers: "Unbalanced suppliers"
     unbilled_payables: "未請求の支払債務"
     undefined_activity: "未定義の活動"
     undefined_container: "未定義のコンテナ"

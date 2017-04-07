@@ -1564,6 +1564,7 @@ deu:
     taxations: "Besteuerungen"
     taxes: "Steuern"
     taxes_and_wages: "Steuern und Löhne"
+    # third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "Daumen"
     time_cost: "Zeitkosten"
     time_spent_by_activity: "Zeit durch die Tätigkeit aufgewendeten"
@@ -1639,6 +1640,8 @@ deu:
     transformations: "Transformationen" #?
     # transport: "Transport"
     # trimester: "Trimester"
+    # unbalanced_clients: "Unbalanced clients"
+    # unbalanced_suppliers: "Unbalanced suppliers"
     unbilled_payables: "Nicht abgerechnete Verbindlichkeiten"
     undefined_activity: "Nicht definierte Aktivität"
     undefined_container: "undefined Behälter"

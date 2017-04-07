@@ -41,7 +41,7 @@ fra:
         file_pages_count: "Nombre de page" #?
       document_template:
         managed: "Géré par le système"
-      entity: #?
+      entity:
         active: "Active" #?
         client_balance: "Solde comptable client"
         supplier_balance: "Solde comptable fournisseur"

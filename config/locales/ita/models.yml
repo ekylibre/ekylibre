@@ -16,6 +16,9 @@ ita:
         # filename: "File"
       document_template:
         managed: "Gestito dal sistema"
+      entity:
+        # client_balance: "Client account balance"
+        # supplier_balance: "Supplier account balance"
       equipment:
         born_at: "Mettere in servizio presso"
         dead_at: "Demolita a"

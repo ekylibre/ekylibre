@@ -150,7 +150,7 @@ class Entity < Ekylibre::Record::Base
     has_one :default_fax_address, -> { where(by_default: true, canal: 'fax') }
     has_one :default_website_address, -> { where(by_default: true, canal: 'website') }
   end
-  has_one :entity_balance, class_name: 'EntityBalance', foreign_key: :id
+  has_one :economic_situation, foreign_key: :id
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
   has_one :user, foreign_key: :person_id
@@ -296,18 +296,18 @@ class Entity < Ekylibre::Record::Base
     save!
   end
 
-	def unbalanced?
-    EntityBalance.unbalanced.pluck(:id).include? id
+  def unbalanced?
+    EconomicSituation.unbalanced.pluck(:id).include? id
   end
 
   def client_balance
     return 0.0 unless client?
-    entity_balance[:client_accounting_balance]
+    economic_situation[:client_accounting_balance]
   end
 
   def supplier_balance
     return 0.0 unless supplier?
-    entity_balance[:supplier_accounting_balance]
+    economic_situation[:supplier_accounting_balance]
   end
 
   # Returns an entity scope for.all other entities
@@ -334,7 +334,7 @@ class Entity < Ekylibre::Record::Base
 
   #
   def balance
-    entity_balance[:trade_balance]
+    economic_situation[:trade_balance]
   end
 
   def has_another_tracking?(serial, product_id)

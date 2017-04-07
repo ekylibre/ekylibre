@@ -16,6 +16,9 @@ deu:
         filename: "Datei"
       document_template:
         managed: "Verwaltet vom System"
+      entity:
+        # client_balance: "Client account balance"
+        # supplier_balance: "Supplier account balance"
       equipment:
         born_at: "Setzen Sie im Dienst der"
         dead_at: "Verschrottet bei"

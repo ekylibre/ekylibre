@@ -1860,8 +1860,8 @@ eng:
     transfer: "Transfer" #?
     transport: "Transport" #?
     trimester: "Trimester" #?
-    unbalanced_clients: "Unbalanced clients"
-    unbalanced_suppliers: "Unbalanced suppliers"
+    unbalanced_clients: "Unbalanced clients" #?
+    unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"

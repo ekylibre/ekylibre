@@ -16,6 +16,9 @@ por:
         filename: "Arquivo"
       document_template:
         managed: "Dirigido pelo sistema"
+      entity:
+        # client_balance: "Client account balance"
+        # supplier_balance: "Supplier account balance"
       equipment:
         born_at: "Coloque em serviço no"
         dead_at: "Desfeito em"

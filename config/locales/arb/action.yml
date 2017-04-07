@@ -2180,6 +2180,7 @@ arb:
     taxes: "الضرائب"
     taxes_and_wages: "الضرائب والأجور"
     theoric_quantity: "الكمية النظرية" #?
+    # third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"
     time_spent_by_activity: "الوقت الذي يقضيه النشاط"
@@ -2267,6 +2268,8 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    # unbalanced_clients: "Unbalanced clients"
+    # unbalanced_suppliers: "Unbalanced suppliers"
     unbilled_payables: "دائنة غير المفوترة"
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
