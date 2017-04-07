@@ -171,6 +171,7 @@
 - tax
 - tax_declaration
 - tax_declaration_item
+- tax_declaration_item_part
 - team
 - token
 - tracking

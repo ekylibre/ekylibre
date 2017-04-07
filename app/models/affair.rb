@@ -380,19 +380,18 @@ class Affair < Ekylibre::Record::Base
     raise NotImplementedError
   end
 
-  before_save :letter_journal_entries!
+  before_save :letter_journal_entries
 
   def letterable?
     !unletterable?
   end
 
   def unletterable?
-    unbalanced? || multi_thirds? || journal_entry_items_unbalanced? ||
-      journal_entry_items_already_lettered? || !match_with_accountancy?
+    multi_thirds?
   end
 
   def lettered?
-    letter? && journal_entry_items_balanced?
+    letter?
   end
 
   def letter_journal_entries
@@ -447,7 +446,7 @@ class Affair < Ekylibre::Record::Base
     # Update letters
     account.unmark(letter) if journal_entry_items.any?
     self.letter = nil if letter.blank?
-    self.letter = account.mark(journal_entry_items.pluck(:id), letter)
+    self.letter = account.mark!(journal_entry_items.pluck(:id), letter)
     true
   end
 end

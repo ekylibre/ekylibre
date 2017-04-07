@@ -74,7 +74,7 @@ class TaxDeclaration < Ekylibre::Record::Base
            to: :financial_year
 
   protect on: :destroy do
-    (validated? || sent?)
+    sent?
   end
 
   state_machine :state, initial: :draft do
@@ -108,7 +108,16 @@ class TaxDeclaration < Ekylibre::Record::Base
     self.created_at ||= Time.zone.now
   end
 
-  after_save :compute!, if: :draft?
+  after_create :compute!, if: :draft?
+
+  def destroy
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_item_parts tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id AND tdi.tax_declaration_id = #{id}")
+      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_items WHERE tax_declaration_id = #{id}")
+      items.reload
+      super
+    end
+  end
 
   def has_content?
     items.any?
@@ -155,7 +164,22 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # FIXME: Too french
   def undeclared_tax_journal_entry_items
-    JournalEntryItem.includes(:entry, account: %i[collected_taxes paid_taxes]).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on, tax_declaration_item: nil).where('accounts.number LIKE ?', '445%')
+    JournalEntryItem
+      .includes(:entry, account: %i[collected_taxes paid_taxes])
+      .order('journal_entries.printed_on, accounts.number')
+      .where(printed_on: financial_year.started_on..stopped_on)
+      .where.not(id: TaxDeclarationItemPart.select('journal_entry_item_id'))
+      .where.not(resource_type: 'TaxDeclarationItem')
+      .where('accounts.number LIKE ?', '445%')
+  end
+
+  def out_of_range_tax_journal_entry_items
+    journal_entry_item_ids = TaxDeclarationItemPart.select('journal_entry_item_id').where(tax_declaration_item_id: items.select('id'))
+    JournalEntryItem
+      .includes(:entry)
+      .order('journal_entries.printed_on')
+      .where('journal_entry_items.printed_on < ?', started_on)
+      .where(id: journal_entry_item_ids)
   end
 
   # FIXME: Too french
@@ -182,12 +206,39 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # Compute tax declaration with its items
   def compute!
+    set_entry_items_tax_modes
+
     taxes = Tax.order(:name)
     # Removes unwanted tax declaration item
     items.where.not(tax: taxes).find_each(&:destroy)
     # Create or update other items
     taxes.find_each do |tax|
       items.find_or_initialize_by(tax: tax).compute!
+    end
+  end
+
+  private
+
+  def set_entry_items_tax_modes
+    all = JournalEntryItem
+      .where.not(tax_id: nil)
+      .where('printed_on <= ?', stopped_on)
+      .where(tax_declaration_mode: nil)
+    set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
+    set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
+  end
+
+  def set_non_purchase_entry_items_tax_modes(entry_items)
+    entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode
+  end
+
+  def set_purchase_entry_items_tax_modes(entry_items)
+    { 'at_invoicing' => 'debit', 'at_paying' => 'payment' }.each do |tax_payability, declaration_mode|
+      entry_items
+        .joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')
+        .joins('INNER JOIN purchases p ON p.id = pi.purchase_id')
+        .where('p.tax_payability' => tax_payability)
+        .update_all tax_declaration_mode: declaration_mode
     end
   end
 end
