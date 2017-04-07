@@ -443,7 +443,7 @@ eng:
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
-      # edit: "Edit loan repayment: %{name}"
+      edit: "Edit loan repayment due on: %{due_on}"
       # index: "Loan repayments"
       # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
