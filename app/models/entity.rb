@@ -297,7 +297,7 @@ class Entity < Ekylibre::Record::Base
   end
 
 	def unbalanced?
-   EntityBalance.unbalanced.include? self 
+    EntityBalance.unbalanced.pluck(:id).include? id
   end
 
   def client_balance
