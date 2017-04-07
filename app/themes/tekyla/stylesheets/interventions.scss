@@ -144,3 +144,18 @@ $preview-modal-height: 80vh;
     }
   }
 }
+
+.edit_intervention {
+  .has-intervention-participations {
+    position: relative;
+    top: -$fs-large;
+    left: $fs-large;
+    line-height: 0;
+    font-size: $fs-huge;
+    cursor: pointer;
+  }
+
+  .has-intervention-participations:hover {
+    color: $darkened-blue-grey;
+  }
+}
