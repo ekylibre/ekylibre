@@ -350,6 +350,8 @@ ita:
       index: "Elenchi e mailing"
       # mail: "Send an email to: %{name}"
       new: "Nuova lista"
+    backend/loan_repayments:
+      # edit: "Edit loan repayment due on: %{due_on}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Prestiti"

@@ -350,6 +350,8 @@ deu:
       index: "Anzeigen und Mailings"
       # mail: "Send an email to: %{name}"
       new: "Neue Auflistung"
+    backend/loan_repayments:
+      # edit: "Edit loan repayment due on: %{due_on}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Kredite"
