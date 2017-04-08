@@ -13,10 +13,10 @@ class ReflectInventoryJob < ActiveJob::Base
 
   def notification_params(result, inventory)
     {
-    message: (result ? :changes_have_been_reflected : :changes_have_not_been_reflected),
-    level: (result ? :success : :error),
-    target_type: "Inventory",
-    interpolations: {
+      message: (result ? :changes_have_been_reflected : :changes_have_not_been_reflected),
+      level: (result ? :success : :error),
+      target_type: 'Inventory',
+      interpolations: {
         inventory_id: inventory.id,
         inventory_name: inventory.name
       }
