@@ -47,7 +47,7 @@ class TaxDeclaration < Ekylibre::Record::Base
   include Attachable
   attr_readonly :currency
   refers_to :currency
-  enumerize :mode, in: %i(debit payment), predicates: true
+  enumerize :mode, in: %i[debit payment], predicates: true
   belongs_to :financial_year
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :responsible, class_name: 'User'
@@ -155,7 +155,7 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # FIXME: Too french
   def undeclared_tax_journal_entry_items
-    JournalEntryItem.includes(:entry, account: %i(collected_taxes paid_taxes)).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on, tax_declaration_item: nil).where('accounts.number LIKE ?', '445%')
+    JournalEntryItem.includes(:entry, account: %i[collected_taxes paid_taxes]).order('journal_entries.printed_on, accounts.number').where(printed_on: started_on..stopped_on, tax_declaration_item: nil).where('accounts.number LIKE ?', '445%')
   end
 
   # FIXME: Too french

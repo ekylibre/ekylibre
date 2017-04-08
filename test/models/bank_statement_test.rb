@@ -342,7 +342,7 @@ class BankStatementTest < ActiveSupport::TestCase
     test "#{payment} can be lettered with bank_statement_items" do
       @payment_class = payment
       setup_data
-      assert_lettered_by @payment.letter_with(@tanks), with_letters: %w(A)
+      assert_lettered_by @payment.letter_with(@tanks), with_letters: %w[A]
     end
 
     test "#{payment} cannot be lettered when amounts don't match" do

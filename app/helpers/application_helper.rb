@@ -99,7 +99,7 @@ module ApplicationHelper
     end
     vals = []
     remaining_at = born_at + 0.seconds
-    %w(year month day hour minute second).each do |magnitude|
+    %w[year month day hour minute second].each do |magnitude|
       count = 0
       while remaining_at + 1.send(magnitude) < at
         remaining_at += 1.send(magnitude)
@@ -311,7 +311,7 @@ module ApplicationHelper
       label = "activerecord.attributes.#{model_name}.#{attribute}".t(default: default)
       if value.is_a? ActiveRecord::Base
         record = value
-        value = record.send(options[:label] || %i(label name code number inspect).detect { |x| record.respond_to?(x) })
+        value = record.send(options[:label] || %i[label name code number inspect].detect { |x| record.respond_to?(x) })
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
           options[:url][:id] ||= record.id
@@ -852,7 +852,7 @@ module ApplicationHelper
     if (count = object.errors.size).zero?
       ''
     else
-      I18n.with_options scope: %i(errors template) do |locale|
+      I18n.with_options scope: %i[errors template] do |locale|
         header_message = locale.t :header, count: count, model: object.class.model_name.human
         introduction = locale.t(:body)
         messages = object.errors.full_messages.map do |msg|

@@ -48,7 +48,7 @@ module Clean
 
         ::I18n.locale = @locale
         FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-        %w(help reporting).each do |directory|
+        %w[help reporting].each do |directory|
           unless locale_dir.join(directory).exist?
             FileUtils.makedirs(locale_dir.join(directory))
           end
@@ -127,7 +127,7 @@ module Clean
                                []
                              end
           translateable_actions = []
-          translateable_actions += (actions.delete_if { |a| %i(update create picture destroy up down decrement increment duplicate reflect).include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
+          translateable_actions += (actions.delete_if { |a| %i[update create picture destroy up down decrement increment duplicate reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
@@ -560,7 +560,7 @@ module Clean
               end
             end
 
-            %i(choices items name notions properties).each do |info|
+            %i[choices items name notions properties].each do |info|
               translation << trl[info] if trl[info]
             end
           end

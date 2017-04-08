@@ -89,7 +89,7 @@ module Backend
     def respond_with_with_template(*resources, &block)
       resources << {} unless resources.last.is_a?(Hash)
       resources[-1][:with] = (params[:template].to_s =~ /^\d+$/ ? params[:template].to_i : params[:template].to_s) if params[:template]
-      for param in %i(key name)
+      for param in %i[key name]
         resources[-1][param] = params[param] if params[param]
       end
       respond_with_without_template(*resources, &block)
@@ -194,7 +194,7 @@ module Backend
     def set_theme
       # TODO: Dynamic theme choosing
       if current_user
-        if %w(margarita tekyla tekyla-sunrise).include?(params[:theme])
+        if %w[margarita tekyla tekyla-sunrise].include?(params[:theme])
           current_user.prefer!('theme', params[:theme])
         end
         @current_theme = current_user.preference('theme', 'tekyla').value
@@ -316,7 +316,7 @@ module Backend
       def crit_params(hash)
         nh = {}
         keys = JournalEntry.state_machine.states.collect(&:name)
-        keys += %i(period started_at stopped_at accounts centralize)
+        keys += %i[period started_at stopped_at accounts centralize]
         for k, v in hash
           nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) || keys.include?(k.to_sym)
         end

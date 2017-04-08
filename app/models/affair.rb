@@ -139,7 +139,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w(SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization).freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization].freeze
     end
 
     # Removes empty affairs in the whole table
@@ -255,7 +255,7 @@ class Affair < Ekylibre::Record::Base
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
-        %i(debit credit).map do |mode|
+        %i[debit credit].map do |mode|
           # Get the items of the deal with their VAT %
           # then add 0% VAT to untaxed deals
           deal.deal_taxes(mode)

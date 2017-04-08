@@ -48,7 +48,7 @@
 class Sensor < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :retrieval_mode, in: %i(requesting listening integration), default: :requesting, predicates: true
+  enumerize :retrieval_mode, in: %i[requesting listening integration], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify

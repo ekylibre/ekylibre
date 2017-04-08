@@ -177,4 +177,35 @@ class PurchaseTest < ActiveSupport::TestCase
   test 'affair_class points to correct class' do
     assert_equal PurchaseAffair, Purchase.affair_class
   end
+
+  test 'payment date computation' do
+    purchase = Purchase.create!(
+      nature: PurchaseNature.first,
+      planned_at: Date.civil(2015, 1, 1),
+      supplier: Entity.where(supplier: true).first,
+      items_attributes: {
+        '0' => {
+          tax: Tax.find_by!(amount: 20),
+          variant: ProductNatureVariant.first,
+          unit_pretax_amount: 100,
+          quantity: 1
+        },
+        '1' => {
+          tax: Tax.find_by!(amount: 0),
+          variant_id: ProductNatureVariant.first.id,
+          unit_pretax_amount: 450,
+          quantity: 2
+        }
+      }
+    )
+    assert_equal Date.civil(2015, 1, 1), purchase.payment_at
+
+    purchase.payment_delay = '1 year'
+    purchase.save!
+    assert_equal Date.civil(2016, 1, 1), purchase.payment_at
+
+    purchase.payment_delay = '2 months'
+    purchase.save!
+    assert_equal Date.civil(2015, 3, 1), purchase.payment_at
+  end
 end

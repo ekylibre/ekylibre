@@ -21,7 +21,7 @@ module Backend
         # end
 
         # for indicators in list
-        indicators = %i(tiller_count plants_count rows_interval plants_interval rows_orientation)
+        indicators = %i[tiller_count plants_count rows_interval plants_interval rows_orientation]
         indicators.each do |indicator|
           if p.send(indicator).present? && (p.send(indicator).to_d > 0.0)
             popup_content << { label: Nomen::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }

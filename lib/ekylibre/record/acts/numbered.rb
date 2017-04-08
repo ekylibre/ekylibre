@@ -14,7 +14,7 @@ module Ekylibre
           # Use preference to select preferred sequence to attribute number
           # in column
           def acts_as_numbered(*args)
-            options = args[-1].is_a?(Hash) ? args.delete_at(-1) : {}
+            options = args.extract_options!
             numbered_column = args.shift || :number
 
             options = { start: '00000001' }.merge(options)
@@ -65,19 +65,19 @@ module Ekylibre
             end
           end
 
-          def define_load_reliable(column)
-            before_validation :"load_unique_reliable_#{column}", on: :create
-
-            define_method :"load_unique_reliable_#{column}" do
-              sequence_manager.load_reliable_into self
-            end
-          end
-
           def define_load_predictable(column)
             before_validation :"load_unique_predictable_#{column}", on: :create
 
             define_method :"load_unique_predictable_#{column}" do
               sequence_manager.load_predictable_into self
+            end
+          end
+
+          def define_load_reliable(column)
+            after_validation :"load_unique_reliable_#{column}", on: :create
+
+            define_method :"load_unique_reliable_#{column}" do
+              sequence_manager.load_reliable_into self
             end
           end
         end

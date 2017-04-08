@@ -42,7 +42,7 @@ class ProcedoTest < ActiveSupport::TestCase
   test 'scopes' do
     procedures = Procedo::Procedure.of_category(:crop_protection)
     assert procedures.any?, 'Category crop_protection should contains procedures'
-    %i(animal_farming plant_farming).each do |family|
+    %i[animal_farming plant_farming].each do |family|
       procedures = Procedo::Procedure.of_activity_family(family)
       assert procedures.any?, "Activity family #{family} should contains procedures"
     end

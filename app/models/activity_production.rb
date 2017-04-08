@@ -51,7 +51,7 @@
 
 class ActivityProduction < Ekylibre::Record::Base
   include Customizable, Attachable
-  enumerize :support_nature, in: %i(cultivation fallow_land buffer border none animal_group), default: :cultivation
+  enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -73,7 +73,7 @@ class ActivityProduction < Ekylibre::Record::Base
   has_and_belongs_to_many :campaigns
 
   has_geometry :support_shape
-  composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
+  composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
@@ -615,11 +615,11 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def duplicate!(updates = {})
-    new_attributes = %i(
+    new_attributes = %i[
       activity campaign cultivable_zone irrigated nitrate_fixing
       size_indicator_name size_unit_name size_value started_on
       support_nature support_shape usage
-    ).each_with_object({}) do |attr, h|
+    ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
     end.merge(updates)

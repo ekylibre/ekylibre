@@ -44,11 +44,11 @@ class Listing < Ekylibre::Record::Base
   has_many :columns, -> { where('nature = ?', 'column') }, class_name: 'ListingNode'
   has_many :custom_fields_columns, -> { where('nature = ?', 'custom').order('position') }, class_name: 'ListingNode'
   has_many :exportable_columns, -> { where(nature: 'column', exportable: true).order('position') }, class_name: 'ListingNode'
-  has_many :exportable_fields, -> { where(nature: %w(column custom), exportable: true).order('position') }, class_name: 'ListingNode'
+  has_many :exportable_fields, -> { where(nature: %w[column custom], exportable: true).order('position') }, class_name: 'ListingNode'
   has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", 'column', 'any') }, class_name: 'ListingNode'
   has_many :coordinate_columns, -> { where('name LIKE ? AND nature = ? ', '%.coordinate', 'column') }, class_name: 'ListingNode'
   has_many :nodes, class_name: 'ListingNode', dependent: :delete_all, inverse_of: :listing
-  has_many :reflection_nodes, -> { where(nature: %w(belongs_to has_many root)) }, class_name: 'ListingNode'
+  has_many :reflection_nodes, -> { where(nature: %w[belongs_to has_many root]) }, class_name: 'ListingNode'
   has_one :root_node, -> { where(parent_id: nil) }, class_name: 'ListingNode'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -123,7 +123,7 @@ class Listing < Ekylibre::Record::Base
 
   # Fully duplicate a listing
   def duplicate
-    listing = self.class.create!(attributes.merge(name: :copy_of.tl(source: name)).delete_if { |a| %w(id lock_version).include?(a.to_s) })
+    listing = self.class.create!(attributes.merge(name: :copy_of.tl(source: name)).delete_if { |a| %w[id lock_version].include?(a.to_s) })
     root_node.duplicate(listing)
     listing
   end

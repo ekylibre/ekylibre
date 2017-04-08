@@ -42,7 +42,7 @@
 #
 
 class Gap < Ekylibre::Record::Base
-  enumerize :direction, in: %i(profit loss), predicates: true
+  enumerize :direction, in: %i[profit loss], predicates: true
   refers_to :currency
   belongs_to :affair, inverse_of: :gaps
   belongs_to :entity

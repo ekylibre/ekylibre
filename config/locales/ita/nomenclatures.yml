@@ -1900,6 +1900,7 @@ ita:
         acta_category: "categoria Acta"
     document_natures:
       items:
+        account_journal_entry_sheet: "Foglio di voce di diario account"
         activity_cost: "costo Activity"
         animal_husbandry_register: "registro zootecnia"
         animal_list: "lista degli animali"
@@ -1923,7 +1924,9 @@ ita:
         intervention_sheet: "foglio di intervento"
         inventory_sheet: "scheda inventario"
         journal: "rivista"
+        journal_entry_sheet: "Foglio di voce di diario"
         land_parcel_register: "registro delle parcelle agricole"
+        loan_registry: "Registro di sistema di prestito"
         manure_management_plan: "piano di gestione del letame"
         manure_management_plan_sheet: "piano di gestione del letame (particolare)"
         outgoing_deliveries_journal: "consegne in uscita ufficiale"

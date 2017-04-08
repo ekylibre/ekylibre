@@ -58,7 +58,7 @@ class Purchase < Ekylibre::Record::Base
   include Attachable
   include Customizable
   attr_readonly :currency, :nature_id
-  enumerize :tax_payability, in: %i(at_paying at_invoicing), default: :at_invoicing
+  enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
@@ -102,7 +102,7 @@ class Purchase < Ekylibre::Record::Base
 
   scope :with_nature, ->(id) { where(nature_id: id) }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
@@ -118,7 +118,7 @@ class Purchase < Ekylibre::Record::Base
       transition draft: :estimate, if: :has_content?
     end
     event :correct do
-      transition %i(estimate refused order) => :draft
+      transition %i[estimate refused order] => :draft
     end
     event :refuse do
       transition estimate: :refused, if: :has_content?
@@ -132,7 +132,7 @@ class Purchase < Ekylibre::Record::Base
       transition draft: :invoice
     end
     event :abort do
-      transition %i(draft estimate) => :aborted # , :order
+      transition %i[draft estimate] => :aborted # , :order
     end
   end
 
@@ -144,7 +144,14 @@ class Purchase < Ekylibre::Record::Base
   before_validation do
     self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
-    self.payment_delay = supplier.supplier_payment_delay if payment_delay.blank? && supplier && supplier.supplier_payment_delay
+    if payment_delay.blank? && supplier && supplier.supplier_payment_delay
+      self.payment_delay = supplier.supplier_payment_delay
+    end
+    self.payment_at = if payment_delay.blank?
+                        invoiced_at || self.planned_at
+                      else
+                        Delay.new(payment_delay).compute(invoiced_at || self.planned_at)
+                      end
     self.pretax_amount = items.sum(:pretax_amount)
     self.amount = items.sum(:amount)
   end
@@ -308,7 +315,6 @@ class Purchase < Ekylibre::Record::Base
     return false unless can_invoice?
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
-    self.payment_at ||= Delay.new(payment_delay).compute(self.invoiced_at)
     save!
     items.each(&:update_fixed_asset)
     super

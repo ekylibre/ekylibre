@@ -18,7 +18,9 @@
 
 module Backend
   class JournalEntriesController < Backend::BaseController
-    manage_restfully only: %i(show destroy)
+    manage_restfully only: %i[show destroy]
+
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
     unroll
 
@@ -63,14 +65,21 @@ module Backend
       redirect_to controller: :journals, action: :index
     end
 
-    # def show
-    #  return unless @journal_entry = find_and_check
-    # respond_with(@journal_entry, methods: [],
-    #                              include: [])
-    #  format.html do
-    #    t3e @journal_entry.attributes.or_else({})
-    #  end
-    # end
+    def show
+      return unless @journal_entry = find_and_check
+      t3e @journal_entry
+      respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
+                                   include: [
+                                     { financial_year: {} },
+                                     { journal: {} },
+                                     { resource: {} },
+                                     { bank_statements: {} },
+                                     { creator: {} },
+                                     { updater: {} },
+                                     { items: { include: %i[account tax tax_declaration_item] } }
+                                   ],
+                                   procs: proc { |options| options[:builder].tag!(:url, backend_journal_entry_url(@journal_entry)) })
+    end
 
     def new
       if params[:duplicate_of]
@@ -160,7 +169,7 @@ module Backend
     protected
 
     def permitted_params
-      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i(id name account_id real_debit real_credit activity_budget_id team_id _destroy))
+      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name account_id real_debit real_credit activity_budget_id team_id _destroy])
     end
 
     def notify_global_errors

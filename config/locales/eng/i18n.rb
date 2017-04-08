@@ -4,11 +4,11 @@
     iso2: 'en',
     name: 'English',
     plural: {
-      keys: %i(one other),
+      keys: %i[one other],
       rule: ->(n) { n == 1 ? :one : :other }
     }
   },
   date: {
-    order: %i(month day year)
+    order: %i[month day year]
   }
 } }

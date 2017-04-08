@@ -1,25 +1,25 @@
 # coding: utf-8
 
 class AtomizeInterventions < ActiveRecord::Migration
-  TASK_TABLES = %i(product_enjoyments product_junctions product_links product_linkages product_localizations product_memberships product_ownerships product_phases product_reading_tasks).freeze
+  TASK_TABLES = %i[product_enjoyments product_junctions product_links product_linkages product_localizations product_memberships product_ownerships product_phases product_reading_tasks].freeze
   POLYMORPHIC_REFERENCES = [
-    %i(attachments resource),
+    %i[attachments resource],
     # [:interventions, :resource],
-    %i(issues target),
-    %i(journal_entries resource),
-    %i(observations subject),
-    %i(preferences record_value),
-    %i(product_enjoyments originator),
-    %i(product_junctions originator),
-    %i(product_linkages originator),
-    %i(product_links originator),
-    %i(product_localizations originator),
-    %i(product_memberships originator),
-    %i(product_ownerships originator),
-    %i(product_phases originator),
-    %i(product_reading_tasks originator),
-    %i(product_readings originator),
-    %i(versions item)
+    %i[issues target],
+    %i[journal_entries resource],
+    %i[observations subject],
+    %i[preferences record_value],
+    %i[product_enjoyments originator],
+    %i[product_junctions originator],
+    %i[product_linkages originator],
+    %i[product_links originator],
+    %i[product_localizations originator],
+    %i[product_memberships originator],
+    %i[product_ownerships originator],
+    %i[product_phases originator],
+    %i[product_reading_tasks originator],
+    %i[product_readings originator],
+    %i[versions item]
   ].freeze
 
   def change
