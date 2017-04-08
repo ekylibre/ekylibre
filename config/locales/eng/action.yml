@@ -1477,6 +1477,7 @@ eng:
     natures: "Types" #?
     net_income: "Net income"
     net_mass: "Net mass"
+    # net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
     new: "New"
     new_activity: "New activity"

@@ -256,6 +256,11 @@ class Cash < Ekylibre::Record::Base
     end
   end
 
+  def next_reconciliation_letter
+    item = BankStatementItem.where('LENGTH(TRIM(letter)) > 0').order('LENGTH(letter) DESC, letter DESC').first
+    item ? item.letter.succ : 'A'
+  end
+
   def next_reconciliation_letters
     Enumerator.new do |yielder|
       letter_column = "#{BankStatementItem.table_name}.letter"
