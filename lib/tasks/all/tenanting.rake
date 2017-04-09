@@ -9,28 +9,27 @@
 ##################################################
 
 rule(/db:all:.+/) do |t|
-  task_name = t.name.gsub(":all:", ":")
- 
-  Rake::Task[task_name] # Ensures task exists 
+  task_name = t.name.gsub(':all:', ':')
 
-  excludes = ENV["EXCLUDE"] || ""
+  Rake::Task[task_name] # Ensures task exists
+
+  excludes = ENV['EXCLUDE'] || ''
   excludes = excludes.split(',')
-  excludes << "default"
-  unless ENV["INCLUDE_SYSTEM_DBS"]
-    excludes << "production"
-    excludes << "development"
-    excludes << "test"
-    excludes << "db_cluster"
-  end  
+  excludes << 'default'
+  unless ENV['INCLUDE_SYSTEM_DBS']
+    excludes << 'production'
+    excludes << 'development'
+    excludes << 'test'
+    excludes << 'db_cluster'
+  end
 
-  excludes -= (ENV["INCLUDE"] || "").split(',')
+  excludes -= (ENV['INCLUDE'] || '').split(',')
 
   databases = Rails.configuration.database_configuration
 
-  databases.each do |database, config|
+  databases.each do |database, _config|
     next if excludes.include? database
- 
+
     `rake #{task_name} RAILS_ENV=#{database}`
   end
 end
-

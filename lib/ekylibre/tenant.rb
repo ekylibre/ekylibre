@@ -14,32 +14,13 @@ module Ekylibre
         list.include?(name)
       end
 
-      def exists_in_any_database?(name)
-        Rails
-          .configuration
-          .database_configuration
-          .select { |database, config| (config['clustered'] && config['database']) || database == env }
-          .any? do |_env, conf|
-            Apartment.establish_connection conf
-            Apartment.connection.schema_exists? name
-          end
-      end
-
-      # Tests existence of a tenant in DATABASE
+      # Tests existence of a tenant in DB
       # and removes it if not exist
       def check!(name, options = {})
         if list.include?(name)
-          current_conf = Apartment.connection_config
-          tenant_exists = exists_in_any_database?(name)
-          drop(name, options) unless tenant_exists
-          Apartment.establish_connection current_conf
+          switch_to_database_for(name)
+          drop(name, options) unless Apartment.connection.schema_exists? name
         end
-      end
-
-      def recreate(name, options = {})
-        check!(name, options)
-        drop(name) if exist?(name)
-        create(name, options[:database])
       end
 
       # Returns the current tenant
@@ -61,38 +42,82 @@ module Ekylibre
       end
 
       # Create a new tenant with tables and co
-      def create(name, database = nil)
+      def create(name)
         name = name.to_s
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
-        add(name, database)
+        create_database_for!(name) if multi_database > 0
+        add(name)
         Apartment::Tenant.create(name)
       end
 
-      def database_for(name)
-        return Rails.configuration.database_configuration['test'] if env == 'test'
-        databases = { name.to_s => @list[env][name.to_s] } if @list[env][name.to_s]
-        databases ||= @list[env]
-                .map { |key, value| [[key], value] }
-                .to_h
-                .reduce({}) do |hash, pair|
-                  hash.merge([pair.reverse].to_h) { |_old_key, old_value, new_value| old_value + new_value }
-                end
+      def multi_database
+        ENV['MULTI_DATABASE'].to_i
+      end
 
-        Rails.configuration.database_configuration
-             .select {|_database, config| config['clustered'] && config['database'] }
-             .map { |config| [config.last, []] }
-             .to_h
-             .merge(databases)
-             .min_by { |_config, list| list.length }
-             .first
+      def create_database_for!(name, magnitude = nil)
+        magnitude ||= multi_database
+        if magnitude > 0
+          database = database_for(name, magnitude)
+          ActiveRecord::Base.connection.create_database(database)
+          switch_to_database_for(name, magnitude)
+          Ekylibre::Schema.setup_extensions
+          ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
+          Rails.logger.info "Created #{database}"
+        end
+      rescue ActiveRecord::StatementInvalid => e
+        # NOP
+      end
+
+      def switch_to_database_for(name, magnitude = nil)
+        magnitude ||= multi_database
+        if magnitude > 0
+          database = database_for(name, magnitude)
+          switch_to_database(database)
+          database
+        end
+      end
+
+      def switch_to_database(database)
+        configuration = Rails.configuration.database_configuration[Rails.env]
+        Apartment.establish_connection configuration.merge('database' => database)
+      end
+
+      def database_for(name, magnitude = nil)
+        conf = Rails.configuration.database_configuration[Rails.env]
+        return conf if Rails.env.test?
+        magnitude ||= multi_database
+        if magnitude > 0
+          conf['database'] + '_' + Digest::MD5.hexdigest(name)[0..(magnitude - 1)]
+        else
+          conf['database']
+        end
+      end
+
+      def with_pg_env(_name)
+        pghost = ENV['PGHOST']
+        pgport = ENV['PGPORT']
+        pguser = ENV['PGUSER']
+        pgpassword = ENV['PGPASSWORD']
+
+        config = Rails.configuration.database_configuration[Rails.env].with_indifferent_access
+
+        ENV['PGHOST'] = config[:host] if config[:host]
+        ENV['PGPORT'] = config[:port].to_s if config[:port]
+        ENV['PGUSER'] = config[:username].to_s if config[:username]
+        ENV['PGPASSWORD'] = config[:password].to_s if config[:password]
+
+        yield
+      ensure
+        ENV['PGHOST'] = pghost
+        ENV['PGPORT'] = pgport
+        ENV['PGUSER'] = pguser
+        ENV['PGPASSWORD'] = pgpassword
       end
 
       # Adds a tenant in config. No schema are created.
-      def add(name, database = nil)
-        database_config = database_for(name)
-        database_config = Rails.configuration.database_configuration[database.to_s] if database
-        @list[env][name.to_s] = database_config unless list.include?(name)
+      def add(name)
+        list << name unless list.include?(name)
         write
       end
 
@@ -100,7 +125,7 @@ module Ekylibre
       # Nothing is done if already exist
       def setup!(name, options = {})
         check!(name, options)
-        create(name, options[:database]) unless exist?(name)
+        create(name) unless exist?(name)
         switch!(name)
       end
 
@@ -108,7 +133,8 @@ module Ekylibre
       def drop(name, options = {})
         name = name.to_s
         raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
-        Apartment::Tenant.drop(name) if exists_in_any_database? name
+        switch_to_database_for(name)
+        Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
         write
@@ -209,30 +235,13 @@ module Ekylibre
 
       def list
         load! unless @list
-        @list[env] ||= {}
-        @list[env].keys
-      end
-
-      def list_with_databases
-        load! unless @list
-        @list[env] ||= {}
+        @list[env] ||= []
         @list[env]
       end
 
       def load!
         @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
         @list ||= {}
-
-        @list = @list.map do |env, tenant_list|
-          with_configs = tenant_list.map do |tenant|
-            if tenant.is_a? Hash
-              [tenant.keys.first, Rails.configuration.database_configuration[tenant.values.first]]
-            else
-              [tenant.to_s, Rails.configuration.database_configuration[env]]
-            end
-          end
-          [env, with_configs.to_h]
-        end.to_h
       end
 
       def drop_aggregation_schema!
@@ -344,14 +353,6 @@ module Ekylibre
         Rails.root.join('config', 'tenants.yml')
       end
 
-      def database_file
-        Rails.root.join('config', 'databases.yml')
-      end
-
-      def tenant_databases_file
-        Rails.root.join('config', 'tenant_databases.yml')
-      end
-
       # Return the env
       def env
         Rails.env.to_s
@@ -359,16 +360,8 @@ module Ekylibre
 
       def write
         semaphore.synchronize do
-          new_list = @list.map do |env, tenant_list|
-            tenant_with_database = tenant_list.map do |tenant_name, config|
-              database_name = Rails.configuration.database_configuration.find { |_database, conf| conf == config }.first
-              [[tenant_name, database_name]].to_h
-            end
-            [tenant_with_database]
-          end.to_h
-         
-          FileUtils.mkdir_p(tenant_databases_file.dirname)
-          File.write(tenant_databases_file, new_list.to_yaml)
+          FileUtils.mkdir_p(config_file.dirname)
+          File.write(config_file, @list.to_yaml)
         end
       end
 
