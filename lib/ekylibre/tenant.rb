@@ -14,23 +14,23 @@ module Ekylibre
         list.include?(name)
       end
 
-      def exists_in_any_db?(name)
+      def exists_in_any_database?(name)
         Rails
           .configuration
           .database_configuration
-          .select { |db, config| (config['clustered'] && config['database']) || db == env }
+          .select { |database, config| (config['clustered'] && config['database']) || database == env }
           .any? do |_env, conf|
             Apartment.establish_connection conf
             Apartment.connection.schema_exists? name
           end
       end
 
-      # Tests existence of a tenant in DB
+      # Tests existence of a tenant in DATABASE
       # and removes it if not exist
       def check!(name, options = {})
         if list.include?(name)
           current_conf = Apartment.connection_config
-          tenant_exists = exists_in_any_db?(name)
+          tenant_exists = exists_in_any_database?(name)
           drop(name, options) unless tenant_exists
           Apartment.establish_connection current_conf
         end
@@ -69,10 +69,10 @@ module Ekylibre
         Apartment::Tenant.create(name)
       end
 
-      def db_for(name)
+      def database_for(name)
         return Rails.configuration.database_configuration['test'] if env == 'test'
-        dbs = { name.to_s => @list[env][name.to_s] } if @list[env][name.to_s]
-        dbs ||= @list[env]
+        databases = { name.to_s => @list[env][name.to_s] } if @list[env][name.to_s]
+        databases ||= @list[env]
                 .map { |key, value| [[key], value] }
                 .to_h
                 .reduce({}) do |hash, pair|
@@ -80,19 +80,19 @@ module Ekylibre
                 end
 
         Rails.configuration.database_configuration
-             .select {|_db, config| config['clustered'] && config['database'] }
+             .select {|_database, config| config['clustered'] && config['database'] }
              .map { |config| [config.last, []] }
              .to_h
-             .merge(dbs)
+             .merge(databases)
              .min_by { |_config, list| list.length }
              .first
       end
 
       # Adds a tenant in config. No schema are created.
       def add(name, database = nil)
-        db_config = db_for(name)
-        db_config = Rails.configuration.database_configuration[database.to_s] if database
-        @list[env][name.to_s] = db_config unless list.include?(name)
+        database_config = database_for(name)
+        database_config = Rails.configuration.database_configuration[database.to_s] if database
+        @list[env][name.to_s] = database_config unless list.include?(name)
         write
       end
 
@@ -108,7 +108,7 @@ module Ekylibre
       def drop(name, options = {})
         name = name.to_s
         raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
-        Apartment::Tenant.drop(name) if exists_in_any_db? name
+        Apartment::Tenant.drop(name) if exists_in_any_database? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
         write
@@ -213,7 +213,7 @@ module Ekylibre
         @list[env].keys
       end
 
-      def list_with_dbs
+      def list_with_databases
         load! unless @list
         @list[env] ||= {}
         @list[env]
@@ -360,11 +360,11 @@ module Ekylibre
       def write
         semaphore.synchronize do
           new_list = @list.map do |env, tenant_list|
-            tenant_with_db = tenant_list.map do |tenant_name, config|
-              db_name = Rails.configuration.database_configuration.find { |_db, conf| conf == config }.first
-              [[tenant_name, db_name]].to_h
+            tenant_with_database = tenant_list.map do |tenant_name, config|
+              database_name = Rails.configuration.database_configuration.find { |_database, conf| conf == config }.first
+              [[tenant_name, database_name]].to_h
             end
-            [tenant_with_db]
+            [tenant_with_database]
           end.to_h
          
           FileUtils.mkdir_p(tenant_databases_file.dirname)

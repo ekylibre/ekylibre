@@ -33,7 +33,7 @@ Apartment.configure do |config|
   # supply list of database names for migrations to run on
 
   config.with_multi_server_setup = true
-  config.tenant_names = -> { Ekylibre::Tenant.list_with_dbs }
+  config.tenant_names = -> { Ekylibre::Tenant.list_with_databases }
 end
 
 module Apartment
@@ -68,13 +68,15 @@ module Apartment
       def connect_to_new(tenant = nil)
         return reset if tenant.nil?
 
-        # no switching unless we are in another DB
-        unless Ekylibre::Tenant.db_for(tenant.to_s) == Ekylibre::Tenant.db_for(@current)
-          Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-db setup
+        # no switching unless we are in another DATABASE
+        unless Ekylibre::Tenant.database_for(tenant.to_s) == Ekylibre::Tenant.database_for(@current)
+          Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-database setup
           raise ActiveRecord::StatementInvalid.new("Could not establish connection to database for schema #{tenant}") unless Apartment.connection.active?
         end
 
-        raise ActiveRecord::StatementInvalid.new("Could not find schema #{tenant}") unless Apartment.connection.schema_exists? tenant
+        unless Apartment.connection.schema_exists? tenant
+          raise ActiveRecord::StatementInvalid.new("Could not find schema #{tenant}")
+        end
 
         @current = tenant.to_s
         Apartment.connection.schema_search_path = full_search_path
