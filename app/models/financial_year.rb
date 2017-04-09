@@ -311,8 +311,8 @@ class FinancialYear < Ekylibre::Record::Base
 
   # See Journal.sum_entry_items
   def sum_entry_items(expression, options = {})
-    options[:started_on] = started_on
-    options[:stopped_on] = stopped_on
+    options[:started_on] ||= started_on
+    options[:stopped_on] ||= stopped_on
     Journal.sum_entry_items(expression, options)
   end
 
@@ -326,9 +326,9 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
-  def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil)
+  def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil, options = {})
     equation = get_mandatory_line_calculation(document, line) if line
-    equation ? sum_entry_items(equation) : 0
+    equation ? sum_entry_items(equation, options) : 0
   end
 
   # Computes the value of list of accounts in a String

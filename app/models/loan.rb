@@ -88,7 +88,7 @@ class Loan < Ekylibre::Record::Base
   validates :state, length: { maximum: 500 }, allow_blank: true
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
-  validates :loan_account_id, :interest_account_id, presence: true
+  validates :loan_account, :interest_account, presence: true
 
   state_machine :state, initial: :draft do
     state :draft
