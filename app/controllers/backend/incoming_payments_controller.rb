@@ -64,7 +64,7 @@ module Backend
       t.column :received, hidden: true
       t.column :deposit, url: true
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :sale_affairs }
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
   end
 end
