@@ -1034,6 +1034,8 @@ arb:
     amount: "القيمة من دون الضرائب"
     # amount_computed_from: "Amount computed from %{source}"
     # amount_estimated_from: "Amount estimated from %{source}"
+    # amount_max: "Maximum amount"
+    # amount_min: "Minimum amount"
     # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل" #?
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل" #?

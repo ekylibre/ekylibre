@@ -872,6 +872,7 @@ fra:
     employment: "Emploi/Rôle"
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
+    end_due_date: "Fin date d'échéance" #?
     end_junction: "Jonction finale" #?
     end_of_life_reason: "Raison de fin de vie"
     end_way: "Voie finale" #?
@@ -1634,6 +1635,7 @@ fra:
     sql_type: "Type SQL"
     ssl: "Ssl"
     start: "Début"
+    start_due_date: "Début date d'échéance" #?
     start_junction: "Jonction de départ" #?
     start_way: "Voie de départ" #?
     started_at: "Débuté le"
