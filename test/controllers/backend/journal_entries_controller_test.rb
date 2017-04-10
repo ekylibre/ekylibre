@@ -40,7 +40,6 @@ module Backend
       date = DateTime.now.to_date
       user = User.where(administrator: true).last
       sign_in(user)
-      # byebug
       post(:create, journal_entry: {
         journal_id: journal.id,
         printed_on:  date,
