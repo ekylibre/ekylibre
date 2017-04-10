@@ -1147,6 +1147,7 @@ por:
     investment_security: "Segurança de investimento"
     investment_subsidies: "Os subsídios ao investimento"
     invitation_status: "Estado"
+    # invoice_period: "Invoice period"
     invoice_status: "Status de fatura"
     invoiced: "Facturado"
     invoiced_amount: "Vendas montante facturado" #?

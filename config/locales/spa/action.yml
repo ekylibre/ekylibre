@@ -1275,6 +1275,7 @@ spa:
     investment_security: "Seguridad de la inversión"
     investment_subsidies: "Subvenciones a la inversión"
     invitation_status: "Estado"
+    # invoice_period: "Invoice period"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?

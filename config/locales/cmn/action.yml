@@ -1142,6 +1142,7 @@ cmn:
     investment_security: "投资安全"
     investment_subsidies: "投资补助"
     invitation_status: "状态"
+    # invoice_period: "Invoice period"
     invoice_status: "发票状态"
     invoiced: "已开发票"
     invoiced_amount: "销售发票金额" #?

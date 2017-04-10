@@ -1208,6 +1208,7 @@ ita:
     investment_security: "Sicurezza dell’investimento"
     investment_subsidies: "Sovvenzioni agli investimenti"
     invitation_status: "Stato"
+    # invoice_period: "Invoice period"
     invoice_status: "Stato delle fatture"
     invoiced: "Fatturato"
     invoiced_amount: "Vendite importo fatturato" #?

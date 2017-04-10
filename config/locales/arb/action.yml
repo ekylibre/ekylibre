@@ -1534,6 +1534,7 @@ arb:
     investment_security: "أمن الاستثمار"
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
+    # invoice_period: "Invoice period"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
     invoiced_amount: "قيمة الفاتورة" #?
