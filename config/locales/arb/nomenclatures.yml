@@ -1909,7 +1909,7 @@ arb:
         acta_category: "فئة اكتا"
     document_natures:
       items:
-        # account_journal_entry_sheet: "Account journal entry sheet"
+        account_journal_entry_sheet: "حساب ورقة إدخال دفتر اليومية"
         activity_cost: "تكلفة النشاط"
         animal_husbandry_register: "تربية الحيوانات السجل"
         animal_list: "قائمة الحيوان"
@@ -1933,9 +1933,9 @@ arb:
         intervention_sheet: "ورقة التدخل"
         inventory_sheet: "ورقة المخزون"
         journal: "مجلة"
-        # journal_entry_sheet: "Journal entry sheet"
+        journal_entry_sheet: "ورقة إدخال دفتر اليومية"
         land_parcel_register: "تسجيل قطعة أرض"
-        # loan_registry: "Loan registry"
+        loan_registry: "التسجيل قرض"
         manure_management_plan: "خطة إدارة السماد"
         manure_management_plan_sheet: "خطة إدارة السماد (التفاصيل)"
         outgoing_deliveries_journal: "مجلة شحنات الصادرة"
