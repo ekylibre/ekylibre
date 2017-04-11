@@ -43,19 +43,10 @@ module Backend
 
     # This method confirm all draft entries
     def confirm
-      conditions = nil
-      begin
-        conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
-        journal_entries = JournalEntry.where(conditions)
-        undone = 0
-        for entry in journal_entries
-          entry.confirm if entry.can_confirm?
-          undone += 1 if entry.draft?
-        end
-        notify_success(:draft_journal_entries_have_been_validated, count: journal_entries.size - undone)
-      rescue Exception => e
-        notify_error(:exception_raised, message: e.message)
-      end
+      conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
+      journal_entries = JournalEntry.where(conditions)
+      ConfirmJournalEntriesJob.perform_later(journal_entries.pluck(:id), current_user)
+      notify_success(:draft_journal_entries_going_to_be_confirm)
       redirect_to action: :show
     end
   end

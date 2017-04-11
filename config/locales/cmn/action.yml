@@ -1885,6 +1885,7 @@ cmn:
       draft_journal_entries_have_been_validated:
         one: "一个条目已被证实"
         # other: "%{count} entries have been validated"
+      # draft_journal_entries_going_to_be_confirm: "The entries are being confirmed, you will recieve a notification when it is finished."
       entity_columns_are_needed: "你需要指定的人，特别是其姓氏至少有一列。"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
