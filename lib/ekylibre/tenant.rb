@@ -52,7 +52,7 @@ module Ekylibre
       end
 
       def multi_database
-        ENV['MULTI_DATABASE'].to_i
+        Rails.env.test? ? 0 : ENV['MULTI_DATABASE'].to_i
       end
 
       def create_database_for!(name, magnitude = nil)
@@ -63,6 +63,9 @@ module Ekylibre
           switch_to_database_for(name, magnitude)
           Ekylibre::Schema.setup_extensions
           ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
+          Ekylibre::Schema.model_names.each do |model_name|
+            model_name.to_s.constantize.reset_column_information
+          end
           Rails.logger.info "Created #{database}"
         end
       rescue ActiveRecord::StatementInvalid => e
@@ -85,7 +88,6 @@ module Ekylibre
 
       def database_for(name, magnitude = nil)
         conf = Rails.configuration.database_configuration[Rails.env]
-        return conf if Rails.env.test?
         magnitude ||= multi_database
         if magnitude > 0
           conf['database'] + '_' + Digest::MD5.hexdigest(name)[0..(magnitude - 1)]
@@ -214,7 +216,7 @@ module Ekylibre
         if list.empty?
           raise TenantError, 'No default tenant'
         else
-          Apartment::Tenant.switch!(list.first)
+          switch!(list.first)
         end
       end
 

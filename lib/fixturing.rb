@@ -36,6 +36,7 @@ module Fixturing
       version = options[:version] || current_version
       verbose = !options[:verbose].is_a?(FalseClass)
       Ekylibre::Tenant.create_database_for!(tenant)
+      Ekylibre::Tenant.switch_to_database_for(tenant)
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)

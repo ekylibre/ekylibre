@@ -86,10 +86,10 @@ module Apartment
         return reset if tenant.nil?
 
         # no switching unless we are in another DATABASE
-        unless Ekylibre::Tenant.database_for(tenant.to_s) == Ekylibre::Tenant.database_for(@current)
-          Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-database setup
-          raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}" unless Apartment.connection.active?
-        end
+        # unless Ekylibre::Tenant.database_for(tenant.to_s) == Ekylibre::Tenant.database_for(@current)
+        Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-database setup
+        raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}" unless Apartment.connection.active?
+        # end
 
         unless Apartment.connection.schema_exists? tenant
           raise ActiveRecord::StatementInvalid, "Could not find schema #{tenant}"
@@ -97,8 +97,8 @@ module Apartment
 
         @current = tenant.to_s
         Apartment.connection.schema_search_path = full_search_path
-      rescue *rescuable_exceptions
-        raise TenantNotFound, "One of the following schema(s) is invalid: \"#{tenant}\" #{full_search_path}"
+        # rescue *rescuable_exceptions
+        #   raise TenantNotFound, "One of the following schema(s) is invalid: \"#{tenant}\" #{full_search_path}"
       end
     end
   end
