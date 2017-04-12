@@ -15,6 +15,12 @@
     - for x in [:period, :started_at, :stopped_at]
       = hidden_field_tag(x, params[x])
     - precision = Nomen::Currency[Preference[:currency]].precision
+
+    .active-list-actions
+      %input#letters-visibility{ type: :checkbox, checked: true }
+      %label#label-letters-visibility
+        = :mask_literate_elements.tl
+
     .active-list
       %table.list
         %thead
@@ -38,7 +44,7 @@
           - for item in @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
             - checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
             - trid, conf = "e#{item.id}", {}
-            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "") + cycle("even", "odd")}
+            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd")}
               %td.chk
                 - if item.letter.blank? and not item.closed?
                   = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", data: {add_class: "selected", add_class_to: "##{trid}"})

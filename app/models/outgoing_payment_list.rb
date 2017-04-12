@@ -22,14 +22,16 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode_id      :integer          not null
-#  number       :string
-#  updated_at   :datetime
-#  updater_id   :integer
+#  cached_payment_count :integer
+#  cached_total_sum     :decimal(, )
+#  created_at           :datetime
+#  creator_id           :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  mode_id              :integer          not null
+#  number               :string
+#  updated_at           :datetime
+#  updater_id           :integer
 #
 class OutgoingPaymentList < Ekylibre::Record::Base
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
@@ -37,13 +39,13 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   has_one :cash, through: :mode
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :cached_total_sum, numericality: true, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   validates :mode, presence: true
   # ]VALIDATORS]
 
   delegate :name, to: :mode, prefix: true
   delegate :sepa?, to: :mode
-  delegate :count, to: :payments, prefix: true
   delegate :currency, to: :cash
 
   acts_as_numbered
@@ -85,7 +87,11 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   end
 
   def payments_sum
-    payments.sum(:amount)
+    cached_total_sum
+  end
+
+  def payments_count
+    cached_payment_count
   end
 
   def payer
@@ -142,7 +148,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i,
         position: position
       )
-      initial_check_number = initial_check_number.to_i + 1 unless initial_check_number.blank?
+      initial_check_number = initial_check_number.to_i + 1 if initial_check_number.present?
       position += 1
       op
     end.compact

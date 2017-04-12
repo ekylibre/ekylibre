@@ -1,4 +1,5 @@
 # coding: utf-8
+
 { cmn: {
   i18n: {
     dir: 'ltr',
@@ -6,11 +7,11 @@
     ietf: 'zh-CN',
     name: '官話',
     plural: {
-      keys: [:one, :other],
+      keys: %i[one other],
       rule: ->(n) { n == 1 ? :one : :other }
     }
   },
   date: {
-    order: [:year, :month, :day]
+    order: %i[year month day]
   }
 } }

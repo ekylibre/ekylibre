@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add algerian vat">
+  <!-- Add your changes here -->
+  <item-creation item="taxes#algerian_vat_null"         country="dz" nature="null_vat"    amount="0.0"  started_on="1962-07-05"/>
+  <item-creation item="taxes#algerian_vat_reduced"      country="dz" nature="reduced_vat" amount="7.0"  started_on="1962-07-05" stopped_on="2016-12-31"/>
+  <item-creation item="taxes#algerian_vat_normal"       country="dz" nature="normal_vat"  amount="17.0" started_on="1962-07-05" stopped_on="2016-12-31"/>
+  <item-creation item="taxes#algerian_vat_reduced_2017" country="dz" nature="reduced_vat" amount="9.0"  started_on="2017-01-01"/>
+  <item-creation item="taxes#algerian_vat_normal_2017"  country="dz" nature="normal_vat"  amount="19.0" started_on="2017-01-01"/>
+
+</migration>

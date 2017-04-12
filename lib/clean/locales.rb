@@ -48,7 +48,7 @@ module Clean
 
         ::I18n.locale = @locale
         FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-        %w(help reporting).each do |directory|
+        %w[help reporting].each do |directory|
           unless locale_dir.join(directory).exist?
             FileUtils.makedirs(locale_dir.join(directory))
           end
@@ -127,7 +127,7 @@ module Clean
                                []
                              end
           translateable_actions = []
-          translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
+          translateable_actions += (actions.delete_if { |a| %i[update create picture destroy up down decrement increment duplicate reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
           translateable_actions.each do |action_name|
@@ -267,6 +267,10 @@ module Clean
         end
         warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
 
+        # Simple form
+        to_translate += Clean::Support.hash_count(::I18n.translate('simple_form'))
+        translation << '  simple_form:' + Clean::Support.hash_to_yaml(::I18n.translate('simple_form'), 2) + "\n"
+
         # Unroll
         translation << "  unrolls:\n"
         unrolls = ::I18n.t('unrolls')
@@ -323,7 +327,7 @@ module Clean
         ref[:aggregator_properties] ||= {}
         all_properties = []
         Aggeratio.each_xml_aggregator do |element|
-          all_properties += Aggeratio::Base.new(element).properties.select { |e| e.attr('level').to_s != 'api' }.collect { |e| e.attr('name').to_sym }
+          all_properties += Aggeratio::Base.new(element).properties.reject { |e| e.attr('level').to_s == 'api' }.collect { |e| e.attr('name').to_sym }
         end
         all_properties.uniq!.sort!
         all_properties.each do |property_name|
@@ -516,7 +520,7 @@ module Clean
                   end
                 end
               end
-              unless choices.blank?
+              if choices.present?
                 choices = "choices:\n" + choices.dig
                 trl[:choices] = choices.dig(3)
               end
@@ -556,7 +560,7 @@ module Clean
               end
             end
 
-            [:choices, :items, :name, :notions, :properties].each do |info|
+            %i[choices items name notions properties].each do |info|
               translation << trl[info] if trl[info]
             end
           end
@@ -590,6 +594,28 @@ module Clean
             translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
           else
             translation << "    #{missing_prompt}#{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
+            untranslated += 1
+          end
+        end
+
+        translation << "  procedure_killable_parameters:\n"
+        killables = [
+          :is_it_completely_destroyed_by_intervention
+        ]
+        Procedo.each_product_parameter do |parameter|
+          next unless parameter.attribute(:killable)
+          key = "is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}".to_sym
+          killables << key
+          key = "is_#{parameter.name}_completely_destroyed_by_intervention".to_sym
+          killables << key unless killables.include? key
+        end
+        ref[:procedure_killable_parameters] ||= {}
+        killables.sort.each do |killable|
+          to_translate += 1
+          if (found = ref[:procedure_killable_parameters][killable])
+            translation << "    #{killable}: " + Clean::Support.yaml_value(found) + "\n"
+          else
+            translation << "    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n"
             untranslated += 1
           end
         end

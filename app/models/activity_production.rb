@@ -51,7 +51,7 @@
 
 class ActivityProduction < Ekylibre::Record::Base
   include Customizable, Attachable
-  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none, :animal_group], default: :cultivation
+  enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -73,7 +73,7 @@ class ActivityProduction < Ekylibre::Record::Base
   has_and_belongs_to_many :campaigns
 
   has_geometry :support_shape
-  composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
+  composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
@@ -274,8 +274,10 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def initialize_animal_group_support!
-    self.support = AnimalGroup.new unless support
-    support.name = computed_support_name
+    unless support
+      self.support = AnimalGroup.new
+      support.name = computed_support_name
+    end
     # FIXME: Need to find better category and population_counting...
     unless support.variant
       nature = ProductNature.find_or_create_by!(
@@ -608,15 +610,15 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_size(options = {})
     options[:at] ||= self.started_on ? self.started_on.to_time : Time.zone.now
     value = support.get(size_indicator_name, options)
-    value = value.in(size_unit_name) unless size_unit_name.blank?
+    value = value.in(size_unit_name) if size_unit_name.present?
     value
   end
 
   def duplicate!(updates = {})
-    new_attributes = [
-      :activity, :campaign, :cultivable_zone, :irrigated, :nitrate_fixing,
-      :size_indicator_name, :size_unit_name, :size_value, :started_on,
-      :support_nature, :support_shape, :usage
+    new_attributes = %i[
+      activity campaign cultivable_zone irrigated nitrate_fixing
+      size_indicator_name size_unit_name size_value started_on
+      support_nature support_shape usage
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
@@ -644,7 +646,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def get(*args)
-    unless support.present?
+    if support.blank?
       raise StandardError, "No support defined. Got: #{support.inspect}"
     end
     support.get(*args)

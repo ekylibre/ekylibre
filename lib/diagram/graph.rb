@@ -124,12 +124,12 @@ module Diagram
         @edge_options[attr] ||= @options[attr]
       end
       @edge_options[:font_color] ||= '#688ED8'
-      [:head, :size, :tail].each do |key|
+      %i[head size tail].each do |key|
         if @edge_options[key]
           @edge_options["arrow_#{key}".to_sym] = @edge_options.delete(key)
         end
       end
-      [:url, :href, :target, :tooltip, :length, :separator].each do |key|
+      %i[url href target tooltip length separator].each do |key|
         if @edge_options[key]
           @edge_options["edge_#{key}".to_sym] = @edge_options.delete(key)
         end
@@ -143,8 +143,12 @@ module Diagram
       @content << ";\n"
     end
 
+    def record(name, options = {})
+      node(name, options.merge(shape: 'record'))
+    end
+
     def arrow(from, to, options = {})
-      [:head, :size, :tail].each do |key|
+      %i[head size tail].each do |key|
         options["arrow_#{key}".to_sym] = options.delete(key) if options[key]
       end
       options[:operator] = '->'
@@ -152,7 +156,7 @@ module Diagram
     end
 
     def edge(from, to, options = {})
-      [:url, :href, :target, :tooltip, :length, :separator].each do |key|
+      %i[url href target tooltip length separator].each do |key|
         options["edge_#{key}".to_sym] = options.delete(key) if options[key]
       end
       operator = options.delete(:operator) || '--'
@@ -188,7 +192,7 @@ module Diagram
       dot_file = "#{path}.gv"
       FileUtils.mkdir_p(File.dirname(dot_file))
       File.write(dot_file, to_dot)
-      formats = options[:formats] || %w(png)
+      formats = options[:formats] || %w[png]
       formats.each do |format|
         `#{@processor} -T#{format} #{dot_file} > #{path + '.' + format.to_s}`
       end

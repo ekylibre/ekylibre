@@ -33,6 +33,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
+      cashes:
+        main_account: "Compte principal"
       document:
         filename: "Fichier"
       document_archive: #?
@@ -60,6 +62,11 @@ fra:
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
         stopped_on: "Date de clôture"
+      fixed_asset:
+        asset_account: "Compte d'immobilisation"
+        depreciation_period: "Périodicité des amortissements"
+        net_book_value: "Valeur nette comptable (VNC)" #?
+        started_on: "Date de mise en service"
       fixed_asset_depreciation:
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
@@ -88,6 +95,9 @@ fra:
         children: "Sous-îlots" #?
         identification_number: "Numéro d’îlots PAC" #?
         real_quantity: "Surface" #?
+      loan:
+        ongoing_at: "Date de déblocage des fonds"
+        started_on: "Date de la 1ère échéance"
       matter: #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
@@ -133,8 +143,8 @@ fra:
       product_nature_category: #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        fixed_asset_allocation_account: "Compte d’ammortissement" #?
-        fixed_asset_expenses_account: "Compte de dotation aux ammortissements" #?
+        fixed_asset_allocation_account: "Compte d’amortissement" #?
+        fixed_asset_expenses_account: "Compte de dotation aux amortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
       product_nature_variant: #?
@@ -262,11 +272,20 @@ fra:
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
         financial_year:
           attributes:
+            accountant:
+              frozen: "Le comptable ne peut être modifié lorsqu'un échange est en cours"
             started_on:
               consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
+              frozen: "La date de l'exercice comptable ne peut être modifiée une fois qu'un échange a été créé."
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Certaines entrées du CSV ne sont pas comprises dans l'intervalle de l'exercice comptable"
+          csv_file_entry_invalid: "Certaines entrées du CSV sont invalides ('%{entry_number}')"
+          csv_file_headers_invalid: "Les en-têtes du fichier CSV sont invalides"
+          csv_file_invalid: "Fichier CSV invalide"
+          csv_file_journals_invalid: "Certains journaux sont présents dans le CSV mais n'existent pas dans Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -275,11 +294,16 @@ fra:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
             closed_on:
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})"
         journal_entry:
           closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
+          frozen_by_financial_year_exchange: "L'écriture ne peut être enregistrée lors d'un échange d'exercice comptable."
           out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           unbalanced: "La pièce n’est pas équilibrée"
         journal_entry_item:
@@ -324,6 +348,7 @@ fra:
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
+      bank_guarantee_account: "Compte bancaire de garantie"
       bank_statement: "Relevé de compte bancaire"
       bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
@@ -381,7 +406,9 @@ fra:
       inspection: "Agréage produit"
       inspection_calibration: "Calibre de l'agréage"
       inspection_point: "Point de contrôle"
+      insurance_account: "Compte d'assurance"
       integration: "L’intégration"
+      interest_account: "Compte d'intérêt"
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
       intervention_doer: "Opérateur d’intervention"
@@ -408,10 +435,11 @@ fra:
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
       loan: "Emprunt"
+      loan_account: "Compte de prêt"
       loan_repayment: "Remboursement d’emprunt"
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
-      map_background: "Fond de carte"
+      map_layer: "Couche de carte"
       matter: "Matière"
       net_service: "Service en ligne"
       notification: "Notification"
@@ -504,6 +532,8 @@ fra:
     account_name: "Compte comptable"
     account_number: "N°Compte"
     accountable: "Comptabilisable"
+    accountable_repayments_started_on: "Date de début de prise en compte des échéances"
+    accountant: "Comptable"
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"
     achieved_at: "Achevé le"
@@ -559,12 +589,15 @@ fra:
     archiving: "Méthode d’archivage"
     # arguments: "Arguments"
     assembly: "Assemblée"
+    asset_account: "Compte d’actifs"
+    asset_exists: "Immobilisation en cours existante."
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
     attorney_journal: "Journal mandataire" #?
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
+    # attribution: "Attribution"
     authentication_token: "Clef d’authentification"
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
@@ -582,6 +615,9 @@ fra:
     bank_agency_code: "Code guichet"
     bank_check_number: "N°Chèque"
     bank_code: "Code banque"
+    bank_guarantee_account: "Code comptable caution"
+    bank_guarantee_amount: "Montant de la caution"
+    bank_guarantees_loans: "Garanties bancaires prêts"
     bank_identifier_code: "BIC"
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
@@ -590,6 +626,8 @@ fra:
     base_amount: "Montant de base"
     battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
+    birth_date_completeness: "Complétude de la date de naissance"
+    birth_farm_number: "Numéro de la ferme de naissance"
     body: "Corps"
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
@@ -643,6 +681,7 @@ fra:
     closed: "Clôturé"
     closed_at: "Date de clôture"
     closed_on: "Clôturé le"
+    closure_journal: "Journal de clôture"
     clusters_work_number: "Ilôts PAC"
     code: "Code"
     # codes: "Codes"
@@ -740,6 +779,7 @@ fra:
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
+    dead: "Mort"
     dead_at: "Date de décès"
     dead_line_at: "Date butoir"
     deal_type: "Type de transaction" #?
@@ -782,9 +822,11 @@ fra:
     deposits: "Remises en banque"
     depreciable: "Amortissable"
     depreciable_amount: "Montant amortissable"
+    depreciable_product: "Liée au produit suivant"
     depreciated_amount: "Montant amorti"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
+    depreciation_period: "Durée d’amortissement"
     depreciations: "Amortissements"
     depth: "Profondeur"
     derivative: "Dérivé" #?
@@ -831,6 +873,7 @@ fra:
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
     end_junction: "Jonction finale" #?
+    end_of_life_reason: "Raison de fin de vie"
     end_way: "Voie finale" #?
     enjoyer: "Usufruitier"
     enjoyments: "Usufruits"
@@ -842,6 +885,8 @@ fra:
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
     entry_number: "N° Écriture"
+    entry_on: "Entrée le"
+    entry_reason: "Raison de l'entrée"
     establishment: "Établissement" #?
     # euid: "EUID"
     event: "Évènement"
@@ -851,6 +896,8 @@ fra:
     exclusive: "Exclusif" #?
     execution_number: "N° d’exécution"
     executor: "Exécutant"
+    exit_on: "Sortie le"
+    exit_reason: "Raison de la sortie"
     expected_population: "Population attendue"
     expected_shape: "Forme attendue"
     expected_stop_amount: "Montant final attendu"
@@ -872,6 +919,9 @@ fra:
     farm_name: "Nom de la ferme"
     farmer: "Exploitant"
     father: "Père"
+    father_country: "Pays du père"
+    father_identification_number: "Numéro d'identification du père"
+    father_variety: "Variété du père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
@@ -883,6 +933,7 @@ fra:
     file_fingerprint: "Empreinte du fichier"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
+    filiation_status: "Statut de la filiation"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -890,6 +941,7 @@ fra:
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
     finished_at: "Terminé à"
+    first_calving_on: "Premier vêlage le"
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -914,8 +966,8 @@ fra:
     following: "Suivant"
     # format: "Format"
     formats: "Formats"
-    fourth_producer: "Quatrième producteur" #?
-    fourth_producer_way: "Voie du quatrième producteur" #?
+    forward_journal: "Journal des reports à nouveaux"
+    france_maaid: "N° AMM"
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?
     frozen_indicators_list: "Liste des indicateurs fixes"
@@ -956,7 +1008,7 @@ fra:
     group: "Groupe"
     group_parameters: "Paramètres de groupe"
     groups: "Groupes"
-    # gtin: "GTIN"
+    gtin: "GTIN"
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
@@ -1005,6 +1057,7 @@ fra:
     initial_number: "Numéro initial"
     initial_owner: "Propriétaire initial"
     initial_population: "Population initiale"
+    initial_releasing_amount: "Déblocage initial du montant emprunté"
     initial_shape: "Forme initiale"
     initialization_vectors: "Vecteurs d’initialisation"
     initiated_on: "Lancé le"
@@ -1015,10 +1068,13 @@ fra:
     inspection_point_natures: "Point d’inspection des natures"
     inspection_points: "Les points d’inspection"
     inspections: "Agréages"
+    insurance_account: "Compte comptable ADI" #?
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
+    insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
     integration_name: "Nom d’intégration"
+    interest_account: "Code comptable intérêt" #?
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
@@ -1112,6 +1168,7 @@ fra:
     list: "Liste"
     listing: "Extraction"
     loan: "Emprunt"
+    loan_account: "Code comptable emprunt" #?
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
@@ -1136,6 +1193,7 @@ fra:
     mail_postal_zone: "Zone postale"
     mails: "Courriels"
     main: "Principal"
+    main_account: "Compte principal"
     main_activity: "Activité principale"
     main_crop_code: "Code de la culture principale"
     main_crop_commercialisation: "Commercialisation"
@@ -1154,6 +1212,7 @@ fra:
     marketable_quantity: "Quantité commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
+    max_inputs_count: "Nombre maximum d'applications"
     max_zoom: "Zoom maximal"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
@@ -1192,6 +1251,9 @@ fra:
     mode_delta: "Delta Mode"
     model_euid: "Modèle"
     mother: "Mère"
+    mother_country: "Pays de la mère"
+    mother_identification_number: "Numéro d'identification de la mère"
+    mother_variety: "Variété de la mère"
     moved_at: "Fait le" #?
     movements: "Mouvements"
     moves: "Se déplace"
@@ -1209,7 +1271,7 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
-    new_container: "Nouveau conteneur"
+    new_container: "Nouvel emplacement"
     new_group: "Nouveau groupe"
     new_name: "Nouveau nom"
     new_variant: "Nouveau variant"
@@ -1233,6 +1295,7 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
+    opacity: "Opacité"
     opened_at: "Ouvert le"
     operation: "Travail"
     operation_name: "Nom de l’opération"
@@ -1241,6 +1304,8 @@ fra:
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
     origin: "Origine"
+    origin_country: "Pays d'origine"
+    origin_identification_number: "Numéro d'identification d'origine"
     originator: "Initiateur"
     originator_type: "Type de l’initiateur"
     outcoming_product: "Produit outcoming"
@@ -1315,6 +1380,7 @@ fra:
     postal_code: "Code postal"
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
+    pre_harvest_interval: "DAR"
     preferences: "Préférences"
     prepared_at: "Préparé le"
     prereduction_amount: "Montant TTC avant réduction" #?
@@ -1526,6 +1592,8 @@ fra:
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
+    scrapped_journal_entry: "Ecriture de mise au rebut"
+    scrapped_on: "Date de mise au rebut"
     season: "Saisonnalité"
     seasons: "Saisonnalités"
     second_producer: "Second producteur" #?
@@ -1558,6 +1626,8 @@ fra:
     size_value: "Valeur Taille"
     soil_nature: "Nature du sol"
     soil_production: "Contribution en azote du sol (Po)"
+    sold_journal_entry: "Ecriture de cession"
+    sold_on: "Date de cession"
     source: "Source"
     source_product: "Produit Source"
     spaced_iban: "IBAN"
@@ -1612,7 +1682,10 @@ fra:
     support_variant_unit: "Unité d’œuvre"
     support_variety: "Variété du support"
     supports: "Supports"
+    suspend_until_reconciliation: "Suspendre jusqu'à réconciliation"
     suspended: "Suspendu"
+    suspended_journal_entry_items: "Lignes d'écriture suspendues"
+    suspense_account: "Compte de suspens"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
@@ -1667,7 +1740,7 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
     trouble_description: "Description du problème"
-    trouble_encountered: "Probléme durant l'intervention"
+    trouble_encountered: "Problème durant l'intervention"
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
@@ -1686,6 +1759,7 @@ fra:
     unpaid_sales: "Ventes impayées"
     unpointed_journal_entry_items: "Articles d’entrée de journal jointoyées"
     unread_notifications: "Notifications non lus"
+    untreated_zone_margin: "IZNT"
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
@@ -1695,6 +1769,7 @@ fra:
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
+    use_bank_guarantee: "Caution"
     use_countings: "Utiliser les comptages"
     use_gradings: "Utiliser les agréages"
     use_seasons: "Utiliser les saisonnalités"
@@ -1821,6 +1896,20 @@ fra:
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
+    fixed_asset:
+      bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Amortissement exceptionnel de %{name}"
+      bookkeep_exit_assets: "[%{resource} %{number}] Mise au rébut de %{name}"
+      bookkeep_in_sold_assets: "[%{resource} %{number}] Cession de %{name}"
+      bookkeep_in_use_assets: " [%{resource} %{number}] Mise en service de %{name}"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          in_use: "En service"
+          scrapped: "Mise au rebut"
+          sold: "Vendue"
+    fixed_asset_depreciation:
+      bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
+      bookkeep_partial: "[%{resource} %{number}] Amortissement partiel de %{name} (%{position}/%{total})"
     gap:
       bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1891,6 +1980,12 @@ fra:
       reflections: "Tables liées"
     loan:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
+      bookkeep_guarantee_payment: "[%{resource} %{name}] Paiement de la caution"
+      state_machine:
+        states:
+          draft: "Brouillon"
+          ongoing: "En cours"
+          repaid: "Remboursé"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
     outgoing_parcel: #?

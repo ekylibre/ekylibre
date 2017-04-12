@@ -9,11 +9,12 @@ module Procedo
       include Codeable
       attr_reader :filter, :birth_nature, :default_name, :new_value,
                   :destinations, :default_actor, :default_variant,
-                  :procedure, :producer_name, :roles, :type, :value
+                  :display_status, :procedure, :producer_name, :roles,
+                  :type, :value
 
       attr_accessor :variety, :derivative_of
 
-      TYPES = [:target, :tool, :doer, :input, :output].freeze
+      TYPES = %i[target tool doer input output].freeze
 
       code_trees :component_of
 
@@ -32,8 +33,9 @@ module Procedo
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
         end
-        if (input? || target?) && options[:component_of]
-          self.component_of = options[:component_of]
+        if input? || target?
+          self.component_of = options[:component_of] if options[:component_of]
+          @display_status = options[:display_status] if options[:display_status]
         end
         @handlers = {}
         @attributes = {}
@@ -42,6 +44,10 @@ module Procedo
 
       def quantified?
         input? || output?
+      end
+
+      def beta?
+        !@display_status.nil?
       end
 
       # Adds a new handler
@@ -83,13 +89,24 @@ module Procedo
         @readings.values
       end
 
+      def killable_question
+        "is_#{name}_completely_destroyed_by_#{procedure.name}".t(
+          scope: [:procedure_killable_parameters],
+          default: [
+            "is_#{name}_completely_destroyed_by_intervention".to_sym,
+            "is_this_completely_destroyed_by_#{procedure.name}".to_sym,
+            'is_this_completely_destroyed_by_this_intervention'.to_sym
+          ]
+        )
+      end
+
       # Returns reflection name for an intervention object
       def reflection_name
         @type.to_s.pluralize.to_sym
       end
 
       def others
-        @procedure.parameters.select { |v| v != self }
+        @procedure.parameters.reject { |v| v == self }
       end
 
       #
@@ -135,7 +152,7 @@ module Procedo
       end
 
       def default_name?
-        !@default_name.blank?
+        @default_name.present?
       end
 
       TYPES.each do |the_type|
@@ -157,43 +174,29 @@ module Procedo
       end
 
       def computed_variety
-        if @variety
-          if @variety =~ /\:/
-            attr, other = @variety.split(/\:/)[0..1].map(&:strip)
-            attr = 'variety' if attr.blank?
-            attr.tr!('-', '_')
-            unless parameter = @procedure.parameters[other]
-              raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
-            end
-            return parameter.send("computed_#{attr}")
-          else
-            return @variety
-          end
-        end
-        nil
+        computed_attr(:variety)
       end
 
       def computed_derivative_of
-        if @derivative_of
-          if @derivative_of =~ /\:/
-            attr, other = @derivative_of.split(/\:/)[0..1].map(&:strip)
-            attr = 'derivative_of' if attr.blank?
-            attr.tr!('-', '_')
-            unless parameter = @procedure.parameters[other]
-              raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
-            end
-            return parameter.send("computed_#{attr}")
-          else
-            return @derivative_of
-          end
+        computed_attr(:derivative_of)
+      end
+
+      def computed_attr(attribute_name)
+        attribute = instance_variable_get(:"@#{attribute_name}")
+        return nil unless attribute
+        return attribute unless attribute =~ /\:/
+        attr, other = attribute.split(/\:/)[0..1].map(&:strip)
+        attr = attribute_name.to_s.underscore if attr.blank?
+        unless parameter = @procedure.parameters[other]
+          raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
         end
-        nil
+        parameter.send("computed_#{attr}")
       end
 
       # Returns scope hash for unroll
       def scope_hash
         hash = {}
-        hash[:of_expression] = @filter unless @filter.blank?
+        hash[:of_expression] = @filter if @filter.present?
         # hash[:can_each] = @abilities.join(',') unless @abilities.empty?
         hash[:of_variety] = computed_variety if computed_variety
         hash[:derivative_of] = computed_derivative_of if computed_derivative_of

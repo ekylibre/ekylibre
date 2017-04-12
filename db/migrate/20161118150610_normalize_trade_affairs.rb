@@ -112,7 +112,7 @@ $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
       JOIN affairs AS a ON (d.affair_id = a.id)
       JOIN entities AS e ON (e.id = a.third_id)
     WHERE d.type = 'PurchaseGap';".gsub(/\s*\n\s*/, ' ')
-        %w(affair_id account_id journal_entry_id third_id id).each do |col|
+        %w[affair_id account_id journal_entry_id third_id id].each do |col|
           execute "CREATE INDEX letterable_deals_#{col} ON letterable_deals (#{col})"
         end
 
@@ -140,7 +140,7 @@ $$ LANGUAGE plpgsql;".gsub(/\s*\n\s*/, ' ')
       AND lcg.affair_id IN (SELECT affair_id FROM letterable_sum WHERE balanced)
 ;".gsub(/\s*\n\s*/, ' ')
 
-        %w(affair_id account_id journal_entry_id third_id id).each do |col|
+        %w[affair_id account_id journal_entry_id third_id id].each do |col|
           execute "CREATE INDEX letterable_groups_#{col} ON letterable_groups (#{col})"
         end
 

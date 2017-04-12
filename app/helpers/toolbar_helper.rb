@@ -94,6 +94,7 @@ module ToolbarHelper
       url[:controller] ||= @template.controller_path
       url[:action] ||= name
       url[:id] = record.id if record && record.class < ActiveRecord::Base
+      url[:format] = options.delete(:format) if options.key?(:format)
       action_label = options[:label] || I18n.t(name, scope: 'rest.actions')
       url[:nature] = options[:nature] if options[:nature]
       if options[:variants]

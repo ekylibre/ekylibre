@@ -27,9 +27,11 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -68,7 +70,8 @@ class InterventionOutput < InterventionProductParameter
       output.type = variant.matching_model.name
       output.born_at = intervention.started_at
       output.initial_born_at = output.born_at
-      output.name = new_name unless new_name.blank?
+      output.name = new_name if new_name.present?
+      output.identification_number = identification_number if identification_number.present?
       # output.attributes = product_attributes
       reading = readings.find_by(indicator_name: :shape)
       output.initial_shape = reading.value if reading
@@ -91,7 +94,7 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def stock_amount
-    product_movement.population * unit_pretax_stock_amount if product_movement
+    product_movement ? product_movement.population * unit_pretax_stock_amount : 0
   end
 
   def earn_amount_computation

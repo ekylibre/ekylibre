@@ -21,9 +21,7 @@ require_dependency 'procedo'
 module Backend
   class InterventionsController < Backend::BaseController
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
-                     group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c,
-                     targets_attributes: 'params[:targets_attributes] || []'.c,
-                     continue: [:nature, :procedure_name]
+                     continue: %i[nature procedure_name]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -40,7 +38,7 @@ module Backend
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
       expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
-      code = search_conditions({ interventions: [:state, :procedure_name, :number] }, expressions: expressions) + " ||= []\n"
+      code = search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
       code << "  c << params[:state]\n"
@@ -176,18 +174,18 @@ module Backend
     def show
       return unless @intervention = find_and_check
       t3e @intervention, procedure_name: @intervention.procedure.human_name
-      respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration, :human_working_zone_area, :human_actions_names],
+      respond_with(@intervention, methods: %i[cost earn status name duration human_working_zone_area human_actions_names],
                                   include: [
                                     { leaves_parameters: {
-                                      methods: [:reference_name, :default_name, :working_zone_svg, :human_quantity, :human_working_zone_area],
+                                      methods: %i[reference_name default_name working_zone_svg human_quantity human_working_zone_area],
                                       include: {
                                         product: {
-                                          methods: [:picture_path, :nature_name, :unit_name]
+                                          methods: %i[picture_path nature_name unit_name]
                                         }
                                       }
                                     } }, {
                                       prescription: {
-                                        include: [:prescriptor, :attachments]
+                                        include: %i[prescriptor attachments]
                                       }
                                     }
                                   ],
@@ -196,17 +194,60 @@ module Backend
 
     def new
       options = {}
-      [:actions, :custom_fields, :description, :event_id, :issue_id,
-       :nature, :number, :prescription_id, :procedure_name,
-       :request_intervention_id, :started_at, :state,
-       :stopped_at, :trouble_description, :trouble_encountered,
-       :whole_duration, :working_duration].each do |param|
+      %i[actions custom_fields description event_id issue_id
+         nature number prescription_id procedure_name
+         request_intervention_id started_at state
+         stopped_at trouble_description trouble_encountered
+         whole_duration working_duration].each do |param|
         options[param] = params[param]
       end
 
       # , :doers, :inputs, :outputs, :tools
-      [:group_parameters, :targets].each do |param|
-        options["#{param}_attributes"] = params["#{param}_attributes"] || []
+      %i[group_parameters targets].each do |param|
+        next unless params.include? :intervention
+        options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
+
+        next unless options[:targets_attributes]
+
+        next if permitted_params.include? :working_periods
+        targets = if options[:targets_attributes].is_a? Array
+                    options[:targets_attributes].collect { |k, _| k[:product_id] }
+                  else
+                    options[:targets_attributes].collect { |_, v| v[:product_id] }
+                  end
+        availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
+
+        options[:targets_attributes].select! do |k, v|
+          obj = k.is_a?(Hash) ? k : v
+          obj.include?(:product_id) && availables.include?(obj[:product_id].to_i)
+        end
+      end
+
+      # consume preference and erase
+      if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
+
+        options[:targets_attributes] = p.value.split(',').collect do |v|
+          hash = {}
+
+          hash[:product_id] = v if Product.find_by(id: v)
+
+          if params[:reference_name]
+            next unless params[:reference_name] == 'animal'
+            hash[:reference_name] = params[:reference_name]
+          end
+
+          if params[:new_group] && (g = Product.find_by(id: params[:new_group]))
+            hash[:new_group_id] = g.id
+          end
+
+          if params[:new_container] && (c = Product.find_by(id: params[:new_container]))
+            hash[:new_container_id] = c.id
+          end
+
+          hash
+        end.compact
+
+        p.set! nil
       end
 
       @intervention = Intervention.new(options)
@@ -255,7 +296,7 @@ module Backend
         # raise intervention.to_hash.inspect
         respond_to do |format|
           # format.xml  { render xml: intervention.to_xml }
-          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states }.to_json }
+          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states, procedure_states: intervention.procedure_states }.to_json }
         end
       rescue Procedo::Error => e
         respond_to do |format|

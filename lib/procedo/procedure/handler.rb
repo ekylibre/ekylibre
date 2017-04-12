@@ -1,10 +1,11 @@
 # coding: utf-8
+
 # require 'procedo/formula'
 module Procedo
   class Procedure
     # An Handler define a way to quantify a population
     class Handler < Procedo::Procedure::Field
-      TYPES = [:indicator, :population].freeze
+      TYPES = %i[indicator population].freeze
 
       code_trees :condition, root: 'boolean_expression'
       code_trees :forward, :backward
@@ -75,7 +76,7 @@ module Procedo
       end
 
       def unit?
-        !@unit.blank?
+        @unit.present?
       end
 
       def dimension_name
@@ -88,7 +89,7 @@ module Procedo
 
       # Returns other handlers in the current parameter scope
       def others
-        @parameter.handlers.select { |h| h != self }
+        @parameter.handlers.reject { |h| h == self }
       end
 
       # Returns the human name of the handler

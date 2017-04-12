@@ -269,7 +269,7 @@ module Nomen
     end
 
     def set(name, value)
-      raise "Invalid property: #{name.inspect}" if [:name, :parent].include?(name.to_sym)
+      raise "Invalid property: #{name.inspect}" if %i[name parent].include?(name.to_sym)
       # # TODO: check format
       # if property = nomenclature.properties[name]
       #   value ||= [] if property.list?

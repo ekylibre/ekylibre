@@ -45,7 +45,13 @@ module Ekylibre
       w.check_point
 
       # Company entity
-      attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
+      attributes = {
+        language: language,
+        currency: currency,
+        nature: :organization,
+        last_name: 'Ekylibre',
+        born_at: (@manifest[:financial_years] || {}).map { |_, v| v[:started_on] }.min
+      }.merge(@manifest[:company].reject { |k, _v| [:addresses].include?(k) }).merge(of_company: true)
       # resolte siret to siret_number transcode
       siren_number = attributes.delete(:siren_number)
       siren_number ||= attributes.delete(:siren)
@@ -95,7 +101,7 @@ module Ekylibre
       for email, attributes in @manifest[:users]
         attributes[:administrator] = true unless attributes.key?(:administrator)
         attributes[:language] ||= language
-        for ref in [:role, :team]
+        for ref in %i[role team]
           attributes[ref] ||= :default
           attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
         end
@@ -145,7 +151,7 @@ module Ekylibre
       w.check_point
 
       # Load financial_years
-      create_records(:financial_years, :code)
+      create_records(:financial_years, :code, unless_exist: true)
       w.check_point
 
       # Load taxes from nomenclatures
@@ -168,7 +174,7 @@ module Ekylibre
 
       # Load cashes
       if can_load_default?(:cashes)
-        @manifest[:cashes] = [:bank_account, :cash_box].each_with_object({}) do |nature, hash|
+        @manifest[:cashes] = %i[bank_account cash_box].each_with_object({}) do |nature, hash|
           unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
             raise StandardError, 'Need a valid journal nature to register a cash'
           end
@@ -188,7 +194,7 @@ module Ekylibre
 
       # Load incoming payment modes
       if can_load_default?(:incoming_payment_modes)
-        @manifest[:incoming_payment_modes] = %w(cash check transfer).each_with_object({}) do |nature, hash|
+        @manifest[:incoming_payment_modes] = %w[cash check transfer].each_with_object({}) do |nature, hash|
           if cash = Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)
             hash[nature] = { name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == 'check' ? true : false) }
             if hash[nature][:with_deposit] && journal = Journal.find_by(nature: 'bank')
@@ -206,7 +212,7 @@ module Ekylibre
 
       # Load outgoing payment modes
       if can_load_default?(:outgoing_payment_modes)
-        @manifest[:outgoing_payment_modes] = %w(cash check transfer).each_with_object({}) do |nature, hash|
+        @manifest[:outgoing_payment_modes] = %w[cash check transfer].each_with_object({}) do |nature, hash|
           hash[nature] = { name: OutgoingPaymentMode.tc("default.#{nature}.name"),
                            with_accounting: true,
                            cash: Cash.find_by(nature:
@@ -239,9 +245,10 @@ module Ekylibre
 
       # Load net services
       @manifest[:net_services].each do |name, identifiers|
-        net_service = NetService.create!(reference_name: name)
+        net_service = NetService.find_or_create_by!(reference_name: name)
         identifiers.each do |nature, value|
-          net_service.identifiers.create!(nature: nature, value: value)
+          identifier = net_service.identifiers.create_with(value: value).find_or_create_by!(nature: nature)
+          identifier.update!(value: value)
         end
       end
       w.check_point
@@ -252,7 +259,7 @@ module Ekylibre
       end
       w.check_point
 
-      MapBackground.load_defaults
+      MapLayer.load_defaults
       w.check_point
     end
 
@@ -284,7 +291,9 @@ module Ekylibre
               attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
             end
           end
-          record = model.new(attributes)
+          record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
+          record ||= model.new
+          record.attributes = attributes
           if record.save(attributes)
             @records[records][identifier.to_s] = record
           else

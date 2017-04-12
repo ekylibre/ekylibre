@@ -84,15 +84,16 @@ module Ekylibre
     end
 
     def import
-      rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
+      rows = CSV.read(file, headers: true)
       w.count = rows.size
       now = Time.zone.now
 
       # find an responsible
       responsible = User.employees.first
 
-      rows.each do |row|
-        next if row[0].blank?
+      rows.each_with_index do |row, index|
+        line_number = index + 2
+        w.check_point && next if row[0].blank?
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
           payer_full_name:    (row[1].blank? ? nil : row[1]),

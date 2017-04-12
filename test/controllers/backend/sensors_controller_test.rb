@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   class SensorsControllerTest < ActionController::TestCase
-    test_restfully_all_actions except: [:detail, :models]
+    test_restfully_all_actions except: %i[detail models]
 
     test 'retrieving models' do
       get :models, params: { format: :json }

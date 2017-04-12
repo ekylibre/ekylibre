@@ -55,6 +55,20 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    animal:
+      birth_date_completeness:
+        full_date: "Data completa"
+        month_year: "Mês ano"
+        year: "Ano"
+      end_of_life_reason:
+        calculated_date: "Data calculada"
+        cutting_up: "Cortando"
+        death: "Morte"
+        slaughter: "Chacina"
+      filiation_status:
+        certified: "Certificado"
+        uncertified: "Não certificada"
+        unknown: "Desconhecido"
     call_message:
       nature:
         incoming: "Entrada"
@@ -147,7 +161,13 @@ por:
       depreciation_method:
         graduated: "Gradual" #?
         linear: "Linear"
+        none: "Nenhum"
+        regressive: "Regressivo"
         simplified_linear: "Linear simplificado"
+      depreciation_period:
+        monthly: "Por mês"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Perda"
@@ -227,6 +247,8 @@ por:
       nature:
         bank: "Banco"
         cash: "Dinheiro"
+        closure: "Fecho"
+        fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"
@@ -244,15 +266,24 @@ por:
         root: "Raiz"
         string: "Corda"
     loan:
+      insurance_repayment_method:
+        initial: "Com base em capital inicial"
+        to_repay: "Com base no capital deixou de reembolsar"
       repayment_method:
         constant_amount: "Total constante"
         constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Ano"
       shift_method:
         anatocism: "Anatocismo"
         immediate_payment: "Pagamento imediato"
+    map_layer:
+      nature:
+        background: "Fundo"
+        # overlay: "Overlay"
     notification:
       level:
         error: "Erro"
@@ -318,6 +349,15 @@ por:
       nature:
         # exterior: "Exterior"
         # interior: "Interior"
+    product_movement:
+      description:
+        birth: "Nascimento"
+        butchery: "Açougue"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Empréstimo"
+        purchase: "Compra"
+        sale: "Venda"
     product_nature:
       population_counting:
         # decimal: "Decimal"

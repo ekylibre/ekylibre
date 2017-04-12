@@ -79,6 +79,7 @@ require 'test_helper'
 
 class EntityTest < ActiveSupport::TestCase
   test_model_actions
+
   test 'nature' do
     entity = Entity.create(nature: :zarb)
     assert entity.errors.include?(:nature), 'Entity must not accept invalid nature'
@@ -86,5 +87,57 @@ class EntityTest < ActiveSupport::TestCase
     assert !entity.errors.include?(:nature), 'Entity must accept contact nature'
     entity = Entity.create(nature: :organization)
     assert !entity.errors.include?(:nature), 'Entity must accept organization nature'
+  end
+
+  test 'has many booked journals' do
+    accountant = create(:entity, :accountant, :with_booked_journals)
+    refute accountant.booked_journals.empty?
+  end
+
+  test 'does not have financial year with opened exchange without financial year' do
+    accountant = create(:entity, :accountant)
+    refute accountant.financial_year_with_opened_exchange?
+  end
+
+  test 'has financial year with opened exchange' do
+    accountant = accountant_with_financial_year_and_opened_exchange
+    assert accountant.financial_year_with_opened_exchange?
+  end
+
+  test 'cannot destroy when it has financial year with opened exchange' do
+    accountant = accountant_with_financial_year_and_opened_exchange
+    assert_raises { accountant.destroy }
+  end
+
+  test 'merge' do
+    observation_count = 0
+    main = Entity.normal.first
+    observation_count += main.observations.count
+    double = Entity.normal.where(id: EntityAddress.where.not(entity_id: main.id).select(:entity_id)).first
+    observation_count += double.observations.count
+    main.merge_with(double)
+    assert_nil Entity.find_by(id: double.id)
+    assert observation_count, main.observations.count
+    # TODO: Check addresses, attributes, custom fields, and observations
+  end
+
+  test 'merge with author' do
+    observation_count = 0
+    main = Entity.normal.first
+    observation_count += main.observations.count
+    double = Entity.normal.where(id: EntityAddress.where.not(entity_id: main.id).select(:entity_id)).first
+    observation_count += double.observations.count
+    main.merge_with(double, author: User.first)
+    assert_nil Entity.find_by(id: double.id)
+    assert observation_count + 1, main.observations.count
+    # TODO: Check addresses, attributes, custom fields, and observations
+  end
+
+  def accountant_with_financial_year_and_opened_exchange
+    accountant = create(:entity, :accountant)
+    financial_year = FinancialYear.last
+    financial_year.update_attribute :accountant_id, accountant.id
+    create(:financial_year_exchange, :opened, financial_year: financial_year)
+    accountant
   end
 end

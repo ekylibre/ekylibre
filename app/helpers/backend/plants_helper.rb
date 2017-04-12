@@ -1,7 +1,11 @@
 module Backend
   module PlantsHelper
-    def plants_map
+    def plants_map(options = {})
       dimension = :quantity
+
+      html_options ||= {}
+      html_options[:class] = 'map-fullwidth' if options.delete(:main)
+
       data = Plant.of_campaign(current_campaign).collect do |p|
         next unless p.shape
 
@@ -17,9 +21,9 @@ module Backend
         # end
 
         # for indicators in list
-        indicators = [:tiller_count, :plants_count, :rows_interval, :plants_interval, :rows_orientation]
+        indicators = %i[tiller_count plants_count rows_interval plants_interval rows_orientation]
         indicators.each do |indicator|
-          if !p.send(indicator).blank? && (p.send(indicator).to_d > 0.0)
+          if p.send(indicator).present? && (p.send(indicator).to_d > 0.0)
             popup_content << { label: Nomen::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }
           end
         end
@@ -83,7 +87,7 @@ module Backend
       area = Nomen::Unit[:square_meter].human_name
       plantation_density_unit = "#{crops}/#{area}".downcase
       water_concentration_unit = "#{water}/#{area}".downcase
-      visualization(box: { height: '100%' }) do |v|
+      visualization({ box: { height: '100%' } }, html_options) do |v|
         v.serie :main, data
         v.bubbles :marketable_quantity, :main
         v.categories :ready_to_harvest, :main, without_ghost_label: true

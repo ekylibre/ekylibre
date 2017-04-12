@@ -4,8 +4,9 @@
     <parameters>
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
       </target>
-      <input name="plant_medicine" filter="is preparation and can care(plant)">
+      <input name="plant_medicine" filter="is preparation and can care(plant)" display-status="miscibility" >
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"

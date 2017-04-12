@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="loan_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="0.8689931392100655"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="108"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
+	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
+	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Open Sans" fontSize="12"/>
+	<style name="Row" mode="Transparent"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="conditional_state" mode="Transparent" isBlankWhenNull="false">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{state} == "ongoing"]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#33CC00">
+				<box topPadding="3"/>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{state} == "draft"]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FFA800"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/reporting/"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="xPath">
+		<![CDATA[loans/loan]]>
+	</queryString>
+	<field name="entity_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="number" class="java.lang.String">
+		<fieldDescription><![CDATA[journal-entry/number]]></fieldDescription>
+	</field>
+	<field name="purchased-on" class="java.lang.String">
+		<fieldDescription><![CDATA[purchased-on]]></fieldDescription>
+	</field>
+	<field name="purchase-amount" class="java.lang.String">
+		<fieldDescription><![CDATA[purchase-amount]]></fieldDescription>
+	</field>
+	<field name="started-on" class="java.lang.String">
+		<fieldDescription><![CDATA[started-on]]></fieldDescription>
+	</field>
+	<field name="stopped-on" class="java.lang.String">
+		<fieldDescription><![CDATA[stopped-on]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[amount]]></fieldDescription>
+	</field>
+	<field name="depreciated-amount" class="java.lang.String">
+		<fieldDescription><![CDATA[depreciated-amount]]></fieldDescription>
+	</field>
+	<field name="repayment-method" class="java.lang.String">
+		<fieldDescription><![CDATA[repayment-method]]></fieldDescription>
+	</field>
+	<field name="label" class="java.lang.String">
+		<fieldDescription><![CDATA[loan-account/label]]></fieldDescription>
+	</field>
+	<field name="state" class="java.lang.String">
+		<fieldDescription><![CDATA[state]]></fieldDescription>
+	</field>
+	<field name="lender-full-name" class="java.lang.String">
+		<fieldDescription><![CDATA[lender/full-name]]></fieldDescription>
+	</field>
+	<field name="repayment-duration" class="java.lang.String">
+		<fieldDescription><![CDATA[repayment-duration]]></fieldDescription>
+	</field>
+	<field name="repayment-period" class="java.lang.String">
+		<fieldDescription><![CDATA[repayment-period]]></fieldDescription>
+	</field>
+	<field name="interest-percentage" class="java.lang.String">
+		<fieldDescription><![CDATA[interest-percentage]]></fieldDescription>
+	</field>
+	<field name="current-remaining-amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[current-remaining-amount]]></fieldDescription>
+	</field>
+	<sortField name="started-on"/>
+	<sortField name="number"/>
+	<variable name="bottom_img" class="java.lang.String">
+		<variableExpression><![CDATA["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"]]></variableExpression>
+	</variable>
+	<variable name="current-remaining-amount_1" class="java.lang.Double" resetType="Group" resetGroup="campaign" calculation="Sum">
+		<variableExpression><![CDATA[$F{current-remaining-amount}]]></variableExpression>
+	</variable>
+	<variable name="amount_1" class="java.lang.Double" resetType="Group" resetGroup="campaign" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on}).getYear() + 1900]]></groupExpression>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="409" y="18" width="71" height="20" uuid="8d7ef7d4-07f3-4687-96b9-b10bfc96a870"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{current-remaining-amount_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="336" y="18" width="72" height="20" uuid="14ab72ab-cffe-4d1c-a214-42627d7891c7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{amount_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement style="strong" mode="Opaque" x="0" y="44" width="786" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Open Sans"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="title" x="0" y="0" width="734" height="44" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
+				</textElement>
+				<text><![CDATA[Registre des emprunts]]></text>
+			</staticText>
+			<image isLazy="true" evaluationTime="Report">
+				<reportElement x="746" y="0" width="40" height="40" uuid="67189d4d-4b8f-4f40-b8fa-66406ea6d2b3"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream(new org.apache.commons.codec.binary.Base64().decodeBase64($V{bottom_img}.getBytes("UTF-8")))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="84" splitType="Stretch">
+			<textField evaluationTime="Group" evaluationGroup="campaign" pattern="yyyy" isBlankWhenNull="true">
+				<reportElement style="SubTitle" x="0" y="26" width="192" height="44" uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Date.parse("yyyy-mm-dd", $F{started-on})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="547" y="2" width="238" height="70" uuid="6c3b38e3-fa18-4ce1-afca-00110dd02c2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph leftIndent="5" spacingBefore="5"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="base" mode="Transparent" x="563" y="24" width="56" height="37" uuid="edc9f11e-f430-4080-9bf8-bd2893724afb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Terminé]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="base" mode="Transparent" x="642" y="24" width="53" height="37" uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Brouillon]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement style="conditional_state" x="629" y="39" width="10" height="10" backcolor="#FFA500" uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement style="conditional_state" positionType="FixRelativeToBottom" x="551" y="39" width="10" height="10" backcolor="#FF0000" uuid="23e8397b-4700-4711-8745-7a13f840a2b8"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement style="conditional_state" x="705" y="39" width="10" height="10" backcolor="#33CC00" uuid="53c1eead-9594-4681-82f8-853e01b2aaec"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="conditional_state" mode="Transparent" x="720" y="24" width="65" height="37" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[En cours]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="47">
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="0" y="0" width="194" height="47" uuid="8c03c7d1-59ce-4a3e-b107-731138094210"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[ nom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="560" y="0" width="78" height="47" uuid="b02f454f-dfb7-4dc4-8434-563f3dff23ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Méthode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="481" y="0" width="79" height="47" uuid="43390efc-3942-4203-9638-216bee621e75"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Préteur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="194" y="0" width="66" height="47" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Date début]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="260" y="0" width="76" height="23" uuid="eaefbee5-d41c-41c0-806c-4820d65db273"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Taux]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="638" y="0" width="148" height="47" uuid="83bd2806-e51b-41e8-94df-409ea4d37c3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Comptes comptables]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="260" y="23" width="76" height="24" uuid="4838d6a2-8b33-458b-a4c1-d4b142852780"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Durée]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="336" y="0" width="72" height="47" uuid="47ebaa59-657b-4a3c-bf63-ecec8a5537b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Capital emprunté]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="3" width="98" height="20" uuid="deb28933-d2aa-46bd-9969-dc088697f3be"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" Référence comptable"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table-th" mode="Transparent" x="408" y="0" width="73" height="47" uuid="89854b53-8d11-4d0e-898a-c3bafd18ab65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Capital restant du]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="560" y="0" width="78" height="39" uuid="a5bbd742-53a6-4975-b25c-6c781016df0d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{repayment-method}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="560" y="0" width="78" height="39" uuid="2d99775a-646f-4357-b1d4-9e6b1e217177"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="194" height="39" uuid="95f32bce-eaff-4126-87bb-902735499158"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="481" y="0" width="79" height="39" uuid="ab718dde-85d5-4c96-b595-1c2df577c5ef"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="19" width="192" height="20" uuid="69af1fc8-310f-4e9f-8118-e434de1dba73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="24" y="0" width="168" height="20" uuid="9c8c8503-65d2-4a48-86d9-59aa2b8e9032"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isItalic="true"/>
+					<paragraph firstLineIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="194" y="0" width="66" height="20" uuid="8e5bd881-5049-40a2-b04b-4c7354d2e09b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{started-on}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="194" y="19" width="66" height="20" uuid="5e2e62a6-5abc-4a87-9309-61adf53b3138"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{stopped-on}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="194" y="0" width="66" height="39" uuid="cb757178-c34b-4263-a009-f5d3931ca8a5"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="638" y="0" width="148" height="39" uuid="56b3d204-7a02-42c8-b04f-18167f50781e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="336" y="0" width="73" height="39" uuid="cd346e1e-8828-4bb8-be6a-5090efef3480"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="560" y="0" width="78" height="39" uuid="5f3734d6-da76-4d62-a6b8-30c9bec128c9"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement style="conditional_state" x="2" y="3" width="15" height="15" uuid="b0f5c968-3a74-4f35-8b15-a68e8155e61b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="481" y="0" width="79" height="39" uuid="517152e0-c156-4d03-9725-d41ccd2ca747"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="481" y="0" width="79" height="39" uuid="54cb8a45-4b98-4f31-96be-a73686257805"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lender-full-name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="18" width="76" height="20" uuid="0bc7cf25-a7ee-4fc6-8271-d082b381c7ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{repayment-duration} + " " + $F{repayment-period}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="76" height="20" uuid="5cb65f0a-626c-4250-873d-2fa367fa94da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{interest-percentage}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="260" y="0" width="76" height="39" uuid="fed50093-42b9-402e-b700-ef1f7d7d36f4"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="638" y="0" width="148" height="39" uuid="e518f7ea-ec2a-4bb1-998f-f0917c00e345"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="336" y="0" width="72" height="39" uuid="5dc5185e-f893-4b19-8f35-055007a17e7a"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="408" y="1" width="72" height="38" uuid="82891dda-c5d2-49a4-b991-018509a74c96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{current-remaining-amount}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="408" y="0" width="73" height="39" uuid="fa9b54f0-56c1-4186-bba9-4a8305c112ef"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement style="base" x="751" y="3" width="35" height="22" forecolor="#000000" uuid="50272410-1b25-4669-88c3-3be64f156f82"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="base" x="708" y="3" width="43" height="22" forecolor="#000000" uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Open Sans"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="26">
+			<staticText>
+				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Open Sans"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement style="base" x="751" y="3" width="35" height="22" forecolor="#000000" uuid="c5669d5d-31af-4dd7-bf88-534422b21b01"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="a98f0540-b3f2-4380-aab0-f9d96ea72b6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="base" x="708" y="3" width="43" height="22" forecolor="#000000" uuid="5de70a0c-bd99-4937-84fa-c172a5df272f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="485">
+			<barChart>
+				<chart>
+					<reportElement x="2" y="0" width="784" height="209" uuid="499fc30b-47b0-44b4-ace2-437cef72033e"/>
+					<chartTitle>
+						<titleExpression><![CDATA["Capital restant du par preteur"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{lender-full-name}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{started-on}.substring(0,4)]]></categoryExpression>
+						<valueExpression><![CDATA[$F{current-remaining-amount}]]></valueExpression>
+						<labelExpression><![CDATA[$F{current-remaining-amount}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<barChart>
+				<chart>
+					<reportElement positionType="Float" x="3" y="269" width="783" height="216" uuid="22210111-d424-4486-97ac-d29a828812a1"/>
+					<chartTitle>
+						<titleExpression><![CDATA["Montant total emprunté par preteur"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{lender-full-name}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{started-on}.subSequence(0,4)]]></categoryExpression>
+						<valueExpression><![CDATA[$F{amount}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

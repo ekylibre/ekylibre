@@ -3,9 +3,8 @@
   <procedure name="straw_bunching" categories="harvesting" actions="straw_bunching">
     <parameters>
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
-        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?">
-          <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" if="VARIANT?" to="population"/>
-        </attribute>
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
       </target>
       <input name="straw_to_bunch" filter="is grass and derives from plant" cardinality="*">
         <handler name="population"/>
@@ -18,7 +17,8 @@
                  forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="fodder_bales_count" unit="unity"
                  backward="POPULATION * VARIANT.fodder_bales_count(unity)"
-                 forward="VALUE / VARIANT.fodder_bales_count(unity)"/>
+                 forward="VALUE / VARIANT.fodder_bales_count(unity)"
+                 if="VARIANT.fodder_bales_count(unity) > 0" />
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
                  backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>

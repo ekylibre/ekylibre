@@ -45,7 +45,7 @@ module NavigationHelper
     other_records  = navigable(resource.class, order, scope, resource.id).order(**order)
     reversed = (order.first.last =~ /desc/)
 
-    lists = %i(down up).map do |dir|
+    lists = %i[down up].map do |dir|
       [dir, matching_attrs.reduce(other_records, &get_next_record_method(going: dir, reverse: reversed))]
     end.to_h
     lists[:down] = lists[:down].reverse_order
@@ -53,7 +53,7 @@ module NavigationHelper
   end
 
   def name_for(record, method)
-    return nil unless method.present?
+    return nil if method.blank?
     Maybe(record).send(method.to_sym).or_nil
   end
 
@@ -73,7 +73,7 @@ module NavigationHelper
                end
     lambda do |resources, condition|
       key, value = *condition
-      resources.where("#{key} #{operator} #{value.inspect.tr('"', "'")}")
+      resources.where("#{key} #{operator} ?", value)
     end
   end
 end

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,17 +17,27 @@
 #
 
 require 'test_helper'
+
 module Backend
   class JournalEntriesControllerTest < ActionController::TestCase
     test_restfully_all_actions(
-      new: { journal_id: identify(:journals_001) },
+      new: { journal_id: 3 },
+      toggle_autocompletion: { format: :json },
+      currency_state: { from: 'EUR' },
       update: {
-        items: {
-          0 => { account_id: identify(:accounts_001), name: 'Test' },
-          1 => { account_id: identify(:accounts_002), name: 'Test' }
+        items_attributes: {
+          0 => { account_id: 152, name: 'Test' },
+          1 => { account_id: 160, name: 'Test' }
         }
       },
       index: :redirected_get
     )
+
+    test 'duplicate' do
+      get :new, duplicate_of: JournalEntry.find_by(id: JournalEntryItem.first.id).id
+      assert_select '#items-table' do
+        assert_select 'tbody.nested-fields'
+      end
+    end
   end
 end

@@ -54,6 +54,20 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    animal:
+      birth_date_completeness:
+        full_date: "Voll Datum"
+        month_year: "Monat Jahr"
+        year: "Jahr"
+      end_of_life_reason:
+        calculated_date: "Berechnete Datum"
+        cutting_up: "Zerlegung"
+        death: "Tod"
+        slaughter: "Schlachten"
+      filiation_status:
+        certified: "Bescheinigt"
+        # uncertified: "Uncertified"
+        unknown: "Unbekannt"
     call_message:
       nature:
         incoming: "Eingehend"
@@ -145,7 +159,13 @@ deu:
       depreciation_method:
         graduated: "abgestufte" #?
         # linear: "Linear"
+        none: "Keiner"
+        regressive: "Regressiv"
         simplified_linear: "vereinfachte lineare"
+      depreciation_period:
+        monthly: "Monatlich"
+        quarterly: "Vierteljährlich"
+        yearly: "Jährlich"
     gap:
       direction:
         loss: "Verlust"
@@ -225,6 +245,8 @@ deu:
       nature:
         # bank: "Bank"
         cash: "Kasse"
+        closure: "Schließung"
+        fixed_assets: "Anlagevermögen"
         forward: "Vorwärts getragen"
         purchases: "Käufe"
         sales: "Der Umsatz"
@@ -242,15 +264,24 @@ deu:
         root: "Wurzel"
         string: "Schnur"
     loan:
+      insurance_repayment_method:
+        initial: "Basierend auf Anfangskapital"
+        to_repay: "Basierend auf Kapital links zur Rückzahlung"
       repayment_method:
         constant_amount: "konstante Menge"
         constant_rate: "Konstante Rate"
       repayment_period:
         month: "Monat"
+        # semester: "Semester"
+        # trimester: "Trimester"
         year: "Jahr"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "Sofortige Bezahlung"
+    map_layer:
+      nature:
+        background: "Hintergrund"
+        overlay: "Auflage"
     notification:
       level:
         error: "Fehler"
@@ -316,6 +347,15 @@ deu:
       nature:
         exterior: "Äußere"
         interior: "Innere"
+    product_movement:
+      description:
+        birth: "Geburt"
+        butchery: "Schlächterei"
+        consumption: "Verbrauch"
+        death: "Tod"
+        loan: "Darlehen"
+        purchase: "Kauf"
+        sale: "Verkauf"
     product_nature:
       population_counting:
         decimal: "Dezimal"

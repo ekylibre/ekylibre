@@ -23,7 +23,7 @@ module Backend
     def self.general_ledger_conditions(_options = {})
       conn = ActiveRecord::Base.connection
       code = ''
-      code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit] }, conditions: 'c') + "\n"
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
       code << journal_period_crit('params')
       code << journal_entries_states_crit('params')
       code << accounts_range_crit('params')
@@ -33,7 +33,7 @@ module Backend
       code.c # .gsub(/\s*\n\s*/, ";")
     end
 
-    list(:journal_entry_items, conditions: general_ledger_conditions, joins: [:entry, :account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, conditions: general_ledger_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true

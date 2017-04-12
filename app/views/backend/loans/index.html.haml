@@ -1,4 +1,27 @@
+= kujaku do |k|
+  - k.text
+  - k.helper :journal_period_crit
+  - k.multi_choice :repayment_period, resource_model.repayment_period.values.map{ |s| [s.tl, s] }, label: :repayment_period.tl
+  - cash_ids = Loan.all.pluck(:cash_id).compact.uniq
+  - cashes = Cash.where(id: cash_ids).reorder(:name)
+  - if cashes.any?
+    - k.helper do
+      %label= Cash.human_attribute_name(:name)
+      = select_tag(:cash_id, options_for_select([[]] +  cashes.map{|u| [u.name, u.id]}, params[:cash_id].to_i))
+
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
+  = t.export :loan_registry, key: Time.zone.now.to_s, resource: @loans
+
+  %span.accounting-trigger.btn-group.hidden
+    - if reading_ltr?
+      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default js-complete-links-with-ids', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': 'accounting-trigger'}}
+      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
+      %input#accounting_date{ type: 'date', value: params[:'accounting-date'] }
+    - else
+      %input#accounting_date{ type: 'date', value: params[:'accounting-date'] }
+      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
+      %button#accounting.btn.btn-default= :accounting.tl
+      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': '.accounting-trigger'}}
 
 = main_list

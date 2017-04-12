@@ -13,7 +13,7 @@ STDOUT.sync = true
 class Renamer
   attr_reader :root
 
-  SUPPORTED_TYPES = [:model, :table].freeze
+  SUPPORTED_TYPES = %i[model table].freeze
 
   def execute(command)
     puts command.send(@simulate ? :yellow : :red).to_s
@@ -99,7 +99,7 @@ class Renamer
   end
 
   # Defined helper method
-  [:table, :model, :record, :controller].each do |info|
+  %i[table model record controller].each do |info|
     define_method "old_#{info}" do
       @old[info]
     end

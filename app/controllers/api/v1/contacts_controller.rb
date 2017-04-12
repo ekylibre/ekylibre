@@ -13,7 +13,7 @@ module Api
           {
             create: Entity.includes(direct_links: :linked).where('created_at >= ?', last_synchro),
             update: Entity.includes(direct_links: :linked).where(id: EntityAddress.unscoped.joins(:entity).where('entities.created_at < ? AND (entity_addresses.deleted_at >= ? OR entity_addresses.updated_at >= ?)', last_synchro, last_synchro, last_synchro).pluck(:entity_id).uniq),
-            destroy: Version.destructions.where(item_type: 'Entity').after(last_synchro).select { |v| v.item_object[:created_at] < last_synchro }.collect { |v| { item_id: v.item_id } }
+            destroy: Version.destructions.where(item_type: 'Entity').after(last_synchro).select { |v| v.item_object[:created_at].present? && v.item_object[:created_at] < last_synchro }.collect { |v| { item_id: v.item_id } }
           }
       end
 

@@ -18,20 +18,20 @@
 
 module Backend
   class FinancialYearsController < Backend::BaseController
-    manage_restfully except: [:new, :show]
+    manage_restfully except: %i[new show]
 
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      # t.action :close, if: '!RECORD.closed and RECORD.closable?'
       t.action :edit, unless: :closed?
+      t.action :close, if: :closable?
       t.action :destroy, unless: :closed?
       t.column :code, url: true
-      # FIXME: closed class method conflicts with active_list enumerize detector
-      # t.column :closed
+      t.column :closed, label_method: :closed
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :currency
+      t.column :accountant, url: true
       # t.column :currency_precision
     end
 
@@ -48,6 +48,16 @@ module Backend
       t.column :started_on
       t.column :stopped_on
       t.column :amount, currency: true
+    end
+
+    list(:exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
+      t.action :journal_entries_export, format: :csv, label: :journal_entries_csv_export.ta
+      t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?
+      t.action :notify_accountant, if: :opened?
+      t.action :close, if: :opened?
+      t.column :started_on, url: true
+      t.column :stopped_on, url: true
+      t.column :closed_at
     end
 
     # Displays details of one financial year selected with +params[:id]+
@@ -70,28 +80,6 @@ module Backend
       end
     end
 
-    def compute_balances
-      return unless @financial_year = find_and_check
-      @financial_year.compute_balances!
-      redirect_to_back
-    end
-
-    def close
-      # Launch close process
-      return unless @financial_year = find_and_check
-      if request.post?
-        params[:journal_id] = Journal.create!(nature: :forward).id if params[:journal_id] == '0'
-        if @financial_year.close(params[:financial_year][:stopped_on].to_date, journal_id: params[:journal_id])
-          notify_success(:closed_financial_years)
-          redirect_to(action: :index)
-        end
-      else
-        journal = Journal.used_for(:forward).first
-        params[:journal_id] = (journal ? journal.id : 0)
-      end
-      t3e @financial_year.attributes
-    end
-
     def new
       @financial_year = FinancialYear.new
       f = FinancialYear.last
@@ -104,14 +92,34 @@ module Backend
       # render_restfully_form
     end
 
-    def generate_last_journal_entry
+    def compute_balances
       return unless @financial_year = find_and_check
-      if request.get?
-        params[:fixed_assets_depreciations] ||= 1
-      elsif request.post?
-        # TODO: Defines journal to save the entry
-        @financial_year.generate_last_journal_entry(params)
-        redirect_to backend_journal_entry_path(@financial_year.last_journal_entry)
+      if @financial_year.closed? && @financial_year.account_balances.empty?
+        @financial_year.compute_balances!
+      end
+      redirect_to_back
+    end
+
+    def close
+      # Launch close process
+      return unless @financial_year = find_and_check
+      if request.post?
+        closed_on = params[:financial_year][:stopped_on].to_date
+        if params[:forward_journal_id] == '0'
+          params[:forward_journal_id] = Journal.create_one!(:forward, @financial_year.currency).id
+        end
+        if params[:closure_journal_id] == '0'
+          params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
+        end
+        if @financial_year.close(closed_on, forward_journal_id: params[:forward_journal_id], closure_journal_id: params[:closure_journal_id])
+          notify_success(:closed_financial_years)
+          redirect_to(action: :index)
+        end
+      else
+        journal = Journal.where(currency: @financial_year.currency, nature: :forward).first
+        params[:forward_journal_id] = (journal ? journal.id : 0)
+        journal = Journal.where(currency: @financial_year.currency, nature: :closure).first
+        params[:closure_journal_id] = (journal ? journal.id : 0)
       end
       t3e @financial_year.attributes
     end

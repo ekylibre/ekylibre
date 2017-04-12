@@ -131,7 +131,7 @@ module Backend
       unit_column = options[:unit_column] || "#{association}_unit"
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
       # Adds quantifier
-      [:population, :working_duration].each do |quantifier|
+      %i[population working_duration].each do |quantifier|
         html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if options[quantifier]
       end
       # Specify scope
@@ -291,7 +291,7 @@ module Backend
       editor[:controls] ||= {}
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
-      editor[:controls][:importers] ||= { formats: [:gml, :kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
+      editor[:controls][:importers] ||= { formats: %i[gml kml geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
       editor[:withoutLabel] = true
@@ -320,7 +320,8 @@ module Backend
           end
         end
       end
-      editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
+      editor[:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
+      editor[:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
 
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
@@ -332,7 +333,8 @@ module Backend
       options[:input_html][:data] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
       options[:input_html][:data][:map_editor] ||= {}
-      options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:back] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
+      options[:input_html][:data][:map_editor][:overlays] ||= MapLayer.available_overlays.collect(&:to_json_object)
 
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
@@ -360,7 +362,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.availables.collect(&:to_json_object)
+      marker[:background] ||= MapLayer.available_backgrounds.collect(&:to_json_object)
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
@@ -378,8 +380,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
-      marker[:background] &&= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapLayer.available_backgrounds.collect(&:to_json_object).first
+      marker[:background] &&= MapLayer.default_background.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -532,7 +534,7 @@ module Backend
 
         # Add first indicators
         indicators = variant.variable_indicators.delete_if do |i|
-          whole_indicators.include?(i) || [:geolocation, :shape].include?(i.name.to_sym)
+          whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
         end
         if object.new_record? && indicators.any?
 
@@ -576,7 +578,7 @@ module Backend
             new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
             new_url[:action] ||= :new
 
-            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } unless @object.class.name.blank?
+            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } if @object.class.name.present?
 
             input_id = :variant_id
 
@@ -661,6 +663,10 @@ module Backend
 
     def fields(partial = 'form')
       @template.content_tag(:div, @template.render(partial, f: self), class: 'form-fields')
+    end
+
+    def yes_no_radio(attribute_name, options = {})
+      input(attribute_name, options.merge(as: :radio_buttons, collection: [[::I18n.t('boolean.polar.true_class'), true], [I18n.t('boolean.polar.false_class'), false]]))
     end
 
     def actions

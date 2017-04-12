@@ -54,6 +54,20 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    animal:
+      birth_date_completeness:
+        full_date: "Full date"
+        month_year: "Month year"
+        year: "Year"
+      end_of_life_reason:
+        calculated_date: "Calculated date"
+        cutting_up: "Cutting up"
+        death: "Death"
+        slaughter: "Slaughter"
+      filiation_status:
+        certified: "Certified"
+        uncertified: "Uncertified"
+        unknown: "Unknown"
     call_message:
       nature:
         incoming: "Incoming"
@@ -142,7 +156,13 @@ eng:
     fixed_asset:
       depreciation_method:
         linear: "Linear"
+        none: "None"
+        regressive: "Regressive"
         simplified_linear: "Simplified linear"
+      depreciation_period:
+        monthly: "Monthly"
+        quarterly: "Quarterly"
+        yearly: "Yearly"
     gap:
       direction:
         loss: "Loss"
@@ -214,6 +234,8 @@ eng:
       nature:
         bank: "Bank"
         cash: "Cash"
+        closure: "Closure"
+        fixed_assets: "Fixed assets"
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"
@@ -231,15 +253,24 @@ eng:
         root: "Root"
         string: "String"
     loan:
+      insurance_repayment_method:
+        initial: "Based on initial capital"
+        to_repay: "Based on capital left to repay"
       repayment_method:
         constant_amount: "Constant amount"
         constant_rate: "Constant rate"
       repayment_period:
         month: "Month"
+        semester: "Semester"
+        trimester: "Trimester"
         year: "Year"
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
+    map_layer:
+      nature:
+        background: "Background"
+        overlay: "Overlay"
     notification:
       level:
         error: "Error"
@@ -297,6 +328,15 @@ eng:
       nature:
         exterior: "Exterior"
         interior: "Interior"
+    product_movement:
+      description:
+        birth: "Birth"
+        butchery: "Butchery"
+        consumption: "Consumption"
+        death: "Death"
+        loan: "Loan"
+        purchase: "Purchase"
+        sale: "Sale"
     product_nature:
       population_counting:
         decimal: "Decimal"

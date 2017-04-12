@@ -35,7 +35,7 @@
 #  updater_id        :integer
 #
 class InterventionParticipation < Ekylibre::Record::Base
-  enumerize :state, in: [:in_progress, :done, :validated]
+  enumerize :state, in: %i[in_progress done validated]
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   belongs_to :intervention
   belongs_to :product

@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
+  <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing" varieties="animal">
     <parameters>
-      <target name="animal" filter="is animal" cardinality="*">
-        <attribute name="new_container_id" filter="is building_division"/>
-        <attribute name="new_group_id" compute-filter="'is animal_group and derives from %{variety_of(PRODUCT)}'"/>
+      <target name="animal" filter="is animal">
+        <attribute name="new_container" filter="is building_division and can store(animal)"/>
+        <attribute name="new_group" compute-filter="'is animal_group and includes %{variety_of(PRODUCT)}'"/>
         <attribute name="new_variant" value="variant_of(NEW_GROUP)"/>
       </target>
-      <doer name="caregiver" filter="is worker" cardinality="*"/>
+      <tool name="vehicle" filter="is car or is tractor or is truck or (is self_propelled_equipment and can store(animal))" cardinality="*"/>
+      <tool name="trailer" filter="is trailed_equipment and can store(animal)" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

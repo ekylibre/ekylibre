@@ -93,7 +93,7 @@ activity_productions_002:
   size_value: 8.349
   started_on: 2012-09-01
   state: opened
-  stopped_on: 2013-08-31
+  stopped_on: 2014-07-30
   support_id: 84
   support_nature: cultivation
   support_shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
@@ -120,7 +120,7 @@ activity_productions_003:
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 5.3806
-  started_on: 2012-12-31
+  started_on: 2012-10-01
   state: opened
   stopped_on: 2014-07-30
   support_id: 83
@@ -148,7 +148,7 @@ activity_productions_004:
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 8.349
-  started_on: 2012-12-31
+  started_on: 2012-10-01
   state: opened
   stopped_on: 2014-07-30
   support_id: 84
@@ -325,9 +325,9 @@ activity_productions_011:
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 5.3954
-  started_on: 2012-09-01
+  started_on: 2007-09-01
   state: opened
-  stopped_on: 2013-08-31
+  stopped_on: 2016-08-31
   support_id: 106
   support_nature: cultivation
   support_shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
@@ -357,9 +357,9 @@ activity_productions_012:
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 5.3954
-  started_on: 2013-09-01
+  started_on: 2007-09-01
   state: opened
-  stopped_on: 2014-08-31
+  stopped_on: 2016-08-31
   support_id: 106
   support_nature: cultivation
   support_shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043

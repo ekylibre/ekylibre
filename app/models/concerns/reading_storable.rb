@@ -3,15 +3,15 @@ module ReadingStorable
 
   included do
     refers_to :indicator
-    enumerize :indicator_datatype, in: [:string, :integer, :decimal, :boolean, :choice, :measure, :point, :geometry, :multi_polygon], predicates: { prefix: true }
+    enumerize :indicator_datatype, in: %i[string integer decimal boolean choice measure point geometry multi_polygon], predicates: { prefix: true }
     refers_to :measure_value_unit, class_name: 'Unit'
 
     has_geometry :geometry_value
     has_geometry :point_value, type: :point
     has_geometry :multi_polygon_value, type: :multi_polygon
 
-    composed_of :measure_value, class_name: 'Measure', mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
-    composed_of :absolute_measure_value, class_name: 'Measure', mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
+    composed_of :measure_value, class_name: 'Measure', mapping: [%w[measure_value_value to_d], %w[measure_value_unit unit]]
+    composed_of :absolute_measure_value, class_name: 'Measure', mapping: [%w[absolute_measure_value_value to_d], %w[absolute_measure_value_unit unit]]
 
     # validates :indicator_name, inclusion: { in: indicator_name.values }
     validates :indicator_datatype, inclusion: { in: indicator_datatype.values }
@@ -65,7 +65,7 @@ module ReadingStorable
       if datatype == :measure
         object = Measure.new(object)
       elsif datatype == :boolean
-        object = %w(1 t true y yes ok).include?(object.to_s.strip.downcase)
+        object = %w[1 t true y yes ok].include?(object.to_s.strip.downcase)
       elsif datatype == :decimal
         object = object.to_d
       elsif datatype == :integer

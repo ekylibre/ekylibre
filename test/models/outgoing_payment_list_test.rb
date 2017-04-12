@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -23,14 +24,16 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode_id      :integer          not null
-#  number       :string
-#  updated_at   :datetime
-#  updater_id   :integer
+#  cached_payment_count :integer
+#  cached_total_sum     :decimal(, )
+#  created_at           :datetime
+#  creator_id           :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  mode_id              :integer          not null
+#  number               :string
+#  updated_at           :datetime
+#  updater_id           :integer
 #
 require 'test_helper'
 

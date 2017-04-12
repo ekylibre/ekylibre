@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,6 +21,43 @@ CREATE SCHEMA postgis;
 
 
 SET search_path = public, pg_catalog;
+
+--
+-- Name: compute_outgoing_payment_list_cache(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+              DECLARE
+                new_id INTEGER DEFAULT NULL;
+                old_id INTEGER DEFAULT NULL;
+              BEGIN
+                IF TG_OP <> 'DELETE' THEN
+                  new_id := NEW.list_id;
+                END IF;
+
+                IF TG_OP <> 'INSERT' THEN
+                  old_id := OLD.list_id;
+                END IF;
+
+                UPDATE outgoing_payment_lists
+                   SET cached_payment_count = payments.count,
+                       cached_total_sum = payments.total
+                  FROM (
+                    SELECT outgoing_payments.list_id AS list_id,
+                           SUM(outgoing_payments.amount) AS total,
+                           COUNT(outgoing_payments.id) AS count
+                      FROM outgoing_payments
+                      GROUP BY outgoing_payments.list_id
+                  ) AS payments
+                  WHERE payments.list_id = id
+                    AND ((new_id IS NOT NULL AND id = new_id)
+                     OR  (old_id IS NOT NULL AND id = old_id));
+                RETURN NEW;
+              END
+            $$;
+
 
 SET default_tablespace = '';
 
@@ -289,7 +326,9 @@ CREATE TABLE intervention_parameters (
     component_id integer,
     assembly_id integer,
     currency character varying,
-    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    dead boolean DEFAULT false NOT NULL,
+    identification_number character varying
 );
 
 
@@ -1048,7 +1087,7 @@ ALTER SEQUENCE bank_statements_id_seq OWNED BY bank_statements.id;
 CREATE TABLE call_messages (
     id integer NOT NULL,
     status character varying,
-    headers character varying,
+    headers text,
     body text,
     type character varying,
     nature character varying NOT NULL,
@@ -2087,7 +2126,8 @@ CREATE TABLE entities (
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
     iban character varying,
-    supplier_payment_mode_id integer
+    supplier_payment_mode_id integer,
+    CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
 
@@ -2283,6 +2323,49 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: financial_year_exchanges; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE financial_year_exchanges (
+    id integer NOT NULL,
+    financial_year_id integer NOT NULL,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    closed_at timestamp without time zone,
+    public_token character varying,
+    public_token_expired_at timestamp without time zone,
+    import_file_file_name character varying,
+    import_file_content_type character varying,
+    import_file_file_size integer,
+    import_file_updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: financial_year_exchanges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE financial_year_exchanges_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: financial_year_exchanges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE financial_year_exchanges_id_seq OWNED BY financial_year_exchanges.id;
+
+
+--
 -- Name: financial_years; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2302,7 +2385,8 @@ CREATE TABLE financial_years (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     tax_declaration_frequency character varying,
-    tax_declaration_mode character varying NOT NULL
+    tax_declaration_mode character varying NOT NULL,
+    accountant_id integer
 );
 
 
@@ -2403,7 +2487,17 @@ CREATE TABLE fixed_assets (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    product_id integer,
+    state character varying,
+    depreciation_period character varying,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    asset_account_id integer,
+    sold_on date,
+    scrapped_on date,
+    sold_journal_entry_id integer,
+    scrapped_journal_entry_id integer
 );
 
 
@@ -3310,7 +3404,8 @@ CREATE TABLE issues (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     geolocation postgis.geometry(Point,4326),
-    custom_fields jsonb
+    custom_fields jsonb,
+    dead boolean DEFAULT false
 );
 
 
@@ -3363,7 +3458,8 @@ CREATE TABLE journal_entries (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    resource_prism character varying
+    resource_prism character varying,
+    financial_year_exchange_id integer
 );
 
 
@@ -3477,7 +3573,8 @@ CREATE TABLE journals (
     custom_fields jsonb,
     used_for_permanent_stock_inventory boolean DEFAULT false NOT NULL,
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
-    used_for_tax_declarations boolean DEFAULT false NOT NULL
+    used_for_tax_declarations boolean DEFAULT false NOT NULL,
+    accountant_id integer
 );
 
 
@@ -3684,7 +3781,9 @@ CREATE TABLE loan_repayments (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    accountable boolean DEFAULT false NOT NULL,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -3733,7 +3832,19 @@ CREATE TABLE loans (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    insurance_repayment_method character varying,
+    state character varying,
+    ongoing_at timestamp without time zone,
+    repaid_at timestamp without time zone,
+    loan_account_id integer,
+    interest_account_id integer,
+    insurance_account_id integer,
+    use_bank_guarantee boolean,
+    bank_guarantee_account_id integer,
+    bank_guarantee_amount integer,
+    accountable_repayments_started_on date,
+    initial_releasing_amount boolean DEFAULT false NOT NULL
 );
 
 
@@ -3851,10 +3962,10 @@ ALTER SEQUENCE manure_management_plans_id_seq OWNED BY manure_management_plans.i
 
 
 --
--- Name: map_backgrounds; Type: TABLE; Schema: public; Owner: -
+-- Name: map_layers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE map_backgrounds (
+CREATE TABLE map_layers (
     id integer NOT NULL,
     name character varying NOT NULL,
     url character varying NOT NULL,
@@ -3871,15 +3982,18 @@ CREATE TABLE map_backgrounds (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    nature character varying,
+    "position" integer,
+    opacity integer
 );
 
 
 --
--- Name: map_backgrounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: map_layers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE map_backgrounds_id_seq
+CREATE SEQUENCE map_layers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3888,10 +4002,10 @@ CREATE SEQUENCE map_backgrounds_id_seq
 
 
 --
--- Name: map_backgrounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: map_layers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE map_backgrounds_id_seq OWNED BY map_backgrounds.id;
+ALTER SEQUENCE map_layers_id_seq OWNED BY map_layers.id;
 
 
 --
@@ -4020,7 +4134,9 @@ CREATE TABLE outgoing_payment_lists (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    mode_id integer NOT NULL
+    mode_id integer NOT NULL,
+    cached_payment_count integer,
+    cached_total_sum numeric
 );
 
 
@@ -4781,7 +4897,8 @@ CREATE TABLE product_movements (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    description character varying
 );
 
 
@@ -5009,7 +5126,8 @@ CREATE TABLE product_nature_variants (
     gtin character varying,
     number character varying NOT NULL,
     stock_account_id integer,
-    stock_movement_account_id integer
+    stock_movement_account_id integer,
+    france_maaid character varying
 );
 
 
@@ -5291,7 +5409,22 @@ CREATE TABLE products (
     initial_movement_id integer,
     custom_fields jsonb,
     team_id integer,
-    member_variant_id integer
+    member_variant_id integer,
+    birth_date_completeness character varying,
+    birth_farm_number character varying,
+    country character varying,
+    filiation_status character varying,
+    first_calving_on timestamp without time zone,
+    mother_country character varying,
+    mother_variety character varying,
+    mother_identification_number character varying,
+    father_country character varying,
+    father_variety character varying,
+    father_identification_number character varying,
+    origin_country character varying,
+    origin_identification_number character varying,
+    end_of_life_reason character varying,
+    originator_id integer
 );
 
 
@@ -5341,7 +5474,10 @@ CREATE TABLE purchase_items (
     fixed boolean DEFAULT false NOT NULL,
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    depreciable_product_id integer,
+    fixed_asset_id integer,
+    preexisting_asset boolean
 );
 
 
@@ -5977,7 +6113,9 @@ CREATE TABLE synchronization_operations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    originator_id integer,
+    originator_type character varying
 );
 
 
@@ -6772,6 +6910,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY financial_year_exchanges ALTER COLUMN id SET DEFAULT nextval('financial_year_exchanges_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY financial_years ALTER COLUMN id SET DEFAULT nextval('financial_years_id_seq'::regclass);
 
 
@@ -7031,7 +7176,7 @@ ALTER TABLE ONLY manure_management_plans ALTER COLUMN id SET DEFAULT nextval('ma
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY map_backgrounds ALTER COLUMN id SET DEFAULT nextval('map_backgrounds_id_seq'::regclass);
+ALTER TABLE ONLY map_layers ALTER COLUMN id SET DEFAULT nextval('map_layers_id_seq'::regclass);
 
 
 --
@@ -7826,6 +7971,14 @@ ALTER TABLE ONLY events
 
 
 --
+-- Name: financial_year_exchanges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT financial_year_exchanges_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: financial_years_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8122,11 +8275,11 @@ ALTER TABLE ONLY manure_management_plans
 
 
 --
--- Name: map_backgrounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: map_layers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY map_backgrounds
-    ADD CONSTRAINT map_backgrounds_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY map_layers
+    ADD CONSTRAINT map_layers_pkey PRIMARY KEY (id);
 
 
 --
@@ -10805,6 +10958,55 @@ CREATE INDEX index_events_on_updater_id ON events USING btree (updater_id);
 
 
 --
+-- Name: index_financial_year_exchanges_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_created_at ON financial_year_exchanges USING btree (created_at);
+
+
+--
+-- Name: index_financial_year_exchanges_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_creator_id ON financial_year_exchanges USING btree (creator_id);
+
+
+--
+-- Name: index_financial_year_exchanges_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_financial_year_id ON financial_year_exchanges USING btree (financial_year_id);
+
+
+--
+-- Name: index_financial_year_exchanges_on_public_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_financial_year_exchanges_on_public_token ON financial_year_exchanges USING btree (public_token);
+
+
+--
+-- Name: index_financial_year_exchanges_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_updated_at ON financial_year_exchanges USING btree (updated_at);
+
+
+--
+-- Name: index_financial_year_exchanges_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_year_exchanges_on_updater_id ON financial_year_exchanges USING btree (updater_id);
+
+
+--
+-- Name: index_financial_years_on_accountant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_financial_years_on_accountant_id ON financial_years USING btree (accountant_id);
+
+
+--
 -- Name: index_financial_years_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10896,6 +11098,13 @@ CREATE INDEX index_fixed_assets_on_allocation_account_id ON fixed_assets USING b
 
 
 --
+-- Name: index_fixed_assets_on_asset_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_asset_account_id ON fixed_assets USING btree (asset_account_id);
+
+
+--
 -- Name: index_fixed_assets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10917,10 +11126,24 @@ CREATE INDEX index_fixed_assets_on_expenses_account_id ON fixed_assets USING btr
 
 
 --
+-- Name: index_fixed_assets_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_journal_entry_id ON fixed_assets USING btree (journal_entry_id);
+
+
+--
 -- Name: index_fixed_assets_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_fixed_assets_on_journal_id ON fixed_assets USING btree (journal_id);
+
+
+--
+-- Name: index_fixed_assets_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_product_id ON fixed_assets USING btree (product_id);
 
 
 --
@@ -10949,6 +11172,20 @@ CREATE INDEX index_fixed_assets_on_sale_id ON fixed_assets USING btree (sale_id)
 --
 
 CREATE INDEX index_fixed_assets_on_sale_item_id ON fixed_assets USING btree (sale_item_id);
+
+
+--
+-- Name: index_fixed_assets_on_scrapped_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON fixed_assets USING btree (scrapped_journal_entry_id);
+
+
+--
+-- Name: index_fixed_assets_on_sold_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON fixed_assets USING btree (sold_journal_entry_id);
 
 
 --
@@ -12142,6 +12379,13 @@ CREATE INDEX index_journal_entries_on_creator_id ON journal_entries USING btree 
 
 
 --
+-- Name: index_journal_entries_on_financial_year_exchange_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entries_on_financial_year_exchange_id ON journal_entries USING btree (financial_year_exchange_id);
+
+
+--
 -- Name: index_journal_entries_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12300,6 +12544,13 @@ CREATE INDEX index_journal_entry_items_on_updated_at ON journal_entry_items USIN
 --
 
 CREATE INDEX index_journal_entry_items_on_updater_id ON journal_entry_items USING btree (updater_id);
+
+
+--
+-- Name: index_journals_on_accountant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journals_on_accountant_id ON journals USING btree (accountant_id);
 
 
 --
@@ -12695,38 +12946,38 @@ CREATE INDEX index_manure_management_plans_on_updater_id ON manure_management_pl
 
 
 --
--- Name: index_map_backgrounds_on_created_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_map_layers_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_backgrounds_on_created_at ON map_backgrounds USING btree (created_at);
-
-
---
--- Name: index_map_backgrounds_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_map_backgrounds_on_creator_id ON map_backgrounds USING btree (creator_id);
+CREATE INDEX index_map_layers_on_created_at ON map_layers USING btree (created_at);
 
 
 --
--- Name: index_map_backgrounds_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_map_layers_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_backgrounds_on_name ON map_backgrounds USING btree (name);
-
-
---
--- Name: index_map_backgrounds_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_map_backgrounds_on_updated_at ON map_backgrounds USING btree (updated_at);
+CREATE INDEX index_map_layers_on_creator_id ON map_layers USING btree (creator_id);
 
 
 --
--- Name: index_map_backgrounds_on_updater_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_map_layers_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_map_backgrounds_on_updater_id ON map_backgrounds USING btree (updater_id);
+CREATE INDEX index_map_layers_on_name ON map_layers USING btree (name);
+
+
+--
+-- Name: index_map_layers_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_map_layers_on_updated_at ON map_layers USING btree (updated_at);
+
+
+--
+-- Name: index_map_layers_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_map_layers_on_updater_id ON map_layers USING btree (updater_id);
 
 
 --
@@ -13483,6 +13734,13 @@ CREATE INDEX index_preferences_on_updater_id ON preferences USING btree (updater
 --
 
 CREATE INDEX index_preferences_on_user_id ON preferences USING btree (user_id);
+
+
+--
+-- Name: index_preferences_on_user_id_and_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_preferences_on_user_id_and_name ON preferences USING btree (user_id, name);
 
 
 --
@@ -14669,6 +14927,13 @@ CREATE UNIQUE INDEX index_products_on_number ON products USING btree (number);
 
 
 --
+-- Name: index_products_on_originator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_originator_id ON products USING btree (originator_id);
+
+
+--
 -- Name: index_products_on_parent_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14757,6 +15022,20 @@ CREATE INDEX index_purchase_items_on_created_at ON purchase_items USING btree (c
 --
 
 CREATE INDEX index_purchase_items_on_creator_id ON purchase_items USING btree (creator_id);
+
+
+--
+-- Name: index_purchase_items_on_depreciable_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_depreciable_product_id ON purchase_items USING btree (depreciable_product_id);
+
+
+--
+-- Name: index_purchase_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btree (fixed_asset_id);
 
 
 --
@@ -16161,11 +16440,26 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON outgoing_payments FOR EACH ROW EXECUTE PROCEDURE compute_outgoing_payment_list_cache();
+
+
+--
 -- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY crumbs
     ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_5076105ec1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entries
+    ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -16209,6 +16503,22 @@ ALTER TABLE ONLY intervention_working_periods
 
 
 --
+-- Name: fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_years
+    ADD CONSTRAINT fk_rails_b170b89c1e FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
+-- Name: fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journals
+    ADD CONSTRAINT fk_rails_be4d04c726 FOREIGN KEY (accountant_id) REFERENCES entities(id);
+
+
+--
 -- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16222,6 +16532,14 @@ ALTER TABLE ONLY regularizations
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_f0120f1957; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY financial_year_exchanges
+    ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -16637,4 +16955,78 @@ INSERT INTO schema_migrations (version) VALUES ('20161231223002');
 INSERT INTO schema_migrations (version) VALUES ('20161231233003');
 
 INSERT INTO schema_migrations (version) VALUES ('20161231234533');
+
+INSERT INTO schema_migrations (version) VALUES ('20170101110136');
+
+INSERT INTO schema_migrations (version) VALUES ('20170110083324');
+
+INSERT INTO schema_migrations (version) VALUES ('20170124133351');
+
+INSERT INTO schema_migrations (version) VALUES ('20170125162958');
+
+INSERT INTO schema_migrations (version) VALUES ('20170203135031');
+
+INSERT INTO schema_migrations (version) VALUES ('20170203181700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170207131958');
+
+INSERT INTO schema_migrations (version) VALUES ('20170208150219');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209151943');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209191230');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209205737');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209212237');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209224614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170209235705');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210132452');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210145316');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210153841');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210174219');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210175448');
+
+INSERT INTO schema_migrations (version) VALUES ('20170214130330');
+
+INSERT INTO schema_migrations (version) VALUES ('20170215155700');
+
+INSERT INTO schema_migrations (version) VALUES ('20170215171400');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220123437');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220164259');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220171804');
+
+INSERT INTO schema_migrations (version) VALUES ('20170220192042');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222100614');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222222222');
+
+INSERT INTO schema_migrations (version) VALUES ('20170227143414');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307103213');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307171442');
+
+INSERT INTO schema_migrations (version) VALUES ('20170312183557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170313090000');
+
+INSERT INTO schema_migrations (version) VALUES ('20170315221501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+
+INSERT INTO schema_migrations (version) VALUES ('20170328125742');
+
+INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 

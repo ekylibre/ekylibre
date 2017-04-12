@@ -15,7 +15,9 @@ namespace :test do
   # Append test for lib
   task run_all: ['test:units', 'test:functionals', 'test:integration', 'test:lib', 'test:javascripts']
 
+  task full: ['test:models', 'test:controllers', 'test:frontend', 'test:libs']
+
   task frontend: ['test:integration', 'test:javascripts']
 
-  task libs: ['test:helpers', 'test:lib']
+  task libs: ['test:helpers', 'test:lib', 'test:exchangers']
 end

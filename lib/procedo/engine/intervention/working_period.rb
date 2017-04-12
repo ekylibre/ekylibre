@@ -31,6 +31,7 @@ module Procedo
         def to_hash
           { started_at: @started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: @stopped_at.strftime('%Y-%m-%d %H:%M') }
         end
+        alias to_attributes to_hash
 
         def impact_with(steps)
           if steps.size != 1

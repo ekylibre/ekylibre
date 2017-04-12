@@ -28,8 +28,8 @@ module Ekylibre
               # create an issue
               animal = intervention.product_parameters.of_role('animal_illness_treatment-target').first.actor
               started_at = (intervention.started_at - 1.day) || Time.zone.now
-              nature = [:mammite, :edema, :limping, :fever, :cough, :diarrhea].sample
-              issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, nature: nature, state: %w(opened closed aborted).sample)
+              nature = %i[mammite edema limping fever cough diarrhea].sample
+              issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, nature: nature, state: %w[opened closed aborted].sample)
               # add prescription on intervention
               intervention.issue = issue
               intervention.prescription = prescription

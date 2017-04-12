@@ -21,11 +21,16 @@
       = f.input :new_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_name' }}
     - else
       = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
-  - if (attr = reference.attribute(:new_container_id))
-    = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container_id).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
+  - if (attr = reference.attribute(:identification_number))
+    - if attr.hidden?
+      = f.input :identification_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'identification_number' }}
+    - else
+      = f.input :identification_number, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? and f.object.product.identification_number) ? true : false }
+  - if (attr = reference.attribute(:new_container))
+    = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
 
-  - if (attr = reference.attribute(:new_group_id))
-    = f.referenced_association :new_group, source: { scope: reference.attribute(:new_group_id).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_group_id' } }, new: false
+  - if (attr = reference.attribute(:new_group))
+    = f.referenced_association :new_group, source: { scope: reference.attribute(:new_group).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_group_id' } }, new: false
 
   - if (attr = reference.attribute(:new_variant))
     - if attr.hidden?
@@ -45,6 +50,8 @@
       end.compact
       plants = Charta.new_collection(plants).to_json_object(true)
     = f.geometry :working_zone, { input_html: { data: { intervention_updater: prefix + 'working_zone' }}, show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }} }
+  - if reference.attribute(:killable)
+    = f.yes_no_radio :dead, label: reference.killable_question
   - if reference.component_of?
     = render 'component_field', f: f, reference: reference, prefix: prefix
 
@@ -56,3 +63,8 @@
       - ref = reference.reading(r.object.indicator_name)
       - next unless ref
       = r.reading as: (ref.accessible? ? nil : :hidden), input_html: { data: { intervention_updater: prefix + 'readings' }}
+
+  .errors
+    - if reference.display_status
+      %span{class: reference.display_status}
+        = :"parameter_error_#{reference.display_status}".tl

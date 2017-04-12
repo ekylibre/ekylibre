@@ -25,6 +25,11 @@ module Backend
       0
     end
 
+    def team_columns_count(value = 1)
+      return value if Team.any?
+      0
+    end
+
     def journals_tag
       render partial: 'backend/journals/index'
     end

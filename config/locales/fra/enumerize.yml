@@ -54,6 +54,20 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    animal:
+      birth_date_completeness:
+        full_date: "Date complète"
+        month_year: "Mois et année"
+        year: "Année"
+      end_of_life_reason:
+        calculated_date: "Date calculée"
+        cutting_up: "Equarrissage"
+        death: "Mort"
+        slaughter: "Abattage"
+      filiation_status:
+        certified: "Certifié"
+        uncertified: "Non certifié"
+        unknown: "Inconnu"
     call_message:
       nature:
         incoming: "Nouveau"
@@ -141,9 +155,14 @@ fra:
         payment: "Encaissements"
     fixed_asset:
       depreciation_method:
-        graduated: "Dégressive" #?
         linear: "Linéaire"
+        none: "Aucune"
+        regressive: "Dégressive"
         simplified_linear: "Linéaire simplifiée"
+      depreciation_period:
+        monthly: "Mensuelle"
+        quarterly: "Trimestrielle"
+        yearly: "Annuelle"
     gap:
       direction:
         loss: "Perte"
@@ -216,6 +235,8 @@ fra:
       nature:
         bank: "Banque"
         cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
         sales: "Ventes"
@@ -233,15 +254,24 @@ fra:
         root: "Racine"
         string: "Chaîne"
     loan:
+      insurance_repayment_method:
+        initial: "Fraction du capital initial"
+        to_repay: "Fraction du capital à rembourser restant"
       repayment_method:
         constant_amount: "Montant constant"
         constant_rate: "Pourcentage constant"
       repayment_period:
         month: "Mois"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Année"
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+    map_layer:
+      nature:
+        background: "Fond"
+        overlay: "Calque"
     notification:
       level:
         error: "Erreur"
@@ -299,6 +329,15 @@ fra:
       nature:
         exterior: "Extérieur"
         interior: "Intérieur"
+    product_movement:
+      description:
+        birth: "Naissance"
+        butchery: "Boucherie"
+        consumption: "Consommation"
+        death: "Mort"
+        loan: "Pension"
+        purchase: "Achat"
+        sale: "Vente"
     product_nature:
       population_counting:
         decimal: "Décimal"

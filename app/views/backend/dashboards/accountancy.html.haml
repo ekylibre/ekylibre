@@ -1,9 +1,11 @@
 -#= journals_tag
 
+- main_financial_year_selector(params[:current_financial_year] || current_user.current_financial_year.id)
+
 = beehive do |b|
   - b.hbox do
     - b.cell :cashes_balance, if: Cash.any?
-    -# b.cell :accountancy_balance
+    - b.cell :accountancy_balance
   - b.hbox do
     - b.cell :cashes_balance_evolution
-    -# b.cell :payable_taxes
+    - b.cell :profit_and_loss

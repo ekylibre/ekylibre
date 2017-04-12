@@ -1,20 +1,37 @@
 = field_set do
   = f.input :name
   = f.input :description, as: :text
+  = f.referenced_association :product, :source => :depreciables
   = f.custom_fields
 
-= field_set(:depreciation) do
-  = f.money :depreciable_amount
-  = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
-  = f.input :started_on
+- if f.object.draft? || f.object.new_record?
+  = field_set(:depreciation) do
+    = f.money :depreciable_amount
+    = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
+    = f.input :started_on
+    = f.input :depreciation_period, as: :radio_buttons
 
-= field_set(:simplified_linear_options) do
-  = f.input :depreciation_percentage
+  = field_set(:simplified_linear_options) do
+    = f.input :depreciation_percentage
 
-= field_set(:linear_options) do
-  = f.input :stopped_on
+  = field_set(:linear_options) do
+    = f.input :stopped_on
 
-= field_set(:accountancy) do
-  = f.referenced_association :journal
-  = f.referenced_association :allocation_account, :source => :assets_depreciations
-  = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
+  = field_set(:accountancy) do
+    = f.referenced_association :journal
+    = f.referenced_association :asset_account, :source => :assets
+    = f.referenced_association :allocation_account, :source => :assets_depreciations
+    = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
+- elsif f.object.asset_account.blank? || f.object.allocation_account.blank? || f.object.expenses_account.blank?
+  = field_set(:accountancy) do
+    - if f.object.asset_account.blank?
+      = f.referenced_association :asset_account, :source => :assets
+    - if f.object.allocation_account.blank?
+      = f.referenced_association :allocation_account, :source => :assets_depreciations
+    - if f.object.expenses_account.blank?
+      = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses
+
+
+= field_set(:delay) do
+  = f.input :scrapped_on
+  = f.input :sold_on

@@ -1,0 +1,160 @@
+# Manifest with french comments
+# Manifeste avec commentaires en français
+currency: EUR                                    # Code monnaie
+country: fr                                      # Code pays
+language: fra                                    # Code langue
+map_measure_srid: 2154                           # Code référentiel spatial
+host: demo.ekylibre.farm
+sales_conditions: "Une indemnité forfaitaire de 40 € sera réclamée pour frais de recouvrement, en cas de retard de paiement" 		#conditions de vente par défault
+demo: true                                       # Mode démo (oui/non)
+create_activities_from_telepac: false            # Création des activités uniquement à partir des fichiers TELEPAC
+company:
+  last_name: GAEC DUPONT                         # Nom
+  activity_code: 0111Z
+  siren: 123465798
+  vat_number: FR17123465798				 # Nom
+  addresses:
+    email: gaec.dupont@truc.com                  # Adresse e-mail de votre société
+    website: www.ekylibre.com
+    mobile: 06 12 34 56 78
+    mail:
+      line_4: 8 rue du bouil bleu                # Adresse de votre société
+      line_6: 17250 SAINT-PORCHAIRE              # Code postal et ville de votre société
+users:
+  admin@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Christian                        # Prénom
+    last_name: DUPONT                            # Nom de famille
+    password: 12345678                           # Mot de passe
+    employed: true
+  veto@ekylibre.org:                             # Adresse e-mail de l'utilisateur 2 qui sert d'identifiant
+    first_name: Jean-Yves                        # Prénom
+    last_name: BRASLONG                          # Nom de famille
+    password: 12345678                           # Mot de passe
+  comptable@ekylibre.org:                        # Adresse e-mail de l'utilisateur 3 qui sert d'identifiant
+    first_name: Michel                           # Prénom
+    last_name: DURAND                            # Nom de famille
+    password: 12345678                           # Mot de passe
+accounting_system: fr_pcga                        # Code plan comptable
+financial_years:
+  EX1998-99:                                        # Code d'un exercice comptable
+    started_on: 1998-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 1999-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: FRF
+  EX1999-00:                                        # Code d'un exercice comptable
+    started_on: 1999-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2000-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: FRF
+  EX2000-01:                                        # Code d'un exercice comptable
+    started_on: 2000-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2001-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: FRF
+  EX2001-02:                                        # Code d'un exercice comptable
+    started_on: 2001-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 2002-08-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    currency: EUR
+journals:
+  21:
+    name: Crédit Agricole
+    nature: bank
+    currency: EUR
+  11:
+    name: Caisse
+    nature: cash
+    currency: EUR
+  VUSA:
+    name: Ventes États-Unis
+    closed_on: 2013-12-31
+    nature: sales
+    currency: USD
+  CCCA:
+    name: Compte courant coop Charentes Alliance
+    nature: bank
+    currency: EUR
+catalogs:
+  TESTVENTE:                                         # Code d'un catalogue de prix
+    name: Prix de vente                          # Nom d'un catalogue de prix
+    usage: sale                                  # Usage d'un catalogue de prix
+  TESTCOUT:
+    name: "Prix d'usage"
+    usage: cost
+  TESTACHAT:
+    name: "Prix d'achat"
+    usage: purchase
+  TESTSTOCK:
+    name: "Prix d'achat"
+    usage: stock
+accounts:                                        # Description de compte comptables
+  banque:                                        # Code d'un compte comptable de banque
+    name: Banque CRCA                            # Nom d'un compte de banque
+    number: 51210000                             # Numéro d'un compte de banque
+  caisse:                                        # Code d'un compte comptable de caisse
+    name: Caisse                                 # Nom d'un compte comptable de caisse
+    number: 531101                               # Numéro d'un compte de caisse
+  cc_coopca:                                        # Code d'un compte comptable de caisse
+    name: Compte coop ca                         # Nom d'un compte comptable de caisse
+    number: 47201                                # Numéro d'un compte de caisse
+cashes:
+  caisse:                                        # Code d'une trésorerie
+    name: Caisse                                 # Nom d'une trésorerie
+    nature: cash_box                             # Type d'une trésorerie (compte bancaire ou caisse)
+    journal: '11'                                # Code journal d'une trésorerie
+    account: caisse                              # Code comptable d'une trésorerie (décrit au dessus)
+  banque:
+    name: Compte CRCA
+    journal: '21'
+    account: banque
+    mode: iban                                   # Mode de saisie IBAN ou BBAN (RIB)
+    country: fr                                  # Code pays de la banque
+    iban: "FR7611111222223333333333391"          # Numéro IBAN du compte
+  cc_coopca:
+    name: Compte courant activité Coop
+    journal: CCCA
+    account: cc_coopca
+    nature: "associate_account"
+    mode: "" 							#mode
+    country: fr 						#code pays
+    iban: "" 			#numéro IBAN du compte
+outgoing_payment_modes:
+  cc_coopca:
+    with_accounting: true
+    cash: cc_coopca
+  cb:
+    with_accounting: true
+    cash: banque
+  cheque:
+    with_accounting: true
+    cash: banque
+incoming_payment_modes:
+  virement:
+    with_accounting: true
+    cash: banque
+  cheque:
+    with_accounting: true
+    cash: banque
+net_services:                                    # Services en ligne
+  telepac:                                       # Nom d'un service web (ex: TELEPAC)
+    pacage_number: 852364554                     # Nom et valeur du premier identifiant pour ce service
+    password: 12345                              # Nom et valeur du second identifiant pour ce service
+  synel:
+    synel_username: 17387001
+    password: 12345
+  lilco:
+    lilco_labratory_code: toto
+    password: 12345
+  msa:
+    msa_username: toto
+    password: 12345
+  charentes_alliance_extranet:
+    charentes_alliance_extranet_username: toto
+    password: 12345
+  cartodb:
+    cartodb_login: demo-ekylibre
+    password: 000000
+identifiers:                                     # Identifiants
+  pacage_number: 12346578                        # Nom et valeur d'un identifiant
+  husbandry_owner_number: FR01700006989
+  cattling_root_number: 173513
+  cattling_number: FR17387001
+  quandl_token: BwQESxTYjPRj58EbvzQA
+  cooperative_cartodb_account: coop
+  cooperative_cartodb_key: 644b0c1e22d3993b62b189e2d64389ad1e516002

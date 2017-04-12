@@ -63,7 +63,6 @@ namespace :clean do
       Dir[Rails.root.join('app', 'models', '*.rb')].sort.each do |file|
         class_name = file.split(/\/\\/)[-1].sub(/\.rb$/, '').camelize
         begin
-
           # Get content
           content = nil
           File.open(file, 'rb:UTF-8') do |f|

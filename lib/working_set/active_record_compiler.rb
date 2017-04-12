@@ -45,9 +45,13 @@ module WorkingSet
         column = object.is_a?(WorkingSet::QueryLanguage::EssenceTest) ? :variety : :derivative_of
         value = record.send(column)
         value.present? && find_nomenclature_item(:varieties, object.variety_name.text_value) >= value
+      elsif object.is_a?(WorkingSet::QueryLanguage::InclusionTest)
+        column = :derivative_of
+        value = record.send(column)
+        value.present? && find_nomenclature_item(:varieties, object.variety_name.text_value) < value
       elsif object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) || object.is_a?(WorkingSet::QueryLanguage::NonDerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) ? :variety : :derivative_of
-        !(find_nomenclature_item(:varieties, object.variety_name.text_value) >= record.send(column))
+        find_nomenclature_item(:varieties, object.variety_name.text_value) < record.send(column)
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
         unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)

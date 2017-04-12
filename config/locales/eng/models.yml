@@ -10,6 +10,8 @@ eng:
         born_at: "Created at"
       building:
         born_at: "Built at"
+      cashes:
+        main_account: "Main account"
       document:
         filename: "File"
       document_template:
@@ -21,12 +23,19 @@ eng:
         initial_dead_at: "Scrapped at"
       financial_year:
         stopped_on: "Date of closure"
+      fixed_asset:
+        asset_account: "Fixed asset account"
+        depreciation_period: "Depreciation period"
+        started_on: "start-up date"
       fixed_asset_depreciation:
         asset_amount: "Accountable value"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:
         born_at: "Created at"
+      loan:
+        ongoing_at: "Fund raising at"
+        started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Outgoing payment list"
@@ -133,11 +142,20 @@ eng:
           nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_year:
           attributes:
+            accountant:
+              frozen: "%{attribute} cannot be changed while an exchange is opened"
             started_on:
               consecutive: "The financial years must be consecutives. It must start after the end of the previous."
+              frozen: "The financial year date cannot be changed when an exchange has been created."
             stopped_on:
               end_of_month: "%{attribute} must be an end of month"
           overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Some entries in the CSV are out of the financial year exchange date range"
+          csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "CSV headers are invalid"
+          csv_file_invalid: "CSV file is invalid"
+          csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
         fixed_asset_depreciation:
           attributes:
             started_on:
@@ -146,10 +164,15 @@ eng:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
+            accountant:
+              entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Accountant can only be set for various operations journals"
+              previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
             closed_on:
               end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "The journal entry cannot be recorded in a period corresponding to a financial year exchange."
           out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
           unbalanced: "The journal entry is unbalanced"
         journal_entry_item:
@@ -194,6 +217,7 @@ eng:
       animal: "Animal"
       animal_group: "Animal group"
       attachment: "Attachment"
+      bank_guarantee_account: "Bank guarantee account" #?
       bank_statement: "Bank statement"
       bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
@@ -234,6 +258,7 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
+      # financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
       fungus: "Fungus"
@@ -250,7 +275,9 @@ eng:
       inspection: "Product grading"
       inspection_calibration: "Inspection calibre"
       inspection_point: "Product grading check"
+      insurance_account: "Insurance account" #?
       integration: "Integration"
+      interest_account: "Interest account" #?
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
       intervention_doer: "Intervention doer"
@@ -277,10 +304,11 @@ eng:
       listing_node: "Listing node"
       listing_node_item: "Listing node item"
       loan: "Loan"
+      loan_account: "Loan account" #?
       loan_repayment: "Loan repayment"
       manure_management_plan: "Manure management plan"
       manure_management_plan_zone: "Manure management plan zone"
-      map_background: "Map background"
+      map_layer: "Map layer"
       matter: "Matter"
       net_service: "Net service"
       notification: "Notification"
@@ -370,6 +398,8 @@ eng:
     account_name: "Account name"
     account_number: "Account number"
     accountable: "Accountable"
+    accountable_repayments_started_on: "Accountable repayments started on"
+    accountant: "Accountant"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
@@ -419,9 +449,11 @@ eng:
     archiving: "Archiving"
     arguments: "Arguments"
     assembly: "Assembly"
+    asset_account: "Asset account"
+    asset_exists: "Asset exists" #?
     attachments: "Attachments"
     attribute_name: "Attribute name"
-    # attribution: "Attribution"
+    attribution: "Attribution"
     authentication_token: "Authentication token"
     author: "Author"
     authorized_payments_count: "Authorized payments count"
@@ -438,6 +470,9 @@ eng:
     bank_agency_code: "Bank agency code"
     bank_check_number: "Bank check number"
     bank_code: "Bank code"
+    bank_guarantee_account: "Bank guarantee account"
+    bank_guarantee_amount: "Bank guarantee amount"
+    bank_guarantees_loans: "Bank guarantees loans"
     bank_identifier_code: "Bank identifier code"
     bank_name: "Bank name"
     bank_statement: "Bank statement"
@@ -445,12 +480,17 @@ eng:
     bank_statements: "Bank statements"
     base_amount: "Base amount"
     battery_level: "Battery level"
+    birth_date_completeness: "Birth date completeness"
+    birth_farm_number: "Birth farm number"
     body: "Body"
+    # booked_journals: "Booked journals"
     boolean_value: "Boolean value"
     born_at: "Born at"
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
+    # cached_payment_count: "Cached payment count"
+    # cached_total_sum: "Cached total sum"
     calibrations: "Calibrations"
     # calls: "Calls"
     campaign: "Campaign"
@@ -485,10 +525,12 @@ eng:
     city_name: "City name"
     client: "Client"
     client_account: "Client account"
+    # client_journal_entry_items: "Client journal entry items"
     clients: "Clients"
     closed: "Closed"
     closed_at: "Closed at"
     closed_on: "Closed on"
+    closure_journal: "Closure journal" #?
     clusters_work_number: "Clusters work number" #?
     code: "Code"
     codes: "Codes"
@@ -574,6 +616,7 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     dashboards: "Dashboards"
+    dead: "Dead"
     dead_at: "Dead on"
     dead_line_at: "Dead line at"
     deals_count: "Deals count"
@@ -614,9 +657,11 @@ eng:
     deposits: "Deposits"
     depreciable: "Depreciable"
     depreciable_amount: "Depreciable amount"
+    depreciable_product: "Depreciable product"
     depreciated_amount: "Depreciated amount"
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
+    depreciation_period: "Depreciation period"
     depreciations: "Depreciations"
     depth: "Depth"
     derivative_of: "Derivative of"
@@ -653,6 +698,7 @@ eng:
     employment: "Employment"
     enabled: "Enabled"
     encrypted_password: "Encrypted password"
+    end_of_life_reason: "End of life reason"
     enjoyer: "Enjoyer"
     enjoyments: "Enjoyments"
     entity: "Person 1"
@@ -663,13 +709,18 @@ eng:
     entry: "Entry"
     entry_items: "Entry items"
     entry_number: "Entry number"
+    entry_on: "Entry on" #?
+    entry_reason: "Entry reason" #?
     euid: "EUID"
     event: "Event"
     event_participation: "Event participation"
     events: "Events"
     evolvable: "Evolvable"
+    # exchanges: "Exchanges"
     execution_number: "Execution number"
     executor: "Executor"
+    exit_on: "Exit on" #?
+    exit_reason: "Exit reason" #?
     expected_population: "Expected population"
     expected_shape: "Expected shape" #?
     expected_stop_amount: "Expected stop amount"
@@ -688,6 +739,9 @@ eng:
     farm_name: "Farm name"
     farmer: "Farmer"
     father: "Father"
+    father_country: "Father country"
+    father_identification_number: "Father identification number"
+    father_variety: "Father variety"
     faxes: "Faxes"
     file: "File"
     file_content_text: "File content text"
@@ -697,11 +751,15 @@ eng:
     file_fingerprint: "File fingerprint"
     file_pages_count: "Pages count"
     file_updated_at: "Updated at"
+    filiation_status: "Filiation status"
     filtered_columns: "Filtered columns"
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
+    # financial_year_exchange: "Financial year exchange"
+    # financial_years: "Financial years"
     finish: "Finish"
     finished_at: "Finished at"
+    first_calving_on: "First calving on"
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
@@ -721,6 +779,8 @@ eng:
     following: "Following"
     format: "Format"
     formats: "Formats"
+    forward_journal: "Carrying forward journal" #?
+    france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"
@@ -771,6 +831,10 @@ eng:
     implanter_application_width: "Implanter application width"
     implanter_rows_number: "Implanter rows number"
     implanter_working_width: "Implanter working width"
+    # import_file_content_type: "Import file content type"
+    # import_file_file_name: "Import file file name"
+    # import_file_file_size: "Import file file size"
+    # import_file_updated_at: "Import file updated at"
     importance: "Importance"
     imported_at: "Imported at"
     importer: "Importer"
@@ -798,6 +862,7 @@ eng:
     initial_number: "Initial number"
     initial_owner: "Initial owner"
     initial_population: "Initial population"
+    initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Initial shape"
     initialization_vectors: "Initialization vectors"
     initiated_on: "Initiated on"
@@ -809,10 +874,13 @@ eng:
     inspection_point_natures: "Inspection point types"
     inspection_points: "Inspection points"
     inspections: "Inspections"
+    # insurance_account: "Insurance account"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
+    insurance_repayment_method: "Insurance repayment method"
     integer_value: "Integer value"
     integration_name: "Integration name"
+    # interest_account: "Interest account"
     interest_amount: "Interest amount"
     interest_percentage: "Interest percentage"
     intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
@@ -905,6 +973,10 @@ eng:
     list: "List"
     listing: "Listing"
     loan: "Loan"
+    # loan_account: "Loan account"
+    # loans: "Loans"
+    # loans_as_insurance: "Loans as insurance"
+    # loans_as_interest: "Loans as interest"
     local_balance: "Local balance"
     local_count: "Local count"
     local_credit: "Local credit"
@@ -927,7 +999,7 @@ eng:
     mail_postal_zone: "Mail postal_zone"
     mails: "Mails"
     main: "Main"
-    # main_account: "Main account"
+    main_account: "Main account"
     main_activity: "Main activity"
     main_crop_code: "Main crop code"
     main_crop_commercialisation: "Main crop commercialisation"
@@ -945,6 +1017,7 @@ eng:
     marketable_quantity: "Marketable quantity"
     marketable_yield: "Marketable yield"
     mass: "Mass (kg)" #?
+    max_inputs_count: "Maximum inputs count" #?
     max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
@@ -980,6 +1053,9 @@ eng:
     mode_delta: "Mode delta"
     model_euid: "Model"
     mother: "Mother"
+    mother_country: "Mother country"
+    mother_identification_number: "Mother identification number"
+    mother_variety: "Mother variety"
     movements: "Movements"
     moves: "Moves" #?
     multi_polygon_value: "Multi polygon value"
@@ -1014,12 +1090,16 @@ eng:
     observed_at: "Observed at"
     of_company: "Of the company"
     old_password: "Old password"
+    # ongoing_at: "Ongoing at"
+    opacity: "Opacity"
     opened_at: "Opened at"
     operation: "Operation"
     operation_name: "Operation name"
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"
+    origin_country: "Origin country"
+    origin_identification_number: "Origin identification number"
     originator: "Originator"
     originator_type: "Originator type"
     outcoming_product: "Outcoming product"
@@ -1092,6 +1172,8 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    pre_harvest_interval: "Pre-harvest interval" #?
+    # preexisting_asset: "Preexisting asset"
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -1150,6 +1232,8 @@ eng:
     # provider: "Provider"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
+    # public_token: "Public token"
+    # public_token_expired_at: "Public token expired at"
     purchasable: "Purchasable"
     purchase: "Purchase"
     purchase_affair: "Purchase affair" #?
@@ -1179,10 +1263,10 @@ eng:
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
-    real_credit: "Original credit"
-    real_currency: "Original currency"
-    real_currency_rate: "Original currency rate"
-    real_debit: "Original debit"
+    real_credit: "Real credit"
+    real_currency: "Real currency"
+    real_currency_rate: "Real currency rate"
+    real_debit: "Real debit"
     # real_pretax_amount: "Real pretax amount"
     receipt: "Receipt"
     received: "Received"
@@ -1220,6 +1304,7 @@ eng:
     remember_created_at: "Remember created at"
     remember_me: "Remember me"
     reminder_submissive: "Reminder submissive"
+    # repaid_at: "Repaid at"
     repayment_duration: "Repayment duration"
     repayment_method: "Repayment method"
     repayment_period: "Repayment period"
@@ -1278,6 +1363,8 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
+    scrapped_journal_entry: "Scrapped journal entry"
+    scrapped_on: "Scrapped on"
     season: "Seasonality"
     seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
@@ -1308,6 +1395,8 @@ eng:
     size_value: "Size value"
     soil_nature: "Soil type"
     soil_production: "Soil production"
+    sold_journal_entry: "Sold journal entry"
+    sold_on: "Sold on"
     source: "Source"
     source_product: "Source product"
     # source_product_movement: "Source product movement"
@@ -1325,6 +1414,8 @@ eng:
     stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
     # stocks_movement_categories: "Stocks movement categories"
+    # stocks_movement_variants: "Stocks movement variants"
+    # stocks_variants: "Stocks variants"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Storable"
@@ -1348,6 +1439,7 @@ eng:
     supplier: "Supplier"
     supplier_account: "Supplier account"
     supplier_address: "Supplier address"
+    # supplier_journal_entry_items: "Supplier journal entry items"
     supplier_payment_delay: "Supplier payment delay"
     supplier_payment_mode: "Supplier payment mode"
     supplier_payment_modes: "Supplier payment modes"
@@ -1360,10 +1452,10 @@ eng:
     support_variant_unit: "Support variant unit" #?
     support_variety: "Support variety"
     supports: "Supports"
-    # suspend_until_reconciliation: "Suspend until reconciliation"
+    suspend_until_reconciliation: "Suspend until reconciliation"
     suspended: "Suspended"
-    # suspended_journal_entry_items: "Suspended journal entry items"
-    # suspense_account: "Suspense account"
+    suspended_journal_entry_items: "Suspended journal entry items"
+    suspense_account: "Suspense account"
     # suspense_cashes: "Suspense cashes"
     # swim_lane_uuid: "Swim lane uuid"
     tactic: "Cropping technique"
@@ -1431,6 +1523,7 @@ eng:
     # unpointed_main_journal_entry_items: "Unpointed main journal entry items"
     # unpointed_suspended_journal_entry_items: "Unpointed suspended journal entry items"
     unread_notifications: "Unread notifications"
+    untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
     uploaded: "Uploaded"
@@ -1440,6 +1533,7 @@ eng:
     usage_limit_nature: "Used by type"
     usage_limit_on: "Used by on"
     usages: "Usages"
+    use_bank_guarantee: "Bank guarantee"
     use_countings: "Use countings"
     use_gradings: "Use gradings"
     use_seasons: "Use seasonalities"
@@ -1556,6 +1650,20 @@ eng:
       code:
         double: "FY%{first_year}/%{second_year}"
         single: "FY%{first_year}"
+    fixed_asset:
+      bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "Draft"
+          in_use: "In use"
+          scrapped: "Scrapped"
+          sold: "Sold"
+    fixed_asset_depreciation:
+      bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1625,6 +1733,12 @@ eng:
       reflections: "Associated tables"
     loan:
       bookkeep: "[%{resource} %{name}] Fund reception"
+      bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "Draft"
+          ongoing: "Ongoing"
+          repaid: "Repaid"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

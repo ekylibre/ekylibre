@@ -65,7 +65,8 @@ por:
       listings: "Listagens"
       loans: "Empréstimos"
       manure_management_plans: "Planos de manejo de dejetos"
-      map_backgrounds: "Mapa fundos"
+      map_backgrounds: "Mapa fundos" #?
+      map_layers: "Camadas do mapa"
       matters: "Matéria"
       myselves: "Meus"
       net_services: "Receita Liquida"
