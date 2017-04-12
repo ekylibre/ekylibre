@@ -42,7 +42,7 @@ class Integration < Ekylibre::Record::Base
   delegate :authentication_mode, :check_connection, :integration_name, to: :integration_type
   composed_of :parameters,
               class_name: 'ActionIntegration::Parameters',
-              mapping: [%w(ciphered_parameters ciphered), %w(initialization_vectors ivs)],
+              mapping: [%w[ciphered_parameters ciphered], %w[initialization_vectors ivs]],
               converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do

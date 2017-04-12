@@ -150,7 +150,7 @@ module Procedo
 
         end
         p.handlers.each do |handler|
-          %w(condition forward backward).each do |tree|
+          %w[condition forward backward].each do |tree|
             next unless handler.send("#{tree}?")
             parameters = handler.send("#{tree}_parameters")
             parameters.each do |parameter|

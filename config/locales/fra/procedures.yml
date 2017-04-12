@@ -3,18 +3,18 @@ fra:
     dry_matter_mass: "Masse de matière sèche" #?
     dry_matter_mass_area_density: "Masse de matière sèche par surface" #?
     food_mass_per_animal: "Masse d’aliment par animal" #?
-    grains_area_density: "Densité de grains" #?
-    grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare" #?
-    grains_count: "Millers de grains" #?
+    grains_area_density: "Densité surfacique de grains"
+    grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare"
+    grains_count: "Millers de grains"
     length: "Longueur" #?
-    mass_area_density: "Densité surfacique en kilogrammes par hectare" #?
+    mass_area_density: "Densité surfacique"
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré" #?
     mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
-    mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare" #?
+    mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare"
     mass_volume_density: "Masse volumique" #?
     milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette" #?
-    net_mass: "Masse nette" #?
+    net_mass: "Masse nette"
     net_mass_in_kilogram: "Masse nette en kilogrammes" #?
     net_mass_in_ton: "Masse nette en tonnes" #?
     net_volume: "Volume" #?
@@ -25,6 +25,9 @@ fra:
     plants_count: "Nombre de plantes" #?
     population: "Population" #?
     potassium_unities_density: "Unités de potassium par surface" #?
+    seedling_area_density: "Densité surfacique de plants"
+    seedling_area_density_in_thousand_per_hectare: "Densité surfacique de plants en millers par hectare"
+    seedling_count: "Milliers de plants"
     shape: "Contour" #?
     stakes_by_hectare: "Enjeux par hectare"
     stakes_count: "Nombre de piquets" #?

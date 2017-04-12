@@ -81,7 +81,7 @@ module Procedo
 
         # Checks that handler is always valid and fix it if possible
         def impact_on_handlers(_field)
-          rh = reference.handler(@quantity_handler) unless @quantity_handler.blank?
+          rh = reference.handler(@quantity_handler) if @quantity_handler.present?
           unless @quantity_handler && usable_handler?(rh)
             rh = reference.handlers.detect { |h| usable_handler?(h) }
             self.quantity_handler = rh.name.to_s if rh

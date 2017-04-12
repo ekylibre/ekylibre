@@ -38,7 +38,7 @@ class Version < ActiveRecord::Base
   cattr_accessor :current_user
   belongs_to :creator, class_name: 'User'
   belongs_to :item, polymorphic: true
-  enumerize :event, in: [:create, :update, :destroy], predicates: true
+  enumerize :event, in: %i[create update destroy], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 

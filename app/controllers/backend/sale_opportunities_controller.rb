@@ -25,7 +25,7 @@ module Backend
     # management -> sales_conditions
     def self.conditions
       code = ''
-      code = search_conditions(sale_opportunities: [:pretax_amount, :number, :description], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(sale_opportunities: %i[pretax_amount number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] += \" AND \#{SaleOpportunity.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"

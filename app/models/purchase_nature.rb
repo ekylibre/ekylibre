@@ -38,7 +38,7 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 class PurchaseNature < Ekylibre::Record::Base
-  enumerize :nature, in: [:purchase, :payslip], default: :purchase, predicates: true
+  enumerize :nature, in: %i[purchase payslip], default: :purchase, predicates: true
   refers_to :currency
   belongs_to :journal
   has_many :purchases, foreign_key: :nature_id, dependent: :restrict_with_exception

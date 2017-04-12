@@ -1,15 +1,16 @@
 # coding: utf-8
+
 { por: {
   i18n: {
     dir: 'ltr',
     iso2: 'pt',
     name: 'Português',
     plural: {
-      keys: [:one, :other],
+      keys: %i[one other],
       rule: ->(n) { n < 2 ? :one : :other }
     }
   },
   date: {
-    order: [:day, :month, :year]
+    order: %i[day month year]
   }
 } }

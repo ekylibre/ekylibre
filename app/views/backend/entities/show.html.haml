@@ -1,3 +1,5 @@
+- navigation resource, order: :full_name, naming_method: :label, scope: resource.nature.pluralize.to_sym
+
 - main_toolbar do |t|
   = t.export :entity_sheet
   = t.edit resource
@@ -190,7 +192,7 @@
 
       - c.cobble(:client_journal_entry_items, title: :x_client_journal_entry_items.tl(count: resource.client_journal_entry_items.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :accounts, :client_account_id => resource.id})
+          -#= t.new(params: {controller: :journal_entries})
         - if resource.client_journal_entry_items.any?
 
           - items = JournalEntryItem.joins(:entry).where(controller.class.entities_moves_client_conditions(params))
@@ -221,7 +223,7 @@
 
       - c.cobble(:supplier_journal_entry_items, title: :x_supplier_journal_entry_items.tl(count: resource.supplier_journal_entry_items.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :accounts, :supplier_account_id => resource.id})
+          -#= t.new(params: {controller: :journal_entries})
         - if resource.supplier_journal_entry_items.any?
 
           - items = JournalEntryItem.joins(:entry).where(controller.class.entities_moves_supplier_conditions(params))

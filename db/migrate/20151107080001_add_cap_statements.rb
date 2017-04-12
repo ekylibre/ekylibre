@@ -48,7 +48,7 @@ class AddCapStatements < ActiveRecord::Migration
 
     drop_table :cultivable_zone_memberships
 
-    [:product_enjoyments, :product_ownerships, :product_junction_ways, :product_phases, :product_localizations, :product_readings].each do |table|
+    %i[product_enjoyments product_ownerships product_junction_ways product_phases product_localizations product_readings].each do |table|
       execute "DELETE FROM #{table} WHERE product_id IN (SELECT id FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel'))"
     end
 
@@ -60,7 +60,7 @@ class AddCapStatements < ActiveRecord::Migration
 
     execute "DELETE FROM product_linkages WHERE carrier_id IN (SELECT id FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel')) OR carried_id IN (SELECT id FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel'))"
 
-    [:users, :roles].each do |table|
+    %i[users roles].each do |table|
       execute "UPDATE #{table} SET rights = REPLACE(rights, 'land_parcel_clusters', 'cap_statements')"
     end
 

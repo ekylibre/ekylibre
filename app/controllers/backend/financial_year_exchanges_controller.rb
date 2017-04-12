@@ -18,7 +18,7 @@
 
 module Backend
   class FinancialYearExchangesController < Backend::BaseController
-    manage_restfully only: [:new, :create, :show]
+    manage_restfully only: %i[new create show]
 
     list(:journal_entries, conditions: { financial_year_exchange_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, url: true

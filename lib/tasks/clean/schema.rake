@@ -15,7 +15,7 @@ namespace :clean do
     schema_hash = {}
     schema_yaml = "---\n"
     Ekylibre::Record::Base.connection.tables.sort.delete_if do |table|
-      %w(schema_migrations spatial_ref_sys oauth_access_grants oauth_access_tokens oauth_applications).include?(table.to_s)
+      %w[schema_migrations spatial_ref_sys oauth_access_grants oauth_access_tokens oauth_applications].include?(table.to_s)
     end.each do |table|
       schema_hash[table] = {}
       schema_yaml << "\n#{table}:\n"
@@ -47,7 +47,7 @@ namespace :clean do
             # puts model.name.red + ": " + model.descendants.map(&:name).to_sentence.yellow
             if column.name == 'parent_id'
               val = model.name.underscore.to_sym
-            elsif [:creator_id, :updater_id].include? column.name
+            elsif %i[creator_id updater_id].include? column.name
               val = :user
             elsif columns.map(&:name).include?(reference_name.to_s + '_type')
               val = "~#{reference_name}_type"
@@ -82,7 +82,7 @@ namespace :clean do
             schema_yaml << ", default: #{column.default}"
           end
           if column.type == :boolean
-            column_hash[:default] = !(column.default == 'false')
+            column_hash[:default] = column.default != 'false'
           end
         end
         schema_yaml << "}\n"

@@ -161,7 +161,13 @@ por:
       depreciation_method:
         graduated: "Gradual" #?
         linear: "Linear"
+        none: "Nenhum"
+        regressive: "Regressivo"
         simplified_linear: "Linear simplificado"
+      depreciation_period:
+        monthly: "Por mês"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Perda"
@@ -241,6 +247,8 @@ por:
       nature:
         bank: "Banco"
         cash: "Dinheiro"
+        closure: "Fecho"
+        fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"
@@ -266,6 +274,8 @@ por:
         constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Ano"
       shift_method:
         anatocism: "Anatocismo"

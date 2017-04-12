@@ -23,12 +23,19 @@ jpn:
         initial_dead_at: "で廃車"
       financial_year:
         stopped_on: "閉鎖の日"
+      fixed_asset:
+        asset_account: "固定資産勘定"
+        depreciation_period: "減価償却期間"
+        started_on: "起動日付"
       fixed_asset_depreciation:
         asset_amount: "責任値"
       land_parcel:
         born_at: "で作成されました"
       land_parcel_group:
         born_at: "で作成されました"
+      loan:
+        ongoing_at: "資金調達"
+        started_on: "最初の返済は、上の開始しました"
       outgoing_payment:
         delivered: "受信者に与えられました"
         list: "支払一覧"
@@ -210,6 +217,7 @@ jpn:
       animal: "動物"
       animal_group: "動物群"
       attachment: "アタッチメント"
+      bank_guarantee_account: "銀行保証口座"
       bank_statement: "銀行取引明細書"
       bank_statement_item: "銀行取引明細書行"
       bioproduct: "リビング製品"
@@ -266,7 +274,9 @@ jpn:
       inspection: "製品のグレーディング"
       inspection_calibration: "検査口径"
       inspection_point: "製品のグレーディングチェック"
+      insurance_account: "保険アカウント"
       integration: "統合"
+      interest_account: "インタレストアカウント"
       intervention: "介入"
       intervention_agent: "介入エージェント"
       intervention_doer: "介入行為者"
@@ -293,6 +303,7 @@ jpn:
       listing_node: "リストノード"
       listing_node_item: "リストノード項目"
       loan: "ローン"
+      loan_account: "ローンアカウント"
       loan_repayment: "ローン返済"
       manure_management_plan: "肥料管理計画"
       manure_management_plan_zone: "肥料管理計画ゾーン"
@@ -386,6 +397,7 @@ jpn:
     account_name: "アカウント名"
     account_number: "口座番号"
     accountable: "責任があります"
+    accountable_repayments_started_on: "責任返済は上の開始しました"
     accountant: "会計士"
     accounted_at: "で会計処理"
     accuracy: "精度"
@@ -436,6 +448,8 @@ jpn:
     archiving: "アーカイブ"
     arguments: "引数"
     assembly: "アセンブリ"
+    asset_account: "資産アカウント"
+    asset_exists: "資産が存在します"
     attachments: "添付ファイル"
     attribute_name: "属性名"
     attribution: "帰属"
@@ -455,6 +469,9 @@ jpn:
     bank_agency_code: "銀行代理コード"
     bank_check_number: "銀行小切手番号"
     bank_code: "金融機関コード"
+    bank_guarantee_account: "銀行保証口座"
+    bank_guarantee_amount: "銀行保証額"
+    bank_guarantees_loans: "銀行保証融資"
     bank_identifier_code: "バンク識別子コード"
     bank_name: "銀行名"
     bank_statement: "銀行取引明細書"
@@ -507,6 +524,7 @@ jpn:
     closed: "閉じました"
     closed_at: "で閉鎖"
     closed_on: "休館"
+    closure_journal: "クロージャジャーナル"
     clusters_work_number: "クラスタワーク番号"
     code: "コード"
     codes: "コード"
@@ -626,9 +644,11 @@ jpn:
     deposits: "預金"
     depreciable: "減価償却できます"
     depreciable_amount: "償却可能価額"
+    depreciable_product: "減価償却製品"
     depreciated_amount: "減価償却額"
     depreciation_method: "減価償却法"
     depreciation_percentage: "減価償却率"
+    depreciation_period: "減価償却期間"
     depreciations: "減価償却"
     depth: "深さ"
     derivative_of: "のデリバティブ"
@@ -745,6 +765,7 @@ jpn:
     following: "以下"
     format: "フォーマット"
     formats: "フォーマット"
+    forward_journal: "ジャーナル前方キャリング"
     france_maaid: "フランスmaaid"
     frequency: "周波数"
     frozen_indicators_list: "冷凍指標一覧"
@@ -825,6 +846,7 @@ jpn:
     initial_number: "初期数"
     initial_owner: "最初の所有者"
     initial_population: "初期集団"
+    initial_releasing_amount: "初期リリース量"
     initial_shape: "初期形状"
     initialization_vectors: "初期化ベクトル"
     initiated_on: "で開始"
@@ -1300,6 +1322,8 @@ jpn:
     sampling_temporal_mode: "サンプリング時間的モード"
     scale: "規模"
     scheduled: "予定の"
+    scrapped_journal_entry: "スクラップ仕訳"
+    scrapped_on: "上のスクラップ"
     season: "季節性"
     seasons: "季節性"
     second_producer: "セカンドプロデューサー" #?
@@ -1332,6 +1356,8 @@ jpn:
     size_value: "サイズ値"
     soil_nature: "土壌型"
     soil_production: "土壌生産"
+    sold_journal_entry: "販売ジャーナルエントリ"
+    sold_on: "上の販売"
     source: "ソース"
     source_product: "ソース製品"
     spaced_iban: "間隔をあけIBAN"
@@ -1461,6 +1487,7 @@ jpn:
     usage_limit_nature: "種類によって使用されます"
     usage_limit_on: "上で使用されます"
     usages: "用途"
+    use_bank_guarantee: "銀行保証"
     use_countings: "countingsを使用してください"
     use_grading_calibre: "グレーディング口径を使用します" #?
     use_gradings: "グレーディングを使用してください"
@@ -1579,6 +1606,20 @@ jpn:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "ドラフト"
+          in_use: "使用中で"
+          scrapped: "スクラップ"
+          sold: "販売"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1650,6 +1691,12 @@ jpn:
       reflections: "関連するテーブル"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "ドラフト"
+          ongoing: "継続的な"
+          repaid: "返済"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

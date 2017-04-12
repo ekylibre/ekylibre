@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add account journal entry sheet">
+  <item-creation item="document_natures#account_journal_entry_sheet" category="accountancy"/>
+</migration>

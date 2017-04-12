@@ -4,7 +4,7 @@ class OfxImport
 
   attr_reader :error, :internal_error, :cash, :bank_statement
 
-  SUPPORTED_ENCODINGS = %w(utf-8 iso-8859-1 us-ascii).freeze
+  SUPPORTED_ENCODINGS = %w[utf-8 iso-8859-1 us-ascii].freeze
 
   def initialize(file, cash = nil)
     @file = file

@@ -28,7 +28,7 @@ module Backend
     #   :period Two dates with "_" separator
     def self.conditions
       code = ''
-      code = search_conditions(contracts: [:pretax_amount, :number, :description], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(contracts: %i[pretax_amount number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] += \" AND \#{Contract.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"

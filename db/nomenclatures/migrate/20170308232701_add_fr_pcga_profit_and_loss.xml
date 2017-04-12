@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add fr pcga profit and loss">
+  <item-creation item="document_natures#fr_pcga_profit_and_loss_statement"/>
+</migration>

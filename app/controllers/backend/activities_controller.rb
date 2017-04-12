@@ -88,10 +88,10 @@ module Backend
         label: family.human_name,
         name: family.name
       }
-      unless family.cultivation_variety.blank?
+      if family.cultivation_variety.present?
         data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
       end
-      unless family.support_variety.blank?
+      if family.support_variety.present?
         data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
       end
       render json: data

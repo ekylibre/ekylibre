@@ -1,7 +1,7 @@
 module PeriodicCalculable
   extend ActiveSupport::Concern
 
-  PARAMETERS = [:period, :at, :name, :column].freeze
+  PARAMETERS = %i[period at name column].freeze
 
   included do
     class_attribute *(PARAMETERS.map { |p| "default_calculable_#{p}" })
