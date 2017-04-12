@@ -214,7 +214,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,lib/plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)
