@@ -153,7 +153,7 @@ class ProductPopulationTest < ActiveSupport::TestCase
     other.move! 10.in_ton.to_d, at: @time - 2.days + 1.second
     ProductMerging.create(product: other, merged_with: @product, merged_at: @time - 1.day)
 
-    assert_equal  0, other.population
+    assert_equal 0, other.population
     assert_equal 15, @product.population
   end
 
@@ -167,7 +167,7 @@ class ProductPopulationTest < ActiveSupport::TestCase
     merge.destroy!
 
     assert_equal 10, other.population
-    assert_equal  5, @product.population
+    assert_equal 5, @product.population
   end
 
   test 'the stock movements of a merged product apply to its merge destination' do
@@ -179,7 +179,7 @@ class ProductPopulationTest < ActiveSupport::TestCase
 
     other.move! 20.in_ton.to_d, at: @time - 2.days + 2.seconds
 
-    assert_equal  0, other.population
+    assert_equal 0, other.population
     assert_equal 35, @product.population
   end
 end

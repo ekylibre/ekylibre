@@ -898,6 +898,7 @@ arb:
       intervention_parameter_reading: "مهمة القراءة المنتج"
       intervention_participation: "مشاركة التدخل"
       intervention_product_parameter: "تدخل الزهر"
+      # intervention_setting: "Intervention setting"
       intervention_target: "هدف التدخل"
       intervention_tool: "أداة تدخل"
       intervention_working_period: "فترة العمل تدخل"
@@ -956,6 +957,7 @@ arb:
       product_linkage: "الربط المنتج"
       product_localization: "توطين المنتج"
       product_membership: "عضوية المنتج"
+      # product_merging: "Product merging"
       product_move: "حركة السهم" #?
       product_movement: "حركة المنتج"
       product_nature: "الانتاج"
@@ -1805,6 +1807,7 @@ arb:
     memo: "مذكرة"
     # merge: "Merge"
     # merge_stocks: "Merge stocks"
+    # merged_at: "Merged at"
     # merged_products: "Merged products"
     # merged_with: "Merged with"
     # merges: "Merges"

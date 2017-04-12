@@ -1620,7 +1620,8 @@ arb:
       relations: "العلاقات" #?
       trade: "التجارة" #?
     merge: "دمج"
-    # merged_with_x: "Merged with %{x}"
+    # merge_with_x: "Fusionner avec %{name}"
+    # merged_with_x: "Fusionné avec %{x}"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
     missing_attributes: "بعض سمات مفقودة"

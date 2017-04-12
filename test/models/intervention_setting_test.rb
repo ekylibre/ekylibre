@@ -34,6 +34,7 @@
 #  id                       :integer          not null, primary key
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
+#  merge_stocks             :boolean
 #  new_container_id         :integer
 #  new_group_id             :integer
 #  new_name                 :string

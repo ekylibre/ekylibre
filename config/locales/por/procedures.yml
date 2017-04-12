@@ -204,6 +204,7 @@ por:
     sifting: "Peneirar"
     silage_unload: "Descarregamento silagem"
     sowing: "Semeadura"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "Semeando com pulverização"
     spraying: "Pulverização"
     standard_enclosing: "Delimitador padrão"

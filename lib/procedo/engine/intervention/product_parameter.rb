@@ -139,9 +139,7 @@ module Procedo
           @new_container.present?
         end
 
-        def merge_stocks
-          @merge_stocks
-        end
+        attr_reader :merge_stocks
 
         def merge_stocks=(boolean)
           @merge_stocks = boolean

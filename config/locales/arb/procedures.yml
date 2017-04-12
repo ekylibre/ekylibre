@@ -204,6 +204,7 @@ arb:
     sifting: "غربلة"
     silage_unload: "السيلاج تفريغ"
     sowing: "بذر"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "بذر مع الرش"
     spraying: "رش"
     standard_enclosing: "أرفق القياسية"

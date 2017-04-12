@@ -1244,7 +1244,8 @@ jpn:
       tools: "道具" #?
     menus: "メニュー"
     merge: "マージ"
-    # merged_with_x: "Merged with %{x}"
+    # merge_with_x: "Fusionner avec %{name}"
+    # merged_with_x: "Fusionné avec %{x}"
     method: "方法"
     minimal_temperature: "最小限の温度"
     missing_attributes: "一部の属性は失われています"

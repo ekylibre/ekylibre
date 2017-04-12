@@ -457,6 +457,7 @@ fra:
       product_linkage: "Lien d’attache entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
+      # product_merging: "Product merging"
       product_movement: "Mouvement de produit"
       product_nature: "Type de produit"
       product_nature_category: "Catégorie de type de produit"

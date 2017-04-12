@@ -232,7 +232,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { }
+  scope :available, -> {}
   scope :availables, ->(**args) do
     at = args[:at]
     return available if at.blank?

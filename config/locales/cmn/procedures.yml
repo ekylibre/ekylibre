@@ -204,6 +204,7 @@ cmn:
     sifting: "筛选"
     silage_unload: "青贮卸载"
     sowing: "播种"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "喷涂播种"
     spraying: "喷"
     standard_enclosing: "标准封闭"
