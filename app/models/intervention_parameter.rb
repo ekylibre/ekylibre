@@ -65,8 +65,7 @@ class InterventionParameter < Ekylibre::Record::Base
   delegate :procedure, to: :intervention
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :currency, :derivative_of, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
-  validates :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :currency, :derivative_of, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }

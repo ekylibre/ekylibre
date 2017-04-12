@@ -288,6 +288,7 @@ cmn:
       intervention_parameter_reading: "产品阅读任务"
       intervention_participation: "参与干预"
       intervention_product_parameter: "干预投"
+      # intervention_setting: "Intervention setting"
       intervention_target: "干预目标"
       intervention_tool: "干预工具"
       intervention_working_period: "干预工作期"

@@ -288,6 +288,7 @@ deu:
       intervention_parameter_reading: "Produktleseaufgabe"
       intervention_participation: "Intervention Teilnahme"
       intervention_product_parameter: "Intervention Guss"
+      # intervention_setting: "Intervention setting"
       intervention_target: "Intervention Ziel"
       intervention_tool: "Intervention Werkzeug"
       intervention_working_period: "Intervention Arbeitsperiode"

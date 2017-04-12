@@ -288,6 +288,7 @@ por:
       intervention_parameter_reading: "Tarefa de leitura produto"
       intervention_participation: "Participação intervenção"
       intervention_product_parameter: "Intervenção elenco"
+      # intervention_setting: "Intervention setting"
       intervention_target: "Alvo de intervenção"
       intervention_tool: "Ferramenta de intervenção"
       intervention_working_period: "Período de trabalho de intervenção"

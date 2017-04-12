@@ -288,6 +288,7 @@ jpn:
       intervention_parameter_reading: "製品読取タスク"
       intervention_participation: "介入参加"
       intervention_product_parameter: "介入キャスト"
+      # intervention_setting: "Intervention setting"
       intervention_target: "介入対象"
       intervention_tool: "介入ツール"
       intervention_working_period: "介入作業期間"

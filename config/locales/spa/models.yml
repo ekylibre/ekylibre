@@ -289,6 +289,7 @@ spa:
       intervention_parameter_reading: "Producto tarea de lectura"
       intervention_participation: "La participación de la intervención"
       intervention_product_parameter: "Reparto de intervención"
+      # intervention_setting: "Intervention setting"
       intervention_target: "Intervención de destino"
       intervention_tool: "Herramienta de intervención"
       intervention_working_period: "Período de trabajo de Intervención"

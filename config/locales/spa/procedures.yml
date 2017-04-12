@@ -228,6 +228,7 @@ spa:
     sifting: "Cernido"
     silage_unload: "Descarga ensilado" #?
     sowing: "Siembra"
+    # sowing_v2: "Seeding"
     sowing_with_spraying: "Siembra con pulverización"
     spraying: "Rociar"
     standard_enclosing: "Estándar de encerramiento"

@@ -33,9 +33,7 @@ module Procedo
         parameters
       end
 
-      def compact
-        to_a.compact
-      end
+      delegate :compact, to: :to_a
 
       private
 

@@ -319,6 +319,7 @@ ita:
       intervention_parameter_reading: "compito di lettura del prodotto"
       intervention_participation: "Partecipazione intervento"
       intervention_product_parameter: "getto di intervento"
+      # intervention_setting: "Intervention setting"
       intervention_target: "bersaglio intervento"
       intervention_tool: "strumento di intervento"
       intervention_working_period: "periodo di lavoro di intervento"
