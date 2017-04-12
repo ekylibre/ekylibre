@@ -269,7 +269,7 @@ Rails.application.routes.draw do
       resources :bank_statement_items, only: %i[new create destroy], path: 'items'
       resources :bank_reconciliation_gaps, only: [:create], path: 'gaps'
       resources :bank_reconciliation_items, only: [:index], path: 'reconciliation'
-      resources :bank_statement_letters, only: [:create, :destroy], path: 'letters'
+      resources :bank_statement_letters, only: %i[create destroy], path: 'letters'
 
       collection do
         get :list_items

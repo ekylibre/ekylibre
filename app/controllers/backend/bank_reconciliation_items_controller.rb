@@ -28,7 +28,7 @@ module Backend
       @period_start = @bank_statement.started_on - 20.days
       @period_end   = @bank_statement.stopped_on + 20.days
 
-      [:start, :end].each do |boundary|
+      %i[start end].each do |boundary|
         next unless params[:"period_#{boundary}"]
         date = Date.strptime(params[:"period_#{boundary}"], '%Y-%m-%d')
         instance_variable_set("@period_#{boundary}", date)
