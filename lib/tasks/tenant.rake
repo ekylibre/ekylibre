@@ -25,7 +25,7 @@ namespace :tenant do
         start = Time.now
         source = Ekylibre::Tenant.database_for(tenant, beginning)
         destination = Ekylibre::Tenant.database_for(tenant, finish)
-        puts "Moving schema #{tenant} from #{source} to #{destination}...".yellow
+        puts "Moving schema #{tenant} from #{source} to #{destination}...".cyan
         # Warn if source and destination don't exist
         Ekylibre::Tenant.switch_to_database(source)
         source_exists = Apartment.connection.schema_exists? tenant
@@ -34,14 +34,17 @@ namespace :tenant do
         destination_exists = Apartment.connection.schema_exists? tenant
 
         if source_exists && destination_exists
-          puts "For #{tenant}, source and destination exist. Destination is removed"
+          puts "For #{tenant}, source and destination exist. Destination is removed".red
           Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{destination}` }
         elsif !source_exists && !destination_exists
-          raise "For #{tenant}, no source and no destination exist"
+          puts "For #{tenant}, no source and no destination exist".red
         end
 
         # Already migrated
-        next if !source_exists && destination_exists
+        if !source_exists && destination_exists
+          puts "For #{tenant}, no source and destination exist, schema already migrated".yellow
+          next
+        end
 
         dump = "tmp/distribute-#{beginning}-#{finish}-#{now}-#{tenant}.sql"
 
@@ -55,7 +58,7 @@ namespace :tenant do
         Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{source}` }
         # FileUtils.rm_rf(dump)
 
-        puts "Schema #{tenant} moved from #{source} to #{destination} in #{Time.now - start} seconds".cyan
+        puts "Schema #{tenant} moved from #{source} to #{destination} in #{Time.now - start} seconds".green
       end
     end
   end
