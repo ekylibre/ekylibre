@@ -350,6 +350,8 @@ jpn:
       index: "掲載および郵送"
       # mail: "Send an email to: %{name}"
       new: "新規上場"
+    backend/loan_repayments:
+      # edit: "Edit loan repayment due on: %{due_on}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "ローン"

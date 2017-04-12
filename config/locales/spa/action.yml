@@ -376,6 +376,8 @@ spa:
       index: "Exportación y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créación de nueva extraccion"
+    backend/loan_repayments:
+      # edit: "Edit loan repayment due on: %{due_on}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Préstamos"

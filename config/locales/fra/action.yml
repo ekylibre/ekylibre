@@ -409,9 +409,6 @@ fra:
       new: "Nouvelle extraction"
     backend/loan_repayments:
       edit: "Editer le remboursement d'emprunt due le : %{due_on}"
-      # index: "Loan repayments"
-      # new: "New loan repayment"
-      # show: "Loan repayment: %{name}"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
       index: "Emprunts"
