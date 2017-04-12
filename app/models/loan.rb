@@ -111,7 +111,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.ongoing_at ||= started_on.try(:to_time)
+    self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
   end
