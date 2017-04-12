@@ -26,7 +26,7 @@ module Diagram
         models.sort_by(&:name).each do |model|
           graph.node(model.name, href: "https://github.com/ekylibre/ekylibre/tree/master/app/models/#{model.name.underscore}.rb", font_color: '#002255', color: '#002255')
           model.reflections.values.each do |reflection|
-            next if reflection.macro != :belongs_to || model.name == reflection.class_name || %w(updater creator).include?(reflection.name.to_s) || (!reflection.polymorphic? && !models.include?(reflection.class_name.constantize))
+            next if reflection.macro != :belongs_to || model.name == reflection.class_name || %w[updater creator].include?(reflection.name.to_s) || (!reflection.polymorphic? && !models.include?(reflection.class_name.constantize))
             arrow_options = {}
             arrow_options[:label] = reflection.name if reflection.polymorphic? || reflection.name.to_s != reflection.class_name.underscore
             if reflection.polymorphic?
@@ -49,7 +49,7 @@ module Diagram
         table_names = models.map(&:table_name).uniq.map(&:to_s)
         tables = YAML.load_file(Rails.root.join('db', 'tables.yml')).delete_if { |t, _| !table_names.include?(t) }
         tables.each do |table_name, columns|
-          columns = columns.delete_if { |k, _v| %w(creator_id created_at updater_id updated_at lock_version id).include?(k) }
+          columns = columns.delete_if { |k, _v| %w[creator_id created_at updater_id updated_at lock_version id].include?(k) }
           label = '<f999> ' + table_name
           columns.keys.each_with_index do |c, i|
             label << " | <f#{i}> #{c}"

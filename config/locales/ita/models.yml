@@ -23,12 +23,19 @@ ita:
         initial_dead_at: "Demolita a"
       financial_year:
         stopped_on: "Data di chiusura"
+      fixed_asset:
+        asset_account: "Conto cespite"
+        depreciation_period: "Periodo di ammortamento"
+        started_on: "Inizia l’aggiornamento"
       fixed_asset_depreciation:
         asset_amount: "valore contabile"
       land_parcel:
         born_at: "creato a"
       land_parcel_group:
         born_at: "creato a"
+      loan:
+        ongoing_at: "La raccolta di fondi a"
+        started_on: "Prima di rimborso è iniziato il"
       outgoing_payment:
         delivered: "Dato al destinatario"
         list: "Lista pagamento in uscita"
@@ -241,6 +248,7 @@ ita:
       animal: "Animale"
       animal_group: "gruppo di animali"
       attachment: "Allegati"
+      bank_guarantee_account: "Conto Garanzia bancaria"
       bank_statement: "estratto conto bancario"
       bank_statement_item: "Fila estratto conto bancario"
       bioproduct: "vivere prodotto"
@@ -297,7 +305,9 @@ ita:
       inspection: "classificazione del prodotto"
       inspection_calibration: "calibro di ispezione"
       inspection_point: "controllo di classificazione del prodotto"
+      insurance_account: "Conto assicurativo"
       integration: "Integrazione"
+      interest_account: "Conto interessi"
       intervention: "Intervento"
       intervention_agent: "agente di intervento"
       intervention_doer: "intervento agente"
@@ -324,6 +334,7 @@ ita:
       listing_node: "nodo Listing"
       listing_node_item: "Listing voce nodo"
       loan: "Prestito"
+      loan_account: "Conto di prestito"
       loan_repayment: "Rimborso del prestito"
       manure_management_plan: "piano di gestione del letame"
       manure_management_plan_zone: "Concimi zona di piano di gestione"
@@ -417,6 +428,7 @@ ita:
     account_name: "Nome utente"
     account_number: "numero di conto"
     accountable: "Responsabile"
+    accountable_repayments_started_on: "Rimborsi Accountable iniziato il"
     accountant: "Contabile"
     accounted_at: "rappresentato a"
     accuracy: "Precisione"
@@ -467,6 +479,8 @@ ita:
     archiving: "Archiviazione"
     arguments: "Argomenti"
     assembly: "Montaggio"
+    asset_account: "Conto patrimoniale"
+    asset_exists: "Esiste Asset"
     attachments: "allegati"
     attribute_name: "Nome attributo"
     attribution: "Attribuzione"
@@ -486,6 +500,9 @@ ita:
     bank_agency_code: "Banca codice agenzia"
     bank_check_number: "numero di assegno bancario"
     bank_code: "codice bancario"
+    bank_guarantee_account: "Conto Garanzia bancaria"
+    bank_guarantee_amount: "Bank importo garanzia"
+    bank_guarantees_loans: "Bank garantisce prestiti"
     bank_identifier_code: "Bank Identifier Code"
     bank_name: "nome della banca"
     bank_statement: "estratto conto bancario"
@@ -538,6 +555,7 @@ ita:
     closed: "Chiuso"
     closed_at: "chiuso a"
     closed_on: "chiuso il"
+    closure_journal: "Chiusura ufficiale"
     clusters_work_number: "Cluster lavorativi Numero"
     code: "Codice"
     codes: "Codici"
@@ -657,9 +675,11 @@ ita:
     deposits: "depositi"
     depreciable: "ammortizzabile"
     depreciable_amount: "Il valore ammortizzabile"
+    depreciable_product: "Prodotto ammortizzabile"
     depreciated_amount: "importo ammortizzati"
     depreciation_method: "metodo di ammortamento"
     depreciation_percentage: "percentuale di ammortamento"
+    depreciation_period: "Periodo di ammortamento"
     depreciations: "Ammortamenti"
     depth: "Profondità"
     derivative_of: "Derivata di"
@@ -776,6 +796,7 @@ ita:
     following: "A seguire"
     format: "Formato"
     formats: "formati"
+    forward_journal: "Riporto ufficiale"
     france_maaid: "Francia maaid"
     frequency: "Frequenza"
     frozen_indicators_list: "Lista indicatori congelati"
@@ -856,6 +877,7 @@ ita:
     initial_number: "numero iniziale"
     initial_owner: "proprietario iniziale"
     initial_population: "popolazione iniziale"
+    initial_releasing_amount: "Importo rilascio iniziale"
     initial_shape: "forma iniziale"
     initialization_vectors: "Vettori di inizializzazione"
     initiated_on: "Iniziato su"
@@ -1330,6 +1352,8 @@ ita:
     sampling_temporal_mode: "modalità temporale di campionamento"
     scale: "Scala"
     scheduled: "In programma"
+    scrapped_journal_entry: "Voce di diario Demolita"
+    scrapped_on: "Demolita su"
     season: "stagionalità"
     seasons: "stagionalità"
     second_producer: "secondo produttore" #?
@@ -1361,6 +1385,8 @@ ita:
     size_value: "valore dimensioni"
     soil_nature: "tipo di terreno"
     soil_production: "la produzione del suolo"
+    sold_journal_entry: "Voce di diario Venduto"
+    sold_on: "Venduto"
     source: "fonte"
     source_product: "prodotto di origine"
     # spaced_iban: "Spaced IBAN"
@@ -1490,6 +1516,7 @@ ita:
     usage_limit_nature: "Usato per tipo"
     usage_limit_on: "Utilizzato da su"
     usages: "usi"
+    use_bank_guarantee: "Garanzia bancaria"
     use_countings: "Utilizzare i conteggi"
     use_grading_calibre: "Utilizzare calibro di classificazione" #?
     use_gradings: "Utilizzare classificazioni"
@@ -1608,6 +1635,20 @@ ita:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "Bozza"
+          in_use: "In uso"
+          scrapped: "Demolita"
+          sold: "Venduto"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1679,6 +1720,12 @@ ita:
       reflections: "tabelle associate"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "Bozza"
+          ongoing: "In corso"
+          repaid: "Rimborsato"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

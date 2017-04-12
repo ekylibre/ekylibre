@@ -41,7 +41,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   belongs_to :intervention
   belongs_to :intervention_participation
   has_one    :intervention_participated_to, through: :intervention_participation, source: :intervention
-  enumerize :nature, in: [:preparation, :travel, :intervention]
+  enumerize :nature, in: %i[preparation travel intervention]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
@@ -84,7 +84,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     if started_at && stopped_at && stopped_at <= started_at
       errors.add(:stopped_at, :posterior, to: started_at.l)
     end
-    unless intervention_participation.blank?
+    if intervention_participation.present?
       siblings = intervention_participation.working_periods.where.not(id: id || 0)
       errors.add(:started_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', started_at, started_at).any?
       errors.add(:stopped_at, :overlap_sibling) if siblings.where('started_at < ? AND ? < stopped_at', stopped_at, stopped_at).any?

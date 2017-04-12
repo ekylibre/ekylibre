@@ -84,13 +84,13 @@ class RenamePeopleToContacts < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         execute "UPDATE #{quote_table_name(:entities)} SET #{quote_column_name(:nature)}='contact' WHERE #{quote_column_name(:nature)}='person'"
-        [:users, :roles].each do |table|
+        %i[users roles].each do |table|
           execute "UPDATE #{quote_table_name(table)} SET #{quote_column_name(:rights)}=REPLACE(rights, 'people', 'contacts')"
         end
       end
       dir.down do
         execute "UPDATE #{quote_table_name(:entities)} SET #{quote_column_name(:nature)}='person' WHERE #{quote_column_name(:nature)}='contact'"
-        [:users, :roles].each do |table|
+        %i[users roles].each do |table|
           execute "UPDATE #{quote_table_name(table)} SET #{quote_column_name(:rights)}=REPLACE(rights, 'contacts', 'people')"
         end
       end

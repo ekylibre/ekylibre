@@ -9,23 +9,23 @@ jpn:
     born_at: "で生まれました"
     breeding_number: "繁殖数"
     campaigns: "キャンペーン"
-    capitalised_production: "資産計上生産"
+    capitalised_production: "資産計上生産" #?
     company: "会社"
     container_name: "コンテナ名"
     current_result_before_taxes: "税金等調整前現在の結果"
-    depreciations_inputations_expenses: "減価償却費inputations"
+    depreciations_inputations_expenses: "減価償却費inputations" #?
     doer_cost: "行為者のコスト"
     doer_name: "行為者名"
     doers_name: "徒名"
     duration_in_hour: "時間内の期間"
     ede_cattling_number: "エーデcattling番号"
     ede_owner_number: "エーデの所有者の数"
-    employee_involvement: "従業員の参画"
+    employee_involvement: "従業員の参画" #?
     enterprise: "企業"
     entity_name: "エンティティ名"
-    exceptional_expenses: "例外的な経費"
+    exceptional_expenses: "例外的な経費" #?
     exceptional_expenses_total: "総例外的費用"
-    exceptional_products: "優れた製品"
+    exceptional_products: "優れた製品" #?
     exceptional_products_total: "優れた製品は合計します"
     exceptional_result: "卓越した結果"
     expenses_total: "総費用"
@@ -33,9 +33,9 @@ jpn:
     exploitation_products_total: "搾取製品の合計"
     exploitation_result: "搾取結果"
     family: "家族"
-    financial_expenses: "金融費用"
+    financial_expenses: "金融費用" #?
     financial_expenses_total: "合計財務費用"
-    financial_products: "金融商品"
+    financial_products: "金融商品" #?
     financial_products_total: "金融商品の合計"
     financial_result: "財務結果"
     financial_year_name: "会計年度の名前"
@@ -47,7 +47,7 @@ jpn:
     implanted_at: "で注入"
     intervention_durations: "介入期間"
     loss_balance: "損失残高"
-    losses: "損失"
+    losses: "損失" #?
     meat_saleable_on: "食肉販売可能に"
     meat_withdrawal_period: "肉休薬期間"
     milk_saleable_on: "牛乳販売可能に"
@@ -58,9 +58,9 @@ jpn:
     net_surface_area: "正味の表面積"
     number: "数"
     observed_at: "で観測"
-    other_expenses: "その他の費用"
-    other_products: "その他の製品"
-    other_purchases: "その他の購入"
+    other_expenses: "その他の費用" #?
+    other_products: "その他の製品" #?
+    other_purchases: "その他の購入" #?
     owner_name: "所有者名"
     payment_ratio: "配当比率"
     pictogram: "絵文字"
@@ -71,28 +71,28 @@ jpn:
     printed_on: "上の印刷"
     product_account_label: "製品のアカウントラベル"
     production_support: "生産支援"
-    productions_sales: "プロダクションの販売"
-    products_purchases: "製品の購入"
-    products_sales: "製品販売"
+    productions_sales: "プロダクションの販売" #?
+    products_purchases: "製品の購入" #?
+    products_sales: "製品販売" #?
     products_total: "製品の合計"
     profit_or_loss: "損益"
-    profits: "利益"
+    profits: "利益" #?
     profits_taxes: "利益税"
     provisional_yield: "暫定収量"
-    provisions_revenues: "引当金収入"
+    provisions_revenues: "引当金収入" #?
     quantity: "量"
-    raw_matters_purchases: "生は購入を重要"
-    raw_matters_stocks_variation: "生は、株式の変動を重要"
+    raw_matters_purchases: "生は購入を重要" #?
+    raw_matters_stocks_variation: "生は、株式の変動を重要" #?
     sex: "セックス"
-    social_expenses: "交際費"
+    social_expenses: "交際費" #?
     soil_varieties: "土壌の品種" #?
-    stock_production: "在庫生産"
-    stocks_variation: "株式の変動"
-    subsidies: "補助金"
+    stock_production: "在庫生産" #?
+    stocks_variation: "株式の変動" #?
+    subsidies: "補助金" #?
     target_name: "ターゲット名" #?
     variable_name: "変数名" #?
     variant_name: "バリアント名"
     variant_variety: "バリアント多様" #?
     vine_yield: "バイン収量"
-    wages: "賃金"
+    wages: "賃金" #?
     working_area: "作業領域"

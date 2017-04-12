@@ -26,7 +26,6 @@ module Ekylibre
           if options[:to]
             addon.condition = ->(options) { options[:controller] + '#' + options[:action] == options[:to] }
           end
-          list = {}.with_indifferent_access if list.nil?
           list[context] ||= []
           list[context] << addon
         end

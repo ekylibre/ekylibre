@@ -1818,7 +1818,7 @@ product_readings_118:
   indicator_name: soil_cultural_state
   lock_version: 0
   product_id: 106
-  read_at: 1971-06-17 23:00:00.000000000 Z
+  read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.133333000 Z
   updater_id: 1
 product_readings_119:
@@ -1834,7 +1834,7 @@ product_readings_119:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 106
-  read_at: 1971-06-17 23:00:00.000000000 Z
+  read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.223075000 Z
   updater_id: 1
 product_readings_120:
@@ -1856,7 +1856,7 @@ product_readings_120:
     45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
     45.8268218404488)))
   product_id: 106
-  read_at: 1971-06-17 23:00:00.000000000 Z
+  read_at: 2008-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.233581000 Z
   updater_id: 1
 product_readings_121:

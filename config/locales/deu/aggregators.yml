@@ -9,23 +9,23 @@ deu:
     born_at: "geboren an"
     breeding_number: "Zuchtnummer"
     campaigns: "Kampagnen"
-    capitalised_production: "Die aktivierten Herstellungs"
+    capitalised_production: "Die aktivierten Herstellungs" #?
     company: "Unternehmen"
     container_name: "Container Name"
     current_result_before_taxes: "Laufendes Ergebnis vor Steuern"
-    depreciations_inputations_expenses: "Abschreibungen inputations Kosten"
+    depreciations_inputations_expenses: "Abschreibungen inputations Kosten" #?
     doer_cost: "Macher Kosten"
     doer_name: "Macher Name"
     doers_name: "Macher Name"
     duration_in_hour: "Laufzeit in Stunden"
     ede_cattling_number: "Ede cattling Nummer"
     ede_owner_number: "Ede Inhaber Zahl"
-    employee_involvement: "Angestellten Beteiligung"
+    employee_involvement: "Angestellten Beteiligung" #?
     enterprise: "Unternehmen"
     entity_name: "Entitätsname"
-    exceptional_expenses: "Außergewöhnliche Kosten"
+    exceptional_expenses: "Außergewöhnliche Kosten" #?
     exceptional_expenses_total: "Außergewöhnliche Kosten insgesamt"
-    exceptional_products: "Außergewöhnliche Produkte"
+    exceptional_products: "Außergewöhnliche Produkte" #?
     exceptional_products_total: "Außergewöhnliche Produkte insgesamt"
     exceptional_result: "Außergewöhnliches Ergebnis"
     expenses_total: "Kosten insgesamt"
@@ -33,9 +33,9 @@ deu:
     exploitation_products_total: "Ausbeutung Produkte insgesamt"
     exploitation_result: "Ausbeutung Ergebnis"
     family: "Familie"
-    financial_expenses: "Finanzielle Auslagen"
+    financial_expenses: "Finanzielle Auslagen" #?
     financial_expenses_total: "Die Finanzaufwendungen insgesamt"
-    financial_products: "Finanzprodukte"
+    financial_products: "Finanzprodukte" #?
     financial_products_total: "Finanzprodukte insgesamt"
     financial_result: "Finanzergebnis"
     financial_year_name: "Geschäftsjahr Name"
@@ -46,7 +46,7 @@ deu:
     implanted_at: "implantierte an"
     intervention_durations: "Intervention Dauern"
     loss_balance: "Verlustbilanz"
-    losses: "Verluste"
+    losses: "Verluste" #?
     meat_saleable_on: "Fleisch verkäuflich auf"
     meat_withdrawal_period: "Fleisch Wartezeit"
     milk_saleable_on: "Milch verkäuflich auf"
@@ -57,9 +57,9 @@ deu:
     net_surface_area: "Nettofläche"
     number: "Nummer"
     observed_at: "Beobachtung:"
-    other_expenses: "Andere Ausgaben"
-    other_products: "Andere Produkte"
-    other_purchases: "andere Käufe"
+    other_expenses: "Andere Ausgaben" #?
+    other_products: "Andere Produkte" #?
+    other_purchases: "andere Käufe" #?
     owner_name: "Besitzername"
     payment_ratio: "Payment-Verhältnis"
     pictogram: "Piktogramm"
@@ -71,24 +71,24 @@ deu:
     printed_on: "gedruckt auf"
     product_account_label: "Produkt Konto Etikett"
     production_support: "Produktionsunterstützung"
-    productions_sales: "Productions Vertrieb"
-    products_purchases: "Produkte Käufe"
-    products_sales: "Produkte Verkäufe"
+    productions_sales: "Productions Vertrieb" #?
+    products_purchases: "Produkte Käufe" #?
+    products_sales: "Produkte Verkäufe" #?
     products_total: "Gesamtbetrag"
     profit_or_loss: "Der Gewinn oder Verlust"
-    profits: "Gewinne"
+    profits: "Gewinne" #?
     profits_taxes: "Gewinnsteuern"
     provisional_yield: "Vorläufige Ausbeute"
-    provisions_revenues: "Rückstellungen Einnahmen"
+    provisions_revenues: "Rückstellungen Einnahmen" #?
     quantity: "Menge"
-    raw_matters_purchases: "Rohmassen Käufe"
-    raw_matters_stocks_variation: "Rohmassen Aktien Variation"
+    raw_matters_purchases: "Rohmassen Käufe" #?
+    raw_matters_stocks_variation: "Rohmassen Aktien Variation" #?
     # sex: "Sex"
-    social_expenses: "Sozialkosten"
-    stock_production: "Auf Produktions"
-    stocks_variation: "Aktien Variation"
-    subsidies: "Subventionen"
+    social_expenses: "Sozialkosten" #?
+    stock_production: "Auf Produktions" #?
+    stocks_variation: "Aktien Variation" #?
+    subsidies: "Subventionen" #?
     variant_name: "Name der Variante"
     vine_yield: "Vine Ausbeute"
-    wages: "Lohn"
+    wages: "Lohn" #?
     working_area: "Arbeitsbereich"

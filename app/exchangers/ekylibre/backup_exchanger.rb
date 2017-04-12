@@ -1,31 +1,33 @@
 module Ekylibre
   class BackupExchanger < ActiveExchanger::Base
+    self.deprecated = true
+
     class Backup < Hash
       class << self
         def models
-          [:account, :account_balance, :area, :asset, :asset_depreciation,
-           :bank_statement, :cash, :cash_transfer, :contact, :cultivation,
-           :custom_field, :custom_field_choice, :custom_field_datum, :delay,
-           :department, :deposit, :deposit_line, :district, :document,
-           :document_template, :entity, :entity_category, :entity_link,
-           :entity_link_nature, :entity_nature, :establishment, :event,
-           :event_nature, :financial_year, :incoming_delivery,
-           :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment,
-           :incoming_payment_mode, :incoming_payment_use, :inventory,
-           :inventory_line, :journal, :journal_entry, :journal_entry_line,
-           :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing,
-           :listing_node, :listing_node_item, :mandate, :observation,
-           :operation, :operation_line, :operation_nature, :operation_use,
-           :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode,
-           :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use,
-           :preference, :price, :product, :product_category, :product_component,
-           :production_chain, :production_chain_conveyor,
-           :production_chain_work_center, :production_chain_work_center_use,
-           :profession, :purchase, :purchase_line, :purchase_nature, :role,
-           :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move,
-           :stock_transfer, :subscription, :subscription_nature, :tax,
-           :tax_declaration, :tool, :tracking, :tracking_state, :transfer,
-           :transport, :unit, :user, :warehouse]
+          %i[account account_balance area asset asset_depreciation
+             bank_statement cash cash_transfer contact cultivation
+             custom_field custom_field_choice custom_field_datum delay
+             department deposit deposit_line district document
+             document_template entity entity_category entity_link
+             entity_link_nature entity_nature establishment event
+             event_nature financial_year incoming_delivery
+             incoming_delivery_line incoming_delivery_mode incoming_payment
+             incoming_payment_mode incoming_payment_use inventory
+             inventory_line journal journal_entry journal_entry_line
+             land_parcel land_parcel_group land_parcel_kinship listing
+             listing_node listing_node_item mandate observation
+             operation operation_line operation_nature operation_use
+             outgoing_delivery outgoing_delivery_line outgoing_delivery_mode
+             outgoing_payment outgoing_payment_mode outgoing_payment_use
+             preference price product product_category product_component
+             production_chain production_chain_conveyor
+             production_chain_work_center production_chain_work_center_use
+             profession purchase purchase_line purchase_nature role
+             sale sale_line sale_nature sequence stock stock_move
+             stock_transfer subscription subscription_nature tax
+             tax_declaration tool tracking tracking_state transfer
+             transport unit user warehouse]
         end
 
         def schema
@@ -148,7 +150,7 @@ module Ekylibre
         keys = args
         keys << :name if keys.empty?
         columns = self.class.schema[backup_model.to_s.pluralize.to_sym].delete_if do |c|
-          [:company_id, :creator_id, :updater_id, :id, :lock_version].include? c
+          %i[company_id creator_id updater_id id lock_version].include? c
         end
         keys.each do |key|
           raise "Invalid key for record identification: #{key}" unless columns.include? key
@@ -190,8 +192,8 @@ module Ekylibre
           end
           record.attributes = attributes
           unless record.valid?
-            w.error attributes.inspect
-            w.error record.errors.inspect
+            Rails.logger.warn attributes.inspect
+            Rails.logger.warn record.errors.inspect
           end
           record.save!
           record.id

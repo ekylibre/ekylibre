@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  skip_before_action :verify_authenticity_token, if: :session_controller?
+
   before_action :set_theme
   before_action :set_locale
   before_action :set_time_zone
@@ -40,6 +42,11 @@ class ApplicationController < ActionController::Base
       path = Ekylibre::Plugin.after_login_path(resource)
     end
     path || super
+  end
+
+  hide_action :session_controller?
+  def session_controller?
+    controller_name == 'sessions' && action_name == 'create'
   end
 
   def self.human_action_name(action, options = {})
@@ -81,7 +88,7 @@ class ApplicationController < ActionController::Base
     end
     unless url_options[:controller] =~ /\/\w+/
       namespace = controller_path.gsub(/\/\w+$/, '')
-      unless namespace.blank?
+      if namespace.present?
         url_options[:controller] = "/#{namespace}/#{url_options[:controller]}"
       end
     end

@@ -51,6 +51,7 @@
 //= require form/dependents
 //= require form/toggle
 //= require form/dates
+//= require form/links
 //= require cocoon
 //= require jquery/ext
 //= require selector

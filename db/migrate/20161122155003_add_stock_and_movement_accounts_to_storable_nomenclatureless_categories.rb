@@ -1,4 +1,5 @@
 # coding: utf-8
+
 class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRecord::Migration
   ACCOUNT_LABELS = (YAML.safe_load <<-YAML
     pt_snc:
@@ -30,15 +31,15 @@ class AddStockAndMovementAccountsToStorableNomenclaturelessCategories < ActiveRe
       dir.up do
         # Find out what accounting plan we're using
         accounting_system = select_value("SELECT string_value FROM preferences WHERE name = 'accounting_system'")
-        return unless accounting_system.present?
+        return if accounting_system.blank?
         accounting_system = accounting_system.to_sym
-        [:stock, :stock_movement].each do |account_type|
+        %i[stock stock_movement].each do |account_type|
           @type = account_type
           account_number = ACCOUNT_LABELS[accounting_system][@type][:number]
           label = ACCOUNT_LABELS[accounting_system][@type][:label]
           if concerned_categories_count.nonzero?
             fitting_account = find_account(account_number)
-            create_account(account_number, label) unless fitting_account.present?
+            create_account(account_number, label) if fitting_account.blank?
             new_account_id = find_account(account_number)['id']
 
             # Find storable categories w/o accounts

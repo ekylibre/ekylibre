@@ -41,9 +41,9 @@
 
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
-  enumerize :nature, in: [:accounting_system, :country, :currency, :boolean,
-                          :decimal, :language, :integer, :record,
-                          :spatial_reference_system, :string], predicates: true
+  enumerize :nature, in: %i[accounting_system country currency boolean
+                            decimal language integer record
+                            spatial_reference_system string], predicates: true
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
@@ -98,11 +98,11 @@ class Preference < Ekylibre::Record::Base
       klass = object.class.to_s
       if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym && nature.values.include?(nature)
         nature
-      elsif %w(String Symbol NilClass).include? klass
+      elsif %w[String Symbol NilClass].include? klass
         :string
-      elsif %w(Integer Fixnum Bignum).include? klass
+      elsif %w[Integer Fixnum Bignum].include? klass
         :integer
-      elsif %w(TrueClass FalseClass Boolean).include? klass
+      elsif %w[TrueClass FalseClass Boolean].include? klass
         :boolean
       elsif ['BigDecimal'].include? klass
         :decimal
@@ -173,6 +173,7 @@ class Preference < Ekylibre::Record::Base
   prefer :entry_autocompletion, :boolean, true
   prefer :bookkeep_automatically, :boolean, true
   prefer :permanent_stock_inventory, :boolean, true
+  prefer :unbilled_payables, :boolean, false
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :use_global_search, :boolean, false
@@ -189,6 +190,8 @@ class Preference < Ekylibre::Record::Base
   prefer :client_account_radix, :string, ''
   prefer :supplier_account_radix, :string, ''
   prefer :employee_account_radix, :string, ''
+  # TODO: manage period as list selector
+  prefer :default_depreciation_period, :string, 'yearly'
 
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false

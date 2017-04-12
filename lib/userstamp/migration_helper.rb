@@ -6,7 +6,7 @@ module Userstamp
 
     module InstanceMethods
       def stamps(options = {})
-        groups = [:time, :user, :lock]
+        groups = %i[time user lock]
         groups &= [options.delete(:only)].flatten if options[:only]
         groups -= [options.delete(:except)].flatten if options[:except]
         if groups.include?(:time)

@@ -19,7 +19,7 @@ module Ekylibre
         file.each do |record|
           # puts record.attributes['number'].inspect.red
           if record.geometry
-            name = if !record.attributes['name'].blank?
+            name = if record.attributes['name'].present?
                      # TODO: find how to fix non UTF-8 name
                      # puts record.attributes['name'].inspect.red
                      record.attributes['name'].mb_chars.downcase.capitalize

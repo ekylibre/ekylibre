@@ -5,6 +5,7 @@ map_measure_srid: 4326
 create_activities_from_telepac: true
 demo: true
 company:
+  born_at: 1992-01-01
   last_name: Sekindovall Inc.
   siren: 963852741
   addresses:

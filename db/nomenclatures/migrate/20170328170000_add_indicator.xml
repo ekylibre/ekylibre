@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add indicator">
+  <item-creation item="indicators#items_count" datatype="integer"/>
+</migration>

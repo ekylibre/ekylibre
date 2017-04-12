@@ -30,6 +30,6 @@ module Backend
       end
     end
 
-    manage_restfully except: [:index, :show], t3e: { participant_name: :participant_name }, redirect_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }, destroy_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }
+    manage_restfully except: %i[index show], t3e: { participant_name: :participant_name }, redirect_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }, destroy_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }
   end
 end

@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Procedo
   class Procedure
     module Codeable
@@ -35,7 +36,7 @@ module Procedo
             end
 
             define_method "#{snippet}_variables" do |tree = instance_variable_get(instance_var)|
-              return [] unless tree.present?
+              return [] if tree.blank?
               variable_test = tree.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) ||
                               tree.is_a?(Procedo::Formula::Nodes::Variable)
               return tree if variable_test
@@ -45,7 +46,7 @@ module Procedo
             # Check if given env variable is used
             define_method "#{snippet}_with_environment_variable?" do |*names|
               tree = instance_variable_get(instance_var)
-              return false unless tree.present?
+              return false if tree.blank?
               names.each do |name|
                 detected = self.class.detect_environment_variable(tree, name.to_s.upcase)
                 return true if detected
@@ -57,14 +58,14 @@ module Procedo
             # Check if given parameter is used
             define_method "#{snippet}_with_parameter?" do |parameter, or_self = false|
               tree = instance_variable_get(instance_var)
-              return false unless tree.present?
+              return false if tree.blank?
               self.class.detect_parameter(tree, parameter, or_self)
             end
 
             # Returns list of parameter used in code
             define_method "#{snippet}_parameters" do
               tree = instance_variable_get(instance_var)
-              return [] unless tree.present?
+              return [] if tree.blank?
               self.class.select_nodes(tree) do |node|
                 node.is_a?(Procedo::Formula::Language::Variable)
               end.map(&:text_value)

@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class DeliveriesControllerTest < ActionController::TestCase
-    test_restfully_all_actions except: [:delivery_delete, :deliveries], order: :touch, check: :touch, cancel: :touch, prepare: :touch
+    test_restfully_all_actions except: %i[delivery_delete deliveries], order: :touch, check: :touch, cancel: :touch, prepare: :touch
   end
 end

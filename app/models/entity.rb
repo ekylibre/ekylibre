@@ -84,7 +84,7 @@ class Entity < Ekylibre::Record::Base
   refers_to :currency
   refers_to :language
   refers_to :country
-  enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true
+  enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'
   belongs_to :employee_account, class_name: 'Account'
@@ -139,6 +139,8 @@ class Entity < Ekylibre::Record::Base
   has_many :booked_journals, class_name: 'Journal', foreign_key: :accountant_id
   has_many :financial_years, class_name: 'FinancialYear', foreign_key: :accountant_id
   has_many :purchase_affairs, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
+  has_many :client_journal_entry_items, through: :client_account, source: :journal_entry_items
+  has_many :supplier_journal_entry_items, through: :supplier_account, source: :journal_entry_items
 
   with_options class_name: 'EntityAddress' do
     has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }
@@ -224,7 +226,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   validate do
-    unless siret_number.blank?
+    if siret_number.present?
       errors.add(:siret_number, :invalid) unless Luhn.valid?(siret_number.strip)
     end
     # if self.nature
@@ -232,6 +234,10 @@ class Entity < Ekylibre::Record::Base
     #     errors.add(:last_name, :missing_title, :title => self.nature.title)
     #   end
     # end
+  end
+
+  before_save do
+    self.born_at ||= Time.new(2008, 1, 1) if of_company
   end
 
   after_save do
@@ -260,7 +266,7 @@ class Entity < Ekylibre::Record::Base
 
     def exportable_columns
       content_columns.delete_if do |c|
-        [:active, :lock_version, :deliveries_conditions].include?(c.name.to_sym)
+        %i[active lock_version deliveries_conditions].include?(c.name.to_sym)
       end
     end
 
@@ -327,7 +333,7 @@ class Entity < Ekylibre::Record::Base
 
   # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
-    natures = [:client, :supplier, :employee]
+    natures = %i[client supplier employee]
     conversions = { payer: :client, payee: :supplier }
     nature = nature.to_sym
     nature = conversions[nature] || nature
@@ -448,7 +454,7 @@ class Entity < Ekylibre::Record::Base
       end
 
       # Update attributes
-      [:currency, :country, :last_name, :first_name, :activity_code, :description, :born_at, :dead_at, :deliveries_conditions, :first_met_at, :meeting_origin, :proposer, :siret_number, :supplier_account, :client_account, :vat_number, :language, :authorized_payments_count].each do |attr|
+      %i[currency country last_name first_name activity_code description born_at dead_at deliveries_conditions first_met_at meeting_origin proposer siret_number supplier_account client_account vat_number language authorized_payments_count].each do |attr|
         send("#{attr}=", other.send(attr)) if send(attr).blank?
       end
       if other.picture.file? && !picture.file?
@@ -472,11 +478,11 @@ class Entity < Ekylibre::Record::Base
         content = "Merged entity (ID=#{other.id}):\n"
         other.attributes.sort.each do |attr, value|
           value = other.send(attr).to_s
-          content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" unless value.blank?
+          content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" if value.present?
         end
         Entity.custom_fields.each do |custom_field|
           value = other.custom_fields[custom_field.column_name].to_s
-          content << "  - #{custom_field.name} : #{value}\n" unless value.blank?
+          content << "  - #{custom_field.name} : #{value}\n" if value.present?
         end
 
         observations.create!(content: content, importance: 'normal', author: author)
@@ -485,6 +491,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       other.destroy
     end
+  end
+
+  def born_on
+    born_at.to_date
   end
 
   def financial_year_with_opened_exchange?
@@ -501,11 +511,11 @@ class Entity < Ekylibre::Record::Base
     columns << [tc('import.dont_use'), 'special-dont_use']
     columns << [tc('import.generate_string_custom_field'), 'special-generate_string_custom_field']
     # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
-    cols = Entity.content_columns.delete_if { |c| [:active, :full_name, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) || c.type == :boolean }.collect(&:name)
+    cols = Entity.content_columns.delete_if { |c| %i[active full_name lock_version updated_at created_at].include?(c.name.to_sym) || c.type == :boolean }.collect(&:name)
     columns += cols.collect { |c| [Entity.model_name.human + '/' + Entity.human_attribute_name(c), 'entity-' + c] }.sort
-    cols = EntityAddress.content_columns.collect(&:name).delete_if { |c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_at, :lock_version, :active, :updated_at, :created_at].include?(c.to_sym) } + %w(item_6_city item_6_code)
+    cols = EntityAddress.content_columns.collect(&:name).delete_if { |c| %i[number started_at stopped_at deleted address by_default closed_at lock_version active updated_at created_at].include?(c.to_sym) } + %w[item_6_city item_6_code]
     columns += cols.collect { |c| [EntityAddress.model_name.human + '/' + EntityAddress.human_attribute_name(c), 'address-' + c] }.sort
-    columns += %w(name abbreviation).collect { |c| [EntityNature.model_name.human + '/' + EntityNature.human_attribute_name(c), 'entity_nature-' + c] }.sort
+    columns += %w[name abbreviation].collect { |c| [EntityNature.model_name.human + '/' + EntityNature.human_attribute_name(c), 'entity_nature-' + c] }.sort
     # columns += ["name"].collect{|c| [Catalog.model_name.human+"/"+Catalog.human_attribute_name(c), "product_price_listing-"+c]}.sort
     columns += CustomField.where("nature in ('string')").collect { |c| [CustomField.model_name.human + '/' + c.name, 'custom_field-id' + c.id.to_s] }.sort
     columns

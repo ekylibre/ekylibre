@@ -30,8 +30,8 @@ json.array! []
 
       if organization
         json.organization do
-          json.name organization.linked.full_name unless organization.linked.full_name.blank?
-          json.post organization.post unless organization.post.blank?
+          json.name organization.linked.full_name if organization.linked.full_name.present?
+          json.post organization.post if organization.post.present?
         end
       end
 

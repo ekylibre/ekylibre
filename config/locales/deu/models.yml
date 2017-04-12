@@ -23,12 +23,19 @@ deu:
         initial_dead_at: "Verschrottet bei"
       financial_year:
         stopped_on: "Datum der Schließung"
+      fixed_asset:
+        asset_account: "Anlagekonto"
+        depreciation_period: "Abschreibungszeitraum"
+        started_on: "Update starten"
       fixed_asset_depreciation:
         asset_amount: "verantwortlich Wert"
       land_parcel:
         born_at: "Hergestellt in"
       land_parcel_group:
         born_at: "Hergestellt in"
+      loan:
+        ongoing_at: "Mittelbeschaffung bei"
+        started_on: "Erste Rückzahlung begann am"
       outgoing_payment:
         delivered: "Da an Empfänger"
         list: "Abgehende Zahlungsliste"
@@ -210,6 +217,7 @@ deu:
       animal: "Tier"
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
+      bank_guarantee_account: "Bankgarantie Konto"
       bank_statement: "Kontoauszug"
       bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
@@ -266,7 +274,9 @@ deu:
       inspection: "Produktklassifizierung"
       inspection_calibration: "Inspektion Kaliber"
       inspection_point: "Produktsortierprüfung"
+      insurance_account: "Versicherungen Konto"
       # integration: "Integration"
+      interest_account: "Interesse Konto"
       # intervention: "Intervention"
       intervention_agent: "Interventionsmittel"
       intervention_doer: "Intervention Macher"
@@ -293,6 +303,7 @@ deu:
       listing_node: "Listing Knoten"
       listing_node_item: "Listing Knotenpunkt"
       loan: "Darlehen"
+      loan_account: "Kreditkonto"
       loan_repayment: "Kreditrückzahlung"
       manure_management_plan: "Gülle-Management-Plan"
       manure_management_plan_zone: "Gülle-Management-Plan Zone"
@@ -386,6 +397,7 @@ deu:
     account_name: "Kontobezeichnung"
     account_number: "Accountnummer"
     accountable: "Verantwortlich"
+    accountable_repayments_started_on: "Rechenschafts Rückzahlungen begann am"
     accountant: "Buchhalter"
     accounted_at: "entfielen auf"
     accuracy: "Genauigkeit"
@@ -436,6 +448,8 @@ deu:
     archiving: "Archivierung"
     arguments: "Argumente"
     assembly: "Versammlung"
+    asset_account: "Aktivkonto"
+    asset_exists: "Asset existiert"
     attachments: "Zubehör"
     attribute_name: "Attributname"
     attribution: "Zuschreibung"
@@ -455,6 +469,9 @@ deu:
     bank_agency_code: "Bank Agentur Code"
     bank_check_number: "Bankscheck Nummer"
     bank_code: "Bankleitzahl"
+    bank_guarantee_account: "Bankgarantie Konto"
+    bank_guarantee_amount: "Bankgarantiebetrag"
+    bank_guarantees_loans: "Bankgarantien Darlehen"
     bank_identifier_code: "Bankleitzahl"
     bank_name: "Bank Name"
     bank_statement: "Kontoauszug"
@@ -507,6 +524,7 @@ deu:
     closed: "Abgeschlossen"
     closed_at: "geschlossen an"
     closed_on: "geschlossen"
+    closure_journal: "Closure Zeitschrift"
     clusters_work_number: "Cluster arbeiten Nummer"
     # code: "Code"
     # codes: "Codes"
@@ -626,9 +644,11 @@ deu:
     deposits: "Einlagen"
     depreciable: "Das Abschreibungs"
     depreciable_amount: "Das Abschreibungsvolumen"
+    depreciable_product: "Die abnutzbaren Produkt"
     depreciated_amount: "Abgeschrieben Menge"
     depreciation_method: "Abschreibungsmethode"
     depreciation_percentage: "Abschreibungsprozent"
+    depreciation_period: "Abschreibungszeitraum"
     depreciations: "Abschreibungen"
     depth: "Tiefe"
     derivative_of: "Derivative von"
@@ -745,6 +765,7 @@ deu:
     following: "Folgende"
     # format: "Format"
     formats: "Formate"
+    forward_journal: "Vortragen Journal"
     france_maaid: "Frankreich maaid"
     frequency: "Frequenz"
     frozen_indicators_list: "Gefrorene Indikatoren Liste"
@@ -825,6 +846,7 @@ deu:
     initial_number: "Anfangszahl"
     initial_owner: "Erste Besitzer"
     initial_population: "Anfangspopulation"
+    initial_releasing_amount: "Anfängliche Freisetzungsmenge"
     initial_shape: "Ausgangsform"
     initialization_vectors: "Initialisierung Vektoren"
     initiated_on: "Initiiert auf"
@@ -1299,6 +1321,8 @@ deu:
     sampling_temporal_mode: "Sampling Temporalmodus"
     scale: "Rahmen"
     scheduled: "Geplant"
+    scrapped_journal_entry: "Verschrottet Journaleintrag"
+    scrapped_on: "Verschrottet auf"
     season: "Saisonalität"
     seasons: "Saisonalitäten"
     second_producer: "Zweitens Produzent" #?
@@ -1330,6 +1354,8 @@ deu:
     size_value: "Größenwert"
     soil_nature: "Bodenart"
     soil_production: "Boden Produktion"
+    sold_journal_entry: "Verkauft Journaleintrag"
+    sold_on: "Verkauft"
     source: "Quelle"
     source_product: "Source Produkt"
     # spaced_iban: "Spaced IBAN"
@@ -1458,6 +1484,7 @@ deu:
     usage_limit_nature: "Wird von Typ"
     usage_limit_on: "Wird von auf"
     usages: "Nutzungen"
+    use_bank_guarantee: "Bankgarantie"
     use_countings: "Verwenden Zählungen"
     use_grading_calibre: "Verwenden Sie Grading Kaliber" #?
     use_gradings: "Verwenden Sie Sortierungen"
@@ -1576,6 +1603,20 @@ deu:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "Entwurf"
+          in_use: "In Benutzung"
+          scrapped: "Verschrottet"
+          sold: "Verkauft"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1647,6 +1688,12 @@ deu:
       reflections: "gehörigen Tabellen"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "Entwurf"
+          ongoing: "Laufend"
+          repaid: "Vergolten"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

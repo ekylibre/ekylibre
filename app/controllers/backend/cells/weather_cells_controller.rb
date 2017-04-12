@@ -24,7 +24,7 @@ module Backend
                 day.deep_symbolize_keys!
                 {
                   at: Time.zone.at(day[:dt]),
-                  temperatures: [:day, :night, :min, :max, :eve, :morn].each_with_object({}) do |key, hash|
+                  temperatures: %i[day night min max eve morn].each_with_object({}) do |key, hash|
                     hash[key] = (day[:temp][key] || 0).in_kelvin
                     hash
                   end,

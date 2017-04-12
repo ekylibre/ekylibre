@@ -32,7 +32,7 @@ module Backend
     unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
 
     def self.outgoing_payments_conditions(_options = {})
-      code = search_conditions(outgoing_payments: [:amount, :bank_check_number, :number], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(outgoing_payments: %i[amount bank_check_number number], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:s] == 'not_delivered'\n"
       code << "  c[0] += ' AND delivered = ?'\n"
       code << "  c << false\n"

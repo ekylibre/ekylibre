@@ -4,7 +4,7 @@
     <parameters>
       <target name="herd" filter="is animal_group and derives from animal"/>
       <input name="animal_food" filter="is preparation and can feed(animal)">
-      	<handler name="population"/>
+        <handler name="population"/>
         <handler name="net_mass" indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"

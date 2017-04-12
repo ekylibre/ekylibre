@@ -136,4 +136,70 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert year.update_column(:accountant_id, accountant.id)
     refute year.opened_exchange?
   end
+
+  test 'Create years between company born at and searched year' do
+    # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
+
+    searched_year = Time.now + 20.years
+
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    assert searched_financial_year.nil?
+
+    year = FinancialYear.on(searched_year)
+    refute year.nil?
+    assert year.stopped_on.year == searched_year.year
+
+    before_searched_year = Time.now + 19.years
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_year).order(started_on: :desc).first
+
+    refute searched_financial_year.nil?
+    assert searched_financial_year.stopped_on.year == before_searched_year.year
+
+    before_searched_year = Time.now + 10.years
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', before_searched_year).order(started_on: :desc).first
+
+    refute searched_financial_year.nil?
+    assert searched_financial_year.stopped_on.year == before_searched_year.year
+  end
+
+  test 'get existed year if searched year is superior to company born at' do
+    # Company born_at (in fixtures/entities.yml) is : 2015-01-06 09:00:00.000000000 Z
+
+    searched_year = Time.now + 25.years
+    future_started_date = searched_year.change(month: 1)
+    future_stopped_date = searched_year.change(month: 12).end_of_month
+
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    assert searched_financial_year.nil?
+
+    FinancialYear.create!(started_on: future_started_date, stopped_on: future_stopped_date, currency: 'EUR')
+
+    searched_financial_year = FinancialYear.where('? BETWEEN started_on AND stopped_on', searched_year).order(started_on: :desc).first
+    refute searched_financial_year.nil?
+
+    year = FinancialYear.on(searched_year)
+    refute year.nil?
+    assert year.stopped_on.year == searched_year.year
+  end
+
+  test 'financial year can t be created before company born at date' do
+    assert FinancialYear.on(Date.civil(1900, 1, 4)).nil?
+    assert FinancialYear.on(Date.civil(2015, 5, 4))
+    assert FinancialYear.on(Date.civil(Date.today.year + 25, 5, 4))
+  end
+
+  test 'close' do
+    FinancialYear.where('stopped_on < ?', Date.today).order(:started_on).each do |f|
+      next if f.closed?
+      assert f.closable?, "Financial year #{f.code} should be closable"
+
+      options = {
+        forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
+                         Journal.create_one!(:forward, f.currency),
+        closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||
+                         Journal.create_one!(:closure, f.currency)
+      }
+      assert f.close(nil, options), "Financial year #{f.code} should be closed"
+    end
+  end
 end

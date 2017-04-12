@@ -18,7 +18,7 @@
 
 module Backend
   class TaxDeclarationsController < Backend::BaseController
-    manage_restfully except: [:new, :show]
+    manage_restfully except: %i[new show]
 
     unroll
 

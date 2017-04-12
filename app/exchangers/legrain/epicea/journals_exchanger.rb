@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Legrain
   module Epicea
     class JournalsExchanger < ActiveExchanger::Base
@@ -19,14 +20,13 @@ module Legrain
         rows.each_with_index do |row, _index|
           number = row[1].to_s.strip
           unless entries[number]
-            unless journal = Journal.find_by(code: row[0])
-              journal = Journal.create!(
-                code: row[0],
-                name: "Journal #{row[0]}",
-                currency: 'EUR',
-                nature: JOURNAL_NATURES[row[0].sub(/[0-9]/, '')]
-              )
-            end
+            journal = Journal.create_with(
+              name: "Journal #{row[0]}",
+              nature: JOURNAL_NATURES[row[0].sub(/[0-9]/, '')]
+            ).find_or_create_by!(
+              code: row[0],
+              currency: 'EUR'
+            )
             entries[number] = {
               printed_on: Date.parse(row[2]),
               journal: journal,
@@ -47,7 +47,7 @@ module Legrain
         end
 
         started_on = entries.values.map { |v| v[:printed_on] }.uniq.sort.first
-        FinancialYear.create!(started_on: started_on.beginning_of_month) unless FinancialYear.at(started_on)
+        FinancialYear.create!(started_on: started_on.beginning_of_month) unless FinancialYear.on(started_on)
 
         w.reset!(entries.keys.size)
         entries.values.each do |entry|

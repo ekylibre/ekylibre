@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update product nature seedling">
+  <item-change item="indicators#items_count" unit="unity"/>
+  <item-change item="product_natures#seedling" frozen_indicators="net_mass, items_count"/>
+  <item-change item="product_nature_variants#seedling" frozen_indicators_values="items_count: 1"/>
+</migration>

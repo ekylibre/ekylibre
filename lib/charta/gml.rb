@@ -3,7 +3,7 @@ module Charta
   class GML
     attr_reader :srid
 
-    TAGS = %w(Point LineString Polygon MultiGeometry).freeze
+    TAGS = %w[Point LineString Polygon MultiGeometry].freeze
     OGR_PREFIX = 'ogr'.freeze
     GML_PREFIX = 'gml'.freeze
     NS = {
@@ -40,7 +40,7 @@ module Charta
       @gml = Nokogiri::XML(@gml.to_xml) if up
 
       boundaries = @gml.css("#{GML_PREFIX}|boundedBy")
-      unless boundaries.blank?
+      if boundaries.present?
         boundaries.each do |node|
           srid = Charta.find_srid(node['srsName']) unless node['srsName'].nil?
         end
@@ -101,7 +101,7 @@ module Charta
       def polygon_to_ewkt(gml, srid)
         return 'POLYGON EMPTY' if gml.css("#{GML_PREFIX}|coordinates").blank?
 
-        wkt = 'POLYGON(' + %w(outerBoundaryIs innerBoundaryIs).collect do |boundary|
+        wkt = 'POLYGON(' + %w[outerBoundaryIs innerBoundaryIs].collect do |boundary|
           next if gml.css("#{GML_PREFIX}|#{boundary}").empty?
           gml.css("#{GML_PREFIX}|#{boundary}").collect do |hole|
             '(' + hole.css("#{GML_PREFIX}|coordinates").collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }.join(', ') + ')'

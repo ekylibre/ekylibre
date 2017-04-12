@@ -18,7 +18,7 @@ module Nomen
           if element.has_attribute?('default')
             @options[:default] = element.attr('default').to_sym
           end
-          @options[:required] = !!(element.attr('required').to_s == 'true')
+          @options[:required] = !element.attr('required').to_s != 'true'
           # @options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
           if element.has_attribute?('choices')
             if type == :choice || type == :choice_list

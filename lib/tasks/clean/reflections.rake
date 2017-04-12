@@ -36,8 +36,8 @@ namespace :clean do
           next if reflections.detect { |b| r != b && b.options[:dependent] }
           log.write "Missing dependent option on #{model.name}##{r.name}\n"
           errors += 1
-        elsif ![:destroy, :delete_all, :restrict_with_error, :restrict_with_exception].include?(dependent)
-          next if reflections.detect { |b| r != b && [:destroy, :delete_all, :restrict_with_error, :restrict_with_exception].include?(b.options[:dependent]) }
+        elsif !%i[destroy delete_all restrict_with_error restrict_with_exception].include?(dependent)
+          next if reflections.detect { |b| r != b && %i[destroy delete_all restrict_with_error restrict_with_exception].include?(b.options[:dependent]) }
           log.write "Invalid dependent option on #{model.name}##{r.name}: #{dependent}\n"
           errors += 1
         end

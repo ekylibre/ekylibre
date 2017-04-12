@@ -141,9 +141,20 @@ class SaleAffairTest < ActiveSupport::TestCase
         }
       }
     )
-    Regularization.create!(affair: sale.affair, journal_entry: journal_entry)
+    affair = sale.affair
 
-    check_closed_state(sale.affair)
+    debit = affair.debit
+    credit = affair.credit
+
+    regularization = Regularization.create!(affair: affair, journal_entry: journal_entry)
+
+    check_closed_state(affair)
+
+    regularization.destroy!
+
+    affair.reload
+    assert_equal debit, affair.debit, 'Debit should return to previous value'
+    assert_equal credit, affair.credit, 'Credit should return to previous value'
   end
 
   # Creates a sale and check affair informations

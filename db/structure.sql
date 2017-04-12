@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1087,7 +1087,7 @@ ALTER SEQUENCE bank_statements_id_seq OWNED BY bank_statements.id;
 CREATE TABLE call_messages (
     id integer NOT NULL,
     status character varying,
-    headers character varying,
+    headers text,
     body text,
     type character varying,
     nature character varying NOT NULL,
@@ -2126,7 +2126,8 @@ CREATE TABLE entities (
     bank_account_holder_name character varying,
     bank_identifier_code character varying,
     iban character varying,
-    supplier_payment_mode_id integer
+    supplier_payment_mode_id integer,
+    CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
 
@@ -2486,7 +2487,17 @@ CREATE TABLE fixed_assets (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    product_id integer,
+    state character varying,
+    depreciation_period character varying,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    asset_account_id integer,
+    sold_on date,
+    scrapped_on date,
+    sold_journal_entry_id integer,
+    scrapped_journal_entry_id integer
 );
 
 
@@ -3770,7 +3781,9 @@ CREATE TABLE loan_repayments (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    accountable boolean DEFAULT false NOT NULL,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -3820,7 +3833,18 @@ CREATE TABLE loans (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    insurance_repayment_method character varying
+    insurance_repayment_method character varying,
+    state character varying,
+    ongoing_at timestamp without time zone,
+    repaid_at timestamp without time zone,
+    loan_account_id integer,
+    interest_account_id integer,
+    insurance_account_id integer,
+    use_bank_guarantee boolean,
+    bank_guarantee_account_id integer,
+    bank_guarantee_amount integer,
+    accountable_repayments_started_on date,
+    initial_releasing_amount boolean DEFAULT false NOT NULL
 );
 
 
@@ -5450,7 +5474,10 @@ CREATE TABLE purchase_items (
     fixed boolean DEFAULT false NOT NULL,
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    depreciable_product_id integer,
+    fixed_asset_id integer,
+    preexisting_asset boolean
 );
 
 
@@ -11071,6 +11098,13 @@ CREATE INDEX index_fixed_assets_on_allocation_account_id ON fixed_assets USING b
 
 
 --
+-- Name: index_fixed_assets_on_asset_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_asset_account_id ON fixed_assets USING btree (asset_account_id);
+
+
+--
 -- Name: index_fixed_assets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11092,10 +11126,24 @@ CREATE INDEX index_fixed_assets_on_expenses_account_id ON fixed_assets USING btr
 
 
 --
+-- Name: index_fixed_assets_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_journal_entry_id ON fixed_assets USING btree (journal_entry_id);
+
+
+--
 -- Name: index_fixed_assets_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_fixed_assets_on_journal_id ON fixed_assets USING btree (journal_id);
+
+
+--
+-- Name: index_fixed_assets_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_product_id ON fixed_assets USING btree (product_id);
 
 
 --
@@ -11124,6 +11172,20 @@ CREATE INDEX index_fixed_assets_on_sale_id ON fixed_assets USING btree (sale_id)
 --
 
 CREATE INDEX index_fixed_assets_on_sale_item_id ON fixed_assets USING btree (sale_item_id);
+
+
+--
+-- Name: index_fixed_assets_on_scrapped_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON fixed_assets USING btree (scrapped_journal_entry_id);
+
+
+--
+-- Name: index_fixed_assets_on_sold_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON fixed_assets USING btree (sold_journal_entry_id);
 
 
 --
@@ -13675,6 +13737,13 @@ CREATE INDEX index_preferences_on_user_id ON preferences USING btree (user_id);
 
 
 --
+-- Name: index_preferences_on_user_id_and_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_preferences_on_user_id_and_name ON preferences USING btree (user_id, name);
+
+
+--
 -- Name: index_prescriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14953,6 +15022,20 @@ CREATE INDEX index_purchase_items_on_created_at ON purchase_items USING btree (c
 --
 
 CREATE INDEX index_purchase_items_on_creator_id ON purchase_items USING btree (creator_id);
+
+
+--
+-- Name: index_purchase_items_on_depreciable_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_depreciable_product_id ON purchase_items USING btree (depreciable_product_id);
+
+
+--
+-- Name: index_purchase_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btree (fixed_asset_id);
 
 
 --
@@ -16930,4 +17013,20 @@ INSERT INTO schema_migrations (version) VALUES ('20170222100614');
 INSERT INTO schema_migrations (version) VALUES ('20170222222222');
 
 INSERT INTO schema_migrations (version) VALUES ('20170227143414');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307103213');
+
+INSERT INTO schema_migrations (version) VALUES ('20170307171442');
+
+INSERT INTO schema_migrations (version) VALUES ('20170312183557');
+
+INSERT INTO schema_migrations (version) VALUES ('20170313090000');
+
+INSERT INTO schema_migrations (version) VALUES ('20170315221501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+
+INSERT INTO schema_migrations (version) VALUES ('20170328125742');
+
+INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 

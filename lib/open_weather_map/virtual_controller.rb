@@ -13,7 +13,7 @@ module OpenWeatherMap
       path = '/data/2.5/weather?units=metric'
       path += "&lat=#{latitude}&lon=#{longitude}" if latitude && longitude
       api_key = parameters[:api_key]
-      path += "&APPID=#{api_key}" unless api_key.blank?
+      path += "&APPID=#{api_key}" if api_key.present?
 
       response = http.get(path)
       unless response.code == 200

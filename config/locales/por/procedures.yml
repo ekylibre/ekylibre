@@ -1,5 +1,14 @@
 por:
   procedure_handlers:
+    grains_area_density: "Densidade de área de grãos"
+    grains_area_density_in_thousand_per_hectare: "Densidade de área de grãos em mil por hectare"
+    grains_count: "Grãos contar"
+    mass_area_density: "Densidade de área de Massa"
+    mass_area_density_in_ton_per_hectare: "Densidade da área massa em tonelada por hectare"
+    net_mass: "Massa líquida"
+    seedling_area_density: "Densidade da área de plântulas"
+    seedling_area_density_in_thousand_per_hectare: "Densidade de área de plântulas em mil por hectare"
+    seedling_count: "Contagem de mudas"
     stakes_by_hectare: "Stakes por hectare"
   procedure_killable_parameters:
     is_cultivation_completely_destroyed_by_intervention: "É o cultivo completamente destruído pela intervenção?"

@@ -140,7 +140,7 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def next_letter
-    cash_next_reconciliation_letters.next
+    cash.next_reconciliation_letter
   end
 
   def letter_items(statement_items, journal_entry_items)

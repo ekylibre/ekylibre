@@ -113,7 +113,7 @@ module Isagri
               w.check_point
               entry = nil
               journal_id = all_journals[isa_entry.journal]
-              unless isa_entry.number.blank?
+              if isa_entry.number.present?
                 entries = JournalEntry.where(journal_id: journal_id, printed_on: isa_entry.printed_on, number: isa_entry.number)
                 if entries.size == 1
                   entry = entries.first

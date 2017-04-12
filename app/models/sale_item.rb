@@ -53,7 +53,7 @@
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
   attr_readonly :sale_id
-  enumerize :compute_from, in: [:unit_pretax_amount, :pretax_amount, :amount],
+  enumerize :compute_from, in: %i[unit_pretax_amount pretax_amount amount],
                            default: :unit_pretax_amount, predicates: { prefix: true }
   refers_to :currency
   belongs_to :account
@@ -175,7 +175,7 @@ class SaleItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      [:stock, :sale].each do |usage|
+      %i[stock sale].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
@@ -199,7 +199,7 @@ class SaleItem < Ekylibre::Record::Base
 
   def designation
     d = self.label
-    d << "\n" + annotation.to_s unless annotation.blank?
+    d << "\n" + annotation.to_s if annotation.present?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d
   end

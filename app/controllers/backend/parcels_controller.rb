@@ -35,7 +35,7 @@ module Backend
     #   :delivery_mode Choice
     #   :nature Choice
     def self.parcels_conditions
-      code = search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]) + " ||= []\n"
+      code = search_conditions(parcels: %i[number reference_number], entities: %i[full_name number]) + " ||= []\n"
       code << "unless params[:period].blank? || params[:period].is_a?(Symbol)\n"
       code << "  if params[:period] != 'all'\n"
       code << "    interval = params[:period].split('_')\n"
@@ -147,14 +147,14 @@ module Backend
     # Displays details of one parcel selected with +params[:id]+
     def show
       return unless (@parcel = find_and_check)
-      respond_with(@parcel, methods: [:all_item_prepared, :status, :items_quantity],
+      respond_with(@parcel, methods: %i[all_item_prepared status items_quantity],
                             include: { address: { methods: [:mail_coordinate] },
                                        sale: {},
                                        purchase: {},
                                        recipient: {},
                                        sender: {},
                                        transporter: {},
-                                       items: { methods: [:status, :prepared], include: [:product, :variant] } }) do |format|
+                                       items: { methods: %i[status prepared], include: %i[product variant] } }) do |format|
         format.html do
           t3e @parcel.attributes.merge(nature: @parcel.nature.text)
         end
@@ -167,7 +167,7 @@ module Backend
 
     def new
       columns = Parcel.columns_definition.keys
-      columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
       values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
         hash[attr] = params[:"#{attr}"] unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash

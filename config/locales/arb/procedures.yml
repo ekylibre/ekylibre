@@ -1,5 +1,14 @@
 arb:
   procedure_handlers:
+    grains_area_density: "كثافة منطقة الحبوب"
+    grains_area_density_in_thousand_per_hectare: "الحبوب كثافة المنطقة ألف هكتار الواحد"
+    grains_count: "عد الحبوب"
+    mass_area_density: "كثافة منطقة الإعلام"
+    mass_area_density_in_ton_per_hectare: "كثافة منطقة جماعية في طن للهكتار الواحد"
+    net_mass: "الكتلة الصافية"
+    seedling_area_density: "كثافة منطقة الشتلات"
+    seedling_area_density_in_thousand_per_hectare: "كثافة منطقة الشتلات في ألف هكتار الواحد"
+    seedling_count: "عدد الشتلات"
     stakes_by_hectare: "المخاطر التي كتبها هكتار"
   procedure_killable_parameters:
     is_cultivation_completely_destroyed_by_intervention: "وزراعة تدمرت بالكامل بسبب التدخل؟"

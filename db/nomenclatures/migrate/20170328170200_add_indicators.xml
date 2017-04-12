@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add indicators">
+  <item-creation item="indicators#seedling_area_density" datatype="measure" unit="unity_per_square_meter"/>
+</migration>
