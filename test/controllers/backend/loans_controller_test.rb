@@ -7,7 +7,6 @@ module Backend
     test "create without ongoing_at" do
       user = User.where(administrator: true).last
       sign_in(user)
-      last_loan = Loan.last.id
       assert_no_difference 'Loan.count' do
         test = post(:create, loan: {
           name: 'Test',
