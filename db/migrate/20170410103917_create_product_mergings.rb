@@ -9,6 +9,6 @@ class CreateProductMergings < ActiveRecord::Migration
       t.stamps
     end
 
-    add_column :intervention_parameters, :merge_stocks, :boolean
+    add_column :intervention_parameters, :merge_stocks, :boolean, null: false, default: false
   end
 end

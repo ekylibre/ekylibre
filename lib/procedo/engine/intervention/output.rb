@@ -74,8 +74,8 @@ module Procedo
           hash[:attributes][:new_container_id][:dynascope][:of_expression] << " or can store(#{@variant.variety})" if @variant
           hash[:attributes][:merge_stocks] ||= {}
           hash[:attributes][:merge_stocks][:with] = mergeable_with && mergeable_with.name
-          hash[:variety] = @variety unless @variety.blank?
-          hash[:derivative_of] = @derivative_of unless @derivative_of.blank?
+          hash[:variety] = @variety if @variety.present?
+          hash[:derivative_of] = @derivative_of if @derivative_of.present?
           hash[:identification_number] = @identification_number if @identification_number.present?
           hash
         end

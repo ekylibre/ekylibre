@@ -11,7 +11,7 @@ module Procedo
 
       attr_accessor :computed_filter, :type
 
-      TYPES = [:variant, :text].freeze
+      TYPES = %i[variant text].freeze
 
       code_trees :compute_filter
 
@@ -31,7 +31,7 @@ module Procedo
       end
 
       def others
-        @procedure.parameters.select { |v| v != self }
+        @procedure.parameters.reject { |v| v == self }
       end
 
       TYPES.each do |the_type|
@@ -43,7 +43,7 @@ module Procedo
       # Returns scope hash for unroll
       def scope_hash
         hash = {}
-        hash[:of_expression] = @filter unless @filter.blank?
+        hash[:of_expression] = @filter if @filter.present?
         hash[:of_expression] = @computed_filter unless @computed_filter.nil?
         hash
       end

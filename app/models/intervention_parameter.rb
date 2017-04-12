@@ -84,7 +84,7 @@ class InterventionParameter < Ekylibre::Record::Base
   }
   scope :of_generic_role, lambda { |role|
     role = role.to_s
-    unless %w(doer input output setting target tool).include?(role)
+    unless %w[doer input output setting target tool].include?(role)
       raise ArgumentError, "Invalid role: #{role}"
     end
     where(type: "Intervention#{role.camelize}")
@@ -92,7 +92,7 @@ class InterventionParameter < Ekylibre::Record::Base
   scope :of_generic_roles, lambda { |roles|
     roles.collect! do |role|
       role = role.to_s
-      unless %w(doer input output setting target tool).include?(role)
+      unless %w[doer input output setting target tool].include?(role)
         raise ArgumentError, "Invalid role: #{role}"
       end
       "Intervention#{role.camelize}"

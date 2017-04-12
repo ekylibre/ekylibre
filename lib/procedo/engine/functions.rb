@@ -5,7 +5,6 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
-
         def derives_from(value)
           value.blank? ? '(false)' : "derives from #{value}"
         end

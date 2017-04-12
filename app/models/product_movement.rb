@@ -65,7 +65,7 @@ class ProductMovement < Ekylibre::Record::Base
     errors.add :started_at, :cant_move_later_than_merge if merged_at && started_at > merged_at
     errors.add :stopped_at, :cant_move_later_than_merge if merged_at && stopped_at > merged_at
   end
-  
+
   def population
     Maybe(product_population).value.or_else(0)
   end

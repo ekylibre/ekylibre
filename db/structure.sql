@@ -327,11 +327,11 @@ CREATE TABLE intervention_parameters (
     assembly_id integer,
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    dead boolean DEFAULT false NOT NULL,
+    identification_number character varying,
     variety character varying,
     derivative_of character varying,
-    merge_stocks boolean,
-    dead boolean DEFAULT false NOT NULL,
-    identification_number character varying
+    merge_stocks boolean
 );
 
 
@@ -4557,7 +4557,8 @@ CREATE TABLE product_movements (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    description character varying
 );
 
 
@@ -4609,7 +4610,22 @@ CREATE TABLE products (
     initial_movement_id integer,
     custom_fields jsonb,
     team_id integer,
-    member_variant_id integer
+    member_variant_id integer,
+    birth_date_completeness character varying,
+    birth_farm_number character varying,
+    country character varying,
+    filiation_status character varying,
+    first_calving_on timestamp without time zone,
+    mother_country character varying,
+    mother_variety character varying,
+    mother_identification_number character varying,
+    father_country character varying,
+    father_variety character varying,
+    father_identification_number character varying,
+    origin_country character varying,
+    origin_identification_number character varying,
+    end_of_life_reason character varying,
+    originator_id integer
 );
 
 
@@ -5038,28 +5054,6 @@ CREATE SEQUENCE product_mergings_id_seq
 --
 
 ALTER SEQUENCE product_mergings_id_seq OWNED BY product_mergings.id;
-
---
--- Name: product_movements; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE product_movements (
-    id integer NOT NULL,
-    product_id integer NOT NULL,
-    intervention_id integer,
-    originator_id integer,
-    originator_type character varying,
-    delta numeric(19,4) NOT NULL,
-    population numeric(19,4) NOT NULL,
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    description character varying
-);
 
 
 --
@@ -5523,73 +5517,6 @@ CREATE SEQUENCE product_readings_id_seq
 --
 
 ALTER SEQUENCE product_readings_id_seq OWNED BY product_readings.id;
-
-
---
--- Name: products; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE products (
-    id integer NOT NULL,
-    type character varying,
-    name character varying NOT NULL,
-    number character varying NOT NULL,
-    variant_id integer NOT NULL,
-    nature_id integer NOT NULL,
-    category_id integer NOT NULL,
-    initial_born_at timestamp without time zone,
-    initial_dead_at timestamp without time zone,
-    initial_container_id integer,
-    initial_owner_id integer,
-    initial_enjoyer_id integer,
-    initial_population numeric(19,4) DEFAULT 0.0,
-    initial_shape postgis.geometry(MultiPolygon,4326),
-    initial_father_id integer,
-    initial_mother_id integer,
-    variety character varying NOT NULL,
-    derivative_of character varying,
-    tracking_id integer,
-    fixed_asset_id integer,
-    born_at timestamp without time zone,
-    dead_at timestamp without time zone,
-    description text,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
-    identification_number character varying,
-    work_number character varying,
-    address_id integer,
-    parent_id integer,
-    default_storage_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    person_id integer,
-    initial_geolocation postgis.geometry(Point,4326),
-    uuid uuid,
-    initial_movement_id integer,
-    custom_fields jsonb,
-    team_id integer,
-    member_variant_id integer,
-    birth_date_completeness character varying,
-    birth_farm_number character varying,
-    country character varying,
-    filiation_status character varying,
-    first_calving_on timestamp without time zone,
-    mother_country character varying,
-    mother_variety character varying,
-    mother_identification_number character varying,
-    father_country character varying,
-    father_variety character varying,
-    father_identification_number character varying,
-    origin_country character varying,
-    origin_identification_number character varying,
-    end_of_life_reason character varying,
-    originator_id integer
-);
 
 
 --
@@ -17064,8 +16991,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 
 INSERT INTO schema_migrations (version) VALUES ('20160928121727');
 
-INSERT INTO schema_migrations (version) VALUES ('20160929154734');
-
 INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160930142110');
@@ -17126,8 +17051,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161122203438');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124093205');
 
-INSERT INTO schema_migrations (version) VALUES ('20161130103917');
-
 INSERT INTO schema_migrations (version) VALUES ('20161201142213');
 
 INSERT INTO schema_migrations (version) VALUES ('20161205185328');
@@ -17155,8 +17078,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161231234533');
 INSERT INTO schema_migrations (version) VALUES ('20170101110136');
 
 INSERT INTO schema_migrations (version) VALUES ('20170110083324');
-
-INSERT INTO schema_migrations (version) VALUES ('20170124095012');
 
 INSERT INTO schema_migrations (version) VALUES ('20170124133351');
 
@@ -17227,4 +17148,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
+
+INSERT INTO schema_migrations (version) VALUES ('20170409154734');
+
+INSERT INTO schema_migrations (version) VALUES ('20170410103917');
+
+INSERT INTO schema_migrations (version) VALUES ('20170411095012');
 

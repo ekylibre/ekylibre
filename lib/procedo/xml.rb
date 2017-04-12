@@ -108,7 +108,7 @@ module Procedo
             parse_parameter(procedure, child, options)
           elsif %w[group parameter-group].include?(child.name)
             parse_parameter_group(procedure, child, options)
-          elsif %w(setting).include?(child.name)
+          elsif %w[setting].include?(child.name)
             parse_setting(procedure, child, options)
           elsif child.element?
             raise "Unexpected child: #{child.name}"
@@ -163,7 +163,7 @@ module Procedo
         options = options.dup
         name = element.attr('name').to_sym
 
-        %w(compute-filter filter component-of).each do |info|
+        %w[compute-filter filter component-of].each do |info|
           if element.has_attribute?(info)
             locals[info.underscore.to_sym] = element.attr(info).to_s
           end
