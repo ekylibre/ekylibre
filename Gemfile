@@ -27,6 +27,9 @@ gem 'actionpack-xml_parser'
 # Manage env vars
 gem 'figaro'
 
+# Maintenance mode
+gem 'turnout'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
