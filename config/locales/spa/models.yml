@@ -23,12 +23,19 @@ spa:
         initial_dead_at: "Desechado en"
       financial_year:
         stopped_on: "Fecha de cierre"
+      fixed_asset:
+        asset_account: "Cuenta de activo fijo"
+        depreciation_period: "Período de depreciación"
+        started_on: "Iniciar la actualización"
       fixed_asset_depreciation:
         asset_amount: "Valor contable"
       land_parcel:
         born_at: "Creado en"
       land_parcel_group:
         born_at: "Creado en"
+      loan:
+        ongoing_at: "La recaudación de fondos en"
+        started_on: "En primer lugar se inició el reembolso"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
         list: "Lista de salida de pago"
@@ -210,6 +217,7 @@ spa:
       # animal: "Animal"
       animal_group: "Grupo de animales"
       attachment: "Adjunto archivo"
+      bank_guarantee_account: "Cuenta de garantía bancaria"
       bank_statement: "Extracto de cuenta"
       bank_statement_item: "Línea del extracto bancario"
       bioproduct: "Producto vivo"
@@ -268,7 +276,9 @@ spa:
       inspection: "graduación del producto"
       inspection_calibration: "inspección calibre"
       inspection_point: "verificación de la clasificación del producto"
+      insurance_account: "Cuenta de seguro"
       integration: "Integración"
+      interest_account: "Cuenta de interés"
       intervention: "Intervención"
       intervention_agent: "Agente de la intervención"
       intervention_doer: "Hacedor de intervención"
@@ -295,6 +305,7 @@ spa:
       listing_node: "Nodo de lista"
       listing_node_item: "Listado de elementos de nodo"
       loan: "Préstamo"
+      loan_account: "Cuenta de préstamo"
       loan_repayment: "Pago de prestamo"
       manure_management_plan: "Plan de manejo del estiércol"
       manure_management_plan_zone: "Zona de plan de manejo del estiércol"
@@ -388,6 +399,7 @@ spa:
     account_name: "Nombre de la cuenta"
     account_number: "Número de cuenta"
     accountable: "Explicable"
+    accountable_repayments_started_on: "Reembolsos responsables comenzaron el"
     accountant: "Contador"
     accounted_at: "Representaron en"
     accuracy: "Exactitud"
@@ -438,6 +450,8 @@ spa:
     archiving: "El archivado"
     arguments: "Argumentos"
     assembly: "Asamblea"
+    asset_account: "Cuenta de activos"
+    asset_exists: "Existe activos"
     attachments: "Archivos adjuntos"
     attribute_name: "Nombre del Atributo"
     attribution: "Atribución"
@@ -457,6 +471,9 @@ spa:
     bank_agency_code: "Código de la agencia bancaria"
     bank_check_number: "Número de cheque bancario"
     bank_code: "Codigo bancario"
+    bank_guarantee_account: "Cuenta de garantía bancaria"
+    bank_guarantee_amount: "Importe de la garantía bancaria"
+    bank_guarantees_loans: "Banco garantiza préstamos"
     bank_identifier_code: "Código de identificación bancaria"
     bank_name: "Nombre del banco"
     bank_statement: "Extracto de cuenta"
@@ -509,6 +526,7 @@ spa:
     closed: "Cerrado"
     closed_at: "Cerrado en"
     closed_on: "Cerrada el"
+    closure_journal: "Diario de cierre"
     clusters_work_number: "Funcionan los clústeres número"
     code: "Código"
     codes: "Códigos"
@@ -633,9 +651,11 @@ spa:
     deposits: "Depósitos"
     depreciable: "Depreciable"
     depreciable_amount: "Importe depreciable"
+    depreciable_product: "Producto depreciable"
     depreciated_amount: "Importe amortizado"
     depreciation_method: "Método de depreciación"
     depreciation_percentage: "Porcentaje de depreciación"
+    depreciation_period: "Período de depreciación"
     depreciations: "Depreciaciones"
     depth: "Profundidad"
     derivative_of: "Derivado de"
@@ -753,6 +773,7 @@ spa:
     following: "Siguiendo"
     format: "Formato"
     formats: "Formatos"
+    forward_journal: "Llevar adelante la revista"
     france_maaid: "Francia maaid"
     frequency: "Frecuencia"
     frozen_indicators_list: "Lista de indicadores congelados"
@@ -833,6 +854,7 @@ spa:
     initial_number: "Número inicial"
     initial_owner: "Propietario inicial"
     initial_population: "Población inicial"
+    initial_releasing_amount: "Cantidad liberación inicial"
     initial_shape: "Forma inicial"
     initialization_vectors: "Vectores de inicialización"
     initiated_on: "Iniciado el"
@@ -1307,6 +1329,8 @@ spa:
     sampling_temporal_mode: "El modo de muestreo temporal"
     scale: "Escala"
     scheduled: "Programado"
+    scrapped_journal_entry: "Entrada de diario desechado"
+    scrapped_on: "Desechado en"
     season: "Estacionalidad"
     seasons: "Estacionalidades"
     second_producer: "En segundo productor" #?
@@ -1338,6 +1362,8 @@ spa:
     size_value: "Valor de tamaño"
     soil_nature: "Tipo de suelo"
     soil_production: "La producción de suelos"
+    sold_journal_entry: "Entrada de diario vendido"
+    sold_on: "Vendido en"
     source: "Fuente"
     source_product: "Producto de código"
     # spaced_iban: "Spaced IBAN"
@@ -1467,6 +1493,7 @@ spa:
     usage_limit_nature: "Usado por Tipo"
     usage_limit_on: "Utilizado por el"
     usages: "Usos"
+    use_bank_guarantee: "Garantía bancaria"
     use_countings: "Use conteos"
     use_grading_calibre: "Utilice el calibre de clasificación" #?
     use_gradings: "Use gradaciones"
@@ -1585,6 +1612,20 @@ spa:
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "Borrador"
+          in_use: "En uso"
+          scrapped: "Desechado"
+          sold: "Vendido"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -1656,6 +1697,12 @@ spa:
       reflections: "Tablas asociadas"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "Borrador"
+          ongoing: "En marcha"
+          repaid: "Reembolsado"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     outgoing_payment:

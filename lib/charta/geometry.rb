@@ -196,10 +196,10 @@ module Charta
 
     def bounding_box
       unless @bounding_box
-        values = select_row('SELECT ' + [:YMin, :XMin, :YMax, :XMax].collect do |v|
+        values = select_row('SELECT ' + %i[YMin XMin YMax XMax].collect do |v|
                                           "ST_#{v}(#{geom})"
                                         end.join(', ')).map(&:to_f)
-        [:y_min, :x_min, :y_max, :x_max].each_with_index do |val, index|
+        %i[y_min x_min y_max x_max].each_with_index do |val, index|
           instance_variable_set("@#{val}", values[index])
         end
         @bounding_box = BoundingBox.new(*values)

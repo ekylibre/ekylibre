@@ -33,7 +33,7 @@ class AddOpportunityColumnsInAffairs < ActiveRecord::Migration
       end
       d.down do
         execute "UPDATE affairs SET ticket = TRUE WHERE type = 'SaleTicket'"
-        deals = 'SELECT affair_id, originator_type, originator_id, created_at FROM (' + %w(Gap Sale Purchase IncomingPayment OutgoingPayment).collect do |type|
+        deals = 'SELECT affair_id, originator_type, originator_id, created_at FROM (' + %w[Gap Sale Purchase IncomingPayment OutgoingPayment].collect do |type|
           "(SELECT affair_id, '#{type}' AS originator_type, id AS originator_id, created_at FROM #{type.tableize})"
         end.join(' UNION ALL ') + ') AS deals ORDER BY created_at FETCH FIRST ROW ONLY'
         execute "UPDATE affairs SET originator_id = originators.originator_id, originator_type = originators.originator_type FROM (#{deals}) AS originators WHERE id = originators.affair_id"

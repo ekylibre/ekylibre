@@ -6,7 +6,7 @@ module Diagram
         graph = Diagram::Graph.new(options.delete(:name), :digraph, rank_dir: 'LR', node: { font_color: '#999999', color: '#999999' }, edge: { color: '#999999' })
         polymorphism = false
         tables.each do |table_name, columns|
-          columns = columns.delete_if { |k, _v| %w(creator_id created_at updater_id updated_at lock_version id).include?(k) }
+          columns = columns.delete_if { |k, _v| %w[creator_id created_at updater_id updated_at lock_version id].include?(k) }
           label = '<f999> ' + table_name
           columns.keys.each_with_index do |c, i|
             label << " | <f#{i}> #{c}"

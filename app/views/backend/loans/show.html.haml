@@ -1,11 +1,25 @@
 - main_toolbar do |t|
   = t.edit resource
 
+= main_state_bar(resource)
+
 = main_informations attachment: true do
   = attributes_list do |l|
-    - l.attribute :name
+    -# l.attribute :name
     - l.attribute :amount, currency: true
+    -# l.attribute :state
     - l.attribute :journal_entry, url: true
+
+    - l.attribute :loan_account, url: true
+    - l.attribute :interest_account, url: true
+    - l.attribute :insurance_account, url: true
+    - l.attribute :accountable_repayments_started_on
+    - l.attribute :initial_releasing_amount
+
+    - l.attribute :use_bank_guarantee
+    - if resource.use_bank_guarantee
+      - l.attribute :bank_guarantee_account, url: true
+      - l.attribute :bank_guarantee_amount
 
 = cobbles do |c|
   - c.cobble :expenses do

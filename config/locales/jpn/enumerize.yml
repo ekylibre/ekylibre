@@ -163,7 +163,13 @@ jpn:
       depreciation_method:
         graduated: "目盛り付きの" #?
         linear: "リニア"
+        none: "なし"
+        regressive: "回帰"
         simplified_linear: "簡体リニア"
+      depreciation_period:
+        monthly: "毎月"
+        quarterly: "季刊"
+        yearly: "毎年"
     gap:
       direction:
         loss: "損失"
@@ -243,6 +249,8 @@ jpn:
       nature:
         bank: "バンク"
         cash: "現金"
+        closure: "閉鎖"
+        fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
         sales: "セールス"
@@ -268,6 +276,8 @@ jpn:
         constant_rate: "一定の割合"
       repayment_period:
         month: "月"
+        semester: "学期"
+        trimester: "学期"
         year: "年"
       shift_method:
         anatocism: "anatocism"

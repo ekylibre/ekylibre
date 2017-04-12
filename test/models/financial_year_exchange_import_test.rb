@@ -93,7 +93,7 @@ class FinancialYearExchangeImportTest < ActiveSupport::TestCase
 
   test 'does not destroy journal entries in journal booked by the accountant in different financial year' do
     file = File.open(fixture_file('financial_year_exchange_import.csv'))
-    journal_entry_ids = booked_journal.entries.select { |e| e.financial_year != financial_year }.map(&:id)
+    journal_entry_ids = booked_journal.entries.reject { |e| e.financial_year == financial_year }.map(&:id)
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
     assert import.run, "Error during import: #{import.error.inspect}"
     assert_equal journal_entry_ids.length, JournalEntry.where(id: journal_entry_ids).count

@@ -57,7 +57,7 @@ class Cash < Ekylibre::Record::Base
   include Attachable
   include Customizable
   BBAN_TRANSLATIONS = {
-    fr: %w(abcdefghijklmonpqrstuvwxyz 12345678912345678923456789)
+    fr: %w[abcdefghijklmonpqrstuvwxyz 12345678912345678923456789]
   }.freeze
   attr_readonly :nature
   attr_readonly :currency, if: :used?
@@ -82,8 +82,8 @@ class Cash < Ekylibre::Record::Base
            through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
-  enumerize :nature, in: [:bank_account, :cash_box, :associate_account], default: :bank_account, predicates: true
-  enumerize :mode, in: [:iban, :bban], default: :iban, predicates: { prefix: true }
+  enumerize :nature, in: %i[bank_account cash_box associate_account], default: :bank_account, predicates: true
+  enumerize :mode, in: %i[iban bban], default: :iban, predicates: { prefix: true }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :bank_account_holder_name, :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :bank_identifier_code, :bank_name, :iban, :spaced_iban, length: { maximum: 500 }, allow_blank: true
@@ -109,14 +109,14 @@ class Cash < Ekylibre::Record::Base
 
   scope :bank_accounts, -> { where(nature: 'bank_account') }
   scope :cash_boxes,    -> { where(nature: 'cash_box') }
-  scope :associate_accounts, -> { where(nature: %w(associate_account owner_account)) }
+  scope :associate_accounts, -> { where(nature: %w[associate_account owner_account]) }
   scope :with_pointing_work, -> { where('(suspend_until_reconciliation AND suspense_account_id in (?)) OR (NOT suspend_until_reconciliation AND main_account_id IN (?))', JournalEntryItem.select(:suspense_account_id).unpointed, JournalEntryItem.select(:main_account_id).unpointed) }
-  scope :pointables, -> { where(nature: %w(associate_account owner_account bank_account)) }
+  scope :pointables, -> { where(nature: %w[associate_account owner_account bank_account]) }
   scope :with_deposit, -> { where(id: IncomingPaymentMode.where(with_deposit: true).select(:cash_id)) }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
-    mode.lower! unless mode.blank?
+    mode.lower! if mode.present?
     self.mode = self.class.mode.default_value if mode.blank?
     self.suspend_until_reconciliation = false unless bank_account?
     unless bank_account_holder_name.nil?
@@ -134,7 +134,7 @@ class Cash < Ekylibre::Record::Base
     elsif mode_bban? && bank_code? && bank_agency_code? && bank_account_number? && bank_account_key
       self.iban = self.class.generate_iban(country, bank_code + bank_agency_code + bank_account_number + bank_account_key)
     end
-    unless iban.blank?
+    if iban.present?
       self.spaced_iban = iban.split(/(\w\w\w\w)/).delete_if(&:empty?).join(' ')
     end
   end
@@ -225,8 +225,8 @@ class Cash < Ekylibre::Record::Base
   # Load default cashes (1 bank account and 1 cash box)
   def self.load_defaults
     [
-      [:bank_account, :bank, :banks],
-      [:cash_box, :cash, :cashes]
+      %i[bank_account bank banks],
+      %i[cash_box cash cashes]
     ].each do |nature, journal_nature, account_usage|
       next if find_by(nature: nature)
       journal = Journal.find_by(nature: journal_nature)
@@ -254,6 +254,11 @@ class Cash < Ekylibre::Record::Base
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
     end
+  end
+
+  def next_reconciliation_letter
+    item = BankStatementItem.where('LENGTH(TRIM(letter)) > 0').order('LENGTH(letter) DESC, letter DESC').first
+    item ? item.letter.succ : 'A'
   end
 
   def next_reconciliation_letters

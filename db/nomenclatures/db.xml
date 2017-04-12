@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170320144338">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170407214236">
   <nomenclature name="abilities" translateable="true">
     <properties>
-      <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
+      <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
     </properties>
     <items>
       <item name="acidify" parameters="variety"/>
@@ -81,10 +81,10 @@
   </nomenclature>
   <nomenclature name="accounts" translateable="true">
     <properties>
-      <property name="debtor" type="boolean" default="false"/>
-      <property name="fr_pcg82" type="string" fallbacks="fr_pcga"/>
-      <property name="fr_pcga" type="string" fallbacks="fr_pcg82"/>
-      <property name="pt_snc" type="string"/>
+      <property name="debtor" type="boolean" required="true" default="false"/>
+      <property name="fr_pcg82" type="string" required="true" fallbacks="fr_pcga"/>
+      <property name="fr_pcga" type="string" required="true" fallbacks="fr_pcg82"/>
+      <property name="pt_snc" type="string" required="true"/>
     </properties>
     <items>
       <item name="accrued_bank_interests" fr_pcg82="518"/>
@@ -260,7 +260,7 @@
       <item name="interests_expenses" fr_pcga="661"/>
       <item name="internal_transfers" fr_pcg82="58"/>
       <item name="inventory_variations" fr_pcga="71"/>
-      <item name="invoice_to_create_clients" fr_pcg82="418"/>
+      <item name="invoice_to_create_clients" fr_pcg82="418" pt_snc="215"/>
       <item name="irrecoverable_losses_on_debt_obligation_expenses" fr_pcg82="654"/>
       <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="land_loans" fr_pcg82="1641"/>
@@ -282,8 +282,8 @@
       <item name="livestock_feed_stock" fr_pcga="3014"/>
       <item name="livestock_feed_stocks_variation" fr_pcga="60314"/>
       <item name="living_corporeal_assets" fr_pcga="24"/>
-      <item name="loans" fr_pcg82="164"/>
-      <item name="loans_interests" fr_pcg82="661"/>
+      <item name="loans" fr_pcg82="164" pt_snc="25"/>
+      <item name="loans_interests" fr_pcg82="661" pt_snc="6615"/>
       <item name="long_cycle_animals_inventory_variations" fr_pcga="7131"/>
       <item name="long_cycle_cultivation_advances" fr_pcga="331"/>
       <item name="long_cycle_product_inventory_variations" fr_pcga="7135"/>
@@ -359,7 +359,7 @@
       <item name="others_corporeals_depreciations_inputations_expenses" fr_pcga="68118"/>
       <item name="others_taxes_and_assimilated_payments" fr_pcg82="447"/>
       <item name="outstanding_adult_animal_assets" fr_pcga="2341"/>
-      <item name="outstanding_assets" fr_pcga="23"/>
+      <item name="outstanding_assets" fr_pcga="23" pt_snc="45"/>
       <item name="outstanding_construction_on_other_land_parcel_assets" fr_pcga="2314"/>
       <item name="outstanding_construction_on_own_land_parcel_assets" fr_pcga="2313"/>
       <item name="outstanding_corporeal_assets" fr_pcga="231"/>
@@ -519,9 +519,9 @@
   </nomenclature>
   <nomenclature name="activity_families" translateable="true">
     <properties>
-      <property name="cultivation_variety" type="item" choices="varieties"/>
+      <property name="cultivation_variety" type="item" choices="varieties" required="true"/>
       <property name="nature" type="choice" choices="main, auxiliary, standalone" required="true" default="main"/>
-      <property name="support_variety" type="item" choices="varieties"/>
+      <property name="support_variety" type="item" choices="varieties" required="true"/>
     </properties>
     <items>
       <item name="administering" nature="auxiliary"/>
@@ -535,8 +535,8 @@
   </nomenclature>
   <nomenclature name="administrative_area_natures" translateable="true">
     <properties>
-      <property name="country" type="item" choices="countries"/>
-      <property name="parent" type="item" choices="administrative_area_natures"/>
+      <property name="country" type="item" choices="countries" required="true"/>
+      <property name="parent" type="item" choices="administrative_area_natures" required="true"/>
     </properties>
     <items>
       <item name="france_commune" parent="france_department" country="fr"/>
@@ -546,9 +546,9 @@
   </nomenclature>
   <nomenclature name="administrative_areas" translateable="true">
     <properties>
-      <property name="code" type="string"/>
-      <property name="nature" type="item" choices="administrative_area_natures"/>
-      <property name="parent_area" type="item" choices="administrative_areas"/>
+      <property name="code" type="string" required="true"/>
+      <property name="nature" type="item" choices="administrative_area_natures" required="true"/>
+      <property name="parent_area" type="item" choices="administrative_areas" required="true"/>
     </properties>
     <items>
       <item name="france_department_ain" code="FR-01" nature="france_department" parent_area="france_region_rhone_alpes"/>
@@ -684,7 +684,7 @@
   <nomenclature name="analysis_natures" translateable="true">
     <properties>
       <property name="items" type="item_list" choices="indicators" required="true"/>
-      <property name="target_derivative_of" type="item" choices="varieties"/>
+      <property name="target_derivative_of" type="item" choices="varieties" required="true"/>
       <property name="target_variety" type="item" choices="varieties" required="true"/>
     </properties>
     <items>
@@ -726,8 +726,8 @@
   </nomenclature>
   <nomenclature name="certifications" translateable="true">
     <properties>
-      <property name="labels" type="item_list" choices="certification_labels"/>
-      <property name="land" type="item" choices="lands"/>
+      <property name="labels" type="item_list" choices="certification_labels" required="true"/>
+      <property name="land" type="item" choices="lands" required="true"/>
     </properties>
     <items>
       <item name="bordeaux_blanc" labels="aop, aoc" land="bordeaux"/>
@@ -747,7 +747,7 @@
   </nomenclature>
   <nomenclature name="chemical_classifications" translateable="true">
     <properties>
-      <property name="code" type="string"/>
+      <property name="code" type="string" required="true"/>
     </properties>
     <items>
       <item name="dsd_corrosive" code="C"/>
@@ -1233,13 +1233,13 @@
     <properties>
       <property name="atomic_number" type="integer" required="true"/>
       <property name="atomic_weight" type="decimal" required="true"/>
-      <property name="boil_temperature" type="decimal"/>
-      <property name="electro_negativity" type="decimal"/>
-      <property name="group" type="integer"/>
-      <property name="mass_density" type="decimal"/>
-      <property name="melt_temperature" type="decimal"/>
-      <property name="period" type="integer"/>
-      <property name="specific_heat_capacity" type="decimal"/>
+      <property name="boil_temperature" type="decimal" required="true"/>
+      <property name="electro_negativity" type="decimal" required="true"/>
+      <property name="group" type="integer" required="true"/>
+      <property name="mass_density" type="decimal" required="true"/>
+      <property name="melt_temperature" type="decimal" required="true"/>
+      <property name="period" type="integer" required="true"/>
+      <property name="specific_heat_capacity" type="decimal" required="true"/>
       <property name="symbol" type="string" required="true"/>
     </properties>
     <items>
@@ -1365,8 +1365,8 @@
   </nomenclature>
   <nomenclature name="countries" translateable="true">
     <properties>
-      <property name="ednotif_eu" type="boolean" default="false"/>
-      <property name="number" type="string"/>
+      <property name="ednotif_eu" type="boolean" required="true" default="false"/>
+      <property name="number" type="string" required="true"/>
     </properties>
     <items>
       <item name="ad"/>
@@ -1664,12 +1664,12 @@
   </nomenclature>
   <nomenclature name="currencies" translateable="true">
     <properties>
-      <property name="active" type="boolean" default="false"/>
-      <property name="cash" type="string_list"/>
-      <property name="countries" type="item_list" choices="countries"/>
+      <property name="active" type="boolean" required="true" default="false"/>
+      <property name="cash" type="string_list" required="true"/>
+      <property name="countries" type="item_list" choices="countries" required="true"/>
       <property name="number" type="string" required="true" default="2"/>
       <property name="precision" type="integer" required="true" default="2"/>
-      <property name="symbol" type="string"/>
+      <property name="symbol" type="string" required="true"/>
     </properties>
     <items>
       <item name="AED" precision="2" active="true" countries="ae" number="784"/>
@@ -1845,7 +1845,7 @@
   </nomenclature>
   <nomenclature name="delivery_modes" translateable="true">
     <properties>
-      <property name="incoterm" type="choice" choices="EXW, FCA, CPT, CIP, DAT, DAP, DDP, FAS, FOB, CFR, CIF"/>
+      <property name="incoterm" type="choice" choices="EXW, FCA, CPT, CIP, DAT, DAP, DDP, FAS, FOB, CFR, CIF" required="true"/>
     </properties>
     <items>
       <item name="delivered_at_place" incoterm="DAP"/>
@@ -1914,9 +1914,10 @@
   </nomenclature>
   <nomenclature name="document_natures" translateable="true">
     <properties>
-      <property name="category" type="item_list" choices="document_categories"/>
+      <property name="category" type="item_list" choices="document_categories" required="true"/>
     </properties>
     <items>
+      <item name="account_journal_entry_sheet" category="accountancy"/>
       <item name="activity_cost" category="management"/>
       <item name="animal_husbandry_register" category="animal_farming"/>
       <item name="animal_list" category="animal_farming"/>
@@ -1926,6 +1927,12 @@
       <item name="entity_sheet" category="exploitation"/>
       <item name="equipment_certification" category="land_parcel_management"/>
       <item name="exchange_accountancy_file_fr" category="accountancy"/>
+      <item name="fixed_asset_registry" category="accountancy"/>
+      <item name="fixed_asset_sheet" category="accountancy"/>
+      <item name="fr_pcg82_balance_sheet" category="accountancy"/>
+      <item name="fr_pcg82_profit_and_loss_statement" category="accountancy"/>
+      <item name="fr_pcga_balance_sheet" category="accountancy"/>
+      <item name="fr_pcga_profit_and_loss_statement" category="accountancy"/>
       <item name="general_journal" category="accountancy"/>
       <item name="general_ledger" category="accountancy"/>
       <item name="income_statement" category="accountancy"/>
@@ -1934,7 +1941,9 @@
       <item name="intervention_sheet" category="management"/>
       <item name="inventory_sheet" category="exploitation"/>
       <item name="journal" category="accountancy"/>
+      <item name="journal_entry_sheet" category="accountancy"/>
       <item name="land_parcel_register" category="land_parcel_management"/>
+      <item name="loan_registry" category="accountancy"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
       <item name="manure_management_plan_sheet" category="land_parcel_management"/>
       <item name="outgoing_deliveries_journal" category="exploitation"/>
@@ -1968,8 +1977,8 @@
   </nomenclature>
   <nomenclature name="entity_link_natures" translateable="true" notions="entity, linked">
     <properties>
-      <property name="entity" type="symbol"/>
-      <property name="linked" type="symbol"/>
+      <property name="entity" type="symbol" required="true"/>
+      <property name="linked" type="symbol" required="true"/>
       <property name="symmetric" type="boolean" required="true" default="false"/>
     </properties>
     <items>
@@ -2042,8 +2051,8 @@
   </nomenclature>
   <nomenclature name="identifier_natures" translateable="true">
     <properties>
-      <property name="fallbacks" type="string_list"/>
-      <property name="password" type="boolean"/>
+      <property name="fallbacks" type="string_list" required="true"/>
+      <property name="password" type="boolean" required="true"/>
     </properties>
     <items>
       <item name="cartodb_api_key"/>
@@ -2070,16 +2079,16 @@
   </nomenclature>
   <nomenclature name="indicators" translateable="true">
     <properties>
-      <property name="choices" type="nomenclature"/>
-      <property name="curve" type="choice" choices="line, spline, step, bar" default="spline"/>
+      <property name="choices" type="nomenclature" required="true"/>
+      <property name="curve" type="choice" choices="line, spline, step, bar" required="true" default="spline"/>
       <property name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry, multi_polygon" required="true"/>
-      <property name="gathering" type="choice" choices="proportional_to_population"/>
-      <property name="individual_identifier" type="boolean"/>
-      <property name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
+      <property name="gathering" type="choice" choices="proportional_to_population" required="true"/>
+      <property name="individual_identifier" type="boolean" required="true"/>
+      <property name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" required="true" default="previous"/>
       <property name="probe" type="boolean" required="true" default="false"/>
-      <property name="related_to" type="choice" choices="whole, individual" default="individual"/>
+      <property name="related_to" type="choice" choices="whole, individual" required="true" default="individual"/>
       <property name="sampling_temporal_mode" type="choice" choices="instant, period" required="true" default="instant"/>
-      <property name="unit" type="item" choices="units"/>
+      <property name="unit" type="item" choices="units" required="true"/>
     </properties>
     <items>
       <item name="aluminium_concentration" datatype="measure" unit="parts_per_million"/>
@@ -2151,6 +2160,7 @@
       <item name="inhibitors_presence" datatype="boolean"/>
       <item name="iron_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="irrigation_water_input_area_density" datatype="measure" unit="liter_per_square_meter"/>
+      <item name="items_count" datatype="integer" unit="unity"/>
       <item name="lactating" datatype="boolean"/>
       <item name="last_birth_children_count" datatype="integer"/>
       <item name="length" datatype="measure" unit="meter"/>
@@ -2230,6 +2240,8 @@
       <item name="rows_count" datatype="integer"/>
       <item name="rows_interval" datatype="measure" unit="meter"/>
       <item name="rows_orientation" datatype="measure" unit="degree"/>
+      <item name="seedling_area_density" datatype="measure" unit="unity_per_square_meter"/>
+      <item name="seedling_count" datatype="measure" unit="thousand"/>
       <item name="sex" datatype="choice" choices="sexes"/>
       <item name="shape" datatype="multi_polygon" related_to="whole" individual_identifier="true"/>
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
@@ -2274,9 +2286,9 @@
   </nomenclature>
   <nomenclature name="issue_natures" translateable="true">
     <properties>
-      <property name="cause" type="item_list" choices="varieties"/>
+      <property name="cause" type="item_list" choices="varieties" required="true"/>
       <property name="target" type="item_list" choices="varieties" required="true"/>
-      <property name="treatments" type="item_list" choices="procedure_natures"/>
+      <property name="treatments" type="item_list" choices="procedure_natures" required="true"/>
     </properties>
     <items>
       <item name="acarine_gall_mite" parent="insecta_disease" cause="phytoptus_avellanae" target="corylus"/>
@@ -2478,7 +2490,7 @@
   </nomenclature>
   <nomenclature name="molecules" translateable="true">
     <properties>
-      <property name="formula" type="string"/>
+      <property name="formula" type="string" required="true"/>
     </properties>
     <items>
       <item name="ammonia" formula="N(H)(H)(H)"/>
@@ -2506,10 +2518,10 @@
   </nomenclature>
   <nomenclature name="net_services" translateable="true">
     <properties>
-      <property name="approach" type="choice" choices="human, rest, soap, email"/>
+      <property name="approach" type="choice" choices="human, rest, soap, email" required="true"/>
       <property name="identifiers" type="item_list" choices="identifier_natures" required="true"/>
       <property name="nature" type="item" choices="activity_families" required="true"/>
-      <property name="url" type="string"/>
+      <property name="url" type="string" required="true"/>
     </properties>
     <items>
       <item name="cartodb" nature="administering" url="https://cartodb.com" approach="human" identifiers="cartodb_login, password"/>
@@ -2728,7 +2740,7 @@
   </nomenclature>
   <nomenclature name="procedure_categories" translateable="true">
     <properties>
-      <property name="activity_family" type="item_list" choices="activity_families"/>
+      <property name="activity_family" type="item_list" choices="activity_families" required="true"/>
     </properties>
     <items>
       <item name="administrative_tasks" activity_family="administering"/>
@@ -2765,7 +2777,7 @@
   <nomenclature name="procedure_natures" translateable="true">
     <properties>
       <property name="activity_families" type="item_list" choices="activity_families" required="true"/>
-      <property name="roles" type="item_list" choices="procedure_roles"/>
+      <property name="roles" type="item_list" choices="procedure_roles" required="true"/>
     </properties>
     <items>
       <item name="addition" parent="transformation" roles="input_origin, input, target, doer" activity_families="processing"/>
@@ -2875,19 +2887,19 @@
   </nomenclature>
   <nomenclature name="product_nature_categories" translateable="true">
     <properties>
-      <property name="charge_account" type="item" choices="accounts"/>
+      <property name="charge_account" type="item" choices="accounts" required="true"/>
       <property name="depreciable" type="boolean" required="true" default="false"/>
-      <property name="depreciation_percentage" type="decimal"/>
-      <property name="fixed_asset_account" type="item" choices="accounts"/>
-      <property name="fixed_asset_allocation_account" type="item" choices="accounts"/>
-      <property name="fixed_asset_expenses_account" type="item" choices="accounts"/>
-      <property name="pictogram" type="choice" choices="cc, fax, truck, laptop, land_parcels, wrench, wheat, tasks, subscription, plane, tractor, truck, umbrella, drop, plane, phone, mushroom, medkit, matter, male, legal, light_bulb, lemon, leaf, home, building, group, credit_card, cow, food, bug, beaker, car, barn, bolt, pill, desktop, gift, road, fish, user, undefined, money, bank, book"/>
-      <property name="product_account" type="item" choices="accounts"/>
+      <property name="depreciation_percentage" type="decimal" required="true"/>
+      <property name="fixed_asset_account" type="item" choices="accounts" required="true"/>
+      <property name="fixed_asset_allocation_account" type="item" choices="accounts" required="true"/>
+      <property name="fixed_asset_expenses_account" type="item" choices="accounts" required="true"/>
+      <property name="pictogram" type="choice" choices="cc, fax, truck, laptop, land_parcels, wrench, wheat, tasks, subscription, plane, tractor, truck, umbrella, drop, plane, phone, mushroom, medkit, matter, male, legal, light_bulb, lemon, leaf, home, building, group, credit_card, cow, food, bug, beaker, car, barn, bolt, pill, desktop, gift, road, fish, user, undefined, money, bank, book" required="true"/>
+      <property name="product_account" type="item" choices="accounts" required="true"/>
       <property name="purchasable" type="boolean" required="true" default="false"/>
       <property name="reductible" type="boolean" required="true" default="false"/>
       <property name="saleable" type="boolean" required="true" default="false"/>
-      <property name="stock_account" type="item" choices="accounts"/>
-      <property name="stock_movement_account" type="item" choices="accounts"/>
+      <property name="stock_account" type="item" choices="accounts" required="true"/>
+      <property name="stock_movement_account" type="item" choices="accounts" required="true"/>
       <property name="storable" type="boolean" required="true" default="false"/>
     </properties>
     <items>
@@ -3008,11 +3020,11 @@
   </nomenclature>
   <nomenclature name="product_nature_variants" translateable="true">
     <properties>
-      <property name="derivative_of" type="item" choices="varieties"/>
-      <property name="frozen_indicators_values" type="string"/>
+      <property name="derivative_of" type="item" choices="varieties" required="true"/>
+      <property name="frozen_indicators_values" type="string" required="true"/>
       <property name="nature" type="item" choices="product_natures" required="true"/>
       <property name="unit_name" type="choice" choices="month, server, domain, 100g_dose, dose, 1l_dose, quintal, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake, package" required="true" default="unit"/>
-      <property name="variety" type="item" choices="varieties"/>
+      <property name="variety" type="item" choices="varieties" required="true"/>
     </properties>
     <items>
       <item name="115g_jam" nature="packaged_process_food" derivative_of="fruit" frozen_indicators_values="net_mass: 115gram, net_volume: 115milliliter"/>
@@ -3607,7 +3619,7 @@
       <item name="salmon_band" nature="salmon_band" unit_name="subject"/>
       <item name="screed_building" nature="building" frozen_indicators_values="" unit_name="building"/>
       <item name="seed" nature="seed" derivative_of="plant" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 45gram, grains_count: 1.00thousand" unit_name="kilogram"/>
-      <item name="seedling" nature="seedling" derivative_of="plant"/>
+      <item name="seedling" nature="seedling" derivative_of="plant" frozen_indicators_values="items_count: 1"/>
       <item name="segorbe_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_segorbe" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="server_certificate_subscription" nature="numeric_subscription" unit_name="domain"/>
       <item name="server_rental" nature="numeric_hosting_rental" unit_name="server"/>
@@ -3715,15 +3727,15 @@
   </nomenclature>
   <nomenclature name="product_natures" translateable="true">
     <properties>
-      <property name="abilities" type="string"/>
+      <property name="abilities" type="string" required="true"/>
       <property name="category" type="item" choices="product_nature_categories" required="true"/>
-      <property name="derivative_of" type="string"/>
-      <property name="derivatives" type="item_list" choices="varieties"/>
-      <property name="frozen_indicators" type="item_list" choices="indicators"/>
-      <property name="linkage_points" type="choice_list" choices="rear, front"/>
+      <property name="derivative_of" type="string" required="true"/>
+      <property name="derivatives" type="item_list" choices="varieties" required="true"/>
+      <property name="frozen_indicators" type="item_list" choices="indicators" required="true"/>
+      <property name="linkage_points" type="choice_list" choices="rear, front" required="true"/>
       <property name="population_counting" type="choice" choices="unitary, integer, decimal" required="true"/>
       <property name="reductible" type="boolean" required="true" default="false"/>
-      <property name="variable_indicators" type="item_list" choices="indicators"/>
+      <property name="variable_indicators" type="item_list" choices="indicators" required="true"/>
       <property name="variety" type="item" choices="varieties" required="true"/>
     </properties>
     <items>
@@ -3819,7 +3831,7 @@
       <item name="fiscal_fine" category="fiscal_fine" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="flower_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(pollen), produce(flower), produce(straw), produce(grain)" variable_indicators="plant_life_state, plants_count, shape" frozen_indicators="net_surface_area" derivatives="pollen, flower, straw, grain"/>
       <item name="fodder_bale" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume, fodder_bales_count"/>
-      <item name="foliar_spray" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="foliar_spray" category="fertilizer" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="food_distributor" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="deliver(silage),deliver(straw),deliver(hay)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
       <item name="food_equipment_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(equipment), store(grass), store(mix), store(seed)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="food_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(mix)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
@@ -3975,7 +3987,7 @@
       <item name="salmon_band" category="fish_band" variety="salmo" population_counting="unitary" abilities="move, consume(water), consume(mix)" variable_indicators=""/>
       <item name="seed" category="seed" variety="seed" derivative_of="plant" population_counting="decimal" abilities="grow" variable_indicators="" frozen_indicators="net_mass, thousand_grains_mass, grains_count"/>
       <item name="seedbed_preparator" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="plow_superficially, implant" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
-      <item name="seedling" category="plant" variety="seedling" population_counting="integer" abilities="grow" variable_indicators=""/>
+      <item name="seedling" category="plant" variety="seedling" population_counting="integer" abilities="grow" variable_indicators="" frozen_indicators="net_mass, items_count" derivative_of="plant"/>
       <item name="settlement" category="settlement" variety="settlement" population_counting="unitary" abilities="store(building), store(building_division)" variable_indicators="net_surface_area, shape" frozen_indicators=""/>
       <item name="sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="unitary" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators=""/>
       <item name="shell_fruit_reaper" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="harvest(walnut), harvest(hazelnut), consume(oil), consume(fuel)" variable_indicators="application_width" frozen_indicators=""/>
@@ -4040,9 +4052,9 @@
   <nomenclature name="production_natures" translateable="false">
     <properties>
       <property name="activity" type="item" choices="activity_families" required="true"/>
-      <property name="production_code" type="string"/>
-      <property name="telepac_crop_code" type="string"/>
-      <property name="variant_support" type="item" choices="product_nature_variants"/>
+      <property name="production_code" type="string" required="true"/>
+      <property name="telepac_crop_code" type="string" required="true"/>
+      <property name="variant_support" type="item" choices="product_nature_variants" required="true"/>
     </properties>
     <items>
       <item name="administrative" production_code="A100" activity="administering"/>
@@ -4155,7 +4167,7 @@
   </nomenclature>
   <nomenclature name="production_usages" translateable="true">
     <properties>
-      <property name="crop_sets" type="item_list" choices="crop_sets"/>
+      <property name="crop_sets" type="item_list" choices="crop_sets" required="true"/>
     </properties>
     <items>
       <item name="fallow_land"/>
@@ -4179,7 +4191,7 @@
   </nomenclature>
   <nomenclature name="roles" translateable="true">
     <properties>
-      <property name="accesses" type="string_list"/>
+      <property name="accesses" type="string_list" required="true"/>
     </properties>
     <items>
       <item name="accountant" accesses="accounts-all, bank_statements-all, journals-all, fixed_assets-all, financial_years-all"/>
@@ -4252,9 +4264,9 @@
   </nomenclature>
   <nomenclature name="spatial_reference_systems" translateable="false">
     <properties>
-      <property name="authority_reference" type="string"/>
+      <property name="authority_reference" type="string" required="true"/>
       <property name="srid" type="integer" required="true"/>
-      <property name="urn" type="string"/>
+      <property name="urn" type="string" required="true"/>
     </properties>
     <items>
       <item name="EPSG_2000" authority_reference="EPSG:2000" srid="2000"/>
@@ -9699,9 +9711,9 @@
       <property name="collect_account" type="item" choices="accounts" required="true"/>
       <property name="computation_method" type="choice" choices="percentage, amount" required="true" default="percentage"/>
       <property name="deduction_account" type="item" choices="accounts" required="true"/>
-      <property name="fixed_asset_collect_account" type="item" choices="accounts"/>
-      <property name="fixed_asset_deduction_account" type="item" choices="accounts"/>
-      <property name="suffix" type="string"/>
+      <property name="fixed_asset_collect_account" type="item" choices="accounts" required="true"/>
+      <property name="fixed_asset_deduction_account" type="item" choices="accounts" required="true"/>
+      <property name="suffix" type="string" required="true"/>
     </properties>
     <items>
       <item name="eu_vat" computation_method="percentage" deduction_account="deductible_vat" fixed_asset_deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="2"/>
@@ -9720,7 +9732,7 @@
       <property name="country" type="item" choices="countries" required="true"/>
       <property name="nature" type="item" choices="tax_natures" required="true"/>
       <property name="started_on" type="date" required="true"/>
-      <property name="stopped_on" type="date"/>
+      <property name="stopped_on" type="date" required="true"/>
     </properties>
     <items>
       <item name="algerian_vat_normal" country="dz" nature="normal_vat" amount="17.0" started_on="1962-07-05" stopped_on="2016-12-31"/>
@@ -9761,9 +9773,9 @@
   </nomenclature>
   <nomenclature name="units" translateable="true">
     <properties>
-      <property name="a" type="decimal" default="1"/>
-      <property name="b" type="decimal" default="0"/>
-      <property name="d" type="decimal" default="1"/>
+      <property name="a" type="decimal" required="true" default="1"/>
+      <property name="b" type="decimal" required="true" default="0"/>
+      <property name="d" type="decimal" required="true" default="1"/>
       <property name="dimension" type="item" choices="dimensions" required="true"/>
       <property name="symbol" type="string" required="true"/>
     </properties>
@@ -9879,10 +9891,10 @@
   </nomenclature>
   <nomenclature name="varieties" translateable="true">
     <properties>
-      <property name="derivative_of" type="item" choices="varieties"/>
-      <property name="europa_tsn" type="string"/>
-      <property name="french_race_code" type="string"/>
-      <property name="itis_tsn" type="integer"/>
+      <property name="derivative_of" type="item" choices="varieties" required="true"/>
+      <property name="europa_tsn" type="string" required="true"/>
+      <property name="french_race_code" type="string" required="true"/>
+      <property name="itis_tsn" type="integer" required="true"/>
     </properties>
     <items>
       <item name="acer" parent="sapindaceae" itis_tsn="28727"/>
@@ -10105,7 +10117,7 @@
       <item name="brassica_napus" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_napus_annua" parent="brassica_napus" itis_tsn="23060"/>
       <item name="brassica_napus_napus" parent="brassica_napus" itis_tsn="23060"/>
-      <item name="brassica_napus_napus_dk_exalte" parent="brassica_napus"/>
+      <item name="brassica_napus_napus_dk_exalte" parent="brassica_napus_napus"/>
       <item name="brassica_napus_rapifera" parent="brassica_napus" itis_tsn="23062"/>
       <item name="brassica_nigra" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_oleracea" parent="brassica" itis_tsn="23062"/>

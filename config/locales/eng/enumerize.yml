@@ -160,7 +160,13 @@ eng:
     fixed_asset:
       depreciation_method:
         linear: "Linear"
+        none: "None"
+        regressive: "Regressive"
         simplified_linear: "Simplified linear"
+      depreciation_period:
+        monthly: "Monthly"
+        quarterly: "Quarterly"
+        yearly: "Yearly"
     gap:
       direction:
         loss: "Loss"
@@ -232,6 +238,8 @@ eng:
       nature:
         bank: "Bank"
         cash: "Cash"
+        closure: "Closure"
+        fixed_assets: "Fixed assets"
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"
@@ -257,6 +265,8 @@ eng:
         constant_rate: "Constant rate"
       repayment_period:
         month: "Month"
+        semester: "Semester"
+        trimester: "Trimester"
         year: "Year"
       shift_method:
         anatocism: "Anatocism"

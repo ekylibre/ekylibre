@@ -4,8 +4,8 @@ module Backend
       dataset
         .map do |calibration|
           result = calibration.send(method, dimension)
-          unit = calibration.user_per_area_unit(dimension) if [:surface_area_density, :mass_area_density].include? result.dimension
-          unit = calibration.user_quantity_unit(dimension) if [:none, :mass].include? result.dimension
+          unit = calibration.user_per_area_unit(dimension) if %i[surface_area_density mass_area_density].include? result.dimension
+          unit = calibration.user_quantity_unit(dimension) if %i[none mass].include? result.dimension
           result = result.to_d(unit).to_s.to_f.round(2)
           next if result.zero?
           if block_given?
@@ -29,7 +29,7 @@ module Backend
         columns[name] = { body: [], total: [], colspan: 3 }
 
         quantity = {}
-        [:items_count, :net_mass].each do |dimension|
+        %i[items_count net_mass].each do |dimension|
           next unless inspection.measure_grading(dimension)
           quantity[dimension] = InspectionCalibration.human_attribute_name(dimension)
           columns[quantity[dimension]] = { body: [], total: [], colspan: 1 }
@@ -44,7 +44,7 @@ module Backend
         end
 
         statable = {}
-        [:items_count, :net_mass].each do |dimension|
+        %i[items_count net_mass].each do |dimension|
           statable[dimension] = {}
           next unless inspection.quantity_statable?(dimension)
           statable[dimension][:total] = Inspection.human_attribute_name("gross_#{dimension}")
@@ -58,7 +58,7 @@ module Backend
 
         ### BODY
         inspection.calibrations.of_scale(scale).reorder(:id).each do |calibration|
-          [:items_count, :net_mass].each do |dimension|
+          %i[items_count net_mass].each do |dimension|
             columns[quantity[dimension]][:body] << decimal_cell(calibration.quantity_in_unit(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:total]][:body] << decimal_cell(calibration.projected_total(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:body] << decimal_cell(calibration.quantity_yield(dimension).round(2).l(precision: 2))
@@ -72,7 +72,7 @@ module Backend
         #########
 
         ### TOTALS
-        [:items_count, :net_mass].each do |dimension|
+        %i[items_count net_mass].each do |dimension|
           columns[quantity[dimension]][:total] << total_decimal_cell(inspection.quantity(dimension, scale).round(2).l(precision: 2))
           columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.projected_total(dimension, scale).round(2).l(precision: 2))
           columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.quantity_yield(dimension).round(2).l(precision: 2))
@@ -97,7 +97,7 @@ module Backend
         columns[name] = { body: [], subtotal: [], total: [], colspan: 3 }
 
         quantity = {}
-        [:items_count, :net_mass].each do |dimension|
+        %i[items_count net_mass].each do |dimension|
           next unless inspection.measure_grading(dimension)
           quantity[dimension] = InspectionPoint.human_attribute_name(dimension)
           columns[quantity[dimension]] = { body: [], subtotal: [], total: [], colspan: 1 }
@@ -112,7 +112,7 @@ module Backend
         end
 
         statable = {}
-        [:items_count, :net_mass].each do |dimension|
+        %i[items_count net_mass].each do |dimension|
           statable[dimension] = {}
           next unless inspection.quantity_statable?(dimension)
           statable[dimension][:total]   = Inspection.human_attribute_name("gross_#{dimension}")
@@ -126,7 +126,7 @@ module Backend
 
         ### BODY
         inspection.points.joins(:nature).order('category, name').each do |point|
-          [:items_count, :net_mass].each do |dimension|
+          %i[items_count net_mass].each do |dimension|
             columns[quantity[dimension]][:body] << decimal_cell(point.quantity_in_unit(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:total]][:body] << decimal_cell(point.projected_total(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:body] << decimal_cell(point.quantity_yield(dimension).round(2).l(precision: 2))
@@ -141,7 +141,7 @@ module Backend
 
         ### SUBTOTAL
         ActivityInspectionPointNature.unmarketable_categories.each do |category|
-          [:items_count, :net_mass].each do |dimension|
+          %i[items_count net_mass].each do |dimension|
             columns[quantity[dimension]][:subtotal] << total_decimal_cell(inspection.points_sum(dimension, category).round(2).l(precision: 2))
             columns[statable[dimension][:total]][:subtotal] << total_decimal_cell(inspection.points_total(dimension, category).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:subtotal] << total_decimal_cell(inspection.points_yield(dimension, category).round(2).l(precision: 2))
@@ -155,7 +155,7 @@ module Backend
         #########
 
         ### TOTAL
-        [:items_count, :net_mass].each do |dimension|
+        %i[items_count net_mass].each do |dimension|
           columns[quantity[dimension]][:total] << total_decimal_cell(inspection.points_sum(dimension).round(2).l(precision: 2))
           columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.points_total(dimension).round(2).l(precision: 2))
           columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.points_yield(dimension).round(2).l(precision: 2))
@@ -190,7 +190,7 @@ module Backend
             safe_join(cols)
           end
 
-          [:body, :subtotal, :total].each do |part|
+          %i[body subtotal total].each do |part|
             html += table.values.map { |content| content[part] }.compact.transpose.map do |row|
               content_tag :tr, class: part do
                 cols = row.map do |col|

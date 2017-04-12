@@ -46,7 +46,7 @@ module Iot
         when :decimal
           value = value.to_d
         when :boolean
-          value = %w(yes true 1 ok).include?(value.downcase)
+          value = %w[yes true 1 ok].include?(value.downcase)
         when :choice
           unless indicator.choices.include?(value)
             render json: { message: "Indicator choice #{value} is unacceptable." }, status: :not_acceptable

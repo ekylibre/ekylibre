@@ -24,7 +24,7 @@ module Backend
 
     autocomplete_for :name
 
-    list(conditions: search_conditions(postal_zones: [:postal_code, :name]), order: :name) do |t|
+    list(conditions: search_conditions(postal_zones: %i[postal_code name]), order: :name) do |t|
       t.action :edit
       t.action :destroy
       t.column :name

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add fixed asset sheet">
+  <item-creation item="document_natures#fixed_asset_sheet" category="accountancy"/>
+</migration>

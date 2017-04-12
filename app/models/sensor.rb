@@ -48,7 +48,7 @@
 class Sensor < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :retrieval_mode, in: [:requesting, :listening, :integration], default: :requesting, predicates: true
+  enumerize :retrieval_mode, in: %i[requesting listening integration], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
@@ -108,7 +108,7 @@ class Sensor < Ekylibre::Record::Base
       # Indicators
       values = []
       results[:values].each do |k, v|
-        values << { indicator_name: k, value: v } unless v.blank?
+        values << { indicator_name: k, value: v } if v.present?
       end
       attributes.update(
         sampled_at: options[:started_at],

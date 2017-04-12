@@ -79,7 +79,7 @@ module Backend
         end
 
         inspections.group_by(&:activity).each do |activity, a_inspections|
-          dimensions = [:items_count, :net_mass].select { |dim| a_inspections.any? { |i| i.measure_grading(dim) } }
+          dimensions = %i[items_count net_mass].select { |dim| a_inspections.any? { |i| i.measure_grading(dim) } }
 
           table activity.name do
             row do

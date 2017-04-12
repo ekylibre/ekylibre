@@ -1,54 +1,33 @@
 - if @financial_year && Account.french_accounting_system?
   :ruby
+    # get accoutancy ratio in financial_year.sum_entry_items_with_mandatory_line(:ratio, :products)
     # operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
-    product_value = @financial_year.sum_entry_items('7 !75 !76 !77 !78 !79')
-    charge_value = @financial_year.sum_entry_items('60 61 62 63 64 !6355')
-    turnover_value = @financial_year.sum_entry_items('7 !707 !7086 !7087 !7088 !7097 !75 !76 !77 !78 !79')
-    operating_margin =  ( - product_value - charge_value ) if product_value && charge_value
-    operating_profit = operating_margin - @financial_year.sum_entry_items('781 791 751 752 753 754 755 758') - @financial_year.sum_entry_items('681 651 653 654 655 658')
-    operating_margin_on_turnover = ( operating_margin / - turnover_value) * 100 if operating_margin && turnover_value && turnover_value != 0.0
 
-    # debts_on_assets = (debts / assets) * 100
-    financial_debt = @financial_year.sum_entry_items('1641 1642 1643 4553 4554 519, 512 514 517 C, 5186 161 163 165 166 1675 168 17 426, 451 456 458 C')
-    other_debt = @financial_year.sum_entry_items('401 4031 4081 4088 402 4032 4082, 445 C, 421 422 424 427 4282 4284 4286 431 437 4382 4386 442, 443 444 C, 446 447 4482 4486 457, 4551 4552 C, 269 279 404 405 4084 4196 4197 4198 4419, 452 453 454 461 C, 464, 467 C, 4686, 478 C, 509')
-    advanced_product = @financial_year.sum_entry_items('487')
-    debts = financial_debt + other_debt + advanced_product if financial_debt && other_debt && advanced_product
-    asset = @financial_year.sum_entry_items('109 2 !28 !29')
-    stock = @financial_year.sum_entry_items('3 !39')
-    client = @financial_year.sum_entry_items('4091 41, 445 4551 4552 D, 4096 4097 4098 425 4287 4387 441 !4419, 443 444 D, 4487, 451 452 453 454 456 458 461 462 D, 465, 467 D, 4687, 487 D')
-    portfolio_value = @financial_year.sum_entry_items('502 503 504 505 506 507 508')
-    bank = @financial_year.sum_entry_items('511, 512 514 D, 515 516, 517 D, 5187 53 54')
-    advance_charge = @financial_year.sum_entry_items('486 481 476')
-    assets = asset + stock + client + portfolio_value + bank + advance_charge if asset && stock && client && portfolio_value && bank && advance_charge
-    debts_on_assets = 0.0
-    debts_on_assets = (- debts / assets) * 100 if debts && assets && assets != 0.0
-    # liquid_assets_on_turnover = (liquid_assets / turnover_value) * 100
-    liquid_assets_on_turnover = (-bank / turnover_value) * 100 if bank && turnover_value && turnover_value != 0.0
+
+    net_production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_production_sales)
+    production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
+    added_value = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :added_value)
+    operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
+    raw_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income)
+    raw_income_before_taxe = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :raw_income_before_taxe)
+    net_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_income)
 
   = infos do
-    - if product_value
+    - if net_production_sales
       .big-info
-        %span.title= :product_value.tl(financial_year: @financial_year.name)
-        %span.value= (-1 * product_value).l(currency: Preference[:currency])
+        %span.title= :net_production_sales.tl(financial_year: @financial_year.name)
+        %span.value= net_production_sales.l(currency: Preference[:currency])
     - if operating_margin
       .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
         %span.title= :operating_margin.tl(financial_year: @financial_year.name)
         %span.value= operating_margin.l(currency: Preference[:currency])
-    - if operating_margin_on_turnover
-      .big-info{class: (operating_margin_on_turnover > 30 ? :positive : operating_margin_on_turnover < 10 ? :negative : :caution)}
-        %span.title= :operating_margin_on_turnover.tl(financial_year: @financial_year.name)
-        %span.value= operating_margin_on_turnover.round(2)
-    - if operating_profit
-      .big-info
-        %span.title= :operating_profit.tl(financial_year: @financial_year.name)
-        %span.value= operating_profit.l(currency: Preference[:currency])
-    - if bank
-      .big-info{class: (debts_on_assets > 0 ? :positive : debts_on_assets < 0 ? :negative : :caution)}
-        %span.title= :debts_on_assets.tl(financial_year: @financial_year.name)
-        %span.value= debts_on_assets.round(2)
-    - if liquid_assets_on_turnover
-      .big-info{class: (liquid_assets_on_turnover > 0 ? :positive : liquid_assets_on_turnover < 0 ? :negative : :caution)}
-        %span.title= :liquid_assets_on_turnover.tl(financial_year: @financial_year.name)
-        %span.value= liquid_assets_on_turnover.round(2)
+    - if raw_income
+      .big-info{class: (raw_income > 0 ? :positive : raw_income < 0 ? :negative : :caution)}
+        %span.title= :raw_income.tl(financial_year: @financial_year.name)
+        %span.value= raw_income.l(currency: Preference[:currency])
+    - if net_income
+      .big-info{class: (net_income > 0 ? :positive : net_income < 0 ? :negative : :caution)}
+        %span.title= :net_income.tl(financial_year: @financial_year.name)
+        %span.value= net_income.l(currency: Preference[:currency])
 - else
   = no_data

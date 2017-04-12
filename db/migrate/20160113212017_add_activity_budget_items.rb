@@ -80,7 +80,7 @@ class AddActivityBudgetItems < ActiveRecord::Migration
       t.string :currency, null: false
       t.stamps
     end
-    add_index :activity_budgets, [:activity_id, :campaign_id], unique: true
+    add_index :activity_budgets, %i[activity_id campaign_id], unique: true
 
     add_reference :activity_budget_items, :activity_budget, index: true
 

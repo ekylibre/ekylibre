@@ -22,7 +22,7 @@ module Ekylibre
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
-          depreciate:         %w(1 t true yes ok).include?(row[8].to_s.strip.downcase),
+          depreciate:         %w[1 t true yes ok].include?(row[8].to_s.strip.downcase),
           # Variant definition
           variant: {
             variety:                 row[vinfos + 1],
@@ -75,7 +75,7 @@ module Ekylibre
           quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
-          depreciate:         %w(1 t true yes ok).include?(row[8].to_s.strip.downcase),
+          depreciate:         %w[1 t true yes ok].include?(row[8].to_s.strip.downcase),
           # Variant definition
           variant: {
             variety:                 row[vinfos + 1],
@@ -106,7 +106,7 @@ module Ekylibre
               r.variant[:fixed_asset_depreciation_method] ||= :simplified_linear
               r.variant[:fixed_asset_depreciation_percentage] ||= 15
             end
-            %w(product charge fixed_asset fixed_asset_allocation fixed_asset_expenses).each do |type|
+            %w[product charge fixed_asset fixed_asset_allocation fixed_asset_expenses].each do |type|
               key = "#{type}_account".to_sym
               account_infos = r.variant[key].to_s.split(':')
               account_number = account_infos.shift
@@ -117,7 +117,7 @@ module Ekylibre
               end
               r.variant[key] = account
             end
-            attrs = r.variant.select { |k, v| !v.blank? && k != :variety }
+            attrs = r.variant.select { |k, v| v.present? && k != :variety }
             attrs[:name] = r.variant_code
             attrs[:saleable] = true if attrs[:product_account]
             attrs[:purchasable] = true if attrs[:charge_account]

@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   module FirstRun
     class Base
@@ -145,7 +146,7 @@ module Ekylibre
         files_count = files.keys.count
         mimefile = working_path.join('mimetype')
         FileUtils.rm_rf(target_path) if target_path.exist?
-        not_found = files.values.select { |source| !source.exist? }
+        not_found = files.values.reject(&:exist?)
         if not_found.any?
           if not_found.size != files_count
             puts " ☠ #{nature.to_s.humanize} (#{target})".red

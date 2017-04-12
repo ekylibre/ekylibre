@@ -10,7 +10,7 @@ arb:
     ekylibre_activities: "أنشطة Ekylibre"
     ekylibre_animal_groups: "المجموعات الحيوانية Ekylibre"
     ekylibre_animals: "الحيوانات Ekylibre"
-    ekylibre_backup: "احتياطية Ekylibre"
+    ekylibre_backup: "احتياطية Ekylibre" #?
     ekylibre_bank_statements: "البيانات المصرفية Ekylibre"
     ekylibre_budgets: "الميزانيات Ekylibre"
     ekylibre_buildings_json: "المباني Ekylibre JSON"
@@ -36,6 +36,7 @@ arb:
     ekylibre_zones: "مناطق Ekylibre"
     # fiea_galactea: "FIEA galactea"
     isagri_isacompta_export: "Isagri تصدير isacompta"
+    isagri_isacompta_fixed_assets: "Isagri isacompta الأصول الثابتة"
     isagri_isaculture_csv_import: "isaculture Isagri CSV استيراد"
     la_graine_informatique_vinifera_entities: "لا الكيانات العنب الاوروبي الحبوب INFORMATIQUE"
     la_graine_informatique_vinifera_products: "لا منتجات العنب الاوروبي الحبوب INFORMATIQUE"

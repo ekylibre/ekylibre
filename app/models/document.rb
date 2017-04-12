@@ -50,8 +50,8 @@ class Document < Ekylibre::Record::Base
   has_many :attachments, dependent: :destroy
   has_attached_file :file, path: ':tenant/:class/:id_partition/:style.:extension',
                            styles: {
-                             default:   { format: :pdf, processors: [:reader, :counter, :freezer], clean: true },
-                             thumbnail: { format: :jpg, processors: [:sketcher, :thumbnail], geometry: '320x320>' }
+                             default:   { format: :pdf, processors: %i[reader counter freezer], clean: true },
+                             thumbnail: { format: :jpg, processors: %i[sketcher thumbnail], geometry: '320x320>' }
                            }
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

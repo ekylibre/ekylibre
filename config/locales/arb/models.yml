@@ -202,6 +202,10 @@ arb:
         journal_records: "السجلات المحاسبية" #?
         started_on: "بدأ ب" #?
         stopped_on: "تاريخ الاغلاق"
+      fixed_asset:
+        asset_account: "حساب الأصول الثابتة"
+        depreciation_period: "فترة الاستهلاك"
+        started_on: "ابدأ التحديث"
       fixed_asset_depreciation:
         asset_amount: "قيمة للمساءلة"
       incoming_payment: #?
@@ -261,6 +265,9 @@ arb:
         children: "عقد فرعية" #?
         created_at: "تم انشائه في" #?
         nature: "الطبيعي" #?
+      loan:
+        ongoing_at: "جمع الأموال في"
+        started_on: "بدأ سداد أول يوم"
       mandate: #?
         company_id: "الشركة" #?
         created_at: "تم انشائه في" #?
@@ -811,6 +818,7 @@ arb:
       animal_group: "مجموعة الحيوانات"
       area: "المنطقة البريدية" #?
       attachment: "مرفق"
+      bank_guarantee_account: "حساب الضمان المصرفي"
       bank_statement: "بيان الحساب المصرفي"
       bank_statement_item: "الصف بيان البنك"
       bioproduct: "المنتج تعيش"
@@ -884,7 +892,9 @@ arb:
       inspection: "تصنيف المنتجات"
       inspection_calibration: "عيار التفتيش"
       inspection_point: "الاختيار تصنيف المنتجات"
+      insurance_account: "حساب التأمين"
       integration: "دمج"
+      interest_account: "حساب الفائدة"
       intervention: "تدخل"
       intervention_agent: "وكيل تدخل"
       intervention_doer: "التدخل الفاعل"
@@ -912,6 +922,7 @@ arb:
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
       loan: "قرض"
+      loan_account: "حساب القرض"
       loan_repayment: "سد الدين"
       mandate: "التفويض" #?
       manure_management_plan: "خطة إدارة السماد"
@@ -1036,6 +1047,7 @@ arb:
     account_name: "حسابات المحاسب"
     account_number: "رقم الحساب"
     accountable: "مسؤول"
+    accountable_repayments_started_on: "بدأت السداد للمساءلة على"
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
     accounts: "الحسابات" #?
@@ -1095,6 +1107,8 @@ arb:
     arguments: "الحجج"
     arrived_at: "وصل يوم" #?
     assembly: "جمعية"
+    asset_account: "حساب الأصول"
+    asset_exists: "وجود الأصول"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
     attachments: "مرفقات"
     attorney: "الوكيل" #?
@@ -1123,6 +1137,9 @@ arb:
     bank_agency_code: "كود كالة البنك"
     bank_check_number: "عدد شيك مصرفي"
     bank_code: "الرمز المصرفي"
+    bank_guarantee_account: "حساب الضمان المصرفي"
+    bank_guarantee_amount: "قيمة الكفالة البنكية"
+    bank_guarantees_loans: "قروض بضمانات بنكية"
     bank_identifier_code: "الرمز التعريفي للبنك"
     bank_journals: "دفاتر يومية مصرفية" #?
     bank_name: "اسم البنك"
@@ -1196,6 +1213,7 @@ arb:
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
     closed_on: "تم إغلاقه"
+    closure_journal: "مجلة إغلاق"
     clusters_work_number: "مجموعات العمل رقم"
     code: "الرمز"
     code2: "الرمز الثاني" #?
@@ -1366,9 +1384,11 @@ arb:
     deposits: "اقتطاعات البنك"
     depreciable: "للاستهلاك"
     depreciable_amount: "قيمة الاستهلاك"
+    depreciable_product: "المنتج للاستهلاك"
     depreciated_amount: "كمية المستهلكة"
     depreciation_method: "طريقة الاستهلاك"
     depreciation_percentage: "نسبة الاستهلاك"
+    depreciation_period: "فترة الاستهلاك"
     depreciations: "انخفاض قيمة"
     depth: "عمق"
     derivative_of: "مشتق من"
@@ -1532,6 +1552,7 @@ arb:
     for_sales: "منتجات البيع" #?
     format: "التصميم"
     formats: "صيغ"
+    forward_journal: "حمل مجلة إلى الأمام"
     france_maaid: "فرنسا maaid"
     frequency: "تردد"
     frozen_indicators_list: "قائمة مؤشرات المجمدة"
@@ -1621,6 +1642,7 @@ arb:
     initial_number: "العدد الأولي"
     initial_owner: "صاحب الأولي"
     initial_population: "السكان الأولي"
+    initial_releasing_amount: "كمية الإفراج الأولي"
     initial_shape: "الشكل الأولي"
     initialization_vectors: "ناقلات التهيئة"
     initiated_on: "بدأت يوم"
@@ -2230,6 +2252,8 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
+    scrapped_journal_entry: "دخول مجلة ملغى"
+    scrapped_on: "ألغت يوم"
     season: "موسمية"
     # seasons: "Seasonalities"
     second_building: "موقع تخزين الوصول" #?
@@ -2272,6 +2296,8 @@ arb:
     size_value: "قيمة حجم"
     soil_nature: "نوع التربة"
     soil_production: "إنتاج التربة"
+    sold_journal_entry: "دخول مجلة تباع"
+    sold_on: "تباع في"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     source_product: "مصدر المنتج"
@@ -2446,6 +2472,7 @@ arb:
     usage_limit_nature: "المستخدمة من قبل نوع"
     usage_limit_on: "التي يستخدمها على"
     usages: "الأعراف"
+    use_bank_guarantee: "ضمان بنكي"
     use_countings: "استخدام فرزان"
     use_grading_calibre: "استخدام عيار الدرجات" #?
     use_gradings: "استخدام الى التصنيف"
@@ -2753,6 +2780,20 @@ arb:
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
+    fixed_asset:
+      # bookkeep_exceptionnal_scrapped_assets: "[%{resource} %{number}] Exceptionnal depreciation of %{name}"
+      # bookkeep_exit_assets: "[%{resource} %{number}] Scrapped of %{name}"
+      # bookkeep_in_sold_assets: "[%{resource} %{number}] Sold of %{name}"
+      # bookkeep_in_use_assets: "[%{resource} %{number}] In use of %{name}"
+      state_machine:
+        states:
+          draft: "مشروع"
+          in_use: "في الاستخدام"
+          scrapped: "ألغت"
+          sold: "تم البيع"
+    fixed_asset_depreciation:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
+      # bookkeep_partial: "[%{resource} %{number}] Partial depreciation of %{name} (%{position}/%{total})"
     gap:
       # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
@@ -2837,6 +2878,12 @@ arb:
       reflections: "الجداول المرتبطة"
     loan:
       # bookkeep: "[%{resource} %{name}] Fund reception"
+      # bookkeep_guarantee_payment: "[%{resource} %{name}] Guarantee payment"
+      state_machine:
+        states:
+          draft: "مشروع"
+          ongoing: "جاري التنفيذ"
+          repaid: "سداد"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     meeting_nature: #?

@@ -18,7 +18,9 @@
 
 module Backend
   class JournalEntriesController < Backend::BaseController
-    manage_restfully only: [:show, :destroy]
+    manage_restfully only: %i[show destroy]
+
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
     unroll
 
@@ -46,6 +48,7 @@ module Backend
       # t.column :number, through: :account, url: true
       # t.column :name, through: :account, url: true
       # t.column :number, through: :bank_statement, url: true, hidden: true
+      t.column :letter, through: :journal_entry
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :debit,  currency: true, hidden: true
@@ -60,6 +63,22 @@ module Backend
 
     def index
       redirect_to controller: :journals, action: :index
+    end
+
+    def show
+      return unless @journal_entry = find_and_check
+      t3e @journal_entry
+      respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
+                                   include: [
+                                     { financial_year: {} },
+                                     { journal: {} },
+                                     { resource: {} },
+                                     { bank_statements: {} },
+                                     { creator: {} },
+                                     { updater: {} },
+                                     { items: { include: %i[account tax tax_declaration_item] } }
+                                   ],
+                                   procs: proc { |options| options[:builder].tag!(:url, backend_journal_entry_url(@journal_entry)) })
     end
 
     def new
@@ -107,7 +126,7 @@ module Backend
         return
       end
       notify_global_errors
-      t3e @journal_entry.journal.attributes
+      t3e @journal_entry.journal.attributes if @journal_entry.journal
     end
 
     def edit
@@ -127,7 +146,7 @@ module Backend
 
     def currency_state
       state = {}
-      checked_on = Date.parse(params[:on] || Time.zone.today)
+      checked_on = params[:on] ? Date.parse(params[:on]) : Time.zone.today
       financial_year = FinancialYear.on(checked_on)
       state[:from] = params[:from]
       state[:to] = financial_year.currency
@@ -140,9 +159,8 @@ module Backend
     end
 
     def toggle_autocompletion
-      set_preference = params.require(:autocompletion)
-      choice = (set_preference == 'true')
-      return unless Preference.set!(:entry_autocompletion, choice)
+      choice = (params[:autocompletion] == 'true')
+      return unless Preference.set!(:entry_autocompletion, choice, :boolean)
       respond_to do |format|
         format.json { render json: { status: :success, preference: choice } }
       end
@@ -151,7 +169,7 @@ module Backend
     protected
 
     def permitted_params
-      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: [:id, :name, :account_id, :real_debit, :real_credit, :activity_budget_id, :team_id, :_destroy])
+      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name account_id real_debit real_credit activity_budget_id team_id _destroy])
     end
 
     def notify_global_errors

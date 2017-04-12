@@ -6,7 +6,7 @@ module Calculus
       @interests  = options[:interests] || {}
       @insurances = options[:insurances] || {}
       @period = options[:period] || 1
-      @length = options[:length] || :year
+      @length = options[:length] || 1.year
       @precision = options[:precision] || 2
       @shift = options[:shift] || 0
       @shift_method = options[:shift_method] || :immediate_payment
@@ -18,11 +18,11 @@ module Calculus
       array = send("compute_#{repayment_method}_repayments")
       array.last[:base_amount] += array.last[:remaining_amount]
       array.last[:remaining_amount] = 0.0
-      due_on = @started_on + 1.month
+      due_on = @started_on # why ? + 1.month
       array.each_with_index do |r, index|
         r[:due_on] = due_on
         r[:position] = index + 1
-        due_on += 1.send(@length)
+        due_on += @length
       end
       array
     end

@@ -159,9 +159,14 @@ fra:
         payment: "Encaissements"
     fixed_asset:
       depreciation_method:
-        graduated: "Dégressive" #?
         linear: "Linéaire"
+        none: "Aucune"
+        regressive: "Dégressive"
         simplified_linear: "Linéaire simplifiée"
+      depreciation_period:
+        monthly: "Mensuelle"
+        quarterly: "Trimestrielle"
+        yearly: "Annuelle"
     gap:
       direction:
         loss: "Perte"
@@ -234,6 +239,8 @@ fra:
       nature:
         bank: "Banque"
         cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
         sales: "Ventes"
@@ -259,6 +266,8 @@ fra:
         constant_rate: "Pourcentage constant"
       repayment_period:
         month: "Mois"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Année"
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"

@@ -2528,7 +2528,17 @@ CREATE TABLE fixed_assets (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    product_id integer,
+    state character varying,
+    depreciation_period character varying,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    asset_account_id integer,
+    sold_on date,
+    scrapped_on date,
+    sold_journal_entry_id integer,
+    scrapped_journal_entry_id integer
 );
 
 
@@ -3812,7 +3822,9 @@ CREATE TABLE loan_repayments (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    accountable boolean DEFAULT false NOT NULL,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -3862,7 +3874,18 @@ CREATE TABLE loans (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    insurance_repayment_method character varying
+    insurance_repayment_method character varying,
+    state character varying,
+    ongoing_at timestamp without time zone,
+    repaid_at timestamp without time zone,
+    loan_account_id integer,
+    interest_account_id integer,
+    insurance_account_id integer,
+    use_bank_guarantee boolean,
+    bank_guarantee_account_id integer,
+    bank_guarantee_amount integer,
+    accountable_repayments_started_on date,
+    initial_releasing_amount boolean DEFAULT false NOT NULL
 );
 
 
@@ -5492,7 +5515,10 @@ CREATE TABLE purchase_items (
     fixed boolean DEFAULT false NOT NULL,
     reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    depreciable_product_id integer,
+    fixed_asset_id integer,
+    preexisting_asset boolean
 );
 
 
@@ -11170,6 +11196,13 @@ CREATE INDEX index_fixed_assets_on_allocation_account_id ON fixed_assets USING b
 
 
 --
+-- Name: index_fixed_assets_on_asset_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_asset_account_id ON fixed_assets USING btree (asset_account_id);
+
+
+--
 -- Name: index_fixed_assets_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11191,10 +11224,24 @@ CREATE INDEX index_fixed_assets_on_expenses_account_id ON fixed_assets USING btr
 
 
 --
+-- Name: index_fixed_assets_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_journal_entry_id ON fixed_assets USING btree (journal_entry_id);
+
+
+--
 -- Name: index_fixed_assets_on_journal_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_fixed_assets_on_journal_id ON fixed_assets USING btree (journal_id);
+
+
+--
+-- Name: index_fixed_assets_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_product_id ON fixed_assets USING btree (product_id);
 
 
 --
@@ -11223,6 +11270,20 @@ CREATE INDEX index_fixed_assets_on_sale_id ON fixed_assets USING btree (sale_id)
 --
 
 CREATE INDEX index_fixed_assets_on_sale_item_id ON fixed_assets USING btree (sale_item_id);
+
+
+--
+-- Name: index_fixed_assets_on_scrapped_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_scrapped_journal_entry_id ON fixed_assets USING btree (scrapped_journal_entry_id);
+
+
+--
+-- Name: index_fixed_assets_on_sold_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_fixed_assets_on_sold_journal_entry_id ON fixed_assets USING btree (sold_journal_entry_id);
 
 
 --
@@ -15062,6 +15123,20 @@ CREATE INDEX index_purchase_items_on_creator_id ON purchase_items USING btree (c
 
 
 --
+-- Name: index_purchase_items_on_depreciable_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_depreciable_product_id ON purchase_items USING btree (depreciable_product_id);
+
+
+--
+-- Name: index_purchase_items_on_fixed_asset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_fixed_asset_id ON purchase_items USING btree (fixed_asset_id);
+
+
+--
 -- Name: index_purchase_items_on_purchase_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17045,5 +17120,13 @@ INSERT INTO schema_migrations (version) VALUES ('20170312183557');
 
 INSERT INTO schema_migrations (version) VALUES ('20170313090000');
 
+INSERT INTO schema_migrations (version) VALUES ('20170315221501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170316085711');
+
+INSERT INTO schema_migrations (version) VALUES ('20170328125742');
+
 INSERT INTO schema_migrations (version) VALUES ('20170329094408');
+
+INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 

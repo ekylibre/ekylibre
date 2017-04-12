@@ -1,5 +1,14 @@
 jpn:
   procedure_handlers:
+    grains_area_density: "穀物面積密度"
+    grains_area_density_in_thousand_per_hectare: "ヘクタール当たり千中の粒子の面積密度"
+    grains_count: "穀物・カウント"
+    mass_area_density: "質量面積密度"
+    mass_area_density_in_ton_per_hectare: "ヘクタール当たりトンで質量面積密度"
+    net_mass: "ネットマス"
+    seedling_area_density: "苗面積密度"
+    seedling_area_density_in_thousand_per_hectare: "ヘクタール当たり千における苗面積密度"
+    seedling_count: "苗数"
     stakes_by_hectare: "ヘクタールによるステークス"
   procedure_killable_parameters:
     is_cultivation_completely_destroyed_by_intervention: "栽培は完全に介入によって破壊されていますか？"

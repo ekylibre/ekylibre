@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update foliar spray product nature">
+  <item-change item="product_natures#foliar_spray" category="fertilizer"/>
+</migration>

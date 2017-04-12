@@ -17,10 +17,6 @@
       = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
-    - if resource.fixed_asset
-      = product_info :fixed_asset do |fixed_asset|
-        %i.picto{class: "picto-money"}
-        = link_to(fixed_asset.number, controller: :fixed_assets, action: :show, id: fixed_asset.id)
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
       %span.value= lights(resource.status)
@@ -61,6 +57,11 @@
     - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
       = cobble_toolbar do |t|
         = cobble_list(:issues)
+
+  - if resource.fixed_assets.any?
+    - c.cobble(:fixed_assets, title: :x_fixed_assets.tl(count: resource.fixed_assets.count)) do
+      = cobble_toolbar do |t|
+        = cobble_list(:fixed_assets)
 
   - time_spent_by_activity(resource, cobbler: c)
 

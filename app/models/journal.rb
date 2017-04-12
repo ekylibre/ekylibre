@@ -53,7 +53,7 @@ class Journal < Ekylibre::Record::Base
   has_many :incoming_payment_modes, foreign_key: :depositables_journal_id, dependent: :restrict_with_exception
   has_many :purchase_natures, dependent: :restrict_with_exception
   has_many :sale_natures, dependent: :restrict_with_exception
-  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
+  enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
@@ -78,17 +78,20 @@ class Journal < Ekylibre::Record::Base
   scope :opened_on, lambda { |at|
     where(arel_table[:closed_on].lteq(at))
   }
-  scope :sales,     -> { where(nature: 'sales') }
-  scope :purchases, -> { where(nature: 'purchases') }
-  scope :banks,     -> { where(nature: 'bank') }
-  scope :forwards,  -> { where(nature: 'forward') }
-  scope :various,   -> { where(nature: 'various') }
-  scope :cashes,    -> { where(nature: 'cashes') }
-  scope :stocks,    -> { where(nature: 'stocks') }
-  scope :banks_or_cashes, -> { where(nature: %w(cashes bank)) }
+  scope :sales,           -> { where(nature: 'sales') }
+  scope :purchases,       -> { where(nature: 'purchases') }
+  scope :banks,           -> { where(nature: 'bank') }
+  scope :closures,        -> { where(nature: 'closure') }
+  scope :forwards,        -> { where(nature: 'forward') }
+  scope :various,         -> { where(nature: 'various') }
+  scope :cashes,          -> { where(nature: 'cash') }
+  scope :stocks,          -> { where(nature: 'stocks') }
+  scope :fixed_assets,    -> { where(nature: 'fixed_asset') }
+  scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
 
   before_validation(on: :create) do
-    if year = FinancialYear.first_of_all
+    self.closed_on ||= FinancialYear.last_closure
+    if (year = FinancialYear.first_of_all)
       self.closed_on ||= (year.started_on - 1).end_of_day
     end
     self.closed_on ||= Time.new(1899, 12, 31).end_of_month
@@ -110,13 +113,16 @@ class Journal < Ekylibre::Record::Base
   end
 
   validate do
+    last_closure = FinancialYear.last_closure
+    if last_closure.present?
+      if self.closed_on < last_closure
+        errors.add(:closed_on, :posterior, to: last_closure.l)
+      end
+    end
     if self.closed_on && FinancialYear.find_by(started_on: self.closed_on + 1).blank?
       if self.closed_on != self.closed_on.end_of_month
         errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l)
       end
-    end
-    unless code.blank?
-      errors.add(:code, :taken) if others.find_by(code: code.to_s[0..3])
     end
     if persisted? && accountant_id_changed?
       if accountant_has_financial_year_with_opened_exchange?(accountant)
@@ -198,6 +204,18 @@ class Journal < Ekylibre::Record::Base
       journal || Journal.create!(attributes)
     end
 
+    def create_one!(nature, currency, attributes = {})
+      attributes[:name] = "enumerize.journal.nature.#{nature}".t + ' ' + currency
+      if Journal.find_by(name: attributes[:name])
+        attributes[:name] += ' 2'
+        attributes[:name].succ! while Journal.find_by(name: attributes[:name])
+      end
+      attributes[:code] ||= '??'
+      attributes[:nature] = nature
+      attributes[:currency] = currency
+      Journal.create!(attributes)
+    end
+
     # Load default journal if not exist
     def load_defaults
       nature.values.each do |nature|
@@ -215,19 +233,18 @@ class Journal < Ekylibre::Record::Base
   end
 
   # Test if journal is closable
-  def closable?(closed_on = nil)
+  def closable?(new_closed_on = nil)
+    new_closed_on ||= (Time.zone.today << 1).end_of_month
     return false if booked_for_accountant?
-    closed_on ||= Time.zone.today
-    self.class.where(id: id).update_all(closed_on: Date.civil(1900, 12, 31)) if self.closed_on.nil?
-    reload
-    return false unless (closed_on << 1).end_of_month > self.closed_on
+    return false if new_closed_on.end_of_month != new_closed_on
+    return false if new_closed_on < self.closed_on
     true
   end
 
   def closures(noticed_on = nil)
     noticed_on ||= Time.zone.today
     array = []
-    date = (self.closed_on + 1).end_of_month
+    date = [(self.closed_on + 1), FinancialYear.last_closure].compact.max.end_of_month
     while date < noticed_on
       array << date
       date = (date + 1).end_of_month
@@ -236,13 +253,17 @@ class Journal < Ekylibre::Record::Base
   end
 
   # this method closes a journal.
-  def close(closed_on)
-    errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add(:closed_on, :draft_entry_items, closed_on: closed_on.l) if entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(state: :draft).where(printed_on: (self.closed_on + 1)..closed_on).any?
+  def close(new_closed_on)
+    if new_closed_on != new_closed_on.end_of_month
+      errors.add(:closed_on, :end_of_month, closed_on: new_closed_on.l)
+    end
+    if entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(state: :draft).where(printed_on: (self.closed_on + 1)..new_closed_on).any?
+      errors.add(:closed_on, :draft_entry_items, closed_on: new_closed_on.l)
+    end
     return false unless errors.empty?
     ActiveRecord::Base.transaction do
-      entries.where(printed_on: (self.closed_on + 1)..closed_on).find_each(&:close)
-      update_column(:closed_on, closed_on)
+      entries.where(printed_on: (self.closed_on + 1)..new_closed_on).find_each(&:close)
+      update_column(:closed_on, new_closed_on)
     end
     true
   end
@@ -251,8 +272,8 @@ class Journal < Ekylibre::Record::Base
   def close!(closed_on)
     finished = false
     ActiveRecord::Base.transaction do
-      entries.where(printed_on: (self.closed_on + 1)..closed_on, state: :draft).find_each(&:confirm)
-      entries.where(printed_on: (self.closed_on + 1)..closed_on, state: :confirmed).find_each(&:close)
+      JournalEntryItem.where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
+      JournalEntry.where('printed_on < ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
       finished = true
     end
@@ -400,7 +421,8 @@ class Journal < Ekylibre::Record::Base
 
     journal_entries_states = ' AND (' + JournalEntry.state_condition(options[:states], journal_entries) + ')'
 
-    account_range = ' AND (' + Account.range_condition(options[:accounts], accounts) + ')'
+    account_range_condition = Account.range_condition(options[:accounts], accounts)
+    account_range = ' AND (' + account_range_condition + ')' if account_range_condition
 
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
     centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
@@ -413,7 +435,7 @@ class Journal < Ekylibre::Record::Base
     query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
     query << from_where
     query << journal_entries_states
-    query << account_range
+    query << account_range unless account_range.nil?
     items += conn.select_rows(query)
 
     # Sub-totals
@@ -422,7 +444,7 @@ class Journal < Ekylibre::Record::Base
       query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
       query << from_where
       query << journal_entries_states
-      query << account_range
+      query << account_range unless account_range.nil?
       query << " AND LENGTH(#{accounts}.number) >= #{level}"
       query << ' GROUP BY subtotal'
       items += conn.select_rows(query)
@@ -432,7 +454,7 @@ class Journal < Ekylibre::Record::Base
     query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
     query << from_where
     query << journal_entries_states
-    query << account_range
+    query << account_range unless account_range.nil?
     query << " AND NOT #{centralized}" unless centralize.empty?
     query << " GROUP BY #{accounts}.id, #{accounts}.number"
     query << " ORDER BY #{accounts}.number"
@@ -443,7 +465,7 @@ class Journal < Ekylibre::Record::Base
       query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
       query << from_where
       query << journal_entries_states
-      query << account_range
+      query << account_range unless account_range.nil?
       query << " AND #{accounts}.number LIKE #{conn.quote(prefix + '%')}"
       query << ' GROUP BY centralize'
       items += conn.select_rows(query)
