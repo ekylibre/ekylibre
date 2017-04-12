@@ -4,7 +4,7 @@
     # operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
 
 
-    production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_sales)
+    net_production_sales = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_production_sales)
     production_purchases = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :production_purchases)
     added_value = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :added_value)
     operating_margin = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :operating_margin)
@@ -13,10 +13,10 @@
     net_income = @financial_year.sum_entry_items_with_mandatory_line(:ratio, :net_income)
 
   = infos do
-    - if production_sales
+    - if net_production_sales
       .big-info
-        %span.title= :product_value.tl(financial_year: @financial_year.name)
-        %span.value= production_sales.l(currency: Preference[:currency])
+        %span.title= :net_production_sales.tl(financial_year: @financial_year.name)
+        %span.value= net_production_sales.l(currency: Preference[:currency])
     - if operating_margin
       .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
         %span.title= :operating_margin.tl(financial_year: @financial_year.name)

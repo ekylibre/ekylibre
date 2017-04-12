@@ -20,6 +20,8 @@ module Backend
   class JournalEntriesController < Backend::BaseController
     manage_restfully only: %i[show destroy]
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     unroll
 
     list(children: :items, order: { created_at: :desc }, per_page: 10) do |t|
@@ -63,14 +65,21 @@ module Backend
       redirect_to controller: :journals, action: :index
     end
 
-    # def show
-    #  return unless @journal_entry = find_and_check
-    # respond_with(@journal_entry, methods: [],
-    #                              include: [])
-    #  format.html do
-    #    t3e @journal_entry.attributes.or_else({})
-    #  end
-    # end
+    def show
+      return unless @journal_entry = find_and_check
+      t3e @journal_entry
+      respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
+                                   include: [
+                                     { financial_year: {} },
+                                     { journal: {} },
+                                     { resource: {} },
+                                     { bank_statements: {} },
+                                     { creator: {} },
+                                     { updater: {} },
+                                     { items: { include: %i[account tax tax_declaration_item] } }
+                                   ],
+                                   procs: proc { |options| options[:builder].tag!(:url, backend_journal_entry_url(@journal_entry)) })
+    end
 
     def new
       if params[:duplicate_of]
