@@ -114,8 +114,8 @@ arb:
         text: "نص"
     debt_transfer:
       nature:
-        # purchase_regularization: "Purchase regularization"
-        # sale_regularization: "Sale regularization"
+        purchase_regularization: "تنظيم شراء"
+        sale_regularization: "بيع تسوية"
     delivery:
       mode:
         third: "ثلث"
@@ -469,7 +469,7 @@ arb:
         animals: "الحيوانات"
         cash_transfers: "التحويلات النقدية"
         contracts: "عقود"
-        # debt_transfers: "Debt transfers"
+        debt_transfers: "نقل الديون"
         deliveries: "التسليم"
         deposits: "الودائع"
         documents: "وثائق"

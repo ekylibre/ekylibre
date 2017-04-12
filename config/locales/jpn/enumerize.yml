@@ -114,8 +114,8 @@ jpn:
         text: "テキスト"
     debt_transfer:
       nature:
-        # purchase_regularization: "Purchase regularization"
-        # sale_regularization: "Sale regularization"
+        purchase_regularization: "購入正則"
+        sale_regularization: "販売正則"
     delivery:
       mode:
         third: "三番"
@@ -470,7 +470,7 @@ jpn:
         animals: "動物"
         cash_transfers: "現金移転"
         contracts: "契約"
-        # debt_transfers: "Debt transfers"
+        debt_transfers: "債務転送"
         deliveries: "出荷"
         deposits: "預金"
         documents: "ドキュメント"

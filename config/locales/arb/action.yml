@@ -174,8 +174,8 @@ arb:
       tools: "أدوات لوحة القيادة"
       trade: "لوحة أجهزة القياس التجارة"
     backend/debt_transfers:
-      # index: "Debt transfers"
-      # new: "New debt transfer"
+      index: "نقل الديون"
+      new: "نقل ديون جديدة"
       # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "تعديل المهلة : %{name}" #?

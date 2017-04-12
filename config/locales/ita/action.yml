@@ -154,8 +154,8 @@ ita:
       tools: "Strumenti cruscotto"
       trade: "commercio cruscotto"
     backend/debt_transfers:
-      # index: "Debt transfers"
-      # new: "New debt transfer"
+      index: "Trasferimenti di debito"
+      new: "Trasferimento nuovo debito"
       # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"

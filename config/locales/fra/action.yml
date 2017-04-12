@@ -170,7 +170,7 @@ fra:
       trade: "Tableau de bord des achats et ventes"
     backend/debt_transfers:
       index: "Transferts de dettes"
-      # new: "New debt transfer"
+      new: "Nouveau transfert de la dette"
       show: "Transfert de dettes: %{number}"
     backend/deliveries:
       edit: "Modifier la livraison %{number}"

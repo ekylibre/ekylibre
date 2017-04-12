@@ -114,8 +114,8 @@ deu:
         # text: "Text"
     debt_transfer:
       nature:
-        # purchase_regularization: "Purchase regularization"
-        # sale_regularization: "Sale regularization"
+        purchase_regularization: "Kauf Regularisierung"
+        sale_regularization: "Verkauf Regularisierung"
     delivery:
       mode:
         third: "Dritte"
@@ -470,7 +470,7 @@ deu:
         animals: "Tiere"
         cash_transfers: "Geldtransfers"
         contracts: "Verträge"
-        # debt_transfers: "Debt transfers"
+        debt_transfers: "Schuldentransfers"
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"

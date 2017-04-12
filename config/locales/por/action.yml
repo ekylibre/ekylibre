@@ -159,8 +159,8 @@ por:
       tools: "Dashboard ferramentas"
       trade: "Dashboard de comercializaçaõ"
     backend/debt_transfers:
-      # index: "Debt transfers"
-      # new: "New debt transfer"
+      index: "Transferências de dívida"
+      new: "Transferência de novas dívidas"
       # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
