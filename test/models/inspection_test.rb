@@ -46,8 +46,8 @@ class InspectionTest < ActiveSupport::TestCase
   test_model_actions
 
   SCALES_ATTRIBUTES = [
-    [:diameter, :millimeter],
-    [:height, :centimeter]
+    %i[diameter millimeter],
+    %i[height centimeter]
   ].freeze
 
   SCALE_NATURES_ATTRIBUTES = [
@@ -96,7 +96,7 @@ class InspectionTest < ActiveSupport::TestCase
     ]
   ].freeze
 
-  DISEASES    = %w(Fusarium Mouche Pythium Rhizoctonia Sclérotinia).freeze
+  DISEASES    = %w[Fusarium Mouche Pythium Rhizoctonia Sclérotinia].freeze
   DEFORMITIES = [
     'Gel',
     'Défaut',
@@ -223,7 +223,7 @@ class InspectionTest < ActiveSupport::TestCase
     assert_equal 2, inspection.position
   end
 
-  [:items_count, :net_mass].each do |dimension|
+  %i[items_count net_mass].each do |dimension|
     test "#{dimension} - quantity is correctly computed" do
       expected = { items_count: 84.in(:unity), net_mass: 3.625.in(:kilogram) }
 

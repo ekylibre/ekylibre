@@ -151,6 +151,14 @@ module Procedo
         end
 
         def to_hash
+          hash = to_attributes
+          hash[:errors] = {}
+          if reference.display_status.to_s.to_sym == :miscibility
+            hash[:errors][:miscibility] = true unless product? && product.france_maaid
+          end
+        end
+
+        def to_attributes
           hash = super
           hash[:product_id] = product_id if product?
           hash[:working_zone] = @working_zone.to_json if working_zone?
@@ -159,14 +167,15 @@ module Procedo
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
-          reference.attributes.select(&:compute_filter?).each do |attribute|
+          reference.attributes.each do |attribute|
+            next unless attribute.compute_filter?
             hash[:attributes] ||= {}
-            hash[:attributes][attribute.name] ||= attribute.properties_hash
+            hash[:attributes][attribute.name] ||= {}
+            hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
           end
           hash[:assembly_id] = assembly_id if assembly?
           hash[:component_id] = component_id if component?
           hash[:new_container_id] = new_container_id if new_container?
-          hash[:dynascope] = reference.scope_hash
           hash
         end
 

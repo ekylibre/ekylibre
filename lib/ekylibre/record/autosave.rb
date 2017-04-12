@@ -8,7 +8,7 @@ module Ekylibre
       module ClassMethods
         def autosave(*reflections_list)
           code = ''
-          options = { callbacks: [:after_save, :after_destroy] }
+          options = { callbacks: %i[after_save after_destroy] }
           options.merge(reflections_list.delete_at(-1)) if reflections_list.last.is_a? Hash
 
           method_name = options[:method] || 'autosave_' + reflections_list.join('_and_')

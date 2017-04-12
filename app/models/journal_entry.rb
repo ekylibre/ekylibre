@@ -92,7 +92,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :real_currency, presence: true
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
-  validates :number, uniqueness: { scope: [:journal_id, :financial_year_id] }
+  validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -108,6 +108,7 @@ class JournalEntry < Ekylibre::Record::Base
       transition draft: :confirmed, if: :balanced?
     end
     event :close do
+      transition draft: :closed, if: :balanced?
       transition confirmed: :closed, if: :balanced?
     end
     #     event :reopen do
@@ -173,18 +174,12 @@ class JournalEntry < Ekylibre::Record::Base
       self.currency = financial_year.currency if financial_year
     end
     if real_currency && financial_year
-      if real_currency == financial_year.currency
-        self.real_currency_rate = 1
-      else
-        # TODO: Find a better way to manage currency rates!
-        # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        if real_currency_rate.blank? || real_currency_rate.zero?
-          self.real_currency_rate = I18n.currency_rate(real_currency, currency)
-        end
-      end
+      self.real_currency_rate = 1 if real_currency == financial_year.currency
     else
       self.real_currency_rate = 1
     end
+
+    items.to_a.each(&:compute)
 
     self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.real_debit  || 0) }
     self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.real_credit || 0) }
@@ -202,7 +197,7 @@ class JournalEntry < Ekylibre::Record::Base
 
       error_sum = error_sum.abs
 
-      even_items = items.select { |item| !item.send(column).zero? }
+      even_items = items.reject { |item| item.send(column).zero? }
       proratas = even_items.map { |item| [item, item.send(column) / send(column)] }.to_h
       proratas.reduce(error_sum) do |left, (item, prorata)|
         error_to_update = [(error_sum * prorata).ceil / magnitude.to_f, left].min
@@ -262,7 +257,15 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   after_save do
-    JournalEntryItem.where(entry_id: id).update_all(state: self.state, journal_id: journal_id, financial_year_id: financial_year_id, printed_on: printed_on, entry_number: self.number, real_currency: real_currency, real_currency_rate: real_currency_rate)
+    JournalEntryItem.where(entry_id: id).update_all(
+      state: self.state,
+      journal_id: journal_id,
+      financial_year_id: financial_year_id,
+      printed_on: printed_on,
+      entry_number: self.number,
+      real_currency: real_currency,
+      real_currency_rate: real_currency_rate
+    )
     regularizations.each(&:save)
   end
 
@@ -309,12 +312,15 @@ class JournalEntry < Ekylibre::Record::Base
     bank_statements.first.number if bank_statements.first
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country_code
-    resource.third && resource.third.country
+    resource && resource.respond_to?(:third) &&
+      resource.third && resource.third.country
   end
 
+  # FIXME: Nothing to do here. What's the meaning?
   def entity_country
-    resource.third && resource.third.country && resource.third.country.l
+    entity_country_code && resource.third.country.l
   end
 
   # determines if the entry is balanced or not.
@@ -342,6 +348,7 @@ class JournalEntry < Ekylibre::Record::Base
   # Add a entry which cancel the entry
   # Create counter-entry_items
   def cancel
+    return nil unless useful_items.any?
     ActiveRecord::Base.transaction do
       reconcilable_accounts = []
       list = []

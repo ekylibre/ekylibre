@@ -71,12 +71,12 @@ module Viniteca
 
           # vine indicators
           # plant_life_state, woodstock_variety, certification, plants_count, rows_interval, plants_interval
-          unless record.attributes['CODE_AOC'].blank?
+          if record.attributes['CODE_AOC'].present?
             code_aoc = record.attributes['CODE_AOC'].to_s.downcase
             plant.read!(:certification, certifications_transcode[code_aoc], at: initial_born_at) if code_aoc
           end
 
-          unless record.attributes['PORTE_GREF'].blank?
+          if record.attributes['PORTE_GREF'].present?
             porte_greffe = record.attributes['PORTE_GREF'].to_s.downcase
             plant.read!(:woodstock_variety, varieties_transcode[porte_greffe], at: initial_born_at) if porte_greffe
           end

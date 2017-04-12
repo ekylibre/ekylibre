@@ -1,9 +1,11 @@
 # coding: utf-8
+
 module Procedo
   module Engine
     # This module all functions accessible through formula language
     module Functions
       class << self
+
         def derives_from(value)
           value.blank? ? '(false)' : "derives from #{value}"
         end
@@ -32,6 +34,14 @@ module Procedo
           return settings.value if settings.respond_to?(:value)
           params = settings.parameters
           params.length > 1 ? params.map(&:value) : params.first && params.first.value
+        end
+
+        def miscibility(set)
+          products = set.map do |parameter|
+            next parameter.variant if parameter.respond_to? :variant
+            parameter.product
+          end
+          PhytosanitaryMiscibility.new(products.compact).validity
         end
 
         # Test if population counting is as specified for given product
@@ -149,9 +159,10 @@ module Procedo
           raise Procedo::Errors::FailedFunctionCall
         end
 
-        def members_count(group)
+        def members_count(set)
+          group = (set.is_a?(Procedo::Engine::Set) ? first_product_of(set) : set)
           if group.present?
-            value = group.actor.members_at(group.now).count.to_i
+            value = group.members_at.count.to_i
             return (value > 0 ? value : 0)
           else
             return 0

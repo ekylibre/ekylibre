@@ -32,23 +32,35 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
+
+# Integration model is here to save connection parameters in (encrypted) store
+# to keep them reusable when necessary.
 class Integration < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  delegate :auth_type, :check_connection, :integration_name, to: :integration_type
+  delegate :authentication_mode, :check_connection, :integration_name, to: :integration_type
   composed_of :parameters,
               class_name: 'ActionIntegration::Parameters',
-              mapping: [%w(ciphered_parameters ciphered), %w(initialization_vectors ivs)],
+              mapping: [%w[ciphered_parameters ciphered], %w[initialization_vectors ivs]],
               converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do
-    check_connection attributes do |c|
-      c.redirect do
-        errors.add(:parameters, :check_redirected)
-      end
-      c.error do
-        errors.add(:parameters, :check_errored)
+    if integration_type
+      if authentication_mode == :check
+        check_connection attributes do |c|
+          c.redirect do
+            errors.add(:parameters, :check_redirected)
+          end
+          c.error do
+            errors.add(:parameters, :check_errored)
+          end
+        end
+      elsif authentication_mode == :check
+        list = parameters.keys.map(&:to_s)
+        unless parameters && !integration_type.parameters.detect { |p| list.include?(p.to_s) }
+          errors.add(:parameters, :check_errored)
+        end
       end
     end
   end
@@ -72,5 +84,9 @@ class Integration < Ekylibre::Record::Base
 
   def parameter_keys
     integration_type.parameters
+  end
+
+  def name
+    nature.to_s.camelize
   end
 end

@@ -15,6 +15,26 @@
       </group>
       <input name="plants" filter="is seedling and derives from plant and can grow">
         <handler name="population"/>
+        <handler indicator="net_mass" unit="ton"
+                 if="PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(ton)"/>
+        <handler indicator="seedling_area_density" unit="unity_per_square_meter"
+                 if="PRODUCT..items_count? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="((POPULATION / sum_working_zone_areas(land_parcel, :square_meter)) * 1000)"
+                 forward="((VALUE / 1000) * sum_working_zone_areas(land_parcel, :square_meter))"/>
+        <handler name="seedling_area_density_in_thousand_per_hectare" indicator="seedling_area_density" unit="thousand_per_hectare"
+                 if="PRODUCT..items_count? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="POPULATION / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="VALUE * sum_working_zone_areas(land_parcel, :hectare)"/>
+        <handler indicator="seedling_count" unit="thousand"
+                 if="PRODUCT..items_count?"
+                 backward="POPULATION * PRODUCT..items_count / 1000"
+                 forward="VALUE * 1000 / PRODUCT..items_count"/>
       </input>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <tool name="implanter_tool" filter="can implant" cardinality="*"/>

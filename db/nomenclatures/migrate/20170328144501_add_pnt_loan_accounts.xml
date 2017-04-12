@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add pnt loan accounts">
+  <item-change item="accounts#loans" fr_pcg82="164" pt_snc="25"/>
+  <item-change item="accounts#loans_interests" fr_pcg82="661" pt_snc="6615"/>
+</migration>

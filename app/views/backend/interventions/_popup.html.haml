@@ -1,0 +1,3 @@
+= toolbar do
+  = tool_to( :intervention.tl, {action: :new, controller: :interventions}, tool: 'new-intervention')
+  = tool_to( :issue.tl, {action: :new, controller: :issues, :target_id => product.id, :target_type => product.class.name}, tool: 'new-issue') 

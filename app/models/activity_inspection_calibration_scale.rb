@@ -38,7 +38,7 @@ class ActivityInspectionCalibrationScale < Ekylibre::Record::Base
            class_name: 'ActivityInspectionCalibrationNature',
            foreign_key: :scale_id, inverse_of: :scale, dependent: :destroy
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
-  refers_to :size_unit, -> { where(dimension: [:distance, :mass]) }, class_name: 'Unit'
+  refers_to :size_unit, -> { where(dimension: %i[distance mass]) }, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :activity, :size_indicator_name, :size_unit_name, presence: true

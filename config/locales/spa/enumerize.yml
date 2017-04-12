@@ -54,6 +54,20 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    animal:
+      birth_date_completeness:
+        full_date: "Fecha completa"
+        month_year: "Mes año"
+        year: "Año"
+      end_of_life_reason:
+        calculated_date: "Fecha calculada"
+        cutting_up: "Cortando"
+        death: "Muerte"
+        slaughter: "Sacrificio"
+      filiation_status:
+        certified: "Certificado"
+        uncertified: "Sin certificar"
+        unknown: "Desconocido"
     call_message:
       nature:
         incoming: "Entrante"
@@ -145,7 +159,13 @@ spa:
       depreciation_method:
         graduated: "Graduado" #?
         linear: "Lineal"
+        none: "Ninguna"
+        regressive: "Regresivo"
         simplified_linear: "Lineal simplificado"
+      depreciation_period:
+        monthly: "Mensual"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Pérdida"
@@ -225,6 +245,8 @@ spa:
       nature:
         bank: "Banco"
         cash: "Efectivo"
+        closure: "Cierre"
+        fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
         sales: "Ventas"
@@ -243,13 +265,15 @@ spa:
         string: "Cuerda"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "Sobre la base de capital inicial"
+        to_repay: "Basado en el capital dejó de reembolsar"
       repayment_method:
         constant_amount: "Cantidad constante"
         constant_rate: "Tasa constante"
       repayment_period:
         month: "Mes"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Año"
       shift_method:
         anatocism: "Anatocismo"
@@ -323,6 +347,15 @@ spa:
       nature:
         # exterior: "Exterior"
         # interior: "Interior"
+    product_movement:
+      description:
+        birth: "Nacimiento"
+        butchery: "Carnicería"
+        consumption: "Consumo"
+        death: "Muerte"
+        loan: "Préstamo"
+        purchase: "Compra"
+        sale: "Venta"
     product_nature:
       population_counting:
         # decimal: "Decimal"

@@ -17,7 +17,7 @@ module Ekylibre
           union = Charta.empty_geometry
           # FIXME: Quite bad, fix that for Arel
           find_each do |record|
-            union = record.send(column_name) unless column_name.blank?
+            union = record.send(column_name) if column_name.present?
           end
           union
         end
@@ -34,7 +34,7 @@ module Ekylibre
               self[col].blank? ? nil : Charta.new_geometry(self[col])
             end
 
-            unless [:point, :multi_point, :line_string, :multi_line_string].include?(options[:type])
+            unless %i[point multi_point line_string multi_line_string].include?(options[:type])
               define_method "#{col}_area" do |unit = nil|
                 return 0.in(unit || :square_meter) if send(col).nil?
                 if unit
@@ -162,7 +162,7 @@ module Ekylibre
             code << "  return [self.#{indicator}_x_min(options), -self.#{indicator}_y_max(options), self.#{indicator}_width(options), self.#{indicator}_height(options)]\n"
             code << "end\n"
 
-            for attr in [:x_min, :x_max, :y_min, :y_max, :area, :to_svg, :to_svg_path, :to_gml, :to_kml, :to_geojson, :to_text, :to_binary, :to_ewkt, :centroid, :point_on_surface]
+            for attr in %i[x_min x_max y_min y_max area to_svg to_svg_path to_gml to_kml to_geojson to_text to_binary to_ewkt centroid point_on_surface]
               code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
               code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
               code << "  geometry = Charta.new_geometry(reading.#{column})\n"

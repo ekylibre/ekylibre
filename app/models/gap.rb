@@ -42,17 +42,18 @@
 #
 
 class Gap < Ekylibre::Record::Base
-  enumerize :direction, in: [:profit, :loss], predicates: true
+  enumerize :direction, in: %i[profit loss], predicates: true
   refers_to :currency
   belongs_to :affair, inverse_of: :gaps
   belongs_to :entity
   belongs_to :journal_entry, dependent: :destroy
+  belongs_to :third, foreign_key: :entity_id, class_name: 'Entity' # alias for entity
   has_many :items, class_name: 'GapItem', inverse_of: :gap, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :currency, :direction, :entity, presence: true
+  validates :currency, :direction, :entity, :third, presence: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :printed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]

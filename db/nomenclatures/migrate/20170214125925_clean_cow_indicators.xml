@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Clean cow indicators">
+  <item-change item="product_natures#female_adult_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_young_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_adult_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_young_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+</migration>
+

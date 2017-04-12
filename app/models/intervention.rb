@@ -57,8 +57,8 @@ class Intervention < Ekylibre::Record::Base
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
-  enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
+  enumerize :nature, in: %i[request record], default: :record, predicates: true
+  enumerize :state, in: %i[in_progress done validated rejected], default: :done, predicates: true
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
@@ -145,7 +145,7 @@ class Intervention < Ekylibre::Record::Base
     params = args.extract_options!
     search_params = []
 
-    unless params[:q].blank?
+    if params[:q].present?
       procedures = Procedo.selection.select { |l, _n| l.downcase.include? params[:q].strip }.map { |_l, n| "'#{n}'" }.join(',')
 
       search_params << if procedures.empty?
@@ -155,15 +155,15 @@ class Intervention < Ekylibre::Record::Base
                       end
     end
 
-    unless params[:procedure_name].blank?
+    if params[:procedure_name].present?
       search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
     end
 
-    unless params[:product_id].blank?
+    if params[:product_id].present?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
-    unless params[:cultivable_zone_id].blank?
+    if params[:cultivable_zone_id].present?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM activity_productions_interventions INNER JOIN #{ActivityProduction.table_name} ON #{ActivityProduction.table_name}.id = activity_production_id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = '#{params[:cultivable_zone_id]}')"
     end
 
@@ -192,14 +192,14 @@ class Intervention < Ekylibre::Record::Base
     end
 
     # CAUTION: params[:nature] is not used as in controller list filter
-    unless params[:nature].blank?
+    if params[:nature].present?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
       if params[:nature] == :request
         search_params << "#{Intervention.table_name}.state != '#{Intervention.state.rejected}' AND #{Intervention.table_name}.id NOT IN (SELECT request_intervention_id from #{Intervention.table_name} WHERE request_intervention_id IS NOT NULL)"
       end
     end
 
-    unless params[:state].blank?
+    if params[:state].present?
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
@@ -249,10 +249,7 @@ class Intervention < Ekylibre::Record::Base
 
   validate do
     if procedure
-      all_known = true
-      actions.each do |action|
-        all_known = false unless procedure.has_action?(action)
-      end
+      all_known = actions.all? { |action| procedure.has_action?(action) }
       errors.add(:actions, :invalid) unless all_known
     end
     if started_at && stopped_at && stopped_at <= started_at
@@ -302,9 +299,7 @@ class Intervention < Ekylibre::Record::Base
   # | inputs                 | stock_movement (603X/71X)  | stock (3X)                |
   bookkeep do |b|
     stock_journal = unsuppress { Journal.find_or_create_by!(nature: :stocks) }
-
-    list = []
-    if Preference[:permanent_stock_inventory] && record?
+    b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
         stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
@@ -312,17 +307,11 @@ class Intervention < Ekylibre::Record::Base
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id
-        list << [:add_debit, label, debit_account, stock_amount, as: (input ? :stock_movement : :stock)]
-        list << [:add_credit, label, credit_account, stock_amount, as: (input ? :stock : :stock_movement)]
+        entry.add_debit(label, debit_account, stock_amount, as: (input ? :stock_movement : :stock))
+        entry.add_credit(label, credit_account, stock_amount, as: (input ? :stock : :stock_movement))
       end
-      inputs.each   { |input|   write_parameter_entry_items.call(input, true) }
-      outputs.each  { |output|  write_parameter_entry_items.call(output, false) }
-    end
-
-    b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: list.any?) do |entry|
-      list.each do |item|
-        entry.send(*item)
-      end
+      inputs.each  { |input|  write_parameter_entry_items.call(input, true) }
+      outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
   end
 
@@ -330,25 +319,25 @@ class Intervention < Ekylibre::Record::Base
     raise 'Can only generate record for an intervention request' unless request?
     return record_interventions.first if record_interventions.any?
     new_record = deep_clone(
-      only: [:actions, :custom_fields, :description, :event_id, :issue_id,
-             :nature, :number, :prescription_id, :procedure_name,
-             :request_intervention_id, :started_at, :state,
-             :stopped_at, :trouble_description, :trouble_encountered,
-             :whole_duration, :working_duration],
+      only: %i[actions custom_fields description event_id issue_id
+               nature number prescription_id procedure_name
+               request_intervention_id started_at state
+               stopped_at trouble_description trouble_encountered
+               whole_duration working_duration],
       include:
         [
-          { group_parameters: [
-            :parameters,
-            :group_parameters,
-            :doers,
-            :inputs,
-            :outputs,
-            :targets,
-            :tools
+          { group_parameters: %i[
+            parameters
+            group_parameters
+            doers
+            inputs
+            outputs
+            targets
+            tools
           ] },
           { root_parameters: :group },
           { parameters: :group },
-          { product_parameters: [:readings, :group] },
+          { product_parameters: %i[readings group] },
           { doers: :group },
           { inputs: :group },
           { outputs: :group },
@@ -372,6 +361,10 @@ class Intervention < Ekylibre::Record::Base
     Time.zone.now
   end
 
+  def printed_on
+    printed_at.to_date
+  end
+
   def with_undestroyable_products?
     outputs.map(&:product).detect do |product|
       next unless product
@@ -391,6 +384,9 @@ class Intervention < Ekylibre::Record::Base
       create_dependent(:group, parameter, attributes.except(:member).merge(dependent_class: ProductMembership, thing_class: Product))
       create_dependent(:variant, parameter, attributes.except(:product).merge(dependent_class: ProductPhase, thing_class: ProductNatureVariant))
       create_dependent(:container, parameter, attributes.except(:member).merge(dependent_class: ProductLocalization, thing_class: Product))
+      if parameter.identification_number && parameter.product.identification_number.nil?
+        parameter.update_column! :identification_number, parameter.identification_number
+      end
       create_merging(parameter)
     end
   end
@@ -547,13 +543,13 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def total_cost
-    [:input, :tool, :doer].map do |type|
+    %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
     end.sum
   end
 
   def human_total_cost
-    [:input, :tool, :doer].map do |type|
+    %i[input tool doer].map do |type|
       (cost(type) || 0.0).to_d
     end.sum.round(Nomen::Currency.find(currency).precision)
   end
@@ -785,7 +781,7 @@ class Intervention < Ekylibre::Record::Base
                         .sort_by(&:stopped_at)
         planned_at = interventions.last.stopped_at
         owners = interventions.map(&:doers).map { |t| t.map(&:product).map(&:owner).compact }.flatten.uniq
-        supplier = owners.first unless owners.second.present?
+        supplier = owners.first if owners.second.blank?
         unless nature = PurchaseNature.actives.first
           unless journal = Journal.purchases.opened_at(planned_at).first
             raise 'No purchase journal'

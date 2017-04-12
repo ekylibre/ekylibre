@@ -25,6 +25,7 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  delta           :decimal(19, 4)   not null
+#  description     :string
 #  id              :integer          not null, primary key
 #  intervention_id :integer
 #  lock_version    :integer          default(0), not null
@@ -41,6 +42,7 @@
 # A product move is a movement of population
 class ProductMovement < Ekylibre::Record::Base
   include Taskable
+  enumerize :description, in: %i[birth purchase loan butchery consumption sale death]
   belongs_to :intervention
   belongs_to :product
   has_one :container, through: :product
@@ -52,18 +54,18 @@ class ProductMovement < Ekylibre::Record::Base
   validates :product, presence: true
   # ]VALIDATORS]
 
-  validate do
-    merged_at = product.merge && product.merge.merged_at
-    errors.add :started_at, :cant_move_later_than_merge if merged_at && started_at > merged_at
-    errors.add :stopped_at, :cant_move_later_than_merge if merged_at && stopped_at > merged_at
-  end
-
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0
     self.population = 0.0
     self.stopped_at = started_at + 1.day
   end
 
+  validate do
+    merged_at = product.merge && product.merge.merged_at
+    errors.add :started_at, :cant_move_later_than_merge if merged_at && started_at > merged_at
+    errors.add :stopped_at, :cant_move_later_than_merge if merged_at && stopped_at > merged_at
+  end
+  
   def population
     Maybe(product_population).value.or_else(0)
   end

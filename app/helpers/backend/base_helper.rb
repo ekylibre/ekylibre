@@ -135,7 +135,7 @@ module Backend
         html << content_tag(:li, link_to(options[:title], url, options), li_options) if authorized?(url)
       end
 
-      unless html.blank?
+      if html.present?
         html = content_tag(:ul, html)
         snippet(main_name, main_options) { html }
       end
@@ -189,7 +189,7 @@ module Backend
 
     # chart for variables readings
     def variable_readings(resource)
-      indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
+      indicators = resource.variable_indicators.delete_if { |i| !%i[measure decimal].include?(i.datatype) }
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
@@ -262,12 +262,26 @@ module Backend
       current_interval = current_user.current_period_interval.to_sym
       current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
 
-      default_intervals = [:day, :week, :month, :year]
+      default_intervals = %i[day week month year]
       intervals = default_intervals if intervals.empty?
       intervals &= default_intervals
       current_interval = intervals.last unless intervals.include?(current_interval)
 
       render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
+    end
+
+    def main_financial_year_selector(financial_year)
+      content_for(:heading_toolbar) do
+        financial_year_selector(financial_year)
+      end
+    end
+
+    def financial_year_selector(financial_year_id = nil, options = {})
+      unless FinancialYear.any?
+        @current_financial_year = FinancialYear.on(Date.current)
+      end
+      current_user.current_financial_year = @current_financial_year || FinancialYear.find_by(id: financial_year_id)
+      render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year, param_name: options[:param_name] || :current_financial_year
     end
 
     def lights(status, html_options = {})
@@ -283,11 +297,11 @@ module Backend
       end
     end
 
-    def state_bar(resource, _options = {})
+    def state_bar(resource, options = {})
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: _options[:renamings]
+      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: options[:renamings]
     end
 
     def main_state_bar(resource, options = {})

@@ -24,7 +24,7 @@ module Ekylibre
           record = children.to_s.singularize
           code = ''
 
-          callbacks = options.delete(:callbacks) || [:after_save, :after_destroy]
+          callbacks = options.delete(:callbacks) || %i[after_save after_destroy]
           for callback in callbacks
             code << "#{callback} :#{method_name}\n"
           end

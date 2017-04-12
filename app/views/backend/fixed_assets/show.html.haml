@@ -1,21 +1,60 @@
 - main_toolbar do |t|
-  = t.edit(resource)
+  = t.edit resource if resource.updateable?
+  = t.destroy resource if resource.destroyable?
+  = t.export :fixed_asset_sheet, key: :number
+
+= main_state_bar(resource)
 
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :name
+    - l.attribute :product, url: true
     - l.attribute :depreciation_method
     - l.attribute :depreciable_amount, currency: true
-    -# l.attribute :depreciated_amount, currency: true
     - l.attribute :depreciation_percentage
     - l.attribute :started_on
     - l.attribute :stopped_on
+    - l.attribute :journal_entry, url: true
+    - l.attribute :sold_journal_entry, url: true
+    - l.attribute :scrapped_journal_entry, url: true
     - l.attribute :description
+
+  = infos do
+    - if resource.purchase_items.any?
+      - resource.purchase_items.each do |purchase_item|
+        .med-info
+          %span.title= :purchase.tl
+          %span.value
+            %i.picto{class: "picto-shopping-cart"}
+            = link_to(purchase_item.purchase.number, {controller: :purchases, action: :show, id: purchase_item.purchase.id})
+        .med-info
+          %span.title= :supplier.tl
+          %span.value
+            %i.picto{class: "picto-group"}
+            = link_to(purchase_item.purchase.supplier.full_name, {controller: :entities, action: :show, id: purchase_item.purchase.supplier_id})
+
+        - if purchase_item.journal_entry
+          .med-info
+            %span.title= Purchase.human_attribute_name(:journal_entry)
+            %span.value
+              %i.picto{class: "picto-book"}
+              = link_to(purchase_item.journal_entry.number, {controller: :journal_entries, action: :show, id: purchase_item.journal_entry.id})
+
+  = infos do
+    - if resource.sold_on
+      .med-info
+        %span.title= :sold_on.tl
+        %span.value
+          %i.picto{class: "picto-bar-chart"}
+          = resource.sold_on.l
+    - if resource.scrapped_on
+      .med-info
+        %span.title= :scrapped_on.tl
+        %span.value
+          %i.picto{class: "picto-trash-o"}
+          = resource.scrapped_on.l
 
 = cobbles do |c|
 
   - c.cobble(:depreciations) do
     = cobble_list(:depreciations)
-
-  - c.cobble(:products) do
-    = cobble_list(:products)

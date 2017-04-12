@@ -22,9 +22,37 @@ module Backend
 
     unroll
 
-    list do |t|
-      t.action :edit
-      t.action :destroy
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
+    def self.loans_conditions
+      code = ''
+      code = search_conditions(loans: %i[name amount], cashes: [:bank_name]) + " ||= []\n"
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{Loan.table_name}.started_on BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "if params[:repayment_period].present?\n"
+      code << "  c[0] << ' AND #{Loan.table_name}.repayment_period IN (?)'\n"
+      code << "  c << params[:repayment_period]\n"
+      code << "end\n"
+      code << "if params[:cash_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{Loan.table_name}.cash_id = ?'\n"
+      code << "  c << params[:cash_id]\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
+
+    list(conditions: loans_conditions, selectable: true) do |t|
+      t.action :edit, if: :updateable?
+      t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :amount, currency: true
       t.column :cash, url: true
@@ -35,7 +63,9 @@ module Backend
     end
 
     list :repayments, model: :loan_repayments, conditions: { loan_id: 'params[:id]'.c } do |t|
+      t.action :edit
       t.column :position
+      t.column :locked
       t.column :due_on
       t.column :amount, currency: true
       t.column :base_amount, currency: true
@@ -43,6 +73,43 @@ module Backend
       t.column :insurance_amount, currency: true
       t.column :remaining_amount, currency: true
       t.column :journal_entry, url: true, hidden: true
+    end
+
+    # Show a list of loans
+    def index
+      @loans = Loan.all.reorder(:started_on)
+      # passing a parameter to Jasper for company full name and id
+      @entity_of_company_full_name = Entity.of_company.full_name
+      @entity_of_company_id = Entity.of_company.id
+
+      respond_with @loans, methods: [:current_remaining_amount], include: %i[lender loan_account interest_account insurance_account cash journal_entry]
+    end
+
+    def confirm
+      return unless @loan = find_and_check
+      @loan.confirm
+      redirect_to action: :show, id: @loan.id
+    end
+
+    def repay
+      return unless @loan = find_and_check
+      @loan.repay
+      redirect_to action: :show, id: @loan.id
+    end
+
+    def accounting
+      begin
+        date = Date.parse(params[:accounting_date])
+      rescue
+        notify_error(:error_while_depreciating)
+        return redirect_to(params[:redirect] || { action: :index })
+      end
+
+      loans_ids = JSON.parse(params[:loans_ids])
+      loan_repayments = LoanRepayment.accountable_repayments(loans_ids, date)
+      loan_repayments.find_each { |loan_repayment| loan_repayment.update(accountable: true) }
+
+      redirect_to(params[:redirect] || { action: :index })
     end
   end
 end

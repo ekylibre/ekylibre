@@ -6,7 +6,7 @@ module Procedo
       class Output < Procedo::Engine::Intervention::Quantified
         attr_reader :variant
 
-        attr_reader :new_name, :variety, :derivative_of
+        attr_reader :new_name, :identification_number, :variety, :derivative_of
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
@@ -16,6 +16,7 @@ module Procedo
           @new_name = @attributes[:new_name]
           @variety = @attributes[:variety]
           @derivative_of = @attributes[:derivative_of]
+          @identification_number = @attributes[:identification_number]
         end
 
         def variant_id
@@ -57,10 +58,15 @@ module Procedo
           impact_dependencies!(:derivative_of)
         end
 
+        def identification_number=(identification_number)
+          @identification_number = identification_number
+          impact_dependencies!(:identification_number)
+        end
+
         def to_hash
           hash = super
           hash[:variant_id] = @variant.id if @variant
-          hash[:new_name] = @new_name unless @new_name.blank?
+          hash[:new_name] = @new_name if @new_name.present?
           hash[:attributes] ||= {}
           hash[:attributes][:new_container_id] ||= {}
           hash[:attributes][:new_container_id][:dynascope] ||= {}
@@ -70,11 +76,12 @@ module Procedo
           hash[:attributes][:merge_stocks][:with] = mergeable_with && mergeable_with.name
           hash[:variety] = @variety unless @variety.blank?
           hash[:derivative_of] = @derivative_of unless @derivative_of.blank?
+          hash[:identification_number] = @identification_number if @identification_number.present?
           hash
         end
 
         def env
-          super.merge(variant: variant, new_name: new_name, variety: variety, derivative_of: derivative_of)
+          super.merge(variant: variant, new_name: new_name, identification_number: identification_number, variety: variety, derivative_of: derivative_of)
         end
       end
     end

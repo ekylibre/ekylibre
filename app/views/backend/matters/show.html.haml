@@ -17,7 +17,11 @@
     - if resource.born_at && resource.age && resource.age >= 1.day
       = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
-        = human_age(resource.born_at, display: 3)
+        = human_age(age, display: 2)
+    - if resource.variant.france_maaid
+      = resource_info(:france_maaid) do |france_maaid|
+        %i.picto{class: "picto-flask"}
+        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
     - unless resource.population_counting_unitary?
       = product_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
@@ -57,7 +61,6 @@
       - l.attribute :merged_with, url: true
       - l.attribute :merged_at
 
-
   - c.cobble(:movements) do
     = movements_chart(resource)
 
@@ -84,5 +87,6 @@
 
   -# c.cobble(:groups) do
     = cobble_list(:groups)
+
 = render "timeline"
 

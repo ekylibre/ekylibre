@@ -39,7 +39,7 @@
 
 class Catalog < Ekylibre::Record::Base
   refers_to :currency
-  enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
+  enumerize :usage, in: %i[purchase sale stock cost], default: :sale
   # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
   has_many :items, class_name: 'CatalogItem', dependent: :destroy, inverse_of: :catalog
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

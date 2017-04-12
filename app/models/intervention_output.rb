@@ -32,6 +32,7 @@
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  merge_stocks             :boolean
@@ -74,6 +75,7 @@ class InterventionOutput < InterventionProductParameter
         output.born_at = intervention.started_at
         output.initial_born_at = output.born_at
         output.name = new_name unless new_name.blank?
+        output.identification_number = identification_number if identification_number.present?
         output.variety = variety unless variety.blank?
         output.derivative_of = derivative_of unless derivative_of.blank?
         # output.attributes = product_attributes

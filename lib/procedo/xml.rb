@@ -79,6 +79,11 @@ module Procedo
         options[:maintenance] = (element.attr('maintenance').to_s == 'true')
         options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
+        options[:varieties] = element.attr('varieties')
+                                     .to_s
+                                     .split(/[\s\,]+/)
+                                     .map(&:to_sym)
+
         procedure = Procedo::Procedure.new(name, options)
 
         # Adds parameters
@@ -101,7 +106,7 @@ module Procedo
         element.children.each do |child|
           if child.name == 'parameter' || Procedo::Procedure::ProductParameter::TYPES.include?(child.name.to_sym)
             parse_parameter(procedure, child, options)
-          elsif %w(group parameter-group).include?(child.name)
+          elsif %w[group parameter-group].include?(child.name)
             parse_parameter_group(procedure, child, options)
           elsif %w(setting).include?(child.name)
             parse_setting(procedure, child, options)
@@ -126,12 +131,17 @@ module Procedo
         end
         raise "No type given for #{name} parameter" unless type
 
-        %w(compute-filter filter cardinality component-of).each do |info|
+        %w[compute-filter filter cardinality component-of].each do |info|
           if element.has_attribute?(info)
             locals[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
 
+        %w[component-of display-status].each do |attribute|
+          if element.has_attribute?(attribute)
+            locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
+          end
+        end
         parent = options[:group] || procedure
         parameter = parent.add_product_parameter(name, type, options.merge(locals))
         # Handlers
@@ -166,7 +176,7 @@ module Procedo
       # Parse <handler> of parameter
       def parse_handler(parameter, element)
         # Extract attributes from XML element
-        options = %w(forward backward indicator unit to name if datatype).each_with_object({}) do |attr, hash|
+        options = %w[forward backward indicator unit to name if datatype].each_with_object({}) do |attr, hash|
           hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end

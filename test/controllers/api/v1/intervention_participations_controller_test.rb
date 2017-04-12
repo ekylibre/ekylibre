@@ -14,7 +14,7 @@ module Api
         add_auth_header
         payload = correct_payload
 
-        part_id = JSON(post(:create, params: payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         assert_not_nil part_id
         assert_not_nil part = InterventionParticipation.find_by(id: part_id)
 
@@ -27,8 +27,8 @@ module Api
         add_auth_header
         payload = correct_payload
 
-        part_id_una = JSON(post(:create, params: payload).body)['id']
-        part_id_bis = JSON(post(:create, params: payload).body)['id']
+        part_id_una = JSON(post(:create, payload).body)['id']
+        part_id_bis = JSON(post(:create, payload).body)['id']
 
         assert_not_nil part_id_una
         assert_not_nil part_id_bis
@@ -46,7 +46,7 @@ module Api
 
         original_count = Intervention.where(nature: :record).count
         payload = correct_payload
-        post :create, params: payload
+        post :create, payload
 
         assert_equal original_count + 1, Intervention.where(nature: :record).count
       end
@@ -55,10 +55,10 @@ module Api
         add_auth_header
         payload = correct_payload
 
-        post :create, params: payload
+        post :create, payload
         original_count = Intervention.count
 
-        post :create, params: payload
+        post :create, payload
         new_count = Intervention.count
 
         assert_equal original_count, new_count
@@ -67,12 +67,13 @@ module Api
       test 'ignores working periods that already exist' do
         add_auth_header
         payload = repeating_payload
-        part_id = JSON(post(:create, params: payload).body)['id']
+        response = JSON(post(:create, payload).body)
+        part_id = response['id']
         original_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal 2, original_count
 
-        part_id = JSON(post(:create, params: payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         new_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal original_count, new_count
@@ -82,13 +83,13 @@ module Api
         add_auth_header
         payload = overlapping_payload
 
-        part_id = JSON(post(:create, params: payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         original_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal 1, original_count
 
         payload = overlapping_payload(only_overlap: true)
-        part_id = JSON(post(:create, params: payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         new_count = InterventionParticipation.find(part_id).working_periods.count
 
         assert_equal original_count, new_count
@@ -98,16 +99,27 @@ module Api
         add_auth_header
 
         payload = correct_payload
-        part_id = JSON(post(:create, params: payload).body)['id']
+        part_id = JSON(post(:create, payload).body)['id']
         natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
 
-        assert_equal [:preparation, :travel, :intervention, :travel, :preparation, :travel, :intervention, :travel, :preparation], natures
+        assert_equal %i[preparation travel intervention travel preparation travel intervention travel preparation], natures
       end
 
       private
 
       def correct_payload(state: :done, procedure: :plant_watering, action: :irrigation)
-        request = Intervention.find_or_create_by!(nature: :request, procedure_name: procedure, actions: [action])
+        request = Intervention.create_with(
+          working_periods_attributes: {
+            '0' => {
+              started_at: '2016-09-30T11:00:00.000+0200',
+              stopped_at: '2016-09-30T11:30:00.000+0200'
+            }
+          }
+        ).find_or_create_by!(
+          nature: :request,
+          procedure_name: procedure,
+          actions: [action]
+        )
         {
           request_intervention_id: request.id,
           request_compliant: 1,
@@ -167,7 +179,17 @@ module Api
       end
 
       def overlapping_payload(state: :done, procedure: :plant_watering, action: :irrigation, only_overlap: false)
-        request = Intervention.create!(nature: :request, procedure_name: procedure, actions: [action])
+        request = Intervention.create!(
+          nature: :request,
+          procedure_name: procedure,
+          actions: [action],
+          working_periods_attributes: {
+            '0' => {
+              started_at: '2016-09-30T11:00:00.000+0200',
+              stopped_at: '2016-09-30T11:30:00.000+0200'
+            }
+          }
+        )
         overlapping = {
           started_at: '2016-09-30T10:30:00.836+0200',
           stopped_at: '2016-09-30T11:30:00.620+0200',
@@ -199,7 +221,17 @@ module Api
       end
 
       def repeating_payload(state: :done, procedure: :plant_watering, action: :irrigation)
-        request = Intervention.create!(nature: :request, procedure_name: procedure, actions: [action])
+        request = Intervention.create!(
+          nature: :request,
+          procedure_name: procedure,
+          actions: [action],
+          working_periods_attributes: {
+            '0' => {
+              started_at: '2016-09-30T11:00:00.000+0200',
+              stopped_at: '2016-09-30T11:30:00.000+0200'
+            }
+          }
+        )
         {
           request_intervention_id: request.id,
           request_compliant: 1,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add product natures protective canvas">
-	<item-creation item="abilities#cover" parameters="variety"/>
-    <item-creation item="product_natures#protective_canvas" category="small_equipment" variety="matter" population_counting="unitary" abilities="care(plant), cover(plant)" frozen_indicators="length, width"/>
-    <item-change item="product_nature_variants#protective_canvas" nature="protective_canvas"/>
+  <item-creation item="abilities#cover" parameters="variety"/>
+  <item-creation item="product_natures#protective_canvas" category="small_equipment" variety="matter" population_counting="unitary" abilities="care(plant), cover(plant)" frozen_indicators="length, width"/>
+  <item-change item="product_nature_variants#protective_canvas" nature="protective_canvas"/>
 </migration>

@@ -4,14 +4,14 @@
   $(document).ready ->
     E.accounts.changeUnmarkVisibility()
 
-    $('#lettersVisibility').on 'click', (e) ->
+    $('#letters-visibility').on 'click', (e) ->
       E.accounts.changeUnmarkVisibility()
 
-    $('#labelLettersVisibility').on 'click', (e) ->
-      if $('#lettersVisibility').is(':checked')
-        $('#lettersVisibility').prop('checked', false)
+    $('#label-letters-visibility').on 'click', (e) ->
+      if $('#letters-visibility').is(':checked')
+        $('#letters-visibility').prop('checked', false)
       else
-        $('#lettersVisibility').prop('checked', true)
+        $('#letters-visibility').prop('checked', true)
 
       E.accounts.changeUnmarkVisibility()
 
