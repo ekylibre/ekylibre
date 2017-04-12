@@ -54,7 +54,7 @@ class DebtTransfer < Ekylibre::Record::Base
   belongs_to :affair, class_name: 'Affair', inverse_of: :debt_transfers
   belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations
 
-  enumerize :nature, in: [:sale_regularization, :purchase_regularization]
+  enumerize :nature, in: %i[sale_regularization purchase_regularization]
 
   acts_as_affairable :third
 
