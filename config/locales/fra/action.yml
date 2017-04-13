@@ -408,7 +408,7 @@ fra:
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/loan_repayments:
-      edit: "Editer le remboursement du le: %{due_on}"
+      edit: "Editer le remboursement dû le\_: %{due_on} de l'emprunt\_: %{loan_name}"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
       index: "Emprunts"
