@@ -63,6 +63,7 @@ private/test/plugins
 /config/api.yml
 /config/tools.xml
 /config/tenants.yml
+/config/tenant_databases.yml
 /config/services.yml
 /config/unicorn.rb
 /config/application.yml
