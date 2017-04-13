@@ -1,0 +1,4 @@
+- @tasks.each do |state, tasks|
+  - tasks.each do |task|
+    :plain
+      $(".taskboard-column.#{state.to_s} .tasks").append("#{escape_javascript(render partial: '/backend/shared/taskboard/task', locals: { task: task } )}");

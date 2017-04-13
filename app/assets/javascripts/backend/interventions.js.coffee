@@ -168,12 +168,10 @@
           data: form.serialize()
           beforeSend: ->
             computing.prop 'state', 'waiting'
-            $('.form-actions .primary').attr("disabled", true)
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
-            $('.form-actions .primary').attr("disabled", null)
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
@@ -245,12 +243,23 @@
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
+      loadContent = false
+      currentPage = 1
+      taskHeight = 60
+      halfTaskList = 12
+
       $('#content').scroll ->
-        if $('#content').scrollTop() > $('#content').height() - 40
-          # $.ajax
-          #   url: "/backend/interventions/change_page",
-          #   data: {modal_type: "delete", interventions_ids: interventionsIds}
-          #   success: (data, status, request) ->
+        
+        
+        # if $('#content').scrollTop() > $(document).height() - 100 || $('#content').scrollTop() > $('.interventions-taskboard').height() - 100
+        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+          loadContent = true
+          $.ajax
+            url: "/backend/interventions/change_page",
+            data: { interventions_taskboard: { current_campaign: "2017", current_period: "2017-03-09", page: currentPage }}
+            success: (data, status, request) ->
+              currentPage++
+              loadContent = false
 
       # $('.task').Lazy({
       #

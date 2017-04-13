@@ -20,6 +20,9 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
+    include TaskboardHelper, InterventionsHelper 
+    # include Backend::InterventionsHelper 
+    
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
                      continue: %i[nature procedure_name]
 
@@ -382,7 +385,33 @@ module Backend
     end
 
     def change_page
-      Interventions.with_unroll(params[:unroll]) 
+      interventions_by_state = {}
+      interventions_by_state[:requests] =Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :request))
+      interventions_by_state[:current] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :in_progress))
+      interventions_by_state[:finished]=  Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :done))
+      interventions_by_state[:validated] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :validated))
+
+      @tasks = {}
+
+      interventions_by_state.each do |state, interventions|
+
+        if interventions.empty?
+          @tasks[state] = []
+          next
+        end
+
+        tasks_by_state = []
+        
+        interventions.each do |intervention|
+          tasks_by_state << task(*taskboard_task(intervention))
+        end
+
+        @tasks[state] = tasks_by_state
+      end
+
+      respond_to do |format|
+        format.js
+      end
     end
 
     private
