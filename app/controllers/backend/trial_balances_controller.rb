@@ -30,6 +30,32 @@ module Backend
             filename: "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}.ods"
           )
         end
+        format.csv do
+          filename = 'test.csv'
+          csv_string = CSV.generate(headers: true, write_headers: true) do |csv|
+            csv << [
+              'N°Compte',
+              'Compte comptable',
+              'Total',
+              'Solde'
+            ]
+            @balance.each do |item|
+              if item[1].to_i > 0
+                account = Account.find(item[1])
+                # raise
+                csv << [
+                  account.number,
+                  account.name,
+                  item[2].to_f,
+                  item[3].to_f,
+                  item[4].to_f > 0 ? item[4].to_f : 0,
+                  item[4].to_f < 0 ? -item[4].to_f : 0
+                ]
+              end
+            end
+          end
+          send_data(csv_string, filename: filename, type: Mime::CSV)
+        end
       end
     end
 
