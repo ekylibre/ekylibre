@@ -385,6 +385,10 @@ module Backend
     end
 
     def change_page
+
+      params[:interventions_taskboard][:period_interval] ||= current_period_interval
+      params[:interventions_taskboard][:period] ||= current_period
+
       interventions_by_state = {}
       interventions_by_state[:requests] =Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :request))
       interventions_by_state[:current] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :in_progress))
@@ -402,7 +406,7 @@ module Backend
 
         tasks_by_state = []
         
-        interventions.each do |intervention|
+        interventions[:interventions].each do |intervention|
           tasks_by_state << task(*taskboard_task(intervention))
         end
 
