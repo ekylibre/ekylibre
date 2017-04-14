@@ -145,9 +145,13 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   validate(on: :update) do
     old = old_record
-    list = changed - %w[cumulated_absolute_debit cumulated_absolute_credit]
+    list = changed - %w[printed_on cumulated_absolute_debit cumulated_absolute_credit]
     if old.closed? && list.any?
-      errors.add(:account_id, :entry_has_been_already_validated)
+      list.each do |attribute|
+        if !entry.respond_to?(attribute) || (entry.send(attribute) != send(attribute))
+          errors.add(attribute, :entry_has_been_already_validated)
+        end
+      end
     end
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
     # if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
