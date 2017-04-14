@@ -248,24 +248,28 @@
       taskHeight = 60
       halfTaskList = 12
 
+      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
       $('#content').scroll ->
-        
-        
-        # if $('#content').scrollTop() > $(document).height() - 100 || $('#content').scrollTop() > $('.interventions-taskboard').height() - 100
         if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+          currentPage++
+          params['page'] = currentPage
+          
           loadContent = true
+          
           $.ajax
             url: "/backend/interventions/change_page",
-            data: { interventions_taskboard: { current_campaign: "2017", current_period: "2017-03-09", page: currentPage }}
+            data: { interventions_taskboard: params }
             success: (data, status, request) ->
-              currentPage++
               loadContent = false
+              taskboard.addTaskClickEvent()
 
-      # $('.task').Lazy({
-      #
-      # })
-
-
+  
   class InterventionsTaskboard
 
     constructor: ->

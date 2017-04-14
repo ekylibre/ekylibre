@@ -206,11 +206,12 @@ class Intervention < Ekylibre::Record::Base
     page = params[:page]
     page ||= 1
 
-    where(search_params.join(' AND '))
-      .includes(:doers)
-      .references(product_parameters: [:product])
-      .order(started_at: :desc)
-      .page(page)
+    request = where(search_params.join(' AND '))
+             .includes(:doers)
+             .references(product_parameters: [:product])
+             .order(started_at: :desc)
+    
+    { total_count: request.count, interventions: request.page(page) } 
   }
 
   scope :with_targets, lambda { |*targets|
