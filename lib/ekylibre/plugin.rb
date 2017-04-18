@@ -244,7 +244,7 @@ module Ekylibre
             unless Rails.application.config.assets.paths.include?(assets_directory.join(type).to_s)
               Rails.application.config.assets.paths << assets_directory.join(type).to_s
             end
-            unless %w(javascript stylesheets).include? type
+            unless %w[javascript stylesheets].include? type
               files_to_compile = Dir[type + '/**/*'].select { |f| File.file? f }.map do |f|
                 Pathname.new(f).relative_path_from(Pathname.new(type)).to_s unless f == type
               end

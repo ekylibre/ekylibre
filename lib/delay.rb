@@ -60,7 +60,7 @@ class Delay
           raise InvalidDelayExpression, "#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})"
         end
         [TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
-      elsif !step.blank?
+      elsif step.present?
         raise InvalidDelayExpression, "#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})"
       end
     end
@@ -123,7 +123,7 @@ class Delay
       Delay.new(to_s + ', ' + Delay.new(delay).to_s)
     elsif delay.is_a?(Numeric)
       Delay.new(to_s + ', ' + Delay.new(delay.to_s + ' seconds').to_s)
-    elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit.to_sym)
+    elsif delay.is_a?(Measure) && delay.dimension == :time && %i[second minute hour day month year].include?(delay.unit.to_sym)
       Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).to_s)
     else
       raise ArgumentError, "Cannot sum #{delay} [#{delay.class.name}] to a #{self.class.name}"
@@ -138,7 +138,7 @@ class Delay
       Delay.new(to_s + ', ' + Delay.new(delay).invert.to_s)
     elsif delay.is_a?(Numeric)
       Delay.new(to_s + ', ' + Delay.new(delay.to_s + ' seconds').invert.to_s)
-    elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit.to_sym)
+    elsif delay.is_a?(Measure) && delay.dimension == :time && %i[second minute hour day month year].include?(delay.unit.to_sym)
       Delay.new(to_s + ', ' + Delay.new(delay.value.to_i.to_s + ' ' + delay.unit.to_s).invert.to_s)
     else
       raise ArgumentError, "Cannot subtract #{delay} [#{delay.class.name}] from a #{self.class.name}"

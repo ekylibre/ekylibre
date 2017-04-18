@@ -74,6 +74,9 @@ spa:
       internal_server_error:
         hint: "La aplicación se encuentra con problemas. Los administradores han sido notificados para este problema."
         title: "Lo lamentamos, pero algo salió mal"
+      maintenance:
+        hint: "Por favor regresa más tarde"
+        title: "El servicio se encuentra en mantenimiento y no está disponible por el momento"
       not_found:
         hint: "Es posible que haya escrito mal la dirección o la página puede haber movido."
         title: "La página que estás buscando no existe"

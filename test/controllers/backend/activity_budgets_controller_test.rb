@@ -4,7 +4,7 @@ module Backend
     test_restfully_all_actions  new: { params: { activity_id: 1, campaign_id: 6 } },
                                 create: { params: { activity_id: 1, campaign_id: 6 } },
                                 duplicate: { params: { activity_id: 1, campaign_id: 6 } },
-                                except: [:show, :index]
+                                except: %i[show index]
 
     test 'show action' do
       get :show, id: 'NaID', redirect: root_url, locale: @locale

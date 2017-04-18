@@ -10,6 +10,6 @@
     }
   },
   date: {
-    order: [:month, :day, :year]
+    order: %i[month day year]
   }
 } }

@@ -36,7 +36,7 @@ class FinancialYearExchangeImport
   end
 
   def ensure_headers_are_valid
-    expected = %i(jour numero_de_compte journal tiers numero_de_piece libelle_ecriture debit credit lettrage)
+    expected = %i[jour numero_de_compte journal tiers numero_de_piece libelle_ecriture debit credit lettrage]
     return true if parsed.headers.to_set == expected.to_set
     message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_headers_invalid')
     @error = InvalidFile.new(message)

@@ -97,7 +97,7 @@ class TargetDistribution < Ekylibre::Record::Base
 
   class << self
     def distributed?
-      !InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.any?
+      InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.none?
     end
   end
 end

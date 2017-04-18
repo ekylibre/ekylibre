@@ -36,6 +36,7 @@
 #  label                  :text
 #  lock_version           :integer          default(0), not null
 #  position               :integer
+#  preexisting_asset      :boolean
 #  pretax_amount          :decimal(19, 4)   default(0.0), not null
 #  purchase_id            :integer          not null
 #  quantity               :decimal(19, 4)   default(1.0), not null
@@ -68,6 +69,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, :variant, presence: true
   validates :fixed, inclusion: { in: [true, false] }
+  validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :account, :tax, :reduction_percentage, presence: true
@@ -80,7 +82,7 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :name, :amount, :short_label, to: :tax, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
-  accepts_nested_attributes_for :fixed_asset
+  # accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
 
@@ -130,23 +132,30 @@ class PurchaseItem < Ekylibre::Record::Base
 
     if variant
       self.label ||= variant.commercial_name
-      if fixed && purchase.purchased?
-        # select outstanding_assets during purchase
-        self.account = Account.find_or_import_from_nomenclature(:outstanding_assets)
-      else
-        self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
-      end
+      self.account = if fixed && purchase.purchased?
+                       # select outstanding_assets during purchase
+                       Account.find_or_import_from_nomenclature(:outstanding_assets)
+                     else
+                       variant.charge_account || Account.find_in_nomenclature(:expenses)
+                     end
     end
   end
 
   after_update do
-    if fixed && purchase.purchased?
+    if fixed && fixed_asset && purchase.purchased?
+      fixed_asset.reload
       amount_difference = pretax_amount.to_f - pretax_amount_was.to_f
       fixed_asset.add_amount(amount_difference) if fixed_asset && amount_difference.nonzero?
     end
     true
   end
 
+  after_destroy do
+    if fixed && fixed_asset && purchase.purchased?
+      fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
+    end
+    true
+  end
   validate do
     errors.add(:currency, :invalid) if purchase && currency != purchase_currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
@@ -154,11 +163,11 @@ class PurchaseItem < Ekylibre::Record::Base
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      [:stock, :purchase].each do |usage|
+      %i[stock purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
-               unit_pretax_amount.blank? || unit_pretax_amount.zero?
+                unit_pretax_amount.blank? || unit_pretax_amount.zero?
         variant.catalog_items.create!(
           catalog: catalog,
           amount: unit_pretax_amount, currency: currency
@@ -199,6 +208,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+      fixed_asset.reload
       fixed_asset.add_amount(pretax_amount.to_f)
     else
       a = new_fixed_asset
@@ -223,7 +233,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   def designation
     d = product_name
-    d << "\n" + annotation.to_s unless annotation.blank?
+    d << "\n" + annotation.to_s if annotation.present?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d
   end

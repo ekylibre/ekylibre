@@ -159,13 +159,13 @@ ita:
       depreciation_method:
         graduated: "Laureato" #?
         linear: "Lineare"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "Nessuna"
+        regressive: "Regressivo"
         simplified_linear: "lineari semplificato"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "Mensile"
+        quarterly: "Trimestrale"
+        yearly: "Annuale"
     gap:
       direction:
         loss: "Perdita"
@@ -245,6 +245,8 @@ ita:
       nature:
         bank: "Banca"
         cash: "Contanti"
+        closure: "Chiusura"
+        fixed_assets: "Immobilizzazioni"
         forward: "Portato avanti"
         purchases: "acquisti"
         sales: "Vendite"
@@ -270,8 +272,8 @@ ita:
         constant_rate: "Tasso costante"
       repayment_period:
         month: "Mese"
-        # semester: "Semester"
-        # trimester: "Trimester"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Anno"
       shift_method:
         anatocism: "anatocismo"

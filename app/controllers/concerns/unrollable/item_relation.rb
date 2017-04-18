@@ -52,7 +52,7 @@ module Unrollable
     end
 
     def ordered_matches(keys, searchables, query = nil)
-      return @items unless keys.present?
+      return @items if keys.blank?
 
       request = conditions_for(keys, searchables).join(' AND ')
       where_request = request.gsub('[!BEGIN!]', '%')

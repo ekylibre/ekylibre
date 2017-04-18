@@ -74,7 +74,7 @@ class AnalysisItem < Ekylibre::Record::Base
   end
 
   after_save do
-    if product
+    if product && product.born_at <= sampled_at
       if reading = product_reading
         reading.read_at = sampled_at
         reading.value = value

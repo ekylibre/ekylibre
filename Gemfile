@@ -3,14 +3,14 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '~> 1.0.0', '< 2.0'
+gem 'apartment', '>= 1.2.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -27,12 +27,15 @@ gem 'actionpack-xml_parser'
 # Manage env vars
 gem 'figaro'
 
+# Maintenance mode
+gem 'turnout'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -69,7 +72,7 @@ gem 'foreman'
 # Background jobs
 gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
-gem 'sidekiq-unique-jobs'
+gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -84,13 +87,13 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.8.1' # , path: "../active_list"
+gem 'active_list', '>= 6.8.2' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
 # Models helpers
 gem 'acts_as_list'
-gem 'awesome_nested_set', '~> 3.0.0'
+gem 'awesome_nested_set', '~> 3.1.1'
 gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
@@ -111,7 +114,7 @@ gem 'paperclip-document', '> 0.0.8'
 # Forms
 gem 'cocoon'
 gem 'remotipart', '~> 1.2'
-gem 'simple_form', '~> 3.2.0'
+gem 'simple_form', '~> 3.4'
 
 # I18n and localeapp
 gem 'http_accept_language'
@@ -120,7 +123,7 @@ gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.6.0'
+gem 'nokogiri', '~> 1.7.1'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -206,6 +209,7 @@ group :test do
   gem 'codacy-coverage', require: false
   gem 'coveralls', '>= 0.6', require: false
   gem 'database_cleaner'
+  gem 'simplecov', require: false
 
   gem 'minitest-reporters'
 
@@ -213,7 +217,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,lib/plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)

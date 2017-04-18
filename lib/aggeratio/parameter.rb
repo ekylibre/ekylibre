@@ -1,6 +1,6 @@
 module Aggeratio
   class Parameter
-    TYPES = [:record_list, :record, :string, :decimal, :integer, :date, :datetime].freeze
+    TYPES = %i[record_list record string decimal integer date datetime].freeze
     attr_reader :name, :type, :options, :default, :foreign_class
 
     def initialize(name, type, options = {})

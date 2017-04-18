@@ -13,8 +13,8 @@ module Procedo
           @maximum = 1
         elsif object =~ /\A(\d+)?\.\.(\d+)?\z/
           array = object.split('..').map(&:strip)
-          @minimum = array.first.to_i unless array.first.blank?
-          @maximum = array.second.to_i unless array.second.blank?
+          @minimum = array.first.to_i if array.first.present?
+          @maximum = array.second.to_i if array.second.present?
         elsif object =~ /\A\d+\z/
           @maximum = object.to_i
           @minimum = object.to_i
