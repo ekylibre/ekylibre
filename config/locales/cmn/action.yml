@@ -995,6 +995,7 @@ cmn:
     done: "做"
     dont_generate_carrying_forward_entries: "- 不产生弘扬条目 -"
     dont_generate_closure_entries: "- 不产生闭合的条目 -"
+    # dont_generate_result_entries: "Dont generate result entries"
     dont_use_journal: "- 不要使用日记 -"
     down: "下"
     downpayment: "首付"
