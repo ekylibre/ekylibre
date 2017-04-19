@@ -87,7 +87,10 @@ module Apartment
 
         # no switching unless we are in another DATABASE
         # unless Ekylibre::Tenant.database_for(tenant.to_s) == Ekylibre::Tenant.database_for(@current)
-        Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-database setup
+        if Ekylibre::Tenant.multi_database > 0
+          Apartment.establish_connection multi_tenantify(tenant, false) # Allows us to use the multi-database setup
+        end
+        
         raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}" unless Apartment.connection.active?
         # end
 
