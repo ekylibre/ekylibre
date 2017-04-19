@@ -20,7 +20,36 @@ module Backend
   class PlantsController < Backend::MattersController
     include InspectionViewable
 
-    list do |t|
+    def self.list_conditions
+      code = ''
+      code = search_conditions(products: %i[name variety work_number]) + " ||= []\n"
+      code << "if params[:born_at].present? && params[:born_at].to_s != 'all'\n"
+      code << " c[0] << ' AND #{Plant.table_name}.born_at::DATE BETWEEN ? AND ?'\n"
+      code << " if params[:born_at].to_s == 'interval'\n"
+      code << "   c << params[:born_at_started_on]\n"
+      code << "   c << params[:born_at_stopped_on]\n"
+      code << " else\n"
+      code << "   interval = params[:born_at].to_s.split('_')\n"
+      code << "   c << interval.first\n"
+      code << "   c << interval.second\n"
+      code << " end\n"
+      code << "end\n"
+      code << "if params[:dead_at].present? && params[:dead_at].to_s != 'all'\n"
+      code << " c[0] << ' AND #{Plant.table_name}.dead_at::DATE BETWEEN ? AND ?'\n"
+      code << " if params[:dead_at].to_s == 'interval'\n"
+      code << "   c << params[:dead_at_started_on]\n"
+      code << "   c << params[:dead_at_stopped_on]\n"
+      code << " else\n"
+      code << "   interval = params[:dead_at].to_s.split('_')\n"
+      code << "   c << interval.first\n"
+      code << "   c << interval.second\n"
+      code << " end\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
