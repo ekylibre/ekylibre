@@ -1211,6 +1211,7 @@ fra:
     done: "Fait"
     dont_generate_carrying_forward_entries: "— Ne pas générer les écritures de report à nouveau —"
     dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
+    dont_generate_result_entries: "— Ne pas générer les écritures de résultat —"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?

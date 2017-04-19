@@ -251,6 +251,7 @@ por:
         fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
+        # result: "Result"
         sales: "Vendas"
         stocks: "Estoques"
         various: "Várias operações"
