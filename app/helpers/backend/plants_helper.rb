@@ -100,5 +100,73 @@ module Backend
         v.control :layer_selector
       end
     end
+
+    def plant_period_crit(*args)
+      arg_value = args.shift
+      name = arg_value[:name] || :period
+      label_name = arg_value[:label]
+      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+
+      # list of all options
+      list = []
+      list << [:all_periods.tl, 'all']
+      for year in FinancialYear.reorder(started_on: :desc)
+        list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
+        list2 = []
+        date = year.started_on
+        while date < year.stopped_on && date < Time.zone.today
+          date2 = date.end_of_month
+          list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
+          date = date2 + 1
+        end
+        list += list2.reverse
+      end
+
+
+      if params[name].present? && params[name] != 'all' && params[name] == 'interval'
+        configuration = { custom: :interval }.merge(options)
+      else
+        configuration = {}
+      end
+      configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+      value ||= params[name] || options[:default]
+
+      code = ''
+      code << content_tag(:label, label_name || :period.tl, for: configuration[:id]) + ' '
+      fy = FinancialYear.current
+      params[name] = value ||= :all
+      # params[:period] = value ||= :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
+      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+      toggle_method = "toggle#{custom_id.camelcase}"
+      if configuration[:custom]
+        params["#{name}_started_on"] = begin
+                                params["#{name}_started_on"].to_date
+                              rescue
+                                (fy ? fy.started_on : Time.zone.today)
+                              end
+        params["#{name}_stoped_on"] = begin
+                                params["#{name}_stopped_on"].to_date
+                              rescue
+                                (fy ? fy.stopped_on : Time.zone.today)
+                              end
+        params["#{name}_stoped_on"] = params["#{name}_started_on"] if params["#{name}_started_on"] > params["#{name}_stoped_on"]
+        list.insert(0, [configuration[:custom].tl, configuration[:custom]])
+      else
+        params["#{name}_started_on"] = fy ? fy.started_on : Time.zone.today
+        params["#{name}_stoped_on"] = fy ? fy.stopped_on : Time.zone.today
+        list.insert(1, [:interval.tl, :interval])
+      end
+      if replacement = options.delete(:include_blank)
+        list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ''])
+      end
+
+      code << select_tag(name, options_for_select(list, value), :id => custom_id, 'data-show-value' => "##{configuration[:id]}_")
+
+      # if configuration[:custom]
+        code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag("#{name}_started_on".to_sym, params["#{name}_started_on"], size: 10), finish: date_field_tag("#{name}_stopped_on".to_sym, params["#{name}_stoped_on"], size: 10)).html_safe, id: "#{configuration[:id]}_interval")
+      # end
+
+      code.html_safe
+    end
   end
 end
