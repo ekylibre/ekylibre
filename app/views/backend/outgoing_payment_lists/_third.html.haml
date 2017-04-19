@@ -3,7 +3,7 @@
     %tr
       %th{colspan: 4}= third.full_name
     - if third.unbalanced?
-      %tr.warning#unbalanced-entity{style: 'display: none;'}
+      %tr.warning#unbalanced-entity
         %th{colspan: 3}= :third_is_unbalanced.tl
         %th
           = third.balance
