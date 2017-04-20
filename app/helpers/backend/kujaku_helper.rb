@@ -107,11 +107,11 @@ module Backend
           p.set!(@template.params[@name])
           html = @template.content_tag(:label, @options[:label] || :amount_min.tl)
           html << ' '.html_safe
-          html << @template.number_field_tag("amount_min", @template.params[:amount_min], min: 0, step: :any)
+          html << @template.number_field_tag('amount_min', @template.params[:amount_min], min: 0, step: :any)
           html << ' '.html_safe
           html << @template.content_tag(:label, @options[:label] || :amount_max.tl)
           html << ' '.html_safe
-          html << @template.number_field_tag("amount_max", @template.params[:amount_max], min: 0, step: :any)
+          html << @template.number_field_tag('amount_max', @template.params[:amount_max], min: 0, step: :any)
         end
       end
 

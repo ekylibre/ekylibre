@@ -17,7 +17,7 @@
       $.ajax
         url: ($('#letters-visibility').data('preference-url'))
         type: 'PATCH'
-        data: 
+        data:
           checked: $('#letters-visibility').is(':checked')
         success: (data, status, request) ->
           console.log data
@@ -28,7 +28,7 @@
       $.ajax
         url: ($('#letters-visibility').data('preference-url'))
         type: 'PATCH'
-        data: 
+        data:
           checked: $('#letters-visibility').is(':checked')
         success: (data, status, request) ->
           console.log data

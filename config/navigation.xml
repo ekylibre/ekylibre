@@ -1957,6 +1957,15 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="accounts">
+        <page to="backend/accounts#account_mark_mask_literate_element_is_checked"/>
+        <page to="backend/accounts#account_mask_literate_element_is_checked"/>
+      </item>
+      <item name="entities">
+        <page to="backend/entities#entity_client_mask_literate_element_is_checked"/>
+        <page to="backend/entities#entity_supplier_mask_literate_element_is_checked"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -431,10 +431,11 @@ module Backend
     end
 
     private
-      def checked_literate_element(preference_string)
-        checked = params[:checked].to_s == "true" ? true : false
-        current_user.prefer!(preference_string, checked, :boolean)
-        head :ok
-      end
+
+    def checked_literate_element(preference_string)
+      checked = params[:checked].to_s == 'true' ? true : false
+      current_user.prefer!(preference_string, checked, :boolean)
+      head :ok
+    end
   end
 end

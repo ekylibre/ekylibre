@@ -5,7 +5,7 @@ module Phytosanitary
     attr_reader :group
 
     def self.get(risk_level)
-      return Unknown unless risk_level.present?
+      return Unknown if risk_level.blank?
       new(risk_level)
     end
 

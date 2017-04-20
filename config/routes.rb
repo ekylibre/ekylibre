@@ -190,7 +190,7 @@ Rails.application.routes.draw do
         patch :account_mask_literate_element_is_checked
         patch :account_mark_mask_literate_element_is_checked
 
-        match 'load', via: %i(get post)
+        match 'load', via: %i[get post]
       end
       member do
         match 'mark', via: %i[get post]
@@ -432,8 +432,8 @@ Rails.application.routes.draw do
       collection do
         patch :entity_client_mask_literate_element_is_checked
         patch :entity_supplier_mask_literate_element_is_checked
-        match 'import', via: %i(get post)
-        match 'merge',  via: %i(get post)
+        match 'import', via: %i[get post]
+        match 'merge',  via: %i[get post]
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture

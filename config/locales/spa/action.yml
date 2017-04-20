@@ -836,6 +836,8 @@ spa:
     amount: "Total TVA a pagar"
     # amount_computed_from: "Amount computed from %{source}"
     # amount_estimated_from: "Amount estimated from %{source}"
+    amount_max: "Cantidad máxima"
+    amount_min: "Monto minimo"
     # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
@@ -1329,7 +1331,7 @@ spa:
     letter: "Carta"
     # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-    # lettered: "Lettered"
+    lettered: "Letrado"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
     lettering_modes: #?
@@ -1515,7 +1517,7 @@ spa:
     parameters: "Parametros"
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
-    # partially_lettered: "Partially lettered"
+    partially_lettered: "Parcialmente con letras"
     participants: "Los participantes"
     participations: "Participaciones"
     parts: "Modulos"
@@ -1888,7 +1890,7 @@ spa:
     unknown_condition: "Condición desconocida"
     unknown_user: "Usuario desconocido"
     unknown_variant: "Variante desconocida"
-    # unlettered: "Unlettered"
+    unlettered: "Analfabeto"
     unlock: "Desbloquear"
     unmark: "Desmarcar"
     unmarketable_inspection_categories_evolution: "Invendibles evolución categorías de inspección"

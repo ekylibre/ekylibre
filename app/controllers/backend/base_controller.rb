@@ -347,9 +347,9 @@ module Backend
         code.c
       end
 
-      def journal_letter_crit(variable, conditions = 'c', table_name = nil)
+      def journal_letter_crit(variable, _conditions = 'c', _table_name = nil)
         variable = "params[:#{variable}]" unless variable.is_a? String
-        code =''
+        code = ''
         code << "unless #{variable}[:letter_state].blank?\n"
         code << "  #{variable}[:letter_state].each_with_index do |current_letter_state, index|\n"
         code << "    if index == 0\n"
@@ -358,11 +358,11 @@ module Backend
         code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
         code << "        c << '%*'\n"
         code << "      end\n"
-        
+
         code << "      if current_letter_state == 'unlettered'\n"
         code << "        c[0] << '#{JournalEntryItem.table_name}.letter IS NULL'\n"
         code << "      end\n"
-        
+
         code << "      if current_letter_state == 'partially_lettered'\n"
         code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
         code << "        c << '%*'\n"
@@ -372,11 +372,11 @@ module Backend
         code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
         code << "        c << '%*'\n"
         code << "      end\n"
-        
+
         code << "      if current_letter_state == 'unlettered'\n"
         code << "        c[0] << ' OR #{JournalEntryItem.table_name}.letter IS NULL'\n"
         code << "      end\n"
-        
+
         code << "      if current_letter_state == 'partially_lettered'\n"
         code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
         code << "        c << '%*'\n"
@@ -388,9 +388,9 @@ module Backend
         code.c
       end
 
-      def amount_range_crit(variable, conditions = 'c')
+      def amount_range_crit(variable, _conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
-        code =''
+        code = ''
         code << "unless #{variable}[:amount_min].blank? && #{variable}[:amount_max].blank?\n"
         code << "  if #{variable}[:amount_min].blank?\n"
         code << "    c[0] << ' AND (#{JournalEntryItem.table_name}.absolute_credit <= ' + params[:amount_max] + ' AND #{JournalEntryItem.table_name}.absolute_debit <= ' + params[:amount_max] + ')'\n"
