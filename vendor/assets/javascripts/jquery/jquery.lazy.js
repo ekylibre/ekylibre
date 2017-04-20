@@ -30,7 +30,7 @@
     /**
      * helper to register window load for jQuery 3
      * @type {boolean}
-     */    
+     */
     windowLoaded = false;
 
     /**
@@ -119,7 +119,7 @@
          * @access private
          * @type {boolean}
          */
-        _isRetinaDisplay = false, 
+        _isRetinaDisplay = false,
 
         /**
          * dictionary entry for better minimization
@@ -227,7 +227,7 @@
                         var item = items.filter(forcedItems[i]);
 
                         if( item.length ) {
-                            _lazyLoadItems(false, item);   
+                            _lazyLoadItems(false, item);
                         }
                     }
                 };
@@ -261,7 +261,7 @@
                 var element = $(this),
                     tag = _getElementTagName(this);
 
-                return !element.data(config.handledName) && 
+                return !element.data(config.handledName) &&
                        (element.attr(config.attribute) || element.attr(srcsetAttribute) || element.attr(loaderAttribute) || forcedTags[tag] !== undefined);
             })
 
@@ -325,7 +325,7 @@
                         elementImageBase = element.attr(config.imageBaseAttribute) || imageBase,
                         customLoader = element.attr(config.loaderAttribute);
 
-                        // is not already handled 
+                        // is not already handled
                     if( !element.data(handledName) &&
                         // and is visible or visibility doesn't matter
                         (!config.visibleOnly || element.is(":visible")) && (
@@ -334,7 +334,7 @@
                             // and is image tag where attribute is not equal source or source set
                             (tag == _img && (elementImageBase + attribute != element.attr(_src) || element.attr(srcsetAttribute) != element.attr(_srcset))) ||
                             // or is non image tag where attribute is not equal background
-                            (tag != _img && elementImageBase + attribute != element.css(_backgroundImage)) 
+                            (tag != _img && elementImageBase + attribute != element.css(_backgroundImage))
                         ) ||
                         // or custom loader is available
                         customLoader ))
@@ -820,6 +820,6 @@
     };
 
     // register window load event globally to prevent not loading elements
-    // since jQuery 3.X ready state is fully async and may be executed after 'load' 
+    // since jQuery 3.X ready state is fully async and may be executed after 'load'
     $(window).on("load", function() { windowLoaded = true; });
 })(window);

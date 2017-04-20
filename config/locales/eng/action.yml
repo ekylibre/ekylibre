@@ -368,6 +368,7 @@ eng:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
     backend/interventions:
+      # change_page: "Change page intervention: %{name}"
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
       edit: "Edit"
@@ -2231,6 +2232,7 @@ eng:
       cancel: "Cancel"
       # change: "Change"
       # change_minutes: "Change minutes"
+      # change_page: "Change page"
       # change_password: "Change password"
       # change_state: "Change state"
       check: "Check"

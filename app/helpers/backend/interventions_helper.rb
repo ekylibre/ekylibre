@@ -60,8 +60,8 @@ module Backend
       request_intervention_id = intervention.request_intervention_id unless intervention.request_intervention_id.nil?
 
       [[{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
-        task_datas, [], can_select, colors,
-        params: { class: '', data: { intervention: intervention_datas.to_json, request_intervention_id: request_intervention_id } }]
+       task_datas, [], can_select, colors,
+       params: { class: '', data: { intervention: intervention_datas.to_json, request_intervention_id: request_intervention_id } }]
     end
 
     def add_detail_to_modal_block(title, detail, options)
