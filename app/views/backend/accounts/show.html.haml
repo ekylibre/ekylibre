@@ -2,6 +2,7 @@
 
 - main_toolbar do |t|
   = t.edit(resource)
+  = t.export :account_journal_entry_sheet
   = t.destroy(resource)
   = t.mark(resource) if resource.reconcilable?
 

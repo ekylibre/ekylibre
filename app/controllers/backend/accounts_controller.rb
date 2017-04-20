@@ -20,6 +20,8 @@ module Backend
   class AccountsController < Backend::BaseController
     manage_restfully number: 'params[:number]'.c
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     unroll
 
     def self.accounts_conditions
@@ -49,6 +51,16 @@ module Backend
 
     # Displays the main page with the list of accounts
     def index; end
+
+    def show
+      return unless @account = find_and_check
+      t3e @account
+      respond_with(@account, methods: [],
+                             include: [
+                               { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
+                             ],
+                             procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
+    end
 
     def self.account_moves_conditions(_options = {})
       code = ''

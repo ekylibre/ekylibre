@@ -4,18 +4,23 @@ module Phytosanitary
     attr_reader :code
     attr_reader :group
 
+    def self.get(risk_level)
+      return Unknown unless risk_level.present?
+      new(risk_level)
+    end
+
     def initialize(risk_level)
       @code  = risk_level.to_s
-      @group = Pesticide::RisksGroupAbacus.find_group_of(@code) || Group[5]
+      @group = Pesticide::RisksGroupAbacus.find_group_of(@code)
     end
 
     def self.risks_of(variant)
       return [Unknown] unless maaid = variant.france_maaid
       risks = Pesticide::Agent.find(maaid).risks
-      risks.map { |risk| new(risk) }
+      risks.map { |risk| get(risk) }
     end
 
-    Unknown = Struct.new(:code, :group)
+    Unknown = Struct.new('UnknownRisk', :code, :group)
                     .new(nil, Phytosanitary::Group::Unknown)
   end
 end
