@@ -167,6 +167,14 @@ class Plant < Bioproduct
     curves(categories, cat_percentage, nothing, nothing)
   end
 
+  def self.uniq_variety
+    table = []
+    self.find_each { |p| table << p.variety }
+    table = table.uniq
+    table = table.map { |variety| [I18n.t(variety, scope: [:nomenclatures, :varieties, :items]), variety] }
+    table.sort { |a, b| a[0] <=> b[0] }
+  end
+
   private
 
   def curves(collection, set_first_val, get_value, get_name, round = 2)

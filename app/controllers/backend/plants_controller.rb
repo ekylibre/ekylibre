@@ -22,7 +22,7 @@ module Backend
 
     def self.list_conditions
       code = ''
-      code = search_conditions(products: %i[name variety work_number]) + " ||= []\n"
+      code = search_conditions(products: %i[name work_number]) + " ||= []\n"
       code << "if params[:born_at].present? && params[:born_at].to_s != 'all'\n"
       code << " c[0] << ' AND #{Plant.table_name}.born_at::DATE BETWEEN ? AND ?'\n"
       code << " if params[:born_at].to_s == 'interval'\n"
@@ -44,6 +44,10 @@ module Backend
       code << "   c << interval.first\n"
       code << "   c << interval.second\n"
       code << " end\n"
+      code << "end\n"
+      code << "if params[:variety].present?\n"
+      code << " c[0] << ' AND #{Plant.table_name}.variety = ?'\n"
+      code << " c << params[:variety]\n"
       code << "end\n"
       code << "c\n "
       code.c
