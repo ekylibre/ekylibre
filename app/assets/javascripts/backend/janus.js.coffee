@@ -1,7 +1,12 @@
 ((E, $) ->
   'use strict'
 
+  # Removed for now for performance reasons. Letting turbolinks handle that one.
+  ajax_toggle = false
+
   $(document).on "click", "*[data-janus] a[data-toggle='face']", () ->
+    return true unless ajax_toggle
+
     button = $(this)
     $("*[data-toggle='face']").removeClass('active')
     button.addClass('active')
