@@ -26,7 +26,7 @@ class Intervention
       cast
     end
 
-    [:target, :doer, :tool, :input, :output].each do |name|
+    %i[target doer tool input output].each do |name|
       code = "def #{name}(name, *args)\n"
       code << "  cast(:#{name}, name, *args)\n"
       code << "end\n"

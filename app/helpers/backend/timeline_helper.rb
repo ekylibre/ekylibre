@@ -164,7 +164,7 @@ module Backend
         end
         klass = reflection.class_name.constantize
         available_methods = klass.columns_hash.keys.map(&:to_sym)
-        options[:label_method] ||= [:label, :name, :number, :coordinates, :id].detect { |m| available_methods.include?(m) } || :id
+        options[:label_method] ||= %i[label name number coordinates id].detect { |m| available_methods.include?(m) } || :id
         options[:params] ||= {}
         options[:params][reflection.foreign_key.to_sym] ||= @object.id
         options[:params]["#{reflection.options[:as]}_type".to_sym] ||= @model.name if reflection.options[:as]

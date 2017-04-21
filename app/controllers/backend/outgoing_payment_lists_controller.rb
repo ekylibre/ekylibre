@@ -18,7 +18,7 @@
 
 module Backend
   class OutgoingPaymentListsController < Backend::BaseController
-    manage_restfully only: [:show, :index, :destroy]
+    manage_restfully only: %i[show index destroy]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -52,14 +52,14 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
 
       respond_with(@outgoing_payment_list,
-                   methods: [:currency, :payments_sum, :entity],
+                   methods: %i[currency payments_sum entity],
                    include: {
                      payer: {
                        methods: [:picture_path],
                        include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} }
                      },
                      payments: {
-                       methods: [:amount_to_letter, :label, :affair_reference_numbers],
+                       methods: %i[amount_to_letter label affair_reference_numbers],
                        include: {
                          responsible: {},
                          affair: { include: { purchases: {} } },

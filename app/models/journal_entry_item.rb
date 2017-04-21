@@ -147,9 +147,13 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   validate(on: :update) do
     old = old_record
-    list = changed - %w(cumulated_absolute_debit cumulated_absolute_credit)
+    list = changed - %w[printed_on cumulated_absolute_debit cumulated_absolute_credit]
     if old.closed? && list.any?
-      errors.add(:account_id, :entry_has_been_already_validated)
+      list.each do |attribute|
+        if !entry.respond_to?(attribute) || (entry.send(attribute) != send(attribute))
+          errors.add(attribute, :entry_has_been_already_validated)
+        end
+      end
     end
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
     # if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
@@ -186,8 +190,8 @@ class JournalEntryItem < Ekylibre::Record::Base
 
     if entry
       self.entry_number = entry.number
-      [:financial_year_id, :printed_on, :journal_id, :currency,
-       :absolute_currency, :real_currency, :real_currency_rate].each do |replicated|
+      %i[financial_year_id printed_on journal_id currency
+         absolute_currency real_currency real_currency_rate].each do |replicated|
         send("#{replicated}=", entry.send(replicated))
       end
       unless closed?
@@ -285,7 +289,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Unmark all the journal entry items with the same mark in the same account
   def unmark
-    account.unmark(letter) unless letter.blank?
+    account.unmark(letter) if letter.present?
   end
 
   # Returns the previous item

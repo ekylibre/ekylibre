@@ -38,7 +38,7 @@ module Phytosanitary
       false
     end
 
-    Unknown = Struct.new(:code, :number, :labels, :risk_codes) do
+    Unknown = Struct.new('UnknownGroup', :code, :number, :labels, :risk_codes) do
       def unknown?
         true
       end

@@ -135,7 +135,7 @@ module Backend
         html << content_tag(:li, link_to(options[:title], url, options), li_options) if authorized?(url)
       end
 
-      unless html.blank?
+      if html.present?
         html = content_tag(:ul, html)
         snippet(main_name, main_options) { html }
       end
@@ -189,7 +189,7 @@ module Backend
 
     # chart for variables readings
     def variable_readings(resource)
-      indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
+      indicators = resource.variable_indicators.delete_if { |i| !%i[measure decimal].include?(i.datatype) }
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
@@ -262,7 +262,7 @@ module Backend
       current_interval = current_user.current_period_interval.to_sym
       current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
 
-      default_intervals = [:day, :week, :month, :year]
+      default_intervals = %i[day week month year]
       intervals = default_intervals if intervals.empty?
       intervals &= default_intervals
       current_interval = intervals.last unless intervals.include?(current_interval)

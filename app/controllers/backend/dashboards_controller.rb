@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -41,22 +42,22 @@ module Backend
     def sandbox; end
 
     SIMILAR_LETTERS = [
-      %w(C Ç),
-      %w(A Á À Â Ä Ǎ Ă Ā Ã Å),
-      %w(Æ Ǽ Ǣ),
-      %w(E É È Ė Ê Ë Ě Ĕ Ē),
-      %w(I Í Ì İ Î Ï Ǐ Ĭ Ī Ĩ),
-      %w(O Ó Ò Ô Ö Ǒ Ŏ Ō Õ Ő),
-      %w(U Ú Ù Û Ü Ǔ Ŭ Ū Ũ Ű Ů),
-      %w(Y Ý Ỳ Ŷ Ÿ Ȳ Ỹ),
-      %w(c ç),
-      %w(a á à â ä ǎ ă ā ã å),
-      %w(æ ǽ ǣ),
-      %w(e é è ė ê ë ě ĕ ē),
-      %w(i í ì i î ï ǐ ĭ ī ĩ),
-      %w(o ó ò ô ö ǒ ŏ ō õ ő),
-      %w(u ú ù û ü ǔ ŭ ū ũ ű ů),
-      %w(ý ỳ ŷ ÿ ȳ ỹ)
+      %w[C Ç],
+      %w[A Á À Â Ä Ǎ Ă Ā Ã Å],
+      %w[Æ Ǽ Ǣ],
+      %w[E É È Ė Ê Ë Ě Ĕ Ē],
+      %w[I Í Ì İ Î Ï Ǐ Ĭ Ī Ĩ],
+      %w[O Ó Ò Ô Ö Ǒ Ŏ Ō Õ Ő],
+      %w[U Ú Ù Û Ü Ǔ Ŭ Ū Ũ Ű Ů],
+      %w[Y Ý Ỳ Ŷ Ÿ Ȳ Ỹ],
+      %w[c ç],
+      %w[a á à â ä ǎ ă ā ã å],
+      %w[æ ǽ ǣ],
+      %w[e é è ė ê ë ě ĕ ē],
+      %w[i í ì i î ï ǐ ĭ ī ĩ],
+      %w[o ó ò ô ö ǒ ŏ ō õ ő],
+      %w[u ú ù û ü ǔ ŭ ū ũ ű ů],
+      %w[ý ỳ ŷ ÿ ȳ ỹ]
     ].freeze
 
     # Global search method is put there for now waiting for a better place
@@ -129,7 +130,7 @@ module Backend
     private
 
     def self.build_centralizing_query
-      excluded = [:account_balance, :cash_session, :custom_field_choice, :deposit_item, :fixed_asset_depreciation, :inventory_item, :listing_node_item, :preference]
+      excluded = %i[account_balance cash_session custom_field_choice deposit_item fixed_asset_depreciation inventory_item listing_node_item preference]
 
       auxiliaries = {
         purchase_item: :purchase,
@@ -142,7 +143,7 @@ module Backend
         model = model_name.to_s.camelcase.constantize
         next unless model.superclass == Ekylibre::Record::Base
         cols = model.columns_definition.keys
-        title = [:label, :name, :full_name, :reason, :code, :number].detect { |x| cols.include?(x.to_s) }
+        title = %i[label name full_name reason code number].detect { |x| cols.include?(x.to_s) }
         next unless title
         main_model = nil
         reflection = nil
@@ -154,9 +155,9 @@ module Backend
           main_model = reflection.class_name.constantize
         end
         columns = model.columns_definition.values.delete_if do |c|
-          [:created_at, :creator_id, :depth, :id, :lft, :lock_version,
-           :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c[:name]) ||
-            [:boolean, :spatial, :geometry, :json, :jsonb].include?(c[:type]) ||
+          %i[created_at creator_id depth id lft lock_version
+             position rights rgt type updated_at updater_id].include?(c[:name]) ||
+            %i[boolean spatial geometry json jsonb].include?(c[:type]) ||
             c[:name].to_s =~ /\_file_size$/ ||
             c[:name].to_s =~ /\_type$/ ||
             c[:name].to_s =~ /\_id$/

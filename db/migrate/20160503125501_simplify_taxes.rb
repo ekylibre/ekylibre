@@ -32,7 +32,7 @@ class SimplifyTaxes < ActiveRecord::Migration
         # Activate needed taxes
         execute "UPDATE taxes SET active = TRUE WHERE reference_name SIMILAR TO '%_201(1|2|3|4)' OR LENGTH(TRIM(reference_name)) <= 0"
 
-        execute 'UPDATE taxes SET nature = CASE ' + %w(inflated intermediate reduced particular null).map { |n| "WHEN reference_name LIKE '%#{n}%' THEN '#{n}_vat'" }.join(' ') + " ELSE 'normal_vat' END, country = CASE WHEN reference_name LIKE 'spain%' THEN 'es' WHEN reference_name LIKE 'swiss%' THEN 'ch' ELSE 'fr' END"
+        execute 'UPDATE taxes SET nature = CASE ' + %w[inflated intermediate reduced particular null].map { |n| "WHEN reference_name LIKE '%#{n}%' THEN '#{n}_vat'" }.join(' ') + " ELSE 'normal_vat' END, country = CASE WHEN reference_name LIKE 'spain%' THEN 'es' WHEN reference_name LIKE 'swiss%' THEN 'ch' ELSE 'fr' END"
       end
       d.down do
         # Adds "asset" VAT

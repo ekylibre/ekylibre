@@ -39,7 +39,7 @@ module Backend
 
     hide_action :journal_views
 
-    @@journal_views = %w(items entries mixed)
+    @@journal_views = %w[items entries mixed]
     cattr_reader :journal_views
 
     list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
@@ -145,10 +145,10 @@ module Backend
                             rescue
                               (params[:stopped_on] - 1.year).beginning_of_month
                             end
-      @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment,
-                  :cash_transfer, :parcel, :intervention, :inventory, :tax_declaration,
-                  :loan, :intervention, :parcel, :inventory, :bank_statement,
-                  :sale_gap, :purchase_gap]
+      @natures = %i[sale incoming_payment deposit purchase outgoing_payment
+                    cash_transfer parcel intervention inventory tax_declaration
+                    loan intervention parcel inventory bank_statement
+                    sale_gap purchase_gap]
 
       if request.get?
         notify_now(:bookkeeping_works_only_with, list: @natures.map { |x| x.to_s.classify.constantize.model_name.human }.to_sentence)

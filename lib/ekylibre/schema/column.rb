@@ -24,7 +24,7 @@ module Ekylibre
       end
 
       def references?
-        !@references.blank?
+        @references.present?
       end
 
       def polymorphic?

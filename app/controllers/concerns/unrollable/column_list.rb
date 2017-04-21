@@ -3,7 +3,7 @@ module Unrollable
   class ColumnList
     include Toolbelt
 
-    DEFAULT_COLUMNS = %i(title label full_name name code number reference_number).freeze
+    DEFAULT_COLUMNS = %i[title label full_name name code number reference_number].freeze
 
     def initialize(list, model)
       @model = model

@@ -70,8 +70,8 @@ class Account < Ekylibre::Record::Base
   has_many :stocks_variants,              class_name: 'ProductNatureVariant', foreign_key: :stock_account_id
   has_many :stocks_movement_variants,     class_name: 'ProductNatureVariant', foreign_key: :stock_movement_account_id
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
-  has_many :nterests_loans,               class_name: 'Loan', foreign_key: :interest_account_id
-  has_many :insurances_loans, class_name: 'Loan', foreign_key: :insurance_account_id
+  has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
+  has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
   has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
@@ -310,7 +310,7 @@ class Account < Ekylibre::Record::Base
 
     # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
-      %w(fr_pcg82 fr_pcga).include?(accounting_system)
+      %w[fr_pcg82 fr_pcga].include?(accounting_system)
     end
 
     # Returns the name of the used accounting system
@@ -352,7 +352,7 @@ class Account < Ekylibre::Record::Base
     # Example : 1-3 41 43
     def clean_range_condition(range, _table_name = nil)
       expression = ''
-      unless range.blank?
+      if range.present?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
         for expr in range.split(/[^0-9A-Z\-\*]+/)
           if expr =~ /\-/
@@ -386,12 +386,13 @@ class Account < Ekylibre::Record::Base
           end
         end
       end
+      return false if conditions.empty?
       '(' + conditions.join(' OR ') + ')'
     end
 
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
-      [:clients, :suppliers, :attorneys].collect do |mode|
+      %i[clients suppliers attorneys].collect do |mode|
         Nomen::Account[mode].send(accounting_system).to_s
       end
     end

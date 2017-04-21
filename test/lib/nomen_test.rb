@@ -57,7 +57,7 @@ class NomenTest < ActiveSupport::TestCase
   test 'product_nature_variants indicators' do
     invalids = []
     Nomen::ProductNatureVariant.find_each do |item|
-      unless item.frozen_indicators_values.to_s.blank?
+      if item.frozen_indicators_values.to_s.present?
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
           indicator_name = i.first.strip.downcase.to_sym

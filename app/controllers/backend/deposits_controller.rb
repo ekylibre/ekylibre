@@ -63,7 +63,7 @@ module Backend
                                        { payments: { include: :payer } }])
     end
 
-    list(:depositable_payments, model: :incoming_payments, conditions: ['deposit_id=? OR (mode_id=? AND deposit_id IS NULL)', 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: [:to_bank_at, :created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at.to_date || Date.yesterday) > Time.zone.today ? 'critic' : '')".c) do |t|
+    list(:depositable_payments, model: :incoming_payments, conditions: ['deposit_id=? OR (mode_id=? AND deposit_id IS NULL)', 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: %i[to_bank_at created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at.to_date || Date.yesterday) > Time.zone.today ? 'critic' : '')".c) do |t|
       t.column :number, url: true
       t.column :payer, url: true
       t.column :bank_name

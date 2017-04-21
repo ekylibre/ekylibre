@@ -47,7 +47,7 @@ module ActionIntegration
     end
 
     def error(error_code = nil, match = false, &block)
-      state_handling(:error, %w(4 5), error_code, match, &block)
+      state_handling(:error, %w[4 5], error_code, match, &block)
     end
 
     def client_error(error_code = nil, match = false, &block)

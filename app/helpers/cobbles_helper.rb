@@ -17,7 +17,7 @@ module CobblesHelper
     end
 
     def others
-      @cobbler.items.select { |c| c.id != @id }
+      @cobbler.items.reject { |c| c.id == @id }
     end
   end
 

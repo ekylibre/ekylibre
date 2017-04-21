@@ -88,7 +88,7 @@ module Indicateable
     if cast_or_time.is_a?(Time) || cast_or_time.is_a?(DateTime)
       # Find value
       if options[:interpolate]
-        if [:measure, :decimal, :integer].include?(indicator.datatype)
+        if %i[measure decimal integer].include?(indicator.datatype)
           raise NotImplementedError, 'Interpolation is not available for now'
         end
         raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"

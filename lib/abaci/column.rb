@@ -30,7 +30,7 @@ module Abaci
       elsif @type == :integer
         value.to_i
       elsif @type == :boolean
-        %w(true yes ok t 1).include?(value.downcase)
+        %w[true yes ok t 1].include?(value.downcase)
       elsif @type == :list
         value.split(/[[:space:]]*\,[[:space:]]*/)
       else

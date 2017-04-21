@@ -182,31 +182,34 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal PurchaseAffair, Purchase.affair_class
   end
 
-  test 'Test variant specified when bookkeep' do
-    nature = PurchaseNature.first
-    tax = Tax.create!(
-      name: 'Reduced',
-      amount: 5.5,
-      nature: :normal_vat,
-      collect_account: Account.find_or_create_by_number('4566'),
-      deduction_account: Account.find_or_create_by_number('4567'),
-      country: :fr
+  test 'payment date computation' do
+    purchase = Purchase.create!(
+      nature: PurchaseNature.first,
+      planned_at: Date.civil(2015, 1, 1),
+      supplier: Entity.where(supplier: true).first,
+      items_attributes: {
+        '0' => {
+          tax: Tax.find_by!(amount: 20),
+          variant: ProductNatureVariant.first,
+          unit_pretax_amount: 100,
+          quantity: 1
+        },
+        '1' => {
+          tax: Tax.find_by!(amount: 0),
+          variant_id: ProductNatureVariant.first.id,
+          unit_pretax_amount: 450,
+          quantity: 2
+        }
+      }
     )
+    assert_equal Date.civil(2015, 1, 1), purchase.payment_at
 
-    purchase = Purchase.create!(nature: nature, supplier: Entity.normal.first)
-    purchase.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 3.791, tax: tax)
-    purchase.reload
-    
-    assert purchase.invoice
-    
-    journal_entry_items = purchase.journal_entry.items
-    account_ids = journal_entry_items.pluck(:account_id)
+    purchase.payment_delay = '1 year'
+    purchase.save!
+    assert_equal Date.civil(2016, 1, 1), purchase.payment_at
 
-    purchase_account = Account.where(id: account_ids).where("number LIKE '6%'").first
-    jei_s = journal_entry_items.where(account_id: purchase_account.id).first
-
-    # jei_s variant must be defined
-    assert_not jei_s.variant.nil? 
-    assert_equal jei_s.variant, @variant
+    purchase.payment_delay = '2 months'
+    purchase.save!
+    assert_equal Date.civil(2015, 3, 1), purchase.payment_at
   end
 end

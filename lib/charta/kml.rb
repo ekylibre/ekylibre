@@ -3,7 +3,7 @@ module Charta
   class KML
     attr_reader :srid
 
-    TAGS = %w(Point LineString Polygon MultiGeometry).freeze
+    TAGS = %w[Point LineString Polygon MultiGeometry].freeze
 
     def initialize(data, srid = :WGS84)
       @kml = if data.is_a? String
@@ -73,7 +73,7 @@ module Charta
       def polygon_to_ewkt(kml)
         return 'POLYGON EMPTY' if kml.css('coordinates').blank?
 
-        'POLYGON(' + %w(outerBoundaryIs innerBoundaryIs).collect do |boundary|
+        'POLYGON(' + %w[outerBoundaryIs innerBoundaryIs].collect do |boundary|
           next if kml.css(boundary).empty?
 
           kml.css(boundary).collect do |hole|

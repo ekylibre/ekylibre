@@ -18,7 +18,7 @@
 
 module Backend
   class SalesController < Backend::BaseController
-    manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c, continue: [:nature_id]
+    manage_restfully except: %i[index show new], redirect_to: '{action: :show, id: "id".c}'.c, continue: [:nature_id]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -27,7 +27,7 @@ module Backend
     # management -> sales_conditions
     def self.sales_conditions
       code = ''
-      code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -56,7 +56,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, selectable: :true, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, selectable: :true, joins: %i[client affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
@@ -125,7 +125,7 @@ module Backend
       # t.column :undelivered_quantity, :datatype => :decimal
     end
 
-    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: { id: :asc }, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
+    list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: { id: :asc }, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: %i[variant subscriptions]) do |t|
       # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
       # t.column :name, through: :variant
@@ -148,20 +148,20 @@ module Backend
     def show
       return unless @sale = find_and_check
       @sale.other_deals
-      respond_with(@sale, methods: [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
+      respond_with(@sale, methods: %i[taxes_amount affair_closed client_number sales_conditions sales_mentions],
                           include: { address: { methods: [:mail_coordinate] },
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
                                      responsible: {},
                                      credits: {},
-                                     parcels: { methods: [:human_delivery_mode, :human_delivery_nature, :items_quantity], include: {
+                                     parcels: { methods: %i[human_delivery_mode human_delivery_nature items_quantity], include: {
                                        address: {},
                                        sender: {},
                                        recipient: {}
                                      } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
-                                     items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant, parcel_items: { include: [:product, :parcel] }] } }) do |format|
+                                     items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, parcel_items: { include: %i[product parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
         end

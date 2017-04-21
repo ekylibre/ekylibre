@@ -2,7 +2,7 @@ module Ekylibre
   module Record #:nodoc:
     module Bookkeep
       def self.actions
-        [:create, :update, :destroy]
+        %i[create update destroy]
       end
 
       class EntryRecorder
@@ -40,7 +40,7 @@ module Ekylibre
         end
 
         def journal_entry(journal, options = {}, &block)
-          if (options.keys & [:if, :unless]).size > 1
+          if (options.keys & %i[if unless]).size > 1
             raise ArgumentError, 'Options :if and :unless are incompatible.'
           end
           if options.key? :list
@@ -88,7 +88,7 @@ module Ekylibre
               attributes[:items] = []
               list.each do |cmd|
                 direction = cmd.shift
-                unless [:add_debit, :add_credit].include?(direction)
+                unless %i[add_debit add_credit].include?(direction)
                   raise 'Can accept only add_debit and add_credit commands'
                 end
                 cmd[3] ||= {}

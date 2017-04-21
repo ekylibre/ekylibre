@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   class BankStatementsExchanger < ActiveExchanger::Base
     def import
@@ -56,7 +57,7 @@ module Ekylibre
         end
         raise 'Need cash to continue' unless cash
 
-        next if bank_statement_number.blank? && !movements.any?
+        next if bank_statement_number.blank? && movements.none?
 
         bank_statement_started_on ||= movements.map(&:value_date).min
         bank_statement_stopped_on ||= movements.map(&:value_date).max

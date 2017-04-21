@@ -1,10 +1,10 @@
 class NormalizeVariousMistakes < ActiveRecord::Migration
   def change
     # Removes unique index
-    revert { add_index :documents, [:nature, :key], unique: true }
+    revert { add_index :documents, %i[nature key], unique: true }
 
     # Re-adds index with unique constraint
-    add_index :documents, [:nature, :key]
+    add_index :documents, %i[nature key]
 
     # Renames ressource => resource
     rename_column :interventions, :ressource_id,   :resource_id
@@ -14,7 +14,7 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
     revert { add_column :teams, :sales_conditions, :text }
 
     # Rename vat_taxe_registry to vat_registry
-    reporting_tables = [:document_templates, :documents, :attachments]
+    reporting_tables = %i[document_templates documents attachments]
     reversible do |dir|
       dir.up do
         reporting_tables.each do |table|
@@ -46,7 +46,7 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
 
     # Moves LegalEntities/People images to their new home
     removed = []
-    [:legal_entities, :people].each do |type|
+    %i[legal_entities people].each do |type|
       old_dir = Ekylibre::Tenant.private_directory.join('attachments', type.to_s)
       new_dir = Ekylibre::Tenant.private_directory.join('attachments', 'entities')
       removed << old_dir
