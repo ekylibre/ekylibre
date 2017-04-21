@@ -189,6 +189,33 @@
       else
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
 
+    addLazyLoading: ->
+      loadContent = false
+      currentPage = 1
+      taskHeight = 60
+      halfTaskList = 12
+
+      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
+      $('#content').scroll ->
+        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+          currentPage++
+          params['page'] = currentPage
+          
+          loadContent = true
+          
+          $.ajax
+            url: "/backend/interventions/change_page",
+            data: { interventions_taskboard: params }
+            success: (data, status, request) ->
+              loadContent = false
+              taskboard.addTaskClickEvent()
+
 
   ##############################################################################
   # Triggers
@@ -243,33 +270,10 @@
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      loadContent = false
-      currentPage = 1
-      taskHeight = 60
-      halfTaskList = 12
+      E.interventions.addLazyLoading()
+ 
 
-      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
-      params = urlParams.reduce((map, obj) ->
-        param = obj.split("=")
-        map[param[0]] = param[1]
-        return map
-      , {})
 
-      $('#content').scroll ->
-        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
-          currentPage++
-          params['page'] = currentPage
-          
-          loadContent = true
-          
-          $.ajax
-            url: "/backend/interventions/change_page",
-            data: { interventions_taskboard: params }
-            success: (data, status, request) ->
-              loadContent = false
-              taskboard.addTaskClickEvent()
-
-  
   class InterventionsTaskboard
 
     constructor: ->
