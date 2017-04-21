@@ -109,20 +109,23 @@ module Backend
 
       # list of all options
       list = []
-      list << [:all_periods.tl, 'all']
-      for year in FinancialYear.reorder(started_on: :desc)
-        list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
+      list << ['', 'all']
+
+
+      # Add year and month period
+      first_date = Plant.order(name).first[name]
+      period = (first_date.year..Time.now.year).map { |p| p}
+      period.reverse_each do |year|
+        full_year = Time.new(year)
+        list << [year, "#{full_year.to_date}_#{full_year.end_of_year.to_date}"]
+        date = period.index(year) == 0 ? first_date.beginning_of_month : full_year
         list2 = []
-        date = year.started_on
-        while date < year.stopped_on && date < Time.zone.today
-          date2 = date.end_of_month
-          list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
-          date = date2 + 1
+        while date < full_year.end_of_year && date < Time.zone.today
+          list2 << [l(date.to_date, format: :month), "#{date.to_date}_#{date.end_of_month.to_date}"]
+          date = date + 1.month
         end
         list += list2.reverse
       end
-
-
       if params[name].present? && params[name] != 'all' && params[name] == 'interval'
         configuration = { custom: :interval }.merge(options)
       else
