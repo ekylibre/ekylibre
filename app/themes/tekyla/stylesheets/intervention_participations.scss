@@ -1,0 +1,82 @@
+.working-times {
+  
+  .indicators {
+    @include flex-row();
+    text-align: center;
+    margin-bottom: 4em;
+  }
+
+  .participations {
+    margin: 0 3em; 
+  
+    &-header {
+      @include flex-row(flex-start);
+      border-bottom: $menu-border;
+      margin-bottom: 1.5em;
+    }
+
+    &-header .action-period {
+      flex-basis: 70%;
+    }
+
+    &-header .action-header {
+      padding-bottom: $default-gap;
+      font-size: $fs-normal;
+      font-weight: bold;
+    }
+  }
+
+  .participation {
+    @include flex-row(flex-start);
+    width: 100%;
+  }
+
+  .participation-icon {
+    @include flex-column();
+    flex-basis: 10%;
+
+    .picto {
+      color: $darkened-blue-grey;
+      font-size: $fs-huge;
+      line-height: initial;
+    }
+  }
+
+  .participation-form {
+    @include flex-row(flex-start);
+    flex-basis: 60%;
+
+    .participation-field {
+      @include flex-row(flex-end);
+      flex-basis: 35%;
+    }
+
+    .participation-input {
+      width: 25%;
+      margin-right: 1em;
+    }
+  }
+
+  // .vertical-bar {
+  //   flex-basis: 5%;
+  // }
+
+  .participation-result {
+    flex-basis: 30%;
+  }
+
+  .actions {
+    @include flex-row();
+    margin-top: 5em;
+
+    .action {
+      @include flex-column();
+      flex-basis: 15%;
+      margin: 0 2em;
+    }
+
+    .action-icon {
+      width: $fs-awesome;
+    }
+  }
+}

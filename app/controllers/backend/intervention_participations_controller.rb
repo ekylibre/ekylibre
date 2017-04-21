@@ -46,5 +46,10 @@ module Backend
         redirect_to backend_intervention_participations_path(worked_on: params[:worked_on])
       end
     end
+  
+    def participations_modal
+      @intervention = Intervention.find(params[:intervention_id])
+      render partial: 'backend/intervention_participations/participations_modal', locals: { intervention: @intervention }
+    end
   end
 end

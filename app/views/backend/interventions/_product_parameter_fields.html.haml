@@ -17,7 +17,11 @@
   
     - if !f.object.new_record? && reference.doer?# || reference.tool?
       .has-intervention-participations.picto.picto-timer
-  
+      
+      = modal(id: "working_times", class: "working-times", size: :large) do
+        .modal-body
+        .modal-footer    
+
   - if reference.quantified?
     = render 'quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))
