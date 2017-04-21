@@ -341,36 +341,36 @@ class User < Ekylibre::Record::Base
     prefer!('current_period', period, :string)
   end
 
-  def current_account_mask_literate_element_is_checked
-    preference('current_account_mask_literate_element_is_checked', true, :boolean).value
+  def current_account_mask_lettered_item_is_checked
+    preference('current_account_mask_lettered_item_is_checked', true, :boolean).value
   end
 
-  def current_account_mask_literate_element_is_checked=(account_mask_literate_element_is_checked)
-    prefer!('current_account_mask_literate_element_is_checked', account_mask_literate_element_is_checked, :boolean)
+  def current_account_mask_lettered_item_is_checked=(account_mask_lettered_item_is_checked)
+    prefer!('current_account_mask_lettered_item_is_checked', account_mask_lettered_item_is_checked, :boolean)
   end
 
-  def current_account_mark_mask_literate_element_is_checked
-    preference('current_account_mark_mask_literate_element_is_checked', true, :boolean).value
+  def current_account_mark_mask_lettered_item_is_checked
+    preference('current_account_mark_mask_lettered_item_is_checked', true, :boolean).value
   end
 
-  def current_account_mark_mask_literate_element_is_checked=(account_mark_view_mask_literate_element_is_checked)
-    prefer!('current_account_mark_mask_literate_element_is_checked', account_mark_view_mask_literate_element_is_checked, :boolean)
+  def current_account_mark_mask_lettered_item_is_checked=(account_mark_view_mask_lettered_item_is_checked)
+    prefer!('current_account_mark_mask_lettered_item_is_checked', account_mark_view_mask_lettered_item_is_checked, :boolean)
   end
 
-  def current_entity_client_mask_literate_element_is_checked
-    preference('current_entity_client_mask_literate_element_is_checked', true, :boolean).value
+  def current_entity_client_mask_lettered_item_is_checked
+    preference('current_entity_client_mask_lettered_item_is_checked', true, :boolean).value
   end
 
-  def current_entity_client_mask_literate_element_is_checked=(entity_client_mark_view_mask_literate_element_is_checked)
-    prefer!('current_entity_client_mask_literate_element_is_checked', entity_client_mark_view_mask_literate_element_is_checked, :boolean)
+  def current_entity_client_mask_lettered_item_is_checked=(entity_client_mark_view_mask_lettered_item_is_checked)
+    prefer!('current_entity_client_mask_lettered_item_is_checked', entity_client_mark_view_mask_lettered_item_is_checked, :boolean)
   end
 
-  def current_entity_supplier_mask_literate_element_is_checked
-    preference('current_entity_supplier_mask_literate_element_is_checked', true, :boolean).value
+  def current_entity_supplier_mask_lettered_item_is_checked
+    preference('current_entity_supplier_mask_lettered_item_is_checked', true, :boolean).value
   end
 
-  def current_entity_supplier_mask_literate_element_is_checked=(entity_supplier_mark_view_mask_literate_element_is_checked)
-    prefer!('current_entity_supplier_mask_literate_element_is_checked', entity_supplier_mark_view_mask_literate_element_is_checked, :boolean)
+  def current_entity_supplier_mask_lettered_item_is_checked=(entity_supplier_mark_view_mask_lettered_item_is_checked)
+    prefer!('current_entity_supplier_mask_lettered_item_is_checked', entity_supplier_mark_view_mask_lettered_item_is_checked, :boolean)
   end
 
   def card

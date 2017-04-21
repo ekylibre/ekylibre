@@ -154,19 +154,19 @@ module Backend
       end
     end
 
-    def account_mask_literate_element_is_checked
-      checked_literate_element('current_account_mask_literate_element_is_checked')
+    def account_mask_lettered_item_is_checked
+      checked_lettered_item('current_account_mask_lettered_item_is_checked')
     end
 
-    def account_mark_mask_literate_element_is_checked
-      checked_literate_element('current_account_mark_mask_literate_element_is_checked')
+    def account_mark_mask_lettered_item_is_checked
+      checked_lettered_item('current_account_mark_mask_lettered_item_is_checked')
     end
 
     # Save the shown/hidden state of the checkbox
 
     private
 
-    def checked_literate_element(preference_string)
+    def checked_lettered_item(preference_string)
       checked = params[:checked].to_s == 'true' ? true : false
       current_user.prefer!(preference_string, checked, :boolean)
       head :ok

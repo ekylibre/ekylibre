@@ -187,8 +187,8 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        patch :account_mask_literate_element_is_checked
-        patch :account_mark_mask_literate_element_is_checked
+        patch :account_mask_lettered_item_is_checked
+        patch :account_mark_mask_lettered_item_is_checked
 
         match 'load', via: %i[get post]
       end
@@ -430,8 +430,8 @@ Rails.application.routes.draw do
 
     resources :entities, concerns: %i[autocomplete list unroll] do
       collection do
-        patch :entity_client_mask_literate_element_is_checked
-        patch :entity_supplier_mask_literate_element_is_checked
+        patch :entity_client_mask_lettered_item_is_checked
+        patch :entity_supplier_mask_lettered_item_is_checked
         match 'import', via: %i[get post]
         match 'merge',  via: %i[get post]
       end

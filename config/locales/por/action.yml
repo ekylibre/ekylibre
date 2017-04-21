@@ -1229,7 +1229,7 @@ por:
     mark_all_as_read: "Marcar tudo como lido"
     mark_as_read: "Marcar como Lido"
     marketable_net_mass: "massa líquida comercializável"
-    mask_literate_elements: "Máscara elementos alfabetizados"
+    mask_lettered_items: "Máscara elementos alfabetizados"
     # mass: "Masse"
     maximal_temperature: "Temperatura máxima"
     members: "Membros"

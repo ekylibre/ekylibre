@@ -422,17 +422,17 @@ module Backend
       end
     end
 
-    def entity_client_mask_literate_element_is_checked
-      checked_literate_element('current_entity_client_mask_literate_element_is_checked')
+    def entity_client_mask_lettered_item_is_checked
+      checked_lettered_item('current_entity_client_mask_lettered_item_is_checked')
     end
 
-    def entity_supplier_mask_literate_element_is_checked
-      checked_literate_element('current_entity_supplier_mask_literate_element_is_checked')
+    def entity_supplier_mask_lettered_item_is_checked
+      checked_lettered_item('current_entity_supplier_mask_lettered_item_is_checked')
     end
 
     private
 
-    def checked_literate_element(preference_string)
+    def checked_lettered_item(preference_string)
       checked = params[:checked].to_s == 'true' ? true : false
       current_user.prefer!(preference_string, checked, :boolean)
       head :ok

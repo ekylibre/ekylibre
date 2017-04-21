@@ -17,9 +17,9 @@
     - precision = Nomen::Currency[Preference[:currency]].precision
 
     .active-list-actions
-      %input#letters-visibility{ type: :checkbox, checked: current_user.current_account_mark_mask_literate_element_is_checked, data: { 'preference-url': account_mark_mask_literate_element_is_checked_backend_accounts_path } }
+      %input#letters-visibility{ type: :checkbox, checked: current_user.current_account_mark_mask_lettered_item_is_checked, data: { 'preference-url': account_mark_mask_lettered_item_is_checked_backend_accounts_path } }
       %label#label-letters-visibility
-        = :mask_literate_elements.tl
+        = :mask_lettered_items.tl
 
     .active-list
       %table.list

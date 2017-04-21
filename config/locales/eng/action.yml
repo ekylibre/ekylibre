@@ -18,8 +18,8 @@ eng:
       destroy: "Log out" #?
       new: "New session"
     backend/accounts:
-      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked account: %{name}"
-      # account_mask_literate_element_is_checked: "Account mask literate element is checked account: %{name}"
+      # account_mark_mask_lettered_item_is_checked: "Account mark mask literate element is checked account: %{name}"
+      # account_mask_lettered_item_is_checked: "Account mask literate element is checked account: %{name}"
       edit: "Edit account: %{number} - %{name}"
       index: "Accounting plans"
       load: "Load an accounting plan"
@@ -236,8 +236,8 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
-      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked entity: %{name}"
-      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked entity: %{name}"
+      # entity_client_mask_lettered_item_is_checked: "Entity client mask literate element is checked entity: %{name}"
+      # entity_supplier_mask_lettered_item_is_checked: "Entity supplier mask literate element is checked entity: %{name}"
       export: "Export people" #?
       import: "Import people"
       index: "People"
@@ -1457,7 +1457,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements"
+    mask_lettered_items: "Mask literate elements"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
@@ -2230,8 +2230,8 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked"
-      # account_mask_literate_element_is_checked: "Account mask literate element is checked"
+      # account_mark_mask_lettered_item_is_checked: "Account mark mask literate element is checked"
+      # account_mask_lettered_item_is_checked: "Account mask literate element is checked"
       # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
@@ -2268,8 +2268,8 @@ eng:
       edit: "Edit"
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
-      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked"
-      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked"
+      # entity_client_mask_lettered_item_is_checked: "Entity client mask literate element is checked"
+      # entity_supplier_mask_lettered_item_is_checked: "Entity supplier mask literate element is checked"
       evaluate: "Evaluate"
       export: "Export"
       export_to_sepa: "Export to SEPA"

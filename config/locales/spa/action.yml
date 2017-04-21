@@ -1376,7 +1376,7 @@ spa:
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
-    mask_literate_elements: "Enmascarar elementos alfabetizados"
+    mask_lettered_items: "Enmascarar elementos alfabetizados"
     # mass: "Masse"
     maximal_temperature: "La temperatura máxima"
     members: "Miembros"
