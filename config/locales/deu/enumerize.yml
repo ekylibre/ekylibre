@@ -249,6 +249,7 @@ deu:
         fixed_assets: "Anlagevermögen"
         forward: "Vorwärts getragen"
         purchases: "Käufe"
+        # result: "Result"
         sales: "Der Umsatz"
         stocks: "Bestände"
         various: "verschiedene Operationen"
