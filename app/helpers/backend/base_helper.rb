@@ -344,7 +344,7 @@ module Backend
         classes = ['face']
         classes << 'active' if active_face == face_name
         unless load_all_faces || active_face == face_name # load_all_faces toggle a few lines above
-          next content_tag(:div, nil, id: "face-#{face_name}", data: {face: face_name}, class: classes) 
+          next content_tag(:div, nil, id: "face-#{face_name}", data: { face: face_name }, class: classes)
         end
         content_tag(:div, id: "face-#{face_name}", data: { face: face_name }, class: classes, &face.block)
       end.join.html_safe
