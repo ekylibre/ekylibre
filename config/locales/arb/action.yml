@@ -1411,6 +1411,9 @@ arb:
     expired_within: "انتهت خلال (بالأيام)"
     exploitation_results: "النتائج الاستغلال"
     export: "اصدار الوثائق"
+    export_as_csv: "التصدير، CSV"
+    export_as_ods: "التصدير، المواد المستنفدة للأوزون"
+    export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"

@@ -75,6 +75,9 @@ por:
       internal_server_error:
         hint: "A aplicação encontra problemas. Os administradores foram notificados para este problema."
         title: "Nos desculpamos, mas alguma coisa aconteceu de errado"
+      maintenance:
+        hint: "Por favor, volte mais tarde"
+        title: "O serviço está em manutenção e não está disponível por enquanto"
       not_found:
         hint: "Você deve ter digitado alguma valor errado ou a página não existe mais."
         title: "A página que está procurando não existe"
