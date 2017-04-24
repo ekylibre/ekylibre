@@ -836,8 +836,6 @@ spa:
     amount: "Total TVA a pagar"
     # amount_computed_from: "Amount computed from %{source}"
     # amount_estimated_from: "Amount estimated from %{source}"
-    amount_max: "Cantidad máxima"
-    amount_min: "Monto minimo"
     # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
@@ -1376,9 +1374,10 @@ spa:
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
-    mask_lettered_items: "Enmascarar elementos alfabetizados"
+    mask_lettered_items: "Máscara artículos con letras"
     # mass: "Masse"
     maximal_temperature: "La temperatura máxima"
+    maximum_amount: "Cantidad máxima"
     members: "Miembros"
     menus: "Menús"
     merchandises_purchases: "Compras de mercaderías"
@@ -1386,6 +1385,7 @@ spa:
     merge: "Unir"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
+    minimum_amount: "Monto minimo"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"

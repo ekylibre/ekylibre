@@ -837,8 +837,6 @@ jpn:
     amount: "量"
     # amount_computed_from: "Amount computed from %{source}"
     # amount_estimated_from: "Amount estimated from %{source}"
-    amount_max: "最大量"
-    amount_min: "最小量"
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "解析"
@@ -1292,9 +1290,10 @@ jpn:
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
     marketable_net_mass: "有価正味質量"
-    mask_lettered_items: "学問の要素マスク"
+    mask_lettered_items: "マスクされたアイテム"
     mass: "マッセ"
     maximal_temperature: "最高温度"
+    maximum_amount: "最大量"
     members: "メンバー"
     menu: #?
       accountancy_tasks: "用事" #?
@@ -1306,6 +1305,7 @@ jpn:
     merge: "マージ"
     method: "方法"
     minimal_temperature: "最小限の温度"
+    minimum_amount: "最小量"
     missing_attributes: "一部の属性は失われています"
     missing_help: "無意味なページ"
     mobile: "モバイル"
