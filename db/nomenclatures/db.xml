@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170405135101">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170407214236">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
@@ -260,7 +260,7 @@
       <item name="interests_expenses" fr_pcga="661"/>
       <item name="internal_transfers" fr_pcg82="58"/>
       <item name="inventory_variations" fr_pcga="71"/>
-      <item name="invoice_to_create_clients" fr_pcg82="418"/>
+      <item name="invoice_to_create_clients" fr_pcg82="418" pt_snc="215"/>
       <item name="irrecoverable_losses_on_debt_obligation_expenses" fr_pcg82="654"/>
       <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="land_loans" fr_pcg82="1641"/>

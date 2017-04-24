@@ -26,9 +26,7 @@ class SequenceManager
   end
 
   def unique_predictable
-    last  = last_numbered_record
-    value = @start
-    value = number_of(last).succ if last.present?
+    value = next_number
     value = value.succ while @managed.find_by(@column => value)
     value
   end
@@ -46,7 +44,7 @@ class SequenceManager
 
     value = sequence.next_value!
     value = sequence.next_value! while @managed.find_by(@column => value)
-    record.send(:"#{@column}=", value)
+    set_number(record, value)
     true
   end
 
@@ -59,7 +57,7 @@ class SequenceManager
   end
 
   def sequence
-    @sequence &&= Sequence.find_by(id: @sequence.id)
+    @sequence &&= Sequence.find_by(usage: @usage, id: @sequence.id)
     @sequence ||= Sequence.of(@usage)
   end
 end

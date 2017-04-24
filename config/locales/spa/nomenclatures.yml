@@ -1906,7 +1906,7 @@ spa:
         acta_category: "Acta categoría"
     document_natures:
       items:
-        # account_journal_entry_sheet: "Account journal entry sheet"
+        account_journal_entry_sheet: "Cuenta hoja de entrada de diario"
         activity_cost: "Costo de la actividad"
         animal_husbandry_register: "Registro de la cría de animales"
         animal_list: "Lista de los Animales"
@@ -1930,9 +1930,9 @@ spa:
         intervention_sheet: "Hoja de la intervención"
         inventory_sheet: "Hoja de inventario"
         journal: "Diario"
-        # journal_entry_sheet: "Journal entry sheet"
+        journal_entry_sheet: "Hoja de entrada Diario"
         land_parcel_register: "Registro de parcelas"
-        # loan_registry: "Loan registry"
+        loan_registry: "Registro de préstamo"
         manure_management_plan: "Plan de manejo del estiércol"
         manure_management_plan_sheet: "Plan de manejo del estiércol (detalle)"
         outgoing_deliveries_journal: "Entregas salientes revista"

@@ -190,7 +190,7 @@ Rails.application.routes.draw do
         patch :account_mask_literate_element_is_checked
         patch :account_mark_mask_literate_element_is_checked
 
-        match 'load', via: %i(get post)
+        match 'load', via: %i[get post]
       end
       member do
         match 'mark', via: %i[get post]
