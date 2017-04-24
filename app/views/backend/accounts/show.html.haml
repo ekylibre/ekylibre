@@ -47,6 +47,6 @@
 
     - content_for 'cobble_journal-entry-items_meta_toolbar'.to_sym do
       .active-list-actions
-        %input#letters-visibility{ type: :checkbox, checked: false, data: { 'preference-url': checked_literate_element_backend_accounts_path } }
+        %input#letters-visibility{ type: :checkbox, checked: false }
         %label#label-letters-visibility
           = :mask_literate_elements.tl

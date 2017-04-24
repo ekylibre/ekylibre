@@ -187,7 +187,6 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        patch :checked_literate_element
         match 'load', via: %i[get post]
       end
       member do

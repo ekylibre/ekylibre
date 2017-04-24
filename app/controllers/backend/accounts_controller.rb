@@ -153,12 +153,5 @@ module Backend
         redirect_to action: :index
       end
     end
-
-    # Save the shown/hidden state of the checkbox
-    def checked_literate_element
-      checked = !params[:checked].to_i.zero?
-      current_user.prefer!('interface.journal_entry_item.checked', checked, :boolean)
-      head :ok
-    end
   end
 end
