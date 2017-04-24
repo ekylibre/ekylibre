@@ -73,4 +73,8 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     v2 = nature.variants.create!(name: 'Gros minet', unit_name: 'Cat')
     assert v.number != v2.number, 'Numbers should be different'
   end
+
+  test 'import from nomenclature seedling' do
+    assert_nothing_raised { ProductNatureVariant.import_from_nomenclature(:seedling) }
+  end
 end

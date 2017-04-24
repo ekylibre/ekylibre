@@ -14,6 +14,7 @@ module Ekylibre
       assert_equal 'foobar', Ekylibre::Tenant.current
       Ekylibre::Tenant.drop('foobarbaz')
       Ekylibre::Tenant.drop('foobar')
+      Ekylibre::Tenant.switch!('test')
       assert !Ekylibre::Tenant.exist?('foobar')
       assert !Ekylibre::Tenant.exist?('foobarbaz')
     end
