@@ -33,6 +33,7 @@ module Procedo
           return settings.value if settings.respond_to?(:value)
           params = settings.parameters
           params.length > 1 ? params.map(&:value) : params.first && params.first.value
+        end
 
         def miscibility(set)
           products = set.map do |parameter|
