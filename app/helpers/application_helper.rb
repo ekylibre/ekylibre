@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
@@ -98,7 +99,7 @@ module ApplicationHelper
     end
     vals = []
     remaining_at = born_at + 0.seconds
-    %w(year month day hour minute second).each do |magnitude|
+    %w[year month day hour minute second].each do |magnitude|
       count = 0
       while remaining_at + 1.send(magnitude) < at
         remaining_at += 1.send(magnitude)
@@ -310,7 +311,7 @@ module ApplicationHelper
       label = "activerecord.attributes.#{model_name}.#{attribute}".t(default: default)
       if value.is_a? ActiveRecord::Base
         record = value
-        value = record.send(options[:label] || [:label, :name, :code, :number, :inspect].detect { |x| record.respond_to?(x) })
+        value = record.send(options[:label] || %i[label name code number inspect].detect { |x| record.respond_to?(x) })
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
           options[:url][:id] ||= record.id
@@ -396,7 +397,7 @@ module ApplicationHelper
                        elsif item[0] == :attribute
                          attribute_item(record, *item[1])
                        end
-        if !value.blank? || (item[2].is_a?(Hash) && item[2][:show] == :always)
+        if value.present? || (item[2].is_a?(Hash) && item[2][:show] == :always)
           code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
         end
       end
@@ -424,7 +425,7 @@ module ApplicationHelper
       raise 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
       @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
-        custom(custom_field.name, value) unless value.blank?
+        custom(custom_field.name, value) if value.present?
       end
       @items << [:custom_fields]
     end
@@ -441,7 +442,7 @@ module ApplicationHelper
 
   def dropdown_toggle_button(name = nil, options = {})
     class_attribute = 'btn btn-default dropdown-toggle'
-    class_attribute << ' ' + options[:class].to_s unless options[:class].blank?
+    class_attribute << ' ' + options[:class].to_s if options[:class].present?
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
@@ -765,7 +766,7 @@ module ApplicationHelper
       item = ''
       size = 0
     end
-    html << content_tag(:tr, item).html_safe unless item.blank?
+    html << content_tag(:tr, item).html_safe if item.present?
     content_tag(:table, html, html_options).html_safe
   end
 
@@ -851,15 +852,15 @@ module ApplicationHelper
     if (count = object.errors.size).zero?
       ''
     else
-      I18n.with_options scope: [:errors, :template] do |locale|
+      I18n.with_options scope: %i[errors template] do |locale|
         header_message = locale.t :header, count: count, model: object.class.model_name.human
         introduction = locale.t(:body)
         messages = object.errors.full_messages.map do |msg|
           content_tag(:li, msg)
         end.join.html_safe
         message = ''
-        message << content_tag(:h3, header_message) unless header_message.blank?
-        message << content_tag(:p, introduction) unless introduction.blank?
+        message << content_tag(:h3, header_message) if header_message.present?
+        message << content_tag(:p, introduction) if introduction.present?
         message << content_tag(:ul, messages)
 
         html = ''

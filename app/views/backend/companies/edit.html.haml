@@ -29,7 +29,7 @@
     = render 'preferences_form', list: [:map_measure_srs]
 
   = field_set :accountancy_preferences do
-    = render 'preferences_form', list: [:bookkeep_automatically, :bookkeep_in_draft, :permanent_stock_inventory, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix]
+    = render 'preferences_form', list: [:bookkeep_automatically, :bookkeep_in_draft, :permanent_stock_inventory, :unbilled_payables, :detail_payments_in_deposit_bookkeeping, :use_entity_codes_for_account_numbers, :client_account_radix, :supplier_account_radix, :employee_account_radix, :default_depreciation_period]
 
   = field_set :analytic_preferences do
     = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams]

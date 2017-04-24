@@ -41,7 +41,7 @@ module Inspectable
   ##### Primitives
 
   def extremum_size(type)
-    raise 'Type must either be `min` or `max`' unless %w(min max).include?(type.to_s)
+    raise 'Type must either be `min` or `max`' unless %w[min max].include?(type.to_s)
     value = send(:"#{type}imal_size_value")
     (value || 0).in(grading_sizes_unit)
   end

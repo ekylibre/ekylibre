@@ -22,39 +22,50 @@
 #
 # == Table: fixed_assets
 #
-#  allocation_account_id   :integer          not null
-#  ceded                   :boolean
-#  ceded_on                :date
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string           not null
-#  current_amount          :decimal(19, 4)
-#  custom_fields           :jsonb
-#  depreciable_amount      :decimal(19, 4)   not null
-#  depreciated_amount      :decimal(19, 4)   not null
-#  depreciation_method     :string           not null
-#  depreciation_percentage :decimal(19, 4)
-#  description             :text
-#  expenses_account_id     :integer
-#  id                      :integer          not null, primary key
-#  journal_id              :integer          not null
-#  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  number                  :string           not null
-#  purchase_amount         :decimal(19, 4)
-#  purchase_id             :integer
-#  purchase_item_id        :integer
-#  purchased_on            :date
-#  sale_id                 :integer
-#  sale_item_id            :integer
-#  started_on              :date             not null
-#  stopped_on              :date             not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  accounted_at              :datetime
+#  allocation_account_id     :integer          not null
+#  asset_account_id          :integer
+#  ceded                     :boolean
+#  ceded_on                  :date
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  currency                  :string           not null
+#  current_amount            :decimal(19, 4)
+#  custom_fields             :jsonb
+#  depreciable_amount        :decimal(19, 4)   not null
+#  depreciated_amount        :decimal(19, 4)   not null
+#  depreciation_method       :string           not null
+#  depreciation_percentage   :decimal(19, 4)
+#  depreciation_period       :string
+#  description               :text
+#  expenses_account_id       :integer
+#  id                        :integer          not null, primary key
+#  journal_entry_id          :integer
+#  journal_id                :integer          not null
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  number                    :string           not null
+#  product_id                :integer
+#  purchase_amount           :decimal(19, 4)
+#  purchase_id               :integer
+#  purchase_item_id          :integer
+#  purchased_on              :date
+#  sale_id                   :integer
+#  sale_item_id              :integer
+#  scrapped_journal_entry_id :integer
+#  scrapped_on               :date
+#  sold_journal_entry_id     :integer
+#  sold_on                   :date
+#  started_on                :date             not null
+#  state                     :string
+#  stopped_on                :date             not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 ---
 fixed_assets_001:
   allocation_account_id: 500
+  asset_account_id: 424
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -62,6 +73,7 @@ fixed_assets_001:
   depreciated_amount: 150.0
   depreciation_method: linear
   depreciation_percentage: 4.9701
+  depreciation_period: yearly
   description: ''
   expenses_account_id: 451
   id: 1
@@ -72,11 +84,13 @@ fixed_assets_001:
   purchase_amount: 150.0
   purchased_on: 2009-07-19
   started_on: 1995-07-19
+  state: draft
   stopped_on: 2015-08-31
   updated_at: 2014-12-24 12:49:37.553814000 Z
   updater_id: 1
 fixed_assets_002:
   allocation_account_id: 464
+  asset_account_id: 424
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -84,6 +98,7 @@ fixed_assets_002:
   depreciated_amount: 0.0
   depreciation_method: linear
   depreciation_percentage: 4.9701
+  depreciation_period: yearly
   description: ''
   expenses_account_id: 466
   id: 2
@@ -94,6 +109,7 @@ fixed_assets_002:
   purchase_amount: 0.0
   purchased_on: 2009-07-19
   started_on: 1995-07-19
+  state: draft
   stopped_on: 2015-08-31
   updated_at: 2014-12-24 12:50:05.514106000 Z
   updater_id: 1

@@ -24,7 +24,7 @@ module Backend
 
     autocomplete_for :place
 
-    list(conditions: search_conditions(events: [:duration, :place, :name, :description, :started_at]), order: { started_at: :desc }) do |t|
+    list(conditions: search_conditions(events: %i[duration place name description started_at]), order: { started_at: :desc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :name, url: true

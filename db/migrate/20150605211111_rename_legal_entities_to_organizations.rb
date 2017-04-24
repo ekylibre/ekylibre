@@ -84,13 +84,13 @@ class RenameLegalEntitiesToOrganizations < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         execute "UPDATE #{quote_table_name(:entities)} SET #{quote_column_name(:nature)}='organization' WHERE #{quote_column_name(:nature)}='legal_entity'"
-        [:users, :roles].each do |table|
+        %i[users roles].each do |table|
           execute "UPDATE #{quote_table_name(table)} SET #{quote_column_name(:rights)}=REPLACE(rights, 'legal_entities', 'organizations')"
         end
       end
       dir.down do
         execute "UPDATE #{quote_table_name(:entities)} SET #{quote_column_name(:nature)}='legal_entity' WHERE #{quote_column_name(:nature)}='organization'"
-        [:users, :roles].each do |table|
+        %i[users roles].each do |table|
           execute "UPDATE #{quote_table_name(table)} SET #{quote_column_name(:rights)}=REPLACE(rights, 'organizations', 'legal_entities')"
         end
       end

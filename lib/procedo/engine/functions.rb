@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Procedo
   module Engine
     # This module all functions accessible through formula language

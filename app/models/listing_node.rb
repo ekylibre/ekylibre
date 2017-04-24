@@ -53,7 +53,7 @@ class ListingNode < Ekylibre::Record::Base
   acts_as_list scope: :listing
   acts_as_nested_set scope: :listing
   attr_readonly :listing_id, :nature
-  enumerize :nature, in: [:root, :column, :datetime, :custom, :boolean, :string, :numeric, :belongs_to, :has_many]
+  enumerize :nature, in: %i[root column datetime custom boolean string numeric belongs_to has_many]
   belongs_to :listing, inverse_of: :nodes
   belongs_to :item_listing, class_name: 'Listing'
   belongs_to :item_listing_node, class_name: 'ListingNode'
@@ -75,10 +75,10 @@ class ListingNode < Ekylibre::Record::Base
   @@natures = nature.values
 
   @@comparators = {
-    numeric: %w(any gt lt ge le eq neq vn nvn),
-    string: %w(any begins finishes contains equal in not_begins not_finishes not_contains not_equal begins_cs finishes_cs contains_cs equal_cs not_begins_cs not_finishes_cs not_contains_cs not_equal_cs),
-    date: %w(any gt lt ge le eq neq vn nvn),
-    boolean: %w(any is_true is_false),
+    numeric: %w[any gt lt ge le eq neq vn nvn],
+    string: %w[any begins finishes contains equal in not_begins not_finishes not_contains not_equal begins_cs finishes_cs contains_cs equal_cs not_begins_cs not_finishes_cs not_contains_cs not_equal_cs],
+    date: %w[any gt lt ge le eq neq vn nvn],
+    boolean: %w[any is_true is_false],
     unknown: ['--']
   }
   @@corresponding_comparators = {
@@ -204,7 +204,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def reflection?
-    %w(belongs_to has_many root).include? nature.to_s
+    %w[belongs_to has_many root].include? nature.to_s
   end
 
   def root?
@@ -243,7 +243,7 @@ class ListingNode < Ekylibre::Record::Base
     end
     nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + column_nodes.sort]
     # Reflections
-    nodes << [tc(:reflections), model.reflect_on_all_associations.select { |v| [:has_many, :belongs_to].include? v.macro }.collect { |r| [model.human_attribute_name(r.name).to_s, "#{r.macro}-#{r.name}"] }.sort]
+    nodes << [tc(:reflections), model.reflect_on_all_associations.select { |v| %i[has_many belongs_to].include? v.macro }.collect { |r| [model.human_attribute_name(r.name).to_s, "#{r.macro}-#{r.name}"] }.sort]
     nodes
   end
 
@@ -287,7 +287,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def duplicate(listing_clone, parent = nil)
-    kepts = [:attribute_name, :condition_operator, :condition_value, :exportable, :item_listing_id, :item_listing_node_id, :item_nature, :item_value, :label, :name, :nature, :position]
+    kepts = %i[attribute_name condition_operator condition_value exportable item_listing_id item_listing_node_id item_nature item_value label name nature position]
     attributes = self.attributes.symbolize_keys.select do |name, _value|
       kepts.include?(name)
     end

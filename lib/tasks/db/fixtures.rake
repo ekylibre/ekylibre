@@ -21,7 +21,7 @@ namespace :db do
     end
 
     desc 'There and Back Again like Bilbo'
-    task bilbo: [:restore, :dump]
+    task bilbo: %i[restore dump]
 
     desc 'Demodulates fixtures to have real ids'
     task demodulate: :environment do

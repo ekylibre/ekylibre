@@ -7,11 +7,11 @@ module Backend
     def affair_deals(affair, options = {})
       return nil unless affair
       types = if affair.is_a?(SaleAffair)
-                %w(Sale IncomingPayment)
+                %w[Sale IncomingPayment]
               elsif affair.is_a?(PurchaseAffair)
-                %w(Purchase OutgoingPayment)
+                %w[Purchase OutgoingPayment]
               else
-                (Affair.affairable_types - %w(Gap PurchaseGap SaleGap))
+                (Affair.affairable_types - %w[Gap PurchaseGap SaleGap])
               end
       current_deal = options[:current_deal]
       if current_deal && (current_deal.is_a?(Sale) || current_deal.is_a?(Purchase))

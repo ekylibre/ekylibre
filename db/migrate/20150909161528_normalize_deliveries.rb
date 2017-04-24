@@ -1,21 +1,21 @@
 class NormalizeDeliveries < ActiveRecord::Migration
   POLYMORPHIC_REFERENCES = [
-    [:attachments, :resource],
-    [:issues, :target],
-    [:journal_entries, :resource],
-    [:observations, :subject],
-    [:preferences, :record_value],
-    [:product_enjoyments, :originator],
-    [:product_junctions, :originator],
-    [:product_linkages, :originator],
-    [:product_links, :originator],
-    [:product_localizations, :originator],
-    [:product_memberships, :originator],
-    [:product_ownerships, :originator],
-    [:product_phases, :originator],
-    [:product_reading_tasks, :originator],
-    [:product_readings, :originator],
-    [:versions, :item]
+    %i[attachments resource],
+    %i[issues target],
+    %i[journal_entries resource],
+    %i[observations subject],
+    %i[preferences record_value],
+    %i[product_enjoyments originator],
+    %i[product_junctions originator],
+    %i[product_linkages originator],
+    %i[product_links originator],
+    %i[product_localizations originator],
+    %i[product_memberships originator],
+    %i[product_ownerships originator],
+    %i[product_phases originator],
+    %i[product_reading_tasks originator],
+    %i[product_readings originator],
+    %i[versions item]
   ].freeze
 
   def change

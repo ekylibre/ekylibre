@@ -45,31 +45,33 @@ module AgroSystemes
           sampled_at: (row[179].blank? ? nil : Date.civil(*row[179].to_s.split(/\//).reverse.map(&:to_i)))
         )
 
-        unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
-          analysis = Analysis.create!(reference_number: r.reference_number, nature: 'soil_analysis',
-                                      analyser: analyser, sampled_at: r.sampled_at, analysed_at: r.at)
+        analysis = Analysis.create_with(
+          nature: 'soil_analysis',
+          sampled_at: r.sampled_at,
+          analysed_at: r.at
+        ).find_or_create_by!(
+          reference_number: r.reference_number,
+          analyser: analyser
+        )
 
-          analysis.read!(:soil_nature, r.analyse_soil_nature) if r.analyse_soil_nature
-          analysis.read!(:organic_matter_concentration, r.organic_matter_concentration) if r.organic_matter_concentration
-          analysis.read!(:potential_hydrogen, r.potential_hydrogen) if r.potential_hydrogen
-          analysis.read!(:cation_exchange_capacity, r.cation_exchange_capacity) if r.cation_exchange_capacity
-          analysis.read!(:phosphate_concentration, r.p2o5_olsen_ppm_value) if r.p2o5_olsen_ppm_value
-          analysis.read!(:potash_concentration, r.k2o_ppm_value) if r.k2o_ppm_value
-          analysis.read!(:magnesium_concentration, r.mg_ppm_value) if r.mg_ppm_value
-          analysis.read!(:boron_concentration, r.b_ppm_value) if r.b_ppm_value
-          analysis.read!(:zinc_concentration, r.zn_ppm_value) if r.zn_ppm_value
-          analysis.read!(:manganese_concentration, r.mn_ppm_value) if r.mn_ppm_value
-          analysis.read!(:copper_concentration, r.cu_ppm_value) if r.cu_ppm_value
-          analysis.read!(:iron_concentration, r.fe_ppm_value) if r.fe_ppm_value
-        end
-        # if an lan_parcel exist , link to analysis
-        if land_parcel = LandParcel.find_by(work_number: r.land_parcel_work_number)
-          analysis.product = land_parcel
-          analysis.save!
-          land_parcel.read!(:soil_nature, r.analyse_soil_nature, at: r.sampled_at) if r.analyse_soil_nature
-          land_parcel.read!(:phosphorus_concentration, r.p_ppm_value, at: r.sampled_at) if r.p_ppm_value
-          land_parcel.read!(:potassium_concentration, r.k_ppm_value, at: r.sampled_at) if r.k_ppm_value
-        end
+        analysis.read!(:soil_nature, r.analyse_soil_nature) if r.analyse_soil_nature
+        analysis.read!(:organic_matter_concentration, r.organic_matter_concentration) if r.organic_matter_concentration
+        analysis.read!(:phosphorus_concentration, r.p_ppm_value) if r.p_ppm_value
+        analysis.read!(:potassium_concentration, r.k_ppm_value) if r.k_ppm_value
+        analysis.read!(:potential_hydrogen, r.potential_hydrogen) if r.potential_hydrogen
+        analysis.read!(:cation_exchange_capacity, r.cation_exchange_capacity) if r.cation_exchange_capacity
+        analysis.read!(:phosphate_concentration, r.p2o5_olsen_ppm_value) if r.p2o5_olsen_ppm_value
+        analysis.read!(:potash_concentration, r.k2o_ppm_value) if r.k2o_ppm_value
+        analysis.read!(:magnesium_concentration, r.mg_ppm_value) if r.mg_ppm_value
+        analysis.read!(:boron_concentration, r.b_ppm_value) if r.b_ppm_value
+        analysis.read!(:zinc_concentration, r.zn_ppm_value) if r.zn_ppm_value
+        analysis.read!(:manganese_concentration, r.mn_ppm_value) if r.mn_ppm_value
+        analysis.read!(:copper_concentration, r.cu_ppm_value) if r.cu_ppm_value
+        analysis.read!(:iron_concentration, r.fe_ppm_value) if r.fe_ppm_value
+
+        # if a land_parcel exist, link to analysis
+        land_parcel = LandParcel.find_by(work_number: r.land_parcel_work_number)
+        analysis.update(product: land_parcel) if land_parcel
 
         w.check_point
       end

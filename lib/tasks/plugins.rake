@@ -27,7 +27,7 @@ namespace :test do
     end
 
     desc 'Runs the plugins units test'
-    task units: [:models, :helpers]
+    task units: %i[models helpers]
 
     desc 'Runs the plugins controller tests.'
     Rake::TestTask.new controllers: 'db:test:prepare' do |t|
@@ -44,7 +44,7 @@ namespace :test do
     end
 
     desc 'Runs the plugins functionals test'
-    task functionals: [:controllers, :mailers]
+    task functionals: %i[controllers mailers]
 
     desc 'Runs the plugins integration tests.'
     Rake::TestTask.new integration: 'db:test:prepare' do |t|

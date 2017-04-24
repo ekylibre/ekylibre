@@ -26,7 +26,7 @@ module Backend
     #   :activity_id
     def self.equipments_conditions
       code = ''
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid],
+      code = search_conditions(products: %i[name work_number number description uuid],
                                product_nature_variants: [:name]) + " ||= []\n"
       code << "  if params[:variant_id].to_i > 0\n"
       code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"

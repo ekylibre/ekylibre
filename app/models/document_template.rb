@@ -40,7 +40,7 @@
 
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: { prefix: true }
+  enumerize :archiving, in: %i[none_of_template first_of_template last_of_template none first last], default: :none, predicates: { prefix: true }
   refers_to :language
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
@@ -267,7 +267,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
       Ekylibre::Record::Base.transaction do
         manageds = where(managed: true).select(&:destroyable?)
-        for nature in self.nature.values
+        nature.values.each do |nature|
           if source = template_fallbacks(nature, locale).detect(&:exist?)
             File.open(source, 'rb:UTF-8') do |f|
               unless template = find_by(nature: nature, managed: true)

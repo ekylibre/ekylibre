@@ -12,6 +12,6 @@ class CleanAndConstrainPreferences < ActiveRecord::Migration
                    AND preferences.created_at != incidences.to_keep_date)
     SQL
 
-    add_index :preferences, [:user_id, :name], unique: true
+    add_index :preferences, %i[user_id name], unique: true
   end
 end

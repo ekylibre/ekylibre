@@ -8,7 +8,7 @@ class NormalizeTaskNatures < ActiveRecord::Migration
     incoming_call: :call
   }.freeze
   def up
-    execute 'UPDATE tasks SET nature = CASE ' + CHANGES.select { |n, _o| n.to_s != ~ /^incoming\_/ }.map { |n, o| "WHEN nature = '#{o}' THEN '#{n}'" }.join(' ') + ' END WHERE nature IN (' + CHANGES.values.uniq.map { |x| "'#{x}'" }.join(', ') + ')'
+    execute 'UPDATE tasks SET nature = CASE ' + CHANGES.reject { |n, _o| n.to_s == ~ /^incoming\_/ }.map { |n, o| "WHEN nature = '#{o}' THEN '#{n}'" }.join(' ') + ' END WHERE nature IN (' + CHANGES.values.uniq.map { |x| "'#{x}'" }.join(', ') + ')'
     execute 'UPDATE tasks SET due_at = created_at WHERE due_at IS NULL'
     change_column_null :tasks, :due_at, false
   end

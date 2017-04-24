@@ -1,7 +1,7 @@
 module Nomen
   XMLNS = 'http://www.ekylibre.org/XML/2013/nomenclatures'.freeze
   NS_SEPARATOR = '-'.freeze
-  PROPERTY_TYPES = [:boolean, :item, :item_list, :choice, :choice_list, :string_list, :date, :decimal, :integer, :nomenclature, :string, :symbol].freeze
+  PROPERTY_TYPES = %i[boolean item item_list choice choice_list string_list date decimal integer nomenclature string symbol].freeze
 
   class Error < ::StandardError
   end

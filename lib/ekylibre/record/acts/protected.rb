@@ -18,7 +18,7 @@ module Ekylibre
         module ClassMethods
           # Blocks update or destroy if necessary
           def protect(options = {}, &block)
-            options[:on] = [:update, :destroy] unless options[:on]
+            options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
             for callback in [options[:on]].flatten
               method_name = "protected_on_#{callback}?".to_sym
@@ -47,7 +47,7 @@ module Ekylibre
           # Blocks update or destroy if necessary
           # If result is false, it stops intervention
           def secure(options = {}, &block)
-            options[:on] = [:update, :destroy] unless options[:on]
+            options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
             for callback in [options[:on]].flatten
               method_name = "secured_on_#{callback}?".to_sym

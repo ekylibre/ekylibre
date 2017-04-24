@@ -47,7 +47,7 @@ namespace :catalog do
           attrs['unit-name'] = variant.unit_name
 
           xml.send('variant', attrs) do
-            unless variant.frozen_indicators_values.blank?
+            if variant.frozen_indicators_values.present?
               variant.frozen_indicators_values.strip.split(/\s*\,\s*/).each do |couple|
                 indicator_name, value = couple.split(/\s*\:\s*/)[0..1]
                 indicator = Nomen::Indicator.find(indicator_name)

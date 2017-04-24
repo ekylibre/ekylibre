@@ -1,6 +1,6 @@
 class AddComputationMethodOnSalesAndPurchases < ActiveRecord::Migration
   def change
-    [:sales, :purchases].each do |table|
+    %i[sales purchases].each do |table|
       add_column table, :computation_method, :string
       reversible do |d|
         d.up do
@@ -9,7 +9,7 @@ class AddComputationMethodOnSalesAndPurchases < ActiveRecord::Migration
       end
       change_column_null table, :computation_method, false
     end
-    [:sale_items, :purchase_items].each do |table|
+    %i[sale_items purchase_items].each do |table|
       add_column table, :reference_value, :string
       reversible do |d|
         d.up do

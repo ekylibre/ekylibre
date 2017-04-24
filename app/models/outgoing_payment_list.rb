@@ -148,7 +148,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         bank_check_number: initial_check_number.blank? ? nil : initial_check_number.to_i,
         position: position
       )
-      initial_check_number = initial_check_number.to_i + 1 unless initial_check_number.blank?
+      initial_check_number = initial_check_number.to_i + 1 if initial_check_number.present?
       position += 1
       op
     end.compact

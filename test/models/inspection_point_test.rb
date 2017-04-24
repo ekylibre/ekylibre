@@ -40,7 +40,7 @@ require 'test_helper'
 class InspectionPointTest < ActiveSupport::TestCase
   test_model_actions
 
-  DISEASES    = %w(Fusarium Mouche Pythium Rhizoctonia Sclérotinia).freeze
+  DISEASES    = %w[Fusarium Mouche Pythium Rhizoctonia Sclérotinia].freeze
   DEFORMITIES = [
     'Gel',
     'Défaut',

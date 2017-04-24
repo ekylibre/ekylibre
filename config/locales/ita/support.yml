@@ -88,6 +88,9 @@ ita:
       internal_server_error:
         hint: "L'applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
         title: "Siamo spiacenti, ma qualcosa è andato storto"
+      maintenance:
+        hint: "Per favore ritorna più tardi"
+        title: "Il servizio è in manutenzione e non è disponibile per ora"
       not_found:
         hint: "Potreste aver digitato in modo errato l'indirizzo o la pagina potrebbe essere spostato."
         title: "La pagina che stavi cercando non esiste"

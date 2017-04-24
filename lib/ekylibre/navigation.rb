@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 module Ekylibre
   module Navigation
     autoload :DSL,  'ekylibre/navigation/dsl'
@@ -22,7 +23,7 @@ module Ekylibre
         end
         f.close
 
-        @tree = Tree.load_file(file, :navigation, [:part, :group, :item])
+        @tree = Tree.load_file(file, :navigation, %i[part group item])
       end
 
       def parts

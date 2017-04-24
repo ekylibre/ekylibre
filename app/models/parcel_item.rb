@@ -131,7 +131,7 @@ class ParcelItem < Ekylibre::Record::Base
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
       if parcel_incoming?
-        for usage in [:stock, :purchase]
+        for usage in %i[stock purchase]
           # set stock catalog price if blank
           catalog = Catalog.by_default!(usage)
           unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
@@ -142,7 +142,7 @@ class ParcelItem < Ekylibre::Record::Base
     end
   end
 
-  ALLOWED = %w(
+  ALLOWED = %w[
     product_localization_id
     product_movement_id
     product_enjoyment_id
@@ -154,8 +154,8 @@ class ParcelItem < Ekylibre::Record::Base
     sale_item_id
     updated_at
     updater_id
-  ).freeze
-  protect(allow_update_on: ALLOWED, on: [:create, :destroy, :update]) do
+  ].freeze
+  protect(allow_update_on: ALLOWED, on: %i[create destroy update]) do
     !parcel_allow_items_update?
   end
 
@@ -234,19 +234,19 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def give_incoming
-    create_product_movement!(product: product, delta: population, started_at: parcel_given_at) unless product_is_unitary?
-    create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
-    create_product_enjoyment!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at)
-    create_product_ownership!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at) unless parcel_remain_owner
+    create_product_movement!(product: product, delta: population, started_at: parcel_given_at, originator: self) unless product_is_unitary?
+    create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at, originator: self)
+    create_product_enjoyment!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self)
+    create_product_ownership!(product: product, owner: Entity.of_company, nature: :own, started_at: parcel_given_at, originator: self) unless parcel_remain_owner
   end
 
   def give_outgoing
     if self.population == source_product.population(at: parcel_given_at) && !parcel_remain_owner
-      create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at)
-      create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
-      create_product_enjoyment!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at)
+      create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at, originator: self)
+      create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at, originator: self)
+      create_product_enjoyment!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at, originator: self)
     end
-    create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at)
+    create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at, originator: self)
   end
 
   def existing_product_in_storage

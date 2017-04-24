@@ -8,7 +8,7 @@ module Clean
       end
 
       def validable_column?(column)
-        return false if [:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+        return false if %i[created_at creator_id creator updated_at updater_id updater position lock_version].include?(column.name.to_sym)
         return false if column.name.to_s =~ /^\_/
         true
       end
@@ -33,7 +33,7 @@ module Clean
             list << 'uniqueness: true'
           end
 
-          if [:date, :datetime, :timestamp].include? type
+          if %i[date datetime timestamp].include? type
             suffix = column.name.scan(/_.+$/).first[1..-1]
             on_or_after = nil
             if column.name =~ /\Astopped_#{suffix}\z/ && columns.collect(&:name).include?("started_#{suffix}")

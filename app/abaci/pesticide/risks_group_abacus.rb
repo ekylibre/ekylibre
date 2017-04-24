@@ -10,7 +10,8 @@ module Pesticide
 
     def self.find_group_of(risk)
       risk = risk.code if risk.respond_to?(:code)
-      @data.find { |group| group.risk_codes.include? risk.to_sym }
+      @data.find { |group| group.risk_codes.include? risk.to_sym } ||
+        Phytosanitary::Group::Unknown
     end
   end
   RisksGroupAbacus.load

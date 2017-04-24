@@ -14,7 +14,7 @@ module Ekylibre
           born_at: (row[4].blank? ? Date.civil(2000, 2, 2) : row[4]).to_datetime,
           brand: row[5].blank? ? nil : row[5].to_s,
           model: row[6].blank? ? nil : row[6].to_s,
-          external: !row[7].blank?,
+          external: row[7].present?,
           owner_name: row[7].blank? ? nil : row[7].to_s,
           indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second

@@ -48,7 +48,7 @@ module Backend
         conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
         journal_entries = JournalEntry.where(conditions)
         undone = 0
-        for entry in journal_entries
+        journal_entries.find_each do |entry|
           entry.confirm if entry.can_confirm?
           undone += 1 if entry.draft?
         end

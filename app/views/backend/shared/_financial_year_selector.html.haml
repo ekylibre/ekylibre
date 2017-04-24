@@ -1,0 +1,9 @@
+.btn-group.period-selector
+  - previous_year = financial_year.previous
+  - next_year = financial_year.next
+
+  - if previous_year
+    = link_to('', { param_name => previous_year.id }, class: 'btn btn-previous icn icn-only')
+  = link_to(financial_year.code, { controller: '/backend/financial_years', action: :show, id: financial_year.id }, class: 'btn period')
+  - if next_year
+    = link_to('', { param_name => next_year.id }, class: 'btn btn-next icn icn-only')
