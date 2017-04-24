@@ -367,6 +367,7 @@ eng:
     backend/intervention_participations:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
+      # participations_modal: "Participations modal intervention participation: %{name}"
     backend/interventions:
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
@@ -1362,6 +1363,7 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
+    # invalid_date: "Invalid date"
     invalid_file: "Invalid file" #?
     invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
@@ -2293,6 +2295,7 @@ eng:
       notify_accountant: "Notify accountant"
       open: "Open"
       order: "Order"
+      # participations_modal: "Participations modal"
       # passthru: "Passthru"
       pay: "Pay"
       payment_gap: "Payment gap" #?

@@ -93,4 +93,22 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
 
   after_commit :update_temporality, unless: -> { intervention.blank? }
   after_destroy :update_temporality, unless: -> { intervention.blank? }
+
+  def hide?
+    started_at.to_i == stopped_at.to_i
+  end
+
+  def hour_gap
+    (gap / 1.hour).round
+  end
+
+  def min_gap
+    (gap / 1.minute).round
+  end
+
+  private
+
+  def gap
+    stopped_at - started_at
+  end
 end

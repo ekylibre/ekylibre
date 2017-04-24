@@ -1,8 +1,9 @@
 = modal_header('Temps de travaux de Christian Dupont')
 
 
-= form_tag(backend_intervention_participations_path, method: :post) do 
-  
+= form_tag(backend_intervention_participations_path, method: :post) do
+  - intervention = intervention_participation.intervention
+
   .modal-body
     .indicators
       .med-info
@@ -14,25 +15,32 @@
     .participations
       .participations-header
         %h3{ class: "action-header action-period" } Durée de l'action
-        %h3{ class: "action-header" } Horaires calculées 
+        %h3{ class: "action-header" } Horaires calculées
 
-      .participation
-        
-        .participation-icon
-          .picto.picto-timelapse
-          %span Preparation  
-        
-        .participation-form
-          .participation-field
-            = text_field_tag :name, nil, class: "participation-input"
-            %span{class: "participation-field-label"} H
-          
-          .participation-field
-            = text_field_tag :name, nil, class: "participation-input"
-            %span Min
+      - unless intervention_participation.working_periods.empty?
+        - intervention_participation.working_periods.each do |working_period|
 
-        .participation-result
-          .span 15h30 &#8594; 15h54
+          - next if working_period.hide?
+
+          .participation
+
+            .participation-icon
+              .picto.picto-timelapse
+              = working_period.nature.l
+
+            .participation-form
+              .participation-field
+                = text_field_tag :name, working_period.hour_gap, class: "participation-input"
+                %span{class: "participation-field-label"} H
+
+              .participation-field
+                = text_field_tag :name, working_period.min_gap, class: "participation-input"
+                %span Min
+
+            .participatimn-result
+              %span= working_period.started_at.l(format: :full)
+              %span &#8594;
+              %span= working_period.stopped_at.l(format: :full)
 
     .actions
       = button_tag nil, class: "btn btn-default action" do

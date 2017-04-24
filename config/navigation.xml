@@ -1957,6 +1957,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="intervention_participations">
+        <page to="backend/intervention_participations#participations_modal"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
