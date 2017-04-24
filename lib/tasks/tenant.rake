@@ -50,14 +50,16 @@ namespace :tenant do
         dump = "tmp/distribute-#{beginning}-#{finish}-#{now}-#{tenant}.sql"
 
         # Dump source
-        Ekylibre::Tenant.with_pg_env(tenant) { `pg_dump -x -O -f #{dump} -n "#{tenant}" #{source}` }
+        Ekylibre::Tenant.with_pg_env(tenant) { `pg_dump -x -O -f #{dump} -n '"#{tenant}"' #{source}` }
 
         # Restore destination
         Ekylibre::Tenant.with_pg_env(tenant) { `psql -f #{dump} #{destination}` }
 
         # Remove source and dump
-        # Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{source}` }
-        # FileUtils.rm_rf(dump)
+        if ENV['DELETE_AFTER_DISTRIBUTE']
+          Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{source}` }
+          FileUtils.rm_rf(dump)
+        end
 
         puts "Schema #{tenant} moved from #{source} to #{destination} in #{Time.now - start} seconds".green
       end

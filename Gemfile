@@ -173,6 +173,8 @@ gem 'savon'
 gem 'luhn'
 
 group :development do
+  gem 'bullet'
+
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
