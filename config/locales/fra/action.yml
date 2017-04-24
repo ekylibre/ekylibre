@@ -1284,6 +1284,9 @@ fra:
     expired_within: "Expiré d'ici"
     exploitation_results: "Résultats d'exploitation"
     export: "Exporter"
+    export_as_csv: "Exporter en CSV"
+    export_as_ods: "Exporter en ODS"
+    export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
@@ -2653,9 +2656,6 @@ fra:
       edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
-      export_csv: "Exporter en CSV"
-      export_ods: "Exporter en Classeur ODS"
-      export_xcsv: "Exporter en Classeur CSV Excel"
       export_to_sepa: "Export SEPA"
       extract: "Extraire"
       family: "Famille"

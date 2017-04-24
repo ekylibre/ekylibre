@@ -1275,6 +1275,9 @@ eng:
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
+    export_as_csv: "Export as CSV"
+    export_as_ods: "Export as ODS"
+    export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -2258,9 +2261,6 @@ eng:
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
-      export_csv: "Export as CSV"
-      export_ods: "Export as Spreadsheet ODS"
-      export_xcsv: "Export as Excel CSV"
       export_to_sepa: "Export to SEPA"
       extract: "Extract"
       # failure: "Failure"
