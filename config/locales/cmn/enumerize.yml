@@ -112,6 +112,10 @@ cmn:
         datetime: "日期和时间"
         decimal: "十进制"
         text: "文本"
+    debt_transfer:
+      nature:
+        purchase_regularization: "购买正规化"
+        sale_regularization: "销售正规化"
     delivery:
       mode:
         third: "第三"
@@ -467,6 +471,7 @@ cmn:
         animals: "动物"
         cash_transfers: "现金转移"
         contracts: "合同"
+        debt_transfers: "债务转移"
         deliveries: "交付"
         deposits: "存款"
         documents: "文件"

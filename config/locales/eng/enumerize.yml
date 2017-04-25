@@ -112,6 +112,10 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Purchase regularization"
+        sale_regularization: "Sale regularization"
     delivery:
       mode:
         third: "Third"
@@ -460,6 +464,7 @@ eng:
         # campaigns: "Campaigns"
         cash_transfers: "Cash transfers"
         contracts: "Contracts"
+        debt_transfers: "Debt transfers"
         deliveries: "Deliveries"
         deposits: "Deposits"
         documents: "Documents"
