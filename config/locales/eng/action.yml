@@ -22,6 +22,7 @@ eng:
       index: "Accounting plans"
       load: "Load an accounting plan"
       mark: "Reconciliate account: %{number} - %{name}"
+      # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
@@ -243,6 +244,7 @@ eng:
       export: "Export people" #?
       import: "Import people"
       index: "People"
+      # mask_lettered_items: "Mask lettered items entity: %{name}"
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
@@ -1458,7 +1460,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements"
+    mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
@@ -2292,6 +2294,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"

@@ -1652,7 +1652,7 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
-    mask_literate_elements: "قناع عناصر القراءة والكتابة"
+    mask_lettered_items: "قناع العناصر بحروف"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
     meeting: "المقابلة(X)مكان" #?

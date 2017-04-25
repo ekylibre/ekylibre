@@ -298,7 +298,7 @@ module Backend
       eval code
     end
 
-    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -322,7 +322,7 @@ module Backend
       eval code
     end
 
-    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -422,19 +422,12 @@ module Backend
       end
     end
 
-    def entity_client_mask_literate_element_is_checked
-      checked_literate_element('current_entity_client_mask_literate_element_is_checked')
+    def mask_lettered_items
+      preference_name = 'backend/entities'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
     end
-
-    def entity_supplier_mask_literate_element_is_checked
-      checked_literate_element('current_entity_supplier_mask_literate_element_is_checked')
-    end
-
-    private
-      def checked_literate_element(preference_string)
-        checked = params[:checked].to_s == "true" ? true : false
-        current_user.prefer!(preference_string, checked, :boolean)
-        head :ok
-      end
   end
 end
