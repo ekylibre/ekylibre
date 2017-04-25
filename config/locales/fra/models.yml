@@ -1002,6 +1002,7 @@ fra:
     grading_sizes_unit_name: "Classement tailles nom de l’unité"
     gradings: "Agréages"
     gravity: "Gravité"
+    grains_yield: "Rendement grains"
     gross_items_count: "Nombre de pièces brut"
     gross_items_count_percentage: "Pourcentage du nombre de pièces brut" #?
     gross_items_count_yield: "Rendement brut (pièces)"

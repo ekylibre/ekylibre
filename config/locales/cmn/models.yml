@@ -794,6 +794,7 @@ cmn:
     grading_sizes_unit_name: "分级尺寸单位名称"
     gradings: "放坡"
     gravity: "重力"
+    grains_yield: "粮食产量"
     gross_items: "格罗斯计数" #?
     gross_items_count: "总项目数"
     gross_items_count_yield: "项目总收益率"

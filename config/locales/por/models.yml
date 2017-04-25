@@ -794,6 +794,7 @@ por:
     grading_sizes_unit_name: "Grading tamanhos nome da unidade"
     gradings: "gradings"
     gravity: "Gravidade"
+    grains_yield: "rendimento de grãos"
     gross_items: "contagem bruta" #?
     gross_items_count: "De itens brutos contar"
     gross_items_count_yield: "Rendimento de produto bruto"

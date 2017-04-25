@@ -794,6 +794,7 @@ deu:
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
     gravity: "Schwerkraft"
+    grains_yield: "Kornertrag"
     gross_items: "Gross Zahl" #?
     gross_items_count: "Gross Artikel zählen"
     gross_items_count_yield: "Gross Artikel Ausbeute"

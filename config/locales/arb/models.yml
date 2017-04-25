@@ -1580,6 +1580,7 @@ arb:
     grading_sizes_unit_name: "الدرجات أحجام اسم الوحدة"
     gradings: "الى التصنيف"
     gravity: "الجاذبية"
+    grains_yield: "محصول الحبوب"
     gross_items: "العد الإجمالي" #?
     gross_items_count: "البنود الإجمالية تحسب"
     gross_items_count_yield: "العائد الإجمالي البند"
