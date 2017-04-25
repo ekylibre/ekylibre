@@ -27,6 +27,7 @@
         <page to="backend/entities#list_tasks"/>
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
+        <page to="backend/entities#mask_lettered_items"/>
         <page to="backend/entities#picture"/>
         <page to="backend/entities#unroll"/>
         <page to="backend/entities#merge"/>
@@ -1308,6 +1309,7 @@
     <group name="accountancy" icon="money">
       <item name="accounts">
         <page to="backend/accounts#index"/>
+        <page to="backend/accounts#mask_lettered_items"/>
         <page to="backend/accounts#create"/>
         <page to="backend/accounts#destroy"/>
         <page to="backend/accounts#edit"/>
