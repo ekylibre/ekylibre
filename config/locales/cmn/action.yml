@@ -153,6 +153,10 @@ cmn:
       stocks: "仪表板股票"
       tools: "仪表盘的工具"
       trade: "仪表盘交易"
+    backend/debt_transfers:
+      index: "债务转移"
+      new: "新的债务转移"
+      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "交付"

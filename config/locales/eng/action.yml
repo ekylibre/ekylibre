@@ -195,6 +195,12 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
+    backend/debt_transfers:
+      # debt_transfer_params: "Debt transfer params debt transfer: %{name}"
+      # edit: "Edit debt transfer: %{name}"
+      index: "Debt transfers"
+      new: "New debt transfer"
+      show: "Debt transfer: %{number}"
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -2248,6 +2254,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # debt_transfer_params: "Debt transfer params"
       # depreciate: "Depreciate"
       # depreciate_up_to: "Depreciate up to"
       destroy: "Destroy"

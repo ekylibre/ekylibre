@@ -112,6 +112,10 @@ deu:
         datetime: "Datum und Uhrzeit"
         decimal: "Dezimal"
         # text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Kauf Regularisierung"
+        sale_regularization: "Verkauf Regularisierung"
     delivery:
       mode:
         third: "Dritte"
@@ -466,6 +470,7 @@ deu:
         animals: "Tiere"
         cash_transfers: "Geldtransfers"
         contracts: "Verträge"
+        debt_transfers: "Schuldentransfers"
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"

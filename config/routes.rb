@@ -132,6 +132,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :debt_transfers, concerns: %i[list unroll]
+
     resources :helps, only: %i[index show] do
       collection do
         post :toggle
