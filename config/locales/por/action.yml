@@ -709,6 +709,7 @@ por:
     add_catalog_price: "Adicionar preço de catálogo"
     add_child: "Adicionar um componente filho"
     add_choice: "Adicionar escolha"
+    # add_compensation_entry: "Add compensation entry"
     add_component: "Adicionar componente"
     add_condition: "Adicionar condição"
     add_conditions: "Adicionar condições"

@@ -16,6 +16,9 @@
       = hidden_field_tag(x, params[x])
     - precision = Nomen::Currency[Preference[:currency]].precision
 
+    %span.new-writing-trigger.btn-group.hidden
+      = link_to :add_compensation_entry.tl, { controller: "journal_entries", action: :new, redirect: request.fullpath }, { class: 'btn btn-default js-complete-links-with-journal-entry-items-ids', id: 'new_writing', data: {'complete-link-with-journal-entry-items-ids': 'journals_entries_items_ids', 'display-class-on-click': 'new-writing-trigger'}}
+
     .active-list-actions
       %input#letters-visibility{ type: :checkbox, checked: current_user.current_account_mark_mask_literate_element_is_checked, data: { 'preference-url': account_mark_mask_literate_element_is_checked_backend_accounts_path } }
       %label#label-letters-visibility

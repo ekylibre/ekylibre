@@ -768,6 +768,7 @@ spa:
     add_catalog_price: "Añadir precio de catálogo"
     add_child: "Añadir un componente secundario"
     add_choice: "Añadir elección"
+    # add_compensation_entry: "Add compensation entry"
     add_component: "Añadir componente"
     add_condition: "Añadir condición"
     add_conditions: "Añadir condiciones"
