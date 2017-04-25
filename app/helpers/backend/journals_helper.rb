@@ -45,7 +45,7 @@ module Backend
 
     # Create a widget with all the possible periods
     def journal_period_crit(*args)
-      options = args.extract_options
+      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
       name = args.shift || :period
       value = args.shift
       configuration = { custom: :interval }.merge(options)
