@@ -13,7 +13,7 @@ module Nomen
             @changes[:notions] = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
           end
           if element.key?('translateable')
-            @changes[:translateable] = !(element.attr('translateable').to_s == 'false')
+            @changes[:translateable] = element.attr('translateable').to_s != 'false'
           end
         end
 

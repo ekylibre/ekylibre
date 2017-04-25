@@ -112,6 +112,10 @@ fra:
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
         text: "Texte"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Régularisation d'achat"
+        sale_regularization: "Régularisation de vente"
     delivery:
       mode:
         third: "Par le tiers"
@@ -235,6 +239,8 @@ fra:
       nature:
         bank: "Banque"
         cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
         sales: "Ventes"
@@ -447,6 +453,7 @@ fra:
         campaigns: "Campagnes de productions" #?
         cash_transfers: "Virements internes"
         contracts: "Contrats"
+        debt_transfers: "Transferts de dettes"
         deliveries: "Livraisons"
         deposits: "Remises en banque"
         documents: "Documents"

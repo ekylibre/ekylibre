@@ -469,6 +469,7 @@ fra:
         subcontracting_expenses: "Frais de sous-traitance"
         subsidies: "Subventions"
         subsidy_to_receive: "Etat - Subvention à recevoir"
+        sundry_debtors_and_creditors: "Autres comptes créditeurs ou débiteurs"
         suppliers: "Fournisseurs"
         suppliers_balance_after_compensation: "Fournisseurs d’exploitation ‒ soldes apres compensation"
         suppliers_invoices_not_received: "Fournisseurs ‒ factures non parvenues"
@@ -2025,6 +2026,7 @@ fra:
         acta_category: "Catégorie ACTA"
     document_natures:
       items:
+        account_journal_entry_sheet: "Journal compte Fiche d’entrée"
         activity_cost: "Coût de production détaillé"
         animal_husbandry_register: "Registre d’élevage"
         animal_list: "Liste des animaux"
@@ -2049,7 +2051,9 @@ fra:
         intervention_sheet: "Fiche intervention"
         inventory_sheet: "Inventaire"
         journal: "Journal"
+        journal_entry_sheet: "Journal feuille d’entrée"
         land_parcel_register: "Cahier de tracabilité ‒ Parcelles"
+        loan_registry: "Registre de prêt"
         manure_management_plan: "Cahier d’épandage"
         manure_management_plan_sheet: "Plan prévisionnel de fumure détaillé"
         outgoing_deliveries_journal: "Journal de livraison"

@@ -419,7 +419,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # and a given supplier if any, or nil if there's
   # no purchase item matching criterias
   def last_purchase_item_for(supplier = nil)
-    return purchase_items.last unless supplier.present?
+    return purchase_items.last if supplier.blank?
     purchase_items
       .joins(:purchase)
       .where('purchases.supplier_id = ?', Entity.find(supplier).id)
@@ -433,7 +433,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered
-    sales = Sale.where(state: %w(order invoice))
+    sales = Sale.where(state: %w[order invoice])
     sale_items = SaleItem.where(variant_id: id, sale_id: sales.pluck(:id)).includes(:parcel_items).where(parcel_items: { sale_item_id: nil })
     sale_items.map(&:quantity).compact.sum.to_f
   end
@@ -520,7 +520,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         end
       end
 
-      unless item.frozen_indicators_values.to_s.blank?
+      if item.frozen_indicators_values.to_s.present?
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|

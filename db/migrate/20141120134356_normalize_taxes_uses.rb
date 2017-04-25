@@ -6,7 +6,7 @@ class NormalizeTaxesUses < ActiveRecord::Migration
     execute 'DELETE FROM catalog_items WHERE stopped_at IS NOT NULL'
     # Removes old duplicates
     execute 'DELETE FROM catalog_items WHERE id NOT IN (SELECT p.id FROM (SELECT ci.id, ROW_NUMBER() OVER(PARTITION BY ci.catalog_id, ci.variant_id ORDER BY ci.id DESC) AS rank FROM catalog_items AS ci) AS p WHERE p.rank = 1)'
-    add_index :catalog_items, [:catalog_id, :variant_id], unique: true
+    add_index :catalog_items, %i[catalog_id variant_id], unique: true
     add_column :catalog_items, :commercial_description, :text
     add_column :catalog_items, :commercial_name, :string
     execute 'UPDATE catalog_items SET name = variants.commercial_name, commercial_name = CASE WHEN variants.name = variants.commercial_name THEN NULL ELSE variants.commercial_name END, commercial_description = variants.commercial_description FROM product_nature_variants AS variants WHERE variants.id = variant_id'

@@ -46,7 +46,7 @@ class Delivery < Ekylibre::Record::Base
   include Attachable
   include Customizable
   acts_as_numbered
-  enumerize :mode, in: [:transporter, :us, :third], predicates: true, default: :us
+  enumerize :mode, in: %i[transporter us third], predicates: true, default: :us
   belongs_to :driver, -> { contacts }, class_name: 'Entity'
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'

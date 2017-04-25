@@ -112,6 +112,10 @@ spa:
         datetime: "Fecha y hora"
         # decimal: "Decimal"
         text: "Texto"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Compra de regularización"
+        sale_regularization: "Venta de regularización"
     delivery:
       mode:
         third: "Tercero"
@@ -159,13 +163,13 @@ spa:
       depreciation_method:
         graduated: "Graduado" #?
         linear: "Lineal"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "Ninguna"
+        regressive: "Regresivo"
         simplified_linear: "Lineal simplificado"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "Mensual"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Pérdida"
@@ -245,6 +249,8 @@ spa:
       nature:
         bank: "Banco"
         cash: "Efectivo"
+        closure: "Cierre"
+        fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
         sales: "Ventas"
@@ -270,8 +276,8 @@ spa:
         constant_rate: "Tasa constante"
       repayment_period:
         month: "Mes"
-        # semester: "Semester"
-        # trimester: "Trimester"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Año"
       shift_method:
         anatocism: "Anatocismo"
@@ -464,6 +470,7 @@ spa:
         animals: "Animales"
         cash_transfers: "Las transferencias de dinero"
         contracts: "Contratos"
+        debt_transfers: "Las transferencias de deuda"
         deliveries: "Las entregas"
         deposits: "Depósitos"
         documents: "Documentos"

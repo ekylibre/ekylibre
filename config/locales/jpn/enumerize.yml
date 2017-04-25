@@ -112,6 +112,10 @@ jpn:
         datetime: "日時"
         decimal: "10進数"
         text: "テキスト"
+    debt_transfer:
+      nature:
+        purchase_regularization: "購入正則"
+        sale_regularization: "販売正則"
     delivery:
       mode:
         third: "三番"
@@ -159,13 +163,13 @@ jpn:
       depreciation_method:
         graduated: "目盛り付きの" #?
         linear: "リニア"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "なし"
+        regressive: "回帰"
         simplified_linear: "簡体リニア"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "毎月"
+        quarterly: "季刊"
+        yearly: "毎年"
     gap:
       direction:
         loss: "損失"
@@ -245,6 +249,8 @@ jpn:
       nature:
         bank: "バンク"
         cash: "現金"
+        closure: "閉鎖"
+        fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
         sales: "セールス"
@@ -270,8 +276,8 @@ jpn:
         constant_rate: "一定の割合"
       repayment_period:
         month: "月"
-        # semester: "Semester"
-        # trimester: "Trimester"
+        semester: "学期"
+        trimester: "学期"
         year: "年"
       shift_method:
         anatocism: "anatocism"
@@ -464,6 +470,7 @@ jpn:
         animals: "動物"
         cash_transfers: "現金移転"
         contracts: "契約"
+        debt_transfers: "債務転送"
         deliveries: "出荷"
         deposits: "預金"
         documents: "ドキュメント"

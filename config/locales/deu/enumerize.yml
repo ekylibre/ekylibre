@@ -112,6 +112,10 @@ deu:
         datetime: "Datum und Uhrzeit"
         decimal: "Dezimal"
         # text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Kauf Regularisierung"
+        sale_regularization: "Verkauf Regularisierung"
     delivery:
       mode:
         third: "Dritte"
@@ -159,13 +163,13 @@ deu:
       depreciation_method:
         graduated: "abgestufte" #?
         # linear: "Linear"
-        # none: "None"
-        # regressive: "Regressive"
+        none: "Keiner"
+        regressive: "Regressiv"
         simplified_linear: "vereinfachte lineare"
       depreciation_period:
-        # monthly: "Monthly"
-        # quarterly: "Quarterly"
-        # yearly: "Yearly"
+        monthly: "Monatlich"
+        quarterly: "Vierteljährlich"
+        yearly: "Jährlich"
     gap:
       direction:
         loss: "Verlust"
@@ -245,6 +249,8 @@ deu:
       nature:
         # bank: "Bank"
         cash: "Kasse"
+        closure: "Schließung"
+        fixed_assets: "Anlagevermögen"
         forward: "Vorwärts getragen"
         purchases: "Käufe"
         sales: "Der Umsatz"
@@ -464,6 +470,7 @@ deu:
         animals: "Tiere"
         cash_transfers: "Geldtransfers"
         contracts: "Verträge"
+        debt_transfers: "Schuldentransfers"
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"

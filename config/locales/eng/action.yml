@@ -195,6 +195,12 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
+    backend/debt_transfers:
+      # debt_transfer_params: "Debt transfer params debt transfer: %{name}"
+      # edit: "Edit debt transfer: %{name}"
+      index: "Debt transfers"
+      new: "New debt transfer"
+      show: "Debt transfer: %{number}"
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -283,7 +289,7 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
-      generate_last_journal_entry: "Generate last journal entry of %{code}"
+      generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
@@ -1218,7 +1224,9 @@ eng:
     documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done" #?
-    dont_use_journal: "— Do not use journal —"
+    dont_generate_carrying_forward_entries: "— Do not generate carrying forward entries —"
+    dont_generate_closure_entries: "— Do not generate closure entries —"
+    dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
@@ -1273,6 +1281,9 @@ eng:
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
+    export_as_csv: "Export as CSV"
+    export_as_ods: "Export as ODS"
+    export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1475,6 +1486,7 @@ eng:
     natures: "Types" #?
     net_income: "Net income"
     net_mass: "Net mass"
+    # net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
     new: "New"
     new_activity: "New activity"
@@ -1552,7 +1564,7 @@ eng:
     other_expenses: "Other expenses" #??
     other_financial_debts: "Other financial debts" #?!
     other_products: "Other products" #?!
-    other_purchases: "Other purchases" #?!
+    other_purchases: "Other purchases" #??
     other_receivables: "Other receivables" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
@@ -1718,7 +1730,7 @@ eng:
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
-    select_forward_journal: "Selected Journal to renew"
+    select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
     semester: "Semester" #?
     send_mail: "Send mail"
@@ -2209,6 +2221,7 @@ eng:
     permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
+    unbilled_payables: "Unbilled payables"
     use_contextual_help: "Use contextual help"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     use_global_search: "Use global search"
@@ -2241,6 +2254,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # debt_transfer_params: "Debt transfer params"
       # depreciate: "Depreciate"
       # depreciate_up_to: "Depreciate up to"
       destroy: "Destroy"
@@ -2259,7 +2273,7 @@ eng:
       # failure: "Failure"
       family: "Family"
       finish: "Finish"
-      generate_last_journal_entry: "Generate last journal entry"
+      generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"

@@ -3,11 +3,11 @@ class AddPaymentModeToOutgoingPaymentList < ActiveRecord::Migration
     add_reference :outgoing_payment_lists, :mode, index: true
     reversible do |r|
       r.up do
-        execute <<-SQL
-UPDATE "outgoing_payment_lists"
-  SET "mode_id" = "outgoing_payments"."mode_id"
-  FROM "outgoing_payments"
-  WHERE "outgoing_payments"."list_id" = "outgoing_payment_lists"."id"
+        execute <<-SQL.strip_heredoc
+          UPDATE "outgoing_payment_lists"
+            SET "mode_id" = "outgoing_payments"."mode_id"
+            FROM "outgoing_payments"
+            WHERE "outgoing_payments"."list_id" = "outgoing_payment_lists"."id"
 SQL
       end
     end

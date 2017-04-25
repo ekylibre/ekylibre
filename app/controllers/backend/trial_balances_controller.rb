@@ -21,19 +21,91 @@
 module Backend
   class TrialBalancesController < Backend::BaseController
     def show
+      filename = "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}"
       @balance = Journal.trial_balance(params) if params[:period]
       respond_to do |format|
         format.html
         format.ods do
           send_data(
             to_ods(@balance).bytes,
-            filename: "#{human_action_name} #{Time.zone.now.l(format: '%Y-%m-%d')}.ods"
+            filename: filename << '.ods'
           )
+        end
+        format.csv do
+          csv_string = CSV.generate(headers: true) do |csv|
+            to_csv(@balance, csv)
+          end
+          send_data(csv_string, filename: filename << '.csv')
+        end
+        format.xcsv do
+          csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
+            to_csv(@balance, csv)
+          end
+          send_data(csv_string, filename: filename << '.csv')
         end
       end
     end
 
     protected
+
+    def to_csv(balance, csv)
+      csv << [
+        JournalEntryItem.human_attribute_name(:account_number),
+        JournalEntryItem.human_attribute_name(:account_name),
+        :total.tl,
+        '',
+        :balance.tl
+      ]
+      csv << [
+        '',
+        '',
+        JournalEntry.human_attribute_name(:debit),
+        JournalEntry.human_attribute_name(:credit),
+        JournalEntry.human_attribute_name(:debit),
+        JournalEntry.human_attribute_name(:credit)
+      ]
+      balance.each do |item|
+        if item[1].to_i > 0
+          account = Account.find(item[1])
+          csv << [
+            account.number,
+            account.name,
+            item[2].to_f,
+            item[3].to_f,
+            item[4].to_f > 0 ? item[4].to_f : 0,
+            item[4].to_f < 0 ? -item[4].to_f : 0
+          ]
+        elsif item[1].to_i == -1
+          # Part for the total
+          csv << [
+            '',
+            :total.tl,
+            item[2].to_f,
+            item[3].to_f,
+            item[4].to_f > 0 ? item[4].to_f : 0,
+            item[4].to_f < 0 ? -item[4].to_f : 0
+          ]
+        elsif item[1].to_i == -2
+          csv << [
+            '',
+            :subtotal.tl(name: item[0]).l,
+            item[2].to_f,
+            item[3].to_f,
+            item[4].to_f > 0 ? item[4].to_f : 0,
+            item[4].to_f < 0 ? -item[4].to_f : 0
+          ]
+        elsif item[1].to_i == -3
+          csv << [
+            item[0],
+            :centralized_account.tl(name: item[0]).l,
+            item[2].to_f,
+            item[3].to_f,
+            item[4].to_f > 0 ? item[4].to_f : 0,
+            item[4].to_f < 0 ? -item[4].to_f : 0
+          ]
+        end
+      end
+    end
 
     def to_ods(balance)
       require 'rodf'

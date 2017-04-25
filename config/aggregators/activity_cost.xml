@@ -26,7 +26,7 @@
             <cell name="id" of="intervention" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
             <cell name="production_support" value="intervention.activity_productions.map{ |ap| ap.name }.to_sentence" of-type="record"/>
-            <cell name="production_support_area_value_in_hectare" value="intervention.activity_productions.map{ |ap| ap.support_shape.area.in(:hectare) }.sum.in(:hectare).round(2)" level="api"/>
+            <cell name="production_support_area_value_in_hectare" value="intervention.activity_productions.map{ |ap| ap.support_shape ? ap.support_shape.area.in(:hectare) : 0.in(:hectare) }.sum.in(:hectare).round(2)" level="api"/>
             <cell name="started_at" of="intervention" type="datetime"/>
             <cell name="stopped_at" of="intervention" type="datetime"/>
             <cell name="casting" value="intervention.product_parameters.map { |p| p.name }.to_sentence" level="api"/>

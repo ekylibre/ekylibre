@@ -78,6 +78,9 @@ class Affair < Ekylibre::Record::Base
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :regularizations,   inverse_of: :affair, dependent: :destroy
+  has_many :debt_transfers, inverse_of: :affair, dependent: :nullify
+  has_many :debt_regularizations, inverse_of: :debt_transfer_affair, foreign_key: :debt_transfer_affair_id, class_name: 'DebtTransfer', dependent: :nullify
+
   # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -139,7 +142,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w(SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization).freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
     # Removes empty affairs in the whole table
@@ -213,7 +216,7 @@ class Affair < Ekylibre::Record::Base
 
   # Check if debit is equal to credit
   def unbalanced?
-    !(self.debit == self.credit)
+    self.debit != self.credit
   end
 
   # Check if debit is equal to credit
@@ -240,6 +243,11 @@ class Affair < Ekylibre::Record::Base
     !multi_thirds? && unbalanced?
   end
 
+  def debt_transferable?
+    # unbalanced
+    !closed
+  end
+
   # Adds a gap to close the affair
   #
   # Basically we calculate the gap between the debit and credit
@@ -255,7 +263,7 @@ class Affair < Ekylibre::Record::Base
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
-        [:debit, :credit].map do |mode|
+        %i[debit credit].map do |mode|
           # Get the items of the deal with their VAT %
           # then add 0% VAT to untaxed deals
           deal.deal_taxes(mode)

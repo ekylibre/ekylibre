@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -61,17 +62,17 @@ class CashTest < ActiveSupport::TestCase
 
   test "next reconciliation letters on a cash without bank statements starts from 'A'" do
     cash = cashes(:cashes_003)
-    assert_equal %w(A B C), cash.next_reconciliation_letters.take(3)
+    assert_equal %w[A B C], cash.next_reconciliation_letters.take(3)
   end
 
   test 'next reconciliation letters on a cash with bank statements starts from the letter succeeding the last reconciliation letter of the cash' do
     cash = cashes(:cashes_001)
-    assert_equal %w(G), cash.next_reconciliation_letters.take(1)
+    assert_equal %w[G], cash.next_reconciliation_letters.take(1)
   end
 
   test 'next reconciliation letters on a cash with bank statements can skip a letter if its already present' do
     cash = cashes(:cashes_001)
-    assert_equal %w(G I J), cash.next_reconciliation_letters.take(3)
+    assert_equal %w[G I J], cash.next_reconciliation_letters.take(3)
   end
 
   test 'valid if bank_account and valid iban' do

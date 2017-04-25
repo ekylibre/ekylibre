@@ -168,6 +168,10 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
+    backend/debt_transfers:
+      index: "Transferts de dettes"
+      new: "Nouveau transfert de la dette"
+      show: "Transfert de dettes: %{number}"
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -1209,6 +1213,8 @@ fra:
     doer_cost: "Coût de main d’œuvre"
     doers: "Opérateurs" #?
     done: "Fait"
+    dont_generate_carrying_forward_entries: "— Ne pas générer les écritures de report à nouveau —"
+    dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
@@ -1282,6 +1288,9 @@ fra:
     expired_within: "Expiré d'ici"
     exploitation_results: "Résultats d'exploitation"
     export: "Exporter"
+    export_as_csv: "Exporter en CSV"
+    export_as_ods: "Exporter en ODS"
+    export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
@@ -2034,7 +2043,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
-    # stopped_on: "Stopped on"
+    stopped_on: "Nous nous sommes arrêtés sur"
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
@@ -2616,6 +2625,7 @@ fra:
     permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"
     sales_conditions: "Conditions de vente"
     supplier_account_radix: "Radical comptable du compte fournisseur"
+    unbilled_payables: "Générer les factures non parvenues"
     use_contextual_help: "Utiliser l’aide contextuelle"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     use_global_search: "Utiliser la recherche globale"
@@ -2753,6 +2763,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/products: "%{work_number} %{name} (%{number})"
+    backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

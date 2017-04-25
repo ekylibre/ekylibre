@@ -106,7 +106,7 @@ class Event < Ekylibre::Record::Base
   end
 
   def updateable?
-    !intervention.present?
+    intervention.blank?
   end
 
   # TODO: Make it better if possible

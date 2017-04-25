@@ -15,6 +15,12 @@
 	</style>
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="profit">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[profit]]></conditionExpression>
+			<style mode="Transparent" forecolor="#00FF00" backcolor="#FFFFFF" fill="Solid"/>
+		</conditionalStyle>
+	</style>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
@@ -68,6 +74,9 @@
 	<field name="total-balance" class="java.lang.Double">
 		<fieldDescription><![CDATA[total-balance]]></fieldDescription>
 	</field>
+	<field name="previous-total-balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[previous-total-balance]]></fieldDescription>
+	</field>
 	<sortField name="order"/>
 	<variable name="balance_sub_group" class="java.lang.Double" resetType="Group" resetGroup="sub_group" calculation="Sum">
 		<variableExpression><![CDATA[$F{balance}]]></variableExpression>
@@ -80,6 +89,12 @@
 	</variable>
 	<variable name="total-balance_global" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{total-balance}]]></variableExpression>
+	</variable>
+	<variable name="previous-total-balance_group" class="java.lang.Double" resetType="Group" resetGroup="group" calculation="Sum">
+		<variableExpression><![CDATA[$F{previous-total-balance}]]></variableExpression>
+	</variable>
+	<variable name="previous-total-balance_global" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{previous-total-balance}]]></variableExpression>
 	</variable>
 	<group name="group">
 		<groupExpression><![CDATA[$F{group}]]></groupExpression>
@@ -115,20 +130,27 @@
 				<textField pattern="#,##0.00 €" isBlankWhenNull="true">
 					<reportElement x="174" y="9" width="138" height="20" uuid="2a080678-8fdc-44a9-84f5-27355a155a89"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Lato" size="12"/>
+						<font fontName="Open Sans" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{total-balance_group}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="0" y="9" width="174" height="20" printWhenGroupChanges="group" uuid="70d92c62-e607-42e4-aead-c3c30f905713"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Lato" size="12"/>
+						<font fontName="Open Sans" size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Sous-total  " + $F{group}]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement x="235" y="3" width="77" height="1" uuid="1c1de876-702e-4c04-965a-4d56635a9804"/>
 				</line>
+				<textField pattern="#,##0.00 €" isBlankWhenNull="true">
+					<reportElement x="398" y="8" width="156" height="20" uuid="a6d31ed6-f62e-4c89-ac34-9ed98cb30bc3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{previous-total-balance_group}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -139,7 +161,7 @@
 				<textField evaluationTime="Group" evaluationGroup="sub_group" isBlankWhenNull="true">
 					<reportElement x="2" y="0" width="459" height="28" uuid="3a46f840-e31b-4c09-b417-ebdb85f8a752"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Lato" size="12" isBold="true"/>
+						<font fontName="Open Sans" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{sub-group}]]></textFieldExpression>
 				</textField>
@@ -293,7 +315,7 @@
 			<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
 				<reportElement x="174" y="0" width="138" height="20" uuid="8a7168ba-50d2-4c4e-b25e-fe339eba1ce0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Lato" size="14" isBold="true"/>
+					<font fontName="Open Sans" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total-balance_global}]]></textFieldExpression>
 			</textField>
@@ -303,6 +325,13 @@
 					<font fontName="Open Sans" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($V{total-balance_global}.intValue() > 0 ? "Bénéfice " : "Perte ")]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 ¤" isBlankWhenNull="true">
+				<reportElement x="398" y="0" width="156" height="20" uuid="9f5e3ac1-5588-4874-b2a1-3738069eba06"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{previous-total-balance_global}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

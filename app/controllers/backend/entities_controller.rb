@@ -38,7 +38,7 @@ module Backend
     #   :q Text search
     def self.entities_conditions
       code = ''
-      code = search_conditions(entities: [:number, :full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+      code = search_conditions(entities: %i[number full_name], entity_addresses: [:coordinate]) + " ||= []\n"
 
       code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
 
@@ -291,7 +291,7 @@ module Backend
 
     def self.entities_moves_client_conditions(params)
       code = ''
-      code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
       code << "c << Entity.find(#{params[:id]}).client_account_id\n"
       code << "c\n"
@@ -315,7 +315,7 @@ module Backend
 
     def self.entities_moves_supplier_conditions(params)
       code = ''
-      code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
       code << "c << Entity.find(#{params[:id]}).supplier_account_id\n"
       code << "c\n"

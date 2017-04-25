@@ -27,7 +27,7 @@ module Backend
 
     unroll
 
-    list(conditions: search_conditions(deliveries: [:number, :annotation], entities: [:number, :full_name])) do |t|
+    list(conditions: search_conditions(deliveries: %i[number annotation], entities: %i[number full_name])) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: true
@@ -58,13 +58,13 @@ module Backend
     def show
       @entity_of_company_picture_path = Entity.of_company.picture_path
       return unless @delivery = find_and_check
-      respond_with(@delivery, methods: [:all_parcels_prepared, :human_delivery_mode],
+      respond_with(@delivery, methods: %i[all_parcels_prepared human_delivery_mode],
                               include: {
                                 parcels: {
-                                  methods: [:human_delivery_mode, :human_delivery_nature],
+                                  methods: %i[human_delivery_mode human_delivery_nature],
                                   include: {
                                     items: {
-                                      include: [:variant, :product]
+                                      include: %i[variant product]
                                     },
                                     address: {},
                                     sender: {},

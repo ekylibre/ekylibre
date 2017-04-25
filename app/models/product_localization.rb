@@ -42,7 +42,7 @@ class ProductLocalization < Ekylibre::Record::Base
   include Taskable, TimeLineable
   belongs_to :container, class_name: 'Product'
   belongs_to :product
-  enumerize :nature, in: [:transfer, :interior, :exterior], predicates: true
+  enumerize :nature, in: %i[transfer interior exterior], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, :product, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true

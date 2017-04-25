@@ -88,7 +88,7 @@ class PlantTest < ActiveSupport::TestCase
   test_model_actions
   test 'plant status' do
     Plant.find_each do |plant|
-      assert [:go, :caution, :stop].include?(plant.status)
+      assert %i[go caution stop].include?(plant.status)
     end
   end
 end
