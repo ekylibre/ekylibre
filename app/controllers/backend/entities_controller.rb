@@ -184,8 +184,8 @@ module Backend
     end
 
     list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
-      t.action :edit, if: :updateable? && 'RECORD.journal_entry.bank_statement_number.blank?'.c
-      t.action :destroy, if: :destroyable? && 'RECORD.journal_entry.bank_statement_number.blank?'.c
+      t.action :edit
+      t.action :destroy
       t.column :number, url: true
       t.column :paid_at
       t.column :responsible, hidden: true
@@ -198,8 +198,8 @@ module Backend
     end
 
     list(:outgoing_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
-      t.action :edit, if: :updateable? && 'RECORD.journal_entry.bank_statement_number.blank?'.c
-      t.action :destroy, if: :destroyable? && 'RECORD.journal_entry.bank_statement_number.blank?'.c
+      t.action :edit
+      t.action :destroy
       t.column :number, url: true
       t.column :paid_at
       t.column :responsible, hidden: true
