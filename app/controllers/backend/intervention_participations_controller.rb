@@ -18,7 +18,7 @@
 
 module Backend
   class InterventionParticipationsController < Backend::BaseController
-    manage_restfully only: %i[update destroy]
+    manage_restfully only: %i[create update destroy]
 
     def index
       @worked_on = if params[:worked_on].blank?
@@ -47,9 +47,40 @@ module Backend
       end
     end
 
+    def create
+      participation = InterventionParticipation.find_or_initialize_by(
+        product_id: permitted_params[:product_id],
+        intervention_id: permitted_params[:intervention_id] 
+      )
+
+      byebug
+      
+      #   product_id: params[:product_id],
+      #   intervention_id: params[:intervention_id] 
+      # )
+      #
+      # if participation.new_record?
+      #   participation.request_compliant = true 
+      #   participation.state = :in_progress 
+      #   participation.save
+      # end
+
+     # Working period state = intervention state 
+    end
+
     def participations_modal
-      @intervention_participation = InterventionParticipation.find(params[:intervention_participation_id])
-      render partial: 'backend/intervention_participations/participations_modal', locals: { intervention_participation: @intervention_participation }
+      participation = InterventionParticipation.find_or_initialize_by(
+        product_id: params[:product_id],
+        intervention_id: params[:intervention_id] 
+      )
+    
+      render partial: 'backend/intervention_participations/participations_modal', locals: { participation: participation }
+    end
+
+    private
+
+    def permitted_params
+      params[:intervention_participation].permit(:intervention_id, :product_id)
     end
   end
 end

@@ -1,8 +1,8 @@
-= modal_header('Temps de travaux de Christian Dupont')
+= modal_header("Temps de travaux de \"#{ participation.product.name  }\"")
 
-
-= form_tag(backend_intervention_participations_path, method: :post) do
-  - intervention = intervention_participation.intervention
+= simple_form_for(participation, url: backend_intervention_participations_path, method: :post) do |f|
+  = hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
+  = hidden_field_tag "intervention_participation[product_id]", participation.product_id
 
   .modal-body
     .indicators
@@ -10,37 +10,17 @@
         %span.title= Intervention.human_attribute_name(:started_at)
         %span.value
           %i.picto.picto-clock-o
-          = intervention.started_at.l(format: :compact)
+          = participation.intervention.started_at.l(format: :compact)
 
     .participations
       .participations-header
         %h3{ class: "action-header action-period" } Durée de l'action
         %h3{ class: "action-header" } Horaires calculées
 
-      - unless intervention_participation.working_periods.empty?
-        - intervention_participation.working_periods.each do |working_period|
 
-          - next if working_period.hide?
+      = f.simple_fields_for :working_periods do |working_periods_form|
+        = render 'working_periods_fields', f: working_periods_form
 
-          .participation
-
-            .participation-icon
-              .picto.picto-timelapse
-              = working_period.nature.l
-
-            .participation-form
-              .participation-field
-                = text_field_tag :name, working_period.hour_gap, class: "participation-input"
-                %span{class: "participation-field-label"} H
-
-              .participation-field
-                = text_field_tag :name, working_period.min_gap, class: "participation-input"
-                %span Min
-
-            .participatimn-result
-              %span= working_period.started_at.l(format: :full)
-              %span &#8594;
-              %span= working_period.stopped_at.l(format: :full)
 
     .actions
       = button_tag nil, class: "btn btn-default action" do
@@ -58,6 +38,7 @@
       = button_tag nil, class: "btn btn-default action" do
         .picto.picto-pause-circle-outline
         %span Pause
+
 
   .modal-footer
     = submit_tag 'Valider', class: "btn btn-primary"
