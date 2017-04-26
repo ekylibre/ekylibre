@@ -1444,6 +1444,8 @@ deu:
     to: "Nach"
     to_bank_at: "An die Bank an"
     to_deposit: "Deponieren"
+    to_pay_on_or_after: "Zu bezahlen auf oder nach"
+    to_pay_on_or_before: "Zu bezahlen oder vorher"
     token: "Zeichen"
     tool: "Werkzeug"
     tools: "Werkzeuge"

@@ -51,7 +51,8 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   acts_as_numbered
 
   protect(on: :destroy) do
-    JournalEntryItem.where(entry_id: payments.select(:entry_id)).where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
+    JournalEntryItem.where(entry_id: payments.select(:entry_id))
+                    .where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
   def to_sepa

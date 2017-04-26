@@ -1444,6 +1444,8 @@ por:
     to: "Para"
     to_bank_at: "Para banco em"
     to_deposit: "Depositar"
+    to_pay_on_or_after: "Para pagar em ou depois"
+    to_pay_on_or_before: "Para pagar em ou antes"
     token: "Símbolo"
     tool: "Ferramenta"
     tools: "Ferramentas"

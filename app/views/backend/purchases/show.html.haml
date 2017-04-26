@@ -3,7 +3,7 @@
   = t.edit resource if resource.updateable?
   - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
     = t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
-  = t.destroy 
+  = t.destroy
 
 = main_state_bar(resource)
 
