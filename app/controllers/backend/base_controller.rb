@@ -350,34 +350,34 @@ module Backend
       def journal_letter_crit(variable, _conditions = 'c', _table_name = nil)
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
-        code << "unless #{variable}[:letter_state].blank?\n"
-        code << "  #{variable}[:letter_state].each_with_index do |current_letter_state, index|\n"
+        code << "unless #{variable}[:lettering_state].blank?\n"
+        code << "  #{variable}[:lettering_state].each_with_index do |current_lettering_state, index|\n"
         code << "    if index == 0\n"
         code << "      c[0] << ' AND('\n"
-        code << "      if current_letter_state == 'lettered'\n"
+        code << "      if current_lettering_state == 'lettered'\n"
         code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
         code << "        c << '%*'\n"
         code << "      end\n"
 
-        code << "      if current_letter_state == 'unlettered'\n"
+        code << "      if current_lettering_state == 'unlettered'\n"
         code << "        c[0] << '#{JournalEntryItem.table_name}.letter IS NULL'\n"
         code << "      end\n"
 
-        code << "      if current_letter_state == 'partially_lettered'\n"
+        code << "      if current_lettering_state == 'partially_lettered'\n"
         code << "        c[0] << '(#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
         code << "        c << '%*'\n"
         code << "      end\n"
         code << "    else\n"
-        code << "      if current_letter_state == 'lettered'\n"
+        code << "      if current_lettering_state == 'lettered'\n"
         code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter NOT ILIKE ?)'\n"
         code << "        c << '%*'\n"
         code << "      end\n"
 
-        code << "      if current_letter_state == 'unlettered'\n"
+        code << "      if current_lettering_state == 'unlettered'\n"
         code << "        c[0] << ' OR #{JournalEntryItem.table_name}.letter IS NULL'\n"
         code << "      end\n"
 
-        code << "      if current_letter_state == 'partially_lettered'\n"
+        code << "      if current_lettering_state == 'partially_lettered'\n"
         code << "        c[0] << ' OR (#{JournalEntryItem.table_name}.letter IS NOT NULL AND #{JournalEntryItem.table_name}.letter ILIKE ?)'\n"
         code << "        c << '%*'\n"
         code << "      end\n"
