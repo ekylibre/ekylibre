@@ -18,8 +18,6 @@ eng:
       destroy: "Log out" #?
       new: "New session"
     backend/accounts:
-      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked account: %{name}"
-      # account_mask_literate_element_is_checked: "Account mask literate element is checked account: %{name}"
       edit: "Edit account: %{number} - %{name}"
       index: "Accounting plans"
       load: "Load an accounting plan"
@@ -243,8 +241,6 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
-      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked entity: %{name}"
-      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked entity: %{name}"
       export: "Export people" #?
       import: "Import people"
       index: "People"
@@ -1010,8 +1006,6 @@ eng:
     amount: "Amount" #?
     amount_computed_from: "Amount computed from %{source}"
     amount_estimated_from: "Amount estimated from %{source}"
-    amount_max: "Maximum amount"
-    amount_min: "Minimum amount"
     amount_per_unit: "%{amount}/%{unit}" #??
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
@@ -1434,9 +1428,9 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     letter: "Letter" #?
-    letter_state: "Etat du lettrage"
     letterable: "Letterable"
     lettered: "Lettered" #?
+    lettering_state: "Lettering state"
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
     liability_reserves: "Liability reserves" #?!
@@ -1471,6 +1465,7 @@ eng:
     mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
+    maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
     merchandises_purchases: "Merchandises purchases" #?!
@@ -1478,6 +1473,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
+    minimum_amount: "Minimum amount"
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -2241,8 +2237,6 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked"
-      # account_mask_literate_element_is_checked: "Account mask literate element is checked"
       # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
@@ -2280,8 +2274,6 @@ eng:
       edit: "Edit"
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
-      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked"
-      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked"
       evaluate: "Evaluate"
       export: "Export"
       export_to_sepa: "Export to SEPA"

@@ -399,7 +399,7 @@ eng:
     account_name: "Account name"
     account_number: "Account number"
     accountable: "Accountable"
-    accountable_repayments_started_on: "Accountable repayments started on" #?
+    accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
@@ -866,7 +866,7 @@ eng:
     initial_number: "Initial number"
     initial_owner: "Initial owner"
     initial_population: "Initial population"
-    initial_releasing_amount: "Initial releasing amount" #?
+    initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Initial shape"
     initialization_vectors: "Initialization vectors"
     initiated_on: "Initiated on"

@@ -911,8 +911,6 @@ fra:
     amount: "Montant"
     amount_computed_from: "Montant calculé à partir de %{source}"
     amount_estimated_from: "Montant estimé à partir de %{source}"
-    amount_max: "Montant maximum" #?
-    amount_min: "Montant minimum" #?
     amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés" #?
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés" #?
@@ -1493,7 +1491,6 @@ fra:
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
-    letter_state: "Etat du lettrage"
     letterable: "Lettrable"
     lettered: "Lettré"
     lettering_account_client: "Lettrage des comptes clients" #?
@@ -1503,6 +1500,7 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
+    lettering_state: "État du lettrage"
     liabilities: "Passifs"
     liabilities_gaps: "Ecart de conversion passif"
     liability_reserves: "Réserves"
@@ -1554,6 +1552,7 @@ fra:
     mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
+    maximum_amount: "Montant maximum"
     measure_options: "Indicateur de type mesure" #?
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
     medical_informations: "Informations médicales" #?
@@ -1570,6 +1569,7 @@ fra:
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
+    minimum_amount: "Montant minimum"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
