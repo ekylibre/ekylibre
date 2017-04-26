@@ -1602,7 +1602,6 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
-    # lettering_state: "عسكري دو"
     # letterable: "Letterable"
     lettered: "مكتوب بنقش"
     lettering_account_client: "كتابة حسابات الزبائن" #?
@@ -1612,6 +1611,7 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
+    lettering_state: "الدولة الترقين"
     liabilities: "المطلوبات"
     liabilities_gaps: "ثغرات الخصوم"
     liability_reserves: "احتياطيات المسؤولية"

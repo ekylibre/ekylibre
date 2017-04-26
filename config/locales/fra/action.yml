@@ -1491,7 +1491,6 @@ fra:
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
-    lettering_state: "État du lettrage"
     letterable: "Lettrable"
     lettered: "Lettré"
     lettering_account_client: "Lettrage des comptes clients" #?
@@ -1501,6 +1500,7 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
+    lettering_state: "État du lettrage"
     liabilities: "Passifs"
     liabilities_gaps: "Ecart de conversion passif"
     liability_reserves: "Réserves"

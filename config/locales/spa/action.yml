@@ -1334,7 +1334,6 @@ spa:
     last_sales: "Última oferta de venta"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
-    # lettering_state: "Etat du lettrage"
     # letterable: "Letterable"
     lettered: "Letrado"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
@@ -1344,6 +1343,7 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
+    lettering_state: "Estado de letras"
     liabilities: "Pasivo"
     liabilities_gaps: "Pasivo lagunas"
     liability_reserves: "Las reservas de responsabilidad"
