@@ -10,7 +10,7 @@
         = hidden_field_tag :theoretical_number, theoretical_number
       - else
         = f.input :number, placeholder: f.object.journal.next_number
-      = f.input :printed_on, input_html: { data: { check_date_after: Entity.of_company.born_on.to_s, check_date_error: :invalid_date.tl }}
+      = f.input :printed_on
       = f.input :real_currency_rate, label_html: { data: { change_label: :exchange_rate_from_x_to_y.tl(x: '{{FROM}}', y: '{{TO}}') } }, wrapper_html: { class: 'currency-change' }
 
       = f.custom_fields
@@ -24,8 +24,8 @@
           %thead
             %tr
               %th= JournalEntryItem.human_attribute_name(:name)
-              %th= JournalEntryItem.human_attribute_name(:variant)
               %th= JournalEntryItem.human_attribute_name(:account)
+              %th= JournalEntryItem.human_attribute_name(:variant)
               - if budget_size > 0
                 %th= JournalEntryItem.human_attribute_name(:activity_budget)
               - if team_size > 0
@@ -37,7 +37,7 @@
           %tfoot
             %tr#total.total{ data: { valid_if_equality_between: "#entry-real-debit, #entry-real-credit", submit_if_valid: false } }
               %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary", render_options: { locals: { currency: f.object.journal.currency } }
-              %th{ colspan: 1 + budget_size + team_size }
+              %th{ colspan: 2 + budget_size + team_size }
                 .pull-left
                   = label_tag "preference_entry_autocompletion", class: 'control-label standalone-option' do
                     = check_box "preference", "entry_autocompletion", {checked: Preference[:entry_autocompletion]}, true, false
@@ -50,11 +50,12 @@
               %td.txt= f.object.journal.currency
               %th.act
             %tr#subtotal.subtotal.currency-change{ data: { valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false } }
-              %th{ colspan: 2 + budget_size + team_size }= :total.tl
-              -# %td#entry-debit.decimal{ data: { use: "td.debit",  calculate_round: Nomen::Currency[financial_year.currency].precision } }= f.object.debit
-              -# %td.financial-year-currency.txt= financial_year.currency
-              -# %td#entry-credit.decimal{ data: { use: "td.credit", calculate_round: Nomen::Currency[financial_year.currency].precision } }= f.object.credit
-              -# %td.financial-year-currency.txt= financial_year.currency
+              - financial_year_precision = financial_year ? Nomen::Currency[financial_year.currency].precision : 3
+              %th{ colspan: 3 + budget_size + team_size }= :total.tl
+              %td#entry-debit.decimal{ data: { use: "td.debit",  calculate_round: financial_year_precision } }= f.object.debit
+              %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'
+              %td#entry-credit.decimal{ data: { use: "td.credit", calculate_round: financial_year_precision } }= f.object.credit
+              %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'
               %th.act
 
           = f.simple_fields_for :items, f.object.items.sort_by(&:position) do |item|
