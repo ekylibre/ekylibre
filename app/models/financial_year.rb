@@ -250,14 +250,6 @@ class FinancialYear < Ekylibre::Record::Base
       raise "Some journals cannot be closed on #{to_close_on}: " + unclosables.map(&:name).to_sentence(locale: :eng)
     end
 
-    result_journal = options[:result_journal] || Journal.find_by(id: options[:result_journal_id].to_i)
-    if result_journal
-      unless result_journal.result? && result_journal.closed_on < to_close_on &&
-             result_journal.currency == self.currency
-        raise 'Cannot close without an opened result journal with same currency as financial year'
-      end
-    end
-
     closure_journal = options[:closure_journal] || Journal.find_by(id: options[:closure_journal_id].to_i)
     if closure_journal
       unless closure_journal.closure? && closure_journal.closed_on < to_close_on &&
@@ -279,7 +271,7 @@ class FinancialYear < Ekylibre::Record::Base
       compute_balances!
       if closure_journal
         # Create result entry of the current year
-        generate_result_entry!(result_journal, to_close_on)
+        generate_result_entry!(closure_journal, to_close_on)
         # Settle balance sheet accounts
         generate_balance_sheet_accounts_settlement!(closure_journal, to_close_on)
       end
@@ -344,10 +336,6 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil, options = {})
-    # remove closure entries
-    options[:unwanted_journal_nature] ||= [:closure] if document == :balance_sheet
-    options[:unwanted_journal_nature] ||= %i[result closure]
-
     equation = get_mandatory_line_calculation(document, line) if line
     equation ? sum_entry_items(equation, options) : 0
   end
@@ -507,7 +495,6 @@ class FinancialYear < Ekylibre::Record::Base
     closure_journal.entries.create!(
       printed_on: to_close_on,
       currency: closure_journal.currency,
-      state: :confirmed,
       items_attributes: items
     )
   end
@@ -540,7 +527,6 @@ class FinancialYear < Ekylibre::Record::Base
     closure_journal.entries.create!(
       printed_on: to_close_on,
       currency: closure_journal.currency,
-      state: :confirmed,
       items_attributes: items
     )
   end

@@ -1059,7 +1059,6 @@ ita:
     done: "Fatto"
     dont_generate_carrying_forward_entries: "- Non genera portare avanti le voci -"
     dont_generate_closure_entries: "- Non generare le voci di chiusura -"
-    # dont_generate_result_entries: "Dont generate result entries"
     dont_use_journal: "- Non utilizzare Journal -"
     down: "Giù"
     downpayment: "Acconto"

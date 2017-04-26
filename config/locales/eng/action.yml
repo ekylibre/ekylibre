@@ -1228,7 +1228,6 @@ eng:
     done: "Done" #?
     dont_generate_carrying_forward_entries: "— Do not generate carrying forward entries —"
     dont_generate_closure_entries: "— Do not generate closure entries —"
-    dont_generate_result_entries: "Dont generate result entries"
     dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
     down: "Down" #?

@@ -253,7 +253,6 @@ jpn:
         fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
-        # result: "Result"
         sales: "セールス"
         stocks: "ストック"
         various: "さまざまな操作"

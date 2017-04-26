@@ -253,7 +253,6 @@ cmn:
         fixed_assets: "固定资产"
         forward: "结转"
         purchases: "购买"
-        # result: "Result"
         sales: "销售"
         stocks: "股票"
         various: "各种操作"

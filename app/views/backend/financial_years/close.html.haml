@@ -3,7 +3,6 @@
     = field FinancialYear.model_name.human, @financial_year.code
     = field FinancialYear.human_attribute_name(:stopped_on), @financial_year.stopped_on.l
     = hidden_field_tag("financial_year[stopped_on]", @financial_year.stopped_on)
-    = field FinancialYear.human_attribute_name(:result_journal), select_tag("result_journal_id", options_for_select([[:dont_generate_result_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :result).collect{|j| [j.name, j.id]}, selected: params[:result_journal_id]))
     = field FinancialYear.human_attribute_name(:closure_journal), select_tag("closure_journal_id", options_for_select([[:dont_generate_closure_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :closure).collect{|j| [j.name, j.id]}, selected: params[:closure_journal_id]))
     = field FinancialYear.human_attribute_name(:forward_journal), select_tag("forward_journal_id", options_for_select([[:dont_generate_carrying_forward_entries.tl, ""], [:create_journal.tl, 0]] + Journal.where(currency: @financial_year.currency, nature: :forward).collect{|j| [j.name, j.id]}, selected: params[:forward_journal_id]))
   = form_actions do

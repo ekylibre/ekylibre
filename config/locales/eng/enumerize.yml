@@ -242,7 +242,6 @@ eng:
         fixed_assets: "Fixed assets"
         forward: "Carried-forward"
         purchases: "Purchases"
-        result: "Result"
         sales: "Sales"
         stocks: "Stocks"
         various: "Various operations"

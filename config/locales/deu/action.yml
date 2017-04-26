@@ -993,7 +993,6 @@ deu:
     done: "Erledigt"
     dont_generate_carrying_forward_entries: "- Sie erzeugen nicht vorwärts Einträge tragen -"
     dont_generate_closure_entries: "- nicht generieren Schließung Einträge -"
-    # dont_generate_result_entries: "Dont generate result entries"
     dont_use_journal: "- Verwenden Sie Journal nicht -"
     down: "nach unten"
     downpayment: "Anzahlung"

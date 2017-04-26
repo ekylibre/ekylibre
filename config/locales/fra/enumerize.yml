@@ -52,7 +52,7 @@ fra:
         integer: "Entier"
         measure: "Mesure"
         multi_polygon: "Multi polygone"
-        point: "Point"
+        # point: "Point"
         string: "Chaîne"
     animal:
       birth_date_completeness:
@@ -243,7 +243,6 @@ fra:
         fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
-        result: "Résultat"
         sales: "Ventes"
         stocks: "Réserves"
         various: "Opérations diverses"
