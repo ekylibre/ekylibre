@@ -9,13 +9,13 @@
   - else
     = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.association :nature, as: :hidden
-  = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :reference_number
-  = f.input :planned_at
   = f.input :invoiced_at
   = f.input :payment_delay
   = f.input :tax_payability, as: :radio_buttons
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :planned_at
+  = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :description
   = f.custom_fields
 

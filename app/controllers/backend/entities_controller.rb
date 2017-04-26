@@ -156,19 +156,6 @@ module Backend
       t.column :started_at, through: :event, datatype: :datetime
     end
 
-    list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
-      t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
-      t.column :number, url: true
-      t.column :paid_at
-      t.column :responsible, hidden: true
-      t.column :mode
-      t.column :bank_name, hidden: true
-      t.column :bank_check_number, hidden: true
-      t.column :amount, currency: true, url: true
-      t.column :deposit, url: true, hidden: true
-    end
-
     list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_id = ? OR #{EntityLink.table_name}.linked_id = ?)", 'params[:id]'.c, 'params[:id]'.c], per_page: 5) do |t|
       t.action :edit
       t.action :destroy
@@ -196,16 +183,30 @@ module Backend
       t.column :creator
     end
 
+    list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :paid_at
+      t.column :responsible, hidden: true
+      t.column :mode
+      t.column :bank_name, hidden: true
+      t.column :bank_check_number, hidden: true
+      t.column :amount, currency: true, url: true
+      t.column :deposit, url: true, hidden: true
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+    end
+
     list(:outgoing_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
       t.action :edit
-      t.action :destroy, if: :destroyable?
+      t.action :destroy
       t.column :number, url: true
       t.column :paid_at
       t.column :responsible, hidden: true
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
 
     list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
