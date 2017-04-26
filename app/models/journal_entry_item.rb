@@ -285,6 +285,10 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
+  def lettered?
+    letter.present?
+  end
+
   # Unmark all the journal entry items with the same mark in the same account
   def unmark
     account.unmark(letter) if letter.present?
