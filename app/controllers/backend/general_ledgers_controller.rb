@@ -28,6 +28,8 @@ module Backend
       code << journal_entries_states_crit('params')
       code << accounts_range_crit('params')
       code << journals_crit('params')
+      code << journal_letter_crit('params')
+      code << amount_range_crit('params')
       code << "c\n"
       # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
       code.c # .gsub(/\s*\n\s*/, ";")
@@ -40,6 +42,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on
       t.column :name
+      t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
       t.column :debit,  currency: true, hidden: true

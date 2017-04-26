@@ -1603,6 +1603,7 @@ arb:
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
     # letterable: "Letterable"
+    lettered: "مكتوب بنقش"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes: #?
@@ -1610,6 +1611,7 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
+    lettering_state: "الدولة الترقين"
     liabilities: "المطلوبات"
     liabilities_gaps: "ثغرات الخصوم"
     liability_reserves: "احتياطيات المسؤولية"
@@ -1655,6 +1657,7 @@ arb:
     mask_lettered_items: "قناع العناصر بحروف"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
+    maximum_amount: "الحد الأقصى للمبلغ"
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
     menu: #?
@@ -1685,6 +1688,7 @@ arb:
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
+    minimum_amount: "اقل مبلغ"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -1856,6 +1860,7 @@ arb:
     parameters: "عامل متغير"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
+    partially_lettered: "بحروف جزئيا"
     participants: "مشتركين"
     participations: "بالمشاركات"
     parts: "وحدات"
@@ -2293,6 +2298,7 @@ arb:
     unknown_condition: "غير معروف نوع الشرط"
     unknown_user: "مستخدم غير معروف"
     unknown_variant: "البديل غير معروف"
+    unlettered: "جاهل"
     unlock: "فتح القفل"
     unmark: "غير علامة"
     unmarketable_inspection_categories_evolution: "غير قابلة للتسويق تطور فئات التفتيش"
