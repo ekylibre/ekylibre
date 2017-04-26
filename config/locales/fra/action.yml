@@ -168,6 +168,10 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
+    backend/debt_transfers:
+      index: "Transferts de dettes"
+      new: "Nouveau transfert de la dette"
+      show: "Transfert de dettes: %{number}"
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -1284,6 +1288,9 @@ fra:
     expired_within: "Expiré d'ici"
     exploitation_results: "Résultats d'exploitation"
     export: "Exporter"
+    export_as_csv: "Exporter en CSV"
+    export_as_ods: "Exporter en ODS"
+    export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
@@ -1485,6 +1492,7 @@ fra:
     letter: "Lettrer"
     letter_options: "Lettre" #?
     letterable: "Lettrable"
+    lettered: "Lettré"
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
     lettering_modes: #?
@@ -1492,6 +1500,7 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
+    lettering_state: "État du lettrage"
     liabilities: "Passifs"
     liabilities_gaps: "Ecart de conversion passif"
     liability_reserves: "Réserves"
@@ -1539,10 +1548,11 @@ fra:
     markers: "Objectifs" #?
     marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
-    mask_literate_elements: "Masquer les éléments lettrés"
+    mask_lettered_items: "Masquer les lignes lettrées"
     mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
+    maximum_amount: "Montant maximum"
     measure_options: "Indicateur de type mesure" #?
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
     medical_informations: "Informations médicales" #?
@@ -1559,6 +1569,7 @@ fra:
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
+    minimum_amount: "Montant minimum"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1718,6 +1729,7 @@ fra:
     parcel_items: "Articles de colis"
     parcels: "Colis"
     part: "Pièce" #?
+    partially_lettered: "Partiellement lettré"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -2188,6 +2200,7 @@ fra:
     unknown_condition: "Type de condition inconnue"
     unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue"
+    unlettered: "Non lettré"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
     unmarketable_inspection_categories_evolution: "Évolution du pourcentage de maladies et malformations"
@@ -2756,6 +2769,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/products: "%{work_number} %{name} (%{number})"
+    backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

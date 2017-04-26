@@ -1825,6 +1825,47 @@ ALTER SEQUENCE dashboards_id_seq OWNED BY dashboards.id;
 
 
 --
+-- Name: debt_transfers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE debt_transfers (
+    id integer NOT NULL,
+    affair_id integer NOT NULL,
+    debt_transfer_affair_id integer NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0,
+    number character varying,
+    nature character varying NOT NULL,
+    currency character varying NOT NULL,
+    journal_entry_id integer,
+    accounted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: debt_transfers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE debt_transfers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: debt_transfers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE debt_transfers_id_seq OWNED BY debt_transfers.id;
+
+
+--
 -- Name: deliveries; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6834,6 +6875,13 @@ ALTER TABLE ONLY dashboards ALTER COLUMN id SET DEFAULT nextval('dashboards_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY debt_transfers ALTER COLUMN id SET DEFAULT nextval('debt_transfers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY deliveries ALTER COLUMN id SET DEFAULT nextval('deliveries_id_seq'::regclass);
 
 
@@ -7881,6 +7929,14 @@ ALTER TABLE ONLY custom_fields
 
 ALTER TABLE ONLY dashboards
     ADD CONSTRAINT dashboards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: debt_transfers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT debt_transfers_pkey PRIMARY KEY (id);
 
 
 --
@@ -10396,6 +10452,48 @@ CREATE INDEX index_dashboards_on_updated_at ON dashboards USING btree (updated_a
 --
 
 CREATE INDEX index_dashboards_on_updater_id ON dashboards USING btree (updater_id);
+
+
+--
+-- Name: index_debt_transfers_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_affair_id ON debt_transfers USING btree (affair_id);
+
+
+--
+-- Name: index_debt_transfers_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_created_at ON debt_transfers USING btree (created_at);
+
+
+--
+-- Name: index_debt_transfers_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_creator_id ON debt_transfers USING btree (creator_id);
+
+
+--
+-- Name: index_debt_transfers_on_debt_transfer_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_debt_transfer_affair_id ON debt_transfers USING btree (debt_transfer_affair_id);
+
+
+--
+-- Name: index_debt_transfers_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_updated_at ON debt_transfers USING btree (updated_at);
+
+
+--
+-- Name: index_debt_transfers_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_updater_id ON debt_transfers USING btree (updater_id);
 
 
 --
@@ -17032,3 +17130,5 @@ INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 INSERT INTO schema_migrations (version) VALUES ('20170403073501');
 
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
+
+INSERT INTO schema_migrations (version) VALUES ('20170408094408');

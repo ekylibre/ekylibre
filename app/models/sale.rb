@@ -478,16 +478,18 @@ class Sale < Ekylibre::Record::Base
   end
 
   def products
-    p = []
-    for item in items
-      p << item.product.name
-    end
-    ps = p.join(', ')
+    items.map { |item| item.product.name }.join(', ')
   end
 
   # Returns true if sale is cancellable as an invoice
   def cancellable?
     !credit? && invoice? && amount + credits.sum(:amount) > 0
+  end
+
+  def cancel!
+    s = build_credit
+    s.save!
+    s.invoice!
   end
 
   # Build a new sale with new items ready for correction and save

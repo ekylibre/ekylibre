@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add sundry debtors and creditors usage">
+   <item-creation item="accounts#sundry_debtors_and_creditors" fr_pcga="467" pt_snc="278"/>
+</migration>
