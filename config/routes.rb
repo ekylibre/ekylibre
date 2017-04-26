@@ -132,6 +132,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :debt_transfers, concerns: %i[list unroll]
+
     resources :helps, only: %i[index show] do
       collection do
         post :toggle
@@ -187,10 +189,15 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
+<<<<<<< HEAD
         patch :account_mask_lettered_item_is_checked
         patch :account_mark_mask_lettered_item_is_checked
 
         match 'load', via: %i[get post]
+=======
+        match 'load', via: %i[get post]
+        patch :mask_lettered_items
+>>>>>>> master
       end
       member do
         match 'mark', via: %i[get post]
@@ -430,10 +437,16 @@ Rails.application.routes.draw do
 
     resources :entities, concerns: %i[autocomplete list unroll] do
       collection do
+<<<<<<< HEAD
         patch :entity_client_mask_lettered_item_is_checked
         patch :entity_supplier_mask_lettered_item_is_checked
         match 'import', via: %i[get post]
         match 'merge',  via: %i[get post]
+=======
+        match 'import', via: %i[get post]
+        patch :mask_lettered_items
+        match 'merge', via: %i[get post]
+>>>>>>> master
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture

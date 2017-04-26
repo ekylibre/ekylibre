@@ -153,6 +153,10 @@ deu:
       stocks: "Aktien Armaturenbrett"
       tools: "Werkzeuge Armaturenbrett"
       trade: "Handels Armaturenbrett"
+    backend/debt_transfers:
+      index: "Schuldentransfers"
+      new: "Neue Schulden Transfer"
+      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "Lieferungen"
@@ -1046,6 +1050,9 @@ deu:
     expired_within: "Abgelaufene innerhalb (in Tagen)"
     exploitation_results: "Exploitation Ergebnisse"
     export: "Export-Dokumente"
+    export_as_csv: "Export als CSV"
+    export_as_ods: "Export als ODS"
+    export_as_xcsv: "Export als Excel CSV"
     field_distribution: "Feldverteilung"
     file_nature: "Dateityp"
     file_preview: "Vorschau"

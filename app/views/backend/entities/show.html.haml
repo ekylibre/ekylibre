@@ -217,9 +217,7 @@
 
           - content_for 'cobble_client-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: current_user.current_entity_client_mask_lettered_item_is_checked, data: { 'preference-url': entity_client_mask_lettered_item_is_checked_backend_entities_path } }
-              %label#label-letters-visibility
-                = :mask_lettered_items.tl
+              = mask_lettered_items_button('client_journal_entry_items-list')
 
       - c.cobble(:supplier_journal_entry_items, title: :x_supplier_journal_entry_items.tl(count: resource.supplier_journal_entry_items.count)) do
         = cobble_toolbar do |t|
@@ -248,6 +246,4 @@
 
           - content_for 'cobble_supplier-journal-entry-items_meta_toolbar'.to_sym do
             .active-list-actions
-              %input#letters-visibility{ type: :checkbox, checked: current_user.current_entity_supplier_mask_lettered_item_is_checked, data: { 'preference-url': entity_supplier_mask_lettered_item_is_checked_backend_entities_path } }
-              %label#label-letters-visibility
-                = :mask_lettered_items.tl
+              = mask_lettered_items_button('supplier_journal_entry_items-list'

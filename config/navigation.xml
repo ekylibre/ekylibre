@@ -27,6 +27,7 @@
         <page to="backend/entities#list_tasks"/>
         <page to="backend/entities#list_client_journal_entry_items"/>
         <page to="backend/entities#list_supplier_journal_entry_items"/>
+        <page to="backend/entities#mask_lettered_items"/>
         <page to="backend/entities#picture"/>
         <page to="backend/entities#unroll"/>
         <page to="backend/entities#merge"/>
@@ -467,6 +468,17 @@
         <page to="backend/outgoing_payment_lists#list_payments"/>
         <page to="backend/outgoing_payment_lists#create"/>
         <page to="backend/outgoing_payment_lists#new"/>
+      </item>
+      <item name="debt_transfers">
+        <page to="backend/debt_transfers#index"/>
+        <page to="backend/debt_transfers#create"/>
+        <page to="backend/debt_transfers#debt_transfer_params"/>
+        <page to="backend/debt_transfers#destroy"/>
+        <page to="backend/debt_transfers#edit"/>
+        <page to="backend/debt_transfers#list"/>
+        <page to="backend/debt_transfers#new"/>
+        <page to="backend/debt_transfers#show"/>
+        <page to="backend/debt_transfers#update"/>
       </item>
     </group>
   </part>
@@ -1297,6 +1309,7 @@
     <group name="accountancy" icon="money">
       <item name="accounts">
         <page to="backend/accounts#index"/>
+        <page to="backend/accounts#mask_lettered_items"/>
         <page to="backend/accounts#create"/>
         <page to="backend/accounts#destroy"/>
         <page to="backend/accounts#edit"/>
