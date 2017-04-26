@@ -341,6 +341,13 @@ class User < Ekylibre::Record::Base
     prefer!('current_period', period, :string)
   end
 
+  def mask_lettered_items?(options = {})
+    preference_name = options[:controller] || 'all'
+    preference_name << ".#{options[:context]}" if options[:context]
+    preference_name << '.lettered_items.masked'
+    preference(preference_name, false, :boolean).value
+  end
+
   def card
     nil
   end

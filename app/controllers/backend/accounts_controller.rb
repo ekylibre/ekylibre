@@ -74,7 +74,7 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, line_class: "( RECORD.letter.to_s.empty? ? '' : 'unmark')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -153,6 +153,14 @@ module Backend
         end
         redirect_to action: :index
       end
+    end
+
+    def mask_lettered_items
+      preference_name = 'backend/accounts'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
     end
   end
 end

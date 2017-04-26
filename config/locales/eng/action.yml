@@ -22,6 +22,7 @@ eng:
       index: "Accounting plans"
       load: "Load an accounting plan"
       mark: "Reconciliate account: %{number} - %{name}"
+      # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
@@ -195,6 +196,12 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
+    backend/debt_transfers:
+      # debt_transfer_params: "Debt transfer params debt transfer: %{name}"
+      # edit: "Edit debt transfer: %{name}"
+      index: "Debt transfers"
+      new: "New debt transfer"
+      show: "Debt transfer: %{number}"
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -237,6 +244,7 @@ eng:
       export: "Export people" #?
       import: "Import people"
       index: "People"
+      # mask_lettered_items: "Mask lettered items entity: %{name}"
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
@@ -1276,6 +1284,9 @@ eng:
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
+    export_as_csv: "Export as CSV"
+    export_as_ods: "Export as ODS"
+    export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1451,7 +1462,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements"
+    mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
@@ -2247,6 +2258,7 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # debt_transfer_params: "Debt transfer params"
       # depreciate: "Depreciate"
       # depreciate_up_to: "Depreciate up to"
       destroy: "Destroy"
@@ -2284,6 +2296,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"

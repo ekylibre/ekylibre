@@ -848,6 +848,7 @@ arb:
       custom_field_choice: "اختيار الحقل التكميلي"
       custom_field_datum: "بيانات الملف التكميلية" #?
       dashboard: "لوحة القيادة"
+      debt_transfer: "نقل الديون"
       delay: "التأجيل" #?
       delivery: "وسيلة النقل"
       delivery_item: "خط التسليم" #?
@@ -1331,6 +1332,9 @@ arb:
     dead_line_at: "خط الموتى في"
     deals_count: "عد عروض"
     debit: "الدين"
+    debt_regularizations: "regularizations الديون"
+    debt_transfer_affair: "نقل الدين شأنا"
+    debt_transfers: "نقل الديون"
     debtor: "مدين"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
@@ -2093,7 +2097,7 @@ arb:
     published: "تم نشره" #?
     purchasable: "للشراء"
     purchase: "شراء"
-    purchase_affair: "قضية شراء"
+    purchase_affair: "قضية شراء" #?
     purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"

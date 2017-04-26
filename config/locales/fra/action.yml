@@ -168,6 +168,10 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
+    backend/debt_transfers:
+      index: "Transferts de dettes"
+      new: "Nouveau transfert de la dette"
+      show: "Transfert de dettes: %{number}"
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -1284,6 +1288,9 @@ fra:
     expired_within: "Expiré d'ici"
     exploitation_results: "Résultats d'exploitation"
     export: "Exporter"
+    export_as_csv: "Exporter en CSV"
+    export_as_ods: "Exporter en ODS"
+    export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
@@ -1539,7 +1546,7 @@ fra:
     markers: "Objectifs" #?
     marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
-    mask_literate_elements: "Masquer les éléments lettrés"
+    mask_lettered_items: "Masquer les lignes lettrées"
     mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
@@ -2756,6 +2763,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/products: "%{work_number} %{name} (%{number})"
+    backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"
