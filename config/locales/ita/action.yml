@@ -1261,7 +1261,7 @@ ita:
     last_purchases: "ultimi acquisti"
     last_sales: "ultimi vendite"
     letter: "Lettera"
-    # letter_state: "Etat du lettrage"
+    # lettering_state: "Etat du lettrage"
     # letterable: "Letterable"
     lettered: "Letterato"
     liabilities: "Passivo"

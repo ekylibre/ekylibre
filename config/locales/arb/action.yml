@@ -1602,7 +1602,7 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
-    letter_state: "عسكري دو LETTRAGE"
+    # lettering_state: "عسكري دو"
     # letterable: "Letterable"
     lettered: "مكتوب بنقش"
     lettering_account_client: "كتابة حسابات الزبائن" #?

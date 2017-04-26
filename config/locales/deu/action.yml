@@ -1195,7 +1195,7 @@ deu:
     last_purchases: "Letzte Einkäufe"
     last_sales: "Letzte Verkaufs"
     letter: "Brief"
-    # letter_state: "Etat du lettrage"
+    # lettering_state: "Etat du lettrage"
     # letterable: "Letterable"
     lettered: "Beschriftet"
     liabilities: "Verbindlichkeiten"

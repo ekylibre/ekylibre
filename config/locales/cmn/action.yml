@@ -1196,7 +1196,7 @@ cmn:
     last_purchases: "上次购买"
     last_sales: "去年销售"
     letter: "信"
-    letter_state: "政变杜lettrage"
+    # lettering_state: "政变杜"
     # letterable: "Letterable"
     lettered: "英文字母"
     liabilities: "负债"

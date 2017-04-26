@@ -1491,7 +1491,7 @@ fra:
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
-    letter_state: "Etat du lettrage"
+    lettering_state: "État du lettrage"
     letterable: "Lettrable"
     lettered: "Lettré"
     lettering_account_client: "Lettrage des comptes clients" #?

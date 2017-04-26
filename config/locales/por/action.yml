@@ -1200,7 +1200,7 @@ por:
     last_purchases: "Últimas compras"
     last_sales: "Últimos vendas"
     letter: "Carta"
-    # letter_state: "Etat du lettrage"
+    # lettering_state: "Etat du lettrage"
     # letterable: "Letterable"
     lettered: "Letrado"
     liabilities: "Passivo"

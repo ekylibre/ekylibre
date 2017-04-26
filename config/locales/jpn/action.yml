@@ -1263,7 +1263,7 @@ jpn:
     last_purchases: "最終購入"
     last_sales: "最終販売"
     letter: "文字"
-    letter_state: "クーデターデュlettrage"
+    # lettering_state: "クーデターデュ"
     # letterable: "Letterable"
     lettered: "文字入り"
     liabilities: "負債"

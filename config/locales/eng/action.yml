@@ -1432,7 +1432,7 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     letter: "Letter" #?
-    letter_state: "Etat du lettrage"
+    lettering_state: "Lettering state"
     letterable: "Letterable"
     lettered: "Lettered" #?
     liabilities: "Liabilities" #?!
