@@ -12646,6 +12646,13 @@ CREATE INDEX index_journal_entry_items_on_updater_id ON journal_entry_items USIN
 
 
 --
+-- Name: index_journal_entry_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_variant_id ON journal_entry_items USING btree (variant_id);
+
+
+--
 -- Name: index_journals_on_accountant_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16546,6 +16553,14 @@ CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF l
 
 
 --
+-- Name: fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
 -- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17127,10 +17142,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 
-INSERT INTO schema_migrations (version) VALUES ('20170403073501');
-
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 
 INSERT INTO schema_migrations (version) VALUES ('20170408094408');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413073501');
+
