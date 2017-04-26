@@ -1444,6 +1444,8 @@ jpn:
     to: "に"
     to_bank_at: "で銀行に"
     to_deposit: "預金へ"
+    to_pay_on_or_after: "日以降に支払うこと"
+    to_pay_on_or_before: "日以前に支払うこと"
     token: "トークン"
     tool: "ツール"
     tools: "ツール"

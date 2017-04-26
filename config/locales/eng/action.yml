@@ -1430,6 +1430,8 @@ eng:
     last_sales: "Last sales"
     letter: "Letter" #?
     letterable: "Letterable"
+    lettered: "Lettered" #?
+    lettering_state: "Lettering state"
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
     liability_reserves: "Liability reserves" #?!
@@ -1464,6 +1466,7 @@ eng:
     mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
+    maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
     merchandises_purchases: "Merchandises purchases" #?!
@@ -1471,6 +1474,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
+    minimum_amount: "Minimum amount"
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1583,6 +1587,7 @@ eng:
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
+    partially_lettered: "Partially lettered" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1884,6 +1889,7 @@ eng:
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
+    unlettered: "Unlettered" #?
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"

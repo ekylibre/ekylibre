@@ -1724,6 +1724,8 @@ fra:
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
+    to_pay_on_or_after: "Début date d'échéance"
+    to_pay_on_or_before: "Fin date d'échéance"
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"

@@ -2412,6 +2412,8 @@ arb:
     to_archive: "وثائق للارشفة" #?
     to_bank_at: "يسدد يوم"
     to_deposit: "لإيداع"
+    to_pay_on_or_after: "للدفع في أو بعد"
+    to_pay_on_or_before: "للدفع في أو قبل"
     token: "رمز"
     tool: "الاداة"
     tool_id: "اداة" #?
