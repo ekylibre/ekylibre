@@ -128,7 +128,9 @@ class IncomingPayment < Ekylibre::Record::Base
   end
 
   protect do
-    journal_entry && (journal_entry.closed? || pointed_by_bank_statement?)
+    (deposit && deposit.protected_on_update?) ||
+      (journal_entry && journal_entry.closed?) ||
+      pointed_by_bank_statement?
   end
 
   # protect(on: :update) do |p|

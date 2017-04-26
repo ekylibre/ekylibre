@@ -111,7 +111,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   def pointed_by_bank_statement?
     journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
-  
+
   def self.third_attribute
     :payee
   end
