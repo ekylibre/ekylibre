@@ -89,10 +89,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   def remove
     self.class.transaction do
-      payment_ids = self.payments.pluck(:id)
+      payment_ids = payments.pluck(:id)
       OutgoingPayment.where(id: payment_ids).update_all(list_id: nil)
       OutgoingPayment.where(id: payment_ids).find_each(&:destroy!)
-      self.destroy!
+      destroy!
     end
   end
 

@@ -156,8 +156,10 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   end
 
   test 'destroy with all bank_statement_letter blank' do
-    list = OutgoingPaymentList.all.detect{ |l| JournalEntryItem.where(entry_id: l.payments.select(:entry_id))
-                                           .where(state: :closed).empty? }
+    list = OutgoingPaymentList.all.detect do |l|
+      JournalEntryItem.where(entry_id: l.payments.select(:entry_id))
+                      .where(state: :closed).empty?
+    end
     assert list, 'Cannot find a destroyable list'
     JournalEntryItem.where(entry_id: list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
     assert(list.remove)
