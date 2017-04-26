@@ -840,8 +840,6 @@ spa:
     amount: "Total TVA a pagar"
     # amount_computed_from: "Amount computed from %{source}"
     # amount_estimated_from: "Amount estimated from %{source}"
-    # amount_max: "Maximum amount"
-    # amount_min: "Minimum amount"
     # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?

@@ -841,8 +841,6 @@ jpn:
     amount: "量"
     # amount_computed_from: "Amount computed from %{source}"
     # amount_estimated_from: "Amount estimated from %{source}"
-    # amount_max: "Maximum amount"
-    # amount_min: "Minimum amount"
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     analyses: "解析"
