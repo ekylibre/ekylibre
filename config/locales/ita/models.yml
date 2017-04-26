@@ -1475,6 +1475,8 @@ ita:
     to: "A"
     to_bank_at: "Per bancari a"
     to_deposit: "Depositare"
+    to_pay_on_or_after: "Per pagare il o dopo il"
+    to_pay_on_or_before: "Per pagare entro il"
     token: "Gettone"
     tool: "Strumento"
     tools: "Utensili"

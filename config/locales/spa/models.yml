@@ -1448,6 +1448,8 @@ spa:
     to: "A"
     to_bank_at: "Para realizar operaciones bancarias en"
     to_deposit: "Depositar"
+    to_pay_on_or_after: "Para pagar a partir del"
+    to_pay_on_or_before: "Para pagar en o antes"
     token: "Simbólico"
     tool: "Herramienta"
     tools: "Instrumentos"
