@@ -93,7 +93,8 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   protect do
-    journal_entry && (journal_entry.closed? || pointed_by_bank_statement?)
+    (journal_entry && journal_entry.closed?) ||
+      pointed_by_bank_statement? || list.present?
   end
 
   delegate :third_attribute, to: :class
@@ -126,11 +127,6 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   def third
     send(third_attribute)
-  end
-
-  def check_updateable_or_destroyable?
-    return false if list
-    updateable? || destroyable?
   end
 
   def amount_to_letter
