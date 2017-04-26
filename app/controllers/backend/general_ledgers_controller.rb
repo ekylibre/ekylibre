@@ -35,7 +35,7 @@ module Backend
       code.c # .gsub(/\s*\n\s*/, ";")
     end
 
-    list(:journal_entry_items, conditions: general_ledger_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, conditions: general_ledger_conditions, joins: %i[entry account variant], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true

@@ -10,7 +10,7 @@
         = hidden_field_tag :theoretical_number, theoretical_number
       - else
         = f.input :number, placeholder: f.object.journal.next_number
-      = f.input :printed_on, input_html: { data: { check_date_after: Entity.company.first.born_at.to_date.to_s, check_date_error: :invalid_date.tl }}
+      = f.input :printed_on, input_html: { data: { check_date_after: Entity.of_company.born_on.to_s, check_date_error: :invalid_date.tl }}
       = f.input :real_currency_rate, label_html: { data: { change_label: :exchange_rate_from_x_to_y.tl(x: '{{FROM}}', y: '{{TO}}') } }, wrapper_html: { class: 'currency-change' }
 
       = f.custom_fields

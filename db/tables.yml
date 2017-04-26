@@ -4043,7 +4043,7 @@ journal_entry_items:
     references: user
   variant_id:
     type: integer
-    references: ''
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer
