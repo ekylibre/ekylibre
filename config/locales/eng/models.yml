@@ -243,6 +243,7 @@ eng:
       custom_field: "Custom field"
       custom_field_choice: "Custom field choice"
       dashboard: "Dashboard"
+      debt_transfer: "Debt transfer"
       delivery: "Delivery"
       delivery_tool: "Delivery tool"
       deposit: "Deposit"
@@ -398,7 +399,7 @@ eng:
     account_name: "Account name"
     account_number: "Account number"
     accountable: "Accountable"
-    accountable_repayments_started_on: "Accountable repayments started on" #?
+    accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Accountant"
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
@@ -621,6 +622,9 @@ eng:
     dead_line_at: "Dead line at"
     deals_count: "Deals count"
     debit: "Debit"
+    debt_regularizations: "Debt regularizations"
+    debt_transfer_affair: "Debt transfer affair"
+    debt_transfers: "Debt transfers"
     debtor: "Debtor"
     decimal_value: "Decimal value"
     declarant: "Declarant"
@@ -862,7 +866,7 @@ eng:
     initial_number: "Initial number"
     initial_owner: "Initial owner"
     initial_population: "Initial population"
-    initial_releasing_amount: "Initial releasing amount" #?
+    initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Initial shape"
     initialization_vectors: "Initialization vectors"
     initiated_on: "Initiated on"
@@ -1236,7 +1240,6 @@ eng:
     # public_token_expired_at: "Public token expired at"
     purchasable: "Purchasable"
     purchase: "Purchase"
-    purchase_affair: "Purchase affair" #?
     purchase_affairs: "Purchase affairs"
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"

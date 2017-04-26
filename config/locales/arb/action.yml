@@ -173,6 +173,10 @@ arb:
       stocks: "الأسهم لوحة القيادة"
       tools: "أدوات لوحة القيادة"
       trade: "لوحة أجهزة القياس التجارة"
+    backend/debt_transfers:
+      index: "نقل الديون"
+      new: "نقل ديون جديدة"
+      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?
@@ -1409,6 +1413,9 @@ arb:
     expired_within: "انتهت خلال (بالأيام)"
     exploitation_results: "النتائج الاستغلال"
     export: "اصدار الوثائق"
+    export_as_csv: "التصدير، CSV"
+    export_as_ods: "التصدير، المواد المستنفدة للأوزون"
+    export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
@@ -1597,9 +1604,8 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
-    # letter_state: "Etat du lettrage"
     # letterable: "Letterable"
-    # lettered: "Lettered"
+    lettered: "مكتوب بنقش"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes: #?
@@ -1607,6 +1613,7 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
+    lettering_state: "الدولة الترقين"
     liabilities: "المطلوبات"
     liabilities_gaps: "ثغرات الخصوم"
     liability_reserves: "احتياطيات المسؤولية"
@@ -1649,9 +1656,10 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
-    mask_literate_elements: "قناع عناصر القراءة والكتابة"
+    mask_lettered_items: "قناع العناصر بحروف"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
+    maximum_amount: "الحد الأقصى للمبلغ"
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
     menu: #?
@@ -1682,6 +1690,7 @@ arb:
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
+    minimum_amount: "اقل مبلغ"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -1853,7 +1862,7 @@ arb:
     parameters: "عامل متغير"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
-    # partially_lettered: "Partially lettered"
+    partially_lettered: "بحروف جزئيا"
     participants: "مشتركين"
     participations: "بالمشاركات"
     parts: "وحدات"
@@ -2291,7 +2300,7 @@ arb:
     unknown_condition: "غير معروف نوع الشرط"
     unknown_user: "مستخدم غير معروف"
     unknown_variant: "البديل غير معروف"
-    # unlettered: "Unlettered"
+    unlettered: "جاهل"
     unlock: "فتح القفل"
     unmark: "غير علامة"
     unmarketable_inspection_categories_evolution: "غير قابلة للتسويق تطور فئات التفتيش"

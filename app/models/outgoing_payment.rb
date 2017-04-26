@@ -93,7 +93,8 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   protect do
-    (journal_entry && journal_entry.closed?)
+    (journal_entry && journal_entry.closed?) ||
+      pointed_by_bank_statement? || list.present?
   end
 
   delegate :third_attribute, to: :class
@@ -106,6 +107,10 @@ class OutgoingPayment < Ekylibre::Record::Base
       entry.add_debit(label, payee.account(:supplier).id, amount, as: :payee, resource: payee)
       entry.add_credit(label, mode.cash.account_id, amount, as: :bank)
     end
+  end
+
+  def pointed_by_bank_statement?
+    journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
   end
 
   def self.third_attribute
@@ -122,11 +127,6 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   def third
     send(third_attribute)
-  end
-
-  def check_updateable_or_destroyable?
-    return false if list
-    updateable? || destroyable?
   end
 
   def amount_to_letter

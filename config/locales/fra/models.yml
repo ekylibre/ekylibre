@@ -374,6 +374,7 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       dashboard: "Tableau de bord"
+      debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
       delivery_tool: "Outil de livraison"
       deposit: "Remise en banque"
@@ -786,6 +787,9 @@ fra:
     deals_count: "Nombre de transations"
     death: "Mort" #?
     debit: "Débit"
+    debt_regularizations: "Régularisations de dettes"
+    debt_transfer_affair: "Affaire de transfert de dettes"
+    debt_transfers: "Transferts de dettes"
     debtor: "Debiteur"
     decimal: "Décimal" #?
     decimal_value: "Valeur décimale"
@@ -1461,7 +1465,7 @@ fra:
     provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
-    purchase_affair: "Affaire d’achat"
+    purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
