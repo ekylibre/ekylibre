@@ -93,7 +93,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   protect do
-    (journal_entry && journal_entry.closed?)
+    journal_entry && (journal_entry.closed? || pointed_by_bank_statement?)
   end
 
   delegate :third_attribute, to: :class
@@ -108,6 +108,10 @@ class OutgoingPayment < Ekylibre::Record::Base
     end
   end
 
+  def pointed_by_bank_statement?
+    journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
+  end
+  
   def self.third_attribute
     :payee
   end
