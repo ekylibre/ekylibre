@@ -52,7 +52,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     JournalEntryItem.where(entry_id: payments.select(:entry_id))
-                    .where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
+                    .where('LENGTH(TRIM(bank_statement_letter)) > 0 OR state = ?', :closed).any?
   end
 
   def to_sepa
@@ -85,6 +85,15 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     end
 
     sct.to_xml('pain.001.001.03')
+  end
+
+  def remove
+    self.class.transaction do
+      payment_ids = self.payments.pluck(:id)
+      OutgoingPayment.where(id: payment_ids).update_all(list_id: nil)
+      OutgoingPayment.where(id: payment_ids).find_each(&:destroy!)
+      self.destroy!
+    end
   end
 
   def payments_sum
