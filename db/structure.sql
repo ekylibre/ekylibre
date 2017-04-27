@@ -2257,8 +2257,8 @@ CREATE TABLE journal_entry_items (
     resource_id integer,
     resource_type character varying,
     resource_prism character varying,
-    tax_declaration_mode character varying,
-    variant_id integer
+    variant_id integer,
+    tax_declaration_mode character varying
 );
 
 
@@ -17344,12 +17344,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 
-INSERT INTO schema_migrations (version) VALUES ('20170330082518');
-
-INSERT INTO schema_migrations (version) VALUES ('20170330082519');
-
-INSERT INTO schema_migrations (version) VALUES ('20170330082520');
-
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 
 INSERT INTO schema_migrations (version) VALUES ('20170408094408');
@@ -17359,4 +17353,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170413073501');
 INSERT INTO schema_migrations (version) VALUES ('20170413185630');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413211525');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222518');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222519');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222520');
 

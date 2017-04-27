@@ -41,10 +41,10 @@ class TaxDeclarationItemPart < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :tax_declaration_item
   belongs_to :journal_entry_item
-  enumerize :direction, in: %i{ deductible collected fixed_asset_deductible intracommunity_payable }
+  enumerize :direction, in: %i[deductible collected fixed_asset_deductible intracommunity_payable]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :direction, presence: true, length: { maximum: 500 }
+  validates :account, :direction, :journal_entry_item, :tax_declaration_item, presence: true
   validates :pretax_amount, :tax_amount, :total_pretax_amount, :total_tax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
   validates :account, :tax_declaration_item, :journal_entry_item, presence: true

@@ -24,14 +24,14 @@ FactoryGirl.define do
     trait :client do
       client true
       after(:build) do |entity|
-        entity.client_account = Account.find_by_number!('411')
+        entity.client_account = Account.find_by!(number: '411')
       end
     end
 
     trait :supplier do
       supplier true
       after(:build) do |entity|
-        entity.supplier_account = Account.find_by_number!('401')
+        entity.supplier_account = Account.find_by!(number: '401')
       end
     end
 
@@ -188,7 +188,7 @@ FactoryGirl.define do
   end
 
   factory :sale_affair do
-    association :client, factory: [:entity, :client]
+    association :client, factory: %i[entity client]
     sequence(:number) { |n| "AS0#{n}" }
     credit 0.0
     debit 5000.0
@@ -198,7 +198,7 @@ FactoryGirl.define do
   factory :sale do
     # needs sale_nature
     association :affair, factory: :sale_affair
-    sequence(:number) { |n| "S00#{n}"}
+    sequence(:number) { |n| "S00#{n}" }
     amount 5000.0
     downpayment_amount 0.0
     pretax_amount 4180.602
@@ -229,7 +229,7 @@ FactoryGirl.define do
   end
 
   factory :purchase_affair do
-    association :supplier, factory: [:entity, :supplier]
+    association :supplier, factory: %i[entity supplier]
     sequence(:number) { |n| "AP0#{n}" }
     credit 1848.0
     debit 0.0

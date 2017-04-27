@@ -83,109 +83,93 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    clients_account = create(:account, name: "Clients")
-    revenues_account = create(:account, name: "Revenues")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    clients_account = create(:account, name: 'Clients')
+    revenues_account = create(:account, name: 'Revenues')
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_invoicing'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_invoicing')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 1800.0,
-      real_debit: 1800.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 1800.0,
+                            real_debit: 1800.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 1800.0
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 1800.0),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 300.0,
-       real_pretax_amount: 1500.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 300.0,
+            real_pretax_amount: 1500.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 1500.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 1500.0)
     ]
     assert purchase1_entry.save
 
     purchase2 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_invoicing'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_invoicing')
     purchase2_item = create(:purchase_item,
-      purchase: purchase2,
-      tax: tax
-    )
+                            purchase: purchase2,
+                            tax: tax)
     purchase2_entry = build(:journal_entry,
-     printed_on: printed_on,
-     real_credit: 480.0,
-     real_debit: 480.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 480.0,
+                            real_debit: 480.0)
     purchase2_entry.items = [
       build(:journal_entry_item,
-       entry: purchase2_entry,
-       account: suppliers_account,
-       real_credit: 480.0
-     ),
+            entry: purchase2_entry,
+            account: suppliers_account,
+            real_credit: 480.0),
       build(:journal_entry_item,
-       entry: purchase2_entry,
-       account: vat_deductible_account,
-       real_debit: 80.0,
-       real_pretax_amount: 400.0,
-       tax: tax,
-       resource: purchase2_item
-      ),
+            entry: purchase2_entry,
+            account: vat_deductible_account,
+            real_debit: 80.0,
+            real_pretax_amount: 400.0,
+            tax: tax,
+            resource: purchase2_item),
       build(:journal_entry_item,
-        entry: purchase2_entry,
-        account: purchases_account,
-        real_debit: 400.0
-      )
+            entry: purchase2_entry,
+            account: purchases_account,
+            real_debit: 400.0)
     ]
     assert purchase2_entry.save
 
     sale1 = create(:sale, nature: sale_natures(:sale_natures_001))
     sale1_item = create(:sale_item, sale: sale1, tax: tax)
     sale1_entry = build(:journal_entry,
-     printed_on: printed_on,
-     real_credit: 144.0,
-     real_debit: 144.0
-    )
+                        printed_on: printed_on,
+                        real_credit: 144.0,
+                        real_debit: 144.0)
     sale1_entry.items = [
       build(:journal_entry_item,
-       entry: sale1_entry,
-       account: clients_account,
-       real_debit: 144.0
-     ),
+            entry: sale1_entry,
+            account: clients_account,
+            real_debit: 144.0),
       build(:journal_entry_item,
-       entry: sale1_entry,
-       account: vat_collected_account,
-       real_credit: 24.0,
-       real_pretax_amount: 120.0,
-       tax: tax,
-       resource: sale1_item
-      ),
+            entry: sale1_entry,
+            account: vat_collected_account,
+            real_credit: 24.0,
+            real_pretax_amount: 120.0,
+            tax: tax,
+            resource: sale1_item),
       build(:journal_entry_item,
-        entry: sale1_entry,
-        account: revenues_account,
-        real_credit: 120.0
-      )
+            entry: sale1_entry,
+            account: revenues_account,
+            real_credit: 120.0)
     ]
     assert sale1_entry.save
 
@@ -265,10 +249,10 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    clients_account = create(:account, name: "Clients")
-    revenues_account = create(:account, name: "Revenues")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    clients_account = create(:account, name: 'Clients')
+    revenues_account = create(:account, name: 'Revenues')
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
@@ -278,45 +262,38 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     assert_equal 0, previous.global_balance
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_invoicing'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_invoicing')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 1800.0,
-      real_debit: 1800.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 1800.0,
+                            real_debit: 1800.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 1800.0
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 1800.0),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 300.0,
-       real_pretax_amount: 1500.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 300.0,
+            real_pretax_amount: 1500.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 1500.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 1500.0)
     ]
     assert purchase1_entry.save
 
     subject = build(:tax_declaration,
-      financial_year: financial_year,
-      started_on: (started_on + 1.month).beginning_of_month,
-      stopped_on: (stopped_on + 1.month).end_of_month
-    )
+                    financial_year: financial_year,
+                    started_on: (started_on + 1.month).beginning_of_month,
+                    stopped_on: (stopped_on + 1.month).end_of_month)
     assert subject.save
     assert_equal -300, subject.global_balance
   end
@@ -340,44 +317,38 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    bank_account = create(:account, name: "Brank")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_paying'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 870.0,
-      real_debit: 870.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 870.0,
+                            real_debit: 870.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 870.0,
-       letter: 'A'
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 870.0,
+            letter: 'A'),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 145.0,
-       real_pretax_amount: 725.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 145.0,
+            real_pretax_amount: 725.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 725.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 725.0)
     ]
     assert purchase1_entry.save
 
@@ -431,87 +402,74 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    bank_account = create(:account, name: "Brank")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_paying'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 870.0,
-      real_debit: 870.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 870.0,
+                            real_debit: 870.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 870.0,
-       letter: 'A'
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 870.0,
+            letter: 'A'),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 145.0,
-       real_pretax_amount: 725.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 145.0,
+            real_pretax_amount: 725.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 725.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 725.0)
     ]
     assert purchase1_entry.save
 
-
     payment1 = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 340.0,
-      real_debit: 340.0
-    )
+                     printed_on: printed_on,
+                     real_credit: 340.0,
+                     real_debit: 340.0)
     payment1.items = [
       build(:journal_entry_item,
-        entry: payment1,
-        account: suppliers_account,
-        real_debit: 340.0,
-        letter: 'A'
-      ),
+            entry: payment1,
+            account: suppliers_account,
+            real_debit: 340.0,
+            letter: 'A'),
       build(:journal_entry_item,
-        entry: payment1,
-        account: bank_account,
-        real_credit: 340.0
-      )
+            entry: payment1,
+            account: bank_account,
+            real_credit: 340.0)
     ]
     assert payment1.save
 
     payment2 = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 60.0,
-      real_debit: 60.0
-    )
+                     printed_on: printed_on,
+                     real_credit: 60.0,
+                     real_debit: 60.0)
     payment2.items = [
       build(:journal_entry_item,
-        printed_on: printed_on,
-        entry: payment2,
-        account: suppliers_account,
-        real_debit: 60.0,
-        letter: 'A'
-      ),
+            printed_on: printed_on,
+            entry: payment2,
+            account: suppliers_account,
+            real_debit: 60.0,
+            letter: 'A'),
       build(:journal_entry_item,
-        printed_on: printed_on,
-        entry: payment2,
-        account: bank_account,
-        real_credit: 60.0
-      )
+            printed_on: printed_on,
+            entry: payment2,
+            account: bank_account,
+            real_credit: 60.0)
     ]
     assert payment2.save
 
@@ -604,178 +562,152 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    clients_account = create(:account, name: "Clients")
-    bank_account = create(:account, name: "Brank")
-    revenues_account = create(:account, name: "Revenues")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    clients_account = create(:account, name: 'Clients')
+    bank_account = create(:account, name: 'Brank')
+    revenues_account = create(:account, name: 'Revenues')
     vat_deductible_account = tax.deduction_account
     vat_collected_account = tax.collect_account
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_paying'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: previous_declaration_printed_on,
-      real_credit: 870.0,
-      real_debit: 870.0
-    )
+                            printed_on: previous_declaration_printed_on,
+                            real_credit: 870.0,
+                            real_debit: 870.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 870.0,
-       letter: 'A'
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 870.0,
+            letter: 'A'),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 145.0,
-       real_pretax_amount: 725.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 145.0,
+            real_pretax_amount: 725.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 725.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 725.0)
     ]
     assert purchase1_entry.save
 
-
     payment1 = build(:journal_entry,
-      printed_on: previous_declaration_printed_on,
-      real_credit: 340.0,
-      real_debit: 340.0
-    )
+                     printed_on: previous_declaration_printed_on,
+                     real_credit: 340.0,
+                     real_debit: 340.0)
     payment1.items = [
       build(:journal_entry_item,
-        entry: payment1,
-        account: suppliers_account,
-        real_debit: 340.0,
-        letter: 'A'
-      ),
+            entry: payment1,
+            account: suppliers_account,
+            real_debit: 340.0,
+            letter: 'A'),
       build(:journal_entry_item,
-        entry: payment1,
-        account: bank_account,
-        real_credit: 340.0
-      )
+            entry: payment1,
+            account: bank_account,
+            real_credit: 340.0)
     ]
     assert payment1.save
 
-
     payment2 = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 60.0,
-      real_debit: 60.0
-    )
+                     printed_on: printed_on,
+                     real_credit: 60.0,
+                     real_debit: 60.0)
     payment2.items = [
       build(:journal_entry_item,
-        printed_on: printed_on,
-        entry: payment2,
-        account: suppliers_account,
-        real_debit: 60.0,
-        letter: 'A'
-      ),
+            printed_on: printed_on,
+            entry: payment2,
+            account: suppliers_account,
+            real_debit: 60.0,
+            letter: 'A'),
       build(:journal_entry_item,
-        printed_on: printed_on,
-        entry: payment2,
-        account: bank_account,
-        real_credit: 60.0
-      )
+            printed_on: printed_on,
+            entry: payment2,
+            account: bank_account,
+            real_credit: 60.0)
     ]
     assert payment2.save
 
     sale1 = create(:sale, nature: sale_natures(:sale_natures_001))
     sale1_item = create(:sale_item, sale: sale1, tax: tax)
     sale1_entry = build(:journal_entry,
-     printed_on: previous_declaration_printed_on,
-     real_credit: 384.0,
-     real_debit: 384.0
-    )
+                        printed_on: previous_declaration_printed_on,
+                        real_credit: 384.0,
+                        real_debit: 384.0)
     sale1_entry.items = [
       build(:journal_entry_item,
-       entry: sale1_entry,
-       account: clients_account,
-       real_debit: 384.0,
-       letter: 'B'
-     ),
+            entry: sale1_entry,
+            account: clients_account,
+            real_debit: 384.0,
+            letter: 'B'),
       build(:journal_entry_item,
-       entry: sale1_entry,
-       account: vat_collected_account,
-       real_credit: 64.0,
-       real_pretax_amount: 320.0,
-       tax: tax,
-       resource: sale1_item
-      ),
+            entry: sale1_entry,
+            account: vat_collected_account,
+            real_credit: 64.0,
+            real_pretax_amount: 320.0,
+            tax: tax,
+            resource: sale1_item),
       build(:journal_entry_item,
-        entry: sale1_entry,
-        account: revenues_account,
-        real_credit: 320.0
-      )
+            entry: sale1_entry,
+            account: revenues_account,
+            real_credit: 320.0)
     ]
     assert sale1_entry.save
 
     payment3 = build(:journal_entry,
-      printed_on: previous_declaration_printed_on,
-      real_credit: 300.0,
-      real_debit: 300.0
-    )
+                     printed_on: previous_declaration_printed_on,
+                     real_credit: 300.0,
+                     real_debit: 300.0)
     payment3.items = [
       build(:journal_entry_item,
-        entry: payment3,
-        account: clients_account,
-        real_credit: 300.0,
-        letter: 'B'
-      ),
+            entry: payment3,
+            account: clients_account,
+            real_credit: 300.0,
+            letter: 'B'),
       build(:journal_entry_item,
-        entry: payment3,
-        account: revenues_account,
-        real_debit: 300.0
-      )
+            entry: payment3,
+            account: revenues_account,
+            real_debit: 300.0)
     ]
     assert payment3.save
 
     payment4 = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 84.0,
-      real_debit: 84.0
-    )
+                     printed_on: printed_on,
+                     real_credit: 84.0,
+                     real_debit: 84.0)
     payment4.items = [
       build(:journal_entry_item,
-        printed_on: printed_on,
-        entry: payment4,
-        account: clients_account,
-        real_credit: 84.0,
-        letter: 'B'
-      ),
+            printed_on: printed_on,
+            entry: payment4,
+            account: clients_account,
+            real_credit: 84.0,
+            letter: 'B'),
       build(:journal_entry_item,
-        printed_on: printed_on,
-        entry: payment4,
-        account: revenues_account,
-        real_debit: 84.0
-      )
+            printed_on: printed_on,
+            entry: payment4,
+            account: revenues_account,
+            real_debit: 84.0)
     ]
     assert payment4.save
 
     previous = create(:tax_declaration,
-      financial_year: financial_year,
-      started_on: previous_declaration_started_on,
-      stopped_on: previous_declaration_stopped_on
-    )
+                      financial_year: financial_year,
+                      started_on: previous_declaration_started_on,
+                      stopped_on: previous_declaration_stopped_on)
     assert_equal -6.67, previous.global_balance
 
     subject = build(:tax_declaration,
-      financial_year: financial_year,
-      started_on: started_on,
-      stopped_on: stopped_on
-    )
+                    financial_year: financial_year,
+                    started_on: started_on,
+                    stopped_on: stopped_on)
     assert subject.save
 
     subject.items.detect { |item| item.tax == tax }.tap do |tax_item|
@@ -845,105 +777,89 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    bank_account = create(:account, name: "Brank")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase_affair = create(:purchase_affair, letter: 'A')
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      affair: purchase_affair,
-      tax_payability: 'at_paying'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       affair: purchase_affair,
+                       tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 870.0,
-      real_debit: 870.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 870.0,
+                            real_debit: 870.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 870.0,
-       letter: 'A'
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 870.0,
+            letter: 'A'),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 145.0,
-       real_pretax_amount: 725.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 145.0,
+            real_pretax_amount: 725.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 725.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 725.0)
     ]
     assert purchase1_entry.save
 
-
     purchase2 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      affair: purchase_affair,
-      tax_payability: 'at_paying'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       affair: purchase_affair,
+                       tax_payability: 'at_paying')
     purchase2_item = create(:purchase_item,
-      purchase: purchase2,
-      tax: tax
-    )
+                            purchase: purchase2,
+                            tax: tax)
     purchase2_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 72.0,
-      real_debit: 72.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 72.0,
+                            real_debit: 72.0)
     purchase2_entry.items = [
       build(:journal_entry_item,
-       entry: purchase2_entry,
-       account: suppliers_account,
-       real_credit: 72.0,
-       letter: 'A'
-     ),
+            entry: purchase2_entry,
+            account: suppliers_account,
+            real_credit: 72.0,
+            letter: 'A'),
       build(:journal_entry_item,
-       entry: purchase2_entry,
-       account: vat_deductible_account,
-       real_debit: 12.0,
-       real_pretax_amount: 60.0,
-       tax: tax,
-       resource: purchase2_item
-      ),
+            entry: purchase2_entry,
+            account: vat_deductible_account,
+            real_debit: 12.0,
+            real_pretax_amount: 60.0,
+            tax: tax,
+            resource: purchase2_item),
       build(:journal_entry_item,
-        entry: purchase2_entry,
-        account: purchases_account,
-        real_debit: 60.0
-      )
+            entry: purchase2_entry,
+            account: purchases_account,
+            real_debit: 60.0)
     ]
     assert purchase2_entry.save
 
     payment1 = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 300.0,
-      real_debit: 300.0
-    )
+                     printed_on: printed_on,
+                     real_credit: 300.0,
+                     real_debit: 300.0)
     payment1.items = [
       build(:journal_entry_item,
-        entry: payment1,
-        account: suppliers_account,
-        real_debit: 300.0,
-        letter: 'A'
-      ),
+            entry: payment1,
+            account: suppliers_account,
+            real_debit: 300.0,
+            letter: 'A'),
       build(:journal_entry_item,
-        entry: payment1,
-        account: bank_account,
-        real_credit: 300.0
-      )
+            entry: payment1,
+            account: bank_account,
+            real_credit: 300.0)
     ]
     assert payment1.save
 
@@ -995,79 +911,67 @@ class TaxDeclarationTest < ActiveSupport::TestCase
     stopped_on = started_on.end_of_month
     printed_on = started_on + 1.day
 
-    purchases_account = create(:account, name: "Purchases")
-    suppliers_account = create(:account, name: "Suppliers")
-    bank_account = create(:account, name: "Brank")
+    purchases_account = create(:account, name: 'Purchases')
+    suppliers_account = create(:account, name: 'Suppliers')
+    bank_account = create(:account, name: 'Brank')
     vat_deductible_account = tax.deduction_account
 
     purchase1 = create(:purchase,
-      nature: purchase_natures(:purchase_natures_001),
-      tax_payability: 'at_paying'
-    )
+                       nature: purchase_natures(:purchase_natures_001),
+                       tax_payability: 'at_paying')
     purchase1_item = create(:purchase_item,
-      purchase: purchase1,
-      tax: tax
-    )
+                            purchase: purchase1,
+                            tax: tax)
     purchase1_entry = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 870.0,
-      real_debit: 870.0
-    )
+                            printed_on: printed_on,
+                            real_credit: 870.0,
+                            real_debit: 870.0)
     purchase1_entry.items = [
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: suppliers_account,
-       real_credit: 870.0,
-       letter: 'A'
-     ),
+            entry: purchase1_entry,
+            account: suppliers_account,
+            real_credit: 870.0,
+            letter: 'A'),
       build(:journal_entry_item,
-       entry: purchase1_entry,
-       account: vat_deductible_account,
-       real_debit: 145.0,
-       real_pretax_amount: 725.0,
-       tax: tax,
-       resource: purchase1_item
-      ),
+            entry: purchase1_entry,
+            account: vat_deductible_account,
+            real_debit: 145.0,
+            real_pretax_amount: 725.0,
+            tax: tax,
+            resource: purchase1_item),
       build(:journal_entry_item,
-        entry: purchase1_entry,
-        account: purchases_account,
-        real_debit: 725.0
-      )
+            entry: purchase1_entry,
+            account: purchases_account,
+            real_debit: 725.0)
     ]
     assert purchase1_entry.save
 
-
     payment1 = build(:journal_entry,
-      printed_on: printed_on,
-      real_credit: 870.0,
-      real_debit: 870.0
-    )
+                     printed_on: printed_on,
+                     real_credit: 870.0,
+                     real_debit: 870.0)
     payment1.items = [
       build(:journal_entry_item,
-        entry: payment1,
-        account: suppliers_account,
-        real_debit: 870.0,
-        letter: 'A'
-      ),
+            entry: payment1,
+            account: suppliers_account,
+            real_debit: 870.0,
+            letter: 'A'),
       build(:journal_entry_item,
-        entry: payment1,
-        account: bank_account,
-        real_credit: 870.0
-      )
+            entry: payment1,
+            account: bank_account,
+            real_credit: 870.0)
     ]
     assert payment1.save
 
     previous = create(:tax_declaration,
-      financial_year: financial_year,
-      started_on: started_on,
-      stopped_on: stopped_on
-    )
+                      financial_year: financial_year,
+                      started_on: started_on,
+                      stopped_on: stopped_on)
 
     subject = create(:tax_declaration,
-      financial_year: financial_year,
-      started_on: (started_on + 1.month).beginning_of_month,
-      stopped_on: (stopped_on + 1.month).end_of_month
-    )
+                     financial_year: financial_year,
+                     started_on: (started_on + 1.month).beginning_of_month,
+                     stopped_on: (stopped_on + 1.month).end_of_month)
     assert subject.save
 
     assert_empty subject.items.select { |item| item.parts.any? }

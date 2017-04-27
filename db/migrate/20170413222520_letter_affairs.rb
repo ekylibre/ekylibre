@@ -79,7 +79,7 @@ class LetterAffairs < ActiveRecord::Migration
                      JOIN affairs AS a ON (d.affair_id = a.id AND a.type = 'SaleAffair')
                      JOIN entities AS e ON (e.id = a.third_id);".gsub(/\s*\n\s*/, ' ')
 
-        %w(affair_id account_id journal_entry_id third_id letter).each do |col|
+        %w[affair_id account_id journal_entry_id third_id letter].each do |col|
           execute "CREATE INDEX letterable_deals_#{col} ON letterable_deals (#{col})"
         end
 
@@ -94,7 +94,7 @@ class LetterAffairs < ActiveRecord::Migration
                  FROM letterable_deals AS lcg
                  WHERE lcg.affair_id NOT IN (SELECT affair_id FROM letterable_multi_thirds WHERE count != 1);".gsub(/\s*\n\s*/, ' ')
 
-        %w(affair_id account_id journal_entry_id third_id letter).each do |col|
+        %w[affair_id account_id journal_entry_id third_id letter].each do |col|
           execute "CREATE INDEX letterable_groups_#{col} ON letterable_groups (#{col})"
         end
 
@@ -156,6 +156,5 @@ class LetterAffairs < ActiveRecord::Migration
         execute 'DROP FUNCTION succ(VARCHAR);'
       end
     end
-
   end
 end

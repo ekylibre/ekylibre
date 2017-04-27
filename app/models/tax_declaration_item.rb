@@ -80,18 +80,18 @@ class TaxDeclarationItem < Ekylibre::Record::Base
   private
 
   def generate_parts
-    self.parts.clear
+    parts.clear
     generate_debit_parts
     generate_payment_parts
   end
 
   def generate_debit_parts
     entry_items = JournalEntryItem
-      .where('printed_on <= ? ', stopped_on)
-      .where(tax_declaration_mode: 'debit')
-      .where(tax: tax)
-      .where.not(resource_type: 'TaxDeclarationItem')
-      .where.not(id: TaxDeclarationItemPart.select(:journal_entry_item_id))
+                  .where('printed_on <= ? ', stopped_on)
+                  .where(tax_declaration_mode: 'debit')
+                  .where(tax: tax)
+                  .where.not(resource_type: 'TaxDeclarationItem')
+                  .where.not(id: TaxDeclarationItemPart.select(:journal_entry_item_id))
 
     tax_account_ids_by_direction.each do |direction, account_id|
       balance =
@@ -146,7 +146,7 @@ class TaxDeclarationItem < Ekylibre::Record::Base
       'TaxDeclarationItem'
     ]
 
-    conditions = [ conditions_sql ] + conditions_sql_values
+    conditions = [conditions_sql] + conditions_sql_values
 
     if direction == :collected
       balance = 'jei.credit - jei.debit'
@@ -219,11 +219,11 @@ class TaxDeclarationItem < Ekylibre::Record::Base
 
   def compute_amounts
     directions.each do |direction|
-      direction_parts = self.parts.select { |part| part.direction == direction }
-      tax_amount = direction_parts.sum { |part| part.tax_amount } || 0.0
-      pretax_amount = direction_parts.sum { |part| part.pretax_amount } || 0.0
-      self.send "#{direction}_tax_amount=", tax_amount
-      self.send "#{direction}_pretax_amount=", pretax_amount
+      direction_parts = parts.select { |part| part.direction == direction }
+      tax_amount = direction_parts.sum(&:tax_amount) || 0.0
+      pretax_amount = direction_parts.sum(&:pretax_amount) || 0.0
+      send "#{direction}_tax_amount=", tax_amount
+      send "#{direction}_pretax_amount=", pretax_amount
     end
   end
 

@@ -1557,6 +1557,9 @@ arb:
     journal_entries_states: "الولايات إدخالات"
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -2596,6 +2599,8 @@ arb:
       exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
+      # financial_years_missing: "You must create every missing financial years since the first registered"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"

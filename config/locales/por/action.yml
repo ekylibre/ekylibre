@@ -1168,6 +1168,9 @@ por:
     journal_entries: "Entradas da revista"
     journal_entries_states: "Estados de entradas"
     journal_entry_items: "Itens de entrada de diário"
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -1914,6 +1917,8 @@ por:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
+      # financial_years_missing: "You must create every missing financial years since the first registered"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado com dados fictícios"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
