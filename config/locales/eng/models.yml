@@ -378,6 +378,7 @@ eng:
       tax: "Tax"
       tax_declaration: "Tax declaration"
       tax_declaration_item: "Tax declaration item"
+      # tax_declaration_item_part: "Tax declaration item part"
       team: "Team"
       token: "Token"
       tracking: "Tracking"
@@ -1480,6 +1481,7 @@ eng:
     targets: "Targets"
     tasks: "Tasks"
     tax: "Tax"
+    # tax_amount: "Tax amount"
     tax_declaration: "Tax declaration"
     tax_declaration_frequency: "Tax declaration frequency"
     tax_declaration_item: "Tax declaration item"
@@ -1509,6 +1511,8 @@ eng:
     total_cost: "Total cost"
     total_items_count: "Total items count" #?
     total_net_mass: "Total net mass" #?
+    # total_pretax_amount: "Total pretax amount"
+    # total_tax_amount: "Total tax amount"
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"
