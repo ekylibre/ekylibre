@@ -102,14 +102,12 @@ class Inventory < Ekylibre::Record::Base
         # TODO update methods to evaluates price stock or open unit_pretax-
         # stock_amount field to the user during inventory
         # build the global value of the stock for each item
-        values = items.of_variant(variant).map do |item|
-          item.actual_population * item.unit_pretax_stock_amount
-        end
+        stock_amount = items.of_variant(variant).map(&:actual_pretax_stock_amount).compact.sum
         # bookkeep step 2
-        next if values.compact.sum.zero?
+        next if stock_amount.zero?
         label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, values.compact.sum, resource: variant, as: :stock, variant: variant)
-        entry.add_debit(label, s.id, values.compact.sum, resource: variant, as: :stock_movement, variant: variant)
+        entry.add_credit(label, sm.id, stock_amount, resource: variant, as: :stock, variant: variant)
+        entry.add_debit(label, s.id, stock_amount, resource: variant, as: :stock_movement, variant: variant)
       end
     end
   end
