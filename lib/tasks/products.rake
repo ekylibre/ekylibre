@@ -25,7 +25,7 @@ namespace :products do
 
     file_name = ENV['FILENAME']
     file_path = Rails.root.join(file_name)
-
+    
     change_product_attributes(file_path, ProductNatureVariant)
   end
 
@@ -34,7 +34,6 @@ namespace :products do
       id = row[0].to_s
       variety = row[1].to_s
       derivative_of = row[2].to_s
-
       next if id.blank? && variety.blank? && derivative_of.blank?
 
       if id.blank?
@@ -48,7 +47,10 @@ namespace :products do
       end
 
       product_nature = model.find(id)
-      product_nature.update_attributes(variety: variety, derivative_of: derivative_of)
+      derivative_of = Nomen::Variety[derivative_of]
+      unless product_nature.update_attributes(variety: variety, derivative_of: derivative_of)
+        puts "id: #{id} errors: #{product_nature.errors.messages}"
+      end
     end
   end
 end
