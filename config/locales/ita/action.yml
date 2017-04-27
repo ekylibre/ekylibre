@@ -774,7 +774,7 @@ ita:
     add_catalog_price: "Aggiungere prezzo di catalogo"
     add_child: "Aggiungere un componente figlio"
     add_choice: "Aggiungere scelta"
-    # add_compensation_entry: "Add compensation entry"
+    add_compensation_entry: "Aggiungere una voce di compensazione"
     add_component: "Aggiungere componente"
     add_condition: "Aggiungere condizioni"
     add_conditions: "Aggiungere condizioni"

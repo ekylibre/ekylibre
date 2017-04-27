@@ -18,7 +18,7 @@
           if url.indexOf('?') < 0 then url += '?' else url += '&'
           url += "#{id}=#{value}"
 
-        link.attr('href', url)  
+        link.attr('href', url)
 
 
   setUpdateTriggersJournalEntryItems = ->

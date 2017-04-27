@@ -708,7 +708,7 @@ cmn:
     add_catalog_price: "添加目录价格"
     add_child: "添加子组件"
     add_choice: "选择添加"
-    # add_compensation_entry: "Add compensation entry"
+    add_compensation_entry: "添加补偿项"
     add_component: "添加组件"
     add_condition: "添加条件"
     add_conditions: "添加条件"

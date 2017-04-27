@@ -968,7 +968,7 @@ arb:
     add_catalog_price: "إضافة سعر كتالوج"
     add_child: "إضافة عنصر الطفل"
     add_choice: "إضافة خيار"
-    # add_compensation_entry: "Add compensation entry"
+    add_compensation_entry: "إضافة إدخال التعويض"
     add_component: "إضافة عنصر"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"

@@ -774,7 +774,7 @@ jpn:
     add_catalog_price: "カタログ価格を追加します。"
     add_child: "子コンポーネントを追加します。"
     add_choice: "選択肢を追加"
-    # add_compensation_entry: "Add compensation entry"
+    add_compensation_entry: "補償エントリを追加します。"
     add_component: "コンポーネントを追加します"
     add_condition: "条件を追加します。"
     add_conditions: "条件を追加します。"
