@@ -41,8 +41,10 @@ fra:
         file_pages_count: "Nombre de page" #?
       document_template:
         managed: "Géré par le système"
-      entity: #?
+      entity:
         active: "Active" #?
+        client_accounting_balance: "Solde comptable client"
+        supplier_accounting_balance: "Solde comptable fournisseur"
       equipment:
         born_at: "Mis en service le"
         content_indicator: "Indicateur de mesure du réservoir" #?
@@ -374,6 +376,7 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       dashboard: "Tableau de bord"
+      debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
       delivery_tool: "Outil de livraison"
       deposit: "Remise en banque"
@@ -381,6 +384,7 @@ fra:
       document: "Document"
       document_template: "Modèle de document"
       easement: "Zone primaire"
+      economic_situation: "Situation économique"
       entity: "Personne"
       entity_address: "Adresse"
       entity_link: "Lien de personne"
@@ -535,6 +539,7 @@ fra:
     accountable_repayments_started_on: "Date de début de prise en compte des échéances"
     accountant: "Comptable"
     accounted_at: "Date comptabilisation"
+    accounting_balance: "Solde comptable"
     accuracy: "Précision"
     achieved_at: "Achevé le"
     actions: "Actions"
@@ -675,7 +680,9 @@ fra:
     city_name: "Nom de ville"
     client: "Client"
     client_account: "Compte client associé"
+    client_accounting_balance: "Solde comptable client"
     client_accounts: "Comptes clients" #?
+    client_trade_balance: "Balance commerciale du client"
     clients: "Clients"
     closable_financial_year: "Exercice clôturable" #?
     closed: "Clôturé"
@@ -786,6 +793,9 @@ fra:
     deals_count: "Nombre de transations"
     death: "Mort" #?
     debit: "Débit"
+    debt_regularizations: "Régularisations de dettes"
+    debt_transfer_affair: "Affaire de transfert de dettes"
+    debt_transfers: "Transferts de dettes"
     debtor: "Debiteur"
     decimal: "Décimal" #?
     decimal_value: "Valeur décimale"
@@ -857,6 +867,7 @@ fra:
     due_at: "Due le"
     due_on: "Due le"
     duration: "Durée"
+    economic_situation: "Situation économique"
     email: "Courriel (e-mail)"
     emails: "Courriels (e-mails)"
     embedded: "Embarqué"
@@ -1460,7 +1471,7 @@ fra:
     provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
-    purchase_affair: "Affaire d’achat"
+    purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
@@ -1669,10 +1680,12 @@ fra:
     supervision: "Surveillance"
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
+    supplier_accounting_balance: "Solde comptable des fournisseurs"
     supplier_address: "Adresse du fournisseur"
     supplier_payment_delay: "Délai de paiement fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_payment_modes: "Modes de paiement du fournisseur"
+    supplier_trade_balance: "Balance commerciale des fournisseurs"
     suppliers: "Fournisseurs"
     support: "Support"
     support_nature: "Type de support"
@@ -1720,6 +1733,8 @@ fra:
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
+    to_pay_on_or_after: "Début date d'échéance"
+    to_pay_on_or_before: "Fin date d'échéance"
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
@@ -1730,6 +1745,7 @@ fra:
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?
     trackings: "Lots traçables"
+    trade_balance: "Balance commerciale"
     transaction_number: "Numéro de transaction"
     transfered_at: "Transféré à"
     transfered_on: "Transféré le"

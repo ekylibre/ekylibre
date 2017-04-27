@@ -466,6 +466,7 @@ cmn:
         subcontracting_expenses: "转包费用"
         subsidies: "补贴"
         subsidy_to_receive: "补贴领取"
+        sundry_debtors_and_creditors: "杂项债务人和债权人"
         suppliers: "供应商"
         suppliers_balance_after_compensation: "供应商补偿后的平衡"
         suppliers_invoices_not_received: "供应商的发票没有收到"

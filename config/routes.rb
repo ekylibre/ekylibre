@@ -132,6 +132,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :debt_transfers, concerns: %i[list unroll]
+
     resources :helps, only: %i[index show] do
       collection do
         post :toggle
@@ -179,6 +181,8 @@ Rails.application.routes.draw do
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
       resource :trade_counts_cell, only: :show
+      resource :unbalanced_clients_cell, only: :show, concerns: :list
+      resource :unbalanced_suppliers_cell, only: :show, concerns: :list
       resource :weather_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
@@ -188,6 +192,7 @@ Rails.application.routes.draw do
         get :reconciliation
         get :list_reconciliation
         match 'load', via: %i[get post]
+        patch :mask_lettered_items
       end
       member do
         match 'mark', via: %i[get post]
@@ -428,7 +433,8 @@ Rails.application.routes.draw do
     resources :entities, concerns: %i[autocomplete list unroll] do
       collection do
         match 'import', via: %i[get post]
-        match 'merge',  via: %i[get post]
+        patch :mask_lettered_items
+        match 'merge', via: %i[get post]
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
