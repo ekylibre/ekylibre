@@ -1,22 +1,26 @@
 - unless f.object.hide?
 
+  - working_periods_attributes = "intervention_participation[working_periods_attributes]"
+
   .participation
     = hidden_field_tag 'working_period_id', f.object.id
 
     .participation-icon
       .picto.picto-timelapse
-      = f.object.nature.l  
+      = f.object.nature.l
 
     .participation-form
       .participation-field
-        = text_field_tag "intervention_participation[working_periods_attributes][#{f.index}][hours]", f.object.hour_gap, class: "participation-input"
+        = text_field_tag "#{working_periods_attributes}[#{f.index}][hours]", f.object.hour_gap, class: "participation-input"
         %span{class: "participation-field-label"} H
 
       .participation-field
-        = text_field_tag "intervention_participation[working_periods_attributes][#{f.index}][minutes]", f.object.min_gap, class: "participation-input"
+        = text_field_tag "#{working_periods_attributes}[#{f.index}][minutes]", f.object.min_gap, class: "participation-input"
         %span Min
 
     .participatimn-result
+      = hidden_field_tag "#{working_periods_attributes}[#{f.index}][started_at]", f.object.started_at.l(format: :full)
+      = hidden_field_tag "#{working_periods_attributes}[#{f.index}][stopped_at]", f.object.stopped_at.l(format: :full)
       %span= f.object.started_at.l(format: :full)
       %span &#8594;
       %span= f.object.stopped_at.l(format: :full)

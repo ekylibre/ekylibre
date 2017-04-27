@@ -149,7 +149,7 @@ $preview-modal-height: 80vh;
   .has-intervention-participations {
     position: relative;
     top: -$fs-large;
-    left: $fs-awesome;
+    left: $fs-awesome * 2.5;
     line-height: 0;
     font-size: $fs-huge;
     cursor: pointer;
