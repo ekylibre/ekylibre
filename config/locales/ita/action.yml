@@ -1642,6 +1642,7 @@ ita:
     taxations: "tassazioni"
     taxes: "Le tasse"
     taxes_and_wages: "Tasse e salari"
+    third_is_unbalanced: "Terzo è sbilanciato. (Equilibrio - saldo del conto fornitore)"
     thumb: "Pollice"
     time_cost: "tempo costo"
     time_spent_by_activity: "Il tempo speso per attività"
@@ -1717,6 +1718,8 @@ ita:
     transformations: "trasformazioni" #?
     transport: "Trasporto"
     trimester: "Trimestre"
+    unbalanced_clients: "I clienti non bilanciati"
+    unbalanced_suppliers: "Fornitori sbilanciate"
     unbilled_payables: "I debiti non ancora fatturate"
     undefined_activity: "L’attività non definita"
     undefined_container: "contenitore non definita"

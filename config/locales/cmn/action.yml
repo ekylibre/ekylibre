@@ -1577,6 +1577,7 @@ cmn:
     taxations: "税费"
     taxes: "税"
     taxes_and_wages: "税收和工资"
+    third_is_unbalanced: "三是不平衡的。 （平衡 - 供应商账户余额）"
     thumb: "拇指"
     time_cost: "时间成本"
     time_spent_by_activity: "按时间花在活动"
@@ -1652,6 +1653,8 @@ cmn:
     transformations: "转换" #?
     transport: "运输"
     trimester: "孕期"
+    unbalanced_clients: "不平衡的客户"
+    unbalanced_suppliers: "不平衡的供应商"
     unbilled_payables: "未开票应付账款"
     undefined_activity: "未定义活动"
     undefined_container: "未定义的容器"

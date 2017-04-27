@@ -1894,6 +1894,14 @@
       <item name="trade_counts_cells">
         <page to="backend/cells/trade_counts_cells#show"/>
       </item>
+      <item name="unbalanced_clients_cells">
+        <page to="backend/cells/unbalanced_clients_cells#list"/>
+        <page to="backend/cells/unbalanced_clients_cells#show"/>
+      </item>
+      <item name="unbalanced_suppliers_cells">
+        <page to="backend/cells/unbalanced_suppliers_cells#list"/>
+        <page to="backend/cells/unbalanced_suppliers_cells#show"/>
+      </item>
     </group>
     <group>
       <item name="helps">

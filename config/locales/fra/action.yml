@@ -1035,7 +1035,7 @@ fra:
     clear: "Effacer"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
-    client_balance: "Solde du client" #?
+    client_accounting_balance: "Solde du client" #?
     client_code: "Code cl." #?
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
@@ -2087,6 +2087,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
@@ -2183,6 +2184,8 @@ fra:
     treatment: "Traitement" #?
     trimester: "Trimestre"
     true: "Vrai" #?
+    unbalanced_clients: "Comptes à réconcilier - Clients"
+    unbalanced_suppliers: "Comptes à réconcilier - Fournisseurs"
     unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
