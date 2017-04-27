@@ -88,4 +88,8 @@ class InventoryItem < Ekylibre::Record::Base
   def delta
     actual_population - expected_population
   end
+
+  def actual_pretax_stock_amount
+    actual_population * unit_pretax_stock_amount
+  end
 end

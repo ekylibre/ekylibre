@@ -223,9 +223,9 @@ class Sale < Ekylibre::Record::Base
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount, as: :client)
       items.each do |item|
-        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item)
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, as: :item_product, resource: item, variant: item.variant)
         tax = item.tax
-        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item)
+        entry.add_credit(label, tax.collect_account_id, item.taxes_amount, tax: tax, pretax_amount: item.pretax_amount, as: :item_tax, resource: item, variant: item.variant)
       end
     end
 
@@ -239,7 +239,7 @@ class Sale < Ekylibre::Record::Base
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
-          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product)
+          entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product, variant: undelivered_item.variant)
         end
       end
     end
@@ -257,8 +257,8 @@ class Sale < Ekylibre::Record::Base
         quantity = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
-        entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock)
-        entry.add_debit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement)
+        entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)
+        entry.add_debit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant)
       end
     end
   end
@@ -478,16 +478,18 @@ class Sale < Ekylibre::Record::Base
   end
 
   def products
-    p = []
-    for item in items
-      p << item.product.name
-    end
-    ps = p.join(', ')
+    items.map { |item| item.product.name }.join(', ')
   end
 
   # Returns true if sale is cancellable as an invoice
   def cancellable?
     !credit? && invoice? && amount + credits.sum(:amount) > 0
+  end
+
+  def cancel!
+    s = build_credit
+    s.save!
+    s.invoice!
   end
 
   # Build a new sale with new items ready for correction and save

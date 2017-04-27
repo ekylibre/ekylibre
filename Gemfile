@@ -3,14 +3,14 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '~> 1.0.0', '< 2.0'
+gem 'apartment', '>= 1.2.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -26,6 +26,9 @@ gem 'actionpack-xml_parser'
 
 # Manage env vars
 gem 'figaro'
+
+# Maintenance mode
+gem 'turnout'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -69,7 +72,7 @@ gem 'foreman'
 # Background jobs
 gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
-gem 'sidekiq-unique-jobs'
+gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -170,6 +173,8 @@ gem 'savon'
 gem 'luhn'
 
 group :development do
+  gem 'bullet'
+
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
@@ -214,7 +219,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,lib/plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)
