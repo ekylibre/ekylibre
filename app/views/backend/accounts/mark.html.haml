@@ -16,6 +16,9 @@
       = hidden_field_tag(x, params[x])
     - precision = Nomen::Currency[Preference[:currency]].precision
 
+    %span.new-entry-trigger.btn-group.hidden
+      = link_to :add_compensation_entry.tl, { controller: "journal_entries", action: :new, redirect: request.fullpath }, { class: 'btn btn-default js-complete-links-with-journal-entry-items-ids', id: 'new_entry', data: {'complete-link-with-journal-entry-items-ids': 'journals_entries_items_ids', 'display-class-on-click': 'new-entry-trigger'}}
+
     .active-list-actions
       = mask_lettered_items_button :mark_journal_entry_items
 
