@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -53,11 +54,13 @@ class EconomicSituationTest < ActiveSupport::TestCase
       items_attributes: [
         {
           unit_pretax_amount: '12',
-          tax: Tax.create!(country: :fr,
-                           nature: :null_vat,
-                           name: 'Test',
-                           collect_account:  trash_account,
-                           deduction_account: trash_account),
+          tax: Tax.create!(
+            country: :fr,
+            nature: :null_vat,
+            name: 'Test',
+            collect_account:  trash_account,
+            deduction_account: trash_account
+          ),
           variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
           account: trash_account
         }
@@ -73,11 +76,13 @@ class EconomicSituationTest < ActiveSupport::TestCase
     OutgoingPayment.create!(
       currency: 'EUR',
       payee: @entity,
-      responsible: User.create!(email: 'usertest@ekytest.test',
-                                password: '12345678',
-                                first_name: 'Test',
-                                last_name: 'Test',
-                                role: Role.create!(name: 'Test')),
+      responsible: User.create!(
+        email: 'usertest@ekytest.test',
+        password: '12345678',
+        first_name: 'Test',
+        last_name: 'Test',
+        role: Role.create!(name: 'Test')
+      ),
       to_bank_at: Time.now,
       amount: 9,
       mode: OutgoingPaymentMode.create!(
@@ -94,11 +99,13 @@ class EconomicSituationTest < ActiveSupport::TestCase
       sale: sale,
       variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
       unit_pretax_amount: 8,
-      tax: Tax.create!(country: 'fr',
-                       nature: :null_vat,
-                       name: 'Test2',
-                       collect_account: trash_account,
-                       deduction_account: trash_account),
+      tax: Tax.create!(
+        country: 'fr',
+        nature: :null_vat,
+        name: 'Test2',
+        collect_account: trash_account,
+        deduction_account: trash_account
+      ),
       quantity: 1,
       amount: 8
     )
@@ -107,8 +114,10 @@ class EconomicSituationTest < ActiveSupport::TestCase
       amount: 11,
       currency: 'EUR',
       payer: @entity,
-      mode: IncomingPaymentMode.create!(name: 'IModeTest',
-                                        cash: cash)
+      mode: IncomingPaymentMode.create!(
+        name: 'IModeTest',
+        cash: cash
+      )
     )
 
     JournalEntry.create!(
