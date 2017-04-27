@@ -229,7 +229,7 @@ module Clean
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass < ActiveRecord::Base }
-          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') }
+          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') && !x.name.start_with?('Apartment::') }
           .uniq
           .sort_by(&:name)
       end

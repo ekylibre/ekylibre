@@ -114,6 +114,10 @@ por:
         datetime: "Data e Hora"
         decimal: "Decimal"
         text: "Texto"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Regularização de compra"
+        sale_regularization: "Venda regularização"
     delivery:
       mode:
         third: "Terceiro"
@@ -478,6 +482,7 @@ por:
         animals: "Animais"
         cash_transfers: "As transferências de dinheiro"
         contracts: "Contratos"
+        debt_transfers: "Transferências de dívida"
         deliveries: "Entregas"
         deposits: "Depósitos"
         documents: "Documentos"
