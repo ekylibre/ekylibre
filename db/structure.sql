@@ -17200,11 +17200,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 
-INSERT INTO schema_migrations (version) VALUES ('20170403085630');
-
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 
 INSERT INTO schema_migrations (version) VALUES ('20170408094408');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413073501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413185630');
 
