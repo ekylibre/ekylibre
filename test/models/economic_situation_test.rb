@@ -25,11 +25,15 @@
 #  accounting_balance          :decimal(, )
 #  client_accounting_balance   :decimal(, )
 #  client_trade_balance        :decimal(, )
+#  created_at                  :datetime
+#  creator_id                  :integer
 #  id                          :integer          primary key
 #  lock_version                :integer
 #  supplier_accounting_balance :decimal(, )
 #  supplier_trade_balance      :decimal(, )
 #  trade_balance               :decimal(, )
+#  updated_at                  :datetime
+#  updater_id                  :integer
 #
 require 'test_helper'
 

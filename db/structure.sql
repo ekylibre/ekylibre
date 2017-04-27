@@ -2421,7 +2421,11 @@ CREATE VIEW economic_situations AS
     COALESCE(client_trade.balance, (0)::numeric) AS client_trade_balance,
     COALESCE(supplier_trade.balance, (0)::numeric) AS supplier_trade_balance,
     (COALESCE(client_trade.balance, (0)::numeric) + COALESCE(supplier_trade.balance, (0)::numeric)) AS trade_balance,
-    0 AS lock_version
+    entities.creator_id,
+    entities.created_at,
+    entities.updater_id,
+    entities.updated_at,
+    entities.lock_version
    FROM ((((entities
      LEFT JOIN ( SELECT entities_1.id AS entity_id,
             (- sum(client_items.balance)) AS balance

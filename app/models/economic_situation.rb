@@ -25,13 +25,20 @@
 #  accounting_balance          :decimal(, )
 #  client_accounting_balance   :decimal(, )
 #  client_trade_balance        :decimal(, )
+#  created_at                  :datetime
+#  creator_id                  :integer
 #  id                          :integer          primary key
 #  lock_version                :integer
 #  supplier_accounting_balance :decimal(, )
 #  supplier_trade_balance      :decimal(, )
 #  trade_balance               :decimal(, )
+#  updated_at                  :datetime
+#  updater_id                  :integer
 #
 class EconomicSituation < Ekylibre::Record::Base
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounting_balance, :client_accounting_balance, :client_trade_balance, :supplier_accounting_balance, :supplier_trade_balance, :trade_balance, numericality: true, allow_blank: true
+  # ]VALIDATORS]
   self.primary_key = 'id'
 
   belongs_to :entity, foreign_key: :id
