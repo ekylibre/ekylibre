@@ -17,8 +17,8 @@ deu:
       document_template:
         managed: "Verwaltet vom System"
       entity:
-        # client_balance: "Client account balance"
-        # supplier_balance: "Supplier account balance"
+        client_accounting_balance: "Client-Kontostand"
+        supplier_accounting_balance: "Lieferant Kontostand"
       equipment:
         born_at: "Setzen Sie im Dienst der"
         dead_at: "Verschrottet bei"
@@ -524,6 +524,7 @@ deu:
     city_name: "Stadtname"
     client: "Klient"
     client_account: "Client-Konto"
+    # client_accounting_balance: "Client accounting balance"
     # clients: "Clients"
     closed: "Abgeschlossen"
     closed_at: "geschlossen an"
@@ -1399,6 +1400,7 @@ deu:
     supervision: "Aufsicht"
     supplier: "Lieferant"
     supplier_account: "Lieferant Konto"
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "Lieferant Adresse"
     supplier_payment_delay: "Lieferant Zahlungsverzug"
     supplier_payment_mode: "Lieferant Zahlungsmodus"

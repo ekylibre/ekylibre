@@ -17,8 +17,8 @@ spa:
       document_template:
         managed: "Gestionado por el sistema"
       entity:
-        # client_balance: "Client account balance"
-        # supplier_balance: "Supplier account balance"
+        client_accounting_balance: "Saldo de la cuenta del cliente"
+        supplier_accounting_balance: "Saldo de la cuenta del proveedor"
       equipment:
         born_at: "Puesto en servicio en"
         dead_at: "Desechado en"
@@ -525,6 +525,7 @@ spa:
     city_name: "Nombre de la ciudad"
     client: "Cliente"
     client_account: "La cuenta del cliente"
+    # client_accounting_balance: "Client accounting balance"
     clients: "Clientela"
     closed: "Cerrado"
     closed_at: "Cerrado en"
@@ -1403,6 +1404,7 @@ spa:
     supervision: "Supervisión"
     supplier: "Proveedor"
     supplier_account: "Cuenta de proveedor"
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "Dirección del proveedor"
     supplier_payment_delay: "Retraso en el pago de proveedores"
     supplier_payment_mode: "El modo de pago a proveedores"

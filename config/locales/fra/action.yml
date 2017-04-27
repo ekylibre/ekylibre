@@ -1035,7 +1035,7 @@ fra:
     clear: "Effacer"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
-    client_balance: "Solde du client" #?
+    client_accounting_balance: "Solde du client" #?
     client_code: "Code cl." #?
     client_informations: "Informations client"
     client_phone: "Téléphone" #?

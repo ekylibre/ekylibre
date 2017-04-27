@@ -1162,7 +1162,7 @@ arb:
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
     client: "اختيار العميل"
-    client_balance: "رصيد العميل" #?
+    client_accounting_balance: "رصيد العميل" #?
     client_informations: "المعلومات العميل"
     client_receivables: "ذمم العملاء"
     close: "اغلاق الدفتر اليومي"
@@ -2192,7 +2192,7 @@ arb:
     taxes: "الضرائب"
     taxes_and_wages: "الضرائب والأجور"
     theoric_quantity: "الكمية النظرية" #?
-    # third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
+    third_is_unbalanced: "ثالثا غير متوازن. (ميزان - ميزان الحساب المورد)"
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"
     time_spent_by_activity: "الوقت الذي يقضيه النشاط"
@@ -2280,8 +2280,8 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
-    # unbalanced_clients: "Unbalanced clients"
-    # unbalanced_suppliers: "Unbalanced suppliers"
+    unbalanced_clients: "عملاء غير متوازن"
+    unbalanced_suppliers: "الموردين غير متوازن"
     unbilled_payables: "دائنة غير المفوترة"
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"

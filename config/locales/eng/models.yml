@@ -17,8 +17,8 @@ eng:
       document_template:
         managed: "Managed by the system"
       entity:
-        client_balance: "Client account balance"
-        supplier_balance: "Supplier account balance"
+        client_accounting_balance: "Client account balance"
+        supplier_accounting_balance: "Supplier account balance"
       equipment:
         born_at: "Built at"
         dead_at: "Scrapped at"
@@ -531,7 +531,7 @@ eng:
     city_name: "City name"
     client: "Client"
     client_account: "Client account"
-    # client_accounting_balance: "Client accounting balance"
+    client_accounting_balance: "Client accounting balance"
     # client_journal_entry_items: "Client journal entry items"
     # client_trade_balance: "Client trade balance"
     clients: "Clients"
@@ -1449,7 +1449,7 @@ eng:
     supervision: "Supervision"
     supplier: "Supplier"
     supplier_account: "Supplier account"
-    # supplier_accounting_balance: "Supplier accounting balance"
+    supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "Supplier address"
     # supplier_journal_entry_items: "Supplier journal entry items"
     supplier_payment_delay: "Supplier payment delay"

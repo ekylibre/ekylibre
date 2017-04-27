@@ -17,8 +17,8 @@ cmn:
       document_template:
         managed: "由系统管理"
       entity:
-        # client_balance: "Client account balance"
-        # supplier_balance: "Supplier account balance"
+        client_accounting_balance: "客户账户余额"
+        supplier_accounting_balance: "供应商账户余额"
       equipment:
         born_at: "把服务于"
         dead_at: "在瞎折腾"
@@ -524,6 +524,7 @@ cmn:
     city_name: "城市名"
     client: "客户"
     client_account: "客户帐户"
+    # client_accounting_balance: "Client accounting balance"
     clients: "客户端"
     closed: "关闭"
     closed_at: "在关闭"
@@ -1399,6 +1400,7 @@ cmn:
     supervision: "监督"
     supplier: "供应商"
     supplier_account: "供应商帐户"
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "供应商地址"
     supplier_payment_delay: "供应商延期支付"
     supplier_payment_mode: "供应商支付模式"

@@ -136,7 +136,7 @@ arb:
         nature: "طبيعية" #?
         nature_label: "طبيعة" #?
       entity:
-        # client_balance: "Client account balance"
+        client_accounting_balance: "التوازن حساب العميل"
         contacts: "الاشخاص المراد الاتصال بهم" #?
         created_at: "انشأ في" #?
         last_name: "الاسم" #?
@@ -148,7 +148,7 @@ arb:
         salt: "Sel" #?
         siren: "رمز صفارات الانذا" #?
         subscriptions: "الاشتراكات" #?
-        # supplier_balance: "Supplier account balance"
+        supplier_accounting_balance: "رصيد الحساب المورد"
         updated_at: "تم تحديثها في" #?
         usable_incoming_payments: "الدفعات المستخدمة" #?
       entity_category: #?
@@ -1209,6 +1209,7 @@ arb:
     client: "العميل"
     client_account: "حساب مساعد العميل"
     client_account_id: "حساب مساعد العميل" #?
+    # client_accounting_balance: "Client accounting balance"
     client_accounts: "حسابات العملاء" #?
     client_id: "العميل" #?
     clients: "العملاء"
@@ -2353,6 +2354,7 @@ arb:
     supplier: "الممول"
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_accounts: "حسابات المموليين" #?
     supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?

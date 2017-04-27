@@ -17,8 +17,8 @@ por:
       document_template:
         managed: "Dirigido pelo sistema"
       entity:
-        # client_balance: "Client account balance"
-        # supplier_balance: "Supplier account balance"
+        client_accounting_balance: "Saldo da conta do cliente"
+        supplier_accounting_balance: "Saldo da conta fornecedor"
       equipment:
         born_at: "Coloque em serviço no"
         dead_at: "Desfeito em"
@@ -524,6 +524,7 @@ por:
     city_name: "Nome da Cidade"
     client: "Cliente"
     client_account: "Conta de cliente"
+    # client_accounting_balance: "Client accounting balance"
     clients: "Clientes"
     closed: "Fechadas"
     closed_at: "Fechou em"
@@ -1399,6 +1400,7 @@ por:
     supervision: "Supervisão"
     supplier: "Fornecedor"
     supplier_account: "Conta de fornecedor"
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "Endereço de fornecedor"
     supplier_payment_delay: "サプライヤーの支払い遅延"
     supplier_payment_mode: "O modo de pagamento a fornecedores"

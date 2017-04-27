@@ -43,8 +43,8 @@ fra:
         managed: "Géré par le système"
       entity:
         active: "Active" #?
-        client_balance: "Solde comptable client"
-        supplier_balance: "Solde comptable fournisseur"
+        client_accounting_balance: "Solde comptable client"
+        supplier_accounting_balance: "Solde comptable fournisseur"
       equipment:
         born_at: "Mis en service le"
         content_indicator: "Indicateur de mesure du réservoir" #?
@@ -678,6 +678,7 @@ fra:
     city_name: "Nom de ville"
     client: "Client"
     client_account: "Compte client associé"
+    # client_accounting_balance: "Client accounting balance"
     client_accounts: "Comptes clients" #?
     clients: "Clients"
     closable_financial_year: "Exercice clôturable" #?
@@ -1675,6 +1676,7 @@ fra:
     supervision: "Surveillance"
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "Adresse du fournisseur"
     supplier_payment_delay: "Délai de paiement fournisseur"
     supplier_payment_mode: "Mode de paiement du fournisseur"

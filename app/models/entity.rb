@@ -300,12 +300,12 @@ class Entity < Ekylibre::Record::Base
     EconomicSituation.unbalanced.pluck(:id).include? id
   end
 
-  def client_balance
+  def client_accounting_balance
     return 0.0 unless client?
     economic_situation[:client_accounting_balance]
   end
 
-  def supplier_balance
+  def supplier_accounting_balance
     return 0.0 unless supplier?
     economic_situation[:supplier_accounting_balance]
   end

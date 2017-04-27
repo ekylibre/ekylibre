@@ -17,8 +17,8 @@ jpn:
       document_template:
         managed: "システムによって管理"
       entity:
-        # client_balance: "Client account balance"
-        # supplier_balance: "Supplier account balance"
+        client_accounting_balance: "クライアントアカウントの残高"
+        supplier_accounting_balance: "サプライヤー口座残高"
       equipment:
         born_at: "で、サービスに入れ"
         dead_at: "で廃車"
@@ -524,6 +524,7 @@ jpn:
     city_name: "市名を指定します。"
     client: "クライアント"
     client_account: "クライアントアカウント"
+    # client_accounting_balance: "Client accounting balance"
     clients: "クライアント"
     closed: "閉じました"
     closed_at: "で閉鎖"
@@ -1399,6 +1400,7 @@ jpn:
     supervision: "監督"
     supplier: "サプライヤー"
     supplier_account: "サプライヤーアカウント"
+    # supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "サプライヤーアドレス"
     supplier_payment_delay: "サプライヤーの支払い遅延"
     supplier_payment_mode: "サプライヤーの支払いモード"
