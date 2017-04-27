@@ -862,6 +862,7 @@ arb:
       document: "الوثيقة"
       document_template: "نموذج الوثيقة"
       easement: "سكون"
+      economic_situation: "الوضع الاقتصادي"
       entity: "الفرد"
       entity_address: "عنوان"
       entity_category: "فئة الفرد" #?
@@ -1052,6 +1053,7 @@ arb:
     accountable_repayments_started_on: "بدأت السداد للمساءلة على"
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
+    accounting_balance: "ميزان المحاسبة"
     accounts: "الحسابات" #?
     accuracy: "دقة"
     achieved_at: "تحقق في"
@@ -1209,9 +1211,10 @@ arb:
     client: "العميل"
     client_account: "حساب مساعد العميل"
     client_account_id: "حساب مساعد العميل" #?
-    # client_accounting_balance: "Client accounting balance"
+    client_accounting_balance: "ميزان المحاسبة العميل"
     client_accounts: "حسابات العملاء" #?
     client_id: "العميل" #?
+    client_trade_balance: "الميزان التجاري العميل"
     clients: "العملاء"
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
@@ -1429,6 +1432,7 @@ arb:
     due_on: "نظرا ل"
     duration: "المدة"
     ean13: "Ean13" #?
+    economic_situation: "الوضع الاقتصادي"
     email: "عنوان البريد الالكتروني"
     emails: "رسائل البريد الإلكتروني"
     embedded: "المضمنة"
@@ -2354,13 +2358,14 @@ arb:
     supplier: "الممول"
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
-    # supplier_accounting_balance: "Supplier accounting balance"
+    supplier_accounting_balance: "ميزان المحاسبة المورد"
     supplier_accounts: "حسابات المموليين" #?
     supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?
     supplier_payment_delay: "تأخير دفع المورد"
     supplier_payment_mode: "طريقة الدفع المورد"
     supplier_payment_modes: "وسائل الدفع المورد"
+    supplier_trade_balance: "الميزان التجاري المورد"
     suppliers: "الممولين"
     support: "الدعم"
     support_nature: "نوع الدعم"
@@ -2431,6 +2436,7 @@ arb:
     tracking_id: "الحصة" #?
     tracking_serial: "رقم الحصة" #?
     trackings: "الحصص"
+    trade_balance: "الميزان التجاري"
     transaction_number: "رقم التحويلة"
     transfered_at: "نقلها في"
     transfered_on: "نقلها على"
