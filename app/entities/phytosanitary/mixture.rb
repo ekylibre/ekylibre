@@ -20,7 +20,7 @@ module Phytosanitary
       @groups.sort == groups.sort
     end
 
-    Incomplete = Struct.new(:code, :label, :groups, :allowed) do
+    Incomplete = Struct.new('IncompleteMixture', :code, :label, :groups, :allowed) do
       def between?(first, other)
         [first, other].any?(&:unknown?)
       end

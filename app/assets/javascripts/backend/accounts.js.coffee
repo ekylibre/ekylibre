@@ -2,46 +2,22 @@
   'use strict'
 
   $(document).ready ->
-    if $('#letters-visibility').is(':checked')
-      E.accounts.changeUnmarkVisibility()
+    $('input[data-mask-lettered-items]').each ->
+      console.log "Yeah"
+      E.accounts.toggleLetteredItemsVisibility.call($(this))
 
-    $('#letters-visibility').on 'click', (e) ->
-      E.accounts.changeUnmarkVisibility()
-
-    $('#label-letters-visibility').on 'click', (e) ->
-      if $('#letters-visibility').is(':checked')
-        $('#letters-visibility').prop('checked', false)
-      else
-        $('#letters-visibility').prop('checked', true)
-
-      $.ajax
-        url: ($('#letters-visibility').data('preference-url'))
-        type: 'PATCH'
-        data: 
-          checked: $('#letters-visibility').is(':checked')
-        success: (data, status, request) ->
-          console.log data
-
-      E.accounts.changeUnmarkVisibility()
-
-    $('#letters-visibility').on 'change', (e) ->
-      $.ajax
-        url: ($('#letters-visibility').data('preference-url'))
-        type: 'PATCH'
-        data: 
-          checked: $('#letters-visibility').is(':checked')
-        success: (data, status, request) ->
-          console.log data
+    $('input[data-mask-lettered-items]').on 'change', (e) ->
+      E.accounts.toggleLetteredItemsVisibility.call($(this))
 
   E.accounts =
-    changeUnmarkVisibility: ->
-      unmarkLines = $('.active-list .unmark').closest('tr')
-
-      if unmarkLines.is(':visible')
-        unmarkLines.hide()
-      else
-        unmarkLines.show()
-
-
+    toggleLetteredItemsVisibility: ->
+      input = $(this)
+      list = $(input.data('mask-lettered-items'))
+      list.toggleClass('mask-lettered-items', input.is(':checked'))
+      $.ajax
+        url: input.data('preference-url')
+        type: 'PATCH'
+        data:
+          masked: input.is(':checked') ? 'true' : 'false'
 
 ) ekylibre, jQuery

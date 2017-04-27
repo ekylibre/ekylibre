@@ -1825,6 +1825,47 @@ ALTER SEQUENCE dashboards_id_seq OWNED BY dashboards.id;
 
 
 --
+-- Name: debt_transfers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE debt_transfers (
+    id integer NOT NULL,
+    affair_id integer NOT NULL,
+    debt_transfer_affair_id integer NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0,
+    number character varying,
+    nature character varying NOT NULL,
+    currency character varying NOT NULL,
+    journal_entry_id integer,
+    accounted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: debt_transfers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE debt_transfers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: debt_transfers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE debt_transfers_id_seq OWNED BY debt_transfers.id;
+
+
+--
 -- Name: deliveries; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3529,7 +3570,8 @@ CREATE TABLE journal_entry_items (
     tax_declaration_item_id integer,
     resource_id integer,
     resource_type character varying,
-    resource_prism character varying
+    resource_prism character varying,
+    variant_id integer
 );
 
 
@@ -3782,7 +3824,8 @@ CREATE TABLE loan_repayments (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    accountable boolean DEFAULT false NOT NULL
+    accountable boolean DEFAULT false NOT NULL,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -3841,7 +3884,9 @@ CREATE TABLE loans (
     insurance_account_id integer,
     use_bank_guarantee boolean,
     bank_guarantee_account_id integer,
-    bank_guarantee_amount integer
+    bank_guarantee_amount integer,
+    accountable_repayments_started_on date,
+    initial_releasing_amount boolean DEFAULT false NOT NULL
 );
 
 
@@ -6830,6 +6875,13 @@ ALTER TABLE ONLY dashboards ALTER COLUMN id SET DEFAULT nextval('dashboards_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY debt_transfers ALTER COLUMN id SET DEFAULT nextval('debt_transfers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY deliveries ALTER COLUMN id SET DEFAULT nextval('deliveries_id_seq'::regclass);
 
 
@@ -7877,6 +7929,14 @@ ALTER TABLE ONLY custom_fields
 
 ALTER TABLE ONLY dashboards
     ADD CONSTRAINT dashboards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: debt_transfers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY debt_transfers
+    ADD CONSTRAINT debt_transfers_pkey PRIMARY KEY (id);
 
 
 --
@@ -10395,6 +10455,48 @@ CREATE INDEX index_dashboards_on_updater_id ON dashboards USING btree (updater_i
 
 
 --
+-- Name: index_debt_transfers_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_affair_id ON debt_transfers USING btree (affair_id);
+
+
+--
+-- Name: index_debt_transfers_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_created_at ON debt_transfers USING btree (created_at);
+
+
+--
+-- Name: index_debt_transfers_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_creator_id ON debt_transfers USING btree (creator_id);
+
+
+--
+-- Name: index_debt_transfers_on_debt_transfer_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_debt_transfer_affair_id ON debt_transfers USING btree (debt_transfer_affair_id);
+
+
+--
+-- Name: index_debt_transfers_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_updated_at ON debt_transfers USING btree (updated_at);
+
+
+--
+-- Name: index_debt_transfers_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_debt_transfers_on_updater_id ON debt_transfers USING btree (updater_id);
+
+
+--
 -- Name: index_deliveries_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12541,6 +12643,13 @@ CREATE INDEX index_journal_entry_items_on_updated_at ON journal_entry_items USIN
 --
 
 CREATE INDEX index_journal_entry_items_on_updater_id ON journal_entry_items USING btree (updater_id);
+
+
+--
+-- Name: index_journal_entry_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_variant_id ON journal_entry_items USING btree (variant_id);
 
 
 --
@@ -16444,6 +16553,14 @@ CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF l
 
 
 --
+-- Name: fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY journal_entry_items
+    ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id);
+
+
+--
 -- Name: fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17023,9 +17140,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170315221501');
 
 INSERT INTO schema_migrations (version) VALUES ('20170316085711');
 
-INSERT INTO schema_migrations (version) VALUES ('20170320113139');
-
 INSERT INTO schema_migrations (version) VALUES ('20170328125742');
 
 INSERT INTO schema_migrations (version) VALUES ('20170407143621');
+
+INSERT INTO schema_migrations (version) VALUES ('20170408094408');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413073501');
 

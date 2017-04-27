@@ -6,7 +6,8 @@ namespace :http do
       errors = {
         not_found: 404,
         unprocessable_entity: 422,
-        internal_server_error: 500
+        internal_server_error: 500,
+        maintenance: 'maintenance'
       }
 
       path = Rails.root.join('lib', 'tasks', 'http', 'errors', 'error.haml')

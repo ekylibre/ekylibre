@@ -466,6 +466,7 @@ arb:
         subcontracting_expenses: "نفقات التعاقد من الباطن"
         subsidies: "الدعم"
         subsidy_to_receive: "دعم لتلقي"
+        sundry_debtors_and_creditors: "المدينين والدائنين المتنوعة"
         suppliers: "الموردين"
         suppliers_balance_after_compensation: "الموردين التوازن بعد تعويض"
         suppliers_invoices_not_received: "فواتير الموردين لم تتلق"

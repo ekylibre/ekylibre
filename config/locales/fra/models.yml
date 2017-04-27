@@ -374,6 +374,7 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       dashboard: "Tableau de bord"
+      debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
       delivery_tool: "Outil de livraison"
       deposit: "Remise en banque"
@@ -786,6 +787,9 @@ fra:
     deals_count: "Nombre de transations"
     death: "Mort" #?
     debit: "Débit"
+    debt_regularizations: "Régularisations de dettes"
+    debt_transfer_affair: "Affaire de transfert de dettes"
+    debt_transfers: "Transferts de dettes"
     debtor: "Debiteur"
     decimal: "Décimal" #?
     decimal_value: "Valeur décimale"
@@ -872,7 +876,6 @@ fra:
     employment: "Emploi/Rôle"
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
-    end_due_date: "Fin date d'échéance" #?
     end_junction: "Jonction finale" #?
     end_of_life_reason: "Raison de fin de vie"
     end_way: "Voie finale" #?
@@ -1461,7 +1464,7 @@ fra:
     provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
-    purchase_affair: "Affaire d’achat"
+    purchase_affair: "Affaire d’achat" #?
     purchase_affairs: "Affaires d'achat"
     purchase_amount: "Montant d’achat"
     purchase_invoices: "Factures d’achats"
@@ -1635,7 +1638,6 @@ fra:
     sql_type: "Type SQL"
     ssl: "Ssl"
     start: "Début"
-    start_due_date: "Début date d'échéance" #?
     start_junction: "Jonction de départ" #?
     start_way: "Voie de départ" #?
     started_at: "Débuté le"
@@ -1722,6 +1724,8 @@ fra:
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
+    to_pay_on_or_after: "Début date d'échéance"
+    to_pay_on_or_before: "Fin date d'échéance"
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
