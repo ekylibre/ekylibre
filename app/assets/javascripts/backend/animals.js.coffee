@@ -77,6 +77,8 @@
         $.post $('*[data-keep-animals-path]').first().data('keep-animals-path'), id: Object.keys(@selectedItemsIndex).join(',') , (data) =>
           @keeper_id = data.id if data.id? and data.id
 
+        $.get $('*[data-matching-interventions-path]').first().data('matching-interventions-path'), id: Object.keys(@selectedItemsIndex).join(',')
+
 
       @resetSelectedItems = =>
         for id, item  of @selectedItemsIndex

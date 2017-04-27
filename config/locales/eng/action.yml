@@ -22,6 +22,7 @@ eng:
       index: "Accounting plans"
       load: "Load an accounting plan"
       mark: "Reconciliate account: %{number} - %{name}"
+      # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
@@ -80,6 +81,7 @@ eng:
       index: "Animals"
       # keep: "Keep animal: %{name}"
       # load_animals: "Load animals animal: %{name}"
+      # matching_interventions: "Matching interventions animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
@@ -194,6 +196,12 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
+    backend/debt_transfers:
+      # debt_transfer_params: "Debt transfer params debt transfer: %{name}"
+      # edit: "Edit debt transfer: %{name}"
+      index: "Debt transfers"
+      new: "New debt transfer"
+      show: "Debt transfer: %{number}"
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -236,6 +244,7 @@ eng:
       export: "Export people" #?
       import: "Import people"
       index: "People"
+      # mask_lettered_items: "Mask lettered items entity: %{name}"
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
@@ -282,15 +291,22 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
-      generate_last_journal_entry: "Generate last journal entry of %{code}"
+      generate_last_journal_entry: "Generate last journal entry of %{code}" #?
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
+    backend/fixed_asset_depreciations:
+      # show: "Fixed asset depreciation: %{name}"
     backend/fixed_assets:
+      # depreciate: "Depreciate fixed asset: %{name}"
+      # depreciate_up_to: "Depreciate up to fixed asset: %{name}"
       edit: "Edit fixed asset: %{name}"
       index: "Fixed assets"
       new: "New fixed asset"
+      # scrap: "Scrap fixed asset: %{name}"
+      # sell: "Sell fixed asset: %{name}"
       show: "Fixed asset: %{name}"
+      # start_up: "Start up fixed asset: %{name}"
     backend/fungi:
       edit: "Edit fungus: %{name}"
       index: "Fungi"
@@ -352,6 +368,7 @@ eng:
       new: "New product grading"
       show: "Product grading\_: %{number}"
     backend/integrations:
+      # check: "Check integration: %{name}"
       edit: "Edit integration: %{name}"
       index: "Integrations"
       new: "Activate integration: %{name}"
@@ -434,12 +451,17 @@ eng:
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
+      edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
       # index: "Loan repayments"
+      # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
     backend/loans:
+      # accounting: "Accounting loan: %{name}"
+      # confirm: "Confirm loan: %{name}"
       edit: "Edit loan: %{name}"
       index: "Loans"
       new: "New loan"
+      # repay: "Repay loan: %{name}"
       show: "Loan: %{name}"
     backend/manure_management_plans:
       edit: "Edit manure management plan: %{name}"
@@ -891,9 +913,11 @@ eng:
   labels:
     access: "Access"
     access_parameters: "Access parameters"
+    account_for: "Account for"
     accountancy: "Accountancy"
     accountancy_balance: "Accountancy balance"
     accountancy_preferences: "Accountancy preferences"
+    accounting: "Accounting"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -966,6 +990,11 @@ eng:
     add_website: "Add website"
     add_working_period: "Add working period"
     add_x: "Add “%{x}”"
+    added_value: "Added value"
+    advance_charges: "Advance charges" #?!
+    advance_giveables: "Advance giveables" #?!
+    advance_products: "Advance products" #?!
+    advance_receivables: "Advance receivables" #?!
     affair: "Affair"
     affair_number: "Affair number" #?
     affairs: "Affairs" #?
@@ -981,6 +1010,7 @@ eng:
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     analytic_preferences: "Analytic preferences"
+    anew_reports: "Anew report" #?!
     animal_details: "Animal details" #?!
     # animal_management: "Animal management"
     animals: "Animals"
@@ -995,6 +1025,12 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    asset_exists: "Asset exists"
+    assets: "Assets" #?
+    assets_gaps: "Assets gaps" #??
+    associate_debts: "Associate debts" #?!
+    associate_locked_debts: "Associate locked debts" #?!
+    associate_receivables: "Associate receivables" #?!
     at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
@@ -1008,10 +1044,13 @@ eng:
     balance: "Balance"
     balance_of_selection: "Balance of selection"
     bank_account: "Bank account"
+    # bank_guarantees: "Bank guarantees"
     bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)" #?
     beginning: "Beginning"
+    beta: "Beta feature"
+    beta_description: "This feature is currently under development and as such its results should not be taken at face value."
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
@@ -1028,9 +1067,12 @@ eng:
     cancelation: "Cancelation"
     cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
+    capitalised_production: "Capitalised production" #?!
+    capitals: "Capitals" #?!
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
+    cashe_debts: "Cashe debts" #?!
     cashes_balance: "Cashes balance"
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting" #?
@@ -1044,6 +1086,7 @@ eng:
     change_password: "Change password"
     change_state: "Change state"
     change_status_of_selected_interventions: "Change the status of selected interventions"
+    charge_value: "Charge value"
     chart: "Chart"
     check: "Check" #?
     children: "Children"
@@ -1057,6 +1100,7 @@ eng:
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
+    client_receivables: "Client receivables" #?!
     close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
@@ -1073,6 +1117,7 @@ eng:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    connect: "Connect"
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
@@ -1087,6 +1132,7 @@ eng:
     copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
+    corporeal_assets: "Corporeal assets" #?
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
@@ -1116,7 +1162,9 @@ eng:
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     currency_conversion_rate: "Currency conversion rate"
     current: "Current"
+    current_assets: "Current assets" #?!
     current_cultivation: "Current cultivation"
+    current_result_before_taxe: "Current result before taxe" #?!
     current_stocks_by_variety: "Current stocks by variety" #?
     currently_subscribed_to: "Currently subscribed to"
     custom_fields: "Custom fields"
@@ -1128,7 +1176,8 @@ eng:
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
-    debts_on_assets: "Debts on assets %{financial_year}"
+    debts: "Debts" #?!
+    debts_on_assets: "Debts on assets %{financial_year}" #?!
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
     default_letter_function_title: "Dear madam, dear sir"
@@ -1138,6 +1187,7 @@ eng:
     deformity: "Deformity" #?
     deformity_percentage: "Deformity (%)" #?
     deformity_percentage_evolution: "Deformity percentage evolution"
+    delay: "Delay"
     delete: "Delete"
     delete_only_record: "Or only delete the selected intervention(s) and display the request associate ?" #?
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
@@ -1151,6 +1201,8 @@ eng:
     deposits: "Deposits" #?
     depreciation: "Depreciation"
     depreciations: "Depreciations"
+    depreciations_inputations_expenses: "Depreciations inputations expenses" #?
+    derogatory_depreciations: "Derogatory depreciations" #?!
     description: "Description" #?
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
@@ -1174,7 +1226,10 @@ eng:
     documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done" #?
-    dont_use_journal: "— Do not use journal —"
+    dont_generate_carrying_forward_entries: "— Do not generate carrying forward entries —"
+    dont_generate_closure_entries: "— Do not generate closure entries —"
+    dont_use_journal: "— Do not use journal —" #?!
+    # dose: "Dose"
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
@@ -1186,7 +1241,10 @@ eng:
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
     email: "Email:" #?
+    emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
+    employee_and_wages: "Employee and wages" #?!
     employee_informations: "Employee informations"
+    employee_involvement: "Employee involvement" #?!
     end: "to" #?
     entities: "Entities"
     entity_links: "Entity links" #?
@@ -1198,6 +1256,7 @@ eng:
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
+    equities: "Equities" #?!
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
@@ -1209,6 +1268,9 @@ eng:
     events: "Events"
     evolution: "Evolution"
     example: "Example: %{value}" #?
+    exceptional_expenses: "Exceptional expenses" #?!
+    exceptional_products: "Exceptional products" #?!
+    exceptional_result: "Exceptional result" #?!
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     exchanges: "Exchanges"
@@ -1219,17 +1281,25 @@ eng:
     expenses_by_product_nature_category: "Expenses by product nature category" #?
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
+    exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
+    export_as_csv: "Export as CSV"
+    export_as_ods: "Export as ODS"
+    export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
     filter: "Filter" #?
     final_balance: "Final balance"
-    financials_assets: "Financials assets"
+    financial_assets: "Financial assets" #?
+    financial_expenses: "Financial expenses" #??
+    financial_products: "Financial products" #??
+    # financials_assets: "Financials assets"
     finish: "Finish" #?
     finished: "Finished"
     first_line_as_title: "First line as title"
+    fixed_asset_debts: "Fixed asset debts" #?!
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
@@ -1243,6 +1313,7 @@ eng:
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     generate_parcel: "Generate parcel"
+    generate_repayments: "Pass bookkeeping" #?
     geolocation: "Geolocation" #?
     global_preferences: "Global preferences"
     go: "Go" #?
@@ -1279,6 +1350,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    incorporeal_assets: "Incorporeal assets" #?
     indicative_group_size: "Indicative group size"
     indicator: "Indicators"
     indicator_value: "Indicator value"
@@ -1296,6 +1368,7 @@ eng:
     interval: "Personalized Interval" #?
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
+    intervention_message_miscibility: "Mixing allowed"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
@@ -1304,6 +1377,9 @@ eng:
     invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
+    inventory_variations: "Inventory variations" #?
+    investment_security: "Investment security" #?!
+    investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
@@ -1353,15 +1429,22 @@ eng:
     last_sales: "Last sales"
     letter: "Letter" #?
     letterable: "Letterable"
+    lettered: "Lettered" #?
+    lettering_state: "Lettering state"
+    liabilities: "Liabilities" #?!
+    liabilities_gaps: "Liabilities gaps" #?!
+    liability_reserves: "Liability reserves" #?!
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
-    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
+    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}" #?!
     list: "List" #?
     load: "Load"
+    loans_debts: "Loans debts" #?!
     locale: "Language"
     localization: "Localization" #?
     lock: "Lock" #?
+    losses: "Losses" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
     mails:
@@ -1370,6 +1453,7 @@ eng:
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
+    mandatory_provisions: "Mandatory provisions" #?!
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
@@ -1378,20 +1462,25 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements"
+    mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
+    maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
+    merchandises_purchases: "Merchandises purchases" #?!
+    merchandises_purchases_stocks_variation: "Merchandises purchases stocks variation" #?!
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
+    minimum_amount: "Minimum amount"
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
     model: "Model" #?
     modes: "Modes" #?
+    month: "Month" #?
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
@@ -1401,7 +1490,9 @@ eng:
     nature: "Type"
     nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
+    net_income: "Net income"
     net_mass: "Net mass"
+    # net_production_sales: "Net production sales"
     net_surface_area: "Net surface area"
     new: "New"
     new_activity: "New activity"
@@ -1468,13 +1559,19 @@ eng:
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
     operating_margin: "Operating margin %{financial_year}"
-    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}"
-    operating_profit: "Operating profit %{financial_year}"
+    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}" #?
+    operating_profit: "Operating profit %{financial_year}" #?!
     operations: "Operations" #?
     options: "Options"
     or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
+    other_debts: "Other debts" #?!
+    other_expenses: "Other expenses" #??
+    other_financial_debts: "Other financial debts" #?!
+    other_products: "Other products" #?!
+    other_purchases: "Other purchases" #??
+    other_receivables: "Other receivables" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
@@ -1485,14 +1582,16 @@ eng:
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
+    parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
+    partially_lettered: "Partially lettered" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
     password: "Password" #?
-    payable_taxes: "Payable taxes"
+    payable_taxes: "Payable taxes" #?
     payment_amount: "Amount of payment" #?
     payment_at: "Payment on" #?
     payment_conditions: "Payment conditions"
@@ -1509,6 +1608,7 @@ eng:
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     phosphorus_concentration: "Phosphorus concentration" #?
+    # phyto_data: "Phyto data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -1545,17 +1645,27 @@ eng:
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
+    productions_sales: "Productions sales" #??
     products: "Products"
+    products_purchases: "Products purchases" #??
+    products_sales: "Products sales" #??
     profile: "Profile"
+    profit_and_loss: "Profit and loss"
+    profit_or_loss: "Fiscal year result" #?!
+    profit_taxe: "Profit taxe" #??
+    profits: "Profits" #?
     profits_and_losses: "Profits and losses"
+    provisions_revenues: "Provisions revenues" #?!
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
+    purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity" #?
     query: "Query:" #?
+    raw_income: "Raw income"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
     ready: "Ready"
@@ -1579,12 +1689,14 @@ eng:
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
+    repayment_period: "Repayment period"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
     request: "Request" #?
     request_maintenance: "Request maintenance"
     requests: "Requests"
+    reserve: "Reserve" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
@@ -1595,6 +1707,7 @@ eng:
     revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
     rights: "Rights"
+    risk_and_charges_provisions: "Risk and charges provisions" #?!
     role: "Role" #?
     roles: "Roles" #?
     rss: "RSS" #?
@@ -1612,6 +1725,7 @@ eng:
     save_in_draft: "Save as draft"
     saved_but_couldnt_letter_x_and_y: "Successfully saved %{trade} and %{payment} but couldn't letter them."
     scheduled: "Scheduled" #?
+    scrapped_on: "Scrapped on"
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
@@ -1623,8 +1737,9 @@ eng:
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
-    select_forward_journal: "Selected Journal to renew"
+    select_forward_journal: "Selected Journal to renew" #??
     selection: "Selection" #?
+    semester: "Semester" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
@@ -1640,11 +1755,16 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
+    social_debts: "Social debts" #?!
+    social_expenses: "Social expenses" #?!
+    sold_on: "Sold on"
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
     state: "State"
+    state_debts: "State debts" #?!
+    state_receivables: "State receivables" #?!
     statistics: "Statistics" #?
     stewardship: "Stewardship"
     stock: "Stock" #?
@@ -1656,6 +1776,7 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     stopped: "Stopped"
+    stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
     submit: "Submit" #?
@@ -1665,11 +1786,13 @@ eng:
     subscription_nature: "Subscription type" #?
     subscriptions: "Subscriptions"
     subscriptions_evolution: "Subscriptions evolution" #?
+    subsidies: "Subsidies"
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
-    supplier: "Purchase prices of the supplier" #?
+    supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
+    supplier_receivables: "Supplier receivables" #?!
     supply: "Supply" #?
     support: "Support" #?
     supports: "Supports" #?
@@ -1680,6 +1803,8 @@ eng:
     tax_label: "Tax label" #?
     taxations: "Taxations"
     taxes: "Taxes"
+    taxes_and_wages: "Taxes and wages"
+    third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1750,11 +1875,14 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
+    trimester: "Trimester" #?
+    unbalanced_clients: "Unbalanced clients" #?
+    unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
-    undelivered_invoices: "Undelivered invoices" #?!
+    undelivered_invoices: "Undelivered invoices" #??
     undone: "Undone" #?
     uninvoiced: "Uninvoiced"
     unit: "Unit"
@@ -1763,6 +1891,7 @@ eng:
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
+    unlettered: "Unlettered" #?
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
@@ -1771,7 +1900,9 @@ eng:
     unpaid_purchases: "Unpaid purchases" #?
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
+    unsubcribed_capital: "Unsubcribed capital" #?!
     up: "Up" #?
+    up_to: "Up to"
     update: "Update"
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
@@ -1792,6 +1923,7 @@ eng:
     vat: "VAT"
     view: "View"
     # vine_yield: "Vine yield"
+    wages: "Wages" #?
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
@@ -1807,6 +1939,9 @@ eng:
     x_cents:
       one: "%{count} cent"
       other: "%{count} cents"
+    x_client_journal_entry_items:
+      one: "%{count} clients journal entry item"
+      other: "%{count} clients journal entry items"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -1837,6 +1972,9 @@ eng:
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
+    x_fixed_assets:
+      one: "%{count} asset"
+      other: "%{count} assets"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1919,6 +2057,9 @@ eng:
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
+    x_supplier_journal_entry_items:
+      one: "%{count} suppliers journal entry item"
+      other: "%{count} suppliers journal entry items"
     x_tasks:
       one: "%{count} task"
       other: "%{count} tasks"
@@ -1948,6 +2089,7 @@ eng:
     x_years:
       one: "%{count} year"
       other: "%{count} years"
+    year: "Year" #?
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration" #?
     # yield_by_calibration_x: "Yield by calibration x"
@@ -1963,6 +2105,7 @@ eng:
       access_denied: "Access denied. %{reason} (%{url})"
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
+      # all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -1981,6 +2124,8 @@ eng:
       # could_not_attach_x_or_y_to_affair: "Could not attach x or y to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
+      depreciation_failed: "Assets could not be depreciated."
+      depreciation_successful: "Assets have been successfully depreciated."
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -1989,6 +2134,7 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
+      # error_while_depreciating: "Error while depreciating"
       exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -2020,6 +2166,7 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_fixed_assets_given: "No fixed assets given"
       no_inspections_given: "No inspections given"
       no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
@@ -2073,6 +2220,7 @@ eng:
     country: "Country"
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
+    default_depreciation_period: "Default depreciation period"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     distribute_sales_and_purchases_on_activities: "Distribute sales and purchases on activities"
     distribute_sales_and_purchases_on_teams: "Distribute sales and purchases on teams"
@@ -2084,6 +2232,7 @@ eng:
     permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
     supplier_account_radix: "Supplier account radix"
+    unbilled_payables: "Unbilled payables"
     use_contextual_help: "Use contextual help"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     use_global_search: "Use global search"
@@ -2091,6 +2240,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
@@ -2115,6 +2265,9 @@ eng:
       # csv: "Csv"
       # currency_state: "Currency state"
       # current: "Current"
+      # debt_transfer_params: "Debt transfer params"
+      # depreciate: "Depreciate"
+      # depreciate_up_to: "Depreciate up to"
       destroy: "Destroy"
       detach: "Detach"
       # detach_gaps: "Detach gaps"
@@ -2131,7 +2284,7 @@ eng:
       # failure: "Failure"
       family: "Family"
       finish: "Finish"
-      generate_last_journal_entry: "Generate last journal entry"
+      generate_last_journal_entry: "Generate last journal entry" #?
       give: "Give"
       import: "Import"
       incorporate: "Incorporate"
@@ -2150,6 +2303,8 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_lettered_items: "Mask lettered items"
+      # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"
       # models: "Models"
@@ -2181,9 +2336,11 @@ eng:
       refuse: "Refuse"
       renew: "Renew"
       reopen: "Reopen"
+      repay: "Repay"
       reset: "Reset"
       retrieve: "Retrieve"
       run: "Run"
+      # scrap: "Scrap"
       search: "Search" #?
       select: "Select"
       sell: "Turn into sale"
@@ -2192,6 +2349,7 @@ eng:
       sort: "Sort"
       star: "Star"
       start: "Start"
+      # start_up: "Start up"
       stop: "Stop" #?
       suspend: "Suspend"
       take: "Take"

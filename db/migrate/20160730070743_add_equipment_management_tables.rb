@@ -34,8 +34,8 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       t.references :parent, index: true
       t.datetime :deleted_at
       t.string :name, null: false
-      t.index [:name, :product_nature_variant_id], unique: true,
-                                                   name: :index_product_nature_variant_name_unique
+      t.index %i[name product_nature_variant_id], unique: true,
+                                                  name: :index_product_nature_variant_name_unique
       t.index :product_nature_variant_id,
               name: :index_product_nature_variant_components_on_variant
       t.index :part_product_nature_variant_id,

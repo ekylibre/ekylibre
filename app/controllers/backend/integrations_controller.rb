@@ -21,13 +21,13 @@ module Backend
         return
       end
       @integration = Integration.new(nature: params[:nature], parameters: (params[:parameters] || {}))
-      t3e(@integration.attributes.merge(name: @integration.nature.camelize))
+      t3e(@integration.attributes.merge(name: @integration.name))
       render(locals: { cancel_url: :back })
     end
 
     def edit
       return unless @integration = find_and_check(:integration)
-      t3e(@integration.attributes.merge(name: @integration.nature.camelize))
+      t3e(@integration.attributes.merge(name: @integration.name))
       render(locals: { cancel_url: :back })
     end
 
@@ -38,17 +38,29 @@ module Backend
 
     def create
       @integration = resource_model.new(permitted_params)
-      t3e(@integration.attributes.merge(name: @integration.nature.camelize))
+      t3e(@integration.attributes.merge(name: @integration.name))
       return if save_and_redirect(@integration, url: :backend_integrations)
       render(locals: { cancel_url: :backend_integrations })
     end
 
     def update
       return unless @integration = find_and_check(:integration)
-      t3e(@integration.attributes.merge(name: @integration.nature.camelize))
+      t3e(@integration.attributes.merge(name: @integration.name))
       @integration.attributes = permitted_params
       return if save_and_redirect(@integration, url: :backend_integrations)
       render(locals: { cancel_url: :back })
+    end
+
+    def check
+      unless params[:nature]
+        head :unprocessable_entity
+        return
+      end
+      @integration = Integration.find_or_initialize_by(nature: params[:nature])
+      @integration.parameters[:access_token] = params[:access_token]
+      @integration.parameters[:token_type] = params[:token_type] if params[:token_type]
+      @integration.save!
+      redirect_to action: :index
     end
   end
 end

@@ -38,7 +38,7 @@ module Backend
     #   :q Text search
     def self.entities_conditions
       code = ''
-      code = search_conditions(entities: [:number, :full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+      code = search_conditions(entities: %i[number full_name], entity_addresses: [:coordinate]) + " ||= []\n"
 
       code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
 
@@ -156,19 +156,6 @@ module Backend
       t.column :started_at, through: :event, datatype: :datetime
     end
 
-    list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
-      t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
-      t.column :number, url: true
-      t.column :paid_at
-      t.column :responsible, hidden: true
-      t.column :mode
-      t.column :bank_name, hidden: true
-      t.column :bank_check_number, hidden: true
-      t.column :amount, currency: true, url: true
-      t.column :deposit, url: true, hidden: true
-    end
-
     list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_id = ? OR #{EntityLink.table_name}.linked_id = ?)", 'params[:id]'.c, 'params[:id]'.c], per_page: 5) do |t|
       t.action :edit
       t.action :destroy
@@ -196,15 +183,30 @@ module Backend
       t.column :creator
     end
 
+    list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :paid_at
+      t.column :responsible, hidden: true
+      t.column :mode
+      t.column :bank_name, hidden: true
+      t.column :bank_check_number, hidden: true
+      t.column :amount, currency: true, url: true
+      t.column :deposit, url: true, hidden: true
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+    end
+
     list(:outgoing_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
       t.action :edit
-      t.action :destroy, if: :destroyable?
+      t.action :destroy
       t.column :number, url: true
       t.column :paid_at
       t.column :responsible, hidden: true
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
 
     list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
@@ -286,6 +288,56 @@ module Backend
       t.column :due_at
       t.column :sale_opportunity, url: true
       t.column :executor, url: true
+    end
+
+    def self.entities_moves_client_conditions(params)
+      code = ''
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
+      code << "c << Entity.find(#{params[:id]}).client_account_id\n"
+      code << "c\n"
+      eval code
+    end
+
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :journal, url: true
+      t.column :entry_number, url: true
+      t.column :printed_on, datatype: :date, label: :column
+      t.column :name
+      t.column :variant, url: true
+      t.column :state_label
+      t.column :letter
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
+    end
+
+    def self.entities_moves_supplier_conditions(params)
+      code = ''
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
+      code << "c << Entity.find(#{params[:id]}).supplier_account_id\n"
+      code << "c\n"
+      eval code
+    end
+
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :journal, url: true
+      t.column :entry_number, url: true
+      t.column :printed_on, datatype: :date, label: :column
+      t.column :name
+      t.column :variant, url: true
+      t.column :state_label
+      t.column :letter
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
     end
 
     def toggle
@@ -371,6 +423,14 @@ module Backend
           notify_error_now(:cannot_merge_entities)
         end
       end
+    end
+
+    def mask_lettered_items
+      preference_name = 'backend/entities'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
     end
   end
 end

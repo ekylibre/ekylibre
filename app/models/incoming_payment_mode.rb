@@ -104,7 +104,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   end
 
   def self.load_defaults
-    %w(cash check transfer).each do |nature|
+    %w[cash check transfer].each do |nature|
       cash_nature = nature == 'cash' ? :cash_box : :bank_account
       cash = Cash.find_by(nature: cash_nature)
       next unless cash

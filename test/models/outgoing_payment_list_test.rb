@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -155,9 +156,14 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   end
 
   test 'destroy with all bank_statement_letter blank' do
-    JournalEntryItem.where(entry_id: @list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
-    assert(@list.destroy)
-    assert_raise(ActiveRecord::RecordNotFound) { @list.reload }
+    list = OutgoingPaymentList.all.detect do |l|
+      JournalEntryItem.where(entry_id: l.payments.select(:entry_id))
+                      .where(state: :closed).empty?
+    end
+    assert list, 'Cannot find a destroyable list'
+    JournalEntryItem.where(entry_id: list.payments.select(:entry_id)).update_all(bank_statement_letter: nil)
+    assert(list.remove)
+    assert_raise(ActiveRecord::RecordNotFound) { list.reload }
   end
 
   test 'generate from purchase affairs' do

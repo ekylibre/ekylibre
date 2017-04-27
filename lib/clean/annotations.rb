@@ -33,7 +33,7 @@ module Clean
       end
 
       def validable_column?(column)
-        ![:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+        !%i[created_at creator_id creator updated_at updater_id updater position lock_version].include?(column.name.to_sym)
       end
 
       # Use the column information in an ActiveRecord class
@@ -135,7 +135,7 @@ module Clean
 
         Clean::Support.set_search_path!
 
-        types  = [:models, :fixtures, :model_tests]
+        types  = %i[models fixtures model_tests]
         types &= [options.delete(:only)].flatten if options[:only]
         types -= [options.delete(:except)].flatten if options[:except]
 

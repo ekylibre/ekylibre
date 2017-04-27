@@ -1,3 +1,5 @@
+- navigation resource, order: :full_name, naming_method: :label, scope: resource.nature.pluralize.to_sym
+
 - main_toolbar do |t|
   = t.export :entity_sheet
   = t.edit resource
@@ -188,4 +190,60 @@
         - if resource.outgoing_payments.any?
           = cobble_list(:outgoing_payments)
 
+      - c.cobble(:client_journal_entry_items, title: :x_client_journal_entry_items.tl(count: resource.client_journal_entry_items.count)) do
+        = cobble_toolbar do |t|
+          -#= t.new(params: {controller: :journal_entries})
+        - if resource.client_journal_entry_items.any?
 
+          - items = JournalEntryItem.joins(:entry).where(controller.class.entities_moves_client_conditions(params))
+          - totals = {}
+          - totals[:debit]  = items.sum(:absolute_debit)
+          - totals[:credit] = items.sum(:absolute_credit)
+          - totals[:balance_debit] = totals[:balance_credit] = 0.0
+          - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
+
+          = cobble_list(:client_journal_entry_items) do
+            - currency = Preference[:currency]
+            %tr.total
+              %th{colspan: 6}= :total.tl
+              %td.value= totals[:debit].l(currency: currency)
+              %td.value= totals[:credit].l(currency: currency)
+              %th
+            %tr.total
+              %th{colspan: 6}= :balance.tl
+              %td.value= totals[:balance_debit].l(currency: currency)
+              %td.value= totals[:balance_credit].l(currency: currency)
+              %th
+
+          - content_for 'cobble_client-journal-entry-items_meta_toolbar'.to_sym do
+            .active-list-actions
+              = mask_lettered_items_button('client_journal_entry_items-list')
+
+      - c.cobble(:supplier_journal_entry_items, title: :x_supplier_journal_entry_items.tl(count: resource.supplier_journal_entry_items.count)) do
+        = cobble_toolbar do |t|
+          -#= t.new(params: {controller: :journal_entries})
+        - if resource.supplier_journal_entry_items.any?
+
+          - items = JournalEntryItem.joins(:entry).where(controller.class.entities_moves_supplier_conditions(params))
+          - totals = {}
+          - totals[:debit]  = items.sum(:absolute_debit)
+          - totals[:credit] = items.sum(:absolute_credit)
+          - totals[:balance_debit] = totals[:balance_credit] = 0.0
+          - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
+
+          = cobble_list(:supplier_journal_entry_items) do
+            - currency = Preference[:currency]
+            %tr.total
+              %th{colspan: 6}= :total.tl
+              %td.value= totals[:debit].l(currency: currency)
+              %td.value= totals[:credit].l(currency: currency)
+              %th
+            %tr.total
+              %th{colspan: 6}= :balance.tl
+              %td.value= totals[:balance_debit].l(currency: currency)
+              %td.value= totals[:balance_credit].l(currency: currency)
+              %th
+
+          - content_for 'cobble_supplier-journal-entry-items_meta_toolbar'.to_sym do
+            .active-list-actions
+              = mask_lettered_items_button('supplier_journal_entry_items-list')

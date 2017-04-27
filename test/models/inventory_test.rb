@@ -45,6 +45,12 @@ require 'test_helper'
 
 class InventoryTest < ActiveSupport::TestCase
   test_model_actions
+
+  setup do
+    @product = Product.first
+    @variant = @product.variant
+  end
+
   test 'refresh' do
     FinancialYear.delete_all
     year = FinancialYear.create!(
@@ -58,5 +64,28 @@ class InventoryTest < ActiveSupport::TestCase
     inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15), financial_year: year)
     inventory.refresh!
     inventory.reflect
+  end
+
+  test 'Test variant specified when bookkeep' do
+    FinancialYear.delete_all
+
+    year = FinancialYear.create!(
+      closed: false,
+      code: 'inventory_test',
+      currency: 'EUR',
+      currency_precision: 2,
+      started_on: Date.civil(2015, 1, 1),
+      stopped_on: Date.civil(2015, 12, 31)
+    )
+
+    inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15), financial_year: year)
+    inventory.items.create!(product: @product, actual_population: 4, expected_population: 10, unit_pretax_stock_amount: 10)
+    inventory.refresh!
+    inventory.reflect
+
+    journal_entry_items = inventory.journal_entry.items
+
+    # jei_s variant must be defined
+    assert_not journal_entry_items.map(&:variant_id).include? nil
   end
 end

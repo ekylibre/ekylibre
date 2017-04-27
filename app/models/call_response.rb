@@ -27,7 +27,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  format       :string
-#  headers      :string
+#  headers      :text
 #  id           :integer          not null, primary key
 #  ip_address   :string
 #  lock_version :integer          default(0), not null
@@ -60,7 +60,7 @@ class CallResponse < CallMessage
     r.save!
     r
   rescue ActiveRecord::RecordInvalid => e
-    raise e unless r.errors.messages[:body].present?
+    raise e if r.errors.messages[:body].blank?
     create!(
       nature: :outgoing, # Because we come from a controller here.
       status: response.status,
@@ -83,7 +83,7 @@ class CallResponse < CallMessage
     r.save!
     r
   rescue ActiveRecord::RecordInvalid => e
-    raise e unless r.errors.messages[:body].present?
+    raise e if r.errors.messages[:body].blank?
     create!(
       nature: :incoming, # Because we are receiving an answer.
       status: response.code,
@@ -100,13 +100,13 @@ class CallResponse < CallMessage
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
-      format: response.headers['content-type'].split(';').first,
+      format: response.headers['Content-Type'].split(';').first,
       request: request
     )
     r.save!
     r
   rescue ActiveRecord::RecordInvalid => e
-    raise e unless r.errors.messages[:body].present?
+    raise e if r.errors.messages[:body].blank?
     create!(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,

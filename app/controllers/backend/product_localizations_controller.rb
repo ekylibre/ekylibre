@@ -18,6 +18,6 @@
 
 module Backend
   class ProductLocalizationsController < Backend::BaseController
-    manage_restfully except: [:index, :show]
+    manage_restfully except: %i[index show]
   end
 end

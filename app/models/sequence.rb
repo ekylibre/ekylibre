@@ -41,8 +41,8 @@
 #
 
 class Sequence < Ekylibre::Record::Base
-  enumerize :period, in: [:cweek, :month, :number, :year]
-  enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :contracts, :deliveries, :deposits, :documents, :entities, :fixed_assets, :gaps, :incoming_payments, :inspections, :interventions, :inventories, :opportunities, :outgoing_payments, :outgoing_payment_lists, :parcels, :plants, :plant_countings, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions, :tax_declarations]
+  enumerize :period, in: %i[cweek month number year]
+  enumerize :usage, in: %i[affairs analyses animals campaigns cash_transfers contracts debt_transfers deliveries deposits documents entities fixed_assets gaps incoming_payments inspections interventions inventories opportunities outgoing_payments outgoing_payment_lists parcels plants plant_countings products product_natures product_nature_categories product_nature_variants purchases sales sales_invoices subscriptions tax_declarations]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :last_cweek, :last_month, :last_number, :last_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -63,20 +63,20 @@ class Sequence < Ekylibre::Record::Base
 
   class << self
     def of(usage)
-      unless sequence = find_by(usage: usage)
-        sequence = new(usage: usage)
-        sequence.name = begin
-                          sequence.usage.to_s.classify.constantize.model_name.human
-                        rescue
-                          sequence.usage
-                        end
-        sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map { |w| w[0..0] }.join.upcase + '[number|12]')
-        while find_by(number_format: sequence.number_format)
-          sequence.number_format = ('A'..'Z').to_a.sample + sequence.number_format
-        end
-        sequence.period = best_period_for(sequence.number_format)
-        sequence.save!
+      sequence = find_by(usage: usage)
+      return sequence if sequence
+      sequence = new(usage: usage)
+      sequence.name = begin
+                        sequence.usage.to_s.classify.constantize.model_name.human
+                      rescue
+                        sequence.usage
+                      end
+      sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map { |w| w[0..0] }.join.upcase + '[number|12]')
+      while find_by(number_format: sequence.number_format)
+        sequence.number_format = ('A'..'Z').to_a.sample + sequence.number_format
       end
+      sequence.period = best_period_for(sequence.number_format)
+      sequence.save!
       sequence
     end
 
@@ -117,7 +117,7 @@ class Sequence < Ekylibre::Record::Base
   end
 
   def used?
-    !usage.blank?
+    usage.present?
   end
 
   def last_value

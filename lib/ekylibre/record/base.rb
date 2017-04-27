@@ -113,7 +113,7 @@ module Ekylibre
         end
 
         def complex_scopes
-          (scopes || []).select { |x| !x.arity.zero? }
+          (scopes || []).reject { |x| x.arity.zero? }
         end
 
         # Permits to consider something and something_id like the same

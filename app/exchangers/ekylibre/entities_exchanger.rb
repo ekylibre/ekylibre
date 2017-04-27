@@ -10,7 +10,7 @@ module Ekylibre
         r = {
           first_name: row[0].blank? ? '' : row[0].to_s,
           last_name: row[1].blank? ? '' : row[1].to_s,
-          nature: (%w(person contact sir madam doctor professor sir_and_madam).include?(row[2].to_s.downcase) ? :contact : :organization),
+          nature: (%w[person contact sir madam doctor professor sir_and_madam].include?(row[2].to_s.downcase) ? :contact : :organization),
           client_account_number: row[3].blank? ? nil : row[3].to_s,
           supplier_account_number: row[4].blank? ? nil : row[4].to_s,
           address: row[5].to_s,
@@ -66,7 +66,7 @@ module Ekylibre
         end
 
         # Add SIREN, VAT or APE numbers if given
-        unless r.siren_number.blank?
+        if r.siren_number.present?
           if r.siren_number =~ /\A\d{9}\z/
             code = r.siren_number + '0001'
             person.siret_number = code + Luhn.control_digit(code).to_s
@@ -110,7 +110,7 @@ module Ekylibre
         end
 
         # Add email if given
-        person.emails.create!(coordinate: r.email) unless r.email.blank?
+        person.emails.create!(coordinate: r.email) if r.email.present?
 
         # Update account name
         natures = {

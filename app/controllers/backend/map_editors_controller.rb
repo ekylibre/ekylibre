@@ -5,7 +5,7 @@ module Backend
       geometries = {}
 
       uploaded = params[:import_file]
-      unless uploaded.blank?
+      if uploaded.present?
         format = params[:importer_format]
         geometries = import_shapes(uploaded, format)
       end
@@ -92,7 +92,6 @@ module Backend
         else
           return { error: 'invalid_format' }
         end
-
       rescue
         return { error: 'invalid_file' }
       end

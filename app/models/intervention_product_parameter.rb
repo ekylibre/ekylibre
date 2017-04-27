@@ -31,6 +31,7 @@
 #  event_participation_id   :integer
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
+#  identification_number    :string
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -71,7 +72,7 @@ class InterventionProductParameter < InterventionParameter
   has_one :event,    through: :intervention
 
   has_geometry :working_zone, type: :multi_polygon
-  composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit_name unit)]
+  composed_of :quantity, class_name: 'Measure', mapping: [%w[quantity_value to_d], %w[quantity_unit_name unit]]
 
   validates :quantity_indicator_name, :quantity_unit_name, presence: { if: :measurable? }
 
@@ -121,7 +122,7 @@ class InterventionProductParameter < InterventionParameter
         if reference.handled? && quantity_handler?
           errors.add(:quantity_handler, :invalid) unless reference.handler(quantity_handler)
         end
-      elsif !reference_name.blank?
+      elsif reference_name.present?
         errors.add(:reference_name, :invalid)
       end
     end
@@ -162,7 +163,7 @@ class InterventionProductParameter < InterventionParameter
     quantity_indicator_name == 'population'
   end
 
-  [:doer, :input, :output, :target, :tool].each do |role|
+  %i[doer input output target tool].each do |role|
     role_class_name = ('Intervention' + role.to_s.camelize).freeze
     define_method role.to_s + '?' do
       type.to_s == role_class_name

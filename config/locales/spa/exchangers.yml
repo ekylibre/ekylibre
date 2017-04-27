@@ -10,7 +10,7 @@ spa:
     ekylibre_activities: "Actividades Ekylibre"
     ekylibre_animal_groups: "Grupos de animales Ekylibre"
     ekylibre_animals: "Animales Ekylibre"
-    ekylibre_backup: "Copia de seguridad Ekylibre"
+    ekylibre_backup: "Copia de seguridad Ekylibre" #?
     ekylibre_bank_statements: "Estados de cuenta bancarios Ekylibre"
     ekylibre_budgets: "Presupuestos Ekylibre"
     ekylibre_buildings_json: "Edificios Ekylibre JSON"
@@ -36,6 +36,7 @@ spa:
     ekylibre_zones: "Zonas Ekylibre"
     fiea_galactea: "Galactea FIEA"
     isagri_isacompta_export: "Exportación isacompta Isagri"
+    isagri_isacompta_fixed_assets: "Isacompta activos fijos Isagri"
     isagri_isaculture_csv_import: "Isaculture Isagri importación csv"
     la_graine_informatique_vinifera_entities: "La graine entidades vinifera informatique"
     la_graine_informatique_vinifera_products: "La graine productos vinifera informatique"

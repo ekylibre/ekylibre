@@ -28,13 +28,13 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-    unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
+    unroll :name, :number, :work_number, :identification_number, container: :name # , 'population:!', 'unit_name:!'
 
     # params:
     #   :q Text search
     #   :working_set
     def self.list_conditions
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
@@ -111,6 +111,18 @@ module Backend
       t.column :intervention, url: true
       t.column :started_at
       t.column :stopped_at
+    end
+
+    # Lists fixed_assets of a product
+    list(:fixed_assets, conditions: { product_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :name, url: true
+      t.column :depreciable_amount, currency: true
+      t.column :net_book_value, currency: true
+      t.column :started_on
+      t.column :stopped_on
     end
 
     # Lists groups of the current product
@@ -213,7 +225,7 @@ module Backend
           value = value.convert(unit)
         end
         value = { unit: value.unit, value: value.to_d.round(4) }
-      elsif [:integer, :decimal].include? indicator.datatype
+      elsif %i[integer decimal].include? indicator.datatype
         value = { value: value.to_d.round(4) }
       end
       render json: value

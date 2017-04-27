@@ -1,5 +1,5 @@
 class UpdateAnimalGroupPopulationCounting < ActiveRecord::Migration
-  PRODUCT_NATURES = %w(
+  PRODUCT_NATURES = %w[
     bee_band
     bumblebee_band
     cattle_herd
@@ -20,7 +20,7 @@ class UpdateAnimalGroupPopulationCounting < ActiveRecord::Migration
     rabbit_herd
     salmon_band
     sheep_herd
-  ).freeze
+  ].freeze
 
   def up
     execute "UPDATE product_natures SET population_counting = 'unitary' WHERE reference_name IN (#{PRODUCT_NATURES.map { |v| quote(v) }.join(', ')})"

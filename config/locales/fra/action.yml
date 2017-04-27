@@ -168,6 +168,10 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
+    backend/debt_transfers:
+      index: "Transferts de dettes"
+      new: "Nouveau transfert de la dette"
+      show: "Transfert de dettes: %{number}"
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -237,7 +241,7 @@ fra:
       index: "Exports"
       show: "Export\_: %{name}"
     backend/financial_year_exchanges:
-      journal_entries_import: "Import d'échange comptable"
+      journal_entries_import: "Import d’échange comptable"
       new: "Nouvel échange"
       show: "Échange: %{stopped_on}"
     backend/financial_years:
@@ -327,10 +331,10 @@ fra:
       new: "Activer la connexion %{name}"
     backend/intervention_participations:
       convert: "Convert intervention participation: %{name}"
-      index: "Participations d'intervention"
+      index: "Participations d’intervention"
     backend/interventions:
       edit: "Modifier l’intervention"
-      edit_request: "Modifier la demande d'intervention"
+      edit_request: "Modifier la demande d’intervention"
       edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
       edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
@@ -375,7 +379,7 @@ fra:
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
     backend/labels:
-      edit: "Modifier l'étiquette\_: %{name}"
+      edit: "Modifier l’étiquette\_: %{name}"
       index: "Étiquettes"
       new: "Nouvelle étiquette"
       show: "Étiquette\_: %{name}"
@@ -407,6 +411,8 @@ fra:
       index: "Extractions"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
+    backend/loan_repayments:
+      edit: "Modifier le remboursement du %{due_on} de l’emprunt %{loan_name}"
     backend/loans:
       edit: "Modifier l’emprunt\_: %{name}"
       index: "Emprunts"
@@ -795,6 +801,7 @@ fra:
     account_debt: "Dettes" #?
     account_equity: "Capitaux propres" #?
     account_fixed_assets: "Actif immobilisé" #?
+    account_for: "Passer en comptabilité"
     account_inventories_assets: "Stocks" #?
     account_mark: "Lettrer le compte" #?
     account_other_assets: "Divers" #?
@@ -807,16 +814,17 @@ fra:
     accountancy: "Comptabilité"
     accountancy_balance: "Soldes intermédiaires de gestion et ratios"
     accountancy_preferences: "Préférences de la comptabilité"
+    accounting: "Passer en comptabilité"
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
     accounts_to_load: "Plan de compte à charger"
-    activate_entry_autocompletion: "Autocompléter l'écriture"
+    activate_entry_autocompletion: "Autocompléter l’écriture"
     active: "Actif"
     active_balance_sheet: "Bilan actif" #?
     active_current_sum: "Total actifs circulants" #?
-    active_finishing_after: "Actif dont l'abonnement se termine dans plus de"
-    active_finishing_within: "Actif dont l'abonnement se termine dans moins de"
+    active_finishing_after: "Actif dont l’abonnement se termine dans plus de"
+    active_finishing_within: "Actif dont l’abonnement se termine dans moins de"
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
     activities: "Activités"
@@ -846,7 +854,7 @@ fra:
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
-    add_grading_check: "Ajouter un critère d'agréage"
+    add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
     add_inspection_calibration_nature: "Ajouter un intervalle du calibre"
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
@@ -885,7 +893,12 @@ fra:
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
+    added_value: "Valeur ajoutée"
     address: "Adresse" #?
+    advance_charges: "Charges constatées d’avance"
+    advance_giveables: "Avances et acomptes versés"
+    advance_products: "Produits constatés d’avance"
+    advance_receivables: "Avances et acomptes reçus"
     affair: "Affaire"
     affair_number: "N° d’affaire"
     affairs: "Affaires"
@@ -910,6 +923,7 @@ fra:
     analytic_preferences: "Préférences analytiques"
     analytics: "Analytiques" #?
     and: "Et" #?
+    anew_reports: "Report à nouveau"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
@@ -933,8 +947,14 @@ fra:
     area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
+    asset_exists: "Immobilisation en cours existante"
+    assets: "Actifs"
+    assets_gaps: "Ecarts actifs"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
-    at_the_address: "À l'adresse"
+    associate_debts: "Comptes courants"
+    associate_locked_debts: "Comptes courants bloqués"
+    associate_receivables: "Créances associés - comptes courants"
+    at_the_address: "À l’adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
     attach_deal: "Ajouter une transaction"
@@ -957,6 +977,8 @@ fra:
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début"
     begins: "Commence par" #?
+    beta: "Beta"
+    beta_description: "Cette fonctionnalité est en cours de développement et ne doit pas être considérée comme source fiable d’information."
     body: "Corps du message"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Comptabiliser avec paiement"
@@ -976,10 +998,13 @@ fra:
     cancelled: "Passées en avoir" #?
     cap_islets: "Ilots PAC"
     cap_land_parcels: "Parcelles PAC"
+    capitalised_production: "Production immobilisée"
+    capitals: "Capital social"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
     cash_balance: "Solde de trésorerie"
+    cashe_debts: "Découverts bancaires"
     cashes_balance: "Soldes des trésoreries"
     cashes_balance_evolution: "Évolution des soldes des trésoreries"
     casting: "Casting"
@@ -995,6 +1020,7 @@ fra:
     change_price: "Changer le prix unitaire" #?
     change_state: "Changement du statut"
     change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
+    charge_value: "Achats et charges externes"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -1011,10 +1037,11 @@ fra:
     clear: "Effacer"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
-    client_balance: "Solde du client" #?
+    client_accounting_balance: "Solde du client" #?
     client_code: "Code cl." #?
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
+    client_receivables: "Créances client"
     close: "Fermer"
     close_financial_year: "Clôturer l’exercice"
     close_journal: "Clôturer le journal"
@@ -1044,7 +1071,7 @@ fra:
     configure: "Configurer"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
-    connect: "Entrer" #?
+    connect: "Se connecter"
     consult: "Consulter" #?
     consume: "Consommé"
     contact: "à l’adresse" #?
@@ -1064,6 +1091,7 @@ fra:
     copy_from_previous_campaign: "Copier à partir de la campagne précédente"
     copy_of: "Copie de %{source}"
     copy_previous_budget: "Copier à partir du budget précédent"
+    corporeal_assets: "Immobilisations corporelles"
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
@@ -1071,7 +1099,7 @@ fra:
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
     costs_per_hectare: "Couts par hectare"
-    could_not_attach_x_or_y_to_affair: "Erreur lors du rattachement des %{trade}/%{payment} à l'affaire"
+    could_not_attach_x_or_y_to_affair: "Erreur lors du rattachement des %{trade}/%{payment} à l’affaire"
     countings: "Comptages"
     country: "Pays" #?
     counts: "Totaux"
@@ -1110,8 +1138,10 @@ fra:
     currency_conversion_rate: "Taux de conversion de la nouvelle monnaie"
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
+    current_assets: "Actif circulant"
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}" #?
+    current_result_before_taxe: "Résulat courant avant impôts"
     current_stocks_by_variety: "État des stocks"
     currently_subscribed_to: "Actuellement abonné à"
     custom_fields: "Champs personnalisés"
@@ -1125,6 +1155,7 @@ fra:
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
+    debts: "Dettes"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
     decimal_case: "Options pour un décimal" #?
     decision_making: "Décision"
@@ -1136,12 +1167,13 @@ fra:
     deformity: "Malformation"
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
+    delay: "Délai"
     delete: "Supprimer"
     delete_only_record: #? String expected ("Or only delete the selected intervention(s) and display the request associate ?")
-      one: "Ou supprimer uniquement l'intervention" #?
+      one: "Ou supprimer uniquement l’intervention" #?
       other: "Ou supprimer uniquement les interventions" #?
     delete_request: #? String expected ("Delete also the request associate to the selected intervention(s)")
-      one: "Supprimer l'intervention et la demande associée" #?
+      one: "Supprimer l’intervention et la demande associée" #?
       other: "Supprimer les interventions et les demandes associées" #?
     delete_selected_interventions: "Supprimer les interventions sélectionnées"
     deliver: "Valider l’envoi des livraisons"
@@ -1151,8 +1183,10 @@ fra:
     deposit: "Remise en banque"
     depositable_options: "Options de remise en banque"
     deposits: "Dépôts"
-    depreciation: "Ammortissement"
+    depreciation: "Amortissement"
     depreciations: "Dépréciations"
+    depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
+    derogatory_depreciations: "Amortissements dérogatoires"
     description: "Description"
     desposits: "Remises en banque" #?
     destroy: "Supprimer"
@@ -1181,6 +1215,8 @@ fra:
     doer_cost: "Coût de main d’œuvre"
     doers: "Opérateurs" #?
     done: "Fait"
+    dont_generate_carrying_forward_entries: "— Ne pas générer les écritures de report à nouveau —"
+    dont_generate_closure_entries: "— Ne pas générer les écritures de clôture —"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
@@ -1198,8 +1234,11 @@ fra:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité" #?
     email: "Email:"
+    emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
+    employee_and_wages: "Salariés et impôts"
     employee_informations: "Informations sociales"
+    employee_involvement: "Participations des salariés"
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
@@ -1213,6 +1252,7 @@ fra:
     equipment: "Équipement"
     equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
+    equities: "Capitaux propres"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
     error_sale_already_paid: "La vente a déjà été payée en totalité" #?
@@ -1232,6 +1272,9 @@ fra:
     events: "Évènements"
     evolution: "Evolution"
     example: "Exemple\_: %{value}"
+    exceptional_expenses: "Charges exceptionnelles"
+    exceptional_products: "Produits exceptionnels"
+    exceptional_result: "Résultat exceptionnel"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     exchanges: "Échanges"
@@ -1244,8 +1287,12 @@ fra:
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
     expired_since: "Expiré depuis"
-    expired_within: "Expiré d'ici"
+    expired_within: "Expiré d’ici"
+    exploitation_results: "Résultats d’exploitation"
     export: "Exporter"
+    export_as_csv: "Exporter en CSV"
+    export_as_ods: "Exporter en ODS"
+    export_as_xcsv: "Exporter en CSV pour Excel"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
     extract: "Extraire" #?
@@ -1261,8 +1308,10 @@ fra:
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     final_balance: "Solde final"
+    financial_assets: "Immobilisations financières"
+    financial_expenses: "Charges financières"
+    financial_products: "Produits financiers"
     financial_state: "État financier" #?
-    financials_assets: "Immobilisations"
     finish: "Terminer"
     finished: "Terminé"
     finished_income_statement: "Produits" #?
@@ -1270,6 +1319,7 @@ fra:
     finishes: "Termine par" #?
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
+    fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     from: "À partir du"
@@ -1285,6 +1335,7 @@ fra:
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     generate_parcel: "Générer bon de préparation"
+    generate_repayments: "Passer en comptabilité"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     global_preferences: "Préférences générales"
@@ -1339,6 +1390,7 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
+    incorporeal_assets: "Immobilisations incorporelles "
     indicative_group_size: "Taille indicative du groupe"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
@@ -1361,6 +1413,7 @@ fra:
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
+    intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
@@ -1375,6 +1428,9 @@ fra:
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
+    inventory_variations: "Variations d’inventaire"
+    investment_security: "Valeur mobilière de placement"
+    investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
@@ -1394,14 +1450,14 @@ fra:
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
     journal_entry_items_with_undeclared_taxes:
-      one: "%{count} ligne d'écriture avec des taxes non déclarées"
-      other: "%{count} lignes d'écriture avec des taxes non déclarées"
+      one: "%{count} ligne d’écriture avec des taxes non déclarées"
+      other: "%{count} lignes d’écriture avec des taxes non déclarées"
     journal_entry_items_with_unidentified_expenses:
-      one: "%{count} ligne d'écriture avec des charges non identifiées"
-      other: "%{count} lignes d'écriture avec des charges non identifiées"
+      one: "%{count} ligne d’écriture avec des charges non identifiées"
+      other: "%{count} lignes d’écriture avec des charges non identifiées"
     journal_entry_items_with_unidentified_revenues:
-      one: "%{count} ligne d'écriture avec des produits non identifiés"
-      other: "%{count} lignes d'écriture avec des produits non identifiés"
+      one: "%{count} ligne d’écriture avec des produits non identifiés"
+      other: "%{count} lignes d’écriture avec des produits non identifiés"
     journal_name: "%{name}"
     journal_view:
       entries: "Écritures"
@@ -1438,6 +1494,7 @@ fra:
     letter: "Lettrer"
     letter_options: "Lettre" #?
     letterable: "Lettrable"
+    lettered: "Lettré"
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
     lettering_modes: #?
@@ -1445,6 +1502,10 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
+    lettering_state: "État du lettrage"
+    liabilities: "Passifs"
+    liabilities_gaps: "Ecart de conversion passif"
+    liability_reserves: "Réserves"
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
@@ -1456,10 +1517,12 @@ fra:
     listings: "Extractions de données" #?
     load: "Charger"
     load_demo_data: "Charger des données de tests" #?
+    loans_debts: "Emprunts"
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
     logout: "Déconnexion" #?
+    losses: "Charges d’exploitations"
     mail: "Envoyer un courriel"
     mailing: "Mailing"
     mails:
@@ -1475,6 +1538,7 @@ fra:
     mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs" #?
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs" #?
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
+    mandatory_provisions: "Provisions réglementées"
     manual: "Manuel"
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
@@ -1486,10 +1550,11 @@ fra:
     markers: "Objectifs" #?
     marketable_items_count: "Nombre de pièces commercialisables" #?
     marketable_net_mass: "Masse nette commercialisable"
-    mask_literate_elements: "Masquer les éléments lettrés"
+    mask_lettered_items: "Masquer les lignes lettrées"
     mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
+    maximum_amount: "Montant maximum"
     measure_options: "Indicateur de type mesure" #?
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
     medical_informations: "Informations médicales" #?
@@ -1499,11 +1564,14 @@ fra:
     members: "Membres"
     members_count: "Nombre de membres" #?
     menus: "Menus"
+    merchandises_purchases: "Marchandises"
+    merchandises_purchases_stocks_variation: "Variation de stocks de marchandises"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
+    minimum_amount: "Montant minimum"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1511,6 +1579,7 @@ fra:
     mode: "Mode"
     model: "Model"
     modes: "Modes"
+    month: "Mois"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
@@ -1524,6 +1593,7 @@ fra:
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
+    net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
     net_surface_area: "Surface nette"
@@ -1584,7 +1654,7 @@ fra:
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
-    no_intervention_participations_to_check: "Pas de participations d'intervention à vérifier"
+    no_intervention_participations_to_check: "Pas de participations d’intervention à vérifier"
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_notifications: "Aucune notification"
     no_origin: "— Sans origine —" #?
@@ -1632,7 +1702,13 @@ fra:
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
-    original_component: "D'origine"
+    original_component: "D’origine"
+    other_debts: "Autres dettes"
+    other_expenses: "Autres charges d’exploitation"
+    other_financial_debts: "Autres dettes financières"
+    other_products: "Autres produits"
+    other_purchases: "Autres achats"
+    other_receivables: "Autres créances"
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing: "Sortant" #?
@@ -1650,10 +1726,12 @@ fra:
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
+    parameter_error_miscibility: "Numéro d’AMM non renseigné"
     parameters: "Paramètres"
     parcel_items: "Articles de colis"
     parcels: "Colis"
     part: "Pièce" #?
+    partially_lettered: "Partiellement lettré"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1739,13 +1817,21 @@ fra:
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions" #?
+    productions_sales: "Ventes et variation d’inventaire"
     products: "Produits"
+    products_purchases: "Approvisionnement"
+    products_sales: "Ventes de marchandises"
     profile: "Profil"
+    profit_and_loss: "Produits et charges"
+    profit_or_loss: "Résultat de l’exercice"
+    profit_taxe: "Impots sur les bénéfices (IS)"
     profitability: "Rentabilité" #?
+    profits: "Produits d’exploitation"
     profits_and_losses: "Les profits et pertes"
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
+    provisions_revenues: "Reprises sur provisions et transfert de charges"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_number: "N° d’achat"
@@ -1763,12 +1849,14 @@ fra:
       invoice: "Facture" #?
       order: "Commande" #?
       refused: "Refusée" #?
+    purchases_stocks_variation: "Variation de stocks d’approvisionnements"
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
     quantity_rest: "Quantité restante" #?
     quarterly: "Trimestrielle" #?
     query: "Requête:"
+    raw_income: "Résultat d’exploitation"
     raw_margin: "Marge brute" #?
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
@@ -1785,7 +1873,7 @@ fra:
     reflected: "Changements répercutés"
     reflections: "Réflections"
     refresh: "Rafraîchir"
-    register_intervention_request: "Enregistrer la demande d'intervention"
+    register_intervention_request: "Enregistrer la demande d’intervention"
     rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
@@ -1802,6 +1890,7 @@ fra:
     renewed: "Renouvellés"
     reopen: "Déclôturer" #?
     reopen_journal: "Déclôturer le journal" #?
+    repayment_period: "Période de remboursement"
     repayments: "Remboursements"
     repayments_graph: "Graphique des remboursements"
     replace: "Remplacer" #?
@@ -1811,6 +1900,7 @@ fra:
     request: "Demande"
     request_maintenance: "Demander une maintenance"
     requests: "Demandes"
+    reserve: "Réserve"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
@@ -1835,6 +1925,7 @@ fra:
       relationship: "Droits module Relations" #?
       resources: "Droits module Ressources" #?
     rights: "Droits"
+    risk_and_charges_provisions: "Provisions pour risques et charges"
     role: "Rôle"
     role_name: "Entrez le nom du rôle puis attribuez lui ses droits" #?
     roles: "Rôles"
@@ -1876,8 +1967,9 @@ fra:
     save: "Enregistrer"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
     save_in_draft: "Sauvegarder dans le brouillard"
-    saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n'ont pas pu être lettrés."
+    saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n’ont pas pu être lettrés."
     scheduled: "Échéance"
+    scrapped_on: "Mise au rebut le"
     search: "Rechercher"
     search_account: "Rechercher un compte" #?
     search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)" #?
@@ -1907,6 +1999,7 @@ fra:
     select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
     selection: "Sélection"
+    semester: "Semestre"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
     sensor_indicators: "Indicateurs de capteur" #?
@@ -1925,7 +2018,10 @@ fra:
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
+    social_debts: "Dettes sociales"
+    social_expenses: "Charges sociales"
     soil_varieties: "Nature des sols" #?
+    sold_on: "Cédée le"
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
@@ -1934,6 +2030,8 @@ fra:
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"
     state: "État"
+    state_debts: "Dettes fiscales"
+    state_receivables: "Créances fiscales"
     statistics: "Statistiques"
     status: "État" #?
     stewardship: "Assistant"
@@ -1952,6 +2050,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
+    stopped_on: "Nous nous sommes arrêtés sur"
     storage: "Support"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
@@ -1964,12 +2063,14 @@ fra:
     subscription_natures_up: "Incrémenter le numéro actuel (+1)" #?
     subscriptions: "Abonnements"
     subscriptions_evolution: "Évolution des abonnements"
+    subsidies: "Indémnités et subventions d’exploitation"
     subtitle: "Informations générales" #?
     subtotal: "Sous-total %{name}"
     subtotals_at_level: "Sous-totaux aux niveaux"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
+    supplier_receivables: "Fournisseurs d’exploitations et comptes rattachés"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
@@ -1984,9 +2085,11 @@ fra:
     tax_label: "Nom Taxe"
     taxations: "Taxations"
     taxes: "Taxes"
+    taxes_and_wages: "Taxes et charges de personnels"
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    third_is_unbalanced: "Tiers à soldes non-rapprochés. (solde - solde comptable fournisseur)"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
@@ -2081,7 +2184,10 @@ fra:
       shipped: "Expédié" #?
       waiting: "En attente" #?
     treatment: "Traitement" #?
+    trimester: "Trimestre"
     true: "Vrai" #?
+    unbalanced_clients: "Comptes à réconcilier - Clients"
+    unbalanced_suppliers: "Comptes à réconcilier - Fournisseurs"
     unbilled_payables: "Factures non parvenues"
     undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
@@ -2099,6 +2205,7 @@ fra:
     unknown_condition: "Type de condition inconnue"
     unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue"
+    unlettered: "Non lettré"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
     unmarketable_inspection_categories_evolution: "Évolution du pourcentage de maladies et malformations"
@@ -2111,10 +2218,12 @@ fra:
     unparted: "Non affectés" #?
     unreceived: "Non reçus" #?
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
+    unsubcribed_capital: "Capital non appellé"
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
     up: "Monter"
+    up_to: "Jusqu’au"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
     updated_at_by: "Mis à jour le %{at} par %{author}"
@@ -2152,6 +2261,7 @@ fra:
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
+    wages: "Rémunérations"
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
@@ -2173,6 +2283,9 @@ fra:
     x_cents:
       one: "%{count} centime"
       other: "%{count} centimes"
+    x_client_journal_entry_items:
+      one: "%{count} ligne d’écritures comptables clients"
+      other: "%{count} lignes d’écritures comptables clients"
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
@@ -2203,6 +2316,9 @@ fra:
     x_events_of_nature_y:
       one: "%{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: "%{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
+    x_fixed_assets:
+      one: "%{count} immobilisation"
+      other: "%{count} immobilisations"
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
@@ -2303,6 +2419,9 @@ fra:
     x_subscriptions:
       one: "%{count} abonnement"
       other: "%{count} abonnements"
+    x_supplier_journal_entry_items:
+      one: "%{count} ligne d’écritures comptables fournisseurs"
+      other: "%{count} lignes d’écritures comptables fournisseurs"
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"
@@ -2333,6 +2452,7 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
+    year: "Année"
     yearly: "Annuelle" #?
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
@@ -2350,7 +2470,7 @@ fra:
     messages:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       accountant_notified: "Le comptable a bien été notifié"
-      accountant_without_email: "Merci de renseigner l'email du comptable"
+      accountant_without_email: "Merci de renseigner l’email du comptable"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
@@ -2368,19 +2488,21 @@ fra:
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
       changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
       changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
-      closed_financial_year_exchange: "L'échange a été correctement clôturé"
+      closed_financial_year_exchange: "L’échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
-      density_is_not_computable_in_counting: "La densité de semis n'a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
+      density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
+      depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
+      depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
       entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
-      equipment_component_is_at_end_of_life: "Le composant %{component_name} de l'équipement %{equipment_name} approche la fin de sa vie. Temps restant: %{remaining_time}."
-      equipment_component_is_worn_out: "Le composant %{component_name} de l'équipement %{equipment_name} est usé. Temps de travail restant: %{remaining_time}."
-      equipment_is_at_end_of_life: "L'équipment %{name} approche la fin de sa vie. Temps restant: %{remaining_time}."
-      equipment_is_worn_out: "L'équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
+      equipment_component_is_at_end_of_life: "Le composant %{component_name} de l’équipement %{equipment_name} approche la fin de sa vie. Temps restant: %{remaining_time}."
+      equipment_component_is_worn_out: "Le composant %{component_name} de l’équipement %{equipment_name} est usé. Temps de travail restant: %{remaining_time}."
+      equipment_is_at_end_of_life: "L’équipment %{name} approche la fin de sa vie. Temps restant: %{remaining_time}."
+      equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
@@ -2436,7 +2558,7 @@ fra:
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
-      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activitée pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
+      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune activité pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_purchase_affair_found_on_given_period: "Aucune affaire d’achat indiquée sur la période donnée"
       no_purchases_given: "Aucun achat n’a donné"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
@@ -2472,15 +2594,15 @@ fra:
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
       subscription_is_not_renewable: "L’abonnement est non renouvelable"
-      synchronization_operation_failed: "L'opération %{operation_name} a échoué: %{target} %{message}"
-      synchronization_operation_finished_successfully: "L'opération %{operation_name} s’est finie correctement"
-      synchronization_operation_in_progress: "L'opération %{operation_name} est en cours"
+      synchronization_operation_failed: "L’opération %{operation_name} a échoué: %{target} %{message}"
+      synchronization_operation_finished_successfully: "L’opération %{operation_name} s’est finie correctement"
+      synchronization_operation_in_progress: "L’opération %{operation_name} est en cours"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "Le lettrage automatique ne peut pas être fait en comptabilité parce qu’il a déjà été fait par un utilisateur"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "Le lettrage automatique ne peut pas être fait en comptabilité parce que certaines transactions ne sont pas encore comptabilisées"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
-      this_service_is_not_activated: "Ce service n'est pas activé"
+      this_service_is_not_activated: "Ce service n’est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?
@@ -2504,6 +2626,7 @@ fra:
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
+    default_depreciation_period: "Période d’amortissement par default"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     distribute_sales_and_purchases_on_activities: "Répartir les ventes et les achats sur les activités"
     distribute_sales_and_purchases_on_teams: "Répartir les ventes et les achats sur les équipes"
@@ -2513,6 +2636,7 @@ fra:
     permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"
     sales_conditions: "Conditions de vente"
     supplier_account_radix: "Radical comptable du compte fournisseur"
+    unbilled_payables: "Générer les factures non parvenues"
     use_contextual_help: "Utiliser l’aide contextuelle"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     use_global_search: "Utiliser la recherche globale"
@@ -2593,6 +2717,7 @@ fra:
       refuse: "Refuser"
       renew: "Renouveller"
       reopen: "Réouvrir"
+      repay: "Rembourser"
       reset: "Ré-initialiser"
       retrieve: "Relever"
       run: "Éxécuter"
@@ -2649,6 +2774,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/products: "%{work_number} %{name} (%{number})"
+    backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

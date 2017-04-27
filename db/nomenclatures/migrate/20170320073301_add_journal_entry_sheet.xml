@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add fr pcg82 balance sheet and profit and loss statement">
+  <item-change item="document_natures#fr_pcga_profit_and_loss_statement" category="accountancy"/>
+  <item-change item="document_natures#fr_pcga_balance_sheet" category="accountancy"/>
+  <item-change item="document_natures#fr_pcg82_balance_sheet" category="accountancy"/>
+  <item-change item="document_natures#fr_pcg82_profit_and_loss_statement" category="accountancy"/>
+  <item-creation item="document_natures#journal_entry_sheet" category="accountancy"/>
+</migration>

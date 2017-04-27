@@ -40,7 +40,7 @@ module Backend
 
     def self.cap_land_parcel_conditions
       code = ''
-      code = search_conditions(cap_land_parcels: [:land_parcel_number, :main_crop_code]) + " ||= []\n"
+      code = search_conditions(cap_land_parcels: %i[land_parcel_number main_crop_code]) + " ||= []\n"
       code << "if params[:id].to_i > 0\n"
       code << "  c[0] << \" AND #{CapStatement.table_name}.id IN (?)\"\n"
       code << "  c << params[:id].to_i\n"
@@ -48,7 +48,7 @@ module Backend
       code.c
     end
 
-    list(conditions: list_conditions, joins: [:campaign, :declarant]) do |t|
+    list(conditions: list_conditions, joins: %i[campaign declarant]) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :pacage_number, url: true

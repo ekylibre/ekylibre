@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Ekylibre
   class InterventionsExchanger < ActiveExchanger::Base
     def check
@@ -160,17 +161,17 @@ module Ekylibre
           # a same cultivable zone could be a support of many productions
           # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
           p_ids = []
-          for product in r.supports
+          r.supports.each do |support|
             # case A1 : CZ
-            if product.is_a?(CultivableZone)
-              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: product)
+            if support.is_a?(CultivableZone)
+              ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: support)
               ap = ap.of_cultivation_variety(r.target_variety) if r.target_variety
               ps = ap.map(&:support)
             # case A2 : Product
-            elsif product.is_a?(Product)
-              ps = [product]
+            elsif support.is_a?(Product)
+              ps = [support]
             end
-            p_ids << ps.map(&:id)
+            p_ids += ps.map(&:id)
           end
           w.debug p_ids.inspect.blue
           supports = Product.find(p_ids)
@@ -403,7 +404,7 @@ module Ekylibre
       # Get supports
       w.debug "Support code in method parse_row #{r.support_codes}".inspect.green
       r.supports = parse_record_list(r.support_codes, CultivableZone, :work_number)
-      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w(EXPLOITATION).include?(s) }, Product, :work_number)
+      r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w[EXPLOITATION].include?(s) }, Product, :work_number)
       w.debug "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
       # Get equipments
       r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)
@@ -644,7 +645,7 @@ module Ekylibre
       end
 
       ## save
-      ::Intervention.create!(intervention.to_hash)
+      ::Intervention.create!(intervention.to_attributes)
     end
 
     def record_complex_intervention(r, targets, procedure)
@@ -729,7 +730,7 @@ module Ekylibre
         w.debug 'SOWING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
         w.debug "############################# #{Plant.count}".blue
         w.debug ''
 
@@ -811,7 +812,7 @@ module Ekylibre
         w.debug 'HARVESTING'.inspect.red
 
         ## save
-        ::Intervention.create!(intervention.to_hash)
+        ::Intervention.create!(intervention.to_attributes)
       else
         w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
       end

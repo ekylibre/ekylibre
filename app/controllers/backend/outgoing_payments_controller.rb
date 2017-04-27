@@ -32,7 +32,7 @@ module Backend
     unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
 
     def self.outgoing_payments_conditions(_options = {})
-      code = search_conditions(outgoing_payments: [:amount, :bank_check_number, :number], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(outgoing_payments: %i[amount bank_check_number number], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:s] == 'not_delivered'\n"
       code << "  c[0] += ' AND delivered = ?'\n"
       code << "  c << false\n"
@@ -47,8 +47,8 @@ module Backend
     end
 
     list(conditions: outgoing_payments_conditions, joins: :payee, order: { to_bank_at: :desc }) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
-      t.action :edit, if: :check_updateable_or_destroyable?
-      t.action :destroy, if: :check_updateable_or_destroyable?
+      t.action :edit
+      t.action :destroy
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -59,7 +59,7 @@ module Backend
       t.column :delivered, hidden: true
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
   end
 end

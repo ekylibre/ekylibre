@@ -4,24 +4,24 @@ module ActionIntegration
     module JSON
       include Protocols::RestBase
 
-      def get(path, &block)
-        get_base(path, &block)
+      def get(path, headers = {}, &block)
+        get_base(path, { 'Content-Type' => 'application/json' }.merge(headers), &block)
       end
 
-      def post(path, data, &block)
-        post_base(path, data, { 'content-type' => 'application/json' }, &block)
+      def post(path, data, headers = {}, &block)
+        post_base(path, data, { 'Content-Type' => 'application/json' }.merge(headers), &block)
       end
 
-      def put(path, data, &block)
-        put_base(path, data, { 'content-type' => 'application/json' }, &block)
+      def put(path, data, headers = {}, &block)
+        put_base(path, data, { 'Content-Type' => 'application/json' }.merge(headers), &block)
       end
 
-      def patch(path, data, &block)
-        patch_base(path, data, { 'content-type' => 'application/json' }, &block)
+      def patch(path, data, headers = {}, &block)
+        patch_base(path, data, { 'Content-Type' => 'application/json' }.merge(headers), &block)
       end
 
-      def delete(path, &block)
-        delete_base(path, &block)
+      def delete(path, headers = {}, &block)
+        delete_base(path, { 'Content-Type' => 'application/json' }.merge(headers), &block)
       end
     end
   end

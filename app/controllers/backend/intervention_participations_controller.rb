@@ -18,7 +18,7 @@
 
 module Backend
   class InterventionParticipationsController < Backend::BaseController
-    manage_restfully only: [:update, :destroy]
+    manage_restfully only: %i[update destroy]
 
     def index
       @worked_on = if params[:worked_on].blank?

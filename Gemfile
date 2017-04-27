@@ -11,7 +11,7 @@ gem 'activerecord-postgis-adapter', '~> 4.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '~> 1.2.0'
+gem 'apartment', '>= 1.2.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -27,6 +27,9 @@ gem 'actionpack-xml_parser', '>= 2.0.0'
 
 # Manage env vars
 gem 'figaro'
+
+# Maintenance mode
+gem 'turnout'
 
 # Use SCSS for stylesheets
 gem 'sass-rails' # , '~> 5.0'
@@ -70,7 +73,7 @@ gem 'foreman'
 # Background jobs
 gem 'sidekiq', '>= 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
-gem 'sidekiq-unique-jobs'
+gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -91,7 +94,7 @@ gem 'simple_calendar'
 
 # Models helpers
 gem 'acts_as_list'
-gem 'awesome_nested_set', '~> 3.1.0'
+gem 'awesome_nested_set', '~> 3.1.1'
 gem 'deep_cloneable', '~> 2.2.1'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
@@ -121,7 +124,7 @@ gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri' #  , '~> 1.6.0'
+gem 'nokogiri'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -171,6 +174,8 @@ gem 'savon'
 gem 'luhn'
 
 group :development do
+  gem 'bullet'
+
   # gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
@@ -208,6 +213,7 @@ group :test do
   gem 'codacy-coverage', require: false
   gem 'coveralls', '>= 0.6', require: false
   gem 'database_cleaner'
+  gem 'simplecov', require: false
 
   gem 'minitest-reporters'
 
@@ -215,7 +221,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,lib/plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)

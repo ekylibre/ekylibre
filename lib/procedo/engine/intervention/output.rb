@@ -6,7 +6,7 @@ module Procedo
       class Output < Procedo::Engine::Intervention::Quantified
         attr_reader :variant
 
-        attr_reader :new_name
+        attr_reader :new_name, :identification_number
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
@@ -14,6 +14,7 @@ module Procedo
             @variant = ProductNatureVariant.find_by(id: @attributes[:variant_id])
           end
           @new_name = @attributes[:new_name]
+          @identification_number = @attributes[:identification_number]
         end
 
         def variant_id
@@ -34,15 +35,29 @@ module Procedo
           impact_dependencies!(:new_name)
         end
 
+        def identification_number=(identification_number)
+          @identification_number = identification_number
+          impact_dependencies!(:identification_number)
+        end
+
         def to_hash
           hash = super
           hash[:variant_id] = @variant.id if @variant
-          hash[:new_name] = @new_name unless @new_name.blank?
+          hash[:new_name] = @new_name if @new_name.present?
+          hash[:identification_number] = @identification_number if @identification_number.present?
+          hash
+        end
+
+        def to_attributes
+          hash = super
+          hash[:variant_id] = @variant.id if @variant
+          hash[:new_name] = @new_name if @new_name.present?
+          hash[:identification_number] = @identification_number if @identification_number.present?
           hash
         end
 
         def env
-          super.merge(variant: variant, new_name: new_name)
+          super.merge(variant: variant, new_name: new_name, identification_number: identification_number)
         end
       end
     end

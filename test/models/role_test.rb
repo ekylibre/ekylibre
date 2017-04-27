@@ -51,7 +51,7 @@ class RoleTest < ActiveSupport::TestCase
     )
 
     manager.rights = {
-      'sales' => %w(read write)
+      'sales' => %w[read write]
     }
     manager.save!
 

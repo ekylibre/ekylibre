@@ -36,7 +36,7 @@
 class EventParticipation < Ekylibre::Record::Base
   belongs_to :event, inverse_of: :participations
   belongs_to :participant, class_name: 'Entity'
-  enumerize :state, in: [:waiting, :accepted, :refused, :informative]
+  enumerize :state, in: %i[waiting accepted refused informative]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :event, :participant, presence: true
   # ]VALIDATORS]

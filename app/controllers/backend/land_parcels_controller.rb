@@ -22,7 +22,7 @@ module Backend
     #   :q Text search
     def self.land_parcels_conditions
       code = ''
-      code = search_conditions(products: [:name, :number]) + " ||= []\n"
+      code = search_conditions(products: %i[name number]) + " ||= []\n"
       code << "c\n"
       code.c
     end

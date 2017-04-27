@@ -8,10 +8,9 @@
     = f.referenced_association :supplier, source: :employees, new: { employee: 1 }, label: Purchase.human_attribute_name(:employee)
   - else
     = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
-  = f.association :nature, as: :hidden
   = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
+  = f.association :nature, as: :hidden
   = f.input :reference_number
-  = f.input :planned_at
   = f.input :invoiced_at
   = f.input :payment_delay
   = f.input :tax_payability, as: :radio_buttons
@@ -40,8 +39,8 @@
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
           - colspan = f.object.parcels.any? ? 5 : 4
           %th{colspan: 4}= :total.tl
-          %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
-          %td#wta.decimal{data:{use: ".wta", calculate: "sum", calculate_round: precision}}= f.object.amount
+          %td#pta.decimal{data:{use: ".nested-fields .pta", calculate: "sum", calculate_round: precision}}= f.object.pretax_amount
+          %td#wta.decimal{data:{use: ".nested-fields .wta", calculate: "sum", calculate_round: precision}}= f.object.amount
           %td= f.object.currency
           %th
       = f.simple_fields_for :items, f.object.items.order(:id) do |item|

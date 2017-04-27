@@ -1,32 +1,32 @@
 class SimplifyInterventions < ActiveRecord::Migration
-  TASK_TABLES = [:product_enjoyments, :product_junctions, :product_links,
-                 :product_linkages, :product_localizations, :product_memberships,
-                 :product_ownerships, :product_phases, :product_reading_tasks].freeze
+  TASK_TABLES = %i[product_enjoyments product_junctions product_links
+                   product_linkages product_localizations product_memberships
+                   product_ownerships product_phases product_reading_tasks].freeze
 
   POLYMORPHIC_REFERENCES = [
-    [:attachments, :resource],
-    [:issues, :target],
-    [:journal_entries, :resource],
-    [:notifications, :target],
-    [:observations, :subject],
-    [:preferences, :record_value],
-    [:product_enjoyments, :originator],
-    [:product_junctions, :originator],
-    [:product_linkages, :originator],
-    [:product_links, :originator],
-    [:product_localizations, :originator],
-    [:product_memberships, :originator],
-    [:product_ownerships, :originator],
-    [:product_phases, :originator],
-    [:product_reading_tasks, :originator],
-    [:product_readings, :originator],
-    [:versions, :item]
+    %i[attachments resource],
+    %i[issues target],
+    %i[journal_entries resource],
+    %i[notifications target],
+    %i[observations subject],
+    %i[preferences record_value],
+    %i[product_enjoyments originator],
+    %i[product_junctions originator],
+    %i[product_linkages originator],
+    %i[product_links originator],
+    %i[product_localizations originator],
+    %i[product_memberships originator],
+    %i[product_ownerships originator],
+    %i[product_phases originator],
+    %i[product_reading_tasks originator],
+    %i[product_readings originator],
+    %i[versions item]
   ].freeze
 
   TYPE_COLUMNS = [
-    [:affairs, :type],
-    [:products, :type],
-    [:custom_fields, :customized_type]
+    %i[affairs type],
+    %i[products type],
+    %i[custom_fields customized_type]
   ].freeze
 
   MULTI_POLYGON_COLUMNS = {
@@ -35,7 +35,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     cultivable_zones: [:shape],
     # georeadings: [:content],
     intervention_parameters: [:working_zone],
-    inventory_items: [:actual_shape, :expected_shape],
+    inventory_items: %i[actual_shape expected_shape],
     parcel_items: [:shape],
     products: [:initial_shape],
     # Reading mode
@@ -62,27 +62,27 @@ class SimplifyInterventions < ActiveRecord::Migration
     animal_antibiotic_treatment: { mandatory: [:disease_treatment] },
     animal_group_changing: { mandatory: [:animal_group_changing] },
     crop_residues_grinding: {
-      mandatory: [:residue_destruction, :organic_matter_burying],
+      mandatory: %i[residue_destruction organic_matter_burying],
       optional: [:organic_fertilization]
     },
     cutting: { mandatory: [:cutting] },
     detasseling: { mandatory: [:detasseling] },
     field_plant_sorting: { mandatory: [:field_plant_sorting] },
-    hoeing: { optional: [:weeding, :loosening] },
+    hoeing: { optional: %i[weeding loosening] },
     plantation_unfixing: { mandatory: [:plantation_unfixing] },
     plant_mulching: { optional: [:organic_fertilization] },
     spraying: {
-      optional: [:herbicide, :fungicide, :insecticide, :growth_regulator,
-                 :molluscicide, :nematicide, :acaricide, :bactericide,
-                 :rodenticide, :talpicide, :corvicide, :game_repellent]
+      optional: %i[herbicide fungicide insecticide growth_regulator
+                   molluscicide nematicide acaricide bactericide
+                   rodenticide talpicide corvicide game_repellent]
     },
     fuel_up: { mandatory: [:fuel_up] },
     equipment_item_replacement: { mandatory: [:troubleshooting] },
     oil_replacement: { mandatory: [:oil_replacement] },
     mechanical_fertilizing: {
       mandatory: [:fertilization],
-      optional: [:biostimulation, :organic_fertilization, :mineral_fertilization,
-                 :micronutrient_fertilization, :liming]
+      optional: %i[biostimulation organic_fertilization mineral_fertilization
+                   micronutrient_fertilization liming]
     },
     animal_housing_cleaning: { mandatory: [:hygiene] },
     animal_housing_mulching: { mandatory: [:animal_housing_mulching] },
@@ -90,34 +90,34 @@ class SimplifyInterventions < ActiveRecord::Migration
     mechanical_harvesting: { mandatory: [:harvest] },
     plant_mowing: { mandatory: [:harvest] },
     straw_bunching: { mandatory: [:straw_bunching] },
-    standard_enclosing: { optional: [:animal_penning, :game_protection] },
+    standard_enclosing: { optional: %i[animal_penning game_protection] },
     plant_watering: { mandatory: [:irrigation] },
     ground_destratification: { mandatory: [:loosening] },
     mechanical_planting: { mandatory: [:planting] },
     sowing: { mandatory: [:sowing] },
     sowing_with_spraying: {
       mandatory: [:sowing],
-      optional: [:herbicide, :fungicide, :insecticide, :growth_regulator,
-                 :molluscicide, :nematicide, :acaricide, :bactericide,
-                 :rodenticide, :talpicide, :corvicide, :game_repellent]
+      optional: %i[herbicide fungicide insecticide growth_regulator
+                   molluscicide nematicide acaricide bactericide
+                   rodenticide talpicide corvicide game_repellent]
     },
     all_in_one_sowing: {
-      mandatory: [:sowing, :fertilization],
-      optional: [:herbicide, :fungicide, :insecticide, :growth_regulator,
-                 :molluscicide, :nematicide, :acaricide, :bactericide,
-                 :rodenticide, :talpicide, :corvicide, :game_repellent]
+      mandatory: %i[sowing fertilization],
+      optional: %i[herbicide fungicide insecticide growth_regulator
+                   molluscicide nematicide acaricide bactericide
+                   rodenticide talpicide corvicide game_repellent]
     },
     indirect_silage: { mandatory: [:indirect_silage] },
     land_parcel_grinding: { mandatory: [:land_parcel_grinding] },
     raking: { mandatory: [:loosening], optional: [:sowing_burying] },
     uncompacting: { mandatory: [:loosening] },
     plowing: {
-      mandatory: [:plowing, :loosening],
-      optional: [:herbicide, :organic_matter_burying, :water_flow_improvement]
+      mandatory: %i[plowing loosening],
+      optional: %i[herbicide organic_matter_burying water_flow_improvement]
     },
     superficial_plowing: {
-      mandatory: [:plowing, :loosening],
-      optional: [:herbicide, :organic_matter_burying]
+      mandatory: %i[plowing loosening],
+      optional: %i[herbicide organic_matter_burying]
     },
     chaptalization: { mandatory: [:chaptalization] },
     complete_wine_transfer: { mandatory: [:complete_wine_transfer] },
@@ -204,7 +204,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
 
     rename_model_and_co 'CultivableZone', 'LandParcel'
-    [:products, :product_natures, :product_nature_variants].each do |table|
+    %i[products product_natures product_nature_variants].each do |table|
       old_variety = 'cultivable_zone'
       new_variety = 'land_parcel'
       reversible do |dir|
@@ -526,8 +526,8 @@ class SimplifyInterventions < ActiveRecord::Migration
       end
     end
 
-    [:analysis_items, :intervention_parameter_readings, :product_nature_variant_readings,
-     :product_readings].each do |table|
+    %i[analysis_items intervention_parameter_readings product_nature_variant_readings
+       product_readings].each do |table|
       rename_column table, :geometry_value, :multi_polygon_value
       add_column table, :geometry_value, :geometry, srid: 4326
     end
@@ -611,7 +611,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE product_natures SET frozen_indicators_list = NULLIF(ARRAY_TO_STRING(ARRAY_REMOVE(STRING_TO_ARRAY(frozen_indicators_list, ', '), 'population'), ', '), ''), variable_indicators_list = NULLIF(ARRAY_TO_STRING(ARRAY_REMOVE(STRING_TO_ARRAY(variable_indicators_list, ', '), 'population'), ', '), '')"
 
     # Removes all population indicator data
-    %w(product_readings analysis_items intervention_parameter_readings product_nature_variant_readings).each do |table|
+    %w[product_readings analysis_items intervention_parameter_readings product_nature_variant_readings].each do |table|
       execute "DELETE FROM #{table} WHERE indicator_name = 'population'"
     end
 

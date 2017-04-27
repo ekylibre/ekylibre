@@ -30,7 +30,7 @@
             %td= p.object.number
             %td= p.object.nature.l
             %td= Maybe(p.object.sender || p.object.recipient).name.or_else('&ndash;'.html_safe)
-            %td= p.object.content_sentence(false)
+            %td= p.object.content_sentence
 
 = f.attachments_field_set
 

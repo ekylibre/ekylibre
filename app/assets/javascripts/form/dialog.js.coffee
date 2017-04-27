@@ -6,6 +6,10 @@
 
     open: (url, settings) ->
       frame_id = "dialog-#{E.dialog.count}"
+
+      if settings.inherit?
+        frame_id = settings.inherit
+
       width = $(document).width()
       defaultSettings =
         header: "X-Return-Code"
@@ -19,7 +23,13 @@
       $.ajax url,
         data: data
         success: (data, status, request) ->
-          frame = $(document.createElement("div"))
+
+          if $("##{frame_id}").length
+            frame = $("##{frame_id}")
+          else
+            frame = $(document.createElement("div"))
+            $("body").append frame
+
           width = undefined
           height = undefined
           frame.attr
@@ -27,7 +37,6 @@
             class: "dialog ajax-dialog"
             style: "display:none;"
 
-          $("body").append frame
           frame.html data
           frame.prop "dialogSettings", settings
           if settings.width is 0
@@ -42,6 +51,12 @@
             height = $(window).height() * settings.height
           else
             height = settings.height
+
+          if frame.is(':ui-dialog')
+
+            #Ensure dialog content is visible
+            frame.addClass 'ui-dialog-content'
+
           frame.dialog
             autoOpen: false
             show: "fade"
@@ -51,6 +66,7 @@
 
           E.dialog.initialize frame
           frame.dialog "open"
+
           frame.trigger('dialog:show')
 
           $("##{frame_id}").on 'selector:menu-opened', (e) ->
@@ -105,14 +121,14 @@
         success: (data, status, request) ->
           returnCode = request.getResponseHeader(settings.header)
           returns = settings.returns
-          console.log returns
           unknownReturnCode = true
           for code of returns
             if returns.hasOwnProperty(code) and returnCode is code and $.isFunction(returns[code])
               returns[code].call form, frame, data, status, request
               unknownReturnCode = false
-              E.dialog.initialize frame
-              frame.trigger('dialog:show')
+              # no need to force triggering. If needed, call it in returns.
+#              E.dialog.initialize frame
+#              frame.trigger('dialog:show')
               break
           if unknownReturnCode
             if $.isFunction(settings.defaultReturn)

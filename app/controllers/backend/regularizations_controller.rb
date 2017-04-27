@@ -1,6 +1,6 @@
 module Backend
   class RegularizationsController < Backend::BaseController
-    manage_restfully except: [:index, :show, :new, :edit, :update], identifier: :id
+    manage_restfully only: %i[destroy], identifier: :id
 
     def create
       journal_entry = JournalEntry.find(params[:journal_entry_id])

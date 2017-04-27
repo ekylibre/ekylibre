@@ -104,14 +104,14 @@ class BankStatement < Ekylibre::Record::Base
 
   bookkeep do |b|
     b.journal_entry(cash_journal, printed_on: stopped_on, if: cash.suspend_until_reconciliation) do |entry|
-      label = "BS #{cash.name} #{number}"
-      balance = items.sum('credit - debit')
+      # label = "BS #{cash.name} #{number}"
+      # balance = items.sum('credit - debit')
       items.each do |item|
         entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
-        # entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended)
+        entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended, resource: item)
       end
       # entry.add_debit(label, cash.main_account_id, balance, as: :bank)
-      entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
+      # entry.add_credit(label, cash.suspense_account_id, balance, as: :suspended)
     end
   end
 
@@ -140,12 +140,16 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def next_letter
-    cash_next_reconciliation_letters.next
+    cash.next_reconciliation_letter
   end
 
   def letter_items(statement_items, journal_entry_items)
     new_letter = next_letter
     return false if (journal_entry_items + statement_items).length.zero?
+
+    statement_entries = JournalEntryItem.where(resource: statement_items)
+    to_letter = journal_entry_items + statement_entries
+    cash.suspense_account.mark(to_letter) if cash.suspend_until_reconciliation
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add product nature corn topper">
-	<item-creation item="abilities#castrate" parameters="variety"/>
-    <item-creation item="product_natures#corn_topper" category="small_equipment" variety="matter" population_counting="unitary" abilities="castrate(plant), move" frozen_indicators="length, application_width" variable_indicators="geolocation"/>
-    <item-creation item="product_nature_variants#corn_topper" nature="corn_topper"/>
+  <item-creation item="abilities#castrate" parameters="variety"/>
+  <item-creation item="product_natures#corn_topper" category="small_equipment" variety="matter" population_counting="unitary" abilities="castrate(plant), move" frozen_indicators="length, application_width" variable_indicators="geolocation"/>
+  <item-creation item="product_nature_variants#corn_topper" nature="corn_topper"/>
 </migration>

@@ -2,7 +2,7 @@
 .reconciliation-list{ data: { currency_precision: precision } }
   .top-part
     .buttons
-      = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
+      = button_tag(:reset.tl, type: :button, "data-confirm": :are_you_sure.tl, class: "btn btn-default", id: "reset_reconciliation")
       = dropdown_menu_button :payment_gap, icon: false do |menu|
         - Journal.various.each do |regul_journal|
           - menu.item regul_journal.name, backend_bank_statement_bank_reconciliation_gaps_path(bank_statement_id: @bank_statement.id, journal_id: regul_journal.id), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name

@@ -20,11 +20,13 @@ module Backend
   class AccountsController < Backend::BaseController
     manage_restfully number: 'params[:number]'.c
 
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
     unroll
 
     def self.accounts_conditions
       code = ''
-      code << search_conditions(accounts: [:name, :number, :description]) + ';'
+      code << search_conditions(accounts: %i[name number description]) + ';'
       code << "if params[:prefix]\n"
       code << "  c[0] += ' AND number LIKE ?'\n"
       code << "  c << params[:prefix].to_s+'%'\n"
@@ -50,9 +52,19 @@ module Backend
     # Displays the main page with the list of accounts
     def index; end
 
+    def show
+      return unless @account = find_and_check
+      t3e @account
+      respond_with(@account, methods: [],
+                             include: [
+                               { journal_entry_items: { include: %i[financial_year tax tax_declaration_item] } }
+                             ],
+                             procs: proc { |options| options[:builder].tag!(:url, backend_account_url(@account)) })
+    end
+
     def self.account_moves_conditions(_options = {})
       code = ''
-      code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number], product_nature_variant: [:name] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << journal_period_crit('params')
       code << journal_entries_states_crit('params')
       # code << journals_crit("params")
@@ -62,11 +74,12 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
+      t.column :variant, url: true
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
@@ -85,14 +98,14 @@ module Backend
     end
 
     def self.account_reconciliation_conditions
-      code = search_conditions(accounts: [:name, :number, :description], journal_entries: [:number], JournalEntryItem.table_name => [:name, :debit, :credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
+      code = search_conditions(accounts: %i[name number description], journal_entries: [:number], JournalEntryItem.table_name => %i[name debit credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
       code << "c << true\n"
       code << "c[0] += ' AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)'\n"
       code << 'c'
       code.c
     end
 
-    list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: 'accounts.number, journal_entries.printed_on') do |t|
+    list(:reconciliation, model: :journal_entry_items, joins: %i[entry account], conditions: account_reconciliation_conditions, order: 'accounts.number, journal_entries.printed_on') do |t|
       t.column :account_number, through: :account, label_method: :number, url: { action: :mark }
       t.column :account_name, through: :account, label_method: :name, url: { action: :mark }
       t.column :entry_number
@@ -140,6 +153,14 @@ module Backend
         end
         redirect_to action: :index
       end
+    end
+
+    def mask_lettered_items
+      preference_name = 'backend/accounts'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
     end
   end
 end

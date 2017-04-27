@@ -55,6 +55,20 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    animal:
+      birth_date_completeness:
+        full_date: "Data completa"
+        month_year: "Mês ano"
+        year: "Ano"
+      end_of_life_reason:
+        calculated_date: "Data calculada"
+        cutting_up: "Cortando"
+        death: "Morte"
+        slaughter: "Chacina"
+      filiation_status:
+        certified: "Certificado"
+        uncertified: "Não certificada"
+        unknown: "Desconhecido"
     call_message:
       nature:
         incoming: "Entrada"
@@ -100,6 +114,10 @@ por:
         datetime: "Data e Hora"
         decimal: "Decimal"
         text: "Texto"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Regularização de compra"
+        sale_regularization: "Venda regularização"
     delivery:
       mode:
         third: "Terceiro"
@@ -147,7 +165,13 @@ por:
       depreciation_method:
         graduated: "Gradual" #?
         linear: "Linear"
+        none: "Nenhum"
+        regressive: "Regressivo"
         simplified_linear: "Linear simplificado"
+      depreciation_period:
+        monthly: "Por mês"
+        quarterly: "Trimestral"
+        yearly: "Anual"
     gap:
       direction:
         loss: "Perda"
@@ -227,6 +251,8 @@ por:
       nature:
         bank: "Banco"
         cash: "Dinheiro"
+        closure: "Fecho"
+        fixed_assets: "Ativo permanente"
         forward: "Carried-forward"
         purchases: "Compras"
         sales: "Vendas"
@@ -245,13 +271,15 @@ por:
         string: "Corda"
     loan:
       insurance_repayment_method:
-        # initial: "Based on initial capital"
-        # to_repay: "Based on capital left to repay"
+        initial: "Com base em capital inicial"
+        to_repay: "Com base no capital deixou de reembolsar"
       repayment_method:
         constant_amount: "Total constante"
         constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Ano"
       shift_method:
         anatocism: "Anatocismo"
@@ -325,6 +353,15 @@ por:
       nature:
         # exterior: "Exterior"
         # interior: "Interior"
+    product_movement:
+      description:
+        birth: "Nascimento"
+        butchery: "Açougue"
+        consumption: "Consumo"
+        death: "Morte"
+        loan: "Empréstimo"
+        purchase: "Compra"
+        sale: "Venda"
     product_nature:
       population_counting:
         # decimal: "Decimal"
@@ -445,6 +482,7 @@ por:
         animals: "Animais"
         cash_transfers: "As transferências de dinheiro"
         contracts: "Contratos"
+        debt_transfers: "Transferências de dívida"
         deliveries: "Entregas"
         deposits: "Depósitos"
         documents: "Documentos"

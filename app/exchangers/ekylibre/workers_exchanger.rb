@@ -88,7 +88,7 @@ module Ekylibre
         person.emails.find_or_create_by!(coordinate: r.email) if r.email.present?
 
         # create the user
-        if person && r.email.present? && !User.where(person_id: person.id).any?
+        if person && r.email.present? && User.where(person_id: person.id).none?
           unless user = User.find_by(email: r.email)
             role = Role.order(:id).first
             role = Role.import_from_nomenclature(:farm_worker) unless role

@@ -24,7 +24,10 @@
         %span.value
           %i.picto{class: "picto-stock"}
           = resource.current_stock.to_s + " " + resource.unit_name
-
+    - if resource.france_maaid?
+      = resource_info(:france_maaid) do |france_maaid|
+        %i.picto{class: "picto-flask"}
+        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
   -# .info
     %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
     %span.value= resource.products.map(&:net_mass).compact.sum
@@ -44,7 +47,49 @@
 
 
 = cobbles do |c|
-  -if resource.products.any?
+  - if resource.france_maaid? && (agent = Pesticide::Agent.find(resource.france_maaid))
+    - c.cobble(:phyto_data) do
+      - if agent.risks.any?
+        - avatars = []
+        - list = agent.risks.map do |risk|
+          - classification = Nomen::ChemicalClassification.find_by(code: risk)
+          - if classification
+            - path = item_avatar_path(classification)
+            - avatars << classification if path && !avatars.include?(classification)
+            - content_tag(:abbr, risk, title: classification.human_name)
+          - else
+            - content_tag(:span, risk)
+        .med-info
+          .value
+            - if avatars.any?
+              - avatars.each do |item|
+                = image_tag(item_avatar_path(item), class: 'risk-picto', title: item.human_name, alt: item.code)
+            = list.to_sentence.html_safe
+      - if agent.usages.any?
+        %table.table
+          %thead
+            %tr
+              %th{colspan: 3} Usage
+              %th Dose
+              %th= Pesticide::Usage.human_attribute_name(:max_inputs_count)
+              %th= Pesticide::Usage.human_attribute_name(:pre_harvest_interval)
+              %th= Pesticide::Usage.human_attribute_name(:untreated_zone_margin)
+          %tbody
+            - agent.usages.each do |usage|
+              %tr{class: (usage.subject_variety.blank? ? '' : Activity.of_cultivation_variety(usage.subject_variety).any? ? '' : 'disabled') }
+                %td
+                  - if usage.subject_variety
+                    = Nomen::Variety.find(usage.subject_variety).human_name
+                  - else
+                    = usage.subject_name
+                %td= usage.mode
+                %td= usage.issue
+                %td= usage.dose.l if usage.dose
+                %td= usage.max_inputs_count
+                %td= usage.pre_harvest_interval.l if usage.pre_harvest_interval
+                %td= usage.untreated_zone_margin.l if usage.untreated_zone_margin
+
+  -# if resource.products.any?
     - c.cobble(:stocks) do
       :ruby
         dataset = resource.products
@@ -82,7 +127,6 @@
 
   - c.cobble(:sale_items) do
     = cobble_list(:sale_items)
-
 
   - c.cobble(:parcel_items) do
     = cobble_list(:parcel_items)
