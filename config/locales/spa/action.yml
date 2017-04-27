@@ -2159,7 +2159,7 @@ spa:
       exception_raised: "Un error sobrevino durante el tratamiento\_: %{message}"
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
-      # financial_years_missing: "You must create every missing financial years since the first registered"
+      financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"
       # import_failed: "Import %{name} failed: %{message}"

@@ -1912,7 +1912,7 @@ deu:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
-      # financial_years_missing: "You must create every missing financial years since the first registered"
+      financial_years_missing: "Sie müssen alle fehlenden Geschäftsjahre schaffen, da die erste registrierte"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Realisiert mit Dummy-Daten"
       # import_failed: "Import %{name} failed: %{message}"

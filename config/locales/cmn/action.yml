@@ -1913,7 +1913,7 @@ cmn:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
-      # financial_years_missing: "You must create every missing financial years since the first registered"
+      financial_years_missing: "您必须创建的每个缺少财政年以来第一个注册"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "以虚拟数据实现"
       # import_failed: "Import %{name} failed: %{message}"
