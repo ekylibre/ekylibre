@@ -354,6 +354,8 @@ cmn:
       index: "清单和邮件"
       # mail: "Send an email to: %{name}"
       new: "新品上市"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "贷款"

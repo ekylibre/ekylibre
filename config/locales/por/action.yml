@@ -359,6 +359,8 @@ por:
       index: "Extracção"
       # mail: "Send an email to: %{name}"
       new: "Nova lista"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Empréstimos"

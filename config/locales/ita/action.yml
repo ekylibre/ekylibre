@@ -354,6 +354,8 @@ ita:
       index: "Elenchi e mailing"
       # mail: "Send an email to: %{name}"
       new: "Nuova lista"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Prestiti"
