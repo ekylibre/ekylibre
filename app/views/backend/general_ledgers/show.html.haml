@@ -4,5 +4,7 @@
   - k.helper :journal_entries_states_crit
   - k.helper :accounts_range_crit
   - k.helper :journals_crit
+  - k.number :amount_range_crit
+  - k.multi_choice :lettering_state, [:lettered, :unlettered, :partially_lettered].map{ |s| [s.tl, s] }, label: :lettering_state.tl
 
 = main_list(:journal_entry_items)

@@ -169,6 +169,10 @@ spa:
       stocks: "Stock"
       tools: "Herramientas"
       trade: "Ventas/Compras"
+    backend/debt_transfers:
+      index: "Las transferencias de deuda"
+      new: "Nueva transferencia de la deuda"
+      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "Modificación del plazo\_: %{name}" #?
       index: "plazos" #?
@@ -1165,6 +1169,9 @@ spa:
     expired_within: "Expirado el plazo de (en días)"
     exploitation_results: "Los resultados de explotación"
     export: "Exportación de un fichero de salvaguardia"
+    export_as_csv: "Exportar como CSV"
+    export_as_ods: "Exportar como ODS"
+    export_as_xcsv: "Exportar como Excel CSV"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
@@ -1328,6 +1335,7 @@ spa:
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
     # letterable: "Letterable"
+    lettered: "Letrado"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
     lettering_modes: #?
@@ -1335,6 +1343,7 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
+    lettering_state: "Estado de letras"
     liabilities: "Pasivo"
     liabilities_gaps: "Pasivo lagunas"
     liability_reserves: "Las reservas de responsabilidad"
@@ -1372,9 +1381,10 @@ spa:
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
-    mask_literate_elements: "Enmascarar elementos alfabetizados"
+    mask_lettered_items: "Máscara artículos con letras"
     # mass: "Masse"
     maximal_temperature: "La temperatura máxima"
+    maximum_amount: "Cantidad máxima"
     members: "Miembros"
     menus: "Menús"
     merchandises_purchases: "Compras de mercaderías"
@@ -1382,6 +1392,7 @@ spa:
     merge: "Unir"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
+    minimum_amount: "Monto minimo"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1513,6 +1524,7 @@ spa:
     parameters: "Parametros"
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
+    partially_lettered: "Parcialmente con letras"
     participants: "Los participantes"
     participations: "Participaciones"
     parts: "Modulos"
@@ -1888,6 +1900,7 @@ spa:
     unknown_condition: "Condición desconocida"
     unknown_user: "Usuario desconocido"
     unknown_variant: "Variante desconocida"
+    unlettered: "Analfabeto"
     unlock: "Desbloquear"
     unmark: "Desmarcar"
     unmarketable_inspection_categories_evolution: "Invendibles evolución categorías de inspección"

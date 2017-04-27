@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,6 +17,7 @@
 #
 
 require 'test_helper'
+
 module Backend
   class JournalEntriesControllerTest < ActionController::TestCase
     test_restfully_all_actions(
@@ -32,5 +32,12 @@ module Backend
       },
       index: :redirected_get
     )
+
+    test 'duplicate' do
+      get :new, duplicate_of: JournalEntry.find_by(id: JournalEntryItem.first.id).id
+      assert_select '#items-table' do
+        assert_select 'tbody.nested-fields'
+      end
+    end
   end
 end

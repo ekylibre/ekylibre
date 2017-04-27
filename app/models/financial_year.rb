@@ -156,7 +156,10 @@ class FinancialYear < Ekylibre::Record::Base
 
   def journal_entries(conditions = nil)
     entries = JournalEntry.where(printed_on: started_on..stopped_on)
-    entries = entries.where(conditions) if conditions.present?
+    if conditions.present?
+      ActiveSupport::Deprecation.warn('Use of conditions in FinancialYear#journal_entries is deprecated. Please use #where after instead.')
+      entries = entries.where(conditions)
+    end
     entries
   end
 
@@ -200,13 +203,21 @@ class FinancialYear < Ekylibre::Record::Base
     tc('code.' + (started_on.year != stopped_on.year ? 'double' : 'single'), first_year: started_on.year, second_year: stopped_on.year)
   end
 
+  def closure_obstructions(noticed_on = nil)
+    noticed_on ||= Time.zone.today
+    list = []
+    list << :already_closed if closed
+    list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
+    list << :previous_financial_year_is_not_closed if previous && !previous.closed
+    list << :unbalanced_journal_entries_are_present unless journal_entries.where('debit != credit').empty?
+    list << :financial_year_is_not_past if stopped_on >= noticed_on
+    list
+  end
+
   # tests if the financial_year can be closed.
   def closable?(noticed_on = nil)
-    noticed_on ||= Time.zone.today
-    return false if closed
-    return false if previous && !previous.closed
-    return false unless journal_entries('debit != credit').empty?
-    (stopped_on < noticed_on)
+    list = closure_obstructions(noticed_on)
+    list.empty?
   end
 
   def closures(noticed_on = nil)
@@ -258,11 +269,9 @@ class FinancialYear < Ekylibre::Record::Base
     ActiveRecord::Base.transaction do
       # Compute balance of closed year
       compute_balances!
-
       if closure_journal
         # Create result entry of the current year
         generate_result_entry!(closure_journal, to_close_on)
-
         # Settle balance sheet accounts
         generate_balance_sheet_accounts_settlement!(closure_journal, to_close_on)
       end
@@ -311,8 +320,8 @@ class FinancialYear < Ekylibre::Record::Base
 
   # See Journal.sum_entry_items
   def sum_entry_items(expression, options = {})
-    options[:started_on] = started_on
-    options[:stopped_on] = stopped_on
+    options[:started_on] ||= started_on
+    options[:stopped_on] ||= stopped_on
     Journal.sum_entry_items(expression, options)
   end
 
@@ -326,9 +335,9 @@ class FinancialYear < Ekylibre::Record::Base
     end
   end
 
-  def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil)
+  def sum_entry_items_with_mandatory_line(document = :profit_and_loss_statement, line = nil, options = {})
     equation = get_mandatory_line_calculation(document, line) if line
-    equation ? sum_entry_items(equation) : 0
+    equation ? sum_entry_items(equation, options) : 0
   end
 
   # Computes the value of list of accounts in a String

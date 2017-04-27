@@ -81,6 +81,9 @@ cmn:
       internal_server_error:
         hint: "应用程序遇到问题。管理员已经被告知了这个问题。"
         title: "我们很抱歉，但是出现了一些问题"
+      maintenance:
+        hint: "请待会再过来"
+        title: "该服务是在维护和不可用现在"
       not_found:
         hint: "您可能输入了错误的地址或网页可能已移动。"
         title: "您正在寻找不存在的页面"
