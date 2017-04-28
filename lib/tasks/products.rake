@@ -25,7 +25,7 @@ namespace :products do
 
     file_name = ENV['FILENAME']
     file_path = Rails.root.join(file_name)
-    
+
     change_product_attributes(file_path, ProductNatureVariant)
   end
 
