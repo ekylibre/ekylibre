@@ -65,6 +65,7 @@
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  variant_id                :integer
 #
 
 # What are the differents columns:
@@ -81,6 +82,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :activity_budget
   belongs_to :bank_statement
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
+  belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :journal_entry_items
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :resource, polymorphic: true
@@ -283,6 +285,10 @@ class JournalEntryItem < Ekylibre::Record::Base
       # self.cumulated_absolute_credit -= old.absolute_credit
       old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
     end
+  end
+
+  def lettered?
+    letter.present?
   end
 
   # Unmark all the journal entry items with the same mark in the same account

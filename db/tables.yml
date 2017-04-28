@@ -4041,6 +4041,9 @@ journal_entry_items:
   updater_id:
     type: integer
     references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer

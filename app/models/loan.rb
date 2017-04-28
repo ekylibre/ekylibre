@@ -89,6 +89,7 @@ class Loan < Ekylibre::Record::Base
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account, :interest_account, presence: true
+  validates :amount, numericality: { greater_than: 0 }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -110,7 +111,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.ongoing_at ||= started_on.to_time
+    self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
   end

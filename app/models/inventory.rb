@@ -95,21 +95,19 @@ class Inventory < Ekylibre::Record::Base
         # step 1 : neutralize last current stock in stock journal for current variant
         # by exchanging the current balance
         label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, sm.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_movement_reset)
-        entry.add_credit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_reset)
+        entry.add_credit(label, sm.id, sm.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_movement_reset, variant: variant)
+        entry.add_credit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at), resource: variant, as: :stock_reset, variant: variant)
 
         # step 2 : record inventory stock in stock journal
         # TODO update methods to evaluates price stock or open unit_pretax-
         # stock_amount field to the user during inventory
         # build the global value of the stock for each item
-        values = items.of_variant(variant).map do |item|
-          item.actual_population * item.unit_pretax_stock_amount
-        end
+        stock_amount = items.of_variant(variant).map(&:actual_pretax_stock_amount).compact.sum
         # bookkeep step 2
-        next if values.compact.sum.zero?
+        next if stock_amount.zero?
         label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
-        entry.add_credit(label, sm.id, values.compact.sum, resource: variant, as: :stock)
-        entry.add_debit(label, s.id, values.compact.sum, resource: variant, as: :stock_movement)
+        entry.add_credit(label, sm.id, stock_amount, resource: variant, as: :stock, variant: variant)
+        entry.add_debit(label, s.id, stock_amount, resource: variant, as: :stock_movement, variant: variant)
       end
     end
   end

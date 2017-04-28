@@ -22,6 +22,7 @@ eng:
       index: "Accounting plans"
       load: "Load an accounting plan"
       mark: "Reconciliate account: %{number} - %{name}"
+      # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
@@ -243,6 +244,7 @@ eng:
       export: "Export people" #?
       import: "Import people"
       index: "People"
+      # mask_lettered_items: "Mask lettered items entity: %{name}"
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
@@ -449,7 +451,7 @@ eng:
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
-      # edit: "Edit loan repayment: %{name}"
+      edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
       # index: "Loan repayments"
       # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
@@ -1427,6 +1429,8 @@ eng:
     last_sales: "Last sales"
     letter: "Letter" #?
     letterable: "Letterable"
+    lettered: "Lettered" #?
+    lettering_state: "Lettering state"
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
     liability_reserves: "Liability reserves" #?!
@@ -1458,9 +1462,10 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements"
+    mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
+    maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
     merchandises_purchases: "Merchandises purchases" #?!
@@ -1468,6 +1473,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
+    minimum_amount: "Minimum amount"
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1580,6 +1586,7 @@ eng:
     parameters: "Parameters"
     parcel_items: "Parcel items"
     parcels: "Parcels"
+    partially_lettered: "Partially lettered" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1797,6 +1804,7 @@ eng:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1868,6 +1876,8 @@ eng:
     transfer: "Transfer" #?
     transport: "Transport" #?
     trimester: "Trimester" #?
+    unbalanced_clients: "Unbalanced clients" #?
+    unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
@@ -1881,6 +1891,7 @@ eng:
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
+    unlettered: "Unlettered" #?
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
@@ -2292,6 +2303,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"

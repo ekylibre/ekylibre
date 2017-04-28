@@ -140,26 +140,24 @@ module Ekylibre
             # raise StandardError, "#{configuration[:column]} is needed for #{self.name}::bookkeep"
           end
 
-          code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
+          include Ekylibre::Record::Bookkeep::InstanceMethods
 
-          code << "def #{method_name}(action = :create, draft = nil)\n"
-          code << "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"
-          code << "  self.#{core_method_name}(Ekylibre::Record::Bookkeep::Base.new(self, action, draft))\n"
-          code << "  self.class.where(id: self.id).update_all(#{configuration[:column]}: Time.zone.now)\n"
-          code << "end\n"
+          define_method method_name do |action = :create, draft = nil|
+            draft = ::Preference[:bookkeep_in_draft] if draft.nil?
+            send(core_method_name, Ekylibre::Record::Bookkeep::Base.new(self, action, draft))
+            self.class.where(id: id).update_all(configuration[:column] => Time.zone.now)
+          end
 
           configuration[:on] = [configuration[:on]].flatten
           Ekylibre::Record::Bookkeep.actions.each do |action|
             next unless configuration[:on].include? action
-            code << "after_#{action} do \n"
-            code << "  if ::Preference[:bookkeep_automatically]\n"
-            code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
-            code << "  end\n"
-            code << "  true\n"
-            code << "end\n"
+            send("after_#{action}") do
+              if ::Preference[:bookkeep_automatically]
+                send(method_name, action, ::Preference[:bookkeep_in_draft])
+              end
+              true
+            end
           end
-
-          class_eval code
 
           send(:define_method, core_method_name, &block)
         end

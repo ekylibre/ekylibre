@@ -380,6 +380,8 @@ spa:
       index: "Exportación y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créación de nueva extraccion"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Préstamos"
@@ -1335,6 +1337,7 @@ spa:
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
     # letterable: "Letterable"
+    lettered: "Letrado"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
     lettering_modes: #?
@@ -1342,6 +1345,7 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
+    lettering_state: "Estado de letras"
     liabilities: "Pasivo"
     liabilities_gaps: "Pasivo lagunas"
     liability_reserves: "Las reservas de responsabilidad"
@@ -1379,9 +1383,10 @@ spa:
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     marketable_net_mass: "masa neta comercializable"
-    mask_literate_elements: "Enmascarar elementos alfabetizados"
+    mask_lettered_items: "Máscara artículos con letras"
     # mass: "Masse"
     maximal_temperature: "La temperatura máxima"
+    maximum_amount: "Cantidad máxima"
     members: "Miembros"
     menus: "Menús"
     merchandises_purchases: "Compras de mercaderías"
@@ -1389,6 +1394,7 @@ spa:
     merge: "Unir"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
+    minimum_amount: "Monto minimo"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1520,6 +1526,7 @@ spa:
     parameters: "Parametros"
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
+    partially_lettered: "Parcialmente con letras"
     participants: "Los participantes"
     participations: "Participaciones"
     parts: "Modulos"
@@ -1799,6 +1806,7 @@ spa:
     taxes: "Impuestos"
     taxes_and_wages: "Impuestos y salarios"
     theoric_quantity: "cantidad teorica" #?
+    third_is_unbalanced: "En tercer lugar está desequilibrada. (Balance - balance de la cuenta del proveedor)"
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
     time_spent_by_activity: "El tiempo dedicado por la actividad"
@@ -1875,6 +1883,8 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    unbalanced_clients: "Clientes desequilibradas"
+    unbalanced_suppliers: "Proveedores desequilibradas"
     unbilled_payables: "Cuentas a pagar no facturadas"
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
@@ -1892,6 +1902,7 @@ spa:
     unknown_condition: "Condición desconocida"
     unknown_user: "Usuario desconocido"
     unknown_variant: "Variante desconocida"
+    unlettered: "Analfabeto"
     unlock: "Desbloquear"
     unmark: "Desmarcar"
     unmarketable_inspection_categories_evolution: "Invendibles evolución categorías de inspección"
