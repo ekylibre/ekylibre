@@ -568,7 +568,7 @@ class ActivityProduction < Ekylibre::Record::Base
     harvest_yield(:grain, procedure_category: :harvesting,
                           size_indicator_name: :net_mass,
                           size_unit_name: mass_unit_name,
-                          surface_unit_name: surface_unit_name)
+                          surface_unit_name: surface_unit_name).l
   end
 
   # Returns the yield of grape in volume per surface unit

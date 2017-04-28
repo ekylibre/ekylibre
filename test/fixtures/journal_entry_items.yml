@@ -65,6 +65,7 @@
 #  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
+#  variant_id                :integer
 #
 ---
 journal_entry_items_001:
@@ -1395,6 +1396,7 @@ journal_entry_items_040:
   state: draft
   updated_at: 2014-11-07 15:58:47.198797000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_041:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -1432,6 +1434,7 @@ journal_entry_items_041:
   tax_id: 3
   updated_at: 2014-11-07 15:58:47.220632000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_042:
   absolute_credit: 1848.0
   absolute_currency: EUR
@@ -1636,6 +1639,7 @@ journal_entry_items_047:
   state: draft
   updated_at: 2014-11-07 16:52:57.630615000 Z
   updater_id: 1
+  variant_id: 45
 journal_entry_items_048:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -1673,6 +1677,7 @@ journal_entry_items_048:
   tax_id: 3
   updated_at: 2014-11-07 16:52:57.654541000 Z
   updater_id: 1
+  variant_id: 45
 journal_entry_items_049:
   absolute_credit: 20520.0
   absolute_currency: EUR
@@ -1743,6 +1748,7 @@ journal_entry_items_050:
   state: draft
   updated_at: 2015-03-19 17:18:59.959437000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_051:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -1780,6 +1786,7 @@ journal_entry_items_051:
   tax_id: 3
   updated_at: 2015-03-19 17:18:59.988683000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_052:
   absolute_credit: 1736.57
   absolute_currency: EUR
@@ -2114,6 +2121,7 @@ journal_entry_items_061:
   state: draft
   updated_at: 2016-07-01 20:22:55.336640000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_062:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -2151,6 +2159,7 @@ journal_entry_items_062:
   tax_id: 8
   updated_at: 2016-07-01 20:22:55.359090000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_063:
   absolute_credit: 15556.8
   absolute_currency: EUR
@@ -8980,6 +8989,7 @@ journal_entry_items_269:
   state: draft
   updated_at: 2016-11-20 22:09:03.015012000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_270:
   absolute_credit: 65.52
   absolute_currency: EUR
@@ -9017,6 +9027,7 @@ journal_entry_items_270:
   tax_id: 3
   updated_at: 2016-11-20 22:09:03.036303000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_271:
   absolute_credit: 45.0
   absolute_currency: EUR
@@ -9053,6 +9064,7 @@ journal_entry_items_271:
   state: draft
   updated_at: 2016-11-20 22:09:03.058777000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_272:
   absolute_credit: 9.0
   absolute_currency: EUR
@@ -9090,6 +9102,7 @@ journal_entry_items_272:
   tax_id: 3
   updated_at: 2016-11-20 22:09:03.081393000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_273:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -9228,6 +9241,7 @@ journal_entry_items_276:
   state: draft
   updated_at: 2016-11-20 22:10:43.210834000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_277:
   absolute_credit: 6.24
   absolute_currency: EUR
@@ -9265,6 +9279,7 @@ journal_entry_items_277:
   tax_id: 3
   updated_at: 2016-11-20 22:10:43.231298000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_278:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -9403,6 +9418,7 @@ journal_entry_items_281:
   state: draft
   updated_at: 2016-11-20 22:11:28.770490000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_282:
   absolute_credit: 0.62
   absolute_currency: EUR
@@ -9440,6 +9456,7 @@ journal_entry_items_282:
   tax_id: 3
   updated_at: 2016-11-20 22:11:28.830255000 Z
   updater_id: 1
+  variant_id: 18
 journal_entry_items_283:
   absolute_credit: 3.74
   absolute_currency: EUR
@@ -9614,6 +9631,7 @@ journal_entry_items_287:
   state: draft
   updated_at: 2016-11-20 22:12:19.151058000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_288:
   absolute_credit: 446.0
   absolute_currency: EUR
@@ -9652,6 +9670,7 @@ journal_entry_items_288:
   tax_id: 3
   updated_at: 2016-11-20 22:12:19.171004000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_289:
   absolute_credit: 2676.0
   absolute_currency: EUR
@@ -9725,6 +9744,7 @@ journal_entry_items_290:
   state: draft
   updated_at: 2016-11-20 22:12:46.261368000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_291:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -9763,6 +9783,7 @@ journal_entry_items_291:
   tax_id: 3
   updated_at: 2016-11-20 22:12:46.281731000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_292:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -9799,6 +9820,7 @@ journal_entry_items_292:
   state: draft
   updated_at: 2016-11-20 22:14:42.366131000 Z
   updater_id: 1
+  variant_id: 42
 journal_entry_items_293:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -9836,6 +9858,7 @@ journal_entry_items_293:
   tax_id: 3
   updated_at: 2016-11-20 22:14:42.388681000 Z
   updater_id: 1
+  variant_id: 42
 journal_entry_items_294:
   absolute_credit: 717.12
   absolute_currency: EUR
@@ -9974,6 +9997,7 @@ journal_entry_items_297:
   state: draft
   updated_at: 2016-11-20 22:15:24.370236000 Z
   updater_id: 1
+  variant_id: 57
 journal_entry_items_298:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -10011,6 +10035,7 @@ journal_entry_items_298:
   tax_id: 3
   updated_at: 2016-11-20 22:15:24.389889000 Z
   updater_id: 1
+  variant_id: 57
 journal_entry_items_299:
   absolute_credit: 1200.0
   absolute_currency: EUR
@@ -10321,6 +10346,7 @@ journal_entry_items_307:
   state: draft
   updated_at: 2016-12-20 08:54:01.509524000 Z
   updater_id: 1
+  variant_id: 10
 journal_entry_items_308:
   absolute_credit: 36.36
   absolute_currency: EUR
@@ -10359,6 +10385,7 @@ journal_entry_items_308:
   tax_id: 8
   updated_at: 2016-12-20 08:54:01.529690000 Z
   updater_id: 1
+  variant_id: 10
 journal_entry_items_309:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -10533,6 +10560,7 @@ journal_entry_items_313:
   state: draft
   updated_at: 2016-12-20 18:16:13.233540000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_314:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -10570,6 +10598,7 @@ journal_entry_items_314:
   tax_id: 8
   updated_at: 2016-12-20 18:16:13.255217000 Z
   updater_id: 1
+  variant_id: 39
 journal_entry_items_315:
   absolute_credit: 4878.72
   absolute_currency: EUR
@@ -10749,6 +10778,7 @@ journal_entry_items_319:
   state: draft
   updated_at: 2016-12-20 18:17:05.068703000 Z
   updater_id: 1
+  variant_id: 63
 journal_entry_items_320:
   absolute_credit: 0.0
   absolute_currency: EUR
@@ -10786,6 +10816,7 @@ journal_entry_items_320:
   tax_id: 8
   updated_at: 2016-12-20 18:17:05.089739000 Z
   updater_id: 1
+  variant_id: 63
 journal_entry_items_321:
   absolute_credit: 489.75
   absolute_currency: EUR

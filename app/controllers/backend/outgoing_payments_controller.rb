@@ -47,8 +47,8 @@ module Backend
     end
 
     list(conditions: outgoing_payments_conditions, joins: :payee, order: { to_bank_at: :desc }) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
-      t.action :edit, if: :check_updateable_or_destroyable?
-      t.action :destroy, if: :check_updateable_or_destroyable?
+      t.action :edit
+      t.action :destroy
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -59,7 +59,7 @@ module Backend
       t.column :delivered, hidden: true
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
-      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
   end
 end

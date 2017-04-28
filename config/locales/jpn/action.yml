@@ -354,6 +354,8 @@ jpn:
       index: "掲載および郵送"
       # mail: "Send an email to: %{name}"
       new: "新規上場"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "ローン"
@@ -1264,6 +1266,8 @@ jpn:
     last_sales: "最終販売"
     letter: "文字"
     # letterable: "Letterable"
+    lettered: "文字入り"
+    lettering_state: "レターティング状態"
     liabilities: "負債"
     liabilities_gaps: "負債ギャップ"
     liability_reserves: "責任準備金"
@@ -1298,6 +1302,7 @@ jpn:
     mask_lettered_items: "マスクされたアイテム"
     mass: "マッセ"
     maximal_temperature: "最高温度"
+    maximum_amount: "最大量"
     members: "メンバー"
     menu: #?
       accountancy_tasks: "用事" #?
@@ -1309,6 +1314,7 @@ jpn:
     merge: "マージ"
     method: "方法"
     minimal_temperature: "最小限の温度"
+    minimum_amount: "最小量"
     missing_attributes: "一部の属性は失われています"
     missing_help: "無意味なページ"
     mobile: "モバイル"
@@ -1421,6 +1427,7 @@ jpn:
     parameters: "パラメータ"
     parcel_items: "小包のアイテム"
     parcels: "小包"
+    partially_lettered: "部分的に文字入り"
     participants: "参加者"
     participations: "参加"
     parts: "モジュール"
@@ -1643,6 +1650,7 @@ jpn:
     # taxations: "Taxations"
     taxes: "税金"
     taxes_and_wages: "税と賃金"
+    third_is_unbalanced: "第三にはアンバランスです。 （バランス - サプライヤーの口座残高）"
     thumb: "親指"
     time_cost: "時間費用"
     time_spent_by_activity: "活動によって費やされた時間"
@@ -1718,6 +1726,8 @@ jpn:
     transformations: "変換" #?
     transport: "輸送"
     trimester: "学期"
+    unbalanced_clients: "アンバランスのクライアント"
+    unbalanced_suppliers: "アンバランスサプライヤー"
     unbilled_payables: "未請求の支払債務"
     undefined_activity: "未定義の活動"
     undefined_container: "未定義のコンテナ"
@@ -1731,6 +1741,7 @@ jpn:
     unknown_condition: "未知の状態"
     unknown_user: "不明なユーザー"
     unknown_variant: "未知のバリアント"
+    # unlettered: "Unlettered"
     unlock: "アンロック"
     unmark: "マーク解除します"
     unmarketable_inspection_categories_evolution: "売れ検査カテゴリ進化"
