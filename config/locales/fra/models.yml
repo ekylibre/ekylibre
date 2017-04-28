@@ -1008,6 +1008,7 @@ fra:
     grading_sizes_unit: "Unité utilisée pour la mesure des extrema"
     grading_sizes_unit_name: "Classement tailles nom de l’unité"
     gradings: "Agréages"
+    grains_yield: "Rendement grains"
     gravity: "Gravité"
     gross_items_count: "Nombre de pièces brut"
     gross_items_count_percentage: "Pourcentage du nombre de pièces brut" #?

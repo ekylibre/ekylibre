@@ -805,6 +805,7 @@ spa:
     grading_sizes_unit: "unidad de tamaños de clasificación"
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
+    grains_yield: "rendimiento de grano"
     gravity: "Gravedad"
     gross_items: "recuento bruto" #?
     gross_items_count: "Cuentan artículos brutas"
