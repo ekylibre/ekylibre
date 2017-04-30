@@ -832,6 +832,7 @@ ita:
     grading_sizes_unit: "unità di dimensioni di classificazione"
     grading_sizes_unit_name: "Grading dimensioni nome dell’unità"
     gradings: "classificazioni"
+    grains_yield: "Resa in granella"
     gravity: "Gravità"
     gross_items: "conteggio lordo" #?
     gross_items_count: "Contano articoli Gross"

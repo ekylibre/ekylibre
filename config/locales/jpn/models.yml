@@ -801,6 +801,7 @@ jpn:
     grading_sizes_unit: "グレーディングサイズユニット"
     grading_sizes_unit_name: "グレーディングサイズのユニット名"
     gradings: "グレーディング"
+    grains_yield: "穀物収量"
     gravity: "重力"
     gross_items: "総カウント数" #?
     gross_items_count: "総アイテムがカウント"
