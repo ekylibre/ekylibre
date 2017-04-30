@@ -106,7 +106,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
   validates :account, presence: true
-  # validates :letter, uniqueness: { scope: :account_id }, if: Proc.new {|x| !x.letter.blank? }
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, to: :account, prefix: true
@@ -139,12 +138,27 @@ class JournalEntryItem < Ekylibre::Record::Base
   #
   before_validation do
     self.name = name.to_s[0..254]
-    self.letter = nil if letter.blank?
+    self.letter = nil if self.letter.blank?
     self.bank_statement_letter = nil if bank_statement_letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
+
     compute
+
+    # CAREFUL /!\ This is complementary to behaviour from postgres triggers that are in DB.
+    unless self.letter.blank?
+      letter_balance = letter_group.sum(:debit) - letter_group.sum(:credit)
+      letter_balance += (credit_was || 0) - (debit_was || 0)
+      letter_balance += debit - credit
+      self.letter += '*' unless letter_balance.zero?
+    end
+    # END OF DANGER ZONE
+
     self.state = entry.state if entry
+  end
+
+  before_validation on: :update do
+    self.letter = nil unless account_id == account_id_was
   end
 
   validate(on: :update) do
@@ -182,6 +196,16 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   protect do
     closed? || (entry && entry.protected_on_update?)
+  end
+
+  def letter_radix
+    return nil unless letter
+    letter.gsub('*', '')
+  end
+
+  def letter_group
+    return JournalEntryItem.none unless letter
+    account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix+'*')
   end
 
   def compute
