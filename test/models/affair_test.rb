@@ -117,13 +117,12 @@ class AffairTest < ActiveSupport::TestCase
     assert subject.save
     assert subject.letter
 
-    assert deal_entry_items_in_third_account.all? { |item| item.letter == subject.letter }
+    assert deal_entry_items_in_third_account.all? { |item| item.letter.match '^' + subject.letter + '\*?$' }
     assert deal_entry_items_out_third_account.none?(&:letter)
   end
 
   test 'reuse letter on save while already lettered' do
     client = create(:entity, :client)
-    account = client.client_account
     subject = create(:sale_affair, client: client)
 
     deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')

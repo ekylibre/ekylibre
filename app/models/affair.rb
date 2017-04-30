@@ -417,7 +417,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns true if a part of items are already lettered by outside
   def journal_entry_items_already_lettered?
-    letters = letterable_journal_entry_items.pluck(:letter)
+    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.gsub('*', '') }
     if (letter? && letters.detect { |x| x != letter }) ||
        (!letter? && letters.detect(&:present?))
       return true
