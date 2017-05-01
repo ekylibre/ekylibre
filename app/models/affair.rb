@@ -247,7 +247,7 @@ class Affair < Ekylibre::Record::Base
 
   def debt_transferable?
     # unbalanced
-    !closed
+    !closed && unbalanced?
   end
 
   # Adds a gap to close the affair

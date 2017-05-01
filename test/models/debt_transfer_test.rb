@@ -72,7 +72,11 @@ class DebtTransferTest < ActiveSupport::TestCase
     # just to avoid false negative
     assert_equal purchase.items.first.amount, purchase_amount, "can't run debt transfer test without a valid purchase"
 
+    count = DebtTransfer.count
+
     dt = DebtTransfer.create_and_reflect!(affair: sale.affair, debt_transfer_affair: purchase.affair)
+
+    assert_equal count + 2, DebtTransfer.count, 'Two debt transfers should be created. Got: ' + (DebtTransfer.count - count).to_s
 
     assert_equal 'sale_regularization', dt.nature.to_s
     assert_equal purchase_amount.to_f, dt.amount.to_f
@@ -83,5 +87,9 @@ class DebtTransferTest < ActiveSupport::TestCase
 
     assert_equal 0.0, dt.debt_transfer_affair.balance.to_f
     assert_equal -(sale_amount - purchase_amount).to_f, dt.affair.balance.to_f
+
+    dt.destroy!
+
+    assert_equal count, DebtTransfer.count, 'Two debt transfers should be destroyed. Got: ' + (DebtTransfer.count - count).to_s
   end
 end
