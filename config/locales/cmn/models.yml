@@ -220,7 +220,7 @@ cmn:
       animal: "动物"
       animal_group: "动物群"
       attachment: "附件"
-      bank_guarantee_account: "银行保证金台帐"
+      bank_guarantee_account: "银行保证金台帐" #?
       bank_statement: "银行对帐单"
       bank_statement_item: "银行对账单行"
       bioproduct: "生活产品"
@@ -279,9 +279,9 @@ cmn:
       inspection: "产品分级"
       inspection_calibration: "检验口径"
       inspection_point: "产品分级检查"
-      insurance_account: "险账户"
+      insurance_account: "险账户" #?
       integration: "积分"
-      interest_account: "利息账户"
+      interest_account: "利息账户" #?
       intervention: "介入"
       intervention_agent: "干预剂"
       intervention_doer: "干预实干家"

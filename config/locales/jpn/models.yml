@@ -220,7 +220,7 @@ jpn:
       animal: "動物"
       animal_group: "動物群"
       attachment: "アタッチメント"
-      bank_guarantee_account: "銀行保証口座"
+      bank_guarantee_account: "銀行保証口座" #?
       bank_statement: "銀行取引明細書"
       bank_statement_item: "銀行取引明細書行"
       bioproduct: "リビング製品"
@@ -279,9 +279,9 @@ jpn:
       inspection: "製品のグレーディング"
       inspection_calibration: "検査口径"
       inspection_point: "製品のグレーディングチェック"
-      insurance_account: "保険アカウント"
+      insurance_account: "保険アカウント" #?
       integration: "統合"
-      interest_account: "インタレストアカウント"
+      interest_account: "インタレストアカウント" #?
       intervention: "介入"
       intervention_agent: "介入エージェント"
       intervention_doer: "介入行為者"

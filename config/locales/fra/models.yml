@@ -350,7 +350,7 @@ fra:
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
-      bank_guarantee_account: "Compte bancaire de garantie"
+      bank_guarantee_account: "Compte bancaire de garantie" #?
       bank_statement: "Relevé de compte bancaire"
       bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
@@ -410,9 +410,9 @@ fra:
       inspection: "Agréage produit"
       inspection_calibration: "Calibre de l'agréage"
       inspection_point: "Point de contrôle"
-      insurance_account: "Compte d'assurance"
+      insurance_account: "Compte d'assurance" #?
       integration: "L’intégration"
-      interest_account: "Compte d'intérêt"
+      interest_account: "Compte d'intérêt" #?
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
       intervention_doer: "Opérateur d’intervention"
