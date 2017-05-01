@@ -220,7 +220,6 @@ eng:
       animal: "Animal"
       animal_group: "Animal group"
       attachment: "Attachment"
-      bank_guarantee_account: "Bank guarantee account" #?
       bank_statement: "Bank statement"
       bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
@@ -280,9 +279,7 @@ eng:
       inspection: "Product grading"
       inspection_calibration: "Inspection calibre"
       inspection_point: "Product grading check"
-      insurance_account: "Insurance account" #?
       integration: "Integration"
-      interest_account: "Interest account" #?
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
       intervention_doer: "Intervention doer"

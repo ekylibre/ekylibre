@@ -220,7 +220,7 @@ spa:
       # animal: "Animal"
       animal_group: "Grupo de animales"
       attachment: "Adjunto archivo"
-      bank_guarantee_account: "Cuenta de garantía bancaria"
+      bank_guarantee_account: "Cuenta de garantía bancaria" #?
       bank_statement: "Extracto de cuenta"
       bank_statement_item: "Línea del extracto bancario"
       bioproduct: "Producto vivo"
@@ -280,9 +280,9 @@ spa:
       inspection: "graduación del producto"
       inspection_calibration: "inspección calibre"
       inspection_point: "verificación de la clasificación del producto"
-      insurance_account: "Cuenta de seguro"
+      insurance_account: "Cuenta de seguro" #?
       integration: "Integración"
-      interest_account: "Cuenta de interés"
+      interest_account: "Cuenta de interés" #?
       intervention: "Intervención"
       intervention_agent: "Agente de la intervención"
       intervention_doer: "Hacedor de intervención"
