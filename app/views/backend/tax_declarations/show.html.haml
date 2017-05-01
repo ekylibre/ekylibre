@@ -21,7 +21,7 @@
   - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
     -# = cobble_list :items do
     - columns = [:deductible, :fixed_asset_deductible, :collected, :intracommunity_payable, :balance]
-    - account_transcode = {:collected => :collect_account_id, :deductible => :deduction_account_id, :fixed_asset_deductible => :fixed_asset_deduction_account_id, :intracommunity_payable => :intracommunity_payable_account_id }
+    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id, intracommunity_payable: :intracommunity_payable_account_id }
 
     %table.list
       %thead

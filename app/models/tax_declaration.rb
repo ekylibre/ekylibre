@@ -73,6 +73,10 @@ class TaxDeclaration < Ekylibre::Record::Base
            :tax_declaration_mode_payment?, :tax_declaration_mode_debit?,
            to: :financial_year
 
+  protect on: :update do
+    validated? || sent?
+  end
+
   protect on: :destroy do
     sent?
   end
