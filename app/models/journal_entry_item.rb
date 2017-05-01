@@ -198,6 +198,10 @@ class JournalEntryItem < Ekylibre::Record::Base
     closed? || (entry && entry.protected_on_update?)
   end
 
+  def partially_lettered?
+    letter.include? '*'
+  end
+
   def letter_radix
     return nil unless letter
     letter.gsub('*', '')
