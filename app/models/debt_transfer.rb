@@ -57,6 +57,7 @@ class DebtTransfer < Ekylibre::Record::Base
   validates :affair, :debt_transfer_affair, :nature, presence: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
+  validates :debt_transfer_affair_id, uniqueness: { scope: :affair_id }
 
   acts_as_affairable :third
 
@@ -64,14 +65,14 @@ class DebtTransfer < Ekylibre::Record::Base
 
   before_validation do
     self.currency = affair.currency
-    self.amount = [affair.balance.abs, debt_transfer_affair.balance.abs].min
-    self.nature = if debt_transfer_affair.is_a?(PurchaseAffair) && affair.is_a?(SaleAffair)
-                    :sale_regularization
-                  elsif debt_transfer_affair.is_a?(SaleAffair) && affair.is_a?(PurchaseAffair)
-                    :purchase_regularization
-                  else
-                    raise 'Cannot run a debt transfer with homogeneous affairs'
-                  end
+    self.amount ||= [affair.balance.abs, debt_transfer_affair.balance.abs].min
+    self.nature ||= if debt_transfer_affair.is_a?(PurchaseAffair) && affair.is_a?(SaleAffair)
+                      :sale_regularization
+                    elsif debt_transfer_affair.is_a?(SaleAffair) && affair.is_a?(PurchaseAffair)
+                      :purchase_regularization
+                    else
+                      raise 'Cannot run a debt transfer with homogeneous affairs'
+                    end
   end
 
   validate do
@@ -81,15 +82,22 @@ class DebtTransfer < Ekylibre::Record::Base
   end
 
   before_destroy do
-    # from affair (the 'target'), we destroy regularizations
-    mirror_nature = (nature == :sale_regularization ? :purchase_regularization : :sale_regularization)
-    affair.debt_regularizations.find_by(nature: mirror_nature, amount: amount).delete
+    DebtTransfer.where(
+      affair: debt_transfer_affair,
+      debt_transfer_affair: affair
+    ).delete_all
+    true
+  end
+
+  after_destroy do
+    affair.save
+    debt_transfer_affair.save
     true
   end
 
   class << self
-    def create_and_reflect!(args)
-      record = create! args
+    def create_and_reflect!(attributes = {})
+      record = create!(attributes.merge(amount: nil))
       reflect! record
       record
     end
