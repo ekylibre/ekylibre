@@ -140,7 +140,7 @@ class AffairTest < ActiveSupport::TestCase
     assert subject.save
 
     assert_equal letter_on_first_save, subject.letter
-    assert_equal lettered_items_on_first_save, JournalEntryItem.where(letter: letter_on_first_save).pluck(:id).to_set
+    assert_equal lettered_items_on_first_save, JournalEntryItem.where(letter: [letter_on_first_save, letter_on_first_save + '*']).pluck(:id).to_set
   end
 
   # Check that affair of given sale is actually closed perfectly
