@@ -75,6 +75,32 @@ module Clean
         end
       end
 
+      def write_service_test_file(klass)
+        code = ''
+        code << "require 'test_helper'\n\n"
+        code << modularize(klass, 'ActiveSupport::TestCase') do |c|
+          c << "# Add tests here...\n"
+        end
+        file = Rails.root.join('test', 'services', klass.underscore + '.rb')
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, 'wb') do |f|
+          f.write(code)
+        end
+      end
+
+      def write_concept_test_file(klass)
+        code = ''
+        code << "require 'test_helper'\n\n"
+        code << modularize(klass, 'ActiveSupport::TestCase') do |c|
+          c << "# Add tests here...\n"
+        end
+        file = Rails.root.join('test', 'concepts', klass.underscore + '.rb')
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, 'wb') do |f|
+          f.write(code)
+        end
+      end
+
       # Check Class test for a dir in app/<name>
       # Check mirror test in test/<name>/
       def check_class_test(name, log, verbose = true)
