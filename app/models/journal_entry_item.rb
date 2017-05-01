@@ -129,6 +129,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(bank_statement_letter: letter).where(bank_statement_id: bank_statement.id)
   }
 
+  scope :with_letter, ->(letter) { where(letter: [letter.gsub('*', ''), letter.gsub('*', '') + '*']) }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed
