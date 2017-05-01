@@ -116,6 +116,8 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  before_save :letter_journal_entries
+
   def work_name
     number.to_s
   end
@@ -387,8 +389,6 @@ class Affair < Ekylibre::Record::Base
   def third_role
     raise NotImplementedError
   end
-
-  before_save :letter_journal_entries
 
   def letterable?
     !unletterable?
