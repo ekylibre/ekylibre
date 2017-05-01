@@ -453,7 +453,7 @@ class Account < Ekylibre::Record::Base
   # If no +letter+ given, it uses a new letter.
   def mark!(item_ids, letter = nil)
     letter ||= new_letter
-    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)', item_ids]
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR letter SIMILAR TO \'[A-z]*\\*\')', item_ids]
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
   end
