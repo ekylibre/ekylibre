@@ -153,10 +153,6 @@ ita:
       stocks: "Azioni cruscotto"
       tools: "Strumenti cruscotto"
       trade: "commercio cruscotto"
-    backend/debt_transfers:
-      index: "Trasferimenti di debito"
-      new: "Trasferimento nuovo debito"
-      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "Le consegne"

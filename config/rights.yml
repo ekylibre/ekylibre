@@ -1879,14 +1879,7 @@ purchases:
     - read-purchases
     actions:
     - "backend/debt_transfers#create"
-    - "backend/debt_transfers#debt_transfer_params"
     - "backend/debt_transfers#destroy"
-    - "backend/debt_transfers#edit"
-    - "backend/debt_transfers#index"
-    - "backend/debt_transfers#list"
-    - "backend/debt_transfers#new"
-    - "backend/debt_transfers#show"
-    - "backend/debt_transfers#update"
     - "backend/interventions#purchase"
     - "backend/parcels#invoice"
     - "backend/purchase_affairs#attach"
@@ -1971,14 +1964,7 @@ sales:
     - read-sales
     actions:
     - "backend/debt_transfers#create"
-    - "backend/debt_transfers#debt_transfer_params"
     - "backend/debt_transfers#destroy"
-    - "backend/debt_transfers#edit"
-    - "backend/debt_transfers#index"
-    - "backend/debt_transfers#list"
-    - "backend/debt_transfers#new"
-    - "backend/debt_transfers#show"
-    - "backend/debt_transfers#update"
     - "backend/interventions#sell"
     - "backend/parcels#invoice"
     - "backend/quick_sales#create"
