@@ -116,6 +116,8 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  before_save :letter_journal_entries
+
   def work_name
     number.to_s
   end
@@ -388,19 +390,16 @@ class Affair < Ekylibre::Record::Base
     raise NotImplementedError
   end
 
-  before_save :letter_journal_entries!
-
   def letterable?
     !unletterable?
   end
 
   def unletterable?
-    unbalanced? || multi_thirds? || journal_entry_items_unbalanced? ||
-      journal_entry_items_already_lettered? || !match_with_accountancy?
+    multi_thirds?
   end
 
   def lettered?
-    letter? && journal_entry_items_balanced?
+    letter?
   end
 
   def letter_journal_entries
@@ -418,7 +417,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns true if a part of items are already lettered by outside
   def journal_entry_items_already_lettered?
-    letters = letterable_journal_entry_items.pluck(:letter)
+    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.delete('*') }
     if (letter? && letters.detect { |x| x != letter }) ||
        (!letter? && letters.detect(&:present?))
       return true
@@ -455,7 +454,7 @@ class Affair < Ekylibre::Record::Base
     # Update letters
     account.unmark(letter) if journal_entry_items.any?
     self.letter = nil if letter.blank?
-    self.letter = account.mark(journal_entry_items.pluck(:id), letter)
+    self.letter = account.mark!(journal_entry_items.pluck(:id), letter)
     true
   end
 end

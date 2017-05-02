@@ -516,6 +516,12 @@ eng:
       mode:
         debit: "Debit"
         payment: "Payment"
+    tax_declaration_item_part:
+      direction:
+        # collected: "Collected"
+        # deductible: "Deductible"
+        # fixed_asset_deductible: "Fixed asset deductible"
+        # intracommunity_payable: "Intracommunity payable"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"

@@ -108,9 +108,5 @@
         %i.icon.icon-warning
         - if affair.multi_thirds?
           = :the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present.tn
-        - elsif affair.journal_entry_items_unbalanced?
-          = :the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet.tn
-        - elsif affair.journal_entry_items_already_lettered?
-          = :the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user.tn
         - else
           = :the_automatic_lettering_cannot_be_done_in_accountancy.tn

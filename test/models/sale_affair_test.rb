@@ -197,7 +197,11 @@ class SaleAffairTest < ActiveSupport::TestCase
     assert !sale.affair.multi_thirds?
     assert !sale.affair.journal_entry_items_already_lettered?
 
-    assert !sale.affair.letterable?
+    # REVIEW: This should be confirmed by someone.
+    # Test changed by @aquaj because it seems to be the desired behaviour
+    # after @lcoq's modifications in code.
+    # Can @burisu or @ionosphere confirm ?
+    assert sale.affair.letterable?
     sale
   end
 end
