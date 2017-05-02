@@ -40,10 +40,10 @@
         %tr.total
           - to_pay = resource.items.sum(:balance_tax_amount)
           - if to_pay >= 0
-            %th{ colspan: 5}= :to_pay.tl
+            %th{ colspan: 6}= :to_pay.tl
             %td= to_pay.l(currency: resource.currency)
           - else
-            %th{ colspan: 5}= :to_reclaim.tl
+            %th{ colspan: 6}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
       - resource.items.order(:id).each do |item|

@@ -133,8 +133,8 @@ class AffairTest < ActiveSupport::TestCase
     assert subject.save
 
     letter_on_first_save = subject.letter
-    lettered_items_on_first_save = JournalEntryItem.where(letter: letter_on_first_save).pluck(:id).to_set
-    assert letter_on_first_save
+    lettered_items_on_first_save = JournalEntryItem.where(letter: [letter_on_first_save, letter_on_first_save + '*']).pluck(:id).to_set
+    assert letter_on_first_save.present?
     assert_not_empty lettered_items_on_first_save
 
     assert subject.save

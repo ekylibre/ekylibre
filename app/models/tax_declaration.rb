@@ -74,11 +74,13 @@ class TaxDeclaration < Ekylibre::Record::Base
            to: :financial_year
 
   protect on: :update do
-    validated? || sent?
+    old = old_record
+    (old && old.sent?) || (old.validated? && draft?)
   end
 
   protect on: :destroy do
-    sent?
+    old = old_record
+    old.sent?
   end
 
   state_machine :state, initial: :draft do
@@ -99,17 +101,31 @@ class TaxDeclaration < Ekylibre::Record::Base
       self.mode = financial_year.tax_declaration_mode
       self.currency = financial_year.currency
       # if tax_declarations exists for current financial_year, then get the last to compute started_on
-      self.started_on = financial_year.next_tax_declaration_on
+      self.started_on ||= financial_year.next_tax_declaration_on
+      # raise self.started_on.inspect
       # anyway, stopped_on is started_on + tax_declaration_frequency_duration
-    end
-    if started_on
-      self.stopped_on ||= financial_year.tax_declaration_end_date(started_on)
+      if started_on
+        self.stopped_on ||= financial_year.tax_declaration_stopped_on(started_on)
+        self.stopped_on = financial_year.stopped_on if self.stopped_on > financial_year.stopped_on
+      end
     end
     self.invoiced_on ||= self.stopped_on
   end
 
   before_validation do
     self.created_at ||= Time.zone.now
+  end
+
+  validate do
+    if self.started_on && stopped_on
+      if stopped_on <= self.started_on
+        errors.add(:stopped_on, :posterior, to: self.started_on.l)
+      end
+      if others.any?
+        errors.add(:started_on, :overlap) if others.where('? BETWEEN started_on AND stopped_on', started_on).any?
+        errors.add(:stopped_on, :overlap) if others.where('? BETWEEN started_on AND stopped_on', stopped_on).any?
+      end
+    end
   end
 
   after_create :compute!, if: :draft?

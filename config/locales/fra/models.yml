@@ -242,6 +242,7 @@ fra:
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+        overlap: "%{attribute} se trouve sur un enregistrement existant"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
