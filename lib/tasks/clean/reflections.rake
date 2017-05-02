@@ -10,6 +10,7 @@ namespace :clean do
     Clean::Support.models_in_file.each do |model|
       log.write "> #{model.name}...\n"
       reflections = model.reflect_on_all_associations(:has_many)
+      foreign_keys = ActiveRecord::Base.connection.foreign_keys(model.table_name)
       model.reflect_on_all_associations.each do |r|
         next if r.options[:through]
         # puts model.name.to_s + '.' + r.name.to_s
@@ -22,6 +23,21 @@ namespace :clean do
             log.write "Cannot find model: #{r.class_name} used in #{model.name}##{r.name}\n"
             errors += 1
             next
+          end
+        end
+        if r.macro == :belongs_to && !r.polymorphic? && model.table_name == model.name.underscore.pluralize
+          unless foreign_keys.detect { |fk| fk.to_table.to_s == r.class_name.constantize.table_name.to_s && fk.column.to_s == r.foreign_key.to_s }
+            # action = "add_properly_foreign_key :#{model.table_name}, :#{r.foreign_key}, :#{r.class_name.constantize.table_name}, "
+            # presence_validator = model.validators.select{ |v| v.class == ActiveRecord::Validations::PresenceValidator && v.options[:if].blank? }.map(&:attributes).flatten.include?(r.foreign_key.to_s.gsub(/\_id$/, '').to_sym)
+            # not_null_column = !Maybe(model.columns_hash[r.foreign_key.to_s]).null.or_else(true)
+            # # puts(r.foreign_key.inspect.yellow + ' ' + presence_validator.inspect.green + ' '+ not_null_column.inspect.blue)
+            # action << ((presence_validator || not_null_column) ? ':cascade' :  ':nullify')
+            # puts action
+            # if presence_validator && !not_null_column
+            #   puts "change_column_null :#{model.table_name}, :#{r.foreign_key}, false"
+            # end
+            log.write "Foreign key #{model.table_name}(#{r.foreign_key}) => #{r.class_name.constantize.table_name} is missing\n"
+            errors += 1
           end
         end
         next unless r.macro == :has_many || r.macro == :has_one

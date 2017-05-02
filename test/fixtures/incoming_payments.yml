@@ -43,7 +43,7 @@
 #  mode_id               :integer          not null
 #  number                :string
 #  paid_at               :datetime
-#  payer_id              :integer
+#  payer_id              :integer          not null
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer

@@ -23,7 +23,7 @@
 # == Table: incoming_payment_modes
 #
 #  active                  :boolean          default(FALSE)
-#  cash_id                 :integer
+#  cash_id                 :integer          not null
 #  commission_account_id   :integer
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
 #  commission_percentage   :decimal(19, 4)   default(0.0), not null
@@ -60,6 +60,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   validates :commission_base_amount, :commission_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :detail_payments, :with_accounting, :with_commission, :with_deposit, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
+  validates :cash, presence: true
   # ]VALIDATORS]
   validates :name, length: { allow_nil: true, maximum: 50 }
   validates :commission_percentage, numericality: { greater_than_or_equal_to: 0, if: :with_commission? }

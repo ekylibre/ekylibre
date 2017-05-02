@@ -26,7 +26,7 @@
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  intervention_id :integer
-#  linked_id       :integer
+#  linked_id       :integer          not null
 #  lock_version    :integer          default(0), not null
 #  nature          :string           not null
 #  originator_id   :integer

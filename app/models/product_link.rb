@@ -26,7 +26,7 @@
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  intervention_id :integer
-#  linked_id       :integer
+#  linked_id       :integer          not null
 #  lock_version    :integer          default(0), not null
 #  nature          :string           not null
 #  originator_id   :integer
@@ -47,7 +47,7 @@ class ProductLink < Ekylibre::Record::Base
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(product_link) { product_link.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :product, presence: true
+  validates :linked, :product, presence: true
   # ]VALIDATORS]
   validates :linked, presence: true
 

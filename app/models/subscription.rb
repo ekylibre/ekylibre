@@ -29,14 +29,14 @@
 #  description    :text
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  nature_id      :integer
+#  nature_id      :integer          not null
 #  number         :string
 #  parent_id      :integer
 #  quantity       :integer          not null
 #  sale_item_id   :integer
 #  started_on     :date             not null
 #  stopped_on     :date             not null
-#  subscriber_id  :integer
+#  subscriber_id  :integer          not null
 #  suspended      :boolean          default(FALSE), not null
 #  swim_lane_uuid :uuid             not null
 #  updated_at     :datetime         not null
@@ -63,7 +63,7 @@ class Subscription < Ekylibre::Record::Base
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(subscription) { subscription.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :suspended, inclusion: { in: [true, false] }
-  validates :swim_lane_uuid, presence: true
+  validates :nature, :subscriber, :swim_lane_uuid, presence: true
   # ]VALIDATORS]
   validates :nature, :subscriber, presence: true
 

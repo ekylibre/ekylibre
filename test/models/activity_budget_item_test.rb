@@ -37,7 +37,7 @@
 #  unit_population    :decimal(19, 4)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
-#  variant_id         :integer
+#  variant_id         :integer          not null
 #  variant_indicator  :string
 #  variant_unit       :string
 #

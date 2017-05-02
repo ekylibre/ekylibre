@@ -23,7 +23,7 @@
 # == Table: incoming_payment_modes
 #
 #  active                  :boolean          default(FALSE)
-#  cash_id                 :integer
+#  cash_id                 :integer          not null
 #  commission_account_id   :integer
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
 #  commission_percentage   :decimal(19, 4)   default(0.0), not null

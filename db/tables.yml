@@ -252,6 +252,7 @@ activity_budget_items:
   variant_id:
     type: integer
     references: product_nature_variant
+    required: true
   variant_indicator:
     type: string
   variant_unit:
@@ -2988,6 +2989,7 @@ incoming_payment_modes:
   cash_id:
     type: integer
     references: cash
+    required: true
   commission_account_id:
     type: integer
     references: account
@@ -3111,6 +3113,7 @@ incoming_payments:
   payer_id:
     type: integer
     references: entity
+    required: true
   receipt:
     type: text
   received:
@@ -4763,6 +4766,7 @@ outgoing_payment_modes:
   cash_id:
     type: integer
     references: cash
+    required: true
   created_at:
     type: datetime
     required: true
@@ -5441,6 +5445,7 @@ product_links:
   linked_id:
     type: integer
     references: product
+    required: true
   lock_version:
     type: integer
     required: true
@@ -6478,6 +6483,7 @@ purchases:
   nature_id:
     type: integer
     references: purchase_nature
+    required: true
   number:
     type: string
     required: true
@@ -6823,6 +6829,7 @@ sales:
   nature_id:
     type: integer
     references: sale_nature
+    required: true
   number:
     type: string
     required: true
@@ -7012,6 +7019,7 @@ subscriptions:
   nature_id:
     type: integer
     references: subscription_nature
+    required: true
   number:
     type: string
   parent_id:
@@ -7032,6 +7040,7 @@ subscriptions:
   subscriber_id:
     type: integer
     references: entity
+    required: true
   suspended:
     type: boolean
     required: true

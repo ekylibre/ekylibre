@@ -23,7 +23,7 @@
 # == Table: outgoing_payment_modes
 #
 #  active          :boolean          default(FALSE), not null
-#  cash_id         :integer
+#  cash_id         :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
@@ -45,6 +45,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :sepa, :with_accounting, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
+  validates :cash, presence: true
   # ]VALIDATORS]
   validates :name, length: { allow_nil: true, maximum: 50 }
   validates :cash, presence: true

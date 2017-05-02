@@ -52,7 +52,7 @@
 #  journal_entry_id                         :integer
 #  letter_format                            :boolean          default(TRUE), not null
 #  lock_version                             :integer          default(0), not null
-#  nature_id                                :integer
+#  nature_id                                :integer          not null
 #  number                                   :string           not null
 #  payment_at                               :datetime
 #  payment_delay                            :string           not null

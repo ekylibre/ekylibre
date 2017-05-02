@@ -43,7 +43,7 @@
 #  mode_id               :integer          not null
 #  number                :string
 #  paid_at               :datetime
-#  payer_id              :integer
+#  payer_id              :integer          not null
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer
@@ -71,7 +71,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :commission_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_account_number, :bank_check_number, :bank_name, :number, length: { maximum: 500 }, allow_blank: true
-  validates :currency, :mode, presence: true
+  validates :currency, :mode, :payer, presence: true
   validates :downpayment, :received, :scheduled, inclusion: { in: [true, false] }
   validates :receipt, length: { maximum: 500_000 }, allow_blank: true
   validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }

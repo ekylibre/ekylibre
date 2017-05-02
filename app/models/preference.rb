@@ -47,7 +47,7 @@ class Preference < Ekylibre::Record::Base
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
-  belongs_to :user, class_name: 'Entity'
+  belongs_to :user
   belongs_to :record_value, polymorphic: true
   # cattr_reader :reference
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -37,7 +37,7 @@
 #  invoiced_at                              :datetime
 #  journal_entry_id                         :integer
 #  lock_version                             :integer          default(0), not null
-#  nature_id                                :integer
+#  nature_id                                :integer          not null
 #  number                                   :string           not null
 #  payment_at                               :datetime
 #  payment_delay                            :string

@@ -29,14 +29,14 @@
 #  description    :text
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  nature_id      :integer
+#  nature_id      :integer          not null
 #  number         :string
 #  parent_id      :integer
 #  quantity       :integer          not null
 #  sale_item_id   :integer
 #  started_on     :date             not null
 #  stopped_on     :date             not null
-#  subscriber_id  :integer
+#  subscriber_id  :integer          not null
 #  suspended      :boolean          default(FALSE), not null
 #  swim_lane_uuid :uuid             not null
 #  updated_at     :datetime         not null

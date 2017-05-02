@@ -23,7 +23,7 @@
 # == Table: outgoing_payment_modes
 #
 #  active          :boolean          default(FALSE), not null
-#  cash_id         :integer
+#  cash_id         :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key

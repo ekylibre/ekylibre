@@ -37,7 +37,7 @@
 #  invoiced_at                              :datetime
 #  journal_entry_id                         :integer
 #  lock_version                             :integer          default(0), not null
-#  nature_id                                :integer
+#  nature_id                                :integer          not null
 #  number                                   :string           not null
 #  payment_at                               :datetime
 #  payment_delay                            :string
@@ -78,7 +78,7 @@ class Purchase < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :invoiced_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :currency, :payee, :supplier, :tax_payability, presence: true
+  validates :currency, :nature, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :payment_delay, :reference_number, :state, length: { maximum: 500 }, allow_blank: true

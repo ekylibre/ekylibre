@@ -52,7 +52,7 @@
 #  journal_entry_id                         :integer
 #  letter_format                            :boolean          default(TRUE), not null
 #  lock_version                             :integer          default(0), not null
-#  nature_id                                :integer
+#  nature_id                                :integer          not null
 #  number                                   :string           not null
 #  payment_at                               :datetime
 #  payment_delay                            :string           not null
@@ -96,7 +96,7 @@ class Sale < Ekylibre::Record::Base
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :conclusion, :description, :introduction, length: { maximum: 500_000 }, allow_blank: true
   validates :credit, :has_downpayment, :letter_format, inclusion: { in: [true, false] }
-  validates :client, :currency, :payer, presence: true
+  validates :client, :currency, :nature, :payer, presence: true
   validates :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true
   validates :number, :payment_delay, :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
