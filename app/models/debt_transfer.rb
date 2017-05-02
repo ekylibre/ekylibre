@@ -38,10 +38,18 @@
 #  updater_id              :integer
 #
 
-####
-## Generate two records with mirroring
-####
+# Debt transfers permit to include sales in purchase affairs and vice versa.
+# The model works in pair. One record for the debit and one record for the
+# credit.
+# Mirroring on credit record is managed by model, but some errors can happen
+# if the coder don't check everything. The destruction process is fragile.
 class DebtTransfer < Ekylibre::Record::Base
+  enumerize :nature, in: %i[sale_regularization purchase_regularization], predicates: true
+
+  belongs_to :journal_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :affair, class_name: 'Affair', inverse_of: :debt_transfers
+  belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -49,26 +57,21 @@ class DebtTransfer < Ekylibre::Record::Base
   validates :affair, :debt_transfer_affair, :nature, presence: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-
-  belongs_to :journal_entry, class_name: 'JournalEntry', dependent: :destroy
-  belongs_to :affair, class_name: 'Affair', inverse_of: :debt_transfers
-  belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations
-
-  enumerize :nature, in: %i[sale_regularization purchase_regularization]
+  validates :debt_transfer_affair_id, uniqueness: { scope: :affair_id }
 
   acts_as_affairable :third
 
   acts_as_numbered
 
   before_validation do
-    self.currency ||= affair.currency
-    self.amount = [affair.balance.abs, debt_transfer_affair.balance.abs].sort.first
+    self.currency = affair.currency
+    self.amount ||= [affair.balance.abs, debt_transfer_affair.balance.abs].min
     self.nature ||= if debt_transfer_affair.is_a?(PurchaseAffair) && affair.is_a?(SaleAffair)
                       :sale_regularization
                     elsif debt_transfer_affair.is_a?(SaleAffair) && affair.is_a?(PurchaseAffair)
                       :purchase_regularization
                     else
-                      raise "can't run a debt transfer with homogeneous affairs"
+                      raise 'Cannot run a debt transfer with homogeneous affairs'
                     end
   end
 
@@ -79,25 +82,34 @@ class DebtTransfer < Ekylibre::Record::Base
   end
 
   before_destroy do
-    # from affair (the 'target'), we destroy regularizations
-    mirror_nature = (nature == :sale_regularization ? :purchase_regularization : :sale_regularization)
-    affair.debt_regularizations.find_by(nature: mirror_nature, amount: amount).delete
+    DebtTransfer.where(
+      affair: debt_transfer_affair,
+      debt_transfer_affair: affair
+    ).delete_all
+    true
+  end
+
+  after_destroy do
+    affair.save
+    debt_transfer_affair.save
     true
   end
 
   class << self
-    def create_and_reflect!(args)
-      record = create! args
+    def create_and_reflect!(attributes = {})
+      record = create!(attributes.merge(amount: nil))
       reflect! record
       record
     end
 
     def reflect!(record)
-      create!(affair: record.debt_transfer_affair,
-              debt_transfer_affair: record.affair,
-              currency: record.currency,
-              amount: record.amount,
-              nature: record.nature == :sale_regularization ? :purchase_regularization : :sale_regularization)
+      create!(
+        affair: record.debt_transfer_affair,
+        debt_transfer_affair: record.affair,
+        currency: record.currency,
+        amount: record.amount,
+        nature: record.nature == :sale_regularization ? :purchase_regularization : :sale_regularization
+      )
     end
 
     def regularization_account
@@ -107,8 +119,7 @@ class DebtTransfer < Ekylibre::Record::Base
 
   bookkeep do |b|
     # TODO: refactor
-    if nature == :purchase_regularization
-
+    if purchase_regularization?
       # Debit on supplier account + credit on regularization account
       b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: debt_transfer_affair.class.model_name.human, number: debt_transfer_affair.number, entity: debt_transfer_affair.third.full_name)
@@ -118,8 +129,7 @@ class DebtTransfer < Ekylibre::Record::Base
       end
     end
 
-    if nature == :sale_regularization
-
+    if sale_regularization?
       # debit on regularization account + Credit on client account
       b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: affair.class.model_name.human, number: affair.number, entity: affair.third.full_name)

@@ -10,7 +10,7 @@ class CreateTaxDeclarationItemParts < ActiveRecord::Migration
       t.decimal :total_pretax_amount, precision: 19, scale: 4, null: false
       t.string :direction, null: false
       t.stamps
-      t.index :direction # collected, deductible, fixed_asset_deductible, intracommunauty_payable
+      t.index :direction # collected, deductible, fixed_asset_deductible, intracommunity_payable
     end
 
     reversible do |r|

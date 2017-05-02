@@ -173,10 +173,6 @@ arb:
       stocks: "الأسهم لوحة القيادة"
       tools: "أدوات لوحة القيادة"
       trade: "لوحة أجهزة القياس التجارة"
-    backend/debt_transfers:
-      index: "نقل الديون"
-      new: "نقل ديون جديدة"
-      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?
@@ -2568,6 +2564,7 @@ arb:
       accountant_without_email: "الرجاء ضبط البريد الإلكتروني محاسب"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
+      all_tax_declarations_have_already_existing: "جميع الإعلانات الضريبية موجودة بالفعل"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
@@ -2693,8 +2690,6 @@ arb:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأنه تم بالفعل من قبل المستخدم"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لبعض الصفقات لم يتم الكشف حتى الآن"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"

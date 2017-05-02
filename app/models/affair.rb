@@ -247,7 +247,7 @@ class Affair < Ekylibre::Record::Base
 
   def debt_transferable?
     # unbalanced
-    !closed
+    !closed && unbalanced?
   end
 
   # Adds a gap to close the affair
@@ -417,7 +417,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns true if a part of items are already lettered by outside
   def journal_entry_items_already_lettered?
-    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.gsub('*', '') }
+    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.delete('*') }
     if (letter? && letters.detect { |x| x != letter }) ||
        (!letter? && letters.detect(&:present?))
       return true

@@ -153,10 +153,6 @@ jpn:
       stocks: "株式のダッシュボード"
       tools: "ツールのダッシュボード"
       trade: "貿易ダッシュボード"
-    backend/debt_transfers:
-      index: "債務転送"
-      new: "新債務転送"
-      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "出荷"
@@ -1961,6 +1957,7 @@ jpn:
       accountant_without_email: "会計士の電子メールを設定してください"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "すべての小包はinvoiceableと同じ性質と第三のものでなければなりません"
       all_purchases_must_be_ordered_or_invoiced: "すべての購入は、発注や請求しなければなりません。"
+      all_tax_declarations_have_already_existing: "すべての税申告書は既に存在しています"
       bookkeeping_is_finished: "商用のデータ転送が終了します。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "接続するために対処見つけることができません"
@@ -2048,8 +2045,6 @@ jpn:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "自動レタリングは会計で行うことはできません"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "それはユーザによって既に行われていたため、自動レタリングは会計で行うことはできません"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "いくつかの取引がまだ考慮されないため、自動レタリングは会計で行うことはできません"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "あまりにも多くの三分のが存在しているため、自動レタリングは会計で行うことはできません"
       the_sales_invoice_is_not_cancellable: "売上請求書は解約ではありません"
       this_service_is_not_activated: "このサービスは、活性化されていません"

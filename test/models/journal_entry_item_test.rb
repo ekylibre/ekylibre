@@ -103,9 +103,9 @@ class JournalEntryItemTest < ActiveSupport::TestCase
   end
 
   test 'lettering is indicated as partial (*) when lettered items are not balanced' do
-    first_account = Account.create!(name: "First account", number: "123FIRST")
-    random_account = Account.create!(name: "Random account", number: "123RANDOM")
-    other_random = Account.create!(name: "Random account bis", number: "123RANBIS")
+    first_account = Account.create!(name: 'First account', number: '123FIRST')
+    random_account = Account.create!(name: 'Random account', number: '123RANDOM')
+    other_random = Account.create!(name: 'Random account bis', number: '123RANBIS')
     journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
     entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
       [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },
@@ -118,7 +118,8 @@ class JournalEntryItemTest < ActiveSupport::TestCase
       printed_on: Date.today,
       items_attributes:
         [{ account: random_account, name: 'You\'re', real_debit: 10 },
-         { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }])
+         { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }]
+    )
     assert_equal 'A', entry.items.find_by(real_debit: 10).letter
     assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
 

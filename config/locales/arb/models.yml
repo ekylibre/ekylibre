@@ -679,6 +679,7 @@ arb:
         odd: "%{attribute} يجب ان يكون فردي"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
@@ -820,7 +821,7 @@ arb:
       animal_group: "مجموعة الحيوانات"
       area: "المنطقة البريدية" #?
       attachment: "مرفق"
-      bank_guarantee_account: "حساب الضمان المصرفي"
+      bank_guarantee_account: "حساب الضمان المصرفي" #?
       bank_statement: "بيان الحساب المصرفي"
       bank_statement_item: "الصف بيان البنك"
       bioproduct: "المنتج تعيش"
@@ -895,9 +896,9 @@ arb:
       inspection: "تصنيف المنتجات"
       inspection_calibration: "عيار التفتيش"
       inspection_point: "الاختيار تصنيف المنتجات"
-      insurance_account: "حساب التأمين"
+      insurance_account: "حساب التأمين" #?
       integration: "دمج"
-      interest_account: "حساب الفائدة"
+      interest_account: "حساب الفائدة" #?
       intervention: "تدخل"
       intervention_agent: "وكيل تدخل"
       intervention_doer: "التدخل الفاعل"

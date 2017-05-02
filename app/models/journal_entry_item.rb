@@ -129,7 +129,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(bank_statement_letter: letter).where(bank_statement_id: bank_statement.id)
   }
 
-  scope :with_letter, ->(letter) { where(letter: [letter.gsub('*', ''), letter.gsub('*', '') + '*']) }
+  scope :with_letter, ->(letter) { where(letter: [letter.delete('*'), letter.delete('*') + '*']) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -140,7 +140,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   #
   before_validation do
     self.name = name.to_s[0..254]
-    self.letter = nil if self.letter.blank?
+    self.letter = nil if letter.blank?
     self.bank_statement_letter = nil if bank_statement_letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
@@ -148,7 +148,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     compute
 
     # CAREFUL /!\ This is complementary to behaviour from postgres triggers that are in DB.
-    unless self.letter.blank?
+    if letter.present?
       letter_balance = letter_group.sum(:debit) - letter_group.sum(:credit)
       letter_balance += (credit_was || 0) - (debit_was || 0)
       letter_balance += debit - credit
@@ -206,12 +206,12 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   def letter_radix
     return nil unless letter
-    letter.gsub('*', '')
+    letter.delete('*')
   end
 
   def letter_group
     return JournalEntryItem.none unless letter
-    account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix+'*')
+    account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix + '*')
   end
 
   def compute

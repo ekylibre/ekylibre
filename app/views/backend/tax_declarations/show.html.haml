@@ -21,7 +21,7 @@
   - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
     -# = cobble_list :items do
     - columns = [:deductible, :fixed_asset_deductible, :collected, :intracommunity_payable, :balance]
-    - account_transcode = {:collected => :collect_account_id, :deductible => :deduction_account_id, :fixed_asset_deductible => :fixed_asset_deduction_account_id, :intracommunity_payable => :intracommunity_payable_account_id }
+    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id, intracommunity_payable: :intracommunity_payable_account_id }
 
     %table.list
       %thead
@@ -40,10 +40,10 @@
         %tr.total
           - to_pay = resource.items.sum(:balance_tax_amount)
           - if to_pay >= 0
-            %th{ colspan: 5}= :to_pay.tl
+            %th{ colspan: 6}= :to_pay.tl
             %td= to_pay.l(currency: resource.currency)
           - else
-            %th{ colspan: 5}= :to_reclaim.tl
+            %th{ colspan: 6}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
       - resource.items.order(:id).each do |item|

@@ -1,8 +1,6 @@
 class AddPartialLetteringSupport < ActiveRecord::Migration
-  def change
-    reversible do |dir|
-      dir.up do
-        execute <<-SQL
+  def up
+    execute <<-SQL.strip_heredoc
           CREATE OR REPLACE FUNCTION compute_partial_lettering() RETURNS TRIGGER AS $$
           DECLARE
             new_letter varchar DEFAULT NULL;
@@ -61,13 +59,30 @@ class AddPartialLetteringSupport < ActiveRecord::Migration
           RETURN NEW;
         END;
         $$ language plpgsql;
+        SQL
 
+    execute <<-SQL.strip_heredoc
           CREATE TRIGGER compute_partial_lettering_status_insert_delete
-            AFTER INSERT OR DELETE 
+            AFTER INSERT OR DELETE
             ON journal_entry_items
             FOR EACH ROW
               EXECUTE PROCEDURE compute_partial_lettering();
+        SQL
 
+    execute <<-SQL.strip_heredoc
+          CREATE TRIGGER compute_partial_lettering_status_update
+            AFTER UPDATE OF credit, debit, account_id, letter
+            ON journal_entry_items
+            FOR EACH ROW
+              WHEN (COALESCE(OLD.letter, '') <> COALESCE(NEW.letter, ''))
+              EXECUTE PROCEDURE compute_partial_lettering();
+        SQL
+
+    execute "UPDATE journal_entry_items SET letter = letter || '*' FROM (SELECT min(id) AS id FROM journal_entry_items WHERE letter IS NOT NULL GROUP BY letter) AS l WHERE l.id = journal_entry_items.id;"
+
+    execute 'DROP TRIGGER compute_partial_lettering_status_update ON journal_entry_items;'
+
+    execute <<-SQL.strip_heredoc
           CREATE TRIGGER compute_partial_lettering_status_update
             AFTER UPDATE OF credit, debit, account_id, letter
             ON journal_entry_items
@@ -76,15 +91,13 @@ class AddPartialLetteringSupport < ActiveRecord::Migration
               OR OLD.account_id <> NEW.account_id
               OR OLD.credit <> NEW.credit
               OR OLD.debit <> NEW.debit)
-              EXECUTE PROCEDURE compute_partial_lettering(); 
+              EXECUTE PROCEDURE compute_partial_lettering();
         SQL
-      end
+  end
 
-      dir.down do
-        execute 'DROP TRIGGER IF EXISTS compute_partial_lettering_status_insert_delete ON journal_entry_items;'
-        execute 'DROP TRIGGER IF EXISTS compute_partial_lettering_status_update ON journal_entry_items;'
-        execute 'DROP FUNCTION IF EXISTS compute_partial_lettering();'
-      end
-    end
+  def down
+    execute 'DROP TRIGGER IF EXISTS compute_partial_lettering_status_insert_delete ON journal_entry_items;'
+    execute 'DROP TRIGGER IF EXISTS compute_partial_lettering_status_update ON journal_entry_items;'
+    execute 'DROP FUNCTION IF EXISTS compute_partial_lettering();'
   end
 end
