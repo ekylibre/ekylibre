@@ -105,17 +105,22 @@ module Backend
       return unless @financial_year = find_and_check
       if request.post?
         closed_on = params[:financial_year][:stopped_on].to_date
+        if params[:result_journal_id] == '0'
+          params[:result_journal_id] = Journal.create_one!(:result, @financial_year.currency).id
+        end
         if params[:forward_journal_id] == '0'
           params[:forward_journal_id] = Journal.create_one!(:forward, @financial_year.currency).id
         end
         if params[:closure_journal_id] == '0'
           params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
         end
-        if @financial_year.close(closed_on, forward_journal_id: params[:forward_journal_id], closure_journal_id: params[:closure_journal_id])
+        if @financial_year.close(closed_on, result_journal_id: params[:result_journal_id], forward_journal_id: params[:forward_journal_id], closure_journal_id: params[:closure_journal_id])
           notify_success(:closed_financial_years)
           redirect_to(action: :index)
         end
       else
+        journal = Journal.where(currency: @financial_year.currency, nature: :result).first
+        params[:result_journal_id] = (journal ? journal.id : 0)
         journal = Journal.where(currency: @financial_year.currency, nature: :forward).first
         params[:forward_journal_id] = (journal ? journal.id : 0)
         journal = Journal.where(currency: @financial_year.currency, nature: :closure).first

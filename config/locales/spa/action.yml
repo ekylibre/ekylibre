@@ -1102,6 +1102,7 @@ spa:
     done: "Hecho"
     dont_generate_carrying_forward_entries: "- No generar llevar adelante las entradas -"
     dont_generate_closure_entries: "- no generan entradas de cierre -"
+    # dont_generate_result_entries: "— Do not generate result entries —"
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?

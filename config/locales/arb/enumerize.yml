@@ -252,6 +252,7 @@ arb:
         fixed_assets: "أصول ثابتة"
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
+        # result: "Result"
         sales: "مبيعات"
         stocks: "مخازن"
         various: "عمليات مختلفة"
