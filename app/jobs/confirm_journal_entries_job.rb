@@ -5,9 +5,9 @@ class ConfirmJournalEntriesJob < ActiveJob::Base
     journal_entries = JournalEntry.where(id: journal_ids)
     undone = 0
     begin
-      for entry in journal_entries
+      undone = journal_entries.reduce(0) do |count, entry|
         entry.confirm if entry.can_confirm?
-        undone += 1 if entry.draft?
+        entry.draft? ? count + 1 : count
       end
       notification = user.notifications.build(notification_params(true, journal_entries.size - undone, nil))
     rescue Exception => e
@@ -25,7 +25,7 @@ class ConfirmJournalEntriesJob < ActiveJob::Base
       target_type: 'JournalEntry',
       interpolations: {
         count: number,
-        error_message: error
+        message: error
       }
     }
   end
