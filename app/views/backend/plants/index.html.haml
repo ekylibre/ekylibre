@@ -8,6 +8,9 @@
     = plant_period_crit(label: Plant.human_attribute_name(:born_at), name: :born_at)
   - k.helper do
     = plant_period_crit(label: Plant.human_attribute_name(:dead_at), name: :dead_at)
+  - k.helper do
+    %label= Plant.human_attribute_name(:net_surface_area)
+    %input{ id: 'slider', 'data-slider-min': 10, 'data-slider-max': 50, 'data-provide': 'slider', 'data-slider-value': [20, 30] }
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?

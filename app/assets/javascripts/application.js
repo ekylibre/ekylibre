@@ -75,6 +75,7 @@
 //= require plugins
 //= require_tree .
 //= require tour
+//= require bootstrap-slider
 
 var visualization = {};
 var mapeditor = {};
