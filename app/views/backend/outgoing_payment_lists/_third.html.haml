@@ -2,6 +2,13 @@
   %thead
     %tr
       %th{colspan: 4}= third.full_name
+    - if third.unbalanced?
+      %tr.warning#unbalanced-entity
+        %th{colspan: 3}= :third_is_unbalanced.tl
+        %th
+          = third.balance
+          = " &ndash; ".html_safe
+          = third.supplier_accounting_balance
   %tbody
     = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
   %tfoot

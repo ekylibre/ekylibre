@@ -416,7 +416,11 @@ class Account < Ekylibre::Record::Base
   end
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder('je.printed_on, je.real_credit, je.real_debit')
+    relation_name = 'journal_entries'
+    journal_entry_items
+      .includes(:journal, :entry)
+      .where(JournalEntry.period_condition(period, started_at, stopped_at, relation_name))
+      .reorder(relation_name + '.printed_on, ' + relation_name + '.real_credit, ' + relation_name + '.real_debit')
   end
 
   def new_letter
@@ -441,6 +445,15 @@ class Account < Ekylibre::Record::Base
     return nil unless item_ids.size > 1 && items.count == item_ids.size &&
                       items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
     letter ||= new_letter
+    journal_entry_items.where(conditions).update_all(letter: letter)
+    letter
+  end
+
+  # Mark entry items with the given +letter+, even when the items are not balanced together.
+  # If no +letter+ given, it uses a new letter.
+  def mark!(item_ids, letter = nil)
+    letter ||= new_letter
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR letter SIMILAR TO \'[A-z]*\\*\')', item_ids]
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
   end

@@ -75,3 +75,51 @@ tax_declarations_002:
   stopped_on: 2014-09-30
   updated_at: 2016-12-20 09:05:31.237531000 Z
   updater_id: 1
+tax_declarations_003:
+  accounted_at: 2017-05-01 23:43:47.552241000 Z
+  created_at: 2017-05-01 23:43:40.894286000 Z
+  creator_id: 1
+  currency: FRF
+  financial_year_id: 1
+  id: 3
+  invoiced_on: 1992-12-31
+  lock_version: 2
+  mode: payment
+  number: TD000000000003
+  started_on: 1992-11-17
+  state: sent
+  stopped_on: 1992-12-31
+  updated_at: 2017-05-01 23:43:47.545276000 Z
+  updater_id: 1
+tax_declarations_004:
+  accounted_at: 2017-05-01 23:43:54.073142000 Z
+  created_at: 2017-05-01 23:43:53.967238000 Z
+  creator_id: 1
+  currency: FRF
+  financial_year_id: 1
+  id: 4
+  invoiced_on: 1993-12-31
+  lock_version: 0
+  mode: payment
+  number: TD000000000004
+  started_on: 1993-01-01
+  state: draft
+  stopped_on: 1993-12-31
+  updated_at: 2017-05-01 23:43:53.969891000 Z
+  updater_id: 1
+tax_declarations_005:
+  accounted_at: 2017-05-01 23:45:23.330707000 Z
+  created_at: 2017-05-01 23:45:04.462007000 Z
+  creator_id: 1
+  currency: FRF
+  financial_year_id: 1
+  id: 5
+  invoiced_on: 1994-12-31
+  lock_version: 2
+  mode: payment
+  number: TD000000000005
+  started_on: 1994-01-01
+  state: sent
+  stopped_on: 1994-12-31
+  updated_at: 2017-05-01 23:45:23.322113000 Z
+  updater_id: 1

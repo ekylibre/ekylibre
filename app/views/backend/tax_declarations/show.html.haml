@@ -21,7 +21,7 @@
   - c.cobble :items, title: TaxDeclaration.human_attribute_name(:items) do
     -# = cobble_list :items do
     - columns = [:deductible, :fixed_asset_deductible, :collected, :intracommunity_payable, :balance]
-    - account_transcode = {:collected => :collect_account_id, :deductible => :deduction_account_id, :fixed_asset_deductible => :fixed_asset_deduction_account_id}
+    - account_transcode = { collected: :collect_account_id, deductible: :deduction_account_id, fixed_asset_deductible: :fixed_asset_deduction_account_id, intracommunity_payable: :intracommunity_payable_account_id }
 
     %table.list
       %thead
@@ -40,10 +40,10 @@
         %tr.total
           - to_pay = resource.items.sum(:balance_tax_amount)
           - if to_pay >= 0
-            %th{ colspan: 5}= :to_pay.tl
+            %th{ colspan: 6}= :to_pay.tl
             %td= to_pay.l(currency: resource.currency)
           - else
-            %th{ colspan: 5}= :to_reclaim.tl
+            %th{ colspan: 6}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
 
       - resource.items.order(:id).each do |item|
@@ -57,6 +57,46 @@
               %td.decimal
                 .tax-amount= link_to(item.send("#{column}_tax_amount").l(currency: item.currency), { controller: :journal_entry_items, action: :index, tax_declaration_item_id: item.id, account_id: account_id})
                 %small.pretax-amount= item.send("#{column}_pretax_amount").l(currency: item.currency)
+
+  - c.cobble :out_of_range, title: :journal_entry_items_with_taxes_out_of_range.tl(count: resource.out_of_range_tax_journal_entry_items.count) do
+    %table.list
+      %thead
+        %tr
+          %th= JournalEntryItem.human_attribute_name(:account)
+          %th= JournalEntryItem.human_attribute_name(:entry)
+          %th= JournalEntryItem.human_attribute_name(:name)
+          %th= JournalEntry.human_attribute_name(:resource)
+          %th= JournalEntry.human_attribute_name(:printed_on)
+          %th= JournalEntry.human_attribute_name(:real_debit)
+          %th= JournalEntry.human_attribute_name(:real_credit)
+          %th= JournalEntry.human_attribute_name(:tax)
+      %tbody
+        - resource.out_of_range_tax_journal_entry_items.limit(500).each do |item|
+          %tr
+            %td
+              - if item.account
+                = link_to(item.account.label, { controller: :accounts, action: :show, id: item.account_id })
+              - else
+                = "-"
+            %td
+              - if item.entry
+                = link_to(item.entry.number, { controller: :journal_entries, action: :show, id: item.entry_id })
+              - else
+                = item.entry_number
+            %td= truncate(item.name, length: 50)
+            %td
+              - if item.entry && item.entry.resource
+                = link_to(item.entry.resource.number, { controller: item.entry.resource_type.tableize, action: :show, id: item.entry.resource_id })
+              - else
+                = '-'
+            %td= item.printed_on.l
+            %td.decimal= item.real_debit.l(currency: item.real_currency)
+            %td.decimal= item.real_credit.l(currency: item.real_currency)
+            %td
+              - if item.tax
+                = link_to(item.tax.name, { controller: :taxes, action: :show, id: item.tax_id })
+              - else
+                = "-"
 
   - c.cobble :undeclared, title: :journal_entry_items_with_undeclared_taxes.tl(count: resource.undeclared_tax_journal_entry_items.count) do
     %table.list

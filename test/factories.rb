@@ -21,6 +21,20 @@ FactoryGirl.define do
     trait :accountant do
     end
 
+    trait :client do
+      client true
+      after(:build) do |entity|
+        entity.client_account = Account.find_by!(number: '411')
+      end
+    end
+
+    trait :supplier do
+      supplier true
+      after(:build) do |entity|
+        entity.supplier_account = Account.find_by!(number: '401')
+      end
+    end
+
     trait :with_booked_journals do
       after(:create) do |entity|
         create_list :journal, 2, :various, accountant_id: entity.id
@@ -170,6 +184,100 @@ FactoryGirl.define do
       after(:build) do |exchange|
         exchange.closed_at = nil
       end
+    end
+  end
+
+  factory :sale_affair do
+    association :client, factory: %i[entity client]
+    sequence(:number) { |n| "AS0#{n}" }
+    credit 0.0
+    debit 5000.0
+    currency 'EUR'
+  end
+
+  factory :sale do
+    # needs sale_nature
+    association :affair, factory: :sale_affair
+    sequence(:number) { |n| "S00#{n}" }
+    amount 5000.0
+    downpayment_amount 0.0
+    pretax_amount 4180.602
+    currency 'EUR'
+    payment_delay '12 days, eom, 1 week ago'
+    state 'invoice'
+
+    after(:build) do |sale|
+      sale.client = sale.affair.client unless sale.client
+    end
+  end
+
+  factory :sale_item do
+    # needs tax
+    sale
+    amount 5000.0
+    pretax_amount 4180.602
+    quantity 1
+    reduction_percentage 0
+    unit_amount 5000.0
+    unit_pretax_amount 4180.602
+    compute_from 'amount'
+    currency 'EUR'
+
+    after(:build) do |sale_item|
+      sale_item.variant = ProductNatureVariant.last unless sale_item.variant
+    end
+  end
+
+  factory :purchase_affair do
+    association :supplier, factory: %i[entity supplier]
+    sequence(:number) { |n| "AP0#{n}" }
+    credit 1848.0
+    debit 0.0
+    currency 'EUR'
+  end
+
+  factory :purchase do
+    # needs purchase nature
+    association :affair, factory: :purchase_affair
+    sequence(:number) { |n| "P00#{n}" }
+    amount 1848.0
+    pretax_amount 1545.15
+    currency 'EUR'
+    tax_payability 'at_invoicing'
+    state 'invoice'
+
+    after(:build) do |purchase|
+      purchase.supplier = purchase.affair.supplier unless purchase.supplier
+    end
+  end
+
+  factory :purchase_item do
+    # needs tax
+    purchase
+    account
+    amount 1848.0
+    pretax_amount 1545.15
+    quantity 1
+    reduction_percentage 0
+    unit_amount 1848.0
+    unit_pretax_amount 1545.15
+    currency 'EUR'
+
+    after(:build) do |purchase_item|
+      purchase_item.variant = ProductNatureVariant.last unless purchase_item.variant
+    end
+  end
+
+  factory :tax_declaration do
+    # needs financial_year
+    sequence(:number) { |n| "TD00#{n}" }
+    currency 'EUR'
+    mode 'debit'
+
+    trait :debit do
+    end
+    trait :payment do
+      mode 'payment'
     end
   end
 end

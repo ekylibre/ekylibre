@@ -336,11 +336,16 @@ module Backend
       end
       active_face ||= faces_names.first
 
+      load_all_faces = false # For performance
+
       # Adds views
       html_code = faces.map do |face|
         face_name = face.args.first.to_s
         classes = ['face']
         classes << 'active' if active_face == face_name
+        unless load_all_faces || active_face == face_name # load_all_faces toggle a few lines above
+          next content_tag(:div, nil, id: "face-#{face_name}", data: { face: face_name }, class: classes)
+        end
         content_tag(:div, id: "face-#{face_name}", data: { face: face_name }, class: classes, &face.block)
       end.join.html_safe
 
@@ -352,8 +357,8 @@ module Backend
               face_name = face.args.first.to_s
               classes = ['btn', 'btn-default']
               classes << 'active' if face_name == active_face
-              get_url = url_for(controller: '/backend/januses', action: :toggle, id: name, face: face_name, redirect: url_for)
-              link_to(get_url, data: { "janus-href": face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
+              get_url = url_for(controller: '/backend/januses', action: :toggle, default: faces_names.first, id: name, face: face_name, redirect: request.fullpath)
+              link_to(get_url, data: { janus_href: face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
                 content_tag(:i, '', class: "icon icon-#{face_name}") + ' '.html_safe + face_name.tl
               end
             end.join.html_safe
