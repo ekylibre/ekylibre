@@ -141,7 +141,7 @@ module Backend
                     Intervention.convert_to_purchase(params[:intervention_ids])
                   elsif params[:duplicate_of]
                     Purchase.find_by(id: params[:duplicate_of])
-                            .deep_clone(include: :items, except: [:state, :number, :affair_id, :reference_number, :payment_delay])
+                            .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
                   else
                     Purchase.new(nature: nature)
                   end
