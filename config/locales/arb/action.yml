@@ -1328,7 +1328,7 @@ arb:
     done: "فعله"
     dont_generate_carrying_forward_entries: "- لا تولد تحمل إدخالات إلى الأمام -"
     dont_generate_closure_entries: "- لا تولد إدخالات إغلاق -"
-    # dont_generate_result_entries: "Dont generate result entries"
+    # dont_generate_result_entries: "— Do not generate result entries —"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
