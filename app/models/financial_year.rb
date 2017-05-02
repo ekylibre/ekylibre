@@ -517,8 +517,8 @@ class FinancialYear < Ekylibre::Record::Base
 
     accounts.find_each do |a|
       entry_items = a.journal_entry_items
-        .where(financial_year_id: self.id)
-        .between(self.started_on, to_close_on)
+                     .where(financial_year_id: id)
+                     .between(started_on, to_close_on)
       balance = entry_items.where(letter: nil).sum('debit - credit')
       next if balance.zero?
       unlettered_items << {
@@ -539,11 +539,11 @@ class FinancialYear < Ekylibre::Record::Base
   def unbalanced_items_for(account, to_close_on)
     account
       .journal_entry_items
-      .between(self.started_on, to_close_on)
+      .between(started_on, to_close_on)
       .where.not(letter: nil)
       .pluck(:letter, :entry_id, :debit, :credit)
       .group_by(&:first)
-      .select { |letter, items| items.map { |i| i[2] - i[3] }.sum.nonzero? }
+      .select { |_letter, items| items.map { |i| i[2] - i[3] }.sum.nonzero? }
       .values
       .flatten(1)
       .map { |item| item.first(2).reverse }
@@ -557,9 +557,9 @@ class FinancialYear < Ekylibre::Record::Base
       letter = info.last
 
       lettering_items = JournalEntry.find(entry_id)
-        .items
-        .where(letter: letter, account_id: account.id)
-        .find_each.map do |item|
+                                    .items
+                                    .where(letter: letter, account_id: account.id)
+                                    .find_each.map do |item|
         {
           account_id: account.id,
           name: item.name,
@@ -617,6 +617,7 @@ class FinancialYear < Ekylibre::Record::Base
         account_id: account.id,
         name: account.name,
         (result > 0 ? :real_debit : :real_credit) => result.abs
-      }])
+      }]
+    )
   end
 end
