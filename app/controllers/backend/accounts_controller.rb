@@ -64,7 +64,7 @@ module Backend
 
     def self.account_moves_conditions(_options = {})
       code = ''
-      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number], product_nature_variant: [:name] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
       code << journal_period_crit('params')
       code << journal_entries_states_crit('params')
       # code << journals_crit("params")
@@ -79,6 +79,7 @@ module Backend
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
       t.column :name
+      t.column :variant, url: true
       t.column :state_label
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true

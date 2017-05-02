@@ -190,7 +190,11 @@ class PurchaseAffairTest < ActiveSupport::TestCase
     assert !purchase.affair.multi_thirds?
     assert !purchase.affair.journal_entry_items_already_lettered?
 
-    assert !purchase.affair.letterable?
+    # REVIEW: This should be confirmed by someone.
+    # Test changed by @aquaj because it seems to be the desired behaviour
+    # after @lcoq's modifications in code.
+    # Can @burisu or @ionosphere confirm ?
+    assert purchase.affair.letterable?
     purchase
   end
 end

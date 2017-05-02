@@ -47,25 +47,29 @@ financial_years_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 1
-  lock_version: 0
+  lock_version: 1
   started_on: 1992-11-17
   stopped_on: 1993-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.087793000 Z
   updater_id: 1
 financial_years_002:
   closed: false
-  code: Loremum2
+  code: LOREMUM2
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 2
-  lock_version: 0
+  lock_version: 1
   started_on: 2050-09-01
   stopped_on: 2051-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.098562000 Z
   updater_id: 1
 financial_years_003:
   closed: false
@@ -73,12 +77,14 @@ financial_years_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 3
-  lock_version: 0
+  lock_version: 1
   started_on: 1993-09-01
   stopped_on: 1994-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.106021000 Z
   updater_id: 1
 financial_years_004:
   closed: false
@@ -86,12 +92,14 @@ financial_years_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 4
-  lock_version: 0
+  lock_version: 1
   started_on: 1994-09-01
   stopped_on: 1995-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.113532000 Z
   updater_id: 1
 financial_years_005:
   closed: false
@@ -99,12 +107,14 @@ financial_years_005:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 5
-  lock_version: 0
+  lock_version: 1
   started_on: 1995-09-01
   stopped_on: 1996-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.121489000 Z
   updater_id: 1
 financial_years_006:
   closed: false
@@ -112,12 +122,14 @@ financial_years_006:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 6
-  lock_version: 0
+  lock_version: 1
   started_on: 1996-09-01
   stopped_on: 1997-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.128501000 Z
   updater_id: 1
 financial_years_007:
   closed: false
@@ -125,12 +137,14 @@ financial_years_007:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 7
-  lock_version: 0
+  lock_version: 1
   started_on: 1997-09-01
   stopped_on: 1998-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.135127000 Z
   updater_id: 1
 financial_years_008:
   closed: false
@@ -138,12 +152,14 @@ financial_years_008:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 8
-  lock_version: 0
+  lock_version: 2
   started_on: 1998-09-01
   stopped_on: 1999-08-31
-  tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  tax_declaration_frequency: yearly
+  tax_declaration_mode: debit
+  updated_at: 2017-05-02 01:24:11.489203000 Z
   updater_id: 1
 financial_years_009:
   closed: false
@@ -151,12 +167,14 @@ financial_years_009:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 9
-  lock_version: 0
+  lock_version: 1
   started_on: 1999-09-01
   stopped_on: 2000-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.149363000 Z
   updater_id: 1
 financial_years_010:
   closed: false
@@ -164,12 +182,14 @@ financial_years_010:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: FRF
+  currency_precision: 2
   id: 10
-  lock_version: 0
+  lock_version: 1
   started_on: 2000-09-01
   stopped_on: 2001-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.156145000 Z
   updater_id: 1
 financial_years_011:
   closed: false
@@ -177,12 +197,14 @@ financial_years_011:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 11
-  lock_version: 0
+  lock_version: 1
   started_on: 2001-09-01
   stopped_on: 2002-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.163033000 Z
   updater_id: 1
 financial_years_012:
   closed: false
@@ -190,12 +212,14 @@ financial_years_012:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 12
-  lock_version: 0
+  lock_version: 1
   started_on: 2002-09-01
   stopped_on: 2003-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.169567000 Z
   updater_id: 1
 financial_years_013:
   closed: false
@@ -203,12 +227,14 @@ financial_years_013:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 13
-  lock_version: 0
+  lock_version: 1
   started_on: 2003-09-01
   stopped_on: 2004-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.176585000 Z
   updater_id: 1
 financial_years_014:
   closed: false
@@ -216,12 +242,14 @@ financial_years_014:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 14
-  lock_version: 0
+  lock_version: 1
   started_on: 2004-09-01
   stopped_on: 2005-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.183949000 Z
   updater_id: 1
 financial_years_015:
   closed: false
@@ -229,12 +257,14 @@ financial_years_015:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 15
-  lock_version: 0
+  lock_version: 1
   started_on: 2005-09-01
   stopped_on: 2006-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.190905000 Z
   updater_id: 1
 financial_years_016:
   closed: false
@@ -242,12 +272,14 @@ financial_years_016:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 16
-  lock_version: 0
+  lock_version: 1
   started_on: 2006-09-01
   stopped_on: 2007-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.197551000 Z
   updater_id: 1
 financial_years_017:
   closed: false
@@ -255,12 +287,14 @@ financial_years_017:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 17
-  lock_version: 0
+  lock_version: 1
   started_on: 2007-09-01
   stopped_on: 2008-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.204551000 Z
   updater_id: 1
 financial_years_018:
   closed: false
@@ -268,12 +302,14 @@ financial_years_018:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 18
-  lock_version: 0
+  lock_version: 1
   started_on: 2008-09-01
   stopped_on: 2009-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.212070000 Z
   updater_id: 1
 financial_years_019:
   closed: false
@@ -281,12 +317,14 @@ financial_years_019:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 19
-  lock_version: 0
+  lock_version: 1
   started_on: 2009-09-01
   stopped_on: 2010-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.218836000 Z
   updater_id: 1
 financial_years_020:
   closed: false
@@ -294,12 +332,14 @@ financial_years_020:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 20
-  lock_version: 0
+  lock_version: 1
   started_on: 2010-09-01
   stopped_on: 2011-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.225328000 Z
   updater_id: 1
 financial_years_021:
   closed: false
@@ -307,12 +347,14 @@ financial_years_021:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 21
-  lock_version: 0
+  lock_version: 1
   started_on: 2011-09-01
   stopped_on: 2012-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.231917000 Z
   updater_id: 1
 financial_years_022:
   closed: false
@@ -320,12 +362,14 @@ financial_years_022:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 22
-  lock_version: 0
+  lock_version: 1
   started_on: 2012-09-01
   stopped_on: 2013-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.239225000 Z
   updater_id: 1
 financial_years_023:
   closed: false
@@ -333,12 +377,14 @@ financial_years_023:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 23
-  lock_version: 0
+  lock_version: 1
   started_on: 2013-09-01
   stopped_on: 2014-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.246614000 Z
   updater_id: 1
 financial_years_024:
   closed: false
@@ -346,12 +392,14 @@ financial_years_024:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  currency_precision: 2
   id: 24
-  lock_version: 0
+  lock_version: 1
   started_on: 2014-09-01
   stopped_on: 2015-08-31
+  tax_declaration_frequency: yearly
   tax_declaration_mode: payment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-01 23:43:15.253148000 Z
   updater_id: 1
 financial_years_025:
   closed: false
@@ -361,11 +409,12 @@ financial_years_025:
   currency: EUR
   currency_precision: 2
   id: 25
-  lock_version: 0
+  lock_version: 2
   started_on: 2015-09-01
   stopped_on: 2016-08-31
+  tax_declaration_frequency: monthly
   tax_declaration_mode: payment
-  updated_at: 2016-01-22 13:21:22.066344000 Z
+  updated_at: 2017-05-01 23:52:31.385527000 Z
   updater_id: 1
 financial_years_026:
   closed: false
@@ -375,9 +424,10 @@ financial_years_026:
   currency: EUR
   currency_precision: 2
   id: 26
-  lock_version: 0
+  lock_version: 2
   started_on: 2016-09-01
   stopped_on: 2017-08-31
+  tax_declaration_frequency: monthly
   tax_declaration_mode: payment
-  updated_at: 2016-10-26 15:31:38.071593000 Z
+  updated_at: 2017-05-01 23:52:31.397784000 Z
   updater_id: 1

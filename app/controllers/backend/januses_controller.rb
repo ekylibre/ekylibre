@@ -29,10 +29,11 @@ module Backend
           raise ActionController::RoutingError, 'Not Found'
         end
       else
-        default = params[:default] || 'list'
+        default = params[:default]
         preference_name = "interface.janus.#{janus}.current_face"
         preference = current_user.preferences.find_by(name: preference_name)
-        if face != default || (preference && face != preference.value.to_s)
+        if default.blank? || (default.present? && face != default) ||
+           (preference && face != preference.value.to_s)
           p = current_user.preference(preference_name, default)
           p.set!(face)
         end
