@@ -153,10 +153,6 @@ cmn:
       stocks: "仪表板股票"
       tools: "仪表盘的工具"
       trade: "仪表盘交易"
-    backend/debt_transfers:
-      index: "债务转移"
-      new: "新的债务转移"
-      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "交付"
@@ -1164,6 +1160,9 @@ cmn:
     journal_entries: "日报的条目"
     journal_entries_states: "项国"
     journal_entry_items: "日记条目项目"
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -1884,6 +1883,7 @@ cmn:
       accountant_without_email: "请设置会计电子邮件"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "所有包裹必须开发票和同一性质和第三位"
       all_purchases_must_be_ordered_or_invoiced: "所有购买必须订购或开具发票。"
+      all_tax_declarations_have_already_existing: "所有税务申报已经存在"
       bookkeeping_is_finished: "商业数据传送已完成。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "找不到处理附加"
@@ -1911,6 +1911,8 @@ cmn:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
+      financial_years_missing: "您必须创建的每个缺少财政年以来第一个注册"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "以虚拟数据实现"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
@@ -1969,8 +1971,6 @@ cmn:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "自动刻字不能在会计做"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "自动刻字不能在会计完成，因为它已经由用户来完成"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "自动刻字不能在会计完成，因为一些交易尚未核算"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "自动刻字不能在会计完成，因为太多的三分之二都存在"
       the_sales_invoice_is_not_cancellable: "销售发票不撤销"
       this_service_is_not_activated: "该服务未启动"

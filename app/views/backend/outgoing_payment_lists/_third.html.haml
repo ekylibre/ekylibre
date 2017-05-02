@@ -8,7 +8,7 @@
         %th
           = third.balance
           = " &ndash; ".html_safe
-          = third.supplier_balance
+          = third.supplier_accounting_balance
   %tbody
     = render partial: 'purchase_affair', collection: @affairs.where(supplier: third), locals: {f:f}
   %tfoot

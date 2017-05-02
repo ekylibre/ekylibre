@@ -91,14 +91,14 @@ Rails.application.routes.draw do
       resources :contacts, only: [:index] do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
       end
-      resources :crumbs
+      resources :crumbs, only: %i[index create]
       resources :interventions, only: %i[index create]
       resources :intervention_participations, only: [:create]
       resources :intervention_targets, only: [:show]
-      resources :issues
-      resources :plant_density_abaci
-      resources :plant_countings
-      resources :plants
+      resources :issues, only: %i[index create]
+      resources :plant_density_abaci, only: %i[index show]
+      resources :plant_countings, only: %i[create]
+      resources :plants, only: %i[index]
     end
   end
 
@@ -132,7 +132,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :debt_transfers, concerns: %i[list unroll]
+    resources :debt_transfers, path: 'debt-transfers', only: %i[create destroy]
 
     resources :helps, only: %i[index show] do
       collection do
@@ -483,11 +483,8 @@ Rails.application.routes.draw do
       end
 
       member do
-        # get :cede
-        # get :sell
         post :depreciate
         get :list_depreciations
-        get :list_products
         post :start_up
         post :sell
         post :scrap
@@ -506,7 +503,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :financial_year_exchanges, concerns: [:list], path: 'financial-year-exchanges', only: %i[new create show] do
+    resources :financial_year_exchanges, path: 'financial-year-exchanges', only: %i[new create show] do
       member do
         get :list_journal_entries
         get :journal_entries_export
@@ -841,7 +838,7 @@ Rails.application.routes.draw do
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 
-    resources :regularizations
+    resources :regularizations, only: %i[show create destroy]
 
     resources :roles, concerns: %i[incorporate list unroll] do
       member do

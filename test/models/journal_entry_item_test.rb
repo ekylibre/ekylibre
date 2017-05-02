@@ -61,6 +61,7 @@
 #  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
@@ -99,6 +100,53 @@ class JournalEntryItemTest < ActiveSupport::TestCase
       assert item.real_debit, item.debit
       assert item.real_credit, item.credit
     end
+  end
+
+  test 'lettering is indicated as partial (*) when lettered items are not balanced' do
+    first_account = Account.create!(name: 'First account', number: '123FIRST')
+    random_account = Account.create!(name: 'Random account', number: '123RANDOM')
+    other_random = Account.create!(name: 'Random account bis', number: '123RANBIS')
+    journal = Journal.create!(name: 'Test journal JEI', code: 'JEITEST', currency: 'EUR')
+    entry = JournalEntry.create!(journal: journal, currency: 'EUR', printed_on: Date.today, items_attributes:
+      [{ account: first_account, name: 'Hello', real_debit: 10, letter: 'A' },
+       { account: random_account, name: 'Is it me', real_credit: 10 }])
+    assert_equal 'A*', entry.items.find_by(real_debit: 10).letter
+
+    to_letter_with = JournalEntry.create!(
+      journal: journal,
+      currency: 'EUR',
+      printed_on: Date.today,
+      items_attributes:
+        [{ account: random_account, name: 'You\'re', real_debit: 10 },
+         { account: first_account, name: 'Looking for?', real_credit: 10, letter: 'A' }]
+    )
+    assert_equal 'A', entry.items.find_by(real_debit: 10).letter
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(real_debit: 11)
+    assert_equal 'A*', entry.items.find_by(real_debit: 11).letter
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 11).update(real_debit: 10)
+    assert_equal 'A', entry.items.find_by(real_debit: 10).letter
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: nil)
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: 'A')
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: 'B')
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(letter: 'A')
+    assert_equal 'A', entry.items.find_by(real_debit: 10).letter
+    assert_equal 'A', to_letter_with.items.find_by(real_credit: 10).letter
+
+    entry.items.find_by(real_debit: 10).update(account: other_random)
+    assert_equal 'A*', to_letter_with.items.find_by(real_credit: 10).letter
+    assert_nil entry.items.find_by(real_debit: 10).letter
   end
 
   # Test case when debit and credit are invalid

@@ -77,6 +77,7 @@ class FinancialYear < Ekylibre::Record::Base
   scope :opened, -> { where(closed: false).reorder(:started_on) }
   scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
+  scope :with_missing_tax_declaration, -> { where('id NOT IN (SELECT f.id FROM financial_years AS f JOIN tax_declarations AS d ON (f.stopped_on BETWEEN d.started_on AND d.stopped_on))') }
 
   protect on: :destroy do
     fixed_asset_depreciations.any? || tax_declarations.any? || journal_entries.any? ||
@@ -167,36 +168,47 @@ class FinancialYear < Ekylibre::Record::Base
     code
   end
 
+  def missing_tax_declaration?
+    !tax_declaration_frequency_none? &&
+      TaxDeclaration.where('? BETWEEN started_on AND stopped_on', stopped_on).empty?
+  end
+
   def next_tax_declaration_on
-    if tax_declarations.any?
-      tax_declarations.order(stopped_on: :desc).first.stopped_on + 1
+    declarations = TaxDeclaration.where('stopped_on BETWEEN ? AND ?', started_on, stopped_on)
+    if declarations.any?
+      declarations.order(stopped_on: :desc).first.stopped_on + 1
     else
       started_on
     end
   end
 
   def tax_declaration_frequency_duration
-    if tax_declaration_frequency == :monthly
+    if tax_declaration_frequency_monthly?
       1.month
-    elsif tax_declaration_frequency == :quaterly
+    elsif tax_declaration_frequency_quaterly?
       3.months
-    elsif tax_declaration_frequency == :yearly
+    elsif tax_declaration_frequency_yearly?
       12.months
-    elsif tax_declaration_frequency == :none
-      nil
     end
   end
 
-  def tax_declaration_end_date(from_on)
-    if tax_declaration_frequency == :monthly
-      from_on.end_of_month
-    elsif tax_declaration_frequency == :quaterly
-      from_on.end_of_quarter
-    elsif tax_declaration_frequency == :yearly
-      from_on.end_of_year
-    elsif tax_declaration_frequency == :none
-      nil
-    end
+  def tax_declaration_stopped_on(from_on)
+    return nil if tax_declaration_frequency_none?
+    end_on = (from_on + tax_declaration_frequency_duration).end_of_month
+    end_on = stopped_on if end_on > stopped_on
+    end_on
+  end
+
+  def previous_codes_with_missing_tax_declaration
+    FinancialYear.with_missing_tax_declaration
+                 .where('financial_years.stopped_on < ?', stopped_on)
+                 .order(:started_on)
+                 .pluck(:code)
+  end
+
+  def previous_consecutives?
+    years = FinancialYear.select(:started_on, :stopped_on).where('started_on <= ?', started_on).order(:started_on)
+    years[1..-1].find.with_index { |year, index| year.started_on - years[index].stopped_on > 1 }.blank?
   end
 
   def default_code

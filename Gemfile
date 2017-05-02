@@ -70,7 +70,7 @@ gem 'timecop'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '>= 4.0'
+gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 

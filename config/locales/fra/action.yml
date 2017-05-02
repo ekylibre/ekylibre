@@ -168,10 +168,6 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
-    backend/debt_transfers:
-      index: "Transferts de dettes"
-      new: "Nouveau transfert de la dette"
-      show: "Transfert de dettes: %{number}"
     backend/deliveries:
       edit: "Modifier la livraison %{number}"
       index: "Livraisons"
@@ -1450,6 +1446,9 @@ fra:
     journal_entries: "Écritures"
     journal_entries_states: "États des écritures utilisées"
     journal_entry_items: "Lignes d’écritures comptables"
+    journal_entry_items_with_taxes_out_of_range:
+      one: "%{count} ligne d'écriture avec des taxes qui précèdent la date de début de la déclaration"
+      other: "%{count} lignes d'écritures avec des taxes qui précèdent la date de début de la déclaration"
     journal_entry_items_with_undeclared_taxes:
       one: "%{count} ligne d’écriture avec des taxes non déclarées"
       other: "%{count} lignes d’écriture avec des taxes non déclarées"
@@ -2475,6 +2474,7 @@ fra:
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
+      all_tax_declarations_have_already_existing: "Toutes les déclarations de TVA existent déjà"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
@@ -2507,6 +2507,8 @@ fra:
       exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+      financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"
+      financial_years_missing_tax_declarations: "Vous devez créer toutes les déclarations des exercices suivants\_: %{codes}"
       implemented_with_dummy_data: "Charger des données de test"
       import_failed: "L’import %{name} a échoué\_: %{message}"
       import_finished_successfully: "L’import %{name} s’est fini correctement"
@@ -2599,8 +2601,6 @@ fra:
       synchronization_operation_finished_successfully: "L’opération %{operation_name} s’est finie correctement"
       synchronization_operation_in_progress: "L’opération %{operation_name} est en cours"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "Le lettrage automatique ne peut pas être fait en comptabilité parce qu’il a déjà été fait par un utilisateur"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "Le lettrage automatique ne peut pas être fait en comptabilité parce que certaines transactions ne sont pas encore comptabilisées"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       this_service_is_not_activated: "Ce service n’est pas activé"

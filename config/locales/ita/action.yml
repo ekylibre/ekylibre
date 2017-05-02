@@ -153,10 +153,6 @@ ita:
       stocks: "Azioni cruscotto"
       tools: "Strumenti cruscotto"
       trade: "commercio cruscotto"
-    backend/debt_transfers:
-      index: "Trasferimenti di debito"
-      new: "Trasferimento nuovo debito"
-      # show: "Debt transfer: %{number}"
     backend/deliveries:
       # edit: "Edit delivery %{number}"
       index: "Le consegne"
@@ -1230,6 +1226,9 @@ ita:
     journal_entries: "voci di diario"
     journal_entries_states: "Stati di voci"
     journal_entry_items: "articoli voce di diario"
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -1949,6 +1948,7 @@ ita:
       accountant_without_email: "Si prega di impostare l’e-mail commercialista"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
       all_purchases_must_be_ordered_or_invoiced: "Tutti gli acquisti devono essere ordinati e fatturati."
+      all_tax_declarations_have_already_existing: "Tutte le dichiarazioni fiscali sono già esistenti"
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "Non riesci a trovare trattare per attaccare"
@@ -1976,6 +1976,8 @@ ita:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
+      financial_years_missing: "È necessario creare ogni mancanti esercizi finanziari dal momento che la prima sede"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementata con dati fittizi"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
@@ -2034,8 +2036,6 @@ ita:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "La scritta automatica non può essere fatto in contabilità"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "La scritta automatica non può essere realizzata in contabilità perché è stato già fatto dall’utente"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "La scritta automatica non può essere fatto in contabilità perché alcune offerte non sono ancora contabilizzati"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "La scritta automatica non può essere fatto in contabilità perché troppi terzi sono presenti"
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
       this_service_is_not_activated: "Questo servizio non è attivato"

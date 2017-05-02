@@ -432,10 +432,10 @@ fra:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
-    sale_item:
-      compute_from:
-        pretax_amount: "Montant avant impôts"
-        unit_pretax_amount: "Unité montant avant impôts"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Montant avant impôts" #?
+        unit_pretax_amount: "Unité montant avant impôts" #?
     sensor:
       retrieval_mode:
         integration: "Intégration"
@@ -451,7 +451,7 @@ fra:
         affairs: "Affaires"
         analyses: "Analyses"
         animals: "Animaux"
-        campaigns: "Campagnes de productions" #?
+        campaigns: "Campagnes de productions"
         cash_transfers: "Virements internes"
         contracts: "Contrats"
         debt_transfers: "Transferts de dettes"
@@ -469,6 +469,7 @@ fra:
         outgoing_payment_lists: "Listes de paiement sortant"
         outgoing_payments: "Décaissements"
         parcels: "Colis"
+        plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories de types de produits"
         product_nature_variants: "Variantes de types de produits"
@@ -502,6 +503,10 @@ fra:
         doing: "Faire"
         done: "Terminé"
         todo: "Faire"
+    tax_declaration:
+      mode:
+        debit: "Débit"
+        payment: "Paiement"
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"

@@ -116,6 +116,7 @@ deu:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -220,7 +221,7 @@ deu:
       animal: "Tier"
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
-      bank_guarantee_account: "Bankgarantie Konto"
+      bank_guarantee_account: "Bankgarantie Konto" #?
       bank_statement: "Kontoauszug"
       bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
@@ -279,9 +280,9 @@ deu:
       inspection: "Produktklassifizierung"
       inspection_calibration: "Inspektion Kaliber"
       inspection_point: "Produktsortierprüfung"
-      insurance_account: "Versicherungen Konto"
+      insurance_account: "Versicherungen Konto" #?
       # integration: "Integration"
-      interest_account: "Interesse Konto"
+      interest_account: "Interesse Konto" #?
       # intervention: "Intervention"
       intervention_agent: "Interventionsmittel"
       intervention_doer: "Intervention Macher"
@@ -801,6 +802,7 @@ deu:
     grading_sizes_unit: "Grading Größen Einheit"
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
+    grains_yield: "Kornertrag"
     gravity: "Schwerkraft"
     gross_items: "Gross Zahl" #?
     gross_items_count: "Gross Artikel zählen"
