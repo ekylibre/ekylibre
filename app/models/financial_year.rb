@@ -286,14 +286,11 @@ class FinancialYear < Ekylibre::Record::Base
       if closure_journal
         # Create result entry of the current year
         generate_result_entry!(closure_journal, to_close_on)
-        # Settle balance sheet accounts
-        generate_balance_sheet_accounts_settlement!(closure_journal, to_close_on)
       end
 
-      if forward_journal
-        # Adds carrying forward entry
-        generate_carrying_forward_entry!(forward_journal, to_close_on)
-      end
+      # Settle balance sheet accounts
+      # Adds carrying forward entry
+      generate_carrying_forward_entry!(forward_journal, closure_journal, to_close_on)
 
       # Close all journals
       Journal.find_each do |journal|
@@ -514,67 +511,114 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   # FIXME: Manage non-french accounts
-  def generate_balance_sheet_accounts_settlement!(closure_journal, to_close_on)
-    accounts = %w[1 2 3 4 5]
-    items = []
-    account_balances_for(accounts).find_each do |account_balance|
-      items << {
-        account_id: account_balance.account_id,
-        name: account_balance.account.name,
-        real_debit: account_balance.balance_credit,
-        real_credit: account_balance.balance_debit
+  def generate_carrying_forward_entry!(opening_journal, closure_journal, to_close_on)
+    account_radices = %w[1 2 3 4 5]
+    unlettered_items = []
+
+    accounts = Account.where('accounts.number ~ ?', "^(#{account_radices.join('|')})")
+
+    accounts.find_each do |a|
+      entry_items = a.journal_entry_items
+        .where(financial_year_id: self.id)
+        .between(self.started_on, to_close_on)
+      balance = entry_items.where(letter: nil).sum('debit - credit')
+      next if balance.zero?
+      unlettered_items << {
+        account_id: a.id,
+        name: a.name,
+        real_debit: (balance > 0 ? balance : 0),
+        real_credit: (-balance > 0 ? -balance : 0)
       }
+
+      generate_lettering_carry_forward!(a, opening_journal, closure_journal, to_close_on)
     end
 
-    return unless items.any?
+    result = unlettered_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
 
-    result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
-    if result.nonzero?
-      closure_account = Account.find_or_create_by_number('891', 'Bilan de clôture')
-      items << {
-        account_id: closure_account.id,
-        name: closure_account.name,
-        (result > 0 ? :real_credit : :real_debit) => result.abs
-      }
-    end
-
-    closure_journal.entries.create!(
-      printed_on: to_close_on,
-      currency: closure_journal.currency,
-      items_attributes: items
-    )
+    generate_closing_and_opening_entry!(unlettered_items, result, to_close_on, opening_journal, closure_journal)
   end
 
-  # FIXME: Manage non-french accounts
-  # TODO: Manage journal entry lettering during closure
-  def generate_carrying_forward_entry!(opening_journal, to_close_on)
-    accounts = %w[1 2 3 4 5]
-    items = []
-    account_balances_for(accounts).find_each do |account_balance|
-      items << {
-        account_id: account_balance.account_id,
-        name: account_balance.account.name,
-        real_debit: account_balance.balance_debit,
-        real_credit: account_balance.balance_credit
-      }
-    end
+  def unbalanced_items_for(account, to_close_on)
+    account
+      .journal_entry_items
+      .between(self.started_on, to_close_on)
+      .where.not(letter: nil)
+      .pluck(:letter, :entry_id, :debit, :credit)
+      .group_by(&:first)
+      .select { |letter, items| items.map { |i| i[2] - i[3] }.sum.nonzero? }
+      .values
+      .flatten(1)
+      .map { |item| item.first(2).reverse }
+      .uniq
+  end
 
+  def generate_lettering_carry_forward!(account, opening_journal, closure_journal, to_close_on)
+    unbalanced_letters = unbalanced_items_for(account, to_close_on)
+    unbalanced_letters.each do |info|
+      entry_id = info.first
+      letter = info.last
+
+      lettering_items = JournalEntry.find(entry_id)
+        .items
+        .where(letter: letter, account_id: account.id)
+        .find_each.map do |item|
+        {
+          account_id: account.id,
+          name: item.name,
+          real_debit: item.real_debit,
+          real_credit: item.real_credit
+        }
+      end
+
+      result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
+
+      generate_closing_and_opening_entry!(lettering_items, result, to_close_on, opening_journal, closure_journal, letter: letter)
+    end
+  end
+
+  def generate_closing_and_opening_entry!(items, result, to_close_on, opening_journal, closing_journal, letter: nil)
     return unless items.any?
+    return unless result.nonzero?
 
-    result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
-    if result.nonzero?
-      opening_account = Account.find_or_create_by_number('890', 'Bilan d’ouverture')
-      items << {
-        account_id: opening_account.id,
-        name: opening_account.name,
-        (result > 0 ? :real_credit : :real_debit) => result.abs
-      }
+    account = Account.find(items.first[:account_id])
+    new_letter = account.new_letter
+    lettered_later = account.journal_entry_items.where('printed_on > ?', to_close_on).where(letter: letter)
+    JournalEntryItem.where(id: lettered_later).update_all(letter: new_letter)
+    lettered_later.each { |item| item.entry.resource && item.entry.resource.affair.update_column(:letter, new_letter) }
+
+    items = items.map { |item| item[:letter] = new_letter; item }
+    generate_closing_or_opening_entry!(opening_journal,
+                                       { number: '891', name: 'Bilan d’ouverture' },
+                                       items,
+                                       -result,
+                                       to_close_on)
+
+    items = items.map do |item|
+      swap = item[:real_debit]
+      item[:real_debit] = item[:real_credit]
+      item[:real_credit] = swap
+      item[:letter] = letter
+      item
     end
 
-    opening_journal.entries.create!(
-      printed_on: to_close_on + 1,
-      currency: opening_journal.currency,
-      items_attributes: items
-    )
+    generate_closing_or_opening_entry!(closing_journal,
+                                       { number: '890', name: 'Bilan de clôture' },
+                                       items,
+                                       result,
+                                       to_close_on)
+  end
+
+  def generate_closing_or_opening_entry!(journal, account_info, items, result, to_close_on)
+    return unless journal
+    account = Account.find_or_create_by_number(account_info[:number], account_info[:name])
+
+    journal.entries.create!(
+      printed_on: to_close_on,
+      currency: journal.currency,
+      items_attributes: items + [{
+        account_id: account.id,
+        name: account.name,
+        (result > 0 ? :real_debit : :real_credit) => result.abs
+      }])
   end
 end

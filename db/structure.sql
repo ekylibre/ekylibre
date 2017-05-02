@@ -119,11 +119,7 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                   GROUP BY account_id) AS modified_letter_groups
           WHERE modified_letter_groups.account_id = journal_entry_items.account_id
           AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*?');
-        --  AND journal_entry_items.letter != (CASE
-        --                WHEN modified_letter_groups.balance <> 0
-        --                THEN modified_letter_groups.letter || '*'
-        --                ELSE modified_letter_groups.letter
-        --              END);
+
           RETURN NEW;
         END;
         $$;
