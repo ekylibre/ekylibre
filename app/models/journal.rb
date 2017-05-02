@@ -85,6 +85,7 @@ class Journal < Ekylibre::Record::Base
   scope :forwards,        -> { where(nature: 'forward') }
   scope :various,         -> { where(nature: 'various') }
   scope :cashes,          -> { where(nature: 'cash') }
+  scope :results,         -> { where(nature: 'result') }
   scope :stocks,          -> { where(nature: 'stocks') }
   scope :fixed_assets,    -> { where(nature: 'fixed_asset') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }

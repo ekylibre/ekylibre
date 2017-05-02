@@ -485,7 +485,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   # FIXME: Manage non-french accounts
-  def generate_result_entry!(closure_journal, to_close_on)
+  def generate_result_entry!(result_journal, to_close_on)
     accounts = []
     accounts << Nomen::Account.find(:expenses).send(Account.accounting_system)
     accounts << Nomen::Account.find(:revenues).send(Account.accounting_system)
@@ -513,9 +513,9 @@ class FinancialYear < Ekylibre::Record::Base
       items << { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0 }
     end
 
-    closure_journal.entries.create!(
+    result_journal.entries.create!(
       printed_on: to_close_on,
-      currency: closure_journal.currency,
+      currency: result_journal.currency,
       state: :confirmed,
       items_attributes: items
     )
