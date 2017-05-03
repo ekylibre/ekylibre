@@ -52,6 +52,8 @@ class TaxTest < ActiveSupport::TestCase
   end
 
   test 'load defaults with empty table' do
+    Sale.delete_all
+    Purchase.delete_all
     Tax.delete_all
     Tax.load_defaults
   end

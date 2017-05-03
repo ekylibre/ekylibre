@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # = Informations
 #
 # == License
@@ -387,16 +385,22 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   def wipe_db
-    Journal.delete_all
-    Account.delete_all
-    Cash.delete_all
-    BankStatement.delete_all
-    BankStatementItem.delete_all
-    Entity.delete_all
     IncomingPayment.delete_all
     IncomingPaymentMode.delete_all
     OutgoingPayment.delete_all
     OutgoingPaymentMode.delete_all
+    Sale.delete_all
+    Purchase.delete_all
+    Regularization.delete_all
+    JournalEntry.delete_all
+    Journal.delete_all
+    Tax.delete_all
+    Account.delete_all
+    Cash.delete_all
+    BankStatement.delete_all
+    Parcel.delete_all
+    Deposit.delete_all
+    Entity.delete_all
   end
 
   def setup_data(**options)

@@ -72,7 +72,10 @@ class Account < Ekylibre::Record::Base
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
   has_many :loans_as_interest,            class_name: 'Loan', foreign_key: :interest_account_id
   has_many :loans_as_insurance,           class_name: 'Loan', foreign_key: :insurance_account_id
-  has_many :bank_guarantees_loans,               class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  has_many :loans_as_bank_guarantees,     class_name: 'Loan', foreign_key: :bank_guarantee_account_id
+  has_many :fixed_assets,                 class_name: 'FixedAsset', foreign_key: :asset_account_id
+  has_many :fixed_assets_as_allocation,   class_name: 'FixedAsset', foreign_key: :allocation_account_id
+  has_many :fixed_assets_as_expenses,     class_name: 'FixedAsset', foreign_key: :expenses_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true

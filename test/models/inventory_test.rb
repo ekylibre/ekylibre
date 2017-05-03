@@ -49,10 +49,12 @@ class InventoryTest < ActiveSupport::TestCase
   setup do
     @product = Product.first
     @variant = @product.variant
+
+    Inventory.delete_all
+    FinancialYear.delete_all
   end
 
   test 'refresh' do
-    FinancialYear.delete_all
     year = FinancialYear.create!(
       closed: false,
       code: 'inventory_test',
@@ -66,9 +68,7 @@ class InventoryTest < ActiveSupport::TestCase
     inventory.reflect
   end
 
-  test 'Test variant specified when bookkeep' do
-    FinancialYear.delete_all
-
+  test 'test variant specified when bookkeep' do
     year = FinancialYear.create!(
       closed: false,
       code: 'inventory_test',
