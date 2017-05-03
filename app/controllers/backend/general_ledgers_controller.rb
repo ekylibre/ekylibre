@@ -34,6 +34,7 @@ module Backend
     end
 
     list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+      t.action :show, on: :both
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -44,12 +45,12 @@ module Backend
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
-      t.column :debit,  currency: true, hidden: true
-      t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
-      t.column :cumulated_absolute_debit,  currency: :absolute_currency
-      t.column :cumulated_absolute_credit, currency: :absolute_currency
+      t.column :debit,  currency: true, hidden: true, on_select: :sum
+      t.column :credit, currency: true, hidden: true, on_select: :sum
+      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
+      t.column :cumulated_absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :cumulated_absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
     def show; end
