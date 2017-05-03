@@ -2496,14 +2496,14 @@ fra:
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
-      draft_journal_entries_going_to_be_confirm: "Les  écritures sont en train d'être confirmé, vous recevrez une notification quand ce sera terminé."
-      draft_journal_entries_have_been_validated: "Les écriture du brouillard ont été validée"
+      draft_journal_entries_have_been_validated:
+        one: "%{count} écriture du brouillard validée"
+        other: "%{count} écritures du brouillard validées"
       entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
       equipment_component_is_at_end_of_life: "Le composant %{component_name} de l’équipement %{equipment_name} approche la fin de sa vie. Temps restant: %{remaining_time}."
       equipment_component_is_worn_out: "Le composant %{component_name} de l’équipement %{equipment_name} est usé. Temps de travail restant: %{remaining_time}."
       equipment_is_at_end_of_life: "L’équipment %{name} approche la fin de sa vie. Temps restant: %{remaining_time}."
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
-      exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
       financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"

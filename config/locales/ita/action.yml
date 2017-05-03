@@ -1966,15 +1966,14 @@ ita:
       density_is_not_computable_in_counting: "Impossibile calcolare la densità per questo conteggio. I valori mancanti dovrebbero essere completate nelle proprietà del conteggio o indicatori del seminatore."
       depreciation_failed: "Le attività non possono essere ammortizzati."
       depreciation_successful: "Le attività sono state ammortizzate con successo."
-      # draft_journal_entries_going_to_be_confirm: "The entries are being confirmed, you will recieve a notification when it is finished."
-      draft_journal_entries_have_been_validated: #? String expected ("The entrees has been validated")
-        one: "Una voce è stata convalidata" #?
+      draft_journal_entries_have_been_validated:
+        one: "Una voce è stata convalidata"
+        # other: "%{count} entries have been validated"
       entity_columns_are_needed: "È necessario specificare almeno una colonna per la persona e in particolare il suo nome di famiglia."
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       financial_years_missing: "È necessario creare ogni mancanti esercizi finanziari dal momento che la prima sede"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"

@@ -1976,15 +1976,14 @@ jpn:
       density_is_not_computable_in_counting: "この計数のための密度を計算することができませんでした。欠損値は、カウントのプロパティまたは種まきの指標で完了する必要があります。"
       depreciation_failed: "資産は、減価償却することができませんでした。"
       depreciation_successful: "資産が正常に減価償却されています。"
-      # draft_journal_entries_going_to_be_confirm: "The entries are being confirmed, you will recieve a notification when it is finished."
-      draft_journal_entries_have_been_validated: #? String expected ("The entrees has been validated")
-        one: "1つのエントリが検証されています" #?
+      draft_journal_entries_have_been_validated:
+        one: "1つのエントリが検証されています"
+        # other: "%{count} entries have been validated"
       entity_columns_are_needed: "あなたは、その家族の名前の人のために、特に少なくとも1つの列を指定する必要があります。"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       financial_years_missing: "最初に登録されたので、あなたはすべて不足している会計年度作成する必要があります。"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
