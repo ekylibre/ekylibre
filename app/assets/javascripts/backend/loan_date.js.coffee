@@ -1,6 +1,6 @@
 ((E, $) ->
   'use strict'
-  console.log('test')
+
   $(document).ready ->
     count = 0
     $('#accounting_date').click ->
