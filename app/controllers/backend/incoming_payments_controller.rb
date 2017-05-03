@@ -52,12 +52,12 @@ module Backend
     end
 
     list(conditions: incoming_payments_conditions, joins: :payer, order: { to_bank_at: :desc }) do |t|
-      t.action :edit, unless: :deposit?
+      t.action :edit, on: :both, unless: :deposit?
       t.action :destroy
       t.column :number, url: true
       t.column :payer, url: true
       t.column :paid_at
-      t.column :amount, currency: true, url: true
+      t.column :amount, currency: true, url: true, on_select: :sum
       t.column :mode
       t.column :bank_check_number
       t.column :to_bank_at
