@@ -45,8 +45,11 @@ module Backend
     def confirm
       conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
       journal_entries = JournalEntry.where(conditions)
-      ConfirmJournalEntriesJob.perform_later(journal_entries.pluck(:id), current_user)
-      notify_success(:draft_journal_entries_going_to_be_confirm)
+      JournalEntry.transaction do
+        journal_entries.update_all(state: :confirmed)
+        JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
+      end
+      notify_success(:draft_journal_entries_have_been_validated)
       redirect_to action: :show
     end
   end

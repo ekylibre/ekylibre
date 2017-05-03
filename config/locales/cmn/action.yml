@@ -1901,10 +1901,9 @@ cmn:
       density_is_not_computable_in_counting: "无法计算这个计算密度。在遗漏值应在计算的属性或撒种的指标来完成。"
       depreciation_failed: "资产无法贬值。"
       depreciation_successful: "资产已经成功地贬值。"
-      draft_journal_entries_have_been_validated:
-        one: "一个条目已被证实"
-        # other: "%{count} entries have been validated"
       # draft_journal_entries_going_to_be_confirm: "The entries are being confirmed, you will recieve a notification when it is finished."
+      draft_journal_entries_have_been_validated: #? String expected ("The entrees has been validated")
+        one: "一个条目已被证实" #?
       entity_columns_are_needed: "你需要指定的人，特别是其姓氏至少有一列。"
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."

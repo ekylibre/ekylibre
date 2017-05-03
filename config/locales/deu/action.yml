@@ -1900,10 +1900,9 @@ deu:
       density_is_not_computable_in_counting: "Konnte die Dichte für diese Zählung berechnen. Die fehlenden Werte sollten bei der Auszählung der Eigenschaften oder der Sämann der Indikatoren abgeschlossen sein."
       depreciation_failed: "Vermögen kann nicht abgeschrieben werden."
       depreciation_successful: "Vermögenswerte wurden erfolgreich abgeschrieben."
-      draft_journal_entries_have_been_validated:
-        one: "Ein Eintrag wurde validiert"
-        # other: "%{count} entries have been validated"
       draft_journal_entries_going_to_be_confirm: "The entries are being confirmed, you will recieve a notification when it is finished."
+      draft_journal_entries_have_been_validated: #? String expected ("The entrees has been validated")
+        one: "Ein Eintrag wurde validiert" #?
       entity_columns_are_needed: "Sie müssen mindestens eine Spalte für die Person, und insbesondere dessen Familiennamen anzugeben."
       # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
