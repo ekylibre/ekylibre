@@ -11,11 +11,9 @@
   - k.helper do
     %label= Plant.human_attribute_name(:net_surface_area)
     %b#right-slider 0
-    - max_area = Plant.pluck("ST_Area(ST_Transform(ST_GeomFromEWKB(initial_shape),2154))").max
-    - magnitude = 1 ** (max_area.to_i.to_s.length - 2)
-    - rounded = (max_area.to_i / magnitude + 1) * magnitude / 10_000
-    %input{ name: :area, 'data-slider-min': 0, 'data-slider-max': rounded, 'data-provide': 'slider', 'data-slider-value': params[:area].present? ? params[:area].split(',').map { |v| v.to_i } : [0, rounded] }
-    %b#left-slider= rounded
+
+    %input{ name: :area, 'data-slider-min': 0, 'data-slider-max': plants_max_area, 'data-provide': 'slider', 'data-slider-value': data_slider_value }
+    %b#left-slider= plants_max_area
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?

@@ -171,5 +171,15 @@ module Backend
 
       code.html_safe
     end
+
+    def plants_max_area
+      max_area = Plant.pluck("ST_Area(ST_Transform(ST_GeomFromEWKB(initial_shape),2154))").max
+      magnitude = 1 ** (max_area.to_i.to_s.length - 2)
+      (max_area.to_i / magnitude + 1) * magnitude / 10_000
+    end
+
+    def data_slider_value
+      params[:area].present? ? params[:area].split(',').map { |v| v.to_i } : [0, plants_max_area]
+    end
   end
 end
