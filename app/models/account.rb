@@ -440,10 +440,11 @@ class Account < Ekylibre::Record::Base
   # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless.all the marked items will be balanced together
   def mark(item_ids, letter = nil)
-    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)', item_ids]
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR (letter SIMILAR TO ?))', item_ids, '[A-z]*\*?']
     items = journal_entry_items.where(conditions)
     return nil unless item_ids.size > 1 && items.count == item_ids.size &&
                       items.collect { |l| l.debit - l.credit }.sum.to_f.zero?
+    letter ||= items.order(:letter).pluck(:letter).compact.first
     letter ||= new_letter
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
