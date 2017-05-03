@@ -2594,7 +2594,6 @@ arb:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
       financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
