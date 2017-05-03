@@ -11,7 +11,6 @@
   - k.helper do
     %label= Plant.human_attribute_name(:net_surface_area)
     %b#right-slider 0
-
     %input{ name: :area, 'data-slider-min': 0, 'data-slider-max': plants_max_area, 'data-provide': 'slider', 'data-slider-value': data_slider_value }
     %b#left-slider= plants_max_area
 
