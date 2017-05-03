@@ -1137,6 +1137,7 @@ eng:
     part_replacements: "Part replacements"
     parted: "Parted"
     parted_product: "Parted product" #?
+    partial_letter: "Partial letter"
     participant: "Participant"
     participants: "Participants"
     participations: "Participations"
