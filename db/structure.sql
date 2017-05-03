@@ -5050,7 +5050,7 @@ CREATE TABLE product_linkages (
     carrier_id integer NOT NULL,
     point character varying NOT NULL,
     nature character varying NOT NULL,
-    carried_id integer,
+    carried_id integer NOT NULL,
     started_at timestamp without time zone,
     stopped_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
@@ -17575,7 +17575,7 @@ ALTER TABLE ONLY identifiers
 --
 
 ALTER TABLE ONLY product_localizations
-    ADD CONSTRAINT fk_rails_24b2772f2f FOREIGN KEY (container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_24b2772f2f FOREIGN KEY (container_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -17959,7 +17959,7 @@ ALTER TABLE ONLY listing_nodes
 --
 
 ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_39791a8128 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+    ADD CONSTRAINT fk_rails_39791a8128 FOREIGN KEY (responsible_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -18231,7 +18231,7 @@ ALTER TABLE ONLY taxes
 --
 
 ALTER TABLE ONLY product_enjoyments
-    ADD CONSTRAINT fk_rails_448f48d42c FOREIGN KEY (enjoyer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_448f48d42c FOREIGN KEY (enjoyer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -18807,7 +18807,7 @@ ALTER TABLE ONLY plant_density_abacus_items
 --
 
 ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_63bad1dcb6 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+    ADD CONSTRAINT fk_rails_63bad1dcb6 FOREIGN KEY (financial_year_id) REFERENCES financial_years(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -18943,7 +18943,7 @@ ALTER TABLE ONLY campaigns
 --
 
 ALTER TABLE ONLY product_linkages
-    ADD CONSTRAINT fk_rails_6a925852c1 FOREIGN KEY (carried_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_6a925852c1 FOREIGN KEY (carried_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -19447,7 +19447,7 @@ ALTER TABLE ONLY postal_zones
 --
 
 ALTER TABLE ONLY preferences
-    ADD CONSTRAINT fk_rails_87f1c9c7bd FOREIGN KEY (user_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_87f1c9c7bd FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -19927,7 +19927,7 @@ ALTER TABLE ONLY delivery_tools
 --
 
 ALTER TABLE ONLY product_ownerships
-    ADD CONSTRAINT fk_rails_9e9409872a FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_9e9409872a FOREIGN KEY (owner_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
