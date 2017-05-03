@@ -253,6 +253,7 @@ ita:
         fixed_assets: "Immobilizzazioni"
         forward: "Portato avanti"
         purchases: "acquisti"
+        # result: "Result"
         sales: "Vendite"
         stocks: "Riserve"
         various: "varie operazioni"
@@ -449,10 +450,10 @@ ita:
       nature:
         payslip: "Busta paga"
         purchase: "Acquista"
-    sale_item:
-      compute_from:
-        pretax_amount: "Importo lordo delle imposte"
-        unit_pretax_amount: "Unità importo lordo delle imposte"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Importo lordo delle imposte" #?
+        unit_pretax_amount: "Unità importo lordo delle imposte" #?
     sensor:
       retrieval_mode:
         integration: "Integrazione"
@@ -468,6 +469,7 @@ ita:
         affairs: "Affari"
         analyses: "Analisi"
         animals: "Animali"
+        campaigns: "Campagne"
         cash_transfers: "Trasferimenti di denaro"
         contracts: "Contratti"
         debt_transfers: "Trasferimenti di debito"
@@ -485,6 +487,7 @@ ita:
         outgoing_payment_lists: "Elenchi di pagamento in uscita"
         outgoing_payments: "Pagamenti in uscita"
         parcels: "Pacchi"
+        plant_countings: "Conteggio delle piante"
         plants: "Piante"
         product_nature_categories: "Categorie Natura del prodotto"
         product_nature_variants: "La natura del prodotto Varianti"
@@ -532,6 +535,10 @@ ita:
       nature: #?
         amount: "Quantità" #?
         percentage: "Percentuale" #?
+    tax_declaration:
+      mode:
+        debit: "Addebito"
+        payment: "Pagamento"
     tracking:
       usage_limit_nature:
         best_before: "Data di scadenza"

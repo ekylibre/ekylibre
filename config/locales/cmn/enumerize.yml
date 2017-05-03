@@ -253,6 +253,7 @@ cmn:
         fixed_assets: "固定资产"
         forward: "结转"
         purchases: "购买"
+        # result: "Result"
         sales: "销售"
         stocks: "股票"
         various: "各种操作"
@@ -449,10 +450,10 @@ cmn:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale_item:
-      compute_from:
-        pretax_amount: "税前金额"
-        unit_pretax_amount: "单位税前金额"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "税前金额" #?
+        unit_pretax_amount: "单位税前金额" #?
     sensor:
       retrieval_mode:
         integration: "积分"
@@ -468,6 +469,7 @@ cmn:
         affairs: "事务"
         analyses: "分析"
         animals: "动物"
+        campaigns: "广告活动"
         cash_transfers: "现金转移"
         contracts: "合同"
         debt_transfers: "债务转移"
@@ -485,6 +487,7 @@ cmn:
         outgoing_payment_lists: "付款清单"
         outgoing_payments: "汇出款项"
         parcels: "地块"
+        plant_countings: "植物计数"
         plants: "植物"
         product_nature_categories: "产品类别性质"
         product_nature_variants: "产品性质变种"
@@ -533,6 +536,10 @@ cmn:
       nature: #?
         amount: "量" #?
         percentage: "百分比" #?
+    tax_declaration:
+      mode:
+        debit: "借方"
+        payment: "付款"
     tracking:
       usage_limit_nature:
         best_before: "日期前最佳"

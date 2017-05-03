@@ -16,6 +16,7 @@ class AddVariantToJournalEntryItems < ActiveRecord::Migration
             ' SET variant_id = pi.variant_id' \
             ' FROM' \
             '   purchase_items AS pi' \
+            '   JOIN product_nature_variants AS pnv ON pnv.id = pi.variant_id' \
             " WHERE jei.resource_type = 'PurchaseItem'" \
             ' AND jei.resource_id = pi.id' \
             ' AND jei.variant_id IS NULL'
@@ -24,6 +25,7 @@ class AddVariantToJournalEntryItems < ActiveRecord::Migration
             ' SET variant_id = si.variant_id' \
             ' FROM' \
             '   sale_items AS si' \
+            '   JOIN product_nature_variants AS pnv ON pnv.id = si.variant_id' \
             " WHERE jei.resource_type = 'SaleItem'" \
             ' AND jei.resource_id = si.id' \
             ' AND jei.variant_id IS NULL'
@@ -66,6 +68,7 @@ class AddVariantToJournalEntryItems < ActiveRecord::Migration
             '    journal_entries AS je' \
             '    JOIN parcels AS p ON p.journal_entry_id = je.id' \
             '    JOIN parcel_items AS pi ON pi.parcel_id = p.id' \
+            '    JOIN product_nature_variants AS pnv ON pi.variant_id = pnv.id' \
             "    JOIN accounts AS a ON (a.usages = CASE WHEN p.nature = 'incoming' THEN 'suppliers_invoices_not_received' ELSE 'invoice_to_create_clients' END)" \
             '    LEFT JOIN sale_items AS tsi ON pi.sale_item_id = tsi.id' \
             '    LEFT JOIN purchase_items AS tpi ON pi.purchase_item_id = tpi.id' \
