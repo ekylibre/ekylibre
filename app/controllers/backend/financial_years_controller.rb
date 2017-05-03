@@ -114,6 +114,7 @@ module Backend
         if params[:closure_journal_id] == '0'
           params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
         end
+        # TODO: MAKE ASYNCHRONOUS
         if @financial_year.close(closed_on, result_journal_id: params[:result_journal_id], forward_journal_id: params[:forward_journal_id], closure_journal_id: params[:closure_journal_id])
           notify_success(:closed_financial_years)
           redirect_to(action: :index)
