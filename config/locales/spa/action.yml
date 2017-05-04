@@ -1152,6 +1152,7 @@ spa:
     evaluated_tool_cost: "Costo herramienta evaluado"
     events: "Eventos"
     evolution: "Evolución"
+    # evolution_of_revenue_and_expenses_over_time: "Evolution of revenue and expenses over time"
     # example: "Example: %{value}"
     exceptional_expenses: "Gastos de carácter excepcional"
     exceptional_products: "Productos excepcionales"
@@ -1671,7 +1672,7 @@ spa:
       one: "1 resultado" #?
       other: "%{count} resultado" #?
     revenues: "Los ingresos"
-    revenues_by_product_nature: "Los ingresos por tipo de producto"
+    revenues_by_product_nature: "Los ingresos por tipo de producto" #?
     reverse: "Condición inversa"
     right_parts: #?
       accountancy: "Derechos modulo contabilidad" #?

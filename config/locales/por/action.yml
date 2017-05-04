@@ -1038,6 +1038,7 @@ por:
     evaluated_tool_cost: "Custo ferramenta avaliada"
     events: "Eventos"
     evolution: "Evolução"
+    # evolution_of_revenue_and_expenses_over_time: "Evolution of revenue and expenses over time"
     # example: "Example: %{value}"
     exceptional_expenses: "Despesas excepcionais"
     exceptional_products: "Produtos excepcionais"
@@ -1483,7 +1484,7 @@ por:
     results: #?
       one: "1 resultado" #?
     revenues: "Faturamento"
-    revenues_by_product_nature: "As receitas por tipo de produto"
+    revenues_by_product_nature: "As receitas por tipo de produto" #?
     reverse: "Condição inversa"
     rights: "Direitos"
     risk_and_charges_provisions: "Provisões para riscos e encargos"

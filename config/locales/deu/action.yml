@@ -1033,6 +1033,7 @@ deu:
     evaluated_tool_cost: "Ausgewertet Werkzeugkosten"
     events: "Veranstaltungen"
     # evolution: "Evolution"
+    # evolution_of_revenue_and_expenses_over_time: "Evolution of revenue and expenses over time"
     # example: "Example: %{value}"
     exceptional_expenses: "Außergewöhnliche Kosten"
     exceptional_products: "Außergewöhnliche Produkte"
@@ -1478,7 +1479,7 @@ deu:
     results: #?
       one: "1 Ergebnis" #?
     revenues: "Die Umsatzerlöse"
-    revenues_by_product_nature: "Umsatz nach Produkttyp"
+    revenues_by_product_nature: "Umsatz nach Produkttyp" #?
     reverse: "Reverse-Zustand"
     rights: "Rechte"
     risk_and_charges_provisions: "Risiko und Kosten Rückstellungen"

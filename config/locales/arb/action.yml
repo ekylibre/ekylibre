@@ -1392,6 +1392,7 @@ arb:
     event_nature_create: "اضافة نوع الحدث" #?
     events: "أحداث"
     evolution: "تطور"
+    # evolution_of_revenue_and_expenses_over_time: "Evolution of revenue and expenses over time"
     example: "مثال&nbsp;: %{value}"
     exceptional_expenses: "نفقات استثنائية"
     exceptional_products: "منتجات استثنائية"
@@ -2032,7 +2033,7 @@ arb:
       other: "%{count} نتائج" #?
       zero: "ولا نتيجة" #?
     revenues: "إيرادات"
-    revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
+    revenues_by_product_nature: "الإيرادات حسب نوع المنتج" #?
     reverse: "تطبيق الحالة العكسية"
     right_parts: #?
       accountancy: "حقوق المحاسبة" #?

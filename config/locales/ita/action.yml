@@ -1099,6 +1099,7 @@ ita:
     evaluated_tool_cost: "costo strumento valutato"
     events: "eventi"
     evolution: "Evoluzione"
+    # evolution_of_revenue_and_expenses_over_time: "Evolution of revenue and expenses over time"
     # example: "Example: %{value}"
     exceptional_expenses: "Le spese eccezionali"
     exceptional_products: "Prodotti eccezionali"
@@ -1544,7 +1545,7 @@ ita:
     results: #?
       one: "1 risultato" #?
     revenues: "ricavi"
-    revenues_by_product_nature: "Ricavi per tipologia di prodotto"
+    revenues_by_product_nature: "Ricavi per tipologia di prodotto" #?
     reverse: "condizione di inversione"
     rights: "Diritti"
     risk_and_charges_provisions: "Fondi rischi e oneri"
