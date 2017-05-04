@@ -38,7 +38,7 @@
       hash[pair.expr.to_i.to_s] = pair.sum.to_d
       hash
     end
-    series << {type: 'spline', name: :total_pretax_revenues.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+    series << {type: 'spline', name: :total_sales.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
 
     # data for spline sum expenses by month
     all_purchase_items = PurchaseItem.between(@started_at, @stopped_at)
@@ -46,18 +46,40 @@
       hash[pair.expr.to_i.to_s] = pair.sum.to_d
       hash
     end
-    series << {type: 'spline', name: :total_pretax_expenses.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+    series << { type: 'spline', name: :total_purchases.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
+
+    # data for incoming_payment by month
+    all_incoming_payments_items = IncomingPayment.between(@started_at, @stopped_at)
+    item_h = all_incoming_payments_items.sums_of_periods.sort.inject({}) do |hash, pair|
+      hash[pair.expr.to_i.to_s] = pair.sum.to_d
+      hash
+    end
+    series << { type: 'spline', name: :incoming_payment_duty_free.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
+
+    # Data for outgoing_payments by month
+    all_outgoing_payments_items = OutgoingPayment.between(@started_at, @stopped_at)
+    item_h = all_outgoing_payments_items.sums_of_periods.sort.inject({}) do |hash, pair|
+      hash[pair.expr.to_i.to_s] = pair.sum.to_d
+      hash
+    end
+    series << { type: 'spline', name: :outgoing_payment_duty_free.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
+
 
     # data for pie revenues by product_nature
     data = []
-    sale_items_pretax_amount = SaleItem.between(@started_at, @stopped_at).sum(:pretax_amount)
-    data << { name: :total_pretax_revenues.tl, y: sale_items_pretax_amount.to_s.to_f}
-    purchases_items_pretax_amount = PurchaseItem.between(@started_at, @stopped_at).sum(:pretax_amount)
-    data << { name: :total_pretax_expenses.tl, y: purchases_items_pretax_amount.to_s.to_f}
+    sale_items_pretax_amount = all_sale_items.sum(:pretax_amount)
+    data << { name: :total_sales.tl, y: sale_items_pretax_amount.to_s.to_f }
+    purchases_items_pretax_amount = all_purchase_items.sum(:pretax_amount)
+    data << { name: :total_purchases.tl, y: purchases_items_pretax_amount.to_s.to_f }
+    incoming_payment_amount = all_incoming_payments_items.sum(:amount)
+    data << { name: :incoming_payment_duty_free.tl, y: incoming_payment_amount.to_s.to_f }
+    outgoing_payment_amount = all_outgoing_payments_items.sum(:amount)
+    data << { name: :outgoing_payment_duty_free.tl, y: outgoing_payment_amount.to_s.to_f }
+
     unless purchases_items_pretax_amount.zero? && sale_items_pretax_amount.zero?
-      series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+      series << { type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
     end
-  = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+  = column_highcharts(series, y_axis: { title: { text: :pretax_amount.tl }}, x_axis: { categories: categories.values }, legend: true)
 
 - else
   = no_data
