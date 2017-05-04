@@ -59,6 +59,10 @@ require 'test_helper'
 class PurchaseTest < ActiveSupport::TestCase
   test_model_actions
 
+  setup do
+    @variant = ProductNatureVariant.import_from_nomenclature(:carrot)
+  end
+
   test 'rounds' do
     nature = PurchaseNature.first
     assert nature

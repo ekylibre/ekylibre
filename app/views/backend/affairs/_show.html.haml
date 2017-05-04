@@ -24,6 +24,10 @@
                       = link_to({ action: :destroy, controller: :regularizations, id: deal.id, redirect: request.fullpath }, method: :delete, data: { confirm: :are_you_sure.tl }, class: "remove") do
                         %i
                         = :destroy.ta
+                    - if deal.is_a? DebtTransfer
+                      = link_to({ action: :destroy, controller: :debt_transfers, id: deal.id, redirect: request.fullpath }, method: :delete, data: { confirm: :are_you_sure.tl }, class: "remove") do
+                        %i
+                        = :destroy.ta
                     - else
                       = link_to({action: :detach, controller: affairs_controller, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "unlink") do
                         %i
@@ -33,10 +37,20 @@
                       %i
                       = :destroy.ta
               %td.dat.dealt-on= deal.dealt_at.to_date.l
-              %td.type= deal.class.model_name.human
+              %td.type
+                = deal.class.model_name.human
+                - if deal.is_a? DebtTransfer
+                  = " (#{deal.sale_regularization? ? Purchase.model_name.human : Sale.model_name.human})"
               - if many_thirds
                 %td.third= link_to(deal.deal_third.full_name, send("backend_#{deal.deal_third.class.name.underscore}_path", deal.deal_third))
-              %td.name= link_to(deal.number, controller: "/backend/" + deal.class.name.tableize, action: :show, id: deal.id)
+              %td.name
+                - if deal.is_a? DebtTransfer
+                  - foreign_deal = deal.debt_transfer_affair
+                  = foreign_deal.deals.reject{ |d| d.is_a?(DebtTransfer) }.map { |d| link_to(d.number, controller: "/backend/" + d.class.name.tableize, action: :show, id: d.id) }.to_sentence
+                  -# = ' ('.html_safe + link_to(Affair.model_name.human + ' ' + foreign_deal.number, controller: "/backend/" + foreign_deal.class.name.tableize, action: :show, id: foreign_deal.id) + ')'
+
+                - else
+                  = link_to(deal.number, controller: "/backend/" + deal.class.name.tableize, action: :show, id: deal.id)
               %td.amount{class: (deal.good_deal? ? "debit" : "credit")}
                 %span.value= deal.our_deal_balance.l(currency: deal.currency) if deal.journal_entry
 
@@ -56,6 +70,20 @@
                       - l.item existing.label, { controller: affairs_controller, action: :attach, id: affair.id, deal_id: existing.id, deal_type: model, redirect: request.fullpath }, method: :post
                     - l.separator
                   - l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
+
+              - if affair.debt_transferable?
+                - model = affair.is_a?(SaleAffair) ? 'purchase' : 'sale'
+                - klass = model.classify.constantize
+                - excluded = affair.deals_of_type(klass).pluck(:id) + klass.where.not(currency: affair.currency).pluck(:id)
+                - existings = klass.where(klass.deal_third.name => affair.third).affairable.where.not(id: excluded)
+                - if existings.any?
+                  .btn-group
+                    = dropdown_menu_button "add_#{model}".to_sym, icon: false, dropup: true, force_menu: true do |l|
+                      - existings.each do |existing|
+                        - l.item existing.label, { controller: :debt_transfers, action: :create, id: affair.id, deal_affair_id: existing.affair.id, redirect: request.fullpath }, method: :post
+                      -# l.separator
+                    -# l.item :new.tl, { controller: model.pluralize, action: :new, klass.deal_third.foreign_key => affair.third.id, amount: affair.balance.abs, redirect: request.fullpath, affair_id: affair.id }
+
               - if affair.finishable?
                 .btn-group
                   - if affair.regularizations.empty?
@@ -75,14 +103,10 @@
           %th= :balance.tl
           %td.total.amount.sum{class: (affair.balance.zero? ? "debit" : "credit")}
             = affair.balance.l(currency: affair.currency)
-  - if affair.balanced? && !affair.letterable?
-    %p.inline-message.warning
-      %i.icon.icon-warning
-      - if affair.multi_thirds?
-        = :the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present.tn
-      - elsif affair.journal_entry_items_unbalanced?
-        = :the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet.tn
-      - elsif affair.journal_entry_items_already_lettered?
-        = :the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user.tn
-      - else
-        = :the_automatic_lettering_cannot_be_done_in_accountancy.tn
+    - if affair.balanced? && !affair.letterable?
+      %p.inline-message.warning
+        %i.icon.icon-warning
+        - if affair.multi_thirds?
+          = :the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present.tn
+        - else
+          = :the_automatic_lettering_cannot_be_done_in_accountancy.tn

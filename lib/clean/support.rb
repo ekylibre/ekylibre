@@ -229,7 +229,7 @@ module Clean
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass < ActiveRecord::Base }
-          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') }
+          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') && !x.name.start_with?('Apartment::') }
           .uniq
           .sort_by(&:name)
       end
@@ -267,6 +267,24 @@ module Clean
       # Lists exchangers paths
       def exchangers_in_file
         dir = Rails.root.join('app', 'exchangers')
+        list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
+          Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+        end
+        list
+      end
+
+      # Lists services paths
+      def services_in_file
+        dir = Rails.root.join('app', 'services')
+        list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
+          Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+        end
+        list
+      end
+
+      # Lists concepts paths
+      def concepts_in_file
+        dir = Rails.root.join('app', 'concepts')
         list = Dir.glob(dir.join('**', '*.rb')).collect do |h|
           Pathname.new(h).relative_path_from(dir).to_s[0..-4]
         end

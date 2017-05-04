@@ -24,9 +24,8 @@ module Backend
       code = ''
       code << search_conditions + ';'
       code << "if params[:tax_declaration_item_id]\n"
-      # code << "  c[0] += ' AND (#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE tax_declaration_item_id=?))'\n"
-      code << "  c[0] += ' AND tax_declaration_item_id = ?'\n"
-      code << "  c << params[:tax_declaration_item_id]\n"
+      code << "  c[0] += ' AND #{JournalEntryItem.table_name}.id IN (SELECT DISTINCT journal_entry_item_id FROM #{TaxDeclarationItemPart.table_name} WHERE tax_declaration_item_id = ?)'\n"
+      code << "  c << params[:tax_declaration_item_id].to_i\n"
       code << "end\n"
       code << "if params[:account_id].to_i > 0\n"
       code << "  c[0] += ' AND account_id = ?'\n"
