@@ -51,6 +51,7 @@ module Procedo
           end
           @derivative_of = value
           impact_dependencies!(:derivative_of)
+        end
 
         def identification_number=(identification_number)
           @identification_number = identification_number
