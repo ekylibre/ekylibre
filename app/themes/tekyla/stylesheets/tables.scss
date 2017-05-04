@@ -26,6 +26,16 @@ table {
     background: white;
     min-height: $lh-normal;
   }
+  thead{
+    tr{
+      &.warning {
+        border: solid 1px $caution-color;
+        th {
+          background-color: lighten($caution-color, 10%);
+        }
+      }
+    }
+  }
   th, td {
     background: white;
     padding: $default-gap;

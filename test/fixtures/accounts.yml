@@ -497,6 +497,7 @@ accounts_036:
   debtor: false
   id: 202
   label: 4113 - Yuey LTD
+  last_letter: B
   lock_version: 0
   name: Yuey LTD
   number: '4113'
@@ -509,7 +510,7 @@ accounts_037:
   debtor: false
   id: 203
   label: 401EI00000001 - Taurus Plus
-  last_letter: B
+  last_letter: C
   lock_version: 0
   name: Taurus Plus
   number: 401EI00000001
@@ -522,7 +523,7 @@ accounts_038:
   debtor: false
   id: 204
   label: 401198 - BAKTOUBI Inc.
-  last_letter: A
+  last_letter: B
   lock_version: 0
   name: BAKTOUBI Inc.
   number: '401198'
@@ -535,6 +536,7 @@ accounts_039:
   debtor: false
   id: 205
   label: 4011 - Busbest Andrew
+  last_letter: B
   lock_version: 0
   name: Busbest Andrew
   number: '4011'
@@ -549,6 +551,7 @@ accounts_040:
   debtor: false
   id: 206
   label: 4111 - Busbest Andrew
+  last_letter: B
   lock_version: 0
   name: Busbest Andrew
   number: '4111'
@@ -561,6 +564,7 @@ accounts_041:
   debtor: false
   id: 207
   label: 4013 - Yuey LTD
+  last_letter: A
   lock_version: 0
   name: Yuey LTD
   number: '4013'
@@ -573,6 +577,7 @@ accounts_042:
   debtor: false
   id: 208
   label: 4112 - Toley LTD
+  last_letter: A
   lock_version: 0
   name: Toley LTD
   number: '4112'
@@ -585,6 +590,7 @@ accounts_043:
   debtor: false
   id: 209
   label: 411P00000003 - Coop Ain Coop'In
+  last_letter: A
   lock_version: 0
   name: Coop Ain Coop'In
   number: 411P00000003
@@ -597,6 +603,7 @@ accounts_044:
   debtor: false
   id: 210
   label: 411194 - FUYUTSUKI Kōzō
+  last_letter: D
   lock_version: 0
   name: FUYUTSUKI Kōzō
   number: '411194'
@@ -609,6 +616,7 @@ accounts_045:
   debtor: false
   id: 211
   label: 401P00000003 - Coop Ain Coop'In
+  last_letter: B
   lock_version: 0
   name: Coop Ain Coop'In
   number: 401P00000003
@@ -2967,7 +2975,7 @@ accounts_226:
   debtor: false
   id: 572
   label: 411P00000004 - Περικλῆς
-  last_letter: A
+  last_letter: D
   lock_version: 0
   name: "Περικλῆς"
   number: 411P00000004
@@ -3019,6 +3027,7 @@ accounts_230:
   debtor: false
   id: 576
   label: 411P00000005 - Kokonut Inc
+  last_letter: B
   lock_version: 0
   name: Kokonut Inc
   number: 411P00000005

@@ -53,7 +53,7 @@ class Journal < Ekylibre::Record::Base
   has_many :incoming_payment_modes, foreign_key: :depositables_journal_id, dependent: :restrict_with_exception
   has_many :purchase_natures, dependent: :restrict_with_exception
   has_many :sale_natures, dependent: :restrict_with_exception
-  enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure], default: :various, predicates: true
+  enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure result], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
@@ -85,6 +85,7 @@ class Journal < Ekylibre::Record::Base
   scope :forwards,        -> { where(nature: 'forward') }
   scope :various,         -> { where(nature: 'various') }
   scope :cashes,          -> { where(nature: 'cash') }
+  scope :results,         -> { where(nature: 'result') }
   scope :stocks,          -> { where(nature: 'stocks') }
   scope :fixed_assets,    -> { where(nature: 'fixed_asset') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
@@ -359,6 +360,7 @@ class Journal < Ekylibre::Record::Base
     conn = ActiveRecord::Base.connection
     journal_entry_items = 'jei'
     journal_entries = 'je'
+    journals = 'j'
     accounts = 'a'
 
     journal_entries_states = ''
@@ -367,7 +369,12 @@ class Journal < Ekylibre::Record::Base
     end
 
     from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    from_where << ' WHERE true'
+    if options[:unwanted_journal_nature]
+      from_where << " JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
+      from_where << " WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')'
+    else
+      from_where << ' WHERE true'
+    end
     if options[:started_on] || options[:stopped_on]
       from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
     end

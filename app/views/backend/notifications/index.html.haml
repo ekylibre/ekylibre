@@ -12,7 +12,7 @@
           %th= Notification.human_attribute_name(:message)
           %th= Notification.human_attribute_name(:age)
       %tbody
-        - @notifications.each do |notification|
+        - @notifications.includes(:target).each do |notification|
           %tr{class: notification.level}
             %td.act
               = link_to(backend_notification_path(notification), method: :delete, title: :mark_as_read.tl) do

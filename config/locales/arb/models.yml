@@ -135,7 +135,8 @@ arb:
         managed: "تدار من قبل النظام"
         nature: "طبيعية" #?
         nature_label: "طبيعة" #?
-      entity: #?
+      entity:
+        client_accounting_balance: "التوازن حساب العميل"
         contacts: "الاشخاص المراد الاتصال بهم" #?
         created_at: "انشأ في" #?
         last_name: "الاسم" #?
@@ -147,6 +148,7 @@ arb:
         salt: "Sel" #?
         siren: "رمز صفارات الانذا" #?
         subscriptions: "الاشتراكات" #?
+        supplier_accounting_balance: "رصيد الحساب المورد"
         updated_at: "تم تحديثها في" #?
         usable_incoming_payments: "الدفعات المستخدمة" #?
       entity_category: #?
@@ -677,6 +679,7 @@ arb:
         odd: "%{attribute} يجب ان يكون فردي"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
@@ -821,7 +824,7 @@ arb:
       animal_group: "مجموعة الحيوانات"
       area: "المنطقة البريدية" #?
       attachment: "مرفق"
-      bank_guarantee_account: "حساب الضمان المصرفي"
+      bank_guarantee_account: "حساب الضمان المصرفي" #?
       bank_statement: "بيان الحساب المصرفي"
       bank_statement_item: "الصف بيان البنك"
       bioproduct: "المنتج تعيش"
@@ -851,6 +854,7 @@ arb:
       custom_field_choice: "اختيار الحقل التكميلي"
       custom_field_datum: "بيانات الملف التكميلية" #?
       dashboard: "لوحة القيادة"
+      debt_transfer: "نقل الديون"
       delay: "التأجيل" #?
       delivery: "وسيلة النقل"
       delivery_item: "خط التسليم" #?
@@ -862,6 +866,7 @@ arb:
       document: "الوثيقة"
       document_template: "نموذج الوثيقة"
       easement: "سكون"
+      economic_situation: "الوضع الاقتصادي"
       entity: "الفرد"
       entity_address: "عنوان"
       entity_category: "فئة الفرد" #?
@@ -894,9 +899,9 @@ arb:
       inspection: "تصنيف المنتجات"
       inspection_calibration: "عيار التفتيش"
       inspection_point: "الاختيار تصنيف المنتجات"
-      insurance_account: "حساب التأمين"
+      insurance_account: "حساب التأمين" #?
       integration: "دمج"
-      interest_account: "حساب الفائدة"
+      interest_account: "حساب الفائدة" #?
       intervention: "تدخل"
       intervention_agent: "وكيل تدخل"
       intervention_doer: "التدخل الفاعل"
@@ -1054,6 +1059,7 @@ arb:
     accountable_repayments_started_on: "بدأت السداد للمساءلة على"
     accountant: "محاسب"
     accounted_at: "تمت محاسبته يوم"
+    accounting_balance: "ميزان المحاسبة"
     accounts: "الحسابات" #?
     accuracy: "دقة"
     achieved_at: "تحقق في"
@@ -1211,8 +1217,10 @@ arb:
     client: "العميل"
     client_account: "حساب مساعد العميل"
     client_account_id: "حساب مساعد العميل" #?
+    client_accounting_balance: "ميزان المحاسبة العميل"
     client_accounts: "حسابات العملاء" #?
     client_id: "العميل" #?
+    client_trade_balance: "الميزان التجاري العميل"
     clients: "العملاء"
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
@@ -1336,6 +1344,9 @@ arb:
     dead_line_at: "خط الموتى في"
     deals_count: "عد عروض"
     debit: "الدين"
+    debt_regularizations: "regularizations الديون"
+    debt_transfer_affair: "نقل الدين شأنا"
+    debt_transfers: "نقل الديون"
     debtor: "مدين"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
@@ -1427,6 +1438,7 @@ arb:
     due_on: "نظرا ل"
     duration: "المدة"
     ean13: "Ean13" #?
+    economic_situation: "الوضع الاقتصادي"
     email: "عنوان البريد الالكتروني"
     emails: "رسائل البريد الإلكتروني"
     embedded: "المضمنة"
@@ -1580,6 +1592,7 @@ arb:
     grading_sizes_unit: "وحدة الأحجام الدرجات"
     grading_sizes_unit_name: "الدرجات أحجام اسم الوحدة"
     gradings: "الى التصنيف"
+    grains_yield: "محصول الحبوب"
     gravity: "الجاذبية"
     gross_items: "العد الإجمالي" #?
     gross_items_count: "البنود الإجمالية تحسب"
@@ -2106,7 +2119,7 @@ arb:
     published: "تم نشره" #?
     purchasable: "للشراء"
     purchase: "شراء"
-    purchase_affair: "قضية شراء"
+    purchase_affair: "قضية شراء" #?
     purchase_affairs: "الشؤون شراء"
     purchase_amount: "مبلغ الشراء"
     purchase_invoices: "فواتير الشراء"
@@ -2361,12 +2374,14 @@ arb:
     supplier: "الممول"
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
+    supplier_accounting_balance: "ميزان المحاسبة المورد"
     supplier_accounts: "حسابات المموليين" #?
     supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?
     supplier_payment_delay: "تأخير دفع المورد"
     supplier_payment_mode: "طريقة الدفع المورد"
     supplier_payment_modes: "وسائل الدفع المورد"
+    supplier_trade_balance: "الميزان التجاري المورد"
     suppliers: "الممولين"
     support: "الدعم"
     support_nature: "نوع الدعم"
@@ -2422,6 +2437,8 @@ arb:
     to_archive: "وثائق للارشفة" #?
     to_bank_at: "يسدد يوم"
     to_deposit: "لإيداع"
+    to_pay_on_or_after: "للدفع في أو بعد"
+    to_pay_on_or_before: "للدفع في أو قبل"
     token: "رمز"
     tool: "الاداة"
     tool_id: "اداة" #?
@@ -2435,6 +2452,7 @@ arb:
     tracking_id: "الحصة" #?
     tracking_serial: "رقم الحصة" #?
     trackings: "الحصص"
+    trade_balance: "الميزان التجاري"
     transaction_number: "رقم التحويلة"
     transfered_at: "نقلها في"
     transfered_on: "نقلها على"

@@ -99,6 +99,50 @@ class AffairTest < ActiveSupport::TestCase
     assert_equal count, ret.deals_count
   end
 
+  test 'letters journal entry items in the third account on save' do
+    client = create(:entity, :client)
+    account = client.client_account
+    subject = create(:sale_affair, client: client)
+
+    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')
+    create :sale_item, sale: deal, tax: a_tax
+    assert deal.invoice # bookkeep affair which creates its journal entry
+
+    deal_entry_items_in_third_account = deal.journal_entry.items.select { |item| item.account == account }
+    assert deal_entry_items_in_third_account.any?
+    deal_entry_items_out_third_account = deal.journal_entry.items.reject { |item| item.account == account }
+    assert deal_entry_items_out_third_account.any?
+
+    subject.reload
+    assert subject.save
+    assert subject.letter
+
+    assert deal_entry_items_in_third_account.all? { |item| item.letter.match '^' + subject.letter + '\*?$' }
+    assert deal_entry_items_out_third_account.none?(&:letter)
+  end
+
+  test 'reuse letter on save while already lettered' do
+    client = create(:entity, :client)
+    subject = create(:sale_affair, client: client)
+
+    deal = create(:sale, nature: sale_natures(:sale_natures_001), affair: subject, state: 'draft')
+    create :sale_item, sale: deal, tax: a_tax
+    assert deal.invoice # bookkeep affair which creates its journal entry
+
+    subject.reload
+    assert subject.save
+
+    letter_on_first_save = subject.letter
+    lettered_items_on_first_save = JournalEntryItem.where(letter: [letter_on_first_save, letter_on_first_save + '*']).pluck(:id).to_set
+    assert letter_on_first_save.present?
+    assert_not_empty lettered_items_on_first_save
+
+    assert subject.save
+
+    assert_equal letter_on_first_save, subject.letter
+    assert_equal lettered_items_on_first_save, JournalEntryItem.where(letter: [letter_on_first_save, letter_on_first_save + '*']).pluck(:id).to_set
+  end
+
   # Check that affair of given sale is actually closed perfectly
   def check_closed_state(affair)
     assert affair.balanced?,
@@ -131,5 +175,9 @@ class AffairTest < ActiveSupport::TestCase
     content << "deals:\n"
     content << affair.deals.map { |d| e = d.journal_entry; " - #{d.number.ljust(20)} : #{e.debit.to_s.rjust(8)} | #{e.credit.to_s.rjust(8)} | #{d.deal_debit_amount.to_s.rjust(8)} | #{d.deal_credit_amount.to_s.rjust(8)} | #{d.direction if d.is_a?(Gap)}\n".red + e.items.map { |i| "   #{i.account_number.ljust(20).cyan} : #{i.debit.to_s.rjust(8)} | #{i.credit.to_s.rjust(8)} | #{i.letter}" }.join("\n") }.join("\n")
     content
+  end
+
+  def a_tax
+    taxes(:taxes_001)
   end
 end
