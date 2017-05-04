@@ -22,8 +22,8 @@ module Procedo
           end
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
-            @attributes[:readings_attributes].each do |id, attributes|
-              add_reading(id, attributes)
+            @r_attributes[:readings_r_attributes].each do |r_id, r_attributes|
+              add_reading(r_id, r_attributes)
             end
           end
           if attributes[:assembly_id].present?
@@ -156,6 +156,7 @@ module Procedo
           if reference.display_status.to_s.to_sym == :miscibility
             hash[:errors][:miscibility] = true unless product? && product.france_maaid
           end
+          hash
         end
 
         def to_attributes
