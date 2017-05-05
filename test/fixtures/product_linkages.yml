@@ -22,7 +22,7 @@
 #
 # == Table: product_linkages
 #
-#  carried_id      :integer
+#  carried_id      :integer          not null
 #  carrier_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer

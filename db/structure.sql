@@ -17183,7 +17183,7 @@ ALTER TABLE ONLY product_localizations
 --
 
 ALTER TABLE ONLY activity_budget_items
-    ADD CONSTRAINT fk_rails_137689e04b FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_137689e04b FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17207,7 +17207,7 @@ ALTER TABLE ONLY outgoing_payment_lists
 --
 
 ALTER TABLE ONLY incoming_payment_modes
-    ADD CONSTRAINT fk_rails_142e9deed5 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_142e9deed5 FOREIGN KEY (cash_id) REFERENCES cashes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17231,7 +17231,7 @@ ALTER TABLE ONLY fixed_assets
 --
 
 ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17631,7 +17631,7 @@ ALTER TABLE ONLY interventions
 --
 
 ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_277a19f6f0 FOREIGN KEY (payer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_277a19f6f0 FOREIGN KEY (payer_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18775,7 +18775,7 @@ ALTER TABLE ONLY cash_sessions
 --
 
 ALTER TABLE ONLY inventory_items
-    ADD CONSTRAINT fk_rails_62d92932b7 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+    ADD CONSTRAINT fk_rails_62d92932b7 FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -19135,7 +19135,7 @@ ALTER TABLE ONLY observations
 --
 
 ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_763bc367d1 FOREIGN KEY (nature_id) REFERENCES purchase_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_763bc367d1 FOREIGN KEY (nature_id) REFERENCES purchase_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20535,7 +20535,7 @@ ALTER TABLE ONLY activity_productions
 --
 
 ALTER TABLE ONLY subscriptions
-    ADD CONSTRAINT fk_rails_b64a681866 FOREIGN KEY (nature_id) REFERENCES subscription_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_b64a681866 FOREIGN KEY (nature_id) REFERENCES subscription_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21087,7 +21087,7 @@ ALTER TABLE ONLY cashes
 --
 
 ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_d17f517176 FOREIGN KEY (nature_id) REFERENCES sale_natures(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT fk_rails_d17f517176 FOREIGN KEY (nature_id) REFERENCES sale_natures(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --

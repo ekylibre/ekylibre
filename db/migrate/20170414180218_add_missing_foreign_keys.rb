@@ -1,5 +1,36 @@
 class AddMissingForeignKeys < ActiveRecord::Migration
   def change
+    reversible do |d|
+      d.up do
+        # Adds missing SaleNature catalog
+        execute "INSERT INTO catalogs (code, currency, name, usage, created_at, updated_at) SELECT 'SAXX' || currency, currency, 'missing_sale_catalog:' || currency, 'sale', min(created_at), min(updated_at) FROM sales WHERE nature_id IS NOT NULL AND nature_id NOT IN (SELECT id FROM sale_natures) GROUP BY 1, 2, 3, 4"
+
+        # Adds missing Sale natures
+        execute "INSERT INTO sale_natures (id, active, name, catalog_id, currency, expiration_delay, created_at, updated_at) SELECT DISTINCT ON (nature_id) nature_id, FALSE, 'missing_sale_nature:' || nature_id::VARCHAR, c.id, s.currency, '', min(created_at), min(updated_at) FROM sales AS s JOIN (SELECT id, currency FROM catalogs WHERE usage = 'sale' ORDER BY by_default DESC) AS c ON (c.currency = s.currency) WHERE nature_id IS NOT NULL AND nature_id NOT IN (SELECT id FROM sale_natures) GROUP BY 1, 2, 3, 4, 5"
+
+        # Adds missing Purchase natures
+        execute "INSERT INTO purchase_natures (id, active, name, currency, created_at, updated_at) SELECT nature_id, FALSE, 'missing_purchase_nature:' || nature_id::VARCHAR, currency, min(created_at), min(updated_at) FROM purchases WHERE nature_id IS NOT NULL AND nature_id NOT IN (SELECT id FROM purchase_natures) GROUP BY 1, 2, 3, 4"
+
+        # Adds missing Cash journal
+        execute "INSERT INTO journals (code, name, nature, currency, closed_on, created_at, updated_at) SELECT DISTINCT 'C' || currency, 'missing_journal:' || currency, 'bank', currency, COALESCE(x.closed_on, '1899-12-31'), min(opm.created_at), min(opm.updated_at) FROM outgoing_payments AS op JOIN outgoing_payment_modes AS opm ON (op.mode_id = opm.id), (SELECT min(closed_on) AS closed_on FROM journals) AS x WHERE opm.cash_id IS NOT NULL AND opm.cash_id NOT IN (SELECT id FROM cashes) GROUP BY 1, 2, 3, 4, 5"
+
+        # Adds missing Cash main_account
+        execute "INSERT INTO accounts (number, name, label, created_at, updated_at) SELECT DISTINCT '512XXX' || currency, 'missing_account:' || currency, '512XXX' || currency || ' - missing_account:' || currency, min(opm.created_at), min(opm.updated_at) FROM outgoing_payments AS op JOIN outgoing_payment_modes AS opm ON (op.mode_id = opm.id) WHERE opm.cash_id IS NOT NULL AND opm.cash_id NOT IN (SELECT id FROM cashes) GROUP BY 1, 2, 3"
+
+        # Adds missing OutgoingPaymentMode cashes
+        execute "INSERT INTO cashes (id, currency, journal_id, main_account_id, name, nature, created_at, updated_at) SELECT DISTINCT ON (opm.cash_id) opm.cash_id, op.currency, j.id, a.id, 'missing_cash:' || op.currency, 'bank_account', min(opm.created_at), min(opm.updated_at) FROM outgoing_payments AS op JOIN outgoing_payment_modes AS opm ON (op.mode_id = opm.id) JOIN journals AS j ON (op.currency = j.currency), accounts AS a WHERE opm.cash_id IS NOT NULL AND opm.cash_id NOT IN (SELECT id FROM cashes) AND j.nature = 'bank' AND a.number = '512XXX' || op.currency GROUP BY 1, 2, 3, 4, 5, 6"
+
+        # Adds missing Cash journal
+        execute "INSERT INTO journals (code, name, nature, currency, closed_on, created_at, updated_at) SELECT DISTINCT 'C' || currency, 'missing_journal:' || currency, 'bank', currency, COALESCE(x.closed_on, '1899-12-31'), min(opm.created_at), min(opm.updated_at) FROM incoming_payments AS op JOIN incoming_payment_modes AS opm ON (op.mode_id = opm.id), (SELECT min(closed_on) AS closed_on FROM journals) AS x WHERE opm.cash_id IS NOT NULL AND opm.cash_id NOT IN (SELECT id FROM cashes) GROUP BY 1, 2, 3, 4, 5"
+
+        # Adds missing Cash main_account
+        execute "INSERT INTO accounts (number, name, label, created_at, updated_at) SELECT DISTINCT '512XXX' || currency, 'missing_account:' || currency, '512XXX' || currency || ' - missing_account:' || currency, min(opm.created_at), min(opm.updated_at) FROM incoming_payments AS op JOIN incoming_payment_modes AS opm ON (op.mode_id = opm.id) WHERE opm.cash_id IS NOT NULL AND opm.cash_id NOT IN (SELECT id FROM cashes) GROUP BY 1, 2, 3"
+
+        # Adds missing IncomingPaymentMode cashes
+        execute "INSERT INTO cashes (id, currency, journal_id, main_account_id, name, nature, created_at, updated_at) SELECT DISTINCT ON (opm.cash_id) opm.cash_id, op.currency, j.id, a.id, 'missing_cash:' || op.currency, 'bank_account', min(opm.created_at), min(opm.updated_at) FROM incoming_payments AS op JOIN incoming_payment_modes AS opm ON (op.mode_id = opm.id) JOIN journals AS j ON (op.currency = j.currency), accounts AS a WHERE opm.cash_id IS NOT NULL AND opm.cash_id NOT IN (SELECT id FROM cashes) AND j.nature = 'bank' AND a.number = '512XXX' || op.currency GROUP BY 1, 2, 3, 4, 5, 6"
+      end
+    end
+
     # Account
     add_properly_foreign_key :accounts, :creator_id, :users, :nullify
     add_properly_foreign_key :accounts, :updater_id, :users, :nullify
@@ -20,7 +51,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :activity_budget_items, :creator_id, :users, :nullify
     add_properly_foreign_key :activity_budget_items, :updater_id, :users, :nullify
     add_properly_foreign_key :activity_budget_items, :activity_budget_id, :activity_budgets, :cascade
-    add_properly_foreign_key :activity_budget_items, :variant_id, :product_nature_variants, :cascade
+    add_properly_foreign_key :activity_budget_items, :variant_id, :product_nature_variants, :notnull_restrict
     change_column_null :activity_budget_items, :variant_id, false
     # ActivityDistribution
     add_properly_foreign_key :activity_distributions, :creator_id, :users, :nullify
@@ -316,15 +347,14 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :incoming_payments, :responsible_id, :users, :nullify
     add_properly_foreign_key :incoming_payments, :deposit_id, :deposits, :nullify
     add_properly_foreign_key :incoming_payments, :journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :incoming_payments, :payer_id, :entities, :cascade
+    add_properly_foreign_key :incoming_payments, :payer_id, :entities, :notnull_restrict
     change_column_null :incoming_payments, :payer_id, false
     add_properly_foreign_key :incoming_payments, :mode_id, :incoming_payment_modes, :cascade
     add_properly_foreign_key :incoming_payments, :affair_id, :affairs, :nullify
     # IncomingPaymentMode
     add_properly_foreign_key :incoming_payment_modes, :creator_id, :users, :nullify
     add_properly_foreign_key :incoming_payment_modes, :updater_id, :users, :nullify
-    # FIXME: Adds missing cashes
-    add_properly_foreign_key :incoming_payment_modes, :cash_id, :cashes, :cascade
+    add_properly_foreign_key :incoming_payment_modes, :cash_id, :cashes, :notnull_restrict
     change_column_null :incoming_payment_modes, :cash_id, false
     add_properly_foreign_key :incoming_payment_modes, :commission_account_id, :accounts, :nullify
     add_properly_foreign_key :incoming_payment_modes, :depositables_account_id, :accounts, :nullify
@@ -394,7 +424,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :inventory_items, :creator_id, :users, :nullify
     add_properly_foreign_key :inventory_items, :updater_id, :users, :nullify
     add_properly_foreign_key :inventory_items, :inventory_id, :inventories, :cascade
-    add_properly_foreign_key :inventory_items, :product_id, :products, :restrict
+    add_properly_foreign_key :inventory_items, :product_id, :products, :cascade
     add_properly_foreign_key :inventory_items, :product_movement_id, :product_movements, :nullify
     # Issue
     add_properly_foreign_key :issues, :creator_id, :users, :nullify
@@ -482,7 +512,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :outgoing_payments, :updater_id, :users, :nullify
     add_properly_foreign_key :outgoing_payments, :cash_id, :cashes, :cascade
     add_properly_foreign_key :outgoing_payments, :journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :outgoing_payments, :mode_id, :outgoing_payment_modes, :cascade
+    add_properly_foreign_key :outgoing_payments, :mode_id, :outgoing_payment_modes, :restrict
     add_properly_foreign_key :outgoing_payments, :payee_id, :entities, :cascade
     add_properly_foreign_key :outgoing_payments, :responsible_id, :users, :cascade
     add_properly_foreign_key :outgoing_payments, :list_id, :outgoing_payment_lists, :nullify
@@ -494,7 +524,6 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # OutgoingPaymentMode
     add_properly_foreign_key :outgoing_payment_modes, :creator_id, :users, :nullify
     add_properly_foreign_key :outgoing_payment_modes, :updater_id, :users, :nullify
-    # FIXME: Adds missing cashes
     add_properly_foreign_key :outgoing_payment_modes, :cash_id, :cashes, :cascade
     change_column_null :outgoing_payment_modes, :cash_id, false
     # Parcel
@@ -681,8 +710,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :purchases, :journal_entry_id, :journal_entries, :nullify
     add_properly_foreign_key :purchases, :undelivered_invoice_journal_entry_id, :journal_entries, :nullify
     add_properly_foreign_key :purchases, :quantity_gap_on_invoice_journal_entry_id, :journal_entries, :nullify
-    # FIXME: Add missing purchase_natures?
-    add_properly_foreign_key :purchases, :nature_id, :purchase_natures, :cascade
+    add_properly_foreign_key :purchases, :nature_id, :purchase_natures, :notnull_restrict
     change_column_null :purchases, :nature_id, false
     add_properly_foreign_key :purchases, :supplier_id, :entities, :cascade
     add_properly_foreign_key :purchases, :responsible_id, :users, :nullify
@@ -722,8 +750,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :sales, :journal_entry_id, :journal_entries, :nullify
     add_properly_foreign_key :sales, :undelivered_invoice_journal_entry_id, :journal_entries, :nullify
     add_properly_foreign_key :sales, :quantity_gap_on_invoice_journal_entry_id, :journal_entries, :nullify
-    # FIXME: Adds missing sale natures
-    add_properly_foreign_key :sales, :nature_id, :sale_natures, :cascade
+    add_properly_foreign_key :sales, :nature_id, :sale_natures, :notnull_restrict
     change_column_null :sales, :nature_id, false
     add_properly_foreign_key :sales, :credited_sale_id, :sales, :nullify
     add_properly_foreign_key :sales, :responsible_id, :entities, :nullify
@@ -762,7 +789,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :subscriptions, :creator_id, :users, :nullify
     add_properly_foreign_key :subscriptions, :updater_id, :users, :nullify
     add_properly_foreign_key :subscriptions, :address_id, :entity_addresses, :nullify
-    add_properly_foreign_key :subscriptions, :nature_id, :subscription_natures, :cascade
+    add_properly_foreign_key :subscriptions, :nature_id, :subscription_natures, :notnull_restrict
     change_column_null :subscriptions, :nature_id, false
     add_properly_foreign_key :subscriptions, :parent_id, :subscriptions, :nullify
     add_properly_foreign_key :subscriptions, :sale_item_id, :sale_items, :nullify
@@ -845,13 +872,13 @@ class AddMissingForeignKeys < ActiveRecord::Migration
       d.up do
         if mode == :nullify || mode == :restrict
           execute "UPDATE #{table} SET #{column} = NULL WHERE #{column} IS NOT NULL AND #{column} NOT IN (SELECT id FROM #{to_table})"
-        elsif mode == :cascade
+        elsif mode == :cascade || mode == :notnull_restrict
           execute "DELETE FROM #{table} WHERE #{column} IS NULL OR (#{column} IS NOT NULL AND #{column} NOT IN (SELECT id FROM #{to_table}))"
         elsif mode == :null_cascade
           execute "DELETE FROM #{table} WHERE #{column} IS NOT NULL AND #{column} NOT IN (SELECT id FROM #{to_table})"
         end
       end
     end
-    add_foreign_key table, to_table, column: column, on_update: :cascade, on_delete: mode.to_s.gsub(/^null\_/, '').to_sym
+    add_foreign_key table, to_table, column: column, on_update: :cascade, on_delete: mode.to_s.gsub(/^(notnull|null)\_/, '').to_sym
   end
 end

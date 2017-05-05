@@ -5389,6 +5389,7 @@ product_linkages:
   carried_id:
     type: integer
     references: product
+    required: true
   carrier_id:
     type: integer
     references: product

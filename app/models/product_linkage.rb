@@ -22,7 +22,7 @@
 #
 # == Table: product_linkages
 #
-#  carried_id      :integer
+#  carried_id      :integer          not null
 #  carrier_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
@@ -45,7 +45,7 @@ class ProductLinkage < Ekylibre::Record::Base
   enumerize :nature, in: %i[available unavailable occupied], default: :available, predicates: true
   enumerize :point, in: %i[rear front]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :carrier, :nature, :point, presence: true
+  validates :carried, :carrier, :nature, :point, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(product_linkage) { product_linkage.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
