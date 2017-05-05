@@ -58,7 +58,7 @@ class LoanRepayment < Ekylibre::Record::Base
   delegate :currency, :name, to: :loan
 
   scope :accountable_repayments, lambda { |loans_ids, input_date|
-    where('loan_id IN (?) AND accountable = FALSE AND due_on <= ?', loans_ids, input_date)
+    where('loan_id IN (?) AND accountable = FALSE AND due_on <= ? AND due_on <= ?', loans_ids, input_date, Time.zone.today)
   }
 
   before_validation do

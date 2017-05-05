@@ -213,7 +213,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     financial_year = financial_years(:financial_years_025)
     account = create(:account)
     employee = create(:entity, employee_account_id: account.id)
-    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    item = create(:journal_entry_item, account: account, financial_year: financial_year)
     assert_equal item.third_party, employee
   end
 
@@ -221,7 +221,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     financial_year = financial_years(:financial_years_025)
     account = create(:account)
     client_employee_and_supplier = create(:entity, client_account_id: account.id, employee_account_id: account.id, supplier_account_id: account.id)
-    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    item = create(:journal_entry_item, account: account, financial_year: financial_year)
     assert_equal item.third_party, client_employee_and_supplier
   end
 
@@ -230,7 +230,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     account = create(:account)
     create(:entity, employee_account_id: account.id)
     create(:entity, client_account_id: account.id)
-    item = create(:journal_entry_item, account: account, financial_year: financial_years(:financial_years_025))
+    item = create(:journal_entry_item, account: account, financial_year: financial_year)
     refute item.third_party
   end
 end
