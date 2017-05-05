@@ -7,9 +7,9 @@ class FinancialYearCloseJob < ActiveJob::Base
                             result_journal_id: result_journal_id,
                             forward_journal_id: forward_journal_id,
                             closure_journal_id: closure_journal_id)
-      closer.notify(:financial_year_x_successfully_closed, x: financial_year.name)
+      closer.notify(:financial_year_x_successfully_closed, name: financial_year.name)
     else
-      closer.notify(:financial_year_x_could_not_be_closed, x: financial_year.name)
+      closer.notify(:financial_year_x_could_not_be_closed, name: financial_year.name)
     end
   end
 end
