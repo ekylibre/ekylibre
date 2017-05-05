@@ -136,11 +136,11 @@ module Backend
       t.column :human_activities_names
       t.column :started_at
       t.column :stopped_at, hidden: true
-      t.column :human_working_duration, on_select: :sum, value_method: 'working_duration.in(:second).in(:hour)'
+      t.column :human_working_duration, on_select: :sum, value_method: 'working_duration.in(:second).in(:hour)', datatype: :decimal
       t.status
       t.column :human_target_names
-      t.column :human_working_zone_area, on_select: :sum
-      t.column :total_cost, label_method: :human_total_cost, currency: true, on_select: :sum
+      t.column :human_working_zone_area, on_select: :sum, datatype: :decimal
+      t.column :total_cost, label_method: :human_total_cost, currency: true, on_select: :sum, datatype: :decimal
       t.column :nature
       t.column :issue, url: true
       t.column :trouble_encountered, hidden: true
