@@ -61,6 +61,7 @@
 #  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
@@ -89,11 +90,12 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :tax_declaration_item, inverse_of: :journal_entry_items
   belongs_to :team
+  has_many :tax_declaration_item_parts, inverse_of: :journal_entry_item, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :absolute_pretax_amount, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :pretax_amount, :real_balance, :real_credit, :real_debit, :real_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
-  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
+  validates :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -104,7 +106,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
   validates :account, presence: true
-  # validates :letter, uniqueness: { scope: :account_id }, if: Proc.new {|x| !x.letter.blank? }
 
   delegate :balanced?, to: :entry, prefix: true
   delegate :name, :number, to: :account, prefix: true
@@ -128,6 +129,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(bank_statement_letter: letter).where(bank_statement_id: bank_statement.id)
   }
 
+  scope :with_letter, ->(letter) { where(letter: [letter.delete('*'), letter.delete('*') + '*']) }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed
@@ -141,8 +144,23 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.bank_statement_letter = nil if bank_statement_letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
+
     compute
+
+    # CAREFUL /!\ This is complementary to behaviour from postgres triggers that are in DB.
+    if letter.present?
+      letter_balance = letter_group.sum(:debit) - letter_group.sum(:credit)
+      letter_balance += (credit_was || 0) - (debit_was || 0)
+      letter_balance += debit - credit
+      self.letter += '*' unless letter_balance.zero?
+    end
+    # END OF DANGER ZONE
+
     self.state = entry.state if entry
+  end
+
+  before_validation on: :update do
+    self.letter = nil unless account_id == account_id_was
   end
 
   validate(on: :update) do
@@ -180,6 +198,20 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   protect do
     closed? || (entry && entry.protected_on_update?)
+  end
+
+  def partially_lettered?
+    letter && letter.include?('*')
+  end
+
+  def letter_radix
+    return nil unless letter
+    letter.delete('*')
+  end
+
+  def letter_group
+    return JournalEntryItem.none unless letter
+    account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix + '*')
   end
 
   def compute

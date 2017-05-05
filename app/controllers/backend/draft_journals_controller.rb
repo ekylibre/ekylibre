@@ -43,19 +43,14 @@ module Backend
 
     # This method confirm all draft entries
     def confirm
-      conditions = nil
-      begin
-        conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
-        journal_entries = JournalEntry.where(conditions)
-        undone = 0
-        journal_entries.find_each do |entry|
-          entry.confirm if entry.can_confirm?
-          undone += 1 if entry.draft?
-        end
-        notify_success(:draft_journal_entries_have_been_validated, count: journal_entries.size - undone)
-      rescue Exception => e
-        notify_error(:exception_raised, message: e.message)
+      conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
+      journal_entries = JournalEntry.where(conditions)
+      count = journal_entries.count
+      JournalEntry.transaction do
+        journal_entries.update_all(state: :confirmed)
+        JournalEntryItem.where(entry_id: journal_entries).update_all(state: :confirmed)
       end
+      notify_success(:draft_journal_entries_have_been_validated, count: count)
       redirect_to action: :show
     end
   end

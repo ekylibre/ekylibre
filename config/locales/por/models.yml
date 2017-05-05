@@ -116,6 +116,7 @@ por:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -220,7 +221,7 @@ por:
       # animal: "Animal"
       animal_group: "Grupo de animais"
       attachment: "Acessório"
-      bank_guarantee_account: "Conta garantia bancária"
+      bank_guarantee_account: "Conta garantia bancária" #?
       bank_statement: "Extrato bancário"
       bank_statement_item: "Linha extrato bancário"
       bioproduct: "Produto vivo"
@@ -279,9 +280,9 @@ por:
       inspection: "granulometria do produto"
       inspection_calibration: "calibre inspecção"
       inspection_point: "verificação de classificação de produtos"
-      insurance_account: "Conta de seguro"
+      insurance_account: "Conta de seguro" #?
       integration: "Integração"
-      interest_account: "Conta de juros"
+      interest_account: "Conta de juros" #?
       intervention: "Intervenção"
       intervention_agent: "Agente de intervenção"
       intervention_doer: "Fazedor de intervenção"

@@ -252,6 +252,7 @@ arb:
         fixed_assets: "أصول ثابتة"
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
+        # result: "Result"
         sales: "مبيعات"
         stocks: "مخازن"
         various: "عمليات مختلفة"
@@ -448,10 +449,10 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_item:
-      compute_from:
-        pretax_amount: "كمية قبل خصم الضرائب"
-        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "كمية قبل خصم الضرائب" #?
+        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب" #?
     sensor:
       retrieval_mode:
         integration: "دمج"
@@ -467,6 +468,7 @@ arb:
         affairs: "شؤون"
         analyses: "تحليلات"
         animals: "الحيوانات"
+        campaigns: "الحملات"
         cash_transfers: "التحويلات النقدية"
         contracts: "عقود"
         debt_transfers: "نقل الديون"
@@ -484,6 +486,7 @@ arb:
         outgoing_payment_lists: "قوائم دفع المنتهية ولايته"
         outgoing_payments: "المدفوعات الصادرة"
         parcels: "الطرود"
+        plant_countings: "نباتات العد"
         plants: "النباتات"
         product_nature_categories: "فئات طبيعة المنتج"
         product_nature_variants: "المتغيرات طبيعة المنتج"
@@ -532,6 +535,10 @@ arb:
       nature: #?
         amount: "كمية" #?
         percentage: "نسبة مئوية" #?
+    tax_declaration:
+      mode:
+        debit: "مدين"
+        payment: "دفع"
     tracking:
       usage_limit_nature:
         best_before: "الافضل قبل الموعد"
