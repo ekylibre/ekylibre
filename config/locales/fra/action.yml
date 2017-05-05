@@ -2491,6 +2491,7 @@ fra:
       changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
       closed_financial_year_exchange: "L’échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
+      closure_process_started: "Lancement du processus de clôture."
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
@@ -2506,6 +2507,8 @@ fra:
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+      financial_year_x_could_not_be_closed: "L'exercice %{name} n'a pas pu être clos."
+      financial_year_x_successfully_closed: "L'exercice %{name} est clos !"
       financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"
       financial_years_missing_tax_declarations: "Vous devez créer toutes les déclarations des exercices suivants\_: %{codes}"
       implemented_with_dummy_data: "Charger des données de test"
