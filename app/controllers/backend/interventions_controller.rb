@@ -407,7 +407,7 @@ module Backend
         tasks_by_state = []
         
         interventions[:interventions].each do |intervention|
-          tasks_by_state << task(*taskboard_task(intervention))
+          tasks_by_state << render(inline: "<%= task(*taskboard_task(intervention)) %>", locals: {intervention: intervention})
         end
 
         @tasks[state] = tasks_by_state
