@@ -1,6 +1,6 @@
 - main_toolbar do |t|
-  = t.edit resource if resource.updateable? && resource.journal_entry.bank_statement_number.blank?
-  = t.destroy resource if resource.destroyable? && resource.journal_entry.bank_statement_number.blank?
+  = t.edit
+  = t.destroy
 
 = main_informations attachment: true do
   = attributes_list do |l|

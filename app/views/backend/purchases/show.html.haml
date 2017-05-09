@@ -1,10 +1,10 @@
 - main_toolbar do |t|
   = t.export :purchases_invoice
   = t.edit resource if resource.updateable?
+  = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
     = t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
-  = t.destroy 
-  = t.new variants: PurchaseNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }
+  = t.destroy
 
 = main_state_bar(resource)
 

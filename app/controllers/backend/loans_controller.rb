@@ -97,6 +97,8 @@ module Backend
       redirect_to action: :show, id: @loan.id
     end
 
+    # FIXME: the name of the action is not understandable
+    # FIXME: *_date notation is prohibited
     def accounting
       begin
         date = Date.parse(params[:accounting_date])

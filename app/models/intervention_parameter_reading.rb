@@ -39,7 +39,7 @@
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  parameter_id                 :integer          not null
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer

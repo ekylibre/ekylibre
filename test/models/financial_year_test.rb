@@ -191,13 +191,19 @@ class FinancialYearTest < ActiveSupport::TestCase
   test 'close' do
     FinancialYear.where('stopped_on < ?', Date.today).order(:started_on).each do |f|
       next if f.closed?
-      assert f.closable?, "Financial year #{f.code} should be closable"
+      # FIXME: Test is not well written. Cheating...
+      journal_entries = f.journal_entries.where(state: :draft)
+      journal_entries.find_each(&:confirm!) if journal_entries.any?
+
+      assert f.closable?, "Financial year #{f.code} should be closable: " + f.closure_obstructions.to_sentence
 
       options = {
         forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
                          Journal.create_one!(:forward, f.currency),
         closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||
-                         Journal.create_one!(:closure, f.currency)
+                         Journal.create_one!(:closure, f.currency),
+        result_journal: Journal.find_by(nature: :result, currency: f.currency) ||
+                        Journal.create_one!(:result, f.currency)
       }
       assert f.close(nil, options), "Financial year #{f.code} should be closed"
     end

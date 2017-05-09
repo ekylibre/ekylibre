@@ -18,12 +18,11 @@ eng:
       destroy: "Log out" #?
       new: "New session"
     backend/accounts:
-      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked account: %{name}"
-      # account_mask_literate_element_is_checked: "Account mask literate element is checked account: %{name}"
       edit: "Edit account: %{number} - %{name}"
       index: "Accounting plans"
       load: "Load an accounting plan"
       mark: "Reconciliate account: %{number} - %{name}"
+      # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
@@ -236,11 +235,10 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
-      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked entity: %{name}"
-      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked entity: %{name}"
       export: "Export people" #?
       import: "Import people"
       index: "People"
+      # mask_lettered_items: "Mask lettered items entity: %{name}"
       merge: "Merge two people"
       new: "New person"
       show: "Person: %{full_name}"
@@ -447,7 +445,7 @@ eng:
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
-      # edit: "Edit loan repayment: %{name}"
+      edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
       # index: "Loan repayments"
       # new: "New loan repayment"
       # show: "Loan repayment: %{name}"
@@ -1002,8 +1000,6 @@ eng:
     amount: "Amount" #?
     amount_computed_from: "Amount computed from %{source}"
     amount_estimated_from: "Amount estimated from %{source}"
-    amount_max: "Maximum amount"
-    amount_min: "Minimum amount"
     amount_per_unit: "%{amount}/%{unit}" #??
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
@@ -1226,6 +1222,7 @@ eng:
     done: "Done" #?
     dont_generate_carrying_forward_entries: "— Do not generate carrying forward entries —"
     dont_generate_closure_entries: "— Do not generate closure entries —"
+    dont_generate_result_entries: "— Do not generate result entries —"
     dont_use_journal: "— Do not use journal —" #?!
     # dose: "Dose"
     down: "Down" #?
@@ -1281,6 +1278,9 @@ eng:
     expired_within: "Expired within" #?
     exploitation_results: "Exploitation results" #?!
     export: "Export documents" #?
+    export_as_csv: "Export as CSV"
+    export_as_ods: "Export as ODS"
+    export_as_xcsv: "Export as Excel CSV"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1390,6 +1390,9 @@ eng:
     journal_entries: "Journal's entries" #?
     journal_entries_states: "States of entries"
     journal_entry_items: "Journal entry items"
+    journal_entry_items_with_taxes_out_of_range:
+      one: "%{count} journal entry item with taxes before declaration started on"
+      other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       one: "%{count} journal entry item with undeclared taxes"
       other: "%{count} journal entry items with undeclared taxes"
@@ -1424,9 +1427,9 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales"
     letter: "Letter" #?
-    letter_state: "Etat du lettrage"
     letterable: "Letterable"
     lettered: "Lettered" #?
+    lettering_state: "Lettering state"
     liabilities: "Liabilities" #?!
     liabilities_gaps: "Liabilities gaps" #?!
     liability_reserves: "Liability reserves" #?!
@@ -1458,9 +1461,10 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass" #?!
-    mask_literate_elements: "Mask literate elements"
+    mask_lettered_items: "Mask lettered items"
     mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
+    maximum_amount: "Maximum amount"
     members: "Members"
     menus: "Menus"
     merchandises_purchases: "Merchandises purchases" #?!
@@ -1468,6 +1472,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
+    minimum_amount: "Minimum amount"
     missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1564,7 +1569,7 @@ eng:
     other_expenses: "Other expenses" #??
     other_financial_debts: "Other financial debts" #?!
     other_products: "Other products" #?!
-    other_purchases: "Other purchases" #?!
+    other_purchases: "Other purchases" #??
     other_receivables: "Other receivables" #?!
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
@@ -1799,6 +1804,7 @@ eng:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
+    third_is_unbalanced: "Third is unbalanced. (balance - supplier account balance)"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1870,6 +1876,8 @@ eng:
     transfer: "Transfer" #?
     transport: "Transport" #?
     trimester: "Trimester" #?
+    unbalanced_clients: "Unbalanced clients" #?
+    unbalanced_suppliers: "Unbalanced suppliers" #?
     unbilled_payables: "Unbilled payables"
     undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
@@ -2100,6 +2108,7 @@ eng:
       # all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
+      all_tax_declarations_have_already_existing: "All tax declarations have already existing"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "Cannot find deal to attach"
@@ -2127,8 +2136,9 @@ eng:
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
       # error_while_depreciating: "Error while depreciating"
-      exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
+      financial_years_missing: "You must create every missing financial years since the first registered"
+      financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implemented with dummy data"
       import_failed: "Import %{name} failed: %{message}"
       import_finished_successfully: "Import %{name} finished successfully"
@@ -2190,8 +2200,6 @@ eng:
       synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully" #?
       synchronization_operation_in_progress: "Operation %{operation_name} in progress" #?
       the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "The automatic lettering cannot be done in accountancy because it was already done by an user"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "The automatic lettering cannot be done in accountancy because some deals are not accounted yet"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       this_service_is_not_activated: "This service is not activated" #?
@@ -2232,8 +2240,6 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      # account_mark_mask_literate_element_is_checked: "Account mark mask literate element is checked"
-      # account_mask_literate_element_is_checked: "Account mask literate element is checked"
       # accounting: "Accounting"
       # add_group: "Add group"
       # add_to_container: "Add to container"
@@ -2270,8 +2276,6 @@ eng:
       edit: "Edit"
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
-      # entity_client_mask_literate_element_is_checked: "Entity client mask literate element is checked"
-      # entity_supplier_mask_literate_element_is_checked: "Entity supplier mask literate element is checked"
       evaluate: "Evaluate"
       export: "Export"
       export_to_sepa: "Export to SEPA"
@@ -2298,6 +2302,7 @@ eng:
       lose: "Lose"
       mail: "Mail"
       mark: "Mark"
+      # mask_lettered_items: "Mask lettered items"
       # matching_interventions: "Matching interventions"
       merge: "Merge"
       # modal: "Modal"

@@ -27,7 +27,7 @@
 #  custom_fields        :jsonb
 #  dead                 :boolean          default(FALSE)
 #  description          :text
-#  geolocation          :geometry({:srid=>4326, :type=>"point"})
+#  geolocation          :geometry({:srid=>4326, :type=>"st_point"})
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null

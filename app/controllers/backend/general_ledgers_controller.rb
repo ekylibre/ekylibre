@@ -20,8 +20,7 @@
 
 module Backend
   class GeneralLedgersController < Backend::BaseController
-    def self.general_ledger_conditions(_options = {})
-      conn = ActiveRecord::Base.connection
+    def self.list_conditions
       code = ''
       code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit] }, conditions: 'c') + "\n"
       code << journal_period_crit('params')
@@ -31,17 +30,17 @@ module Backend
       code << journal_letter_crit('params')
       code << amount_range_crit('params')
       code << "c\n"
-      # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
-      code.c # .gsub(/\s*\n\s*/, ";")
+      code.c
     end
 
-    list(:journal_entry_items, conditions: general_ledger_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, conditions: list_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
       t.column :entry_number, url: true
       t.column :printed_on
       t.column :name
+      t.column :variant, url: true, hidden: true
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
