@@ -206,10 +206,14 @@ class JournalEntryTest < ActiveSupport::TestCase
                                    .map { |att| att[0...2] + [att.last.to_f] }
                                    .uniq
                                    .first
-    # assert_equal ['HELLO', 'USD', 0.5], item_attributes
+    assert_equal ['HELLO', 'USD', 0.5], item_attributes
 
     journal_entry.update_columns(real_currency: 'EUR', number: 'is it me you\'re looking for?', real_currency_rate: 1.0)
-    item_attributes = journal_entry.items.pluck(:entry_number, :real_currency, :real_currency_rate).uniq.first
+    item_attributes = journal_entry.items
+                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
+                                   .map { |att| att[0...2] + [att.last.to_f] }
+                                   .uniq
+                                   .first
     assert_equal ['is it me you\'re looking for?', 'EUR', 1.0], item_attributes
   end
 
