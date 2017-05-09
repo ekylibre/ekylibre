@@ -272,8 +272,7 @@
 
       E.interventions.addLazyLoading()
  
-
-
+  
   class InterventionsTaskboard
 
     constructor: ->
