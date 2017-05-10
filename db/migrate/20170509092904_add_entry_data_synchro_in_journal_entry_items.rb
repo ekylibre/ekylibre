@@ -19,6 +19,7 @@ class AddEntryDataSynchroInJournalEntryItems < ActiveRecord::Migration
 
             UPDATE journal_entry_items AS jei
             SET state = entries.state,
+                printed_on = entries.printed_on,
                 journal_id = entries.journal_id,
                 financial_year_id = entries.financial_year_id,
                 entry_number = entries.number,
@@ -29,6 +30,7 @@ class AddEntryDataSynchroInJournalEntryItems < ActiveRecord::Migration
               AND entries.id = synced_entry_id
               AND synced_entry_id IS NOT NULL
               AND (jei.state <> entries.state
+               OR jei.printed_on <> entries.printed_on
                OR jei.journal_id <> entries.journal_id
                OR jei.financial_year_id <> entries.financial_year_id
                OR jei.entry_number <> entries.number
@@ -53,6 +55,10 @@ class AddEntryDataSynchroInJournalEntryItems < ActiveRecord::Migration
             ON journal_entry_items
             FOR EACH ROW
             EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
+        SQL
+
+        execute <<-SQL.strip_heredoc
+          UPDATE journal_entries SET printed_on = printed_on;
         SQL
       end
 

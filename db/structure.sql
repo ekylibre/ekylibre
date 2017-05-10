@@ -147,6 +147,7 @@ BEGIN
 
   UPDATE journal_entry_items AS jei
   SET state = entries.state,
+      printed_on = entries.printed_on,
       journal_id = entries.journal_id,
       financial_year_id = entries.financial_year_id,
       entry_number = entries.number,
@@ -157,6 +158,7 @@ BEGIN
     AND entries.id = synced_entry_id
     AND synced_entry_id IS NOT NULL
     AND (jei.state <> entries.state
+     OR jei.printed_on <> entries.printed_on
      OR jei.journal_id <> entries.journal_id
      OR jei.financial_year_id <> entries.financial_year_id
      OR jei.entry_number <> entries.number
