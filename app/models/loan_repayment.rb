@@ -57,8 +57,8 @@ class LoanRepayment < Ekylibre::Record::Base
   # ]VALIDATORS]
   delegate :currency, :name, to: :loan
 
-  scope :accountable_repayments, lambda { |loans_ids, input_date|
-    where('loan_id IN (?) AND accountable = FALSE AND due_on <= ?', loans_ids, input_date)
+  scope :accountable_repayments, lambda { |loans_ids, due_on|
+    where('loan_id IN (?) AND accountable = FALSE AND due_on <= ? AND journal_entry_id IS NULL', loans_ids, due_on)
   }
 
   before_validation do
@@ -66,7 +66,7 @@ class LoanRepayment < Ekylibre::Record::Base
   end
 
   # Prevents from deleting if entry exist
-  protect on: %i[destroy update] do
+  protect on: %i[destroy] do
     journal_entry
   end
 

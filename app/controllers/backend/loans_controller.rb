@@ -99,14 +99,14 @@ module Backend
 
     def accounting
       begin
-        date = Date.parse(params[:accounting_date])
+        due_on = Date.parse(params[:accounting_date])
       rescue  
         notify_error(:error_while_depreciating)
         return redirect_to(params[:redirect] || { action: :index })
       end
 
       loans_ids = params[:loans_ids].split(',')
-      loan_repayments = LoanRepayment.accountable_repayments(loans_ids, date)
+      loan_repayments = LoanRepayment.accountable_repayments(loans_ids, due_on)
       loan_repayments.find_each { |loan_repayment| loan_repayment.update(accountable: true) }
 
       redirect_to(params[:redirect] || { action: :index })
