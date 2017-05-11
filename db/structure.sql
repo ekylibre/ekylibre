@@ -16831,7 +16831,7 @@ ALTER TABLE ONLY cap_land_parcels
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_0150e5fc85 FOREIGN KEY (charge_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_0150e5fc85 FOREIGN KEY (charge_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -16959,7 +16959,7 @@ ALTER TABLE ONLY sale_items
 --
 
 ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_069f9114d7 FOREIGN KEY (storage_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_069f9114d7 FOREIGN KEY (storage_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -16999,7 +16999,7 @@ ALTER TABLE ONLY interventions
 --
 
 ALTER TABLE ONLY bank_statements
-    ADD CONSTRAINT fk_rails_088dda4f12 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_088dda4f12 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17103,7 +17103,7 @@ ALTER TABLE ONLY intervention_parameters
 --
 
 ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_0f9172c3c4 FOREIGN KEY (reception_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_0f9172c3c4 FOREIGN KEY (reception_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17223,7 +17223,7 @@ ALTER TABLE ONLY sales
 --
 
 ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_1455a8f189 FOREIGN KEY (scrapped_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_1455a8f189 FOREIGN KEY (scrapped_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17239,7 +17239,7 @@ ALTER TABLE ONLY outgoing_payments
 --
 
 ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_15a2e294c8 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_15a2e294c8 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17271,7 +17271,7 @@ ALTER TABLE ONLY call_messages
 --
 
 ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_17bf9c0601 FOREIGN KEY (sold_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_17bf9c0601 FOREIGN KEY (sold_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17759,7 +17759,7 @@ ALTER TABLE ONLY bank_statement_items
 --
 
 ALTER TABLE ONLY financial_years
-    ADD CONSTRAINT fk_rails_2edbffd09e FOREIGN KEY (last_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_2edbffd09e FOREIGN KEY (last_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17775,7 +17775,7 @@ ALTER TABLE ONLY crumbs
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_2f5b46f047 FOREIGN KEY (fixed_asset_allocation_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_2f5b46f047 FOREIGN KEY (fixed_asset_allocation_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -17991,7 +17991,7 @@ ALTER TABLE ONLY event_participations
 --
 
 ALTER TABLE ONLY incoming_payments
-    ADD CONSTRAINT fk_rails_3c12ca761d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_3c12ca761d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18047,7 +18047,7 @@ ALTER TABLE ONLY parcel_items
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_3d30cc141e FOREIGN KEY (product_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_3d30cc141e FOREIGN KEY (product_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18103,7 +18103,7 @@ ALTER TABLE ONLY affairs
 --
 
 ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_3fed567190 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_3fed567190 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18391,7 +18391,7 @@ ALTER TABLE ONLY sales
 --
 
 ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_4c3553ae69 FOREIGN KEY (sender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_4c3553ae69 FOREIGN KEY (sender_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18407,7 +18407,7 @@ ALTER TABLE ONLY custom_field_choices
 --
 
 ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_4c9ef7fd24 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_4c9ef7fd24 FOREIGN KEY (variant_id) REFERENCES product_nature_variants(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18631,7 +18631,7 @@ ALTER TABLE ONLY product_linkages
 --
 
 ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_5b11b11b0d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_5b11b11b0d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18735,7 +18735,7 @@ ALTER TABLE ONLY product_phases
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_61b5d7a3a9 FOREIGN KEY (fixed_asset_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_61b5d7a3a9 FOREIGN KEY (fixed_asset_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18855,7 +18855,7 @@ ALTER TABLE ONLY contract_items
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_6511f5959a FOREIGN KEY (stock_movement_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_6511f5959a FOREIGN KEY (stock_movement_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18903,7 +18903,7 @@ ALTER TABLE ONLY product_linkages
 --
 
 ALTER TABLE ONLY gaps
-    ADD CONSTRAINT fk_rails_6840dd6b95 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_6840dd6b95 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -18991,7 +18991,7 @@ ALTER TABLE ONLY intervention_working_periods
 --
 
 ALTER TABLE ONLY debt_transfers
-    ADD CONSTRAINT fk_rails_6cc9da109c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_6cc9da109c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -19191,7 +19191,7 @@ ALTER TABLE ONLY product_natures
 --
 
 ALTER TABLE ONLY product_nature_variant_components
-    ADD CONSTRAINT fk_rails_7a738ebb13 FOREIGN KEY (parent_id) REFERENCES product_nature_variant_components(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_7a738ebb13 FOREIGN KEY (parent_id) REFERENCES product_nature_variant_components(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -19335,7 +19335,7 @@ ALTER TABLE ONLY observations
 --
 
 ALTER TABLE ONLY deposits
-    ADD CONSTRAINT fk_rails_8131f7240d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_8131f7240d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -19463,7 +19463,7 @@ ALTER TABLE ONLY districts
 --
 
 ALTER TABLE ONLY fixed_asset_depreciations
-    ADD CONSTRAINT fk_rails_88b1b0398c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_88b1b0398c FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -19495,7 +19495,7 @@ ALTER TABLE ONLY alerts
 --
 
 ALTER TABLE ONLY intervention_working_periods
-    ADD CONSTRAINT fk_rails_8903897a2c FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_8903897a2c FOREIGN KEY (intervention_id) REFERENCES interventions(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -19751,7 +19751,7 @@ ALTER TABLE ONLY parcels
 --
 
 ALTER TABLE ONLY inventories
-    ADD CONSTRAINT fk_rails_93b19e800d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_93b19e800d FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -19767,7 +19767,7 @@ ALTER TABLE ONLY net_services
 --
 
 ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_952d21f266 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_952d21f266 FOREIGN KEY (quantity_gap_on_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -19787,11 +19787,27 @@ ALTER TABLE ONLY delivery_tools
 
 
 --
+-- Name: fk_rails_964829961a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT fk_rails_964829961a FOREIGN KEY (notification_id) REFERENCES notifications(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: fk_rails_966fdd868b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY product_labellings
     ADD CONSTRAINT fk_rails_966fdd868b FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: fk_rails_9709540324; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY synchronization_operations
+    ADD CONSTRAINT fk_rails_9709540324 FOREIGN KEY (updater_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -20047,7 +20063,7 @@ ALTER TABLE ONLY synchronization_operations
 --
 
 ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_a4c2fc2286 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_a4c2fc2286 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20143,7 +20159,7 @@ ALTER TABLE ONLY product_nature_category_taxations
 --
 
 ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_a927142781 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_a927142781 FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20511,7 +20527,7 @@ ALTER TABLE ONLY activity_tactics
 --
 
 ALTER TABLE ONLY tax_declarations
-    ADD CONSTRAINT fk_rails_b5fc2df3f2 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_b5fc2df3f2 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20599,7 +20615,7 @@ ALTER TABLE ONLY inventories
 --
 
 ALTER TABLE ONLY cash_transfers
-    ADD CONSTRAINT fk_rails_bc0f113a81 FOREIGN KEY (emission_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_bc0f113a81 FOREIGN KEY (emission_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20663,7 +20679,7 @@ ALTER TABLE ONLY journal_entry_items
 --
 
 ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_bf6a9f8864 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_bf6a9f8864 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20679,7 +20695,7 @@ ALTER TABLE ONLY supervisions
 --
 
 ALTER TABLE ONLY affairs
-    ADD CONSTRAINT fk_rails_bfedaef179 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_bfedaef179 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20759,7 +20775,7 @@ ALTER TABLE ONLY entities
 --
 
 ALTER TABLE ONLY listing_nodes
-    ADD CONSTRAINT fk_rails_c3e0671264 FOREIGN KEY (parent_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_c3e0671264 FOREIGN KEY (parent_id) REFERENCES listing_nodes(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -20767,7 +20783,7 @@ ALTER TABLE ONLY listing_nodes
 --
 
 ALTER TABLE ONLY interventions
-    ADD CONSTRAINT fk_rails_c41b1f2d2f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_c41b1f2d2f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20783,7 +20799,7 @@ ALTER TABLE ONLY fixed_asset_depreciations
 --
 
 ALTER TABLE ONLY fixed_assets
-    ADD CONSTRAINT fk_rails_c5cdda2c28 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_c5cdda2c28 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20855,7 +20871,7 @@ ALTER TABLE ONLY activity_budgets
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_c9792c1723 FOREIGN KEY (stock_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_c9792c1723 FOREIGN KEY (stock_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -20903,7 +20919,7 @@ ALTER TABLE ONLY affairs
 --
 
 ALTER TABLE ONLY product_nature_categories
-    ADD CONSTRAINT fk_rails_cb31131f55 FOREIGN KEY (fixed_asset_expenses_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_cb31131f55 FOREIGN KEY (fixed_asset_expenses_account_id) REFERENCES accounts(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21303,7 +21319,7 @@ ALTER TABLE ONLY analyses
 --
 
 ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_dd65d7922d FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_dd65d7922d FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21311,7 +21327,7 @@ ALTER TABLE ONLY parcel_items
 --
 
 ALTER TABLE ONLY parcels
-    ADD CONSTRAINT fk_rails_dd6a64e5ac FOREIGN KEY (recipient_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_dd6a64e5ac FOREIGN KEY (recipient_id) REFERENCES entities(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21575,7 +21591,7 @@ ALTER TABLE ONLY cap_islets
 --
 
 ALTER TABLE ONLY parcel_items
-    ADD CONSTRAINT fk_rails_eb82c567f6 FOREIGN KEY (source_product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_eb82c567f6 FOREIGN KEY (source_product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21655,7 +21671,7 @@ ALTER TABLE ONLY prescriptions
 --
 
 ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21719,7 +21735,7 @@ ALTER TABLE ONLY parcels
 --
 
 ALTER TABLE ONLY loan_repayments
-    ADD CONSTRAINT fk_rails_f26f955b38 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_f26f955b38 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21903,7 +21919,7 @@ ALTER TABLE ONLY journal_entry_items
 --
 
 ALTER TABLE ONLY loans
-    ADD CONSTRAINT fk_rails_f7c0078559 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_f7c0078559 FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -21959,7 +21975,7 @@ ALTER TABLE ONLY users
 --
 
 ALTER TABLE ONLY sales
-    ADD CONSTRAINT fk_rails_fa6f4b7fad FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT fk_rails_fa6f4b7fad FOREIGN KEY (undelivered_invoice_journal_entry_id) REFERENCES journal_entries(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --

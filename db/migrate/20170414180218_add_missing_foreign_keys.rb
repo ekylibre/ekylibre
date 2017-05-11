@@ -91,7 +91,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :affairs, :creator_id, :users, :nullify
     add_properly_foreign_key :affairs, :updater_id, :users, :nullify
     add_properly_foreign_key :affairs, :cash_session_id, :cash_sessions, :nullify
-    add_properly_foreign_key :affairs, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :affairs, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :affairs, :responsible_id, :entities, :nullify
     add_properly_foreign_key :affairs, :third_id, :entities, :cascade
     # Alert
@@ -123,7 +123,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :bank_statements, :creator_id, :users, :nullify
     add_properly_foreign_key :bank_statements, :updater_id, :users, :nullify
     add_properly_foreign_key :bank_statements, :cash_id, :cashes, :cascade
-    add_properly_foreign_key :bank_statements, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :bank_statements, :journal_entry_id, :journal_entries, :restrict
     # BankStatementItem
     add_properly_foreign_key :bank_statement_items, :creator_id, :users, :nullify
     add_properly_foreign_key :bank_statement_items, :updater_id, :users, :nullify
@@ -173,9 +173,9 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :cash_transfers, :creator_id, :users, :nullify
     add_properly_foreign_key :cash_transfers, :updater_id, :users, :nullify
     add_properly_foreign_key :cash_transfers, :emission_cash_id, :cashes, :cascade
-    add_properly_foreign_key :cash_transfers, :emission_journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :cash_transfers, :emission_journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :cash_transfers, :reception_cash_id, :cashes, :cascade
-    add_properly_foreign_key :cash_transfers, :reception_journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :cash_transfers, :reception_journal_entry_id, :journal_entries, :restrict
     # Catalog
     add_properly_foreign_key :catalogs, :creator_id, :users, :nullify
     add_properly_foreign_key :catalogs, :updater_id, :users, :nullify
@@ -219,7 +219,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # DebtTransfer
     add_properly_foreign_key :debt_transfers, :creator_id, :users, :nullify
     add_properly_foreign_key :debt_transfers, :updater_id, :users, :nullify
-    add_properly_foreign_key :debt_transfers, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :debt_transfers, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :debt_transfers, :affair_id, :affairs, :cascade
     add_properly_foreign_key :debt_transfers, :debt_transfer_affair_id, :affairs, :cascade
     # Delivery
@@ -239,7 +239,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :deposits, :updater_id, :users, :nullify
     add_properly_foreign_key :deposits, :cash_id, :cashes, :cascade
     add_properly_foreign_key :deposits, :responsible_id, :entities, :nullify
-    add_properly_foreign_key :deposits, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :deposits, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :deposits, :mode_id, :incoming_payment_modes, :cascade
     # District
     add_properly_foreign_key :districts, :creator_id, :users, :nullify
@@ -285,7 +285,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # FinancialYear
     add_properly_foreign_key :financial_years, :creator_id, :users, :nullify
     add_properly_foreign_key :financial_years, :updater_id, :users, :nullify
-    add_properly_foreign_key :financial_years, :last_journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :financial_years, :last_journal_entry_id, :journal_entries, :restrict
     # FinancialYearExchange
     add_properly_foreign_key :financial_year_exchanges, :creator_id, :users, :nullify
     add_properly_foreign_key :financial_year_exchanges, :updater_id, :users, :nullify
@@ -296,23 +296,23 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :fixed_assets, :expenses_account_id, :accounts, :restrict
     add_properly_foreign_key :fixed_assets, :allocation_account_id, :accounts, :cascade
     add_properly_foreign_key :fixed_assets, :journal_id, :journals, :cascade
-    add_properly_foreign_key :fixed_assets, :journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :fixed_assets, :sold_journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :fixed_assets, :scrapped_journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :fixed_assets, :journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :fixed_assets, :sold_journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :fixed_assets, :scrapped_journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :fixed_assets, :product_id, :products, :nullify
     # FixedAssetDepreciation
     add_properly_foreign_key :fixed_asset_depreciations, :creator_id, :users, :nullify
     add_properly_foreign_key :fixed_asset_depreciations, :updater_id, :users, :nullify
     add_properly_foreign_key :fixed_asset_depreciations, :fixed_asset_id, :fixed_assets, :cascade
     add_properly_foreign_key :fixed_asset_depreciations, :financial_year_id, :financial_years, :nullify
-    add_properly_foreign_key :fixed_asset_depreciations, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :fixed_asset_depreciations, :journal_entry_id, :journal_entries, :restrict
     # Fungus
     # Gap
     add_properly_foreign_key :gaps, :creator_id, :users, :nullify
     add_properly_foreign_key :gaps, :updater_id, :users, :nullify
     add_properly_foreign_key :gaps, :affair_id, :affairs, :nullify
     add_properly_foreign_key :gaps, :entity_id, :entities, :cascade
-    add_properly_foreign_key :gaps, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :gaps, :journal_entry_id, :journal_entries, :restrict
     # GapItem
     add_properly_foreign_key :gap_items, :creator_id, :users, :nullify
     add_properly_foreign_key :gap_items, :updater_id, :users, :nullify
@@ -346,7 +346,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :incoming_payments, :commission_account_id, :accounts, :nullify
     add_properly_foreign_key :incoming_payments, :responsible_id, :users, :nullify
     add_properly_foreign_key :incoming_payments, :deposit_id, :deposits, :nullify
-    add_properly_foreign_key :incoming_payments, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :incoming_payments, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :incoming_payments, :payer_id, :entities, :notnull_restrict
     change_column_null :incoming_payments, :payer_id, false
     add_properly_foreign_key :incoming_payments, :mode_id, :incoming_payment_modes, :cascade
@@ -384,7 +384,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :interventions, :request_intervention_id, :interventions, :nullify
     add_properly_foreign_key :interventions, :issue_id, :issues, :nullify
     add_properly_foreign_key :interventions, :prescription_id, :prescriptions, :nullify
-    add_properly_foreign_key :interventions, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :interventions, :journal_entry_id, :journal_entries, :restrict
     # InterventionAgent
     # InterventionDoer
     # InterventionGroupParameter
@@ -413,12 +413,12 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # InterventionWorkingPeriod
     add_properly_foreign_key :intervention_working_periods, :creator_id, :users, :nullify
     add_properly_foreign_key :intervention_working_periods, :updater_id, :users, :nullify
-    add_properly_foreign_key :intervention_working_periods, :intervention_id, :interventions, :nullify
+    add_properly_foreign_key :intervention_working_periods, :intervention_id, :interventions, :null_cascade
     # Inventory
     add_properly_foreign_key :inventories, :creator_id, :users, :nullify
     add_properly_foreign_key :inventories, :updater_id, :users, :nullify
     add_properly_foreign_key :inventories, :responsible_id, :entities, :nullify
-    add_properly_foreign_key :inventories, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :inventories, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :inventories, :financial_year_id, :financial_years, :nullify
     # InventoryItem
     add_properly_foreign_key :inventory_items, :creator_id, :users, :nullify
@@ -459,7 +459,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # ListingNode
     add_properly_foreign_key :listing_nodes, :creator_id, :users, :nullify
     add_properly_foreign_key :listing_nodes, :updater_id, :users, :nullify
-    add_properly_foreign_key :listing_nodes, :parent_id, :listing_nodes, :nullify
+    add_properly_foreign_key :listing_nodes, :parent_id, :listing_nodes, :null_cascade
     add_properly_foreign_key :listing_nodes, :listing_id, :listings, :cascade
     add_properly_foreign_key :listing_nodes, :item_listing_id, :listings, :nullify
     add_properly_foreign_key :listing_nodes, :item_listing_node_id, :listing_nodes, :nullify
@@ -471,7 +471,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :loans, :creator_id, :users, :nullify
     add_properly_foreign_key :loans, :updater_id, :users, :nullify
     add_properly_foreign_key :loans, :cash_id, :cashes, :cascade
-    add_properly_foreign_key :loans, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :loans, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :loans, :lender_id, :entities, :cascade
     add_properly_foreign_key :loans, :loan_account_id, :accounts, :restrict
     add_properly_foreign_key :loans, :interest_account_id, :accounts, :restrict
@@ -480,7 +480,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # LoanRepayment
     add_properly_foreign_key :loan_repayments, :creator_id, :users, :nullify
     add_properly_foreign_key :loan_repayments, :updater_id, :users, :nullify
-    add_properly_foreign_key :loan_repayments, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :loan_repayments, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :loan_repayments, :loan_id, :loans, :cascade
     # ManureManagementPlan
     add_properly_foreign_key :manure_management_plans, :creator_id, :users, :nullify
@@ -511,7 +511,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :outgoing_payments, :creator_id, :users, :nullify
     add_properly_foreign_key :outgoing_payments, :updater_id, :users, :nullify
     add_properly_foreign_key :outgoing_payments, :cash_id, :cashes, :cascade
-    add_properly_foreign_key :outgoing_payments, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :outgoing_payments, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :outgoing_payments, :mode_id, :outgoing_payment_modes, :restrict
     add_properly_foreign_key :outgoing_payments, :payee_id, :entities, :cascade
     add_properly_foreign_key :outgoing_payments, :responsible_id, :users, :cascade
@@ -531,14 +531,14 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :parcels, :updater_id, :users, :nullify
     add_properly_foreign_key :parcels, :address_id, :entity_addresses, :restrict
     add_properly_foreign_key :parcels, :delivery_id, :deliveries, :nullify
-    add_properly_foreign_key :parcels, :journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :parcels, :undelivered_invoice_journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :parcels, :storage_id, :products, :nullify
+    add_properly_foreign_key :parcels, :journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :parcels, :undelivered_invoice_journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :parcels, :storage_id, :products, :restrict
     add_properly_foreign_key :parcels, :sale_id, :sales, :nullify
     add_properly_foreign_key :parcels, :purchase_id, :purchases, :nullify
-    add_properly_foreign_key :parcels, :recipient_id, :entities, :nullify
+    add_properly_foreign_key :parcels, :recipient_id, :entities, :restrict
     add_properly_foreign_key :parcels, :responsible_id, :users, :nullify
-    add_properly_foreign_key :parcels, :sender_id, :entities, :nullify
+    add_properly_foreign_key :parcels, :sender_id, :entities, :restrict
     add_properly_foreign_key :parcels, :transporter_id, :entities, :nullify
     add_properly_foreign_key :parcels, :contract_id, :contracts, :nullify
     # ParcelItem
@@ -546,16 +546,16 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :parcel_items, :updater_id, :users, :nullify
     add_properly_foreign_key :parcel_items, :analysis_id, :analyses, :nullify
     add_properly_foreign_key :parcel_items, :parcel_id, :parcels, :cascade
-    add_properly_foreign_key :parcel_items, :product_id, :products, :nullify
+    add_properly_foreign_key :parcel_items, :product_id, :products, :restrict
     add_properly_foreign_key :parcel_items, :product_enjoyment_id, :product_enjoyments, :nullify
     add_properly_foreign_key :parcel_items, :product_localization_id, :product_localizations, :nullify
     add_properly_foreign_key :parcel_items, :product_ownership_id, :product_ownerships, :nullify
     add_properly_foreign_key :parcel_items, :product_movement_id, :product_movements, :nullify
     add_properly_foreign_key :parcel_items, :purchase_item_id, :purchase_items, :nullify
     add_properly_foreign_key :parcel_items, :sale_item_id, :sale_items, :nullify
-    add_properly_foreign_key :parcel_items, :source_product_id, :products, :nullify
+    add_properly_foreign_key :parcel_items, :source_product_id, :products, :restrict
     add_properly_foreign_key :parcel_items, :source_product_movement_id, :product_movements, :nullify
-    add_properly_foreign_key :parcel_items, :variant_id, :product_nature_variants, :nullify
+    add_properly_foreign_key :parcel_items, :variant_id, :product_nature_variants, :restrict
     # Plant
     # PlantCounting
     add_properly_foreign_key :plant_countings, :creator_id, :users, :nullify
@@ -656,13 +656,13 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     # ProductNatureCategory
     add_properly_foreign_key :product_nature_categories, :creator_id, :users, :nullify
     add_properly_foreign_key :product_nature_categories, :updater_id, :users, :nullify
-    add_properly_foreign_key :product_nature_categories, :fixed_asset_account_id, :accounts, :nullify
-    add_properly_foreign_key :product_nature_categories, :fixed_asset_allocation_account_id, :accounts, :nullify
-    add_properly_foreign_key :product_nature_categories, :fixed_asset_expenses_account_id, :accounts, :nullify
-    add_properly_foreign_key :product_nature_categories, :charge_account_id, :accounts, :nullify
-    add_properly_foreign_key :product_nature_categories, :product_account_id, :accounts, :nullify
-    add_properly_foreign_key :product_nature_categories, :stock_account_id, :accounts, :nullify
-    add_properly_foreign_key :product_nature_categories, :stock_movement_account_id, :accounts, :nullify
+    add_properly_foreign_key :product_nature_categories, :fixed_asset_account_id, :accounts, :restrict
+    add_properly_foreign_key :product_nature_categories, :fixed_asset_allocation_account_id, :accounts, :restrict
+    add_properly_foreign_key :product_nature_categories, :fixed_asset_expenses_account_id, :accounts, :restrict
+    add_properly_foreign_key :product_nature_categories, :charge_account_id, :accounts, :restrict
+    add_properly_foreign_key :product_nature_categories, :product_account_id, :accounts, :restrict
+    add_properly_foreign_key :product_nature_categories, :stock_account_id, :accounts, :restrict
+    add_properly_foreign_key :product_nature_categories, :stock_movement_account_id, :accounts, :restrict
     # ProductNatureCategoryTaxation
     add_properly_foreign_key :product_nature_category_taxations, :creator_id, :users, :nullify
     add_properly_foreign_key :product_nature_category_taxations, :updater_id, :users, :nullify
@@ -680,7 +680,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :product_nature_variant_components, :updater_id, :users, :nullify
     add_properly_foreign_key :product_nature_variant_components, :product_nature_variant_id, :product_nature_variants, :cascade
     add_properly_foreign_key :product_nature_variant_components, :part_product_nature_variant_id, :product_nature_variants, :nullify
-    add_properly_foreign_key :product_nature_variant_components, :parent_id, :product_nature_variant_components, :nullify
+    add_properly_foreign_key :product_nature_variant_components, :parent_id, :product_nature_variant_components, :null_cascade
     # ProductNatureVariantReading
     add_properly_foreign_key :product_nature_variant_readings, :creator_id, :users, :nullify
     add_properly_foreign_key :product_nature_variant_readings, :updater_id, :users, :nullify
@@ -707,9 +707,9 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :purchases, :creator_id, :users, :nullify
     add_properly_foreign_key :purchases, :updater_id, :users, :nullify
     add_properly_foreign_key :purchases, :delivery_address_id, :entity_addresses, :nullify
-    add_properly_foreign_key :purchases, :journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :purchases, :undelivered_invoice_journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :purchases, :quantity_gap_on_invoice_journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :purchases, :journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :purchases, :undelivered_invoice_journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :purchases, :quantity_gap_on_invoice_journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :purchases, :nature_id, :purchase_natures, :notnull_restrict
     change_column_null :purchases, :nature_id, false
     add_properly_foreign_key :purchases, :supplier_id, :entities, :cascade
@@ -747,9 +747,9 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :sales, :address_id, :entity_addresses, :nullify
     add_properly_foreign_key :sales, :delivery_address_id, :entity_addresses, :nullify
     add_properly_foreign_key :sales, :invoice_address_id, :entity_addresses, :nullify
-    add_properly_foreign_key :sales, :journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :sales, :undelivered_invoice_journal_entry_id, :journal_entries, :nullify
-    add_properly_foreign_key :sales, :quantity_gap_on_invoice_journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :sales, :journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :sales, :undelivered_invoice_journal_entry_id, :journal_entries, :restrict
+    add_properly_foreign_key :sales, :quantity_gap_on_invoice_journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :sales, :nature_id, :sale_natures, :notnull_restrict
     change_column_null :sales, :nature_id, false
     add_properly_foreign_key :sales, :credited_sale_id, :sales, :nullify
@@ -808,6 +808,8 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :supervision_items, :supervision_id, :supervisions, :cascade
     # SynchronizationOperation
     add_properly_foreign_key :synchronization_operations, :creator_id, :users, :nullify
+    add_properly_foreign_key :synchronization_operations, :updater_id, :users, :nullify
+    add_properly_foreign_key :synchronization_operations, :notification_id, :notifications, :restrict
     # TargetDistribution
     add_properly_foreign_key :target_distributions, :creator_id, :users, :nullify
     add_properly_foreign_key :target_distributions, :updater_id, :users, :nullify
@@ -832,7 +834,7 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :tax_declarations, :creator_id, :users, :nullify
     add_properly_foreign_key :tax_declarations, :updater_id, :users, :nullify
     add_properly_foreign_key :tax_declarations, :financial_year_id, :financial_years, :cascade
-    add_properly_foreign_key :tax_declarations, :journal_entry_id, :journal_entries, :nullify
+    add_properly_foreign_key :tax_declarations, :journal_entry_id, :journal_entries, :restrict
     add_properly_foreign_key :tax_declarations, :responsible_id, :users, :nullify
     # TaxDeclarationItem
     add_properly_foreign_key :tax_declaration_items, :creator_id, :users, :nullify
