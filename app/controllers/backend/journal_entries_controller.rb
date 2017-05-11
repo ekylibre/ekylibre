@@ -92,15 +92,9 @@ module Backend
         @journal_entry.printed_on = params[:printed_on] || Time.zone.today
         # Check if the method is called from "account/:id/mark" view
         if params[:journals_entries_items_ids]
-          byebug
-          # journals_entries_items_ids = params[:journals_entries_items_ids].split(',')
-          # journal_entry_items = JournalEntryItem.where(id: journals_entries_items_ids)
-          journal_entry_items_ids = JSON.parse(params[:journals_entries_items_ids])
-          journal_entry_items = journals_entries_items_ids.map { |jei| JournalEntryItem.find_by(id: jei) }
-          # balance = journal_entry_items.sum('real_debit - real_credit')
-          sum_real_debit = journal_entry_items.inject(0){|sum, e| sum +e.real_debit}
-          sum_real_credit = journal_entry_items.inject(0){|sum, e| sum +e.real_credit}
-          balance = sum_real_debit - sum_real_credit
+          journals_entries_items_ids = params[:journals_entries_items_ids].split(',')
+          journal_entry_items = JournalEntryItem.where(id: journals_entries_items_ids)
+          balance = journal_entry_items.sum('real_debit - real_credit')
           balanced_credit = 0
           balanced_debit = 0
           if balance > 0
@@ -151,7 +145,6 @@ module Backend
         # Check if the method is called from "account/:id/mark" view
         if params[:journals_entries_items_ids]
           # Get all journal_entry_items id selected from the view
-          byebug
           journal_entry_items_ids = JSON.parse(params[:journals_entries_items_ids])
           account = JournalEntryItem.where(id: journal_entry_items_ids).first.account
           # journal_entry_items_ids = params[:journals_entries_items_ids].split(',')

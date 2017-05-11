@@ -15,7 +15,7 @@
 
   %span.accounting-trigger.btn-group.hidden
     - if reading_ltr?
-      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default js-complete-links-with-loans-ids', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': 'accounting-trigger'}}
+      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default js-complete-links-with-ids', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': 'accounting-trigger', 'show-if-check-count': 'zero-or-one'}}
       = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
       %input#accounting_date{ type: 'date', value: params[:'accounting-date'] }
 
