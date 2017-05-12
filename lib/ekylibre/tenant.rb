@@ -372,6 +372,10 @@ module Ekylibre
       end
 
       def dump_v2(name, options = {})
+        dump_process(name, options) { |table_path| dump_tables_v2(table_path) }
+      end
+
+      def dump_process(name, options = {}, &table_dump)
         destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
         switch(name) do
           archive_file = destination_path.join("#{name}.zip")
@@ -381,39 +385,55 @@ module Ekylibre
 
           FileUtils.rm_rf(archive_path)
 
-          FileUtils.mkdir_p(tables_path)
-          version = Fixturing.extract(path: tables_path)
+          version = table_dump.call(tables_path)
 
-          if private_directory.exist?
-            FileUtils.mkdir_p(files_path.dirname)
-            FileUtils.cp_r(private_directory.to_s, files_path.to_s)
-          end
-
-          File.open(archive_path.join('mimetype'), 'wb') do |f|
-            f.write 'application/vnd.ekylibre.tenant.archive'
-          end
-
-          File.open(archive_path.join('manifest.yml'), 'wb') do |f|
-            options.update(
-              tenant: name,
-              format_version: 2,
-              database_version: version,
-              creation_at: Time.zone.now,
-              created_with: "Ekylibre #{Ekylibre::VERSION}"
-            )
-            f.write options.stringify_keys.to_yaml
-          end
+          dump_files(files_path)
+          dump_mimetype(archive_path)
+          dump_manifest(archive_path, version, options)
 
           FileUtils.rm_rf(archive_file)
-          Zip::File.open(archive_file, Zip::File::CREATE) do |zile|
-            Dir.chdir archive_path do
-              Dir.glob('**/*').each do |path|
-                zile.add(path, archive_path.join(path))
-              end
+          zip_up(archive_path, into: archive_file)
+          FileUtils.rm_rf(archive_path)
+        end
+      end
+
+      def dump_mimetype(archive_path)
+        File.open(archive_path.join('mimetype'), 'wb') do |f|
+          f.write 'application/vnd.ekylibre.tenant.archive'
+        end
+      end
+
+      def dump_manifest(archive_path, version, options={})
+        File.open(archive_path.join('manifest.yml'), 'wb') do |f|
+          options.update(
+            tenant: name,
+            format_version: 2,
+            database_version: version,
+            creation_at: Time.zone.now,
+            created_with: "Ekylibre #{Ekylibre::VERSION}"
+          )
+          f.write options.stringify_keys.to_yaml
+        end
+      end
+
+      def dump_files(files_path)
+        return unless private_directory.exist?
+        FileUtils.mkdir_p(files_path.dirname)
+        FileUtils.cp_r(private_directory.to_s, files_path.to_s)
+      end
+
+      def dump_tables_v2(tables_path)
+        FileUtils.mkdir_p(tables_path)
+        Fixturing.extract(path: tables_path)
+      end
+
+      def zip_up(archive_path, into:)
+        Zip::File.open(into, Zip::File::CREATE) do |zile|
+          Dir.chdir archive_path do
+            Dir.glob('**/*').each do |path|
+              zile.add(path, archive_path.join(path))
             end
           end
-
-          FileUtils.rm_rf(archive_path)
         end
       end
 
@@ -448,9 +468,11 @@ module Ekylibre
         end
       end
 
-      def dump_v3(name, options = {}); end
+      def dump_v3(name, options = {})
+      end
 
-      def restore_v3(archive_path, name, options = {}); end
+      def restore_v3(archive_path, name, options = {})
+      end
     end
   end
 end
