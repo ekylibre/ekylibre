@@ -91,9 +91,10 @@ module Backend
         @journal_entry = JournalEntry.new(journal: journal, real_currency: Maybe(journal).currency.or_else(nil))
         @journal_entry.printed_on = params[:printed_on] || Time.zone.today
         # Check if the method is called from "account/:id/mark" view
-        if params[:journals_entries_items_ids]
-          journals_entries_items_ids = params[:journals_entries_items_ids].split(',')
-          journal_entry_items = JournalEntryItem.where(id: journals_entries_items_ids)
+        if params[:journal_entry_items_ids]
+          journal_entry_items_ids = params[:journal_entry_items_ids].split(',')
+          journal_entry_items = JournalEntryItem.where(id: journal_entry_items_ids)
+
           balance = journal_entry_items.sum('real_debit - real_credit')
           balanced_credit = 0
           balanced_debit = 0
@@ -106,13 +107,13 @@ module Backend
           # debit sum amounts of lines selected in "account/:id/mark" view
           @journal_entry.items.new(
             account: journal_entry_items.first.account,
-            real_debit: balanced_debit,
-            real_credit: balanced_credit
+            real_debit: balanced_credit,
+            real_credit: balanced_debit
           )
           # Create a line to balance the previous line
           @journal_entry.items.new(
-            real_debit: balanced_credit,
-            real_credit: balanced_debit
+            real_debit: balanced_debit,
+            real_credit: balanced_credit
           )
         end
       end
@@ -143,13 +144,10 @@ module Backend
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
         end
         # Check if the method is called from "account/:id/mark" view
-        if params[:journals_entries_items_ids]
+        if params[:journal_entry_items_ids]
           # Get all journal_entry_items id selected from the view
-          journal_entry_items_ids = JSON.parse(params[:journals_entries_items_ids])
+          journal_entry_items_ids = params[:journal_entry_items_ids].split(',').map(&:to_i)
           account = JournalEntryItem.where(id: journal_entry_items_ids).first.account
-          # journal_entry_items_ids = params[:journals_entries_items_ids].split(',')
-          # account = JournalEntryItem.where(id: journal_entry_items_ids).first.account
-
           # Get the journal_entry_item id created to balance the previous ones
           journal_entry_items_ids.push(@journal_entry.items.where(account: account).first.id)
           # Mark the journal_entry_items

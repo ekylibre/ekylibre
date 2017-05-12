@@ -70,7 +70,6 @@
 
   displayActionButton = (dataShowCondition, count, elementDisplayOnClick) ->
     if dataShowCondition == 'zero-or-one'
-      debugger
       if count == 0
         $(elementDisplayOnClick).hide()
 
@@ -111,6 +110,12 @@
           elementDisplayOnClick = '.' + link.attr('data-display-class-on-click')
 
           displayActionButton link.attr('data-show-if-check-count'), ids.length, elementDisplayOnClick
+
+          $(elementDisplayOnClick).click ->
+            urlFinal = url + "&nature=various"
+            link.attr('href', urlFinal)
+
+
 
 
   $(document).behave 'load', 'a[data-complete-link-with-ids]', completeUrlWithIds
