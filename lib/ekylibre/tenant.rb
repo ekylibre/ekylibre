@@ -372,7 +372,25 @@ module Ekylibre
       end
 
       def dump_v2(name, options = {})
-        dump_process(name, options) { |table_path| dump_tables_v2(table_path) }
+        dump_process(name, options) { |dump_options| dump_tables_v2(dump_options[:tables_path]) }
+      end
+
+      def restore_v2(archive_path, name, options = {})
+        restore_process(archive_path, name, options) do |data_options|
+          data_options = data_options.dup
+          tenant_name = data_options.delete(:tenant_name)
+          Fixturing.restore(tenant_name, **data_options)
+        end
+      end
+
+      def dump_v3(name, options = {})
+        restore_process(archive_path, name, options) { |options| dump_tables_v3(options) }
+      end
+
+      def restore_v3(archive_path, name, options = {})
+        restore_process(archive_path, name, options) do |options|
+          restore_v3(options)
+        end
       end
 
       def dump_process(name, options = {}, &table_dump)
@@ -385,7 +403,12 @@ module Ekylibre
 
           FileUtils.rm_rf(archive_path)
 
-          version = table_dump.call(tables_path)
+          dump_options = options.merge({
+            archive_path: archive_path,
+            tenant_name: name,
+            tables_path: tables_path
+          })
+          version = table_dump.call(dump_options)
 
           dump_files(files_path)
           dump_mimetype(archive_path)
@@ -394,6 +417,43 @@ module Ekylibre
           FileUtils.rm_rf(archive_file)
           zip_up(archive_path, into: archive_file)
           FileUtils.rm_rf(archive_path)
+        end
+      end
+
+      def restore_process(archive_path, name, options = {}, &table_restore)
+        tables_path = archive_path.join('tables')
+        files_path = archive_path.join('files')
+
+        manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
+
+        database_version = manifest[:database_version].to_i
+        if database_version > ActiveRecord::Migrator.last_version
+          raise 'Too recent archive'
+        end
+
+        verbose = !options[:verbose].is_a?(FalseClass)
+        puts "Resetting tenant #{name}...".yellow if verbose
+        drop(name) if exist?(name)
+        create(name)
+
+        switch(name) do
+          if files_path.exist?
+            puts 'Restoring files...'.yellow if verbose
+            FileUtils.rm_rf private_directory
+            FileUtils.mv files_path, private_directory
+          else
+            puts 'No files to restore'.yellow if verbose
+          end
+
+          puts 'Restoring database and migrating...'.yellow if verbose
+          restore_options = options.merge({
+            tenant_name: name,
+            version: database_version,
+            path: tables_path,
+            verbose: verbose
+          })
+          table_restore.call(restore_options)
+          puts 'Done!'.yellow if verbose
         end
       end
 
@@ -422,9 +482,28 @@ module Ekylibre
         FileUtils.cp_r(private_directory.to_s, files_path.to_s)
       end
 
-      def dump_tables_v2(tables_path)
+      def dump_tables_v2(options)
+        tables_path = options[:tables_path]
         FileUtils.mkdir_p(tables_path)
         Fixturing.extract(path: tables_path)
+      end
+
+      def dump_tables_v3(options)
+        path = options[:archive_path]
+        tenant = options[:tenant_name]
+        Dir.chdir path.dirname do
+          dbname = "postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}"
+          `pg_dump -n #{tenant} -x -O --dbname=#{dbname} > #{tenant}.sql`
+        end
+      end
+
+      def restore_table_v3(options)
+        path = options[:archive_path]
+        file = options[:tenant_name]
+        Dir.chdir path.dirname do
+          dbname = "postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}"
+          `cat #{file} | psql --dbname=#{dbname}`
+        end
       end
 
       def zip_up(archive_path, into:)
@@ -435,43 +514,6 @@ module Ekylibre
             end
           end
         end
-      end
-
-      def restore_v2(archive_path, name, options = {})
-        tables_path = archive_path.join('tables')
-        files_path = archive_path.join('files')
-
-        manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
-
-        database_version = manifest[:database_version].to_i
-        if database_version > ActiveRecord::Migrator.last_version
-          raise 'Too recent archive'
-        end
-
-        verbose = !options[:verbose].is_a?(FalseClass)
-        puts "Resetting tenant #{name}...".yellow if verbose
-        drop(name) if exist?(name)
-        create(name)
-
-        switch(name) do
-          if files_path.exist?
-            puts 'Restoring files...'.yellow if verbose
-            FileUtils.rm_rf private_directory
-            FileUtils.mv files_path, private_directory
-          else
-            puts 'No files to restore'.yellow if verbose
-          end
-
-          puts 'Restoring database and migrating...'.yellow if verbose
-          Fixturing.restore(name, version: database_version, path: tables_path, verbose: verbose)
-          puts 'Done!'.yellow if verbose
-        end
-      end
-
-      def dump_v3(name, options = {})
-      end
-
-      def restore_v3(archive_path, name, options = {})
       end
     end
   end
