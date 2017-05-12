@@ -67,7 +67,11 @@
 
               input.attr('data-selector', unrollPath)
         else if attributes.dynascope?
-          input = form.find("##{prefix}product_id")
+          if prefix.match /output/
+            nature = 'variant'
+          else
+            nature = 'product'
+          input = form.find("##{prefix}#{nature}_id")
           unrollPath = input.attr('data-selector')
           if unrollPath
             for scopeKey, scopeValue of attributes.dynascope
