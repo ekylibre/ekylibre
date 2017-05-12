@@ -25,7 +25,7 @@
 
 
 
-    - items = JournalEntryItem.joins([:entry, :variant]).where(eval(controller.class.account_moves_conditions))
+    - items = JournalEntryItem.joins([:entry]).joins('LEFT OUTER JOIN "product_nature_variants" ON "product_nature_variants"."id" = "journal_entry_items"."variant_id"').where(eval(controller.class.account_moves_conditions))
     - totals = {}
     - totals[:debit]  = items.sum(:absolute_debit)
     - totals[:credit] = items.sum(:absolute_credit)

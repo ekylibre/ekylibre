@@ -602,7 +602,7 @@ class FinancialYear < Ekylibre::Record::Base
                                        { number: '891', name: 'Bilan d’ouverture' },
                                        items,
                                        -result,
-                                       to_close_on)
+                                       to_close_on + 1.day)
 
     items = items.map do |item|
       swap = item[:real_debit]
