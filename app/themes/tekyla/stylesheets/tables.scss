@@ -193,6 +193,11 @@ table {
     th, td {
       max-width: 20em;
     }
+    // #computation-results {
+    //   position: absolute;
+    //   bottom: 0px;
+    //   max-width: 100%
+    // }
     thead {
       th {
         padding: round($fs-normal*0.2) round($fs-normal*0.4);
