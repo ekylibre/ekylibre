@@ -261,7 +261,7 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   test 'ensure sign of amount is different in Incoming and Outgoing payments' do
-    assert_equal 0, IncomingPayment.sign_of_amount + OutgoingPayment.sign_of_amount
+    assert_equal 0, IncomingPayment.sign_of_amount + PurchasePayment.sign_of_amount
   end
 
   test 'delete bank statement delete journal entry' do
@@ -338,7 +338,7 @@ class BankStatementTest < ActiveSupport::TestCase
     assert_equal journal_entries_count + 1, new_journal_entries_count
   end
 
-  [IncomingPayment, OutgoingPayment].each do |payment|
+  [IncomingPayment, PurchasePayment].each do |payment|
     test "#{payment} can be lettered with bank_statement_items" do
       @payment_class = payment
       setup_data
@@ -392,10 +392,10 @@ class BankStatementTest < ActiveSupport::TestCase
     Cash.delete_all
     BankStatement.delete_all
     BankStatementItem.delete_all
+    OutgoingPayment.delete_all
     Entity.delete_all
     IncomingPayment.delete_all
     IncomingPaymentMode.delete_all
-    OutgoingPayment.delete_all
     OutgoingPaymentMode.delete_all
   end
 
@@ -447,7 +447,7 @@ class BankStatementTest < ActiveSupport::TestCase
 
     Account.create!(name: 'Citadel', number: '6')
 
-    diesel      = "#{@payment_class}Mode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
+    diesel      = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
     max         = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
     @payment    = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
   end

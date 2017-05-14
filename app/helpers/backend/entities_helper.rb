@@ -34,13 +34,13 @@ module Backend
         series << { type: 'column', name: :purchases.tl, data: normalize_serie(item_h, categories.keys) }
       end
 
-      outgoing_payments = entity.outgoing_payments.between(started_on, stopped_on)
-      if outgoing_payments.any?
-        item_h = outgoing_payments.sums_of_periods.sort.each_with_object({}) do |pair, hash|
+      purchase_payments = entity.purchase_payments.between(started_on, stopped_on)
+      if purchase_payments.any?
+        item_h = purchase_payments.sums_of_periods.sort.each_with_object({}) do |pair, hash|
           hash[pair.expr.to_i.to_s] = pair.sum.to_d
           hash
         end
-        series << { type: 'column', name: :outgoing_payments.tl, data: normalize_serie(item_h, categories.keys) }
+        series << { type: 'column', name: :purchase_payments.tl, data: normalize_serie(item_h, categories.keys) }
       end
 
       incoming_payments = entity.incoming_payments.between(started_on, stopped_on)

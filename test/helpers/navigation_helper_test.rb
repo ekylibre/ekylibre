@@ -2,6 +2,7 @@ require 'test_helper'
 
 class NavigationHelperTest < ActionView::TestCase
   setup do
+    OutgoingPayment.delete_all
     Entity.delete_all # Making sure nobody ruins the order.
 
     @max      = Entity.create!(first_name: 'Max',      last_name: 'Rockatansky', nature: 'contact')
