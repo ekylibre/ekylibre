@@ -879,6 +879,7 @@ arb:
       event_nature: "نوع الحدث" #?
       event_participation: "مشاركة الحدث"
       financial_year: "السنة المالية"
+      financial_year_exchange: "تبادل السنة المالية"
       fixed_asset: "الأصول الثابتة"
       fixed_asset_depreciation: "انخفاض قيمة الأصول الثابتة"
       fungus: "فطر"
@@ -1023,6 +1024,7 @@ arb:
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب"
       tax_declaration_item: "الضرائب البند إعلان"
+      tax_declaration_item_part: "الجزء المتعلق بالإعلان الضريبي"
       team: "الخجمة"
       token: "رمز"
       tool: "الاداة" #?
