@@ -19,7 +19,7 @@
     .active-list-actions
       = mask_lettered_items_button :mark_journal_entry_items
 
-    - items = @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
+    - items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
     - partial_lettering = items.any?(&:partially_lettered?)
     .active-list#mark_journal_entry_items
       %table.list
