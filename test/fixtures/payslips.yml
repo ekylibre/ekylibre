@@ -22,6 +22,7 @@
 #
 # == Table: payslips
 #
+#  account_id       :integer
 #  accounted_at     :datetime
 #  affair_id        :integer
 #  amount           :decimal(19, 4)   not null
@@ -42,4 +43,44 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
---- {}
+---
+payslips_001:
+  account_id: 171
+  accounted_at: 2017-05-15 19:23:21.379860000 Z
+  affair_id: 55
+  amount: 1515.0
+  created_at: 2017-05-15 19:23:16.832986000 Z
+  creator_id: 1
+  currency: EUR
+  emitted_on: 2017-05-15
+  employee_id: 12
+  id: 1
+  journal_entry_id: 117
+  lock_version: 1
+  nature_id: 1
+  number: BS2017050001
+  started_on: 1997-07-01
+  state: invoice
+  stopped_on: 1997-07-31
+  updated_at: 2017-05-15 19:23:21.288770000 Z
+  updater_id: 1
+payslips_002:
+  account_id: 216
+  accounted_at: 2017-05-15 19:24:21.013791000 Z
+  affair_id: 56
+  amount: 1515.0
+  created_at: 2017-05-15 19:24:16.886285000 Z
+  creator_id: 1
+  currency: EUR
+  emitted_on: 2017-05-15
+  employee_id: 12
+  id: 2
+  journal_entry_id: 119
+  lock_version: 1
+  nature_id: 2
+  number: BS2017050002
+  started_on: 2017-05-04
+  state: invoice
+  stopped_on: 2017-05-31
+  updated_at: 2017-05-15 19:24:20.966156000 Z
+  updater_id: 1

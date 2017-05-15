@@ -4705,6 +4705,7 @@ CREATE TABLE payslip_natures (
     by_default boolean DEFAULT false NOT NULL,
     with_accounting boolean DEFAULT false NOT NULL,
     journal_id integer NOT NULL,
+    account_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -4741,6 +4742,7 @@ CREATE TABLE payslips (
     number character varying NOT NULL,
     nature_id integer NOT NULL,
     employee_id integer,
+    account_id integer,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
     emitted_on date,
@@ -13897,6 +13899,13 @@ CREATE INDEX index_parcels_on_updater_id ON parcels USING btree (updater_id);
 
 
 --
+-- Name: index_payslip_natures_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_account_id ON payslip_natures USING btree (account_id);
+
+
+--
 -- Name: index_payslip_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13936,6 +13945,13 @@ CREATE INDEX index_payslip_natures_on_updated_at ON payslip_natures USING btree 
 --
 
 CREATE INDEX index_payslip_natures_on_updater_id ON payslip_natures USING btree (updater_id);
+
+
+--
+-- Name: index_payslips_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_account_id ON payslips USING btree (account_id);
 
 
 --
@@ -17112,6 +17128,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 
 --
+-- Name: fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17165,6 +17189,14 @@ ALTER TABLE ONLY alerts
 
 ALTER TABLE ONLY intervention_working_periods
     ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_ac1b8c6e79; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_ac1b8c6e79 FOREIGN KEY (account_id) REFERENCES accounts(id);
 
 
 --

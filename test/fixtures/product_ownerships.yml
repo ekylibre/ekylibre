@@ -1263,3 +1263,13 @@ product_ownerships_127:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-12-20 18:24:29.533159000 Z
   updater_id: 1
+product_ownerships_128:
+  created_at: 2017-05-15 19:22:15.692588000 Z
+  creator_id: 1
+  id: 135
+  lock_version: 0
+  nature: unknown
+  product_id: 182
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2017-05-15 19:22:15.692588000 Z
+  updater_id: 1

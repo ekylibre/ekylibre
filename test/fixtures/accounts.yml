@@ -4176,3 +4176,17 @@ accounts_333:
   number: '70100000001'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
+accounts_334:
+  created_at: 2017-05-15 19:23:16.863815000 Z
+  creator_id: 1
+  debtor: false
+  id: 680
+  label: 421P00000002 - Mme Yui IKARI
+  last_letter: B
+  lock_version: 0
+  name: Mme Yui IKARI
+  number: 421P00000002
+  reconcilable: true
+  updated_at: 2017-05-15 19:23:16.863815000 Z
+  updater_id: 1
+  usages: staff_due_remunerations

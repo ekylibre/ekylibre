@@ -22,6 +22,7 @@
 #
 # == Table: payslips
 #
+#  account_id       :integer
 #  accounted_at     :datetime
 #  affair_id        :integer
 #  amount           :decimal(19, 4)   not null

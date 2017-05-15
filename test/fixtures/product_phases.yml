@@ -1417,3 +1417,15 @@ product_phases_120:
   updated_at: 2016-12-20 18:24:29.616897000 Z
   updater_id: 1
   variant_id: 16
+product_phases_121:
+  category_id: 13
+  created_at: 2017-05-15 19:22:15.791841000 Z
+  creator_id: 1
+  id: 129
+  lock_version: 0
+  nature_id: 20
+  product_id: 182
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2017-05-15 19:22:15.791841000 Z
+  updater_id: 1
+  variant_id: 23

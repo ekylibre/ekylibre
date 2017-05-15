@@ -122,7 +122,6 @@
 #     - "backend/outgoing_payments#show"
 #     - "backend/outgoing_payments#unroll"
 #     - "backend/outgoing_payments#update"
-#     - "backend/payslips#unroll"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#quantifiers"
@@ -1658,6 +1657,7 @@ payslips:
     - "backend/payslips#index"
     - "backend/payslips#list"
     - "backend/payslips#show"
+    - "backend/payslips#unroll"
   write:
     dependencies:
     - read-payslips

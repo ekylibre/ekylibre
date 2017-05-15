@@ -22,6 +22,7 @@
 #
 # == Table: payslip_natures
 #
+#  account_id      :integer
 #  active          :boolean          default(FALSE), not null
 #  by_default      :boolean          default(FALSE), not null
 #  created_at      :datetime         not null

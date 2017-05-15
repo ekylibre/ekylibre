@@ -15446,3 +15446,171 @@ versions_279:
     team_id:
     member_variant_id:
   item_type: Product
+versions_280:
+  created_at: 2017-05-15 19:22:15.625604000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 317
+  item_id: 182
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 182
+    type: Worker
+    name: Mme Yui IKARI
+    number: PR00000000126
+    variant_id: 23
+    nature_id: 20
+    category_id: 13
+    initial_born_at: 2017-05-15 19:22:15.578856000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: worker
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2017-05-15 19:22:15.578856000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2017-05-15 19:22:15.619661000 Z
+    creator_id: 1
+    person_id: 12
+    initial_geolocation: !ruby/object:RGeo::Geos::CAPIPointImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POINT (-0.7994598126767400 45.8263575757299009)
+    uuid: 58d6209d-08c1-42d5-85ed-82c622b2ced9
+    initial_movement_id:
+    custom_fields:
+    team_id:
+    member_variant_id:
+    birth_date_completeness:
+    birth_farm_number:
+    country:
+    filiation_status:
+    first_calving_on:
+    mother_country:
+    mother_variety:
+    mother_identification_number:
+    father_country:
+    father_variety:
+    father_identification_number:
+    origin_country:
+    origin_identification_number:
+    end_of_life_reason:
+    originator_id:
+  item_type: Product
+versions_281:
+  created_at: 2017-05-15 19:22:51.583659000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 318
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    description:
+    siret_number:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Yui IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_id: 12
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 12
+    nature: contact
+    last_name: IKARI
+    first_name: Yui
+    number: P00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-03 16:56:06.570291000 Z
+    creator_id: 1
+    title: Mme
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Yui IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity

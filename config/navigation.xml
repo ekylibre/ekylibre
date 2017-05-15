@@ -19,7 +19,6 @@
         <page to="backend/entities#list_incoming_parcels"/>
         <page to="backend/entities#list_outgoing_parcels"/>
         <page to="backend/entities#list_observations"/>
-        <page to="backend/entities#list_outgoing_payments" nonexistent="true"/>
         <page to="backend/entities#list_purchase_payments"/>
         <page to="backend/entities#list_purchases"/>
         <page to="backend/entities#list_sale_opportunities"/>
@@ -999,6 +998,7 @@
         <page to="backend/payslips#update"/>
         <page to="backend/payslips#correct"/>
         <page to="backend/payslips#invoice"/>
+        <page to="backend/payslips#unroll"/>
         <page to="backend/payslip_affairs#index"/>
         <page to="backend/payslip_affairs#attach"/>
         <page to="backend/payslip_affairs#detach"/>
@@ -2032,10 +2032,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="payslips">
-        <page to="backend/payslips#unroll"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
