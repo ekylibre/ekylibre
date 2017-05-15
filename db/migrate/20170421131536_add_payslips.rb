@@ -85,7 +85,7 @@ class AddPayslips < ActiveRecord::Migration
       end
     end
     add_foreign_key :outgoing_payments, :outgoing_payment_modes, column: :mode_id, on_delete: :restrict
-    add_foreign_key :outgoing_payments, :outgoing_payment_modes, column: :list_id
+    add_foreign_key :outgoing_payments, :outgoing_payment_lists, column: :list_id
     add_foreign_key :outgoing_payments, :entities, column: :payee_id, on_delete: :restrict
     add_foreign_key :outgoing_payments, :journal_entries, column: :journal_entry_id
 
