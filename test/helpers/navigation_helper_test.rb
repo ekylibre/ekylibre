@@ -3,6 +3,7 @@ require 'test_helper'
 class NavigationHelperTest < ActionView::TestCase
   setup do
     Parcel.delete_all
+    IncomingPayment.delete_all
     Regularization.delete_all
     Deposit.delete_all
     Entity.delete_all # Making sure nobody ruins the order.

@@ -20175,7 +20175,7 @@ ALTER TABLE ONLY inspection_points
 --
 
 ALTER TABLE ONLY intervention_working_periods
-    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+    ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

@@ -165,12 +165,13 @@ class PurchaseTest < ActiveSupport::TestCase
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
-    PurchaseNature.delete_all
     Parcel.delete_all
+    Purchase.delete_all
+    PurchaseNature.delete_all
+    IncomingPayment.delete_all
     Regularization.delete_all
     Deposit.delete_all
     Entity.delete_all
-    Purchase.delete_all
 
     nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)

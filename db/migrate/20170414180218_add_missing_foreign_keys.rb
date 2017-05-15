@@ -414,6 +414,8 @@ class AddMissingForeignKeys < ActiveRecord::Migration
     add_properly_foreign_key :intervention_working_periods, :creator_id, :users, :nullify
     add_properly_foreign_key :intervention_working_periods, :updater_id, :users, :nullify
     add_properly_foreign_key :intervention_working_periods, :intervention_id, :interventions, :null_cascade
+    remove_foreign_key :intervention_working_periods, :intervention_participations
+    add_properly_foreign_key :intervention_working_periods, :intervention_participation_id, :intervention_participations, :null_cascade
     # Inventory
     add_properly_foreign_key :inventories, :creator_id, :users, :nullify
     add_properly_foreign_key :inventories, :updater_id, :users, :nullify

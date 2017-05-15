@@ -59,6 +59,9 @@ class Account < Ekylibre::Record::Base
   has_many :paid_taxes,                   class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :collected_fixed_asset_taxes,  class_name: 'Tax', foreign_key: :fixed_asset_collect_account_id
   has_many :deductible_fixed_asset_taxes, class_name: 'Tax', foreign_key: :fixed_asset_deduction_account_id
+  has_many :categories_as_fixed_asset,    class_name: 'ProductNatureCategory', foreign_key: :fixed_asset_account_id
+  has_many :categories_as_fixed_asset_allocation, class_name: 'ProductNatureCategory', foreign_key: :fixed_asset_allocation_account_id
+  has_many :categories_as_fixed_asset_expenses, class_name: 'ProductNatureCategory', foreign_key: :fixed_asset_expenses_account_id
   has_many :charges_categories,           class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
   has_many :purchase_items,               class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,                   class_name: 'SaleItem'
@@ -179,10 +182,9 @@ class Account < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    for r in self.class.reflect_on_all_associations(:has_many)
-      return true if send(r.name).any?
+    self.class.reflect_on_all_associations(:has_many).detect do |r|
+      send(r.name).any?
     end
-    return false
   end
 
   class << self

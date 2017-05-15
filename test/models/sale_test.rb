@@ -267,13 +267,14 @@ class SaleTest < ActiveSupport::TestCase
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
-    Catalog.delete_all
-    SaleNature.delete_all
     Parcel.delete_all
+    Sale.delete_all
+    SaleNature.delete_all
+    IncomingPayment.delete_all
+    Catalog.delete_all
     Regularization.delete_all
     Deposit.delete_all
     Entity.delete_all
-    Sale.delete_all
 
     catalog    = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
     nature     = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog)

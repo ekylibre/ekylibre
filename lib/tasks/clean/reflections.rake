@@ -11,6 +11,10 @@ namespace :clean do
       log.write "> #{model.name}...\n"
       reflections = model.reflect_on_all_associations(:has_many)
       foreign_keys = ActiveRecord::Base.connection.foreign_keys(model.table_name)
+      if ActiveRecord::Base.connection.select_value("SELECT count(*) FROM pg_views WHERE viewname = '#{model.table_name}' AND schemaname NOT IN ('information_schema', 'pg_catalog')").to_i > 0
+        log.write "  -> Not a table\n"
+        next
+      end
       model.reflect_on_all_associations.each do |r|
         next if r.options[:through]
         # puts model.name.to_s + '.' + r.name.to_s

@@ -385,21 +385,31 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   def wipe_db
+    Gap.delete_all
+    Loan.delete_all
+    Crumb.delete_all
+    CashTransfer.delete_all
     IncomingPayment.delete_all
     IncomingPaymentMode.delete_all
     OutgoingPayment.delete_all
     OutgoingPaymentMode.delete_all
     Sale.delete_all
     Purchase.delete_all
+    Parcel.delete_all
     Regularization.delete_all
+    InterventionParticipation.delete_all
+    ActivityBudget.delete_all
+    Deposit.delete_all
     JournalEntry.delete_all
     Journal.delete_all
     Tax.delete_all
+    Product.delete_all
+    ProductNatureVariant.delete_all
+    ProductNature.delete_all
+    ProductNatureCategory.delete_all
     Account.delete_all
     Cash.delete_all
     BankStatement.delete_all
-    Parcel.delete_all
-    Deposit.delete_all
     Entity.delete_all
   end
 
