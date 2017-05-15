@@ -70,4 +70,3 @@ class AddEntryDataSynchroInJournalEntryItems < ActiveRecord::Migration
     end
   end
 end
-
