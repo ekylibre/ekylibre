@@ -14,7 +14,7 @@
       $list = $($input.data('mask-lettered-items'))
       $letteredItems = $list.find('.lettered-item')
       $letteredItems.toggle !$input.is(':checked')
- 
+
       $.ajax
         url: $input.data('preference-url')
         type: 'PATCH'
