@@ -253,7 +253,7 @@ ita:
         fixed_assets: "Immobilizzazioni"
         forward: "Portato avanti"
         purchases: "acquisti"
-        # result: "Result"
+        result: "Risultato"
         sales: "Vendite"
         stocks: "Riserve"
         various: "varie operazioni"
