@@ -17068,7 +17068,7 @@ ALTER TABLE ONLY outgoing_payments
 --
 
 ALTER TABLE ONLY outgoing_payments
-    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_modes(id);
+    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_lists(id);
 
 
 --
