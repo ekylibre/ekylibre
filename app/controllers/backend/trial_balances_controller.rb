@@ -70,7 +70,7 @@ module Backend
           account_name = account.name
 
           if csv.encoding.eql?(Encoding::CP1252)
-            account_name = account.name.force_encoding('CP1252')            
+            account_name = account_name.encode('CP1252', invalid: :replace, undef: :replace, replace: '?') 
           end
           
           csv << [
