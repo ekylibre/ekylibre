@@ -157,8 +157,9 @@ module Backend
     end
 
     def create
+      item_attributes = permitted_params[:items_attributes] || {}
       safe_params = permitted_params.merge(
-        items_attributes: permitted_params[:items_attributes].map do |id, item_attr|
+        items_attributes: item_attributes.map do |id, item_attr|
           [id, item_attr.except(:asset_exists)]
         end.to_h
       )
