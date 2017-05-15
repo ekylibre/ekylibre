@@ -16800,7 +16800,7 @@ CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DE
 -- Name: compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((("substring"((COALESCE(old.letter, ''::character varying))::text, '[A-z]*'::text) <> "substring"((COALESCE(new.letter, ''::character varying))::text, '[A-z]*'::text)) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
+CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
 
 
 --
@@ -17441,4 +17441,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222519');
 INSERT INTO schema_migrations (version) VALUES ('20170413222520');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413222521');
+
+INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
