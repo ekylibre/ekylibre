@@ -139,11 +139,14 @@ module Backend
       end
       @purchase = if params[:intervention_ids]
                     Intervention.convert_to_purchase(params[:intervention_ids])
+                  elsif params[:duplicate_of]
+                    Purchase.find_by(id: params[:duplicate_of])
+                            .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
                   else
                     Purchase.new(nature: nature)
                   end
       @purchase.currency = @purchase.nature.currency
-      @purchase.responsible = current_user
+      @purchase.responsible ||= current_user
       @purchase.planned_at = Time.zone.now
       @purchase.invoiced_at = Time.zone.now
       @purchase.supplier_id ||= params[:supplier_id] if params[:supplier_id]
@@ -154,8 +157,9 @@ module Backend
     end
 
     def create
+      item_attributes = permitted_params[:items_attributes] || {}
       safe_params = permitted_params.merge(
-        items_attributes: permitted_params[:items_attributes].map do |id, item_attr|
+        items_attributes: item_attributes.map do |id, item_attr|
           [id, item_attr.except(:asset_exists)]
         end.to_h
       )

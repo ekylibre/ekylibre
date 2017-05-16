@@ -132,7 +132,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :debt_transfers, concerns: %i[list]
+    resources :debt_transfers, path: 'debt-transfers', only: %i[create destroy]
 
     resources :helps, only: %i[index show] do
       collection do

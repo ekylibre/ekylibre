@@ -704,7 +704,7 @@ analyses:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   host_id:
     type: integer
     references: product
@@ -815,7 +815,7 @@ analysis_items:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   product_reading_id:
     type: integer
     references: product_reading
@@ -1587,7 +1587,7 @@ crumbs:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
     required: true
   id:
     type: integer
@@ -2248,7 +2248,7 @@ entity_addresses:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   mail_line_1:
     type: string
   mail_line_2:
@@ -3384,7 +3384,7 @@ intervention_parameter_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   string_value:
     type: text
   updated_at:
@@ -3745,7 +3745,7 @@ issues:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   gravity:
     type: integer
   id:
@@ -5807,7 +5807,7 @@ product_nature_variant_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   string_value:
     type: text
   updated_at:
@@ -6123,7 +6123,7 @@ product_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   product_id:
     type: integer
     references: product
@@ -6209,7 +6209,7 @@ products:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   initial_mother_id:
     type: integer
     references: product
@@ -7231,7 +7231,7 @@ tax_declaration_item_parts:
     required: true
   creator_id:
     type: integer
-    references: ''
+    references: user
   direction:
     type: string
     required: true
@@ -7274,7 +7274,7 @@ tax_declaration_item_parts:
     required: true
   updater_id:
     type: integer
-    references: ''
+    references: user
 tax_declaration_items:
   balance_pretax_amount:
     type: decimal

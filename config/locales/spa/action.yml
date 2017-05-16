@@ -169,10 +169,6 @@ spa:
       stocks: "Stock"
       tools: "Herramientas"
       trade: "Ventas/Compras"
-    backend/debt_transfers:
-      index: "Las transferencias de deuda"
-      new: "Nueva transferencia de la deuda"
-      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "Modificación del plazo\_: %{name}" #?
       index: "plazos" #?
@@ -1106,6 +1102,7 @@ spa:
     done: "Hecho"
     dont_generate_carrying_forward_entries: "- No generar llevar adelante las entradas -"
     dont_generate_closure_entries: "- no generan entradas de cierre -"
+    dont_generate_result_entries: "- No generar entradas de resultados -"
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?
@@ -1297,6 +1294,9 @@ spa:
     journal_entries_states: "Estados de las entradas"
     journal_entry_items: "Artículos entrada de diario"
     journal_entry_items_states: "Estado de las escrituras utilizadas" #?
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -2123,6 +2123,7 @@ spa:
       accountant_without_email: "Por favor, configurar el correo electrónico contador"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
       all_purchases_must_be_ordered_or_invoiced: "Todas las compras se deben ordenar o facturar."
+      all_tax_declarations_have_already_existing: "Todas las declaraciones de impuestos ya existen"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
@@ -2153,9 +2154,10 @@ spa:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      exception_raised: "Un error sobrevino durante el tratamiento\_: %{message}"
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
+      financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
@@ -2250,8 +2252,6 @@ spa:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Las letras automático no se puede realizar en la contabilidad"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "Las letras automático no se puede realizar en la contabilidad porque ya hecho por un usuario"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "Las letras automático no se puede realizar en la contabilidad ya que algunas ofertas no se tienen en cuenta sin embargo,"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Las letras automático no se puede realizar en la contabilidad porque demasiados tercios están presentes"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
       this_service_is_not_activated: "Este servicio no está activado"
