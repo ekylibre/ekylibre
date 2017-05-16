@@ -2,17 +2,18 @@
   "use strict"
 
   absoluteSum = () ->
-    $('#computation-results').css({
-        position: 'absolute',
-        bottom: '0px',
-        'max-width': $('#computation-results').closest('table').width() + 'px'
-      })
-    count = 0
-    $("#computation-results > td").each ->
-      totest = $(this).closest('table').find($('thead > tr > th'))[count]
-      $(this).css('max-width', 'none')
-      $(this).width($(totest).width())
-      count++
+    if $('table').height() > $('body').height()
+      $('#computation-results').css({
+          position: 'absolute',
+          bottom: '0px',
+          'max-width': $('#computation-results').closest('table').width() + 'px'
+        })
+      count = 0
+      $("#computation-results > td").each ->
+        totest = $(this).closest('table').find($('thead > tr > th'))[count]
+        $(this).css('max-width', 'none')
+        $(this).width($(totest).width())
+        count++
 
 
   $(document).ready () ->
