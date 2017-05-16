@@ -17108,6 +17108,20 @@ CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF l
 
 
 --
+-- Name: synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
+
+
+--
+-- Name: synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
+
+
+--
 -- Name: fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -17137,20 +17151,6 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
-
-
---
--- Name: synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
-
-
---
--- Name: synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
 
 
 --
@@ -17846,3 +17846,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
 
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
+
