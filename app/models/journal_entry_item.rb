@@ -201,7 +201,11 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
   def partially_lettered?
-    letter.include? '*'
+    lettered? && letter.include?('*')
+  end
+
+  def completely_lettered?
+    lettered? && !partially_lettered?
   end
 
   def letter_radix
