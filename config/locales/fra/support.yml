@@ -124,4 +124,7 @@ fra:
       long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"
       time: "%H:%M" #?
+    js_formats:
+      compact: "DD/MM/YYYY HH:mm"
+      full: "DD/MM/YYYY HH:mm:ss"
     pm: "pm"

@@ -166,4 +166,7 @@ arb:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
       time: "%H:%M" #?
+    js_formats:
+      # compact: "MM/DD/YY HH:mm"
+      # full: "MM/DD/YY HH:mm:ss"
     pm: "مساءا"

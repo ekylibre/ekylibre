@@ -1980,6 +1980,7 @@
   <untreated-actions>
     <group>
       <item name="intervention_participations">
+        <page to="backend/intervention_participations#create"/>
         <page to="backend/intervention_participations#participations_modal"/>
       </item>
     </group>

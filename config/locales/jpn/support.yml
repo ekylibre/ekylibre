@@ -125,4 +125,7 @@ jpn:
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
       time: "%H:%M" #?
+    js_formats:
+      # compact: "MM/DD/YY HH:mm"
+      # full: "MM/DD/YY HH:mm:ss"
     pm: "午後"

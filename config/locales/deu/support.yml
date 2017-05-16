@@ -198,4 +198,7 @@ deu:
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
       time: "%H:%M" #?
+    js_formats:
+      # compact: "MM/DD/YY HH:mm"
+      # full: "MM/DD/YY HH:mm:ss"
     pm: "nachmittags"
