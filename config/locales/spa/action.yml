@@ -2138,6 +2138,7 @@ spa:
       changes_have_not_been_reflected: "Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua"
       closed_financial_year_exchange: "El cambio de ejercicio se ha cerrado con éxito"
       closed_financial_years: "El ejercicio ha sido correctamente cerrado"
+      # closure_process_started: "Closure process started."
       columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
       dashboard_is_being_developed: "Dashboard es en fuerte desarrollo"
       density_is_not_computable_in_counting: "No se pudo calcular la densidad de este conteo. Los valores que faltan deben ser completados en las propiedades del conteo o indicadores del sembrador."
@@ -2156,6 +2157,8 @@ spa:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
+      # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"

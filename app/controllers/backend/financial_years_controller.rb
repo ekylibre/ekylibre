@@ -114,10 +114,9 @@ module Backend
         if params[:closure_journal_id] == '0'
           params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
         end
-        if @financial_year.close(closed_on, result_journal_id: params[:result_journal_id], forward_journal_id: params[:forward_journal_id], closure_journal_id: params[:closure_journal_id])
-          notify_success(:closed_financial_years)
-          redirect_to(action: :index)
-        end
+        FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
+        notify_success(:closure_process_started)
+        redirect_to(action: :index)
       else
         journal = Journal.where(currency: @financial_year.currency, nature: :result).first
         params[:result_journal_id] = (journal ? journal.id : 0)

@@ -2580,6 +2580,7 @@ arb:
       changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
       closed_financial_year_exchange: "تم إغلاق الصرف في العام المالي بنجاح"
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
+      # closure_process_started: "Closure process started."
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       dashboard_is_being_developed: "لوحة أجهزة القياس هي قيد التطوير الثقيلة"
       density_is_not_computable_in_counting: "لا يمكن حساب كثافة لهذا العد. وينبغي الانتهاء من القيم المفقودة في خصائص العد أو مؤشرات الزارع و."
@@ -2596,6 +2597,8 @@ arb:
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
+      # financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      # financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
       # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
