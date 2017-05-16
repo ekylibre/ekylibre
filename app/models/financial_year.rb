@@ -608,12 +608,21 @@ class FinancialYear < Ekylibre::Record::Base
     return unless result.nonzero?
 
     account = Account.find(items.first[:account_id])
-    new_letter = account.new_letter
-    lettered_later = account.journal_entry_items.where('printed_on > ?', to_close_on).where(letter: letter)
-    JournalEntryItem.where(id: lettered_later).update_all(letter: new_letter)
-    lettered_later.each { |item| item.entry.resource && item.entry.resource.affair.update_column(:letter, new_letter) }
 
-    items = items.map { |item| item[:letter] = new_letter; item }
+    if letter
+      new_letter = account.new_letter
+      lettered_later = account.journal_entry_items.where('printed_on > ?', to_close_on).where(letter: letter)
+      lettered_later.update_all(letter: new_letter)
+      lettered_later.each do |item|
+        affair = item.entry.resource && item.entry.resource.affair
+        next unless affair
+
+        affair.update(letter: new_letter)
+      end
+
+      items = items.map { |item| item[:letter] = new_letter; item }
+    end
+
     generate_closing_or_opening_entry!(opening_journal,
                                        { number: '891', name: 'Bilan de clôture' },
                                        items,
@@ -624,7 +633,7 @@ class FinancialYear < Ekylibre::Record::Base
       swap = item[:real_debit]
       item[:real_debit] = item[:real_credit]
       item[:real_credit] = swap
-      item[:letter] = letter
+      item[:letter] = letter if letter
       item
     end
 
