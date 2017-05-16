@@ -1961,7 +1961,7 @@ ita:
       changes_have_not_been_reflected: "Le modifiche non si sono riflessi nello stato delle scorte"
       closed_financial_year_exchange: "Lo scambio esercizio è stato chiuso con successo"
       closed_financial_years: "L'esercizio è stato chiuso con successo"
-      # closure_process_started: "Closure process started."
+      closure_process_started: "Il processo di chiusura è iniziato."
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
       density_is_not_computable_in_counting: "Impossibile calcolare la densità per questo conteggio. I valori mancanti dovrebbero essere completate nelle proprietà del conteggio o indicatori del seminatore."

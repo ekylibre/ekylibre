@@ -1971,7 +1971,7 @@ jpn:
       changes_have_not_been_reflected: "変更は、株式の状態に反映されていません"
       closed_financial_year_exchange: "会計年度の交換が正常にクローズされました"
       closed_financial_years: "会計年度は正常にクローズされました"
-      # closure_process_started: "Closure process started."
+      closure_process_started: "閉鎖プロセスが開始されました。"
       columns_are_already_uses: "一つまたは多くの列が何度も選択されています"
       dashboard_is_being_developed: "ダッシュボードは重い開発中です"
       density_is_not_computable_in_counting: "この計数のための密度を計算することができませんでした。欠損値は、カウントのプロパティまたは種まきの指標で完了する必要があります。"

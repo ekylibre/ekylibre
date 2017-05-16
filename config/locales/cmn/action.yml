@@ -1896,7 +1896,7 @@ cmn:
       changes_have_not_been_reflected: "这些变化尚未反映在股票的状态"
       closed_financial_year_exchange: "财政年度交换已经成功关闭"
       closed_financial_years: "本财政年度已圆满闭幕"
-      # closure_process_started: "Closure process started."
+      closure_process_started: "关闭过程开始。"
       columns_are_already_uses: "一个或多个列选择多次"
       dashboard_is_being_developed: "仪表板仍处于开发状态"
       density_is_not_computable_in_counting: "无法计算这个计算密度。在遗漏值应在计算的属性或撒种的指标来完成。"

@@ -1895,7 +1895,7 @@ deu:
       changes_have_not_been_reflected: "Die Änderungen wurden nicht in die Bestände Zustand niedergeschlagen"
       closed_financial_year_exchange: "Das Geschäftsjahr Austausch wurde erfolgreich geschlossen"
       closed_financial_years: "Das Geschäftsjahr wurde erfolgreich abgeschlossen"
-      # closure_process_started: "Closure process started."
+      closure_process_started: "Schließvorgang begann."
       columns_are_already_uses: "oft werden eine oder mehrere Spalten ausgewählt"
       dashboard_is_being_developed: "Dashboard ist stark in der Entwicklung"
       density_is_not_computable_in_counting: "Konnte die Dichte für diese Zählung berechnen. Die fehlenden Werte sollten bei der Auszählung der Eigenschaften oder der Sämann der Indikatoren abgeschlossen sein."
