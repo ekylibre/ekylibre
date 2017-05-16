@@ -253,7 +253,7 @@ spa:
         fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
-        # result: "Result"
+        result: "Resultado"
         sales: "Ventas"
         stocks: "Cepo"
         various: "Diversas operaciones"
