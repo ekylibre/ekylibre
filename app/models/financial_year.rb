@@ -289,7 +289,8 @@ class FinancialYear < Ekylibre::Record::Base
     ActiveRecord::Base.transaction do
       # Compute balance of closed year
       compute_balances!
-      if closure_journal
+
+      if result_journal
         # Create result entry of the current year
         generate_result_entry!(result_journal, to_close_on)
       end

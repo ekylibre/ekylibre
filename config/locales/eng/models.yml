@@ -1159,6 +1159,7 @@ eng:
     payment_mode_complement: "Payment mode complement"
     payments: "Payments"
     payments_count: "Payments count"
+    # payslip_natures: "Payslip natures"
     payslips: "Payslips"
     period: "Period"
     person: "Person"

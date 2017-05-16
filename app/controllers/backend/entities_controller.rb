@@ -299,7 +299,7 @@ module Backend
       eval code
     end
 
-    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -324,7 +324,7 @@ module Backend
       eval code
     end
 
-    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column

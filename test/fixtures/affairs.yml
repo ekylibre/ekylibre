@@ -51,6 +51,44 @@
 #  updater_id             :integer
 #
 ---
+payslip_affairs_001:
+  closed: true
+  closed_at: 2017-05-15 19:23:50.998798000 Z
+  created_at: 2017-05-15 19:23:16.948093000 Z
+  creator_id: 1
+  credit: 1515.0
+  currency: EUR
+  deals_count: 2
+  debit: 1515.0
+  id: 55
+  letter: A
+  lock_version: 2
+  number: A000000000048
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 12
+  type: PayslipAffair
+  updated_at: 2017-05-15 19:23:51.019281000 Z
+  updater_id: 1
+payslip_affairs_002:
+  closed: true
+  closed_at: 2017-05-15 19:24:36.557104000 Z
+  created_at: 2017-05-15 19:24:16.919703000 Z
+  creator_id: 1
+  credit: 1515.0
+  currency: EUR
+  deals_count: 2
+  debit: 1515.0
+  id: 56
+  letter: B
+  lock_version: 2
+  number: A000000000049
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 12
+  type: PayslipAffair
+  updated_at: 2017-05-15 19:24:36.574723000 Z
+  updater_id: 1
 purchase_affairs_001:
   accounted_at: 2014-11-05 13:40:57.922047000 Z
   closed: true

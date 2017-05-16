@@ -49,6 +49,52 @@
 #  updater_id        :integer
 #
 ---
+payslip_payments_001:
+  accounted_at: 2017-05-15 19:23:50.972493000 Z
+  affair_id: 55
+  amount: 1515.0
+  bank_check_number: ''
+  cash_id: 3
+  created_at: 2017-05-15 19:23:50.910135000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 11
+  journal_entry_id: 118
+  lock_version: 0
+  mode_id: 2
+  number: D20170001
+  paid_at: 2017-05-15 19:23:50.887020000 Z
+  payee_id: 12
+  responsible_id: 2
+  to_bank_at: 2017-07-27 19:23:00.000000000 Z
+  type: PayslipPayment
+  updated_at: 2017-05-15 19:23:50.910135000 Z
+  updater_id: 1
+payslip_payments_002:
+  accounted_at: 2017-05-15 19:24:36.533843000 Z
+  affair_id: 56
+  amount: 1515.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2017-05-15 19:24:36.478242000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: true
+  downpayment: true
+  id: 12
+  journal_entry_id: 120
+  lock_version: 0
+  mode_id: 1
+  number: D20170002
+  paid_at: 2017-05-15 19:24:00.000000000 Z
+  payee_id: 12
+  responsible_id: 2
+  to_bank_at: 2017-05-15 19:24:00.000000000 Z
+  type: PayslipPayment
+  updated_at: 2017-05-15 19:24:36.478242000 Z
+  updater_id: 1
 purchase_payments_001:
   accounted_at: 2014-11-07 13:58:25.752963000 Z
   affair_id: 23

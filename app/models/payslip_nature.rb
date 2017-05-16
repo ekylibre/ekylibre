@@ -22,6 +22,7 @@
 #
 # == Table: payslip_natures
 #
+#  account_id      :integer
 #  active          :boolean          default(FALSE), not null
 #  by_default      :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
@@ -38,6 +39,7 @@
 
 class PayslipNature < Ekylibre::Record::Base
   refers_to :currency
+  belongs_to :account
   belongs_to :journal
   has_many :payslips, foreign_key: :nature_id, dependent: :restrict_with_exception
 
@@ -47,11 +49,18 @@ class PayslipNature < Ekylibre::Record::Base
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
 
+  selects_among_all  
+
   after_initialize if: :new_record? do
+    self.active = true
     self.with_accounting = true
   end
 
   protect on: :destroy do
     payslips.any?
+  end
+
+  validate do
+    errors.add(:currency, :invalid) if self.journal && self.currency.present? && self.journal.currency != self.currency
   end
 end

@@ -12,6 +12,7 @@ module Backend
       t.column :currency
       t.column :with_accounting
       t.column :journal, url: true
+      t.column :account, url: true
     end
   end
 end

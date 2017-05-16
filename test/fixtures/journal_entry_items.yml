@@ -11938,3 +11938,283 @@ journal_entry_items_353:
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
   updater_id: 1
+journal_entry_items_354:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1515.0
+  absolute_pretax_amount: 0.0
+  account_id: 171
+  balance: 1515.0
+  created_at: 2017-05-15 19:23:21.363070000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1515.0
+  currency: EUR
+  debit: 1515.0
+  entry_id: 117
+  entry_number: PY000001
+  financial_year_id: 26
+  id: 572
+  journal_id: 13
+  lock_version: 0
+  name: "[Salaire BS2017050001] Mme Yui IKARI du 01/07/1997 au 31/07/1997"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-05-15
+  real_balance: 1515.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1515.0
+  real_pretax_amount: 0.0
+  resource_prism: expense
+  state: draft
+  updated_at: 2017-05-15 19:23:21.363070000 Z
+  updater_id: 1
+journal_entry_items_355:
+  absolute_credit: 1515.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: -1515.0
+  created_at: 2017-05-15 19:23:21.370394000 Z
+  creator_id: 1
+  credit: 1515.0
+  cumulated_absolute_credit: 1515.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 117
+  entry_number: PY000001
+  financial_year_id: 26
+  id: 573
+  journal_id: 13
+  letter: A
+  lock_version: 0
+  name: "[Salaire BS2017050001] Mme Yui IKARI du 01/07/1997 au 31/07/1997"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-05-15
+  real_balance: -1515.0
+  real_credit: 1515.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: employee
+  state: draft
+  updated_at: 2017-05-15 19:23:21.370394000 Z
+  updater_id: 1
+journal_entry_items_356:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1515.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: 1515.0
+  created_at: 2017-05-15 19:23:50.956756000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 3030.0
+  cumulated_absolute_debit: 3030.0
+  currency: EUR
+  debit: 1515.0
+  entry_id: 118
+  entry_number: CUN000005
+  financial_year_id: 26
+  id: 574
+  journal_id: 6
+  letter: A
+  lock_version: 0
+  name: "[Paiement de salaire D20170001] En espèce  pour Mme Yui IKARI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-07-27
+  real_balance: 1515.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1515.0
+  real_pretax_amount: 0.0
+  resource_id: 12
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-05-15 19:23:50.956756000 Z
+  updater_id: 1
+journal_entry_items_357:
+  absolute_credit: 1515.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 213
+  balance: -1515.0
+  created_at: 2017-05-15 19:23:50.962258000 Z
+  creator_id: 1
+  credit: 1515.0
+  cumulated_absolute_credit: 22864.19
+  cumulated_absolute_debit: 28.3
+  currency: EUR
+  debit: 0.0
+  entry_id: 118
+  entry_number: CUN000005
+  financial_year_id: 26
+  id: 575
+  journal_id: 6
+  lock_version: 0
+  name: "[Paiement de salaire D20170001] En espèce  pour Mme Yui IKARI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-07-27
+  real_balance: -1515.0
+  real_credit: 1515.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-05-15 19:23:50.962258000 Z
+  updater_id: 1
+journal_entry_items_358:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1515.0
+  absolute_pretax_amount: 0.0
+  account_id: 216
+  balance: 1515.0
+  created_at: 2017-05-15 19:24:21.004729000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 16100.0
+  currency: EUR
+  debit: 1515.0
+  entry_id: 119
+  entry_number: PY000002
+  financial_year_id: 26
+  id: 576
+  journal_id: 13
+  lock_version: 0
+  name: "[Salaire BS2017050002] Mme Yui IKARI du 04/05/2017 au 31/05/2017"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-05-15
+  real_balance: 1515.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1515.0
+  real_pretax_amount: 0.0
+  resource_prism: expense
+  state: draft
+  updated_at: 2017-05-15 19:24:21.004729000 Z
+  updater_id: 1
+journal_entry_items_359:
+  absolute_credit: 1515.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: -1515.0
+  created_at: 2017-05-15 19:24:21.008092000 Z
+  creator_id: 1
+  credit: 1515.0
+  cumulated_absolute_credit: 3030.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 119
+  entry_number: PY000002
+  financial_year_id: 26
+  id: 577
+  journal_id: 13
+  letter: B
+  lock_version: 0
+  name: "[Salaire BS2017050002] Mme Yui IKARI du 04/05/2017 au 31/05/2017"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-05-15
+  real_balance: -1515.0
+  real_credit: 1515.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: employee
+  state: draft
+  updated_at: 2017-05-15 19:24:21.008092000 Z
+  updater_id: 1
+journal_entry_items_360:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1515.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: 1515.0
+  created_at: 2017-05-15 19:24:36.523331000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 3030.0
+  cumulated_absolute_debit: 1515.0
+  currency: EUR
+  debit: 1515.0
+  entry_id: 120
+  entry_number: BNK000015
+  financial_year_id: 26
+  id: 578
+  journal_id: 2
+  letter: B
+  lock_version: 0
+  name: "[Paiement de salaire D20170002] Par chèque  pour Mme Yui IKARI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-05-15
+  real_balance: 1515.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1515.0
+  real_pretax_amount: 0.0
+  resource_id: 12
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-05-15 19:24:36.523331000 Z
+  updater_id: 1
+journal_entry_items_361:
+  absolute_credit: 1515.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -1515.0
+  created_at: 2017-05-15 19:24:36.527127000 Z
+  creator_id: 1
+  credit: 1515.0
+  cumulated_absolute_credit: 34365.46
+  cumulated_absolute_debit: 969.63
+  currency: EUR
+  debit: 0.0
+  entry_id: 120
+  entry_number: BNK000015
+  financial_year_id: 26
+  id: 579
+  journal_id: 2
+  lock_version: 0
+  name: "[Paiement de salaire D20170002] Par chèque  pour Mme Yui IKARI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-05-15
+  real_balance: -1515.0
+  real_credit: 1515.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-05-15 19:24:36.527127000 Z
+  updater_id: 1

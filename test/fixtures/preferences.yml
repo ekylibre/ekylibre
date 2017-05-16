@@ -4778,3 +4778,111 @@ preferences_414:
   updated_at: 2017-05-01 23:43:33.909903000 Z
   updater_id: 1
   user_id: 1
+preferences_415:
+  boolean_value: false
+  created_at: 2017-05-15 19:16:23.411923000 Z
+  creator_id: 1
+  id: 416
+  lock_version: 0
+  name: interface.snippets.humans.collapsed
+  nature: boolean
+  updated_at: 2017-05-15 19:16:23.411923000 Z
+  updater_id: 1
+  user_id: 1
+preferences_416:
+  created_at: 2017-05-15 19:16:25.804607000 Z
+  creator_id: 1
+  id: 417
+  lock_version: 0
+  name: list._payslip_natures_list_payslip_natures_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-15 19:16:25.804607000 Z
+  updater_id: 1
+  user_id: 1
+preferences_417:
+  boolean_value: false
+  created_at: 2017-05-15 19:20:48.111519000 Z
+  creator_id: 1
+  id: 418
+  lock_version: 0
+  name: interface.snippets.payslips.collapsed
+  nature: boolean
+  updated_at: 2017-05-15 19:20:48.111519000 Z
+  updater_id: 1
+  user_id: 1
+preferences_418:
+  created_at: 2017-05-15 19:20:49.806019000 Z
+  creator_id: 1
+  id: 419
+  lock_version: 0
+  name: list._payslips_list_payslips_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-15 19:20:49.806019000 Z
+  updater_id: 1
+  user_id: 1
+preferences_419:
+  boolean_value: true
+  created_at: 2017-05-15 19:20:51.347417000 Z
+  creator_id: 1
+  id: 420
+  lock_version: 0
+  name: interface.kujakus.backend-payslip_payments-index-1.collapsed
+  nature: boolean
+  updated_at: 2017-05-15 19:20:51.347417000 Z
+  updater_id: 1
+  user_id: 1
+preferences_420:
+  created_at: 2017-05-15 19:20:51.362689000 Z
+  creator_id: 1
+  id: 421
+  lock_version: 0
+  name: kujaku.feathers.backend-payslip_payments-index-1:0.default
+  nature: string
+  updated_at: 2017-05-15 19:20:51.362689000 Z
+  updater_id: 1
+  user_id: 1
+preferences_421:
+  created_at: 2017-05-15 19:20:51.373994000 Z
+  creator_id: 1
+  id: 422
+  lock_version: 0
+  name: list._payslip_payments_list_payslip_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-15 19:20:51.373994000 Z
+  updater_id: 1
+  user_id: 1
+preferences_422:
+  created_at: 2017-05-15 19:21:22.449592000 Z
+  creator_id: 1
+  id: 423
+  lock_version: 0
+  name: list._workers_list_workers_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-15 19:21:22.449592000 Z
+  updater_id: 1
+  user_id: 1
+preferences_423:
+  created_at: 2017-05-15 19:23:16.841647000 Z
+  creator_id: 1
+  id: 424
+  lock_version: 0
+  name: employee_account_radix
+  nature: string
+  string_value: ''
+  updated_at: 2017-05-15 19:23:16.841647000 Z
+  updater_id: 1
+preferences_424:
+  created_at: 2017-05-15 19:23:17.056966000 Z
+  creator_id: 1
+  id: 425
+  lock_version: 0
+  name: cobbler.payslips-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-15 19:23:17.056966000 Z
+  updater_id: 1
+  user_id: 1

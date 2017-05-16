@@ -22,6 +22,7 @@
 #
 # == Table: payslips
 #
+#  account_id       :integer
 #  accounted_at     :datetime
 #  affair_id        :integer
 #  amount           :decimal(19, 4)   not null
@@ -46,6 +47,7 @@
 class Payslip < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  belongs_to :account
   belongs_to :employee, class_name: 'Entity'
   belongs_to :journal_entry
   belongs_to :nature, class_name: 'PayslipNature'
@@ -83,14 +85,17 @@ class Payslip < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
-      entry.add_debit(label, Account.find_or_import_from_nomenclature(:staff_expenses).id, amount, as: :expense)
+      entry.add_debit(label, (account || Account.find_or_import_from_nomenclature(:staff_expenses)).id, amount, as: :expense)
       entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)
     end
   end
 
   before_validation do
     self.state ||= :draft
-    self.currency = nature.currency if nature
+    if nature
+      self.currency = nature.currency
+      self.account ||= nature.account if nature.account
+    end
     self.emitted_on ||= Time.zone.today if invoice?
   end
 

@@ -5064,6 +5064,9 @@ parcels:
     required: true
     default: false
 payslip_natures:
+  account_id:
+    type: integer
+    references: account
   active:
     type: boolean
     required: true
@@ -5105,6 +5108,9 @@ payslip_natures:
     required: true
     default: false
 payslips:
+  account_id:
+    type: integer
+    references: account
   accounted_at:
     type: datetime
   affair_id:
