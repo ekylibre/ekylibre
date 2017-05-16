@@ -125,6 +125,50 @@ END;
 $$;
 
 
+--
+-- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION synchronize_jei_with_entry() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  synced_entry_id integer DEFAULT NULL;
+BEGIN
+  IF TG_NARGS <> 0 THEN
+    IF TG_ARGV[0] = 'jei' THEN
+      synced_entry_id := NEW.entry_id;
+    END IF;
+
+    IF TG_ARGV[0] = 'entry' THEN
+      synced_entry_id := NEW.id;
+    END IF;
+  END IF;
+
+  UPDATE journal_entry_items AS jei
+  SET state = entries.state,
+      printed_on = entries.printed_on,
+      journal_id = entries.journal_id,
+      financial_year_id = entries.financial_year_id,
+      entry_number = entries.number,
+      real_currency = entries.real_currency,
+      real_currency_rate = entries.real_currency_rate
+  FROM journal_entries AS entries
+  WHERE jei.entry_id = synced_entry_id
+    AND entries.id = synced_entry_id
+    AND synced_entry_id IS NOT NULL
+    AND (jei.state <> entries.state
+     OR jei.printed_on <> entries.printed_on
+     OR jei.journal_id <> entries.journal_id
+     OR jei.financial_year_id <> entries.financial_year_id
+     OR jei.entry_number <> entries.number
+     OR jei.real_currency <> entries.real_currency
+     OR jei.real_currency_rate <> entries.real_currency_rate);
+  RETURN NEW;
+END;
+$$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -17053,7 +17097,7 @@ CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DE
 -- Name: compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((("substring"((COALESCE(old.letter, ''::character varying))::text, '[A-z]*'::text) <> "substring"((COALESCE(new.letter, ''::character varying))::text, '[A-z]*'::text)) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
+CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
 
 
 --
@@ -17093,6 +17137,20 @@ ALTER TABLE ONLY outgoing_payments
 
 ALTER TABLE ONLY outgoing_payments
     ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
+
+
+--
+-- Name: synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
 
 
 --
@@ -17783,5 +17841,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222520');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 
-INSERT INTO schema_migrations (version) VALUES ('20170421131536');
+INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
+INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170421131536');
