@@ -565,8 +565,8 @@ class FinancialYear < Ekylibre::Record::Base
 
   def unbalanced_items_for(account, to_close_on, include_nil: false)
     items = account
-      .journal_entry_items
-      .between(started_on, to_close_on)
+            .journal_entry_items
+            .between(started_on, to_close_on)
     items = items.where.not(letter: nil) unless include_nil
 
     items
