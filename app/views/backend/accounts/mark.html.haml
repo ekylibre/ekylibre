@@ -44,9 +44,9 @@
           - items.each do |item|
             - checked = (item.letter.blank? && (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
             - trid, conf = "e#{item.id}", {}
-            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd") + ((item.lettered? && !item.partially_lettered?) ? ' lettered-item' : '')}
+            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd") + (item.completely_lettered? ? ' lettered-item' : '')}
               %td.chk
-                - if (item.letter.blank? || item.partially_lettered?) && !item.closed?
+                - unless item.completely_lettered? || item.closed?
                   = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", data: {add_class: "selected", add_class_to: "##{trid}"})
                   - conf = {data: {click: "#journal_entry_item_#{item.id}_to_mark"}}
               %td.ltr

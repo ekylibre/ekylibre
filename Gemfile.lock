@@ -30,7 +30,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_list (6.8.2)
+    active_list (6.9.1)
       arel (>= 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements
@@ -73,10 +73,10 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.4)
     ast (2.3.0)
-    autoprefixer-rails (6.7.7.2)
+    autoprefixer-rails (7.0.1)
       execjs
-    awesome_nested_set (3.1.2)
-      activerecord (>= 4.0.0, < 5.1)
+    awesome_nested_set (3.1.3)
+      activerecord (>= 4.0.0, < 5.2)
     bcrypt (3.1.11)
     beardley (1.3.0)
       rjb (>= 1.4.8)
@@ -98,7 +98,7 @@ GEM
       sass (>= 3.3.4)
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
-    browser (2.3.0)
+    browser (2.4.0)
     builder (3.2.3)
     bullet (5.5.1)
       activesupport (>= 3.0.0)
@@ -116,12 +116,12 @@ GEM
       capybara (>= 2.3.0, < 2.14.0)
       json
     charlock_holmes (0.7.3)
-    childprocess (0.6.3)
+    childprocess (0.7.0)
       ffi (~> 1.0, >= 1.0.11)
-    climate_control (0.1.0)
+    climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
-    cocoon (1.2.9)
+    cocoon (1.2.10)
     codacy-coverage (1.1.6)
       simplecov
     code_analyzer (0.4.7)
@@ -145,9 +145,9 @@ GEM
       thor (~> 0.19.4)
       tins (~> 1.6)
     daemons (1.2.4)
-    database_cleaner (1.5.3)
+    database_cleaner (1.6.1)
     dbf (3.1.0)
-    debug_inspector (0.0.2)
+    debug_inspector (0.0.3)
     deep_cloneable (2.2.2)
       activerecord (>= 3.1.0, < 5.2.0)
     devise (4.2.1)
@@ -166,7 +166,7 @@ GEM
     enumerize (2.1.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    et-orbi (1.0.3)
+    et-orbi (1.0.4)
       tzinfo
     eventmachine (1.2.3)
     exception_notification (4.2.1)
@@ -198,7 +198,7 @@ GEM
       activesupport (>= 4.2.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
-    haml (5.0.0)
+    haml (5.0.1)
       temple (>= 0.8.0)
       tilt
     hashie (3.5.5)
@@ -216,9 +216,9 @@ GEM
     i18n-js (3.0.0)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
-    jbuilder (2.6.3)
-      activesupport (>= 3.0.0, < 5.2)
-      multi_json (~> 1.2)
+    jbuilder (2.6.4)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.2)
     jc-validates_timeliness (3.1.1)
       timeliness (~> 0.3.7)
     jquery-rails (4.3.1)
@@ -255,7 +255,7 @@ GEM
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
-    mail (2.6.5)
+    mail (2.6.6.rc1)
       mime-types (>= 1.16, < 4)
     mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
@@ -272,7 +272,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
-    minitest (5.10.1)
+    minitest (5.10.2)
     minitest-reporters (1.1.14)
       ansi
       builder
@@ -286,7 +286,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
     netrc (0.11.0)
-    nokogiri (1.7.1)
+    nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
@@ -333,10 +333,10 @@ GEM
     public_suffix (2.0.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.5)
+    rack (1.6.6)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-protection (1.5.3)
+    rack-protection (2.0.0)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -359,7 +359,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_best_practices (1.18.0)
+    rails_best_practices (1.18.1)
       activesupport
       code_analyzer (>= 0.4.3)
       erubis
@@ -500,7 +500,7 @@ GEM
     tilt (2.0.7)
     timecop (0.8.1)
     timeliness (0.3.8)
-    tins (1.13.2)
+    tins (1.13.3)
     treetop (1.6.8)
       polyglot (~> 0.3)
     turbolinks (2.5.3)
@@ -601,6 +601,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   luhn
+  mail (~> 2.6.6.rc1)
   mechanize
   minitest-reporters
   momentjs-rails (>= 2.9.0)
