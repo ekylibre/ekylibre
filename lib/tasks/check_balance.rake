@@ -23,23 +23,19 @@ namespace :check_balance do
       if je_debit - je_credit != 0
         puts "Debit and credit are different in #{ journal_entry.id }"
       end
+
+      puts "!!!! Debit and credit (sum of journal entry items) are different in JournalEntry: #{journal_entry.id} !!!" if journal_entry.items.sum(:debit) != journal_entry.items.sum(:credit)
     end
 
-    puts '----Sum of journal entry debit and credit, after loop----'
-    puts journal_entry_debit
-    puts journal_entry_credit
     puts "journal_entry-debit != journal_entry_credit" if journal_entry_debit != journal_entry_credit
 
 
-    puts '----Classic sum of journal entry, debit, credit'
+
+
     total_debit  = JournalEntry.sum(:debit)
-    puts total_debit
     total_credit = JournalEntry.sum(:credit)
-    puts total_credit
     total_absolute_debit = JournalEntry.sum(:absolute_debit)
-    puts total_absolute_debit
     total_absolute_credit = JournalEntry.sum(:absolute_credit)
-    puts total_absolute_credit
 
 
     puts "total_credit != total_debit" if total_credit != total_debit
