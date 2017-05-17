@@ -499,6 +499,7 @@ fra:
       new: "Nouveau paiement de salaire"
       show: "Paiement de salaire\_: %{number}"
     backend/payslips:
+      edit: "Modifier le salaire\_: %{number}"
       index: "Salaires"
       new: "Nouveau salaire"
       show: "Salaire\_: %{number}"

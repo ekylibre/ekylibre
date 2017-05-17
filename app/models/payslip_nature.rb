@@ -49,7 +49,7 @@ class PayslipNature < Ekylibre::Record::Base
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
 
-  selects_among_all  
+  selects_among_all
 
   after_initialize if: :new_record? do
     self.active = true
@@ -61,6 +61,6 @@ class PayslipNature < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:currency, :invalid) if self.journal && self.currency.present? && self.journal.currency != self.currency
+    errors.add(:currency, :invalid) if journal && currency.present? && journal.currency != currency
   end
 end

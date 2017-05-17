@@ -540,7 +540,7 @@ eng:
       show: "Payslip payment: %{number}"
     backend/payslips:
       # correct: "Correct payslip: %{name}"
-      # edit: "Edit payslip: %{name}"
+      edit: "Edit payslip: %{name}"
       index: "Payslips"
       # invoice: "Invoice payslip: %{name}"
       new: "New payslip"

@@ -2899,110 +2899,218 @@ journal_entries_109:
   updated_at: 2016-12-20 18:17:24.123512000 Z
   updater_id: 1
 journal_entries_110:
-  absolute_credit: 1515.0
+  absolute_credit: 187.2
   absolute_currency: EUR
-  absolute_debit: 1515.0
+  absolute_debit: 187.2
   balance: 0.0
-  created_at: 2017-05-15 19:23:21.361011000 Z
+  created_at: 2017-05-17 20:26:25.765818000 Z
   creator_id: 1
-  credit: 1515.0
+  credit: 187.2
   currency: EUR
-  debit: 1515.0
+  debit: 187.2
   financial_year_id: 26
   id: 117
+  journal_id: 3
+  lock_version: 0
+  number: SAL000007
+  printed_on: 2017-05-17
+  real_balance: 0.0
+  real_credit: 187.2
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 187.2
+  resource_id: 12
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2017-05-17 20:26:25.765818000 Z
+  updater_id: 1
+journal_entries_111:
+  absolute_credit: 187.2
+  absolute_currency: EUR
+  absolute_debit: 187.2
+  balance: 0.0
+  created_at: 2017-05-17 20:26:37.787289000 Z
+  creator_id: 1
+  credit: 187.2
+  currency: EUR
+  debit: 187.2
+  financial_year_id: 26
+  id: 118
+  journal_id: 1
+  lock_version: 0
+  number: XYZ0022
+  printed_on: 2017-05-17
+  real_balance: 0.0
+  real_credit: 187.2
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 187.2
+  resource_id: 11
+  resource_prism: waiting_incoming_payment
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2017-05-17 20:26:37.787289000 Z
+  updater_id: 1
+journal_entries_112:
+  absolute_credit: 200.0
+  absolute_currency: EUR
+  absolute_debit: 200.0
+  balance: 0.0
+  created_at: 2017-05-17 20:27:02.061285000 Z
+  creator_id: 1
+  credit: 200.0
+  currency: EUR
+  debit: 200.0
+  financial_year_id: 26
+  id: 119
+  journal_id: 3
+  lock_version: 0
+  number: SAL000008
+  printed_on: 2017-05-17
+  real_balance: 0.0
+  real_credit: 200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 200.0
+  resource_id: 26
+  resource_prism: sale
+  resource_type: Sale
+  state: draft
+  updated_at: 2017-05-17 20:27:02.061285000 Z
+  updater_id: 1
+journal_entries_113:
+  absolute_credit: 1235.0
+  absolute_currency: EUR
+  absolute_debit: 1235.0
+  balance: 0.0
+  created_at: 2017-05-17 20:27:38.979270000 Z
+  creator_id: 1
+  credit: 1235.0
+  currency: EUR
+  debit: 1235.0
+  financial_year_id: 26
+  id: 120
+  journal_id: 1
+  lock_version: 0
+  number: XYZ0023
+  printed_on: 2017-05-17
+  real_balance: 0.0
+  real_credit: 1235.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1235.0
+  resource_id: 12
+  resource_prism: waiting_incoming_payment
+  resource_type: IncomingPayment
+  state: draft
+  updated_at: 2017-05-17 20:27:38.979270000 Z
+  updater_id: 1
+journal_entries_114:
+  absolute_credit: 123.0
+  absolute_currency: EUR
+  absolute_debit: 123.0
+  balance: 0.0
+  created_at: 2017-05-17 20:58:53.582776000 Z
+  creator_id: 1
+  credit: 123.0
+  currency: EUR
+  debit: 123.0
+  financial_year_id: 26
+  id: 121
   journal_id: 13
   lock_version: 0
   number: PY000001
-  printed_on: 2017-05-15
+  printed_on: 2017-05-17
   real_balance: 0.0
-  real_credit: 1515.0
+  real_credit: 123.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 1515.0
+  real_debit: 123.0
   resource_id: 1
   resource_prism: payslip
   resource_type: Payslip
   state: draft
-  updated_at: 2017-05-15 19:23:21.361011000 Z
+  updated_at: 2017-05-17 20:58:53.582776000 Z
   updater_id: 1
-journal_entries_111:
-  absolute_credit: 1515.0
+journal_entries_115:
+  absolute_credit: 123.0
   absolute_currency: EUR
-  absolute_debit: 1515.0
+  absolute_debit: 123.0
   balance: 0.0
-  created_at: 2017-05-15 19:23:50.954849000 Z
+  created_at: 2017-05-17 20:59:09.078345000 Z
   creator_id: 1
-  credit: 1515.0
+  credit: 123.0
   currency: EUR
-  debit: 1515.0
+  debit: 123.0
   financial_year_id: 26
-  id: 118
+  id: 122
   journal_id: 6
   lock_version: 0
   number: CUN000005
-  printed_on: 2017-07-27
+  printed_on: 2017-05-04
   real_balance: 0.0
-  real_credit: 1515.0
+  real_credit: 123.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 1515.0
+  real_debit: 123.0
   resource_id: 11
   resource_prism: payslip_payment
   resource_type: OutgoingPayment
   state: draft
-  updated_at: 2017-05-15 19:23:50.954849000 Z
+  updated_at: 2017-05-17 20:59:09.078345000 Z
   updater_id: 1
-journal_entries_112:
-  absolute_credit: 1515.0
+journal_entries_116:
+  absolute_credit: 8523.0
   absolute_currency: EUR
-  absolute_debit: 1515.0
+  absolute_debit: 8523.0
   balance: 0.0
-  created_at: 2017-05-15 19:24:21.003259000 Z
+  created_at: 2017-05-17 20:59:35.201363000 Z
   creator_id: 1
-  credit: 1515.0
+  credit: 8523.0
   currency: EUR
-  debit: 1515.0
+  debit: 8523.0
   financial_year_id: 26
-  id: 119
+  id: 123
   journal_id: 13
   lock_version: 0
   number: PY000002
-  printed_on: 2017-05-15
+  printed_on: 2017-05-17
   real_balance: 0.0
-  real_credit: 1515.0
+  real_credit: 8523.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 1515.0
+  real_debit: 8523.0
   resource_id: 2
   resource_prism: payslip
   resource_type: Payslip
   state: draft
-  updated_at: 2017-05-15 19:24:21.003259000 Z
+  updated_at: 2017-05-17 20:59:35.201363000 Z
   updater_id: 1
-journal_entries_113:
-  absolute_credit: 1515.0
+journal_entries_117:
+  absolute_credit: 8541.0
   absolute_currency: EUR
-  absolute_debit: 1515.0
+  absolute_debit: 8541.0
   balance: 0.0
-  created_at: 2017-05-15 19:24:36.521537000 Z
+  created_at: 2017-05-17 20:59:52.272709000 Z
   creator_id: 1
-  credit: 1515.0
+  credit: 8541.0
   currency: EUR
-  debit: 1515.0
+  debit: 8541.0
   financial_year_id: 26
-  id: 120
+  id: 124
   journal_id: 2
   lock_version: 0
   number: BNK000015
-  printed_on: 2017-05-15
+  printed_on: 2017-05-03
   real_balance: 0.0
-  real_credit: 1515.0
+  real_credit: 8541.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 1515.0
+  real_debit: 8541.0
   resource_id: 12
   resource_prism: payslip_payment
   resource_type: OutgoingPayment
   state: draft
-  updated_at: 2017-05-15 19:24:36.521537000 Z
+  updated_at: 2017-05-17 20:59:52.272709000 Z
   updater_id: 1

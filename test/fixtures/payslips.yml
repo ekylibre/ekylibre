@@ -46,41 +46,41 @@
 ---
 payslips_001:
   account_id: 171
-  accounted_at: 2017-05-15 19:23:21.379860000 Z
-  affair_id: 55
-  amount: 1515.0
-  created_at: 2017-05-15 19:23:16.832986000 Z
+  accounted_at: 2017-05-17 20:58:53.604547000 Z
+  affair_id: 58
+  amount: 123.0
+  created_at: 2017-05-17 20:58:49.350775000 Z
   creator_id: 1
   currency: EUR
-  emitted_on: 2017-05-15
-  employee_id: 12
+  emitted_on: 2017-05-17
+  employee_id: 9
   id: 1
-  journal_entry_id: 117
+  journal_entry_id: 121
   lock_version: 1
   nature_id: 1
   number: BS2017050001
-  started_on: 1997-07-01
+  started_on: 2017-05-01
   state: invoice
-  stopped_on: 1997-07-31
-  updated_at: 2017-05-15 19:23:21.288770000 Z
+  stopped_on: 2017-05-04
+  updated_at: 2017-05-17 20:58:53.501178000 Z
   updater_id: 1
 payslips_002:
-  account_id: 216
-  accounted_at: 2017-05-15 19:24:21.013791000 Z
-  affair_id: 56
-  amount: 1515.0
-  created_at: 2017-05-15 19:24:16.886285000 Z
+  account_id: 171
+  accounted_at: 2017-05-17 20:59:35.215031000 Z
+  affair_id: 59
+  amount: 8523.0
+  created_at: 2017-05-17 20:59:31.388295000 Z
   creator_id: 1
   currency: EUR
-  emitted_on: 2017-05-15
-  employee_id: 12
+  emitted_on: 2017-05-17
+  employee_id: 10
   id: 2
-  journal_entry_id: 119
+  journal_entry_id: 123
   lock_version: 1
-  nature_id: 2
+  nature_id: 1
   number: BS2017050002
-  started_on: 2017-05-04
+  started_on: 2017-02-01
   state: invoice
-  stopped_on: 2017-05-31
-  updated_at: 2017-05-15 19:24:20.966156000 Z
+  stopped_on: 2017-02-28
+  updated_at: 2017-05-17 20:59:35.166140000 Z
   updater_id: 1

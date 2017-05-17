@@ -3319,25 +3319,3 @@ workers_004:
   uuid: b4165d0b-8b9c-4dde-9685-89458009e572
   variant_id: 23
   variety: worker
-workers_005:
-  born_at: 2017-05-15 19:22:15.578856000 Z
-  category_id: 13
-  created_at: 2017-05-15 19:22:15.619661000 Z
-  creator_id: 1
-  id: 182
-  initial_born_at: 2017-05-15 19:22:15.578856000 Z
-  initial_geolocation: SRID=4326;POINT(-0.79945981267674 45.8263575757299)
-  initial_movement_id: 179
-  initial_population: 0.0
-  lock_version: 0
-  name: Mme Yui IKARI
-  nature_id: 20
-  number: PR00000000126
-  person_id: 12
-  type: Worker
-  updated_at: 2017-05-15 19:22:15.619661000 Z
-  updater_id: 1
-  uuid: 58d6209d-08c1-42d5-85ed-82c622b2ced9
-  variant_id: 23
-  variety: worker
-  work_number: ''

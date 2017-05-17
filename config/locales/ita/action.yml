@@ -422,6 +422,7 @@ ita:
       new: "Nuovo pagamento payslip"
       # show: "Payslip payment: %{number}"
     backend/payslips:
+      # edit: "Edit payslip: %{name}"
       index: "Buste paga"
       new: "Nuovo payslip"
       # show: "Payslip: %{number}"

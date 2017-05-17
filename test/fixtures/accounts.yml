@@ -2975,7 +2975,7 @@ accounts_226:
   debtor: false
   id: 572
   label: 411P00000004 - Περικλῆς
-  last_letter: D
+  last_letter: F
   lock_version: 0
   name: "Περικλῆς"
   number: 411P00000004
@@ -4177,16 +4177,58 @@ accounts_333:
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
 accounts_334:
-  created_at: 2017-05-15 19:23:16.863815000 Z
+  created_at: 2017-05-17 20:27:38.938956000 Z
   creator_id: 1
   debtor: false
   id: 680
+  label: 411EI00000003 - Mme Andrew BAKTOUBI
+  last_letter: A
+  lock_version: 0
+  name: Mme Andrew BAKTOUBI
+  number: 411EI00000003
+  reconcilable: true
+  updated_at: 2017-05-17 20:27:38.938956000 Z
+  updater_id: 1
+  usages: clients
+accounts_335:
+  created_at: 2017-05-17 20:58:49.372008000 Z
+  creator_id: 1
+  debtor: false
+  id: 681
+  label: 421193 - M. Gendo IKARI
+  last_letter: A
+  lock_version: 0
+  name: M. Gendo IKARI
+  number: '421193'
+  reconcilable: true
+  updated_at: 2017-05-17 20:58:49.372008000 Z
+  updater_id: 1
+  usages: staff_due_remunerations
+accounts_336:
+  created_at: 2017-05-17 20:59:31.403932000 Z
+  creator_id: 1
+  debtor: false
+  id: 682
+  label: 421194 - M. Kōzō FUYUTSUKI
+  last_letter: A
+  lock_version: 0
+  name: M. Kōzō FUYUTSUKI
+  number: '421194'
+  reconcilable: true
+  updated_at: 2017-05-17 20:59:31.403932000 Z
+  updater_id: 1
+  usages: staff_due_remunerations
+accounts_337:
+  created_at: 2017-05-17 20:59:52.233372000 Z
+  creator_id: 1
+  debtor: false
+  id: 683
   label: 421P00000002 - Mme Yui IKARI
-  last_letter: B
+  last_letter: A
   lock_version: 0
   name: Mme Yui IKARI
   number: 421P00000002
   reconcilable: true
-  updated_at: 2017-05-15 19:23:16.863815000 Z
+  updated_at: 2017-05-17 20:59:52.233372000 Z
   updater_id: 1
   usages: staff_due_remunerations

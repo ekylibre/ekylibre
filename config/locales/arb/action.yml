@@ -515,6 +515,7 @@ arb:
       new: "دفعة دفع جديدة"
       # show: "Payslip payment: %{number}"
     backend/payslips:
+      # edit: "Edit payslip: %{name}"
       index: "كشوف"
       new: "جديد قسيمة الدفع"
       # show: "Payslip: %{number}"

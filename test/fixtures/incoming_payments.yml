@@ -292,3 +292,53 @@ incoming_payments_010:
   to_bank_at: 2016-12-19 23:00:00.000000000 Z
   updated_at: 2016-12-20 08:58:52.977894000 Z
   updater_id: 1
+incoming_payments_011:
+  accounted_at: 2017-05-17 20:26:37.804454000 Z
+  affair_id: 35
+  amount: 187.2
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2017-05-17 20:26:37.745156000 Z
+  creator_id: 1
+  currency: EUR
+  downpayment: true
+  id: 11
+  journal_entry_id: 118
+  lock_version: 0
+  mode_id: 1
+  number: R2017000001
+  paid_at: 2017-05-16 22:00:00.000000000 Z
+  payer_id: 14
+  received: true
+  responsible_id: 1
+  scheduled: false
+  to_bank_at: 2017-05-16 22:00:00.000000000 Z
+  updated_at: 2017-05-17 20:26:37.745156000 Z
+  updater_id: 1
+incoming_payments_012:
+  accounted_at: 2017-05-17 20:27:38.993637000 Z
+  affair_id: 57
+  amount: 1235.0
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2017-05-17 20:27:38.910235000 Z
+  creator_id: 1
+  currency: EUR
+  downpayment: true
+  id: 12
+  journal_entry_id: 120
+  lock_version: 0
+  mode_id: 1
+  number: R2017000002
+  paid_at: 2017-05-16 22:00:00.000000000 Z
+  payer_id: 19
+  received: true
+  responsible_id: 1
+  scheduled: false
+  to_bank_at: 2017-05-16 22:00:00.000000000 Z
+  updated_at: 2017-05-17 20:27:38.910235000 Z
+  updater_id: 1

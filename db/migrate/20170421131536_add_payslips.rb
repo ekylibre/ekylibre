@@ -93,36 +93,42 @@ class AddPayslips < ActiveRecord::Migration
 
     reversible do |r|
       r.up do
-        add_column :payslip_natures, :purchase_nature_id, :integer
-        # INFO: Conserve nature_id to prevent nature matching
-        execute "INSERT INTO payslip_natures(purchase_nature_id, name, currency, active, with_accounting, account_id, journal_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT id, name || COALESCE(' - ' || account_name, ''), currency, active, with_accounting, account_id, journal_id, creator_id, created_at, updater_id, updated_at, lock_version FROM (SELECT DISTINCT n.*, a.id AS account_id, a.name AS account_name FROM purchase_natures AS n LEFT JOIN purchases AS p ON (n.id = p.nature_id) LEFT JOIN purchase_items AS pi ON (pi.purchase_id = p.id) LEFT JOIN accounts AS a ON (a.id = pi.account_id) WHERE n.nature = 'payslip') AS x"
-        execute 'UPDATE payslip_natures SET by_default = TRUE WHERE id IN (SELECT id FROM payslip_natures ORDER BY id LIMIT 1)'
+        count = select_value("SELECT count(*) FROM purchase_natures WHERE nature = 'payslip'").to_i
+        if count > 0
+          account_id = find_or_create_staff_account_id
 
-        add_column :payslips, :purchase_id, :integer
-        execute "INSERT INTO payslips(purchase_id, number, nature_id, employee_id, state, emitted_on, started_on, stopped_on, amount, currency, account_id, accounted_at, journal_entry_id, affair_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT p.id, p.number, n.id, supplier_id, CASE WHEN state = 'invoice' THEN 'invoice' ELSE 'draft' END, invoiced_at::DATE, invoiced_at::DATE, invoiced_at::DATE, amount, p.currency, account_id, accounted_at, journal_entry_id, affair_id, p.creator_id, p.created_at, p.updater_id, p.updated_at, p.lock_version FROM purchases AS p JOIN (SELECT DISTINCT p.id AS purchase_id, n.id AS purchase_nature_id, pi.account_id, pn.id AS id FROM purchase_natures AS n LEFT JOIN purchases AS p ON (n.id = p.nature_id) LEFT JOIN purchase_items AS pi ON (pi.purchase_id = p.id) JOIN payslip_natures AS pn ON (COALESCE(pi.account_id, 0) = COALESCE(pn.account_id, 0) AND pn.purchase_nature_id = n.id) WHERE n.nature = 'payslip') AS n ON (p.id = n.purchase_id)"
+          add_column :payslip_natures, :purchase_nature_id, :integer
+          # INFO: Conserve nature_id to prevent nature matching
+          execute "INSERT INTO payslip_natures(purchase_nature_id, name, currency, active, with_accounting, account_id, journal_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT id, name, currency, active, with_accounting, #{account_id}, journal_id, creator_id, created_at, updater_id, updated_at, lock_version FROM purchase_natures WHERE nature = 'payslip'"
+          execute 'UPDATE payslip_natures SET by_default = TRUE WHERE id IN (SELECT id FROM payslip_natures ORDER BY id LIMIT 1)'
 
-        update_polymorphic_keys("SELECT purchase_id AS old_id, 'Purchase' AS old_type, id AS new_id, 'Payslip' AS new_type FROM payslips")
+          add_column :payslips, :purchase_id, :integer
+          execute "INSERT INTO payslips(purchase_id, number, nature_id, employee_id, state, emitted_on, started_on, stopped_on, amount, currency, accounted_at, account_id, journal_entry_id, affair_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT p.id, p.number, n.id, supplier_id, CASE WHEN state = 'invoice' THEN 'invoice' ELSE 'draft' END, invoiced_at::DATE, invoiced_at::DATE, invoiced_at::DATE, amount, p.currency, accounted_at, #{account_id}, journal_entry_id, affair_id, p.creator_id, p.created_at, p.updater_id, p.updated_at, p.lock_version FROM purchases AS p JOIN payslip_natures AS n ON (n.purchase_nature_id = p.nature_id)"
 
-        execute "UPDATE affairs SET type = 'PayslipAffair' WHERE id IN (SELECT affair_id FROM payslips)"
-        execute "UPDATE outgoing_payments SET type = 'PayslipPayment' WHERE affair_id IN (SELECT id FROM affairs WHERE type = 'PayslipAffair')"
+          update_polymorphic_keys("SELECT purchase_id AS old_id, 'Purchase' AS old_type, id AS new_id, 'Payslip' AS new_type FROM payslips")
 
-        execute 'DELETE FROM purchase_items WHERE purchase_id IN (SELECT purchase_id FROM payslips)'
-        execute 'DELETE FROM purchases WHERE id IN (SELECT purchase_id FROM payslips)'
-        remove_column :payslips, :purchase_id
+          execute "UPDATE affairs SET type = 'PayslipAffair' WHERE id IN (SELECT affair_id FROM payslips)"
+          execute "UPDATE outgoing_payments SET type = 'PayslipPayment' WHERE affair_id IN (SELECT id FROM affairs WHERE type = 'PayslipAffair')"
 
-        update_polymorphic_keys("SELECT purchase_nature_id AS old_id, 'PurchaseNature' AS old_type, id AS new_id, 'PayslipNature' AS new_type FROM payslip_natures")
+          execute 'DELETE FROM purchase_items WHERE purchase_id IN (SELECT purchase_id FROM payslips)'
+          execute 'DELETE FROM purchases WHERE id IN (SELECT purchase_id FROM payslips)'
+          remove_column :payslips, :purchase_id
 
-        execute "DELETE FROM purchase_natures WHERE nature = 'payslip'"
+          update_polymorphic_keys("SELECT purchase_nature_id AS old_id, 'PurchaseNature' AS old_type, id AS new_id, 'PayslipNature' AS new_type FROM payslip_natures")
+
+          execute "DELETE FROM purchase_natures WHERE nature = 'payslip'"
+          remove_column :payslip_natures, :purchase_nature_id
+        end
         execute "ALTER TABLE purchase_natures ADD CONSTRAINT purchase_natures_nature CHECK (nature = 'purchase')"
-        remove_column :payslip_natures, :purchase_nature_id
       end
       r.down do
         execute 'ALTER TABLE purchase_natures DROP CONSTRAINT purchase_natures_nature'
-        add_column :purchase_natures, :payslip_nature_id, :integer
-        execute "INSERT INTO purchase_natures(payslip_nature_id, name, nature, with_accounting, journal_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT id, name, 'payslip', with_accounting, journal_id, creator_id, created_at, updater_id, updated_at, lock_version FROM payslip_natures"
 
         count = select_value('SELECT count(*) FROM payslips').to_i
         if count > 0
+          add_column :purchase_natures, :payslip_nature_id, :integer
+          execute "INSERT INTO purchase_natures(payslip_nature_id, name, nature, with_accounting, journal_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT id, name, 'payslip', with_accounting, journal_id, creator_id, created_at, updater_id, updated_at, lock_version FROM payslip_natures"
+
           add_column :purchases, :payslip_id, :integer
           execute 'INSERT INTO purchases(payslip_id, nature_id, supplier_id, state, number, amount, currency, accounted_at, journal_entry_id, affair_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT id, n.id, employee_id, state, number, amount, p.currency, accounted_at, journal_entry_id, affair_id, p.creator_id, p.created_at, p.updater_id, p.updated_at, p.lock_version FROM payslips AS p JOIN purchase_natures AS n ON (p.nature_id = n.payslip_nature_id)'
           variant_id = find_or_create_worker_variant_id
@@ -133,10 +139,10 @@ class AddPayslips < ActiveRecord::Migration
           update_polymorphic_keys("SELECT payslip_id AS old_id, 'Payslip' AS old_type, id AS new_id, 'Purchase' AS new_type FROM purchases")
 
           remove_column :purchases, :payslip_id
-        end
 
-        update_polymorphic_keys("SELECT payslip_nature_id AS old_id, 'PayslipNature' AS old_type, id AS new_id, 'PurchaseNature' AS new_type FROM purchase_natures")
-        remove_column :purchase_natures, :payslip_nature_id
+          update_polymorphic_keys("SELECT payslip_nature_id AS old_id, 'PayslipNature' AS old_type, id AS new_id, 'PurchaseNature' AS new_type FROM purchase_natures")
+          remove_column :purchase_natures, :payslip_nature_id
+        end
       end
     end
   end
@@ -155,7 +161,8 @@ class AddPayslips < ActiveRecord::Migration
     nature_id = select_value("SELECT id FROM product_natures WHERE variety = 'worker' ORDER BY id LIMIT 1").to_i
     if nature_id.zero?
       category_id = find_or_create_worker_category_id
-      nature_id = select_value('INSERT INTO product_natures (category_id, population_counting, name, number, reference_name, variety, creator_id, created_at, updater_id, updated_at, lock_version)')
+      execute("INSERT INTO product_natures (category_id, population_counting, name, number, reference_name, variety, created_at, updated_at) SELECT #{category_id}, 'unitary', 'Staff', 'STAFF001', 'worker', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP")
+      nature_id = select_value("SELECT id FROM product_natures WHERE variety = 'worker' ORDER BY id LIMIT 1").to_i
     end
     nature_id
   end
@@ -163,11 +170,20 @@ class AddPayslips < ActiveRecord::Migration
   def find_or_create_worker_category_id
     category_id = select_value("SELECT id FROM product_nature_categories WHERE reference_name = 'worker' ORDER BY id LIMIT 1").to_i
     if category_id.zero?
-      charge_account_id = select_value("SELECT id FROM accounts WHERE usages = 'staff_expenses' LIMIT 1").to_i
-      if charge_account_id.zero?
-      end
+      charge_account_id = find_or_create_staff_account_id
+      execute("INSERT INTO product_nature_categories (name, number, reference_name, charge_account_id, created_at, updated_at) SELECT 'Staff', 'ST001', 'staff', #{charge_account_id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP")
+      category_id = select_value("SELECT id FROM product_nature_categories WHERE reference_name = 'worker' ORDER BY id LIMIT 1").to_i
     end
     category_id
+  end
+
+  def find_or_create_staff_account_id
+    account_id = select_value("SELECT id FROM accounts WHERE usages = 'staff_expenses' LIMIT 1").to_i
+    if account_id.zero?
+      execute("INSERT INTO accounts (name, number, label, usages, created_at, updated_at) SELECT 'Staff', '64', '64 - Staff', 'staff_expenses', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP")
+      account_id = select_value("SELECT id FROM accounts WHERE usages = 'staff_expenses' LIMIT 1").to_i
+    end
+    account_id
   end
 
   # Updates types in polymorphic reflections with a conversion query which should

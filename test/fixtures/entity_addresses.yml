@@ -94,19 +94,23 @@ entity_addresses_003:
 entity_addresses_004:
   by_default: true
   canal: mail
-  coordinate: Mr Jones, Somewhere, 12345 InTheWorld
+  coordinate: Mr Jones, 2 Somewhere, 12345 InTheWorld, France
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   entity_id: 9
   id: 4
-  lock_version: 0
+  lock_version: 1
   mail_auto_update: false
+  mail_country: fr
   mail_line_1: Mr Jones
+  mail_line_2: ''
+  mail_line_3: ''
   mail_line_4: 2 Somewhere
+  mail_line_5: ''
   mail_line_6: 12345 InTheWorld
-  mail_postal_zone_id: 2
+  mail_postal_zone_id: 3
   thread: AAAC
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2017-05-17 20:58:37.872915000 Z
   updater_id: 1
 entity_addresses_005:
   by_default: true

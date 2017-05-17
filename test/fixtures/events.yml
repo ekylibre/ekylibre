@@ -660,3 +660,29 @@ events_048:
   stopped_at: 2016-12-21 01:23:00.000000000 Z
   updated_at: 2016-12-20 18:24:29.437639000 Z
   updater_id: 1
+events_049:
+  created_at: 2017-05-17 20:26:57.331804000 Z
+  creator_id: 1
+  duration: 10
+  id: 59
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2017-05-17 20:26:57.319240000 Z
+  stopped_at: 2017-05-17 20:27:07.319240000 Z
+  updated_at: 2017-05-17 20:26:57.331804000 Z
+  updater_id: 1
+events_050:
+  created_at: 2017-05-17 20:27:15.536069000 Z
+  creator_id: 1
+  duration: 10
+  id: 60
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2017-05-17 20:27:15.530682000 Z
+  stopped_at: 2017-05-17 20:27:25.530682000 Z
+  updated_at: 2017-05-17 20:27:15.536069000 Z
+  updater_id: 1
