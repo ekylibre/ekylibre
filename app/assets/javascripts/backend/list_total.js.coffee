@@ -3,11 +3,21 @@
 
   absoluteSum = () ->
     if $('table').height() > $(window).height() - $('header').height() * 2 - $('nav').height()
+      # if $(window).width() > 1327
       $('#computation-results').css({
           position: 'absolute',
           bottom: '0px',
           'max-width': $('#computation-results').closest('table').width() + 'px'
         })
+      # else
+      #   $('#computation-results').css({
+      #       position: 'absolute',
+      #       bottom: '13px',
+      #       width: $('#computation-results').closest('table').width() + 'px'
+      #     })
+      #   $('#computation-results').closest('table').css({
+      #       position: relative
+      #     })
       $('table').css({
         'margin-bottom': '28px',
       })
