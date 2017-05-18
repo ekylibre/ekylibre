@@ -996,7 +996,7 @@ por:
     done: "Feito"
     dont_generate_carrying_forward_entries: "- Não gerar levar adiante entradas -"
     dont_generate_closure_entries: "- Não gerar entradas de fechamento -"
-    # dont_generate_result_entries: "— Do not generate result entries —"
+    dont_generate_result_entries: "- Não gerar entradas de resultados -"
     dont_use_journal: "- Não use jornal -"
     down: "Baixa"
     downpayment: "Pagamento inicial"

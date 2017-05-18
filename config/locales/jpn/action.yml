@@ -1059,7 +1059,7 @@ jpn:
     done: "終わりました"
     dont_generate_carrying_forward_entries: "- 前方のエントリを運んで生成しません -"
     dont_generate_closure_entries: "- 閉鎖エントリを生成しません -"
-    # dont_generate_result_entries: "— Do not generate result entries —"
+    dont_generate_result_entries: "- 結果エントリを生成しない -"
     dont_use_journal: "- ジャーナルを使用しないでください -"
     down: "ダウン"
     downpayment: "頭金"
