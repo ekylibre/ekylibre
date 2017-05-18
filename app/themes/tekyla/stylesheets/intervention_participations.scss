@@ -16,7 +16,7 @@
     }
 
     &-header .action-period {
-      flex-basis: 65%;
+      flex-basis: 58%;
     }
 
     &-header .action-header {
@@ -44,11 +44,11 @@
 
   .participation-form {
     @include flex-row(flex-start);
-    flex-basis: 55%;
+    flex-basis: 48%;
 
     .participation-field {
       @include flex-row(flex-end);
-      flex-basis: 35%;
+      flex-basis: 40%;
     }
 
     .participation-input {
@@ -57,12 +57,17 @@
     }
   }
 
-  // .vertical-bar {
-  //   flex-basis: 5%;
-  // }
+ .clear-period {
+
+   .picto-clear {
+     font-size: $fs-large;
+     color: $link-color;
+     cursor: pointer;
+   }
+ }
 
   .participation-result {
-    flex-basis: 35%;
+    flex-basis: 37%;
   }
 
   .actions {
@@ -77,6 +82,13 @@
 
     .action-icon {
       width: $fs-awesome;
+    }
+  }
+
+  .modal-footer {
+    
+    .btn {
+      margin: 0 1em;
     }
   }
 }

@@ -15,32 +15,37 @@
 
     .participations
       .participations-header
-        %h3{ class: "action-header action-period" } Durée de l'action
-        %h3{ class: "action-header" } Horaires calculées
+        %h3{ class: "action-header action-period" }= :action_duration.tl
+        %h3{ class: "action-header" }= :calculated_hours.tl 
 
 
       = f.simple_fields_for :working_periods do |working_periods_form|
-        = render 'working_periods_fields', f: working_periods_form
+        - working_period = working_periods_form.object
+        = render 'working_periods_fields', { index: working_periods_form.index, working_period: working_period }
+
+        - if working_period.pause_next?
+          - pause_period = InterventionWorkingPeriod.new(nature: :pause, started_at: working_period.stopped_at, stopped_at: working_period.next_period.started_at)
+          = render 'working_periods_fields', { index: working_periods_form.index + 1, working_period: pause_period }
 
 
     .actions
       = button_tag nil, class: "btn btn-default action" do
         =image_tag('intervention_participations/action-preparation.svg', class: "action-icon")
-        %span Preparation
+        %span= I18n.t('enumerize.intervention_working_period.nature.preparation') 
 
       = button_tag nil, class: "btn btn-default action" do
         =image_tag('intervention_participations/action-travel.svg', class: "action-icon")
-        %span Déplacement
+        %span= I18n.t('enumerize.intervention_working_period.nature.travel') 
 
       = button_tag nil, class: "btn btn-default action" do
         =image_tag('intervention_participations/action-intervention.svg', class: "action-icon")
-        %span Intervention
+        %span= I18n.t('enumerize.intervention_working_period.nature.intervention') 
 
       = button_tag nil, class: "btn btn-default action" do
         .picto.picto-pause-circle-outline
-        %span Pause
+        %span= I18n.t('enumerize.intervention_working_period.nature.pause') 
 
 
   .modal-footer
     = submit_tag 'Valider', class: "btn btn-primary"
-    = link_to 'Annuler', '#', class: "btn btn-default"
+    = submit_tag :cancel.tl, type: :button, class: "btn btn-default", data: { dismiss: 'modal' }

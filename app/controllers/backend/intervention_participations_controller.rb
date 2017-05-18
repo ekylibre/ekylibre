@@ -48,19 +48,21 @@ module Backend
     end
 
     def create
-      participation = InterventionParticipation.find_or_initialize_by(
-        product_id: permitted_params[:product_id],
-        intervention_id: permitted_params[:intervention_id]
-      )
-
-      permitted_params[:working_periods_attributes].values.each do |working_period_params|
-        working_period = participation.working_periods.find(working_period_params[:id])
-        working_period.started_at = Time.strptime(working_period_params[:started_at], '%d/%m/%Y %H:%M:%S')
-        working_period.stopped_at = Time.strptime(working_period_params[:stopped_at], '%d/%m/%Y %H:%M:%S')
-        working_period.save
-      end
-
-      participation.save
+      byebug 
+      
+      # participation = InterventionParticipation.find_or_initialize_by(
+      #   product_id: permitted_params[:product_id],
+      #   intervention_id: permitted_params[:intervention_id]
+      # )
+      #
+      # permitted_params[:working_periods_attributes].values.each do |working_period_params|
+      #   working_period = participation.working_periods.find(working_period_params[:id])
+      #   working_period.started_at = Time.strptime(working_period_params[:started_at], '%d/%m/%Y %H:%M:%S')
+      #   working_period.stopped_at = Time.strptime(working_period_params[:stopped_at], '%d/%m/%Y %H:%M:%S')
+      #   working_period.save
+      # end
+      #
+      # participation.save
     end
 
     def participations_modal
@@ -75,7 +77,7 @@ module Backend
     private
 
     def permitted_params
-      params[:intervention_participation].permit(:intervention_id, :product_id, working_periods_attributes: [:id, :hours, :minutes, :started_at, :stopped_at])
+      params[:intervention_participation].permit(:intervention_id, :product_id, working_periods_attributes: %i[id hours minutes started_at stopped_at])
     end
   end
 end

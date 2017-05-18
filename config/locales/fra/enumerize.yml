@@ -233,6 +233,7 @@ fra:
     intervention_working_period:
       nature:
         intervention: "Intervention"
+        pause: "Pause"
         preparation: "Préparation"
         travel: "Déplacement"
     journal:

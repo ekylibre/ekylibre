@@ -126,6 +126,6 @@ jpn:
       short: "%y/%m/%d %H:%M"
       time: "%H:%M" #?
     js_formats:
-      # compact: "MM/DD/YY HH:mm"
-      # full: "MM/DD/YY HH:mm:ss"
+      # compact: "MM/DD/YYYY HH:mm"
+      # full: "MM/DD/YYYY HH:mm:ss"
     pm: "午後"

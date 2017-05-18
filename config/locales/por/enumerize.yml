@@ -245,6 +245,7 @@ por:
     intervention_working_period:
       nature:
         intervention: "Intervenção"
+        # pause: "Pause"
         preparation: "Preparação"
         travel: "Viagem"
     journal:
