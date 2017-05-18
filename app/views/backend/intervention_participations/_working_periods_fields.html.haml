@@ -5,6 +5,10 @@
   .participation
     = hidden_field_tag 'working_period_id', working_period.id
 
+    = hidden_field_tag "#{working_periods_attributes}[#{index}][nature]", working_period.nature, data: { 'is-nature-hidden-field': true }
+    = hidden_field_tag "#{working_periods_attributes}[#{index}][started_at]", working_period.started_at.l(format: :full), data: { 'is-hours-hidden-field': true  }
+    = hidden_field_tag "#{working_periods_attributes}[#{index}][stopped_at]", working_period.stopped_at.l(format: :full), data: { 'is-minutes-hidden-field': true }
+
     .participation-icon
       .picto.picto-timelapse
       = working_period.nature.l
@@ -19,8 +23,6 @@
         %span Min
 
     .participation-result
-      = hidden_field_tag "#{working_periods_attributes}[#{index}][started_at]", working_period.started_at.l(format: :full)
-      = hidden_field_tag "#{working_periods_attributes}[#{index}][stopped_at]", working_period.stopped_at.l(format: :full)
       %span{ class: "previous-working-date" }= working_period.started_at.l(format: :full)
       %span &#8594;
       %span{ class: "next-working-date" }= working_period.stopped_at.l(format: :full)

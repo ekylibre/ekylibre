@@ -19,47 +19,50 @@
 
     element = $(this)
     button_text = element.text().trim()
+    period_nature = element.attr('data-nature-period')
 
     participationIndex = 0
     participationsCount = $('.participations .participation').length
     workingPeriodsAttributes = "intervention_participation[working_periods_attributes][" + participationsCount + "]"
 
-    new_line = $('<div class="participation"></div>')
+    newLine = $('<div class="participation"></div>')
+
+    $(newLine).append('<input type="hidden" value="' + period_nature + '" name="' + workingPeriodsAttributes  + '[nature]" data-is-nature-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[started_at]" data-is-hours-hidden-field="true"></input>')
+    $(newLine).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[stopped_at]" data-is-minutes-hidden-field="true"></input>')
 
     participation_icon = $('<div class="participation-icon"></div>')
     $(participation_icon).append('<div class="picto picto-timelapse"></div>')
     $(participation_icon).append(button_text)
-    $(new_line).append(participation_icon)
+    $(newLine).append(participation_icon)
 
-    $(new_line).append('<div class="participation-form"></div>')
+    $(newLine).append('<div class="participation-form"></div>')
 
     hour_field = $('<div class="participation-field"></div>')
     $(hour_field).append('<input type="text" name="' + workingPeriodsAttributes + '[hours]" class="participation-input" data-is-hours-field="true"></input>')
     $(hour_field).append('<span class="participation-field-label">H</span>')
-    $(new_line).find('.participation-form').append(hour_field)
+    $(newLine).find('.participation-form').append(hour_field)
 
     min_field = $('<div class="participation-field"></div>')
     $(min_field).append('<input type="text" name="' + workingPeriodsAttributes + '[minutes]" class="participation-input" data-is-minutes-field="true"></input>')
     $(min_field).append('<span class="participation-field-label">Min</span>')
-    $(new_line).find('.participation-form').append(min_field)
+    $(newLine).find('.participation-form').append(min_field)
 
     participationResult = $('<div class="participation-result"></div>')
-    $(participationResult).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[started_at]" ></input>')
-    $(participationResult).append('<input type="hidden" name="' + workingPeriodsAttributes  + '[stopped_at]"></input>')
     $(participationResult).append('<span class="previous-working-date"></span>')
     $(participationResult).append('<span> &#8594; </span>')
     $(participationResult).append('<span class="next-working-date"></span>')
-    $(new_line).append(participationResult)
+    $(newLine).append(participationResult)
 
-    $('#working_times .participations').append(new_line)
+    $('#working_times .participations').append(newLine)
 
     return
 
 
-  $(document).on "submit", '.edit_intervention_participation input[type="submit"]', (event) ->
-    event.preventDefault()
+  $(document).on "submit", '.edit_intervention_participation', (event) ->
+    # event.preventDefault()
 
-    $('.edit_intervention_participation').submit()
+    # $('.edit_intervention_participation').submit()
 
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
@@ -100,8 +103,16 @@
 
         newDate = this.calculNewDate(previousStartedAt, hours, minutes)
 
-      participation.find('.previous-working-date').text(moment(previousStartedAt).format(date_format))
-      participation.find('.next-working-date').text(moment(newDate).format(date_format))
+
+      formattedPreviousStartDate = moment(previousStartedAt).format(date_format)
+      formattedStoppedDate = moment(newDate).format(date_format)
+
+      participation.find('.previous-working-date').text(formattedPreviousStartDate)
+      participation.find('.next-working-date').text(formattedStoppedDate)
+
+      participation.find('input[data-is-hours-hidden-field="true"]').val(formattedPreviousStartDate)
+      participation.find('input[data-is-minutes-hidden-field="true"]').val(formattedStoppedDate)
+      
 
       if !this.lastParticipation(element)
         nextParticipation = this.nextParticipation(element)

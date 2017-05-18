@@ -48,21 +48,44 @@ module Backend
     end
 
     def create
-      byebug 
+      participation = InterventionParticipation.find_or_initialize_by(
+        product_id: permitted_params[:product_id],
+        intervention_id: permitted_params[:intervention_id]
+      )
+
+      working_periods_ids = participation.working_periods.map(&:id)
+      params_ids = permitted_params[:working_periods_attributes].to_h.map{ |param| param.second["id"].to_i }
       
-      # participation = InterventionParticipation.find_or_initialize_by(
-      #   product_id: permitted_params[:product_id],
-      #   intervention_id: permitted_params[:intervention_id]
-      # )
-      #
-      # permitted_params[:working_periods_attributes].values.each do |working_period_params|
-      #   working_period = participation.working_periods.find(working_period_params[:id])
-      #   working_period.started_at = Time.strptime(working_period_params[:started_at], '%d/%m/%Y %H:%M:%S')
-      #   working_period.stopped_at = Time.strptime(working_period_params[:stopped_at], '%d/%m/%Y %H:%M:%S')
-      #   working_period.save
-      # end
-      #
-      # participation.save
+      working_periods_to_destroy = working_periods_ids - params_ids
+      InterventionWorkingPeriod.where(id: working_periods_to_destroy).destroy_all
+
+      permitted_params[:working_periods_attributes].values.each do |working_period_params|
+
+        nature = working_period_params[:nature]
+        started_at = Time.strptime(working_period_params[:started_at], t("time.formats.full"))
+        stopped_at = Time.strptime(working_period_params[:stopped_at], t("time.formats.full"))
+
+        next if nature.to_sym == :pause
+
+        if !working_period_params[:id].nil?
+          working_period = participation.working_periods.find(working_period_params[:id])
+          working_period.started_at = started_at 
+          working_period.stopped_at = stopped_at 
+          working_period.save
+        else
+          participation.working_periods.create!(
+            started_at: started_at,
+            stopped_at: stopped_at, 
+            nature: nature.to_sym
+          )
+        end
+      end
+
+      participation.save
+
+      respond_to do |format|
+        format.js 
+      end
     end
 
     def participations_modal
@@ -77,7 +100,7 @@ module Backend
     private
 
     def permitted_params
-      params[:intervention_participation].permit(:intervention_id, :product_id, working_periods_attributes: %i[id hours minutes started_at stopped_at])
+      params[:intervention_participation].permit(:intervention_id, :product_id, working_periods_attributes: %i[id started_at stopped_at nature])
     end
   end
 end
