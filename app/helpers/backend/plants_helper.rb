@@ -113,8 +113,9 @@ module Backend
 
 
       # Add year and month period
-      first_date = Plant.order(name).first[name]
-      period = (first_date.year..Time.now.year).map { |p| p}
+      first_date = Plant.order(name).first[name] || Time.now - 2.year
+      period = (first_date.year..Time.now.year).map { |p| p }
+
       period.reverse_each do |year|
         full_year = Time.new(year)
         list << [year, "#{full_year.to_date}_#{full_year.end_of_year.to_date}"]
