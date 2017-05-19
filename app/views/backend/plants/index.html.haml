@@ -4,8 +4,9 @@
   - k.helper do
     %label= Plant.human_attribute_name(:variety)
     = select_tag(:variety, options_for_select([[]] + Plant.uniq_variety, params[:variety]))
-  - k.helper do
-    = plant_period_crit(label: Plant.human_attribute_name(:born_at), name: :born_at)
+  - if Plant.where.not(born_at: nil).any?
+    - k.helper do
+      = plant_period_crit(label: Plant.human_attribute_name(:born_at), name: :born_at)
   - if Plant.where.not(dead_at: nil).any?
     - k.helper do
       = plant_period_crit(label: Plant.human_attribute_name(:dead_at), name: :dead_at)
