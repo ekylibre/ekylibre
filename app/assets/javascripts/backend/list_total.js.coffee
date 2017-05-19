@@ -9,18 +9,9 @@
             bottom: '0px',
             'max-width': $('#computation-results').closest('table').width() + 'px'
           })
-      else
-        $('#computation-results').css({
-            position: 'absolute',
-            # bottom: '13px',
-            width: $('#computation-results').closest('table').width() + 'px'
-          })
-        # $('#computation-results').closest('table').css({
-        #     position: relative
-        #   })
-      $('table').css({
-        'margin-bottom': '28px',
-      })
+        $('table').css({
+          'margin-bottom': '28px',
+        })
       count = 0
       $("#computation-results > td").each ->
         totest = $(this).closest('table').find($('thead > tr > th'))[count]
