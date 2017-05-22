@@ -54,16 +54,16 @@
     $(participationResult).append('<span class="next-working-date"></span>')
     $(newLine).append(participationResult)
 
+    clearPeriod = $('<div class="clear-period"></div>')
+    $(clearPeriod).append('<i class="picto picto-clear"></i>')
+    $(newLine).append(clearPeriod)
+
     $('#working_times .participations').append(newLine)
 
     return
 
 
   $(document).on "submit", '.edit_intervention_participation', (event) ->
-    # event.preventDefault()
-
-    # $('.edit_intervention_participation').submit()
-
     @workingTimesModal = new ekylibre.modal('#working_times')
     @workingTimesModal.getModal().modal 'hide'
 
