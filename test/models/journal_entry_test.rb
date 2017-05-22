@@ -58,13 +58,13 @@ class JournalEntryTest < ActiveSupport::TestCase
   test 'a journal forbids to write records before its closure date' do
     journal = journals(:journals_001)
     assert_raise ActiveRecord::RecordInvalid do
-      record = journal.entries.create!(
+      journal.entries.create!(
         printed_on: journal.closed_on - 10,
         items: fake_items
       )
     end
     assert_nothing_raised do
-      record = journal.entries.create!(
+      journal.entries.create!(
         printed_on: journal.closed_on + 1,
         items: fake_items
       )
@@ -169,6 +169,52 @@ class JournalEntryTest < ActiveSupport::TestCase
     )
     assert journal_entry.balanced?
     assert_equal 4, journal_entry.items.count
+  end
+
+  test 'items are updated with entry' do
+    journal_entry = JournalEntry.create!(
+      journal: Journal.find_by(nature: :various, currency: 'EUR'),
+      printed_on: Date.today - 200,
+      items_attributes: {
+        '0' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('41123456'),
+          real_credit: 4500
+        },
+        '1' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('44123456'),
+          real_debit: 112.89
+        },
+        '2' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('60123456'),
+          real_debit: 2578.23
+        },
+        '3' => {
+          name: 'Insurance care',
+          account: Account.find_or_create_by_number('61123456'),
+          real_debit: 1808.88
+        }
+      }
+    )
+
+    journal_entry.journal.update(currency: 'USD')
+    journal_entry.update(real_currency: 'USD', number: 'HELLO', real_currency_rate: 0.5)
+    item_attributes = journal_entry.items
+                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
+                                   .map { |att| att[0...2] + [att.last.to_f] }
+                                   .uniq
+                                   .first
+    assert_equal ['HELLO', 'USD', 0.5], item_attributes
+
+    journal_entry.update_columns(real_currency: 'EUR', number: 'is it me you\'re looking for?', real_currency_rate: 1.0)
+    item_attributes = journal_entry.items
+                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
+                                   .map { |att| att[0...2] + [att.last.to_f] }
+                                   .uniq
+                                   .first
+    assert_equal ['is it me you\'re looking for?', 'EUR', 1.0], item_attributes
   end
 
   test 'cannot be created when in financial year exchange date range' do

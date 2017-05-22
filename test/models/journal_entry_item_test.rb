@@ -112,6 +112,9 @@ class JournalEntryItemTest < ActiveSupport::TestCase
        { account: random_account, name: 'Is it me', real_credit: 10 }])
     assert_equal 'A*', entry.items.find_by(real_debit: 10).letter
 
+    entry.items.find_by(real_debit: 10).update_column(:letter, 'A')
+    assert_equal 'A*', entry.items.reload.find_by(real_debit: 10).letter
+
     to_letter_with = JournalEntry.create!(
       journal: journal,
       currency: 'EUR',
