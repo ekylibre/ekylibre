@@ -102,4 +102,9 @@ class Payslip < Ekylibre::Record::Base
   def label
     number
   end
+  
+  def status
+    return affair.status if invoice?
+    :stop
+  end
 end
