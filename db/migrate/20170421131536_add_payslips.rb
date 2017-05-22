@@ -66,14 +66,14 @@ class AddPayslips < ActiveRecord::Migration
         execute "UPDATE outgoing_payments SET type = 'PurchasePayment'"
         execute 'UPDATE outgoing_payments SET paid_at = CASE WHEN to_bank_at IS NOT NULL AND to_bank_at <= CURRENT_TIMESTAMP THEN to_bank_at ELSE created_at END WHERE delivered AND paid_at IS NULL'
 
-        missing_ids = select_values('SELECT mode_id FROM outgoing_payments WHERE mode_id NOT IN (SELECT id FROM outgoing_payment_modes)')
+        missing_ids = select_values('SELECT DISTINCT mode_id FROM outgoing_payments WHERE mode_id NOT IN (SELECT id FROM outgoing_payment_modes)')
         if missing_ids.any?
-          execute "INSERT INTO outgoing_payment_modes (id, name, position, created_at, updated_at) SELECT id, 'Missing mode (ID=' || id || ')', id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM regexp_split_to_table('#{missing_ids.join(',')}', ',') AS id"
+          execute "INSERT INTO outgoing_payment_modes (id, name, position, created_at, updated_at) SELECT id::INTEGER, 'Missing mode (ID=' || id::VARCHAR || ')', id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM regexp_split_to_table('#{missing_ids.join(',')}', ',') AS id"
         end
 
-        missing_ids = select_values('SELECT payee_id FROM outgoing_payments WHERE payee_id NOT IN (SELECT id FROM entities)')
+        missing_ids = select_values('SELECT DISTINCT payee_id FROM outgoing_payments WHERE payee_id NOT IN (SELECT id FROM entities)')
         if missing_ids.any?
-          execute "INSERT INTO entities (id, active, locked, currency, nature, full_name, last_name, created_at, updated_at) SELECT id, false, true, 'EUR', 'organization', 'Missing entity (ID=' || id || ')', 'Missing entity (ID=' || id || ')', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM regexp_split_to_table('#{missing_ids.join(',')}', ',') AS id"
+          execute "INSERT INTO entities (id, active, locked, currency, language, nature, full_name, last_name, created_at, updated_at) SELECT id::INTEGER, false, true, 'EUR', 'fra', 'organization', 'Missing entity (ID=' || id::VARCHAR || ')', 'Missing entity (ID=' || id::VARCHAR || ')', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM regexp_split_to_table('#{missing_ids.join(',')}', ',') AS id"
         end
 
         execute 'UPDATE outgoing_payments SET list_id = NULL WHERE list_id NOT IN (SELECT id FROM outgoing_payment_lists)'
