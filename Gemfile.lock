@@ -93,6 +93,8 @@ GEM
       beardley
     beardley-xml (1.1.1)
       beardley
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -202,6 +204,7 @@ GEM
       temple (>= 0.8.0)
       tilt
     hashie (3.5.5)
+    honeybadger (3.1.2)
     hpricot (0.8.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -561,6 +564,7 @@ DEPENDENCIES
   beardley-groovy
   beardley-open_sans
   beardley-xml
+  binding_of_caller
   bootstrap-sass (~> 3.1)
   bootstrap3-datetimepicker-rails
   browser
@@ -588,6 +592,7 @@ DEPENDENCIES
   foreman
   formize (~> 2.1.0)
   haml
+  honeybadger
   http_accept_language
   humanize
   i18n-complements (>= 0.0.14)

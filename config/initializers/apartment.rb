@@ -100,6 +100,7 @@ module Apartment
 
         @current = tenant.to_s
         Apartment.connection.schema_search_path = full_search_path
+
         # rescue *rescuable_exceptions
         #   raise TenantNotFound, "One of the following schema(s) is invalid: \"#{tenant}\" #{full_search_path}"
       end
