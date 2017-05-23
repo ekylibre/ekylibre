@@ -95,7 +95,7 @@ module Apartment
         # end
 
         unless Apartment.connection.schema_exists? tenant
-          raise ActiveRecord::StatementInvalid, "Could not find schema #{tenant}"
+          raise TenantNotFound, "Could not find schema #{tenant}. Search path: [#{full_search_path}]"
         end
 
         @current = tenant.to_s
