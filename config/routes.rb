@@ -835,6 +835,9 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :purchase_orders
+    resources :purchase_invoices
+
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 

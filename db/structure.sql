@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2472,7 +2472,8 @@ CREATE TABLE purchases (
     payment_delay character varying,
     payment_at timestamp without time zone,
     contract_id integer,
-    tax_payability character varying NOT NULL
+    tax_payability character varying NOT NULL,
+    type character varying
 );
 
 
@@ -5877,6 +5878,36 @@ ALTER SEQUENCE purchase_natures_id_seq OWNED BY purchase_natures.id;
 
 
 --
+-- Name: purchase_orders; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE purchase_orders (
+    id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: purchase_orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE purchase_orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: purchase_orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE purchase_orders_id_seq OWNED BY purchase_orders.id;
+
+
+--
 -- Name: purchases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -7680,6 +7711,13 @@ ALTER TABLE ONLY purchase_natures ALTER COLUMN id SET DEFAULT nextval('purchase_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY purchase_orders ALTER COLUMN id SET DEFAULT nextval('purchase_orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY purchases ALTER COLUMN id SET DEFAULT nextval('purchases_id_seq'::regclass);
 
 
@@ -8826,6 +8864,14 @@ ALTER TABLE ONLY purchase_items
 
 ALTER TABLE ONLY purchase_natures
     ADD CONSTRAINT purchase_natures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: purchase_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchase_orders
+    ADD CONSTRAINT purchase_orders_pkey PRIMARY KEY (id);
 
 
 --
@@ -17503,4 +17549,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170522113751');
+
+INSERT INTO schema_migrations (version) VALUES ('20170523101325');
 
