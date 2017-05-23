@@ -103,7 +103,7 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                SUM(debit) - SUM(credit) AS balance
             FROM journal_entry_items
             WHERE account_id = new_account_id
-              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\*?')
+              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\*+')
               AND new_letter IS NOT NULL
               AND new_account_id IS NOT NULL
             GROUP BY account_id
@@ -113,12 +113,12 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                SUM(debit) - SUM(credit) AS balance
           FROM journal_entry_items
           WHERE account_id = old_account_id
-            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\*?')
+            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\*+')
             AND old_letter IS NOT NULL
             AND old_account_id IS NOT NULL
           GROUP BY account_id) AS modified_letter_groups
   WHERE modified_letter_groups.account_id = journal_entry_items.account_id
-  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*?');
+  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*+');
 
   RETURN NEW;
 END;
@@ -145,25 +145,26 @@ BEGIN
     END IF;
   END IF;
 
-  UPDATE journal_entry_items AS jei
-  SET state = entries.state,
-      printed_on = entries.printed_on,
-      journal_id = entries.journal_id,
-      financial_year_id = entries.financial_year_id,
-      entry_number = entries.number,
-      real_currency = entries.real_currency,
-      real_currency_rate = entries.real_currency_rate
-  FROM journal_entries AS entries
-  WHERE jei.entry_id = synced_entry_id
-    AND entries.id = synced_entry_id
-    AND synced_entry_id IS NOT NULL
-    AND (jei.state <> entries.state
-     OR jei.printed_on <> entries.printed_on
-     OR jei.journal_id <> entries.journal_id
-     OR jei.financial_year_id <> entries.financial_year_id
-     OR jei.entry_number <> entries.number
-     OR jei.real_currency <> entries.real_currency
-     OR jei.real_currency_rate <> entries.real_currency_rate);
+  IF synced_entry_id IS NOT NULL THEN
+    UPDATE journal_entry_items AS jei
+    SET state = je.state,
+        printed_on = je.printed_on,
+        journal_id = je.journal_id,
+        financial_year_id = je.financial_year_id,
+        entry_number = je.number,
+        real_currency = je.real_currency,
+        real_currency_rate = je.real_currency_rate
+    FROM journal_entries AS je
+    WHERE jei.entry_id = je.id
+      AND je.id = synced_entry_id
+      AND (jei.state <> je.state
+       OR jei.printed_on <> je.printed_on
+       OR jei.journal_id <> je.journal_id
+       OR jei.financial_year_id <> je.financial_year_id
+       OR jei.entry_number <> je.number
+       OR jei.real_currency <> je.real_currency
+       OR jei.real_currency_rate <> je.real_currency_rate);
+  END IF;
   RETURN NEW;
 END;
 $$;
@@ -17503,4 +17504,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170415071407');
 
