@@ -247,7 +247,6 @@ module Backend
           hash
         end.compact
 
-        p.set! nil
       end
 
       @intervention = Intervention.new(options)
