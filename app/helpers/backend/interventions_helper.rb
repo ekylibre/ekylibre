@@ -80,5 +80,13 @@ module Backend
         html.join.html_safe
       end
     end
+
+    def add_working_period_cost(product_parameter, nature: nil)
+      render partial: "intervention_costs", locals: { product_parameter: product_parameter, nature: nature }
+    end
+
+    def add_total_working_period(product_parameter)
+      render partial: "intervention_total_costs", locals: { product_parameter: product_parameter }
+    end
   end
 end

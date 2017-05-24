@@ -622,6 +622,28 @@ class Intervention < Ekylibre::Record::Base
     update(request_compliant: true) if (compliances.values - [true]).empty?
   end
 
+  def participation(product)
+    InterventionParticipation.of_intervention(self).of_product(product).first
+  end
+
+  def drivers_times(nature: nil, not_nature: nil)
+    participations.select { |participation| participation.product.is_a?(Worker) }
+    working_periods = nil
+
+    if nature.nil? && not_nature.nil?
+      working_periods = participations.map(&:working_periods)
+    elsif !nature.nil? 
+      working_periods = participations.map { |participation| participation.working_periods.where(nature: nature) }
+    elsif !not_nature.nil? 
+      working_periods = participations.map { |participation| participation.working_periods.where.not(nature: not_nature) }
+    end
+
+    working_periods
+      .flatten
+      .map(&:duration)
+      .reduce(0, :+)
+  end
+
   class << self
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|

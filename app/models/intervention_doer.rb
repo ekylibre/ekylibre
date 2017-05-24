@@ -73,4 +73,16 @@ class InterventionDoer < InterventionAgent
       event_participation.destroy!
     end
   end
+
+  def working_duration(nature: nil)
+    unless participation
+      return intervention_working_duration
+    end
+
+    if nature.nil?
+      return participation.working_periods.sum(:duration)
+    end
+
+    participation.sum_periods_of_nature(nature)
+  end
 end

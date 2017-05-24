@@ -95,9 +95,28 @@ class Worker < Product
     self.team_id = user.team_id if user && user.team
   end
 
+
+  def participation(intervention)
+    InterventionParticipation.find_by(product: self, intervention: intervention)
+  end
+
   # Returns working duration from interventions
   def working_duration(_options = {})
     InterventionWorkingPeriod.with_intervention_parameter(:doer, self)
                              .sum(:duration).in_second
   end
+
+
+ # def cost_amount_computation(intervention, nature: nil)
+  #   return InterventionParameter::AmountComputation.failed unless product
+  #   
+  #   options = {
+  #     catalog_usage: :cost,
+  #     quantity: working_duration_for_intervention(intervention, nature: nature).to_d / 3600,
+  #     unit_name: Nomen::Unit.find(:hour).human_name
+  #   }
+  #   
+  #   options[:catalog_item] = self.default_catalog_item(options[:catalog_usage])
+  #   InterventionParameter::AmountComputation.quantity(:catalog, options)
+  # end
 end
