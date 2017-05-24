@@ -81,11 +81,16 @@ class InterventionAgent < InterventionProductParameter
 
   def cost_amount_computation(nature: nil)
     return InterventionParameter::AmountComputation.failed unless product
-    
+
+    quantity = working_duration(nature: nature).to_d / 3600
+    unit_name = Nomen::Unit.find(:hour).human_name
+
+    unit_name = unit_name.pluralize if quantity > 1
+
     options = {
       catalog_usage: :cost,
-      quantity: working_duration(nature: nature).to_d / 3600,
-      unit_name: Nomen::Unit.find(:hour).human_name
+      quantity: quantity,
+      unit_name: unit_name
     }
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
     InterventionParameter::AmountComputation.quantity(:catalog, options)
