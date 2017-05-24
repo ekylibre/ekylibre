@@ -1,0 +1,7 @@
+---
+connection:
+  http_open_timeout: 10
+exceptions:
+  local_variables: true
+user_informer:
+  info: "ID: {{error_id}}"
