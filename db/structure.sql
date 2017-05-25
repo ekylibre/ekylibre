@@ -60,68 +60,28 @@ CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
 
 
 --
--- Name: compute_partial_lettering(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: set_account_lettering(); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE FUNCTION compute_partial_lettering() RETURNS trigger
+CREATE FUNCTION set_account_lettering() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
   DECLARE
-    new_letter varchar DEFAULT NULL;
-    old_letter varchar DEFAULT NULL;
-    new_account_id integer DEFAULT NULL;
-    old_account_id integer DEFAULT NULL;
+    letter_balance DECIMAL DEFAULT 0.0;
   BEGIN
-  IF TG_OP <> 'DELETE' THEN
-    IF NEW.letter IS NOT NULL THEN
-      new_letter := substring(NEW.letter from '[A-z]*');
+    IF LENGTH(TRIM(COALESCE(NEW.letter, ''))) > 0 AND NEW.account_id IS NOT NULL THEN
+      SELECT SUM(debit - credit) FROM journal_entry_items WHERE account_id = NEW.account_id AND RTRIM(COALESCE(letter, ''), '*') IS DISTINCT FROM RTRIM(NEW.letter, '*') INTO letter_balance;
+      IF TG_OP = 'UPDATE' THEN
+        letter_balance := letter_balance - (OLD.debit - OLD.credit);
+      END IF;
+      IF letter_balance <> 0 THEN
+        NEW.letter := RTRIM(NEW.letter, '*') || '*';
+      ELSE 
+        NEW.letter := RTRIM(NEW.letter, '*');
+      END IF;
     END IF;
-
-    IF NEW.account_id IS NOT NULL THEN
-      new_account_id := NEW.account_id;
-    END IF;
-  END IF;
-
-  IF TG_OP <> 'INSERT' THEN
-    IF OLD.letter IS NOT NULL THEN
-      old_letter := substring(OLD.letter from '[A-z]*');
-    END IF;
-
-    IF OLD.account_id IS NOT NULL THEN
-      old_account_id := OLD.account_id;
-    END IF;
-  END IF;
-
-  UPDATE journal_entry_items
-  SET letter = (CASE
-                  WHEN modified_letter_groups.balance <> 0
-                  THEN modified_letter_groups.letter || '*'
-                  ELSE modified_letter_groups.letter
-                END)
-  FROM (SELECT new_letter AS letter,
-               account_id AS account_id,
-               SUM(debit) - SUM(credit) AS balance
-            FROM journal_entry_items
-            WHERE account_id = new_account_id
-              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\*+')
-              AND new_letter IS NOT NULL
-              AND new_account_id IS NOT NULL
-            GROUP BY account_id
-        UNION ALL
-        SELECT old_letter AS letter,
-               account_id AS account_id,
-               SUM(debit) - SUM(credit) AS balance
-          FROM journal_entry_items
-          WHERE account_id = old_account_id
-            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\*+')
-            AND old_letter IS NOT NULL
-            AND old_account_id IS NOT NULL
-          GROUP BY account_id) AS modified_letter_groups
-  WHERE modified_letter_groups.account_id = journal_entry_items.account_id
-  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*+');
-
-  RETURN NEW;
-END;
+    RETURN NEW;
+  END
 $$;
 
 
@@ -170,6 +130,62 @@ END;
 $$;
 
 
+--
+-- Name: update_other_account_lettering(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION update_other_account_lettering() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+        DECLARE
+          true_letter varchar DEFAULT NULL;
+        BEGIN
+
+          IF TG_OP IN ('UPDATE', 'DELETE') THEN
+            IF OLD.account_id IS NOT NULL AND LENGTH(TRIM(COALESCE(OLD.letter, ''))) > 0 THEN
+            SELECT new_letter FROM (SELECT account_id, 
+  RTRIM(letter, '*') AS letter_radix,
+  SUM(debit) = SUM(credit) AS balanced,
+  RTRIM(letter, '*') || CASE WHEN SUM(debit) <> SUM(credit) THEN '*' ELSE '' END 
+    AS new_letter
+FROM journal_entry_items AS jei
+WHERE account_id IS NOT NULL AND LENGTH(TRIM(COALESCE(letter, ''))) > 0
+GROUP BY account_id, RTRIM(letter, '*')
+) AS account_letterings WHERE account_id = OLD.account_id AND letter_radix = RTRIM(OLD.letter, '*') INTO true_letter;
+            UPDATE journal_entry_items AS jei
+              SET letter = true_letter
+              WHERE jei.account_id = OLD.account_id
+                AND RTRIM(COALESCE(jei.letter, ''), '*') = RTRIM(OLD.letter, '*')
+                AND jei.id <> OLD.id
+                AND jei.letter IS DISTINCT FROM true_letter;
+            END IF;
+          END IF;
+
+          IF TG_OP IN ('UPDATE', 'INSERT') THEN
+            IF NEW.account_id IS NOT NULL AND LENGTH(TRIM(COALESCE(NEW.letter, ''))) > 0 THEN
+            SELECT new_letter FROM (SELECT account_id, 
+  RTRIM(letter, '*') AS letter_radix,
+  SUM(debit) = SUM(credit) AS balanced,
+  RTRIM(letter, '*') || CASE WHEN SUM(debit) <> SUM(credit) THEN '*' ELSE '' END 
+    AS new_letter
+FROM journal_entry_items AS jei
+WHERE account_id IS NOT NULL AND LENGTH(TRIM(COALESCE(letter, ''))) > 0
+GROUP BY account_id, RTRIM(letter, '*')
+) AS account_letterings WHERE account_id = NEW.account_id AND letter_radix = RTRIM(NEW.letter, '*') INTO true_letter;
+            UPDATE journal_entry_items AS jei
+              SET letter = true_letter
+              WHERE jei.account_id = NEW.account_id
+                AND RTRIM(COALESCE(jei.letter, ''), '*') = RTRIM(NEW.letter, '*')
+                AND jei.id <> NEW.id
+                AND jei.letter IS DISTINCT FROM true_letter;
+            END IF;
+          END IF;
+
+          RETURN NEW;
+        END
+      $$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -216,6 +232,77 @@ CREATE SEQUENCE account_balances_id_seq
 --
 
 ALTER SEQUENCE account_balances_id_seq OWNED BY account_balances.id;
+
+
+--
+-- Name: journal_entry_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE journal_entry_items (
+    id integer NOT NULL,
+    entry_id integer NOT NULL,
+    journal_id integer NOT NULL,
+    bank_statement_id integer,
+    financial_year_id integer NOT NULL,
+    state character varying NOT NULL,
+    printed_on date NOT NULL,
+    entry_number character varying NOT NULL,
+    letter character varying,
+    "position" integer,
+    description text,
+    account_id integer NOT NULL,
+    name character varying NOT NULL,
+    real_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_currency character varying NOT NULL,
+    real_currency_rate numeric(19,10) DEFAULT 0.0 NOT NULL,
+    debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    currency character varying NOT NULL,
+    absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_currency character varying NOT NULL,
+    cumulated_absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    cumulated_absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    bank_statement_letter character varying,
+    activity_budget_id integer,
+    team_id integer,
+    tax_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    tax_declaration_item_id integer,
+    resource_id integer,
+    resource_type character varying,
+    resource_prism character varying,
+    variant_id integer,
+    tax_declaration_mode character varying
+);
+
+
+--
+-- Name: account_letterings; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW account_letterings AS
+ SELECT jei.account_id,
+    rtrim((jei.letter)::text, '*'::text) AS letter_radix,
+    (sum(jei.debit) = sum(jei.credit)) AS balanced,
+    (rtrim((jei.letter)::text, '*'::text) ||
+        CASE
+            WHEN (sum(jei.debit) <> sum(jei.credit)) THEN '*'::text
+            ELSE ''::text
+        END) AS new_letter
+   FROM journal_entry_items jei
+  WHERE ((jei.account_id IS NOT NULL) AND (length(btrim((COALESCE(jei.letter, ''::character varying))::text)) > 0))
+  GROUP BY jei.account_id, (rtrim((jei.letter)::text, '*'::text));
 
 
 --
@@ -2317,59 +2404,6 @@ CREATE TABLE incoming_payments (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     codes jsonb
-);
-
-
---
--- Name: journal_entry_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE journal_entry_items (
-    id integer NOT NULL,
-    entry_id integer NOT NULL,
-    journal_id integer NOT NULL,
-    bank_statement_id integer,
-    financial_year_id integer NOT NULL,
-    state character varying NOT NULL,
-    printed_on date NOT NULL,
-    entry_number character varying NOT NULL,
-    letter character varying,
-    "position" integer,
-    description text,
-    account_id integer NOT NULL,
-    name character varying NOT NULL,
-    real_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    real_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    real_currency character varying NOT NULL,
-    real_currency_rate numeric(19,10) DEFAULT 0.0 NOT NULL,
-    debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    currency character varying NOT NULL,
-    absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_currency character varying NOT NULL,
-    cumulated_absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    cumulated_absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    bank_statement_letter character varying,
-    activity_budget_id integer,
-    team_id integer,
-    tax_id integer,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    tax_declaration_item_id integer,
-    resource_id integer,
-    resource_type character varying,
-    resource_prism character varying,
-    variant_id integer,
-    tax_declaration_mode character varying
 );
 
 
@@ -16835,20 +16869,6 @@ CREATE RULE delete_product_populations AS
 
 
 --
--- Name: compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE compute_partial_lettering();
-
-
---
--- Name: compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
-
-
---
 -- Name: outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -16867,6 +16887,34 @@ CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entr
 --
 
 CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
+
+
+--
+-- Name: trigger_set_account_lettering_before_insert; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER trigger_set_account_lettering_before_insert BEFORE INSERT ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE set_account_lettering();
+
+
+--
+-- Name: trigger_set_account_lettering_before_update; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER trigger_set_account_lettering_before_update BEFORE UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN (((COALESCE(rtrim((old.letter)::text, '*'::text), ''::text) IS DISTINCT FROM COALESCE(rtrim((new.letter)::text, '*'::text), ''::text)) OR (old.account_id IS DISTINCT FROM new.account_id) OR (old.credit IS DISTINCT FROM new.credit) OR (old.debit IS DISTINCT FROM new.debit))) EXECUTE PROCEDURE set_account_lettering();
+
+
+--
+-- Name: trigger_update_other_account_lettering_after_delete; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER trigger_update_other_account_lettering_after_delete AFTER INSERT OR DELETE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE update_other_account_lettering();
+
+
+--
+-- Name: trigger_update_other_account_lettering_after_update; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER trigger_update_other_account_lettering_after_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN (((COALESCE(rtrim((old.letter)::text, '*'::text), ''::text) IS DISTINCT FROM COALESCE(rtrim((new.letter)::text, '*'::text), ''::text)) OR (old.account_id IS DISTINCT FROM new.account_id) OR (old.credit IS DISTINCT FROM new.credit) OR (old.debit IS DISTINCT FROM new.debit))) EXECUTE PROCEDURE update_other_account_lettering();
 
 
 --
@@ -17501,9 +17549,5 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222520');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 
-INSERT INTO schema_migrations (version) VALUES ('20170414071529');
-
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
-
-INSERT INTO schema_migrations (version) VALUES ('20170415071407');
 
