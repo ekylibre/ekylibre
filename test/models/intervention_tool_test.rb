@@ -58,5 +58,106 @@ require 'test_helper'
 
 class InterventionToolTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  setup do
+    @worker = Worker.create!(
+      name: 'Alice',
+      variety: 'worker',
+      variant: ProductNatureVariant.first,
+      person: Entity.contacts.first
+    )
+
+    @tractor = Product.create!(
+      name: 'John Deere',
+      variety: 'tractor',
+      variant: ProductNatureVariant.where(variety: :tractor).first
+    )
+
+    @intervention = Intervention.create!(
+      procedure_name: :sowing,
+      actions: [:sowing],
+      request_compliant: false,
+      working_periods: fake_working_periods
+    )
+
+    @intervention.reload
+  end
+
+  test 'working duration without participation' do
+    add_intervention_doer
+    add_intervention_tool
+
+    intervention_tool = @intervention.tools.first
+
+    assert_equal intervention_tool.working_duration, @intervention.working_duration
+  end
+
+  test 'working duration' do
+    add_intervention_doer
+    add_intervention_tool
+
+    intervention_tool = @intervention.tools.first
+
+    now = Time.zone.now
+
+    InterventionParticipation.create!(
+      intervention: @intervention,
+      state: :done,
+      request_compliant: false,
+      procedure_name: :sowing,
+      product: @worker,
+      working_periods_attributes: [
+        {
+          started_at: now - 1.hour,
+          stopped_at: now - 30.minutes,
+          nature: 'travel'
+        },
+        {
+          started_at: now - 1.hour,
+          stopped_at: now - 50.minutes,
+          nature: 'preparation'
+        },
+        {
+          started_at: now - 30.minutes,
+          stopped_at: now - 15.minutes,
+          nature: 'intervention'
+        },
+        {
+          started_at: now - 10.minutes,
+          stopped_at: now,
+          nature: 'intervention'
+        }
+      ]
+    )
+
+    @intervention.reload
+
+    assert_equal intervention_tool.working_duration, 35.minutes.to_i / 1
+    assert_equal intervention_tool.working_duration(nature: :intervention), 25.minutes.to_i / 1
+    assert_equal intervention_tool.working_duration(nature: :preparation), 10.minutes.to_i / 1
+  end
+
+  def add_intervention_doer
+    @intervention.doers.create!(
+      product: @worker,
+      reference_name: 'land_parcel'
+    )
+  end
+
+  def add_intervention_tool
+    @intervention.tools.create!(
+      product: @tractor,
+      reference_name: 'tractor'
+    )
+  end
+
+  def fake_working_periods
+    now = Time.zone.now
+    [
+      InterventionWorkingPeriod.new(started_at: now - 3.hours, stopped_at: now - 2.hours, nature: 'preparation'),
+      InterventionWorkingPeriod.new(started_at: now - 2.hours, stopped_at: now - 90.minutes, nature: 'travel'),
+      InterventionWorkingPeriod.new(started_at: now - 90.minutes, stopped_at: now - 30.minutes, nature: 'intervention'),
+      InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
+    ]
+  end
 end
