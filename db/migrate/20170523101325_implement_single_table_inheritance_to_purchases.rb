@@ -4,8 +4,8 @@ class ImplementSingleTableInheritanceToPurchases < ActiveRecord::Migration
 
   	reversible do |dir|
 			dir.up do 
-				execute "UPDATE purchases SET type = 'PurchaseOrder' WHERE state IN ('draft','aborted','order')"
-				execute "UPDATE purchases SET type = 'PurchaseInvoice' WHERE state IN ('invoice','estimate')"
+				execute "UPDATE purchases SET type = 'PurchaseOrder' WHERE state IN ('draft','aborted','order','estimate')"
+				execute "UPDATE purchases SET type = 'PurchaseInvoice' WHERE state IN ('invoice')"
 			end
 			dir.down do
 				execute "UPDATE purchases SET type = NULL "
