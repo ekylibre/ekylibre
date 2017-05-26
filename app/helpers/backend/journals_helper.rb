@@ -45,7 +45,7 @@ module Backend
 
     # Create a widget with all the possible periods
     def journal_period_crit(*args)
-      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+      options = args.extract_options!
       name = args.shift || :period
       value = args.shift
       configuration = { custom: :interval }.merge(options)
@@ -98,7 +98,7 @@ module Backend
     end
 
     # Create a widget to select states of entries (and entry items)
-    def journal_entries_states_crit
+    def journal_entries_states_crit(*_args)
       code = ''
       code << content_tag(:label, :journal_entries_states.tl)
       states = JournalEntry.states
