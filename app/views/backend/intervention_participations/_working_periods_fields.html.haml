@@ -15,11 +15,11 @@
 
     .participation-form
       .participation-field
-        = text_field_tag "#{working_periods_attributes}[#{index}][hours]", working_period.hours_gap, { class: "participation-input", data: { 'is-hours-field': true  }} 
+        = text_field_tag "#{working_periods_attributes}[#{index}][hours]", working_period.hours_gap, { class: "participation-input", data: { 'is-hours-field': true  }}
         %span H
 
       .participation-field
-        = text_field_tag "#{working_periods_attributes}[#{index}][minutes]", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }} 
+        = text_field_tag "#{working_periods_attributes}[#{index}][minutes]", working_period.minutes_gap, { class: "participation-input", data: { 'is-minutes-field': true  }}
         %span Min
 
     .participation-result

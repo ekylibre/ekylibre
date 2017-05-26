@@ -54,28 +54,27 @@ module Backend
       )
 
       working_periods_ids = participation.working_periods.map(&:id)
-      params_ids = permitted_params[:working_periods_attributes].to_h.map{ |param| param.second["id"].to_i }
-      
+      params_ids = permitted_params[:working_periods_attributes].to_h.map { |param| param.second['id'].to_i }
+
       working_periods_to_destroy = working_periods_ids - params_ids
       InterventionWorkingPeriod.where(id: working_periods_to_destroy).destroy_all
 
       permitted_params[:working_periods_attributes].values.each do |working_period_params|
-
         nature = working_period_params[:nature]
-        started_at = Time.strptime(working_period_params[:started_at], t("time.formats.full"))
-        stopped_at = Time.strptime(working_period_params[:stopped_at], t("time.formats.full"))
+        started_at = Time.strptime(working_period_params[:started_at], t('time.formats.full'))
+        stopped_at = Time.strptime(working_period_params[:stopped_at], t('time.formats.full'))
 
         next if nature.to_sym == :pause
 
         if !working_period_params[:id].nil?
           working_period = participation.working_periods.find(working_period_params[:id])
-          working_period.started_at = started_at 
-          working_period.stopped_at = stopped_at 
+          working_period.started_at = started_at
+          working_period.stopped_at = stopped_at
           working_period.save
         else
           participation.working_periods.create!(
             started_at: started_at,
-            stopped_at: stopped_at, 
+            stopped_at: stopped_at,
             nature: nature.to_sym
           )
         end
@@ -84,7 +83,7 @@ module Backend
       participation.save
 
       respond_to do |format|
-        format.js { render nothing: true } 
+        format.js { render nothing: true }
       end
     end
 

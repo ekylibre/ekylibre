@@ -112,7 +112,7 @@
 
       participation.find('input[data-is-hours-hidden-field="true"]').val(formattedPreviousStartDate)
       participation.find('input[data-is-minutes-hidden-field="true"]').val(formattedStoppedDate)
-      
+
 
       if !this.lastParticipation(element)
         nextParticipation = this.nextParticipation(element)
