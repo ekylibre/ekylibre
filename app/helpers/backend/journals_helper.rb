@@ -98,7 +98,7 @@ module Backend
     end
 
     # Create a widget to select states of entries (and entry items)
-    def journal_entries_states_crit(*args)
+    def journal_entries_states_crit(*_args)
       code = ''
       code << content_tag(:label, :journal_entries_states.tl)
       states = JournalEntry.states
