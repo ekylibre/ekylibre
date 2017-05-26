@@ -2071,7 +2071,7 @@ fra:
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
-    supplier_payment_mode: "Mode de paiement du fournisseur" #?
+    supplier_payment_mode: "Mode de paiement du fournisseur"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
     supply: "Livraison"
     support: "Support"

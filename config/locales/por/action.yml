@@ -1151,7 +1151,7 @@ por:
     investment_security: "Segurança de investimento"
     investment_subsidies: "Os subsídios ao investimento"
     invitation_status: "Estado"
-    # invoice_period: "Invoice period"
+    invoice_period: "Período de factura"
     invoice_status: "Status de fatura"
     invoiced: "Facturado"
     invoiced_amount: "Vendas montante facturado" #?
@@ -1571,6 +1571,7 @@ por:
     subtotals_at_level: "Sub-total a nível"
     supplier: "Preços de compra do fornecedor"
     supplier_informations: "Informações fornecedor"
+    supplier_payment_mode: "Modo de pagamento do fornecedor"
     supplier_receivables: "Recebíveis de fornecedores"
     supply: "Fornecem"
     support: "Apoio"

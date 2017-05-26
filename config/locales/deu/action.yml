@@ -1146,7 +1146,7 @@ deu:
     investment_security: "Investitionssicherheit"
     investment_subsidies: "Investitionszuschüsse"
     # invitation_status: "Status"
-    # invoice_period: "Invoice period"
+    invoice_period: "Rechnungszeitraum"
     invoice_status: "Rechnungsstatus"
     invoiced: "Die fakturierten"
     invoiced_amount: "Der Umsatz Rechnungsbetrag" #?
@@ -1566,6 +1566,7 @@ deu:
     subtotals_at_level: "Zwischensumme auf dem Niveau"
     supplier: "Die Kaufpreise der Lieferanten"
     supplier_informations: "Lieferant Informationen"
+    supplier_payment_mode: "Zahlungsarten des Lieferanten"
     supplier_receivables: "Lieferant Forderungen"
     supply: "Liefern"
     support: "Unterstützen"
