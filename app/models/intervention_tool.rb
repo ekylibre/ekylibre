@@ -57,7 +57,6 @@
 class InterventionTool < InterventionAgent
   belongs_to :intervention, inverse_of: :tools
 
-
   def working_duration(nature: nil)
     tractors_count = InterventionParameter.of_variety(intervention.id, :tractor).count
     prepelled_equipments_count = InterventionParameter.of_variety(intervention.id, :self_prepelled_equipment).count
@@ -67,12 +66,15 @@ class InterventionTool < InterventionAgent
                     else
                       intervention.drivers_times(nature: nature)
                     end
-    
+
     if intervention.participations.empty? || drivers_times == 0 || (tractors_count == 0 && prepelled_equipments_count == 0)
-      return intervention_working_duration  
+      return intervention_working_duration
     end
 
-
     drivers_times / (tractors_count + prepelled_equipments_count)
+  end
+  
+  def catalog_usage
+    :travel_cost
   end
 end
