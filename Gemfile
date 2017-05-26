@@ -43,8 +43,8 @@ gem 'coffee-rails', '~> 4.1'
 gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
-gem 'honeybadger'
 gem 'binding_of_caller'
+gem 'honeybadger'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -187,7 +187,7 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.48.1', require: false
 
   # Webservers
   gem 'thin'
