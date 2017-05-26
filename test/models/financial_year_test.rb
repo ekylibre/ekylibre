@@ -201,7 +201,9 @@ class FinancialYearTest < ActiveSupport::TestCase
         forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
                          Journal.create_one!(:forward, f.currency),
         closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||
-                         Journal.create_one!(:closure, f.currency)
+                         Journal.create_one!(:closure, f.currency),
+        result_journal: Journal.find_by(nature: :result, currency: f.currency) ||
+                        Journal.create_one!(:result, f.currency)
       }
       assert f.close(nil, options), "Financial year #{f.code} should be closed"
     end

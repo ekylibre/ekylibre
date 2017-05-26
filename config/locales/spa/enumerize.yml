@@ -253,6 +253,7 @@ spa:
         fixed_assets: "Los activos fijos"
         forward: "A cargo de avance"
         purchases: "Las compras"
+        result: "Resultado"
         sales: "Ventas"
         stocks: "Cepo"
         various: "Diversas operaciones"
@@ -449,10 +450,10 @@ spa:
       nature:
         payslip: "Recibo de sueldo"
         purchase: "Compra"
-    sale_item:
-      compute_from:
-        pretax_amount: "Cantidad antes de impuestos"
-        unit_pretax_amount: "Unidades de la cantidad antes de impuestos"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Cantidad antes de impuestos" #?
+        unit_pretax_amount: "Unidades de la cantidad antes de impuestos" #?
     sensor:
       retrieval_mode:
         integration: "Integración"
@@ -468,6 +469,7 @@ spa:
         affairs: "Asuntos"
         analyses: "Los análisis"
         animals: "Animales"
+        campaigns: "Campañas"
         cash_transfers: "Las transferencias de dinero"
         contracts: "Contratos"
         debt_transfers: "Las transferencias de deuda"
@@ -485,6 +487,7 @@ spa:
         outgoing_payment_lists: "Listas de pago salientes"
         outgoing_payments: "Pagos salientes"
         parcels: "Parcelas"
+        plant_countings: "Recuento de plantas"
         plants: "Plantas"
         product_nature_categories: "Categorías de productos naturales"
         product_nature_variants: "Variantes de la naturaleza del producto"
@@ -533,6 +536,10 @@ spa:
       nature: #?
         amount: "Cantidad" #?
         percentage: "Porcentaje" #?
+    tax_declaration:
+      mode:
+        debit: "Débito"
+        payment: "Pago"
     tracking:
       usage_limit_nature:
         best_before: "Consumir preferentemente antes del"
