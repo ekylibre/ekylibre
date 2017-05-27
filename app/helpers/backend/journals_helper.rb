@@ -120,7 +120,7 @@ module Backend
     end
 
     # Create a widget to select some journals
-    def journals_crit
+    def journals_crit(*_args)
       code = ''
       field = :journals
       code << content_tag(:label, Backend::JournalsController.human_action_name(:index))
