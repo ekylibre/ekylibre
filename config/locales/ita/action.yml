@@ -1238,6 +1238,7 @@ ita:
     investment_security: "Sicurezza dell’investimento"
     investment_subsidies: "Sovvenzioni agli investimenti"
     invitation_status: "Stato"
+    invoice_period: "Periodo di fatturazione"
     invoice_status: "Stato delle fatture"
     invoiced: "Fatturato"
     invoiced_amount: "Vendite importo fatturato" #?
@@ -1659,6 +1660,7 @@ ita:
     subtotals_at_level: "Totale parziale a livello"
     supplier: "I prezzi di acquisto sul fornitore"
     supplier_informations: "informazioni del fornitore"
+    supplier_payment_mode: "Modalità di pagamento del fornitore"
     supplier_receivables: "I crediti dei fornitori"
     supply: "Fornitura"
     support: "Supporto"

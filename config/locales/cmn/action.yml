@@ -1172,6 +1172,7 @@ cmn:
     investment_security: "投资安全"
     investment_subsidies: "投资补助"
     invitation_status: "状态"
+    invoice_period: "发票期"
     invoice_status: "发票状态"
     invoiced: "已开发票"
     invoiced_amount: "销售发票金额" #?
@@ -1594,6 +1595,7 @@ cmn:
     subtotals_at_level: "小计在水平"
     supplier: "供应商采购价格"
     supplier_informations: "供应商信息"
+    supplier_payment_mode: "供应商付款模式"
     supplier_receivables: "供应商应收款"
     supply: "供应"
     support: "支持"

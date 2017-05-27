@@ -1411,6 +1411,7 @@ eng:
     investment_security: "Investment security" #?!
     investment_subsidies: "Investment subsidies" #?!
     invitation_status: "Status" #?
+    invoice_period: "Invoice period"
     invoice_status: "Invoice status"
     invoiced: "Invoiced"
     invoices: "Invoices" #?
@@ -1828,6 +1829,7 @@ eng:
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
+    supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables" #?!
     supply: "Supply" #?
     support: "Support" #?

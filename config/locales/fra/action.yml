@@ -1455,6 +1455,7 @@ fra:
     investment_security: "Valeur mobilière de placement"
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
+    invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
@@ -2098,7 +2099,8 @@ fra:
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
-    supplier_receivables: "Fournisseurs d’exploitations et comptes rattachés"
+    supplier_payment_mode: "Mode de paiement du fournisseur"
+    supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
