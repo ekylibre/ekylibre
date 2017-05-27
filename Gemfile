@@ -45,6 +45,7 @@ gem 'therubyracer', platforms: :ruby
 # Exception analysis and metrics
 gem 'binding_of_caller'
 gem 'honeybadger'
+gem 'sentry-raven', require: false
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
