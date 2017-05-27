@@ -116,6 +116,7 @@ eng:
         odd: "%{attribute} must be odd"
         on_or_after: "%{attribute} must be on or after %{restriction}"
         on_or_before: "%{attribute} must be on or before %{restriction}"
+        overlap: "%{attribute} overlaps an existing record"
         overlap_sibling: "%{attribute} overlaps sibling"
         posterior: "%{attribute} must be posterior to %{to}"
         record_invalid: "Validations failed: %{errors}"
@@ -220,7 +221,6 @@ eng:
       animal: "Animal"
       animal_group: "Animal group"
       attachment: "Attachment"
-      bank_guarantee_account: "Bank guarantee account" #?
       bank_statement: "Bank statement"
       bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
@@ -263,7 +263,7 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
-      # financial_year_exchange: "Financial year exchange"
+      financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
       fungus: "Fungus"
@@ -280,9 +280,7 @@ eng:
       inspection: "Product grading"
       inspection_calibration: "Inspection calibre"
       inspection_point: "Product grading check"
-      insurance_account: "Insurance account" #?
       integration: "Integration"
-      interest_account: "Interest account" #?
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
       intervention_doer: "Intervention doer"
@@ -378,6 +376,7 @@ eng:
       tax: "Tax"
       tax_declaration: "Tax declaration"
       tax_declaration_item: "Tax declaration item"
+      tax_declaration_item_part: "Tax declaration item part"
       team: "Team"
       token: "Token"
       tracking: "Tracking"
@@ -815,6 +814,7 @@ eng:
     grading_sizes_unit: "Grading sizes unit"
     grading_sizes_unit_name: "Grading sizes unit name"
     gradings: "Gradings" #?
+    grains_yield: "Grains Yield"
     gravity: "Gravity"
     gross_items_count: "Gross items count" #?
     gross_items_count_yield: "Gross item yield" #?
@@ -947,7 +947,7 @@ eng:
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
-    journal_entry_item: "Journal entry item" #?
+    journal_entry_item: "Journal entry item"
     journal_entry_items: "Journal entry items"
     key: "Key"
     label: "Label"
@@ -1141,6 +1141,7 @@ eng:
     participants: "Participants"
     participations: "Participations"
     partner_url: "Partner url"
+    # parts: "Parts"
     password: "Password"
     password_confirmation: "Confirmation of password"
     payee: "Payee"
@@ -1480,9 +1481,11 @@ eng:
     targets: "Targets"
     tasks: "Tasks"
     tax: "Tax"
+    # tax_amount: "Tax amount"
     tax_declaration: "Tax declaration"
     tax_declaration_frequency: "Tax declaration frequency"
     tax_declaration_item: "Tax declaration item"
+    # tax_declaration_item_parts: "Tax declaration item parts"
     tax_declaration_items: "Tax declaration items"
     tax_declaration_mode: "Tax declaration  mode"
     tax_declarations: "Tax declarations"
@@ -1509,6 +1512,8 @@ eng:
     total_cost: "Total cost"
     total_items_count: "Total items count" #?
     total_net_mass: "Total net mass" #?
+    # total_pretax_amount: "Total pretax amount"
+    # total_tax_amount: "Total tax amount"
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"

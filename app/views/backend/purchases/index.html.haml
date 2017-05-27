@@ -2,7 +2,7 @@
   - k.text
   - sm = Purchase.state_machine.states
   - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Purchase.human_attribute_name(:state)
-  - k.helper :journal_period_crit
+  - k.helper :journal_period_crit, label: :invoice_period.tl
   - k.choice :all, :unpaid, name: :nature
   - responsibles = User.where(id: Purchase.select(:responsible_id).distinct)
   - supplier_payment_modes = OutgoingPaymentMode.where(id: Entity.select(:supplier_payment_mode_id).distinct)
@@ -12,7 +12,7 @@
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
   - if supplier_payment_modes.any?
     - k.helper do
-      %label= OutgoingPaymentMode.human_attribute_name(:name)
+      %label= :supplier_payment_mode.tl
       = select_tag(:payment_mode_id, options_for_select([[]] +  supplier_payment_modes.map{|u| [u.name, u.id]}, params[:payment_mode_id].to_i))
 - main_toolbar do |t|
   = t.new variants: PurchaseNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }

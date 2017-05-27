@@ -9,6 +9,16 @@
 #     t.pattern = 'test/exchangers/**/*_test.rb'
 #   end
 
+#   # desc 'Run tests for services'
+#   Rails::TestTask.new(services: 'test:prepare') do |t|
+#     t.pattern = 'test/services/**/*_test.rb'
+#   end
+
+#   # desc 'Run tests for concepts'
+#   Rails::TestTask.new(concepts: 'test:prepare') do |t|
+#     t.pattern = 'test/concepts/**/*_test.rb'
+#   end
+
 #   task javascripts: [:teaspoon]
 #   task core: ['test:units', 'test:functionals', 'test:lib']
 
@@ -19,5 +29,5 @@
 
 #   task frontend: ['test:integration', 'test:javascripts']
 
-#   task libs: ['test:helpers', 'test:lib', 'test:exchangers']
+#   task libs: ['test:helpers', 'test:lib', 'test:exchangers', 'test:services', 'test:concepts']
 # end

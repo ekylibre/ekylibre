@@ -61,6 +61,7 @@
 #  resource_type             :string
 #  state                     :string           not null
 #  tax_declaration_item_id   :integer
+#  tax_declaration_mode      :string
 #  tax_id                    :integer
 #  team_id                   :integer
 #  updated_at                :datetime         not null
@@ -384,6 +385,7 @@ journal_entry_items_010:
   financial_year_id: 24
   id: 26
   journal_id: 1
+  letter: A*
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 2
@@ -586,6 +588,7 @@ journal_entry_items_016:
   financial_year_id: 24
   id: 40
   journal_id: 1
+  letter: C*
   lock_version: 0
   name: "[Loss E000000000002] FUYUTSUKI Kōzō"
   position: 1
@@ -819,6 +822,7 @@ journal_entry_items_023:
   financial_year_id: 18
   id: 53
   journal_id: 1
+  letter: B*
   lock_version: 0
   name: "[Incoming payment IP003] In cash!  de Yuey LTD"
   position: 2
@@ -881,6 +885,7 @@ journal_entry_items_025:
   financial_year_id: 18
   id: 57
   journal_id: 1
+  letter: A
   lock_version: 0
   name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
   position: 2
@@ -1211,6 +1216,7 @@ journal_entry_items_035:
   financial_year_id: 18
   id: 87
   journal_id: 1
+  letter: B
   lock_version: 0
   name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
   position: 2
@@ -1243,6 +1249,7 @@ journal_entry_items_036:
   financial_year_id: 23
   id: 88
   journal_id: 2
+  letter: A
   lock_version: 0
   name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
   position: 1
@@ -1311,6 +1318,7 @@ journal_entry_items_038:
   financial_year_id: 22
   id: 90
   journal_id: 2
+  letter: B
   lock_version: 0
   name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
   position: 1
@@ -1454,6 +1462,7 @@ journal_entry_items_042:
   financial_year_id: 24
   id: 94
   journal_id: 4
+  letter: A
   lock_version: 0
   name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
   position: 3
@@ -1697,6 +1706,7 @@ journal_entry_items_049:
   financial_year_id: 24
   id: 105
   journal_id: 4
+  letter: B
   lock_version: 0
   name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
   position: 3
@@ -1806,6 +1816,7 @@ journal_entry_items_052:
   financial_year_id: 24
   id: 108
   journal_id: 5
+  letter: C
   lock_version: 0
   name: "[Achat A201503000001] Ammonitre 33,5%  Big Bag de Taurus Plus"
   position: 3
@@ -1844,7 +1855,7 @@ journal_entry_items_053:
   name: "[Emprunt Vélo] Réception des fonds"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2009-06-01
+  printed_on: 2015-05-01
   real_balance: 2000.0
   real_credit: 0.0
   real_currency: EUR
@@ -1877,7 +1888,7 @@ journal_entry_items_054:
   name: "[Emprunt Vélo] Réception des fonds"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2009-06-01
+  printed_on: 2015-05-01
   real_balance: -2000.0
   real_credit: 2000.0
   real_currency: EUR
@@ -1910,7 +1921,7 @@ journal_entry_items_055:
   name: "[Remboursement d’emprunt Vélo] Remboursement n°1"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2009-07-10
+  printed_on: 2015-06-01
   real_balance: 2.07
   real_credit: 0.0
   real_currency: EUR
@@ -1943,7 +1954,7 @@ journal_entry_items_056:
   name: "[Remboursement d’emprunt Vélo] Remboursement n°1"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2009-07-10
+  printed_on: 2015-06-01
   real_balance: -2.07
   real_credit: 2.07
   real_currency: EUR
@@ -1976,7 +1987,7 @@ journal_entry_items_057:
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2009-07-31
+  printed_on: 2016-06-01
   real_balance: 1016.22
   real_credit: 0.0
   real_currency: EUR
@@ -2009,7 +2020,7 @@ journal_entry_items_058:
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2009-07-31
+  printed_on: 2016-06-01
   real_balance: 70.31
   real_credit: 0.0
   real_currency: EUR
@@ -2042,7 +2053,7 @@ journal_entry_items_059:
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2009-07-31
+  printed_on: 2016-06-01
   real_balance: 2.07
   real_credit: 0.0
   real_currency: EUR
@@ -2075,7 +2086,7 @@ journal_entry_items_060:
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 4
   pretax_amount: 0.0
-  printed_on: 2009-07-31
+  printed_on: 2016-06-01
   real_balance: -1088.6
   real_credit: 1088.6
   real_currency: EUR
@@ -2179,6 +2190,7 @@ journal_entry_items_063:
   financial_year_id: 25
   id: 277
   journal_id: 5
+  letter: A
   lock_version: 0
   name: "[Achat A201607000001] Ammonitre 33,5%  Big Bag de Yuey LTD"
   position: 3
@@ -7306,7 +7318,7 @@ journal_entry_items_218:
   real_currency_rate: 0.8977
   real_debit: 714.22
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:32.631241000 Z
   updater_id: 1
 journal_entry_items_219:
@@ -7339,7 +7351,7 @@ journal_entry_items_219:
   real_currency_rate: 0.8977
   real_debit: 41.52
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:32.650616000 Z
   updater_id: 1
 journal_entry_items_220:
@@ -7372,7 +7384,7 @@ journal_entry_items_220:
   real_currency_rate: 0.8977
   real_debit: 15.42
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:32.668566000 Z
   updater_id: 1
 journal_entry_items_221:
@@ -7405,7 +7417,7 @@ journal_entry_items_221:
   real_currency_rate: 0.8977
   real_debit: 0.0
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:32.686170000 Z
   updater_id: 1
 journal_entry_items_222:
@@ -8626,7 +8638,7 @@ journal_entry_items_258:
   real_currency_rate: 0.8977
   real_debit: 731.54
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:42.924693000 Z
   updater_id: 1
 journal_entry_items_259:
@@ -8659,7 +8671,7 @@ journal_entry_items_259:
   real_currency_rate: 0.8977
   real_debit: 28.89
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:42.944404000 Z
   updater_id: 1
 journal_entry_items_260:
@@ -8692,7 +8704,7 @@ journal_entry_items_260:
   real_currency_rate: 0.8977
   real_debit: 10.73
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:42.964142000 Z
   updater_id: 1
 journal_entry_items_261:
@@ -8725,7 +8737,7 @@ journal_entry_items_261:
   real_currency_rate: 0.8977
   real_debit: 0.0
   real_pretax_amount: 0.0
-  state: draft
+  state: confirmed
   updated_at: 2016-07-01 20:34:42.983292000 Z
   updater_id: 1
 journal_entry_items_262:
@@ -8867,15 +8879,16 @@ journal_entry_items_266:
   currency: EUR
   debit: 20520.0
   entry_id: 88
-  entry_number: CUN000003
-  financial_year_id: 26
+  entry_number: BNK000012
+  financial_year_id: 25
   id: 484
-  journal_id: 6
+  journal_id: 10
+  letter: B
   lock_version: 0
   name: "[Décaissement D20160002] En espèce  pour Coop Ain Coop'In"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2016-10-26
+  printed_on: 2015-08-28
   real_balance: 20520.0
   real_credit: 0.0
   real_currency: EUR
@@ -8900,15 +8913,15 @@ journal_entry_items_267:
   currency: EUR
   debit: 0.0
   entry_id: 88
-  entry_number: CUN000003
-  financial_year_id: 26
+  entry_number: BNK000012
+  financial_year_id: 25
   id: 485
-  journal_id: 6
+  journal_id: 10
   lock_version: 0
   name: "[Décaissement D20160002] En espèce  pour Coop Ain Coop'In"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2016-10-26
+  printed_on: 2015-08-28
   real_balance: -20520.0
   real_credit: 20520.0
   real_currency: EUR
@@ -10055,6 +10068,7 @@ journal_entry_items_299:
   financial_year_id: 26
   id: 517
   journal_id: 4
+  letter: B
   lock_version: 0
   name: "[Achat A201611000003] Acide lactique ‒ 25kg de BAKTOUBI Inc."
   position: 3
@@ -10089,6 +10103,7 @@ journal_entry_items_300:
   financial_year_id: 26
   id: 518
   journal_id: 1
+  letter: B
   lock_version: 0
   name: "[Perte E000000000005] BAKTOUBI Inc."
   position: 1
@@ -10226,6 +10241,7 @@ journal_entry_items_304:
   financial_year_id: 26
   id: 522
   journal_id: 1
+  letter: B
   lock_version: 0
   name: Test OD
   position: 1
@@ -11046,15 +11062,15 @@ journal_entry_items_327:
   currency: EUR
   debit: 0.0
   entry_id: 9
-  entry_number: XYZ0007
+  entry_number: PUR000001
   financial_year_id: 24
   id: 545
-  journal_id: 1
+  journal_id: 4
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2014-10-31
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11079,15 +11095,15 @@ journal_entry_items_328:
   currency: EUR
   debit: 70.0
   entry_id: 9
-  entry_number: XYZ0007
+  entry_number: PUR000001
   financial_year_id: 24
   id: 546
-  journal_id: 1
+  journal_id: 4
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2014-10-31
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11112,15 +11128,15 @@ journal_entry_items_329:
   currency: EUR
   debit: 15.0
   entry_id: 9
-  entry_number: XYZ0010
+  entry_number: PUR000001
   financial_year_id: 24
   id: 547
-  journal_id: 1
+  journal_id: 4
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2014-10-31
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11145,7 +11161,7 @@ journal_entry_items_330:
   currency: EUR
   debit: 0.0
   entry_id: 12
-  entry_number: XYZ0007
+  entry_number: XYZ0009
   financial_year_id: 24
   id: 548
   journal_id: 1
@@ -11178,7 +11194,7 @@ journal_entry_items_331:
   currency: EUR
   debit: 70.0
   entry_id: 12
-  entry_number: XYZ0007
+  entry_number: XYZ0009
   financial_year_id: 24
   id: 549
   journal_id: 1
@@ -11211,7 +11227,7 @@ journal_entry_items_332:
   currency: EUR
   debit: 15.0
   entry_id: 12
-  entry_number: XYZ0010
+  entry_number: XYZ0009
   financial_year_id: 24
   id: 550
   journal_id: 1
@@ -11244,15 +11260,15 @@ journal_entry_items_333:
   currency: EUR
   debit: 0.0
   entry_id: 90
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000001
+  financial_year_id: 26
   id: 551
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11277,15 +11293,15 @@ journal_entry_items_334:
   currency: EUR
   debit: 70.0
   entry_id: 90
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000001
+  financial_year_id: 26
   id: 552
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11310,15 +11326,15 @@ journal_entry_items_335:
   currency: EUR
   debit: 15.0
   entry_id: 90
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000001
+  financial_year_id: 26
   id: 553
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11343,15 +11359,15 @@ journal_entry_items_336:
   currency: EUR
   debit: 0.0
   entry_id: 93
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000002
+  financial_year_id: 26
   id: 554
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11376,15 +11392,15 @@ journal_entry_items_337:
   currency: EUR
   debit: 70.0
   entry_id: 93
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000002
+  financial_year_id: 26
   id: 555
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11409,15 +11425,15 @@ journal_entry_items_338:
   currency: EUR
   debit: 15.0
   entry_id: 93
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000002
+  financial_year_id: 26
   id: 556
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11442,15 +11458,15 @@ journal_entry_items_339:
   currency: EUR
   debit: 0.0
   entry_id: 96
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000003
+  financial_year_id: 26
   id: 557
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11475,15 +11491,15 @@ journal_entry_items_340:
   currency: EUR
   debit: 70.0
   entry_id: 96
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000003
+  financial_year_id: 26
   id: 558
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11508,15 +11524,15 @@ journal_entry_items_341:
   currency: EUR
   debit: 15.0
   entry_id: 96
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000003
+  financial_year_id: 26
   id: 559
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11541,15 +11557,15 @@ journal_entry_items_342:
   currency: EUR
   debit: 0.0
   entry_id: 99
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000004
+  financial_year_id: 26
   id: 560
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11574,15 +11590,15 @@ journal_entry_items_343:
   currency: EUR
   debit: 70.0
   entry_id: 99
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000004
+  financial_year_id: 26
   id: 561
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11607,15 +11623,15 @@ journal_entry_items_344:
   currency: EUR
   debit: 15.0
   entry_id: 99
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000004
+  financial_year_id: 26
   id: 562
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11640,15 +11656,15 @@ journal_entry_items_345:
   currency: EUR
   debit: 0.0
   entry_id: 101
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000005
+  financial_year_id: 26
   id: 563
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11673,15 +11689,15 @@ journal_entry_items_346:
   currency: EUR
   debit: 70.0
   entry_id: 101
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000005
+  financial_year_id: 26
   id: 564
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11706,15 +11722,15 @@ journal_entry_items_347:
   currency: EUR
   debit: 15.0
   entry_id: 101
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000005
+  financial_year_id: 26
   id: 565
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11739,15 +11755,15 @@ journal_entry_items_348:
   currency: EUR
   debit: 0.0
   entry_id: 103
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000006
+  financial_year_id: 26
   id: 566
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11772,15 +11788,15 @@ journal_entry_items_349:
   currency: EUR
   debit: 70.0
   entry_id: 103
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000006
+  financial_year_id: 26
   id: 567
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11805,15 +11821,15 @@ journal_entry_items_350:
   currency: EUR
   debit: 15.0
   entry_id: 103
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000006
+  financial_year_id: 26
   id: 568
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
@@ -11838,15 +11854,15 @@ journal_entry_items_351:
   currency: EUR
   debit: 0.0
   entry_id: 106
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000007
+  financial_year_id: 26
   id: 569
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: -85.0
   real_credit: 85.0
   real_currency: EUR
@@ -11871,15 +11887,15 @@ journal_entry_items_352:
   currency: EUR
   debit: 70.0
   entry_id: 106
-  entry_number: XYZ0007
-  financial_year_id: 24
+  entry_number: RESE000007
+  financial_year_id: 26
   id: 570
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 70.0
   real_credit: 0.0
   real_currency: EUR
@@ -11904,15 +11920,15 @@ journal_entry_items_353:
   currency: EUR
   debit: 15.0
   entry_id: 106
-  entry_number: XYZ0010
-  financial_year_id: 24
+  entry_number: RESE000007
+  financial_year_id: 26
   id: 571
-  journal_id: 1
+  journal_id: 8
   lock_version: 0
   name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2014-11-01
+  printed_on: 2016-11-20
   real_balance: 15.0
   real_credit: 0.0
   real_currency: EUR
