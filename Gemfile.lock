@@ -444,6 +444,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sentry-raven (2.5.1)
+      faraday (>= 0.7.6, < 1.0)
     sepa_king (0.9.0)
       activemodel (>= 3.0.0)
       builder
@@ -635,6 +637,7 @@ DEPENDENCIES
   savon
   sdoc (~> 0.4.0)
   selenium-webdriver
+  sentry-raven
   sepa_king
   shoulda-context
   sidekiq (>= 4.0)

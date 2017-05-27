@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  if ENV['SENTRY_DSN']
+    before_action :set_raven_context
+  end
+
   skip_before_action :verify_authenticity_token, if: :session_controller?
 
   before_action :set_theme
@@ -202,5 +206,12 @@ class ApplicationController < ActionController::Base
   def configure_application(exception)
     title = exception.class.name.underscore.t(scope: 'exceptions')
     render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+  end
+
+  def set_raven_context
+    if current_user
+      Raven.user_context(id: current_user.id) # or anything else in session
+    end
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end
