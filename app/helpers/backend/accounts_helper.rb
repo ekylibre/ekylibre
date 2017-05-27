@@ -34,7 +34,7 @@ module Backend
 
     # Create a widget to select ranges of account
     # See Account#range_condition
-    def accounts_range_crit
+    def accounts_range_crit(*_args)
       id = :accounts
       params[id] = Account.clean_range_condition(params[id])
       code = ''
