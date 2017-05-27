@@ -18,6 +18,7 @@ module Ekylibre
       # and removes it if not exist
       def check!(name, options = {})
         if list.include?(name)
+          switch_to_database_for(name)
           drop(name, options) unless Apartment.connection.schema_exists? name
         end
       end
@@ -28,6 +29,10 @@ module Ekylibre
           raise TenantError, 'No current tenant'
         end
         name
+      end
+
+      def host
+        "#{current}.#{ENV['HOST_DOMAIN_NAME'] || 'example.org'}"
       end
 
       # Returns the private directory of the current tenant
@@ -41,8 +46,75 @@ module Ekylibre
         name = name.to_s
         check!(name)
         raise TenantError, 'Already existing tenant' if exist?(name)
-        Apartment::Tenant.create(name)
+        create_database_for!(name) if multi_database > 0
         add(name)
+        Apartment::Tenant.create(name)
+      end
+
+      def multi_database
+        Rails.env.test? ? 0 : ENV['MULTI_DATABASE'].to_i
+      end
+
+      def create_database_for!(name, magnitude = nil)
+        magnitude ||= multi_database
+        if magnitude > 0
+          database = database_for(name, magnitude)
+          ActiveRecord::Base.connection.create_database(database)
+          switch_to_database_for(name, magnitude)
+          Ekylibre::Schema.setup_extensions
+          ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
+          Ekylibre::Schema.model_names.each do |model_name|
+            model_name.to_s.constantize.reset_column_information
+          end
+          Rails.logger.info "Created #{database}"
+        end
+      rescue ActiveRecord::StatementInvalid => e
+        # NOP
+      end
+
+      def switch_to_database_for(name, magnitude = nil)
+        magnitude ||= multi_database
+        if magnitude > 0
+          database = database_for(name, magnitude)
+          switch_to_database(database)
+          database
+        end
+      end
+
+      def switch_to_database(database)
+        configuration = Rails.configuration.database_configuration[Rails.env]
+        Apartment.establish_connection configuration.merge('database' => database)
+      end
+
+      def database_for(name, magnitude = nil)
+        conf = Rails.configuration.database_configuration[Rails.env]
+        magnitude ||= multi_database
+        if magnitude > 0
+          conf['database'] + '_' + Digest::MD5.hexdigest(name)[0..(magnitude - 1)]
+        else
+          conf['database']
+        end
+      end
+
+      def with_pg_env(_name)
+        pghost = ENV['PGHOST']
+        pgport = ENV['PGPORT']
+        pguser = ENV['PGUSER']
+        pgpassword = ENV['PGPASSWORD']
+
+        config = Rails.configuration.database_configuration[Rails.env].with_indifferent_access
+
+        ENV['PGHOST'] = config[:host] if config[:host]
+        ENV['PGPORT'] = config[:port].to_s if config[:port]
+        ENV['PGUSER'] = config[:username].to_s if config[:username]
+        ENV['PGPASSWORD'] = config[:password].to_s if config[:password]
+
+        yield
+      ensure
+        ENV['PGHOST'] = pghost
+        ENV['PGPORT'] = pgport
+        ENV['PGUSER'] = pguser
+        ENV['PGPASSWORD'] = pgpassword
       end
 
       # Adds a tenant in config. No schema are created.
@@ -63,6 +135,7 @@ module Ekylibre
       def drop(name, options = {})
         name = name.to_s
         raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
+        switch_to_database_for(name)
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
@@ -87,6 +160,218 @@ module Ekylibre
       # Dump database and files data to a zip archive with specific places
       # This archive is database independent
       def dump(name, options = {})
+        dump_v2(name, options)
+      end
+
+      # Restore an archive
+      def restore(archive_file, options = {})
+        code = options[:tenant] || Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
+        verbose = !options[:verbose].is_a?(FalseClass)
+
+        archive_path = Rails.root.join('tmp', 'archives', "#{code}-restore")
+        FileUtils.rm_rf(archive_path)
+        FileUtils.mkdir_p(archive_path)
+
+        puts "Decompressing #{archive_file.basename} to #{archive_path.basename}...".yellow if verbose
+        Zip::File.open(archive_file.to_s) do |zile|
+          zile.each do |entry|
+            entry.extract(archive_path.join(entry.name))
+          end
+        end
+
+        puts 'Checking archive...'.yellow if verbose
+        if !archive_path.join('manifest.yml').exist?
+          raise 'Cannot not handle this archive'
+        else
+          manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
+          unless name = options[:tenant] || manifest[:tenant]
+            raise 'No given name for the tenant'
+          end
+
+          format_version = manifest[:format_version].to_s
+          if format_version == '3'
+            restore_v3(archive_path, name, options)
+          elsif ['2.0', '2'].include? format_version
+            restore_v2(archive_path, name, options)
+          else
+            raise "Cannot handle this version of archive: #{format_version.inspect}"
+          end
+        end
+        FileUtils.rm_rf(archive_path)
+      end
+
+      # Change current tenant
+      def switch(name, &block)
+        raise 'Need block to use Ekylibre::Tenant.switch' unless block_given?
+        Apartment::Tenant.switch(name, &block)
+      end
+
+      def switch!(name)
+        Apartment::Tenant.switch!(name)
+      end
+
+      alias current= switch!
+
+      def switch_default!
+        if list.empty?
+          raise TenantError, 'No default tenant'
+        else
+          switch!(list.first)
+        end
+      end
+
+      # Browse all tenant to make actions on it
+      def switch_each(&_block)
+        list.each do |tenant|
+          switch(tenant) do
+            yield tenant
+          end
+        end
+      end
+
+      def clear!
+        list unless @list
+        @list[env] = []
+        write
+      end
+
+      def list
+        load! unless @list
+        @list[env] ||= []
+        @list[env]
+      end
+
+      def load!
+        @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+        @list ||= {}
+      end
+
+      def drop_aggregation_schema!
+        ActiveRecord::Base.connection.execute("CREATE SCHEMA IF NOT EXISTS #{AGGREGATION_NAME};")
+      end
+
+      def create_aggregation_schema!
+        create_aggregation_views_schema!
+      end
+
+      def create_aggregation_views_schema!
+        raise 'No tenant to build an aggregation schema' if list.empty?
+        name = AGGREGATION_NAME
+        connection = ActiveRecord::Base.connection
+        connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
+        Ekylibre::Schema.tables.keys.each do |table|
+          connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
+          columns = Ekylibre::Schema.columns(table)
+          queries = list.collect do |tenant|
+            "SELECT '#{tenant}' AS tenant_name, " + columns.collect { |c| c[:name] }.join(', ') + " FROM #{tenant}.#{table}"
+          end
+          query = "CREATE VIEW #{name}.#{table} AS " + queries.join(' UNION ALL ')
+          connection.execute(query)
+        end
+      end
+
+      def reset_search_path!
+        ActiveRecord::Base.connection.schema_search_path = Ekylibre::Application.config.database_configuration[::Rails.env]['schema_search_path']
+      end
+
+      def list_tenants_with_migration_problem
+        tenants = []
+
+        list.each do |tenant|
+          Ekylibre::Tenant.switch! tenant
+          migration_version = ActiveRecord::Migrator.current_version
+
+          next if migration_version.nonzero?
+
+          tenants << { name: tenant, version: migration_version }
+        end
+
+        tenants
+      end
+
+      def correct_tenants_with_migration_problem!
+        tenants = list_tenants_with_migration_problem
+
+        tenants.each do |tenant|
+          Ekylibre::Tenant.switch! tenant[:name]
+
+          connection = ActiveRecord::Base.connection
+          connection.execute('INSERT INTO schema_migrations SELECT * FROM public.schema_migrations')
+
+          puts (tenant[:name] + ' : done').yellow
+        end
+
+        load!
+
+        puts 'Task done'.blue
+      end
+
+      def list_tenant_with_table_not_exist(table_name)
+        tenants = []
+
+        list.each do |tenant|
+          Ekylibre::Tenant.switch! tenant
+
+          connection = ActiveRecord::Base.connection
+          result = connection.execute(
+            "SELECT EXISTS(
+              SELECT 1
+              FROM information_schema.tables
+              WHERE table_schema = current_schema()
+              AND table_name = '#{table_name}'
+            )"
+          ).to_a
+
+          next if result.first.value?('t')
+
+          migration_version = ActiveRecord::Migrator.current_version
+          tenants << { name: tenant, migration_version: migration_version }
+        end
+
+        tenants
+      end
+
+      def remove_last_migration_and_migrate!(tenant_name)
+        Ekylibre::Tenant.switch! tenant_name
+
+        ActiveRecord::Base.connection.execute(
+          "DELETE FROM schema_migrations
+           WHERE version IN (
+              SELECT version
+              FROM schema_migrations
+              ORDER BY version DESC
+              LIMIT 1
+          )"
+        )
+
+        ActiveRecord::Migrator.migrate 'db/migrate'
+
+        load!
+      end
+
+      private
+
+      def config_file
+        Rails.root.join('config', 'tenants.yml')
+      end
+
+      # Return the env
+      def env
+        Rails.env.to_s
+      end
+
+      def write
+        semaphore.synchronize do
+          FileUtils.mkdir_p(config_file.dirname)
+          File.write(config_file, @list.to_yaml)
+        end
+      end
+
+      def semaphore
+        @@semaphore ||= Mutex.new
+      end
+
+      def dump_v2(name, options = {})
         destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
         switch(name) do
           archive_file = destination_path.join("#{name}.zip")
@@ -111,7 +396,7 @@ module Ekylibre
           File.open(archive_path.join('manifest.yml'), 'wb') do |f|
             options.update(
               tenant: name,
-              format_version: '2.0',
+              format_version: 2,
               database_version: version,
               creation_at: Time.zone.now,
               created_with: "Ekylibre #{Ekylibre::VERSION}"
@@ -132,43 +417,18 @@ module Ekylibre
         end
       end
 
-      # Restore an archive
-      def restore(archive_file, options = {})
-        code = options[:tenant] || Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
-        verbose = !options[:verbose].is_a?(FalseClass)
-
-        archive_path = Rails.root.join('tmp', 'archives', "#{code}-restore")
+      def restore_v2(archive_path, name, options = {})
         tables_path = archive_path.join('tables')
         files_path = archive_path.join('files')
 
-        FileUtils.rm_rf(archive_path)
-        FileUtils.mkdir_p(archive_path)
-
-        puts "Decompressing #{archive_file.basename} to #{archive_path.basename}...".yellow if verbose
-        Zip::File.open(archive_file.to_s) do |zile|
-          zile.each do |entry|
-            entry.extract(archive_path.join(entry.name))
-          end
-        end
-
-        puts 'Checking archive...'.yellow if verbose
-        raise 'Invalid archive' unless archive_path.join('manifest.yml').exist?
-
         manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
-        format_version = manifest[:format_version]
-        unless format_version == '2.0'
-          raise "Cannot handle this version of archive: #{format_version}"
-        end
-
-        unless name = options[:tenant] || manifest[:tenant]
-          raise 'No given name for the tenant'
-        end
 
         database_version = manifest[:database_version].to_i
         if database_version > ActiveRecord::Migrator.last_version
           raise 'Too recent archive'
         end
 
+        verbose = !options[:verbose].is_a?(FalseClass)
         puts "Resetting tenant #{name}...".yellow if verbose
         drop(name) if exist?(name)
         create(name)
@@ -186,103 +446,11 @@ module Ekylibre
           Fixturing.restore(name, version: database_version, path: tables_path, verbose: verbose)
           puts 'Done!'.yellow if verbose
         end
-
-        FileUtils.rm_rf(archive_path)
       end
 
-      # Change current tenant
-      def switch(name, &block)
-        raise 'Need block to use Ekylibre::Tenant.switch' unless block_given?
-        Apartment::Tenant.switch(name, &block)
-      end
+      def dump_v3(name, options = {}); end
 
-      def switch!(name)
-        Apartment::Tenant.switch!(name)
-      end
-
-      alias current= switch!
-
-      def switch_default!
-        if list.empty?
-          raise TenantError, 'No default tenant'
-        else
-          Apartment::Tenant.switch!(list.first)
-        end
-      end
-
-      # Browse all tenant to make actions on it
-      def switch_each(&_block)
-        list.each do |tenant|
-          switch(tenant) do
-            yield tenant
-          end
-        end
-      end
-
-      def clear!
-        list unless @list
-        @list[env] = []
-        write
-      end
-
-      def list
-        unless @list
-          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
-          @list ||= {}
-        end
-        @list[env] ||= []
-        @list[env]
-      end
-
-      def drop_aggregation_schema!
-        ActiveRecord::Base.connection.execute("CREATE SCHEMA IF NOT EXISTS #{AGGREGATION_NAME};")
-      end
-
-      def create_aggregation_schema!
-        create_aggregation_views_schema!
-      end
-
-      def create_aggregation_views_schema!
-        raise 'No tenant to build an aggregation schema' if list.empty?
-        name = AGGREGATION_NAME
-        connection = ActiveRecord::Base.connection
-        connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
-        for table in Ekylibre::Schema.tables.keys
-          connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
-          columns = Ekylibre::Schema.columns(table)
-          queries = list.collect do |tenant|
-            "SELECT '#{tenant}' AS tenant_name, " + columns.collect { |c| c[:name] }.join(', ') + " FROM #{tenant}.#{table}"
-          end
-          query = "CREATE VIEW #{name}.#{table} AS " + queries.join(' UNION ALL ')
-          connection.execute(query)
-        end
-      end
-
-      def reset_search_path!
-        ActiveRecord::Base.connection.schema_search_path = Ekylibre::Application.config.database_configuration[::Rails.env]['schema_search_path']
-      end
-
-      private
-
-      def config_file
-        Rails.root.join('config', 'tenants.yml')
-      end
-
-      # Return the env
-      def env
-        Rails.env.to_s
-      end
-
-      def write
-        semaphore.synchronize do
-          FileUtils.mkdir_p(config_file.dirname)
-          File.write(config_file, @list.to_yaml)
-        end
-      end
-
-      def semaphore
-        @@semaphore ||= Mutex.new
-      end
+      def restore_v3(archive_path, name, options = {}); end
     end
   end
 end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,4 +31,58 @@
 #  updater_id        :integer
 #  value             :integer          not null
 #
---- {}
+---
+plant_counting_items_001:
+  created_at: 2016-12-20 18:26:27.967329000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  plant_counting_id: 1
+  updated_at: 2016-12-20 18:26:27.967329000 Z
+  updater_id: 1
+  value: 12
+plant_counting_items_002:
+  created_at: 2016-12-20 18:26:27.975583000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  plant_counting_id: 1
+  updated_at: 2016-12-20 18:26:27.975583000 Z
+  updater_id: 1
+  value: 16
+plant_counting_items_003:
+  created_at: 2016-12-20 18:26:27.978618000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  plant_counting_id: 1
+  updated_at: 2016-12-20 18:26:27.978618000 Z
+  updater_id: 1
+  value: 15
+plant_counting_items_004:
+  created_at: 2016-12-20 18:27:12.405920000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  plant_counting_id: 2
+  updated_at: 2016-12-20 18:27:12.405920000 Z
+  updater_id: 1
+  value: 9
+plant_counting_items_005:
+  created_at: 2016-12-20 18:27:12.409981000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  plant_counting_id: 2
+  updated_at: 2016-12-20 18:27:12.409981000 Z
+  updater_id: 1
+  value: 8
+plant_counting_items_006:
+  created_at: 2016-12-20 18:27:12.412792000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  plant_counting_id: 2
+  updated_at: 2016-12-20 18:27:12.412792000 Z
+  updater_id: 1
+  value: 9

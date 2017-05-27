@@ -90,10 +90,12 @@ module SVF
         code << "  alias #{bool.name}? #{bool.name}\n"
       end
       code << '  def initialize(' + element.cells.collect(&:name).join(', ') + ")\n"
-      element.cells.each do |c|
-        code << "    @#{c.name} = #{c.name}\n"
-      end if element.has_cells?
-      element.children.select { |c| c.range.max != 1 }.each do |c|
+      if element.has_cells?
+        element.cells.each do |c|
+          code << "    @#{c.name} = #{c.name}\n"
+        end
+      end
+      element.children.reject { |c| c.range.max == 1 }.each do |c|
         code << "    @#{c.name} = []\n"
       end
       code << "    @text = ''\n" if element.to

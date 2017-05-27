@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -59,12 +59,13 @@ sale_natures_001:
   expiration_delay: 15 days, bom, 10 days
   id: 1
   journal_id: 3
-  lock_version: 1
+  lock_version: 2
   name: Classical sale
   payment_delay: 12 days, eom, 1 week ago
-  updated_at: 2014-10-31 18:36:44.183917000 Z
+  payment_mode_complement: ''
+  updated_at: 2016-11-20 22:08:08.307178000 Z
   updater_id: 1
-  with_accounting: false
+  with_accounting: true
 sale_natures_002:
   active: false
   by_default: false

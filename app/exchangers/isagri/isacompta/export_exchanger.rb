@@ -15,7 +15,6 @@ module Isagri
           'ac' => :purchases,
           've' => :sales,
           'tr' => :bank,
-          # "tr" => :cash,
           'an' => :forward
         }
 
@@ -67,6 +66,7 @@ module Isagri
             end
 
             # Ignore taxes
+            # TODO Take in account taxes data from Isacompta Export format
 
             # Add journals
             # Find used journals
@@ -113,12 +113,12 @@ module Isagri
               w.check_point
               entry = nil
               journal_id = all_journals[isa_entry.journal]
-              unless isa_entry.number.blank?
-                entries = JournalEntry.where('journal_id=? AND printed_on=? AND number = ?', journal_id, isa_entry.printed_on, isa_entry.number)
+              if isa_entry.number.present?
+                entries = JournalEntry.where(journal_id: journal_id, printed_on: isa_entry.printed_on, number: isa_entry.number)
                 if entries.size == 1
                   entry = entries.first
                 else
-                  entries = JournalEntry.where('journal_id=? AND printed_on=? AND SUBSTR(number,1,2)||SUBSTR(number,LENGTH(number)-5,6) = ?', journal_id, isa_entry.printed_on, isa_entry.number)
+                  entries = JournalEntry.where(journal_id: journal_id, printed_on: isa_entry.printed_on).where('SUBSTR(number,1,2)||SUBSTR(number,LENGTH(number)-5,6) = ?', isa_entry.number)
                   entry = entries.first if entries.size == 1
                 end
               end
@@ -132,28 +132,28 @@ module Isagri
                   number = number[0..255]
                 end
                 unless entry
-                  entry = JournalEntry.create(
+                  entry = JournalEntry.new(
                     number: number,
                     journal_id: all_journals[isa_entry.journal],
                     printed_on: isa_entry.printed_on,
                     created_at: isa_entry.created_on,
                     updated_at: isa_entry.updated_on,
-                    lock_version: isa_entry.version_number
-                  ) # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
-                  raise isa_entry.inspect + "\n" + entry.errors.full_messages.to_sentence unless entry.valid?
+                    lock_version: isa_entry.version_number,
+                    # state: (isa_entry.unupdateable? ? :confirmed : :draft),
+                    items: []
+                  )
                 end
               end
 
               unused_entries.delete(entry.id)
 
-              entry.items.clear
               isa_entry.lines.each do |isa_line|
                 if isa_line.debit < 0 || isa_line.credit < 0
                   debit = isa_line.debit
                   isa_line.debit = isa_line.credit.abs
                   isa_line.credit = debit.abs
                 end
-                item = entry.items.create(
+                entry.items << JournalEntryItem.new(
                   account_id: all_accounts[isa_line.account],
                   name: "#{isa_line.label} (#{isa_entry.label})",
                   real_debit: isa_line.debit,
@@ -161,8 +161,10 @@ module Isagri
                   letter: (isa_line.lettering > 0 ? isa_line.letter : nil),
                   description: isa_line.to_s
                 )
-                raise isa_line.to_s + "\n" + item.errors.full_messages.to_sentence unless item.valid?
               end
+
+              entry.save
+              raise isa_entry.inspect + "\n" + entry.errors.full_messages.to_sentence unless entry.valid?
             end
 
             if unused_entries.any?

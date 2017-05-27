@@ -15,7 +15,8 @@
           url: element.data('autocomplete') + "?q=%QUERY"
           wildcard: '%QUERY'
       element.typeahead null,
-        source: completer
+        source: completer,
+        limit: 10
       element.attr('typeaheadloaded', 'yes')
     return
 

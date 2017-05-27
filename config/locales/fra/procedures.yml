@@ -1,60 +1,20 @@
 fra:
-  procedo:  #?
-    actions: #?
-      assisted_reading_task: "%{reporter} mesure %{indicator} avec %{tool}" #?
-      attachment: "On attache %{carrier} et %{carried}" #?
-      birth: "Naissance de %{product}" #?
-      browsing: "%{browser} parcourt %{browsed}" #?
-      consumption: "%{absorber} consomme %{product}" #?
-      creation: "%{producer} produit %{product}" #?
-      death: "%{product} meurt" #?
-      detachment: "On détache %{carrier} et %{carried}" #?
-      direct_entering: "%{product} entre directement dans %{localizable}" #?
-      direct_movement: "%{product} va directement à l’emplacement de %{localizable}" #?
-      division: "%{product} est séparé de %{producer}" #?
-      enjoyer_change: "Changement d'usufruitier de %{product} pour %{enjoyer}" #?
-      enjoyment_loss: "Perte d'usufruit de %{product}" #?
-      entering: "%{product} entre dans %{localizable}" #?
-      evolution: "Evolution de %{product} en %{variant}" #?
-      given_home_coming: "%{product} va l’emplacement par défaut de  %{localizable}" #?
-      group_exclusion: "%{member} sort du groupe %{group}" #?
-      group_inclusion: "%{member} entre dans le groupe %{group}" #?
-      home_coming: "%{product} va à son emplacement par défaut" #?
-      identified_incoming_delivery: "%{product} est réceptionné du %{supplier}" #?
-      identified_outgoing_delivery: "%{product} est expédié à %{client}" #?
-      incoming_delivery: "%{product} est réceptionné" #?
-      merging: "%{absorber} fusionne avec %{product}" #?
-      mixing: "Mélange de %{first_producer} et %{second_producer} dans %{product}" #?
-      movement: "%{product} va à l’emplacement de %{localizable}" #?
-      nature_cast: "Transformation de %{product} en %{nature}" #?
-      out_going: "Sortie de %{product}" #?
-      outgoing_delivery: "%{product} est expédié" #?
-      owner_change: "%{product} change de propriétaire pour %{owner}" #?
-      ownership_loss: "%{product} perd son propriétaire" #?
-      quadruple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer} et %{fourth_producer} dans %{product}" #?
-      quintuple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer}, %{fourth_producer} et %{fifth_producer} dans %{product}" #?
-      reading_task: "%{reporter} mesure %{indicator}" #?
-      simple_attachment: "On attèle %{carrier} et %{carried}" #?
-      simple_detachment: "Détachement de %{carrier} du %{point}" #?
-      simple_reading_task: "%{indicator} est mesuré" #?
-      triple_mixing: "Mélange de %{first_producer}, %{second_producer} et %{third_producer} dans %{product}" #?
-      variant_cast: "Transformation de %{product} en %{variant}" #?
   procedure_handlers:
     dry_matter_mass: "Masse de matière sèche" #?
     dry_matter_mass_area_density: "Masse de matière sèche par surface" #?
     food_mass_per_animal: "Masse d’aliment par animal" #?
-    grains_area_density: "Densité de grains" #?
-    grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare" #?
-    grains_count: "Millers de grains" #?
+    grains_area_density: "Densité surfacique de grains"
+    grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare"
+    grains_count: "Millers de grains"
     length: "Longueur" #?
-    mass_area_density: "Densité surfacique en kilogrammes par hectare" #?
+    mass_area_density: "Densité surfacique"
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré" #?
     mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
-    mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare" #?
+    mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare"
     mass_volume_density: "Masse volumique" #?
     milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette" #?
-    net_mass: "Masse" #?
+    net_mass: "Masse nette"
     net_mass_in_kilogram: "Masse nette en kilogrammes" #?
     net_mass_in_ton: "Masse nette en tonnes" #?
     net_volume: "Volume" #?
@@ -65,6 +25,9 @@ fra:
     plants_count: "Nombre de plantes" #?
     population: "Population" #?
     potassium_unities_density: "Unités de potassium par surface" #?
+    seedling_area_density: "Densité surfacique de plants"
+    seedling_area_density_in_thousand_per_hectare: "Densité surfacique de plants en millers par hectare"
+    seedling_count: "Milliers de plants"
     shape: "Contour" #?
     stakes_by_hectare: "Enjeux par hectare"
     stakes_count: "Nombre de piquets" #?
@@ -73,16 +36,21 @@ fra:
     volume_area_density: "Densité surfacique" #?
     volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
     volume_density: "Densité volumique" #?
+  procedure_killable_parameters:
+    is_cultivation_completely_destroyed_by_intervention: "L'intervention détruit-elle cette parcelle/culture\_?"
+    is_it_completely_destroyed_by_intervention: "Est-ce complètement détruit par l'intervention\_?"
+    is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
   procedure_parameters:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
     animal: "Animal"
+    animal_food: "Aliment"
     animal_housing: "Zone d'hébergement de l'animal"
     animal_medicine: "Produit vétérinaire"
     animal_medicine_to_give: "Produit vétérinaire à donner" #?
+    animal_movement: "Déplacement d'un animal" #?
     baler: "Botteleuse"
-    baler_driver: "Conducteur (tracteur-botteleuse)"
-    bird_band: "Bande d'oiseaux"
+    bird_band: "Bande d'oiseaux" #?
     bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
     caregiver: "Soigneur"
@@ -90,6 +58,7 @@ fra:
     chemical_storage: "Stockage de produits de protection des végétaux" #?
     child: "Nouveau né"
     cleaner: "Outil de nettoyage"
+    cleaner_product: "Produit de nettoyage"
     compressor: "Compresseur"
     construction_material: "Materiel de construction"
     consumable_part: "Consommable"
@@ -98,18 +67,19 @@ fra:
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
-    cover_implanter: "Plastifieuse"
+    cover_implanter: "Plastiqueuse"
     crop: "Culture"
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
+    disinfectant: "Désinfectant"
     doer: "Opérateur"
     driver: "Conducteur"
     eggs: "Œufs"
     energy: "Energie"
     equipment: "Équipement"
-    excrement: "Excrément"
+    excrement: "Excrément" #?
     excrement_zone: "Fumière" #?
     fermented_juice: "Jus fermenté"
     fertilizer: "Engrais"
@@ -157,8 +127,6 @@ fra:
     hive: "Ruche"
     hoe: "Bineuse"
     hoeing_weeder: "Désherbineuse" #?
-    implanter: "Planteuse"
-    implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
     implement: "Outil"
     insecticide: "Insecticide" #?
@@ -173,6 +141,7 @@ fra:
     juice_to_ferment: "Jus à fermenter"
     land_parcel: "Parcelle"
     lifter: "Souleveuse"
+    litter: "Litière"
     maintained: "Maintenu" #?
     mammal: "Animal" #?
     mammal_herd: "Troupeau à traire" #?
@@ -188,13 +157,14 @@ fra:
     medicine_to_spray: "Traitement à pulvériser" #?
     member: "Membre" #?
     milk: "Lait"
+    milking_robot: "Robot de traite"
     molluscicide: "Molluscicide" #?
     molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
     mother_animal: "Mère" #?
-    movement: "Mouvement"
+    movement: "Mouvement" #?
     mower: "Faucheuse"
-    mower_driver: "Conducteur de faucheuse"
+    mulching_material: "Matériel de paillage"
     net_implanter: "Dérouleur de filet"
     net_roll: "Enrouleur de filet"
     new_animal_variant: "Nouveau variant de l'animal" #?
@@ -206,22 +176,24 @@ fra:
     oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
-    plant: "Culture végétale" #?
+    parturition: "Mise bas"
+    plant: "Culture"
     plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
     plants: "Plants"
     plants_to_fix: "Plants à implanter" #?
-    plastic: "Plastique"
-    plastic_sheet: "Bâche plastique" #?
     plastic_to_mulch: "Plastique à poser" #?
     plow: "Charrue"
     pollinating_insects: "Insectes pollinisateurs"
     pollination_tool: "Outil de pollinisation"
+    poultry: "Volailles"
     press: "Presse"
     product: "Produit" #?
+    product_to_sort: "Produits à trier"
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
     pruner: "Sécateur" #?
+    raised_manure: "Fumier collecté"
     replacement_part: "Pièce de remplacement"
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
@@ -234,7 +206,8 @@ fra:
     second_seed_input: "Seconde semence" #?
     second_seed_input_to_use: "Seconde semence utilisée" #?
     seed_mix: "Mélange de graine" #?
-    seed_storage: "Seed storage" #?
+    seed_storage: "Stockage de semences" #?
+    seedbed_preparator: "Outil de préparation du lit de semence"
     seeder: "Semoir" #?
     seedlings: "Plants"
     seeds: "Semences"
@@ -243,11 +216,13 @@ fra:
     silage: "Ensilage"
     silage_to_deliver: "Ensilage à livrer" #?
     silage_to_give: "Ensilage à donner" #?
-    silage_unloader: "Désileuse"
+    silage_unloader: "Désileuse" #?
     silo: "Silo" #?
     soil_loosener: "Décompacteur"
     sortable: "Produit à trier"
+    sorted_product: "Produits triés"
     sorted_seedlings: "Plants triés"
+    sorting_differential: "Écart de tri"
     sower: "Semoir"
     sprayer: "Pulvérisateur"
     spreader: "Épandeur"
@@ -274,12 +249,14 @@ fra:
     tool: "Outil"
     topper: "Effaneuse"
     tractor: "Tracteur"
-    trailer: "Remorque" #?
+    trailed_equipment: "Outil tracté"
+    trailer: "Remorque"
     tunnel: "Tunnel/Chenille"
     tunnel_implanter: "Outil de pose de tunnel/chenille"
     tunnel_remover: "Outil de retrait de tunnel/chenille"
     uncover: "Débâcheuse"
     variant: "Variant"
+    vehicle: "Véhicule"
     vial: "Paillette"
     vial_to_give: "Paillette à utiliser" #?
     walnuts: "Noix" #?
@@ -299,19 +276,22 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
-    work: "Travail"
+    work: "Opération sur équipement"
     worker: "Travailleur"
     zone: "Zone"
   procedures:
     administrative_task: "Tâche administrative générale" #?
+    administrative_tasks: "Tâches administratives"
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
-    animal_antibiotic_treatment: "Traitement antibiotique"
-    animal_artificial_insemination: "Insémination articielle animale"
+    animal_antibiotic_treatment: "Traitement antibiotique" #?
+    animal_artificial_insemination: "Insémination artificielle"
     animal_birth: "Naissance d’un animal" #?
-    animal_group_changing: "Déplacement d'un animal"
-    animal_housing_cleaning: "Nettoyage de stabulation"
-    animal_housing_mulching: "Paillage de stabulation"
+    animal_group_changing: "Déplacement d'animaux"
+    animal_housing_cleaning: "Nettoyage"
+    animal_housing_disinfection: "Désinfection"
+    animal_housing_mulching: "Paillage"
     animal_treatment: "Traitement animal" #?
+    animal_veterinary_treatment: "Traitement vétérinaire"
     attach: "Attellage" #?
     calving_one: "Vêlage unique" #?
     calving_twin: "Vêlage jumeaux" #?
@@ -329,7 +309,7 @@ fra:
     double_seed_mixing: "Mélange de semences avec deux semences" #?
     double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)" #?
     double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)" #?
-    egg_collecting: "Collecte d'œufs"
+    egg_collecting: "Ramassage d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
     equipment_item_replacement: "Équipement pièce de rechange"
@@ -346,23 +326,31 @@ fra:
     grains_harvest: "Moisson" #?
     grape_pressing: "Pressage de raisin"
     grape_transport: "Transport de raisin" #?
+    grazing: "Pâturage sur parcours"
     greenhouse_assembling: "Montage de serre"
     grinding: "Broyage" #?
     ground_destratification: "Déstratification"
     group_exclusion: "Exclusion de groupe" #?
     group_inclusion: "Inclusion de groupe" #?
     hand_weeding: "Désherbage manuel"
+    handling: "Manutention"
     harvest_helping: "Aide à la récolte" #?
+    harvest_transportation: "Transport de récolte"
     harvesting: "Récolte"
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?
+    herd_feeding: "Alimentation d'un troupeau"
     hilling: "Buttage"
     hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
+    housing_soil_disinfection: "Désinfection" #?
+    identification: "Identification"
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
-    inter-row hoeing: "Binage inter-rangs"
+    individual_feeding: "Alimentation individuelle"
+    installation_maintenance: "Entretien des installations"
+    inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
     lifting: "Soulevage"
@@ -373,7 +361,7 @@ fra:
     manual_vine_harvest: "Vendange manuelle" #?
     mecanical_vine_harvest: "Vendange mécanique" #?
     mechanical_harvesting: "Récolte mécanique" #?
-    mechanical_planting: "Plantation mécanique"
+    mechanical_planting: "Plantation"
     milking: "Traite"
     mineral_fertilizing: "Fertilisation minérale" #?
     moving: "Déplacement" #?
@@ -384,6 +372,7 @@ fra:
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"
     pasturing: "Pâturage"
+    plant_cover_sowing: "Semis de couvert"
     plant_covering: "Bâchage"
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
@@ -393,6 +382,7 @@ fra:
     plant_watering_installation: "Installation de l'irrigation"
     plantation_unfixing: "Déchaussage"
     plants_harvest: "Récolte de plante" #?
+    plants_sorting: "Tri de produits végétaux"
     plastic_mulching: "Paillage plastique" #?
     plowing: "Labour"
     plums_harvest: "Récolte de prunes" #?
@@ -400,10 +390,11 @@ fra:
     product_evolution: "Evolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
+    seedbed_preparing: "Préparation du lit de semences"
     seedling_sorting: "Triage de plants"
     sifting: "Tamisage"
     silage_transport: "Transport d'ensilage" #?
-    silage_unload: "Alimentation d’un troupeau via désileuse"
+    silage_unload: "Alimentation d’un troupeau via désileuse" #?
     sowing: "Semis"
     sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
     sowing_with_spraying: "Semis avec pulvérisation"

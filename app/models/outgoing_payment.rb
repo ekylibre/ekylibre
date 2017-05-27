@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,11 +35,13 @@
 #  downpayment       :boolean          default(TRUE), not null
 #  id                :integer          not null, primary key
 #  journal_entry_id  :integer
+#  list_id           :integer
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          not null
 #  number            :string
 #  paid_at           :datetime
 #  payee_id          :integer          not null
+#  position          :integer
 #  responsible_id    :integer          not null
 #  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -50,12 +52,14 @@ class OutgoingPayment < Ekylibre::Record::Base
   include Attachable
   include Customizable
   include PeriodicCalculable
+  include Letterable
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
+  belongs_to :list, class_name: 'OutgoingPaymentList', inverse_of: :payments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -65,17 +69,19 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :amount, numericality: { greater_than: 0 }
+  validates :amount, numericality: true
   validates :to_bank_at, presence: true
 
   acts_as_numbered
-  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, role: 'supplier'
+  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, class_name: 'PurchaseAffair'
 
   scope :between, lambda { |started_at, stopped_at|
     where(paid_at: started_at..stopped_at)
   }
 
   alias status affair_status
+
+  scope :matching_cash, ->(id) { includes(:mode).where(outgoing_payment_modes: { cash_id: id }) }
 
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
@@ -87,17 +93,65 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   protect do
-    (journal_entry && journal_entry.closed?)
+    (journal_entry && journal_entry.closed?) ||
+      pointed_by_bank_statement? || list.present?
   end
+
+  delegate :third_attribute, to: :class
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payee: payee.full_name, mode: mode.name, check_number: bank_check_number)
     b.journal_entry(mode.cash.journal, printed_on: to_bank_at.to_date, if: (mode.with_accounting? && delivered)) do |entry|
-      entry.add_debit(label, payee.account(:supplier).id, amount)
-      entry.add_credit(label, mode.cash.account_id, amount)
+      entry.add_debit(label, payee.account(:supplier).id, amount, as: :payee, resource: payee)
+      entry.add_credit(label, mode.cash.account_id, amount, as: :bank)
     end
+  end
+
+  def pointed_by_bank_statement?
+    journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?
+  end
+
+  def self.third_attribute
+    :payee
+  end
+
+  def self.sign_of_amount
+    -1
+  end
+
+  def relative_amount
+    self.class.sign_of_amount * amount
+  end
+
+  def third
+    send(third_attribute)
+  end
+
+  def amount_to_letter
+    c = Nomen::Currency[currency]
+    precision = c.precision
+    integers, decimals = amount.round(precision).divmod(1)
+    decimals = (decimals * 10**precision).round
+    locale = I18n.t('i18n.iso2').to_sym
+    items = [integers.to_i.humanize(locale: locale) + ' ' + c.human_name.downcase.pluralize]
+    if decimals > 0
+      if precision == 0
+      # OK
+      elsif precision == 2
+        items << :x_cents.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      elsif precision == 3
+        items << :x_mills.tl(count: decimals).gsub(decimals.to_s, decimals.humanize(locale: locale))
+      else
+        raise 'Invalid precision: ' + precision.inspect
+      end
+    end
+    items.to_sentence
+  end
+
+  def affair_reference_numbers
+    affair.purchases.map(&:reference_number).compact.to_sentence
   end
 
   def label

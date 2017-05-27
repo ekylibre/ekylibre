@@ -1,0 +1,13 @@
+- item ||= f.object
+- variant = Maybe(item.variant)
+
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
+  %tr
+    %td.annotable
+      = f.referenced_association(:variant, wrapper: :nested, input_html: {data: {trade_component: "variant"}})
+    %td.decimal
+      = f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
+    %td.decimal= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
+    %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
+    %td.currency= f.object.currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

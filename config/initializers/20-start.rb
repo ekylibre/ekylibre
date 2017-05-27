@@ -9,6 +9,9 @@ ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 require 'safe_string'
 autoload :SymbolArray, 'symbol_array'
 
+# ActionIntegration
+autoload :ActionIntegration, 'action_integration'
+
 # ActiveThing
 autoload :ActiveExchanger, 'active_exchanger'
 autoload :ActiveGuide,     'active_guide'
@@ -54,12 +57,14 @@ require 'open_weather_map' if Nomen[:indicators]
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
 # ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
 
+Ekylibre.load_integrations
+
 Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false'
 Ekylibre::Plugin.plug
 
 Aggeratio.load_path += Dir.glob(Rails.root.join('config', 'aggregators', '**', '*.xml'))
 Aggeratio.load
 
-# MapBackgrounds
-autoload :MapBackgrounds, 'map_backgrounds'
-MapBackgrounds::Layer.load
+# Map and co
+autoload :Map, 'map'
+Map::Layer.load

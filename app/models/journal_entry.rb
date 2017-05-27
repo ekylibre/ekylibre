@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,31 +22,33 @@
 #
 # == Table: journal_entries
 #
-#  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string           not null
-#  absolute_debit     :decimal(19, 4)   default(0.0), not null
-#  balance            :decimal(19, 4)   default(0.0), not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string           not null
-#  debit              :decimal(19, 4)   default(0.0), not null
-#  financial_year_id  :integer
-#  id                 :integer          not null, primary key
-#  journal_id         :integer          not null
-#  lock_version       :integer          default(0), not null
-#  number             :string           not null
-#  printed_on         :date             not null
-#  real_balance       :decimal(19, 4)   default(0.0), not null
-#  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string           not null
-#  real_currency_rate :decimal(19, 10)  default(0.0), not null
-#  real_debit         :decimal(19, 4)   default(0.0), not null
-#  resource_id        :integer
-#  resource_type      :string
-#  state              :string           not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
+#  absolute_credit            :decimal(19, 4)   default(0.0), not null
+#  absolute_currency          :string           not null
+#  absolute_debit             :decimal(19, 4)   default(0.0), not null
+#  balance                    :decimal(19, 4)   default(0.0), not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credit                     :decimal(19, 4)   default(0.0), not null
+#  currency                   :string           not null
+#  debit                      :decimal(19, 4)   default(0.0), not null
+#  financial_year_exchange_id :integer
+#  financial_year_id          :integer
+#  id                         :integer          not null, primary key
+#  journal_id                 :integer          not null
+#  lock_version               :integer          default(0), not null
+#  number                     :string           not null
+#  printed_on                 :date             not null
+#  real_balance               :decimal(19, 4)   default(0.0), not null
+#  real_credit                :decimal(19, 4)   default(0.0), not null
+#  real_currency              :string           not null
+#  real_currency_rate         :decimal(19, 10)  default(0.0), not null
+#  real_debit                 :decimal(19, 4)   default(0.0), not null
+#  resource_id                :integer
+#  resource_prism             :string
+#  resource_type              :string
+#  state                      :string           not null
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 
 # There is 3 types of set of values (debit, credit...). These types
@@ -55,6 +57,7 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
+  class IncompatibleCurrencies < StandardError; end
   include Attachable
   attr_readonly :journal_id
   refers_to :currency
@@ -63,6 +66,7 @@ class JournalEntry < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
   belongs_to :resource, polymorphic: true
+  belongs_to :financial_year_exchange
   has_many :affairs, dependent: :nullify
   has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where('balance != ?', 0.0) }, foreign_key: :entry_id, class_name: 'JournalEntryItem'
@@ -70,26 +74,31 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :outgoing_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
+  has_many :regularizations, dependent: :nullify
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
-  has_many :bank_statement, through: :useful_items
-  accepts_nested_attributes_for :items
+  has_many :bank_statements, through: :useful_items
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
   validates :number, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
-  validates :resource_type, length: { maximum: 500 }, allow_blank: true
+  validates :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :real_currency, presence: true
   validates :number, format: { with: /\A[\dA-Z]+\z/ }
   validates :real_currency_rate, numericality: { greater_than: 0 }
-  validates :number, uniqueness: { scope: [:journal_id, :financial_year_id] }
+  validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
+
+  scope :between, lambda { |started_on, stopped_on|
+    where(printed_on: started_on..stopped_on)
+  }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -99,6 +108,7 @@ class JournalEntry < Ekylibre::Record::Base
       transition draft: :confirmed, if: :balanced?
     end
     event :close do
+      transition draft: :closed, if: :balanced?
       transition confirmed: :closed, if: :balanced?
     end
     #     event :reopen do
@@ -159,52 +169,45 @@ class JournalEntry < Ekylibre::Record::Base
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.real_currency = journal.currency if journal
-    if self.financial_year = FinancialYear.at(printed_on)
-      self.currency = financial_year.currency
+    if printed_on?
+      self.financial_year = expected_financial_year
+      self.currency = financial_year.currency if financial_year
     end
     if real_currency && financial_year
-      if real_currency == financial_year.currency
-        self.real_currency_rate = 1
-      else
-        # TODO: Find a better way to manage currency rates!
-        # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        if real_currency_rate.blank? || real_currency_rate.zero?
-          self.real_currency_rate = I18n.currency_rate(real_currency, currency)
-        end
-      end
+      self.real_currency_rate = 1 if real_currency == financial_year.currency
     else
       self.real_currency_rate = 1
     end
-    self.real_debit   = items.sum(:real_debit)
-    self.real_credit  = items.sum(:real_credit)
+
+    items.to_a.each(&:compute)
+
+    self.real_debit   = items.to_a.reduce(0) { |sum, item| sum + (item.real_debit  || 0) }
+    self.real_credit  = items.to_a.reduce(0) { |sum, item| sum + (item.real_credit || 0) }
     self.real_balance = real_debit - real_credit
 
-    self.debit   = items.sum(:debit)
-    self.credit  = items.sum(:credit)
+    self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.debit  || 0) }
+    self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.credit || 0) }
 
     self.balance = debit - credit
 
     if real_balance.zero? && !balance.zero?
-      error_sum = balance * 100
-      column = if error_sum > 0
-                 :credit
-               else
-                 :debit
-               end
+      magnitude = 10**Nomen::Currency.find(currency).precision
+      error_sum = balance * magnitude
+      column = error_sum > 0 ? :credit : :debit
 
       error_sum = error_sum.abs
 
-      even_items = items.select { |item| !item.send(column).zero? }
-      proratas = even_items.map { |item| [item, item.send(column) / send(column)] }
-      proratas.reduce(error_sum) do |left, item|
-        error_to_update = [(error_sum * item[1]).ceil / 100.to_f, left].min
-        item[0].update_columns(column => item[0].send(column) + error_to_update)
+      even_items = items.reject { |item| item.send(column).zero? }
+      proratas = even_items.map { |item| [item, item.send(column) / send(column)] }.to_h
+      proratas.reduce(error_sum) do |left, (item, prorata)|
+        error_to_update = [(error_sum * prorata).ceil / magnitude.to_f, left].min
+        item.send(:"#{column}=", item.send(column) + error_to_update)
 
-        left - error_to_update * 100
+        left - error_to_update * magnitude
       end
 
-      self.debit   = items.sum(:debit)
-      self.credit  = items.sum(:credit)
+      self.debit   = items.to_a.reduce(0) { |sum, item| sum + (item.debit   || 0) }
+      self.credit  = items.to_a.reduce(0) { |sum, item| sum + (item.credit  || 0) }
 
       self.balance = debit - credit
     end
@@ -218,10 +221,15 @@ class JournalEntry < Ekylibre::Record::Base
       self.absolute_credit = real_credit
     else
       # FIXME: We need to do something better when currencies don't match
-      raise "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+      if currency.present? && (absolute_currency.present? || real_currency.present?)
+        raise IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+      end
     end
-    number.upcase! if number
-    self.number ||= journal.next_number if journal && !number
+    if number.present?
+      number.upcase!
+    elsif journal
+      self.number ||= journal.next_number
+    end
   end
 
   validate(on: :update) do
@@ -232,16 +240,35 @@ class JournalEntry < Ekylibre::Record::Base
   #
   validate do
     # TODO: Validates number has journal's code as prefix
-    if journal
-      errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on <= journal.closed_on
+    if printed_on
+      if journal
+        errors.add(:printed_on, :closed_journal, journal: journal.name, closed_on: ::I18n.localize(journal.closed_on)) if printed_on <= journal.closed_on
+      end
+      unless financial_year
+        errors.add(:printed_on, :out_of_existing_financial_year)
+      end
     end
-    unless financial_year
-      errors.add(:printed_on, :out_of_existing_financial_year)
+    if in_financial_year_exchange? && !importing_from_exchange
+      errors.add(:printed_on, :frozen_by_financial_year_exchange)
     end
+    errors.add(:items, :empty) unless items.any?
+    errors.add(:balance, :unbalanced) unless balance.zero?
+    errors.add(:real_balance, :unbalanced) unless real_balance.zero?
   end
 
   after_save do
-    JournalEntryItem.where(entry_id: id).update_all(state: self.state, journal_id: journal_id, financial_year_id: financial_year_id, printed_on: printed_on, entry_number: self.number, real_currency: real_currency, real_currency_rate: real_currency_rate)
+    # Item caching process also handled via a trigger in DB.
+    # See migration AddEntryDataSynchro if needed.
+    JournalEntryItem.where(entry_id: id).update_all(
+      state: self.state,
+      journal_id: journal_id,
+      financial_year_id: financial_year_id,
+      printed_on: printed_on,
+      entry_number: self.number,
+      real_currency: real_currency,
+      real_currency_rate: real_currency_rate
+    )
+    regularizations.each(&:save)
   end
 
   before_destroy do
@@ -249,7 +276,29 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   protect do
-    printed_on <= journal.closed_on || old_record.closed?
+    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed?)
+  end
+
+  # A journal generated by a resource is not editable!
+  def editable?
+    resource.nil?
+  end
+
+  def need_currency_change?
+    return nil unless journal
+    year_currency = if financial_year
+                      financial_year.currency
+                    elsif printed_on? && (year = FinancialYear.on(printed_on))
+                      year.currency
+                    else
+                      Preference[:currency]
+                    end
+    year_currency != journal.currency
+  end
+
+  def expected_financial_year
+    raise 'Missing printed_on' unless printed_on
+    FinancialYear.on(printed_on)
   end
 
   def self.state_label(state)
@@ -261,8 +310,19 @@ class JournalEntry < Ekylibre::Record::Base
     self.class.state_label(self.state)
   end
 
-  def main_bank_statement_number
-    bank_statement.first.number if bank_statement.count > 0
+  def bank_statement_number
+    bank_statements.first.number if bank_statements.first
+  end
+
+  # FIXME: Nothing to do here. What's the meaning?
+  def entity_country_code
+    resource && resource.respond_to?(:third) &&
+      resource.third && resource.third.country
+  end
+
+  # FIXME: Nothing to do here. What's the meaning?
+  def entity_country
+    entity_country_code && resource.third.country.l
   end
 
   # determines if the entry is balanced or not.
@@ -276,61 +336,47 @@ class JournalEntry < Ekylibre::Record::Base
     save!
   end
 
+  # Destroy or cancel journal depending on its current state
+  def remove
+    reverse_entry = nil
+    if draft?
+      destroy
+    else
+      reverse_entry = cancel
+    end
+    reverse_entry
+  end
+
   # Add a entry which cancel the entry
   # Create counter-entry_items
   def cancel
-    reconcilable_accounts = []
-    entry = self.class.new(journal: journal, resource: resource, real_currency: real_currency, real_currency_rate: real_currency_rate, printed_on: printed_on)
+    return nil unless useful_items.any?
     ActiveRecord::Base.transaction do
-      entry.save!
-      for item in useful_items
-        entry.send(:add!, tc(:entry_cancel, number: self.number, name: item.name), item.account, (item.debit - item.credit).abs, credit: (item.debit > 0))
-        reconcilable_accounts << item.account if item.account.reconcilable? && !reconcilable_accounts.include?(item.account)
-      end
-    end
-    # Mark accounts
-    for account in reconcilable_accounts
-      account.mark_entries(self, entry)
-    end
-    entry
-  end
-
-  def save_with_items(entry_items)
-    ActiveRecord::Base.transaction do
-      saved = save
-
-      if saved
-        # Remove removed items and keep existings
-        items.where.not(id: entry_items.map { |i| i[:id] }).find_each(&:destroy)
-
-        entry_items.each_with_index do |entry_item, _index|
-          item = items.detect { |i| i.id == entry_item[:id].to_i }
-          if item
-            item.attributes = entry_item.except(:id)
-          else
-            item = items.build(entry_item.except(:id))
-          end
-          saved = false unless item.save
-        end
-        if saved
-          reload
-          unless items.any?
-            errors.add(:items, :empty)
-            saved = false
-          end
-          unless balanced?
-            errors.add(:debit, :unbalanced)
-            saved = false
-          end
-        end
-        if saved
-          return true
-        else
-          raise ActiveRecord::Rollback
+      reconcilable_accounts = []
+      list = []
+      useful_items.each do |item|
+        list << JournalEntryItem.new_for(
+          tc(:entry_cancel, number: self.number, name: item.name),
+          item.account, (item.debit - item.credit).abs, credit: (item.debit > 0)
+        )
+        if item.account.reconcilable? && !reconcilable_accounts.include?(item.account)
+          reconcilable_accounts << item.account
         end
       end
+      entry = self.class.create!(
+        journal: journal,
+        resource: resource,
+        real_currency: real_currency,
+        real_currency_rate: real_currency_rate,
+        printed_on: printed_on,
+        items: list
+      )
+      # Mark accounts
+      reconcilable_accounts.each do |account|
+        account.mark_entries(self, entry)
+      end
+      entry
     end
-    false
   end
 
   # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".
@@ -345,28 +391,22 @@ class JournalEntry < Ekylibre::Record::Base
     add!(name, account, amount, options.merge(credit: true))
   end
 
+  # Flag the entry updatable and destroyable, used during financial year exchange import
+  def mark_for_exchange_import!
+    self.importing_from_exchange = true
+  end
+
   private
+
+  attr_accessor :importing_from_exchange
 
   #
   def add!(name, account, amount, options = {})
-    # return if amount == 0
-    if name.size > 255
-      omission = (options.delete(:omission) || '...').to_s
-      name = name[0..254 - omission.size] + omission
-    end
-    credit = options.delete(:credit) ? true : false
-    credit = !credit if amount < 0
-    attributes = options.merge(name: name)
-    attributes[:account_id] = account.is_a?(Integer) ? account : account.id
-    # attributes[:real_currency] = self.journal.currency
-    if credit
-      attributes[:real_credit] = amount.abs
-      attributes[:real_debit]  = 0.0
-    else
-      attributes[:real_credit] = 0.0
-      attributes[:real_debit]  = amount.abs
-    end
-    e = items.create!(attributes)
-    e
+    items.create!(JournalEntryItem.attributes_for(name, account, amount, options))
+  end
+
+  def in_financial_year_exchange?
+    return unless financial_year
+    financial_year.exchanges.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
   end
 end

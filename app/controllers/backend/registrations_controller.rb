@@ -22,17 +22,16 @@ module Backend
          model: :users,
          conditions: ["#{User.table_name}.signup_at IS NOT NULL"],
          order: 'users.last_name') do |t|
-           t.action :edit, url: { action: :edit, controller: 'registrations' }
-           t.action :destroy, if: '!RECORD.signup_at.nil?'.c
-           t.column :first_name
-           t.column :last_name
-           t.column :email
-           t.column :signup_at
-         end
+      t.action :edit, url: { action: :edit, controller: 'registrations' }
+      t.action :destroy, if: '!RECORD.signup_at.nil?'.c
+      t.column :first_name
+      t.column :last_name
+      t.column :email
+      t.column :signup_at
+    end
 
     # Need to add explicitly action to detect it properly for now
-    def index
-    end
+    def index; end
 
     def edit
       @registration = User.find(params[:id])

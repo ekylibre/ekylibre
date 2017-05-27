@@ -13,41 +13,41 @@ class SimplifyProductJunctions < ActiveRecord::Migration
   }.freeze
 
   WAYS = [
-    [:birth, :product, :born],
-    [:production, :product, :produced],
+    %i[birth product born],
+    %i[production product produced],
     # [:production, :producer, :producer],
-    [:division, :product, :separated],
-    [:division, :producer, :reduced],
-    [:death, :product, :dead],
+    %i[division product separated],
+    %i[division producer reduced],
+    %i[death product dead],
     # [:consumption, :consumer, :consumer],
-    [:consumption, :product, :consumed],
+    %i[consumption product consumed],
     # [:merging, :absorber, :absorber],
-    [:merging, :product, :absorbed],
-    [:mixing, :product, :produced],
-    [:mixing, :first_producer, :mixed],
-    [:mixing, :second_producer, :mixed],
-    [:mixing, :third_producer, :mixed],
-    [:mixing, :fourth_producer, :mixed],
-    [:mixing, :fifth_producer, :mixed]
+    %i[merging product absorbed],
+    %i[mixing product produced],
+    %i[mixing first_producer mixed],
+    %i[mixing second_producer mixed],
+    %i[mixing third_producer mixed],
+    %i[mixing fourth_producer mixed],
+    %i[mixing fifth_producer mixed]
   ].freeze
 
   POLYMORPHIC_REFERENCES = [
-    [:attachments, :resource],
-    [:issues, :target],
-    [:journal_entries, :resource],
-    [:observations, :subject],
-    [:preferences, :record_value],
-    [:product_enjoyments, :originator],
-    [:product_junctions, :originator],
-    [:product_linkages, :originator],
-    [:product_links, :originator],
-    [:product_localizations, :originator],
-    [:product_memberships, :originator],
-    [:product_ownerships, :originator],
-    [:product_phases, :originator],
-    [:product_reading_tasks, :originator],
-    [:product_readings, :originator],
-    [:versions, :item]
+    %i[attachments resource],
+    %i[issues target],
+    %i[journal_entries resource],
+    %i[observations subject],
+    %i[preferences record_value],
+    %i[product_enjoyments originator],
+    %i[product_junctions originator],
+    %i[product_linkages originator],
+    %i[product_links originator],
+    %i[product_localizations originator],
+    %i[product_memberships originator],
+    %i[product_ownerships originator],
+    %i[product_phases originator],
+    %i[product_reading_tasks originator],
+    %i[product_readings originator],
+    %i[versions item]
   ].freeze
 
   def change

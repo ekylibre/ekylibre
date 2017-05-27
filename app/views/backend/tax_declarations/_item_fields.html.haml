@@ -1,0 +1,11 @@
+- item ||= f.object
+%tbody.nested-fields{ data: { trade_item: "purchase" } }
+  %tr
+    %td.annotable
+      = f.referenced_association(:tax, wrapper: :nested, source: {scope: :current}, input_html: {})
+    %td= f.input(:deductible_tax_amount, wrapper: :nested, input_html: {data: {trade_component: "deductible_tax_amount"}})
+    %td= f.input(:deductible_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "deductible_pretax_amount"}})
+    %td= f.input(:collected_tax_amount, wrapper: :nested, input_html: {data: {trade_component: "collected_tax_amount"}})
+    %td= f.input(:collected_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "collected_pretax_amount"}})
+    %td.currency= f.object.tax_declaration_currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

@@ -5,7 +5,7 @@
     = f.association :nature, as: :hidden
     = f.association :inspection, as: :hidden
   - if f.object.measure_grading_items_count
-    %td.integer= f.input(:items_count, wrapper: :nested)
+    %td.integer= f.input(:items_count_value, wrapper: :nested)
   - if f.object.measure_grading_net_mass
     %td.decimal
       = f.input(:net_mass_value, wrapper: :nested_append) do

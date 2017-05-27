@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,7 +35,7 @@
 #
 class GuideAnalysisPoint < Ekylibre::Record::Base
   belongs_to :analysis, class_name: 'GuideAnalysis', inverse_of: :points
-  enumerize :acceptance_status, in: [:passed, :failed, :errored, :passed_with_warnings], predicates: true
+  enumerize :acceptance_status, in: %i[passed failed errored passed_with_warnings], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :acceptance_status, :analysis, presence: true
   validates :advice_reference_name, length: { maximum: 500 }, allow_blank: true

@@ -12,7 +12,7 @@ module Ekylibre
         @version = manifest[:version]
         unless @version == VERSION
           raise "Incompatible first-run folder: #{@version.inspect}." \
-               "Need v#{VERSION} first-run API."
+                "Need v#{VERSION} first-run API."
         end
         @company = manifest[:company] || {}
         @imports = manifest[:imports] || {}
@@ -48,16 +48,16 @@ module Ekylibre
           if Preference.reference[key]
             Preference.set!(key, value)
           else
-            raise "Unknown preference: #{key}"
+            Rails.logger.warn "Unknown preference: #{key}"
           end
         end
       end
 
       # Load default data of models with default data
       def load_defaults
-        [:sequences, :accounts, :document_templates, :taxes, :journals, :cashes,
-         :sale_natures, :purchase_natures, :incoming_payment_modes,
-         :outgoing_payment_modes, :product_nature_variants, :map_backgrounds].each do |dataset|
+        %i[sequences accounts document_templates taxes journals cashes
+           sale_natures purchase_natures incoming_payment_modes
+           outgoing_payment_modes product_nature_variants map_layers].each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
           puts "Load default #{dataset}..."
           model = dataset.to_s.classify.constantize
@@ -69,9 +69,10 @@ module Ekylibre
       def load_company
         company = Entity.find_or_initialize_by(of_company: true, nature: :organization)
         company.last_name = @company[:name]
+        company.born_at = @company[:born_at]
         company.save!
         # Create default phone number
-        unless @company[:phone].blank?
+        if @company[:phone].present?
           phone = company.phones.find_or_initialize_by(by_default: true)
           phone.coordinate = @company[:phone]
           phone.save!

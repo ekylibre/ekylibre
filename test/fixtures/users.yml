@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,6 +56,7 @@
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  person_id                              :integer
+#  provider                               :string
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
@@ -64,6 +65,7 @@
 #  sign_in_count                          :integer          default(0)
 #  signup_at                              :datetime
 #  team_id                                :integer
+#  uid                                    :string
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
 #  updated_at                             :datetime         not null
@@ -77,7 +79,7 @@ users_001:
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  current_sign_in_at: 2016-08-05 14:40:40.759141000 Z
+  current_sign_in_at: 2017-01-24 13:18:59.665518000 Z
   current_sign_in_ip: 127.0.0.1
   email: admin@ekylibre.org
   employed: true
@@ -89,9 +91,9 @@ users_001:
   invitations_count: 0
   language: fra
   last_name: IKARI
-  last_sign_in_at: 2016-02-07 22:52:09.609604000 Z
-  last_sign_in_ip: 127.0.0.1
-  lock_version: 24
+  last_sign_in_at: 2017-01-04 14:02:38.879309000 Z
+  last_sign_in_ip: 192.168.1.2
+  lock_version: 29
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person_id: 9
@@ -99,9 +101,9 @@ users_001:
     accounts:
     - read
   role_id: 1
-  sign_in_count: 19
+  sign_in_count: 24
   team_id: 1
-  updated_at: 2016-08-05 14:40:40.817992000 Z
+  updated_at: 2017-01-24 13:18:59.711470000 Z
   updater_id: 1
 users_002:
   administrator: false
@@ -192,6 +194,33 @@ users_003:
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person_id: 12
+  rights:
+    accounts:
+    - read
+  role_id: 1
+  sign_in_count: 0
+  updated_at: 2014-11-03 16:56:06.616705000 Z
+  updater_id: 1
+users_004:
+  administrator: true
+  authentication_token: 5ceFqVYMhbq1mEXihaWPaaaaaaa
+  commercial: false
+  created_at: 2014-11-03 16:56:06.592906000 Z
+  creator_id: 1
+  email: john.doe@ekylibre.org
+  employed: false
+  employment: ''
+  encrypted_password: "$2a$10$.t/anI3zkVJ1MTAAe8Ab/ekGl02Ynnc3LJKmXw2ruQrWn69tGl1Xe"
+  failed_attempts: 0
+  first_name: John
+  id: 4
+  invitations_count: 0
+  language: eng
+  last_name: Doe
+  lock_version: 1
+  locked: false
+  maximal_grantable_reduction_percentage: 5.0
+  person_id: 11
   rights:
     accounts:
     - read

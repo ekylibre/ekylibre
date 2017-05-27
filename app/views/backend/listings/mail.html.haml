@@ -8,7 +8,7 @@
 
 - else
   - main_toolbar do |t|
-    = t.mail_to '?' + @mails.uniq.collect{|m| 'bcc='+m}.join('&') + "&body=--%0A#{current_user.label}%0A#{Entity.of_company.full_name}", :click_to_mail.tl)
+    = t.mail_to('?' + @mails.uniq.collect{|m| 'bcc='+m}.join('&') + "&body=--%0A#{current_user.label}%0A#{Entity.of_company.full_name}", :click_to_mail.tl)
 
   = form_tag do
     = field_set :personalized_mail do

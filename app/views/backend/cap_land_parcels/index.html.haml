@@ -1,6 +1,6 @@
 - main_toolbar do |t|
-  = t.new
+  = t.new params: { redirect: nil }
 
-- main_campaign_selector
+- main_period_selector(:year)
 
 = main_list

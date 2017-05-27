@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -70,14 +70,14 @@ class TargetDistribution < Ekylibre::Record::Base
   def started_on
     return started_at.to_date unless started_at.nil? || started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
     on = begin
-      Date.civil(stopped_at.year, stopped_at.month, stopped_at.day)
-    rescue
-      begin
-        Date.civil(stopped_at.year, stopped_at.month, stopped_at.day) - 1
-      rescue
-        Date.today
-      end
-    end
+           Date.civil(stopped_at.year, stopped_at.month, stopped_at.day)
+         rescue
+           begin
+             Date.civil(stopped_at.year, stopped_at.month, stopped_at.day) - 1
+           rescue
+             Date.today
+           end
+         end
 
     on -= 1.year
     on.to_date.beginning_of_month
@@ -86,10 +86,10 @@ class TargetDistribution < Ekylibre::Record::Base
   def stopped_on
     return stopped_at.to_date unless stopped_at.nil?
     on = begin
-      Date.civil(started_on.year, started_on.month, started_on.day)
-    rescue
-      Date.civil(started_on.year, started_on.month, started_on.day) - 1
-    end
+           Date.civil(started_on.year, started_on.month, started_on.day)
+         rescue
+           Date.civil(started_on.year, started_on.month, started_on.day) - 1
+         end
 
     on += 1.year
     on.to_date.end_of_month
@@ -97,7 +97,7 @@ class TargetDistribution < Ekylibre::Record::Base
 
   class << self
     def distributed?
-      !InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.any?
+      InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.none?
     end
   end
 end

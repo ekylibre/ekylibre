@@ -46,9 +46,7 @@ spa:
           sign_in: "Firme aquí."
           subject: "Su cuenta ha sido aceptado!"
         signed_up:
-          confirm: "Por favor, confirme que en el panel de administración."
-          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
-          subject: "Nueva inscripción"
+          subject: "Nuevo registro"
       reset_password_instructions:
         subject: "Restablecer las instrucciones de contraseña"
       unlock_instructions:

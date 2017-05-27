@@ -16,6 +16,10 @@ por:
         instruction_2: "Se você não requisitou isto, por favor desconsidere o email."
         instruction_3: "Sua senha não vai ser mudada até acessar o link e criar uma nova.."
         subject: "Instruções para resetar senha"
+      signed_up:
+        confirm: "Por favor, confirme-a no painel de administração."
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "Nova inscrição"
       unlock_instructions:
         action: "Desbloquear minha conta"
         greeting: "Ola %{recipient}!"
@@ -45,6 +49,7 @@ por:
     sessions:
       new:
         sign_in: "Entrar"
+        sign_in_with_ekylibre: "Entrar com Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Não recebeu as instruções de confirmação?"

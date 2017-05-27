@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +36,7 @@
 class EventParticipation < Ekylibre::Record::Base
   belongs_to :event, inverse_of: :participations
   belongs_to :participant, class_name: 'Entity'
-  enumerize :state, in: [:waiting, :accepted, :refused, :informative]
+  enumerize :state, in: %i[waiting accepted refused informative]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :event, :participant, presence: true
   # ]VALIDATORS]

@@ -64,11 +64,26 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
+  if ENV['SMTP_ADDRESS']
+    config.action_mailer.smtp_settings = {
+      address: ENV['SMTP_ADDRESS'] || 'localhost',
+      port: ENV['SMTP_PORT'] || 587,
+      domain: ENV['SMTP_DOMAIN'],
+      user_name: ENV['SMTP_USER_NAME'],
+      password: ENV['SMTP_PASSWORD'],
+      authentication: ENV['SMTP_AUTHENTICATION'] || 'login',
+      enable_starttls_auto: (ENV['SMTP_STARTTLS'] == 'auto')
+    }
+  else
+    config.action_mailer.delivery_method = :sendmail
+    config.action_mailer.sendmail_settings = { arguments: '-i' }
+  end
+
   # Configure exception notification
   config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: '[Exception] ',
-    sender_address: %("Ekylibre" <notifications@ekylibre.org>),
-    exception_recipients: %w(dev@ekylibre.org)
+    email_prefix: ENV['EXCEPTION_NOTIFICATION_PREFIX'] || '[Exception] ',
+    sender_address: ENV['EXCEPTION_NOTIFICATION_SENDER'] || %("Ekylibre" <notifications@ekylibre.org>),
+    exception_recipients: ENV['EXCEPTION_NOTIFICATION_RECIPIENT'] || %w[dev@ekylibre.org]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

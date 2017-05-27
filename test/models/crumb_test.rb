@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,20 +22,21 @@
 #
 # == Table: crumbs
 #
-#  accuracy                  :decimal(19, 4)   not null
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  device_uid                :string           not null
-#  geolocation               :geometry({:srid=>4326, :type=>"point"}) not null
-#  id                        :integer          not null, primary key
-#  intervention_parameter_id :integer
-#  lock_version              :integer          default(0), not null
-#  metadata                  :text
-#  nature                    :string           not null
-#  read_at                   :datetime         not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  user_id                   :integer
+#  accuracy                      :decimal(19, 4)   not null
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  device_uid                    :string           not null
+#  geolocation                   :geometry({:srid=>4326, :type=>"st_point"}) not null
+#  id                            :integer          not null, primary key
+#  intervention_parameter_id     :integer
+#  intervention_participation_id :integer
+#  lock_version                  :integer          default(0), not null
+#  metadata                      :text
+#  nature                        :string           not null
+#  read_at                       :datetime         not null
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
+#  user_id                       :integer
 #
 require 'test_helper'
 

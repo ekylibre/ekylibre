@@ -36,7 +36,11 @@ module Backend
     end
 
     def root_models
-      Ekylibre::Schema.models.collect { |a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize] }.sort { |a, b| a[0].ascii <=> b[0].ascii }
+      Ekylibre::Schema.models.collect { |a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize] }.sort_by { |a| a[0].ascii }
+    end
+
+    def extensions_tag(place)
+      Ekylibre::View::Addon.render("extensions_#{place}", self)
     end
 
     def navigation_tag
@@ -131,7 +135,7 @@ module Backend
         html << content_tag(:li, link_to(options[:title], url, options), li_options) if authorized?(url)
       end
 
-      unless html.blank?
+      if html.present?
         html = content_tag(:ul, html)
         snippet(main_name, main_options) { html }
       end
@@ -185,7 +189,7 @@ module Backend
 
     # chart for variables readings
     def variable_readings(resource)
-      indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
+      indicators = resource.variable_indicators.delete_if { |i| !%i[measure decimal].include?(i.datatype) }
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
@@ -210,21 +214,22 @@ module Backend
 
     # chart for product movements
     def movements_chart(resource)
-      movements = resource.movements.reorder(:started_at)
+      populations = resource.populations.reorder(:started_at)
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
       min = (resource.born_at ? resource.born_at : now - window) - 7.days
       min = now - window if (now - min) < window
-      if movements.any?
+      if populations.any?
         data = []
-        data += movements.each_with_object({}) do |pair, hash|
-          hash[pair.started_at.to_usec] = pair.population.to_d
+        data += populations.each_with_object({}) do |pair, hash|
+          time_pos = pair.started_at < min ? min : pair.started_at
+          hash[time_pos.to_usec] = pair.value.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
-        series << { name: resource.name, data: data.sort { |a, b| a.first <=> b.first }, step: 'left' }
+        series << { name: resource.name, data: data.sort_by(&:first), step: 'left' }
       end
       return no_data if series.empty?
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
@@ -245,6 +250,40 @@ module Backend
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
+    def main_period_selector(*intervals)
+      content_for(:heading_toolbar) do
+        period_selector(*intervals)
+      end
+    end
+
+    def period_selector(*intervals)
+      options = intervals.extract_options!
+      current_period = current_user.current_period.to_date
+      current_interval = current_user.current_period_interval.to_sym
+      current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
+
+      default_intervals = %i[day week month year]
+      intervals = default_intervals if intervals.empty?
+      intervals &= default_intervals
+      current_interval = intervals.last unless intervals.include?(current_interval)
+
+      render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
+    end
+
+    def main_financial_year_selector(financial_year)
+      content_for(:heading_toolbar) do
+        financial_year_selector(financial_year)
+      end
+    end
+
+    def financial_year_selector(financial_year_id = nil, options = {})
+      unless FinancialYear.any?
+        @current_financial_year = FinancialYear.on(Date.current)
+      end
+      current_user.current_financial_year = @current_financial_year || FinancialYear.find_by(id: financial_year_id)
+      render 'backend/shared/financial_year_selector', financial_year: current_user.current_financial_year, param_name: options[:param_name] || :current_financial_year
+    end
+
     def lights(status, html_options = {})
       if html_options.key?(:class)
         html_options[:class] << " lights lights-#{status}"
@@ -258,11 +297,11 @@ module Backend
       end
     end
 
-    def state_bar(resource, _options = {})
+    def state_bar(resource, options = {})
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: _options[:renamings]
+      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: options[:renamings]
     end
 
     def main_state_bar(resource, options = {})
@@ -297,11 +336,16 @@ module Backend
       end
       active_face ||= faces_names.first
 
+      load_all_faces = false # For performance
+
       # Adds views
       html_code = faces.map do |face|
         face_name = face.args.first.to_s
         classes = ['face']
         classes << 'active' if active_face == face_name
+        unless load_all_faces || active_face == face_name # load_all_faces toggle a few lines above
+          next content_tag(:div, nil, id: "face-#{face_name}", data: { face: face_name }, class: classes)
+        end
         content_tag(:div, id: "face-#{face_name}", data: { face: face_name }, class: classes, &face.block)
       end.join.html_safe
 
@@ -313,8 +357,8 @@ module Backend
               face_name = face.args.first.to_s
               classes = ['btn', 'btn-default']
               classes << 'active' if face_name == active_face
-              get_url = url_for(controller: '/backend/januses', action: :toggle, id: name, face: face_name, redirect: url_for)
-              link_to(get_url, data: { "janus-href": face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
+              get_url = url_for(controller: '/backend/januses', action: :toggle, default: faces_names.first, id: name, face: face_name, redirect: request.fullpath)
+              link_to(get_url, data: { janus_href: face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
                 content_tag(:i, '', class: "icon icon-#{face_name}") + ' '.html_safe + face_name.tl
               end
             end.join.html_safe
@@ -339,6 +383,16 @@ module Backend
         info(label, capture(value, &block), options)
       else
         info(label, value.respond_to?(:l) ? value.l : value, options)
+      end
+    end
+
+    def labels_info(labels)
+      if labels.any?
+        content_tag(:div, class: 'info-labels') do
+          labels.map do |label|
+            content_tag(:div, label.name, class: 'label', style: "background-color: #{label.color}; color: #{contrasted_color(label.color)}") + ' '.html_safe
+          end.join.html_safe
+        end
       end
     end
 
@@ -400,9 +454,17 @@ module Backend
 
       element_class = html_options[:class] || 'period'
       title = html_options[:title] || ''
+      url = html_options[:url] || nil
 
       content_tag(:div, style: style, class: element_class, title: title) do
-        content_tag(:i, '', class: "picto picto-#{picto_class}")
+        if url.nil?
+          content_tag(:i, '', class: "picto picto-#{picto_class}")
+        else
+
+          link_to(url) do
+            content_tag(:i, '', class: "picto picto-#{picto_class}")
+          end
+        end
       end
     end
 

@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # = Informations
 #
 # == License
@@ -6,7 +7,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +38,7 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  journal_entry_id       :integer
+#  letter                 :string
 #  lock_version           :integer          default(0), not null
 #  name                   :string
 #  number                 :string           not null
@@ -46,13 +48,12 @@
 #  responsible_id         :integer
 #  state                  :string
 #  third_id               :integer          not null
-#  third_role             :string           not null
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
 
-class SaleOpportunity < Affair
+class SaleOpportunity < SaleAffair
   include Versionable, Commentable
   attr_readonly :currency
   refers_to :origin, class_name: 'OpportunityOrigin'
@@ -123,17 +124,13 @@ class SaleOpportunity < Affair
     self.currency ||= Preference[:currency]
   end
 
-  before_validation do
-    self.third_role = :client
-  end
-
   def status
     if lost?
-      return :stop
+      :stop
     elsif won?
-      return :go
+      :go
     else
-      return :caution
+      :caution
     end
   end
 

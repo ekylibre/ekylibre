@@ -23,7 +23,7 @@ module Ekylibre
           born_at: (row[4].blank? ? (Time.zone.today - 200) : row[4]).to_datetime,
           variety: row[5].blank? ? nil : row[5].to_s.strip,
           derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
-          external: !row[7].blank?,
+          external: row[7].present?,
           indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
@@ -42,7 +42,7 @@ module Ekylibre
         end
 
         next unless r.variant_reference_name
-        next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+        next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
         unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
@@ -67,7 +67,7 @@ module Ekylibre
           born_at: (row[4].blank? ? (Time.zone.today - 200) : row[4]).to_datetime,
           variety: row[5].blank? ? nil : row[5].to_s.strip,
           derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
-          external: !row[7].blank?,
+          external: row[7].present?,
           indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
@@ -79,7 +79,7 @@ module Ekylibre
 
         if r.variant_reference_name
           # find or import from variant reference_nameclature the correct ProductNatureVariant
-          unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+          unless variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
             if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else
@@ -109,7 +109,7 @@ module Ekylibre
           end
 
           container = nil
-          unless (container = Product.find_by_work_number(r.place_code))
+          unless (container = Product.find_by(work_number: r.place_code))
             container = building_division
           end
 

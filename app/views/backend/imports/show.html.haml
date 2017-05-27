@@ -1,6 +1,9 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.run resource, method: :post
+  - if resource.in_progress?
+    = t.abort resource, method: :post, data: { confirm: :are_you_sure.tl }
+  - else
+    = t.run resource, method: :post
 
 = main_informations do
   = attributes_list do |l|

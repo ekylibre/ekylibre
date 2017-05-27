@@ -16,6 +16,10 @@ jpn:
         instruction_2: "あなたがこれを要求していない場合は、このメールを無視してください。"
         instruction_3: "あなたのパスワードは、上記のリンクにアクセスするまで変更し、新しいものを作成しません。"
         subject: "パスワード命令をリセット"
+      signed_up:
+        confirm: "管理パネルでご確認ください。"
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "新しいサインアップ"
       unlock_instructions:
         action: "アカウントのロックを解除"
         # greeting: "Hello %{recipient}!"
@@ -45,6 +49,7 @@ jpn:
     sessions:
       new:
         sign_in: "サインイン"
+        sign_in_with_ekylibre: "Ekylibre.comでサインイン"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "確認メールがまだ届きませんか？"

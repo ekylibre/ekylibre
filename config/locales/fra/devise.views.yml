@@ -16,6 +16,10 @@ fra:
         instruction_2: "Si vous n’avez pas émis cette demande, merci d’ignorer cet email."
         instruction_3: "Votre mot de passe ne changera pas tant que vous n’aurez pas cliqué sur ce lien et renseigné un nouveau mot de passe."
         subject: "Instructions pour réinitialiser votre mot de passe"
+      signed_up:
+        confirm: "Veuillez confirmer son inscription dans l’interface d’administration."
+        details: "%{first_name} %{last_name} identifié par l’email %{email} vient juste de s’inscrire."
+        subject: "Nouvelle inscription"
       unlock_instructions:
         action: "Débloquer mon compte"
         greeting: "Bonjour %{recipient}!"
@@ -45,6 +49,7 @@ fra:
     sessions:
       new:
         sign_in: "Connexion"
+        sign_in_with_ekylibre: "Connexion avec Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Vous n’avez pas reçu le mail de confirmation\_?"

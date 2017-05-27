@@ -14,23 +14,23 @@ fra:
     born_at: "Né(e) à"
     breeding_number: "Numéro d'élevage"
     campaigns: "Campagnes"
-    capitalised_production: "Production capitalisée"
+    capitalised_production: "Production capitalisée" #?
     company: "Entreprise"
     container_name: "Nom de l'emplacement"
     current_result_before_taxes: "Résultat en cours avant taxes"
-    depreciations_inputations_expenses: "Charges des imputations des dépréciations"
+    depreciations_inputations_expenses: "Charges des imputations des dépréciations" #?
     doer_cost: "Cout de main d'oeuvre"
     doer_name: "Acteur"
     doers_name: "Nom des acteurs"
     duration_in_hour: "Durée (heures)"
     ede_cattling_number: "Numéro d'élevage EDE"
     ede_owner_number: "Numéro de propriétaire EDE"
-    employee_involvement: "Intéressement salarial"
+    employee_involvement: "Intéressement salarial" #?
     enterprise: "Entreprise"
     entity_name: "Nom de la personne"
-    exceptional_expenses: "Charges exceptionnelles"
+    exceptional_expenses: "Charges exceptionnelles" #?
     exceptional_expenses_total: "Total des charges exceptionnelles"
-    exceptional_products: "Produits exceptionnels"
+    exceptional_products: "Produits exceptionnels" #?
     exceptional_products_total: "Total des produits exceptionnels"
     exceptional_result: "Résultat exceptionnel"
     expenses_total: "Total des charges"
@@ -38,9 +38,9 @@ fra:
     exploitation_products_total: "Total des produits d'exploitation"
     exploitation_result: "Résultat d'exploitation"
     family: "Famille"
-    financial_expenses: "Charges financières"
+    financial_expenses: "Charges financières" #?
     financial_expenses_total: "Total des charges financières"
-    financial_products: "Produits financiers"
+    financial_products: "Produits financiers" #?
     financial_products_total: "Total des produits financiers"
     financial_result: "Résultat financier"
     financial_year_name: "Exercice comptable"
@@ -52,7 +52,7 @@ fra:
     implanted_at: "Implanté à"
     intervention_durations: "Durées d'intervention"
     loss_balance: "Solde de perte"
-    losses: "Pertes"
+    losses: "Pertes" #?
     manure_management_plan_default_computation_method: "Méthode de calcul du PPF" #?
     manure_management_plan_name: "PPF" #?
     manure_management_plan_opened_at: "PPF ouvert le" #?
@@ -71,9 +71,9 @@ fra:
     original_input_name: "Stock de l'intrant" #?
     original_input_unit_name: "Unité du stocks de l'intrant" #?
     original_input_variant_name: "Type du stock de l'intrant" #?
-    other_expenses: "Autres charges"
-    other_products: "Autres produits"
-    other_purchases: "Autres achats"
+    other_expenses: "Autres charges" #?
+    other_products: "Autres produits" #?
+    other_purchases: "Autres achats" #?
     owner_name: "Nom du propriétaire"
     pasturing_period: "Période pâturage" #?
     pasturing_working_area: "Zone de pâturage" #?
@@ -88,34 +88,34 @@ fra:
     product_account_label: "Compte du produit Label"
     product_nature_name: "Type de produit" #?
     production_support: "Support à la production"
-    productions_sales: "Ventes de productions"
-    products_purchases: "Achats de produits"
-    products_sales: "Ventes de produits"
+    productions_sales: "Ventes de productions" #?
+    products_purchases: "Achats de produits" #?
+    products_sales: "Ventes de produits" #?
     products_total: "Total des produits"
     profit_or_loss: "Perte ou profit"
-    profits: "Profits"
+    profits: "Profits" #?
     profits_taxes: "Taxes sur profits"
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisional_yield: "Rendement prévisionnel"
-    provisions_revenues: "Revenus de provisions"
+    provisions_revenues: "Revenus de provisions" #?
     quantity: "Quantité"
-    raw_matters_purchases: "Achats de matières brutes"
-    raw_matters_stocks_variation: "Variation de stocks de matières brutes"
+    raw_matters_purchases: "Achats de matières brutes" #?
+    raw_matters_stocks_variation: "Variation de stocks de matières brutes" #?
     recommender_full_name: "Nom du préconisateur" #?
     recommender_mail_coordinate: "Adresse du préconisateur" #?
     sex: "Sexe"
-    social_expenses: "Charges sociales"
+    social_expenses: "Charges sociales" #?
     soil_varieties: "Variétés de sol" #?
     sowed_at: "Semé le" #?
-    stock_production: "Production de stock"
-    stocks_variation: "Variation de stocks"
-    subsidies: "Subventions"
+    stock_production: "Production de stock" #?
+    stocks_variation: "Variation de stocks" #?
+    subsidies: "Subventions" #?
     target_name: "Cible" #?
     variable_name: "Variable" #?
     variant_name: "Variante"
     variant_variety: "Variété de la variante" #?
     vine_yield: "Rendement en vin"
-    wages: "Salaires"
+    wages: "Salaires" #?
     working_area: "Superficie travaillée"
-  aggregators:  #?
+  aggregators: #?
     vat_register: "Registre de TVA" #?

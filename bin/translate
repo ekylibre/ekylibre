@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# coding: utf-8
+
 require 'yaml'
 require 'pathname'
 require 'active_support'
@@ -31,15 +33,17 @@ class Translator
 
   KEY = YAML.load_file(ROOT.join('config', 'services.yml'))['google_translate'].freeze
 
-  def self.run!(target_locale, source_locale = :eng)
-    new(target_locale, source_locale).run!
-  end
-
-  def self.run_all!(source_locale = :eng)
-    (LOCALES.keys - [source_locale]).each do |target_locale|
+  def self.run_all!(options = {})
+    source_locale = options[:source_locale] || :eng
+    locales = options[:locales] || LOCALES.keys
+    (locales - [source_locale]).each do |target_locale|
       puts "Translate #{target_locale.to_s.yellow} from #{source_locale.to_s.yellow}"
       run!(target_locale, source_locale)
     end
+  end
+
+  def self.run!(target_locale, source_locale = :eng)
+    new(target_locale, source_locale).run!
   end
 
   def initialize(target, source)
@@ -117,14 +121,16 @@ class Translator
       response = @service.list_translations(trans.values, LOCALES[@target].to_s, source: LOCALES[@source].to_s)
       response.translations.each_with_index do |t, i|
         text = t.translated_text
-        if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
+        next if text.blank?
+        if %i[spa por eng fra ita deu].include?(@target)
           text = (text.mb_chars.slice(0).upcase + text.mb_chars.slice(1..-1)).to_s
         end
+        text.gsub!('&#39;', '’')
         result[trans.keys[i]] = text unless text == trans.values[i]
         cache_set("#{@target}.#{trans.keys[i]}", text)
       end
       print '.'.red
-      sleep(trans.size * 0.07)
+      sleep(trans.size * 0.076)
       print '.'.white
     end
     puts ''
@@ -170,10 +176,10 @@ class Translator
 
   def load_file(path, locale)
     if path.exist?
-      hash = YAML.load(IO.read(path).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
+      hash = YAML.safe_load(IO.read(path).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
       deep_symbolize_keys(hash)[locale] || {}
     else
-      return {}
+      {}
     end
   end
 
@@ -197,4 +203,4 @@ unless Translator::KEY
   exit 1
 end
 
-Translator.run_all!
+Translator.run_all!(locales: ARGV.first ? ARGV.first.split(/[^a-z]+/).map(&:to_sym) : nil)

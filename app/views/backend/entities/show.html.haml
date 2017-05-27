@@ -1,3 +1,5 @@
+- navigation resource, order: :full_name, naming_method: :label, scope: resource.nature.pluralize.to_sym
+
 - main_toolbar do |t|
   = t.export :entity_sheet
   = t.edit resource
@@ -5,7 +7,8 @@
   - if resource.contact? && !resource.worker && !resource.client? && !resource.supplier? && !resource.transporter? && !resource.prospect?
     = t.menu :add_a_worker.tl, icon: false do |menu|
       - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
-        - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, born_at: resource.born_at, redirect: url_for(controller: :workers, action: :show, id: resource.id)}
+        - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, born_at: resource.born_at, redirect: request.fullpath}
+  = t.toggle resource, method: :post, label: resource.contact? ? :convert_into_organization.tl : :convert_into_contact.tl, data: { confirm: :are_you_sure.tl }, icon: false
 
 = main_informations attachment: true do
   = render 'coordinates'
@@ -13,6 +16,19 @@
     .info
       %span.title= Entity.human_attribute_name(:worker)
       %span.value= link_to(resource.worker.name, {controller: :workers, action: :show, id: resource.worker.id})
+  - subscriptions = resource.subscriptions.active
+  - if subscriptions.any?
+    .info
+      %span.title= :currently_subscribed_to.tl
+      %span.value= subscriptions.map { |subscription| link_to("#{subscription.nature.name} (#{subscription.number})", { controller: :subscriptions, action: :show, id: subscription.id }) }.to_sentence.html_safe
+  - if current_user.can? :read, :accounts
+    - [:client, :supplier, :employee].each do |nature|
+      - if resource.send(nature) && (account = resource.send("#{nature}_account"))
+        .info
+          %span.title= Entity.human_attribute_name("#{nature}_account")
+          %span.value= link_to(account.label, { controller: :accounts, action: :show, id: account.id })
+  - if resource.description?
+    %p= h(resource.description).gsub(/\n/, '<br/>').html_safe
 
 = janus do |j|
   - j.face :timeline do
@@ -40,8 +56,10 @@
     = timeline(resource, id: :entity) do |l|
       - l.side :observations, at: :observed_at
       - l.side :sale_opportunities, new: resource.client?, if: Proc.new {|r| r.sale_opportunities.any? || r.client?}
-      - l.side :sales, new: resource.client?, if: Proc.new {|r| r.sales.any? || r.client? }
+      - l.side :sales, new: (resource.client? ? { redirect: nil } : false) , if: Proc.new {|r| r.sales.any? || r.client? }
+      - l.side :outgoing_parcels, new: resource.client?, if: Proc.new {|r| r.outgoing_parcels.any? || r.client? }
       - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? || r.supplier? }
+      - l.side :incoming_parcels, new: resource.supplier?, if: Proc.new {|r| r.incoming_parcels.any? || r.supplier? }
       - l.side :incoming_payments, new: false, if: Proc.new {|r| r.incoming_payments.any? || r.client? }
       - l.side :outgoing_payments, new: false, if: Proc.new {|r| r.outgoing_payments.any? || r.supplier? }
       - l.side :tasks, at: :due_at, new: false
@@ -126,9 +144,15 @@
 
       - c.cobble(:sales, title: :x_sales.tl(count: resource.sales.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :sales, :client_id => resource.id})
+          = t.new(params: { controller: :sales, client_id: resource.id, redirect: nil })
         - if resource.sales.any?
           = cobble_list(:sales)
+
+      - c.cobble(:outgoing_parcels, title: :x_outgoing_parcels.tl(count: resource.outgoing_parcels.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :parcels, recipient_id: resource.id, nature: :outgoing})
+        - if resource.outgoing_parcels.any?
+          = cobble_list(:outgoing_parcels)
 
       - c.cobble(:incoming_payments, title: :x_incoming_payments.tl(count: resource.incoming_payments.count)) do
         = cobble_toolbar do |t|
@@ -142,11 +166,23 @@
         - if resource.subscriptions.any?
           = cobble_list(:subscriptions)
 
+      - c.cobble(:contracts, title: :x_contracts.tl(count: resource.contracts.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :contracts, :supplier_id => resource.id})
+        - if resource.contracts.any?
+          = cobble_list(:contracts)
+
       - c.cobble(:purchases, title: :x_purchases.tl(count: resource.purchases.count)) do
         = cobble_toolbar do |t|
           = t.new(params: {controller: :purchases, :supplier_id => resource.id})
         - if resource.purchases.any?
           = cobble_list(:purchases)
+
+      - c.cobble(:incoming_parcels, title: :x_incoming_parcels.tl(count: resource.incoming_parcels.count)) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :parcels, recipient_id: resource.id, nature: :incoming})
+        - if resource.incoming_parcels.any?
+          = cobble_list(:incoming_parcels)
 
       - c.cobble(:outgoing_payments, title: :x_outgoing_payments.tl(count: resource.outgoing_payments.count)) do
         = cobble_toolbar do |t|
@@ -154,4 +190,60 @@
         - if resource.outgoing_payments.any?
           = cobble_list(:outgoing_payments)
 
+      - c.cobble(:client_journal_entry_items, title: :x_client_journal_entry_items.tl(count: resource.client_journal_entry_items.count)) do
+        = cobble_toolbar do |t|
+          -#= t.new(params: {controller: :journal_entries})
+        - if resource.client_journal_entry_items.any?
 
+          - items = JournalEntryItem.joins(:entry).where(controller.class.entities_moves_client_conditions(params))
+          - totals = {}
+          - totals[:debit]  = items.sum(:absolute_debit)
+          - totals[:credit] = items.sum(:absolute_credit)
+          - totals[:balance_debit] = totals[:balance_credit] = 0.0
+          - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
+
+          = cobble_list(:client_journal_entry_items) do
+            - currency = Preference[:currency]
+            %tr.total
+              %th{colspan: 6}= :total.tl
+              %td.value= totals[:debit].l(currency: currency)
+              %td.value= totals[:credit].l(currency: currency)
+              %th
+            %tr.total
+              %th{colspan: 6}= :balance.tl
+              %td.value= totals[:balance_debit].l(currency: currency)
+              %td.value= totals[:balance_credit].l(currency: currency)
+              %th
+
+          - content_for 'cobble_client-journal-entry-items_meta_toolbar'.to_sym do
+            .active-list-actions
+              = mask_lettered_items_button('client_journal_entry_items-list')
+
+      - c.cobble(:supplier_journal_entry_items, title: :x_supplier_journal_entry_items.tl(count: resource.supplier_journal_entry_items.count)) do
+        = cobble_toolbar do |t|
+          -#= t.new(params: {controller: :journal_entries})
+        - if resource.supplier_journal_entry_items.any?
+
+          - items = JournalEntryItem.joins(:entry).where(controller.class.entities_moves_supplier_conditions(params))
+          - totals = {}
+          - totals[:debit]  = items.sum(:absolute_debit)
+          - totals[:credit] = items.sum(:absolute_credit)
+          - totals[:balance_debit] = totals[:balance_credit] = 0.0
+          - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
+
+          = cobble_list(:supplier_journal_entry_items) do
+            - currency = Preference[:currency]
+            %tr.total
+              %th{colspan: 6}= :total.tl
+              %td.value= totals[:debit].l(currency: currency)
+              %td.value= totals[:credit].l(currency: currency)
+              %th
+            %tr.total
+              %th{colspan: 6}= :balance.tl
+              %td.value= totals[:balance_debit].l(currency: currency)
+              %td.value= totals[:balance_credit].l(currency: currency)
+              %th
+
+          - content_for 'cobble_supplier-journal-entry-items_meta_toolbar'.to_sym do
+            .active-list-actions
+              = mask_lettered_items_button('supplier_journal_entry_items-list')

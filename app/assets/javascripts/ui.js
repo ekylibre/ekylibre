@@ -1,8 +1,8 @@
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
-//= require bootstrap/datetimepicker
-//= require bootstrap/datetimepicker-i18n
-//= require jquery-ui/slider
+//= require bootstrap-datetimepicker
+//= require daterangepicker
+//= require jquery-ui/widgets/slider
 
 (function ($) {
   "use strict";
@@ -200,17 +200,19 @@
   $(document).on("focusout", "input[data-add-item-unless]", function () {
     var element = $(this);
     if (element.numericalValue() !== 0 && !$(element.data("add-item-unless")).hasClass("valid")) {
-      if (element.data("with")) {
-        var params = {};
-        $(element.data("with")).each(function () {
-          var paramName = $(this).data("parameter-name") || $(this).attr("id");
-          if (paramName !== null && paramName !== undefined) {
-            params[paramName] = $(this).val() || $(this).html();
-          }
-        });
-        element.data("params", $.param(params));
+      if (element.data("toggled-by") === undefined || $(element.data("toggled-by")).is(':checked')) {
+        if (element.data("with")) {
+          var params = {};
+          $(element.data("with")).each(function () {
+            var paramName = $(this).data("parameter-name") || $(this).attr("id");
+            if (paramName !== null && paramName !== undefined) {
+              params[paramName] = $(this).val() || $(this).html();
+            }
+          });
+          element.data("params", $.param(params));
+        }
+        $.rails.handleRemote(element);
       }
-      $.rails.handleRemote(element);
     }
   });
 

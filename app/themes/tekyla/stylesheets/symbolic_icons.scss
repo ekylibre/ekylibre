@@ -19,6 +19,7 @@
   .fieldset.#{$symbol-name} .fieldset-legend .title i,
   // help content
   .icon.icon-#{$symbol-name},
+  svg .icon.icon-#{$symbol-name},
   // picto
   .picto.picto-#{$symbol-name},
   // timeline
@@ -35,6 +36,15 @@
   @if $name != "3d-rotation" {
     @include iconics(nth($icon, 1)) {
       &::before { content: nth($icon, 2); }
+      &.icn-after {
+        &::after {
+          content: nth($icon, 2);
+        }
+        &::before {
+          content: "";
+          display: none;
+        }
+      }
     }
   }
 }
@@ -43,5 +53,14 @@
 @each $alias in $all-aliases {
   @include iconics(nth($alias, 1)) {
     &::before { content: icon-character(nth($alias, 2)); }
+    &.icn-after {
+        &::after {
+          content: icon-character(nth($alias, 2));
+        }
+        &::before {
+          content: "";
+          display: none;
+        }
+      }
   }
 }

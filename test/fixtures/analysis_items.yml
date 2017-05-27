@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +40,7 @@
 #  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  product_reading_id           :integer
 #  string_value                 :text
 #  updated_at                   :datetime         not null
@@ -777,3 +777,354 @@ analysis_items_050:
   measure_value_unit: degree
   measure_value_value: 0.0
   updated_at: 2015-09-20 14:55:01.698542000 Z
+analysis_items_051:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 9.0
+  analysis_id: 23
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.709267000 Z
+  id: 56
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 9.0
+  updated_at: 2016-09-09 08:56:02.709267000 Z
+analysis_items_052:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 285.0
+  analysis_id: 24
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.741992000 Z
+  id: 57
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 285.0
+  updated_at: 2016-09-09 08:56:02.741992000 Z
+analysis_items_053:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 4893.0
+  analysis_id: 25
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.761873000 Z
+  id: 58
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 4893.0
+  updated_at: 2016-09-09 08:56:02.761873000 Z
+analysis_items_054:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 1850.0
+  analysis_id: 26
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.781229000 Z
+  id: 59
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 1850.0
+  updated_at: 2016-09-09 08:56:02.781229000 Z
+analysis_items_055:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 273.0
+  analysis_id: 27
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.800087000 Z
+  id: 60
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 273.0
+  updated_at: 2016-09-09 08:56:02.800087000 Z
+analysis_items_056:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 387.0
+  analysis_id: 28
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.819855000 Z
+  id: 61
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 387.0
+  updated_at: 2016-09-09 08:56:02.819855000 Z
+analysis_items_057:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 60.0
+  analysis_id: 29
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.838888000 Z
+  id: 62
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 60.0
+  updated_at: 2016-09-09 08:56:02.838888000 Z
+analysis_items_058:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 0.0
+  analysis_id: 30
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.858263000 Z
+  id: 63
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 0.0
+  updated_at: 2016-09-09 08:56:02.858263000 Z
+analysis_items_059:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 371.0
+  analysis_id: 31
+  boolean_value: false
+  created_at: 2016-09-09 08:56:02.877185000 Z
+  id: 64
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 371.0
+  updated_at: 2016-09-09 08:56:02.877185000 Z
+analysis_items_060:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 9.0
+  analysis_id: 32
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.541675000 Z
+  id: 65
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 9.0
+  updated_at: 2016-09-09 08:57:46.541675000 Z
+analysis_items_061:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 285.0
+  analysis_id: 33
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.569996000 Z
+  id: 66
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 285.0
+  updated_at: 2016-09-09 08:57:46.569996000 Z
+analysis_items_062:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 4893.0
+  analysis_id: 34
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.588902000 Z
+  id: 67
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 4893.0
+  updated_at: 2016-09-09 08:57:46.588902000 Z
+analysis_items_063:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 1850.0
+  analysis_id: 35
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.608617000 Z
+  id: 68
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 1850.0
+  updated_at: 2016-09-09 08:57:46.608617000 Z
+analysis_items_064:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 273.0
+  analysis_id: 36
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.627437000 Z
+  id: 69
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 273.0
+  updated_at: 2016-09-09 08:57:46.627437000 Z
+analysis_items_065:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 387.0
+  analysis_id: 37
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.645430000 Z
+  id: 70
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 387.0
+  updated_at: 2016-09-09 08:57:46.645430000 Z
+analysis_items_066:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 60.0
+  analysis_id: 38
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.663552000 Z
+  id: 71
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 60.0
+  updated_at: 2016-09-09 08:57:46.663552000 Z
+analysis_items_067:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 0.0
+  analysis_id: 39
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.681167000 Z
+  id: 72
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 0.0
+  updated_at: 2016-09-09 08:57:46.681167000 Z
+analysis_items_068:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 371.0
+  analysis_id: 40
+  boolean_value: false
+  created_at: 2016-09-09 08:57:46.697305000 Z
+  id: 73
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 371.0
+  updated_at: 2016-09-09 08:57:46.697305000 Z
+analysis_items_069:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 9.0
+  analysis_id: 41
+  boolean_value: false
+  created_at: 2016-09-09 09:01:19.995548000 Z
+  id: 74
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 9.0
+  updated_at: 2016-09-09 09:01:19.995548000 Z
+analysis_items_070:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 285.0
+  analysis_id: 42
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.027183000 Z
+  id: 75
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 285.0
+  updated_at: 2016-09-09 09:01:20.027183000 Z
+analysis_items_071:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 4893.0
+  analysis_id: 43
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.047590000 Z
+  id: 76
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 4893.0
+  updated_at: 2016-09-09 09:01:20.047590000 Z
+analysis_items_072:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 1850.0
+  analysis_id: 44
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.066237000 Z
+  id: 77
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 1850.0
+  updated_at: 2016-09-09 09:01:20.066237000 Z
+analysis_items_073:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 273.0
+  analysis_id: 45
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.084005000 Z
+  id: 78
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 273.0
+  updated_at: 2016-09-09 09:01:20.084005000 Z
+analysis_items_074:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 387.0
+  analysis_id: 46
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.102024000 Z
+  id: 79
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 387.0
+  updated_at: 2016-09-09 09:01:20.102024000 Z
+analysis_items_075:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 60.0
+  analysis_id: 47
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.118763000 Z
+  id: 80
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 60.0
+  updated_at: 2016-09-09 09:01:20.118763000 Z
+analysis_items_076:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 0.0
+  analysis_id: 48
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.136299000 Z
+  id: 81
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 0.0
+  updated_at: 2016-09-09 09:01:20.136299000 Z
+analysis_items_077:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 371.0
+  analysis_id: 49
+  boolean_value: false
+  created_at: 2016-09-09 09:01:20.152640000 Z
+  id: 82
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: kilometer_per_hour
+  measure_value_value: 371.0
+  updated_at: 2016-09-09 09:01:20.152640000 Z

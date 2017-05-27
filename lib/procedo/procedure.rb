@@ -2,11 +2,11 @@
 # require 'procedo/procedure/group_parameter'
 
 module Procedo
-  # This class represents a procedure
+  # This class represents a procedure. It's the definition
   class Procedure
     ROOT_NAME = 'root_'.freeze
 
-    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
+    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
              :product_parameters, :group_parameters,
@@ -22,8 +22,8 @@ module Procedo
       end
 
       # Returns procedures of given activity families
-      def activity_family(*families)
-        options = categories.extract_options!
+      def of_activity_family(*families)
+        options = families.extract_options!
         select(options) do |p|
           p.of_activity_family?(*families)
         end
@@ -53,6 +53,14 @@ module Procedo
             yield(p)
         end
       end
+
+      # Return procedures of given varieties
+      def of_varieties(*varieties)
+        options = varieties.extract_options!
+        select(options) do |p|
+          p.has_varieties?(*varieties)
+        end
+      end
     end
 
     def initialize(name, options = {})
@@ -60,14 +68,14 @@ module Procedo
       @categories = []
       @mandatory_actions = []
       @optional_actions = []
+      @varieties = []
       @root_group = Procedo::Procedure::GroupParameter.new(self, ROOT_NAME, cardinality: 1)
       @deprecated = !!options[:deprecated]
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
       options[:optional_actions].each { |c| add_action(c, true) } if options[:optional_actions]
-      # Compile it
-      # self.compile!
+      options[:varieties].each { |v| add_variety(v) } if options[:varieties]
     end
 
     # All actions (mandatory and optional)
@@ -125,17 +133,49 @@ module Procedo
       @parameter_names ||= parameters.map(&:name)
     end
 
-    def check!
-      # Check ungiven roles
-      remaining_roles = roles - given_roles.uniq
-      if remaining_roles.any?
-        raise Procedo::Errors::MissingRole, "Remaining roles of procedure #{name} are not given: #{remaining_roles.join(', ')}"
-      end
+    def lint
+      messages = []
+      product_parameters.each do |p|
+        if p.filter
+          begin
+            WorkingSet.to_sql(p.filter)
+          rescue SyntaxError => e
+            messages << "Cannot parse filter of #{p.name}: #{e.message}"
+          rescue WorkingSet::InvalidExpression => e
+            messages << "Invalid expression in filter of #{p.name}: #{e.message}"
+          end
+        end
+        if p.component_of?
 
-      # Check producers
-      new_parameters.each do |parameter|
-        unless parameter.producer.is_a?(Parameter)
-          raise Procedo::Errors::UnknownAspect, "Unknown parameter producer for #{parameter.name}"
+        end
+        p.handlers.each do |handler|
+          %w[condition forward backward].each do |tree|
+            next unless handler.send("#{tree}?")
+            parameters = handler.send("#{tree}_parameters")
+            parameters.each do |parameter|
+              unless find(parameter)
+                messages << "Cannot find #{parameter} from #{handler.name}/#{tree} in #{p.name}"
+              end
+            end
+          end
+        end
+      end
+      messages
+    end
+
+    # Adds variety scope of procedure
+    def add_variety(name)
+      variety = Nomen::Variety.find(name)
+      raise "Invalid variety: #{name.inspect}".red unless variety
+      @varieties << variety unless @varieties.include?(variety)
+    end
+
+    # Returns +true+ if varieties are included in one of the procedure, +false+ otherwise.
+    def has_varieties?(*varieties)
+      @varieties.any? do |obj|
+        varieties.all? do |v|
+          variety = Nomen::Variety.find(v)
+          variety && obj >= variety
         end
       end
     end

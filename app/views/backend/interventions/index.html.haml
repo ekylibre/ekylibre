@@ -1,6 +1,10 @@
 = kujaku do |k|
   - k.text
-  -# k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
+  - k.multi_choice :state, [:done, :in_progress, :validated, :rejected].map{ |s| [s.tl, s] }
+  - k.multi_choice :nature, [:request, :record].map{ |s| [s.tl, s] }
+  - k.helper do
+    %label= CultivableZone.model_name.human
+    = select_tag :cultivable_zone_id, options_for_select([[]] + CultivableZone.pluck(:name, :id), params[:cultivable_zone_id])
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
     = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}.sort_by(&:first), params[:procedure_name]))
@@ -12,14 +16,64 @@
         %label= ActivityProduction.human_attribute_name(:support)
         = select_tag(:product_id, options_for_select([[]] + targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}, params[:product_id]))
         -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
+  - if InterventionLabelling.any?
+    - k.helper do
+      %label= Label.model_name.human
+      = select_tag(:label_id, options_for_select([[]] + Label.where(id: InterventionLabelling.select(:label_id).uniq).map{ |l| [l.name, l.id] }, params[:label_id].to_i))
 
 - main_toolbar do |t|
-  = t.new(nature: :request, label: :add_intervention_request.tl)
-  = t.new(nature: :record, label: :add_intervention_record.tl )
-  - if current_user.crumbs.unconverted.any?
-    - count = current_user.crumbs.unconverted.where(nature: "start").count
-    = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
+  = t.new(nature: :request, label: :add_intervention_request.tl, params: { redirect: nil })
+  = t.new(nature: :record, label: :add_intervention_record.tl, params: { redirect: nil })
+  - if current_user.intervention_participations.unprompted.any?
+    - count = current_user.intervention_participations.unprompted.count
+    = t.index(params: {controller: :intervention_participations}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
-- main_campaign_selector
+- main_period_selector
 
-= main_list
+- if current_campaign
+  = janus do |j|
+    - j.face :cobbles do
+
+      - campaign ||= current_campaign
+
+      = taskboard :interventions do |board|
+
+        = modal(id: "taskboard-modal", class: "interventions-modal", size: :large) do
+          .modal-body
+          .modal-footer
+
+
+        - edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :change_status_of_selected_interventions.tl })
+        - delete_icon = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :delete_selected_interventions.tl, data: {confirm: :are_you_sure.tl} })
+        - headers_actions = [edit_icon, delete_icon]
+
+
+        - search_params = params.deep_dup.except(:controller, :action)
+        - search_params[:period_interval] = current_period_interval
+        - search_params[:period] = current_period
+
+        - header_class = 'taskboard-header--gray'
+
+        - board.column :requests do |column|
+          - requested_interventions = Intervention.with_unroll(search_params.merge(nature: :request))
+          - column.header :requests.tl + " (" + requested_interventions.count.to_s + ")", headers_actions, class: header_class
+          - add_taskboard_tasks(requested_interventions, column)
+
+        - board.column :current do |column|
+          - interventions_in_progress = Intervention.with_unroll(search_params.merge(nature: :record, state: :in_progress))
+          - column.header :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions, class: header_class
+          - add_taskboard_tasks(interventions_in_progress, column)
+
+        - board.column :finished do |column|
+          - interventions_done = Intervention.with_unroll(search_params.merge(nature: :record, state: :done))
+          - column.header :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions, class: header_class
+          - add_taskboard_tasks(interventions_done, column)
+
+        - board.column :validated do |column|
+          - validated_interventions = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
+          - column.header :validated.tl + " (" + validated_interventions.count.to_s + ")", [], class: header_class
+          - add_taskboard_tasks(validated_interventions, column)
+
+
+    - j.face :list do
+      = main_list

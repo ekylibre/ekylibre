@@ -1,21 +1,34 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_housing_cleaning" categories="habitat_maintenance" actions="hygiene">
+  <procedure name="animal_housing_cleaning" categories="habitat_maintenance" actions="hygiene" varieties="animal">
     <parameters>
-      <parameter name="animal_housing" type="target" filter="is building_division and can store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, animal_housing.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / animal_housing..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="excrement" type="output" variety="excrement" derivative-of="animal" filter="is excrement and derives from animal" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
-        <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
-        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="POPULATION * PRODUCT..net_volume(cubic_meter)" forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="kilogram_per_square_meter" to="population" backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum(animal_housing, :net_surface_area, :square_metre)" forward="(VALUE * sum(animal_housing, :net_surface_area, :square_metre)) / PRODUCT..net_mass(kilogram)"/>
-      </parameter>
-      <parameter name="cleaner" type="tool" filter="can clean(building_division)"/>
-      <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
-      <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>
+      <target name="animal_housing" filter="is building_division and can store(animal) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <output name="raised_manure" filter="is excrement and derives from animal" cardinality="*">
+        <attribute name="new_name" value="output_computed_name(VARIANT, working_periods)" />
+        <attribute name="new_container" filter="is building_division and can store(excrement)"/>
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="ton"
+                 if="VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
+        <handler indicator="net_volume" unit="cubic_meter"
+                 if="VARIANT.net_volume?"
+                 backward="POPULATION * VARIANT.net_volume(cubic_meter)"
+                 forward="VALUE / VARIANT.net_volume(cubic_meter)"/>
+      </output>
+      <input name="cleaner_product" filter="is preparation and can clean(building_division)" cardinality="*">
+        <handler name="population"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
+                 backward="POPULATION * PRODUCT..net_volume(liter)"
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+      </input>
+      <tool name="cleaner" filter="is equipment and can clean(building_division)" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

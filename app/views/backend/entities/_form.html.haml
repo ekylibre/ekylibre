@@ -2,29 +2,38 @@
 - main_title("new_#{nature}".tl) if f.object.new_record?
 = field_set do
   = f.input :nature, as: :hidden
-  - if nature == :contact
+  - if f.object.contact?
     = f.input :title, autocomplete: true
     = f.input :first_name, autocomplete: true
     = f.input :last_name, autocomplete: true
   - else
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
-  = f.input :active, hide: :dead_at
-  = f.custom_fields
-  = f.input :language
-  = f.input :country
-  - if nature == :organization
+  - if f.object.organization?
     = f.input :siret_number
+  = f.input :number, required: false, placeholder: f.object.unique_predictable_number
+  = f.custom_fields
+  = f.input :language, collection: Nomen::Language.selection
+  -# = f.input :country, collection: Nomen::Country.selection
+  - if f.object.organization?
     = f.input :activity_code
     = f.input :vat_number
+  = f.input :active, hide: :dead_at
   = f.input :born_at
   #dead_at= f.input :dead_at
+  = f.input :description
   = f.picture
+  = f.nested_association(:emails)
+  = f.nested_association(:mails)
+  = f.nested_association(:phones)
+  = f.nested_association(:mobiles)
+  = f.nested_association(:faxes)
+  = f.nested_association(:websites)
 
 = field_set(:client_informations) do
   = f.input :prospect
   = f.input :client, show: '#client-informations'
   #client-informations
-    - if nature == :contact
+    - if f.object.contact?
       = f.input :meeting_origin, autocomplete: true
       = f.input :first_met_at
       = f.referenced_association :proposer
@@ -39,20 +48,21 @@
   = f.input :supplier, show: '#supplier-informations'
   #supplier-informations
     = f.referenced_association :supplier_account, source: :suppliers, buttons: { new: { number: Account.find_or_import_from_nomenclature(:suppliers).number}}
-  = f.input :transporter
+    = f.input :supplier_payment_delay
+    = f.referenced_association :supplier_payment_mode
+    = f.input :transporter
+
+- if f.object.organization?
+  = field_set(:bank_account) do
+    = f.input :bank_account_holder_name
+    = f.input :bank_identifier_code
+    = f.input :iban
+
 
 - if f.object.contact?
   = field_set(:employee_informations) do
     = f.input :employee, show: '#employee-informations'
     #employee-informations
       = f.referenced_association :employee_account, source: :employees, buttons: {new: { number: Account.find_or_import_from_nomenclature(:staff_due_remunerations).number}}
-
-= field_set(:coordinates) do
-  = f.nested_association(:emails)
-  = f.nested_association(:mails)
-  = f.nested_association(:phones)
-  = f.nested_association(:mobiles)
-  = f.nested_association(:faxes)
-  = f.nested_association(:websites)
 
 = f.attachments_field_set

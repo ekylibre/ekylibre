@@ -18,7 +18,7 @@
 
 module Backend
   class AffairsController < Backend::BaseController
-    manage_restfully only: [:index, :show], subclass_inheritance: true
+    manage_restfully only: %i[index show], subclass_inheritance: true
 
     unroll
 
@@ -89,8 +89,16 @@ module Backend
 
     def redirect_to_best_page(affair = nil)
       affair ||= @affair
-      originator = affair.originator
-      redirect_to params[:redirect] || (originator ? { controller: originator.class.name.tableize, action: :show, id: originator.id } : { action: :show, id: affair.id })
+      url = params[:redirect]
+      unless url
+        originator = affair.originator
+        url = if originator
+                { controller: originator.class.name.tableize, action: :show, id: originator.id }
+              else
+                { controller: affair.class.name.tableize, action: :show, id: affair.id }
+              end
+      end
+      redirect_to params[:redirect] || url
     end
   end
 end

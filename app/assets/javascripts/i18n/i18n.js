@@ -12,7 +12,7 @@
 // See tests for specific formatting like numbers and dates.
 //
 
-;(function(factory) {
+(function(factory) {
   if (typeof module !== 'undefined' && module.exports) {
     // Node/CommonJS
     module.exports = factory(this);
@@ -56,7 +56,7 @@
   var isArray = function(obj) {
     if (Array.isArray) {
       return Array.isArray(obj);
-    };
+    }
     return Object.prototype.toString.call(obj) === '[object Array]';
   };
 
@@ -78,6 +78,20 @@
     value = value.toString().split('e');
     return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
   }
+
+  var merge = function (dest, obj) {
+    var key, value;
+    for (key in obj) if (obj.hasOwnProperty(key)) {
+      value = obj[key];
+      if (Object.prototype.toString.call(value) === '[object String]') {
+        dest[key] = value;
+      } else {
+        if (dest[key] == null) dest[key] = {};
+        merge(dest[key], value);
+      }
+    }
+    return dest;
+  };
 
   // Set default days/months translations.
   var DATE = {
@@ -695,7 +709,7 @@
     // we have a date, so just return it.
     if (typeof(date) == "object") {
       return date;
-    };
+    }
 
     matches = date.toString().match(/(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}):(\d{2})([\.,]\d{1,3})?)?(Z|\+00:?00)?/);
 
@@ -921,19 +935,10 @@
    * https://stackoverflow.com/questions/8157700/object-has-no-hasownproperty-method-i-e-its-undefined-ie8
    */
   I18n.extend = function ( obj1, obj2 ) {
-    var extended = {};
-    var prop;
-    for (prop in obj1) {
-      if (Object.prototype.hasOwnProperty.call(obj1, prop)) {
-        extended[prop] = obj1[prop];
-      }
+    if (typeof(obj1) === "undefined" && typeof(obj2) === "undefined") {
+      return {};
     }
-    for (prop in obj2) {
-      if (Object.prototype.hasOwnProperty.call(obj2, prop)) {
-        extended[prop] = obj2[prop];
-      }
-    }
-    return extended;
+    return merge(obj1, obj2);
   };
 
   // Set aliases, so we can save some typing.

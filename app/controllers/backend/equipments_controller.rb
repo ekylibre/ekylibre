@@ -23,14 +23,22 @@ module Backend
     #   :s State search
     #   :period Two Dates with _ separator
     #   :variant_id
+    #   :activity_id
     def self.equipments_conditions
       code = ''
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid],
+      code = search_conditions(products: %i[name work_number number description uuid],
                                product_nature_variants: [:name]) + " ||= []\n"
       code << "  if params[:variant_id].to_i > 0\n"
       code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
       code << "    c << params[:variant_id].to_i\n"
       code << "  end\n"
+
+      # filter by activity_id
+      code << "  if params[:activity_id].to_i > 0\n"
+      code << "    c[0] << \" AND \#{Equipment.table_name}.id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?)\"\n"
+      code << "    c << params[:activity_id].to_i\n"
+      code << "  end\n"
+
       code << "c\n"
       code.c
     end

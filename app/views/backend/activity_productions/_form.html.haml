@@ -22,8 +22,11 @@
     = f.input :nitrate_fixing
   - elsif activity.animal_farming?
     -# Animal farming
-    = f.input :size_value
-  - elsif activity.with_support
+    = f.referenced_association :support, source: { scope: { of_variety: :animal_group } }, new: {controller: :animal_groups}
+    = f.input :size_value, label: :indicative_group_size.tl
+  - elsif activity.tool_maintaining?
+    = f.input :size_value, label: ActivityProduction.human_attribute_name(:size)
+  - elsif activity.with_supports
     -# Other families
     = f.referenced_association :support
   = f.custom_fields

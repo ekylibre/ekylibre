@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,6 +45,7 @@
 #  reference_name                      :string
 #  saleable                            :boolean          default(FALSE), not null
 #  stock_account_id                    :integer
+#  stock_movement_account_id           :integer
 #  storable                            :boolean          default(FALSE), not null
 #  subscribing                         :boolean          default(FALSE), not null
 #  updated_at                          :datetime         not null
@@ -71,6 +72,7 @@ product_nature_categories_001:
   reductible: true
   saleable: true
   stock_account_id: 1
+  stock_movement_account_id: 5
   storable: true
   subscribing: false
   updated_at: 2014-12-24 11:11:19.130401000 Z
@@ -95,6 +97,7 @@ product_nature_categories_002:
   reductible: true
   saleable: true
   stock_account_id: 1
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-12-24 11:11:43.081342000 Z
@@ -117,6 +120,7 @@ product_nature_categories_003:
   reference_name: plant_medicine
   saleable: true
   stock_account_id: 141
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:19.871117000 Z
@@ -138,6 +142,7 @@ product_nature_categories_004:
   reference_name: straw
   saleable: true
   stock_account_id: 139
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:30.463762000 Z
@@ -160,6 +165,7 @@ product_nature_categories_005:
   reference_name: seed
   saleable: true
   stock_account_id: 155
+  stock_movement_account_id: 585
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:42.132127000 Z
@@ -225,6 +231,7 @@ product_nature_categories_008:
   reference_name: crop
   saleable: true
   stock_account_id: 160
+  stock_movement_account_id: 535
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:06:50.017161000 Z
@@ -251,6 +258,7 @@ product_nature_categories_009:
   reference_name: female_adult_cow
   saleable: true
   stock_account_id: 99
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-12-24 11:14:06.381046000 Z
@@ -273,6 +281,7 @@ product_nature_categories_010:
   reference_name: milk
   saleable: true
   stock_account_id: 14
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:09:20.923402000 Z
@@ -294,6 +303,7 @@ product_nature_categories_011:
   reference_name: grain
   saleable: true
   stock_account_id: 139
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:10:35.057312000 Z
@@ -316,6 +326,7 @@ product_nature_categories_012:
   reference_name: animal_medicine
   saleable: true
   stock_account_id: 17
+  stock_movement_account_id: 586
   storable: true
   subscribing: false
   updated_at: 2014-11-01 20:20:57.118801000 Z
@@ -423,6 +434,7 @@ product_nature_categories_017:
   reference_name: fertilizer
   saleable: true
   stock_account_id: 55
+  stock_movement_account_id: 590
   storable: true
   subscribing: false
   updated_at: 2014-11-07 15:24:11.118240000 Z
@@ -444,6 +456,7 @@ product_nature_categories_018:
   reference_name: grass
   saleable: true
   stock_account_id: 139
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 15:46:45.124919000 Z
@@ -470,6 +483,7 @@ product_nature_categories_019:
   reference_name: plant
   saleable: true
   stock_account_id: 155
+  stock_movement_account_id: 477
   storable: true
   subscribing: false
   updated_at: 2014-12-24 11:15:41.250449000 Z
@@ -491,6 +505,7 @@ product_nature_categories_020:
   reference_name: fruit
   saleable: true
   stock_account_id: 139
+  stock_movement_account_id: 477
   storable: true
   subscribing: false
   updated_at: 2014-11-07 17:05:38.057941000 Z
@@ -512,6 +527,7 @@ product_nature_categories_021:
   reference_name: wine
   saleable: true
   stock_account_id: 139
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 17:10:23.458618000 Z
@@ -534,6 +550,7 @@ product_nature_categories_022:
   reference_name: oenological_product
   saleable: true
   stock_account_id: 141
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 19:03:43.632961000 Z
@@ -556,6 +573,7 @@ product_nature_categories_023:
   reference_name: wine_package_consumable
   saleable: true
   stock_account_id: 116
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 19:29:27.376345000 Z

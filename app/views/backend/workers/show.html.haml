@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   = t.edit resource
 
-- main_campaign_selector
+- main_period_selector(:year)
 
 = main_informations attachment: true do
   = render 'picture'
@@ -22,7 +22,8 @@
         = human_age(resource.born_at, display: 2)
     = product_info(:working_duration) do |working_duration|
       %i.picto{class: "picto-timelapse"}
-      = :x_hours.tl(count: resource.working_duration(as: :doer)/3600)
+      = resource.working_duration(as: :doer).in_hour.round(1).l(precision: 1)
+  = labels_info(resource.labels)
 
 = cobbles do |c|
 

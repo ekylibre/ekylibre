@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,6 +56,7 @@
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  person_id                              :integer
+#  provider                               :string
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
@@ -64,6 +65,7 @@
 #  sign_in_count                          :integer          default(0)
 #  signup_at                              :datetime
 #  team_id                                :integer
+#  uid                                    :string
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
 #  updated_at                             :datetime         not null

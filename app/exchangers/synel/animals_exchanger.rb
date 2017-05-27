@@ -2,7 +2,7 @@ module Synel
   class AnimalsExchanger < ActiveExchanger::Base
     # Create or updates animals
     def import
-      demo_mode = Preference.value(:demo, false)
+      demo_mode = Preference.value(:demo, false, :boolean)
       variants = {}
       owner = Entity.of_company
       now = Time.zone.now
@@ -47,6 +47,7 @@ module Synel
             initial_born_at: r.born_at,
             initial_dead_at: r.dead_at,
             initial_owner: owner,
+            initial_population: 1.0,
             # initial_container: group.record.default_storage,
             default_storage: group ? group.record.default_storage : nil
           )

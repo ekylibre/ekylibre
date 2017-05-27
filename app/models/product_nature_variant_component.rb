@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,8 +48,8 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   # acts_as_nested_set scope: :product_nature_variant_id
   accepts_nested_attributes_for :children, allow_destroy: true
 
-  scope :components_of, -> (variant_id) { variant_id == 'nil' ? none : where(product_nature_variant_id: variant_id) }
-  scope :components_of_product, -> (product_id) { product_id == 'nil' ? none : where(product_nature_variant_id: Product.find(product_id).variant_id) }
+  scope :components_of, ->(variant_id) { variant_id == 'nil' ? none : where(product_nature_variant_id: variant_id) }
+  scope :components_of_product, ->(product_id) { product_id == 'nil' ? none : where(product_nature_variant_id: Product.find(product_id).variant_id) }
 
   before_validation do
     self.product_nature_variant = parent.product_nature_variant if parent
@@ -57,10 +57,16 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
 
   validate do
     if product_nature_variant && part_product_nature_variant
-      errors.add :part_product_nature_variant_id, :invalid if product_nature_variant_id == part_product_nature_variant_id
-      errors.add :product_nature_variant_id, :invalid unless product_nature_variant.of_variety?(:equipment)
+      if product_nature_variant == part_product_nature_variant
+        errors.add :part_product_nature_variant_id, :invalid
+      end
+      unless product_nature_variant.of_variety?(:equipment)
+        errors.add :product_nature_variant_id, :invalid
+      end
       unless errors[:part_product_nature_variant_id]
-        errors.add :part_product_nature_variant_id, :invalid if parent_variants.include?(part_product_nature_variant)
+        if parent_variants.include?(part_product_nature_variant)
+          errors.add :part_product_nature_variant_id, :invalid
+        end
       end
     end
 

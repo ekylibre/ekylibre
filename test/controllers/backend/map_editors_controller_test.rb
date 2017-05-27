@@ -19,7 +19,7 @@ module Backend
     end
 
     test 'upload KML' do
-      geometry = file_upload('map.kml', 'application/vnd.google-earth.kml+xm')
+      geometry = file_upload('map.kml', 'application/vnd.google-earth.kml+xml')
       post :upload, importer_format: :kml, import_file: geometry, format: :json
     end
 

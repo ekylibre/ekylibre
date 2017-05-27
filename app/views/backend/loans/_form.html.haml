@@ -9,15 +9,34 @@
   = f.input :insurance_percentage, wrapper: :append do
     = f.input_field(:insurance_percentage)
     %span.add-on= :by_year.tl
+  = f.input :insurance_repayment_method, as: :radio_buttons
+  = f.input :repayment_method, as: :radio_buttons
+  = f.input :shift_method, as: :radio_buttons
+
+= field_set(:delay) do
+  = f.input :ongoing_at
   = f.input :started_on
   = f.input :repayment_period, as: :radio_buttons
   = f.input :repayment_duration, wrapper: :append do
     = f.input_field(:repayment_duration)
     %span.add-on.period
-  = f.input :repayment_method, as: :radio_buttons
   = f.input :shift_duration, wrapper: :append do
     = f.input_field(:shift_duration)
     %span.add-on.period
-  = f.input :shift_method, as: :radio_buttons
+
+
+= field_set(:accountancy) do
+  = f.referenced_association :loan_account, :source => :loans
+  = f.referenced_association :interest_account, :source => :interests
+  = f.referenced_association :insurance_account, :source => :insurances
+  = f.input :initial_releasing_amount
+  = f.input :accountable_repayments_started_on
+
+= field_set(:bank_guarantees) do
+  = f.input :use_bank_guarantee, :show => "#bank_guarantee_account"
+  #bank_guarantee_account
+    = f.referenced_association :bank_guarantee_account, :source => :payment_guarantees
+    = f.input :bank_guarantee_amount
+
 
 = f.attachments_field_set

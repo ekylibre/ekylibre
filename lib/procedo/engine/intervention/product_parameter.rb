@@ -4,7 +4,7 @@ module Procedo
   module Engine
     class Intervention
       class ProductParameter < Procedo::Engine::Intervention::Parameter
-        attr_reader :product, :working_zone, :readings, :read_at
+        attr_reader :product, :working_zone, :readings, :read_at, :assembly, :component
 
         delegate :get, to: :product
 
@@ -17,13 +17,20 @@ module Procedo
             @working_zone = Charta.from_geojson(attributes[:working_zone])
           end
           if intervention && intervention.working_periods.present?
-            @read_at = intervention.working_periods['0'].started_at
+            first_period_key = intervention.working_periods.keys.sort_by(&:to_i).first
+            @read_at = intervention.working_periods[first_period_key].started_at
           end
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
             @attributes[:readings_attributes].each do |id, attributes|
               add_reading(id, attributes)
             end
+          end
+          if attributes[:assembly_id].present?
+            @assembly = Product.find_by(id: attributes[:assembly_id])
+          end
+          if attributes[:component_id].present?
+            @component = ProductNatureVariantComponent.find_by(id: attributes[:component_id])
           end
         end
 
@@ -44,7 +51,7 @@ module Procedo
         end
 
         def product_id=(id)
-          @product = Product.find_by!(id: id)
+          @product = id.blank? ? nil : Product.find_by!(id: id)
           # Can impact on own attributes, own readings, and other parameters
           impact_dependencies!(:product)
         end
@@ -70,6 +77,40 @@ module Procedo
           nil
         end
 
+        def assembly_id
+          @assembly ? @assembly.id : nil
+        end
+
+        def assembly_id=(id)
+          @assembly = id.blank? ? nil : Product.find_by!(id: id)
+          impact_dependencies! :assembly
+        end
+
+        def assembly=(record)
+          self.assembly_id = Maybe(record).id.or_else(nil)
+        end
+
+        def assembly?
+          @assembly.present?
+        end
+
+        def component_id
+          @component ? @component.id : nil
+        end
+
+        def component_id=(id)
+          @component_id = id.blank? ? nil : ProductNatureVariant.find_by!(id: id)
+          impact_dependencies! :component
+        end
+
+        def component=(record)
+          self.component_id = Maybe(record).id.or_else(nil)
+        end
+
+        def component?
+          @component.present?
+        end
+
         def to_hash
           hash = super
           hash[:product_id] = product_id if product?
@@ -79,6 +120,38 @@ module Procedo
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
+          reference.attributes.each do |attribute|
+            next unless attribute.compute_filter?
+            hash[:attributes] ||= {}
+            hash[:attributes][attribute.name] ||= {}
+            hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
+          end
+          hash[:assembly_id] = assembly_id if assembly?
+          hash[:component_id] = component_id if component?
+          hash[:errors] = {}
+          if reference.display_status.to_s.to_sym == :miscibility
+            hash[:errors][:miscibility] = true unless product? && product.france_maaid
+          end
+          hash
+        end
+
+        def to_attributes
+          hash = super
+          hash[:product_id] = product_id if product?
+          hash[:working_zone] = @working_zone.to_json if working_zone?
+          @readings.each do |id, reading|
+            next unless reference.reading(reading.name)
+            hash[:readings_attributes] ||= {}
+            hash[:readings_attributes][id] = reading.to_hash
+          end
+          reference.attributes.each do |attribute|
+            next unless attribute.compute_filter?
+            hash[:attributes] ||= {}
+            hash[:attributes][attribute.name] ||= {}
+            hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
+          end
+          hash[:assembly_id] = assembly_id if assembly?
+          hash[:component_id] = component_id if component?
           hash
         end
 
@@ -95,19 +168,27 @@ module Procedo
           impact_on_readings(field)
           impact_on_components(field)
           impact_on_parameters(field)
+          reassign(:assembly)
+          reassign(:component)
         end
 
         # Impact changes on attributes of parameter based on given field
         def impact_on_attributes(field = nil)
           reference.attributes.each do |attribute|
             next unless field != attribute.name
-            next unless attribute.default_value?
-            next unless attribute.default_value_with_environment_variable?(field, :self)
-            next if attribute.condition? && !usable_attribute?(attribute)
-            value = compute_attribute(attribute)
-            next if value.blank? || value == send(attribute.name)
-            value = Charta.new_geometry(value) if value && attribute.name == :working_zone
-            assign(attribute.name, value)
+            if attribute.default_value? && attribute.default_value_with_environment_variable?(field, :self)
+
+              next if attribute.condition? && !usable_attribute?(attribute)
+              value = compute_attribute(attribute)
+              next if value.blank? || value == send(attribute.name)
+              value = Charta.new_geometry(value) if value && attribute.name == :working_zone
+
+              assign(attribute.name, value)
+            end
+
+            if attribute.compute_filter? && attribute.compute_filter_with_environment_variable?(field, :self)
+              attribute.computed_filter = intervention.interpret(attribute.compute_filter_tree, env)
+            end
           end
         end
 
@@ -170,6 +251,7 @@ module Procedo
         # Test if a handler is usable
         def usable_handler?(handler)
           return true unless handler.condition?
+          return false if handler.condition_variables.any? { |dependency| intervention.interpret(dependency, env).nil? }
           intervention.interpret(handler.condition_tree, env)
         end
 

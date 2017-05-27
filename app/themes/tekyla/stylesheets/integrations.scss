@@ -1,0 +1,155 @@
+.integrations-container {
+  padding: $fs-normal;
+  width: $narrow-page-width;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &:after {
+    content: "";
+    flex: auto;
+  }
+
+  .integration {
+    $integration-width: $narrow-page-width / 3;
+    width: $integration-width;
+    @include box-sizing(border-box);
+    padding: $fs-normal;
+    position: relative;
+
+    .integration-destroy {
+      position: absolute;
+      right: 1em;
+      top: 1em;
+      padding: 0.3em 0.4em;
+    }
+
+    .integration-card {
+      align-items: center;
+      border-radius: $default-border-radius;
+      border: $menu-border;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: filter 0.2s ease-in-out 0s;
+
+      .integration-body {
+        display: block;
+        width: 100%;
+      }
+
+      .integration-logo {
+        background: mix($white, $desktop-background);
+        align-items: center;
+        display: flex;
+        flex: 2 1 100%;
+        justify-content: center;
+        padding: $fs-normal;
+        width: 100%;
+        @include box-sizing(border-box);
+        @include border-top-radius($default-border-radius - $menu-border-width);
+
+        img {
+          width: 0.6 * $integration-width;
+          height: 0.4 * $integration-width;
+          object-fit: contain;
+        }
+      }
+      .integration-description {
+        align-items: center;
+        display: flex;
+        flex: 1 2 100%;
+        flex-direction: column;
+        padding: $fs-large;
+        width: 100%;
+        @include box-sizing(border-box);
+        border-top: $menu-border;
+        background: $white;
+        @include border-bottom-radius($default-border-radius - $menu-border-width);
+
+        h3 {
+          color: $text-color;
+          font-weight: bold;
+          font-size: $fs-large;
+          line-height: $lh-large;
+        }
+
+        p {
+          color: $text-color;
+          text-align: center;
+          font-size: $fs-normal;
+          line-height: $lh-normal;
+          overflow: ellipsis;
+        }
+      }
+    }
+
+    &.integration-active {
+      .integration-card {
+        border-color: $active-color;
+        .integration-description {
+          border-color: $active-color;
+          background-color: $active-color;
+          h3, p {
+            color: $white;
+          }
+        }
+      }
+
+    }
+
+    &.integration-disabled {
+      filter: contrast(75%) grayscale(100%);
+      a {
+        @include user-select(none);
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+    }
+
+  }
+}
+
+form {
+  &.new_integration, &.edit_integration {
+    width: $narrow-page-width;
+    margin: 0 auto;
+  }
+}
+
+.integration-form {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  .integration-presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $lh-huge;
+
+    .integration-picture {
+      img {
+        object-fit: contain;
+        width: 0.6 * $narrow-page-width;
+      }
+      margin-bottom: 10px;
+    }
+    .integration-description {
+      h2 {
+        font-size: $fs-huge;
+        line-height: $lh-huge;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+        &, * {
+          vertical-align: baseline;
+        }
+      }
+    }
+  }
+}

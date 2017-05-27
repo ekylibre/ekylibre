@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,8 +42,8 @@
 class Task < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
   include Customizable
-  enumerize :state, in: [:todo, :doing, :done], default: :todo, predicates: true
-  enumerize :nature, in: [:incoming_call, :outgoing_call, :incoming_mail, :outgoing_mail, :incoming_email, :outgoing_email], default: :outgoing_call, predicates: true # , :quote, :document
+  enumerize :state, in: %i[todo doing done], default: :todo, predicates: true
+  enumerize :nature, in: %i[incoming_call outgoing_call incoming_mail outgoing_mail incoming_email outgoing_email], default: :outgoing_call, predicates: true # , :quote, :document
   belongs_to :entity
   belongs_to :sale_opportunity
   belongs_to :executor, -> { responsibles }, class_name: 'Entity'

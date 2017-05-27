@@ -8,6 +8,6 @@
       .control-group
         %label.control-label= @deal_model.model_name.human
         .controls
-          = text_field_tag(:deal_id, nil, data: {selector: url_for(controller: controller_name, action: :unroll, scope: :affairable, exclude: @affair.deals_of_type(@deal_model).pluck(:id) + @deal_model.where.not(currency: @affair.currency).pluck(:id)), selector_new_item: url_for(controller: controller_name, action: :new, @deal_model.deal_third.foreign_key => @third.id, amount: @affair.balance.abs)})
+          = text_field_tag(:deal_id, nil, data: { selector: url_for(controller: controller_name, action: :unroll, scope: :affairable, exclude: @affair.deals_of_type(@deal_model).pluck(:id) + @deal_model.where.not(currency: @affair.currency).pluck(:id)), selector_new_item: url_for(controller: controller_name, action: :new, @deal_model.deal_third.foreign_key => @third.id, amount: @affair.balance.abs) })
   = form_actions do
     = submit_tag(:attach_deal.tl, 'data-disable-with' => tl(:please_wait))

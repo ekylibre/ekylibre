@@ -1,10 +1,78 @@
-= field_set do
-  = hidden_field_tag :journal_id, (f.object.new_record? ? params[:journal_id] : f.object.journal_id)
-  -# = f.referenced_association :journal, readonly: true, input_html: { data: { dependents: '#items-form' } }
-  = f.input :number
-  = f.input :printed_on, input_html: { data: { dependents: '#items-form', parameter_name: 'printed_on' } }
-  = f.custom_fields
-  #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: '#journal_id'}}
-    = render 'items_form', items: f.object.items
+- if f.object.journal
+  = field_set do
+    #journal-entry-form{ data: { with_change: (f.object.need_currency_change? ? 'true' : 'false'), change_url: currency_state_backend_journal_entries_path(from: f.object.journal.currency) } }
+      = hidden_field_tag :affair_id, params[:affair_id]
+      = f.association :journal, as: :hidden
+      = field JournalEntry.human_attribute_name(:journal), f.object.journal.name
+      - if f.object.new_record?
+        - theoretical_number = f.object.journal.next_number
+        = field JournalEntry.human_attribute_name(:theoretical_number), theoretical_number
+        = hidden_field_tag :theoretical_number, theoretical_number
+      - else
+        = f.input :number, placeholder: f.object.journal.next_number
+      = f.input :printed_on
+      = f.input :real_currency_rate, label_html: { data: { change_label: :exchange_rate_from_x_to_y.tl(x: '{{FROM}}', y: '{{TO}}') } }, wrapper_html: { class: 'currency-change' }
 
-= f.attachments_field_set
+      = f.custom_fields
+
+      .items
+        %table#items-table
+          - precision = Nomen::Currency[f.object.journal.currency].precision
+          - financial_year = f.object.expected_financial_year
+          - budget_size = budget_columns_count
+          - team_size = team_columns_count
+          %thead
+            %tr
+              %th= JournalEntryItem.human_attribute_name(:name)
+              %th= JournalEntryItem.human_attribute_name(:account)
+              %th= JournalEntryItem.human_attribute_name(:variant)
+              - if budget_size > 0
+                %th= JournalEntryItem.human_attribute_name(:activity_budget)
+              - if team_size > 0
+                %th= JournalEntryItem.human_attribute_name(:team)
+              %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:debit)
+              %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:credit)
+              %th.act
+
+          %tfoot
+            %tr#total.total{ data: { valid_if_equality_between: "#entry-real-debit, #entry-real-credit", submit_if_valid: false } }
+              %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary", render_options: { locals: { currency: f.object.journal.currency } }
+              %th{ colspan: 2 + budget_size + team_size }
+                .pull-left
+                  = label_tag "preference_entry_autocompletion", class: 'control-label standalone-option' do
+                    = check_box "preference", "entry_autocompletion", {checked: Preference[:entry_autocompletion]}, true, false
+                    = :activate_entry_autocompletion.tl
+
+                %span= :total.tl
+              %td#entry-real-debit.decimal{ data: { use: "tbody.nested-fields input.real-debit", calculate_round: precision } }=  f.object.real_debit
+              %td.txt= f.object.journal.currency
+              %td#entry-real-credit.decimal{data: { use: "tbody.nested-fields input.real-credit", calculate_round: precision } }= f.object.real_credit
+              %td.txt= f.object.journal.currency
+              %th.act
+            %tr#subtotal.subtotal.currency-change{ data: { valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false } }
+              - financial_year_precision = financial_year ? Nomen::Currency[financial_year.currency].precision : 3
+              %th{ colspan: 3 + budget_size + team_size }= :total.tl
+              %td#entry-debit.decimal{ data: { use: "td.debit",  calculate_round: financial_year_precision } }= f.object.debit
+              %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'
+              %td#entry-credit.decimal{ data: { use: "td.credit", calculate_round: financial_year_precision } }= f.object.credit
+              %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'
+              %th.act
+
+          = f.simple_fields_for :items, f.object.items.sort_by { |i| i.position.to_i } do |item|
+            = render 'item_fields', f: item, currency: f.object.journal.currency
+
+  = f.attachments_field_set
+- else
+  :ruby
+    journals = Journal.order(:name)
+    journals = journals.where(nature: params[:nature]) if params[:nature]
+    journals = journals.where(currency: params[:currency]) if params[:currency]
+    subheading :select_a_journal
+  .activity-family
+    - journals.map{|j| [j.nature.l, j.nature] }.uniq.sort_by(&:first).each do |t, n|
+      .activity-family-heading
+        %h2.activity-family-title= t
+      .activity-family-body
+        - journals.where(nature: n).each do |journal|
+          = link_to(journal.name, params.merge(journal_id: journal.id), class: 'btn btn-lg')
+  - f.clear_actions!

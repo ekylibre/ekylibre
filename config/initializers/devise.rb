@@ -1,16 +1,18 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+require File.expand_path('lib/omniauth/strategies/ekylibre', Rails.root)
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = 'cbfa6828e7f6f052484db145404f9b00bf3ba234fedcbb1db9c79b85c8f0291b65bc9fe2641853ed591d45d87310d33c9edafb0ad6b399c6c3752e3a4eb8e163'
+  config.secret_key = ENV['DEVISE_SECRET_KEY']
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = ENV['MAILER_SENDER']
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -272,7 +274,10 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  if ENV['EKYLIBRE_OAUTH2_CLIENT_ID'] && ENV['EKYLIBRE_OAUTH2_CLIENT_SECRET']
+    config.omniauth :ekylibre, ENV['EKYLIBRE_OAUTH2_CLIENT_ID'], ENV['EKYLIBRE_OAUTH2_CLIENT_SECRET']
+  end
+  config.omniauth_path_prefix = 'oauth'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

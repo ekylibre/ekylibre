@@ -13,10 +13,10 @@ module TimeLineable
 
     before_validation do
       following_object = begin
-                    following
-                  rescue
-                    nil
-                  end
+                           following
+                         rescue
+                           nil
+                         end
       if started_at && following_object
         self.stopped_at = following_object.started_at
       else
@@ -48,9 +48,7 @@ module TimeLineable
     end
 
     after_destroy do
-      if previous = self.previous
-        self.previous.update_column(:stopped_at, stopped_at)
-      end
+      previous.update_column(:stopped_at, stopped_at) if previous
     end
   end
 

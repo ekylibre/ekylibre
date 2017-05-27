@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: loan_repayments
 #
+#  accountable      :boolean          default(FALSE), not null
 #  accounted_at     :datetime
 #  amount           :decimal(19, 4)   not null
 #  base_amount      :decimal(19, 4)   not null
@@ -34,6 +35,7 @@
 #  journal_entry_id :integer
 #  loan_id          :integer          not null
 #  lock_version     :integer          default(0), not null
+#  locked           :boolean          default(FALSE), not null
 #  position         :integer          not null
 #  remaining_amount :decimal(19, 4)   not null
 #  updated_at       :datetime         not null
@@ -41,6 +43,7 @@
 #
 ---
 loan_repayments_001:
+  accountable: false
   accounted_at: 2016-07-01 20:10:29.128288000 Z
   amount: 2.07
   base_amount: 0.0
@@ -53,11 +56,13 @@ loan_repayments_001:
   journal_entry_id: 69
   loan_id: 1
   lock_version: 1
+  locked: false
   position: 1
   remaining_amount: 2068.0
   updated_at: 2016-07-01 20:10:29.067439000 Z
   updater_id: 1
 loan_repayments_002:
+  accountable: false
   accounted_at: 2016-07-01 20:10:29.229742000 Z
   amount: 1088.6
   base_amount: 1016.22
@@ -70,11 +75,13 @@ loan_repayments_002:
   journal_entry_id: 70
   loan_id: 1
   lock_version: 1
+  locked: false
   position: 2
   remaining_amount: 1051.78
   updated_at: 2016-07-01 20:10:29.134489000 Z
   updater_id: 1
 loan_repayments_003:
+  accountable: false
   accounted_at: 2016-07-01 20:10:29.240357000 Z
   amount: 1088.59
   base_amount: 1051.78
@@ -86,11 +93,13 @@ loan_repayments_003:
   interest_amount: 35.76
   loan_id: 1
   lock_version: 1
+  locked: false
   position: 3
   remaining_amount: 0.0
   updated_at: 2016-07-01 20:10:29.235866000 Z
   updater_id: 1
 loan_repayments_004:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.144610000 Z
   amount: 109.69
   base_amount: 0.0
@@ -103,11 +112,13 @@ loan_repayments_004:
   journal_entry_id: 32
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 1
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.027631000 Z
   updater_id: 1
 loan_repayments_005:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.257751000 Z
   amount: 109.69
   base_amount: 0.0
@@ -120,11 +131,13 @@ loan_repayments_005:
   journal_entry_id: 33
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 2
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.152685000 Z
   updater_id: 1
 loan_repayments_006:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.498397000 Z
   amount: 109.69
   base_amount: 0.0
@@ -137,11 +150,13 @@ loan_repayments_006:
   journal_entry_id: 34
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 3
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.265990000 Z
   updater_id: 1
 loan_repayments_007:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.619736000 Z
   amount: 109.69
   base_amount: 0.0
@@ -154,11 +169,13 @@ loan_repayments_007:
   journal_entry_id: 35
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 4
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.505612000 Z
   updater_id: 1
 loan_repayments_008:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.747656000 Z
   amount: 109.69
   base_amount: 0.0
@@ -171,11 +188,13 @@ loan_repayments_008:
   journal_entry_id: 36
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 5
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.634114000 Z
   updater_id: 1
 loan_repayments_009:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.877964000 Z
   amount: 109.69
   base_amount: 0.0
@@ -188,11 +207,13 @@ loan_repayments_009:
   journal_entry_id: 37
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 6
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.759548000 Z
   updater_id: 1
 loan_repayments_010:
+  accountable: false
   accounted_at: 2016-07-01 20:34:23.999456000 Z
   amount: 109.69
   base_amount: 0.0
@@ -205,11 +226,13 @@ loan_repayments_010:
   journal_entry_id: 38
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 7
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:23.884531000 Z
   updater_id: 1
 loan_repayments_011:
+  accountable: false
   accounted_at: 2016-07-01 20:34:24.122839000 Z
   amount: 109.69
   base_amount: 0.0
@@ -222,11 +245,13 @@ loan_repayments_011:
   journal_entry_id: 39
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 8
   remaining_amount: 45700.0
   updated_at: 2016-07-01 20:34:24.007336000 Z
   updater_id: 1
 loan_repayments_012:
+  accountable: false
   accounted_at: 2016-07-01 20:34:24.280985000 Z
   amount: 771.16
   base_amount: 661.47
@@ -239,11 +264,13 @@ loan_repayments_012:
   journal_entry_id: 40
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 9
   remaining_amount: 45038.53
   updated_at: 2016-07-01 20:34:24.128657000 Z
   updater_id: 1
 loan_repayments_013:
+  accountable: false
   accounted_at: 2016-07-01 20:34:24.443066000 Z
   amount: 771.16
   base_amount: 663.06
@@ -256,11 +283,13 @@ loan_repayments_013:
   journal_entry_id: 41
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 10
   remaining_amount: 44375.47
   updated_at: 2016-07-01 20:34:24.286648000 Z
   updater_id: 1
 loan_repayments_014:
+  accountable: false
   accounted_at: 2016-07-01 20:34:24.602869000 Z
   amount: 771.16
   base_amount: 664.66
@@ -273,11 +302,13 @@ loan_repayments_014:
   journal_entry_id: 42
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 11
   remaining_amount: 43710.81
   updated_at: 2016-07-01 20:34:24.450650000 Z
   updater_id: 1
 loan_repayments_015:
+  accountable: false
   accounted_at: 2016-07-01 20:34:24.760177000 Z
   amount: 771.16
   base_amount: 666.26
@@ -290,11 +321,13 @@ loan_repayments_015:
   journal_entry_id: 43
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 12
   remaining_amount: 43044.55
   updated_at: 2016-07-01 20:34:24.611663000 Z
   updater_id: 1
 loan_repayments_016:
+  accountable: false
   accounted_at: 2016-07-01 20:34:24.912475000 Z
   amount: 771.16
   base_amount: 667.85
@@ -307,11 +340,13 @@ loan_repayments_016:
   journal_entry_id: 44
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 13
   remaining_amount: 42376.7
   updated_at: 2016-07-01 20:34:24.766339000 Z
   updater_id: 1
 loan_repayments_017:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.062482000 Z
   amount: 771.16
   base_amount: 669.46
@@ -324,11 +359,13 @@ loan_repayments_017:
   journal_entry_id: 45
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 14
   remaining_amount: 41707.24
   updated_at: 2016-07-01 20:34:24.918385000 Z
   updater_id: 1
 loan_repayments_018:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.217120000 Z
   amount: 771.16
   base_amount: 671.06
@@ -341,11 +378,13 @@ loan_repayments_018:
   journal_entry_id: 46
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 15
   remaining_amount: 41036.18
   updated_at: 2016-07-01 20:34:25.072681000 Z
   updater_id: 1
 loan_repayments_019:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.372690000 Z
   amount: 771.16
   base_amount: 672.68
@@ -358,11 +397,13 @@ loan_repayments_019:
   journal_entry_id: 47
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 16
   remaining_amount: 40363.5
   updated_at: 2016-07-01 20:34:25.225717000 Z
   updater_id: 1
 loan_repayments_020:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.520505000 Z
   amount: 771.16
   base_amount: 674.28
@@ -375,11 +416,13 @@ loan_repayments_020:
   journal_entry_id: 48
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 17
   remaining_amount: 39689.22
   updated_at: 2016-07-01 20:34:25.378816000 Z
   updater_id: 1
 loan_repayments_021:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.673232000 Z
   amount: 771.16
   base_amount: 675.9
@@ -392,11 +435,13 @@ loan_repayments_021:
   journal_entry_id: 49
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 18
   remaining_amount: 39013.32
   updated_at: 2016-07-01 20:34:25.526028000 Z
   updater_id: 1
 loan_repayments_022:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.820949000 Z
   amount: 771.16
   base_amount: 677.53
@@ -409,11 +454,13 @@ loan_repayments_022:
   journal_entry_id: 50
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 19
   remaining_amount: 38335.79
   updated_at: 2016-07-01 20:34:25.680547000 Z
   updater_id: 1
 loan_repayments_023:
+  accountable: false
   accounted_at: 2016-07-01 20:34:25.964826000 Z
   amount: 771.16
   base_amount: 679.15
@@ -426,11 +473,13 @@ loan_repayments_023:
   journal_entry_id: 51
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 20
   remaining_amount: 37656.64
   updated_at: 2016-07-01 20:34:25.826663000 Z
   updater_id: 1
 loan_repayments_024:
+  accountable: false
   accounted_at: 2016-07-01 20:34:26.110937000 Z
   amount: 771.16
   base_amount: 680.78
@@ -443,11 +492,13 @@ loan_repayments_024:
   journal_entry_id: 52
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 21
   remaining_amount: 36975.86
   updated_at: 2016-07-01 20:34:25.970595000 Z
   updater_id: 1
 loan_repayments_025:
+  accountable: false
   accounted_at: 2016-07-01 20:34:26.255577000 Z
   amount: 771.16
   base_amount: 682.42
@@ -460,11 +511,13 @@ loan_repayments_025:
   journal_entry_id: 53
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 22
   remaining_amount: 36293.44
   updated_at: 2016-07-01 20:34:26.116060000 Z
   updater_id: 1
 loan_repayments_026:
+  accountable: false
   accounted_at: 2016-07-01 20:34:26.403789000 Z
   amount: 771.16
   base_amount: 684.06
@@ -477,11 +530,13 @@ loan_repayments_026:
   journal_entry_id: 54
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 23
   remaining_amount: 35609.38
   updated_at: 2016-07-01 20:34:26.262954000 Z
   updater_id: 1
 loan_repayments_027:
+  accountable: false
   accounted_at: 2016-07-01 20:34:26.693686000 Z
   amount: 771.16
   base_amount: 685.69
@@ -494,11 +549,13 @@ loan_repayments_027:
   journal_entry_id: 55
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 24
   remaining_amount: 34923.69
   updated_at: 2016-07-01 20:34:26.415168000 Z
   updater_id: 1
 loan_repayments_028:
+  accountable: false
   accounted_at: 2016-07-01 20:34:26.856086000 Z
   amount: 771.16
   base_amount: 687.34
@@ -511,11 +568,13 @@ loan_repayments_028:
   journal_entry_id: 56
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 25
   remaining_amount: 34236.35
   updated_at: 2016-07-01 20:34:26.699454000 Z
   updater_id: 1
 loan_repayments_029:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.018117000 Z
   amount: 771.16
   base_amount: 689.0
@@ -528,11 +587,13 @@ loan_repayments_029:
   journal_entry_id: 57
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 26
   remaining_amount: 33547.35
   updated_at: 2016-07-01 20:34:26.862232000 Z
   updater_id: 1
 loan_repayments_030:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.189074000 Z
   amount: 771.16
   base_amount: 690.64
@@ -545,11 +606,13 @@ loan_repayments_030:
   journal_entry_id: 58
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 27
   remaining_amount: 32856.71
   updated_at: 2016-07-01 20:34:27.024655000 Z
   updater_id: 1
 loan_repayments_031:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.363821000 Z
   amount: 771.16
   base_amount: 692.3
@@ -562,11 +625,13 @@ loan_repayments_031:
   journal_entry_id: 59
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 28
   remaining_amount: 32164.41
   updated_at: 2016-07-01 20:34:27.201570000 Z
   updater_id: 1
 loan_repayments_032:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.521207000 Z
   amount: 771.16
   base_amount: 693.96
@@ -579,11 +644,13 @@ loan_repayments_032:
   journal_entry_id: 60
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 29
   remaining_amount: 31470.45
   updated_at: 2016-07-01 20:34:27.369465000 Z
   updater_id: 1
 loan_repayments_033:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.684148000 Z
   amount: 771.16
   base_amount: 695.63
@@ -596,11 +663,13 @@ loan_repayments_033:
   journal_entry_id: 61
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 30
   remaining_amount: 30774.82
   updated_at: 2016-07-01 20:34:27.532635000 Z
   updater_id: 1
 loan_repayments_034:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.841382000 Z
   amount: 771.16
   base_amount: 697.3
@@ -613,11 +682,13 @@ loan_repayments_034:
   journal_entry_id: 62
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 31
   remaining_amount: 30077.52
   updated_at: 2016-07-01 20:34:27.689979000 Z
   updater_id: 1
 loan_repayments_035:
+  accountable: false
   accounted_at: 2016-07-01 20:34:27.999241000 Z
   amount: 771.16
   base_amount: 698.97
@@ -630,11 +701,13 @@ loan_repayments_035:
   journal_entry_id: 63
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 32
   remaining_amount: 29378.55
   updated_at: 2016-07-01 20:34:27.847180000 Z
   updater_id: 1
 loan_repayments_036:
+  accountable: false
   accounted_at: 2016-07-01 20:34:28.153384000 Z
   amount: 771.16
   base_amount: 700.65
@@ -647,11 +720,13 @@ loan_repayments_036:
   journal_entry_id: 64
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 33
   remaining_amount: 28677.9
   updated_at: 2016-07-01 20:34:28.005061000 Z
   updater_id: 1
 loan_repayments_037:
+  accountable: false
   accounted_at: 2016-07-01 20:34:28.306925000 Z
   amount: 771.16
   base_amount: 702.33
@@ -664,11 +739,13 @@ loan_repayments_037:
   journal_entry_id: 65
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 34
   remaining_amount: 27975.57
   updated_at: 2016-07-01 20:34:28.158836000 Z
   updater_id: 1
 loan_repayments_038:
+  accountable: false
   accounted_at: 2016-07-01 20:34:28.466174000 Z
   amount: 771.16
   base_amount: 704.02
@@ -681,11 +758,13 @@ loan_repayments_038:
   journal_entry_id: 66
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 35
   remaining_amount: 27271.55
   updated_at: 2016-07-01 20:34:28.312645000 Z
   updater_id: 1
 loan_repayments_039:
+  accountable: false
   accounted_at: 2016-07-01 20:34:28.623107000 Z
   amount: 771.16
   base_amount: 705.7
@@ -698,11 +777,13 @@ loan_repayments_039:
   journal_entry_id: 67
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 36
   remaining_amount: 26565.85
   updated_at: 2016-07-01 20:34:28.471875000 Z
   updater_id: 1
 loan_repayments_040:
+  accountable: false
   accounted_at: 2016-07-01 20:34:28.798299000 Z
   amount: 771.16
   base_amount: 707.4
@@ -715,11 +796,13 @@ loan_repayments_040:
   journal_entry_id: 68
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 37
   remaining_amount: 25858.45
   updated_at: 2016-07-01 20:34:28.628404000 Z
   updater_id: 1
 loan_repayments_041:
+  accountable: false
   accounted_at: 2016-07-01 20:34:29.674253000 Z
   amount: 771.16
   base_amount: 709.1
@@ -732,11 +815,13 @@ loan_repayments_041:
   journal_entry_id: 72
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 38
   remaining_amount: 25149.35
   updated_at: 2016-07-01 20:34:28.809227000 Z
   updater_id: 1
 loan_repayments_042:
+  accountable: false
   accounted_at: 2016-07-01 20:34:30.767546000 Z
   amount: 771.16
   base_amount: 710.8
@@ -749,11 +834,13 @@ loan_repayments_042:
   journal_entry_id: 73
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 39
   remaining_amount: 24438.55
   updated_at: 2016-07-01 20:34:29.686613000 Z
   updater_id: 1
 loan_repayments_043:
+  accountable: false
   accounted_at: 2016-07-01 20:34:31.711028000 Z
   amount: 771.16
   base_amount: 712.5
@@ -766,11 +853,13 @@ loan_repayments_043:
   journal_entry_id: 74
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 40
   remaining_amount: 23726.05
   updated_at: 2016-07-01 20:34:30.772825000 Z
   updater_id: 1
 loan_repayments_044:
+  accountable: false
   accounted_at: 2016-07-01 20:34:32.698103000 Z
   amount: 771.16
   base_amount: 714.22
@@ -783,11 +872,13 @@ loan_repayments_044:
   journal_entry_id: 75
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 41
   remaining_amount: 23011.83
   updated_at: 2016-07-01 20:34:31.716667000 Z
   updater_id: 1
 loan_repayments_045:
+  accountable: false
   accounted_at: 2016-07-01 20:34:34.592744000 Z
   amount: 771.16
   base_amount: 715.93
@@ -800,11 +891,13 @@ loan_repayments_045:
   journal_entry_id: 76
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 42
   remaining_amount: 22295.9
   updated_at: 2016-07-01 20:34:32.703501000 Z
   updater_id: 1
 loan_repayments_046:
+  accountable: false
   accounted_at: 2016-07-01 20:34:35.488787000 Z
   amount: 771.16
   base_amount: 717.65
@@ -817,11 +910,13 @@ loan_repayments_046:
   journal_entry_id: 77
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 43
   remaining_amount: 21578.25
   updated_at: 2016-07-01 20:34:34.598138000 Z
   updater_id: 1
 loan_repayments_047:
+  accountable: false
   accounted_at: 2016-07-01 20:34:36.457973000 Z
   amount: 771.16
   base_amount: 719.37
@@ -834,11 +929,13 @@ loan_repayments_047:
   journal_entry_id: 78
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 44
   remaining_amount: 20858.88
   updated_at: 2016-07-01 20:34:35.495019000 Z
   updater_id: 1
 loan_repayments_048:
+  accountable: false
   accounted_at: 2016-07-01 20:34:37.402647000 Z
   amount: 771.16
   base_amount: 721.1
@@ -851,11 +948,13 @@ loan_repayments_048:
   journal_entry_id: 79
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 45
   remaining_amount: 20137.78
   updated_at: 2016-07-01 20:34:36.470101000 Z
   updater_id: 1
 loan_repayments_049:
+  accountable: false
   accounted_at: 2016-07-01 20:34:38.378275000 Z
   amount: 771.16
   base_amount: 722.83
@@ -868,11 +967,13 @@ loan_repayments_049:
   journal_entry_id: 80
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 46
   remaining_amount: 19414.95
   updated_at: 2016-07-01 20:34:37.408270000 Z
   updater_id: 1
 loan_repayments_050:
+  accountable: false
   accounted_at: 2016-07-01 20:34:39.274429000 Z
   amount: 771.16
   base_amount: 724.56
@@ -885,11 +986,13 @@ loan_repayments_050:
   journal_entry_id: 81
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 47
   remaining_amount: 18690.39
   updated_at: 2016-07-01 20:34:38.386206000 Z
   updater_id: 1
 loan_repayments_051:
+  accountable: false
   accounted_at: 2016-07-01 20:34:40.237502000 Z
   amount: 771.16
   base_amount: 726.3
@@ -902,11 +1005,13 @@ loan_repayments_051:
   journal_entry_id: 82
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 48
   remaining_amount: 17964.09
   updated_at: 2016-07-01 20:34:39.285466000 Z
   updater_id: 1
 loan_repayments_052:
+  accountable: false
   accounted_at: 2016-07-01 20:34:41.180809000 Z
   amount: 771.16
   base_amount: 728.04
@@ -919,11 +1024,13 @@ loan_repayments_052:
   journal_entry_id: 83
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 49
   remaining_amount: 17236.05
   updated_at: 2016-07-01 20:34:40.242730000 Z
   updater_id: 1
 loan_repayments_053:
+  accountable: false
   accounted_at: 2016-07-01 20:34:42.114125000 Z
   amount: 771.16
   base_amount: 729.8
@@ -936,11 +1043,13 @@ loan_repayments_053:
   journal_entry_id: 84
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 50
   remaining_amount: 16506.25
   updated_at: 2016-07-01 20:34:41.186432000 Z
   updater_id: 1
 loan_repayments_054:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.000884000 Z
   amount: 771.16
   base_amount: 731.54
@@ -953,11 +1062,13 @@ loan_repayments_054:
   journal_entry_id: 85
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 51
   remaining_amount: 15774.71
   updated_at: 2016-07-01 20:34:42.119452000 Z
   updater_id: 1
 loan_repayments_055:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.010834000 Z
   amount: 771.16
   base_amount: 733.3
@@ -969,11 +1080,13 @@ loan_repayments_055:
   interest_amount: 27.61
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 52
   remaining_amount: 15041.41
   updated_at: 2016-07-01 20:34:43.006433000 Z
   updater_id: 1
 loan_repayments_056:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.020058000 Z
   amount: 771.16
   base_amount: 735.06
@@ -985,11 +1098,13 @@ loan_repayments_056:
   interest_amount: 26.32
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 53
   remaining_amount: 14306.35
   updated_at: 2016-07-01 20:34:43.015984000 Z
   updater_id: 1
 loan_repayments_057:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.028811000 Z
   amount: 771.16
   base_amount: 736.82
@@ -1001,11 +1116,13 @@ loan_repayments_057:
   interest_amount: 25.04
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 54
   remaining_amount: 13569.53
   updated_at: 2016-07-01 20:34:43.025103000 Z
   updater_id: 1
 loan_repayments_058:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.037429000 Z
   amount: 771.16
   base_amount: 738.59
@@ -1017,11 +1134,13 @@ loan_repayments_058:
   interest_amount: 23.75
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 55
   remaining_amount: 12830.94
   updated_at: 2016-07-01 20:34:43.033911000 Z
   updater_id: 1
 loan_repayments_059:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.046121000 Z
   amount: 771.16
   base_amount: 740.37
@@ -1033,11 +1152,13 @@ loan_repayments_059:
   interest_amount: 22.45
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 56
   remaining_amount: 12090.57
   updated_at: 2016-07-01 20:34:43.042349000 Z
   updater_id: 1
 loan_repayments_060:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.054965000 Z
   amount: 771.16
   base_amount: 742.14
@@ -1049,11 +1170,13 @@ loan_repayments_060:
   interest_amount: 21.16
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 57
   remaining_amount: 11348.43
   updated_at: 2016-07-01 20:34:43.051120000 Z
   updater_id: 1
 loan_repayments_061:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.063955000 Z
   amount: 771.16
   base_amount: 743.92
@@ -1065,11 +1188,13 @@ loan_repayments_061:
   interest_amount: 19.86
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 58
   remaining_amount: 10604.51
   updated_at: 2016-07-01 20:34:43.060218000 Z
   updater_id: 1
 loan_repayments_062:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.073452000 Z
   amount: 771.16
   base_amount: 745.71
@@ -1081,11 +1206,13 @@ loan_repayments_062:
   interest_amount: 18.56
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 59
   remaining_amount: 9858.8
   updated_at: 2016-07-01 20:34:43.069226000 Z
   updater_id: 1
 loan_repayments_063:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.082337000 Z
   amount: 771.16
   base_amount: 747.5
@@ -1097,11 +1224,13 @@ loan_repayments_063:
   interest_amount: 17.25
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 60
   remaining_amount: 9111.3
   updated_at: 2016-07-01 20:34:43.078419000 Z
   updater_id: 1
 loan_repayments_064:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.090726000 Z
   amount: 771.16
   base_amount: 749.3
@@ -1113,11 +1242,13 @@ loan_repayments_064:
   interest_amount: 15.94
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 61
   remaining_amount: 8362.0
   updated_at: 2016-07-01 20:34:43.087277000 Z
   updater_id: 1
 loan_repayments_065:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.098901000 Z
   amount: 771.16
   base_amount: 751.09
@@ -1129,11 +1260,13 @@ loan_repayments_065:
   interest_amount: 14.63
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 62
   remaining_amount: 7610.91
   updated_at: 2016-07-01 20:34:43.095342000 Z
   updater_id: 1
 loan_repayments_066:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.106974000 Z
   amount: 771.16
   base_amount: 752.89
@@ -1145,11 +1278,13 @@ loan_repayments_066:
   interest_amount: 13.32
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 63
   remaining_amount: 6858.02
   updated_at: 2016-07-01 20:34:43.103488000 Z
   updater_id: 1
 loan_repayments_067:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.250359000 Z
   amount: 771.16
   base_amount: 754.7
@@ -1161,11 +1296,13 @@ loan_repayments_067:
   interest_amount: 12.0
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 64
   remaining_amount: 6103.32
   updated_at: 2016-07-01 20:34:43.121941000 Z
   updater_id: 1
 loan_repayments_068:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.263101000 Z
   amount: 771.16
   base_amount: 756.51
@@ -1177,11 +1314,13 @@ loan_repayments_068:
   interest_amount: 10.68
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 65
   remaining_amount: 5346.81
   updated_at: 2016-07-01 20:34:43.257716000 Z
   updater_id: 1
 loan_repayments_069:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.274496000 Z
   amount: 771.16
   base_amount: 758.32
@@ -1193,11 +1332,13 @@ loan_repayments_069:
   interest_amount: 9.36
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 66
   remaining_amount: 4588.49
   updated_at: 2016-07-01 20:34:43.269348000 Z
   updater_id: 1
 loan_repayments_070:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.284975000 Z
   amount: 771.16
   base_amount: 760.15
@@ -1209,11 +1350,13 @@ loan_repayments_070:
   interest_amount: 8.03
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 67
   remaining_amount: 3828.34
   updated_at: 2016-07-01 20:34:43.280235000 Z
   updater_id: 1
 loan_repayments_071:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.295567000 Z
   amount: 771.16
   base_amount: 761.97
@@ -1225,11 +1368,13 @@ loan_repayments_071:
   interest_amount: 6.7
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 68
   remaining_amount: 3066.37
   updated_at: 2016-07-01 20:34:43.291125000 Z
   updater_id: 1
 loan_repayments_072:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.305821000 Z
   amount: 771.16
   base_amount: 763.8
@@ -1241,11 +1386,13 @@ loan_repayments_072:
   interest_amount: 5.37
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 69
   remaining_amount: 2302.57
   updated_at: 2016-07-01 20:34:43.301029000 Z
   updater_id: 1
 loan_repayments_073:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.315805000 Z
   amount: 771.16
   base_amount: 765.63
@@ -1257,11 +1404,13 @@ loan_repayments_073:
   interest_amount: 4.03
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 70
   remaining_amount: 1536.94
   updated_at: 2016-07-01 20:34:43.311692000 Z
   updater_id: 1
 loan_repayments_074:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.326981000 Z
   amount: 771.16
   base_amount: 767.47
@@ -1273,11 +1422,13 @@ loan_repayments_074:
   interest_amount: 2.69
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 71
   remaining_amount: 769.47
   updated_at: 2016-07-01 20:34:43.321872000 Z
   updater_id: 1
 loan_repayments_075:
+  accountable: false
   accounted_at: 2016-07-01 20:34:43.338781000 Z
   amount: 771.32
   base_amount: 769.47
@@ -1289,6 +1440,7 @@ loan_repayments_075:
   interest_amount: 1.35
   loan_id: 2
   lock_version: 1
+  locked: false
   position: 72
   remaining_amount: 0.0
   updated_at: 2016-07-01 20:34:43.333132000 Z

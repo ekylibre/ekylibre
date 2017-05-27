@@ -18,12 +18,21 @@
 
 module Backend
   class OutgoingPaymentsController < Backend::BaseController
-    manage_restfully to_bank_at: 'Time.zone.today'.c, paid_at: 'Time.zone.today'.c, responsible_id: 'current_user.id'.c, amount: 'params[:amount].to_f'.c, t3e: { payee: 'RECORD.payee.full_name'.c }
+    manage_restfully(
+      to_bank_at: 'Time.zone.today'.c,
+      paid_at: 'Time.zone.today'.c,
+      responsible_id: 'current_user.id'.c,
+      amount: 'params[:amount].to_f'.c,
+      delivered: true,
+      t3e: {
+        payee: 'RECORD.payee.full_name'.c
+      }
+    )
 
     unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
 
     def self.outgoing_payments_conditions(_options = {})
-      code = search_conditions(outgoing_payments: [:amount, :bank_check_number, :number], entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(outgoing_payments: %i[amount bank_check_number number], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:s] == 'not_delivered'\n"
       code << "  c[0] += ' AND delivered = ?'\n"
       code << "  c << false\n"
@@ -38,8 +47,8 @@ module Backend
     end
 
     list(conditions: outgoing_payments_conditions, joins: :payee, order: { to_bank_at: :desc }) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
-      t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
+      t.action :edit
+      t.action :destroy
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at
@@ -48,9 +57,9 @@ module Backend
       t.column :bank_check_number
       t.column :to_bank_at
       t.column :delivered, hidden: true
-      t.column :work_name, through: :affair, label: :affair_number, url: true
+      t.column :work_name, through: :affair, label: :affair_number, url: { controller: :purchase_affairs }
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
-      t.column :main_bank_statement_number, through: :journal_entry, label: :bank_statement_number, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statement.first.id'.c }
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
     end
   end
 end

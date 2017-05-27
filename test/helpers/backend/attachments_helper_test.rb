@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::AttachmentsHelperTest < ActionView::TestCase
+module Backend
+  class AttachmentsHelperTest < ActionView::TestCase
+  end
 end

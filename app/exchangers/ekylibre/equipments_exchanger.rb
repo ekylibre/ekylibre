@@ -2,11 +2,6 @@ module Ekylibre
   class EquipmentsExchanger < ActiveExchanger::Base
     # Create or updates equipments
     def import
-      building_division = BuildingDivision.first
-      unless building_division
-        w.warn 'A default BuildingDivision should help to define default storage for equipments'
-      end
-
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
 
@@ -19,7 +14,7 @@ module Ekylibre
           born_at: (row[4].blank? ? Date.civil(2000, 2, 2) : row[4]).to_datetime,
           brand: row[5].blank? ? nil : row[5].to_s,
           model: row[6].blank? ? nil : row[6].to_s,
-          external: !row[7].blank?,
+          external: row[7].present?,
           owner_name: row[7].blank? ? nil : row[7].to_s,
           indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
@@ -36,7 +31,7 @@ module Ekylibre
         end
 
         # find or import from variant reference_nameclature the correct ProductNatureVariant
-        unless (variant = ProductNatureVariant.find_by(number: r.variant_reference_name))
+        unless (variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name))
           if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
@@ -59,8 +54,7 @@ module Ekylibre
           owner = Entity.of_company
         end
 
-        container = Product.find_by_work_number(r.place_code)
-        container ||= building_division
+        container = r.place_code.present? ? Product.find_by(work_number: r.place_code) : nil
 
         # create the equipment
         equipment = pmodel.create!(variant_id: variant.id, name: r.name, initial_born_at: r.born_at, initial_owner: owner, initial_container: container, default_storage: container, work_number: r.work_number)

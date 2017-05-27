@@ -1,6 +1,8 @@
 module Procedo
   module Engine
     class Interpreter
+      RESERVED_VARIABLES = [:working_periods].freeze
+
       def self.interpret(intervention, tree, env = {})
         new(intervention, env).interpret(tree)
       end
@@ -22,7 +24,15 @@ module Procedo
       protected
 
       def run(node)
-        if node.is_a?(Procedo::Formula::Language::Expression)
+        if node.is_a?(Procedo::Formula::Language::StringExpression)
+          node.string_body.elements.collect do |element|
+            run(element)
+          end.compact.join('')
+        elsif node.is_a?(Procedo::Formula::Language::Text)
+          node.text_value
+        elsif node.is_a?(Procedo::Formula::Language::Interpolation)
+          run(node.expression)
+        elsif node.is_a?(Procedo::Formula::Language::Expression)
           run(node.expression)
         elsif node.is_a?(Procedo::Formula::Language::BooleanExpression)
           run(node.boolean_expression)
@@ -37,7 +47,9 @@ module Procedo
         elsif node.is_a?(Procedo::Formula::Language::Multiplication)
           run(node.head) * run(node.operand)
         elsif node.is_a?(Procedo::Formula::Language::Division)
-          run(node.head) / run(node.operand)
+          raise "Cannot divide by zero: #{node.head.text_value} / #{node.operand.text_value} (#{run(node.head)} / #{run(node.operand)})" if run(node.operand).zero?
+          result = run(node.head) / run(node.operand)
+          result
         elsif node.is_a?(Procedo::Formula::Language::Addition)
           run(node.head) + run(node.operand)
         elsif node.is_a?(Procedo::Formula::Language::Substraction)
@@ -73,7 +85,12 @@ module Procedo
           @env[node.text_value]
         elsif node.is_a?(Procedo::Formula::Language::Variable)
           @variables << node.text_value.to_sym
-          @intervention.parameter_set(node.text_value)
+          if RESERVED_VARIABLES.include?(node.text_value.to_sym)
+            @intervention.send("#{node.text_value}_parameter")
+          else
+            @intervention.parameter_set(node.text_value)
+          end
+
         elsif node.is_a?(Procedo::Formula::Language::Numeric)
           node.text_value.to_d
         elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)
@@ -84,8 +101,13 @@ module Procedo
         elsif node.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
-          Rails.logger.warn 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
-          product.has_indicator?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?)
+          unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
+            Rails.logger.warn 'Invalid product. Got: ' + product.inspect
+            return false
+          end
+
+          !!(product.has_indicator?(indicator.name.to_sym) &&
+            (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?))
         elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
@@ -93,10 +115,10 @@ module Procedo
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect
             return false
           end
-          # puts indicator.datatype
-          # puts product.get(indicator.name).to_f
-          # puts product.get(indicator.name).inspect
-          product.frozen_indicators.include?(indicator.name.to_sym) && ((indicator.datatype == :measure && product.get(indicator.name).to_f.nonzero?) || product.get(indicator.name).present?)
+          variant = product.variant
+
+          !!(variant.has_frozen_indicator?(indicator.name.to_sym) &&
+            (indicator.datatype == :measure ? variant.get(indicator.name.to_sym).to_f.nonzero? : variant.get(indicator.name.to_sym).present?))
         elsif node.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
           if node.options && node.options.respond_to?(:unit)
@@ -108,19 +130,22 @@ module Procedo
             raise 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
           product = run(node.object)
-          # TODO: Manage when no product...
-          unless product.is_a?(Product)
+          unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value
             # raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value
           end
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
           end
+
           value = product.get(indicator.name.to_sym, @env['READ_AT'])
-          value = value.to_f(unit.name) if unit
+          if unit && value.respond_to?(:to_f)
+            value = value.method(:to_f).arity.nonzero? ? value.to_f(unit) : value.to_f
+          end
+          value = 1 if indicator.name =~ /net_surface_area/ && value.zero?
           value
         elsif node.nil?
-          null
+          nil
         else
           raise 'Dont known how to manage node: ' + node.class.name
         end

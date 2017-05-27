@@ -3,7 +3,13 @@
   = f.input :currency
   = f.input :started_on
   = f.input :stopped_on
+  = f.referenced_association :accountant
   = f.custom_fields
+
+= field_set(:tax_declarations) do
+  = f.input :tax_declaration_mode, as: :radio_buttons, hide: '.not-{{value}}-mode-options', disabled: f.object.tax_declarations.any?
+  .not-none-mode-options
+    = f.input :tax_declaration_frequency, as: :radio_buttons, disabled: f.object.tax_declarations.any?
 
 = f.attachments_field_set
 

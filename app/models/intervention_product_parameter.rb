@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,33 +22,37 @@
 #
 # == Table: intervention_parameters
 #
-#  assembly_id             :integer
-#  component_id            :integer
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  event_participation_id  :integer
-#  group_id                :integer
-#  id                      :integer          not null, primary key
-#  intervention_id         :integer          not null
-#  lock_version            :integer          default(0), not null
-#  new_container_id        :integer
-#  new_group_id            :integer
-#  new_name                :string
-#  new_variant_id          :integer
-#  outcoming_product_id    :integer
-#  position                :integer          not null
-#  product_id              :integer
-#  quantity_handler        :string
-#  quantity_indicator_name :string
-#  quantity_population     :decimal(19, 4)
-#  quantity_unit_name      :string
-#  quantity_value          :decimal(19, 4)
-#  reference_name          :string           not null
-#  type                    :string
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  variant_id              :integer
-#  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  assembly_id              :integer
+#  component_id             :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  dead                     :boolean          default(FALSE), not null
+#  event_participation_id   :integer
+#  group_id                 :integer
+#  id                       :integer          not null, primary key
+#  identification_number    :string
+#  intervention_id          :integer          not null
+#  lock_version             :integer          default(0), not null
+#  new_container_id         :integer
+#  new_group_id             :integer
+#  new_name                 :string
+#  new_variant_id           :integer
+#  outcoming_product_id     :integer
+#  position                 :integer          not null
+#  product_id               :integer
+#  quantity_handler         :string
+#  quantity_indicator_name  :string
+#  quantity_population      :decimal(19, 4)
+#  quantity_unit_name       :string
+#  quantity_value           :decimal(19, 4)
+#  reference_name           :string           not null
+#  type                     :string
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  variant_id               :integer
+#  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
 class InterventionProductParameter < InterventionParameter
@@ -68,7 +72,7 @@ class InterventionProductParameter < InterventionParameter
   has_one :event,    through: :intervention
 
   has_geometry :working_zone, type: :multi_polygon
-  composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit_name unit)]
+  composed_of :quantity, class_name: 'Measure', mapping: [%w[quantity_value to_d], %w[quantity_unit_name unit]]
 
   validates :quantity_indicator_name, :quantity_unit_name, presence: { if: :measurable? }
 
@@ -78,18 +82,20 @@ class InterventionProductParameter < InterventionParameter
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
-  delegate :started_at, :stopped_at, :duration, :procedure, to: :intervention
+  delegate :started_at, :stopped_at, :duration, :procedure, :currency, to: :intervention
+  delegate :currency, to: :intervention, prefix: true
   delegate :matching_model, to: :variant
 
   accepts_nested_attributes_for :readings, allow_destroy: true
 
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
-  scope :of_actors, ->(actors) { where(product_id: actors.flatten.map(&:id)) }
+  scope :of_actors, ->(actors) { where(product_id: actors.flatten.compact.map(&:id)) }
   scope :with_actor, -> { where.not(product_id: nil) }
   scope :with_working_zone, -> { where.not(working_zone: nil) }
 
   before_validation do
     self.intervention = group.intervention if group && !intervention
+    self.currency = intervention_currency if intervention
     if reference
       if reference.handled? && quantity_handler?
         handler = reference.handler(quantity_handler)
@@ -99,13 +105,13 @@ class InterventionProductParameter < InterventionParameter
         end
       end
     end
-    if product.is_a?(Product)
-      self.variant ||= product.variant
-      # for indicator_name in product.whole_indicators_list
-      #   if send(indicator_name).blank? # and !reference.worked?
-      #     send("#{indicator_name}=", product.send(indicator_name, started_at))
-      #   end
-      # end
+    self.variant ||= product.variant if product.is_a?(Product)
+    v = variant || new_variant
+    if v
+      catalog_item = v.catalog_items.of_usage(:stock).first
+      if catalog_item && catalog_item.pretax_amount != 0.0
+        self.unit_pretax_stock_amount = catalog_item.pretax_amount
+      end
     end
     true
   end
@@ -116,23 +122,25 @@ class InterventionProductParameter < InterventionParameter
         if reference.handled? && quantity_handler?
           errors.add(:quantity_handler, :invalid) unless reference.handler(quantity_handler)
         end
-      elsif !reference_name.blank?
+      elsif reference_name.present?
         errors.add(:reference_name, :invalid)
       end
     end
     true
   end
 
+  after_save do
+    if product && dead && (!product.dead_at || product.dead_at > stopped_at)
+      product.update_columns(dead_at: stopped_at)
+    end
+  end
+
+  after_destroy do
+    product.update_columns(dead_at: product.dead_first_at) if product && dead
+  end
+
   def name
     reference ? reference.human_name : reference_name.humanize
-  end
-
-  def self.role
-    @name ||= name.gsub(/^Intervention/, '').underscore.to_sym
-  end
-
-  def role
-    self.class.role
   end
 
   def human_quantity
@@ -155,7 +163,7 @@ class InterventionProductParameter < InterventionParameter
     quantity_indicator_name == 'population'
   end
 
-  [:doer, :input, :output, :target, :tool].each do |role|
+  %i[doer input output target tool].each do |role|
     role_class_name = ('Intervention' + role.to_s.camelize).freeze
     define_method role.to_s + '?' do
       type.to_s == role_class_name

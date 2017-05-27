@@ -1,0 +1,4 @@
+- disabled = false unless local_assigns[:disabled]
+= link_to({action: :show, id: aggregator.id}, class: "btn btn-big btn-file btn-#{aggregator.id} aggregator", title: aggregator.human_name, disabled: disabled, style: "min-width: 30ex") do
+  %i
+  = aggregator.human_name

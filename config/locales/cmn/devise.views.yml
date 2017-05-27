@@ -16,6 +16,10 @@ cmn:
         instruction_2: "如果您没有这个要求，请忽略此电子邮件。"
         instruction_3: "您的密码将不会改变，直到您访问上面的链接，并创建一个新的。"
         subject: "重置密码的说明"
+      signed_up:
+        confirm: "请管理面板确认。"
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "新注册"
       unlock_instructions:
         action: "解锁我的帐户"
         # greeting: "Hello %{recipient}!"
@@ -45,6 +49,7 @@ cmn:
     sessions:
       new:
         sign_in: "签到"
+        sign_in_with_ekylibre: "拍在与Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "未收到确认指令？"

@@ -5,12 +5,12 @@
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
   = t.export(*exports, key: :number)
   = t.duplicate resource, method: :post, params: {redirect: nil}
-  - if current_user.can? :write, :parcels
-    = t.new(resource, params: { controller: :parcels, sale_id: resource.id, nature: :outgoing }, label: :generate_parcel.tl) if resource.can_generate_parcel?
+  - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
+    = t.new(resource, params: { controller: :parcels, sale_id: resource.id, nature: :outgoing }, label: :generate_parcel.tl)
   - if resource.invoice?
     = t.cancel(resource) if resource.cancellable?
   = t.edit resource if resource.draft?
-  = t.destroy
+  = t.destroy if resource.destroyable?
 
 = main_state_bar(resource)
 
@@ -32,6 +32,8 @@
     -# l.attribute :delivery_address, :label => :coordinate
     - l.attribute :invoice_address, :label => :coordinate
     - l.attribute(:journal_entry, url: true) if resource.journal_entry
+    - l.attribute :undelivered_invoice_journal_entry, url: true if resource.undelivered_invoice_journal_entry
+    - l.attribute :quantity_gap_on_invoice_journal_entry, url: true if resource.quantity_gap_on_invoice_journal_entry
     - l.attribute(:affair, label: :number, url: true) if resource.affair
     - l.attribute :letter_format
     - if resource.letter_format?
@@ -53,7 +55,7 @@
       = cobble_list :subscriptions
 
   - c.cobble(:affair, title: Sale.human_attribute_name(:affair)) do
-    = affair_of(resource)
+    = affair_of(resource, default: 'IncomingPayment')
 
   - if resource.parcels.any?
     - c.cobble :parcels, title: Sale.human_attribute_name(:parcels) do

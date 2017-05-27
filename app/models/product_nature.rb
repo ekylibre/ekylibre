@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -60,7 +60,7 @@ class ProductNature < Ekylibre::Record::Base
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   refers_to :reference_name, class_name: 'ProductNature'
-  enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: { prefix: true }
+  enumerize :population_counting, in: %i[unitary integer decimal], predicates: { prefix: true }
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :subscription_nature
   has_many :subscriptions, through: :subscription_nature
@@ -105,6 +105,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :saleables,  -> { joins(:category).merge(ProductNatureCategory.saleables).order(:name) }
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
   scope :stockables_or_depreciables, -> { joins(:category).merge(ProductNatureCategory.stockables_or_depreciables).order(:name) }
+  scope :depreciables, -> { joins(:category).merge(ProductNatureCategory.depreciables).order(:name) }
   scope :storage, -> { of_expression('can store(matter) or can store_liquid or can store_fluid or can store_gaz') }
   scope :identifiables, -> { of_variety(:animal) + select(&:population_counting_unitary?) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
@@ -154,6 +155,16 @@ class ProductNature < Ekylibre::Record::Base
     if subscribing
       if self.subscription_years_count.zero? && self.subscription_months_count.zero? && self.subscription_days_count.zero?
         errors.add(:subscription_months_count, :invalid)
+      end
+    end
+    if variety && variants.any?
+      if variants.detect { |p| Nomen::Variety.find(p.variety) > variety }
+        errors.add(:variety, :invalid)
+      end
+    end
+    if derivative_of && variants.any?
+      if variants.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
+        errors.add(:derivative_of, :invalid)
       end
     end
   end
@@ -334,12 +345,12 @@ class ProductNature < Ekylibre::Record::Base
     # Load a product nature from product nature nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNature.find(reference_name)
-        raise ArgumentError, "The product_nature #{reference_name.inspect} is unknown"
+        raise ArgumentError, "The product nature #{reference_name.inspect} is unknown"
       end
       unless category_item = Nomen::ProductNatureCategory.find(item.category)
         raise ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
       end
-      if !force && nature = ProductNature.find_by_reference_name(reference_name)
+      if !force && (nature = ProductNature.find_by(reference_name: reference_name))
         return nature
       end
       attributes = {
@@ -359,11 +370,12 @@ class ProductNature < Ekylibre::Record::Base
       create!(attributes)
     end
 
-    # Load.all product nature from product nature nomenclature
-    def import_all_from_nomenclature
+    # Load all product nature from product nature nomenclature
+    def load_defaults
       Nomen::ProductNature.find_each do |product_nature|
-        import_from_nomenclature(product_nature)
+        import_from_nomenclature(product_nature.name)
       end
     end
+    alias import_all_from_nomenclature load_defaults
   end
 end

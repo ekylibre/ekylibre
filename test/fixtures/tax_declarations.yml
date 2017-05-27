@@ -1,0 +1,125 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: tax_declarations
+#
+#  accounted_at      :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string           not null
+#  description       :text
+#  financial_year_id :integer          not null
+#  id                :integer          not null, primary key
+#  invoiced_on       :date
+#  journal_entry_id  :integer
+#  lock_version      :integer          default(0), not null
+#  mode              :string           not null
+#  number            :string
+#  reference_number  :string
+#  responsible_id    :integer
+#  started_on        :date             not null
+#  state             :string
+#  stopped_on        :date             not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer
+#
+---
+tax_declarations_001:
+  accounted_at: 2016-12-20 09:05:17.974892000 Z
+  created_at: 2016-12-20 09:05:17.890363000 Z
+  creator_id: 1
+  currency: EUR
+  financial_year_id: 26
+  id: 1
+  invoiced_on: 2016-09-30
+  lock_version: 0
+  mode: payment
+  number: TD000000000001
+  started_on: 2016-09-01
+  state: draft
+  stopped_on: 2016-09-30
+  updated_at: 2016-12-20 09:05:17.910342000 Z
+  updater_id: 1
+tax_declarations_002:
+  accounted_at: 2016-12-20 09:05:31.243443000 Z
+  created_at: 2016-12-20 09:05:31.231009000 Z
+  creator_id: 1
+  currency: EUR
+  financial_year_id: 24
+  id: 2
+  invoiced_on: 2014-09-30
+  lock_version: 0
+  mode: payment
+  number: TD000000000002
+  started_on: 2014-09-01
+  state: draft
+  stopped_on: 2014-09-30
+  updated_at: 2016-12-20 09:05:31.237531000 Z
+  updater_id: 1
+tax_declarations_003:
+  accounted_at: 2017-05-01 23:43:47.552241000 Z
+  created_at: 2017-05-01 23:43:40.894286000 Z
+  creator_id: 1
+  currency: FRF
+  financial_year_id: 1
+  id: 3
+  invoiced_on: 1992-12-31
+  lock_version: 2
+  mode: payment
+  number: TD000000000003
+  started_on: 1992-11-17
+  state: sent
+  stopped_on: 1992-12-31
+  updated_at: 2017-05-01 23:43:47.545276000 Z
+  updater_id: 1
+tax_declarations_004:
+  accounted_at: 2017-05-01 23:43:54.073142000 Z
+  created_at: 2017-05-01 23:43:53.967238000 Z
+  creator_id: 1
+  currency: FRF
+  financial_year_id: 1
+  id: 4
+  invoiced_on: 1993-12-31
+  lock_version: 0
+  mode: payment
+  number: TD000000000004
+  started_on: 1993-01-01
+  state: draft
+  stopped_on: 1993-12-31
+  updated_at: 2017-05-01 23:43:53.969891000 Z
+  updater_id: 1
+tax_declarations_005:
+  accounted_at: 2017-05-01 23:45:23.330707000 Z
+  created_at: 2017-05-01 23:45:04.462007000 Z
+  creator_id: 1
+  currency: FRF
+  financial_year_id: 1
+  id: 5
+  invoiced_on: 1994-12-31
+  lock_version: 2
+  mode: payment
+  number: TD000000000005
+  started_on: 1994-01-01
+  state: sent
+  stopped_on: 1994-12-31
+  updated_at: 2017-05-01 23:45:23.322113000 Z
+  updater_id: 1

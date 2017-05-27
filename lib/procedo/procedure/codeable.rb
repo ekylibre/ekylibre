@@ -1,4 +1,5 @@
 # coding: utf-8
+
 module Procedo
   class Procedure
     module Codeable
@@ -34,10 +35,18 @@ module Procedo
               instance_variable_get(instance_var).present?
             end
 
+            define_method "#{snippet}_variables" do |tree = instance_variable_get(instance_var)|
+              return [] if tree.blank?
+              variable_test = tree.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) ||
+                              tree.is_a?(Procedo::Formula::Nodes::Variable)
+              return tree if variable_test
+              tree.elements.present? ? tree.elements.map { |child| send("#{snippet}_variables", child) }.flatten : []
+            end
+
             # Check if given env variable is used
             define_method "#{snippet}_with_environment_variable?" do |*names|
               tree = instance_variable_get(instance_var)
-              return false unless tree.present?
+              return false if tree.blank?
               names.each do |name|
                 detected = self.class.detect_environment_variable(tree, name.to_s.upcase)
                 return true if detected
@@ -47,16 +56,16 @@ module Procedo
                          "#{snippet}_with_environment_variable?"
 
             # Check if given parameter is used
-            define_method "#{snippet}_with_parameter?" do |parameter|
+            define_method "#{snippet}_with_parameter?" do |parameter, or_self = false|
               tree = instance_variable_get(instance_var)
-              return false unless tree.present?
-              self.class.detect_parameter(tree, parameter)
+              return false if tree.blank?
+              self.class.detect_parameter(tree, parameter, or_self)
             end
 
             # Returns list of parameter used in code
             define_method "#{snippet}_parameters" do
               tree = instance_variable_get(instance_var)
-              return [] unless tree.present?
+              return [] if tree.blank?
               self.class.select_nodes(tree) do |node|
                 node.is_a?(Procedo::Formula::Language::Variable)
               end.map(&:text_value)
@@ -82,15 +91,17 @@ module Procedo
         end
 
         # Detects environment variables for the given name
-        def detect_parameter(root, parameter)
+        def detect_parameter(root, parameter, or_self = false)
           parameter_name = if parameter_name.is_a? Procedo::Procedure::Parameter
                              parameter.name
                            else
                              parameter.to_s
                            end
           detect(root) do |node|
-            node.is_a?(Procedo::Formula::Language::Variable) &&
-              parameter_name == node.text_value
+            (node.is_a?(Procedo::Formula::Language::Variable) &&
+             parameter_name == node.text_value) ||
+              (or_self && node.is_a?(Procedo::Formula::Language::EnvironmentVariable) &&
+               node.text_value == 'SELF')
           end
         end
 

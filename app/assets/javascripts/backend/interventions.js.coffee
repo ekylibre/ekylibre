@@ -14,6 +14,14 @@
   # The concept is: When an update is done, we ask server which are the impact on
   # other fields and on updater itself if necessary
   E.interventions =
+    updateProcedureLevelAttributes: (form, attributes) ->
+      for name, properties of attributes
+        parameterContainer = $("[data-intervention-parameter='#{name}']").parent('.nested-association')
+        if properties.display
+          statusDisplay = parameterContainer.find(".display-info")
+          statusDisplay.find(" .status")
+                       .attr('data-display-status', properties.display)
+          statusDisplay.show()
 
     handleComponents: (form, attributes, prefix = '') ->
       for name, value of attributes
@@ -25,17 +33,43 @@
           input = form.find("##{prefix}component_id")
           unrollPath = input.attr('data-selector')
           if unrollPath
-            assemId = attributes["assembly_id"]
-            if typeof(assemId) == 'undefined' or assemId is null
-              assemId = "nil"
+            assemblyId = attributes["assembly_id"]
+            if typeof(assemblyId) == 'undefined' or assemblyId is null
+              assemblyId = "nil"
             componentReg = /(unroll\?.*scope.*components_of_product[^=]*)=([^&]*)(&?.*)/
-            oldAssembly = unrollPath.match(componentReg)[2]
-            unrollPath = unrollPath.replace(componentReg, "$1="+assemId+"$3")
+            oldAssemblyId = unrollPath.match(componentReg)[2]
+            unrollPath = unrollPath.replace(componentReg, "$1=#{assemblyId}$3")
             input.attr('data-selector', unrollPath)
-            if assemId.toString() != oldAssembly.toString()
+            if assemblyId.toString() != oldAssemblyId.toString()
               console.log "CLEAR"
               $(input).val('')
 
+
+    handleDynascope: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.handleDynascope(form, attrs, subprefix + '_' + id + '_')
+        else
+          if name is 'attributes' and value?
+            # for each attribute
+            for k, v of value
+              input = form.find("##{prefix}#{k}")
+              unrollPath = input.attr('data-selector')
+              if unrollPath
+                # for each scope
+                for scopeKey, scopeValue of v.dynascope
+
+                  scopeReg = ///
+                  (.* #root
+                  unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope
+                  = ([^&]*) # current value to change
+                  (&?.*)
+                  ///
+                  unrollPath = unrollPath.replace(scopeReg, "$1=#{encodeURIComponent(scopeValue)}$3")
+
+                input.attr('data-selector', unrollPath)
 
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes
@@ -48,9 +82,9 @@
           console.warn "Cannot find ##{prefix}quantity_handler <select>" unless select.length > 0
           option = select.find("option[value='#{name}']")
           console.warn "Cannot find option #{name} of ##{prefix}quantity_handler <select>" unless option.length > 0
-          if value && !option.is(':visible')
+          if value
             option.show()
-          else if !value && option.is(':visible')
+          else
             option.hide()
 
     unserializeRecord: (form, attributes, prefix = '', updater_id = null) ->
@@ -62,7 +96,14 @@
         else if /\w+_attributes$/.test(name)
           E.interventions.unserializeList(form, value, subprefix + '_', updater_id)
         else
+#          console.log subprefix
           form.find("##{subprefix}").each (index) ->
+            if 'errors' in Object.keys(attributes)
+              $(this).parent('.nested-fields').find(".errors *").hide()
+              for error, message of attributes.errors
+                errorMessage = $(this).parent('.nested-fields').find(".errors .#{error}")
+                if typeof(message) != 'undefined'
+                  errorMessage.show()
             element = $(this)
             if element.is(':ui-selector')
               if value != element.selector('value')
@@ -85,7 +126,8 @@
               update = true
               update = false if value is null and element.val() is ""
               if valueType == "number"
-                update = false if value == element.numericalValue()
+                # When element doesn't have any value, element.numericalValue() == 0
+                update = false if value == element.numericalValue() && element.numericalValue() != 0
               else
                 update = false if value == element.val()
               if update
@@ -104,13 +146,8 @@
         scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
-    # Ask for a refresh of values depending on given field
-    refresh: (origin) ->
-      this.refreshHard(origin)
-      # this.refreshHardz(origin.data('procedure'), origin.data('intervention-updater'), origin)
-
     # Ask for a refresh of values depending on given update
-    refreshHard: (updater) ->
+    refresh: (updater, options = {}) ->
       unless updater?
         console.error 'Missing updater'
         return false
@@ -131,19 +168,28 @@
           data: form.serialize()
           beforeSend: ->
             computing.prop 'state', 'waiting'
+            $('.form-actions .primary').attr("disabled", true)
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
+            $('.form-actions .primary').attr("disabled", null)
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
+            E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
-            # if updaterElement? and initialValue != E.value($("*[data-intervention-updater='#{intervention.updater}']").first())
-            #   E.interventions.refresh updaterElement
+            E.interventions.updateProcedureLevelAttributes(form, data.procedure_states)
             computing.prop 'state', 'ready'
+            options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
+
+    hideKujakuFilters: (hideFilters) ->
+      if hideFilters
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
+      else
+        $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
 
 
   ##############################################################################
@@ -152,11 +198,14 @@
   $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
-    $(".nested-fields.working-period:first-child input.intervention-started-at").each ->
-      $(this).each ->
-        E.interventions.updateAvailabilityInstant($(this).val())
-    $('*[data-intervention-updater]').each ->
-        E.interventions.refresh $(this)
+    $('#working-periods *[data-intervention-updater]').each ->
+      E.interventions.refresh $(this),
+        success: (stat, status, request) ->
+          E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())
+
+  $(document).on 'cocoon:after-remove', (e, i) ->
+    $('#working-periods *[data-intervention-updater]').each ->
+      E.interventions.refresh $(this)
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
@@ -179,33 +228,206 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on "keyup change", ".nested-fields.working-period:first-child input.intervention-started-at", ->
+  $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  # $(document).on 'change', '*[data-procedure-global="at"]', ->
-  #   $(this).each ->
-  #     E.interventions.refresh $(this)
+  # $(document).on "click", '.view-toolbar a', (event) ->
+  #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))
 
-  # $(document).behave 'load', '*[data-procedure]', (event) ->
-  #   $(this).each ->
-  #     E.interventions.refresh $(this)
 
-  # # Filters supports with given production
-  # # Hides supports line if needed
-  # $(document).behave "load selector:set", "*[data-intervention-updater='global:production']", (event) ->
-  #   production = $(this)
-  #   id = production.selector('value')
-  #   form = production.closest('form')
-  #   url = "/backend/production_supports/unroll?scope[of_current_campaigns]=true"
-  #   support = form.find("*[data-intervention-updater='global:support']").first()
-  #   if /^\d+$/.test(id)
-  #     url += "&scope[of_productions]=#{id}"
-  #     form.addClass("with-supports")
-  #   else
-  #     form.removeClass("with-supports")
-  #   support.attr("data-selector", url)
-  #   support.data("selector", url)
+  $(document).ready ->
+
+    # E.interventions.hideKujakuFilters($('.view-toolbar a[data-janus-href="cobbles"]').hasClass('active'))
+
+    if $('.taskboard').length > 0
+
+      taskboard = new InterventionsTaskboard
+      taskboard.initTaskboard()
+
+
+  class InterventionsTaskboard
+
+    constructor: ->
+      @taskboard = new ekylibre.taskboard('#interventions', true)
+      @taskboardModal = new ekylibre.modal('#taskboard-modal')
+
+    initTaskboard: ->
+      this.addHeaderActionsEvent()
+      this.addEditIconClickEvent()
+      this.addDeleteIconClickEvent()
+      this.addTaskClickEvent()
+
+    getTaskboard: ->
+      return @taskboard
+
+    getTaskboardModal: ->
+      return @taskboardModal
+
+    addHeaderActionsEvent: ->
+
+      instance = this
+
+      @taskboard.addSelectTaskEvent((event) ->
+
+          selectedField = $(event.target)
+          columnIndex = instance.getTaskboard().getColumnIndex(selectedField)
+          header = instance.getTaskboard().getHeaderByIndex(columnIndex)
+          checkedFieldsCount = instance.getTaskboard().getCheckedSelectFieldsCount(selectedField)
+
+          if (checkedFieldsCount == 0)
+
+            instance.getTaskboard().hiddenHeaderIcons(header)
+          else
+            instance.getTaskboard().displayHeaderIcons(header)
+      )
+
+    addEditIconClickEvent: ->
+
+      instance = this
+
+      @taskboard.getHeaderActions().find('.edit-tasks').on('click', (event) ->
+
+        interventionsIds = instance._getSelectedInterventionsIds(event.target)
+
+        $.ajax
+          url: "/backend/interventions/modal",
+          data: {interventions_ids: interventionsIds}
+          success: (data, status, request) ->
+
+            instance._displayModalWithContent(data)
+      )
+
+
+    addDeleteIconClickEvent: ->
+
+      instance = this
+
+      $('.delete-tasks').on('click', (event) ->
+
+        ekylibre.stopEvent(event)
+
+        confirmMessage = $(event.target).attr('data-confirm')
+        answer = confirm(confirmMessage);
+
+        if !answer
+          return
+
+        displayDeleteModal = true
+        columnSelector = event.target
+        interventionsIds = instance._getSelectedInterventionsIds(columnSelector)
+
+        tasksWithAttribute = instance.getTaskboard().getColumnTasksFilledDataAttribute(columnSelector, 'data-request-intervention-id')
+
+        if (!tasksWithAttribute || tasksWithAttribute.length == 0)
+          displayDeleteModal = false
+        else
+          tasksWithAttribute.each((index, taskWithAttribute) ->
+
+            attributeValue = $(taskWithAttribute).attr('data-request-intervention-id')
+            tasksWithThisAttributeValue = instance.getTaskboard().getColumnTasksByDataAttributeValue(columnSelector, 'data-request-intervention-id', attributeValue)
+
+            if (tasksWithThisAttributeValue && tasksWithThisAttributeValue.length > 1)
+              displayDeleteModal = false
+          )
+
+        if (displayDeleteModal)
+          $.ajax
+            url: "/backend/interventions/modal",
+            data: {modal_type: "delete", interventions_ids: interventionsIds}
+            success: (data, status, request) ->
+
+              instance._displayModalWithContent(data)
+        else
+          instance._removeInterventions(columnSelector, interventionsIds)
+
+      )
+
+    _removeInterventions: (columnSelector, interventionsIds) ->
+
+      instance = this
+
+      $.ajax
+        method: 'POST'
+        url: "/backend/interventions/change_state",
+        data: {
+          'intervention': {
+            interventions_ids: JSON.stringify(interventionsIds),
+            state: 'rejected'
+          }
+        }
+        success: (data, status, request) ->
+
+          interventionsIds.forEach (intervention_id) ->
+            $('#interventions-list tr[id*="'+intervention_id+'"]').remove()
+
+          selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
+          selectedTasks.remove()
+
+          titleElement = $(columnSelector).closest('.taskboard-header').find('.title')
+          columnTitle = titleElement.text()
+          beginInterventionCount = columnTitle.indexOf("(") + 1
+          columnInterventionCount = columnTitle.slice(beginInterventionCount, -1)
+          newInterventionCount = parseInt(columnInterventionCount) - interventionsIds.length
+          newColumnTitle = columnTitle.slice(0, beginInterventionCount) + newInterventionCount+")"
+          titleElement.text(newColumnTitle)
+
+          if newInterventionCount == 0
+            $(columnSelector).closest('.taskboard-column').find('.tasks').remove()
+
+
+    _getSelectedInterventionsIds: (columnSelector) ->
+
+      selectedTasks = @taskboard.getSelectedTasksByColumnSelector(columnSelector)
+
+      interventionsIds = [];
+      selectedTasks.each( ->
+
+        interventionDatas = JSON.parse($(this).attr('data-intervention'))
+        interventionsIds.push(interventionDatas.id);
+      );
+
+      return interventionsIds
+
+
+    addTaskClickEvent: ->
+
+      instance = this
+
+      @taskboard.addTaskClickEvent((event) ->
+
+        element = $(event.target)
+
+        if (element.is(':input[type="checkbox"]'))
+          return
+
+        task = element.closest('.task')
+
+        intervention = JSON.parse(task.attr('data-intervention'))
+
+        $.ajax
+          url: "/backend/interventions/modal",
+          data: {intervention_id: intervention.id}
+          success: (data, status, request) ->
+
+            instance._displayModalWithContent(data)
+            instance.getTaskboardModal().getModal().find('.dropup a').on('click', (event) ->
+
+              dropdown = $(this).closest('.dropup')
+              dropdown.removeClass('open')
+
+              dropdownButton = dropdown.find('.dropdown-toggle')
+              dropdownButton.text(dropdownButton.attr('data-disable-with'))
+              dropdownButton.attr('disabled', 'disabled')
+            )
+      )
+
+
+    _displayModalWithContent: (data) ->
+
+      @taskboardModal.removeModalContent()
+      @taskboardModal.getModalContent().append(data)
+      @taskboardModal.getModal().modal 'show'
 
   true
 ) ekylibre, jQuery

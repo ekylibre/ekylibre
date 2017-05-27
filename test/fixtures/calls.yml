@@ -1,0 +1,175 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: calls
+#
+#  arguments        :jsonb
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  integration_name :string
+#  lock_version     :integer          default(0), not null
+#  name             :string
+#  source_id        :integer
+#  source_type      :string
+#  state            :string
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#
+---
+calls_001:
+  arguments:
+  - id:
+    nature: cap_trap
+    created_at:
+    creator_id:
+    updated_at:
+    updater_id:
+    lock_version: 0
+    ciphered_parameters:
+      api_key: |
+        DI1d92AvEWoSey+kNGfky0x54kzOTuEh8WYH/DW0dt5b1xYxckFCyClFJVNS
+        b6Re
+    initialization_vectors:
+      api_key: |
+        v6HdKI0lY1YNecpEIzExnA==
+  created_at: 2016-09-09 08:55:54.109514000 Z
+  creator_id: 1
+  id: 2
+  integration_name: Cap2020::CapTrapIntegration
+  lock_version: 0
+  name: check
+  updated_at: 2016-09-09 08:55:54.109514000 Z
+  updater_id: 1
+calls_002:
+  arguments: []
+  created_at: 2016-09-09 08:55:58.342443000 Z
+  id: 3
+  integration_name: Cap2020::CapTrapIntegration
+  lock_version: 0
+  name: fetch_all
+  updated_at: 2016-09-09 08:55:58.342443000 Z
+calls_003:
+  arguments:
+  - id: 1
+    nature: cap_trap
+    created_at: '2016-09-09T10:55:58.316+02:00'
+    creator_id: 1
+    updated_at: '2016-09-09T10:55:58.316+02:00'
+    updater_id: 1
+    lock_version: 0
+    ciphered_parameters:
+      api_key: |
+        sXwjvlh6izKe2DJXOFgGvqoy/S51EH6xHPAPtYb400N0ZF0lx5/3xirFKzfL
+        zHJC
+    initialization_vectors:
+      api_key: |
+        Zg1+4giwr2Poh03kYgLXMA==
+  created_at: 2016-09-09 08:57:38.214216000 Z
+  creator_id: 1
+  id: 4
+  integration_name: Cap2020::CapTrapIntegration
+  lock_version: 0
+  name: check
+  updated_at: 2016-09-09 08:57:38.214216000 Z
+  updater_id: 1
+calls_004:
+  arguments: []
+  created_at: 2016-09-09 08:57:42.362379000 Z
+  id: 5
+  integration_name: Cap2020::CapTrapIntegration
+  lock_version: 0
+  name: fetch_all
+  updated_at: 2016-09-09 08:57:42.362379000 Z
+calls_005:
+  arguments:
+  - id:
+    nature: cap_trap
+    created_at:
+    creator_id:
+    updated_at:
+    updater_id:
+    lock_version: 0
+    ciphered_parameters:
+      api_key: |
+        8/7XQ0N/13L9YpRoyDP1QSRGEhTUjiImAK3MkKdmQcoTypfuY2RobJc62X3Y
+        dTHj
+    initialization_vectors:
+      api_key: |
+        fyquiHOoHy45N+Vj6E2sLQ==
+  created_at: 2016-09-09 09:01:11.524073000 Z
+  creator_id: 1
+  id: 7
+  integration_name: Cap2020::CapTrapIntegration
+  lock_version: 0
+  name: check
+  updated_at: 2016-09-09 09:01:11.524073000 Z
+  updater_id: 1
+calls_006:
+  arguments: []
+  created_at: 2016-09-09 09:01:15.707411000 Z
+  id: 8
+  integration_name: Cap2020::CapTrapIntegration
+  lock_version: 0
+  name: fetch_all
+  updated_at: 2016-09-09 09:01:15.707411000 Z
+calls_007:
+  arguments:
+  - id:
+    nature: navigeo
+    created_at:
+    creator_id:
+    updated_at:
+    updater_id:
+    lock_version: 0
+    ciphered_parameters:
+      access_token: |
+        9TLzu91Ca9mt+dnL696UgA==
+    initialization_vectors:
+      access_token: |
+        OwNrAWVehCYPJwRnjLPncQ==
+  created_at: 2016-09-09 09:25:44.849351000 Z
+  creator_id: 1
+  id: 10
+  integration_name: Helileo::NavigeoIntegration
+  lock_version: 0
+  name: check
+  updated_at: 2016-09-09 09:25:44.849351000 Z
+  updater_id: 1
+calls_008:
+  arguments: []
+  created_at: 2016-09-09 09:25:45.052155000 Z
+  id: 11
+  integration_name: Helileo::NavigeoIntegration
+  lock_version: 0
+  name: get_devices
+  updated_at: 2016-09-09 09:25:45.052155000 Z
+calls_009:
+  arguments:
+  - H0000XXX0000000
+  - https://test.ekylibre.lan/ext/helileo/v1/location?token=1
+  created_at: 2016-09-09 09:25:45.277113000 Z
+  id: 12
+  integration_name: Helileo::NavigeoIntegration
+  lock_version: 0
+  name: set_location_hook
+  updated_at: 2016-09-09 09:25:45.277113000 Z

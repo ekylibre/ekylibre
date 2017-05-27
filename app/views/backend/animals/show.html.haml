@@ -31,6 +31,7 @@
       %span.value
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 3)
+  = labels_info(resource.labels)
 
 = cobbles do |c|
 

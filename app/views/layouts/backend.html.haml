@@ -18,9 +18,10 @@
     #wrap{attrs}
       %aside#side.visible
         .inner
-          .snippet.snippet-search
-            = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
-              = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
+          - if Preference[:use_global_search]
+            .snippet.snippet-search
+              = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
+                = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
 
           = side_tag
           - if content_for?(:aside)
@@ -31,6 +32,7 @@
           = heading_toolbar_tag
           = heading_tag
         #content
+          = extensions_tag(:content_top)
           = subheading_tag
           = view_toolbar_tag
           = main_toolbar_tag
@@ -38,6 +40,7 @@
           = notifications_tag
           = main_state_bar_tag
           #core= yield
-      #help
-        .inner= render(partial: "backend/helps/search", object: @article)
+      - if Preference[:use_contextual_help]
+        #help
+          .inner= render(partial: "backend/helps/search", object: @article)
     = yield :popover

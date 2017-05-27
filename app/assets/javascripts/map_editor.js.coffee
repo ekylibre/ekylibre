@@ -55,8 +55,11 @@
       box:
         height: 400
         width: null
+      minZoom: 0
+      maxZoom: 25
       customClass: ''
       back: []
+      overlays: []
       show:
         layers: {}
         layerDefaults:
@@ -157,7 +160,6 @@
       this.mapElement = $("<div>", class: "map #{this.options.customClass}")
         .insertAfter(this.element)
       this.map = L.map(this.mapElement[0],
-        maxZoom: 25
         zoomControl: false
         attributionControl: true
       )
@@ -463,8 +465,8 @@
             for layer, index in @options.back
               opts = {}
               opts['attribution'] = layer.attribution if layer.attribution?
-              opts['minZoom'] = layer.minZoom if layer.minZoom?
-              opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+              opts['minZoom'] = layer.minZoom || @options.minZoom
+              opts['maxZoom'] = layer.maxZoom || @options.maxZoom
               opts['subdomains'] = layer.subdomains if layer.subdomains?
               opts['tms'] = true if layer.tms
 
@@ -481,8 +483,25 @@
               backgroundLayer = L.tileLayer.provider(layer)
               baseLayers[layer] = backgroundLayer
               @map.addLayer(backgroundLayer) if index == 0
+            @map.fitWorld( { maxZoom: @options.maxZoom } )
 
-          @layerSelector = new L.Control.Layers(baseLayers)
+          overlayLayers = {}
+
+          if @options.overlays.length > 0
+            for layer, index in @options.overlays
+              opts = {}
+              opts['attribution'] = layer.attribution if layer.attribution?
+              opts['minZoom'] = layer.minZoom || @options.minZoom
+              opts['maxZoom'] = layer.maxZoom || @options.maxZoom
+              opts['subdomains'] = layer.subdomains if layer.subdomains?
+              opts['opacity'] = (layer.opacity / 100).toFixed(1) if layer.opacity? and !isNaN(layer.opacity)
+              opts['tms'] = true if layer.tms
+              console.log opts
+
+              overlayLayers[layer.name] =  L.tileLayer(layer.url, opts)
+
+
+          @layerSelector = new L.Control.Layers(baseLayers, overlayLayers)
           @map.addControl  @layerSelector
         else
           console.log "How to set background with #{this.options.back}?"

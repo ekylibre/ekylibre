@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -51,9 +51,9 @@
 
 class ListingNode < Ekylibre::Record::Base
   acts_as_list scope: :listing
-  acts_as_nested_set
+  acts_as_nested_set scope: :listing
   attr_readonly :listing_id, :nature
-  enumerize :nature, in: [:root, :column, :datetime, :custom, :boolean, :string, :numeric, :belongs_to, :has_many]
+  enumerize :nature, in: %i[root column datetime custom boolean string numeric belongs_to has_many]
   belongs_to :listing, inverse_of: :nodes
   belongs_to :item_listing, class_name: 'Listing'
   belongs_to :item_listing_node, class_name: 'ListingNode'
@@ -75,10 +75,10 @@ class ListingNode < Ekylibre::Record::Base
   @@natures = nature.values
 
   @@comparators = {
-    numeric: %w(any gt lt ge le eq neq vn nvn),
-    string: %w(any begins finishes contains equal in not_begins not_finishes not_contains not_equal begins_cs finishes_cs contains_cs equal_cs not_begins_cs not_finishes_cs not_contains_cs not_equal_cs),
-    date: %w(any gt lt ge le eq neq vn nvn),
-    boolean: %w(any is_true is_false),
+    numeric: %w[any gt lt ge le eq neq vn nvn],
+    string: %w[any begins finishes contains equal in not_begins not_finishes not_contains not_equal begins_cs finishes_cs contains_cs equal_cs not_begins_cs not_finishes_cs not_contains_cs not_equal_cs],
+    date: %w[any gt lt ge le eq neq vn nvn],
+    boolean: %w[any is_true is_false],
     unknown: ['--']
   }
   @@corresponding_comparators = {
@@ -121,7 +121,7 @@ class ListingNode < Ekylibre::Record::Base
       self.name = attribute_name.to_s + '_0'
     else
       if nature == 'custom'
-        self.sql_type = convert_sql_type(parent.model.custom_fields.find_by_column_name(attribute_name).nature.to_s)
+        self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
         self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
       elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
@@ -204,7 +204,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def reflection?
-    %w(belongs_to has_many root).include? nature.to_s
+    %w[belongs_to has_many root].include? nature.to_s
   end
 
   def root?
@@ -243,51 +243,51 @@ class ListingNode < Ekylibre::Record::Base
     end
     nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + column_nodes.sort]
     # Reflections
-    nodes << [tc(:reflections), model.reflect_on_all_associations.select { |v| [:has_many, :belongs_to].include? v.macro }.collect { |r| [model.human_attribute_name(r.name).to_s, "#{r.macro}-#{r.name}"] }.sort]
+    nodes << [tc(:reflections), model.reflect_on_all_associations.select { |v| %i[has_many belongs_to].include? v.macro }.collect { |r| [model.human_attribute_name(r.name).to_s, "#{r.macro}-#{r.name}"] }.sort]
     nodes
   end
 
   def convert_sql_type(type)
     # raise StandardError.new type.inspect
     if type == 'decimal' || type == 'integer'
-      return 'numeric'
+      'numeric'
     elsif type == 'string' || type == 'text'
-      return 'string'
+      'string'
     elsif type == 'date' || type == 'datetime'
-      return 'date'
+      'date'
     elsif type == 'boolean'
-      return type
+      type
     else
-      return 'unknown'
+      'unknown'
     end
   end
 
   def default_comparison_value
     if sql_type == 'numeric'
-      return 0
+      0
     elsif sql_type == 'string' || sql_type == 'text'
-      return ''
+      ''
     elsif sql_type == 'date' || sql_type == 'datetime'
-      return Time.zone.today
+      Time.zone.today
     else
-      return ''
+      ''
     end
   end
 
   def comparison
     if condition_operator && condition_operator != 'any'
       if condition_value
-        return tc('comparison.with_value', comparator: tc('comparators.' + condition_operator), value: (sql_type == 'date' ? I18n.localize(condition_value.to_date) : condition_value.to_s))
+        tc('comparison.with_value', comparator: tc('comparators.' + condition_operator), value: (sql_type == 'date' ? I18n.localize(condition_value.to_date) : condition_value.to_s))
       else
-        return tc('comparison.without_value', comparator: tc('comparators.' + condition_operator))
+        tc('comparison.without_value', comparator: tc('comparators.' + condition_operator))
       end
     else
-      return tc(:add_filter)
+      tc(:add_filter)
     end
   end
 
   def duplicate(listing_clone, parent = nil)
-    kepts = [:attribute_name, :condition_operator, :condition_value, :exportable, :item_listing_id, :item_listing_node_id, :item_nature, :item_value, :label, :name, :nature, :position]
+    kepts = %i[attribute_name condition_operator condition_value exportable item_listing_id item_listing_node_id item_nature item_value label name nature position]
     attributes = self.attributes.symbolize_keys.select do |name, _value|
       kepts.include?(name)
     end

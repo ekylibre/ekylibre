@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -54,19 +54,20 @@ class ProductNatureVariantComponentTest < ActiveSupport::TestCase
     }
     motor_v12 = ProductNatureVariant.create!(motor_v12_param)
 
-    tractor.components.create!(name: 'Moteur', piece_variant: motor_v12)
-    motor_v12.components.create!(name: 'Piston 1', piece_variant: piston)
-    motor_v12.components.create!(name: 'Piston 2', piece_variant: piston)
+    motor = tractor.components.create!(name: 'Moteur', part_product_nature_variant: motor_v12)
+    tractor.components.create!(name: 'Piston 1', part_product_nature_variant: piston, parent: motor)
+    tractor.components.create!(name: 'Piston 2', part_product_nature_variant: piston, parent: motor)
 
     assert_raise ActiveRecord::RecordInvalid do
-      motor_v12.components.create!(name: 'Piston 2', piece_variant: piston)
-    end
-    assert_raise ActiveRecord::RecordInvalid do
-      motor_v12.components.create!(name: 'piston 2', piece_variant: piston)
+      tractor.components.create!(name: 'Piston 2', part_product_nature_variant: piston, parent: motor)
     end
 
     assert_raise ActiveRecord::RecordInvalid do
-      piston.components.create!(name: 'Nimp', piece_variant: tractor)
+      tractor.components.create!(name: 'Nimp', part_product_nature_variant: tractor)
+    end
+
+    assert_raise ActiveRecord::RecordInvalid do
+      tractor.components.create!(name: 'Nimp', part_product_nature_variant: tractor, parent: motor)
     end
   end
 end

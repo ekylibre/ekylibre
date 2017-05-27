@@ -6,7 +6,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,9 +36,14 @@
 class ActivityBudget < Ekylibre::Record::Base
   belongs_to :activity
   belongs_to :campaign
-  has_many :items, class_name: 'ActivityBudgetItem', dependent: :destroy, inverse_of: :activity_budget
-  has_many :expenses, -> { expenses }, class_name: 'ActivityBudgetItem', inverse_of: :activity_budget
-  has_many :revenues, -> { revenues }, class_name: 'ActivityBudgetItem', inverse_of: :activity_budget
+  with_options class_name: 'ActivityBudgetItem', inverse_of: :activity_budget do
+    has_many :items, dependent: :destroy
+    has_many :expenses, -> { expenses }
+    has_many :revenues, -> { revenues }
+  end
+  has_many :journal_entry_items, dependent: :nullify
+  has_many :purchase_items, dependent: :nullify
+  has_many :sale_items, dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, presence: true, length: { maximum: 500 }
@@ -46,6 +51,7 @@ class ActivityBudget < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_associated :expenses, :revenues
 
+  scope :opened, -> { where(activity: Activity.actives) }
   scope :of_campaign, ->(campaign) { where(campaign: campaign) }
   scope :of_activity, ->(activity) { where(activity: activity) }
 

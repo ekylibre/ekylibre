@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="field_plant_sorting" categories="crop_maintenance" actions="field_plant_sorting">
+  <procedure name="field_plant_sorting" categories="crop_maintenance" actions="field_plant_sorting" deprecated="true">
     <parameters>
       <parameter name="sortable" type="target" filter="is seedling" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})"/>
       <parameter name="container" type="tool" filter="can store(product)" default-actor="default_storage_of_support"/>

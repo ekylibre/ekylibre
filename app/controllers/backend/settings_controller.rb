@@ -18,27 +18,6 @@
 
 module Backend
   class SettingsController < Backend::BaseController
-    def edit
-      Preference.check!
-    end
-
-    def update
-      saved = true
-      ActiveRecord::Base.transaction do
-        for key, data in params[:preferences]
-          preference = Preference.get!(key)
-          if preference
-            preference.value = data[:value]
-            preference.save
-          else
-            saved = false
-          end
-        end
-      end
-      redirect_to_back && return if saved
-      render :edit
-    end
-
     def about
       @properties = []
       @properties.insert(0, ['Ekylibre version', Ekylibre.version])

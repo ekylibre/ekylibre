@@ -1,101 +1,68 @@
-- content_for(:main_toolbar) do
-  = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
-  = button_tag(:auto_reconciliate.tl, type: :button, class: "btn btn-default", id: "auto_reconciliation")
+- precision = Nomen::Currency.find(@bank_statement.currency).precision
+.reconciliation-list{ data: { currency_precision: precision } }
+  .top-part
+    .buttons
+      = button_tag(:reset.tl, type: :button, "data-confirm": :are_you_sure.tl, class: "btn btn-default", id: "reset_reconciliation")
+      = dropdown_menu_button :payment_gap, icon: false do |menu|
+        - Journal.various.each do |regul_journal|
+          - menu.item regul_journal.name, backend_bank_statement_bank_reconciliation_gaps_path(bank_statement_id: @bank_statement.id, journal_id: regul_journal.id), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name
+      = dropdown_menu_button :new_purchase, icon: false do |menu|
+        - PurchaseNature.find_each do |nature|
+          - menu.item nature.name, new_backend_quick_purchase_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
+      = dropdown_menu_button :new_sale, icon: false do |menu|
+        - SaleNature.find_each do |nature|
+          - menu.item nature.name, new_backend_quick_sale_path(nature_id: nature.id, redirect: url_for), tabindex: -1, method: :get, class: 'from-selected-bank', title: nature.name
+    .details
+      %input#set_period{ type: 'daterange', value: "#{@period_start} &ndash; #{@period_end}".html_safe }
+      %label
+        %input#hide-lettered{ type: :checkbox, checked: true }
+        = :hide_lettered_lines.tl
 
-= form_tag({}, class: "reconciliation-form") do
-  -# = field_set(:details) do
-    = attributes_list stamps: false do |l|
-      - l.attribute(:number)
-      - l.attribute(:started_on)
-      - l.attribute(:stopped_on)
+  .list
+    .legend
+      %p= :initial_balance_of_bank_statement.tl
+      .amounts
+        .debit
+          %p.title= BankStatementItem.human_attribute_name(:debit)
+          .field= @bank_statement.initial_balance_debit || 0.0
+        .credit
+          %p.title= BankStatementItem.human_attribute_name(:credit)
+          .field= @bank_statement.initial_balance_credit || 0.0
+      .details
 
-  = field_set(:entries_to_point) do
-    .active-list
-      / Prepare more reconciliation letters than required
-      %table.list.bank-reconciliation-items{ data: { next_letters: @bank_statement.cash_next_reconciliation_letters.take(@items.size) } }
+    -# JS template for DatePicker.
+    .date-section.hidden
+      = render 'date_header', date: nil, bank_statement: @bank_statement
+    - @items_grouped_by_date.each do |date, items|
+      .date-section
+        = render 'date_header', date: date, bank_statement: @bank_statement
+        - items.each do |item|
+          = render 'reconciliation_item', item: item
 
-        %thead
-          %tr
-            %th{colspan: 4}
-            %th.center= BankStatementItem.human_attribute_name(:debit)
-            %th.center= BankStatementItem.human_attribute_name(:credit)
-          %tr
-            %th{colspan: 3}
-            %th= :initial_balance_of_bank_statement.tl
-            %th.center= text_field_tag("bank_statement[initial_balance_debit]", @bank_statement.initial_balance_debit || 0.0, id: "initial_balance_debit", class: "center", data: { exclusive_nullify: "#initial_balance_credit" })
-            %th.center= text_field_tag("bank_statement[initial_balance_credit]", @bank_statement.initial_balance_credit || 0.0, id: "initial_balance_credit", class: "center", data: { exclusive_nullify: "#initial_balance_debit" })
-
-        %tfoot
-          %tr.total
-            %th.add-bank-statement-item-cont{colspan: 4}
-              = date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn" }
-              = :reconciled_total.tl
-            %td.center.reconciliated-debit 0.0
-            %td.center.reconciliated-credit 0.0
-            %th{colspan: 3}
-          %tr.total.remaining-reconciliation-balance
-            %th{colspan: 4}
-              = :remaining_amount_to_reconcile.tl
-            %td.center.remaining-reconciliated-debit 0.0
-            %td.center.remaining-reconciliated-credit 0.0
-            %th{colspan: 3}
-          %tr.total
-            %th{colspan: 4}
-              = :final_balance.tl
-            %td.center{ data: { use: "#initial_balance_debit,.bank-statement-item-type .debit", calculate_round: 2 } } 0.0
-            %td.center{ data: { use: "#initial_balance_credit,.bank-statement-item-type .credit", calculate_round: 2 } } 0.0
-            %th{colspan: 3}
-
-        %tbody.items
-          = render partial: "reconciliation_date_section" # template used by JS
-          - @items_grouped_by_date.each do |date, items|
-            = render partial: "reconciliation_date_section", locals: { date: date }
-            - items.each do |item|
-              - if BankStatementItem === item
-                %tr.bank-statement-item-type{ class: "#{item.id}-bank-statement-item" }
-                  %td.hidden= hidden_field_tag "items[#{item.id}][name]", item.name, class: "name"
-                  %td.hidden= hidden_field_tag "items[#{item.id}][transfered_on]", item.transfered_on
-                  %td.hidden= hidden_field_tag "items[#{item.id}][debit]", item.debit
-                  %td.hidden= hidden_field_tag "items[#{item.id}][credit]", item.credit
-                  %td.hidden= hidden_field_tag "items[#{item.id}][letter]", item.letter, class: "bank-statement-letter"
-                  %td.hidden= hidden_field_tag "items[#{item.id}][initiated_on]", item.initiated_on
-                  %td.hidden= hidden_field_tag "items[#{item.id}][transaction_number]", item.transaction_number
-
-                  %td.del
-                    = link_to "#", class: "destroy" do
-                      %i
-                  %td.type-icon
-                    %i
-                  %td.name= item.name
-                  %td
-                  %td.center.debit= item.debit || 0.0
-                  %td.center.credit= item.credit || 0.0
-                  %td.center.bank-statement-letter= item.letter
-                  %td.clear
-                    %a{ href: "#" }
-                      %i
-                      = :clear.tl
-                  %td
-
-              - else
-                %tr.journal-entry-item-type
-                  %td.hidden= hidden_field_tag "journal_entry_items[#{item.id}][bank_statement_letter]", item.bank_statement_letter, class: "bank-statement-letter"
-                  %td.del
-                  %td.type-icon
-                    %i
-                  %td.name= item.name
-                  %td
-                  %td.center.debit= item.real_debit || 0.0
-                  %td.center.credit= item.real_credit || 0.0
-                  %td.center.bank-statement-letter= item.bank_statement_letter
-                  %td.clear
-                    %a{ href: "#" }
-                      %i
-                      = :clear.tl
-                  %td.complete
-                    %a{ href: "#" }
-                      = :complete.tl
-
-  = form_actions do
-    = button_tag :save.tl, class: 'btn btn-primary'
-    = link_to :cancel.tl, :back, class: "btn"
+  .totals
+    #matching
+      .title
+        #new-item= date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn" }
+        %p= :balance_of_selection.tl
+      .amounts
+        .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0
+        .hidden.total_credit{data: {use: '.reconciliation-item.selected .amounts .credit', calculate: :sum, 'use-closest': '.reconciliation-list'}}= 0
+        .debit
+          %span.value{ data: { balance: '.total_credit - .total_debit', calculate_round: precision }}= 0
+        .credit
+          %span.value{ data: { balance: '.total_debit - .total_credit', calculate_round: precision }}= 0
+      .details
+    #to-match
+      .title
+        %p= :remaining_amount_to_reconcile.tl
+      .amounts
+        .debit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+        .credit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+      .details
+    #final
+      .title
+        %p= :final_balance.tl
+      .amounts
+        .debit{ data: { use: ".reconciliation-item .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+        .credit{ data: { use: ".reconciliation-item .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+      .details

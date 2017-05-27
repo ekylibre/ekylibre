@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new varieties">
+  <item-creation item="varieties#brassica_oleracea_italica_naxos" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+  <item-creation item="varieties#daucus_carota_tino" parent="daucus_carota" itis_tsn="29476"/>
+  <item-creation item="varieties#allium_cepa_valenciana" parent="allium_cepa" itis_tsn="42720"/>
+</migration>

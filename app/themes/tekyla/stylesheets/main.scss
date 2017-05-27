@@ -1,3 +1,5 @@
+@import "bootstrap/labels";
+
 i.icon {
   @include is-icon;
 }
@@ -135,6 +137,15 @@ i.icon {
 
 }
 
+.numbering-root{
+  counter-reset: numbers;
+}
+
+.numbered:before {
+  content: counter(numbers);
+  counter-increment: numbers;
+}
+
 
 
 li.dropdown {
@@ -166,6 +177,34 @@ ul.dropdown-menu {
   .modal & {
     padding: 8vh 10%;
   }
+}
+
+.introduction-message {
+  padding: $lh-huge;
+  @include text-align(center);
+
+  &, * {
+    font-size: $fs-huge;
+    line-height: $lh-huge;
+  }
+  .modal & {
+    padding: $lh-large;
+  }
+}
+
+.inline-message {
+  padding: $default-gap;
+  line-height: $lh-ratio * 1em;
+  &.warning {
+    &, * {
+      color: $caution-color;
+    }
+  }
+}
+
+.footnote {
+  padding: $lh-large;
+  @include text-align(center);
 }
 
 a[data-toggle='side'] {
@@ -382,6 +421,7 @@ html.zen {
 }
 
 
+$authentication-main-width: 360px;
 html.authentication, html.exception {
   background: $desktop-background;
   background-image: image-url('background.jpg');
@@ -399,8 +439,8 @@ html.authentication, html.exception {
       // border-top: 2px solid $active-color;
       #main {
         background: transparent;
-        margin: 60px auto;
-        width: 360px;
+        margin: ($authentication-main-width / 6) auto;
+        width: $authentication-main-width;
         @include respond-to(small) {
           margin: auto;
           width: 100%;
@@ -447,15 +487,41 @@ html.authentication, html.exception {
             @include box-sizing(border-box);
             height: 2 * $fs-normal;
           }
-          input[type="submit"] {
+          input[type="submit"], a.btn {
             @include inline-block;
             @include box-sizing(border-box);
             width: 100%;
             text-align: center;
-            margin: 10px auto;
+            margin: $default-gap auto;
             display: block;
-            height: 3 * $fs-normal;
-
+            line-height: $lh-normal;
+            white-space: normal;
+            padding: $default-gap;
+          }
+          .separator {
+            text-align: center;
+            @include display(block);
+            position: relative;
+            text-transform: uppercase;
+            margin: 2 * $fs-normal auto;
+            text-color: $neutral-color;
+            &:before,
+            &:after {
+              content: "";
+              position: absolute;
+              height: 0px;
+              border-bottom: 1px solid $neutral-color;
+              top: ($lh-normal - 1px) / 2;
+              width: $authentication-main-width * 0.3;
+            }
+            &:before {
+              right: 0%;
+              margin-right: 0;
+            }
+            &:after {
+              left: 0%;
+              margin-left: 0;
+            }
           }
           .field {
             margin-bottom: $default-gap;
@@ -507,7 +573,10 @@ html.exception {
 
 #core {
   clear: both;
-  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  @include calc(height, "100vh - #{$header-height + $topbar-height}");
+  .toolbar + & {
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  }
 }
 
 #about-us {
@@ -563,6 +632,14 @@ html.exception {
   }
 }
 
+#journal-entry-form {
+  &[data-with-change="false"] {
+    .currency-change {
+      display: none;
+    }
+  }
+}
+
 #dashboards-nav {
   @include tab-pills;
 }
@@ -580,6 +657,7 @@ html.exception {
 .snippet {
   .snippet-title {
     display: block;
+    padding-top: $fs-normal;
     outline: none;
     &, * {
       color: $text-color;
@@ -813,6 +891,18 @@ form.search {
   }
 }
 
+.pull-left {
+  @include float(left);
+  .med-info {
+    min-width: 20em;
+  }
+}
+
+.info-labels {
+  padding: $default-gap 2 * $default-gap;
+  font-size: $fs-large;
+  line-height: $lh-large;
+}
 
 .info {
   @include ellipsis;
@@ -1506,6 +1596,15 @@ html.backend {
     background: #EFE;
     font-style: italic;
   }
+  .item-footer {
+    display: block;
+    padding: $default-gap;
+    font-style: italic;
+    &:hover {
+      background: rgba($base-color, 0.2);
+      cursor: pointer;
+    }
+  }
 }
 
 .stepper {
@@ -1643,56 +1742,73 @@ a[data-remove-closest], a[data-remove] {
 
 .affair {
   .deals {
-    // @include padding-left(4em);
-    width: 100%;
-    border-collapse: collapse;
-    border: none;
-    padding: 0;
-    margin: 0;
-    tr {
-      list-style-type: decimal;
-      &, & * {
-        font-size: $fs-normal;
-        line-height: $lh-normal;
-        vertical-align: middle;
-      }
-      .dealt-on { width: 16ex; }
-      .amount {
-        @include text-align(right);
-        &.credit {
-          &, & * { color: $invalid-color }
-        }
-        &.debit {
-          &, & * { color: green }
-        }
+    overflow: auto;
+    & > table {
+      // @include padding-left(4em);
+      width: 100%;
+      border-collapse: collapse;
+      border: none;
+      padding: 0;
+      margin: 0;
+      tr {
+        list-style-type: decimal;
         &, & * {
-          font-weight: bold;
+          font-size: $fs-normal;
+          line-height: $lh-normal;
+          vertical-align: middle;
         }
-      }
-      .act {
-        text-align: center;
-        width: 3ex;
-        .remove {
-          font-size: 0;
-          i {
-            @include is-icon;
-            @include use-icon(clear);
+        .dealt-on { width: 16ex; }
+        .act {
+          text-align: center;
+          width: 3ex;
+          .remove, .unlink {
+            font-size: 0;
+            i {
+              @include is-icon;
+              @include use-icon(clear);
+            }
+          }
+        }
+        td, th {
+          &.total {
+            @include text-align(right);
+          }
+          &.sum {
+            border-top: 1px solid #777;
           }
         }
       }
-      td, th {
-        &.total {
-          @include text-align(right);
-        }
-        &.sum {
-          border-top: 1px solid #777;
-        }
-      }
+    }
+  }
+  .amount {
+    @include text-align(right);
+    &.credit {
+      &, & * { color: $invalid-color }
+    }
+    &.debit {
+      &, & * { color: green }
+    }
+    &, & * {
+      font-weight: bold;
+    }
+  }
+}
 
+.payment {
+  td, th {
+    &.total {
+      @include text-align(right);
+    }
+    &.sum {
+      border-top: 1px solid #777;
     }
   }
 
+  .error {
+    color: $invalid-color;
+  }
 }
+
 
 #cell-date {
   display: block;
@@ -1895,12 +2011,13 @@ ul.tree {
     margin-left: auto;
     margin-right: auto;
 
-    input[data-selector] {
-      @include calc-width("#{100%} - #{2 * round($fs-normal*0.70)} - #{2 * $menu-border-width} - #{2 * round($fs-normal * 0.2)} - #{11px}"); //11px = font
-    }
   }
 }
 
+
+input[data-selector] {
+  @include calc-width("#{100%} - #{2 * round($fs-normal*0.70)} - #{2 * $menu-border-width} - #{2 * round($fs-normal * 0.2)} - #{$fs-small}"); //11px = font
+}
 
 .historic {
   p {
@@ -2265,10 +2382,14 @@ svg.map {
 
 #items-form {
   #total {
-    a {
+    .options {
       @include float(left);
     }
   }
+}
+
+.standalone-option {
+  margin: 0 $default-gap * 2;
 }
 
 .document-archives {
@@ -2383,10 +2504,10 @@ a[data-annotate] {
   .state {
     display: table-cell;
     background: $caution-color;
-    &.state-lost, &.state-refused, &.state-aborted, &.state-todo {
+    &.state-lost, &.state-refused, &.state-aborted, &.state-todo, &.state-scrapped, &.state-sold {
       background: $invalid-color;
     }
-    &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished {
+    &.state-in_use, &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished, &.state-ongoing, &.state-repaid {
       background: $success-color;
     }
     @include text-align(center);
@@ -2403,6 +2524,9 @@ a[data-annotate] {
     &.inaccessible {
       cursor: not-allowed;
       background: $neutral-color;
+    }
+    &[disabled], &.disabled {
+      @include disabled;
     }
   }
   a.state:hover {
@@ -2448,14 +2572,22 @@ a[data-annotate] {
   }
 }
 
-.campaign-selector {
-  .campaign {
-    font-size: $fs-large;
+.period-type-selector,
+.period-selector {
+  .period {
+    font-size: $fs-normal;
     padding-left: $default-gap;
     padding-right: $default-gap;
     @include box-sizing(border-box);
+    &.day, &.month, &.year {
+      font-size: $fs-large;
+    }
   }
-  > .btn, > .campaign {
+
+
+  > .btn,
+  > .period-type,
+  > .period {
     height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
     line-height: $lh-large;
   }
@@ -2464,8 +2596,25 @@ a[data-annotate] {
       vertical-align: middle !important;
     }
   }
+
+  ul.dropdown-menu.interval-menu {
+    @include dropdown-menu(bottom, end);
+  }
+
+  .btn-with-intervals {
+    height: 100%;
+  }
 }
 
+.period-selector {
+  display: inline-block;
+
+  .today-period-btn {
+    margin-right: round($default-gap * 1.4) !important;
+    height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
+    line-height: $lh-large;
+  }
+}
 
 
 .cobbles {
@@ -2593,5 +2742,34 @@ a[data-annotate] {
   .progress {
     margin-bottom: 0;
   }
+}
+
+.risk-picto {
+  @include margin-right($default-gap);
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  @include inline-block;
+  img {
+    line-height: 48px;
+    width: 100%;
+  }
+}
+
+.opacity-range {
+  margin-left: 1.5em;
+  &:before {
+    content: '0';
+    margin-left: -1.5em;
+  }
+  &:after {
+    content: '100';
+    margin-right: -2em;
+  }
+}
+
+.map-fullwidth{
+  width: 100%;
+  height: 100%;
 }
 

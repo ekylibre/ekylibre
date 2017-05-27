@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,28 +22,40 @@
 #
 # == Table: loans
 #
-#  accounted_at         :datetime
-#  amount               :decimal(19, 4)   not null
-#  cash_id              :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  currency             :string           not null
-#  custom_fields        :jsonb
-#  id                   :integer          not null, primary key
-#  insurance_percentage :decimal(19, 4)   not null
-#  interest_percentage  :decimal(19, 4)   not null
-#  journal_entry_id     :integer
-#  lender_id            :integer          not null
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  repayment_duration   :integer          not null
-#  repayment_method     :string           not null
-#  repayment_period     :string           not null
-#  shift_duration       :integer          default(0), not null
-#  shift_method         :string
-#  started_on           :date             not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  accountable_repayments_started_on :date
+#  accounted_at                      :datetime
+#  amount                            :decimal(19, 4)   not null
+#  bank_guarantee_account_id         :integer
+#  bank_guarantee_amount             :integer
+#  cash_id                           :integer          not null
+#  created_at                        :datetime         not null
+#  creator_id                        :integer
+#  currency                          :string           not null
+#  custom_fields                     :jsonb
+#  id                                :integer          not null, primary key
+#  initial_releasing_amount          :boolean          default(FALSE), not null
+#  insurance_account_id              :integer
+#  insurance_percentage              :decimal(19, 4)   not null
+#  insurance_repayment_method        :string
+#  interest_account_id               :integer
+#  interest_percentage               :decimal(19, 4)   not null
+#  journal_entry_id                  :integer
+#  lender_id                         :integer          not null
+#  loan_account_id                   :integer
+#  lock_version                      :integer          default(0), not null
+#  name                              :string           not null
+#  ongoing_at                        :datetime
+#  repaid_at                         :datetime
+#  repayment_duration                :integer          not null
+#  repayment_method                  :string           not null
+#  repayment_period                  :string           not null
+#  shift_duration                    :integer          default(0), not null
+#  shift_method                      :string
+#  started_on                        :date             not null
+#  state                             :string
+#  updated_at                        :datetime         not null
+#  updater_id                        :integer
+#  use_bank_guarantee                :boolean
 #
 ---
 loans_001:
@@ -54,10 +66,13 @@ loans_001:
   creator_id: 1
   currency: EUR
   id: 1
+  initial_releasing_amount: false
   insurance_percentage: 0.1
+  interest_account_id: 461
   interest_percentage: 3.4
   journal_entry_id: 30
   lender_id: 6
+  loan_account_id: 460
   lock_version: 1
   name: Vélo
   repayment_duration: 2
@@ -66,6 +81,7 @@ loans_001:
   shift_duration: 1
   shift_method: anatocism
   started_on: 2015-05-01
+  state: draft
   updated_at: 2016-07-01 20:10:28.880207000 Z
   updater_id: 1
 loans_002:
@@ -76,10 +92,13 @@ loans_002:
   creator_id: 1
   currency: USD
   id: 2
+  initial_releasing_amount: false
   insurance_percentage: 0.78
+  interest_account_id: 461
   interest_percentage: 2.1
   journal_entry_id: 31
   lender_id: 13
+  loan_account_id: 460
   lock_version: 1
   name: Tracteur de folie
   repayment_duration: 64
@@ -88,5 +107,32 @@ loans_002:
   shift_duration: 8
   shift_method: immediate_payment
   started_on: 2012-03-24
+  state: draft
+  updated_at: 2016-07-01 20:34:22.917241000 Z
+  updater_id: 1
+loans_003:
+  accounted_at: 2016-07-01 20:34:23.009427000 Z
+  amount: 45700.0
+  cash_id: 2
+  created_at: 2015-05-07 23:16:52.854070000 Z
+  creator_id: 1
+  currency: USD
+  id: 3
+  initial_releasing_amount: false
+  insurance_percentage: 0.78
+  interest_account_id: 461
+  interest_percentage: 2.1
+  journal_entry_id: 31
+  lender_id: 13
+  loan_account_id: 460
+  lock_version: 1
+  name: Tracteur de folie updatable
+  repayment_duration: 64
+  repayment_method: constant_amount
+  repayment_period: month
+  shift_duration: 8
+  shift_method: immediate_payment
+  started_on: 2012-03-24
+  state: draft
   updated_at: 2016-07-01 20:34:22.917241000 Z
   updater_id: 1

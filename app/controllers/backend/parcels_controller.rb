@@ -18,7 +18,8 @@
 
 module Backend
   class ParcelsController < Backend::BaseController
-    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new
+    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new,
+                     continue: [:nature]
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -34,13 +35,13 @@ module Backend
     #   :delivery_mode Choice
     #   :nature Choice
     def self.parcels_conditions
-      code = search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]) + " ||= []\n"
+      code = search_conditions(parcels: %i[number reference_number], entities: %i[full_name number]) + " ||= []\n"
       code << "unless params[:period].blank? || params[:period].is_a?(Symbol)\n"
       code << "  if params[:period] != 'all'\n"
       code << "    interval = params[:period].split('_')\n"
       code << "    first_date = interval.first\n"
       code << "    last_date = interval.last\n"
-      code << "    c[0] << \" AND #{Parcel.table_name}.planned_at BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Parcel.table_name}.planned_at::DATE BETWEEN ? AND ?\"\n"
       code << "    c << first_date\n"
       code << "    c << last_date\n"
       code << "  end\n "
@@ -57,11 +58,20 @@ module Backend
       code << "  c[0] << \" AND \#{Parcel.table_name}.transporter_id = ?\"\n"
       code << "  c << params[:transporter_id].to_i\n"
       code << "end\n"
+      code << "if params[:responsible_id].to_i > 0\n"
+      code << "  c[0] << \" AND \#{Parcel.table_name}.responsible_id = ?\"\n"
+      code << "  c << params[:responsible_id]\n"
+      code << "end\n"
       code << "if params[:delivery_mode].present? && params[:delivery_mode] != 'all'\n"
       code << "  if Parcel.delivery_mode.values.include?(params[:delivery_mode].to_sym)\n"
       code << "    c[0] << ' AND #{Parcel.table_name}.delivery_mode = ?'\n"
       code << "    c << params[:delivery_mode]\n"
       code << "  end\n"
+      code << "end\n"
+      code << "if params[:invoice_status] && params[:invoice_status] == 'invoiced'\n"
+      code << "  c[0] << ' AND (#{Parcel.table_name}.purchase_id IS NOT NULL OR #{Parcel.table_name}.sale_id IS NOT NULL) '\n"
+      code << "elsif params[:invoice_status] && params[:invoice_status] == 'uninvoiced'\n"
+      code << "  c[0] << ' AND (#{Parcel.table_name}.purchase_id IS NULL AND #{Parcel.table_name}.sale_id IS NULL) '\n"
       code << "end\n"
       code << "if params[:nature].present? && params[:nature] != 'all'\n"
       code << "  if Parcel.nature.values.include?(params[:nature].to_sym)\n"
@@ -76,18 +86,20 @@ module Backend
     list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
       t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
-      t.action :edit,    on: :both, method: :get, if: :updateable?
+      t.action :edit, if: :updateable?
       t.action :destroy
       t.column :nature
       t.column :number, url: true
       t.column :reference_number, hidden: true
       t.column :content_sentence, label: :contains
       t.column :planned_at
+      t.column :given_at
       t.column :recipient, url: true
       t.column :sender, url: true
       t.status
       t.column :state, label_method: :human_state_name
       t.column :delivery, url: true
+      t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
       # t.column :sent_at
       t.column :delivery_mode
@@ -99,7 +111,8 @@ module Backend
     list(:outgoing_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :source_product, url: true
       t.column :product, url: true, hidden: true
-      # t.column :product_work_number, through: :product, label_method: :work_number
+      t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
+      t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
       # t.column :variant, url: true
@@ -108,13 +121,14 @@ module Backend
       t.column :analysis, url: true
     end
 
-    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+    list(:incoming_items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: true
       # t.column :source_product, url: true
       t.column :product_name
       t.column :product_identification_number
       t.column :population
       t.column :unit_name, through: :variant
+      t.column :unit_pretax_amount, currency: true
       t.status
       # t.column :net_mass
       t.column :product, url: true
@@ -133,14 +147,14 @@ module Backend
     # Displays details of one parcel selected with +params[:id]+
     def show
       return unless (@parcel = find_and_check)
-      respond_with(@parcel, methods: [:all_item_prepared, :status, :items_quantity],
+      respond_with(@parcel, methods: %i[all_item_prepared status items_quantity],
                             include: { address: { methods: [:mail_coordinate] },
                                        sale: {},
                                        purchase: {},
                                        recipient: {},
                                        sender: {},
                                        transporter: {},
-                                       items: { methods: [:status, :prepared], include: [:product, :variant] } }) do |format|
+                                       items: { methods: %i[status prepared], include: %i[product variant] } }) do |format|
         format.html do
           t3e @parcel.attributes.merge(nature: @parcel.nature.text)
         end
@@ -153,7 +167,7 @@ module Backend
 
     def new
       columns = Parcel.columns_definition.keys
-      columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      columns = columns.delete_if { |c| %i[depth rgt lft id lock_version updated_at updater_id creator_id created_at].include?(c.to_sym) }
       values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
         hash[attr] = params[:"#{attr}"] unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash
@@ -169,7 +183,7 @@ module Backend
 
         sale.items.each do |item|
           item.variant.take(item.quantity).each do |product, quantity|
-            @parcel.items.new(source_product: product, quantity: quantity)
+            @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
           end
         end
       end
@@ -184,11 +198,11 @@ module Backend
         @parcel.storage = preceding.storage if preceding
 
         purchase.items.each do |item|
-          @parcel.items.new(quantity: item.quantity, variant: item.variant)
+          @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
         end
       end
-
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
+      render locals: { with_continue: true }
     end
 
     # Converts parcel to trade

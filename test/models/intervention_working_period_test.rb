@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,16 +22,18 @@
 #
 # == Table: intervention_working_periods
 #
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  duration        :integer          not null
-#  id              :integer          not null, primary key
-#  intervention_id :integer          not null
-#  lock_version    :integer          default(0), not null
-#  started_at      :datetime         not null
-#  stopped_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  duration                      :integer          not null
+#  id                            :integer          not null, primary key
+#  intervention_id               :integer
+#  intervention_participation_id :integer
+#  lock_version                  :integer          default(0), not null
+#  nature                        :string
+#  started_at                    :datetime         not null
+#  stopped_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
 #
 require 'test_helper'
 

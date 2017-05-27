@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,27 +22,30 @@
 #
 # == Table: inventories
 #
-#  accounted_at     :datetime
-#  achieved_at      :datetime
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number           :string           not null
-#  reflected        :boolean          default(FALSE), not null
-#  reflected_at     :datetime
-#  responsible_id   :integer
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  accounted_at      :datetime
+#  achieved_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string
+#  custom_fields     :jsonb
+#  financial_year_id :integer
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer
+#  lock_version      :integer          default(0), not null
+#  name              :string           not null
+#  number            :string           not null
+#  reflected         :boolean          default(FALSE), not null
+#  reflected_at      :datetime
+#  responsible_id    :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 ---
 inventories_001:
   achieved_at: 2009-07-19 10:00:00.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  financial_year_id: 24
   id: 1
   lock_version: 0
   name: 2009's inventory
@@ -54,6 +57,7 @@ inventories_002:
   achieved_at: 2009-07-19 10:00:00.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  financial_year_id: 25
   id: 2
   lock_version: 0
   name: 2009's bad inventory

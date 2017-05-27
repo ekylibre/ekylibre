@@ -1,0 +1,14 @@
+.integration-form
+  .integration-presentation
+    .integration-picture
+      = image_tag(integration_logo_path(resource.nature, size: :large))
+    .integration-description
+      %h2= resource.integration_name
+      %p= "#{resource.nature}_long_description".tl
+      - url = "#{resource.nature}_url".tl(default: 'none')
+      - if url != 'none'
+        - url_name = url.gsub(/\Ahttp(s)?\:\/\/(www\.)?/, '').gsub(/\/\z/, '')
+        %p
+          = :website.tl
+          = link_to(url_name, url)
+  = render resource.authentication_mode.to_s, f: f

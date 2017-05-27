@@ -14,7 +14,7 @@ module Api
 
       test 'create' do
         add_auth_header
-        post :create, name: 'Sample issue', nature: :issue, description: 'No idea of the source', gravity: 2, priority: 2
+        post :create, params: { name: 'Sample issue', nature: :issue, description: 'No idea of the source', gravity: 2, priority: 2 }
       end
     end
   end

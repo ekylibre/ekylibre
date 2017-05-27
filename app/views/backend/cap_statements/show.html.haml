@@ -6,21 +6,25 @@
     = cobbles do |c|
       - c.cobble :general_informations do
         = infos do
-          .med-info
-            %span.title= CapStatement.human_attribute_name(:pacage_number)
-            %span.value= resource.pacage_number
+          - unless resource.pacage_number.blank?
+            .med-info
+              %span.title= CapStatement.human_attribute_name(:pacage_number)
+              %span.value= resource.pacage_number
           .med-info
             %span.title= CapStatement.human_attribute_name(:campaign)
             %span.value= resource.campaign.name
-          .med-info
-            %span.title= CapStatement.human_attribute_name(:farm_name)
-            %span.value= resource.farm_name
-          .med-info
-            %span.title= CapStatement.human_attribute_name(:siret_number)
-            %span.value= resource.siret_number
-          .med-info
-            %span.title= CapStatement.human_attribute_name(:declarant)
-            %span.value= resource.declarant.full_name
+          - unless resource.farm_name.blank?
+            .med-info
+              %span.title= CapStatement.human_attribute_name(:farm_name)
+              %span.value= resource.farm_name
+          - unless resource.siret_number.blank?
+            .med-info
+              %span.title= CapStatement.human_attribute_name(:siret_number)
+              %span.value= resource.siret_number
+          - if resource.declarant
+            .med-info
+              %span.title= CapStatement.human_attribute_name(:declarant)
+              %span.value= resource.declarant.full_name
           .med-info
             %span.title= :net_surface_area.tl
             %span.value= resource.human_net_surface_area
@@ -57,7 +61,7 @@
           {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
         end
 
-      = visualization(box: {height: "100%"}) do |v|
+      = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
         - v.serie :land_parcels, land_parcels
         - v.serie :islets, islets
         - v.simple :cap_islets, :islets

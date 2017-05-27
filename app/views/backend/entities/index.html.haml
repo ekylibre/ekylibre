@@ -2,13 +2,28 @@
   - k.text
   - k.multi_choice :state, [:client, :supplier, :active].map{ |s| [s.tl, s] }
   - k.choice [:all.tl, :all], *resource_model.nature.values.map{ |s| [s.l, s] }, name: :nature, label: Entity.human_attribute_name(:nature)
--# content_for :heading_toolbar do
-  = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
-    = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
+  - k.helper do
+    %label= EntityAddress.human_attribute_name(:mail_line_6)
+    = text_field_tag(:mail_line_6, params[:mail_line_6])
+  - if SubscriptionNature.any?
+    - k.helper do
+      %label= Subscription.human_attribute_name(:subscriber)
+      = select_tag(:subscription_nature_id, options_for_select([[]] + SubscriptionNature.order(:name).map{ |n| [n.name, n.id] }, params[:subscription_nature_id].to_i))
+      = select_tag(:subscription_test, options_for_select([:subscribed_on, :expired_within, :expired_since, :active_finishing_within, :active_finishing_after].map {|t| [ t.tl, t.to_s] }, params[:subscription_test]), data: { show_value: '.subscription-filter-'})
+      = date_field_tag(:subscribed_on, params[:subscribed_on] || Date.today, class: 'subscription-filter-subscribed_on')
+      %span.subscription-filter-expired_within.input-append
+        = number_field_tag(:expired_within, params[:expired_within] || 0, size: 3, style: 'width: 5ex')
+        .add-on= :days.tl
+      %span.subscription-filter-expired_since.input-append
+        = number_field_tag(:expired_since, params[:expired_since] || 0, size: 3, style: 'width: 5ex')
+        .add-on= :days.tl
+      %span.subscription-filter-active_finishing_within.subscription-filter-active_finishing_after.input-append
+        = number_field_tag(:delay, params[:delay] || 0, size: 3, style: 'width: 5ex')
+        .add-on= :days.tl
 
 - main_toolbar do |t|
-  = t.new params: {nature: :organization}, label: :new_organization.tl
-  = t.new params: {nature: :contact}, label: :new_contact.tl
+  = t.new params: { nature: :contact, redirect: nil }, label: :new_contact.tl
+  = t.new params: { nature: :organization, redirect: nil }, label: :new_organization.tl
   = t.merge
 
 = main_list

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,23 +22,27 @@
 #
 # == Table: sensors
 #
-#  access_parameters :json
-#  active            :boolean          default(TRUE), not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  embedded          :boolean          default(FALSE), not null
-#  host_id           :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  model_euid        :string
-#  name              :string           not null
-#  product_id        :integer
-#  retrieval_mode    :string           not null
-#  token             :string
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  vendor_euid       :string
+#  access_parameters    :json
+#  active               :boolean          default(TRUE), not null
+#  battery_level        :decimal(19, 4)
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  custom_fields        :jsonb
+#  embedded             :boolean          default(FALSE), not null
+#  euid                 :string
+#  host_id              :integer
+#  id                   :integer          not null, primary key
+#  last_transmission_at :datetime
+#  lock_version         :integer          default(0), not null
+#  model_euid           :string
+#  name                 :string           not null
+#  partner_url          :string
+#  product_id           :integer
+#  retrieval_mode       :string           not null
+#  token                :string
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  vendor_euid          :string
 #
 ---
 sensors_001:
@@ -75,3 +79,133 @@ sensors_002:
   updated_at: 2015-09-18 15:18:15.361852000 Z
   updater_id: 1
   vendor_euid: openweathermap
+sensors_003:
+  active: true
+  created_at: 2016-09-09 08:56:02.566611000 Z
+  embedded: false
+  euid: '4'
+  id: 4
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 002-7788C
+  retrieval_mode: integration
+  token: uHBI6WNjKwNo4WSG
+  updated_at: 2016-09-09 08:56:02.566611000 Z
+  vendor_euid: cap2020
+sensors_004:
+  active: true
+  created_at: 2016-09-09 08:56:02.572611000 Z
+  embedded: false
+  euid: '57'
+  id: 5
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 014-776A6
+  retrieval_mode: integration
+  token: 0cX4J60F4Mg37vwR
+  updated_at: 2016-09-09 08:56:02.572611000 Z
+  vendor_euid: cap2020
+sensors_005:
+  active: true
+  created_at: 2016-09-09 08:56:02.577217000 Z
+  embedded: false
+  euid: '54'
+  id: 6
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 019-777A9
+  retrieval_mode: integration
+  token: vPN2glWvF82H7Tx4
+  updated_at: 2016-09-09 08:56:02.577217000 Z
+  vendor_euid: cap2020
+sensors_006:
+  active: true
+  created_at: 2016-09-09 08:56:02.581815000 Z
+  embedded: false
+  euid: '56'
+  id: 7
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 025-777F5
+  retrieval_mode: integration
+  token: ebY8IR8JlRXi4dCl
+  updated_at: 2016-09-09 08:56:02.581815000 Z
+  vendor_euid: cap2020
+sensors_007:
+  active: true
+  created_at: 2016-09-09 08:56:02.586127000 Z
+  embedded: false
+  euid: '13'
+  id: 8
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 030-77805
+  retrieval_mode: integration
+  token: iDHDCtPCXmDLQ6tn
+  updated_at: 2016-09-09 08:56:02.586127000 Z
+  vendor_euid: cap2020
+sensors_008:
+  active: true
+  created_at: 2016-09-09 08:56:02.597112000 Z
+  embedded: false
+  euid: '53'
+  id: 9
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 040-777FF
+  retrieval_mode: integration
+  token: LLi5FPCZrQKbk3ls
+  updated_at: 2016-09-09 08:56:02.597112000 Z
+  vendor_euid: cap2020
+sensors_009:
+  active: true
+  created_at: 2016-09-09 08:56:02.609217000 Z
+  embedded: false
+  euid: '45'
+  id: 10
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 051-777C0
+  retrieval_mode: integration
+  token: gsZAl7ivpmqZcm7E
+  updated_at: 2016-09-09 08:56:02.609217000 Z
+  vendor_euid: cap2020
+sensors_010:
+  active: true
+  created_at: 2016-09-09 08:56:02.613915000 Z
+  embedded: false
+  euid: '46'
+  id: 11
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 053-77770
+  retrieval_mode: integration
+  token: szrR4kmDDz93tnRO
+  updated_at: 2016-09-09 08:56:02.613915000 Z
+  vendor_euid: cap2020
+sensors_011:
+  active: true
+  created_at: 2016-09-09 08:56:02.617900000 Z
+  embedded: false
+  euid: '48'
+  id: 12
+  lock_version: 0
+  model_euid: cap_trap
+  name: CapTrap 055-77767
+  retrieval_mode: integration
+  token: WP2nkuiBmiujsRwF
+  updated_at: 2016-09-09 08:56:02.617900000 Z
+  vendor_euid: cap2020
+sensors_012:
+  active: true
+  created_at: 2016-09-09 09:25:45.237167000 Z
+  embedded: true
+  euid: H0000XXX0000000
+  id: 13
+  lock_version: 0
+  model_euid: NAVIGEO_MINI
+  name: NAVIGEO_MINI H0000XXX0000000
+  retrieval_mode: integration
+  token: efciwPQSZFcs9aTm
+  updated_at: 2016-09-09 09:25:45.237167000 Z
+  vendor_euid: helileo

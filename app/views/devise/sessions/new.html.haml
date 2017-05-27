@@ -3,6 +3,7 @@
   = link_to("#", data: {toggle_visibility: "#config"}, class: "config", alt: :configure.tl) do
     %i
 
+- demo_mode = Preference.value(:demo, false, :boolean)
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
 
   #config
@@ -16,11 +17,11 @@
 
   .field
     = f.label :email
-    = f.email_field :email
+    = f.email_field :email, demo_mode ? { value: Preference.value(:demo_user) } : {}
 
   .field
     = f.label :password
-    = f.password_field :password
+    = f.password_field :password, demo_mode ? { value: Preference.value(:demo_password) } : {}
 
   - if devise_mapping.rememberable?
     .field.field-remember-me
@@ -29,4 +30,14 @@
 
   .field= f.submit t('.sign_in', default: "Sign in")
 
-= render "devise/shared/links"
+  = render "devise/shared/links"
+
+  - if Devise.omniauth_providers.include? :ekylibre
+    .separator= :or.tl
+
+    .field= link_to t('.sign_in_with_ekylibre', :default => 'Sign in with Ekylibre.com'), user_ekylibre_omniauth_authorize_path, class: 'btn btn-primary btn-lg btn-block'
+
+  - if demo_mode && !flash[:alert]
+    #autologin
+      :javascript
+        $(document).ready(function(){ window.setTimeout(function(){ $('#autologin').closest('form').submit(); }, 300); });

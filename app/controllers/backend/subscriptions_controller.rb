@@ -53,7 +53,7 @@ module Backend
       t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
       t.action :suspend, method: :post, if: :suspendable?
       t.action :takeover, method: :post, if: :suspended
-      t.action :destroy
+      t.action :destroy, if: :destroyable_by_user?
       t.column :number, url: true
       t.column :subscriber, url: true
       t.column :coordinate, through: :address, url: true
@@ -76,8 +76,7 @@ module Backend
         redirect_to params[:redirect] || { action: :show, id: @subscription.id }
         return
       end
-      sale = @subscription.renew!
-      redirect_to(controller: :sales, action: :edit, id: sale.id)
+      redirect_to(@subscription.renew_attributes.merge(controller: :sales, action: :new))
     end
 
     def suspend

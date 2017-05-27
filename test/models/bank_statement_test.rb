@@ -1,3 +1,5 @@
+# coding: utf-8
+
 # = Informations
 #
 # == License
@@ -5,7 +7,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +24,7 @@
 #
 # == Table: bank_statements
 #
+#  accounted_at           :datetime
 #  cash_id                :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,6 +35,7 @@
 #  id                     :integer          not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  journal_entry_id       :integer
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null
@@ -174,6 +178,278 @@ class BankStatementTest < ActiveSupport::TestCase
     assert pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
     assert unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
     assert unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
+  end
+
+  test 'suspense process' do
+    now = Time.new(2016, 11, 17, 19)
+    currency = FinancialYear.at(now).currency
+
+    main = Account.find_or_create_by_number('512INR001')
+    assert main
+    suspense = Account.find_or_create_by_number('511INR001')
+    assert suspense
+
+    client = Entity.normal.order(:id).where(client: true).first
+
+    cash = Cash.create!(
+      name: 'Namaste Bank',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspend_until_reconciliation: true,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by!(nature: :bank, currency: currency, name: 'Namaste', code: 'Nam')
+    )
+    assert_equal 0, cash.main_account.totals[:balance]
+
+    mode = IncomingPaymentMode.create!(
+      name: 'Check on Namaste',
+      cash: cash,
+      with_accounting: true
+    )
+
+    payment = IncomingPayment.create!(
+      to_bank_at: now - 1.hour,
+      paid_at: now - 5.days,
+      received: true,
+      payer: client,
+      amount: 248_600,
+      mode: mode
+    )
+    cash.reload
+    assert_equal 0, cash.main_account.totals[:balance]
+    assert_equal 1, cash.journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+    Rails.logger.info ('%' * 80).yellow + cash.account.inspect.red + BankStatement.pluck(:journal_entry_id).inspect.green
+    assert_equal 1, cash.unpointed_journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+
+    journal_entry = payment.journal_entry
+    assert journal_entry.present?, payment.inspect
+    assert_equal Date.civil(2016, 11, 17), journal_entry.printed_on
+    assert_equal 1, journal_entry.items.where(account: suspense).count, journal_entry.inspect
+    assert_equal 248_600, journal_entry.items.where(account: suspense).sum(:real_debit)
+
+    bank_statement = BankStatement.create!(
+      cash: cash,
+      number: 'NB201611',
+      started_on: '2016-11-01',
+      stopped_on: '2016-11-30',
+      items_attributes: [
+        {
+          transfered_on: '2016-11-25',
+          name: 'Check #856124',
+          credit: 248_600
+        },
+        {
+          transfered_on: '2016-11-15',
+          name: 'Bla bla bla',
+          debit: 17_500.50
+        }
+      ]
+    )
+    assert bank_statement.valid?
+    assert bank_statement.journal_entry.present?
+
+    cash.reload
+
+    Rails.logger.info ('#' * 80).red
+    assert_equal 1, cash.unpointed_journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+    assert_equal 1, bank_statement.eligible_journal_entry_items.count
+    item = cash.unpointed_journal_entry_items.first
+    assert_equal journal_entry, item.entry
+
+    assert_equal bank_statement.balance_credit, cash.main_account.totals[:balance_debit]
+  end
+
+  test 'ensure sign of amount is different in Incoming and Outgoing payments' do
+    assert_equal 0, IncomingPayment.sign_of_amount + OutgoingPayment.sign_of_amount
+  end
+
+  test 'delete bank statement delete journal entry' do
+    now = Time.new(2016, 11, 17, 19)
+    currency = FinancialYear.at(now).currency
+    main = Account.find_or_create_by_number('512INR001')
+    suspense = Account.find_or_create_by_number('511INR001')
+    client = Entity.normal.order(:id).where(client: true).first
+
+    cash = Cash.create!(
+      name: 'Namaste Bank',
+      nature: :bank_account,
+      currency: currency,
+      main_account: main,
+      suspend_until_reconciliation: true,
+      suspense_account: suspense,
+      journal: Journal.find_or_create_by!(nature: :bank, currency: currency, name: 'Namaste', code: 'Nam')
+    )
+    assert_equal 0, cash.main_account.totals[:balance]
+
+    mode = IncomingPaymentMode.create!(
+      name: 'Check on Namaste',
+      cash: cash,
+      with_accounting: true
+    )
+
+    payment = IncomingPayment.create!(
+      to_bank_at: now - 1.hour,
+      paid_at: now - 5.days,
+      received: true,
+      payer: client,
+      amount: 248_600,
+      mode: mode
+    )
+    cash.reload
+    assert_equal 0, cash.main_account.totals[:balance]
+    assert_equal 1, cash.journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+    Rails.logger.info ('%' * 80).yellow + cash.account.inspect.red + BankStatement.pluck(:journal_entry_id).inspect.green
+    assert_equal 1, cash.unpointed_journal_entry_items.count, cash.journal_entry_items.map(&:attributes).to_yaml.yellow
+
+    journal_entry = payment.journal_entry
+    assert journal_entry.present?, payment.inspect
+    assert_equal Date.civil(2016, 11, 17), journal_entry.printed_on
+    assert_equal 1, journal_entry.items.where(account: suspense).count, journal_entry.inspect
+    assert_equal 248_600, journal_entry.items.where(account: suspense).sum(:real_debit)
+
+    bank_statement = BankStatement.create!(
+      cash: cash,
+      number: 'NB201611',
+      started_on: '2016-11-01',
+      stopped_on: '2016-11-30',
+      items_attributes: [
+        {
+          transfered_on: '2016-11-25',
+          name: 'Check #856124',
+          credit: 248_600
+        },
+        {
+          transfered_on: '2016-11-15',
+          name: 'Bla bla bla',
+          debit: 17_500.50
+        }
+      ]
+    )
+    assert bank_statement.valid?
+    assert bank_statement.journal_entry.present?
+
+    journal_entry = bank_statement.journal_entry
+
+    journal_entries_count = journal_entry.journal.entries.count
+    bank_statement.destroy
+    new_journal_entries_count = journal_entry.journal.entries.count
+
+    assert_equal journal_entries_count + 1, new_journal_entries_count
+  end
+
+  [IncomingPayment, OutgoingPayment].each do |payment|
+    test "#{payment} can be lettered with bank_statement_items" do
+      @payment_class = payment
+      setup_data
+      assert_lettered_by @payment.letter_with(@tanks), with_letters: %w[A]
+    end
+
+    test "#{payment} cannot be lettered when amounts don't match" do
+      @payment_class = payment
+      setup_data(amount_mismatch: true)
+      assert_not_lettered_by @payment.letter_with(@tanks)
+    end
+
+    test "#{payment} cannot be lettered when the payment doesn't have any journal entry" do
+      @payment_class = payment
+      setup_data(no_journal_entry: true)
+      assert_not_lettered_by @payment.letter_with(@tanks)
+    end
+
+    test "#{payment} cannot be lettered when there's the cashes don't match" do
+      @payment_class = payment
+      setup_data(cash_mismatch: true)
+      assert_not_lettered_by @payment.letter_with(@tanks)
+    end
+
+    test "#{payment} cannot be lettered without any bank statement items" do
+      @payment_class = payment
+      setup_data
+      assert_not_lettered_by @payment.letter_with([])
+    end
+  end
+
+  def assert_lettered_by(operation, with_letters: ['A'])
+    assert operation
+    assert_equal with_letters,
+                 @payment.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
+    assert_equal with_letters,
+                 @tanks.each(&:reload).map(&:letter).uniq
+  end
+
+  def assert_not_lettered_by(operation)
+    refute operation
+    if @payment.journal_entry
+      assert_empty @payment.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
+    end
+    assert_empty @tanks.map(&:letter).uniq.compact
+  end
+
+  def wipe_db
+    Journal.delete_all
+    Account.delete_all
+    Cash.delete_all
+    BankStatement.delete_all
+    BankStatementItem.delete_all
+    Entity.delete_all
+    IncomingPayment.delete_all
+    IncomingPaymentMode.delete_all
+    OutgoingPayment.delete_all
+    OutgoingPaymentMode.delete_all
+  end
+
+  def setup_data(**options)
+    wipe_db
+
+    ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
+    journal     = Journal.create!
+    fuel_act    = Account.create!(name: 'Fuel', number: '002')
+    caps_act    = Account.create!(name: 'Caps', number: '001')
+
+    @warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
+    @caps_stash  = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
+
+    setup_items(options[:amount_mismatch] ? 1336 : 1337)
+    setup_payment(options[:cash_mismatch])
+  end
+
+  def setup_items(amount)
+    amount_attr = (@payment_class == IncomingPayment ? :credit : :debit)
+
+    now = Time.zone.now
+    fuel_level = BankStatement.create!(
+      currency: 'EUR',
+      number: 'Fuel level check',
+      started_on: now - 10.days,
+      stopped_on: now,
+      cash: @warrig_tank
+    )
+
+    @tanks =  []
+    @tanks << BankStatementItem.create!(
+      name: 'Main tank',
+      bank_statement: fuel_level,
+      transfered_on: now - 5.days,
+      amount_attr => 42
+    )
+
+    @tanks << BankStatementItem.create!(
+      name: 'Backup tank',
+      bank_statement: fuel_level,
+      transfered_on: now - 5.days,
+      amount_attr => amount
+    )
+  end
+
+  def setup_payment(cash_match)
+    cash = cash_match ? @caps_stash : @warrig_tank
+
+    Account.create!(name: 'Citadel', number: '6')
+
+    diesel      = "#{@payment_class}Mode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
+    max         = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    @payment    = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
   end
 
   def inspect_errors(object)

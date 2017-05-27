@@ -1,0 +1,20 @@
+- item ||= f.object
+- trade_type = item.class.name.underscore.split('_').first.downcase
+- scope      = :"#{trade_type}ables"
+- nature     = :"#{trade_type}_nature_id"
+- reflection = trade_type.to_sym
+- mode       = :"last_#{trade_type}_item"
+
+%tbody.nested-fields{ data: { trade_item: trade_type } }
+  %tr
+    %td= f.referenced_association :variant, wrapper: :nested, source: {scope: scope}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", nature => f.object.send(reflection).nature_id, mode: mode)}}}
+    - if item.respond_to? :compute_from
+      = f.input_field :compute_from, as: :hidden, data: { compute_from_updater: true }
+    %td.decimal= f.input :quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}}
+    %td.decimal= f.input :unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}}
+    %td= f.select :tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"}
+    %td.decimal= f.input :reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}}
+    %td.amount.decimal= f.input :amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}}
+    %td.currency= item.send(reflection).currency || item.send(reflection).nature.currency
+    %td
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

@@ -16,6 +16,10 @@ spa:
         instruction_2: "Si usted no ha solicitado este, por favor, ignora este mensaje."
         instruction_3: "Su contraseña no cambiará hasta que acceda al enlace anterior y crear una nueva."
         subject: "Restablecer las instrucciones de contraseña"
+      signed_up:
+        confirm: "Por favor, confirme que en el panel de administración."
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "Nueva inscripción"
       unlock_instructions:
         action: "Desbloquear mi cuenta"
         # greeting: "Hello %{recipient}!"
@@ -45,6 +49,7 @@ spa:
     sessions:
       new:
         sign_in: "Registrarse"
+        sign_in_with_ekylibre: "Entra con Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "¿No ha recibido instrucciones para confirmar?"

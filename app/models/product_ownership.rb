@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,7 +41,7 @@ class ProductOwnership < Ekylibre::Record::Base
   include Taskable, TimeLineable
   belongs_to :owner, class_name: 'Entity'
   belongs_to :product
-  enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
+  enumerize :nature, in: %i[unknown own other], default: :unknown, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, :product, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true

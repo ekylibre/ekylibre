@@ -16,6 +16,10 @@ ita:
         instruction_2: "Se non hai richiesto questo, ignora questa email."
         instruction_3: "La password non cambierà fino a quando si accede al link qui sopra e crearne uno nuovo."
         subject: "Ripristinare le istruzioni di password"
+      signed_up:
+        confirm: "Si prega di confermare nel pannello di amministrazione."
+        # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+        subject: "Nuova iscrizione"
       unlock_instructions:
         action: "Sbloccare il mio conto"
         # greeting: "Hello %{recipient}!"
@@ -45,6 +49,7 @@ ita:
     sessions:
       new:
         sign_in: "registrati"
+        sign_in_with_ekylibre: "Accedi con Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Non ha ricevuto istruzioni di conferma?"

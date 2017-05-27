@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update nomenclature for animal housing disinfection procedure">
+  <item-creation item="product_natures#disinfectant_product" category="other_consumable" variety="preparation" population_counting="decimal" abilities="clean(building_division), kill(bacteria)" frozen_indicators="net_mass, net_volume"/>
+  <item-creation item="product_nature_variants#disinfectant_product" nature="disinfectant_product" variety="preparation" frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter" unit_name="liter"/>
+</migration>

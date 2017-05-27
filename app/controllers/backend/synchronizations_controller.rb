@@ -18,8 +18,7 @@
 
 module Backend
   class SynchronizationsController < Backend::BaseController
-    def index
-    end
+    def index; end
 
     def run
       cooperative_cartodb if params[:id] == 'cooperative_cartodb'
@@ -31,8 +30,8 @@ module Backend
     # for testing data upload for unicoque traceability in cartodb account
     # Activity :orchard_crops
     def cooperative_cartodb
-      if (account = Identifier.find_by_nature(:cooperative_cartodb_account)) &&
-         (key = Identifier.find_by_nature(:cooperative_cartodb_key))
+      if (account = Identifier.find_by(nature: :cooperative_cartodb_account)) &&
+         (key = Identifier.find_by(nature: :cooperative_cartodb_key))
         @cooperative_config = { account: account.value, key: key.value }
         @cooperative_config[:member] = Entity.of_company.name.downcase
         conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])

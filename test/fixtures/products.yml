@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,48 +22,65 @@
 #
 # == Table: products
 #
-#  address_id            :integer
-#  born_at               :datetime
-#  category_id           :integer          not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  custom_fields         :jsonb
-#  dead_at               :datetime
-#  default_storage_id    :integer
-#  derivative_of         :string
-#  description           :text
-#  fixed_asset_id        :integer
-#  id                    :integer          not null, primary key
-#  identification_number :string
-#  initial_born_at       :datetime
-#  initial_container_id  :integer
-#  initial_dead_at       :datetime
-#  initial_enjoyer_id    :integer
-#  initial_father_id     :integer
-#  initial_geolocation   :geometry({:srid=>4326, :type=>"point"})
-#  initial_mother_id     :integer
-#  initial_movement_id   :integer
-#  initial_owner_id      :integer
-#  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  lock_version          :integer          default(0), not null
-#  name                  :string           not null
-#  nature_id             :integer          not null
-#  number                :string           not null
-#  parent_id             :integer
-#  person_id             :integer
-#  picture_content_type  :string
-#  picture_file_name     :string
-#  picture_file_size     :integer
-#  picture_updated_at    :datetime
-#  tracking_id           :integer
-#  type                  :string
-#  updated_at            :datetime         not null
-#  updater_id            :integer
-#  uuid                  :uuid
-#  variant_id            :integer          not null
-#  variety               :string           not null
-#  work_number           :string
+#  address_id                   :integer
+#  birth_date_completeness      :string
+#  birth_farm_number            :string
+#  born_at                      :datetime
+#  category_id                  :integer          not null
+#  country                      :string
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  custom_fields                :jsonb
+#  dead_at                      :datetime
+#  default_storage_id           :integer
+#  derivative_of                :string
+#  description                  :text
+#  end_of_life_reason           :string
+#  father_country               :string
+#  father_identification_number :string
+#  father_variety               :string
+#  filiation_status             :string
+#  first_calving_on             :datetime
+#  fixed_asset_id               :integer
+#  id                           :integer          not null, primary key
+#  identification_number        :string
+#  initial_born_at              :datetime
+#  initial_container_id         :integer
+#  initial_dead_at              :datetime
+#  initial_enjoyer_id           :integer
+#  initial_father_id            :integer
+#  initial_geolocation          :geometry({:srid=>4326, :type=>"st_point"})
+#  initial_mother_id            :integer
+#  initial_movement_id          :integer
+#  initial_owner_id             :integer
+#  initial_population           :decimal(19, 4)   default(0.0)
+#  initial_shape                :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  lock_version                 :integer          default(0), not null
+#  member_variant_id            :integer
+#  mother_country               :string
+#  mother_identification_number :string
+#  mother_variety               :string
+#  name                         :string           not null
+#  nature_id                    :integer          not null
+#  number                       :string           not null
+#  origin_country               :string
+#  origin_identification_number :string
+#  originator_id                :integer
+#  parent_id                    :integer
+#  person_id                    :integer
+#  picture_content_type         :string
+#  picture_file_name            :string
+#  picture_file_size            :integer
+#  picture_updated_at           :datetime
+#  team_id                      :integer
+#  tracking_id                  :integer
+#  type                         :string
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  uuid                         :uuid
+#  variant_id                   :integer          not null
+#  variety                      :string           not null
+#  work_number                  :string
 #
 ---
 animals_001:
@@ -667,7 +684,7 @@ equipments_013:
   variant_id: 50
   variety: tank
 equipments_014:
-  born_at: 2014-11-07 17:23:41.409332000 Z
+  born_at: 2012-11-07 17:23:41.409332000 Z
   category_id: 14
   created_at: 2014-11-07 17:23:41.373971000 Z
   creator_id: 1
@@ -707,7 +724,7 @@ equipments_015:
   variant_id: 67
   variety: trailed_equipment
 equipments_016:
-  born_at: 2014-11-07 19:36:30.009048000 Z
+  born_at: 2012-11-07 19:36:30.009048000 Z
   category_id: 14
   created_at: 2014-11-07 19:36:29.977043000 Z
   creator_id: 1
@@ -726,6 +743,22 @@ equipments_016:
   uuid: 311cab80-50a0-4f16-b5b1-a225c7fd3220
   variant_id: 66
   variety: trailed_equipment
+equipment_fleets_001:
+  category_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 71
+  initial_population: 0.0
+  lock_version: 0
+  name: Armada de l'Empire
+  nature_id: 1
+  number: '413'
+  type: EquipmentFleet
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  uuid: 52a52ad6-8e44-4c8f-bea0-349d979a8269
+  variant_id: 1
+  variety: equipment_fleet
 fungi_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -765,11 +798,11 @@ land_parcels_001:
   category_id: 15
   created_at: 2014-11-04 17:12:23.238580000 Z
   creator_id: 1
-  dead_at: 2013-08-31 00:00:00.000000000 Z
+  dead_at: 2016-08-31 00:00:00.000000000 Z
   description: ''
   id: 80
   initial_born_at: 1974-05-11 23:00:00.000000000 Z
-  initial_dead_at: 2013-08-31 00:00:00.000000000 Z
+  initial_dead_at: 2016-08-31 00:00:00.000000000 Z
   initial_movement_id: 26
   initial_population: 0.0
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
@@ -902,11 +935,11 @@ land_parcels_006:
   category_id: 15
   created_at: 2014-11-07 16:26:53.115665000 Z
   creator_id: 1
-  dead_at: 2014-08-31 00:00:00.000000000 Z
+  dead_at: 2016-08-31 00:00:00.000000000 Z
   description: ''
   id: 106
   initial_born_at: 1971-06-17 23:00:00.000000000 Z
-  initial_dead_at: 2014-08-31 00:00:00.000000000 Z
+  initial_dead_at: 2016-08-31 00:00:00.000000000 Z
   initial_movement_id: 53
   initial_population: 0.0
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
@@ -1022,7 +1055,7 @@ land_parcels_009:
     45.8224860308865,-0.792677952392898 45.8220886145692,-0.792718162762933 45.8220467646111,-0.792660125760958
     45.821890386501,-0.792454727108962 45.8215321667496,-0.79228204935118 45.8217001703347)))
   lock_version: 0
-  name: 'ZC-017005218-3-1 #1'
+  name: ZC-017005218-3-1 Maïs (zea_mays) 2015 n°1
   nature_id: 59
   number: PR00000000091
   type: LandParcel
@@ -1046,7 +1079,7 @@ land_parcels_010:
     45.8212195696032,-0.792173752206736 45.8212025676846,-0.791803126997377 45.8205256692196,-0.791587200522699
     45.8202132941208,-0.791397316324069 45.8204004370199)))
   lock_version: 0
-  name: 'ZC-017005218-4-1 #2'
+  name: ZC-017005218-4-1 Maïs (zea_mays) 2015 n°2
   nature_id: 59
   number: PR00000000092
   type: LandParcel
@@ -1655,7 +1688,7 @@ land_parcels_033:
     45.8109659677897,-0.834452308254665 45.8106562420056,-0.833326474331472 45.810398202432,-0.832076922014566
     45.8101939142688,-0.831764859873219 45.8104393898025)))
   lock_version: 0
-  name: 'ZC-017005218-24-1 #3'
+  name: ZC-017005218-24-1 Maïs (zea_mays) 2015 n°3
   nature_id: 59
   number: PR00000000115
   type: LandParcel
@@ -1722,7 +1755,7 @@ land_parcels_035:
     45.8172029918801,-0.829784650250927 45.8172522507178,-0.829941329591869 45.8173287405223,-0.8300624498879
     45.8174163108851,-0.830250397481167 45.8175561557014)))
   lock_version: 0
-  name: 'ZC-017005218-26-1 #4'
+  name: ZC-017005218-26-1 Maïs (zea_mays) 2015 n°4
   nature_id: 59
   number: PR00000000117
   type: LandParcel
@@ -1897,7 +1930,7 @@ matters_006:
   variant_id: 1
   variety: matter
 matters_007:
-  born_at: 2014-10-31 20:23:37.051610000 Z
+  born_at: 2012-10-16 20:23:37.051610000 Z
   category_id: 5
   created_at: 2014-10-31 20:23:37.029761000 Z
   creator_id: 1
@@ -1986,7 +2019,7 @@ matters_010:
   variant_id: 11
   variety: seed
 matters_011:
-  born_at: 2014-11-01 20:19:35.422952000 Z
+  born_at: 2012-11-01 20:19:35.422952000 Z
   category_id: 3
   created_at: 2014-11-01 20:19:35.354902000 Z
   creator_id: 1
@@ -2155,7 +2188,7 @@ matters_018:
   variant_id: 20
   variety: preparation
 matters_019:
-  born_at: 2014-11-07 15:25:51.233605000 Z
+  born_at: 2012-11-07 15:25:51.233605000 Z
   category_id: 17
   created_at: 2014-11-07 15:25:51.192693000 Z
   creator_id: 1
@@ -2216,7 +2249,7 @@ matters_021:
   variant_id: 41
   variety: seed
 matters_022:
-  born_at: 2014-11-07 15:44:20.618455000 Z
+  born_at: 2006-11-07 15:44:20.618455000 Z
   category_id: 5
   created_at: 2014-11-07 15:44:20.589234000 Z
   creator_id: 1
@@ -2263,7 +2296,7 @@ matters_024:
   category_id: 18
   created_at: 2014-11-07 15:50:04.415002000 Z
   creator_id: 1
-  dead_at: 2014-08-01 00:20:00.000000000 Z
+  dead_at: 2014-08-31 12:20:00.000000000 Z
   default_storage_id: 80
   derivative_of: poa
   id: 105
@@ -2282,7 +2315,7 @@ matters_024:
   variant_id: 43
   variety: grass
 matters_025:
-  born_at: 2014-11-07 16:47:34.875169000 Z
+  born_at: 2007-11-07 16:47:34.875169000 Z
   category_id: 19
   created_at: 2014-11-07 16:47:34.638130000 Z
   creator_id: 1
@@ -2463,7 +2496,7 @@ matters_033:
   category_id: 20
   created_at: 2014-11-07 19:02:56.215117000 Z
   creator_id: 1
-  dead_at: 2013-10-05 13:36:00.000000000 Z
+  dead_at: 2013-10-05 13:52:00.000000000 Z
   default_storage_id: 106
   derivative_of: grape
   id: 124
@@ -2542,7 +2575,7 @@ matters_036:
   variant_id: 58
   variety: preparation
 matters_037:
-  born_at: 2014-11-07 19:05:47.065062000 Z
+  born_at: 2012-11-07 19:05:47.065062000 Z
   category_id: 22
   created_at: 2014-11-07 19:05:47.037645000 Z
   creator_id: 1
@@ -2607,7 +2640,7 @@ matters_039:
   variant_id: 49
   variety: wine
 matters_040:
-  born_at: 2014-11-07 19:12:04.970572000 Z
+  born_at: 2012-11-07 19:12:04.970572000 Z
   category_id: 22
   created_at: 2014-11-07 19:12:04.938158000 Z
   creator_id: 1
@@ -2648,7 +2681,7 @@ matters_041:
   variant_id: 60
   variety: saccharose
 matters_042:
-  born_at: 2014-11-07 19:22:38.298382000 Z
+  born_at: 2012-11-07 19:22:38.298382000 Z
   category_id: 22
   created_at: 2014-11-07 19:22:38.077250000 Z
   creator_id: 1
@@ -2928,7 +2961,7 @@ matters_054:
   variant_id: 39
   variety: preparation
 matters_055:
-  born_at: 2016-08-10 14:27:49.798212000 Z
+  born_at: 2016-08-10 13:27:49.798212000 Z
   category_id: 23
   created_at: 2016-08-10 14:27:49.841387000 Z
   creator_id: 1
@@ -3050,6 +3083,29 @@ plants_004:
   uuid: 09251135-3e58-49e6-9d55-70dfa0b3a59b
   variant_id: 44
   variety: vitis_vinifera
+plants_005:
+  born_at: 2016-04-06 17:23:00.000000000 Z
+  category_id: 8
+  created_at: 2016-12-20 18:24:29.477242000 Z
+  creator_id: 1
+  id: 181
+  initial_born_at: 2016-04-06 17:23:00.000000000 Z
+  initial_movement_id: 176
+  initial_population: 1.9553
+  initial_shape: SRID=4326;MULTIPOLYGON(((-0.800639390945435 45.8208891845532,-0.801602303981781
+    45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498 45.8215415459581,-0.801910758018494
+    45.8223359585506,-0.802023410797119 45.8230051255387,-0.800743997097015 45.8229901721743,-0.800639390945435
+    45.8208891845532)))
+  lock_version: 1
+  name: sdfghj,k;l:!
+  nature_id: 15
+  number: PR00000000125
+  type: Plant
+  updated_at: 2016-12-20 18:24:29.729982000 Z
+  updater_id: 1
+  uuid: a9137f7d-85fc-4d0d-964b-741fc11f9734
+  variant_id: 16
+  variety: triticum_aestivum
 products_001:
   born_at: 2009-07-18 22:00:00.000000000 Z
   category_id: 1
@@ -3197,12 +3253,14 @@ workers_001:
   number: '21001'
   parent_id: 65
   person_id: 9
+  team_id: 1
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   uuid: 083b01a3-e576-49ee-8ba2-602db54b681e
   variant_id: 1
   variety: worker
+  work_number: AB
 workers_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -3240,7 +3298,7 @@ workers_003:
   variant_id: 1
   variety: worker
 workers_004:
-  born_at: 2014-11-01 20:30:35.605648000 Z
+  born_at: 2006-11-01 20:30:35.605648000 Z
   category_id: 13
   created_at: 2014-11-01 20:30:35.477602000 Z
   creator_id: 1
@@ -3254,6 +3312,7 @@ workers_004:
   nature_id: 20
   number: EIZLEIKBWARLXP00000000015
   person_id: 9
+  team_id: 1
   type: Worker
   updated_at: 2014-11-07 17:08:37.125582000 Z
   updater_id: 1

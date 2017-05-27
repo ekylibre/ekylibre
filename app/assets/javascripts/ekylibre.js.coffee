@@ -11,4 +11,31 @@
       console.log "AJAX failure (#{status}): #{error}"
     return true
 
+  # This util method is used to simulate both
+  # event.preventDefault() and event.stopPropagation().
+  # It is used for compatibility issues as IE8 and below do
+  # not handle event.preventDefault() or event.stopPropagation().
+  E.stopEvent = (event) ->
+    if !event
+      event = window.event
+
+    if !event
+      return;
+
+    if event.stopped == 'undefined'
+
+      event.cancelBubble = true
+      event.returnValue = false
+
+      if event.stopPropagation
+        event.stopPropagation()
+
+      if event.stopImmediatePropagation
+        event.stopImmediatePropagation()
+
+      if event.preventDefault
+        event.preventDefault()
+
+
+
 ) ekylibre, jQuery

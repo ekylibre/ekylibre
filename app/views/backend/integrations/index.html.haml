@@ -1,0 +1,7 @@
+.introduction-message
+  = :integrate_tools_you_are_using_every_day.tn
+.integrations-container
+  - unless ActionIntegration.config.cipher_key.blank?
+    - @integration_types.each do |type|
+      = render 'integration', type: type, exists: Integration.find_by_nature(type.integration_name.underscore)
+= render 'net_services_deprecation'

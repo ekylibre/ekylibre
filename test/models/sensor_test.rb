@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,23 +22,27 @@
 #
 # == Table: sensors
 #
-#  access_parameters :json
-#  active            :boolean          default(TRUE), not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  embedded          :boolean          default(FALSE), not null
-#  host_id           :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  model_euid        :string
-#  name              :string           not null
-#  product_id        :integer
-#  retrieval_mode    :string           not null
-#  token             :string
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  vendor_euid       :string
+#  access_parameters    :json
+#  active               :boolean          default(TRUE), not null
+#  battery_level        :decimal(19, 4)
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  custom_fields        :jsonb
+#  embedded             :boolean          default(FALSE), not null
+#  euid                 :string
+#  host_id              :integer
+#  id                   :integer          not null, primary key
+#  last_transmission_at :datetime
+#  lock_version         :integer          default(0), not null
+#  model_euid           :string
+#  name                 :string           not null
+#  partner_url          :string
+#  product_id           :integer
+#  retrieval_mode       :string           not null
+#  token                :string
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  vendor_euid          :string
 #
 require 'test_helper'
 

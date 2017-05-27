@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,11 +25,13 @@
 #  analysis_id                   :integer
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
+#  currency                      :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
+#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
 #  product_enjoyment_id          :integer
 #  product_id                    :integer
 #  product_identification_number :string
@@ -42,6 +44,8 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #  variant_id                    :integer
@@ -55,8 +59,11 @@ parcel_items_001:
   parcel_id: 3
   parted: false
   population: 20.0
+  pretax_amount: 0.0
   product_id: 55
   source_product_id: 55
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:15:20.018501000 Z
   updater_id: 1
   variant_id: 9
@@ -68,8 +75,11 @@ parcel_items_002:
   parcel_id: 3
   parted: false
   population: 5.095
+  pretax_amount: 0.0
   product_id: 53
   source_product_id: 53
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:15:20.026550000 Z
   updater_id: 1
   variant_id: 10
@@ -81,8 +91,11 @@ parcel_items_003:
   parcel_id: 4
   parted: false
   population: 0.0
+  pretax_amount: 0.0
   product_id: 11
   source_product_id: 11
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:16:19.775348000 Z
   updater_id: 1
   variant_id: 3
@@ -94,8 +107,11 @@ parcel_items_004:
   parcel_id: 5
   parted: false
   population: 0.0
+  pretax_amount: 0.0
   product_id: 56
   source_product_id: 56
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:16:48.644715000 Z
   updater_id: 1
   variant_id: 11
@@ -107,11 +123,14 @@ parcel_items_005:
   parcel_id: 6
   parted: false
   population: 0.0
+  pretax_amount: 0.0
   product_id: 76
   source_product_id: 76
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 14:13:05.516637000 Z
   updater_id: 1
-  variant_id: 1
+  variant_id: 4
 parcel_items_006:
   created_at: 2014-10-31 20:23:37.079652000 Z
   creator_id: 1
@@ -120,8 +139,11 @@ parcel_items_006:
   parcel_id: 4
   parted: false
   population: 7.0
+  pretax_amount: 0.0
   product_id: 53
   source_product_id: 53
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-10-31 20:23:37.079652000 Z
   updater_id: 1
   variant_id: 10
@@ -133,8 +155,11 @@ parcel_items_007:
   parcel_id: 5
   parted: false
   population: 20.0
+  pretax_amount: 0.0
   product_id: 54
   source_product_id: 54
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:00:08.291496000 Z
   updater_id: 1
   variant_id: 11
@@ -146,8 +171,11 @@ parcel_items_008:
   parcel_id: 5
   parted: false
   population: 20.0
+  pretax_amount: 0.0
   product_id: 55
   source_product_id: 55
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:00:08.381565000 Z
   updater_id: 1
   variant_id: 9
@@ -159,8 +187,11 @@ parcel_items_009:
   parcel_id: 2
   parted: false
   population: 0.0
+  pretax_amount: 0.0
   product_id: 56
   source_product_id: 56
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:01:24.225780000 Z
   updater_id: 1
   variant_id: 11
@@ -172,8 +203,13 @@ parcel_items_010:
   parcel_id: 6
   parted: false
   population: 1.0
+  pretax_amount: 0.0
   product_id: 5
+  product_identification_number: P00000000004
+  product_name: Bonnemine
   source_product_id: 5
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:29:58.321983000 Z
   updater_id: 1
   variant_id: 17
@@ -185,8 +221,13 @@ parcel_items_011:
   parcel_id: 7
   parted: false
   population: 1.0
+  pretax_amount: 0.0
   product_id: 6
+  product_identification_number: P00000000005
+  product_name: Isabelle
   source_product_id: 6
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:35:50.426074000 Z
   updater_id: 1
   variant_id: 17
@@ -198,8 +239,11 @@ parcel_items_012:
   parcel_id: 8
   parted: false
   population: 10.0
+  pretax_amount: 0.0
   product_id: 57
   source_product_id: 57
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:19:35.464060000 Z
   updater_id: 1
   variant_id: 20
@@ -211,8 +255,11 @@ parcel_items_013:
   parcel_id: 8
   parted: false
   population: 10.0
+  pretax_amount: 0.0
   product_id: 58
   source_product_id: 58
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:23:55.229924000 Z
   updater_id: 1
   variant_id: 22
@@ -224,8 +271,11 @@ parcel_items_014:
   parcel_id: 8
   parted: false
   population: 10.0
+  pretax_amount: 0.0
   product_id: 59
   source_product_id: 59
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:23:55.300646000 Z
   updater_id: 1
   variant_id: 21
@@ -237,8 +287,11 @@ parcel_items_015:
   parcel_id: 9
   parted: false
   population: 10.0
+  pretax_amount: 0.0
   product_id: 98
   source_product_id: 98
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:25:51.274872000 Z
   updater_id: 1
   variant_id: 39
@@ -250,8 +303,11 @@ parcel_items_016:
   parcel_id: 10
   parted: false
   population: 20.0
+  pretax_amount: 0.0
   product_id: 100
   source_product_id: 100
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:44:20.571953000 Z
   updater_id: 1
   variant_id: 41
@@ -263,8 +319,11 @@ parcel_items_017:
   parcel_id: 10
   parted: false
   population: 200.0
+  pretax_amount: 0.0
   product_id: 101
   source_product_id: 101
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:44:20.650859000 Z
   updater_id: 1
   variant_id: 42
@@ -276,8 +335,11 @@ parcel_items_018:
   parcel_id: 11
   parted: false
   population: 0.0
+  pretax_amount: 0.0
   product_id: 107
   source_product_id: 107
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:52:05.873379000 Z
   updater_id: 1
   variant_id: 45
@@ -289,8 +351,11 @@ parcel_items_019:
   parcel_id: 12
   parted: false
   population: 2.0
+  pretax_amount: 0.0
   product_id: 126
   source_product_id: 126
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:46.951450000 Z
   updater_id: 1
   variant_id: 57
@@ -302,8 +367,11 @@ parcel_items_020:
   parcel_id: 12
   parted: false
   population: 4.0
+  pretax_amount: 0.0
   product_id: 127
   source_product_id: 127
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:47.023821000 Z
   updater_id: 1
   variant_id: 58
@@ -315,8 +383,11 @@ parcel_items_021:
   parcel_id: 12
   parted: false
   population: 30.0
+  pretax_amount: 0.0
   product_id: 128
   source_product_id: 128
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:47.096608000 Z
   updater_id: 1
   variant_id: 59
@@ -328,8 +399,11 @@ parcel_items_022:
   parcel_id: 13
   parted: false
   population: 10.0
+  pretax_amount: 0.0
   product_id: 131
   source_product_id: 131
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:05.114337000 Z
   updater_id: 1
   variant_id: 60
@@ -341,8 +415,11 @@ parcel_items_023:
   parcel_id: 14
   parted: false
   population: 10.0
+  pretax_amount: 0.0
   product_id: 133
   source_product_id: 133
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:22:38.384189000 Z
   updater_id: 1
   variant_id: 62
@@ -354,8 +431,11 @@ parcel_items_024:
   parcel_id: 15
   parted: false
   population: 10000.0
+  pretax_amount: 0.0
   product_id: 135
   source_product_id: 135
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:34:09.524844000 Z
   updater_id: 1
   variant_id: 63
@@ -367,8 +447,11 @@ parcel_items_025:
   parcel_id: 15
   parted: false
   population: 10000.0
+  pretax_amount: 0.0
   product_id: 136
   source_product_id: 136
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:34:09.592706000 Z
   updater_id: 1
   variant_id: 64
@@ -380,8 +463,11 @@ parcel_items_026:
   parcel_id: 20
   parted: false
   population: 8480.0
+  pretax_amount: 0.0
   product_id: 136
   source_product_id: 136
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:24:45.023730000 Z
   updater_id: 1
   variant_id: 64
@@ -393,6 +479,7 @@ parcel_items_027:
   parcel_id: 21
   parted: true
   population: 250.0
+  pretax_amount: 0.0
   product_enjoyment_id: 90
   product_id: 144
   product_localization_id: 182
@@ -401,6 +488,8 @@ parcel_items_027:
   sale_item_id: 19
   source_product_id: 144
   source_product_movement_id: 100
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:40:58.274949000 Z
   updater_id: 1
   variant_id: 19
@@ -412,12 +501,15 @@ parcel_items_028:
   parcel_id: 22
   parted: false
   population: 25.0
+  pretax_amount: 0.0
   product_enjoyment_id: 125
   product_id: 177
   product_identification_number: ''
   product_localization_id: 217
   product_name: ''
   product_ownership_id: 125
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 19:23:51.514824000 Z
   updater_id: 1
   variant_id: 8
@@ -429,12 +521,15 @@ parcel_items_029:
   parcel_id: 22
   parted: false
   population: 35.0
+  pretax_amount: 0.0
   product_enjoyment_id: 126
   product_id: 178
   product_identification_number: ''
   product_localization_id: 218
   product_name: ''
   product_ownership_id: 126
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 19:23:51.516467000 Z
   updater_id: 1
   variant_id: 22
@@ -446,11 +541,14 @@ parcel_items_030:
   parcel_id: 23
   parted: false
   population: 25.0
+  pretax_amount: 0.0
   product_enjoyment_id: 127
   product_id: 177
   product_localization_id: 219
   product_ownership_id: 128
   source_product_id: 177
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 20:13:27.353453000 Z
   updater_id: 1
   variant_id: 8
@@ -462,12 +560,15 @@ parcel_items_031:
   parcel_id: 24
   parted: false
   population: 11.0
+  pretax_amount: 0.0
   product_enjoyment_id: 129
   product_id: 179
   product_identification_number: ''
   product_localization_id: 221
   product_name: ''
   product_ownership_id: 130
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 20:23:25.161561000 Z
   updater_id: 1
   variant_id: 39
@@ -479,6 +580,7 @@ parcel_items_032:
   parcel_id: 25
   parted: false
   population: 250.0
+  pretax_amount: 0.0
   product_enjoyment_id: 132
   product_id: 180
   product_identification_number: ''
@@ -486,6 +588,8 @@ parcel_items_032:
   product_movement_id: 174
   product_name: ''
   product_ownership_id: 133
+  unit_pretax_amount: 0.0
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-08-10 14:27:50.035720000 Z
   updater_id: 1
   variant_id: 71

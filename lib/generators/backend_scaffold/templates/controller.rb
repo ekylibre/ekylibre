@@ -23,8 +23,8 @@ module Backend
     unroll
 
     list do |t|
-      t.edit
-      t.destroy
+      t.action :edit
+      t.action :destroy
       t.column :name, url: true
     end
   end

@@ -2,5 +2,10 @@
   = f.input :name
   = f.input :code
   = f.input :currency, input_html: (f.object.new_record? ? {} : { disabled: true })
-  = f.input :nature
+  = f.input :nature, as: :radio_buttons, show: '#{{value}}-nature-options'
+  = f.referenced_association :accountant
+  #various-nature-options
+    = f.input :used_for_gaps
+    = f.input :used_for_permanent_stock_inventory
+    = f.input :used_for_unbilled_payables
   = f.custom_fields

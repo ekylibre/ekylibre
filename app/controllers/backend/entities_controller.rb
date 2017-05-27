@@ -18,12 +18,19 @@
 
 module Backend
   class EntitiesController < Backend::BaseController
-    manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
-                     active: true,
-                     t3e: { nature: 'RECORD.nature.text'.c }
+    manage_restfully(
+      nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
+      language: 'Preference[:language]'.c,
+      country: 'Preference[:country]'.c,
+      active: true,
+      scope: :normal,
+      continue: [:nature],
+      t3e: { nature: 'RECORD.nature.text'.c }
+    )
     manage_restfully_picture
+    respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
-    unroll
+    unroll fill_in: :full_name, scope: :normal
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
@@ -31,7 +38,10 @@ module Backend
     #   :q Text search
     def self.entities_conditions
       code = ''
-      code = search_conditions(entities: [:number, :full_name]) + " ||= []\n"
+      code = search_conditions(entities: %i[number full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+
+      code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
+
       code << "unless params[:state].blank?\n"
       code << "  if params[:state].include?('client')\n"
       code << "    c[0] << ' AND #{Entity.table_name}.client IS TRUE'\n"
@@ -43,10 +53,45 @@ module Backend
       code << "    c[0] << ' AND #{Entity.table_name}.active IS TRUE'\n"
       code << "  end\n"
       code << "end\n"
+
       code << "unless params[:nature].blank?\n"
       code << "  if Entity.nature.values.include?(params[:nature].to_sym)\n"
       code << "    c[0] << ' AND #{Entity.table_name}.nature = ?'\n"
       code << "    c << params[:nature]\n"
+      code << "  end\n"
+      code << "end\n"
+
+      code << "unless params[:mail_line_6].blank?\n"
+      code << "  c[0] << ' AND #{Entity.table_name}.id IN (SELECT entity_id FROM entity_addresses WHERE mail_line_6 ILIKE E? AND by_default AND deleted_at IS NULL)'\n"
+      code << "  c << '%' + params[:mail_line_6].to_s.strip.gsub(/[\,\s\-]+/, '%') + '%'\n"
+      code << "end\n"
+
+      code << "unless params[:subscription_nature_id].blank? || params[:subscription_test].blank?\n"
+      code << "  if params[:subscription_test] == 'subscribed_on'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND ? BETWEEN started_on AND stopped_on)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:subscribed_on]\n"
+      code << "  elsif params[:subscription_test] == 'expired_within'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND stopped_on BETWEEN CURRENT_DATE AND CURRENT_DATE + ?::INTERVAL) AND #{Entity.table_name}.id NOT IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND stopped_on > CURRENT_DATE + ?::INTERVAL)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:expired_within] + ' days'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:expired_within] + ' days'\n"
+      code << "  elsif params[:subscription_test] == 'expired_since'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE s.nature_id = ? AND s.stopped_on BETWEEN (CURRENT_DATE - ?::INTERVAL) AND CURRENT_DATE)'\n"
+      code << "    c << params[:subscription_nature_id].to_i\n"
+      code << "    c << params[:expired_since] + ' days'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id NOT IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE s.nature_id = ? AND s.stopped_on > CURRENT_DATE)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "  elsif params[:subscription_test] == 'active_finishing_within'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE nature_id = ? AND started_on <= CURRENT_DATE AND stopped_on BETWEEN CURRENT_DATE AND (CURRENT_DATE + ?::INTERVAL) AND (subscriber_id, nature_id) NOT IN (SELECT subscriber_id, nature_id FROM subscriptions WHERE (CURRENT_DATE + ?::INTERVAL) BETWEEN started_on AND stopped_on))'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << (params[:delay].to_i - 1).to_s + ' days'\n"
+      code << "    c << params[:delay].to_i.to_s + ' days'\n"
+      code << "  elsif params[:subscription_test] == 'active_finishing_after'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT s.subscriber_id FROM subscriptions AS s WHERE nature_id = ? AND started_on <= CURRENT_DATE AND stopped_on >= CURRENT_DATE + ?::INTERVAL)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:delay].to_i.to_s + ' days'\n"
       code << "  end\n"
       code << "end\n"
       code << "c\n"
@@ -61,8 +106,43 @@ module Backend
       t.column :last_name, url: true
       t.column :first_name, url: true
       t.column :number, url: true
+      t.column :mail_line_1, through: :default_mail_address, hidden: true
+      t.column :mail_line_2, through: :default_mail_address, hidden: true
+      t.column :mail_line_3, through: :default_mail_address, hidden: true
+      t.column :mail_line_4, through: :default_mail_address, hidden: true
+      t.column :mail_line_5, through: :default_mail_address, hidden: true
       t.column :mail_line_6, through: :default_mail_address
-      t.column :balance, currency: true, hidden: true
+      t.column :mail_country, label_method: :human_mail_country_name, through: :default_mail_address, hidden: true
+      t.column :email, label_method: :coordinate, through: :default_email_address, hidden: true
+      t.column :phone, label_method: :coordinate, through: :default_phone_address, hidden: true
+      t.column :fax, label_method: :coordinate, through: :default_fax_address, hidden: true
+      t.column :mobile, label_method: :coordinate, through: :default_mobile_address, hidden: true
+      # Deactivated for performance reason, need to store it in one column
+      # t.column :balance, currency: true, hidden: true
+    end
+
+    def show
+      return unless @entity = find_and_check
+      respond_with(@entity, include: { default_mail_address: { methods: [:mail_coordinate] } }) do |format|
+        format.html do
+          t3e @entity.attributes, nature: @entity.nature.l
+        end
+      end
+    end
+
+    list(:contracts, conditions: { supplier_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :reference_number, url: true
+      t.column :created_at
+      t.column :started_on
+      t.column :stopped_on, hidden: true
+      t.column :responsible, url: true, hidden: true
+      t.column :description, hidden: true
+      t.status
+      t.column :state_label
+      t.column :pretax_amount, currency: true
     end
 
     list(:event_participations, conditions: { participant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
@@ -74,19 +154,6 @@ module Backend
       # t.column :duration
       t.column :place, through: :event, hidden: true
       t.column :started_at, through: :event, datatype: :datetime
-    end
-
-    list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
-      t.action :edit, if: :updateable?
-      t.action :destroy, if: :destroyable?
-      t.column :number, url: true
-      t.column :paid_at
-      t.column :responsible, hidden: true
-      t.column :mode
-      t.column :bank_name, hidden: true
-      t.column :bank_check_number, hidden: true
-      t.column :amount, currency: true, url: true
-      t.column :deposit, url: true, hidden: true
     end
 
     list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_id = ? OR #{EntityLink.table_name}.linked_id = ?)", 'params[:id]'.c, 'params[:id]'.c], per_page: 5) do |t|
@@ -116,15 +183,48 @@ module Backend
       t.column :creator
     end
 
+    list(:incoming_payments, conditions: { payer_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :paid_at
+      t.column :responsible, hidden: true
+      t.column :mode
+      t.column :bank_name, hidden: true
+      t.column :bank_check_number, hidden: true
+      t.column :amount, currency: true, url: true
+      t.column :deposit, url: true, hidden: true
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+    end
+
     list(:outgoing_payments, conditions: { payee_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
       t.action :edit
-      t.action :destroy, if: :destroyable?
+      t.action :destroy
       t.column :number, url: true
       t.column :paid_at
       t.column :responsible, hidden: true
       t.column :mode, hidden: true
       t.column :bank_check_number, hidden: true
       t.column :amount, currency: true, url: true
+      t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+    end
+
+    list(:incoming_parcels, model: :parcels, conditions: { sender_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :number, url: true
+      t.column :content_sentence, label: :contains
+      t.column :planned_at
+      t.column :created_at, hidden: true
+      t.column :state, label_method: :human_state_name
+      t.column :purchase, url: true
+    end
+
+    list(:outgoing_parcels, model: :parcels, conditions: { recipient_id: 'params[:id]'.c }, per_page: 5, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :number, url: true
+      t.column :content_sentence, label: :contains
+      t.column :planned_at
+      t.column :created_at, hidden: true
+      t.column :state, label_method: :human_state_name
+      t.column :sale, url: true
     end
 
     list(:purchases, conditions: { supplier_id: 'params[:id]'.c }, line_class: "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
@@ -162,7 +262,7 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.suspended ? 'squeezed' : '')".c) do |t|
+    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? ' squeezed' : '')".c) do |t|
       t.action :edit
       t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
       t.action :suspend, method: :post, if: :suspendable?
@@ -190,106 +290,61 @@ module Backend
       t.column :executor, url: true
     end
 
-    def export
-      if request.xhr?
-        render partial: 'export_condition'
-      else
-        @columns = Entity.exportable_columns
-        @conditions = ['special-subscriber'] # , "special-buyer", "special-relation"]
-        @conditions += Entity.exportable_columns.collect { |c| "generic-entity-#{c.name}" }.sort
-        @conditions += EntityAddress.exportable_columns.collect { |c| "generic-entity-address-#{c.name}" }.sort
-        @conditions += ['generic-postal_zone-postal_code', 'generic-postal_zone-city']
-        @conditions += ['generic-district-name']
-        if request.post?
-          from  = " FROM #{Entity.table_name} AS entity"
-          from += " LEFT JOIN #{EntityAddress.table_name} AS address ON (address.entity_id=entity.id AND address.by_default IS TRUE AND address.deleted_at IS NULL)"
-          from += " LEFT JOIN #{PostalZone.table_name} AS postal_zone ON (address.postal_zone_id=postal_zone.id})"
-          from += " LEFT JOIN #{District.table_name} AS district ON (postal_zone.district_id=district.id)"
-          where = ' WHERE entity.active'
-          select_array = []
-          for k, v in params[:columns].select { |_k, v| v[:check].to_i == 1 }.sort { |a, b| a[1][:order].to_i <=> b[1][:order].to_i }
-            if k =~ /^custom_field\-/
-              id = k.split('-')[1][2..-1].to_i
-              if custom_field = CustomField.find_by_id(id)
-                # from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id})"
-                if custom_field.nature == 'choice'
-                  select_array << ["_cc#{id}.value AS custom_field_#{id}", v[:label]]
-                  # from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
-                  from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=#{custom_field.column_name})"
-                else
-                  # select_array << [ "_c#{id}.#{custom_field.nature}_value AS custom_field_#{id}", v[:label]]
-                  select_array << ["#{custom_field.column_name} AS custom_field_#{id}", v[:label]]
-                end
-              end
-            else
-              select_array << [k.tr('-', '.'), v[:label]]
-            end
-          end
-          if params[:conditions]
-            code = params[:conditions].collect do |_id, preferences|
-              condition = preferences[:type]
-              expr = if condition == 'special-subscriber'
-                       if nature = SubscriptionNature.find_by_id(preferences[:nature])
-                         subn = preferences[preferences[:nature]]
-                         products = (subn[:products] || {}).select { |_k, v| v.to_i == 1 }.collect { |k, _v| k }
-                         products = "product_id IN (#{products.join(', ')})" unless products.empty?
-                         products = "#{products + ' OR ' if products.is_a?(String) && subn[:no_products]}#{'product_id IS NULL' if subn[:no_products]}"
-                         products = " AND (#{products})" unless products.blank?
-                         subscribed_at = ''
-                         if subn[:use_subscribed_at]
-                           subscribed_at = ' AND (' + if nature.period?
-                                                        x = begin
-                                                              subn[:subscribed_at].to_date
-                                                            rescue
-                                                              Time.zone.today
-                                                            end
-                                                        "'" + ActiveRecord::Base.connection.quoted_date(x) + "'"
-                                                      else
-                                                        subn[:subscribed_at].to_i.to_s
-                         end + " BETWEEN #{nature.start} AND #{nature.finish})"
-                       end
-                         timestamp = ''
-                         if condition[:use_timestamp]
-                           x = begin
-                                 condition[:timestamp][:started_at].to_date
-                               rescue
-                                 Time.zone.today
-                               end
-                           y = begin
-                                 condition[:timestamp][:stopped_at].to_date
-                               rescue
-                                 Time.zone.today
-                               end
-                           timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
-                         end
-                         "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id}" + products + subscribed_at + timestamp + ')'
-                       else
-                         'true'
-                     end
-                     elsif condition =~ /^generic/
-                       klass = condition.split(/\-/)[1].classify.constantize
-                       attribute = condition.split(/\-/)[2]
-                       column = klass.columns_hash[attribute]
-                       ListingNode.condition(condition.split(/\-/)[1..2].join('.'), preferences[:comparator], preferences[:comparated], column.sql_type)
-            end
-              "\n" + (preferences[:reverse].to_i == 1 ? 'NOT ' : '') + "(#{expr})"
-            end.join(params[:check] == 'and' ? ' AND ' : ' OR ')
-            where += " AND (#{code})"
-        end
-          select = 'SELECT ' + select_array.collect { |x| x[0] }.join(', ')
-          query = select + "\n" + from + "\n" + where
-
-          result = ActiveRecord::Base.connection.select_rows(query)
-          result.insert(0, select_array.collect { |x| x[1] })
-          csv_string = CSV.generate do |csv|
-            for item in result
-              csv << item
-            end
-          end
-          send_data(csv_string, filename: 'export.csv', type: Mime::CSV)
-      end
+    def self.entities_moves_client_conditions(params)
+      code = ''
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
+      code << "c << Entity.find(#{params[:id]}).client_account_id\n"
+      code << "c\n"
+      eval code
     end
-  end
+
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :journal, url: true
+      t.column :entry_number, url: true
+      t.column :printed_on, datatype: :date, label: :column
+      t.column :name
+      t.column :variant, url: true
+      t.column :state_label
+      t.column :letter
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
+    end
+
+    def self.entities_moves_supplier_conditions(params)
+      code = ''
+      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
+      code << "c << Entity.find(#{params[:id]}).supplier_account_id\n"
+      code << "c\n"
+      eval code
+    end
+
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+      t.column :journal, url: true
+      t.column :entry_number, url: true
+      t.column :printed_on, datatype: :date, label: :column
+      t.column :name
+      t.column :variant, url: true
+      t.column :state_label
+      t.column :letter
+      t.column :real_debit,  currency: :real_currency, hidden: true
+      t.column :real_credit, currency: :real_currency, hidden: true
+      t.column :debit,  currency: true, hidden: true
+      t.column :credit, currency: true, hidden: true
+      t.column :absolute_debit,  currency: :absolute_currency
+      t.column :absolute_credit, currency: :absolute_currency
+    end
+
+    def toggle
+      @entity = Entity.find_by!(id: params[:id])
+      @entity.toggle!
+      redirect_to params[:redirect] || { action: :show, id: @entity.id }
+    end
 
     def import
       @step = begin
@@ -360,7 +415,7 @@ module Backend
           notify_error_now(:cannot_merge_an_entity_with_itself)
           return
         end
-        @master.merge_with(@double, current_user)
+        @master.merge_with(@double, author: current_user)
         begin
           notify_success(:merge_is_done)
           redirect_to action: :show, id: @master.id
@@ -369,5 +424,13 @@ module Backend
         end
       end
     end
-end
+
+    def mask_lettered_items
+      preference_name = 'backend/entities'
+      preference_name << ".#{params[:context]}" if params[:context]
+      preference_name << '.lettered_items.masked'
+      current_user.prefer!(preference_name, params[:masked].to_s == 'true', :boolean)
+      head :ok
+    end
+  end
 end

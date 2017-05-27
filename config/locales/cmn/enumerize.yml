@@ -26,6 +26,7 @@ cmn:
         none: "没有"
     activity_production:
       support_nature:
+        animal_group: "动物群"
         border: "边境"
         buffer: "缓冲"
         cultivation: "养殖"
@@ -35,10 +36,6 @@ cmn:
       mode:
         harvested: "嘉实播种期"
         sowed: "临时播种期"
-    affair:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
     analysis:
       retrieval_status:
         controller_error: "控制器错误"
@@ -57,6 +54,32 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    animal:
+      birth_date_completeness:
+        full_date: "完整的日期"
+        month_year: "月年"
+        year: "年"
+      end_of_life_reason:
+        calculated_date: "计算的日期"
+        cutting_up: "切碎"
+        death: "死亡"
+        slaughter: "屠宰"
+      filiation_status:
+        certified: "认证"
+        uncertified: "未认证"
+        unknown: "未知"
+    call_message:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
+    call_request:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
+    call_response:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
     cash:
       mode:
         bban: "基本银行帐户号码（BBAN）"
@@ -89,6 +112,10 @@ cmn:
         datetime: "日期和时间"
         decimal: "十进制"
         text: "文本"
+    debt_transfer:
+      nature:
+        purchase_regularization: "购买正规化"
+        sale_regularization: "销售正规化"
     delivery:
       mode:
         third: "第三"
@@ -122,18 +149,31 @@ cmn:
         informative: "信息化"
         refused: "拒绝"
         waiting: "等候"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "每月一次"
+        none: "没有"
+        quaterly: "季刊"
+        yearly: "每年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "没有"
+        payment: "付款"
     fixed_asset:
       depreciation_method:
         graduated: "毕业" #?
         linear: "线性"
+        none: "没有"
+        regressive: "累退"
         simplified_linear: "线性简化"
+      depreciation_period:
+        monthly: "每月一次"
+        quarterly: "季刊"
+        yearly: "每年"
     gap:
       direction:
         loss: "失利"
         profit: "利润"
-      entity_role:
-        client: "客户"
-        supplier: "供应商"
     georeading:
       nature:
         line: "线" #?
@@ -155,7 +195,7 @@ cmn:
         failed: "失败"
         passed: "通过"
         passed_with_warnings: "有警告传递"
-      status:  #?
+      status: #?
         errored: "误码" #?
         failed: "失败" #?
         passed: "通过" #?
@@ -180,8 +220,10 @@ cmn:
       state:
         done: "做"
         in_progress: "进行中"
-        squeezed: "挤压"
-        undone: "未完成"
+        rejected: "拒绝"
+        squeezed: "挤压" #?
+        undone: "未完成" #?
+        validated: "验证"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "布尔"
@@ -193,13 +235,27 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    intervention_participation:
+      state:
+        done: "做"
+        in_progress: "进行中"
+        validated: "验证"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "制备"
+        travel: "旅行"
     journal:
       nature:
         bank: "银行"
         cash: "现金"
+        closure: "关闭"
+        fixed_assets: "固定资产"
         forward: "结转"
         purchases: "购买"
+        result: "结果"
         sales: "销售"
+        stocks: "股票"
         various: "各种操作"
     listing_node:
       nature:
@@ -213,15 +269,24 @@ cmn:
         root: "根"
         string: "串"
     loan:
+      insurance_repayment_method:
+        initial: "基于初始资本"
+        to_repay: "基于资本留下来偿还"
       repayment_method:
         constant_amount: "恒量"
         constant_rate: "恒定速率"
       repayment_period:
         month: "月"
+        semester: "学期"
+        trimester: "孕期"
         year: "年"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "立即付款"
+    map_layer:
+      nature:
+        background: "背景"
+        overlay: "覆盖"
     notification:
       level:
         error: "错误"
@@ -243,12 +308,16 @@ cmn:
         incoming: "来"
         internal: "内部" #?
         outgoing: "传出"
-      state:  #?
+      state: #?
         draft: "草案" #?
         given: "特定" #?
         in_preparation: "在准备" #?
         ordered: "有序" #?
         prepared: "准备" #?
+    plant_counting:
+      nature:
+        germination: "在发芽"
+        sowing: "在播种"
     preference:
       nature:
         accounting_system: "会计制度"
@@ -283,6 +352,15 @@ cmn:
       nature:
         exterior: "外观"
         interior: "室内"
+    product_movement:
+      description:
+        birth: "分娩"
+        butchery: "屠杀"
+        consumption: "消费"
+        death: "死亡"
+        loan: "贷款"
+        purchase: "采购"
+        sale: "拍卖"
     product_nature:
       population_counting:
         decimal: "十进制"
@@ -364,20 +442,21 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    purchase:
+      tax_payability:
+        at_invoicing: "在开票"
+        at_paying: "在支付"
     purchase_nature:
       nature:
         payslip: "工资单"
         purchase: "采购"
-    sale_opportunity:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
-    sale_ticket:
-      third_role:
-        client: "客户"
-        supplier: "供应商"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "税前金额" #?
+        unit_pretax_amount: "单位税前金额" #?
     sensor:
       retrieval_mode:
+        integration: "积分"
         listening: "听力"
         requesting: "请求"
     sequence:
@@ -387,37 +466,40 @@ cmn:
         number: "无周期性"
         year: "年"
       usage:
-        affairs: "事务记数"
-        analyses: "分析计算法"
-        animals: "动物记数"
-        campaigns: "活动的记数"
-        cash_transfers: "现金转移的记数"
+        affairs: "事务"
+        analyses: "分析"
+        animals: "动物"
+        campaigns: "广告活动"
+        cash_transfers: "现金转移"
+        contracts: "合同"
+        debt_transfers: "债务转移"
         deliveries: "交付"
-        deposits: "存款记数"
-        documents: "文档记数"
-        entities: "人的记数"
-        fixed_assets: "固定资产记数"
-        gaps: "空白的记数"
-        incoming_parcels: "传入交付记数" #?
-        incoming_payments: "支付记数"
+        deposits: "存款"
+        documents: "文件"
+        entities: "三分之二"
+        fixed_assets: "固定资产"
+        gaps: "差距"
+        incoming_payments: "收款"
         inspections: "检查"
-        interventions: "干预的记数"
+        interventions: "干预"
         inventories: "存货"
         opportunities: "机会"
-        outgoing_deliveries: "即将离任的交货记数" #?
-        outgoing_payments: "支付记数"
+        outgoing_payment_lists: "付款清单"
+        outgoing_payments: "汇出款项"
         parcels: "地块"
-        plants: "植物的记数"
-        product_nature_categories: "产品性质类别的记数"
-        product_nature_variants: "产品性质的记数变种"
-        product_natures: "产品性质的记数"
-        products: "产品记数"
-        purchases: "购买记数"
-        sales: "销售的记数"
-        sales_invoices: "销售发票的记数"
-        subscriptions: "订阅记数"
+        plant_countings: "植物计数"
+        plants: "植物"
+        product_nature_categories: "产品类别性质"
+        product_nature_variants: "产品性质变种"
+        product_natures: "产品性质"
+        products: "制品"
+        purchases: "购买"
+        sales: "销售"
+        sales_invoices: "销售发票"
+        subscriptions: "订阅"
+        tax_declarations: "纳税申报"
         transports: "运输的记数" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "双向" #?
         direct: "直接" #?
@@ -425,6 +507,17 @@ cmn:
       nature: #?
         period: "认购日期" #?
         quantity: "认购按编号" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "认证"
+        get_inventory: "拿到盘点"
+        get_urls: "获取网址"
+      state:
+        aborted: "中止"
+        errored: "误码"
+        finished: "完"
+        in_progress: "进行中"
+        undone: "未完成"
     task:
       nature:
         document: "写作" #?
@@ -439,10 +532,14 @@ cmn:
         doing: "干"
         done: "做"
         todo: "去做"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "量" #?
         percentage: "百分比" #?
+    tax_declaration:
+      mode:
+        debit: "借方"
+        payment: "付款"
     tracking:
       usage_limit_nature:
         best_before: "日期前最佳"

@@ -1,17 +1,28 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_housing_mulching" categories="habitat_maintenance" actions="animal_housing_mulching">
+  <procedure name="animal_housing_mulching" categories="habitat_maintenance" actions="hygiene" varieties="aves,mammalia">
     <parameters>
-      <parameter name="animal_housing" type="target" filter="is building_division and can store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, animal_housing.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / animal_housing..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="straw" type="input" filter="is straw"/>
-      <parameter name="cleaner" type="tool" filter="can clean(building_division)"/>
-      <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
-      <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>
+      <target name="animal_housing" filter="is building_division and can store(animal) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="litter" filter="can cover(building_division) and derives from plant" cardinality="*">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="PRODUCT..net_mass?"
+                 backward="VALUE * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+      </input>
+      <input name="cleaner_product" filter="is preparation and can clean(building_division)" cardinality="*">
+        <handler name="population"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
+                 backward="POPULATION * PRODUCT..net_volume(liter)"
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+      </input>
+      <tool name="cleaner" filter="is equipment and can clean(building_division)" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

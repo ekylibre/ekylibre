@@ -26,6 +26,7 @@ jpn:
         none: "なし"
     activity_production:
       support_nature:
+        animal_group: "動物群"
         border: "境界"
         buffer: "バッファ"
         cultivation: "栽培"
@@ -35,10 +36,6 @@ jpn:
       mode:
         harvested: "収穫播種日"
         sowed: "暫定播種日"
-    affair:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     analysis:
       retrieval_status:
         controller_error: "コントローラのエラー"
@@ -57,6 +54,32 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    animal:
+      birth_date_completeness:
+        full_date: "完全な日付"
+        month_year: "月の年"
+        year: "年"
+      end_of_life_reason:
+        calculated_date: "計算された日付"
+        cutting_up: "デコパージュ"
+        death: "死"
+        slaughter: "虐殺"
+      filiation_status:
+        certified: "認定されました"
+        uncertified: "保証されていません"
+        unknown: "未知の"
+    call_message:
+      nature:
+        incoming: "入ってきます"
+        outgoing: "出ていきます"
+    call_request:
+      nature:
+        incoming: "入ってきます"
+        outgoing: "出ていきます"
+    call_response:
+      nature:
+        incoming: "入ってきます"
+        outgoing: "出ていきます"
     cash:
       mode:
         bban: "基本的な銀行口座番号（BBAN）"
@@ -89,6 +112,10 @@ jpn:
         datetime: "日時"
         decimal: "10進数"
         text: "テキスト"
+    debt_transfer:
+      nature:
+        purchase_regularization: "購入正則"
+        sale_regularization: "販売正則"
     delivery:
       mode:
         third: "三番"
@@ -122,18 +149,31 @@ jpn:
         informative: "有益な"
         refused: "拒否されました"
         waiting: "待っています"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "毎月"
+        none: "なし"
+        # quaterly: "Quaterly"
+        yearly: "毎年"
+      tax_declaration_mode:
+        debit: "借方"
+        none: "なし"
+        payment: "支払い"
     fixed_asset:
       depreciation_method:
         graduated: "目盛り付きの" #?
         linear: "リニア"
+        none: "なし"
+        regressive: "回帰"
         simplified_linear: "簡体リニア"
+      depreciation_period:
+        monthly: "毎月"
+        quarterly: "季刊"
+        yearly: "毎年"
     gap:
       direction:
         loss: "損失"
         profit: "利益"
-      entity_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
     georeading:
       nature:
         line: "ライン" #?
@@ -155,7 +195,7 @@ jpn:
         failed: "失敗しました"
         passed: "合格"
         passed_with_warnings: "警告付きで合格"
-      status:  #?
+      status: #?
         errored: "エラーの発生しました" #?
         failed: "失敗しました" #?
         passed: "合格" #?
@@ -180,8 +220,10 @@ jpn:
       state:
         done: "終わりました"
         in_progress: "進行中"
-        squeezed: "スクイーズ"
-        undone: "元に戻します"
+        rejected: "拒否されました"
+        squeezed: "スクイーズ" #?
+        undone: "元に戻します" #?
+        validated: "有効な"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "ブーリアン"
@@ -193,13 +235,27 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    intervention_participation:
+      state:
+        done: "終わりました"
+        in_progress: "進行中"
+        validated: "有効な"
+    intervention_working_period:
+      nature:
+        intervention: "介入"
+        preparation: "準備"
+        travel: "旅行"
     journal:
       nature:
         bank: "バンク"
         cash: "現金"
+        closure: "閉鎖"
+        fixed_assets: "固定資産"
         forward: "実施フォワード"
         purchases: "購入"
+        result: "結果"
         sales: "セールス"
+        stocks: "ストック"
         various: "さまざまな操作"
     listing_node:
       nature:
@@ -213,15 +269,24 @@ jpn:
         root: "ルート"
         string: "文字列"
     loan:
+      insurance_repayment_method:
+        initial: "初期資本に基づきます"
+        to_repay: "資本に基づいて返済する左"
       repayment_method:
         constant_amount: "一定量"
         constant_rate: "一定の割合"
       repayment_period:
         month: "月"
+        semester: "学期"
+        trimester: "学期"
         year: "年"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "即納"
+    map_layer:
+      nature:
+        background: "バックグラウンド"
+        overlay: "オーバーレイ"
     notification:
       level:
         error: "エラー"
@@ -243,12 +308,16 @@ jpn:
         incoming: "入ってきます"
         internal: "内部" #?
         outgoing: "出ていきます"
-      state:  #?
+      state: #?
         draft: "ドラフト" #?
         given: "与えられました" #?
         in_preparation: "準備中" #?
         ordered: "順序付けられました" #?
         prepared: "準備" #?
+    plant_counting:
+      nature:
+        germination: "発芽時"
+        sowing: "播種時"
     preference:
       nature:
         accounting_system: "会計システム"
@@ -283,6 +352,15 @@ jpn:
       nature:
         exterior: "外観"
         interior: "インテリア"
+    product_movement:
+      description:
+        birth: "誕生"
+        butchery: "肉屋"
+        consumption: "消費"
+        death: "死"
+        loan: "ローン"
+        purchase: "購入"
+        sale: "販売"
     product_nature:
       population_counting:
         decimal: "10進数"
@@ -364,20 +442,21 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    purchase:
+      tax_payability:
+        at_invoicing: "請求書発行で"
+        at_paying: "支払う時"
     purchase_nature:
       nature:
         payslip: "給料明細書"
         purchase: "購入"
-    sale_opportunity:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
-    sale_ticket:
-      third_role:
-        client: "クライアント"
-        supplier: "サプライヤー"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "税引前金額" #?
+        unit_pretax_amount: "ユニット税引前金額" #?
     sensor:
       retrieval_mode:
+        integration: "統合"
         listening: "聞いている"
         requesting: "要求"
     sequence:
@@ -387,37 +466,40 @@ jpn:
         number: "いいえ周期性はありません"
         year: "年"
       usage:
-        affairs: "事務の記数"
-        analyses: "分析の記数"
-        animals: "動物の記数"
-        campaigns: "キャンペーンの記数"
-        cash_transfers: "送金の記数"
+        affairs: "業務"
+        analyses: "解析"
+        animals: "動物"
+        campaigns: "キャンペーン"
+        cash_transfers: "現金移転"
+        contracts: "契約"
+        debt_transfers: "債務転送"
         deliveries: "出荷"
-        deposits: "預金の記数"
-        documents: "文書の記数"
-        entities: "人々の記数"
-        fixed_assets: "固定資産の記数"
-        gaps: "ギャップの記数"
-        incoming_parcels: "着信配達の記数" #?
-        incoming_payments: "支払いの記数"
+        deposits: "預金"
+        documents: "ドキュメント"
+        entities: "サーズ"
+        fixed_assets: "固定資産"
+        gaps: "ギャップ"
+        incoming_payments: "入金"
         inspections: "検査"
-        interventions: "介入の記数"
+        interventions: "介入"
         inventories: "棚卸"
         opportunities: "機会"
-        outgoing_deliveries: "発信配達の記数" #?
-        outgoing_payments: "支払いの記数"
+        outgoing_payment_lists: "支払リスト"
+        outgoing_payments: "支払"
         parcels: "小包"
-        plants: "植物の記数"
-        product_nature_categories: "製品自然カテゴリの記数"
-        product_nature_variants: "製品の性質変異体の記数"
-        product_natures: "製品の性質の記数"
-        products: "製品の記数"
-        purchases: "購入の記数"
-        sales: "売上高の記数"
-        sales_invoices: "売上請求書の記数"
-        subscriptions: "サブスクリプションの記数"
+        plant_countings: "プラント数"
+        plants: "植物"
+        product_nature_categories: "製品の性質のカテゴリ"
+        product_nature_variants: "商品の性質上変種"
+        product_natures: "製品の性質"
+        products: "プロダクト"
+        purchases: "購入"
+        sales: "セールス"
+        sales_invoices: "売上請求書"
+        subscriptions: "サブスクリプション"
+        tax_declarations: "税務申告"
         transports: "トランスポートの記数" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "双方向の" #?
         direct: "直接" #?
@@ -425,6 +507,17 @@ jpn:
       nature: #?
         period: "日付別のサブスクリプション" #?
         quantity: "番号で購読" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "認証"
+        get_inventory: "インベントリを取得"
+        get_urls: "URLを取得します"
+      state:
+        aborted: "中止されました"
+        errored: "エラーの発生しました"
+        finished: "完成しました"
+        in_progress: "進行中"
+        undone: "元に戻します"
     task:
       nature:
         document: "書き込み" #?
@@ -439,10 +532,14 @@ jpn:
         doing: "実行"
         done: "終わりました"
         todo: "藤堂"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "量" #?
         percentage: "パーセンテージ" #?
+    tax_declaration:
+      mode:
+        debit: "デビット"
+        payment: "支払い"
     tracking:
       usage_limit_nature:
         best_before: "賞味期限"

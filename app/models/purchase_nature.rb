@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,10 +38,10 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 class PurchaseNature < Ekylibre::Record::Base
-  enumerize :nature, in: [:purchase, :payslip], default: :purchase, predicates: true
+  enumerize :nature, in: %i[purchase payslip], default: :purchase, predicates: true
   refers_to :currency
   belongs_to :journal
-  has_many :purchases, foreign_key: :nature_id
+  has_many :purchases, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :with_accounting, inclusion: { in: [true, false] }
   validates :currency, :nature, presence: true

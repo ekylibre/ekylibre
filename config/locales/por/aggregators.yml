@@ -14,24 +14,24 @@ por:
     born_at: "Nascido em"
     breeding_number: "Número de reprodução"
     campaigns: "Campanhas"
-    capitalised_production: "Produção capitalizada"
+    capitalised_production: "Produção capitalizada" #?
     cluster_pac_number: "Número do aglomerado" #?
     company: "Companhia"
     container_name: "Nome container"
     current_result_before_taxes: "Resultado atual sem impostos"
-    depreciations_inputations_expenses: "Despesas de depreciação"
+    depreciations_inputations_expenses: "Despesas de depreciação" #?
     doer_cost: "Custo doer"
     doer_name: "Nome executor"
     doers_name: "Nome fazedores"
     duration_in_hour: "Duração em horas"
     ede_cattling_number: "Número cattling Ede"
     ede_owner_number: "Número proprietário Ede"
-    employee_involvement: "Envolvimento dos trabalhadores"
+    employee_involvement: "Envolvimento dos trabalhadores" #?
     enterprise: "Empresa"
     entity_name: "Nome entidade"
-    exceptional_expenses: "Despesas excepcionais"
+    exceptional_expenses: "Despesas excepcionais" #?
     exceptional_expenses_total: "Total de despesas excepcionais"
-    exceptional_products: "Produtos excepcionais"
+    exceptional_products: "Produtos excepcionais" #?
     exceptional_products_total: "Total de produtos excepcionais"
     exceptional_result: "Resultado dos excepcionais"
     expenses_total: "Total de despesas"
@@ -39,9 +39,9 @@ por:
     exploitation_products_total: "Total de produtos de exploração"
     exploitation_result: "Resultado das explorações"
     family: "Família"
-    financial_expenses: "Despesas financeiras"
+    financial_expenses: "Despesas financeiras" #?
     financial_expenses_total: "Total despesas financeiras"
-    financial_products: "Produtos financeiros"
+    financial_products: "Produtos financeiros" #?
     financial_products_total: "Total de produtos financeiros"
     financial_result: "Resultado financeiro"
     financial_year_name: "Nome ano fiscal"
@@ -56,7 +56,7 @@ por:
     input_unit_name: "Nome unidade de entrada" #?
     intervention_durations: "Duração das intervenções"
     loss_balance: "Balanço de perdas"
-    losses: "Perdas"
+    losses: "Perdas" #?
     manure_management_plan_default_computation_method: "Plano padrão de computação no gerenciamento de dejetos" #?
     manure_management_plan_name: "Nome do plano de gerenciamento de dejetos" #?
     manure_management_plan_opened_at: "Plano de gerenciamento de dejetos aberto em" #?
@@ -75,9 +75,9 @@ por:
     original_input_name: "Original input name" #?
     original_input_unit_name: "Original input unit name" #?
     original_input_variant_name: "Original input variant name" #?
-    other_expenses: "Other expenses"
-    other_products: "Outros produtos"
-    other_purchases: "Outras compras"
+    other_expenses: "Other expenses" #?
+    other_products: "Outros produtos" #?
+    other_purchases: "Outras compras" #?
     owner_name: "Nome do proprietário"
     pasturing_period: "Período de pastoreio" #?
     pasturing_working_area: "Área de pastorio trabalhável" #?
@@ -92,36 +92,36 @@ por:
     product_account_label: "Rótulo de conta do produto"
     product_nature_name: "Nome Natureza do produto" #?
     production_support: "Apoio à produção"
-    productions_sales: "Venda de produção"
-    products_purchases: "Compra de produtos"
-    products_sales: "Vendas de produtos"
+    productions_sales: "Venda de produção" #?
+    products_purchases: "Compra de produtos" #?
+    products_sales: "Vendas de produtos" #?
     products_total: "Total produtos"
     profit_or_loss: "Lucros ou perdas"
-    profits: "Lucros"
+    profits: "Lucros" #?
     profits_taxes: "Impostos sobre lucros"
     provisional_grains_yield: "Provisões produção de grãos" #?
     provisional_yield: "Provisões de rendimento"
-    provisions_revenues: "Provisões de receita"
+    provisions_revenues: "Provisões de receita" #?
     quantity: "Quantidade"
-    raw_matters_purchases: "Compra de matérias primas"
-    raw_matters_stocks_variation: "Variação de estoque de matérias primas"
+    raw_matters_purchases: "Compra de matérias primas" #?
+    raw_matters_stocks_variation: "Variação de estoque de matérias primas" #?
     recommender_full_name: "Nome completo recomendado" #?
     recommender_mail_coordinate: "Recomendado e-mail" #?
     sender_address: "Endereço emitente" #?
     sex: "Sexo"
-    social_expenses: "Despesas sociais"
+    social_expenses: "Despesas sociais" #?
     soil_varieties: "Variedades de solo" #?
     sowed_at: "Semeado em" #?
-    stock_production: "Produção em estoque"
-    stocks_variation: "Variação de estoque"
-    subsidies: "Subsidios"
+    stock_production: "Produção em estoque" #?
+    stocks_variation: "Variação de estoque" #?
+    subsidies: "Subsidios" #?
     target_name: "Nome alvo" #?
     unitary_quantity: "Quantidade unitária" #?
     variable_name: "Nome variável" #?
     variant_name: "Nome da variante"
     variant_variety: "Variedade de variantes" #?
     vine_yield: "Produção por planta"
-    wages: "Salários"
+    wages: "Salários" #?
     working_area: "Área de trabalho"
-  aggregators:  #?
+  aggregators: #?
     vat_register: "Registro de imposto" #?

@@ -12,14 +12,20 @@
     = error_messages "account"
 
   = field_set :items do
-    - for x in [:period, :started_at, :stopped_at]
+    - [:period, :started_at, :stopped_at].each do |x|
       = hidden_field_tag(x, params[x])
     - precision = Nomen::Currency[Preference[:currency]].precision
-    .active-list
+
+    .active-list-actions
+      = mask_lettered_items_button :mark_journal_entry_items
+
+    - items = @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
+    - partial_lettering = items.any?(&:partially_lettered?)
+    .active-list#mark_journal_entry_items
       %table.list
         %thead
           %tr
-            %th= JournalEntryItem.human_attribute_name(:letter)
+            %th{ colspan: (partial_lettering ? 2 : 1) }= JournalEntryItem.human_attribute_name(:letter)
             %th.act
             %th= JournalEntry.human_attribute_name(:printed_on)
             %th= Journal.model_name.human
@@ -30,21 +36,21 @@
 
         %tfoot
           %tr#total.valid.total{data: {valid_if_equality_between: "#total-debit, #total-credit", submit_if_valid: "true"}}
-            %th{colspan: 6}= :total.tl
+            %th{colspan: (partial_lettering ? 7 : 6)}= :total.tl
             %td#total-debit{data:  {use: "tr.selected .debit", calculate_round: precision}}=  0
             %td#total-credit{data: {use: "tr.selected .credit", calculate_round: precision}}= 0
 
         %tbody
-          - for item in @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
-            - checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
+          - items.each do |item|
+            - checked = (item.letter.blank? && (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
             - trid, conf = "e#{item.id}", {}
-            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "") + cycle("even", "odd")}
+            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd") + (item.completely_lettered? ? ' lettered-item' : '')}
               %td.chk
-                - if item.letter.blank? and not item.closed?
+                - unless item.completely_lettered? || item.closed?
                   = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", data: {add_class: "selected", add_class_to: "##{trid}"})
                   - conf = {data: {click: "#journal_entry_item_#{item.id}_to_mark"}}
-                - else
-                  = item.letter
+              %td.ltr
+                = item.letter
               %td.act
                 - unless item.letter.blank? or item.closed?
                   = link_to({action: :unmark, id: @account.id, letter: item.letter}, class: "unmark", method: :post, data: {confirm: :are_you_sure.tl}) do

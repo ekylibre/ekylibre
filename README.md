@@ -8,10 +8,12 @@ More details can be found on the official website http://ekylibre.org.
 
 ## Code status
 
-[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=2-0-stable)](https://travis-ci.org/ekylibre/ekylibre)
+[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=master)](https://travis-ci.org/ekylibre/ekylibre)
 [![Gem Dependency Status](https://gemnasium.com/ekylibre/ekylibre.svg)](https://gemnasium.com/ekylibre/ekylibre)
 [![Code Metrics](https://codeclimate.com/github/ekylibre/ekylibre.svg)](https://codeclimate.com/github/ekylibre/ekylibre)
-[![Code Coverage](https://coveralls.io/repos/github/ekylibre/ekylibre/badge.svg?branch=2-0-stable)](https://coveralls.io/r/ekylibre/ekylibre)
+[![Coverage Status](https://coveralls.io/repos/github/ekylibre/ekylibre/badge.svg?branch=master)](https://coveralls.io/github/ekylibre/ekylibre?branch=master)
+[![Codacy Grade Badge](https://api.codacy.com/project/badge/Grade/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ekylibre/ekylibre&amp;utm_campaign=Badge_Grade)
+[![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ekylibre/ekylibre&amp;utm_campaign=Badge_Coverage)
 
 ## Guides
 
@@ -21,14 +23,14 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/2-0-stable/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/2-0-stable/doc/screenshots/screens.png)
+[![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
 
 ## Installation
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* [English](https://github.com/ekylibre/ekylibre/blob/2-0-stable/doc/guides/installation.md) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/2-0-stable/doc/guides/installation-debian-jessie.md))
-* [Français](https://wiki.ekylibre.com/fr/guides/installation)
+* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.md) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.md))
+* [Français](https://wiki.ekylibre.org/fr/guides/installation)
 
 Ekylibre depends on PostgreSQL (≥ 9.5) and PostGIS (≥ 2.2).
 
@@ -44,6 +46,15 @@ We encourage you to contribute to Ekylibre.
 * Commit and push until you are happy with your contribution
 * Make sure to add tests for it. This is important so we don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so we can cherry-pick around it.
+
+## Testing
+
+To run integration test, do:
+``` bash
+wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
+tar xzvf geckodriver-v0.11.1-linux64.tar.gz
+sudo cp geckodriver /usr/bin
+```
 
 ## See also
 

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@
 #
 # == Table: loan_repayments
 #
+#  accountable      :boolean          default(FALSE), not null
 #  accounted_at     :datetime
 #  amount           :decimal(19, 4)   not null
 #  base_amount      :decimal(19, 4)   not null
@@ -34,6 +35,7 @@
 #  journal_entry_id :integer
 #  loan_id          :integer          not null
 #  lock_version     :integer          default(0), not null
+#  locked           :boolean          default(FALSE), not null
 #  position         :integer          not null
 #  remaining_amount :decimal(19, 4)   not null
 #  updated_at       :datetime         not null

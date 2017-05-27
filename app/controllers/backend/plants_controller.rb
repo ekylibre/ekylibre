@@ -32,5 +32,11 @@ module Backend
       t.column :born_at
       t.column :dead_at
     end
+
+    list :plant_countings, conditions: { plant_id: 'params[:id]'.c } do |t|
+      t.column :number, url: true
+      t.status label: :state
+      t.column :read_at, label: :date
+    end
   end
 end

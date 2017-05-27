@@ -26,6 +26,7 @@ fra:
         none: "Aucune"
     activity_production:
       support_nature:
+        animal_group: "Groupe d’animaux"
         border: "Bordure"
         buffer: "Zone tampon"
         cultivation: "Culture"
@@ -35,10 +36,6 @@ fra:
       mode:
         harvested: "Date de récolte prévisionnelle"
         sowed: "Date de semis prévisionnelle"
-    affair:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
     analysis:
       retrieval_status:
         controller_error: "Erreur de contrôleur"
@@ -55,8 +52,34 @@ fra:
         integer: "Entier"
         measure: "Mesure"
         multi_polygon: "Multi polygone"
-        # point: "Point"
+        point: "Point"
         string: "Chaîne"
+    animal:
+      birth_date_completeness:
+        full_date: "Date complète"
+        month_year: "Mois et année"
+        year: "Année"
+      end_of_life_reason:
+        calculated_date: "Date calculée"
+        cutting_up: "Equarrissage"
+        death: "Mort"
+        slaughter: "Abattage"
+      filiation_status:
+        certified: "Certifié"
+        uncertified: "Non certifié"
+        unknown: "Inconnu"
+    call_message:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_request:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_response:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -89,6 +112,10 @@ fra:
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
         text: "Texte"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Régularisation d'achat"
+        sale_regularization: "Régularisation de vente"
     delivery:
       mode:
         third: "Par le tiers"
@@ -120,18 +147,30 @@ fra:
         informative: "Pour information"
         refused: "Refusé"
         waiting: "En attente de réponse"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "Mensuelle"
+        none: "Aucune"
+        quaterly: "Trimestrielle"
+        yearly: "Annuelle"
+      tax_declaration_mode:
+        debit: "Débits"
+        none: "Aucun"
+        payment: "Encaissements"
     fixed_asset:
       depreciation_method:
-        graduated: "Dégressive" #?
         linear: "Linéaire"
+        none: "Aucune"
+        regressive: "Dégressive"
         simplified_linear: "Linéaire simplifiée"
+      depreciation_period:
+        monthly: "Mensuelle"
+        quarterly: "Trimestrielle"
+        yearly: "Annuelle"
     gap:
       direction:
         loss: "Perte"
-        profit: "Le profit"
-      entity_role:
-        # client: "Client"
-        supplier: "Fournisseur"
+        profit: "Profit"
     georeading:
       nature:
         line: "Ligne" #?
@@ -165,16 +204,16 @@ fra:
         errored: "Erroné"
         finished: "Fini"
         in_progress: "En cours"
-        undone: "Défait"
+        undone: "En attente"
     intervention:
       nature:
         record: "Enregistrement"
         request: "Demande"
       state:
-        done: "Réalisée"
+        done: "Terminée"
         in_progress: "En cours"
-        squeezed: "Non réalisée"
-        undone: "Pas encore réalisée"
+        rejected: "Rejetée"
+        validated: "Validée"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booléen"
@@ -186,13 +225,27 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    intervention_participation:
+      state:
+        done: "Terminé"
+        in_progress: "En cours"
+        validated: "Validé"
+    intervention_working_period:
+      nature:
+        intervention: "Intervention"
+        preparation: "Préparation"
+        travel: "Déplacement"
     journal:
       nature:
         bank: "Banque"
         cash: "Caisse"
+        closure: "Clôture"
+        fixed_assets: "Immobilisations corporelles"
         forward: "Report à nouveaux"
         purchases: "Achats"
+        result: "Résultat"
         sales: "Ventes"
+        stocks: "Réserves"
         various: "Opérations diverses"
     listing_node:
       nature:
@@ -206,15 +259,24 @@ fra:
         root: "Racine"
         string: "Chaîne"
     loan:
+      insurance_repayment_method:
+        initial: "Fraction du capital initial"
+        to_repay: "Fraction du capital à rembourser restant"
       repayment_method:
         constant_amount: "Montant constant"
         constant_rate: "Pourcentage constant"
       repayment_period:
         month: "Mois"
+        semester: "Semestre"
+        trimester: "Trimestre"
         year: "Année"
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+    map_layer:
+      nature:
+        background: "Fond"
+        overlay: "Calque"
     notification:
       level:
         error: "Erreur"
@@ -234,6 +296,10 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
+    plant_counting:
+      nature:
+        germination: "À la levée"
+        sowing: "Au semis"
     preference:
       nature:
         accounting_system: "Système de comptabilité"
@@ -268,6 +334,15 @@ fra:
       nature:
         exterior: "Extérieur"
         interior: "Intérieur"
+    product_movement:
+      description:
+        birth: "Naissance"
+        butchery: "Boucherie"
+        consumption: "Consommation"
+        death: "Mort"
+        loan: "Pension"
+        purchase: "Achat"
+        sale: "Vente"
     product_nature:
       population_counting:
         decimal: "Décimal"
@@ -349,22 +424,23 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    purchase:
+      tax_payability:
+        at_invoicing: "À la facturation (débit)"
+        at_paying: "Au paiement"
     purchase_nature:
       nature:
         payslip: "Fiche de paie"
         purchase: "Achat"
-    sale_opportunity:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
-    sale_ticket:
-      third_role:
-        # client: "Client"
-        supplier: "Fournisseur"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Montant avant impôts" #?
+        unit_pretax_amount: "Unité montant avant impôts" #?
     sensor:
       retrieval_mode:
-        listening: "Serveur"
-        requesting: "Client"
+        integration: "Intégration"
+        listening: "Direct"
+        requesting: "Automatique"
     sequence:
       period:
         cweek: "Semaine"
@@ -372,33 +448,49 @@ fra:
         number: "Pas de périodicité"
         year: "Année"
       usage:
-        affairs: "Numérotation des affaires"
-        analyses: "Numérotation des analyses"
-        animals: "Numérotation des animaux"
-        campaigns: "Numérotation des campagnes de productions"
-        cash_transfers: "Numérotation des virements internes"
-        deliveries: "Numérotation des livraisons"
-        deposits: "Numérotation des remises en banque"
-        documents: "Numérotation des documents"
-        entities: "Numérotation des tiers"
-        fixed_assets: "Numérotation des immobilisations"
-        gaps: "Numérotation des écarts"
-        incoming_payments: "Numérotation des encaissements"
-        inspections: "Numérotation des agréages"
-        interventions: "Numérotation des interventions"
-        inventories: "Numérotation des inventaires"
-        opportunities: "Numérotation des opportunités"
-        outgoing_payments: "Numérotation des décaissements"
-        parcels: "Numérotation des colis"
-        plants: "Numérotation des cultures"
-        product_nature_categories: "Numérotation des catégories de types de produits"
-        product_nature_variants: "Numérotation des variantes de types de produits"
-        product_natures: "Numérotation des types de produits"
-        products: "Numérotation des produits"
-        purchases: "Numérotation des achats"
-        sales: "Numérotation des ventes"
-        sales_invoices: "Numérotation des factures"
-        subscriptions: "Numérotation des abonnements"
+        affairs: "Affaires"
+        analyses: "Analyses"
+        animals: "Animaux"
+        campaigns: "Campagnes de productions"
+        cash_transfers: "Virements internes"
+        contracts: "Contrats"
+        debt_transfers: "Transferts de dettes"
+        deliveries: "Livraisons"
+        deposits: "Remises en banque"
+        documents: "Documents"
+        entities: "Tiers"
+        fixed_assets: "Immobilisations"
+        gaps: "Écarts"
+        incoming_payments: "Encaissements"
+        inspections: "Agréages"
+        interventions: "Interventions"
+        inventories: "Inventaires"
+        opportunities: "Opportunités"
+        outgoing_payment_lists: "Listes de paiement sortant"
+        outgoing_payments: "Décaissements"
+        parcels: "Colis"
+        plant_countings: "Comptage des plantes"
+        plants: "Cultures"
+        product_nature_categories: "Catégories de types de produits"
+        product_nature_variants: "Variantes de types de produits"
+        product_natures: "Types de produits"
+        products: "Produits"
+        purchases: "Achats"
+        sales: "Ventes"
+        sales_invoices: "Factures"
+        subscriptions: "Abonnements"
+        tax_declarations: "Déclarations fiscales"
+    synchronization_operation:
+      operation_name:
+        authenticate: "Authentification"
+        get_inventory: "Récupération de l'inventaire"
+        get_urls: "Récupération des URL"
+      state:
+        aborted: "Avorté"
+        errored: "Erroné"
+        finished: "Fini"
+        in_progress: "En cours"
+        undone: "En attente"
     task:
       nature:
         incoming_call: "Appel entrant"
@@ -411,6 +503,10 @@ fra:
         doing: "Faire"
         done: "Terminé"
         todo: "Faire"
+    tax_declaration:
+      mode:
+        debit: "Débit"
+        payment: "Paiement"
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"

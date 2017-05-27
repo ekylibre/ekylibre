@@ -47,7 +47,7 @@ private/*
 !private/test/
 private/test/tmp
 private/test/reporting
-private/test/attachments
+# private/test/attachments
 private/test/plugins
 
 # Ignore compiled assets
@@ -63,8 +63,10 @@ private/test/plugins
 /config/api.yml
 /config/tools.xml
 /config/tenants.yml
+/config/tenant_databases.yml
 /config/services.yml
 /config/unicorn.rb
+/config/application.yml
 
 # Coveralls
 coverage
@@ -88,3 +90,7 @@ Procfile.*
 *.sw?
 
 .byebug_history
+.gitconfig
+
+custom_plan.rb
+zeus.json

@@ -24,7 +24,7 @@ module Indicateable
       ids = []
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
-        puts name.inspect.yellow
+        # puts name.inspect.yellow
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
@@ -88,7 +88,7 @@ module Indicateable
     if cast_or_time.is_a?(Time) || cast_or_time.is_a?(DateTime)
       # Find value
       if options[:interpolate]
-        if [:measure, :decimal, :integer].include?(indicator.datatype)
+        if %i[measure decimal integer].include?(indicator.datatype)
           raise NotImplementedError, 'Interpolation is not available for now'
         end
         raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"

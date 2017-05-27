@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2016 Brice Texier, David Joulin
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -64,6 +64,10 @@ class CultivableZone < Ekylibre::Record::Base
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
   scope :of_production_system, ->(production_system) { where('production_system_name IS NULL OR production_system_name = ? OR production_system_name = ?', '', production_system) }
 
+  protect on: :destroy do
+    activity_productions.any?
+  end
+
   before_validation do
     self.uuid ||= UUIDTools::UUID.random_create.to_s
     self.work_number ||= UUIDTools::UUID.parse(self.uuid).to_i.to_s(36)
@@ -72,8 +76,8 @@ class CultivableZone < Ekylibre::Record::Base
   alias net_surface_area shape_area
 
   # get the first object with variety 'plant', availables
-  def current_cultivations
-    Plant.contained_by(current_supports)
+  def current_cultivations(at = Time.zone.now)
+    Plant.contained_by(current_supports, at)
   end
 
   # Returns last created islet number from cap statements

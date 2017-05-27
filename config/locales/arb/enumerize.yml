@@ -26,6 +26,7 @@ arb:
         none: "لا شيء"
     activity_production:
       support_nature:
+        animal_group: "مجموعة الحيوانات"
         border: "الحدود"
         buffer: "عازلة"
         cultivation: "زراعة"
@@ -35,10 +36,6 @@ arb:
       mode:
         harvested: "حصاد تاريخ البذر"
         sowed: "مواعيد الزراعة المؤقت"
-    affair:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
     analysis:
       retrieval_status:
         controller_error: "خطأ تحكم"
@@ -57,6 +54,32 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    animal:
+      birth_date_completeness:
+        full_date: "التاريخ الكامل"
+        month_year: "شهر سنة"
+        year: "عام"
+      end_of_life_reason:
+        calculated_date: "تاريخ تحسب"
+        cutting_up: "تقطيع"
+        death: "الموت"
+        slaughter: "ذبح"
+      filiation_status:
+        certified: "معتمد"
+        uncertified: "غير مصدق"
+        unknown: "غير معروف"
+    call_message:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
+    call_request:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
+    call_response:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
     cash:
       mode:
         bban: "رقم الحساب المصرفي الأساسي (BBAN)"
@@ -89,6 +112,10 @@ arb:
         datetime: "التاريخ و الوقت"
         decimal: "عدد عشري"
         text: "نص"
+    debt_transfer:
+      nature:
+        purchase_regularization: "تنظيم شراء"
+        sale_regularization: "بيع تسوية"
     delivery:
       mode:
         third: "ثلث"
@@ -122,18 +149,31 @@ arb:
         informative: "إعلامي"
         refused: "رفض"
         waiting: "انتظار"
+    financial_year:
+      tax_declaration_frequency:
+        monthly: "شهريا"
+        none: "لا شيء"
+        # quaterly: "Quaterly"
+        yearly: "سنوي"
+      tax_declaration_mode:
+        debit: "دين"
+        none: "لا شيء"
+        payment: "دفع"
     fixed_asset:
       depreciation_method:
         graduated: "تخرج" #?
         linear: "خطي"
+        none: "لا شيء"
+        regressive: "متردي"
         simplified_linear: "الخطية المبسطة"
+      depreciation_period:
+        monthly: "شهريا"
+        quarterly: "فصليا"
+        yearly: "سنوي"
     gap:
       direction:
         loss: "خسارة"
         profit: "ربح"
-      entity_role:
-        client: "زبون"
-        supplier: "المورد"
     georeading:
       nature:
         line: "خط" #?
@@ -155,7 +195,7 @@ arb:
         failed: "فشل"
         passed: "مرت"
         passed_with_warnings: "مرت مع تحذيرات"
-      status:  #?
+      status: #?
         failed: "فشل" #?
         passed: "مرت" #?
         passed_with_warnings: "مرت مع تحذيرات" #?
@@ -179,8 +219,10 @@ arb:
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
-        squeezed: "تقلص"
-        undone: "غير مصنوع"
+        rejected: "مرفوض"
+        squeezed: "تقلص" #?
+        undone: "غير مصنوع" #?
+        validated: "التحقق من صحة"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "منطقية"
@@ -192,13 +234,27 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    intervention_participation:
+      state:
+        done: "فعله"
+        in_progress: "في تَقَدم"
+        validated: "التحقق من صحة"
+    intervention_working_period:
+      nature:
+        intervention: "تدخل"
+        preparation: "تجهيز"
+        travel: "سفر"
     journal:
       nature:
         bank: "بنك"
         cash: "السيولة النقدية"
+        closure: "إغلاق"
+        fixed_assets: "أصول ثابتة"
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
+        result: "نتيجة"
         sales: "مبيعات"
+        stocks: "مخازن"
         various: "عمليات مختلفة"
     listing_node:
       nature:
@@ -212,15 +268,24 @@ arb:
         root: "جذر"
         string: "خيط"
     loan:
+      insurance_repayment_method:
+        initial: "على أساس رأس المال الأولي"
+        to_repay: "وبناء على رأس المال من اليسار إلى سداد"
       repayment_method:
         constant_amount: "مبلغ ثابت"
         constant_rate: "معدل ثابت"
       repayment_period:
         month: "شهر"
+        semester: "نصف السنة"
+        trimester: "الثلث"
         year: "عام"
       shift_method:
         anatocism: "anatocism"
         immediate_payment: "الدفع الفوري"
+    map_layer:
+      nature:
+        background: "خلفية"
+        overlay: "غطاء"
     notification:
       level:
         error: "خطأ"
@@ -242,12 +307,16 @@ arb:
         incoming: "الوارد"
         internal: "داخلي" #?
         outgoing: "المنتهية ولايته"
-      state:  #?
+      state: #?
         draft: "مسودة" #?
         given: "معطى" #?
         in_preparation: "قيد التحضير" #?
         ordered: "أمر" #?
         prepared: "أعدت" #?
+    plant_counting:
+      nature:
+        germination: "في إنبات"
+        sowing: "في البذر"
     preference:
       nature:
         accounting_system: "نظام المحاسبة"
@@ -282,6 +351,15 @@ arb:
       nature:
         exterior: "الخارج"
         interior: "داخلي"
+    product_movement:
+      description:
+        birth: "ولادة"
+        butchery: "مجزرة"
+        consumption: "استهلاك"
+        death: "الموت"
+        loan: "قرض"
+        purchase: "شراء"
+        sale: "تخفيض السعر"
     product_nature:
       population_counting:
         decimal: "عدد عشري"
@@ -363,20 +441,21 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    purchase:
+      tax_payability:
+        at_invoicing: "في الفواتير"
+        at_paying: "في دفع"
     purchase_nature:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_opportunity:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
-    sale_ticket:
-      third_role:
-        client: "زبون"
-        supplier: "المورد"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "كمية قبل خصم الضرائب" #?
+        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب" #?
     sensor:
       retrieval_mode:
+        integration: "دمج"
         listening: "استماع"
         requesting: "طلب"
     sequence:
@@ -386,37 +465,40 @@ arb:
         number: "لا دورية"
         year: "عام"
       usage:
-        affairs: "ترقيم الشؤون"
-        analyses: "ترقيم تحليلات"
-        animals: "ترقيم الحيوانات"
-        campaigns: "ترقيم الحملات"
-        cash_transfers: "ترقيم التحويلات النقدية"
+        affairs: "شؤون"
+        analyses: "تحليلات"
+        animals: "الحيوانات"
+        campaigns: "الحملات"
+        cash_transfers: "التحويلات النقدية"
+        contracts: "عقود"
+        debt_transfers: "نقل الديون"
         deliveries: "التسليم"
-        deposits: "ترقيم الودائع"
-        documents: "ترقيم الوثائق"
-        entities: "ترقيم الناس"
-        fixed_assets: "ترقيم الأصول الثابتة"
-        gaps: "ترقيم الثغرات"
-        incoming_parcels: "ترقيم شحنات واردة" #?
-        incoming_payments: "ترقيم المدفوعات"
+        deposits: "الودائع"
+        documents: "وثائق"
+        entities: "الأثلاث"
+        fixed_assets: "أصول ثابتة"
+        gaps: "ثغرات"
+        incoming_payments: "المدفوعات الواردة"
         inspections: "عمليات التفتيش"
-        interventions: "ترقيم التدخلات"
+        interventions: "التدخلات"
         inventories: "المخزونات"
         opportunities: "الفرص"
-        outgoing_deliveries: "ترقيم شحنات الصادرة" #?
-        outgoing_payments: "ترقيم المدفوعات"
+        outgoing_payment_lists: "قوائم دفع المنتهية ولايته"
+        outgoing_payments: "المدفوعات الصادرة"
         parcels: "الطرود"
-        plants: "ترقيم النباتات"
-        product_nature_categories: "ترقيم فئات طبيعة المنتج"
-        product_nature_variants: "ترقيم طبيعة المنتج المتغيرات"
-        product_natures: "ترقيم طبائع المنتج"
-        products: "ترقيم المنتجات"
-        purchases: "ترقيم مشتريات"
-        sales: "ترقيم المبيعات"
-        sales_invoices: "ترقيم فواتير المبيعات"
-        subscriptions: "ترقيم الاشتراكات"
+        plant_countings: "نباتات العد"
+        plants: "النباتات"
+        product_nature_categories: "فئات طبيعة المنتج"
+        product_nature_variants: "المتغيرات طبيعة المنتج"
+        product_natures: "طبائع المنتج"
+        products: "المنتجات"
+        purchases: "مشتريات"
+        sales: "مبيعات"
+        sales_invoices: "فواتير المبيعات"
+        subscriptions: "الاشتراكات"
+        tax_declarations: "الإقرارات الضريبية"
         transports: "ترقيم وسائل النقل" #?
-    subscription_nature:  #?
+    subscription_nature: #?
       entity_link_direction: #?
         all: "ثنائي الاتجاه" #?
         direct: "مباشرة" #?
@@ -424,6 +506,17 @@ arb:
       nature: #?
         period: "الاشتراك عن طريق التاريخ" #?
         quantity: "الاشتراك عن طريق رقم" #?
+    synchronization_operation:
+      operation_name:
+        authenticate: "المصادقة"
+        get_inventory: "الحصول على المخزون"
+        get_urls: "الحصول على عناوين المواقع"
+      state:
+        aborted: "أجهض"
+        # errored: "Errored"
+        finished: "تم الانتهاء من"
+        in_progress: "في تَقَدم"
+        undone: "غير مصنوع"
     task:
       nature:
         document: "جاري الكتابة" #?
@@ -438,10 +531,14 @@ arb:
         doing: "فعل"
         done: "فعله"
         todo: "لكى يفعل"
-    tax:  #?
+    tax: #?
       nature: #?
         amount: "كمية" #?
         percentage: "نسبة مئوية" #?
+    tax_declaration:
+      mode:
+        debit: "مدين"
+        payment: "دفع"
     tracking:
       usage_limit_nature:
         best_before: "الافضل قبل الموعد"

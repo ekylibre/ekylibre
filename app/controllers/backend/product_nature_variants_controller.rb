@@ -19,8 +19,8 @@
 module Backend
   class ProductNatureVariantsController < Backend::BaseController
     manage_restfully active: true
-
     manage_restfully_incorporation
+    manage_restfully_picture
 
     unroll :name, :unit_name, :number
 
@@ -30,7 +30,7 @@ module Backend
     #   :nature_id
     #   :category_id
     def self.variants_conditions
-      code = search_conditions(product_nature_variants: [:name, :number]) + " ||= []\n"
+      code = search_conditions(product_nature_variants: %i[name number]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND product_nature_variants.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
@@ -53,6 +53,7 @@ module Backend
       t.column :name, url: true
       t.column :number
       t.column :nature, url: true
+      t.column :category, url: true
       t.column :current_stock
       t.column :current_outgoing_stock_ordered_not_delivered
       t.column :unit_name

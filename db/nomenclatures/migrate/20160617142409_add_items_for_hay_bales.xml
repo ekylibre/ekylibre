@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add items for fodder bales">
-	<item-creation item="indicators#fodder_bales_count" datatype="integer"/>
-	<item-creation item="product_natures#fodder_bale" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume, fodder_bales_count"/>
-	<item-change item="product_nature_variants#hay_big_rectangular_bales" nature="fodder_bale" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1"/>
-	<item-change item="product_nature_variants#hay_round_bales" nature="fodder_bale" frozen_indicators_values="net_mass: 300.00kilogram, net_volume: 1.87cubic_meter, fodder_bales_count: 1"/>
-	<item-change item="product_nature_variants#hay_small_rectangular_bales" nature="fodder_bale" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1"/>
+  <item-creation item="indicators#fodder_bales_count" datatype="integer"/>
+  <item-creation item="product_natures#fodder_bale" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume, fodder_bales_count"/>
+  <item-change item="product_nature_variants#hay_big_rectangular_bales" nature="fodder_bale" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1"/>
+  <item-change item="product_nature_variants#hay_round_bales" nature="fodder_bale" frozen_indicators_values="net_mass: 300.00kilogram, net_volume: 1.87cubic_meter, fodder_bales_count: 1"/>
+  <item-change item="product_nature_variants#hay_small_rectangular_bales" nature="fodder_bale" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1"/>
 </migration>

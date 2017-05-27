@@ -45,9 +45,13 @@ module WorkingSet
         column = object.is_a?(WorkingSet::QueryLanguage::EssenceTest) ? :variety : :derivative_of
         value = record.send(column)
         value.present? && find_nomenclature_item(:varieties, object.variety_name.text_value) >= value
+      elsif object.is_a?(WorkingSet::QueryLanguage::InclusionTest)
+        column = :derivative_of
+        value = record.send(column)
+        value.present? && find_nomenclature_item(:varieties, object.variety_name.text_value) < value
       elsif object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) || object.is_a?(WorkingSet::QueryLanguage::NonDerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) ? :variety : :derivative_of
-        !(find_nomenclature_item(:varieties, object.variety_name.text_value) >= record.send(column))
+        find_nomenclature_item(:varieties, object.variety_name.text_value) < record.send(column)
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
         unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
@@ -57,9 +61,11 @@ module WorkingSet
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
-          ps.other_parameters.elements.each do |other_parameter|
-            parameters << other_parameter.parameter
-          end if ps.other_parameters
+          if ps.other_parameters
+            ps.other_parameters.elements.each do |other_parameter|
+              parameters << other_parameter.parameter
+            end
+          end
         end
         if ability_item.parameters
           if parameters.any?

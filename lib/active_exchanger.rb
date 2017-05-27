@@ -19,5 +19,5 @@ require 'active_exchanger/base'
 require 'active_exchanger/supervisor'
 
 Dir.glob(Rails.root.join('app', 'exchangers', '**', '*.rb')).each do |path|
-  require path
+  require_dependency path
 end

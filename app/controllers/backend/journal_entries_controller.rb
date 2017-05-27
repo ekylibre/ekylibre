@@ -18,7 +18,9 @@
 
 module Backend
   class JournalEntriesController < Backend::BaseController
-    manage_restfully only: [:index, :show, :destroy]
+    manage_restfully only: %i[show destroy]
+
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
     unroll
 
@@ -46,6 +48,8 @@ module Backend
       # t.column :number, through: :account, url: true
       # t.column :name, through: :account, url: true
       # t.column :number, through: :bank_statement, url: true, hidden: true
+      t.column :variant, url: true
+      t.column :letter, through: :journal_entry
       t.column :real_debit,  currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :debit,  currency: true, hidden: true
@@ -53,62 +57,137 @@ module Backend
       t.column :balance, currency: true, hidden: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
+      t.column :product_item_to_tax_label, label: :tax_label, hidden: true
+    end
+
+    def index
+      redirect_to controller: :journals, action: :index
+    end
+
+    def show
+      return unless @journal_entry = find_and_check
+      t3e @journal_entry
+      respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
+                                   include: [
+                                     { financial_year: {} },
+                                     { journal: {} },
+                                     { resource: {} },
+                                     { bank_statements: {} },
+                                     { creator: {} },
+                                     { updater: {} },
+                                     { items: { include: %i[account tax tax_declaration_item] } }
+                                   ],
+                                   procs: proc { |options| options[:builder].tag!(:url, backend_journal_entry_url(@journal_entry)) })
     end
 
     def new
-      return unless @journal = find_and_check(:journal, params[:journal_id])
-      session[:current_journal_id] = @journal.id
-      @journal_entry = @journal.entries.build
-      @journal_entry.printed_on = params[:printed_on] || Time.zone.today
-      @journal_entry.number = @journal.next_number
-      @journal_entry.real_currency_rate = params[:exchange_rate].to_f
-      if request.xhr?
-        render(partial: 'backend/journal_entries/items_form', locals: { items: @journal_entry.items })
+      if params[:duplicate_of]
+        @journal_entry = JournalEntry.find_by(id: params[:duplicate_of])
+                                     .deep_clone(include: :items, except: :number)
       else
-        t3e @journal.attributes
+        journal = Journal.find_by(id: params[:journal_id])
+        @journal_entry = JournalEntry.new(journal: journal, real_currency: Maybe(journal).currency.or_else(nil))
+        @journal_entry.printed_on = params[:printed_on] || Time.zone.today
       end
+      @journal_entry.real_currency_rate = if @journal_entry.need_currency_change?
+                                            if params[:exchange_rate]
+                                              params[:exchange_rate].to_f
+                                            else
+                                              I18n.currency_rate(@journal_entry.real_currency, FinancialYear.on(@journal_entry.printed_on).currency) || 1
+                                            end
+                                          else
+                                            1
+                                          end
+      t3e Maybe(@journal_entry.journal).attributes.or_else({})
     end
 
     def create
-      return unless @journal = find_and_check(:journal, params[:journal_id])
-      session[:current_journal_id] = @journal.id
-      @journal_entry = @journal.entries.build(permitted_params)
-      @journal_entry_items = (params[:items] || {}).values
-      # raise @journal_entry_items.inspect
-      if @journal_entry.save_with_items(@journal_entry_items)
-        notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
-        redirect_to controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on # , :draft_mode => (1 if @journal_entry.draft_mode)
+      @journal_entry = JournalEntry.new(permitted_params)
+      if @journal_entry.save
+        if params[:affair_id]
+          affair = Affair.find_by(id: params[:affair_id])
+          if affair
+            Regularization.create!(affair: affair, journal_entry: @journal_entry)
+          end
+        end
+        if @journal_entry.number == params[:theoretical_number]
+          notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
+        else
+          notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
+        end
+        redirect_to params[:redirect] || {
+          controller: :journal_entries,
+          action: :new,
+          journal_id: @journal_entry.journal_id,
+          exchange_rate: @journal_entry.real_currency_rate,
+          printed_on: @journal_entry.printed_on
+        }
         return
       end
-      t3e @journal.attributes
+      notify_global_errors
+      t3e @journal_entry.journal.attributes if @journal_entry.journal
     end
 
     def edit
-      return unless @journal_entry = find_and_check
-      unless @journal_entry.updateable?
-        notify_error(:journal_entry_already_validated)
-        redirect_to_back
-        return
-      end
-      @journal = @journal_entry.journal
+      return unless find_and_check_updateability
       t3e @journal_entry.attributes
     end
 
     def update
-      return unless @journal_entry = find_and_check
+      return unless find_and_check_updateability
+      if @journal_entry.update_attributes(permitted_params)
+        redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
+        return
+      end
+      notify_global_errors
+      t3e @journal_entry.attributes
+    end
+
+    def currency_state
+      state = {}
+      checked_on = params[:on] ? Date.parse(params[:on]) : Time.zone.today
+      financial_year = FinancialYear.on(checked_on)
+      state[:from] = params[:from]
+      state[:to] = financial_year.currency
+      state[:exchange_rate] = if state[:from] != state[:to]
+                                I18n.currency_rate(state[:from], state[:to])
+                              else
+                                1
+                              end
+      render json: state.to_json
+    end
+
+    def toggle_autocompletion
+      choice = (params[:autocompletion] == 'true')
+      return unless Preference.set!(:entry_autocompletion, choice, :boolean)
+      respond_to do |format|
+        format.json { render json: { status: :success, preference: choice } }
+      end
+    end
+
+    protected
+
+    def permitted_params
+      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id team_id _destroy])
+    end
+
+    def notify_global_errors
+      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+        next if /items\./ =~ field
+        messages.each { |m| notify_error_now m }
+      end
+    end
+
+    def find_and_check_updateability
+      return false unless (@journal_entry = find_and_check)
       unless @journal_entry.updateable?
         notify_error(:journal_entry_already_validated)
         redirect_to_back
         return
       end
-      @journal = @journal_entry.journal
-      @journal_entry.attributes = permitted_params
-      @journal_entry_items = (params[:items] || {}).values
-      if @journal_entry.save_with_items(@journal_entry_items)
-        redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
-        return
-      end
-      t3e @journal_entry.attributes
+      @journal_entry
     end
   end
 end

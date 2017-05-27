@@ -6,8 +6,7 @@ module Backend
         t.column :description
       end
 
-      def show
-      end
+      def show; end
     end
   end
 end

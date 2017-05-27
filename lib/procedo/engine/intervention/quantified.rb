@@ -19,6 +19,14 @@ module Procedo
           hash
         end
 
+        def to_attributes
+          hash = super
+          hash[:quantity_handler] = @quantity_handler if @quantity_handler
+          hash[:quantity_value] = @quantity_value.to_s.to_f unless @quantity_value.nil?
+          hash[:quantity_population] = @quantity_population.to_s.to_f unless @quantity_population.nil?
+          hash
+        end
+
         def handlers_states
           reference.handlers.each_with_object({}) do |handler, hash|
             hash[handler.name] = usable_handler?(handler)
@@ -73,7 +81,7 @@ module Procedo
 
         # Checks that handler is always valid and fix it if possible
         def impact_on_handlers(_field)
-          rh = reference.handler(@quantity_handler) unless @quantity_handler.blank?
+          rh = reference.handler(@quantity_handler) if @quantity_handler.present?
           unless @quantity_handler && usable_handler?(rh)
             rh = reference.handlers.detect { |h| usable_handler?(h) }
             self.quantity_handler = rh.name.to_s if rh
