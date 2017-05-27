@@ -40,7 +40,7 @@
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  originator_id                :integer
 #  originator_type              :string
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  product_id                   :integer          not null
 #  read_at                      :datetime         not null
 #  string_value                 :text

@@ -59,6 +59,116 @@ CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
             $$;
 
 
+--
+-- Name: compute_partial_lettering(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION compute_partial_lettering() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+  DECLARE
+    new_letter varchar DEFAULT NULL;
+    old_letter varchar DEFAULT NULL;
+    new_account_id integer DEFAULT NULL;
+    old_account_id integer DEFAULT NULL;
+  BEGIN
+  IF TG_OP <> 'DELETE' THEN
+    IF NEW.letter IS NOT NULL THEN
+      new_letter := substring(NEW.letter from '[A-z]*');
+    END IF;
+
+    IF NEW.account_id IS NOT NULL THEN
+      new_account_id := NEW.account_id;
+    END IF;
+  END IF;
+
+  IF TG_OP <> 'INSERT' THEN
+    IF OLD.letter IS NOT NULL THEN
+      old_letter := substring(OLD.letter from '[A-z]*');
+    END IF;
+
+    IF OLD.account_id IS NOT NULL THEN
+      old_account_id := OLD.account_id;
+    END IF;
+  END IF;
+
+  UPDATE journal_entry_items
+  SET letter = (CASE
+                  WHEN modified_letter_groups.balance <> 0
+                  THEN modified_letter_groups.letter || '*'
+                  ELSE modified_letter_groups.letter
+                END)
+  FROM (SELECT new_letter AS letter,
+               account_id AS account_id,
+               SUM(debit) - SUM(credit) AS balance
+            FROM journal_entry_items
+            WHERE account_id = new_account_id
+              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\*?')
+              AND new_letter IS NOT NULL
+              AND new_account_id IS NOT NULL
+            GROUP BY account_id
+        UNION ALL
+        SELECT old_letter AS letter,
+               account_id AS account_id,
+               SUM(debit) - SUM(credit) AS balance
+          FROM journal_entry_items
+          WHERE account_id = old_account_id
+            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\*?')
+            AND old_letter IS NOT NULL
+            AND old_account_id IS NOT NULL
+          GROUP BY account_id) AS modified_letter_groups
+  WHERE modified_letter_groups.account_id = journal_entry_items.account_id
+  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*?');
+
+  RETURN NEW;
+END;
+$$;
+
+
+--
+-- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION synchronize_jei_with_entry() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  synced_entry_id integer DEFAULT NULL;
+BEGIN
+  IF TG_NARGS <> 0 THEN
+    IF TG_ARGV[0] = 'jei' THEN
+      synced_entry_id := NEW.entry_id;
+    END IF;
+
+    IF TG_ARGV[0] = 'entry' THEN
+      synced_entry_id := NEW.id;
+    END IF;
+  END IF;
+
+  UPDATE journal_entry_items AS jei
+  SET state = entries.state,
+      printed_on = entries.printed_on,
+      journal_id = entries.journal_id,
+      financial_year_id = entries.financial_year_id,
+      entry_number = entries.number,
+      real_currency = entries.real_currency,
+      real_currency_rate = entries.real_currency_rate
+  FROM journal_entries AS entries
+  WHERE jei.entry_id = synced_entry_id
+    AND entries.id = synced_entry_id
+    AND synced_entry_id IS NOT NULL
+    AND (jei.state <> entries.state
+     OR jei.printed_on <> entries.printed_on
+     OR jei.journal_id <> entries.journal_id
+     OR jei.financial_year_id <> entries.financial_year_id
+     OR jei.entry_number <> entries.number
+     OR jei.real_currency <> entries.real_currency
+     OR jei.real_currency_rate <> entries.real_currency_rate);
+  RETURN NEW;
+END;
+$$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -2257,7 +2367,8 @@ CREATE TABLE journal_entry_items (
     resource_id integer,
     resource_type character varying,
     resource_prism character varying,
-    variant_id integer
+    variant_id integer,
+    tax_declaration_mode character varying
 );
 
 
@@ -6300,6 +6411,47 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
+-- Name: tax_declaration_item_parts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declaration_item_parts (
+    id integer NOT NULL,
+    tax_declaration_item_id integer NOT NULL,
+    journal_entry_item_id integer NOT NULL,
+    account_id integer NOT NULL,
+    tax_amount numeric(19,4) NOT NULL,
+    pretax_amount numeric(19,4) NOT NULL,
+    total_tax_amount numeric(19,4) NOT NULL,
+    total_pretax_amount numeric(19,4) NOT NULL,
+    direction character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declaration_item_parts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declaration_item_parts_id_seq OWNED BY tax_declaration_item_parts.id;
+
+
+--
 -- Name: tax_declaration_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7633,6 +7785,13 @@ ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY tax_declaration_item_parts ALTER COLUMN id SET DEFAULT nextval('tax_declaration_item_parts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY tax_declaration_items ALTER COLUMN id SET DEFAULT nextval('tax_declaration_items_id_seq'::regclass);
 
 
@@ -8787,6 +8946,14 @@ ALTER TABLE ONLY target_distributions
 
 ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_declaration_item_parts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT tax_declaration_item_parts_pkey PRIMARY KEY (id);
 
 
 --
@@ -12676,6 +12843,13 @@ CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_ent
 
 
 --
+-- Name: index_journal_entry_items_on_tax_declaration_mode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_declaration_mode ON journal_entry_items USING btree (tax_declaration_mode);
+
+
+--
 -- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16120,6 +16294,62 @@ CREATE INDEX index_tasks_on_updater_id ON tasks USING btree (updater_id);
 
 
 --
+-- Name: index_tax_declaration_item_parts_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_account_id ON tax_declaration_item_parts USING btree (account_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_created_at ON tax_declaration_item_parts USING btree (created_at);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_creator_id ON tax_declaration_item_parts USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_direction; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_direction ON tax_declaration_item_parts USING btree (direction);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_journal_entry_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_journal_entry_item_id ON tax_declaration_item_parts USING btree (journal_entry_item_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_tax_declaration_item_id ON tax_declaration_item_parts USING btree (tax_declaration_item_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_updated_at ON tax_declaration_item_parts USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_updater_id ON tax_declaration_item_parts USING btree (updater_id);
+
+
+--
 -- Name: index_tax_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16604,10 +16834,38 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE compute_partial_lettering();
+
+
+--
+-- Name: compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
+
+
+--
 -- Name: outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON outgoing_payments FOR EACH ROW EXECUTE PROCEDURE compute_outgoing_payment_list_cache();
+
+
+--
+-- Name: synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
+
+
+--
+-- Name: synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
 
 
 --
@@ -16635,6 +16893,14 @@ ALTER TABLE ONLY journal_entries
 
 
 --
+-- Name: fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16659,6 +16925,14 @@ ALTER TABLE ONLY intervention_participations
 
 
 --
+-- Name: fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id);
+
+
+--
 -- Name: fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16672,6 +16946,14 @@ ALTER TABLE ONLY alerts
 
 ALTER TABLE ONLY intervention_working_periods
     ADD CONSTRAINT fk_rails_a9b45798a3 FOREIGN KEY (intervention_participation_id) REFERENCES intervention_participations(id);
+
+
+--
+-- Name: fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES journal_entry_items(id);
 
 
 --
@@ -17209,4 +17491,16 @@ INSERT INTO schema_migrations (version) VALUES ('20170413073501');
 INSERT INTO schema_migrations (version) VALUES ('20170413185630');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413211525');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222518');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222519');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222520');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222521');
+
+INSERT INTO schema_migrations (version) VALUES ('20170414071529');
+
+INSERT INTO schema_migrations (version) VALUES ('20170414092904');
 

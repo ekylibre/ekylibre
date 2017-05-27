@@ -257,6 +257,8 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   after_save do
+    # Item caching process also handled via a trigger in DB.
+    # See migration AddEntryDataSynchro if needed.
     JournalEntryItem.where(entry_id: id).update_all(
       state: self.state,
       journal_id: journal_id,

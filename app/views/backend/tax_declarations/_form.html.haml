@@ -5,8 +5,8 @@
   -# = f.referenced_association :tax_office, source: :suppliers, new: { supplier: 1 }
   = f.input :reference_number
   = f.input :invoiced_on
-  = f.input :started_on
-  = f.input :stopped_on
+  = f.input :started_on, disabled: true
+  = f.input :stopped_on, disabled: f.object.persisted?
   = f.association :financial_year, as: :hidden
   -# = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   -# = f.input :description

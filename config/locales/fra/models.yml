@@ -242,6 +242,7 @@ fra:
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+        overlap: "%{attribute} se trouve sur un enregistrement existant"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "%{attribute} doit être postérieure à %{to}"
@@ -350,7 +351,7 @@ fra:
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
-      bank_guarantee_account: "Compte bancaire de garantie"
+      bank_guarantee_account: "Compte bancaire de garantie" #?
       bank_statement: "Relevé de compte bancaire"
       bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
@@ -393,6 +394,7 @@ fra:
       event: "Évènement"
       event_participation: "Participation à un évènement"
       financial_year: "Exercice"
+      financial_year_exchange: "Échange de l’exercice"
       fixed_asset: "Immobilisation"
       fixed_asset_depreciation: "Amortissement d’immobilisation"
       fungus: "Champignon"
@@ -410,9 +412,9 @@ fra:
       inspection: "Agréage produit"
       inspection_calibration: "Calibre de l'agréage"
       inspection_point: "Point de contrôle"
-      insurance_account: "Compte d'assurance"
+      insurance_account: "Compte d'assurance" #?
       integration: "L’intégration"
-      interest_account: "Compte d'intérêt"
+      interest_account: "Compte d'intérêt" #?
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
       intervention_doer: "Opérateur d’intervention"
@@ -509,6 +511,7 @@ fra:
       tax: "Taxe"
       tax_declaration: "Déclaration d’impôts"
       tax_declaration_item: "Tax élément de déclaration"
+      tax_declaration_item_part: "Partie d’élément de déclaration fiscale"
       team: "Service"
       token: "Jeton"
       tracking: "Lot traçable"

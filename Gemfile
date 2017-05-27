@@ -5,6 +5,9 @@ ruby '2.2.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
 
+# Security fix for mail
+gem 'mail', '~> 2.6.6.rc1'
+
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg' # Needed for some tasks
@@ -75,7 +78,7 @@ gem 'timecop'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '>= 4.0'
+gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
@@ -185,7 +188,7 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.48.1', require: false
 
   # Webservers
   gem 'thin'

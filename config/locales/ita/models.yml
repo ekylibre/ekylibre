@@ -118,6 +118,7 @@ ita:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         other_than: "devono essere di numero diverso da %{count}" #?
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         present: "deve essere lasciato in bianco" #?
@@ -251,7 +252,7 @@ ita:
       animal: "Animale"
       animal_group: "gruppo di animali"
       attachment: "Allegati"
-      bank_guarantee_account: "Conto Garanzia bancaria"
+      bank_guarantee_account: "Conto Garanzia bancaria" #?
       bank_statement: "estratto conto bancario"
       bank_statement_item: "Fila estratto conto bancario"
       bioproduct: "vivere prodotto"
@@ -294,6 +295,7 @@ ita:
       event: "Evento"
       event_participation: "partecipazione Event"
       financial_year: "Anno finanziario"
+      financial_year_exchange: "Scambio anno finanziario"
       fixed_asset: "Assetto stabile"
       fixed_asset_depreciation: "deprezzamento capitale fisso"
       fungus: "Fungo"
@@ -310,9 +312,9 @@ ita:
       inspection: "classificazione del prodotto"
       inspection_calibration: "calibro di ispezione"
       inspection_point: "controllo di classificazione del prodotto"
-      insurance_account: "Conto assicurativo"
+      insurance_account: "Conto assicurativo" #?
       integration: "Integrazione"
-      interest_account: "Conto interessi"
+      interest_account: "Conto interessi" #?
       intervention: "Intervento"
       intervention_agent: "agente di intervento"
       intervention_doer: "intervento agente"
@@ -409,6 +411,7 @@ ita:
       tax: "Imposta"
       tax_declaration: "Dichiarazione dei redditi"
       tax_declaration_item: "Voce dichiarazione dei redditi"
+      tax_declaration_item_part: "Parte dell’articolo dichiarazione fiscale"
       team: "Squadra"
       token: "Gettone"
       tracking: "puntamento"
