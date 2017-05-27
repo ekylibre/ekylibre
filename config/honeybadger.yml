@@ -1,0 +1,5 @@
+---
+connection:
+  http_open_timeout: 10
+exceptions:
+  local_variables: true
