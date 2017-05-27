@@ -147,7 +147,7 @@ gem 'beardley-open_sans'
 gem 'beardley-xml'
 
 # Import/Export
-gem 'ekylibre-ofx-parser'
+gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
