@@ -21,9 +21,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  if ENV['SENTRY_DSN']
-    before_action :set_raven_context
-  end
+  before_action :set_raven_context if ENV['SENTRY_DSN']
 
   skip_before_action :verify_authenticity_token, if: :session_controller?
 
