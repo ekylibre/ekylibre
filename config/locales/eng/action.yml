@@ -2289,6 +2289,7 @@ eng:
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
+      interval_reconciliation: "Reconciliate"
       invoice: "Invoice"
       journal_entries_csv_export: "Download CSV" #?
       # journal_entries_export: "Journal entries export"

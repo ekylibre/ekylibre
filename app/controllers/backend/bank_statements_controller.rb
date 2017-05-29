@@ -133,6 +133,10 @@ module Backend
       end
     end
 
+    def interval_reconciliation
+      
+    end
+
     private
 
     def letter_lines(bank_items, journal_items)

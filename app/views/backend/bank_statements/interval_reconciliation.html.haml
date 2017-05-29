@@ -1,0 +1,6 @@
+= form_tag() do
+  = field_set :interval do
+    = field "débuté le", datetime_range(start_input_html: { class: "intervention-started-at", data: { intervention_updater: 'started_at' }}, stop_input_html: { data: { intervention_updater: 'stopped_at' }}) 
+    = field "stoppé le", datetime_range(start_input_html: { class: "intervention-started-at", data: { intervention_updater: 'started_at' }}, stop_input_html: { data: { intervention_updater: 'stopped_at' }})
+  = form_actions do
+    = submit_tag :validate.tl

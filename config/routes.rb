@@ -284,6 +284,7 @@ Rails.application.routes.draw do
         patch :letter
         put   :unletter
         patch :unletter
+        get :interval_reconciliation
       end
     end
 
