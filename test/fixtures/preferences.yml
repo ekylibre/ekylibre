@@ -4778,3 +4778,13 @@ preferences_414:
   updated_at: 2017-05-01 23:43:33.909903000 Z
   updater_id: 1
   user_id: 1
+preferences_415:
+  boolean_value: true
+  created_at: 2017-05-29 20:40:27.958563000 Z
+  creator_id: 1
+  id: 416
+  lock_version: 0
+  name: entry_autocompletion
+  nature: boolean
+  updated_at: 2017-05-29 20:40:27.958563000 Z
+  updater_id: 1
