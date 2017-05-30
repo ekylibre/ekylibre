@@ -166,6 +166,10 @@ eng:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integrations:
+          attributes:
+            parameters:
+              check_errored: "Connexion check errored. Please ensure the validity of your input or try again later."
         journal:
           attributes:
             accountant:
