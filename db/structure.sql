@@ -1794,8 +1794,7 @@ CREATE TABLE cultivable_zones (
     production_system_name character varying,
     soil_nature character varying,
     owner_id integer,
-    farmer_id integer,
-    codes jsonb
+    farmer_id integer
 );
 
 
@@ -17853,6 +17852,4 @@ INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
-
-INSERT INTO schema_migrations (version) VALUES ('20170529203843');
 
