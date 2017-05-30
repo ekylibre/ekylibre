@@ -623,7 +623,7 @@ module Ekylibre
         # end
 
         # Inventory of end of year
-        if month == current_financial_year.stopped_on.month && 17 < mday && mday <= 24 && friday?
+        if month == current_financial_year.stopped_on.month && mday > 17 && mday <= 24 && friday?
           print 'h'.red if create_inventory
         end
 
