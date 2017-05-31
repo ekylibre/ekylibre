@@ -416,9 +416,8 @@ class Account < Ekylibre::Record::Base
   end
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    relation_name = 'journal_entries'
+    relation_name = 'journal_entry_items'
     journal_entry_items
-      .includes(:journal, :entry)
       .where(JournalEntry.period_condition(period, started_at, stopped_at, relation_name))
       .reorder(relation_name + '.printed_on, ' + relation_name + '.real_credit, ' + relation_name + '.real_debit')
   end
