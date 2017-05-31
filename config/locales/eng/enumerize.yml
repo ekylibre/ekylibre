@@ -433,10 +433,18 @@ eng:
       direction:
         # loss: "Loss"
         # profit: "Profit"
+    purchase_invoice:
+      tax_payability:
+        # at_invoicing: "At invoicing"
+        # at_paying: "At paying"
     purchase_nature:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
+    purchase_order:
+      tax_payability:
+        # at_invoicing: "At invoicing"
+        # at_paying: "At paying"
     sale_gap:
       direction:
         # loss: "Loss"

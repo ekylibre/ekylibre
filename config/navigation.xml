@@ -403,6 +403,9 @@
         <page to="backend/purchase_gaps#list_items"/>
         <page to="backend/purchase_gaps#show"/>
       </item>
+      <item name="purchase_orders">
+        <page to="backend/purchase_orders#index"/>
+      </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>
         <page to="backend/contracts#create"/>
@@ -1971,6 +1974,50 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="purchase_invoices">
+        <page to="backend/purchase_invoices#index"/>
+        <page to="backend/purchase_invoices#abort"/>
+        <page to="backend/purchase_invoices#confirm"/>
+        <page to="backend/purchase_invoices#correct"/>
+        <page to="backend/purchase_invoices#create"/>
+        <page to="backend/purchase_invoices#destroy"/>
+        <page to="backend/purchase_invoices#edit"/>
+        <page to="backend/purchase_invoices#invoice"/>
+        <page to="backend/purchase_invoices#list"/>
+        <page to="backend/purchase_invoices#list_items"/>
+        <page to="backend/purchase_invoices#list_parcels"/>
+        <page to="backend/purchase_invoices#new"/>
+        <page to="backend/purchase_invoices#pay"/>
+        <page to="backend/purchase_invoices#payment_mode"/>
+        <page to="backend/purchase_invoices#propose"/>
+        <page to="backend/purchase_invoices#propose_and_invoice"/>
+        <page to="backend/purchase_invoices#refuse"/>
+        <page to="backend/purchase_invoices#show"/>
+        <page to="backend/purchase_invoices#unroll"/>
+        <page to="backend/purchase_invoices#update"/>
+      </item>
+      <item name="purchase_orders">
+        <page to="backend/purchase_orders#abort"/>
+        <page to="backend/purchase_orders#confirm"/>
+        <page to="backend/purchase_orders#correct"/>
+        <page to="backend/purchase_orders#create"/>
+        <page to="backend/purchase_orders#destroy"/>
+        <page to="backend/purchase_orders#edit"/>
+        <page to="backend/purchase_orders#invoice"/>
+        <page to="backend/purchase_orders#list"/>
+        <page to="backend/purchase_orders#list_items"/>
+        <page to="backend/purchase_orders#list_parcels"/>
+        <page to="backend/purchase_orders#new"/>
+        <page to="backend/purchase_orders#pay"/>
+        <page to="backend/purchase_orders#payment_mode"/>
+        <page to="backend/purchase_orders#propose"/>
+        <page to="backend/purchase_orders#propose_and_invoice"/>
+        <page to="backend/purchase_orders#refuse"/>
+        <page to="backend/purchase_orders#show"/>
+        <page to="backend/purchase_orders#unroll"/>
+        <page to="backend/purchase_orders#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

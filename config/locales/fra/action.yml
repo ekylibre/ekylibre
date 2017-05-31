@@ -549,6 +549,8 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
+    backend/purchase_orders: #?
+      index: "Commandes" #?
     backend/purchases:
       abort: "Annuler l’achat"
       confirm: "Confimer l’achat et attendre les arrivages"

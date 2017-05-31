@@ -49,6 +49,7 @@
 #  state                                    :string
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
+#  type                                     :string
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
@@ -146,15 +147,6 @@ class Purchase < Ekylibre::Record::Base
     supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
-
-  def self.third_attribute
-    :supplier
-  end
-  
-  def third
-    send(third_attribute)
-  end
-
   def default_currency
     currency || nature.currency
   end
@@ -163,37 +155,12 @@ class Purchase < Ekylibre::Record::Base
     Nomen::Currency.find(currency).precision
   end
 
-  # Globalizes taxes into an array of hash
-  def deal_taxes(mode = :debit)
-    return [] if deal_mode_amount(mode).zero?
-    taxes = {}
-    coeff = 1.to_d # (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in items
-      taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
-      taxes[item.tax_id][:amount] += coeff * item.amount
-    end
-    taxes.values
-  end
-
   def refresh
     save
   end
 
-  def has_content?
-    items.any?
-  end
-
   def purchased?
     (order? || invoice?)
-  end
-
-  def has_content_not_deliverable?
-    return false unless has_content?
-    deliverable = false
-    for item in items
-      deliverable = true if item.variant.deliverable?
-    end
-    !deliverable
   end
 
   # Computes an amount (with or without taxes) of the undelivered products
@@ -202,12 +169,6 @@ class Purchase < Ekylibre::Record::Base
     sum  = send(column)
     sum -= parcels.sum(column)
     sum.round(2)
-  end
-
-  def deliverable?
-    # TODO: How to compute if it remains deliverable products
-    true
-    # (self.quantity - self.undelivered(:population)) > 0 and not self.invoice?
   end
 
   # Save the last date when the purchase was confirmed
@@ -237,10 +198,6 @@ class Purchase < Ekylibre::Record::Base
 
   def client_address
     Entity.of_company.default_mail_address.mail_coordinate
-  end
-
-  def taxes_amount
-    amount - pretax_amount
   end
 
   def can_generate_parcel?

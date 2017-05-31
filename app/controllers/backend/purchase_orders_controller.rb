@@ -18,5 +18,6 @@
 
 module Backend
   class PurchaseOrdersController < Backend::PurchasesController
+    def index; end
   end
 end

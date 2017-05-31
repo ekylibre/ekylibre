@@ -2085,6 +2085,11 @@ fra:
     purchase_nature:
       default:
         name: "Achat standard"
+    purchase_order: #?
+      states: #?
+        closed: "Fermée" #?
+        estimate: "Brouillon" #?
+        opened: "Ouverte" #?
     role:
       default:
         administrator: "Gérant"

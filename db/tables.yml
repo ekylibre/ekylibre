@@ -6509,6 +6509,8 @@ purchases:
   tax_payability:
     type: string
     required: true
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry
