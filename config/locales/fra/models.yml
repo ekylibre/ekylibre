@@ -301,7 +301,7 @@ fra:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         incoming_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
-        integrations:
+        integration:
           attributes:
             parameters:
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard."
