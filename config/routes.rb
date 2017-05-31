@@ -835,7 +835,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :purchase_orders
+    resources :purchase_orders, concerns: %i[list unroll]
     resources :purchase_invoices
 
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
