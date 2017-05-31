@@ -23,7 +23,13 @@
 
       div.dialog {
         background: rgba(255, 255, 255, 0.75);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
         .content {
+          flex: 1;
           margin: 4em auto 0;
           margin: 10vh auto 0;
           max-width: 33em;
@@ -36,6 +42,9 @@
             color: $base-color;
             line-height: 1.5em;
           }
+         #error-code {
+           text-align: center;
+         }
         }
         &.legals {
           text-align: center;
@@ -54,4 +63,6 @@
         - hint = "http.errors.#{name}.hint".t(default: "")
         - unless hint.blank?
           %p= hint
+      %p#error-code
+        / HONEYBADGER ERROR
     .dialog.legals= "Ekylibre #{Ekylibre::VERSION}"
