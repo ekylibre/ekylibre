@@ -86,7 +86,9 @@
 require 'ffaker'
 
 class Product < Ekylibre::Record::Base
-  include Versionable, Indicateable, Attachable
+  include Attachable
+  include Indicateable
+  include Versionable
   include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'

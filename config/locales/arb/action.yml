@@ -1328,7 +1328,7 @@ arb:
     done: "فعله"
     dont_generate_carrying_forward_entries: "- لا تولد تحمل إدخالات إلى الأمام -"
     dont_generate_closure_entries: "- لا تولد إدخالات إغلاق -"
-    # dont_generate_result_entries: "— Do not generate result entries —"
+    dont_generate_result_entries: "- لا تولد إدخالات نتيجة -"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
@@ -1538,6 +1538,7 @@ arb:
     investment_security: "أمن الاستثمار"
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
+    invoice_period: "فترة الفاتورة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
     invoiced_amount: "قيمة الفاتورة" #?
@@ -2180,6 +2181,7 @@ arb:
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
     supplier: "اسعار البيع للممولين"
     supplier_informations: "المعلومات المورد"
+    supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
     supply: "التسليم"
     support: "الدعم"

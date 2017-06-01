@@ -5,6 +5,9 @@ ruby '2.2.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
 
+# Security fix for mail
+gem 'mail', '~> 2.6.6.rc1'
+
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg' # Needed for some tasks
@@ -38,6 +41,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
+
+# Exception analysis and metrics
+gem 'binding_of_caller'
+gem 'honeybadger'
+gem 'sentry-raven', require: false
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -180,7 +188,7 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.49.1', require: false
 
   # Webservers
   gem 'thin'
