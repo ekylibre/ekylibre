@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.6
--- Dumped by pg_dump version 9.5.6
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -3528,7 +3528,8 @@ CREATE TABLE integrations (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    data jsonb
 );
 
 
@@ -17852,4 +17853,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425145302');
+
+INSERT INTO schema_migrations (version) VALUES ('20170602144753');
 
