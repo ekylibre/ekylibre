@@ -149,6 +149,12 @@
 
   - c.cobble(:intervention_product_parameters, title: :x_intervention_product_parameters.tl(count: resource.intervention_product_parameters.count)) do
     = cobble_list(:intervention_product_parameters)
-
   -# c.cobble(:readings, tl(:x_readings, count: resource.readings.count)) do
     = cobble_list(:readings)
+
+  - c.cobble(:details) do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :variant, url: true
+      - l.attribute :variety
+      - l.attribute :description
