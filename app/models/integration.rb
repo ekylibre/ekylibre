@@ -91,4 +91,8 @@ class Integration < Ekylibre::Record::Base
   def name
     nature.to_s.camelize
   end
+
+  def update_data(new_data)
+    update(data: data.merge(new_data))
+  end
 end
