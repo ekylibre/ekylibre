@@ -164,6 +164,18 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase.invoice!
   end
 
+  test 'cannot have an empty state - it is set to draft by default' do
+    nature   = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max      = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    purchase = Purchase.create!(supplier: max, nature: nature, currency: 'USD', state: nil)
+
+    assert_equal 'draft', purchase.state
+
+    purchase.update(state: nil)
+
+    assert_equal 'draft', purchase.state
+  end
+
   test 'default_currency is nature\'s currency if currency is not specified' do
     PurchaseNature.delete_all
     Entity.delete_all

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2456,7 +2456,7 @@ CREATE TABLE purchases (
     accounted_at timestamp without time zone,
     journal_entry_id integer,
     reference_number character varying,
-    state character varying,
+    state character varying NOT NULL,
     responsible_id integer,
     currency character varying NOT NULL,
     nature_id integer,
@@ -17503,4 +17503,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170602163650');
 

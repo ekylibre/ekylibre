@@ -142,6 +142,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   before_validation do
+    self.state ||= :draft
     self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
     if payment_delay.blank? && supplier && supplier.supplier_payment_delay
