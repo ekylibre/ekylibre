@@ -126,9 +126,9 @@ module ActionIntegration
         @parameters || []
       end
 
-      def parameter(name)
+      def parameter(name, &default_value)
         @parameters ||= []
-        @parameters << name
+        @parameters << ActionIntegration::Parameter.new(name, &default_value)
       end
 
       # TODO: fetch shouldn't raise exceptions, fetch! does
