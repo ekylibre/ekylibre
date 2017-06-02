@@ -46,7 +46,7 @@ class Integration < Ekylibre::Record::Base
               converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do
-    if parameters_was != parameters
+    if ciphered_parameters_changed?
       if integration_type
         if authentication_mode == :check
           check_connection attributes do |c|
