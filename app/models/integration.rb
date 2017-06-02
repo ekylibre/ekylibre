@@ -46,20 +46,22 @@ class Integration < Ekylibre::Record::Base
               converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do
-    if integration_type
-      if authentication_mode == :check
-        check_connection attributes do |c|
-          c.redirect do
-            errors.add(:parameters, :check_redirected)
+    if parameters_was != parameters
+      if integration_type
+        if authentication_mode == :check
+          check_connection attributes do |c|
+            c.redirect do
+              errors.add(:parameters, :check_redirected)
+            end
+            c.error do
+              errors.add(:parameters, :check_errored)
+            end
           end
-          c.error do
+        elsif authentication_mode == :check
+          list = parameters.keys.map(&:to_s)
+          unless parameters && !integration_type.parameters.detect { |p| list.include?(p.to_s) }
             errors.add(:parameters, :check_errored)
           end
-        end
-      elsif authentication_mode == :check
-        list = parameters.keys.map(&:to_s)
-        unless parameters && !integration_type.parameters.detect { |p| list.include?(p.to_s) }
-          errors.add(:parameters, :check_errored)
         end
       end
     end
