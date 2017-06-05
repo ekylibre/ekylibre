@@ -39,7 +39,8 @@
 #
 
 class ProductLocalization < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include TimeLineable
+  include Taskable
   belongs_to :container, class_name: 'Product'
   belongs_to :product
   enumerize :nature, in: %i[transfer interior exterior], predicates: true
