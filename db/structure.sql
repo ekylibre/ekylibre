@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -66,16 +66,16 @@ CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
 CREATE FUNCTION compute_partial_lettering() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-  DECLARE
-    new_letter varchar DEFAULT NULL;
-    old_letter varchar DEFAULT NULL;
-    new_account_id integer DEFAULT NULL;
-    old_account_id integer DEFAULT NULL;
-  BEGIN
-  IF TG_OP <> 'DELETE' THEN
-    IF NEW.letter IS NOT NULL THEN
-      new_letter := substring(NEW.letter from '[A-z]*');
-    END IF;
+    DECLARE
+      new_letter varchar DEFAULT NULL;
+      old_letter varchar DEFAULT NULL;
+      new_account_id integer DEFAULT NULL;
+      old_account_id integer DEFAULT NULL;
+    BEGIN
+    IF TG_OP <> 'DELETE' THEN
+      IF NEW.letter IS NOT NULL THEN
+        new_letter := substring(NEW.letter from '[A-z]*');
+      END IF;
 
     IF NEW.account_id IS NOT NULL THEN
       new_account_id := NEW.account_id;
@@ -103,7 +103,7 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                SUM(debit) - SUM(credit) AS balance
             FROM journal_entry_items
             WHERE account_id = new_account_id
-              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\*?')
+              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\**')
               AND new_letter IS NOT NULL
               AND new_account_id IS NOT NULL
             GROUP BY account_id
@@ -113,12 +113,12 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                SUM(debit) - SUM(credit) AS balance
           FROM journal_entry_items
           WHERE account_id = old_account_id
-            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\*?')
+            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\**')
             AND old_letter IS NOT NULL
             AND old_account_id IS NOT NULL
           GROUP BY account_id) AS modified_letter_groups
   WHERE modified_letter_groups.account_id = journal_entry_items.account_id
-  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*?');
+  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\**');
 
   RETURN NEW;
 END;
@@ -17504,4 +17504,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170605141801');
 
