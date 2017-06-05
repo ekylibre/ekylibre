@@ -162,6 +162,8 @@ GEM
     devise_invitable (1.7.2)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
+    did_you_mean (0.9.9)
+      interception
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
@@ -219,6 +221,7 @@ GEM
     i18n-js (3.0.0)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
+    interception (0.5)
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2)
@@ -587,6 +590,7 @@ DEPENDENCIES
   devise
   devise-i18n-views
   devise_invitable
+  did_you_mean (~> 0.9)
   enumerize
   exception_notification
   factory_girl
