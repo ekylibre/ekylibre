@@ -22672,9 +22672,9 @@ INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
 
-INSERT INTO schema_migrations (version) VALUES ('20170414180218');
-
 INSERT INTO schema_migrations (version) VALUES ('20170415141801');
 
 INSERT INTO schema_migrations (version) VALUES ('20170415163650');
+
+INSERT INTO schema_migrations (version) VALUES ('20170416180218');
 
