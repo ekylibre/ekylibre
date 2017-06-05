@@ -17,26 +17,25 @@ class AddEntryDataSynchroInJournalEntryItems < ActiveRecord::Migration
               END IF;
             END IF;
 
-            IF synced_entry_id IS NOT NULL THEN
-              UPDATE journal_entry_items AS jei
-              SET state = je.state,
-                  printed_on = je.printed_on,
-                  journal_id = je.journal_id,
-                  financial_year_id = je.financial_year_id,
-                  entry_number = je.number,
-                  real_currency = je.real_currency,
-                  real_currency_rate = je.real_currency_rate
-              FROM journal_entries AS je
-              WHERE jei.entry_id = je.id
-                AND je.id = synced_entry_id
-                AND (jei.state <> je.state
-                 OR jei.printed_on <> je.printed_on
-                 OR jei.journal_id <> je.journal_id
-                 OR jei.financial_year_id <> je.financial_year_id
-                 OR jei.entry_number <> je.number
-                 OR jei.real_currency <> je.real_currency
-                 OR jei.real_currency_rate <> je.real_currency_rate);
-            END IF;
+            UPDATE journal_entry_items AS jei
+            SET state = entries.state,
+                printed_on = entries.printed_on,
+                journal_id = entries.journal_id,
+                financial_year_id = entries.financial_year_id,
+                entry_number = entries.number,
+                real_currency = entries.real_currency,
+                real_currency_rate = entries.real_currency_rate
+            FROM journal_entries AS entries
+            WHERE jei.entry_id = synced_entry_id
+              AND entries.id = synced_entry_id
+              AND synced_entry_id IS NOT NULL
+              AND (jei.state <> entries.state
+               OR jei.printed_on <> entries.printed_on
+               OR jei.journal_id <> entries.journal_id
+               OR jei.financial_year_id <> entries.financial_year_id
+               OR jei.entry_number <> entries.number
+               OR jei.real_currency <> entries.real_currency
+               OR jei.real_currency_rate <> entries.real_currency_rate);
             RETURN NEW;
           END;
           $$ language plpgsql;
