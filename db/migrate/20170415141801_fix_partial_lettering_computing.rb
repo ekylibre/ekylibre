@@ -1,4 +1,4 @@
-class PartialLetteringComputingFix < ActiveRecord::Migration
+class FixPartialLetteringComputing < ActiveRecord::Migration
   def change
     reversible do |dir|
       dir.up do
@@ -120,7 +120,6 @@ class PartialLetteringComputingFix < ActiveRecord::Migration
               OR OLD.debit <> NEW.debit)
               EXECUTE PROCEDURE compute_partial_lettering();
         SQL
-
 
         execute <<-SQL.strip_heredoc
           CREATE OR REPLACE FUNCTION compute_partial_lettering() RETURNS TRIGGER AS $$
