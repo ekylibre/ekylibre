@@ -2456,7 +2456,7 @@ CREATE TABLE purchases (
     accounted_at timestamp without time zone,
     journal_entry_id integer,
     reference_number character varying,
-    state character varying,
+    state character varying NOT NULL,
     responsible_id integer,
     currency character varying NOT NULL,
     nature_id integer,
@@ -17505,4 +17505,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
 
 INSERT INTO schema_migrations (version) VALUES ('20170415141801');
+
+INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 
