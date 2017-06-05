@@ -458,8 +458,9 @@ class Account < Ekylibre::Record::Base
   # Mark entry items with the given +letter+, even when the items are not balanced together.
   # If no +letter+ given, it uses a new letter.
   def mark!(item_ids, letter = nil)
+    return nil unless item_ids.is_a?(Array) && item_ids.any?
     letter ||= new_letter
-    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR letter SIMILAR TO \'[A-z]*\\*\')', item_ids]
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(COALESCE(letter, \'\'))) <= 0 OR letter SIMILAR TO \'[A-z]+\\*\')', item_ids]
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
   end

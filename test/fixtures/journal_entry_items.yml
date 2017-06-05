@@ -885,7 +885,7 @@ journal_entry_items_025:
   financial_year_id: 18
   id: 57
   journal_id: 1
-  letter: A
+  letter: A*
   lock_version: 0
   name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
   position: 2
@@ -1216,7 +1216,7 @@ journal_entry_items_035:
   financial_year_id: 18
   id: 87
   journal_id: 1
-  letter: B
+  letter: B*
   lock_version: 0
   name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
   position: 2
@@ -1249,7 +1249,7 @@ journal_entry_items_036:
   financial_year_id: 23
   id: 88
   journal_id: 2
-  letter: A
+  letter: A*
   lock_version: 0
   name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
   position: 1
@@ -1318,7 +1318,7 @@ journal_entry_items_038:
   financial_year_id: 22
   id: 90
   journal_id: 2
-  letter: B
+  letter: B*
   lock_version: 0
   name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
   position: 1
@@ -1462,7 +1462,7 @@ journal_entry_items_042:
   financial_year_id: 24
   id: 94
   journal_id: 4
-  letter: A
+  letter: A*
   lock_version: 0
   name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
   position: 3
@@ -1816,7 +1816,7 @@ journal_entry_items_052:
   financial_year_id: 24
   id: 108
   journal_id: 5
-  letter: C
+  letter: C*
   lock_version: 0
   name: "[Achat A201503000001] Ammonitre 33,5%  Big Bag de Taurus Plus"
   position: 3
@@ -2190,7 +2190,7 @@ journal_entry_items_063:
   financial_year_id: 25
   id: 277
   journal_id: 5
-  letter: A
+  letter: A*
   lock_version: 0
   name: "[Achat A201607000001] Ammonitre 33,5%  Big Bag de Yuey LTD"
   position: 3
@@ -8778,6 +8778,8 @@ journal_entry_items_263:
   absolute_pretax_amount: 0.0
   account_id: 212
   balance: -176.16
+  bank_statement_id: 7
+  bank_statement_letter: J
   created_at: 2016-10-04 07:17:54.419545000 Z
   credit: 176.16
   cumulated_absolute_credit: 30500.46
@@ -9300,6 +9302,8 @@ journal_entry_items_278:
   absolute_pretax_amount: 0.0
   account_id: 212
   balance: 37.44
+  bank_statement_id: 7
+  bank_statement_letter: I
   created_at: 2016-11-20 22:10:52.964727000 Z
   creator_id: 1
   credit: 0.0
@@ -10068,7 +10072,7 @@ journal_entry_items_299:
   financial_year_id: 26
   id: 517
   journal_id: 4
-  letter: B
+  letter: B*
   lock_version: 0
   name: "[Achat A201611000003] Acide lactique ‒ 25kg de BAKTOUBI Inc."
   position: 3
@@ -10103,7 +10107,7 @@ journal_entry_items_300:
   financial_year_id: 26
   id: 518
   journal_id: 1
-  letter: B
+  letter: B*
   lock_version: 0
   name: "[Perte E000000000005] BAKTOUBI Inc."
   position: 1
@@ -10241,7 +10245,7 @@ journal_entry_items_304:
   financial_year_id: 26
   id: 522
   journal_id: 1
-  letter: B
+  letter: B*
   lock_version: 0
   name: Test OD
   position: 1
@@ -11937,4 +11941,70 @@ journal_entry_items_353:
   real_pretax_amount: 0.0
   state: draft
   updated_at: 2014-11-05 09:58:15.849777000 Z
+  updater_id: 1
+journal_entry_items_354:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 123.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: 123.0
+  created_at: 2017-05-29 20:41:21.300520000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 32850.46
+  cumulated_absolute_debit: 1092.63
+  currency: EUR
+  debit: 123.0
+  entry_id: 117
+  entry_number: BNK000015
+  financial_year_id: 26
+  id: 572
+  journal_id: 2
+  lock_version: 0
+  name: BLA
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-01-10
+  real_balance: 123.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 123.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2017-05-29 20:41:21.300520000 Z
+  updater_id: 1
+journal_entry_items_355:
+  absolute_credit: 123.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 460
+  balance: -123.0
+  created_at: 2017-05-29 20:41:21.306944000 Z
+  creator_id: 1
+  credit: 123.0
+  cumulated_absolute_credit: 123.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 117
+  entry_number: BNK000015
+  financial_year_id: 26
+  id: 573
+  journal_id: 2
+  lock_version: 0
+  name: BLA
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-01-10
+  real_balance: -123.0
+  real_credit: 123.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  state: draft
+  updated_at: 2017-05-29 20:41:21.306944000 Z
   updater_id: 1

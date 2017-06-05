@@ -44,7 +44,6 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
-gem 'honeybadger'
 gem 'sentry-raven', require: false
 
 # Use jquery as the JavaScript library
@@ -188,7 +187,7 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', '~> 0.48.1', require: false
+  gem 'rubocop', '~> 0.49.1', require: false
 
   # Webservers
   gem 'thin'
@@ -207,6 +206,9 @@ group :development, :test do
   gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # Exception message tips
+  gem 'did_you_mean', '~> 0.9'
 end
 
 group :test do

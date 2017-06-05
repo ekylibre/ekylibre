@@ -46,7 +46,7 @@
 #  quantity_gap_on_invoice_journal_entry_id :integer
 #  reference_number                         :string
 #  responsible_id                           :integer
-#  state                                    :string
+#  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
 #  undelivered_invoice_journal_entry_id     :integer
@@ -80,8 +80,8 @@ class Purchase < Ekylibre::Record::Base
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :nature, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :number, presence: true, length: { maximum: 500 }
-  validates :payment_delay, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
+  validates :number, :state, presence: true, length: { maximum: 500 }
+  validates :payment_delay, :reference_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :created_at, :state, :nature, presence: true
@@ -142,6 +142,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   before_validation do
+    self.state ||= :draft
     self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
     if payment_delay.blank? && supplier && supplier.supplier_payment_delay

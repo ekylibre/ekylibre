@@ -78,7 +78,9 @@
 require 'digest/sha2'
 
 class Entity < Ekylibre::Record::Base
-  include Versionable, Commentable, Attachable
+  include Attachable
+  include Commentable
+  include Versionable
   include Customizable
   attr_accessor :password_confirmation, :old_password
   refers_to :currency
