@@ -9,3 +9,12 @@
 .slider.slider-horizontal {
   width: 240px;
 }
+
+.slider-handle {
+  background-image: none;
+  @include background-active-gradient;
+}
+
+.slider-selection {
+  background: mix($caution-color, white, 30%);
+}

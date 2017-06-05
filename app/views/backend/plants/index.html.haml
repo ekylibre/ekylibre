@@ -12,9 +12,9 @@
       = plant_period_crit(label: Plant.human_attribute_name(:dead_at), name: :dead_at)
   - k.helper do
     %label= Plant.human_attribute_name(:net_surface_area)
-    %b#right-slider 0
-    %input{ name: :area, 'data-slider-min': 0, 'data-slider-max': plants_max_area, 'data-provide': 'slider', 'data-slider-value': data_slider_value }
-    %b#left-slider= plants_max_area
+    %b#right-slider= '0' + ' ' + Nomen::Unit['hectare'].symbol
+    %input{ name: :area, 'data-slider-min': 0, 'data-slider-max': plants_max_area, 'data-provide': 'slider', 'data-slider-value': data_slider_value, 'data-slider-step': 0.1, 'data-slider-tooltip-split': true }
+    %b#left-slider= plants_max_area.to_s + ' ' + Nomen::Unit['hectare'].symbol
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?
