@@ -207,6 +207,9 @@ group :development, :test do
   gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # Exception message tips
+  gem 'did_you_mean', '~> 0.9'
 end
 
 group :test do
