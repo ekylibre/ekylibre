@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/lcoq/ofx-parser.git
-  revision: 3c4cbb43d3df1be3f9493f45a82dabec02edf866
-  branch: master
-  specs:
-    ofx-parser (1.1.0.20121129105223)
-      hpricot (>= 0.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -162,11 +154,13 @@ GEM
     devise_invitable (1.7.2)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
-    did_you_mean (0.9.9)
+    did_you_mean (0.10.0)
       interception
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    ekylibre-ofx-parser (1.2.2)
+      hpricot (>= 0.6)
     enumerize (2.1.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
@@ -214,15 +208,15 @@ GEM
       rack
       socksify
     humanize (1.4.0)
-    i18n (0.8.1)
+    i18n (0.8.4)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
     i18n-js (3.0.0)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
     interception (0.5)
-    jbuilder (2.6.4)
-      activesupport (>= 3.0.0)
+    jbuilder (2.7.0)
+      activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jc-validates_timeliness (3.1.1)
       timeliness (~> 0.3.7)
@@ -449,7 +443,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sentry-raven (2.5.1)
+    sentry-raven (2.5.2)
       faraday (>= 0.7.6, < 1.0)
     sepa_king (0.9.0)
       activemodel (>= 3.0.0)
@@ -592,6 +586,7 @@ DEPENDENCIES
   devise-i18n-views
   devise_invitable
   did_you_mean (~> 0.9)
+  ekylibre-ofx-parser
   enumerize
   exception_notification
   factory_girl
@@ -619,7 +614,6 @@ DEPENDENCIES
   minitest-reporters
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.7.1)
-  ofx-parser!
   omniauth
   omniauth-oauth2
   paperclip
