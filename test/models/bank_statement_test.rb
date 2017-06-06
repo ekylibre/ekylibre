@@ -160,7 +160,7 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   test 'eligible journal entry items includes journal entry items pointed by the bank statement and unpointed around bank statement range with same account' do
-    bank_statement = bank_statements(:bank_statements_001)
+    bank_statement = bank_statements(:bank_statements_006)
 
     pointed = JournalEntryItem.pointed_by(bank_statement)
     assert pointed.any?

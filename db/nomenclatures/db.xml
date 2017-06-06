@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170407214236">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20170524094443">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature" required="true"/>
@@ -12302,6 +12302,8 @@
       <item name="truck" parent="motorized_vehicle"/>
       <item name="uncinula" parent="erysiphaceae" itis_tsn="194154"/>
       <item name="uncinula_necator" parent="uncinula" itis_tsn="194154"/>
+      <item name="urtica" parent="urticaceae" itis_tsn="19151"/>
+      <item name="urticaceae" parent="plant" itis_tsn="19119"/>
       <item name="valeriana" parent="valerianaceae" itis_tsn="35350"/>
       <item name="valerianaceae" parent="plant" itis_tsn="35349"/>
       <item name="valerianella" parent="valerianaceae" itis_tsn="35386"/>
