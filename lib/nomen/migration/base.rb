@@ -31,7 +31,7 @@ module Nomen
       end
 
       def inspect
-        "#<#{self.class.name}:#{sprintf('%#x', object_id)} ##{number} #{name.inspect} (#{@actions.size} actions)>"
+        "#<#{self.class.name}:#{format('%#x', object_id)} ##{number} #{name.inspect} (#{@actions.size} actions)>"
       end
     end
   end

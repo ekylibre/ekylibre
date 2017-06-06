@@ -411,6 +411,8 @@ arb:
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "القروض"
@@ -1159,7 +1161,7 @@ arb:
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
     client: "اختيار العميل"
-    client_balance: "رصيد العميل" #?
+    client_accounting_balance: "رصيد العميل" #?
     client_informations: "المعلومات العميل"
     client_receivables: "ذمم العملاء"
     close: "اغلاق الدفتر اليومي"
@@ -1327,6 +1329,7 @@ arb:
     done: "فعله"
     dont_generate_carrying_forward_entries: "- لا تولد تحمل إدخالات إلى الأمام -"
     dont_generate_closure_entries: "- لا تولد إدخالات إغلاق -"
+    dont_generate_result_entries: "- لا تولد إدخالات نتيجة -"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
@@ -1408,6 +1411,9 @@ arb:
     expired_within: "انتهت خلال (بالأيام)"
     exploitation_results: "النتائج الاستغلال"
     export: "اصدار الوثائق"
+    export_as_csv: "التصدير، CSV"
+    export_as_ods: "التصدير، المواد المستنفدة للأوزون"
+    export_as_xcsv: "تصدير واكسل CSV"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
@@ -1533,6 +1539,7 @@ arb:
     investment_security: "أمن الاستثمار"
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
+    invoice_period: "فترة الفاتورة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
     invoiced_amount: "قيمة الفاتورة" #?
@@ -1549,6 +1556,9 @@ arb:
     journal_entries_states: "الولايات إدخالات"
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -1597,6 +1607,7 @@ arb:
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
     # letterable: "Letterable"
+    lettered: "مكتوب بنقش"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes: #?
@@ -1604,6 +1615,7 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
+    lettering_state: "الدولة الترقين"
     liabilities: "المطلوبات"
     liabilities_gaps: "ثغرات الخصوم"
     liability_reserves: "احتياطيات المسؤولية"
@@ -1646,9 +1658,10 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
-    mask_literate_elements: "قناع عناصر القراءة والكتابة"
+    mask_lettered_items: "قناع العناصر بحروف"
     mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
+    maximum_amount: "الحد الأقصى للمبلغ"
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
     menu: #?
@@ -1679,6 +1692,7 @@ arb:
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
+    minimum_amount: "اقل مبلغ"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -1850,6 +1864,7 @@ arb:
     parameters: "عامل متغير"
     parcel_items: "عناصر لا يتجزأ"
     parcels: "الطرود"
+    partially_lettered: "بحروف جزئيا"
     participants: "مشتركين"
     participations: "بالمشاركات"
     parts: "وحدات"
@@ -2165,6 +2180,7 @@ arb:
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
     supplier: "اسعار البيع للممولين"
     supplier_informations: "المعلومات المورد"
+    supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
     supply: "التسليم"
     support: "الدعم"
@@ -2181,6 +2197,7 @@ arb:
     taxes: "الضرائب"
     taxes_and_wages: "الضرائب والأجور"
     theoric_quantity: "الكمية النظرية" #?
+    third_is_unbalanced: "ثالثا غير متوازن. (ميزان - ميزان الحساب المورد)"
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"
     time_spent_by_activity: "الوقت الذي يقضيه النشاط"
@@ -2268,6 +2285,8 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    unbalanced_clients: "عملاء غير متوازن"
+    unbalanced_suppliers: "الموردين غير متوازن"
     unbilled_payables: "دائنة غير المفوترة"
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
@@ -2287,6 +2306,7 @@ arb:
     unknown_condition: "غير معروف نوع الشرط"
     unknown_user: "مستخدم غير معروف"
     unknown_variant: "البديل غير معروف"
+    unlettered: "جاهل"
     unlock: "فتح القفل"
     unmark: "غير علامة"
     unmarketable_inspection_categories_evolution: "غير قابلة للتسويق تطور فئات التفتيش"
@@ -2548,6 +2568,7 @@ arb:
       accountant_without_email: "الرجاء ضبط البريد الإلكتروني محاسب"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
+      all_tax_declarations_have_already_existing: "جميع الإعلانات الضريبية موجودة بالفعل"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
@@ -2576,9 +2597,10 @@ arb:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
+      financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
@@ -2671,8 +2693,6 @@ arb:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأنه تم بالفعل من قبل المستخدم"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لبعض الصفقات لم يتم الكشف حتى الآن"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"

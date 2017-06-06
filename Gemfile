@@ -3,14 +3,17 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
+
+# Security fix for mail
+gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'pg' # Needed for some tasks
 
 # Multi-tenancy
-gem 'apartment', '~> 1.0.0', '< 2.0'
+gem 'apartment', '>= 1.2.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Ruby syntax extensions
@@ -27,6 +30,9 @@ gem 'actionpack-xml_parser'
 # Manage env vars
 gem 'figaro'
 
+# Maintenance mode
+gem 'turnout'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -35,6 +41,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
+
+# Exception analysis and metrics
+gem 'binding_of_caller'
+gem 'sentry-raven', require: false
+gem 'skylight'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -67,9 +78,9 @@ gem 'timecop'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '>= 4.0'
+gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
-gem 'sidekiq-unique-jobs'
+gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -170,12 +181,14 @@ gem 'savon'
 gem 'luhn'
 
 group :development do
+  gem 'bullet'
+
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.49.1', require: false
 
   # Webservers
   gem 'thin'
@@ -194,6 +207,9 @@ group :development, :test do
   gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # Exception message tips
+  gem 'did_you_mean', '~> 0.9'
 end
 
 group :test do
@@ -214,7 +230,7 @@ group :test do
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
-gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,lib/plugins/*/Gemfile}', __FILE__)
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,plugins/*/Gemfile}', __FILE__)
 gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
 gemfiles.each do |file|
   next unless File.readable?(file)

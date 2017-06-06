@@ -1250,8 +1250,21 @@ preferences_107:
   lock_version: 0
   name: list._financial_years_list_financial_years_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 19:07:38.648213000 Z
+  string_value:
+    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      actions: main_toolbar
+      pagination: meta_toolbar
+      settings: meta_toolbar
+    page: 1
+    only: content
+    redirect: "/backend/financial-years"
+    controller: backend/financial_years
+    action: list
+    hidden_columns: []
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2017-05-01 23:50:54.363077000 Z
   updater_id: 1
   user_id: 1
 preferences_108:
@@ -4730,4 +4743,48 @@ preferences_411:
   nature: string
   string_value: yearly
   updated_at: 2017-03-24 17:52:59.000000000 Z
+  updater_id: 1
+preferences_412:
+  created_at: 2017-05-01 23:36:03.640177000 Z
+  creator_id: 1
+  id: 413
+  lock_version: 0
+  name: cobbler.sale_gaps-show
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-01 23:36:03.640177000 Z
+  updater_id: 1
+  user_id: 1
+preferences_413:
+  created_at: 2017-05-01 23:43:22.283549000 Z
+  creator_id: 1
+  id: 414
+  lock_version: 0
+  name: list._financial_years_list_exchanges_tag
+  nature: string
+  string_value: {}
+  updated_at: 2017-05-01 23:43:22.283549000 Z
+  updater_id: 1
+  user_id: 1
+preferences_414:
+  created_at: 2017-05-01 23:43:33.909903000 Z
+  creator_id: 1
+  id: 415
+  lock_version: 0
+  name: current_financial_year
+  nature: record
+  record_value_id: 26
+  record_value_type: FinancialYear
+  updated_at: 2017-05-01 23:43:33.909903000 Z
+  updater_id: 1
+  user_id: 1
+preferences_415:
+  boolean_value: true
+  created_at: 2017-05-29 20:40:27.958563000 Z
+  creator_id: 1
+  id: 416
+  lock_version: 0
+  name: entry_autocompletion
+  nature: boolean
+  updated_at: 2017-05-29 20:40:27.958563000 Z
   updater_id: 1

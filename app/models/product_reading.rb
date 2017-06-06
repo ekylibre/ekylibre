@@ -40,7 +40,7 @@
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  originator_id                :integer
 #  originator_type              :string
-#  point_value                  :geometry({:srid=>4326, :type=>"point"})
+#  point_value                  :geometry({:srid=>4326, :type=>"st_point"})
 #  product_id                   :integer          not null
 #  read_at                      :datetime         not null
 #  string_value                 :text
@@ -49,7 +49,8 @@
 #
 
 class ProductReading < Ekylibre::Record::Base
-  include ReadingStorable, PeriodicCalculable
+  include PeriodicCalculable
+  include ReadingStorable
   belongs_to :product, inverse_of: :readings
   belongs_to :originator, polymorphic: true
   has_one :variant, through: :product

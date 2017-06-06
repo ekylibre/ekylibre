@@ -704,7 +704,7 @@ analyses:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   host_id:
     type: integer
     references: product
@@ -815,7 +815,7 @@ analysis_items:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   product_reading_id:
     type: integer
     references: product_reading
@@ -1587,7 +1587,7 @@ crumbs:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
     required: true
   id:
     type: integer
@@ -1770,6 +1770,50 @@ dashboards:
     type: integer
     references: user
     required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+debt_transfers:
+  accounted_at:
+    type: datetime
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  debt_transfer_affair_id:
+    type: integer
+    references: affair
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  number:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -2204,7 +2248,7 @@ entity_addresses:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   mail_line_1:
     type: string
   mail_line_2:
@@ -3340,7 +3384,7 @@ intervention_parameter_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   string_value:
     type: text
   updated_at:
@@ -3701,7 +3745,7 @@ issues:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   gravity:
     type: integer
   id:
@@ -3985,6 +4029,8 @@ journal_entry_items:
   tax_declaration_item_id:
     type: integer
     references: tax_declaration_item
+  tax_declaration_mode:
+    type: string
   tax_id:
     type: integer
     references: tax
@@ -3997,6 +4043,9 @@ journal_entry_items:
   updater_id:
     type: integer
     references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer
@@ -5758,7 +5807,7 @@ product_nature_variant_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   string_value:
     type: text
   updated_at:
@@ -6074,7 +6123,7 @@ product_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   product_id:
     type: integer
     references: product
@@ -6160,7 +6209,7 @@ products:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   initial_mother_id:
     type: integer
     references: product
@@ -6453,6 +6502,7 @@ purchases:
     references: user
   state:
     type: string
+    required: true
   supplier_id:
     type: integer
     references: entity
@@ -7165,6 +7215,60 @@ tasks:
     references: sale_opportunity
   state:
     type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declaration_item_parts:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  direction:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_item_id:
+    type: integer
+    references: journal_entry_item
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
+    required: true
+  total_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  total_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
     required: true
   updated_at:
     type: datetime

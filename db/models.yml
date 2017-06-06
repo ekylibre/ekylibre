@@ -44,6 +44,7 @@
 - custom_field
 - custom_field_choice
 - dashboard
+- debt_transfer
 - delivery
 - delivery_tool
 - deposit
@@ -51,6 +52,7 @@
 - document
 - document_template
 - easement
+- economic_situation
 - entity
 - entity_address
 - entity_link
@@ -171,6 +173,7 @@
 - tax
 - tax_declaration
 - tax_declaration_item
+- tax_declaration_item_part
 - team
 - token
 - tracking

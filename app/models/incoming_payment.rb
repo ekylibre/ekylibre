@@ -54,7 +54,9 @@
 #
 
 class IncomingPayment < Ekylibre::Record::Base
-  include PeriodicCalculable, Attachable, Letterable
+  include Letterable
+  include Attachable
+  include PeriodicCalculable
   include Customizable
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
@@ -127,7 +129,7 @@ class IncomingPayment < Ekylibre::Record::Base
     end
   end
 
-  protect(on: :update) do
+  protect do
     (deposit && deposit.protected_on_update?) ||
       (journal_entry && journal_entry.closed?) ||
       pointed_by_bank_statement?

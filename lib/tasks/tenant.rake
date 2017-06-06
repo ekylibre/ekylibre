@@ -1,5 +1,71 @@
 # Tenant tasks
 namespace :tenant do
+  namespace :multi_database do
+    task drop: :environment do
+      multi_database = ENV['MULTI_DATABASE'].to_i
+      if multi_database > 0
+        database = Rails.configuration.database_configuration[Rails.env]['database']
+        (16**multi_database).times do |i|
+          name = database + '_' + i.to_s(16).rjust(multi_database, '0')
+          ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS #{name}")
+        end
+      end
+    end
+
+    task distribute: :environment do
+      beginning = (ENV['FROM'] || ENV['MULTI_DATABASE'] || 0).to_i
+      finish = (ENV['TO'] || ENV['MULTI_DATABASE'] || 1).to_i
+      if beginning == finish
+        puts 'Nothing to do. No change wanted.'
+        exit 0
+      end
+      database = Rails.configuration.database_configuration[Rails.env]['database']
+      now = Time.now.to_i.to_s(36)
+      Ekylibre::Tenant.list.each do |tenant|
+        start = Time.now
+        source = Ekylibre::Tenant.database_for(tenant, beginning)
+        destination = Ekylibre::Tenant.database_for(tenant, finish)
+        puts "Moving schema #{tenant} from #{source} to #{destination}...".cyan
+        # Warn if source and destination don't exist
+        Ekylibre::Tenant.switch_to_database(source)
+        source_exists = Apartment.connection.schema_exists? tenant
+        Ekylibre::Tenant.create_database_for!(tenant, finish)
+        Ekylibre::Tenant.switch_to_database(destination)
+        destination_exists = Apartment.connection.schema_exists? tenant
+
+        if source_exists && destination_exists
+          puts "For #{tenant}, source and destination exist. Destination is removed".red
+          Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{destination}` }
+        elsif !source_exists && !destination_exists
+          puts "For #{tenant}, no source and no destination exist".red
+          next
+        end
+
+        # Already migrated
+        if !source_exists && destination_exists
+          puts "For #{tenant}, no source and destination exist, schema already migrated".yellow
+          next
+        end
+
+        dump = "tmp/distribute-#{beginning}-#{finish}-#{now}-#{tenant}.sql"
+
+        # Dump source
+        Ekylibre::Tenant.with_pg_env(tenant) { `pg_dump -x -O -f #{dump} -n '"#{tenant}"' #{source}` }
+
+        # Restore destination
+        Ekylibre::Tenant.with_pg_env(tenant) { `psql -f #{dump} #{destination}` }
+
+        # Remove source and dump
+        if ENV['DELETE_AFTER_DISTRIBUTE']
+          Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{source}` }
+          FileUtils.rm_rf(dump)
+        end
+
+        puts "Schema #{tenant} moved from #{source} to #{destination} in #{Time.now - start} seconds".green
+      end
+    end
+  end
+
   namespace :agg do
     # Create aggregation schema
     desc 'Create the aggregation schema'
@@ -85,7 +151,29 @@ namespace :tenant do
     raise 'Need TENANT env variable to dump' unless tenant
     options = {}
     options[:path] = Pathname.new(archive) if archive
+    options[:path] ||= Rails.root.join('tmp', 'archives', "#{tenant}.zip") if tenant
+    if options[:path] && options[:path].exist? && ENV['FORCE'].to_i.zero?
+      unless confirm("An archive #{options[:path].relative_path_from(Rails.root)} already exists. Do you want to overwrite it?", false)
+        puts 'Nothing dumped'.yellow
+        exit(0)
+      end
+    end
+    puts "Dumping #{tenant}".yellow
     Ekylibre::Tenant.dump(tenant, options)
+  end
+
+  def confirm(question, default)
+    puts question.yellow + ' Y/N'.red
+    STDOUT.flush
+    input = STDIN.gets.chomp
+    case input.upcase
+    when 'Y'
+      return true
+    when 'N'
+      return false
+    else
+      return default
+    end
   end
 
   task restore: :environment do
@@ -97,6 +185,13 @@ namespace :tenant do
       options[:tenant] = tenant
     end
     raise 'Need ARCHIVE env variable to find archive' unless archive
+    if Ekylibre::Tenant.exist?(tenant) && ENV['FORCE'].to_i.zero?
+      unless confirm("Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?", false) && confirm('Really sure?', false)
+        puts 'Nothing restored'.yellow
+        exit(0)
+      end
+    end
+    puts "Restoring #{tenant}".yellow
     Ekylibre::Tenant.restore(archive, options)
   end
 
