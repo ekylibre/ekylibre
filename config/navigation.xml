@@ -1972,6 +1972,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="bank_statements">
+        <page to="backend/bank_statements#interval_reconciliation"/>
+      </item>
       <item name="intervention_participations">
         <page to="backend/intervention_participations#create"/>
         <page to="backend/intervention_participations#participations_modal"/>

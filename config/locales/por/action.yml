@@ -2048,6 +2048,7 @@ por:
       incorporate: "Incorporar"
       increment: "Incremento" #?
       index: "Índice"
+      # interval_reconciliation: "Reconciliate"
       invoice: "Fatura"
       journal_entries_csv_export: "Baixar CSV"
       # journal_entries_import: "Import CSV"

@@ -2044,6 +2044,7 @@ cmn:
       incorporate: "合并"
       increment: "增量" #?
       index: "指数"
+      # interval_reconciliation: "Reconciliate"
       invoice: "发票"
       journal_entries_csv_export: "下载CSV"
       journal_entries_import: "导入CSV"

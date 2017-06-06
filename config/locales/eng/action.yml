@@ -93,6 +93,7 @@ eng:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      # interval_reconciliation: "Interval reconciliation bank statement: %{name}"
       # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
@@ -916,7 +917,7 @@ eng:
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
-    action_duration: "Action duration" #?!
+    action_duration: "Action duration"
     activate_entry_autocompletion: "Activate entry autocompletion"
     active: "Active" #?
     active_finishing_after: "Active finishing after" #?
@@ -1055,7 +1056,7 @@ eng:
     budgets: "Budgets" #?
     by_year: "By year"
     calculate: "Calculate" #?
-    calculated_hours: "Calculated hours" #?!
+    calculated_hours: "Calculated hours"
     calculators: "Calculators" #?
     calendar: "Calendar"
     campaign: "Campaign"
@@ -1363,7 +1364,7 @@ eng:
     inspections: "Inspections"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
-    interval: "Personalized Interval" #?
+    interval: "Personalized Interval"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_message_miscibility: "Mixing allowed"

@@ -2821,6 +2821,7 @@ arb:
       incorporate: "دمج"
       increment: "زيادة" #?
       index: "فهرس"
+      # interval_reconciliation: "Reconciliate"
       invoice: "فاتورة"
       journal_entries_csv_export: "تنزيل ملف CSV"
       journal_entries_import: "استيراد CSV"

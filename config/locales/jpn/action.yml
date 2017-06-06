@@ -2119,6 +2119,7 @@ jpn:
       incorporate: "組み込みます"
       increment: "インクリメント" #?
       index: "インデックス"
+      # interval_reconciliation: "Reconciliate"
       invoice: "請求書"
       journal_entries_csv_export: "CSVをダウンロード"
       journal_entries_import: "CSVのインポート"

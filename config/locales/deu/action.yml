@@ -2042,6 +2042,7 @@ deu:
       incorporate: "integrieren"
       increment: "Zuwachs" #?
       # index: "Index"
+      # interval_reconciliation: "Reconciliate"
       invoice: "Rechnung"
       journal_entries_csv_export: "CSV-Datei herunterladen"
       journal_entries_import: "CSV-Import"

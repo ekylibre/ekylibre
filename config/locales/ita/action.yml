@@ -2109,6 +2109,7 @@ ita:
       incorporate: "incorporare"
       increment: "Incremento" #?
       index: "Indice"
+      # interval_reconciliation: "Reconciliate"
       invoice: "Fattura"
       journal_entries_csv_export: "Scarica CSV"
       journal_entries_import: "Importa CSV"

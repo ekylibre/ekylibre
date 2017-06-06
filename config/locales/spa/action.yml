@@ -2336,6 +2336,7 @@ spa:
       incorporate: "Incorporar"
       increment: "Incremento" #?
       index: "Índice"
+      # interval_reconciliation: "Reconciliate"
       invoice: "Factura"
       journal_entries_csv_export: "Descargar CSV"
       journal_entries_import: "Importar CSV"
