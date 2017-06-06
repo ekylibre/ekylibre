@@ -18,6 +18,10 @@
 
 module Backend
   class PurchaseOrdersController < Backend::PurchasesController
+  	manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
+                     except: :new, continue: [:nature_id]
+
+  	unroll :number, :amount, :currency, :created_at, supplier: :full_name
   	
   	def self.purchase_orders_conditions
       code = ''
@@ -55,6 +59,19 @@ module Backend
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
     end
 
-    def index; end
+    def new
+    	nature = PurchaseNature.by_default
+    	@purchase_order = PurchaseOrder.new(nature: nature)
+    	@purchase_order.currency = @purchase_order.nature.currency
+    	@purchase_order.responsible ||= current_user
+      @purchase_order.planned_at = Time.zone.now
+    	@purchase_order.ordered_at = Time.zone.now
+    	@purchase_order.supplier_id ||= params[:supplier_id] if params[:supplier_id]
+    	if address = Entity.of_company.default_mail_address
+        @purchase_order.delivery_address = address
+      end
+      render locals: { with_continue: true }
+    end
+
   end
 end

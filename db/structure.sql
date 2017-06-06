@@ -2473,7 +2473,8 @@ CREATE TABLE purchases (
     payment_at timestamp without time zone,
     contract_id integer,
     tax_payability character varying NOT NULL,
-    type character varying
+    type character varying,
+    ordered_at timestamp without time zone
 );
 
 
@@ -17506,4 +17507,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
 
 INSERT INTO schema_migrations (version) VALUES ('20170523101325');
+
+INSERT INTO schema_migrations (version) VALUES ('20170601093932');
 

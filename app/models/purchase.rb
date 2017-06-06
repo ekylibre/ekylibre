@@ -73,7 +73,7 @@ class Purchase < Ekylibre::Record::Base
   has_many :fixed_assets, through: :items
   has_one :supplier_payment_mode, through: :supplier
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :confirmed_at, :invoiced_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :confirmed_at, :invoiced_at, :ordered_at, :payment_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :payee, :supplier, :tax_payability, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -81,7 +81,7 @@ class Purchase < Ekylibre::Record::Base
   validates :payment_delay, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
-  validates :created_at, :state, :nature, presence: true
+  validates :created_at, :state, :nature, :type, presence: true
   validates :number, uniqueness: true
   validates_associated :items
   validates_delay_format_of :payment_delay
@@ -94,35 +94,6 @@ class Purchase < Ekylibre::Record::Base
   scope :with_nature, ->(id) { where(nature_id: id) }
 
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
-
-  # state_machine :state, initial: :draft do
-  #   state :draft
-  #   state :estimate
-  #   state :refused
-  #   state :order
-  #   state :invoice
-  #   state :aborted
-  #   event :propose do
-  #     transition draft: :estimate, if: :has_content?
-  #   end
-  #   event :correct do
-  #     transition %i[estimate refused order] => :draft
-  #   end
-  #   event :refuse do
-  #     transition estimate: :refused, if: :has_content?
-  #   end
-  #   event :confirm do
-  #     transition estimate: :order, if: :has_content?
-  #   end
-  #   event :invoice do
-  #     transition order: :invoice, if: :has_content?
-  #     transition estimate: :invoice, if: :has_content_not_deliverable?
-  #     transition draft: :invoice
-  #   end
-  #   event :abort do
-  #     transition %i[draft estimate] => :aborted # , :order
-  #   end
-  # end
 
   before_validation(on: :create) do
     self.currency ||= nature.currency if nature

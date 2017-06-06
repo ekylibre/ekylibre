@@ -405,6 +405,10 @@
       </item>
       <item name="purchase_orders">
         <page to="backend/purchase_orders#index"/>
+        <page to="backend/purchase_orders#create"/>
+        <page to="backend/purchase_orders#destroy"/>
+        <page to="backend/purchase_orders#edit"/>
+        <page to="backend/purchase_orders#new"/>
       </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>
