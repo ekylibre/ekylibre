@@ -274,17 +274,21 @@ module Backend
           end
         end.compact
       end
-      attributes = attributes.reduce(&:deep_merge)
+      if attributes.present?
+        attributes = attributes.reduce(&:deep_merge)
 
-      attributes_root = attributes.keys.first
-      parameter_type = attributes_root.to_s.gsub('s_attributes', '')
-      suffix = parameter_type.to_sym == :group ? :_parameters : :s
-      targets = { "#{parameter_type}#{suffix}_attributes": attributes[attributes_root] }
+        attributes_root = attributes.keys.first
+        parameter_type = attributes_root.to_s.gsub('s_attributes', '')
+        suffix = parameter_type.to_sym == :group ? :_parameters : :s
+        targets = { "#{parameter_type}#{suffix}_attributes": attributes[attributes_root] }
 
-      @intervention = Intervention.new(options.merge(targets))
+        @intervention = Intervention.new(options.merge(targets))
 
-      from_request = Intervention.find_by(id: params[:request_intervention_id])
-      @intervention = from_request.initialize_record if from_request
+        from_request = Intervention.find_by(id: params[:request_intervention_id])
+        @intervention = from_request.initialize_record if from_request
+      else
+        @intervention = Intervention.new(options)
+      end
 
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
