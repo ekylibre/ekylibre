@@ -26,19 +26,19 @@ class Progress
       return true if @read_only
       return 0
     end
-    File.read(progress_file).to_i
+    (File.read(progress_file).to_f * 1000).round / 1000.0
   end
 
   def set_value(value)
     return false if @read_only
-    value = value/@max*100.0
+    value = value.to_f/@max*100.0
     FileUtils.mkdir_p(progress_file.dirname)
     File.write(progress_file, value.to_s)
   end
 
   def clean!
     return true unless counting?
-    File.rm_rf(progress_file)
+    FileUtils.rm_rf(progress_file)
     true
   end
 
