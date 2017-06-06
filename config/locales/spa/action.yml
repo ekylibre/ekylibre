@@ -1281,6 +1281,7 @@ spa:
     investment_security: "Seguridad de la inversión"
     investment_subsidies: "Subvenciones a la inversión"
     invitation_status: "Estado"
+    invoice_period: "Periodo de factura"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
@@ -1792,6 +1793,7 @@ spa:
     subtotals_at_level: "Subtotales al nivel"
     supplier: "Los precios de compra del proveedor"
     supplier_informations: "Información sobre los proveedores"
+    supplier_payment_mode: "Modo de pago del proveedor"
     supplier_receivables: "Cobrar proveedor"
     supply: "Suministro"
     support: "Apoyo"

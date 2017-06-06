@@ -39,7 +39,8 @@
 #  variant_id      :integer          not null
 #
 class ProductPhase < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include TimeLineable
+  include Taskable
   belongs_to :product
   belongs_to :variant,  class_name: 'ProductNatureVariant'
   belongs_to :nature,   class_name: 'ProductNature'

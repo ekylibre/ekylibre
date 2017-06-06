@@ -1540,6 +1540,7 @@ arb:
     investment_security: "أمن الاستثمار"
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
+    invoice_period: "فترة الفاتورة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
     invoiced_amount: "قيمة الفاتورة" #?
@@ -2180,6 +2181,7 @@ arb:
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
     supplier: "اسعار البيع للممولين"
     supplier_informations: "المعلومات المورد"
+    supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
     supply: "التسليم"
     support: "الدعم"
