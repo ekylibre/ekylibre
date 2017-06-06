@@ -27,6 +27,8 @@ class Progress
       return 0
     end
     (File.read(progress_file).to_f * 1000).round / 1000.0
+  rescue
+    0
   end
 
   def set_value(value)
