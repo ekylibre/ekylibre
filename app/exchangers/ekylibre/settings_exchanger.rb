@@ -142,7 +142,7 @@ module Ekylibre
       if can_load_default?(:accounts)
         @manifest[:accounts] = Cash.nature.values.each_with_object({}) do |nature, hash|
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t,
-                           number: sprintf('%08d', rand(10**7)) }
+                           number: format('%08d', rand(10**7)) }
           hash
         end
       end
