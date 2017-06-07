@@ -18,7 +18,9 @@
 
 module Backend
   class BaseController < ::BaseController
-    include Unrollable, RestfullyManageable, Autocomplete
+    include Autocomplete
+    include RestfullyManageable
+    include Unrollable
     protect_from_forgery
 
     layout :dialog_or_not

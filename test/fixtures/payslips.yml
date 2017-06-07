@@ -1,0 +1,104 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: payslips
+#
+#  account_id       :integer
+#  accounted_at     :datetime
+#  affair_id        :integer
+#  amount           :decimal(19, 4)   not null
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  currency         :string           not null
+#  custom_fields    :jsonb
+#  emitted_on       :date
+#  employee_id      :integer
+#  id               :integer          not null, primary key
+#  journal_entry_id :integer
+#  lock_version     :integer          default(0), not null
+#  nature_id        :integer          not null
+#  number           :string           not null
+#  started_on       :date             not null
+#  state            :string           not null
+#  stopped_on       :date             not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#
+---
+payslips_001:
+  account_id: 541
+  accounted_at: 2017-06-07 16:14:28.774219000 Z
+  affair_id: 55
+  amount: 1234.0
+  created_at: 2017-06-07 16:14:22.854184000 Z
+  creator_id: 1
+  currency: EUR
+  emitted_on: 2017-06-07
+  employee_id: 9
+  id: 1
+  journal_entry_id: 118
+  lock_version: 1
+  nature_id: 1
+  number: BS2017060001
+  started_on: 2017-01-01
+  state: invoice
+  stopped_on: 2017-01-31
+  updated_at: 2017-06-07 16:14:28.663910000 Z
+  updater_id: 1
+payslips_002:
+  account_id: 541
+  accounted_at: 2017-06-07 16:15:32.090545000 Z
+  affair_id: 56
+  amount: 1200.0
+  created_at: 2017-06-07 16:15:26.736704000 Z
+  creator_id: 1
+  currency: EUR
+  emitted_on: 2017-06-07
+  employee_id: 10
+  id: 2
+  journal_entry_id: 120
+  lock_version: 1
+  nature_id: 1
+  number: BS2017060002
+  started_on: 2017-01-01
+  state: invoice
+  stopped_on: 2017-01-31
+  updated_at: 2017-06-07 16:15:32.007316000 Z
+  updater_id: 1
+payslips_003:
+  account_id: 541
+  accounted_at: 2017-06-07 16:21:11.949666000 Z
+  affair_id: 57
+  amount: 2000.0
+  created_at: 2017-06-07 16:21:11.892529000 Z
+  creator_id: 1
+  currency: EUR
+  employee_id: 12
+  id: 3
+  lock_version: 0
+  nature_id: 1
+  number: BS2017060003
+  started_on: 2017-01-01
+  state: draft
+  stopped_on: 2017-01-31
+  updated_at: 2017-06-07 16:21:11.892529000 Z
+  updater_id: 1

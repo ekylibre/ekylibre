@@ -74,7 +74,7 @@ class EconomicSituationTest < ActiveSupport::TestCase
       name: 'Trésotest'
     )
 
-    OutgoingPayment.create!(
+    PurchasePayment.create!(
       currency: 'EUR',
       payee: @entity,
       responsible: User.create!(

@@ -1,6 +1,7 @@
 - many_thirds = affair.deals.map(&:deal_third).uniq.count > 1
 - if affair
   - affairs_controller = affair.class.name.tableize
+  - deal_class = affair.gap_class || affair.class.deal_class
   .affair
     .deals.active-list
       %table.list
@@ -8,12 +9,12 @@
           %tr
             %th.act
               %i.icon.icon-unlink
-            %th= affair.gap_class.human_attribute_name(:done_at)
-            %th= affair.gap_class.human_attribute_name(:deal_type)
+            %th= deal_class.human_attribute_name(:done_at)
+            %th= deal_class.human_attribute_name(:deal_type)
             - if many_thirds
-              %th= affair.gap_class.human_attribute_name(:third)
-            %th= affair.gap_class.human_attribute_name(:reference)
-            %th= affair.gap_class.human_attribute_name(:amount)
+              %th= deal_class.human_attribute_name(:third)
+            %th= deal_class.human_attribute_name(:reference)
+            %th= deal_class.human_attribute_name(:amount)
         %tbody
           - affair.deals.sort_by{ |a| a.dealt_at || a.created_at }.each do |deal|
             %tr
