@@ -18,3 +18,9 @@
 .slider-selection {
   background: mix($caution-color, white, 30%);
 }
+
+.tooltip:hover {
+  &, & ~ .tooltip {
+    opacity: 0;
+  }
+}
