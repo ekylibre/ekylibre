@@ -1,9 +1,7 @@
-= form_tag(reconciliation_backend_bank_statement_path, method: :get) do
+= form_tag(backend_bank_reconciliation_items_path, method: :get) do
   = hidden_field_tag :cash_id, params[:cash_id]
-  = hidden_field_tag :period_start, "2017-01-01"
-  = hidden_field_tag :period_end, "2017-12-01"
   = field_set :interval do
-    =# field "débuté le", datetime_range(start_input_html: { class: "intervention-started-at", data: { intervention_updater: 'started_at' }}, stop_input_html: { data: { intervention_updater: 'stopped_at' }})
-    =# field "stoppé le", datetime_range(start_input_html: { class: "intervention-started-at", data: { intervention_updater: 'started_at' }}, stop_input_html: { data: { intervention_updater: 'stopped_at' }})
+    = field "débuté le", date_field_tag(:period_start)
+    = field "stoppé le", date_field_tag(:period_end)
   = form_actions do
     = submit_tag :validate.tl

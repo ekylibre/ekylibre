@@ -2,19 +2,28 @@ module Backend
   # Handles bank reconciliation.
   class BankReconciliationItemsController < Backend::BaseController
     def index
-      return unless find_bank_statement
+      return head(:bad_request) if params[:bank_statement_id].nil? && params[:cash_id].nil?
+      
+      return unless find_bank_statement unless params[:bank_statement_id].nil?
+      return unless find_bank_statements unless params[:cash_id].nil?
 
       set_period!
-      bank_statement_items = @bank_statement.items
-      journal_entry_items  = @bank_statement.eligible_entries_in(@period_start, @period_end)
 
-      return no_entries if journal_entry_items.blank?
+      if @bank_statements.nil?
+        reconciliate(@bank_statement)
+      else
+        @bank_statements.each do |bank_statement|
+          reconciliate(bank_statement)
+        end
+      end
 
-      auto_reconciliate!(bank_statement_items, journal_entry_items)
+      @items_grouped_by_date = group_by_date(@items)
 
-      @items_grouped_by_date = group_by_date(bank_statement_items + journal_entry_items)
+      unless @bank_statements.nil?
+        @bank_statement = @bank_statements.first
+      end
 
-      t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on
+      t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on unless @bank_statement.nil?
     end
 
     private
@@ -24,9 +33,24 @@ module Backend
       @bank_statement || (head(:bad_request) && nil)
     end
 
+    def find_bank_statements
+      @bank_statements = BankStatement.where(cash: params[:cash_id])
+    end
+
+    def reconciliate(bank_statement)
+      bank_statement_items = bank_statement.items
+      journal_entry_items  = bank_statement.eligible_entries_in(@period_start, @period_end)
+
+      return no_entries if journal_entry_items.blank?
+
+      auto_reconciliate!(bank_statement, bank_statement_items, journal_entry_items)
+
+      @items = bank_statement_items + journal_entry_items
+    end
+
     def set_period!
-      @period_start = @bank_statement.started_on - 20.days
-      @period_end   = @bank_statement.stopped_on + 20.days
+      @period_start = @bank_statement.started_on - 20.days unless params[:bank_statement_id].nil?
+      @period_end   = @bank_statement.stopped_on + 20.days unless params[:bank_statement_id].nil?
 
       %i[start end].each do |boundary|
         next unless params[:"period_#{boundary}"]
@@ -40,7 +64,7 @@ module Backend
       redirect_to params[:redirect] || backend_bank_statement_path(@bank_statement)
     end
 
-    def auto_reconciliate!(items, entries)
+    def auto_reconciliate!(bank_statement, items, entries)
       items.where(letter: nil).find_each do |bank_item|
         next unless item_is_unique?(bank_item, others: items.where.not(id: bank_item.id))
 
@@ -50,7 +74,7 @@ module Backend
                                        bank_statement_letter: nil)
         next if matching_entry.count(:id) != 1
 
-        @bank_statement.letter_items(items.where(id: bank_item), matching_entry)
+        bank_statement.letter_items(items.where(id: bank_item), matching_entry)
       end
     end
 
