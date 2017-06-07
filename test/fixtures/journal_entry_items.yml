@@ -11945,391 +11945,6 @@ journal_entry_items_353:
 journal_entry_items_354:
   absolute_credit: 0.0
   absolute_currency: EUR
-<<<<<<< HEAD
-  absolute_debit: 187.2
-  absolute_pretax_amount: 0.0
-  account_id: 572
-  balance: 187.2
-  created_at: 2017-05-17 20:26:25.769256000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 447.12
-  cumulated_absolute_debit: 646.32
-  currency: EUR
-  debit: 187.2
-  entry_id: 117
-  entry_number: SAL000007
-  financial_year_id: 26
-  id: 572
-  journal_id: 3
-  letter: C
-  lock_version: 0
-  name: "[Facture F2017000001] Adexar 5 l pour M.  Περικλῆς (SO000000000007)"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: 187.2
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 187.2
-  real_pretax_amount: 0.0
-  resource_prism: client
-  state: draft
-  updated_at: 2017-05-17 20:26:25.769256000 Z
-  updater_id: 1
-journal_entry_items_355:
-  absolute_credit: 156.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 152
-  balance: -156.0
-  created_at: 2017-05-17 20:26:25.775387000 Z
-  creator_id: 1
-  credit: 156.0
-  cumulated_absolute_credit: 2749.64
-  cumulated_absolute_debit: 2230.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 117
-  entry_number: SAL000007
-  financial_year_id: 26
-  id: 573
-  journal_id: 3
-  lock_version: 0
-  name: "[Facture F2017000001] Adexar 5 l pour M.  Περικλῆς (SO000000000007)"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: -156.0
-  real_credit: 156.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_id: 14
-  resource_prism: item_product
-  resource_type: SaleItem
-  state: draft
-  updated_at: 2017-05-17 20:26:25.775387000 Z
-  updater_id: 1
-  variant_id: 8
-journal_entry_items_356:
-  absolute_credit: 31.2
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 156.0
-  account_id: 33
-  balance: -31.2
-  created_at: 2017-05-17 20:26:25.780528000 Z
-  creator_id: 1
-  credit: 31.2
-  cumulated_absolute_credit: 562.66
-  cumulated_absolute_debit: 446.62
-  currency: EUR
-  debit: 0.0
-  entry_id: 117
-  entry_number: SAL000007
-  financial_year_id: 26
-  id: 574
-  journal_id: 3
-  lock_version: 0
-  name: "[Facture F2017000001] Adexar 5 l pour M.  Περικλῆς (SO000000000007)"
-  position: 3
-  pretax_amount: 156.0
-  printed_on: 2017-05-17
-  real_balance: -31.2
-  real_credit: 31.2
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 156.0
-  resource_id: 14
-  resource_prism: item_tax
-  resource_type: SaleItem
-  state: draft
-  tax_id: 3
-  updated_at: 2017-05-17 20:26:25.780528000 Z
-  updater_id: 1
-  variant_id: 8
-journal_entry_items_357:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 187.2
-  absolute_pretax_amount: 0.0
-  account_id: 1
-  balance: 187.2
-  created_at: 2017-05-17 20:26:37.789119000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 373.0
-  cumulated_absolute_debit: 3333.45
-  currency: EUR
-  debit: 187.2
-  entry_id: 118
-  entry_number: XYZ0022
-  financial_year_id: 26
-  id: 575
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement R2017000001] In cash!  de M.  Περικλῆς"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: 187.2
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 187.2
-  real_pretax_amount: 0.0
-  resource_prism: deposited
-  state: draft
-  updated_at: 2017-05-17 20:26:37.789119000 Z
-  updater_id: 1
-journal_entry_items_358:
-  absolute_credit: 187.2
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 572
-  balance: -187.2
-  created_at: 2017-05-17 20:26:37.793509000 Z
-  creator_id: 1
-  credit: 187.2
-  cumulated_absolute_credit: 634.32
-  cumulated_absolute_debit: 646.32
-  currency: EUR
-  debit: 0.0
-  entry_id: 118
-  entry_number: XYZ0022
-  financial_year_id: 26
-  id: 576
-  journal_id: 1
-  letter: C
-  lock_version: 0
-  name: "[Encaissement R2017000001] In cash!  de M.  Περικλῆς"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: -187.2
-  real_credit: 187.2
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_id: 14
-  resource_prism: payer
-  resource_type: Entity
-  state: draft
-  updated_at: 2017-05-17 20:26:37.793509000 Z
-  updater_id: 1
-journal_entry_items_359:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 200.0
-  absolute_pretax_amount: 0.0
-  account_id: 572
-  balance: 200.0
-  created_at: 2017-05-17 20:27:02.064313000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 634.32
-  cumulated_absolute_debit: 846.32
-  currency: EUR
-  debit: 200.0
-  entry_id: 119
-  entry_number: SAL000008
-  financial_year_id: 26
-  id: 577
-  journal_id: 3
-  letter: E
-  lock_version: 0
-  name: "[Facture F2017000002] Acide malique ‒ 25kg pour M.  Περικλῆς (SO000000000021)"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: 200.0
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 200.0
-  real_pretax_amount: 0.0
-  resource_prism: client
-  state: draft
-  updated_at: 2017-05-17 20:27:02.064313000 Z
-  updater_id: 1
-journal_entry_items_360:
-  absolute_credit: 166.67
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 152
-  balance: -166.67
-  created_at: 2017-05-17 20:27:02.069456000 Z
-  creator_id: 1
-  credit: 166.67
-  cumulated_absolute_credit: 2916.31
-  cumulated_absolute_debit: 2230.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 119
-  entry_number: SAL000008
-  financial_year_id: 26
-  id: 578
-  journal_id: 3
-  lock_version: 0
-  name: "[Facture F2017000002] Acide malique ‒ 25kg pour M.  Περικλῆς (SO000000000021)"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: -166.67
-  real_credit: 166.67
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_id: 30
-  resource_prism: item_product
-  resource_type: SaleItem
-  state: draft
-  updated_at: 2017-05-17 20:27:02.069456000 Z
-  updater_id: 1
-  variant_id: 58
-journal_entry_items_361:
-  absolute_credit: 33.33
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 166.67
-  account_id: 33
-  balance: -33.33
-  created_at: 2017-05-17 20:27:02.074969000 Z
-  creator_id: 1
-  credit: 33.33
-  cumulated_absolute_credit: 595.99
-  cumulated_absolute_debit: 446.62
-  currency: EUR
-  debit: 0.0
-  entry_id: 119
-  entry_number: SAL000008
-  financial_year_id: 26
-  id: 579
-  journal_id: 3
-  lock_version: 0
-  name: "[Facture F2017000002] Acide malique ‒ 25kg pour M.  Περικλῆς (SO000000000021)"
-  position: 3
-  pretax_amount: 166.67
-  printed_on: 2017-05-17
-  real_balance: -33.33
-  real_credit: 33.33
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 166.67
-  resource_id: 30
-  resource_prism: item_tax
-  resource_type: SaleItem
-  state: draft
-  tax_id: 3
-  updated_at: 2017-05-17 20:27:02.074969000 Z
-  updater_id: 1
-  variant_id: 58
-journal_entry_items_362:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 1235.0
-  absolute_pretax_amount: 0.0
-  account_id: 1
-  balance: 1235.0
-  created_at: 2017-05-17 20:27:38.981929000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 373.0
-  cumulated_absolute_debit: 4568.45
-  currency: EUR
-  debit: 1235.0
-  entry_id: 120
-  entry_number: XYZ0023
-  financial_year_id: 26
-  id: 580
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement R2017000002] In cash!  de Mme Andrew BAKTOUBI"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: 1235.0
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 1235.0
-  real_pretax_amount: 0.0
-  resource_prism: deposited
-  state: draft
-  updated_at: 2017-05-17 20:27:38.981929000 Z
-  updater_id: 1
-journal_entry_items_363:
-  absolute_credit: 1235.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 680
-  balance: -1235.0
-  created_at: 2017-05-17 20:27:38.986254000 Z
-  creator_id: 1
-  credit: 1235.0
-  cumulated_absolute_credit: 1235.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 120
-  entry_number: XYZ0023
-  financial_year_id: 26
-  id: 581
-  journal_id: 1
-  letter: A
-  lock_version: 0
-  name: "[Encaissement R2017000002] In cash!  de Mme Andrew BAKTOUBI"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: -1235.0
-  real_credit: 1235.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_id: 19
-  resource_prism: payer
-  resource_type: Entity
-  state: draft
-  updated_at: 2017-05-17 20:27:38.986254000 Z
-  updater_id: 1
-journal_entry_items_364:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 123.0
-  absolute_pretax_amount: 0.0
-  account_id: 171
-  balance: 123.0
-  created_at: 2017-05-17 20:58:53.585874000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 123.0
-  currency: EUR
-  debit: 123.0
-  entry_id: 121
-  entry_number: PY000001
-  financial_year_id: 26
-  id: 582
-  journal_id: 13
-  lock_version: 0
-  name: "[Salaire BS2017050001] M. Gendo IKARI du 01/05/2017 au 04/05/2017"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-=======
   absolute_debit: 123.0
   absolute_pretax_amount: 0.0
   account_id: 212
@@ -12351,264 +11966,20 @@ journal_entry_items_364:
   position: 1
   pretax_amount: 0.0
   printed_on: 2017-01-10
->>>>>>> master
   real_balance: 123.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 123.0
   real_pretax_amount: 0.0
-<<<<<<< HEAD
-  resource_prism: expense
-  state: draft
-  updated_at: 2017-05-17 20:58:53.585874000 Z
-  updater_id: 1
-journal_entry_items_365:
-=======
   state: draft
   updated_at: 2017-05-29 20:41:21.300520000 Z
   updater_id: 1
 journal_entry_items_355:
->>>>>>> master
   absolute_credit: 123.0
   absolute_currency: EUR
   absolute_debit: 0.0
   absolute_pretax_amount: 0.0
-<<<<<<< HEAD
-  account_id: 681
-  balance: -123.0
-  created_at: 2017-05-17 20:58:53.593432000 Z
-  creator_id: 1
-  credit: 123.0
-  cumulated_absolute_credit: 123.0
-  cumulated_absolute_debit: 123.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 121
-  entry_number: PY000001
-  financial_year_id: 26
-  id: 583
-  journal_id: 13
-  letter: A
-  lock_version: 0
-  name: "[Salaire BS2017050001] M. Gendo IKARI du 01/05/2017 au 04/05/2017"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: -123.0
-  real_credit: 123.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_prism: employee
-  state: draft
-  updated_at: 2017-05-17 20:58:53.593432000 Z
-  updater_id: 1
-journal_entry_items_366:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 123.0
-  absolute_pretax_amount: 0.0
-  account_id: 681
-  balance: 123.0
-  created_at: 2017-05-17 20:59:09.080638000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 123.0
-  currency: EUR
-  debit: 123.0
-  entry_id: 122
-  entry_number: CUN000005
-  financial_year_id: 26
-  id: 584
-  journal_id: 6
-  letter: A
-  lock_version: 0
-  name: "[Paiement de salaire D20170001] En espèce  pour M. Gendo IKARI"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-04
-  real_balance: 123.0
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 123.0
-  real_pretax_amount: 0.0
-  resource_id: 9
-  resource_prism: payee
-  resource_type: Entity
-  state: draft
-  updated_at: 2017-05-17 20:59:09.080638000 Z
-  updater_id: 1
-journal_entry_items_367:
-  absolute_credit: 123.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 213
-  balance: -123.0
-  created_at: 2017-05-17 20:59:09.086927000 Z
-  creator_id: 1
-  credit: 123.0
-  cumulated_absolute_credit: 21472.19
-  cumulated_absolute_debit: 28.3
-  currency: EUR
-  debit: 0.0
-  entry_id: 122
-  entry_number: CUN000005
-  financial_year_id: 26
-  id: 585
-  journal_id: 6
-  lock_version: 0
-  name: "[Paiement de salaire D20170001] En espèce  pour M. Gendo IKARI"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-04
-  real_balance: -123.0
-  real_credit: 123.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_prism: bank
-  state: draft
-  updated_at: 2017-05-17 20:59:09.086927000 Z
-  updater_id: 1
-journal_entry_items_368:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 8523.0
-  absolute_pretax_amount: 0.0
-  account_id: 171
-  balance: 8523.0
-  created_at: 2017-05-17 20:59:35.203679000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 8646.0
-  currency: EUR
-  debit: 8523.0
-  entry_id: 123
-  entry_number: PY000002
-  financial_year_id: 26
-  id: 586
-  journal_id: 13
-  lock_version: 0
-  name: "[Salaire BS2017050002] M. Kōzō FUYUTSUKI du 01/02/2017 au 28/02/2017"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: 8523.0
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 8523.0
-  real_pretax_amount: 0.0
-  resource_prism: expense
-  state: draft
-  updated_at: 2017-05-17 20:59:35.203679000 Z
-  updater_id: 1
-journal_entry_items_369:
-  absolute_credit: 8523.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 682
-  balance: -8523.0
-  created_at: 2017-05-17 20:59:35.207899000 Z
-  creator_id: 1
-  credit: 8523.0
-  cumulated_absolute_credit: 8523.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 123
-  entry_number: PY000002
-  financial_year_id: 26
-  id: 587
-  journal_id: 13
-  letter: A
-  lock_version: 0
-  name: "[Salaire BS2017050002] M. Kōzō FUYUTSUKI du 01/02/2017 au 28/02/2017"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-17
-  real_balance: -8523.0
-  real_credit: 8523.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  real_pretax_amount: 0.0
-  resource_prism: employee
-  state: draft
-  updated_at: 2017-05-17 20:59:35.207899000 Z
-  updater_id: 1
-journal_entry_items_370:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 8541.0
-  absolute_pretax_amount: 0.0
-  account_id: 683
-  balance: 8541.0
-  created_at: 2017-05-17 20:59:52.274915000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 8541.0
-  currency: EUR
-  debit: 8541.0
-  entry_id: 124
-  entry_number: BNK000015
-  financial_year_id: 26
-  id: 588
-  journal_id: 2
-  letter: A
-  lock_version: 0
-  name: "[Paiement de salaire D20170002] Par chèque  pour Mme Yui IKARI"
-  position: 1
-  pretax_amount: 0.0
-  printed_on: 2017-05-03
-  real_balance: 8541.0
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 8541.0
-  real_pretax_amount: 0.0
-  resource_id: 12
-  resource_prism: payee
-  resource_type: Entity
-  state: draft
-  updated_at: 2017-05-17 20:59:52.274915000 Z
-  updater_id: 1
-journal_entry_items_371:
-  absolute_credit: 8541.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  absolute_pretax_amount: 0.0
-  account_id: 212
-  balance: -8541.0
-  created_at: 2017-05-17 20:59:52.279946000 Z
-  creator_id: 1
-  credit: 8541.0
-  cumulated_absolute_credit: 41391.46
-  cumulated_absolute_debit: 969.63
-  currency: EUR
-  debit: 0.0
-  entry_id: 124
-  entry_number: BNK000015
-  financial_year_id: 26
-  id: 589
-  journal_id: 2
-  lock_version: 0
-  name: "[Paiement de salaire D20170002] Par chèque  pour Mme Yui IKARI"
-  position: 2
-  pretax_amount: 0.0
-  printed_on: 2017-05-03
-  real_balance: -8541.0
-  real_credit: 8541.0
-=======
   account_id: 460
   balance: -123.0
   created_at: 2017-05-29 20:41:21.306944000 Z
@@ -12630,17 +12001,290 @@ journal_entry_items_371:
   printed_on: 2017-01-10
   real_balance: -123.0
   real_credit: 123.0
->>>>>>> master
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
   real_pretax_amount: 0.0
-<<<<<<< HEAD
-  resource_prism: bank
-  state: draft
-  updated_at: 2017-05-17 20:59:52.279946000 Z
-=======
   state: draft
   updated_at: 2017-05-29 20:41:21.306944000 Z
->>>>>>> master
+  updater_id: 1
+journal_entry_items_356:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1234.0
+  absolute_pretax_amount: 0.0
+  account_id: 541
+  balance: 1234.0
+  created_at: 2017-06-07 16:14:28.753174000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1234.0
+  currency: EUR
+  debit: 1234.0
+  entry_id: 118
+  entry_number: SA000001
+  financial_year_id: 26
+  id: 574
+  journal_id: 13
+  lock_version: 0
+  name: "[Salaire BS2017060001] M. Gendo IKARI du 01/01/2017 au 31/01/2017"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: 1234.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1234.0
+  real_pretax_amount: 0.0
+  resource_prism: expense
+  state: draft
+  updated_at: 2017-06-07 16:14:28.753174000 Z
+  updater_id: 1
+journal_entry_items_357:
+  absolute_credit: 1234.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: -1234.0
+  created_at: 2017-06-07 16:14:28.761597000 Z
+  creator_id: 1
+  credit: 1234.0
+  cumulated_absolute_credit: 1234.0
+  cumulated_absolute_debit: 1234.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 118
+  entry_number: SA000001
+  financial_year_id: 26
+  id: 575
+  journal_id: 13
+  letter: A
+  lock_version: 0
+  name: "[Salaire BS2017060001] M. Gendo IKARI du 01/01/2017 au 31/01/2017"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: -1234.0
+  real_credit: 1234.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: employee
+  state: draft
+  updated_at: 2017-06-07 16:14:28.761597000 Z
+  updater_id: 1
+journal_entry_items_358:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1234.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: 1234.0
+  created_at: 2017-06-07 16:14:55.114011000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1234.0
+  currency: EUR
+  debit: 1234.0
+  entry_id: 119
+  entry_number: BNK000016
+  financial_year_id: 26
+  id: 576
+  journal_id: 2
+  letter: A
+  lock_version: 0
+  name: "[Paiement de salaire D20170001] Par chèque  pour M. Gendo IKARI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-01-31
+  real_balance: 1234.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1234.0
+  real_pretax_amount: 0.0
+  resource_id: 9
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-06-07 16:14:55.114011000 Z
+  updater_id: 1
+journal_entry_items_359:
+  absolute_credit: 1234.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -1234.0
+  created_at: 2017-06-07 16:14:55.120746000 Z
+  creator_id: 1
+  credit: 1234.0
+  cumulated_absolute_credit: 35284.46
+  cumulated_absolute_debit: 1092.63
+  currency: EUR
+  debit: 0.0
+  entry_id: 119
+  entry_number: BNK000016
+  financial_year_id: 26
+  id: 577
+  journal_id: 2
+  lock_version: 0
+  name: "[Paiement de salaire D20170001] Par chèque  pour M. Gendo IKARI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-01-31
+  real_balance: -1234.0
+  real_credit: 1234.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-06-07 16:14:55.120746000 Z
+  updater_id: 1
+journal_entry_items_360:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  absolute_pretax_amount: 0.0
+  account_id: 541
+  balance: 1200.0
+  created_at: 2017-06-07 16:15:32.073272000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2434.0
+  currency: EUR
+  debit: 1200.0
+  entry_id: 120
+  entry_number: SA000002
+  financial_year_id: 26
+  id: 578
+  journal_id: 13
+  lock_version: 0
+  name: "[Salaire BS2017060002] M. Kōzō FUYUTSUKI du 01/01/2017 au 31/01/2017"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: 1200.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  real_pretax_amount: 0.0
+  resource_prism: expense
+  state: draft
+  updated_at: 2017-06-07 16:15:32.073272000 Z
+  updater_id: 1
+journal_entry_items_361:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 681
+  balance: -1200.0
+  created_at: 2017-06-07 16:15:32.079524000 Z
+  creator_id: 1
+  credit: 1200.0
+  cumulated_absolute_credit: 1200.0
+  cumulated_absolute_debit: 1200.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 120
+  entry_number: SA000002
+  financial_year_id: 26
+  id: 579
+  journal_id: 13
+  letter: A
+  lock_version: 0
+  name: "[Salaire BS2017060002] M. Kōzō FUYUTSUKI du 01/01/2017 au 31/01/2017"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: -1200.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: employee
+  state: draft
+  updated_at: 2017-06-07 16:15:32.079524000 Z
+  updater_id: 1
+journal_entry_items_362:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  absolute_pretax_amount: 0.0
+  account_id: 681
+  balance: 1200.0
+  created_at: 2017-06-07 16:15:58.232081000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  entry_id: 121
+  entry_number: BNK000017
+  financial_year_id: 26
+  id: 580
+  journal_id: 2
+  letter: A
+  lock_version: 0
+  name: "[Paiement de salaire D20170002] SEPA  pour M. Kōzō FUYUTSUKI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-01-26
+  real_balance: 1200.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  real_pretax_amount: 0.0
+  resource_id: 10
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-06-07 16:15:58.232081000 Z
+  updater_id: 1
+journal_entry_items_363:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -1200.0
+  created_at: 2017-06-07 16:15:58.238261000 Z
+  creator_id: 1
+  credit: 1200.0
+  cumulated_absolute_credit: 34050.46
+  cumulated_absolute_debit: 1092.63
+  currency: EUR
+  debit: 0.0
+  entry_id: 121
+  entry_number: BNK000017
+  financial_year_id: 26
+  id: 581
+  journal_id: 2
+  lock_version: 0
+  name: "[Paiement de salaire D20170002] SEPA  pour M. Kōzō FUYUTSUKI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-01-26
+  real_balance: -1200.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-06-07 16:15:58.238261000 Z
   updater_id: 1

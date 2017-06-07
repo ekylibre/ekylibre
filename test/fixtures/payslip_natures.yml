@@ -38,16 +38,30 @@
 #
 ---
 payslip_natures_001:
-  account_id: 171
+  account_id: 541
   active: true
   by_default: true
-  created_at: 2017-05-17 20:57:37.869998000 Z
+  created_at: 2017-06-07 16:08:55.511639000 Z
   creator_id: 1
   currency: EUR
   id: 1
   journal_id: 13
-  lock_version: 0
+  lock_version: 1
   name: Permanent
-  updated_at: 2017-05-17 20:57:37.869998000 Z
+  updated_at: 2017-06-07 16:12:59.732038000 Z
+  updater_id: 1
+  with_accounting: true
+payslip_natures_002:
+  account_id: 171
+  active: true
+  by_default: false
+  created_at: 2017-06-07 16:09:31.873913000 Z
+  creator_id: 1
+  currency: EUR
+  id: 2
+  journal_id: 13
+  lock_version: 1
+  name: Saisonnier
+  updated_at: 2017-06-07 16:12:39.602448000 Z
   updater_id: 1
   with_accounting: true

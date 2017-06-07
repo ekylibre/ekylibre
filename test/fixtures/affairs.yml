@@ -53,58 +53,59 @@
 ---
 payslip_affairs_001:
   closed: true
-  closed_at: 2017-05-17 20:59:09.127804000 Z
-  created_at: 2017-05-17 20:58:49.466184000 Z
+  closed_at: 2017-06-07 16:14:55.172263000 Z
+  created_at: 2017-06-07 16:14:23.019282000 Z
   creator_id: 1
-  credit: 123.0
+  credit: 1234.0
   currency: EUR
   deals_count: 2
-  debit: 123.0
-  id: 58
+  debit: 1234.0
+  id: 55
   letter: A
   lock_version: 2
-  number: A000000000051
+  number: A000000000048
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 9
   type: PayslipAffair
-  updated_at: 2017-05-17 20:59:09.147403000 Z
+  updated_at: 2017-06-07 16:14:55.198719000 Z
   updater_id: 1
 payslip_affairs_002:
-  closed: false
-  created_at: 2017-05-17 20:59:31.438076000 Z
+  closed: true
+  closed_at: 2017-06-07 16:15:58.292323000 Z
+  created_at: 2017-06-07 16:15:26.790498000 Z
   creator_id: 1
-  credit: 8523.0
+  credit: 1200.0
   currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 59
+  deals_count: 2
+  debit: 1200.0
+  id: 56
   letter: A
-  lock_version: 1
-  number: A000000000052
+  lock_version: 2
+  number: A000000000049
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 10
   type: PayslipAffair
-  updated_at: 2017-05-17 20:59:35.244456000 Z
+  updated_at: 2017-06-07 16:15:58.322559000 Z
   updater_id: 1
 payslip_affairs_003:
-  closed: false
-  created_at: 2017-05-17 20:59:52.325553000 Z
+  closed: true
+  closed_at: 2017-06-07 16:21:12.008206000 Z
+  created_at: 2017-06-07 16:21:12.025902000 Z
   creator_id: 1
   credit: 0.0
   currency: EUR
   deals_count: 1
-  debit: 8541.0
-  id: 60
-  letter: A
-  lock_version: 1
-  number: A000000000053
+  debit: 0.0
+  id: 57
+  lock_version: 0
+  number: A000000000050
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 12
   type: PayslipAffair
-  updated_at: 2017-05-17 20:59:52.364903000 Z
+  updated_at: 2017-06-07 16:21:12.025902000 Z
   updater_id: 1
 purchase_affairs_001:
   accounted_at: 2014-11-05 13:40:57.922047000 Z
@@ -748,61 +749,6 @@ sale_affairs_021:
   type: SaleAffair
   updated_at: 2016-12-20 08:58:53.198531000 Z
   updater_id: 1
-sale_affairs_022:
-  closed: false
-  created_at: 2017-05-17 20:26:57.420997000 Z
-  creator_id: 1
-  credit: 0.0
-  currency: EUR
-  deals_count: 1
-  debit: 200.0
-  id: 55
-  letter: E
-  lock_version: 1
-  number: A000000000048
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 14
-  type: SaleAffair
-  updated_at: 2017-05-17 20:27:02.127521000 Z
-  updater_id: 1
-sale_affairs_023:
-  closed: true
-  closed_at: 2017-05-17 20:27:15.571182000 Z
-  created_at: 2017-05-17 20:27:15.586240000 Z
-  creator_id: 1
-  credit: 0.0
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 56
-  letter: F
-  lock_version: 0
-  number: A000000000049
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 14
-  type: SaleAffair
-  updated_at: 2017-05-17 20:27:15.586240000 Z
-  updater_id: 1
-sale_affairs_024:
-  closed: false
-  created_at: 2017-05-17 20:27:39.026052000 Z
-  creator_id: 1
-  credit: 1235.0
-  currency: EUR
-  deals_count: 1
-  debit: 0.0
-  id: 57
-  letter: A
-  lock_version: 1
-  number: A000000000050
-  pretax_amount: 0.0
-  probability_percentage: 0.0
-  third_id: 19
-  type: SaleAffair
-  updated_at: 2017-05-17 20:27:39.070956000 Z
-  updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
   closed: true
@@ -874,21 +820,20 @@ sale_tickets_001:
   updater_id: 1
 sale_tickets_002:
   accounted_at: 2015-04-21 08:29:05.313041000 Z
-  closed: true
-  closed_at: 2017-05-17 20:26:37.829183000 Z
+  closed: false
   created_at: 2015-04-21 08:29:05.229047000 Z
   creator_id: 1
-  credit: 187.2
+  credit: 0.0
   currency: EUR
-  deals_count: 2
-  debit: 187.2
+  deals_count: 1
+  debit: 0.0
   id: 35
   letter: C
-  lock_version: 3
+  lock_version: 0
   number: A000000000028
   pretax_amount: 0.0
   probability_percentage: 0.0
   third_id: 14
   type: SaleTicket
-  updated_at: 2017-05-17 20:26:37.899477000 Z
+  updated_at: 2015-04-21 08:29:05.229047000 Z
   updater_id: 1

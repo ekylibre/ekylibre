@@ -491,7 +491,7 @@ fra:
     backend/payslip_natures:
       edit: "Modifier le type de salaire\_: %{name}"
       index: "Types de salaires"
-      new: "Nouvelle nature de soumission de paie"
+      new: "Nouveau type de salaire"
       show: "Type de salaire\_: %{name}"
     backend/payslip_payments:
       edit: "Modifier le paiement de salaire\_: %{number}"

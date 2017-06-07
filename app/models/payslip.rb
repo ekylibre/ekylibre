@@ -85,7 +85,7 @@ class Payslip < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
-      entry.add_debit(label, (nature.account ||= Account.find_or_import_from_nomenclature(:staff_expenses)).id, amount, as: :expense)
+      entry.add_debit(label, (account || nature.account || Account.find_or_import_from_nomenclature(:staff_expenses)).id, amount, as: :expense)
       entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)
     end
   end

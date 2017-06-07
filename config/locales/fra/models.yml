@@ -498,7 +498,7 @@ fra:
       purchase_gap: "Écart d’achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
-      purchase_payment: "Décaissement"
+      purchase_payment: "Décaissement d’achat"
       regularization: "Régularisation"
       role: "Rôle"
       sale: "Vente"

@@ -50,50 +50,50 @@
 #
 ---
 payslip_payments_001:
-  accounted_at: 2017-05-17 20:59:09.099361000 Z
-  affair_id: 58
-  amount: 123.0
+  accounted_at: 2017-06-07 16:14:55.136333000 Z
+  affair_id: 55
+  amount: 1234.0
   bank_check_number: ''
-  cash_id: 3
-  created_at: 2017-05-17 20:59:09.033866000 Z
+  cash_id: 1
+  created_at: 2017-06-07 16:14:55.054983000 Z
   creator_id: 1
   currency: EUR
   delivered: true
   downpayment: true
   id: 11
-  journal_entry_id: 122
+  journal_entry_id: 119
   lock_version: 0
-  mode_id: 2
+  mode_id: 1
   number: D20170001
-  paid_at: 2017-05-17 20:59:09.009359000 Z
+  paid_at: 2017-06-07 16:14:55.023682000 Z
   payee_id: 9
   responsible_id: 1
-  to_bank_at: 2017-05-04 20:59:00.000000000 Z
+  to_bank_at: 2017-01-31 17:14:00.000000000 Z
   type: PayslipPayment
-  updated_at: 2017-05-17 20:59:09.033866000 Z
+  updated_at: 2017-06-07 16:14:55.054983000 Z
   updater_id: 1
 payslip_payments_002:
-  accounted_at: 2017-05-17 20:59:52.288775000 Z
-  affair_id: 60
-  amount: 8541.0
+  accounted_at: 2017-06-07 16:15:58.250768000 Z
+  affair_id: 56
+  amount: 1200.0
   bank_check_number: ''
   cash_id: 1
-  created_at: 2017-05-17 20:59:52.203168000 Z
+  created_at: 2017-06-07 16:15:58.164208000 Z
   creator_id: 1
   currency: EUR
   delivered: true
   downpayment: true
   id: 12
-  journal_entry_id: 124
+  journal_entry_id: 121
   lock_version: 0
-  mode_id: 1
+  mode_id: 3
   number: D20170002
-  paid_at: 2017-05-17 20:59:52.193550000 Z
-  payee_id: 12
+  paid_at: 2017-06-07 16:15:58.151005000 Z
+  payee_id: 10
   responsible_id: 1
-  to_bank_at: 2017-05-03 20:59:00.000000000 Z
+  to_bank_at: 2017-01-26 17:15:00.000000000 Z
   type: PayslipPayment
-  updated_at: 2017-05-17 20:59:52.203168000 Z
+  updated_at: 2017-06-07 16:15:58.164208000 Z
   updater_id: 1
 purchase_payments_001:
   accounted_at: 2014-11-07 13:58:25.752963000 Z

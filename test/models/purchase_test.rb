@@ -177,6 +177,7 @@ class PurchaseTest < ActiveSupport::TestCase
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    Payslip.delete_all
     Purchase.delete_all
     PurchaseNature.delete_all
     OutgoingPayment.delete_all

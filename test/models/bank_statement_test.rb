@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # = Informations
 #
 # == License
@@ -387,6 +385,8 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   def wipe_db
+    Payslip.delete_all
+    PayslipNature.delete_all
     Journal.delete_all
     Account.delete_all
     Cash.delete_all

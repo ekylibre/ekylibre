@@ -110,7 +110,7 @@ entity_addresses_004:
   mail_line_6: 12345 InTheWorld
   mail_postal_zone_id: 3
   thread: AAAC
-  updated_at: 2017-05-17 20:58:37.872915000 Z
+  updated_at: 2017-06-07 16:12:21.304704000 Z
   updater_id: 1
 entity_addresses_005:
   by_default: true

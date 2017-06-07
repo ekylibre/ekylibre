@@ -323,7 +323,7 @@ entities_009:
   deliveries_conditions: ''
   description: ''
   employee: true
-  employee_account_id: 681
+  employee_account_id: 680
   first_name: Gendo
   full_name: M. Gendo IKARI
   iban: ''
@@ -342,7 +342,7 @@ entities_009:
   supplier_payment_delay: 30 days
   title: M.
   transporter: false
-  updated_at: 2017-05-17 20:58:37.853754000 Z
+  updated_at: 2017-06-07 16:12:21.286406000 Z
   updater_id: 1
   vat_subjected: true
 entities_010:
@@ -363,7 +363,7 @@ entities_010:
   deliveries_conditions: ''
   description: ''
   employee: true
-  employee_account_id: 682
+  employee_account_id: 681
   first_name: Kōzō
   full_name: M. Kōzō FUYUTSUKI
   iban: ''
@@ -383,7 +383,7 @@ entities_010:
   supplier_payment_delay: 30 days
   title: M.
   transporter: false
-  updated_at: 2017-05-17 20:58:09.011894000 Z
+  updated_at: 2017-06-07 16:14:00.014531000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
@@ -436,7 +436,7 @@ entities_012:
   deliveries_conditions: ''
   description: ''
   employee: true
-  employee_account_id: 683
+  employee_account_id: 682
   first_name: Yui
   full_name: Mme Yui IKARI
   iban: ''
@@ -455,7 +455,7 @@ entities_012:
   supplier_payment_delay: 30 days
   title: Mme
   transporter: false
-  updated_at: 2017-05-17 20:58:18.505672000 Z
+  updated_at: 2017-06-07 16:11:29.399798000 Z
   updater_id: 1
   vat_subjected: true
 entities_013:
@@ -659,7 +659,6 @@ entities_019:
   bank_account_holder_name: Mme Andrew BAKTOUBI
   bank_identifier_code: ''
   client: false
-  client_account_id: 680
   country: fr
   created_at: 2016-11-05 09:09:52.282492000 Z
   creator_id: 1
