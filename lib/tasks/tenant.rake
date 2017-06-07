@@ -151,7 +151,29 @@ namespace :tenant do
     raise 'Need TENANT env variable to dump' unless tenant
     options = {}
     options[:path] = Pathname.new(archive) if archive
+    options[:path] ||= Rails.root.join('tmp', 'archives', "#{tenant}.zip") if tenant
+    if options[:path] && options[:path].exist? && ENV['FORCE'].to_i.zero?
+      unless confirm("An archive #{options[:path].relative_path_from(Rails.root)} already exists. Do you want to overwrite it?", false)
+        puts 'Nothing dumped'.yellow
+        exit(0)
+      end
+    end
+    puts "Dumping #{tenant}".yellow
     Ekylibre::Tenant.dump(tenant, options)
+  end
+
+  def confirm(question, default)
+    puts question.yellow + ' Y/N'.red
+    STDOUT.flush
+    input = STDIN.gets.chomp
+    case input.upcase
+    when 'Y'
+      return true
+    when 'N'
+      return false
+    else
+      return default
+    end
   end
 
   task restore: :environment do
@@ -163,6 +185,13 @@ namespace :tenant do
       options[:tenant] = tenant
     end
     raise 'Need ARCHIVE env variable to find archive' unless archive
+    if Ekylibre::Tenant.exist?(tenant) && ENV['FORCE'].to_i.zero?
+      unless confirm("Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?", false) && confirm('Really sure?', false)
+        puts 'Nothing restored'.yellow
+        exit(0)
+      end
+    end
+    puts "Restoring #{tenant}".yellow
     Ekylibre::Tenant.restore(archive, options)
   end
 

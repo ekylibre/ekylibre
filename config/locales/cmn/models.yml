@@ -40,7 +40,7 @@ cmn:
         ongoing_at: "筹款的"
         started_on: "第一还款开始"
       outgoing_payment:
-        delivered: "给收件人"
+        delivered: "给予收件人"
         list: "付款清单"
       outgoing_payment_list:
         payments_sum: "总"
@@ -62,6 +62,9 @@ cmn:
         seeding_density_value: "预计播种密度"
       purchase:
         affair_balance: "平衡"
+      purchase_payment: #?
+        delivered: "给收件人" #?
+        list: "付款清单" #?
       sale:
         affair_balance: "平衡"
         contact: "为估算地址"
@@ -264,6 +267,7 @@ cmn:
       event: "事件"
       event_participation: "活动参与"
       financial_year: "财政年度"
+      financial_year_exchange: "财政年度交换"
       fixed_asset: "固定资产"
       fixed_asset_depreciation: "固定资产折旧"
       fungus: "菌"
@@ -324,6 +328,10 @@ cmn:
       outgoing_payment_mode: "支付方式"
       parcel: "包"
       parcel_item: "地块项目"
+      payslip: "工资单"
+      payslip_affair: "Payslip事件"
+      payslip_nature: "Payslip型"
+      payslip_payment: "支付费用"
       plant: "厂"
       plant_counting: "植物计数"
       plant_counting_item: "工厂数项"
@@ -356,6 +364,7 @@ cmn:
       purchase_gap: "采购差距"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      purchase_payment: "支出"
       regularization: "正则"
       role: "角色"
       sale: "拍卖"
@@ -379,6 +388,7 @@ cmn:
       tax: "税"
       tax_declaration: "纳税申报"
       tax_declaration_item: "纳税申报项目"
+      tax_declaration_item_part: "税务申报部分"
       team: "球队"
       token: "象征"
       tracking: "跟踪"
@@ -691,6 +701,7 @@ cmn:
     emission_cash: "发射现金"
     emission_currency: "发射货币"
     emission_journal_entry: "发射日记帐分录"
+    emitted_on: "发射"
     employed: "就业"
     employee: "雇员"
     employee_account: "员工帐户"
@@ -1124,6 +1135,7 @@ cmn:
     payment_mode_complement: "付款方式补充"
     payments: "支付"
     payments_count: "算上付款"
+    payslips: "工资单"
     period: "期"
     person: "人"
     phases: "相"
@@ -1219,6 +1231,7 @@ cmn:
     purchase_item: "采购项目"
     purchase_items: "购买物品"
     purchase_natures: "购买类型"
+    purchase_payments: "购买付款"
     purchase_taxations: "购买税费"
     purchase_taxes: "购置税"
     purchased_on: "购买了"
@@ -1738,6 +1751,11 @@ cmn:
           prepared: "准备"
           received: "收到"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "草案"
+        invoice: "发票"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1788,6 +1806,9 @@ cmn:
     purchase_nature:
       default:
         name: "标准购买"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "管理员"
@@ -1859,6 +1880,7 @@ cmn:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [一年| 4] [本月| 2] [数字| 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

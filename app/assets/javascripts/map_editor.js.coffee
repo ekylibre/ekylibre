@@ -385,9 +385,9 @@
         popup += "<div>"
         popup += "<label for='#{attribute.property_value}'>#{attribute.property_label} : </label>"
         switch attribute.type
-         when 'input'
-          popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
-         else
+          when 'input'
+            popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
+          else
             # include label
             popup += "<span>#{feature.properties[attribute.property_value] || ''}</span>"
         popup += "</div>"
@@ -640,7 +640,7 @@
             @featureStyling feature
         })
 
-#      this.edition.setStyle this.options.editStyle
+      # this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
       this._refreshControls()
       this._saveUpdates()
@@ -689,10 +689,10 @@
           catch
             this._setDefaultView()
       else if view is 'edit'
-         try
+        try
           this.map.fitBounds this.edition.getLayers()[0].getBounds()
-         catch
-           this._setDefaultView()
+        catch
+          this._setDefaultView()
       else if view is 'default'
         this._setDefaultView()
       else if view.center?
@@ -765,7 +765,24 @@
                 if feature.alert?
                   $(modal._container).find('#alert').text(feature.alert)
                 else
-                  this.edition.addData feature
+                  try
+                    widget.edition.addData feature
+                  catch
+                    polys = []
+                    this.edition = L.geoJson(feature, {
+                      onEachFeature: (feature, layer) =>
+                        @onEachFeature(feature, layer)
+
+                      style: (feature) =>
+                        @featureStyling feature
+                      filter: (feature) =>
+                        if feature.type == 'MultiPolygon'
+                          for coordinates in feature.coordinates
+                            polys.push {type: 'Polygon', coordinates: coordinates}
+                        !(feature.type == 'MultiPolygon')
+                    })
+                    this.edition.addTo this.map
+
                   this.update()
                   modal.hide()
 
