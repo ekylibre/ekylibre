@@ -12008,3 +12008,283 @@ journal_entry_items_355:
   state: draft
   updated_at: 2017-05-29 20:41:21.306944000 Z
   updater_id: 1
+journal_entry_items_356:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1234.0
+  absolute_pretax_amount: 0.0
+  account_id: 541
+  balance: 1234.0
+  created_at: 2017-06-07 16:14:28.753174000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1234.0
+  currency: EUR
+  debit: 1234.0
+  entry_id: 118
+  entry_number: SA000001
+  financial_year_id: 26
+  id: 574
+  journal_id: 13
+  lock_version: 0
+  name: "[Salaire BS2017060001] M. Gendo IKARI du 01/01/2017 au 31/01/2017"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: 1234.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1234.0
+  real_pretax_amount: 0.0
+  resource_prism: expense
+  state: draft
+  updated_at: 2017-06-07 16:14:28.753174000 Z
+  updater_id: 1
+journal_entry_items_357:
+  absolute_credit: 1234.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: -1234.0
+  created_at: 2017-06-07 16:14:28.761597000 Z
+  creator_id: 1
+  credit: 1234.0
+  cumulated_absolute_credit: 1234.0
+  cumulated_absolute_debit: 1234.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 118
+  entry_number: SA000001
+  financial_year_id: 26
+  id: 575
+  journal_id: 13
+  letter: A
+  lock_version: 0
+  name: "[Salaire BS2017060001] M. Gendo IKARI du 01/01/2017 au 31/01/2017"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: -1234.0
+  real_credit: 1234.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: employee
+  state: draft
+  updated_at: 2017-06-07 16:14:28.761597000 Z
+  updater_id: 1
+journal_entry_items_358:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1234.0
+  absolute_pretax_amount: 0.0
+  account_id: 680
+  balance: 1234.0
+  created_at: 2017-06-07 16:14:55.114011000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1234.0
+  currency: EUR
+  debit: 1234.0
+  entry_id: 119
+  entry_number: BNK000016
+  financial_year_id: 26
+  id: 576
+  journal_id: 2
+  letter: A
+  lock_version: 0
+  name: "[Paiement de salaire D20170001] Par chèque  pour M. Gendo IKARI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-01-31
+  real_balance: 1234.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1234.0
+  real_pretax_amount: 0.0
+  resource_id: 9
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-06-07 16:14:55.114011000 Z
+  updater_id: 1
+journal_entry_items_359:
+  absolute_credit: 1234.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -1234.0
+  created_at: 2017-06-07 16:14:55.120746000 Z
+  creator_id: 1
+  credit: 1234.0
+  cumulated_absolute_credit: 35284.46
+  cumulated_absolute_debit: 1092.63
+  currency: EUR
+  debit: 0.0
+  entry_id: 119
+  entry_number: BNK000016
+  financial_year_id: 26
+  id: 577
+  journal_id: 2
+  lock_version: 0
+  name: "[Paiement de salaire D20170001] Par chèque  pour M. Gendo IKARI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-01-31
+  real_balance: -1234.0
+  real_credit: 1234.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-06-07 16:14:55.120746000 Z
+  updater_id: 1
+journal_entry_items_360:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  absolute_pretax_amount: 0.0
+  account_id: 541
+  balance: 1200.0
+  created_at: 2017-06-07 16:15:32.073272000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2434.0
+  currency: EUR
+  debit: 1200.0
+  entry_id: 120
+  entry_number: SA000002
+  financial_year_id: 26
+  id: 578
+  journal_id: 13
+  lock_version: 0
+  name: "[Salaire BS2017060002] M. Kōzō FUYUTSUKI du 01/01/2017 au 31/01/2017"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: 1200.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  real_pretax_amount: 0.0
+  resource_prism: expense
+  state: draft
+  updated_at: 2017-06-07 16:15:32.073272000 Z
+  updater_id: 1
+journal_entry_items_361:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 681
+  balance: -1200.0
+  created_at: 2017-06-07 16:15:32.079524000 Z
+  creator_id: 1
+  credit: 1200.0
+  cumulated_absolute_credit: 1200.0
+  cumulated_absolute_debit: 1200.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 120
+  entry_number: SA000002
+  financial_year_id: 26
+  id: 579
+  journal_id: 13
+  letter: A
+  lock_version: 0
+  name: "[Salaire BS2017060002] M. Kōzō FUYUTSUKI du 01/01/2017 au 31/01/2017"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-06-07
+  real_balance: -1200.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: employee
+  state: draft
+  updated_at: 2017-06-07 16:15:32.079524000 Z
+  updater_id: 1
+journal_entry_items_362:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1200.0
+  absolute_pretax_amount: 0.0
+  account_id: 681
+  balance: 1200.0
+  created_at: 2017-06-07 16:15:58.232081000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1200.0
+  currency: EUR
+  debit: 1200.0
+  entry_id: 121
+  entry_number: BNK000017
+  financial_year_id: 26
+  id: 580
+  journal_id: 2
+  letter: A
+  lock_version: 0
+  name: "[Paiement de salaire D20170002] SEPA  pour M. Kōzō FUYUTSUKI"
+  position: 1
+  pretax_amount: 0.0
+  printed_on: 2017-01-26
+  real_balance: 1200.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1200.0
+  real_pretax_amount: 0.0
+  resource_id: 10
+  resource_prism: payee
+  resource_type: Entity
+  state: draft
+  updated_at: 2017-06-07 16:15:58.232081000 Z
+  updater_id: 1
+journal_entry_items_363:
+  absolute_credit: 1200.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  absolute_pretax_amount: 0.0
+  account_id: 212
+  balance: -1200.0
+  created_at: 2017-06-07 16:15:58.238261000 Z
+  creator_id: 1
+  credit: 1200.0
+  cumulated_absolute_credit: 34050.46
+  cumulated_absolute_debit: 1092.63
+  currency: EUR
+  debit: 0.0
+  entry_id: 121
+  entry_number: BNK000017
+  financial_year_id: 26
+  id: 581
+  journal_id: 2
+  lock_version: 0
+  name: "[Paiement de salaire D20170002] SEPA  pour M. Kōzō FUYUTSUKI"
+  position: 2
+  pretax_amount: 0.0
+  printed_on: 2017-01-26
+  real_balance: -1200.0
+  real_credit: 1200.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  real_pretax_amount: 0.0
+  resource_prism: bank
+  state: draft
+  updated_at: 2017-06-07 16:15:58.238261000 Z
+  updater_id: 1
