@@ -459,6 +459,9 @@ GEM
     sidekiq-cron (0.6.0)
       rufus-scheduler (>= 3.3.0)
       sidekiq (>= 4.2.1)
+    sidekiq-skylight (0.2.0)
+      sidekiq (>= 3.3.0)
+      skylight (>= 0.5.2)
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
@@ -644,6 +647,7 @@ DEPENDENCIES
   shoulda-context
   sidekiq (~> 4.0)
   sidekiq-cron (>= 0.4.0)
+  sidekiq-skylight
   sidekiq-unique-jobs (~> 4.0)
   simple_calendar
   simple_form (~> 3.4)
