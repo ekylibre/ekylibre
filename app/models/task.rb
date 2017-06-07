@@ -40,7 +40,9 @@
 #
 
 class Task < Ekylibre::Record::Base
-  include Versionable, Commentable, Attachable
+  include Attachable
+  include Commentable
+  include Versionable
   include Customizable
   enumerize :state, in: %i[todo doing done], default: :todo, predicates: true
   enumerize :nature, in: %i[incoming_call outgoing_call incoming_mail outgoing_mail incoming_email outgoing_email], default: :outgoing_call, predicates: true # , :quote, :document

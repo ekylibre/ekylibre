@@ -286,6 +286,8 @@ class FinancialYear < Ekylibre::Record::Base
       end
     end
 
+    progress = Progress.new(:close_main, id: self.id, max: 2 + Journal.count)
+
     ActiveRecord::Base.transaction do
       # Compute balance of closed year
       compute_balances!
@@ -294,19 +296,25 @@ class FinancialYear < Ekylibre::Record::Base
         # Create result entry of the current year
         generate_result_entry!(result_journal, to_close_on)
       end
+      progress.set_value(1)
+
 
       # Settle balance sheet accounts
       # Adds carrying forward entry
       generate_carrying_forward_entry!(forward_journal, closure_journal, to_close_on)
+      progress.set_value(2)
 
       # Close all journals
-      Journal.find_each do |journal|
+      Journal.find_each.with_index do |journal, index|
         journal.close!(to_close_on) if journal.closed_on < to_close_on
+        progress.set_value(3 + index)
       end
 
       # Close year
       update_attributes(stopped_on: to_close_on, closed: true)
     end
+    progress.clean!
+
     true
   end
 
@@ -492,13 +500,18 @@ class FinancialYear < Ekylibre::Record::Base
     accounts << Nomen::Account.find(:revenues).send(Account.accounting_system)
 
     items = []
-    account_balances_for(accounts).find_each do |account_balance|
+    total = account_balances_for(accounts).count + 1
+    progress = Progress.new(:close_result_entry, id: self.id, max: total)
+
+    account_balances_for(accounts).find_each.with_index do |account_balance, index|
       items << {
         account_id: account_balance.account_id,
         name: account_balance.account.name,
         real_debit: account_balance.balance_credit,
         real_credit: account_balance.balance_debit
       }
+
+      progress.set_value(index + 1)
     end
 
     return unless items.any?
@@ -514,12 +527,16 @@ class FinancialYear < Ekylibre::Record::Base
       items << { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0 }
     end
 
-    result_journal.entries.create!(
+    result = result_journal.entries.create!(
       printed_on: to_close_on,
       currency: result_journal.currency,
       state: :confirmed,
       items_attributes: items
     )
+
+    progress.clean!
+
+    result
   end
 
   # FIXME: Manage non-french accounts
@@ -535,7 +552,9 @@ class FinancialYear < Ekylibre::Record::Base
     unletterable_accounts = accounts.joins(:journal_entry_items)
                                     .where('journal_entry_items.letter IS NULL AND NOT reconcilable')
 
-    unletterable_accounts.find_each do |a|
+    progress = Progress.new(:close_carry_forward, id: self.id, max: letterable_accounts.count + unletterable_accounts.count)
+
+    unletterable_accounts.find_each.with_index do |a, index|
       entry_items = a.journal_entry_items
                      .where(financial_year_id: id)
                      .between(started_on, to_close_on)
@@ -547,10 +566,13 @@ class FinancialYear < Ekylibre::Record::Base
         real_debit: (balance > 0 ? balance : 0),
         real_credit: (-balance > 0 ? -balance : 0)
       }
+      progress.set_value(index + 1)
     end
 
-    letterable_accounts.find_each do |a|
+    letterable_accounts.find_each.with_index do |a, index|
       generate_lettering_carry_forward!(a, opening_journal, closure_journal, to_close_on)
+
+      progress.set_value(unletterable_accounts.count + index + 1)
     end
 
     debit_result = unlettered_items.map { |i| i[:real_debit] }.sum
@@ -561,6 +583,7 @@ class FinancialYear < Ekylibre::Record::Base
 
     generate_closing_and_opening_entry!(debit_items, debit_result, to_close_on, opening_journal, closure_journal)
     generate_closing_and_opening_entry!(credit_items, -credit_result, to_close_on, opening_journal, closure_journal)
+    progress.clean!
   end
 
   def unbalanced_items_for(account, to_close_on, include_nil: false)
@@ -581,7 +604,9 @@ class FinancialYear < Ekylibre::Record::Base
 
   def generate_lettering_carry_forward!(account, opening_journal, closure_journal, to_close_on)
     unbalanced_letters = unbalanced_items_for(account, to_close_on)
-    unbalanced_letters.each do |info|
+    progress = Progress.new(:close_lettering, id: id, max: unbalanced_letters.count)
+
+    unbalanced_letters.each_with_index do |info, index|
       entry_id = info.first
       letter = info.last
 
@@ -599,8 +624,14 @@ class FinancialYear < Ekylibre::Record::Base
 
       result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
 
-      generate_closing_and_opening_entry!(lettering_items, result, to_close_on, opening_journal, closure_journal, letter: letter)
+      entries = generate_closing_and_opening_entry!(lettering_items, result, to_close_on, opening_journal, closure_journal, letter: letter)
+
+      progress.set_value(index + 1)
+
+      entries
     end
+
+    progress.clean!
   end
 
   def generate_closing_and_opening_entry!(items, result, to_close_on, opening_journal, closing_journal, letter: nil)
