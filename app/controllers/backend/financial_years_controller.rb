@@ -120,7 +120,7 @@ module Backend
       end
 
       @financial_year.closure_obstructions.each do |obstruction|
-        notify_warning obstruction.tl
+        notify_error obstruction.tn
       end
 
       journal = Journal.where(currency: @financial_year.currency, nature: :result).first

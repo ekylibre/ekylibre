@@ -218,10 +218,10 @@ class FinancialYear < Ekylibre::Record::Base
   def closure_obstructions(noticed_on = nil)
     noticed_on ||= Time.zone.today
     list = []
-    list << :already_closed if closed
+    list << :financial_year_already_closed if closed
     list << :draft_journal_entries_are_present if journal_entries.where(state: :draft).any?
     list << :previous_financial_year_is_not_closed if previous && !previous.closed
-    list << :unbalanced_journal_entries_are_present unless journal_entries.where('debit != credit').empty?
+    list << :unbalanced_journal_entries_are_present_in_year unless journal_entries.where('debit != credit').empty?
     list << :financial_year_is_not_past if stopped_on >= noticed_on
     list
   end
