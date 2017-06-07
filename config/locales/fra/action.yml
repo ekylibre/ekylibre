@@ -2499,6 +2499,7 @@ fra:
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
+      draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
@@ -2511,6 +2512,8 @@ fra:
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
       financial_year_x_could_not_be_closed: "L'exercice %{name} n'a pas pu être clos."
       financial_year_x_successfully_closed: "L'exercice %{name} est clos !"
+      financial_year_already_closed: "L'exercice a déjà été clôturé."
+      financial_year_is_not_past: "L'exercice est encore en cours."
       financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"
       financial_years_missing_tax_declarations: "Vous devez créer toutes les déclarations des exercices suivants\_: %{codes}"
       implemented_with_dummy_data: "Charger des données de test"
@@ -2576,6 +2579,7 @@ fra:
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
+      previous_financial_year_is_not_closed: "L'exercice précédent n'a pas encore été clôturé."
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé" #?
@@ -2609,6 +2613,7 @@ fra:
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       this_service_is_not_activated: "Ce service n’est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
+      unbalanced_journal_entries_are_present_in_year: "L'exercice comporte des écritures non-équilibrées."
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?
       unknown_company: "Société inconnue" #?
