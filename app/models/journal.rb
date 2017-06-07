@@ -478,6 +478,6 @@ class Journal < Ekylibre::Record::Base
       items += conn.select_rows(query)
     end
 
-    items.sort { |a, b| a[5] <=> b[5] }
+    items.sort_by { |a| a[5] }
   end
 end

@@ -246,3 +246,20 @@ journals_012:
   used_for_permanent_stock_inventory: false
   used_for_tax_declarations: false
   used_for_unbilled_payables: false
+journals_013:
+  closed_on: 1992-11-16
+  code: SA
+  created_at: 2017-06-07 16:08:42.092471000 Z
+  creator_id: 1
+  currency: EUR
+  id: 13
+  lock_version: 1
+  name: Salaires
+  nature: purchases
+  updated_at: 2017-06-07 16:09:48.770149000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+  used_for_permanent_stock_inventory: false
+  used_for_tax_declarations: false
+  used_for_unbilled_payables: false

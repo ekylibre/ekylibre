@@ -62,6 +62,8 @@ class Account < Ekylibre::Record::Base
   has_many :charges_categories,           class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
   has_many :purchase_items,               class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,                   class_name: 'SaleItem'
+  has_many :payslip_natures, dependent: :restrict_with_exception
+  has_many :payslips, dependent: :restrict_with_exception
   has_many :products_categories,          class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,            class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
   has_many :stocks_movement_categories,   class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
@@ -453,8 +455,9 @@ class Account < Ekylibre::Record::Base
   # Mark entry items with the given +letter+, even when the items are not balanced together.
   # If no +letter+ given, it uses a new letter.
   def mark!(item_ids, letter = nil)
+    return nil unless item_ids.is_a?(Array) && item_ids.any?
     letter ||= new_letter
-    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0 OR letter SIMILAR TO \'[A-z]*\\*\')', item_ids]
+    conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(COALESCE(letter, \'\'))) <= 0 OR letter SIMILAR TO \'[A-z]+\\*\')', item_ids]
     journal_entry_items.where(conditions).update_all(letter: letter)
     letter
   end

@@ -75,3 +75,4 @@
       .activity-family-body
         - journals.where(nature: n).each do |journal|
           = link_to(journal.name, params.merge(journal_id: journal.id), class: 'btn btn-lg')
+  - f.clear_actions!
