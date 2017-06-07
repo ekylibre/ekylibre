@@ -179,7 +179,7 @@
 
 
       this.map.on "draw:created", (e) =>
-        #Attempt to add a geojson feature
+#Attempt to add a geojson feature
         try
           feature = e.layer.toGeoJSON()
 
@@ -259,7 +259,7 @@
 
 
         if already_exist is true
-          # Don't change the name if a different layer use this name
+# Don't change the name if a different layer use this name
           $(e.currentTarget).closest('.leaflet-popup-content').find('.leaflet-popup-warning').removeClass 'hide'
 
 
@@ -385,10 +385,10 @@
         popup += "<div>"
         popup += "<label for='#{attribute.property_value}'>#{attribute.property_label} : </label>"
         switch attribute.type
-         when 'input'
-          popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
-         else
-            # include label
+          when 'input'
+            popup += "<input type='text' name='#{attribute.property_value}' class='updateAttributesSerieLabelInput' value='#{feature.properties[attribute.property_value] || ""}'/>"
+          else
+# include label
             popup += "<span>#{feature.properties[attribute.property_value] || ''}</span>"
         popup += "</div>"
 
@@ -402,7 +402,7 @@
         layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
 
     colorize: (level) ->
-      #levels rane is set to [-3,3]
+#levels rane is set to [-3,3]
       minLevel = -3
       start = this.colors.indexOf(this.options.multiLevels.startColor)
       stop = this.colors.indexOf(this.options.multiLevels.stopColor)
@@ -475,7 +475,7 @@
               @map.addLayer(backgroundLayer) if layer.byDefault
 
           else
-            # no backgrounds, set defaults
+# no backgrounds, set defaults
             back = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
 
             baseLayers = {}
@@ -508,7 +508,7 @@
           console.log this.options.back
       this
 
-    # Retuns data from a serie found with the given name
+# Retuns data from a serie found with the given name
     _getSerieData: (name) ->
       if @options.show.series[name]?
         return @options.show.series[name]
@@ -531,7 +531,7 @@
               options = $.extend true, {}, @options.show.layerDefaults[layer.type], layer, parent: this
               renderedLayer = M.layer(layer, data, options)
               if renderedLayer and renderedLayer.valid()
-                # Build layer group
+# Build layer group
                 layerGroup = renderedLayer.buildLayerGroup(this, options)
                 layerGroup.name = layer.name
                 layerGroup.renderedLayer = renderedLayer
@@ -607,7 +607,7 @@
 
     _refreshEditionLayerGroup: ->
       if this.edition?
-        #remove overlay
+#remove overlay
         @layerSelector.removeLayer this.edition
         this.map.removeLayer this.edition
       if this.options.edit?
@@ -616,7 +616,7 @@
           polys = []
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
-              #nested function cause geojson doesn't seem to pass binding context
+#nested function cause geojson doesn't seem to pass binding context
               @onEachFeature(feature, layer)
 
             style: (feature) =>
@@ -633,14 +633,14 @@
       else
         this.edition = L.geoJson(this.options.edit, {
           onEachFeature: (feature, layer) =>
-            #nested function cause geojson doesn't seem to pass binding context
+#nested function cause geojson doesn't seem to pass binding context
             @onEachFeature(feature, layer)
 
           style: (feature) =>
             @featureStyling feature
         })
 
-#      this.edition.setStyle this.options.editStyle
+      #      this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
       this._refreshControls()
       this._saveUpdates()
@@ -689,10 +689,10 @@
           catch
             this._setDefaultView()
       else if view is 'edit'
-         try
+        try
           this.map.fitBounds this.edition.getLayers()[0].getBounds()
-         catch
-           this._setDefaultView()
+        catch
+          this._setDefaultView()
       else if view is 'default'
         this._setDefaultView()
       else if view.center?
@@ -765,7 +765,24 @@
                 if feature.alert?
                   $(modal._container).find('#alert').text(feature.alert)
                 else
-                  this.edition.addData feature
+                  try
+                    widget.edition.addData feature
+                  catch
+                    polys = []
+                    this.edition = L.geoJson(feature, {
+                      onEachFeature: (feature, layer) =>
+                        @onEachFeature(feature, layer)
+
+                      style: (feature) =>
+                        @featureStyling feature
+                      filter: (feature) =>
+                        if feature.type == 'MultiPolygon'
+                          for coordinates in feature.coordinates
+                            polys.push {type: 'Polygon', coordinates: coordinates}
+                        !(feature.type == 'MultiPolygon')
+                    })
+                    this.edition.addTo this.map
+
                   this.update()
                   modal.hide()
 
