@@ -2899,6 +2899,7 @@ journal_entries_109:
   updated_at: 2016-12-20 18:17:24.123512000 Z
   updater_id: 1
 journal_entries_110:
+<<<<<<< HEAD
   absolute_credit: 187.2
   absolute_currency: EUR
   absolute_debit: 187.2
@@ -3007,16 +3008,23 @@ journal_entries_113:
   updated_at: 2017-05-17 20:27:38.979270000 Z
   updater_id: 1
 journal_entries_114:
+=======
+>>>>>>> master
   absolute_credit: 123.0
   absolute_currency: EUR
   absolute_debit: 123.0
   balance: 0.0
+<<<<<<< HEAD
   created_at: 2017-05-17 20:58:53.582776000 Z
+=======
+  created_at: 2017-05-29 20:41:21.297993000 Z
+>>>>>>> master
   creator_id: 1
   credit: 123.0
   currency: EUR
   debit: 123.0
   financial_year_id: 26
+<<<<<<< HEAD
   id: 121
   journal_id: 13
   lock_version: 0
@@ -3113,4 +3121,18 @@ journal_entries_117:
   resource_type: OutgoingPayment
   state: draft
   updated_at: 2017-05-17 20:59:52.272709000 Z
+=======
+  id: 117
+  journal_id: 2
+  lock_version: 0
+  number: BNK000015
+  printed_on: 2017-01-10
+  real_balance: 0.0
+  real_credit: 123.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 123.0
+  state: draft
+  updated_at: 2017-05-29 20:41:21.297993000 Z
+>>>>>>> master
   updater_id: 1

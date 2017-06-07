@@ -6609,6 +6609,7 @@ purchases:
     references: user
   state:
     type: string
+    required: true
   supplier_id:
     type: integer
     references: entity
