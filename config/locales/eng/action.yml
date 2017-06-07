@@ -87,18 +87,16 @@ eng:
       # take: "Take animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
+    backend/bank_reconciliation_items:
+      index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
     backend/bank_statement_items:
       # new: "New bank statement item"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
-      # interval_reconciliation: "Interval reconciliation bank statement: %{name}"
-      # letter: "Letter bank statement: %{name}"
       new: "New bank statement"
-      reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
-      # unletter: "Unletter bank statement: %{name}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -1032,7 +1030,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
-    auto_reconciliate: "Auto reconciliate" #?!
+    auto_reconciliate: "Auto reconciliate" #?
     automatic: "Auto" #?
     available: "Available"
     available_columns: "Available columns: %{columns}"
@@ -2299,7 +2297,6 @@ eng:
       journal_entries_import: "Import CSV"
       # keep: "Keep"
       # last_locations: "Last locations"
-      # letter: "Letter"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -2361,7 +2358,6 @@ eng:
       takeover: "Take over"
       toggle: "Toggle"
       # toggle_autocompletion: "Toggle autocompletion"
-      # unletter: "Unletter"
       unlock: "Unlock"
       unmark: "Unmark"
       unroll: "Unroll"

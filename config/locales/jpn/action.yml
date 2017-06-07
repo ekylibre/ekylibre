@@ -59,12 +59,13 @@ jpn:
       index: "動物"
       new: "新しい動物"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation_items:
+      # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
       import: "インポートOFXファイル"
       index: "銀行取引明細書"
       new: "新銀行取引明細書"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       # show: "Account statement N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"

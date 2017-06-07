@@ -368,9 +368,9 @@
       bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
-      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letter'
+      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letters'
       $.ajax url,
-        type: 'PATCH'
+        type: 'POST'
         dataType: 'JSON'
         data:
           journal_entry_items: journalIds
@@ -388,12 +388,10 @@
           return false
 
     _unletterItems: (letter) ->
-      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/unletter'
+      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letters/' + letter
       $.ajax url,
-        type: 'PATCH'
+        type: 'DELETE'
         dataType: 'JSON'
-        data:
-          letter: letter
         success: (response) =>
           lines = @_linesWithReconciliationLetter(response.letter)
           lines.find(".details .letter").text ""

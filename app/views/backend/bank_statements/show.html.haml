@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.reconciliation resource
+  = t.index params: { controller: :bank_reconciliation_items, bank_statement_id: resource.id }
   = t.destroy resource
 
 = main_informations attachment: true do
