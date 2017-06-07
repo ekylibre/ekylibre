@@ -550,9 +550,10 @@ fra:
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
     backend/purchase_orders: #?
+      edit: "Modifier la commande\_: %{number}" #?
       index: "Commandes" #?
-      new: "Nouvelle commande"
-      show: "Commande\_: %{number} au fournisseur %{supplier}"
+      new: "Nouvelle commande" #?
+      show: "Commande\_: %{number} au fournisseur %{supplier}" #?
     backend/purchases:
       abort: "Annuler l’achat"
       confirm: "Confimer l’achat et attendre les arrivages"
@@ -2753,8 +2754,8 @@ fra:
     hints:
       purchase:
         reference_number: "Numéro de facture fournisseur"
-      purchase_order:
-        reference_number: "Numéro de commande fournisseur"
+      purchase_order: #?
+        reference_number: "Numéro de commande fournisseur" #?
     required:
       text: "Obligatoire"
   unrolls:

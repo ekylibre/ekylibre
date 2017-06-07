@@ -171,10 +171,6 @@ class Purchase < Ekylibre::Record::Base
     Entity.of_company.default_mail_address.mail_coordinate
   end
 
-  def can_generate_parcel?
-    items.any? && delivery_address && (order? || invoice?)
-  end
-
   def payable?
     (order? || invoice?) && sepable? && amount != 0.0 && affair_balance != 0.0
   end

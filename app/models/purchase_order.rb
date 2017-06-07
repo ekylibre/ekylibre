@@ -60,7 +60,7 @@ class PurchaseOrder < Purchase
     state :opened
     state :closed
     event :open do
-      transition estimate: :opened, if: :has_content?
+      transition estimate: :opened
     end
     event :close do
       transition opened: :closed, if: :items_all_received?
@@ -69,6 +69,7 @@ class PurchaseOrder < Purchase
 
   before_validation(on: :create) do
     self.state = :estimate
+    self.ordered_at ||= self.created_at
   end
 
   def self.third_attribute
@@ -104,6 +105,10 @@ class PurchaseOrder < Purchase
     # TODO: How to compute if it remains deliverable products
     true
     # (self.quantity - self.undelivered(:population)) > 0 and not self.invoice?
+  end
+
+  def can_generate_parcel?
+    items.any? && delivery_address && opened?
   end
 
   def taxes_amount

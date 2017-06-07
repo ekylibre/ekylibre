@@ -59,6 +59,21 @@ module Backend
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
     end
 
+    list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c}) do |t|
+    	t.column :variant, url: true
+      t.column :annotation
+      t.column :quantity
+      t.column :unit_pretax_amount, currency: true
+      t.column :unit_amount, currency: true, hidden: true
+      t.column :reduction_percentage
+      t.column :tax, url: true, hidden: true
+      t.column :pretax_amount, currency: true
+      t.column :amount, currency: true, hidden: :true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
+      t.column :fixed_asset, url: true, hidden: true
+    end
+
     def new
     	nature = PurchaseNature.by_default
     	@purchase_order = PurchaseOrder.new(nature: nature)
@@ -72,6 +87,25 @@ module Backend
       end
       render locals: { with_continue: true }
     end
+
+  def show
+  	return unless @purchase_order = find_and_check
+  	respond_with(@purchase_order, methods: [:taxes_amount],
+  																include: { delivery_address: { methods: [:mail_coordinate] },
+  																					 supplier: { methods: [:pictures_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
+  																					 parcels: { include: [:items] },
+  																					 items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
+  		format.html do
+  			t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
+  		end
+  	end
+  end 
+
+  def open
+    return unless @purchase_order = find_and_check
+    @purchase_order.open
+    redirect_to action: :show, id: @purchase_order.id
+  end
 
   end
 end
