@@ -95,7 +95,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.8.2' # , path: "../active_list"
+gem 'active_list', '>= 6.9.0' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
