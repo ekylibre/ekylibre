@@ -545,6 +545,9 @@ class FinancialYear < Ekylibre::Record::Base
     unlettered_items = []
 
     accounts = Account.where('accounts.number ~ ?', "^(#{account_radices.join('|')})")
+                      .joins(:journal_entry_items)
+                      .where('journal_entry_items.printed_on BETWEEN ? AND ?', started_on, to_close_on)
+                      .where('journal_entry_items.financial_year_id = ?', id)
 
     letterable_accounts = accounts.joins(:journal_entry_items)
                                   .where('journal_entry_items.letter IS NOT NULL OR reconcilable')
