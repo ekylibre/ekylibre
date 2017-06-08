@@ -529,7 +529,13 @@ class FinancialYear < Ekylibre::Record::Base
 
     accounts = Account.where('accounts.number ~ ?', "^(#{account_radices.join('|')})")
 
-    accounts.find_each do |a|
+    letterable_accounts = accounts.joins(:journal_entry_items)
+                                  .where('journal_entry_items.letter IS NOT NULL OR reconcilable')
+
+    unletterable_accounts = accounts.joins(:journal_entry_items)
+                                    .where('journal_entry_items.letter IS NULL AND NOT reconcilable')
+
+    unletterable_accounts.find_each do |a|
       entry_items = a.journal_entry_items
                      .where(financial_year_id: id)
                      .between(started_on, to_close_on)
@@ -541,7 +547,9 @@ class FinancialYear < Ekylibre::Record::Base
         real_debit: (balance > 0 ? balance : 0),
         real_credit: (-balance > 0 ? -balance : 0)
       }
+    end
 
+    letterable_accounts.find_each do |a|
       generate_lettering_carry_forward!(a, opening_journal, closure_journal, to_close_on)
     end
 
@@ -550,14 +558,16 @@ class FinancialYear < Ekylibre::Record::Base
     generate_closing_and_opening_entry!(unlettered_items, result, to_close_on, opening_journal, closure_journal)
   end
 
-  def unbalanced_items_for(account, to_close_on)
-    account
+  def unbalanced_items_for(account, to_close_on, include_nil: false)
+    items = account
       .journal_entry_items
       .between(started_on, to_close_on)
-      .where.not(letter: nil)
+    items = items.where.not(letter: nil) unless include_nil
+
+    items
       .pluck(:letter, :entry_id, :debit, :credit)
       .group_by(&:first)
-      .select { |_letter, items| items.map { |i| i[2] - i[3] }.sum.nonzero? }
+      .select { |_letter, lines| lines.map { |i| i[2] - i[3] }.sum.nonzero? }
       .values
       .flatten(1)
       .map { |item| item.first(2).reverse }
@@ -574,13 +584,13 @@ class FinancialYear < Ekylibre::Record::Base
                                     .items
                                     .where(letter: letter, account_id: account.id)
                                     .find_each.map do |item|
-        {
-          account_id: account.id,
-          name: item.name,
-          real_debit: item.real_debit,
-          real_credit: item.real_credit
-        }
-      end
+                                      {
+                                        account_id: account.id,
+                                        name: item.name,
+                                        real_debit: item.real_debit,
+                                        real_credit: item.real_credit
+                                      }
+                                    end
 
       result = lettering_items.map { |i| i[:real_debit] - i[:real_credit] }.sum
 
