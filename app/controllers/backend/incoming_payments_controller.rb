@@ -57,7 +57,7 @@ module Backend
       t.column :number, url: true
       t.column :payer, url: true
       t.column :paid_at
-      t.column :amount, currency: true, url: true
+      t.column :amount, currency: true, url: true, on_select: :sum
       t.column :mode
       t.column :bank_check_number
       t.column :to_bank_at

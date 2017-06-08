@@ -38,7 +38,8 @@
 #  updater_id      :integer
 #
 class ProductOwnership < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include TimeLineable
+  include Taskable
   belongs_to :owner, class_name: 'Entity'
   belongs_to :product
   enumerize :nature, in: %i[unknown own other], default: :unknown, predicates: true
