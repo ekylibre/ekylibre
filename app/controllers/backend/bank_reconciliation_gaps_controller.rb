@@ -3,7 +3,11 @@ module Backend
   class BankReconciliationGapsController < Backend::BaseController
     def create
       @bank_statement = BankStatement.find(params[:bank_statement_id])
-      return head :bad_request unless @bank_statement
+      @cash = Cash.find(params[:cash_id]) 
+      
+      return head :bad_request unless @cash
+      # return head :bad_request unless @bank_statement
+      
       bank_statement_items = fetch_bank_items
       journal_entry_items  = fetch_journal_items
 
@@ -21,7 +25,7 @@ module Backend
     private
 
     def accounts(gap)
-      bank = @bank_statement.cash.account
+      bank = @cash.account
       if gap > 0
         return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_profits).count.nonzero?
         return [bank, credit_gap_account]
@@ -44,7 +48,7 @@ module Backend
       return false unless debit && credit
       JournalEntry.create!(
         journal_entry_params.merge(
-          currency: @bank_statement.currency,
+          currency: @cash.currency,
           printed_on: Time.zone.now,
           items_attributes:
           {
@@ -68,8 +72,11 @@ module Backend
     end
 
     def letter_and_redirect(bank_items, entry_items)
-      head :bad_request unless @bank_statement.letter_items(bank_items, entry_items)
-      redirect_to backend_bank_statement_bank_reconciliation_items_path(@bank_statement, scroll_to: bank_items.order(transfered_on: :asc).first.id)
+      head :bad_request unless @cash.letter_items(bank_items, entry_items)
+
+      redirect_to backend_bank_statement_bank_reconciliation_items_path(@bank_statement, scroll_to: bank_items.order(transfered_on: :asc).first.id) unless @bank_statement.nil?
+      
+      redirect_to reconciliate_bank_statements_backend_bank_reconciliation_items_path(cash_id: @cash.id, scroll_to: bank.items.order(transfered_on: :asc).first.id) unless @bank_statements.nil?
     end
 
     def debit_gap_account
