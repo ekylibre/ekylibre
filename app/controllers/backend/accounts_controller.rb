@@ -86,8 +86,8 @@ module Backend
       t.column :real_credit, currency: :real_currency, hidden: true
       t.column :debit,  currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
-      t.column :absolute_debit,  currency: :absolute_currency
-      t.column :absolute_credit, currency: :absolute_currency
+      t.column :absolute_debit,  currency: :absolute_currency, on_select: :sum
+      t.column :absolute_credit, currency: :absolute_currency, on_select: :sum
     end
 
     list(:entities, conditions: ['? IN (client_account_id, supplier_account_id)', 'params[:id]'.c], order: { created_at: :desc }) do |t|

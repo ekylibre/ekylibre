@@ -50,7 +50,8 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  include Customizable, Attachable
+  include Attachable
+  include Customizable
   enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'

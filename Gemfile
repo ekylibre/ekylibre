@@ -42,6 +42,13 @@ gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
+# Exception analysis and metrics
+gem 'binding_of_caller'
+gem 'redis-namespace' # Fix for missing dependency in skylight
+gem 'sentry-raven', require: false
+gem 'sidekiq-skylight'
+gem 'skylight'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -90,7 +97,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.8.2' # , path: "../active_list"
+gem 'active_list', '>= 6.9.0' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -142,7 +149,7 @@ gem 'beardley-open_sans'
 gem 'beardley-xml'
 
 # Import/Export
-gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
+gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
@@ -183,7 +190,7 @@ group :development do
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.49.1', require: false
 
   # Webservers
   gem 'thin'
@@ -202,6 +209,9 @@ group :development, :test do
   gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # Exception message tips
+  gem 'did_you_mean', '~> 0.9'
 end
 
 group :test do
