@@ -1,0 +1,26 @@
+#right-slider {
+  padding-right: 9px;
+}
+
+#left-slider {
+  padding-left: 9px
+}
+
+.slider.slider-horizontal {
+  width: 240px;
+}
+
+.slider-handle {
+  background-image: none;
+  @include background-active-gradient;
+}
+
+.slider-selection {
+  background: mix($caution-color, white, 30%);
+}
+
+.tooltip:hover {
+  &, & ~ .tooltip {
+    opacity: 0;
+  }
+}
