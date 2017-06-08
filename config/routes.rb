@@ -125,7 +125,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy trade stocks production tools settings].each do |part|
+        %i[home relationship accountancy sales purchases stocks production tools settings].each do |part|
           get part
         end
         get :sandbox
