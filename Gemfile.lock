@@ -378,6 +378,8 @@ GEM
     rake (12.0.0)
     rdoc (4.3.0)
     redis (3.3.3)
+    redis-namespace (1.5.3)
+      redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
     require_all (1.4.0)
@@ -629,6 +631,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.8)
   rails_best_practices
+  redis-namespace
   remotipart (~> 1.2)
   rest-client
   rgeo-geojson
