@@ -54,7 +54,7 @@
       hash[pair.expr.to_i.to_s] = pair.sum.to_d
       hash
     end
-    series << { type: 'spline', name: :incoming_payment_duty_free.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
+    series << { type: 'spline', name: :incoming_payment_amount.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
 
     # Data for outgoing_payments by month
     all_outgoing_payments_items = OutgoingPayment.between(@started_at, @stopped_at)
@@ -62,7 +62,7 @@
       hash[pair.expr.to_i.to_s] = pair.sum.to_d
       hash
     end
-    series << { type: 'spline', name: :outgoing_payment_duty_free.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
+    series << { type: 'spline', name: :outgoing_payment_amount.tl, data: normalize_serie(item_h, categories.keys), marker: { line_width: 2 }}
 
 
     # data for pie revenues by product_nature
@@ -72,9 +72,9 @@
     purchases_items_pretax_amount = all_purchase_items.sum(:pretax_amount)
     data << { name: :total_purchases.tl, y: purchases_items_pretax_amount.to_s.to_f }
     incoming_payment_amount = all_incoming_payments_items.sum(:amount)
-    data << { name: :incoming_payment_duty_free.tl, y: incoming_payment_amount.to_s.to_f }
+    data << { name: :incoming_payment_amount.tl, y: incoming_payment_amount.to_s.to_f }
     outgoing_payment_amount = all_outgoing_payments_items.sum(:amount)
-    data << { name: :outgoing_payment_duty_free.tl, y: outgoing_payment_amount.to_s.to_f }
+    data << { name: :outgoing_payment_amount.tl, y: outgoing_payment_amount.to_s.to_f }
 
     unless purchases_items_pretax_amount.zero? && sale_items_pretax_amount.zero?
       series << { type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
