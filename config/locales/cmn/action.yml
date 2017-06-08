@@ -61,10 +61,12 @@ cmn:
       # show: "%{nature}: %{name}"
     backend/bank_reconciliation_items:
       # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
       import: "导入OFX文件"
       index: "银行对账单"
+      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "新的银行对账单"
       # show: "Account statement N°%{number}"
     backend/beehives:
@@ -1542,6 +1544,7 @@ cmn:
     start: "从"
     start_new_intervention_here: "在这里开始新的干预"
     started: "入门"
+    # started_at: "Started at"
     state: "州"
     state_debts: "国家债务"
     state_receivables: "国家应收款"
@@ -1555,6 +1558,7 @@ cmn:
     stocks: "股票"
     stop: "停止"
     stopped: "已停止"
+    # stopped_at: "Stopped at"
     stopped_on: "停在"
     storage: "存储"
     subject: "学科"

@@ -67,10 +67,12 @@ arb:
       # show: "%{nature}: %{name}"
     backend/bank_reconciliation_items:
       # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       import: "ملف الاستيراد OFX"
       index: "بيان الحساب المصرفي"
+      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "الاشارة لكشف حساب جديد"
       show: "رقم كشف الحساب%{number}"
     backend/beehives:
@@ -2144,6 +2146,7 @@ arb:
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
     started: "بدأت"
+    # started_at: "Started at"
     state: "الحالة"
     state_debts: "الديون الخارجية"
     state_receivables: "ذمم الدولة"
@@ -2161,6 +2164,7 @@ arb:
     stocks: "ادارة الاسهم"
     stop: "لغاية"
     stopped: "توقفت"
+    # stopped_at: "Stopped at"
     stopped_on: "توقفت على"
     storage: "تخزين"
     string_case: "خيارات للنص" #?

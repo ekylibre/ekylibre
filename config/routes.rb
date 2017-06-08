@@ -279,8 +279,12 @@ Rails.application.routes.draw do
         get :list_items
         match :import, via: %i[get post]
         get :interval_reconciliation
-    
-        resources :bank_reconciliation_items, only: [:index], path: 'reconciliation'
+
+        resources :bank_reconciliation_items, only: [:index], path: 'reconciliation' do
+          collection do
+            get :reconciliate_bank_statements
+          end
+        end
       end
     end
 

@@ -89,12 +89,14 @@ eng:
       # show: "Attachment: %{name}"
     backend/bank_reconciliation_items:
       index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
+      reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statement_items:
       # new: "New bank statement item"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       import: "Import OFX file"
       index: "Bank statements"
+      interval_reconciliation: "Bank statements periods to reconciliate" #?
       new: "New bank statement"
       show: "Account statement N°%{number}"
     backend/beehives:
@@ -1362,7 +1364,7 @@ eng:
     inspections: "Inspections"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
-    interval: "Personalized Interval"
+    interval: "Personalized Interval" #?
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_message_miscibility: "Mixing allowed"
@@ -1763,6 +1765,7 @@ eng:
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     started: "Started"
+    started_at: "Started at"
     state: "State"
     state_debts: "State debts" #?!
     state_receivables: "State receivables" #?!
@@ -1777,6 +1780,7 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     stopped: "Stopped"
+    stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storage: "Storage" #?
     subject: "Subject"
@@ -2290,7 +2294,7 @@ eng:
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
-      interval_reconciliation: "Reconciliate"
+      interval_reconciliation: "Reconciliate" #?
       invoice: "Invoice"
       journal_entries_csv_export: "Download CSV" #?
       # journal_entries_export: "Journal entries export"
@@ -2332,6 +2336,7 @@ eng:
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
+      # reconciliate_bank_statements: "Reconciliate bank statements"
       reconciliation: "Reconciliate"
       reflect: "Reflect"
       refresh: "Refresh"

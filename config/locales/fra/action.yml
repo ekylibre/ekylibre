@@ -71,10 +71,12 @@ fra:
       show: "%{nature}\_: %{name}"
     backend/bank_reconciliation_items:
       index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
+      reconciliate_bank_statements: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       import: "Importer un fichier OFX"
       index: "Relevés de compte bancaire"
+      interval_reconciliation: "Périodes des relevés bancaires a rapprocher"
       new: "Pointer un nouveau relevé de compte"
       show: "Relevé de compte N°%{number}"
     backend/beehives:
@@ -2033,6 +2035,7 @@ fra:
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     started: "Nouveaux"
+    started_at: "Débuté le"
     state: "État"
     state_debts: "Dettes fiscales"
     state_receivables: "Créances fiscales"
@@ -2054,6 +2057,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
+    stopped_at: "Arrêté le"
     stopped_on: "Nous nous sommes arrêtés sur"
     storage: "Support"
     string_case: "Options pour le texte" #?

@@ -2,28 +2,30 @@ module Backend
   # Handles bank reconciliation.
   class BankReconciliationItemsController < Backend::BaseController
     def index
-      return head(:bad_request) if params[:bank_statement_id].nil? && params[:cash_id].nil?
-      
-      return unless find_bank_statement unless params[:bank_statement_id].nil?
-      return unless find_bank_statements unless params[:cash_id].nil?
+      return unless find_bank_statement
 
       set_period!
-
-      if @bank_statements.nil?
-        reconciliate(@bank_statement)
-      else
-        @bank_statements.each do |bank_statement|
-          reconciliate(bank_statement)
-        end
-      end
+      reconciliate(@bank_statement)
 
       @items_grouped_by_date = group_by_date(@items)
 
-      unless @bank_statements.nil?
-        @bank_statement = @bank_statements.first
-      end
+      t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on
+    end
 
-      t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on unless @bank_statement.nil?
+    def reconciliate_bank_statements
+      return unless find_bank_statements
+  
+      set_period!
+
+      @bank_statements.each do |bank_statement|
+        reconciliate(bank_statement)
+      end
+      
+      @items_grouped_by_date = group_by_date(@items)
+
+      cash = Cash.find(params[:cash_id])
+
+      t3e cash: cash.name, started_on: @period_start, stopped_on: @period_end  
     end
 
     private
@@ -35,6 +37,7 @@ module Backend
 
     def find_bank_statements
       @bank_statements = BankStatement.where(cash: params[:cash_id])
+      @bank_statements || (head(:bad_request) && nil)
     end
 
     def reconciliate(bank_statement)

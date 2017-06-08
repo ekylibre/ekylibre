@@ -30,7 +30,7 @@
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
-#     - "backend/bank_statements#interval_reconciliation"
+#     - "backend/bank_reconciliation_items#reconciliate_bank_statements"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"

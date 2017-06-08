@@ -61,10 +61,12 @@ deu:
       # show: "%{nature}: %{name}"
     backend/bank_reconciliation_items:
       # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
       import: "Import OFX-Datei"
       index: "Kontoauszüge"
+      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "Neue Kontoauszug"
       # show: "Account statement N°%{number}"
     backend/beehives:
@@ -1541,6 +1543,7 @@ deu:
     start: "Von"
     start_new_intervention_here: "Neue Intervention hier"
     started: "gestartet"
+    # started_at: "Started at"
     state: "Bundesland"
     state_debts: "Staatsschulden"
     state_receivables: "Staatliche Forderungen"
@@ -1554,6 +1557,7 @@ deu:
     stocks: "Vorräte"
     stop: "Halt"
     stopped: "Gestoppt"
+    # stopped_at: "Stopped at"
     stopped_on: "Gestoppt auf"
     storage: "Lagerung"
     subject: "Fach"

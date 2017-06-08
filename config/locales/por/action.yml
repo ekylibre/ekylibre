@@ -61,10 +61,12 @@ por:
       show: "%{nature}: %{name}"
     backend/bank_reconciliation_items:
       # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
+      # reconciliate_bank_statements: "Reconciliate %{cash} bank statements (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "Editar extrato bancário %{number}"
       import: "arquivo de importação de OFX"
       index: "Extratos bancários"
+      # interval_reconciliation: "Bank statements periods to reconciliate"
       new: "Novo extrato bancário"
       show: "Extrato bancário N°%{number}"
     backend/beehives:
@@ -1546,6 +1548,7 @@ por:
     start: "A partir de"
     start_new_intervention_here: "Inicie uma nova intervenção aqui"
     started: "Começou"
+    # started_at: "Started at"
     state: "Estado"
     state_debts: "Dívidas do Estado"
     state_receivables: "Recebíveis do Estado"
@@ -1559,6 +1562,7 @@ por:
     stocks: "Stocks"
     stop: "Pare"
     stopped: "Parado"
+    # stopped_at: "Stopped at"
     stopped_on: "Parado em"
     storage: "Armazenamento"
     subject: "Sujeito"
