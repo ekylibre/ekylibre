@@ -185,6 +185,7 @@ eng:
       accountancy: "Accountancy dashboard"
       edit: "Edit dashboard: %{name}"
       home: "Home dashboard"
+      humans: "Human resources dashboard"
       index: "Dashboards"
       new: "New dashboard"
       production: "Production dashboard"
@@ -496,19 +497,19 @@ eng:
       new: "New observation"
     backend/outgoing_payment_lists:
       # export_to_sepa: "Export to sepa outgoing payment list: %{name}"
-      index: "Outgoing payments batch list"
-      new: "New outgoing payment list"
-      show: "Outgoing payments batch"
+      index: "Disbursement lists"
+      new: "New disbursement list"
+      show: "Disbursement list: %{number} "
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
       new: "New disbursement mode"
-      # show: "Outgoing payment mode: %{name}"
+      show: "Disbursement mode: %{name}"
     backend/outgoing_payments:
-      edit: "Edit disbursement: %{number}"
+      edit: "Edit disbursement: %{name}"
       index: "Disbursements"
       new: "New disbursement"
-      show: "Disbursement %{number} for %{payee}"
+      show: "Disbursement: %{name}"
     backend/parcels:
       # cancel: "Cancel parcel: %{name}"
       # check: "Check parcel: %{name}"
@@ -521,8 +522,33 @@ eng:
       # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
+    backend/payslip_affairs:
+      # attach: "Attach payslip affair: %{name}"
+      # detach: "Detach payslip affair: %{name}"
+      # detach_gaps: "Detach gaps payslip affair: %{name}"
+      # finish: "Finish payslip affair: %{name}"
+      # index: "Payslip affairs"
+      # select: "Select payslip affair: %{name}"
+      # show: "Payslip affair: %{name}"
+    backend/payslip_natures:
+      edit: "Edit payslip nature: %{name}"
+      index: "Payslip natures"
+      new: "New payslip nature"
+      show: "Payslip nature: %{name}"
+    backend/payslip_payments:
+      edit: "Edit payslip payment: %{number}"
+      index: "Payslip payments"
+      new: "New payslip payment"
+      show: "Payslip payment: %{number}"
+    backend/payslips:
+      # correct: "Correct payslip: %{name}"
+      edit: "Edit payslip: %{name}"
+      index: "Payslips"
+      # invoice: "Invoice payslip: %{name}"
+      new: "New payslip"
+      show: "Payslip: %{number}"
     backend/plant_countings:
-      edit: "Edit plant counting #%{number}"
+      edit: "Edit plant counting: #%{number}"
       index: "Countings"
       new: "New counting"
       show: "Plant counting #%{number}"
@@ -634,6 +660,11 @@ eng:
       # propose_and_invoice: "Propose and invoice purchase order: %{name}"
       # refuse: "Refuse purchase order: %{name}"
       # show: "Purchase order: %{name}"
+    backend/purchase_payments:
+      edit: "Edit disbursement: %{number}"
+      index: "Disbursements"
+      new: "New disbursement"
+      show: "Disbursement %{number} for %{payee}"
     backend/purchases:
       abort: "Abort"
       confirm: "Confirm order and wait for deliveries"
@@ -651,7 +682,7 @@ eng:
     backend/quick_affairs:
       # new: "New quick affair"
     backend/quick_purchases:
-      new: "New Purchase/Outgoing payment"
+      new: "New Purchase/Disbursement"
     backend/quick_sales:
       new: "New Sale/Incoming payment"
     backend/receptions:
@@ -1015,15 +1046,18 @@ eng:
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
     add_new_record: "Add new record"
-    add_outgoing_payment: "Add outgoing payment"
+    add_outgoing_payment: "Add disbursement"
     add_participation: "Add participation"
     add_payment: "Add payment"
+    add_payslip: "Add payslip"
+    add_payslip_payment: "Add payslip payment"
     add_phone: "Add phone number"
     add_plant_density_abacus: "Add seeding density reference table"
     add_point: "Add point"
     add_polygon: "Add polygon"
     add_production: "Add production"
     add_purchase: "Add purchase"
+    add_purchase_payment: "Add disbursement"
     add_purchase_taxation: "Add purchase taxation"
     add_quickly_an_item: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
@@ -1385,6 +1419,7 @@ eng:
     home: "Home"
     # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
+    humans: "HR"
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification"
     identifiers: "Identifiers"
@@ -1576,7 +1611,7 @@ eng:
     new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
-    new_outgoing_payment: "New outgoing payment"
+    new_outgoing_payment: "New disbursement"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -1629,8 +1664,8 @@ eng:
     others: "Others" #?
     outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
     outgoing_parcels: "Outgoing parcels"
-    outgoing_payment: "Outgoing payment" #?
-    outgoing_payments: "Outgoing payments"
+    outgoing_payment: "Disbursement" #?
+    outgoing_payments: "Disbursements" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1652,6 +1687,8 @@ eng:
     payment_mode: "Payment mode" #?
     payments: "Payments"
     payments_count: "Payments count"
+    payslip_number: "Payslip #" #?
+    payslips: "Payslips"
     people: "People"
     percentage_by_calibration: "Percentage by calibration"
     # percentage_by_calibration_x: "Percentage by calibration x"
@@ -1713,6 +1750,7 @@ eng:
     purchase: "Purchase"
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
+    # purchase_payments: "Purchase payments"
     purchases: "Purchases"
     purchases_stocks_variation: "Purchases stocks variation" #?!
     quality: "Quality"
@@ -2089,6 +2127,7 @@ eng:
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
+    # x_purchase_payments: "X purchase payments"
     x_purchases:
       one: "%{count} purchase"
       other: "%{count} purchases"
@@ -2445,6 +2484,7 @@ eng:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    backend/payslip_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
@@ -2452,5 +2492,6 @@ eng:
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number})"
+    backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

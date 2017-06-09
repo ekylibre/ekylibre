@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/lcoq/ofx-parser.git
-  revision: 3c4cbb43d3df1be3f9493f45a82dabec02edf866
-  branch: master
-  specs:
-    ofx-parser (1.1.0.20121129105223)
-      hpricot (>= 0.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -162,9 +154,13 @@ GEM
     devise_invitable (1.7.2)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
+    did_you_mean (0.10.0)
+      interception
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    ekylibre-ofx-parser (1.2.2)
+      hpricot (>= 0.6)
     enumerize (2.1.2)
       activesupport (>= 3.2)
     erubis (2.7.0)
@@ -204,7 +200,6 @@ GEM
       temple (>= 0.8.0)
       tilt
     hashie (3.5.5)
-    honeybadger (3.1.2)
     hpricot (0.8.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -213,14 +208,15 @@ GEM
       rack
       socksify
     humanize (1.4.0)
-    i18n (0.8.1)
+    i18n (0.8.4)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
     i18n-js (3.0.0)
       i18n (~> 0.6, >= 0.6.6)
     iban-tools (1.1.0)
-    jbuilder (2.6.4)
-      activesupport (>= 3.0.0)
+    interception (0.5)
+    jbuilder (2.7.0)
+      activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jc-validates_timeliness (3.1.1)
       timeliness (~> 0.3.7)
@@ -382,6 +378,8 @@ GEM
     rake (12.0.0)
     rdoc (4.3.0)
     redis (3.3.3)
+    redis-namespace (1.5.3)
+      redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
     remotipart (1.3.1)
     require_all (1.4.0)
@@ -447,7 +445,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sentry-raven (2.5.1)
+    sentry-raven (2.5.2)
       faraday (>= 0.7.6, < 1.0)
     sepa_king (0.9.0)
       activemodel (>= 3.0.0)
@@ -463,6 +461,9 @@ GEM
     sidekiq-cron (0.6.0)
       rufus-scheduler (>= 3.3.0)
       sidekiq (>= 4.2.1)
+    sidekiq-skylight (0.2.0)
+      sidekiq (>= 3.3.0)
+      skylight (>= 0.5.2)
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
@@ -476,6 +477,8 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.1)
+    skylight (1.3.1)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     socksify (1.7.1)
     spring (2.0.2)
@@ -554,7 +557,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.8.2)
+  active_list (>= 6.9.0)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
@@ -587,6 +590,8 @@ DEPENDENCIES
   devise
   devise-i18n-views
   devise_invitable
+  did_you_mean (~> 0.9)
+  ekylibre-ofx-parser
   enumerize
   exception_notification
   factory_girl
@@ -596,7 +601,6 @@ DEPENDENCIES
   foreman
   formize (~> 2.1.0)
   haml
-  honeybadger
   http_accept_language
   humanize
   i18n-complements (>= 0.0.14)
@@ -615,7 +619,6 @@ DEPENDENCIES
   minitest-reporters
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.7.1)
-  ofx-parser!
   omniauth
   omniauth-oauth2
   paperclip
@@ -628,6 +631,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.8)
   rails_best_practices
+  redis-namespace
   remotipart (~> 1.2)
   rest-client
   rgeo-geojson
@@ -646,10 +650,12 @@ DEPENDENCIES
   shoulda-context
   sidekiq (~> 4.0)
   sidekiq-cron (>= 0.4.0)
+  sidekiq-skylight
   sidekiq-unique-jobs (~> 4.0)
   simple_calendar
   simple_form (~> 3.4)
   simplecov
+  skylight
   spring
   state_machine
   teaspoon-jasmine

@@ -56,6 +56,7 @@ class CultivableZone < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :work_number, presence: true, length: { maximum: 500 }
+  validates :production_system_name, length: { maximum: 500 }, allow_blank: true
   validates :shape, presence: true
   # ]VALIDATORS]
   validates :uuid, presence: true

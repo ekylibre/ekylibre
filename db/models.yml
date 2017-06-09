@@ -118,6 +118,10 @@
 - outgoing_payment_mode
 - parcel
 - parcel_item
+- payslip
+- payslip_affair
+- payslip_nature
+- payslip_payment
 - plant
 - plant_counting
 - plant_counting_item
@@ -152,6 +156,7 @@
 - purchase_item
 - purchase_nature
 - purchase_order
+- purchase_payment
 - reception
 - regularization
 - role

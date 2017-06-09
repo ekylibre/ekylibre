@@ -5082,7 +5082,7 @@ payslip_natures:
     required: true
   creator_id:
     type: integer
-    references: ''
+    references: user
   currency:
     type: string
     required: true
@@ -5104,7 +5104,7 @@ payslip_natures:
     required: true
   updater_id:
     type: integer
-    references: ''
+    references: user
   with_accounting:
     type: boolean
     required: true
@@ -5128,7 +5128,7 @@ payslips:
     required: true
   creator_id:
     type: integer
-    references: ''
+    references: user
   currency:
     type: string
     required: true
@@ -5138,7 +5138,7 @@ payslips:
     type: date
   employee_id:
     type: integer
-    references: ''
+    references: entity
   id:
     type: integer
     required: true
@@ -5150,7 +5150,7 @@ payslips:
     required: true
   nature_id:
     type: integer
-    references: ''
+    references: payslip_nature
     required: true
   number:
     type: string
@@ -5169,7 +5169,7 @@ payslips:
     required: true
   updater_id:
     type: integer
-    references: ''
+    references: user
 plant_counting_items:
   created_at:
     type: datetime
@@ -6590,6 +6590,8 @@ purchases:
   number:
     type: string
     required: true
+  ordered_at:
+    type: datetime
   payment_at:
     type: datetime
   payment_delay:
@@ -6619,6 +6621,8 @@ purchases:
   tax_payability:
     type: string
     required: true
+  type:
+    type: string
   undelivered_invoice_journal_entry_id:
     type: integer
     references: journal_entry

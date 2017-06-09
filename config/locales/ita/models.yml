@@ -62,6 +62,9 @@ ita:
         seeding_density_value: "Previsto densità di semina"
       purchase:
         affair_balance: "Equilibrio"
+      purchase_payment: #?
+        delivered: "Dato al destinatario" #?
+        list: "Lista pagamento in uscita" #?
       sale:
         affair_balance: "Equilibrio"
         contact: "Indirizzo per la stima"
@@ -351,11 +354,15 @@ ita:
       net_service: "il servizio net"
       notification: "Notifica"
       observation: "Osservazione"
-      outgoing_payment: "sborso"
+      outgoing_payment: "Sborso"
       outgoing_payment_list: "Lista pagamento in uscita"
       outgoing_payment_mode: "modalità di erogazione"
       parcel: "pacco"
       parcel_item: "voce Parcel"
+      payslip: "Busta paga"
+      payslip_affair: "Affare Payslip"
+      payslip_nature: "Tipo Payslip"
+      payslip_payment: "Pagamento pagamenti"
       plant: "pianta"
       plant_counting: "conteggio delle piante"
       plant_counting_item: "ingresso conteggio delle piante"
@@ -386,8 +393,12 @@ ita:
       purchase: "Acquista"
       purchase_affair: "Acquisto vicenda"
       purchase_gap: "Gap Acquisto"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      # purchase_order: "Purchase order"
+      purchase_payment: "sborso"
+      # reception: "Reception"
       regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
@@ -400,6 +411,7 @@ ita:
       sensor: "Sensore"
       sequence: "Sequenza"
       settlement: "insediamento"
+      # shipment: "Shipment"
       sub_zone: "Sottozona"
       subscription: "Sottoscrizione"
       subscription_nature: "tipo di abbonamento"
@@ -724,6 +736,7 @@ ita:
     emission_cash: "contanti Emission"
     emission_currency: "valuta di emissione"
     emission_journal_entry: "voce di diario di emissione"
+    emitted_on: "Emesso"
     employed: "occupato"
     employee: "Dipendente"
     employee_account: "Conto dei dipendenti"
@@ -1157,6 +1170,7 @@ ita:
     payment_mode_complement: "Modalità di pagamento del complemento"
     payments: "Pagamenti"
     payments_count: "contano Pagamenti"
+    payslips: "Buste paga"
     period: "Periodo"
     person: "Persona"
     phases: "fasi"
@@ -1252,6 +1266,7 @@ ita:
     purchase_item: "voce Acquisto"
     purchase_items: "articoli di acquisto"
     purchase_natures: "Tipi di acquisto"
+    purchase_payments: "Pagamenti d’acquisto"
     purchase_taxations: "tassazioni acquisto"
     purchase_taxes: "tasse di acquisto"
     purchased_on: "acquistato su"
@@ -1771,6 +1786,11 @@ ita:
           prepared: "Preparato"
           received: "ricevuto"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Bozza"
+        invoice: "Fattura"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1821,6 +1841,9 @@ ita:
     purchase_nature:
       default:
         name: "acquisto standard"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Amministratore"
@@ -1892,6 +1915,7 @@ ita:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [anno | 4] [mese | 2] [numero | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

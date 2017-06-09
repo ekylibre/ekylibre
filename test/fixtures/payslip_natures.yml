@@ -1,0 +1,67 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2017 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: payslip_natures
+#
+#  account_id      :integer
+#  active          :boolean          default(FALSE), not null
+#  by_default      :boolean          default(FALSE), not null
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  currency        :string           not null
+#  id              :integer          not null, primary key
+#  journal_id      :integer          not null
+#  lock_version    :integer          default(0), not null
+#  name            :string           not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#  with_accounting :boolean          default(FALSE), not null
+#
+---
+payslip_natures_001:
+  account_id: 541
+  active: true
+  by_default: true
+  created_at: 2017-06-07 16:08:55.511639000 Z
+  creator_id: 1
+  currency: EUR
+  id: 1
+  journal_id: 13
+  lock_version: 1
+  name: Permanent
+  updated_at: 2017-06-07 16:12:59.732038000 Z
+  updater_id: 1
+  with_accounting: true
+payslip_natures_002:
+  account_id: 171
+  active: true
+  by_default: false
+  created_at: 2017-06-07 16:09:31.873913000 Z
+  creator_id: 1
+  currency: EUR
+  id: 2
+  journal_id: 13
+  lock_version: 1
+  name: Saisonnier
+  updated_at: 2017-06-07 16:12:39.602448000 Z
+  updater_id: 1
+  with_accounting: true

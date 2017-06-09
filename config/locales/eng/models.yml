@@ -41,7 +41,7 @@ eng:
         started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Given to recipient"
-        list: "Outgoing payment list"
+        list: "Disbursement list"
       outgoing_payment_list:
         payments_sum: "Total"
       parcel:
@@ -316,11 +316,15 @@ eng:
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
-      outgoing_payment: "Disbursement"
-      outgoing_payment_list: "Outgoing payment list"
+      outgoing_payment: "Outgoing payment"
+      outgoing_payment_list: "Disbursement list"
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
       parcel_item: "Parcel item"
+      payslip: "Payslip"
+      payslip_affair: "Payslip affair"
+      payslip_nature: "Payslip type"
+      payslip_payment: "Payslip payment"
       plant: "Plant"
       plant_counting: "Plant counting"
       plant_counting_item: "Plant counting item"
@@ -351,11 +355,12 @@ eng:
       purchase: "Purchase"
       purchase_affair: "Purchase affair"
       purchase_gap: "Purchase gap"
-      # purchase_invoice: "Purchase invoice"
+      purchase_invoice: "Purchase invoice"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
-      # purchase_order: "Purchase order"
-      # reception: "Reception"
+      purchase_order: "Purchase order"
+      purchase_payment: "Disbursement"
+      reception: "Reception"
       regularization: "Regularization"
       role: "Role"
       sale: "Sale"
@@ -368,7 +373,7 @@ eng:
       sensor: "Sensor"
       sequence: "Sequence"
       settlement: "Settlement"
-      # shipment: "Shipment"
+      shipment: "Shipment"
       sub_zone: "Sub-zone"
       subscription: "Subscription"
       subscription_nature: "Subscription type"
@@ -706,6 +711,7 @@ eng:
     emission_cash: "Emission cash"
     emission_currency: "Emission currency"
     emission_journal_entry: "Emission journal entry"
+    emitted_on: "Emitted on"
     employed: "Employed"
     employee: "Employee"
     employee_account: "Employee account"
@@ -1157,6 +1163,8 @@ eng:
     payment_mode_complement: "Payment mode complement"
     payments: "Payments"
     payments_count: "Payments count"
+    # payslip_natures: "Payslip natures"
+    payslips: "Payslips"
     period: "Period"
     person: "Person"
     phases: "Phases"
@@ -1259,6 +1267,7 @@ eng:
     purchase_item: "Purchase item"
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
+    purchase_payments: "Purchase payments"
     purchase_taxations: "Purchase taxations"
     purchase_taxes: "Purchase taxes"
     purchased_on: "Purchased on"
@@ -1788,6 +1797,11 @@ eng:
           prepared: "Prepared"
           received: "Received"
       undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Draft"
+        invoice: "Invoice"
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -1838,6 +1852,9 @@ eng:
     purchase_nature:
       default:
         name: "Standard purchase"
+    purchase_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Administrator"
@@ -1909,6 +1926,7 @@ eng:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS[year|4][month|2][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

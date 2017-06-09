@@ -73,8 +73,10 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates :amount, numericality: true
   validates :to_bank_at, presence: true
 
+  delegate :full_name, to: :payee, prefix: true
+
   acts_as_numbered
-  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, class_name: 'PurchaseAffair'
+  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false
 
   scope :between, lambda { |started_at, stopped_at|
     where(paid_at: started_at..stopped_at)
@@ -86,7 +88,13 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
+  after_initialize if: :new_record? do
+    self.delivered = true
+    self.downpayment = true
+  end
+
   before_validation do
+    self.paid_at ||= Time.zone.now if delivered
     if mode
       self.cash = mode.cash
       self.currency = mode.currency
@@ -99,16 +107,6 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   delegate :third_attribute, to: :class
-
-  # This method permits to add journal entries corresponding to the payment
-  # It depends on the preference which permit to activate the "automatic bookkeeping"
-  bookkeep do |b|
-    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payee: payee.full_name, mode: mode.name, check_number: bank_check_number)
-    b.journal_entry(mode.cash.journal, printed_on: to_bank_at.to_date, if: (mode.with_accounting? && delivered)) do |entry|
-      entry.add_debit(label, payee.account(:supplier).id, amount, as: :payee, resource: payee)
-      entry.add_credit(label, mode.cash.account_id, amount, as: :bank)
-    end
-  end
 
   def pointed_by_bank_statement?
     journal_entry && journal_entry.items.where('LENGTH(TRIM(bank_statement_letter)) > 0').any?

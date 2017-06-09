@@ -40,7 +40,7 @@ por:
         ongoing_at: "Angariação de fundos em"
         started_on: "Primeiro reembolso começou em"
       outgoing_payment:
-        delivered: "Dada a destinatário"
+        delivered: "Atribuído ao destinatário"
         list: "Lista de contas a pagar"
       outgoing_payment_list:
         # payments_sum: "Total"
@@ -62,6 +62,9 @@ por:
         seeding_density_value: "Densidade de semeadura esperado"
       purchase:
         affair_balance: "Equilibrar"
+      purchase_payment: #?
+        delivered: "Dada a destinatário" #?
+        list: "Lista de contas a pagar" #?
       sale:
         affair_balance: "Equilibrar"
         contact: "Endereço para a estimativa"
@@ -325,6 +328,10 @@ por:
       outgoing_payment_mode: "Modo de desembolso"
       parcel: "Parcela"
       parcel_item: "Artigo Parcel"
+      payslip: "Folha de pagamento"
+      payslip_affair: "Caso de nostalgia"
+      payslip_nature: "Tipo de saldo em espécie"
+      payslip_payment: "Pagamento por saldo"
       plant: "Plantar"
       plant_counting: "contagem de planta"
       plant_counting_item: "entrada de contagem de planta"
@@ -355,8 +362,12 @@ por:
       purchase: "Compra"
       purchase_affair: "Caso de compra"
       purchase_gap: "Gap compra"
+      # purchase_invoice: "Purchase invoice"
       purchase_item: "Artigo da compra"
       purchase_nature: "Tipo de compra"
+      # purchase_order: "Purchase order"
+      purchase_payment: "Desembolso"
+      # reception: "Reception"
       regularization: "Regularização"
       role: "Função"
       sale: "Venda"
@@ -369,6 +380,7 @@ por:
       # sensor: "Sensor"
       sequence: "Seqüência"
       settlement: "Assentamento"
+      # shipment: "Shipment"
       # sub_zone: "Sub-zone"
       subscription: "Subscrição"
       subscription_nature: "Tipo de assinatura"
@@ -693,6 +705,7 @@ por:
     emission_cash: "Caixa de emissão"
     emission_currency: "Moeda de emissão"
     emission_journal_entry: "Entrada de diário de emissão"
+    emitted_on: "Emitido em"
     employed: "Empregado"
     employee: "Empregado"
     employee_account: "Conta de empregado"
@@ -1126,6 +1139,7 @@ por:
     payment_mode_complement: "Modo de pagamento do complemento"
     payments: "Pagamentos"
     payments_count: "Pagamentos contar"
+    payslips: "Listas de pagamento"
     period: "Período"
     person: "Pessoa"
     phases: "Fases"
@@ -1221,6 +1235,7 @@ por:
     purchase_item: "Artigo da compra"
     purchase_items: "Itens de compra"
     purchase_natures: "Tipos de compra"
+    purchase_payments: "Pagamentos de compras"
     purchase_taxations: "Taxations de compra"
     purchase_taxes: "Os impostos de compra"
     purchased_on: "Comprado em"
@@ -1740,6 +1755,11 @@ por:
           prepared: "Preparado"
           received: "Recebido"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Esboço, projeto"
+        invoice: "Fatura"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1790,6 +1810,9 @@ por:
     purchase_nature:
       default:
         name: "Compra padrão"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Administrador"
@@ -1861,6 +1884,7 @@ por:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [ano | 4] [mês | 2] [número | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

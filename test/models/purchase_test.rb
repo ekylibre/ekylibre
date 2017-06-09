@@ -39,6 +39,7 @@
 #  lock_version                             :integer          default(0), not null
 #  nature_id                                :integer
 #  number                                   :string           not null
+#  ordered_at                               :datetime
 #  payment_at                               :datetime
 #  payment_delay                            :string
 #  planned_at                               :datetime
@@ -49,6 +50,7 @@
 #  state                                    :string           not null
 #  supplier_id                              :integer          not null
 #  tax_payability                           :string           not null
+#  type                                     :string
 #  undelivered_invoice_journal_entry_id     :integer
 #  updated_at                               :datetime         not null
 #  updater_id                               :integer
@@ -164,10 +166,24 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase.invoice!
   end
 
+  test 'cannot have an empty state - it is set to draft by default' do
+    nature   = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
+    max      = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
+    purchase = Purchase.create!(supplier: max, nature: nature, currency: 'USD', state: nil)
+
+    assert_equal 'draft', purchase.state
+
+    purchase.update(state: nil)
+
+    assert_equal 'draft', purchase.state
+  end
+
   test 'default_currency is nature\'s currency if currency is not specified' do
-    PurchaseNature.delete_all
-    Entity.delete_all
+    Payslip.delete_all
     Purchase.delete_all
+    PurchaseNature.delete_all
+    OutgoingPayment.delete_all
+    Entity.delete_all
 
     nature     = PurchaseNature.create!(currency: 'EUR', name: 'Perishables')
     max        = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
