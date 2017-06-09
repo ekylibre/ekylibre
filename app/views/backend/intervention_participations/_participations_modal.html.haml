@@ -4,7 +4,7 @@
 = simple_form_for(participation, url: backend_intervention_participations_path, method: :post, remote: true) do |f|
   = hidden_field_tag "intervention_participation[intervention_id]", participation.intervention_id
   = hidden_field_tag "intervention_participation[product_id]", participation.product_id
-  = hidden_field_tag 'intervention_started_at', participation.intervention.started_at
+  = hidden_field_tag 'intervention_started_at', participation.intervention.started_at.iso8601
 
   .modal-body
     .indicators
