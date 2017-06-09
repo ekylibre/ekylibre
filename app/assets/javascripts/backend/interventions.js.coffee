@@ -192,11 +192,10 @@
       i  $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').show()
 
     showInterventionParticipationsModal: ->
-      $('.has-intervention-participations').on 'click', (event) ->
+      $(document).on 'click', '.has-intervention-participations', (event) ->
 
         intervention_id = $('input[name="intervention_id"]').val()
         product_id = $(event.target).closest('.nested-product-parameter').find(".scoped-parameter").attr('value')
-        # participation_id = $(event.target).attr('data-participation')
 
         $.ajax
           url: "/backend/intervention_participations/participations_modal",
@@ -248,6 +247,13 @@
   $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
+
+  $(document).on "click", ".nested-doers .nested-add", (e) ->
+    nestedField = $('.nested-doers .nested-fields').last()
+    pictoTimer = $('<div class="has-intervention-participations picto picto-timer-off"></div>')
+
+    $(nestedField).append(pictoTimer)
+    $(nestedField).find(".has-intervention-participations").trigger("click")
 
   # $(document).on "click", '.view-toolbar a', (event) ->
   #   E.interventions.hideKujakuFilters($(event.target).is('[data-janus-href="cobbles"]'))

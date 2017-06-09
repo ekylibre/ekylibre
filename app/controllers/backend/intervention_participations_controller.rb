@@ -53,6 +53,8 @@ module Backend
         intervention_id: permitted_params[:intervention_id]
       )
 
+      participation.save if participation.new_record?
+
       working_periods_ids = participation.working_periods.map(&:id)
       params_ids = permitted_params[:working_periods_attributes].to_h.map { |param| param.second['id'].to_i }
 
