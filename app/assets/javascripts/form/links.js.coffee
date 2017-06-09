@@ -1,6 +1,6 @@
 (($) ->
 
-  setUpdateTriggers = ->
+  $.setUpdateTriggers = ->
     links = $(this)
     links.each ->
       link = $(this)
@@ -8,7 +8,7 @@
       $(triggerSelector).change ->
         url = link.attr('href')
         triggeredInput = $(this)
-        id = triggeredInput.attr 'id'
+        id = triggeredInput.attr 'name'
         value = triggeredInput.val()
         regExp = new RegExp "(\\?|\\&)(#{id})\\=([^&]+)"
 
@@ -21,32 +21,32 @@
         link.attr('href', url)
 
 
-  $(document).behave 'load', 'a[data-update-link-with]', setUpdateTriggers
+  $(document).behave 'load', 'a[data-update-link-with]', $.setUpdateTriggers
 
-  completeUrlWithIds = ->
+  $.completeUrlWithIds = ->
     links = $(this)
     links.each ->
       link = $(this)
-      paramName = $(link).attr('data-complete-link-with-ids')
-      checkboxes = $('.list td input[type="checkbox"]')
+      paramName = link.attr('name')
+      checkboxes = $(link.data('complete-link-with-checked-row-ids'))
 
-      $(checkboxes).change ->
-        ids = []
-        id = parseInt($(this).closest('tr').attr('id').substring(1))
+      checkboxes.change ->
         url = link.attr('href')
         lastUrlParams = ""
+        ids = []
 
         if url.indexOf(paramName) > 0
-          idsArray = url.split(paramName)[1]
+          url_ids = url.split(paramName + '=')[1]
 
-          if idsArray.indexOf('&') > 0
-            index  = idsArray.indexOf('&')
-            lastUrlParams = idsArray.substring(index)
-            idsArray = idsArray.split('&')[0]
+          if url_ids? && url_ids.indexOf('&') > 0
+            index  = url_ids.indexOf('&')
+            lastUrlParams = url_ids.substring(index)
+            url_ids = url_ids.split('&')[0]
 
-          idsLength = idsArray.length
-          idsInLink = idsArray.substring(idsLength - 1, 2)
-          ids = JSON.parse("[" + idsInLink + "]")
+          if url_ids?
+            ids = JSON.parse("[" + url_ids + "]")
+          else
+            ids = []
 
           paramToSplit = ""
 
@@ -55,30 +55,44 @@
           paramToSplit += paramName
           url = url.split("#{paramToSplit}")[0]
 
-        if $(this).is(':checked')
-          ids.push(id)
-        else
-          index = ids.indexOf(id)
-          ids.splice(index, 1)
+        id = $(this).closest('tr').attr('id')
+        if id?
+          id = parseInt(id.substring(1))
+          if $(this).is(':checked')
+            ids.push(id)
+          else
+            index = ids.indexOf(id)
+            ids.splice(index, 1)
+        else if $(this).is('*[data-list-selector="all"]')
+          checked = $(this).is(':checked')
+          checkboxes.each ->
+            id = $(this).closest('tr').attr('id')
+            if id?
+              id = parseInt(id.substring(1))
+              if checked
+                ids.push(id)
+              else
+                index = ids.indexOf(id)
+                ids.splice(index, 1)
 
         if url.indexOf('?') < 0 then url += '?' else url += '&'
 
-        url += "#{paramName}=[#{ids.join(', ')}]"
+        url += "#{paramName}=#{ids.join(',')}"
         url += lastUrlParams
 
         link.attr('href', url)
 
-        if link.attr('data-display-class-on-click')
-          elementDisplayOnClick = '.' + link.attr('data-display-class-on-click')
-
+        action_form = link.closest('.action-form')
+        if !action_form? && link.data('display-if-any-checked')
+          action_form = $(link.data('display-if-any-checked'))
+        if action_form?
           if ids.length == 0
-            $(elementDisplayOnClick).hide()
+            action_form.hide()
+          else
+            action_form.show()
 
-          if ids.length == 1
-            $(elementDisplayOnClick).show()
 
-
-  $(document).behave 'load', 'a.js-complete-links-with-ids', completeUrlWithIds
+  $(document).behave 'load', 'a[data-complete-link-with-checked-row-ids]', $.completeUrlWithIds
 
   return
 ) jQuery

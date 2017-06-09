@@ -2076,11 +2076,15 @@ jpn:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "自動レタリングは会計で行うことはできません"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "あまりにも多くの三分のが存在しているため、自動レタリングは会計で行うことはできません"
+      the_bookkeep_date_format_is_invalid: "簿記の日付形式が無効です"
       the_sales_invoice_is_not_cancellable: "売上請求書は解約ではありません"
       this_service_is_not_activated: "このサービスは、活性化されていません"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "更新がなされています"
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "ポイントに1つのエントリがあります"
         # other: "There are %{count} entries to point"

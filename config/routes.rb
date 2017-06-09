@@ -662,7 +662,7 @@ Rails.application.routes.draw do
 
     resources :loans, concerns: %i[list unroll] do
       collection do
-        get :accounting
+        post :bookkeep
       end
 
       member do

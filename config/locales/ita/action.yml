@@ -2066,11 +2066,15 @@ ita:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "La scritta automatica non può essere fatto in contabilità"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "La scritta automatica non può essere fatto in contabilità perché troppi terzi sono presenti"
+      the_bookkeep_date_format_is_invalid: "Il formato di data di contabilità non è valido"
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
       this_service_is_not_activated: "Questo servizio non è attivato"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "L'aggiornamento è stato fatto"
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "C'è una voce per indicare"
         # other: "There are %{count} entries to point"

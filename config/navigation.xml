@@ -237,7 +237,7 @@
         <page to="backend/loans#show"/>
         <page to="backend/loans#unroll"/>
         <page to="backend/loans#update"/>
-        <page to="backend/loans#accounting"/>
+        <page to="backend/loans#bookkeep"/>
         <page to="backend/loans#confirm"/>
         <page to="backend/loans#repay"/>
         <page to="backend/loan_repayments#index"/>

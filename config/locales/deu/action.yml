@@ -2000,11 +2000,15 @@ deu:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Die automatische Beschriftung kann nicht in der Buchhaltung durchgeführt werden"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Die automatische Beschriftung kann nicht in der Buchhaltung durchgeführt werden, weil zu viele Drittel vorhanden sind"
+      the_bookkeep_date_format_is_invalid: "Das Buchformatformat ist ungültig"
       the_sales_invoice_is_not_cancellable: "Die Verkaufsrechnung ist nicht kündbar"
       this_service_is_not_activated: "Dieser Dienst ist nicht aktiviert"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "Das Update ist gemacht worden,"
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "Es gibt einen Eintrag hinzuweisen"
         # other: "There are %{count} entries to point"

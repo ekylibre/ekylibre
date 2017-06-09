@@ -2001,11 +2001,15 @@ cmn:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "自动刻字不能在会计做"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "自动刻字不能在会计完成，因为太多的三分之二都存在"
+      the_bookkeep_date_format_is_invalid: "书签日期格式无效"
       the_sales_invoice_is_not_cancellable: "销售发票不撤销"
       this_service_is_not_activated: "该服务未启动"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "更新已取得"
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "有一个入口点"
         # other: "There are %{count} entries to point"
