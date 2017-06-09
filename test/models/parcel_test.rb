@@ -54,6 +54,7 @@
 #  state                                :string           not null
 #  storage_id                           :integer
 #  transporter_id                       :integer
+#  type                                 :string
 #  undelivered_invoice_journal_entry_id :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer

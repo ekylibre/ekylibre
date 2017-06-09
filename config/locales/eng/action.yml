@@ -188,14 +188,16 @@ eng:
       index: "Dashboards"
       new: "New dashboard"
       production: "Production dashboard"
+      # purchases: "Purchases dashboard: %{name}"
       relationship: "Relationship dashboard"
+      # sales: "Sales dashboard: %{name}"
       sandbox: "Sandbox dashboard: %{name}"
       search: "Search for: %{searched}"
       settings: "Settings dashboard"
       show: "%{name} dashboard"
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
-      trade: "Trade dashboard"
+      trade: "Trade dashboard" #?
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -625,6 +627,7 @@ eng:
       # index: "Purchase orders"
       # invoice: "Invoice purchase order: %{name}"
       # new: "New purchase order"
+      # open: "Open purchase order: %{name}"
       # pay: "Pay purchase order: %{name}"
       # payment_mode: "Payment mode purchase order: %{name}"
       # propose: "Propose purchase order: %{name}"
@@ -651,6 +654,18 @@ eng:
       new: "New Purchase/Outgoing payment"
     backend/quick_sales:
       new: "New Sale/Incoming payment"
+    backend/receptions:
+      # cancel: "Cancel reception: %{name}"
+      # check: "Check reception: %{name}"
+      # edit: "Edit reception: %{name}"
+      # give: "Give reception: %{name}"
+      # index: "Receptions"
+      # invoice: "Invoice reception: %{name}"
+      # new: "New reception"
+      # order: "Order reception: %{name}"
+      # prepare: "Prepare reception: %{name}"
+      # ship: "Ship reception: %{name}"
+      # show: "Reception: %{name}"
     backend/registrations:
       edit: "Edit registration"
       index: "Registrations"
@@ -743,6 +758,18 @@ eng:
       new: "New settlement"
       show: "Settlement: %{name}"
       # take: "Take settlement: %{name}"
+    backend/shipments:
+      # cancel: "Cancel shipment: %{name}"
+      # check: "Check shipment: %{name}"
+      # edit: "Edit shipment: %{name}"
+      # give: "Give shipment: %{name}"
+      # index: "Shipments"
+      # invoice: "Invoice shipment: %{name}"
+      # new: "New shipment"
+      # order: "Order shipment: %{name}"
+      # prepare: "Prepare shipment: %{name}"
+      # ship: "Ship shipment: %{name}"
+      # show: "Shipment: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -1699,6 +1726,7 @@ eng:
     ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
+    # receptions: "Receptions"
     record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?

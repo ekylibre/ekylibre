@@ -748,6 +748,22 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :receptions, concerns: %i[list unroll] do
+      member do
+        post :invoice
+        get :list_incoming_items
+        post :ship
+
+        post :order
+        post :prepare
+        post :check
+        post :give
+        post :cancel
+      end
+    end
+
+    resources :shipments, concerns: %i[list unroll]
+
     resources :plant_density_abaci, except: [:index], path: 'plant-density-abaci'
 
     resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'

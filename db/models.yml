@@ -152,6 +152,7 @@
 - purchase_item
 - purchase_nature
 - purchase_order
+- reception
 - regularization
 - role
 - sale
@@ -164,6 +165,7 @@
 - sensor
 - sequence
 - settlement
+- shipment
 - sub_zone
 - subscription
 - subscription_nature

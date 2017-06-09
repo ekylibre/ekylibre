@@ -18,12 +18,12 @@
 
 module Backend
   class PurchaseOrdersController < Backend::PurchasesController
-  	manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
+    manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c,
                      except: :new, continue: [:nature_id]
 
-  	unroll :number, :amount, :currency, :created_at, supplier: :full_name
-  	
-  	def self.purchase_orders_conditions
+    unroll :number, :amount, :currency, :created_at, supplier: :full_name
+
+    def self.purchase_orders_conditions
       code = ''
       code = search_conditions(purchase_order: %i[number reference_number supplier created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
@@ -46,21 +46,21 @@ module Backend
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
       code << "c\n "
-			code.c
+      code.c
     end
 
-    list(conditions: purchase_orders_conditions, joins: :supplier, order: {created_at: :desc, number: :desc }) do |t|
-    	t.action :edit
-    	t.action :destroy
-    	t.column :number, url: :true
+    list(conditions: purchase_orders_conditions, joins: :supplier, order: { created_at: :desc, number: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: :true
       t.column :reference_number, url: true
       t.column :supplier, url: true
       t.column :created_at
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
     end
 
-    list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c}) do |t|
-    	t.column :variant, url: true
+    list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+      t.column :variant, url: true
       t.column :annotation
       t.column :quantity
       t.column :unit_pretax_amount, currency: true
@@ -75,37 +75,36 @@ module Backend
     end
 
     def new
-    	nature = PurchaseNature.by_default
-    	@purchase_order = PurchaseOrder.new(nature: nature)
-    	@purchase_order.currency = @purchase_order.nature.currency
-    	@purchase_order.responsible ||= current_user
+      nature = PurchaseNature.by_default
+      @purchase_order = PurchaseOrder.new(nature: nature)
+      @purchase_order.currency = @purchase_order.nature.currency
+      @purchase_order.responsible ||= current_user
       @purchase_order.planned_at = Time.zone.now
-    	@purchase_order.ordered_at = Time.zone.now
-    	@purchase_order.supplier_id ||= params[:supplier_id] if params[:supplier_id]
-    	if address = Entity.of_company.default_mail_address
+      @purchase_order.ordered_at = Time.zone.now
+      @purchase_order.supplier_id ||= params[:supplier_id] if params[:supplier_id]
+      if address = Entity.of_company.default_mail_address
         @purchase_order.delivery_address = address
       end
       render locals: { with_continue: true }
     end
 
-  def show
-  	return unless @purchase_order = find_and_check
-  	respond_with(@purchase_order, methods: [:taxes_amount],
-  																include: { delivery_address: { methods: [:mail_coordinate] },
-  																					 supplier: { methods: [:pictures_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
-  																					 parcels: { include: [:items] },
-  																					 items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
-  		format.html do
-  			t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
-  		end
-  	end
-  end 
+    def show
+      return unless @purchase_order = find_and_check
+      respond_with(@purchase_order, methods: [:taxes_amount],
+                                    include: { delivery_address: { methods: [:mail_coordinate] },
+                                               supplier: { methods: [:pictures_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
+                                               parcels: { include: [:items] },
+                                               items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
+        format.html do
+          t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
+        end
+      end
+    end
 
-  def open
-    return unless @purchase_order = find_and_check
-    @purchase_order.open
-    redirect_to action: :show, id: @purchase_order.id
-  end
-
+    def open
+      return unless @purchase_order = find_and_check
+      @purchase_order.open
+      redirect_to action: :show, id: @purchase_order.id
+    end
   end
 end
