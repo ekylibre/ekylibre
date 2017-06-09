@@ -373,6 +373,7 @@
         type: 'POST'
         dataType: 'JSON'
         data:
+          cash_id: $('#cash_id').val()
           journal_entry_items: journalIds
           bank_statement_items: bankIds
         success: (response) =>

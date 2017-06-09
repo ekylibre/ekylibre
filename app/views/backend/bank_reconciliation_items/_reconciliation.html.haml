@@ -1,4 +1,8 @@
 - precision = Nomen::Currency.find(currency).precision
+- cash_id = @bank_statements.map(&:cash_id).uniq unless @bank_statements.nil?
+- cash_id = @bank_statement.cash.id unless @bank_statement.nil?
+
+= hidden_field_tag :cash_id, cash_id
 .reconciliation-list{ data: { currency_precision: precision } }
   .top-part
     .buttons
@@ -6,10 +10,7 @@
       = dropdown_menu_button :payment_gap, icon: false do |menu|
         - Journal.various.each do |regul_journal|
           - url_params = { journal_id: regul_journal.id  }
-          
-          - url_params[:cash_id] = @bank_statements.map(&:cash_id).uniq unless @bank_statements.nil?
-          - url_params[:cash_id] = @bank_statement.cash.id unless @bank_statement.nil?
-          
+          - url_params[:cash_id] = cash_id 
           - url_params[:bank_statement_id] = @bank_statement.id unless @bank_statement.nil?
 
           - menu.item regul_journal.name, backend_bank_reconciliation_gaps_path(**url_params), method: :POST, tabindex: -1, class: 'from-selected-bank from-selected-journal gap-creation', title: regul_journal.name

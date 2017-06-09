@@ -2,12 +2,12 @@ module Backend
   # Handles bank reconciliation lettering.
   class BankStatementLettersController < Backend::BaseController
     def create
-      return unless find_bank_statement
+      return unless find_cash
 
       bank_items     = BankStatementItem.where(id: params[:bank_statement_items])
       journal_items  = JournalEntryItem.where(id: params[:journal_entry_items])
 
-      new_letter = @bank_statement.letter_items(bank_items, journal_items)
+      new_letter = @cash.letter_items(bank_items, journal_items)
       return head(:bad_request) unless new_letter
 
       respond_to do |format|
@@ -38,6 +38,11 @@ module Backend
     def find_bank_statement
       @bank_statement = BankStatement.find_by(id: params[:bank_statement_id])
       @bank_statement || (head(:bad_request) && nil)
+    end
+    
+    def find_cash 
+      @cash = Cash.find_by(id: params[:cash_id])
+      @cash || (head(:bad_request) && nil)
     end
   end
 end
