@@ -168,14 +168,14 @@
 
           if $(e.currentTarget).data('refresh')
             window.onLoad()
-
+          window.app.resetSelectedItems()
           return
 
         invalid: (frame, data, status, request) ->
           frame.html request.responseText
+          window.app.resetSelectedItems()
           return
 
-    window.app.resetSelectedItems()
 
     false
 

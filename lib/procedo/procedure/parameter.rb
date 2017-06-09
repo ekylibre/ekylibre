@@ -9,6 +9,11 @@ module Procedo
 
       delegate :name, to: :procedure, prefix: true
 
+      def ancestors
+        return [] if group.nil?
+        [ group, group.ancestors ].flatten
+      end
+
       def initialize(procedure, name, options = {})
         @procedure = procedure
         @name = name.to_sym

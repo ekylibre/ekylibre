@@ -224,36 +224,71 @@ module Backend
       end
 
       # consume preference and erase
-      if params[:keeper_id] && (p = current_user.preferences.get(params[:keeper_id])) && p.value.present?
+      keeper_pref = params[:keeper_id]
+      selection = keeper_pref && current_user.preferences.get(keeper_pref)
+      if selection && (selected = selection.value).present?
+        target_name = params[:reference_name]
+        selected = selected.split(',')
 
-        options[:targets_attributes] = p.value.split(',').collect do |v|
-          hash = {}
+        attributes = selected.map.with_index do |selected_target, index|
+          target_attributes = {
+            targets_attributes: {
+              -index => { reference_name: target_name }
+            }
+          }
 
-          hash[:product_id] = v if Product.find_by(id: v)
+          new_attributes = {}
 
-          if params[:reference_name]
-            next unless params[:reference_name] == 'animal'
-            hash[:reference_name] = params[:reference_name]
+          %i[new_group new_container].each do |parameter_name|
+            param_value = params[parameter_name]
+            if param_value && (new_id = Product.find_by(id: param_value).id)
+              new_attributes[-index][:"#{parameter_name}_id"] = new_id
+            end
           end
 
-          if params[:new_group] && (g = Product.find_by(id: params[:new_group]))
-            hash[:new_group_id] = g.id
+          selected_product = Product.find_by(id: selected_target)
+          new_attributes[:product_id] = selected_target if selected_product
+
+          target_attributes[:targets_attributes][-index].merge!(new_attributes)
+
+          procedure = Procedo::Procedure.find(params[:procedure_name])
+          element = procedure.find_element_with_name(target_name)
+
+          next target_attributes if element.cardinality != 1
+
+          parents = element.ancestors
+          first_duplicatable_parent = parents.index { |p| p.position != 1 }
+          nonduplicatable_parents = parents[0...first_duplicatable_parent]
+
+          if nonduplicatable_parents == parents
+            raise "Can't select multiple targets for intervention #{params[:procedure_name]}"
           end
 
-          if params[:new_container] && (c = Product.find_by(id: params[:new_container]))
-            hash[:new_container_id] = c.id
+          nonduplicatable_parents.reduce(target_attributes) do |attrs, parent|
+            {
+              groups_attributes:
+              {
+                -index => { reference_name: parent.name }.merge(attrs)
+              }
+            }
           end
-
-          hash
         end.compact
-
-        p.set! nil
       end
+      if attributes.present?
+        attributes = attributes.reduce(&:deep_merge)
 
-      @intervention = Intervention.new(options)
+        attributes_root = attributes.keys.first
+        parameter_type = attributes_root.to_s.gsub('s_attributes', '')
+        suffix = parameter_type.to_sym == :group ? :_parameters : :s
+        targets = { "#{parameter_type}#{suffix}_attributes": attributes[attributes_root] }
 
-      from_request = Intervention.find_by(id: params[:request_intervention_id])
-      @intervention = from_request.initialize_record if from_request
+        @intervention = Intervention.new(options.merge(targets))
+
+        from_request = Intervention.find_by(id: params[:request_intervention_id])
+        @intervention = from_request.initialize_record if from_request
+      else
+        @intervention = Intervention.new(options)
+      end
 
       render(locals: { cancel_url: { action: :index }, with_continue: true })
     end
