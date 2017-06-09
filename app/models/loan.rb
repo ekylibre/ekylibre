@@ -89,7 +89,7 @@ class Loan < Ekylibre::Record::Base
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account, :interest_account, presence: true
-  validates :insurance_account, presence: { if: -> { insurance_percentage.present? && insurance_percentage.nonzero? } }
+  validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
 
   state_machine :state, initial: :draft do
