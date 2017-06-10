@@ -169,10 +169,10 @@ class Plant < Bioproduct
 
   def self.uniq_variety
     table = []
-    self.find_each { |p| table << p.variety }
+    find_each { |p| table << p.variety }
     table = table.uniq
-    table = table.map { |variety| [I18n.t(variety, scope: [:nomenclatures, :varieties, :items]), variety] }
-    table.sort { |a, b| a[0] <=> b[0] }
+    table = table.map { |variety| [I18n.t(variety, scope: %i[nomenclatures varieties items]), variety] }
+    table.sort_by { |a| a[0] }
   end
 
   private

@@ -1395,7 +1395,7 @@ eng:
     inspections: "Inspections"
     interface_preferences: "Interface preferences"
     internal_error: "Oops, something happened."
-    interval: "Personalized Interval" #?
+    interval: "Personalized interval"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_message_miscibility: "Mixing allowed"

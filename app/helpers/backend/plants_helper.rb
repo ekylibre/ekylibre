@@ -111,9 +111,8 @@ module Backend
       list = []
       list << ['', 'all']
 
-
       # Add year and month period
-      first_date = Plant.order(name).first[name] || Time.now - 2.year
+      first_date = Plant.order(name).first[name] || Time.now - 2.years
       period = (first_date.year..Time.now.year).map { |p| p }
 
       period.reverse_each do |year|
@@ -123,15 +122,15 @@ module Backend
         list2 = []
         while date < full_year.end_of_year && date < Time.zone.today
           list2 << [l(date.to_date, format: :month), "#{date.to_date}_#{date.end_of_month.to_date}"]
-          date = date + 1.month
+          date += 1.month
         end
         list += list2.reverse
       end
-      if params[name].present? && params[name] != 'all' && params[name] == 'interval'
-        configuration = { custom: :interval }.merge(options)
-      else
-        configuration = {}
-      end
+      configuration = if params[name].present? && params[name] != 'all' && params[name] == 'interval'
+                        { custom: :interval }.merge(options)
+                      else
+                        {}
+                      end
       configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
       value ||= params[name] || options[:default]
 
@@ -167,20 +166,20 @@ module Backend
       code << select_tag(name, options_for_select(list, value), :id => custom_id, 'data-show-value' => "##{configuration[:id]}_")
 
       # if configuration[:custom]
-        code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag("#{name}_started_on".to_sym, params["#{name}_started_on"], size: 10), finish: date_field_tag("#{name}_stopped_on".to_sym, params["#{name}_stoped_on"], size: 10)).html_safe, id: "#{configuration[:id]}_interval")
+      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag("#{name}_started_on".to_sym, params["#{name}_started_on"], size: 10), finish: date_field_tag("#{name}_stopped_on".to_sym, params["#{name}_stoped_on"], size: 10)).html_safe, id: "#{configuration[:id]}_interval")
       # end
 
       code.html_safe
     end
 
     def plants_max_area
-      max_area = Plant.pluck("ST_Area(ST_Transform(ST_GeomFromEWKB(initial_shape),2154))").max
-      magnitude = 1 ** (max_area.to_i.to_s.length - 2)
+      max_area = Plant.pluck('ST_Area(ST_Transform(ST_GeomFromEWKB(initial_shape),2154))').max
+      magnitude = 1**(max_area.to_i.to_s.length - 2)
       (max_area.to_i / magnitude + 1) * magnitude / 10_000
     end
 
     def data_slider_value
-      params[:area].present? ? params[:area].split(',').map { |v| v.to_i } : [0, plants_max_area]
+      params[:area].present? ? params[:area].split(',').map(&:to_i) : [0, plants_max_area]
     end
   end
 end
