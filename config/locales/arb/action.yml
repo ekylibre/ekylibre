@@ -162,6 +162,7 @@ arb:
       accountancy: "المحاسبة لوحة القيادة"
       # edit: "Edit dashboard: %{name}"
       home: "لوحة أجهزة القياس المنزلية"
+      humans: "لوحة الموارد البشرية"
       index: "لوحات"
       new: "لوحة تحكم جديدة"
       production: "لوحة أجهزة القياس إنتاج"
@@ -489,21 +490,37 @@ arb:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة تسديد الدفعة"
+      # show: "Disbursement mode: %{name}"
     backend/outgoing_payment_uses: #?
       new: "تسديد الشراء رقم%{number}" #?
     backend/outgoing_payments:
-      edit: "تعديل دفعة : %{number}"
-      index: "دفعات"
-      new: "اضافة دفعة"
-      show: "رقم الدفعة%{number} من اجل %{payee}"
+      # edit: "Edit disbursement: %{name}"
+      index: "المصروفات"
+      new: "صرف جديد"
+      # show: "Disbursement: %{name}"
     backend/parcels:
       # edit: "Edit %{nature} parcel: %{number}"
       index: "الطرود"
       new: "قطعة جديدة"
       ship: "الطرود سفينة"
       # show: "%{nature} parcel: %{number}"
+    backend/payslip_natures:
+      # edit: "Edit payslip nature: %{name}"
+      index: "الطبيعة بايسليب"
+      new: "طبيعة جديدة بايسليب"
+      # show: "Payslip nature: %{name}"
+    backend/payslip_payments:
+      # edit: "Edit payslip payment: %{number}"
+      index: "مدفوعات بايسليب"
+      new: "دفعة دفع جديدة"
+      # show: "Payslip payment: %{number}"
+    backend/payslips:
+      # edit: "Edit payslip: %{name}"
+      index: "كشوف"
+      new: "جديد قسيمة الدفع"
+      # show: "Payslip: %{number}"
     backend/plant_countings:
-      # edit: "Edit plant counting #%{number}"
+      # edit: "Edit plant counting: #%{number}"
       index: "فرزان"
       new: "العد الجديد"
       # show: "Plant counting #%{number}"
@@ -601,6 +618,11 @@ arb:
       index: "أنواع شراء"
       new: "نوع شراء جديدة"
       # show: "Purchase type: %{name}"
+    backend/purchase_payments:
+      edit: "تعديل دفعة : %{number}"
+      index: "دفعات"
+      new: "اضافة دفعة"
+      show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/purchases:
       abort: "إحباط"
       confirm: "تأكيد النظام والانتظار لتسليم"
@@ -801,7 +823,6 @@ arb:
     backend/operations: "اعمال" #?
     backend/outgoing_delivery_modes: "وسائل التسليم" #?
     backend/outgoing_payment_modes: "طرق تسديد الدفعات" #?
-    backend/outgoing_payments: "دفعات" #?
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
     backend/product_nature: "المنتجات" #?
@@ -812,6 +833,7 @@ arb:
     backend/production: "المنتج" #?
     backend/products: "المنتجات" #?
     backend/products_natures: "المنتجات" #?
+    backend/purchase_payments: "دفعات" #?
     backend/purchases: "المستريات" #?
     backend/relations: "العلاقات" #?
     backend/roles: "مهام" #?
@@ -995,12 +1017,15 @@ arb:
     add_outgoing_payment: "إضافة دفع المنتهية ولايته"
     add_participation: "إضافة مشاركة"
     add_payment: "اضافة دفعة"
+    add_payslip: "إضافة قسيمة دفع"
+    add_payslip_payment: "إضافة دفع قسيمة"
     add_phone: "إضافة رقم الهاتف"
     add_plant_density_abacus: "إضافة الجدول المرجعي كثافة بذر"
     add_point: "إضافة نقطة"
     add_polygon: "إضافة مضلع"
     add_production: "إضافة الانتاج"
     add_purchase: "إضافة شراء"
+    add_purchase_payment: "إضافة صرف"
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"
     add_reading: "إضافة قيمة للمؤشر"
@@ -1479,6 +1504,7 @@ arb:
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
     human_working_duration: "مدة العمل"
+    # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
     identification: "اسم ورمز المنتج"
     identifiers: "معرفات"
@@ -1887,6 +1913,8 @@ arb:
     payments_count: "عدد %{mode}"
     payments_number: "عدد الدفعات" #?
     payments_total: "جميع الدفعات" #?
+    payslip_number: "بايسليب #"
+    payslips: "كشوف"
     people: "الناس"
     percentage_by_calibration: "النسبة المئوية من المعايرة"
     period: "المدة المحددة مسبقا"
@@ -2693,6 +2721,7 @@ arb:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
+      the_bookkeep_date_format_is_invalid: "تنسيق تاريخ حجز الكتب غير صالح"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
@@ -2703,6 +2732,9 @@ arb:
       unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?
       update_is_done: "قد انجز اعداد التحديث"
       validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "يوجد مدخل واحد مشار اليه"
         other: "%{count} يوجد مدخلات اخرى مشار اليه"
@@ -2906,6 +2938,7 @@ arb:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/payslip_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
@@ -2913,5 +2946,6 @@ arb:
     # backend/product_nature_variants: "%{name} (%{unit_name})"
     # backend/product_natures: "%{name}"
     # backend/products: "%{work_number} %{name} (%{number})"
+    # backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     # backend/users: "%{first_name} %{last_name}"

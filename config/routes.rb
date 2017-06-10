@@ -125,7 +125,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy trade stocks production tools settings].each do |part|
+        %i[home relationship accountancy trade stocks production humans tools settings].each do |part|
           get part
         end
         get :sandbox
@@ -448,7 +448,7 @@ Rails.application.routes.draw do
         get :list_links
         get :list_purchases
         get :list_observations
-        get :list_outgoing_payments
+        get :list_purchase_payments
         get :list_outgoing_parcels
         get :list_sale_opportunities
         get :list_sales
@@ -662,7 +662,7 @@ Rails.application.routes.draw do
 
     resources :loans, concerns: %i[list unroll] do
       collection do
-        get :accounting
+        post :bookkeep
       end
 
       member do
@@ -715,8 +715,6 @@ Rails.application.routes.draw do
 
     resources :observations, except: %i[index show]
 
-    resources :outgoing_payments, concerns: %i[list unroll]
-
     resources :outgoing_payment_lists, only: %i[index show destroy new create], concerns: [:list] do
       member do
         get :list_payments
@@ -745,6 +743,19 @@ Rails.application.routes.draw do
         post :check
         post :give
         post :cancel
+      end
+    end
+
+    resources :payslip_affairs, concerns: %i[affairs list], only: %i[show index], path: 'payslip-affairs'
+
+    resources :payslip_natures, concerns: %i[list unroll], path: 'payslip-natures'
+
+    resources :payslip_payments, concerns: %i[list unroll], path: 'payslip-payments'
+
+    resources :payslips, concerns: %i[list unroll] do
+      member do
+        post :correct
+        post :invoice
       end
     end
 
@@ -817,7 +828,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :purchase_natures, concerns: %i[list unroll]
+    resources :purchase_natures, concerns: %i[list unroll], path: 'purchase-natures'
+
+    resources :purchase_payments, concerns: %i[list unroll], path: 'purchase-payments'
 
     resources :purchases, concerns: %i[list unroll] do
       member do

@@ -62,6 +62,8 @@ class Account < Ekylibre::Record::Base
   has_many :charges_categories,           class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
   has_many :purchase_items,               class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,                   class_name: 'SaleItem'
+  has_many :payslip_natures, dependent: :restrict_with_exception
+  has_many :payslips, dependent: :restrict_with_exception
   has_many :products_categories,          class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,            class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
   has_many :stocks_movement_categories,   class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id

@@ -35,7 +35,7 @@
 #
 class OutgoingPaymentList < Ekylibre::Record::Base
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
-  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
+  has_many :payments, class_name: 'PurchasePayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
   has_one :cash, through: :mode
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -112,9 +112,9 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   end
 
   def self.build_from_purchase_affairs(affairs, mode, responsible, initial_check_number = nil)
-    outgoing_payments = affairs.collect.with_index do |affair, index|
+    purchase_payments = affairs.collect.with_index do |affair, index|
       next if affair.third_credit_balance <= 0
-      OutgoingPayment.new(
+      PurchasePayment.new(
         affair: affair,
         amount: affair.third_credit_balance,
         cash: mode.cash,
@@ -129,13 +129,13 @@ class OutgoingPaymentList < Ekylibre::Record::Base
         position: index
       )
     end.compact
-    new(payments: outgoing_payments, mode: mode)
+    new(payments: purchase_payments, mode: mode)
   end
 
   def self.build_from_affairs(affairs, mode, responsible, initial_check_number = nil, ignore_empty_affair = false)
     thirds = affairs.map(&:third).uniq
     position = 0
-    outgoing_payments = thirds.map.with_index do |third|
+    purchase_payments = thirds.map.with_index do |third|
       third_affairs = affairs.select { |a| a.third == third }.sort_by(&:created_at)
       first_affair = third_affairs.first
       third_affairs.each_with_index do |affair, index|
@@ -143,7 +143,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
       end
       next if first_affair.balanced?
       next if ignore_empty_affair && first_affair.third_credit_balance <= 0
-      op = OutgoingPayment.new(
+      op = PurchasePayment.new(
         affair: first_affair,
         amount: first_affair.third_credit_balance,
         cash: mode.cash,
@@ -161,6 +161,6 @@ class OutgoingPaymentList < Ekylibre::Record::Base
       position += 1
       op
     end.compact
-    new(payments: outgoing_payments, mode: mode) unless outgoing_payments.empty?
+    new(payments: purchase_payments, mode: mode) unless purchase_payments.empty?
   end
 end

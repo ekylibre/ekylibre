@@ -115,7 +115,7 @@ class Entity < Ekylibre::Record::Base
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
-  has_many :outgoing_payments, foreign_key: :payee_id
+  has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
   has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },

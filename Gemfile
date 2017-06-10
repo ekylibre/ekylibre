@@ -44,7 +44,9 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
+gem 'redis-namespace' # Fix for missing dependency in skylight
 gem 'sentry-raven', require: false
+gem 'sidekiq-skylight'
 gem 'skylight'
 
 # Use jquery as the JavaScript library
@@ -95,7 +97,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.8.2' # , path: "../active_list"
+gem 'active_list', '>= 6.9.1' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
