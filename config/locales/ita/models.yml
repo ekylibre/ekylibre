@@ -16,6 +16,9 @@ ita:
         # filename: "File"
       document_template:
         managed: "Gestito dal sistema"
+      entity:
+        client_accounting_balance: "Saldo del conto cliente"
+        supplier_accounting_balance: "Saldo del conto del fornitore"
       equipment:
         born_at: "Mettere in servizio presso"
         dead_at: "Demolita a"
@@ -59,6 +62,9 @@ ita:
         seeding_density_value: "Previsto densità di semina"
       purchase:
         affair_balance: "Equilibrio"
+      purchase_payment: #?
+        delivered: "Dato al destinatario" #?
+        list: "Lista pagamento in uscita" #?
       sale:
         affair_balance: "Equilibrio"
         contact: "Indirizzo per la stima"
@@ -115,6 +121,7 @@ ita:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         other_than: "devono essere di numero diverso da %{count}" #?
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         present: "deve essere lasciato in bianco" #?
@@ -248,7 +255,7 @@ ita:
       animal: "Animale"
       animal_group: "gruppo di animali"
       attachment: "Allegati"
-      bank_guarantee_account: "Conto Garanzia bancaria"
+      bank_guarantee_account: "Conto Garanzia bancaria" #?
       bank_statement: "estratto conto bancario"
       bank_statement_item: "Fila estratto conto bancario"
       bioproduct: "vivere prodotto"
@@ -274,6 +281,7 @@ ita:
       custom_field: "Campo personalizzato"
       custom_field_choice: "scelta di campo personalizzato"
       dashboard: "Cruscotto"
+      debt_transfer: "Trasferimento del debito"
       delivery: "Consegna"
       delivery_tool: "strumento di consegna"
       deposit: "deposito"
@@ -281,6 +289,7 @@ ita:
       document: "Documento"
       document_template: "modello di documento"
       easement: "sollievo"
+      economic_situation: "Situazione economica"
       entity: "Entità"
       entity_address: "Indirizzo"
       entity_link: "Link Entity"
@@ -289,6 +298,7 @@ ita:
       event: "Evento"
       event_participation: "partecipazione Event"
       financial_year: "Anno finanziario"
+      financial_year_exchange: "Scambio anno finanziario"
       fixed_asset: "Assetto stabile"
       fixed_asset_depreciation: "deprezzamento capitale fisso"
       fungus: "Fungo"
@@ -305,9 +315,9 @@ ita:
       inspection: "classificazione del prodotto"
       inspection_calibration: "calibro di ispezione"
       inspection_point: "controllo di classificazione del prodotto"
-      insurance_account: "Conto assicurativo"
+      insurance_account: "Conto assicurativo" #?
       integration: "Integrazione"
-      interest_account: "Conto interessi"
+      interest_account: "Conto interessi" #?
       intervention: "Intervento"
       intervention_agent: "agente di intervento"
       intervention_doer: "intervento agente"
@@ -344,11 +354,15 @@ ita:
       net_service: "il servizio net"
       notification: "Notifica"
       observation: "Osservazione"
-      outgoing_payment: "sborso"
+      outgoing_payment: "Sborso"
       outgoing_payment_list: "Lista pagamento in uscita"
       outgoing_payment_mode: "modalità di erogazione"
       parcel: "pacco"
       parcel_item: "voce Parcel"
+      payslip: "Busta paga"
+      payslip_affair: "Affare Payslip"
+      payslip_nature: "Tipo Payslip"
+      payslip_payment: "Pagamento pagamenti"
       plant: "pianta"
       plant_counting: "conteggio delle piante"
       plant_counting_item: "ingresso conteggio delle piante"
@@ -381,6 +395,7 @@ ita:
       purchase_gap: "Gap Acquisto"
       purchase_item: "voce Acquisto"
       purchase_nature: "tipo di Acquisto"
+      purchase_payment: "sborso"
       regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
@@ -404,6 +419,7 @@ ita:
       tax: "Imposta"
       tax_declaration: "Dichiarazione dei redditi"
       tax_declaration_item: "Voce dichiarazione dei redditi"
+      tax_declaration_item_part: "Parte dell’articolo dichiarazione fiscale"
       team: "Squadra"
       token: "Gettone"
       tracking: "puntamento"
@@ -431,6 +447,7 @@ ita:
     accountable_repayments_started_on: "Rimborsi Accountable iniziato il"
     accountant: "Contabile"
     accounted_at: "rappresentato a"
+    accounting_balance: "Saldo contabile"
     accuracy: "Precisione"
     achieved_at: "raggiunto a"
     actions: "azioni"
@@ -551,6 +568,8 @@ ita:
     city_name: "Nome della città"
     client: "cliente"
     client_account: "Account cliente"
+    client_accounting_balance: "Saldo contabile client"
+    client_trade_balance: "Bilancia commerciale client"
     clients: "clienti"
     closed: "Chiuso"
     closed_at: "chiuso a"
@@ -645,6 +664,9 @@ ita:
     dead_line_at: "dead line a"
     deals_count: "contano offerte"
     debit: "Addebito"
+    debt_regularizations: "Regolarizzazioni di debito"
+    debt_transfer_affair: "Vicenda trasferimento del debito"
+    debt_transfers: "Trasferimenti di debito"
     debtor: "Debitore"
     decimal_value: "valore decimale"
     declarant: "dichiarante"
@@ -702,6 +724,7 @@ ita:
     due_at: "Grazie a"
     due_on: "Dovuto per"
     duration: "Durata"
+    economic_situation: "Situazione economica"
     email: "E-mail"
     emails: "Messaggi di posta elettronica"
     embedded: "inserito"
@@ -709,6 +732,7 @@ ita:
     emission_cash: "contanti Emission"
     emission_currency: "valuta di emissione"
     emission_journal_entry: "voce di diario di emissione"
+    emitted_on: "Emesso"
     employed: "occupato"
     employee: "Dipendente"
     employee_account: "Conto dei dipendenti"
@@ -820,6 +844,7 @@ ita:
     grading_sizes_unit: "unità di dimensioni di classificazione"
     grading_sizes_unit_name: "Grading dimensioni nome dell’unità"
     gradings: "classificazioni"
+    grains_yield: "Resa in granella"
     gravity: "Gravità"
     gross_items: "conteggio lordo" #?
     gross_items_count: "Contano articoli Gross"
@@ -1141,6 +1166,7 @@ ita:
     payment_mode_complement: "Modalità di pagamento del complemento"
     payments: "Pagamenti"
     payments_count: "contano Pagamenti"
+    payslips: "Buste paga"
     period: "Periodo"
     person: "Persona"
     phases: "fasi"
@@ -1229,13 +1255,14 @@ ita:
     provisional_intervention: "intervento provvisorio"
     purchasable: "acquistabile"
     purchase: "Acquista"
-    purchase_affair: "Acquisto vicenda"
+    purchase_affair: "Acquisto vicenda" #?
     purchase_affairs: "Affari di acquisto"
     purchase_amount: "Ammontare dell'acquisto"
     purchase_invoices: "fatture di acquisto"
     purchase_item: "voce Acquisto"
     purchase_items: "articoli di acquisto"
     purchase_natures: "Tipi di acquisto"
+    purchase_payments: "Pagamenti d’acquisto"
     purchase_taxations: "tassazioni acquisto"
     purchase_taxes: "tasse di acquisto"
     purchased_on: "acquistato su"
@@ -1423,10 +1450,12 @@ ita:
     supervision: "supervisione"
     supplier: "Fornitore"
     supplier_account: "conto del fornitore"
+    supplier_accounting_balance: "Saldo contabile Fornitore"
     supplier_address: "indirizzo del fornitore"
     supplier_payment_delay: "Fornitore ritardo di pagamento"
     supplier_payment_mode: "Modalità di pagamento del fornitore"
     supplier_payment_modes: "Modalità di pagamento del fornitore"
+    supplier_trade_balance: "Bilancia commerciale Fornitore"
     suppliers: "fornitori"
     support: "Supporto"
     support_nature: "tipo di Supporto"
@@ -1471,6 +1500,8 @@ ita:
     to: "A"
     to_bank_at: "Per bancari a"
     to_deposit: "Depositare"
+    to_pay_on_or_after: "Per pagare il o dopo il"
+    to_pay_on_or_before: "Per pagare entro il"
     token: "Gettone"
     tool: "Strumento"
     tools: "Utensili"
@@ -1480,6 +1511,7 @@ ita:
     town_number: "numero di Città"
     tracking: "puntamento"
     trackings: "tracking"
+    trade_balance: "Bilancia commerciale"
     transaction_number: "Numero di transazione"
     transfered_at: "trasferito a"
     transfered_on: "Trasferito su"
@@ -1750,6 +1782,11 @@ ita:
           prepared: "Preparato"
           received: "ricevuto"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Bozza"
+        invoice: "Fattura"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1800,6 +1837,9 @@ ita:
     purchase_nature:
       default:
         name: "acquisto standard"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Amministratore"
@@ -1871,6 +1911,7 @@ ita:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [anno | 4] [mese | 2] [numero | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

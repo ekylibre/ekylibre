@@ -112,6 +112,10 @@ arb:
         datetime: "التاريخ و الوقت"
         decimal: "عدد عشري"
         text: "نص"
+    debt_transfer:
+      nature:
+        purchase_regularization: "تنظيم شراء"
+        sale_regularization: "بيع تسوية"
     delivery:
       mode:
         third: "ثلث"
@@ -248,6 +252,7 @@ arb:
         fixed_assets: "أصول ثابتة"
         forward: "نفذت إلى الأمام"
         purchases: "مشتريات"
+        result: "نتيجة"
         sales: "مبيعات"
         stocks: "مخازن"
         various: "عمليات مختلفة"
@@ -444,10 +449,10 @@ arb:
       nature:
         payslip: "قسيمة الدفع"
         purchase: "شراء"
-    sale_item:
-      compute_from:
-        pretax_amount: "كمية قبل خصم الضرائب"
-        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "كمية قبل خصم الضرائب" #?
+        unit_pretax_amount: "وحدة الكمية قبل خصم الضرائب" #?
     sensor:
       retrieval_mode:
         integration: "دمج"
@@ -463,8 +468,10 @@ arb:
         affairs: "شؤون"
         analyses: "تحليلات"
         animals: "الحيوانات"
+        campaigns: "الحملات"
         cash_transfers: "التحويلات النقدية"
         contracts: "عقود"
+        debt_transfers: "نقل الديون"
         deliveries: "التسليم"
         deposits: "الودائع"
         documents: "وثائق"
@@ -479,6 +486,7 @@ arb:
         outgoing_payment_lists: "قوائم دفع المنتهية ولايته"
         outgoing_payments: "المدفوعات الصادرة"
         parcels: "الطرود"
+        plant_countings: "نباتات العد"
         plants: "النباتات"
         product_nature_categories: "فئات طبيعة المنتج"
         product_nature_variants: "المتغيرات طبيعة المنتج"
@@ -527,6 +535,10 @@ arb:
       nature: #?
         amount: "كمية" #?
         percentage: "نسبة مئوية" #?
+    tax_declaration:
+      mode:
+        debit: "مدين"
+        payment: "دفع"
     tracking:
       usage_limit_nature:
         best_before: "الافضل قبل الموعد"

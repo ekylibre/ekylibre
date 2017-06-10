@@ -112,6 +112,10 @@ deu:
         datetime: "Datum und Uhrzeit"
         decimal: "Dezimal"
         # text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Kauf Regularisierung"
+        sale_regularization: "Verkauf Regularisierung"
     delivery:
       mode:
         third: "Dritte"
@@ -249,6 +253,7 @@ deu:
         fixed_assets: "Anlagevermögen"
         forward: "Vorwärts getragen"
         purchases: "Käufe"
+        result: "Ergebnis"
         sales: "Der Umsatz"
         stocks: "Bestände"
         various: "verschiedene Operationen"
@@ -445,10 +450,10 @@ deu:
       nature:
         # payslip: "Payslip"
         purchase: "Kauf"
-    sale_item:
-      compute_from:
-        pretax_amount: "Vor Steuern in Höhe"
-        unit_pretax_amount: "Einheit vor Steuern Menge"
+    sale_item: #?
+      compute_from: #?
+        pretax_amount: "Vor Steuern in Höhe" #?
+        unit_pretax_amount: "Einheit vor Steuern Menge" #?
     sensor:
       retrieval_mode:
         # integration: "Integration"
@@ -464,8 +469,10 @@ deu:
         affairs: "Angelegenheiten"
         analyses: "Analysen"
         animals: "Tiere"
+        campaigns: "Kampagnen"
         cash_transfers: "Geldtransfers"
         contracts: "Verträge"
+        debt_transfers: "Schuldentransfers"
         deliveries: "Lieferungen"
         deposits: "Einlagen"
         documents: "Unterlagen"
@@ -480,6 +487,7 @@ deu:
         outgoing_payment_lists: "Abgehende Zahlungslisten"
         outgoing_payments: "Auszahlungen"
         # parcels: "Parcels"
+        plant_countings: "Pflanzenzählungen"
         plants: "Pflanzen"
         product_nature_categories: "Produkt Natur Kategorien"
         product_nature_variants: "Produktvarianten Natur"
@@ -527,6 +535,10 @@ deu:
       nature: #?
         amount: "Menge" #?
         percentage: "Prozentsatz" #?
+    tax_declaration:
+      mode:
+        debit: "Lastschrift"
+        payment: "Zahlung"
     tracking:
       usage_limit_nature:
         best_before: "Mindesthaltbarkeitsdatum"

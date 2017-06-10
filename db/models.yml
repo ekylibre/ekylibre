@@ -44,6 +44,7 @@
 - custom_field
 - custom_field_choice
 - dashboard
+- debt_transfer
 - delivery
 - delivery_tool
 - deposit
@@ -51,6 +52,7 @@
 - document
 - document_template
 - easement
+- economic_situation
 - entity
 - entity_address
 - entity_link
@@ -116,6 +118,10 @@
 - outgoing_payment_mode
 - parcel
 - parcel_item
+- payslip
+- payslip_affair
+- payslip_nature
+- payslip_payment
 - plant
 - plant_counting
 - plant_counting_item
@@ -148,6 +154,7 @@
 - purchase_gap
 - purchase_item
 - purchase_nature
+- purchase_payment
 - regularization
 - role
 - sale
@@ -171,6 +178,7 @@
 - tax
 - tax_declaration
 - tax_declaration_item
+- tax_declaration_item_part
 - team
 - token
 - tracking

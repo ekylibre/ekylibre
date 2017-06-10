@@ -24,7 +24,7 @@ module Backend
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-    def self.loans_conditions
+    def self.list_conditions
       code = ''
       code = search_conditions(loans: %i[name amount], cashes: [:bank_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
@@ -50,7 +50,7 @@ module Backend
       code.c
     end
 
-    list(conditions: loans_conditions, selectable: true) do |t|
+    list(conditions: list_conditions, selectable: true) do |t|
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
@@ -77,7 +77,7 @@ module Backend
 
     # Show a list of loans
     def index
-      @loans = Loan.all.reorder(:started_on)
+      @loans = Loan.reorder(:started_on).all
       # passing a parameter to Jasper for company full name and id
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
@@ -97,17 +97,17 @@ module Backend
       redirect_to action: :show, id: @loan.id
     end
 
-    def accounting
+    def bookkeep
       begin
-        date = Date.parse(params[:accounting_date])
+        bookkeep_until = Date.parse(params[:until])
       rescue
-        notify_error(:error_while_depreciating)
+        notify_error(:the_bookkeep_date_format_is_invalid)
         return redirect_to(params[:redirect] || { action: :index })
       end
+      loan_ids = params[:loan_ids].to_s.strip.split(/\s*\,\s*/).map(&:to_i)
 
-      loans_ids = JSON.parse(params[:loans_ids])
-      loan_repayments = LoanRepayment.accountable_repayments(loans_ids, date)
-      loan_repayments.find_each { |loan_repayment| loan_repayment.update(accountable: true) }
+      count = Loan.bookkeep_repayments(until: bookkeep_until, id: loan_ids)
+      notify_success(:x_loan_repayments_have_been_bookkept_successfully, count: count)
 
       redirect_to(params[:redirect] || { action: :index })
     end

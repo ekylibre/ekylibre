@@ -71,7 +71,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where('balance != ?', 0.0) }, foreign_key: :entry_id, class_name: 'JournalEntryItem'
   has_many :items, foreign_key: :entry_id, dependent: :delete_all, class_name: 'JournalEntryItem', inverse_of: :entry
-  has_many :outgoing_payments, dependent: :nullify
+  has_many :purchase_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
   has_many :regularizations, dependent: :nullify
@@ -257,6 +257,8 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   after_save do
+    # Item caching process also handled via a trigger in DB.
+    # See migration AddEntryDataSynchro if needed.
     JournalEntryItem.where(entry_id: id).update_all(
       state: self.state,
       journal_id: journal_id,

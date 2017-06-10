@@ -344,7 +344,7 @@ module Fixturing
       value = value.to_s
       value = if type == :float
                 value.to_f
-              elsif type == :geometry || type == :point || type == :multi_polygon
+              elsif type == :geometry || type == :st_point || type == :point || type == :multi_polygon
                 Charta.new_geometry(value).to_ewkt
               elsif type == :decimal
                 value.to_f
@@ -360,7 +360,7 @@ module Fixturing
                 JSON.parse(value)
               else
                 puts "Unknown type to parse in fixtures: #{type.inspect}".red unless %i[text string uuid].include?(type)
-                value =~ /\A\-\-\-(\s+|\z)/ ? YAML.safe_load(value, [ActionController::Parameters, ActiveSupport::HashWithIndifferentAccess, Symbol, Time, BigDecimal, RGeo::Geos::CAPIGeometryCollectionImpl, RGeo::Geos::CAPIFactory, RGeo::Geos::CAPIMultiPolygonImpl, OpenStruct, RGeo::Geos::CAPIPointImpl]) : value
+                value =~ /\A\-\-\-(\s+|\z)/ ? YAML.safe_load(value, [ActionController::Parameters, ActiveSupport::HashWithIndifferentAccess, Symbol, Time, BigDecimal, RGeo::Geos::CAPIGeometryCollectionImpl, RGeo::Geos::CAPIFactory, RGeo::Geos::CAPIMultiPolygonImpl, OpenStruct, RGeo::Geos::CAPIPointImpl, RGeo::Cartesian::MultiPolygonImpl, RGeo::Cartesian::Factory]) : value
               end
       value
     end

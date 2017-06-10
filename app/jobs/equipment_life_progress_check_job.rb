@@ -1,5 +1,5 @@
 class EquipmentLifeProgressCheckJob < ScheduleJob
-  queue_as :default
+  queue_as :low
 
   def perform_on_tenant
     alert_ratio = 0.85 # Ratio over 1, not 100%
