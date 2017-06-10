@@ -1,4 +1,3 @@
-
 ((E, $) ->
   'use strict'
 

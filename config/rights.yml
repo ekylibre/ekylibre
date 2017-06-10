@@ -1404,7 +1404,7 @@ loans:
     - "backend/loan_repayments#edit"
     - "backend/loan_repayments#new"
     - "backend/loan_repayments#update"
-    - "backend/loans#accounting"
+    - "backend/loans#bookkeep"
     - "backend/loans#confirm"
     - "backend/loans#create"
     - "backend/loans#destroy"

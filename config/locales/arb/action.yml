@@ -2721,6 +2721,7 @@ arb:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
+      the_bookkeep_date_format_is_invalid: "تنسيق تاريخ حجز الكتب غير صالح"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
@@ -2731,6 +2732,9 @@ arb:
       unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?
       update_is_done: "قد انجز اعداد التحديث"
       validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "يوجد مدخل واحد مشار اليه"
         other: "%{count} يوجد مدخلات اخرى مشار اليه"

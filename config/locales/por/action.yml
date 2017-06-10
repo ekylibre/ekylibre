@@ -2005,11 +2005,15 @@ por:
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "A rotulação automática não pode ser feito em contabilidade"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "A rotulação automática não pode ser feito em contabilidade porque muitas terços estão presentes"
+      the_bookkeep_date_format_is_invalid: "O formato da data do livro não é válido"
       the_sales_invoice_is_not_cancellable: "A factura de venda não é revogável"
       this_service_is_not_activated: "Este serviço não está ativado"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "A atualização foi feita"
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "Há uma entrada para apontar"
         # other: "There are %{count} entries to point"
