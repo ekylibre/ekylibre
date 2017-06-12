@@ -2,7 +2,7 @@
   - k.text
   - k.helper do
     %label= Plant.human_attribute_name(:variety)
-    = select_tag(:variety, options_for_select([[]] + Plant.uniq_variety, params[:variety]))
+    = select_tag(:variety, options_for_select([[]] + Plant.unique_varieties.map{ |v| [v.human_name, v.name.to_s] }.sort_by(&:first), params[:variety].to_s))
   - if Plant.where.not(born_at: nil).any?
     - k.helper do
       = plant_period_crit(label: Plant.human_attribute_name(:born_at), name: :born_at)
@@ -10,10 +10,12 @@
     - k.helper do
       = plant_period_crit(label: Plant.human_attribute_name(:dead_at), name: :dead_at)
   - k.helper do
-    %label= Plant.human_attribute_name(:net_surface_area)
-    %b#right-slider= '0' + ' ' + Nomen::Unit['hectare'].symbol
-    %input{ name: :area, 'data-slider-min': 0, 'data-slider-max': plants_max_area, 'data-provide': 'slider', 'data-slider-value': data_slider_value, 'data-slider-step': 0.1, 'data-slider-tooltip-split': true }
-    %b#left-slider= plants_max_area.to_s + ' ' + Nomen::Unit['hectare'].symbol
+    - max = plants_max_area.in_hectare.to_f.ceil.in_hectare
+    .range-slider
+      %label= Plant.human_attribute_name(:net_surface_area)
+      %span.range-minimum= 0.in_hectare.l(precision: 0)
+      %input{ name: :area, data: { slider: { min: 0, max: max.to_f.round, value: area_range_slider_value(max.to_f), step: 0.1, tooltip_split: true }, provide: 'slider' } }
+      %span.range-maximum= max.l(precision: 0)
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?

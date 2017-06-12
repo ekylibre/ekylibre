@@ -173,13 +173,12 @@ module Backend
     end
 
     def plants_max_area
-      max_area = Plant.pluck('ST_Area(ST_Transform(ST_GeomFromEWKB(initial_shape),2154))').max
-      magnitude = 1**(max_area.to_i.to_s.length - 2)
-      (max_area.to_i / magnitude + 1) * magnitude / 10_000
+      # FIXME: SRID can't be set in hard way like that. Use preference map_measure_srs
+      Plant.maximum('ST_Area(ST_Transform(ST_GeomFromEWKB(initial_shape), 2154))').to_f.in_square_meter
     end
 
-    def data_slider_value
-      params[:area].present? ? params[:area].split(',').map(&:to_i) : [0, plants_max_area]
+    def area_range_slider_value(maximum, minimum = 0)
+      params[:area].present? ? params[:area].split(',').map(&:to_i) : [minimum, maximum]
     end
   end
 end

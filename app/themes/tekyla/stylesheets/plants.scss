@@ -1,26 +1,28 @@
-#right-slider {
-  padding-right: 9px;
-}
+.range-slider {
+  .range-minimum, .range-maximum {
+    margin-left: $default-gap;
+    margin-right: $default-gap;
+    padding-left: $default-gap;
+    padding-right: $default-gap;
+  }
 
-#left-slider {
-  padding-left: 9px
-}
+  .slider.slider-horizontal {
+    width: $menu-width;
+  }
 
-.slider.slider-horizontal {
-  width: 240px;
-}
+  .slider-handle {
+    background-image: none;
+    @include background-active-gradient;
+  }
 
-.slider-handle {
-  background-image: none;
-  @include background-active-gradient;
-}
+  .slider-selection {
+    background: mix($caution-color, white, 30%);
+  }
 
-.slider-selection {
-  background: mix($caution-color, white, 30%);
-}
-
-.tooltip:hover {
-  &, & ~ .tooltip {
-    opacity: 0;
+  .tooltip:hover {
+    &, & ~ .tooltip {
+      opacity: 0;
+    }
   }
 }
+
