@@ -488,6 +488,18 @@ fra:
       new: "Nouveau colis"
       ship: "Expédier les colis"
       show: "Colis %{nature}\_: %{number}"
+    backend/receptions:
+      edit: "Modifier la réception\_: %{number}"
+      index: "Réceptions"
+      new: "Nouvelle réception"
+      ship: "Expédier la réception"
+      show: "Réception : %{number}"
+    backend/shipments:
+      edit: "Modifier l'expédition\_: %{number}"
+      index: "Expéditions"
+      new: "Nouvelle expédition"
+      ship: "Expédier la réception"
+      show: "Expédition : %{number}"
     backend/payslip_natures:
       edit: "Modifier le type de salaire\_: %{name}"
       index: "Types de salaires"
@@ -1654,9 +1666,11 @@ fra:
     new_family: "Nouvelle famille" #?
     new_financial_year_exchange: "Nouvel échange"
     new_group: "Nouveau troupeau"
+    new_shipment: "Nouvelle expédition"
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_incoming_payment: "Nouveau encaissement"
+    new_reception: "Nouvelle réception"
     new_inventory: "Nouvel inventaire"
     new_issue: "Nouvel incident"
     new_listing: "Nouvelle extraction"

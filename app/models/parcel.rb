@@ -75,7 +75,6 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :storage, class_name: 'Product'
   belongs_to :responsible, class_name: 'User'
   belongs_to :transporter, class_name: 'Entity'
-  belongs_to :contract
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items
   has_many :issues, as: :target

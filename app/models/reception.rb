@@ -63,6 +63,7 @@
 class Reception < Parcel
   belongs_to :sender, class_name: 'Entity'
   belongs_to :purchase, inverse_of: :parcels
+  belongs_to :contract
   validates :sender, presence: true
   validates :storage, presence: true
 	before_save do

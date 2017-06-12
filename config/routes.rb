@@ -125,7 +125,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy sales purchases stocks production tools settings].each do |part|
+        %i[home relationship accountancy sales purchases stocks production humans tools settings].each do |part|
           get part
         end
         get :sandbox
@@ -749,7 +749,7 @@ Rails.application.routes.draw do
     resources :receptions, concerns: %i[list unroll] do
       member do
         post :invoice
-        get :list_incoming_items
+        get :list_items
         post :ship
 
         post :order
@@ -760,7 +760,19 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :shipments, concerns: %i[list unroll]
+    resources :shipments, concerns: %i[list unroll] do
+      member do
+        post :invoice
+        get :list_items
+        post :ship
+
+        post :order
+        post :prepare
+        post :check
+        post :give
+        post :cancel
+      end
+    end
 
     resources :payslip_affairs, concerns: %i[affairs list], only: %i[show index], path: 'payslip-affairs'
 

@@ -23,7 +23,7 @@ module Backend
 
     unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
-    def self.purchase_orders_conditions
+    def self.list_conditions
       code = ''
       code = search_conditions(purchase_order: %i[number reference_number supplier created_at pretax_amount], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
@@ -49,7 +49,7 @@ module Backend
       code.c
     end
 
-    list(conditions: purchase_orders_conditions, joins: :supplier, order: { created_at: :desc, number: :desc }) do |t|
+    list(conditions: list_conditions, joins: :supplier, order: { created_at: :desc, number: :desc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :number, url: :true
