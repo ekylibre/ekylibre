@@ -1,3 +1,5 @@
+require 'ffaker'
+
 FactoryGirl.define do
   factory :entity do
     active true
