@@ -2,9 +2,8 @@ language: ruby
 bundler_args: --full-index --without development
 cache: bundler
 rvm:
-  - 2.2.3
-  - 2.2.7
-  - 2.3.4
+  - 2.2.6
+  - 2.3.3
 env:
   - TEST_SUITE=libs
   - TEST_SUITE=models
