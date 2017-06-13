@@ -2301,7 +2301,7 @@ spa:
         one: "Hay escritura a puntar" #?
         other: "hay %{number} escrituras a puntar" #?
       x_unpointed_journal_entry_items:
-        one: "Hay una entrada para señalar"
+        # one: "There is %{count} entry to point"
         # other: "There are %{count} entries to point"
       you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?
