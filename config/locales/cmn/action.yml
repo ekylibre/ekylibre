@@ -1029,7 +1029,7 @@ cmn:
     edit: "编辑"
     edit_budget: "编辑预算"
     # ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "经过干预倍活动" #?
+    elapsed_interventions_times_by_activities: "经过干预倍活动"
     email: "电子邮件："
     emissions_and_reevaluation_gaps: "排放和再评价差距"
     employee_and_wages: "员工工资"
