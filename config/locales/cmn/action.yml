@@ -3,9 +3,10 @@ cmn:
     authentication/invitations:
       edit: "接受邀请"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "新密码"
       new: "新密码"
     authentication/registrations:
+      edit: "注册"
       new: "注册"
     authentication/sessions:
       destroy: "登出"

@@ -3,9 +3,10 @@ spa:
     authentication/invitations:
       edit: "Aceptar la invitacion"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Nueva contraseña"
       new: "Nueva contraseña"
     authentication/registrations:
+      edit: "Regístrate"
       new: "Regístrate"
     authentication/sessions:
       destroy: "Cerrar sesión"

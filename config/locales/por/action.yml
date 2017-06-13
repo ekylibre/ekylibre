@@ -6,6 +6,7 @@ por:
       edit: "Editar senha: %{name}"
       new: "Nova senha"
     authentication/registrations:
+      edit: "Inscrever-se"
       new: "Inscrever-se"
     authentication/sessions:
       destroy: "Sair"

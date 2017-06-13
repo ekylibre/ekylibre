@@ -3,9 +3,10 @@ jpn:
     authentication/invitations:
       edit: "招待に応じます"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "新しいパスワード"
       new: "新しいパスワード"
     authentication/registrations:
+      edit: "サインアップ"
       new: "サインアップ"
     authentication/sessions:
       destroy: "ログアウト"

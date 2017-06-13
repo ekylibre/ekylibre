@@ -3,9 +3,10 @@ arb:
     authentication/invitations:
       edit: "قبول دعوة"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "كلمة السر الجديدة"
       new: "كلمة السر الجديدة"
     authentication/registrations:
+      edit: "سجل"
       new: "سجل"
     authentication/sessions:
       destroy: "الخروج"

@@ -3,9 +3,10 @@ deu:
     authentication/invitations:
       edit: "Die Einladung annehmen"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Neues Kennwort"
       new: "Neues Kennwort"
     authentication/registrations:
+      edit: "Anmelden"
       new: "Anmelden"
     authentication/sessions:
       destroy: "Ausloggen"
