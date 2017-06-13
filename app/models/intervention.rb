@@ -52,7 +52,8 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  include PeriodicCalculable, CastGroupable
+  include CastGroupable
+  include PeriodicCalculable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency

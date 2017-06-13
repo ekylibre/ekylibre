@@ -233,6 +233,11 @@ class Journal < Ekylibre::Record::Base
     end
   end
 
+  def writable_on?(printed_on)
+    printed_on > self.closed_on &&
+      FinancialYearExchange.where('? BETWEEN started_on AND stopped_on', printed_on).empty?
+  end
+
   # Test if journal is closable
   def closable?(new_closed_on = nil)
     new_closed_on ||= (Time.zone.today << 1).end_of_month
@@ -478,6 +483,6 @@ class Journal < Ekylibre::Record::Base
       items += conn.select_rows(query)
     end
 
-    items.sort { |a, b| a[5] <=> b[5] }
+    items.sort_by { |a| a[5] }
   end
 end

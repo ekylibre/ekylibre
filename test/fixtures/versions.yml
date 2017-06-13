@@ -15446,3 +15446,214 @@ versions_279:
     team_id:
     member_variant_id:
   item_type: Product
+versions_280:
+  created_at: 2017-06-07 16:11:29.413513000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 317
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    description:
+    siret_number:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Yui IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_id: 12
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 12
+    nature: contact
+    last_name: IKARI
+    first_name: Yui
+    number: P00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-03 16:56:06.570291000 Z
+    creator_id: 1
+    title: Mme
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: Mme Yui IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_281:
+  created_at: 2017-06-07 16:12:21.292171000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 318
+  item_id: 9
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    nature: contact
+    last_name: IKARI
+    first_name: Gendo
+    number: '193'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 671
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Gendo IKARI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity
+versions_282:
+  created_at: 2017-06-07 16:14:00.024592000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 319
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    type: Person
+    nature: sir
+    description:
+    siren: ''
+    siret_number: ''
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Kozo FUYUTSUKI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_id: 10
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    nature: contact
+    last_name: FUYUTSUKI
+    first_name: Kōzō
+    number: '194'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 210
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description: ''
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+    employee: true
+    employee_account_id:
+    codes:
+    supplier_payment_delay: 30 days
+    bank_account_holder_name: M. Kozo FUYUTSUKI
+    bank_identifier_code: ''
+    iban: ''
+    supplier_payment_mode_id:
+  item_type: Entity

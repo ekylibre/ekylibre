@@ -5,7 +5,7 @@
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :number
-    - l.attribute :amount
+    - l.attribute :amount, currency: true
     - l.attribute :payee, label: :full_name, url: true
     - l.attribute :responsible, label: :label
     - l.attribute :mode
@@ -17,4 +17,4 @@
 
 = cobbles do |c|
   - c.cobble :affair do
-    = affair_of(resource, default: 'Purchase')
+    = affair_of(resource)
