@@ -2,7 +2,6 @@ language: ruby
 bundler_args: --full-index --without development
 cache: bundler
 rvm:
-  - 2.2.3
   - 2.2.7
   - 2.3.4
 env:
@@ -17,3 +16,8 @@ services:
   - redis-server
 notifications:
   webhooks: https://coveralls.io/webhook?repo_token=COVERALLS_REPO_TOKEN
+
+addons:
+  apt:
+    packages:
+      - libqtwebkit-dev

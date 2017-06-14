@@ -3,9 +3,10 @@ deu:
     authentication/invitations:
       edit: "Die Einladung annehmen"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Neues Kennwort"
       new: "Neues Kennwort"
     authentication/registrations:
+      edit: "Anmelden"
       new: "Anmelden"
     authentication/sessions:
       destroy: "Ausloggen"
@@ -1029,7 +1030,7 @@ deu:
     edit: "Bearbeiten"
     edit_budget: "Bearbeiten Budget"
     ekylibre: "Www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Abgelaufene Interventionen Zeiten von Aktivitäten" #?
+    elapsed_interventions_times_by_activities: "Abgelaufene Interventionen Zeiten von Aktivitäten"
     # email: "Email:"
     emissions_and_reevaluation_gaps: "Emissionen und Umwertung Lücken"
     employee_and_wages: "Mitarbeiter und Löhne"
@@ -2010,7 +2011,7 @@ deu:
         # one: "%{count} loan repayment has been bookkept successfully"
         # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
-        one: "Es gibt einen Eintrag hinzuweisen"
+        # one: "There is %{count} entry to point"
         # other: "There are %{count} entries to point"
       you_must_have_an_email_column: "Sie müssen eine E-Mail-Adresse in Ihrem Extraktion haben"
       you_need_to_review_your_application_configuration: "Sie müssen Ihre Anwendungskonfiguration zu überprüfen"

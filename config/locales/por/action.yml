@@ -6,6 +6,7 @@ por:
       edit: "Editar senha: %{name}"
       new: "Nova senha"
     authentication/registrations:
+      edit: "Inscrever-se"
       new: "Inscrever-se"
     authentication/sessions:
       destroy: "Sair"
@@ -1034,7 +1035,7 @@ por:
     edit: "Editar"
     edit_budget: "Editar orçamento"
     ekylibre: "Www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Intervenções decorreram vezes por actividades" #?
+    elapsed_interventions_times_by_activities: "Intervenções decorreram vezes por actividades"
     email: "O email:"
     emissions_and_reevaluation_gaps: "Emissões e lacunas de reavaliação"
     employee_and_wages: "Empregado e salários"
