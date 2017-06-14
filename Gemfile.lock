@@ -555,7 +555,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-xml_parser
-  active_list (>= 6.9.1)
+  active_list (>= 6.9.2)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
@@ -579,7 +579,7 @@ DEPENDENCIES
   charlock_holmes
   cocoon
   codacy-coverage
-  code_string
+  code_string (>= 0.0.1)
   coffee-rails (~> 4.1)
   colored
   coveralls (>= 0.6)
