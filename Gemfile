@@ -211,7 +211,8 @@ group :development, :test do
   gem 'teaspoon-jasmine'
 
   # Exception message tips
-  gem 'did_you_mean', '~> 0.9'
+
+  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
 group :test do
