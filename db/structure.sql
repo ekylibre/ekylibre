@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -845,7 +845,7 @@ ALTER SEQUENCE activity_tactics_id_seq OWNED BY activity_tactics.id;
 
 CREATE TABLE affairs (
     id integer NOT NULL,
-    number character varying NOT NULL,
+    number character varying,
     closed boolean DEFAULT false NOT NULL,
     closed_at timestamp without time zone,
     third_id integer NOT NULL,
@@ -17850,4 +17850,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170415141801');
 INSERT INTO schema_migrations (version) VALUES ('20170415163650');
 
 INSERT INTO schema_migrations (version) VALUES ('20170421131536');
+
+INSERT INTO schema_migrations (version) VALUES ('20170614145302');
 
