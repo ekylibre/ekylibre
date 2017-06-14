@@ -16,6 +16,9 @@ cmn:
         filename: "文件"
       document_template:
         managed: "由系统管理"
+      entity:
+        client_accounting_balance: "客户账户余额"
+        supplier_accounting_balance: "供应商账户余额"
       equipment:
         born_at: "把服务于"
         dead_at: "在瞎折腾"
@@ -37,7 +40,7 @@ cmn:
         ongoing_at: "筹款的"
         started_on: "第一还款开始"
       outgoing_payment:
-        delivered: "给收件人"
+        delivered: "给予收件人"
         list: "付款清单"
       outgoing_payment_list:
         payments_sum: "总"
@@ -59,6 +62,9 @@ cmn:
         seeding_density_value: "预计播种密度"
       purchase:
         affair_balance: "平衡"
+      purchase_payment: #?
+        delivered: "给收件人" #?
+        list: "付款清单" #?
       sale:
         affair_balance: "平衡"
         contact: "为估算地址"
@@ -113,6 +119,7 @@ cmn:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -136,7 +143,7 @@ cmn:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -217,7 +224,7 @@ cmn:
       animal: "动物"
       animal_group: "动物群"
       attachment: "附件"
-      bank_guarantee_account: "银行保证金台帐"
+      bank_guarantee_account: "银行保证金台帐" #?
       bank_statement: "银行对帐单"
       bank_statement_item: "银行对账单行"
       bioproduct: "生活产品"
@@ -243,6 +250,7 @@ cmn:
       custom_field: "自定义字段"
       custom_field_choice: "自定义字段选择"
       dashboard: "仪表盘"
+      debt_transfer: "债权转让"
       delivery: "交货"
       delivery_tool: "交付工具"
       deposit: "存款"
@@ -250,6 +258,7 @@ cmn:
       document: "文件"
       document_template: "文档模板"
       easement: "缓和"
+      economic_situation: "经济情况"
       entity: "实体"
       entity_address: "地址"
       entity_link: "实体链接"
@@ -258,6 +267,7 @@ cmn:
       event: "事件"
       event_participation: "活动参与"
       financial_year: "财政年度"
+      financial_year_exchange: "财政年度交换"
       fixed_asset: "固定资产"
       fixed_asset_depreciation: "固定资产折旧"
       fungus: "菌"
@@ -274,9 +284,9 @@ cmn:
       inspection: "产品分级"
       inspection_calibration: "检验口径"
       inspection_point: "产品分级检查"
-      insurance_account: "险账户"
+      insurance_account: "险账户" #?
       integration: "积分"
-      interest_account: "利息账户"
+      interest_account: "利息账户" #?
       intervention: "介入"
       intervention_agent: "干预剂"
       intervention_doer: "干预实干家"
@@ -318,6 +328,10 @@ cmn:
       outgoing_payment_mode: "支付方式"
       parcel: "包"
       parcel_item: "地块项目"
+      payslip: "工资单"
+      payslip_affair: "Payslip事件"
+      payslip_nature: "Payslip型"
+      payslip_payment: "支付费用"
       plant: "厂"
       plant_counting: "植物计数"
       plant_counting_item: "工厂数项"
@@ -350,6 +364,7 @@ cmn:
       purchase_gap: "采购差距"
       purchase_item: "采购项目"
       purchase_nature: "购买类型"
+      purchase_payment: "支出"
       regularization: "正则"
       role: "角色"
       sale: "拍卖"
@@ -373,6 +388,7 @@ cmn:
       tax: "税"
       tax_declaration: "纳税申报"
       tax_declaration_item: "纳税申报项目"
+      tax_declaration_item_part: "税务申报部分"
       team: "球队"
       token: "象征"
       tracking: "跟踪"
@@ -400,6 +416,7 @@ cmn:
     accountable_repayments_started_on: "负责还款开始"
     accountant: "会计"
     accounted_at: "在占"
+    accounting_balance: "会计平衡"
     accuracy: "准确性"
     achieved_at: "在实现"
     actions: "操作"
@@ -520,6 +537,8 @@ cmn:
     city_name: "城市名"
     client: "客户"
     client_account: "客户帐户"
+    client_accounting_balance: "客户会计平衡"
+    client_trade_balance: "客户贸易平衡"
     clients: "客户端"
     closed: "关闭"
     closed_at: "在关闭"
@@ -614,6 +633,9 @@ cmn:
     dead_line_at: "在死亡线"
     deals_count: "算上优惠"
     debit: "借方"
+    debt_regularizations: "债务正则化"
+    debt_transfer_affair: "债权转让的事"
+    debt_transfers: "债务转移"
     debtor: "债务人"
     decimal_value: "十进制值"
     declarant: "报关员"
@@ -671,6 +693,7 @@ cmn:
     due_at: "由于在"
     due_on: "由于上"
     duration: "为期"
+    economic_situation: "经济情况"
     email: "电子邮件"
     emails: "电子邮件"
     embedded: "嵌入式"
@@ -678,6 +701,7 @@ cmn:
     emission_cash: "发射现金"
     emission_currency: "发射货币"
     emission_journal_entry: "发射日记帐分录"
+    emitted_on: "发射"
     employed: "就业"
     employee: "雇员"
     employee_account: "员工帐户"
@@ -789,6 +813,7 @@ cmn:
     grading_sizes_unit: "分级尺寸单元"
     grading_sizes_unit_name: "分级尺寸单位名称"
     gradings: "放坡"
+    grains_yield: "粮食产量"
     gravity: "重力"
     gross_items: "格罗斯计数" #?
     gross_items_count: "总项目数"
@@ -1110,6 +1135,7 @@ cmn:
     payment_mode_complement: "付款方式补充"
     payments: "支付"
     payments_count: "算上付款"
+    payslips: "工资单"
     period: "期"
     person: "人"
     phases: "相"
@@ -1198,13 +1224,14 @@ cmn:
     provisional_intervention: "临时干预"
     purchasable: "购买"
     purchase: "采购"
-    purchase_affair: "购买外遇"
+    purchase_affair: "购买外遇" #?
     purchase_affairs: "采购事务"
     purchase_amount: "购买量"
     purchase_invoices: "购买发票"
     purchase_item: "采购项目"
     purchase_items: "购买物品"
     purchase_natures: "购买类型"
+    purchase_payments: "购买付款"
     purchase_taxations: "购买税费"
     purchase_taxes: "购置税"
     purchased_on: "购买了"
@@ -1392,10 +1419,12 @@ cmn:
     supervision: "监督"
     supplier: "供应商"
     supplier_account: "供应商帐户"
+    supplier_accounting_balance: "供应商的会计平衡"
     supplier_address: "供应商地址"
     supplier_payment_delay: "供应商延期支付"
     supplier_payment_mode: "供应商支付模式"
     supplier_payment_modes: "供应商的付款方式"
+    supplier_trade_balance: "供应商贸易平衡"
     suppliers: "供应商"
     support: "支持"
     support_nature: "支持类型"
@@ -1440,6 +1469,8 @@ cmn:
     to: "至"
     to_bank_at: "在银行"
     to_deposit: "存款"
+    to_pay_on_or_after: "支付日或之后"
+    to_pay_on_or_before: "支付日或之前"
     token: "象征"
     tool: "工具"
     tools: "工具"
@@ -1449,6 +1480,7 @@ cmn:
     town_number: "镇号"
     tracking: "跟踪"
     trackings: "漏电痕迹"
+    trade_balance: "贸易平衡"
     transaction_number: "交易号"
     transfered_at: "在转移"
     transfered_on: "在转移"
@@ -1719,6 +1751,11 @@ cmn:
           prepared: "准备"
           received: "收到"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "草案"
+        invoice: "发票"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1769,6 +1806,9 @@ cmn:
     purchase_nature:
       default:
         name: "标准购买"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "管理员"
@@ -1840,6 +1880,7 @@ cmn:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [一年| 4] [本月| 2] [数字| 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

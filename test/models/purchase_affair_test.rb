@@ -66,7 +66,7 @@ class PurchaseAffairTest < ActiveSupport::TestCase
   test 'balancing with payment' do
     purchase = new_valid_purchases_invoice
 
-    payment = OutgoingPayment.create!(
+    payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount,
       to_bank_at: Time.zone.now,
@@ -99,7 +99,7 @@ class PurchaseAffairTest < ActiveSupport::TestCase
   test 'balancing with payment and a loss gap' do
     purchase = new_valid_purchases_invoice
 
-    payment = OutgoingPayment.create!(
+    payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount + 5,
       to_bank_at: Time.zone.now,
@@ -190,7 +190,11 @@ class PurchaseAffairTest < ActiveSupport::TestCase
     assert !purchase.affair.multi_thirds?
     assert !purchase.affair.journal_entry_items_already_lettered?
 
-    assert !purchase.affair.letterable?
+    # REVIEW: This should be confirmed by someone.
+    # Test changed by @aquaj because it seems to be the desired behaviour
+    # after @lcoq's modifications in code.
+    # Can @burisu or @ionosphere confirm ?
+    assert purchase.affair.letterable?
     purchase
   end
 end

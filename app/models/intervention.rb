@@ -52,7 +52,8 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  include PeriodicCalculable, CastGroupable
+  include CastGroupable
+  include PeriodicCalculable
   include Customizable
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -321,7 +322,7 @@ class Intervention < Ekylibre::Record::Base
       write_parameter_entry_items = lambda do |parameter, input|
         variant      = parameter.variant
         stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
-        next unless parameter.product_movement && stock_amount.nonzero?
+        next unless parameter.product_movement && stock_amount.nonzero? && variant.storable?
         label = tc(:bookkeep, resource: name, name: parameter.product.name)
         debit_account   = input ? variant.stock_movement_account_id : variant.stock_account_id
         credit_account  = input ? variant.stock_account_id : variant.stock_movement_account_id

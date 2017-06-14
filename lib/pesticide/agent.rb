@@ -14,7 +14,7 @@ module Pesticide
       end
 
       def find(id, _options = {})
-        return nil unless all[id]
+        return Unknown unless all[id]
         @data[id] = new(all[id].merge(number: id)) unless all[id].is_a?(Pesticide::Agent)
         all[id]
       end
@@ -34,5 +34,7 @@ module Pesticide
                 end
       @attributes = attributes
     end
+
+    Unknown = Struct.new('UnknownAgent', :risks).new([nil])
   end
 end

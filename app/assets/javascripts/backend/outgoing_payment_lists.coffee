@@ -15,6 +15,11 @@
       $target.val ''
       $el.data('outgoing-payment-selected-amount', 0)
 
+    if $parent.find('[data-outgoing-payment-purchase-affair-selector]:checked').length > 0
+      $parent.parents('table').find('.warning#unbalanced-entity').show()
+    else
+      $parent.parents('table').find('.warning#unbalanced-entity').hide()
+
     # recalculate items for current third
     $third = $el.closest('[data-outgoing-payment-third]')
     $affairs = $third.find('[data-outgoing-payment-selected-amount]')

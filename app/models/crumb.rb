@@ -26,7 +26,7 @@
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  device_uid                    :string           not null
-#  geolocation                   :geometry({:srid=>4326, :type=>"point"}) not null
+#  geolocation                   :geometry({:srid=>4326, :type=>"st_point"}) not null
 #  id                            :integer          not null, primary key
 #  intervention_parameter_id     :integer
 #  intervention_participation_id :integer

@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
+
+# Security fix for mail
+gem 'mail', '~> 2.6.6.rc1'
 
 # Database adapters
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
@@ -18,7 +21,7 @@ gem 'possibly'
 
 # Code manipulation
 gem 'charlock_holmes'
-gem 'code_string'
+gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
 
@@ -38,6 +41,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
+
+# Exception analysis and metrics
+gem 'binding_of_caller'
+gem 'redis-namespace' # Fix for missing dependency in skylight
+gem 'sentry-raven', require: false
+gem 'sidekiq-skylight'
+gem 'skylight'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -70,7 +80,7 @@ gem 'timecop'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '>= 4.0'
+gem 'sidekiq', '~> 4.0'
 gem 'sidekiq-cron', '>= 0.4.0'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
@@ -87,7 +97,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.8.2' # , path: "../active_list"
+gem 'active_list', '>= 6.9.2' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -139,7 +149,7 @@ gem 'beardley-open_sans'
 gem 'beardley-xml'
 
 # Import/Export
-gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
+gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
@@ -173,12 +183,14 @@ gem 'savon'
 gem 'luhn'
 
 group :development do
+  gem 'bullet'
+
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
   # Code metrics
   gem 'rails_best_practices', require: false
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.49.1', require: false
 
   # Webservers
   gem 'thin'
@@ -197,6 +209,10 @@ group :development, :test do
   gem 'pry-inline'
   gem 'pry-rails'
   gem 'teaspoon-jasmine'
+
+  # Exception message tips
+
+  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
 group :test do

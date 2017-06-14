@@ -112,6 +112,10 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
+    debt_transfer:
+      nature:
+        purchase_regularization: "Purchase regularization"
+        sale_regularization: "Sale regularization"
     delivery:
       mode:
         third: "Third"
@@ -238,6 +242,7 @@ eng:
         fixed_assets: "Fixed assets"
         forward: "Carried-forward"
         purchases: "Purchases"
+        result: "Result"
         sales: "Sales"
         stocks: "Stocks"
         various: "Various operations"
@@ -439,8 +444,8 @@ eng:
     sale_item:
       compute_from:
         # amount: "Amount"
-        pretax_amount: "Pretax amount"
-        unit_pretax_amount: "Unit pretax amount"
+        # pretax_amount: "Pretax amount"
+        # unit_pretax_amount: "Unit pretax amount"
     sensor:
       retrieval_mode:
         integration: "Integration"
@@ -456,9 +461,10 @@ eng:
         affairs: "Affairs"
         analyses: "Analyses"
         animals: "Animals"
-        # campaigns: "Campaigns"
+        campaigns: "Campaigns"
         cash_transfers: "Cash transfers"
         contracts: "Contracts"
+        debt_transfers: "Debt transfers"
         deliveries: "Deliveries"
         deposits: "Deposits"
         documents: "Documents"
@@ -473,7 +479,8 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
-        # plant_countings: "Plant countings"
+        # payslips: "Payslips"
+        plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Product nature categories"
         product_nature_variants: "Product nature variants"
@@ -509,8 +516,14 @@ eng:
         todo: "Todo"
     tax_declaration:
       mode:
-        # debit: "Debit"
-        # payment: "Payment"
+        debit: "Debit"
+        payment: "Payment"
+    tax_declaration_item_part:
+      direction:
+        # collected: "Collected"
+        # deductible: "Deductible"
+        # fixed_asset_deductible: "Fixed asset deductible"
+        # intracommunity_payable: "Intracommunity payable"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"
