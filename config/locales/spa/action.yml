@@ -3,9 +3,10 @@ spa:
     authentication/invitations:
       edit: "Aceptar la invitacion"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Nueva contraseña"
       new: "Nueva contraseña"
     authentication/registrations:
+      edit: "Regístrate"
       new: "Regístrate"
     authentication/sessions:
       destroy: "Cerrar sesión"
@@ -1143,7 +1144,7 @@ spa:
     edit: "Editar"
     edit_budget: "Editar presupuesto"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
+    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # email: "Email:"
     emissions_and_reevaluation_gaps: "Emisiones y lagunas de reevaluación"
     employee_and_wages: "Los empleados y los salarios"
@@ -2301,7 +2302,7 @@ spa:
         one: "Hay escritura a puntar" #?
         other: "hay %{number} escrituras a puntar" #?
       x_unpointed_journal_entry_items:
-        one: "Hay una entrada para señalar"
+        # one: "There is %{count} entry to point"
         # other: "There are %{count} entries to point"
       you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?

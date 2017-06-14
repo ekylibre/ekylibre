@@ -8,11 +8,11 @@ eng:
       # failure: "Failure omniauth callback: %{name}"
       # passthru: "Passthru omniauth callback: %{name}"
     authentication/passwords:
-      edit: "Edit password: %{name}"
+      edit: "New password"
       new: "New password"
     authentication/registrations:
       # cancel: "Cancel registration: %{name}"
-      # edit: "Edit registration: %{name}"
+      edit: "Sign up"
       new: "Sign up"
     authentication/sessions:
       destroy: "Log out" #?
@@ -1269,6 +1269,7 @@ eng:
     edit: "Edit"
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
+    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
     emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
     employee_and_wages: "Employee and wages" #?!

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
@@ -211,7 +211,8 @@ group :development, :test do
   gem 'teaspoon-jasmine'
 
   # Exception message tips
-  gem 'did_you_mean', '~> 0.9'
+
+  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
 group :test do
