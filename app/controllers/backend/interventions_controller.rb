@@ -381,6 +381,23 @@ module Backend
       redirect_to_back
     end
 
+    # FIXME Not linked directly to interventions
+    def change_page
+      options = params.require(:interventions_taskboard).permit(:q, :procedure_name, :product_id, :cultivable_zone_id, :period_interval, :period, :page)
+      options[:period_interval] ||= current_period_interval
+      options[:period] ||= current_period
+
+      @interventions_by_state = {
+        requests:  Intervention.with_unroll(options.merge(nature: :request)),
+        current:   Intervention.with_unroll(options.merge(nature: :record, state: :in_progress)),
+        finished:  Intervention.with_unroll(options.merge(nature: :record, state: :done)),
+        validated: Intervention.with_unroll(options.merge(nature: :record, state: :validated))
+      }
+      respond_to do |format|
+        format.js
+      end
+    end
+
     private
 
     def find_interventions

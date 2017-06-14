@@ -576,6 +576,7 @@ Rails.application.routes.draw do
         patch :compute
         get :modal
         post :change_state
+        get :change_page
       end
       member do
         post :sell
