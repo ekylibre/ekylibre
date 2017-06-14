@@ -94,6 +94,9 @@ GEM
       momentjs-rails (>= 2.8.1)
     browser (2.4.0)
     builder (3.2.3)
+    bullet (5.5.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
     byebug (9.0.6)
     capybara (2.13.0)
@@ -533,6 +536,7 @@ GEM
     unicorn (5.3.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    uniform_notifier (1.10.0)
     uuidtools (2.1.5)
     warden (1.2.7)
       rack (>= 1.0)
@@ -570,6 +574,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1)
   bootstrap3-datetimepicker-rails
   browser
+  bullet
   capybara
   capybara-webkit
   charlock_holmes
