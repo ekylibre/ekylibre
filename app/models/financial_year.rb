@@ -250,72 +250,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # When a financial year is closed,.all the matching journals are closed too.
   def close(to_close_on = nil, options = {})
-    return false unless closable?
-
-    to_close_on ||= options[:to_close_on] || stopped_on
-
-    # Check closeability of journals
-    unclosables = Journal.where('closed_on < ?', to_close_on).reject do |journal|
-      journal.closable?(to_close_on)
-    end
-    if unclosables.any?
-      raise "Some journals cannot be closed on #{to_close_on}: " + unclosables.map(&:name).to_sentence(locale: :eng)
-    end
-
-    result_journal = options[:result_journal] || Journal.find_by(id: options[:result_journal_id].to_i)
-    if result_journal
-      unless result_journal.result? && result_journal.closed_on < to_close_on &&
-             result_journal.currency == self.currency
-        raise 'Cannot close without an opened result journal with same currency as financial year'
-      end
-    end
-
-    closure_journal = options[:closure_journal] || Journal.find_by(id: options[:closure_journal_id].to_i)
-    if closure_journal
-      unless closure_journal.closure? && closure_journal.closed_on < to_close_on &&
-             closure_journal.currency == self.currency
-        raise 'Cannot close without an opened closure journal with same currency as financial year'
-      end
-    end
-
-    forward_journal = options[:forward_journal] || Journal.find_by(id: options[:forward_journal_id].to_i)
-    if forward_journal
-      unless forward_journal.forward? && forward_journal.closed_on <= to_close_on &&
-             forward_journal.currency == self.currency
-        raise 'Cannot close without an opened carrying forward journal with same currency as financial year'
-      end
-    end
-
-    progress = Progress.new(:close_main, id: self.id, max: 2 + Journal.count)
-
-    ActiveRecord::Base.transaction do
-      # Compute balance of closed year
-      compute_balances!
-
-      if result_journal
-        # Create result entry of the current year
-        generate_result_entry!(result_journal, to_close_on)
-      end
-      progress.set_value(1)
-
-
-      # Settle balance sheet accounts
-      # Adds carrying forward entry
-      generate_carrying_forward_entry!(forward_journal, closure_journal, to_close_on)
-      progress.set_value(2)
-
-      # Close all journals
-      Journal.find_each.with_index do |journal, index|
-        journal.close!(to_close_on) if journal.closed_on < to_close_on
-        progress.set_value(3 + index)
-      end
-
-      # Close year
-      update_attributes(stopped_on: to_close_on, closed: true)
-    end
-    progress.clean!
-
-    true
+    FinancialYearClose.new(self, to_close_on, options).execute
   end
 
   # this method returns the previous financial_year by default.
