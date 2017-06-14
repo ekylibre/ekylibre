@@ -1,18 +1,18 @@
 :ruby
   @tasks = {}
-   
+
   @interventions_by_state.each do |state, interventions|
     if interventions.empty?
       @tasks[state] = []
       next
     end
-   
+
     tasks_by_state = []
-   
+
     interventions[:interventions].each do |intervention|
       tasks_by_state << task(*taskboard_task(intervention))
     end
-   
+
     @tasks[state] = tasks_by_state
   end
 

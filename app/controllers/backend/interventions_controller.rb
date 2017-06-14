@@ -20,7 +20,6 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
                      continue: %i[nature procedure_name]
 
@@ -383,15 +382,16 @@ module Backend
     end
 
     def change_page
-      params[:interventions_taskboard][:period_interval] ||= current_period_interval
-      params[:interventions_taskboard][:period] ||= current_period
+      options = params.slice(:q, :procedure_name, :product_id, :cultivable_zone_id, :period_interval, :period, :page)
+      options[:period_interval] ||= current_period_interval
+      options[:period] ||= current_period
 
-      @interventions_by_state = {}
-      @interventions_by_state[:requests] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :request))
-      @interventions_by_state[:current] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :in_progress))
-      @interventions_by_state[:finished] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :done))
-      @interventions_by_state[:validated] = Intervention.with_unroll(params[:interventions_taskboard].merge(nature: :record, state: :validated))
-      
+      @interventions_by_state = {
+        requests:  Intervention.with_unroll(options.merge(nature: :request)),
+        current:   Intervention.with_unroll(options.merge(nature: :record, state: :in_progress)),
+        finished:  Intervention.with_unroll(options.merge(nature: :record, state: :done)),
+        validated: Intervention.with_unroll(options.merge(nature: :record, state: :validated))
+      }
       respond_to do |format|
         format.js
       end

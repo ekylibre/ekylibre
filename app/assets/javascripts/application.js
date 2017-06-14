@@ -12,7 +12,7 @@
 //
 //= require modernizr
 //= require jquery
-//= require jquery/jquery.lazy.min.js
+//= require jquery/jquery.lazy
 //= require jquery-ui/widgets/datepicker
 //= require jquery-ui/i18n/datepicker-fr
 // require jquery-ui/i18n/datepicker-ar

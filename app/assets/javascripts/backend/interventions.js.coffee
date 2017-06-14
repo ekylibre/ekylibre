@@ -206,9 +206,9 @@
         if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
           currentPage++
           params['page'] = currentPage
-          
+
           loadContent = true
-          
+
           $.ajax
             url: "/backend/interventions/change_page",
             data: { interventions_taskboard: params }
@@ -271,8 +271,8 @@
       taskboard.initTaskboard()
 
       E.interventions.addLazyLoading()
- 
-  
+
+
   class InterventionsTaskboard
 
     constructor: ->
