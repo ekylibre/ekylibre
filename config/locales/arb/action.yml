@@ -3,9 +3,10 @@ arb:
     authentication/invitations:
       edit: "قبول دعوة"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "كلمة السر الجديدة"
       new: "كلمة السر الجديدة"
     authentication/registrations:
+      edit: "سجل"
       new: "سجل"
     authentication/sessions:
       destroy: "الخروج"
@@ -1368,7 +1369,7 @@ arb:
     edit: "تعديل"
     edit_budget: "تحرير الميزانية"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة" #?
+    elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
     email: "البريد الإلكتروني:"
     emissions_and_reevaluation_gaps: "الانبعاثات والثغرات إعادة تقييم"
     employee_and_wages: "الموظفين والأجور"
