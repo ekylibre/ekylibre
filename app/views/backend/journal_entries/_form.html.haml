@@ -59,7 +59,7 @@
               %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'
               %th.act
 
-          = f.simple_fields_for :items, f.object.items.sort_by(&:position) do |item|
+          = f.simple_fields_for :items, f.object.items.sort_by { |item| [item.position ? 0 : 1, item.position] } do |item|
             = render 'item_fields', f: item, currency: f.object.journal.currency
 
   = f.attachments_field_set
@@ -76,3 +76,4 @@
       .activity-family-body
         - journals.where(nature: n).each do |journal|
           = link_to(journal.name, params.merge(journal_id: journal.id), class: 'btn btn-lg')
+  - f.clear_actions!

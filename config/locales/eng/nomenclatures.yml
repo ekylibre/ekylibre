@@ -6852,6 +6852,8 @@ eng:
         truck: "Truck"                                     #< motorized_vehicle
         uncinula: "Uncinula"                               #< erysiphaceae
         uncinula_necator: "Uncinula necator"               #< uncinula
+        urtica: "Nettle"                                   #< urticaceae
+        urticaceae: "Urticaceae"                           #< plant
         valeriana: "Valeriana"                             #< valerianaceae
         valerianaceae: "Valerianaceae"                     #< plant
         valerianella: "Valerianella"                       #< valerianaceae

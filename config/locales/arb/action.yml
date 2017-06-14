@@ -3,9 +3,10 @@ arb:
     authentication/invitations:
       edit: "قبول دعوة"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "كلمة السر الجديدة"
       new: "كلمة السر الجديدة"
     authentication/registrations:
+      edit: "سجل"
       new: "سجل"
     authentication/sessions:
       destroy: "الخروج"
@@ -162,6 +163,7 @@ arb:
       accountancy: "المحاسبة لوحة القيادة"
       # edit: "Edit dashboard: %{name}"
       home: "لوحة أجهزة القياس المنزلية"
+      humans: "لوحة الموارد البشرية"
       index: "لوحات"
       new: "لوحة تحكم جديدة"
       production: "لوحة أجهزة القياس إنتاج"
@@ -173,10 +175,6 @@ arb:
       stocks: "الأسهم لوحة القيادة"
       tools: "أدوات لوحة القيادة"
       trade: "لوحة أجهزة القياس التجارة"
-    backend/debt_transfers:
-      index: "نقل الديون"
-      new: "نقل ديون جديدة"
-      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?
@@ -414,6 +412,8 @@ arb:
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "القروض"
@@ -491,21 +491,37 @@ arb:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة تسديد الدفعة"
+      # show: "Disbursement mode: %{name}"
     backend/outgoing_payment_uses: #?
       new: "تسديد الشراء رقم%{number}" #?
     backend/outgoing_payments:
-      edit: "تعديل دفعة : %{number}"
-      index: "دفعات"
-      new: "اضافة دفعة"
-      show: "رقم الدفعة%{number} من اجل %{payee}"
+      # edit: "Edit disbursement: %{name}"
+      index: "المصروفات"
+      new: "صرف جديد"
+      # show: "Disbursement: %{name}"
     backend/parcels:
       # edit: "Edit %{nature} parcel: %{number}"
       index: "الطرود"
       new: "قطعة جديدة"
       ship: "الطرود سفينة"
       # show: "%{nature} parcel: %{number}"
+    backend/payslip_natures:
+      # edit: "Edit payslip nature: %{name}"
+      index: "الطبيعة بايسليب"
+      new: "طبيعة جديدة بايسليب"
+      # show: "Payslip nature: %{name}"
+    backend/payslip_payments:
+      # edit: "Edit payslip payment: %{number}"
+      index: "مدفوعات بايسليب"
+      new: "دفعة دفع جديدة"
+      # show: "Payslip payment: %{number}"
+    backend/payslips:
+      # edit: "Edit payslip: %{name}"
+      index: "كشوف"
+      new: "جديد قسيمة الدفع"
+      # show: "Payslip: %{number}"
     backend/plant_countings:
-      # edit: "Edit plant counting #%{number}"
+      # edit: "Edit plant counting: #%{number}"
       index: "فرزان"
       new: "العد الجديد"
       # show: "Plant counting #%{number}"
@@ -603,6 +619,11 @@ arb:
       index: "أنواع شراء"
       new: "نوع شراء جديدة"
       # show: "Purchase type: %{name}"
+    backend/purchase_payments:
+      edit: "تعديل دفعة : %{number}"
+      index: "دفعات"
+      new: "اضافة دفعة"
+      show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/purchases:
       abort: "إحباط"
       confirm: "تأكيد النظام والانتظار لتسليم"
@@ -803,7 +824,6 @@ arb:
     backend/operations: "اعمال" #?
     backend/outgoing_delivery_modes: "وسائل التسليم" #?
     backend/outgoing_payment_modes: "طرق تسديد الدفعات" #?
-    backend/outgoing_payments: "دفعات" #?
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
     backend/product_nature: "المنتجات" #?
@@ -814,6 +834,7 @@ arb:
     backend/production: "المنتج" #?
     backend/products: "المنتجات" #?
     backend/products_natures: "المنتجات" #?
+    backend/purchase_payments: "دفعات" #?
     backend/purchases: "المستريات" #?
     backend/relations: "العلاقات" #?
     backend/roles: "مهام" #?
@@ -998,12 +1019,15 @@ arb:
     add_outgoing_payment: "إضافة دفع المنتهية ولايته"
     add_participation: "إضافة مشاركة"
     add_payment: "اضافة دفعة"
+    add_payslip: "إضافة قسيمة دفع"
+    add_payslip_payment: "إضافة دفع قسيمة"
     add_phone: "إضافة رقم الهاتف"
     add_plant_density_abacus: "إضافة الجدول المرجعي كثافة بذر"
     add_point: "إضافة نقطة"
     add_polygon: "إضافة مضلع"
     add_production: "إضافة الانتاج"
     add_purchase: "إضافة شراء"
+    add_purchase_payment: "إضافة صرف"
     add_purchase_taxation: "إضافة الضرائب شراء"
     add_quickly_an_item: "بسرعة إضافة خط من المنتجات"
     add_reading: "إضافة قيمة للمؤشر"
@@ -1163,7 +1187,7 @@ arb:
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
     client: "اختيار العميل"
-    client_balance: "رصيد العميل" #?
+    client_accounting_balance: "رصيد العميل" #?
     client_informations: "المعلومات العميل"
     client_receivables: "ذمم العملاء"
     close: "اغلاق الدفتر اليومي"
@@ -1331,6 +1355,7 @@ arb:
     done: "فعله"
     dont_generate_carrying_forward_entries: "- لا تولد تحمل إدخالات إلى الأمام -"
     dont_generate_closure_entries: "- لا تولد إدخالات إغلاق -"
+    dont_generate_result_entries: "- لا تولد إدخالات نتيجة -"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
@@ -1345,7 +1370,7 @@ arb:
     edit: "تعديل"
     edit_budget: "تحرير الميزانية"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة" #?
+    elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
     email: "البريد الإلكتروني:"
     emissions_and_reevaluation_gaps: "الانبعاثات والثغرات إعادة تقييم"
     employee_and_wages: "الموظفين والأجور"
@@ -1481,6 +1506,7 @@ arb:
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
     human_working_duration: "مدة العمل"
+    # humans: "HR"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
     identification: "اسم ورمز المنتج"
     identifiers: "معرفات"
@@ -1540,6 +1566,7 @@ arb:
     investment_security: "أمن الاستثمار"
     investment_subsidies: "دعم الاستثمار"
     invitation_status: "الحالة"
+    invoice_period: "فترة الفاتورة"
     invoice_status: "وضع الفاتورة"
     invoiced: "فواتير"
     invoiced_amount: "قيمة الفاتورة" #?
@@ -1556,6 +1583,9 @@ arb:
     journal_entries_states: "الولايات إدخالات"
     journal_entry_items: "البنود إدخال دفتر اليومية"
     journal_entry_items_states: "بيان المدخلات المستخدمة" #?
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -1885,6 +1915,8 @@ arb:
     payments_count: "عدد %{mode}"
     payments_number: "عدد الدفعات" #?
     payments_total: "جميع الدفعات" #?
+    payslip_number: "بايسليب #"
+    payslips: "كشوف"
     people: "الناس"
     percentage_by_calibration: "النسبة المئوية من المعايرة"
     period: "المدة المحددة مسبقا"
@@ -2177,6 +2209,7 @@ arb:
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
     supplier: "اسعار البيع للممولين"
     supplier_informations: "المعلومات المورد"
+    supplier_payment_mode: "المورد وضع الدفع"
     supplier_receivables: "ذمم المورد"
     supply: "التسليم"
     support: "الدعم"
@@ -2193,6 +2226,7 @@ arb:
     taxes: "الضرائب"
     taxes_and_wages: "الضرائب والأجور"
     theoric_quantity: "الكمية النظرية" #?
+    third_is_unbalanced: "ثالثا غير متوازن. (ميزان - ميزان الحساب المورد)"
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"
     time_spent_by_activity: "الوقت الذي يقضيه النشاط"
@@ -2280,6 +2314,8 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    unbalanced_clients: "عملاء غير متوازن"
+    unbalanced_suppliers: "الموردين غير متوازن"
     unbilled_payables: "دائنة غير المفوترة"
     undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
@@ -2561,6 +2597,7 @@ arb:
       accountant_without_email: "الرجاء ضبط البريد الإلكتروني محاسب"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       all_purchases_must_be_ordered_or_invoiced: "جميع المشتريات يجب أن يؤمر أو فواتير."
+      all_tax_declarations_have_already_existing: "جميع الإعلانات الضريبية موجودة بالفعل"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
@@ -2589,9 +2626,10 @@ arb:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
+      financial_years_missing: "يجب عليك إنشاء كل المفقودين سنة مالية منذ سجلت لأول مرة"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "نفذت مع بيانات وهمية"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
@@ -2684,9 +2722,8 @@ arb:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأنه تم بالفعل من قبل المستخدم"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لبعض الصفقات لم يتم الكشف حتى الآن"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "حروف التلقائي لا يمكن القيام به في مجال المحاسبة لأن الكثير من ثلثي موجودة"
+      the_bookkeep_date_format_is_invalid: "تنسيق تاريخ حجز الكتب غير صالح"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       this_service_is_not_activated: "لم يتم تنشيط هذه الخدمة"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
@@ -2697,6 +2734,9 @@ arb:
       unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?
       update_is_done: "قد انجز اعداد التحديث"
       validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entry_items:
         one: "يوجد مدخل واحد مشار اليه"
         other: "%{count} يوجد مدخلات اخرى مشار اليه"
@@ -2900,6 +2940,7 @@ arb:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/payslip_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
@@ -2907,5 +2948,6 @@ arb:
     # backend/product_nature_variants: "%{name} (%{unit_name})"
     # backend/product_natures: "%{name}"
     # backend/products: "%{work_number} %{name} (%{number})"
+    # backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     # backend/users: "%{first_name} %{last_name}"

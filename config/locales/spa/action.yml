@@ -3,9 +3,10 @@ spa:
     authentication/invitations:
       edit: "Aceptar la invitacion"
     authentication/passwords:
-      # edit: "Edit password: %{name}"
+      edit: "Nueva contraseña"
       new: "Nueva contraseña"
     authentication/registrations:
+      edit: "Regístrate"
       new: "Regístrate"
     authentication/sessions:
       destroy: "Cerrar sesión"
@@ -158,6 +159,7 @@ spa:
       accountancy: "Tablero Contabilidad"
       # edit: "Edit dashboard: %{name}"
       home: "Inicio salpicadero"
+      humans: "Cuadro de instrumentos de recursos humanos"
       index: "Cuadros de mando"
       new: "Nuevo tablero de instrumentos"
       production: "Tablero de producción"
@@ -169,10 +171,6 @@ spa:
       stocks: "Stock"
       tools: "Herramientas"
       trade: "Ventas/Compras"
-    backend/debt_transfers:
-      index: "Las transferencias de deuda"
-      new: "Nueva transferencia de la deuda"
-      # show: "Debt transfer: %{number}"
     backend/delays: #?
       edit: "Modificación del plazo\_: %{name}" #?
       index: "plazos" #?
@@ -380,6 +378,8 @@ spa:
       index: "Exportación y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créación de nueva extraccion"
+    backend/loan_repayments:
+      # edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
     backend/loans:
       # edit: "Edit loan: %{name}"
       index: "Préstamos"
@@ -437,19 +437,35 @@ spa:
       edit: "Editar modo de desembolso"
       index: "Modos de desembolso"
       new: "Nuevo modo de desembolso"
+      # show: "Disbursement mode: %{name}"
     backend/outgoing_payments:
-      # edit: "Edit disbursement: %{number}"
+      # edit: "Edit disbursement: %{name}"
       index: "Desembolsos"
       new: "Nuevo desembolso"
-      # show: "Disbursement %{number} for %{payee}"
+      # show: "Disbursement: %{name}"
     backend/parcels:
       # edit: "Edit %{nature} parcel: %{number}"
       index: "Parcelas"
       new: "Nueva parcela"
       ship: "Parcelas de la nave"
       # show: "%{nature} parcel: %{number}"
+    backend/payslip_natures:
+      # edit: "Edit payslip nature: %{name}"
+      index: "Naturalezas de la nómina"
+      new: "Nueva naturaleza de la nómina"
+      # show: "Payslip nature: %{name}"
+    backend/payslip_payments:
+      # edit: "Edit payslip payment: %{number}"
+      index: "Pagos con paquetería"
+      new: "Nuevo pago de la nómina"
+      # show: "Payslip payment: %{number}"
+    backend/payslips:
+      # edit: "Edit payslip: %{name}"
+      index: "Papeletas"
+      new: "Nuevo salario"
+      # show: "Payslip: %{number}"
     backend/plant_countings:
-      # edit: "Edit plant counting #%{number}"
+      # edit: "Edit plant counting: #%{number}"
       index: "Los recuentos"
       new: "Nuevo recuento"
       # show: "Plant counting #%{number}"
@@ -503,6 +519,11 @@ spa:
       index: "Tipos de compra"
       new: "Nuevo tipo de compra"
       # show: "Purchase type: %{name}"
+    backend/purchase_payments:
+      # edit: "Edit disbursement: %{number}"
+      index: "Desembolsos"
+      new: "Nuevo desembolso"
+      # show: "Disbursement %{number} for %{payee}"
     backend/purchases:
       abort: "Abortar"
       confirm: "Para confirmar y esperar a que las entregas"
@@ -802,12 +823,15 @@ spa:
     add_outgoing_payment: "Añadir salida de pago"
     add_participation: "Añadir participación"
     add_payment: "Añadir el pago"
+    add_payslip: "Añadir boleta de pago"
+    add_payslip_payment: "Añadir pago de la nómina"
     add_phone: "Agregar el número de teléfono"
     add_plant_density_abacus: "Añadir tabla de referencia densidad de siembra"
     add_point: "Añadir punto"
     add_polygon: "Añadir polígono"
     add_production: "Añadir producción"
     add_purchase: "Añadir compra"
+    add_purchase_payment: "Añadir desembolso"
     add_purchase_taxation: "Añadir imposición de compra"
     add_quickly_an_item: "Añadir rápidamente una línea de producto"
     add_reading: "Añadir un valor de un indicador"
@@ -1105,6 +1129,7 @@ spa:
     done: "Hecho"
     dont_generate_carrying_forward_entries: "- No generar llevar adelante las entradas -"
     dont_generate_closure_entries: "- no generan entradas de cierre -"
+    dont_generate_result_entries: "- No generar entradas de resultados -"
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
     down_to_level: "Detallar hasta el nivel" #?
@@ -1120,7 +1145,7 @@ spa:
     edit: "Editar"
     edit_budget: "Editar presupuesto"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
+    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # email: "Email:"
     emissions_and_reevaluation_gaps: "Emisiones y lagunas de reevaluación"
     employee_and_wages: "Los empleados y los salarios"
@@ -1227,6 +1252,7 @@ spa:
     historic: "Histórico"
     home: "Vuelta a la cogida de la ayuda"
     human_working_duration: "Duración de trabajo"
+    humans: "HORA"
     iban: "Numero de cuento bancario internacional (IBAN)"
     identification: "Identificación"
     identifiers: "Identificadores"
@@ -1281,6 +1307,7 @@ spa:
     investment_security: "Seguridad de la inversión"
     investment_subsidies: "Subvenciones a la inversión"
     invitation_status: "Estado"
+    invoice_period: "Periodo de factura"
     invoice_status: "Estado de la factura"
     invoiced: "Facturado"
     invoiced_amount: "Ventas importe facturado" #?
@@ -1296,6 +1323,9 @@ spa:
     journal_entries_states: "Estados de las entradas"
     journal_entry_items: "Artículos entrada de diario"
     journal_entry_items_states: "Estado de las escrituras utilizadas" #?
+    journal_entry_items_with_taxes_out_of_range:
+      # one: "%{count} journal entry item with taxes before declaration started on"
+      # other: "%{count} journal entry items with taxes before declaration started on"
     journal_entry_items_with_undeclared_taxes:
       # one: "%{count} journal entry item with undeclared taxes"
       # other: "%{count} journal entry items with undeclared taxes"
@@ -1544,6 +1574,8 @@ spa:
     payment_mode: "Modo de pago"
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
+    payslip_number: "Papeleta #"
+    payslips: "Papeletas"
     people: "Gente"
     percentage_by_calibration: "Porcentaje de calibración"
     period: "Intervalo de periodo"
@@ -1789,6 +1821,7 @@ spa:
     subtotals_at_level: "Subtotales al nivel"
     supplier: "Los precios de compra del proveedor"
     supplier_informations: "Información sobre los proveedores"
+    supplier_payment_mode: "Modo de pago del proveedor"
     supplier_receivables: "Cobrar proveedor"
     supply: "Suministro"
     support: "Apoyo"
@@ -1805,6 +1838,7 @@ spa:
     taxes: "Impuestos"
     taxes_and_wages: "Impuestos y salarios"
     theoric_quantity: "cantidad teorica" #?
+    third_is_unbalanced: "En tercer lugar está desequilibrada. (Balance - balance de la cuenta del proveedor)"
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
     time_spent_by_activity: "El tiempo dedicado por la actividad"
@@ -1881,6 +1915,8 @@ spa:
     transformations: "Transformaciones" #?
     transport: "Transporte"
     trimester: "Trimestre"
+    unbalanced_clients: "Clientes desequilibradas"
+    unbalanced_suppliers: "Proveedores desequilibradas"
     unbilled_payables: "Cuentas a pagar no facturadas"
     undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
@@ -2119,6 +2155,7 @@ spa:
       accountant_without_email: "Por favor, configurar el correo electrónico contador"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
       all_purchases_must_be_ordered_or_invoiced: "Todas las compras se deben ordenar o facturar."
+      all_tax_declarations_have_already_existing: "Todas las declaraciones de impuestos ya existen"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
@@ -2149,9 +2186,10 @@ spa:
       # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
       # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
       # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      exception_raised: "Un error sobrevino durante el tratamiento\_: %{message}"
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
+      financial_years_missing: "Debe crear cada faltan los ejercicios desde la primera registrada"
+      # financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
       implemented_with_dummy_data: "Implementado con datos ficticios"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
@@ -2246,9 +2284,8 @@ spa:
       # synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       # synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Las letras automático no se puede realizar en la contabilidad"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_it_was_already_done_by_an_user: "Las letras automático no se puede realizar en la contabilidad porque ya hecho por un usuario"
-      the_automatic_lettering_cannot_be_done_in_accountancy_because_some_deals_are_not_accounted_yet: "Las letras automático no se puede realizar en la contabilidad ya que algunas ofertas no se tienen en cuenta sin embargo,"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Las letras automático no se puede realizar en la contabilidad porque demasiados tercios están presentes"
+      the_bookkeep_date_format_is_invalid: "El formato de fecha del libro es inválido"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
       this_service_is_not_activated: "Este servicio no está activado"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
@@ -2259,11 +2296,14 @@ spa:
       unvalid_version_for_restore: "La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software" #?
       update_is_done: "La puesta al día ha sido efectuada"
       validates_old_inventories: "Es aconsejado suprimir o validar los inventarios que no lo son antes de hacer nuevos" #?
+      x_loan_repayments_have_been_bookkept_successfully:
+        # one: "%{count} loan repayment has been bookkept successfully"
+        # other: "%{count} loan repayments have been bookkept successfully"
       x_unpointed_journal_entries: #?
         one: "Hay escritura a puntar" #?
         other: "hay %{number} escrituras a puntar" #?
       x_unpointed_journal_entry_items:
-        one: "Hay una entrada para señalar"
+        # one: "There is %{count} entry to point"
         # other: "There are %{count} entries to point"
       you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?
@@ -2415,6 +2455,7 @@ spa:
     # backend/observations: "%{content}"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
+    # backend/payslip_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
@@ -2422,5 +2463,6 @@ spa:
     # backend/product_nature_variants: "%{name} (%{unit_name})"
     # backend/product_natures: "%{name}"
     # backend/products: "%{work_number} %{name} (%{number})"
+    # backend/purchase_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     # backend/users: "%{first_name} %{last_name}"

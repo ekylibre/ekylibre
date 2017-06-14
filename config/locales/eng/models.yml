@@ -16,6 +16,9 @@ eng:
         filename: "File"
       document_template:
         managed: "Managed by the system"
+      entity:
+        client_accounting_balance: "Client account balance"
+        supplier_accounting_balance: "Supplier account balance"
       equipment:
         born_at: "Built at"
         dead_at: "Scrapped at"
@@ -38,7 +41,7 @@ eng:
         started_on: "First repayment started on"
       outgoing_payment:
         delivered: "Given to recipient"
-        list: "Outgoing payment list"
+        list: "Disbursement list"
       outgoing_payment_list:
         payments_sum: "Total"
       parcel:
@@ -113,6 +116,7 @@ eng:
         odd: "%{attribute} must be odd"
         on_or_after: "%{attribute} must be on or after %{restriction}"
         on_or_before: "%{attribute} must be on or before %{restriction}"
+        overlap: "%{attribute} overlaps an existing record"
         overlap_sibling: "%{attribute} overlaps sibling"
         posterior: "%{attribute} must be posterior to %{to}"
         record_invalid: "Validations failed: %{errors}"
@@ -136,7 +140,7 @@ eng:
           different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
         deposit:
-          must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           missing_title: "%{attribute} must contains the title “%{title}”"
           nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -217,7 +221,6 @@ eng:
       animal: "Animal"
       animal_group: "Animal group"
       attachment: "Attachment"
-      bank_guarantee_account: "Bank guarantee account" #?
       bank_statement: "Bank statement"
       bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
@@ -251,6 +254,7 @@ eng:
       document: "Document"
       document_template: "Document template"
       easement: "Easement"
+      economic_situation: "Economic situation"
       entity: "Entity"
       entity_address: "Address"
       entity_link: "Entity link"
@@ -259,7 +263,7 @@ eng:
       event: "Event"
       event_participation: "Event participation"
       financial_year: "Financial year"
-      # financial_year_exchange: "Financial year exchange"
+      financial_year_exchange: "Financial year exchange"
       fixed_asset: "Fixed asset"
       fixed_asset_depreciation: "Fixed asset depreciation"
       fungus: "Fungus"
@@ -276,9 +280,7 @@ eng:
       inspection: "Product grading"
       inspection_calibration: "Inspection calibre"
       inspection_point: "Product grading check"
-      insurance_account: "Insurance account" #?
       integration: "Integration"
-      interest_account: "Interest account" #?
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
       intervention_doer: "Intervention doer"
@@ -314,11 +316,15 @@ eng:
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
-      outgoing_payment: "Disbursement"
-      outgoing_payment_list: "Outgoing payment list"
+      outgoing_payment: "Outgoing payment"
+      outgoing_payment_list: "Disbursement list"
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
       parcel_item: "Parcel item"
+      payslip: "Payslip"
+      payslip_affair: "Payslip affair"
+      payslip_nature: "Payslip type"
+      payslip_payment: "Payslip payment"
       plant: "Plant"
       plant_counting: "Plant counting"
       plant_counting_item: "Plant counting item"
@@ -351,6 +357,7 @@ eng:
       purchase_gap: "Purchase gap"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
+      purchase_payment: "Disbursement"
       regularization: "Regularization"
       role: "Role"
       sale: "Sale"
@@ -374,6 +381,7 @@ eng:
       tax: "Tax"
       tax_declaration: "Tax declaration"
       tax_declaration_item: "Tax declaration item"
+      tax_declaration_item_part: "Tax declaration item part"
       team: "Team"
       token: "Token"
       tracking: "Tracking"
@@ -402,6 +410,7 @@ eng:
     accountable_repayments_started_on: "Accountable repayments started on"
     accountant: "Accountant"
     accounted_at: "Accounted at"
+    accounting_balance: "Accounting balance"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
     actions: "Actions"
@@ -526,7 +535,9 @@ eng:
     city_name: "City name"
     client: "Client"
     client_account: "Client account"
+    client_accounting_balance: "Client accounting balance"
     # client_journal_entry_items: "Client journal entry items"
+    client_trade_balance: "Client trade balance"
     clients: "Clients"
     closed: "Closed"
     closed_at: "Closed at"
@@ -688,6 +699,7 @@ eng:
     due_at: "Due at"
     due_on: "Due on"
     duration: "Duration"
+    economic_situation: "Economic situation"
     email: "Email"
     emails: "Emails"
     embedded: "Embedded"
@@ -695,6 +707,7 @@ eng:
     emission_cash: "Emission cash"
     emission_currency: "Emission currency"
     emission_journal_entry: "Emission journal entry"
+    emitted_on: "Emitted on"
     employed: "Employed"
     employee: "Employee"
     employee_account: "Employee account"
@@ -807,6 +820,7 @@ eng:
     grading_sizes_unit: "Grading sizes unit"
     grading_sizes_unit_name: "Grading sizes unit name"
     gradings: "Gradings" #?
+    grains_yield: "Grains Yield"
     gravity: "Gravity"
     gross_items_count: "Gross items count" #?
     gross_items_count_yield: "Gross item yield" #?
@@ -939,7 +953,7 @@ eng:
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
-    journal_entry_item: "Journal entry item" #?
+    journal_entry_item: "Journal entry item"
     journal_entry_items: "Journal entry items"
     key: "Key"
     label: "Label"
@@ -1133,6 +1147,7 @@ eng:
     participants: "Participants"
     participations: "Participations"
     partner_url: "Partner url"
+    # parts: "Parts"
     password: "Password"
     password_confirmation: "Confirmation of password"
     payee: "Payee"
@@ -1144,6 +1159,8 @@ eng:
     payment_mode_complement: "Payment mode complement"
     payments: "Payments"
     payments_count: "Payments count"
+    # payslip_natures: "Payslip natures"
+    payslips: "Payslips"
     period: "Period"
     person: "Person"
     phases: "Phases"
@@ -1246,6 +1263,7 @@ eng:
     purchase_item: "Purchase item"
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
+    purchase_payments: "Purchase payments"
     purchase_taxations: "Purchase taxations"
     purchase_taxes: "Purchase taxes"
     purchased_on: "Purchased on"
@@ -1441,11 +1459,13 @@ eng:
     supervision: "Supervision"
     supplier: "Supplier"
     supplier_account: "Supplier account"
+    supplier_accounting_balance: "Supplier accounting balance"
     supplier_address: "Supplier address"
     # supplier_journal_entry_items: "Supplier journal entry items"
     supplier_payment_delay: "Supplier payment delay"
     supplier_payment_mode: "Supplier payment mode"
     supplier_payment_modes: "Supplier payment modes"
+    supplier_trade_balance: "Supplier trade balance"
     suppliers: "Suppliers"
     support: "Support"
     support_nature: "Support type"
@@ -1470,9 +1490,11 @@ eng:
     targets: "Targets"
     tasks: "Tasks"
     tax: "Tax"
+    # tax_amount: "Tax amount"
     tax_declaration: "Tax declaration"
     tax_declaration_frequency: "Tax declaration frequency"
     tax_declaration_item: "Tax declaration item"
+    # tax_declaration_item_parts: "Tax declaration item parts"
     tax_declaration_items: "Tax declaration items"
     tax_declaration_mode: "Tax declaration  mode"
     tax_declarations: "Tax declarations"
@@ -1499,9 +1521,12 @@ eng:
     total_cost: "Total cost"
     total_items_count: "Total items count" #?
     total_net_mass: "Total net mass" #?
+    # total_pretax_amount: "Total pretax amount"
+    # total_tax_amount: "Total tax amount"
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"
+    trade_balance: "Trade balance"
     transaction_number: "Transaction number"
     transfered_at: "Transfered at"
     transfered_on: "Transfered on"
@@ -1768,6 +1793,11 @@ eng:
           prepared: "Prepared"
           received: "Received"
       undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Draft"
+        invoice: "Invoice"
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -1818,6 +1848,9 @@ eng:
     purchase_nature:
       default:
         name: "Standard purchase"
+    purchase_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "Administrator"
@@ -1889,6 +1922,7 @@ eng:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS[year|4][month|2][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

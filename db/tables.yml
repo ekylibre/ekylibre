@@ -704,7 +704,7 @@ analyses:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   host_id:
     type: integer
     references: product
@@ -815,7 +815,7 @@ analysis_items:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   product_reading_id:
     type: integer
     references: product_reading
@@ -1587,7 +1587,7 @@ crumbs:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
     required: true
   id:
     type: integer
@@ -2248,7 +2248,7 @@ entity_addresses:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   mail_line_1:
     type: string
   mail_line_2:
@@ -3384,7 +3384,7 @@ intervention_parameter_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   string_value:
     type: text
   updated_at:
@@ -3745,7 +3745,7 @@ issues:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   gravity:
     type: integer
   id:
@@ -4029,6 +4029,8 @@ journal_entry_items:
   tax_declaration_item_id:
     type: integer
     references: tax_declaration_item
+  tax_declaration_mode:
+    type: string
   tax_id:
     type: integer
     references: tax
@@ -4823,11 +4825,11 @@ outgoing_payments:
   delivered:
     type: boolean
     required: true
-    default: true
+    default: false
   downpayment:
     type: boolean
     required: true
-    default: true
+    default: false
   id:
     type: integer
     required: true
@@ -4861,6 +4863,8 @@ outgoing_payments:
   to_bank_at:
     type: datetime
     required: true
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -5059,6 +5063,111 @@ parcels:
     type: boolean
     required: true
     default: false
+payslip_natures:
+  account_id:
+    type: integer
+    references: account
+  active:
+    type: boolean
+    required: true
+    default: false
+  by_default:
+    type: boolean
+    required: true
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_accounting:
+    type: boolean
+    required: true
+    default: false
+payslips:
+  account_id:
+    type: integer
+    references: account
+  accounted_at:
+    type: datetime
+  affair_id:
+    type: integer
+    references: affair
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  custom_fields:
+    type: jsonb
+  emitted_on:
+    type: date
+  employee_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  nature_id:
+    type: integer
+    references: payslip_nature
+    required: true
+  number:
+    type: string
+    required: true
+  started_on:
+    type: date
+    required: true
+  state:
+    type: string
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 plant_counting_items:
   created_at:
     type: datetime
@@ -5805,7 +5914,7 @@ product_nature_variant_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   string_value:
     type: text
   updated_at:
@@ -6121,7 +6230,7 @@ product_readings:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   product_id:
     type: integer
     references: product
@@ -6207,7 +6316,7 @@ products:
     type: geometry
     limit:
       srid: 4326
-      type: point
+      type: st_point
   initial_mother_id:
     type: integer
     references: product
@@ -6500,6 +6609,7 @@ purchases:
     references: user
   state:
     type: string
+    required: true
   supplier_id:
     type: integer
     references: entity
@@ -7212,6 +7322,60 @@ tasks:
     references: sale_opportunity
   state:
     type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declaration_item_parts:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  direction:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_item_id:
+    type: integer
+    references: journal_entry_item
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  tax_declaration_item_id:
+    type: integer
+    references: tax_declaration_item
+    required: true
+  total_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  total_tax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
     required: true
   updated_at:
     type: datetime

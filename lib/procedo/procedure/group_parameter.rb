@@ -26,7 +26,7 @@ module Procedo
       def parameters_of_type(type, recursively = false)
         parameters(recursively).select do |i|
           (i.is_a?(Procedo::Procedure::ProductParameter) && i.type == type) ||
-            (i.is_a?(Procedo::Procedure::GroupParameter) && :group == type)
+            (i.is_a?(Procedo::Procedure::GroupParameter) && type == :group)
         end
       end
 

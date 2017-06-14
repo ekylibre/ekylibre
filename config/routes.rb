@@ -91,14 +91,14 @@ Rails.application.routes.draw do
       resources :contacts, only: [:index] do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
       end
-      resources :crumbs
+      resources :crumbs, only: %i[index create]
       resources :interventions, only: %i[index create]
       resources :intervention_participations, only: [:create]
       resources :intervention_targets, only: [:show]
-      resources :issues
-      resources :plant_density_abaci
-      resources :plant_countings
-      resources :plants
+      resources :issues, only: %i[index create]
+      resources :plant_density_abaci, only: %i[index show]
+      resources :plant_countings, only: %i[create]
+      resources :plants, only: %i[index]
     end
   end
 
@@ -125,14 +125,14 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy trade stocks production tools settings].each do |part|
+        %i[home relationship accountancy trade stocks production humans tools settings].each do |part|
           get part
         end
         get :sandbox
       end
     end
 
-    resources :debt_transfers, concerns: %i[list unroll]
+    resources :debt_transfers, path: 'debt-transfers', only: %i[create destroy]
 
     resources :helps, only: %i[index show] do
       collection do
@@ -181,6 +181,8 @@ Rails.application.routes.draw do
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
       resource :trade_counts_cell, only: :show
+      resource :unbalanced_clients_cell, only: :show, concerns: :list
+      resource :unbalanced_suppliers_cell, only: :show, concerns: :list
       resource :weather_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
@@ -446,7 +448,7 @@ Rails.application.routes.draw do
         get :list_links
         get :list_purchases
         get :list_observations
-        get :list_outgoing_payments
+        get :list_purchase_payments
         get :list_outgoing_parcels
         get :list_sale_opportunities
         get :list_sales
@@ -481,11 +483,8 @@ Rails.application.routes.draw do
       end
 
       member do
-        # get :cede
-        # get :sell
         post :depreciate
         get :list_depreciations
-        get :list_products
         post :start_up
         post :sell
         post :scrap
@@ -504,7 +503,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :financial_year_exchanges, concerns: [:list], path: 'financial-year-exchanges', only: %i[new create show] do
+    resources :financial_year_exchanges, path: 'financial-year-exchanges', only: %i[new create show] do
       member do
         get :list_journal_entries
         get :journal_entries_export
@@ -577,6 +576,7 @@ Rails.application.routes.draw do
         patch :compute
         get :modal
         post :change_state
+        get :change_page
       end
       member do
         post :sell
@@ -663,7 +663,7 @@ Rails.application.routes.draw do
 
     resources :loans, concerns: %i[list unroll] do
       collection do
-        get :accounting
+        post :bookkeep
       end
 
       member do
@@ -716,8 +716,6 @@ Rails.application.routes.draw do
 
     resources :observations, except: %i[index show]
 
-    resources :outgoing_payments, concerns: %i[list unroll]
-
     resources :outgoing_payment_lists, only: %i[index show destroy new create], concerns: [:list] do
       member do
         get :list_payments
@@ -746,6 +744,19 @@ Rails.application.routes.draw do
         post :check
         post :give
         post :cancel
+      end
+    end
+
+    resources :payslip_affairs, concerns: %i[affairs list], only: %i[show index], path: 'payslip-affairs'
+
+    resources :payslip_natures, concerns: %i[list unroll], path: 'payslip-natures'
+
+    resources :payslip_payments, concerns: %i[list unroll], path: 'payslip-payments'
+
+    resources :payslips, concerns: %i[list unroll] do
+      member do
+        post :correct
+        post :invoice
       end
     end
 
@@ -818,7 +829,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :purchase_natures, concerns: %i[list unroll]
+    resources :purchase_natures, concerns: %i[list unroll], path: 'purchase-natures'
+
+    resources :purchase_payments, concerns: %i[list unroll], path: 'purchase-payments'
 
     resources :purchases, concerns: %i[list unroll] do
       member do
@@ -839,7 +852,7 @@ Rails.application.routes.draw do
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 
-    resources :regularizations
+    resources :regularizations, only: %i[show create destroy]
 
     resources :roles, concerns: %i[incorporate list unroll] do
       member do

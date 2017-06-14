@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.6
--- Dumped by pg_dump version 9.5.6
+-- Dumped from database version 9.5.7
+-- Dumped by pg_dump version 9.5.7
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -57,6 +57,116 @@ CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
                 RETURN NEW;
               END
             $$;
+
+
+--
+-- Name: compute_partial_lettering(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION compute_partial_lettering() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    DECLARE
+      new_letter varchar DEFAULT NULL;
+      old_letter varchar DEFAULT NULL;
+      new_account_id integer DEFAULT NULL;
+      old_account_id integer DEFAULT NULL;
+    BEGIN
+    IF TG_OP <> 'DELETE' THEN
+      IF NEW.letter IS NOT NULL THEN
+        new_letter := substring(NEW.letter from '[A-z]*');
+      END IF;
+
+    IF NEW.account_id IS NOT NULL THEN
+      new_account_id := NEW.account_id;
+    END IF;
+  END IF;
+
+  IF TG_OP <> 'INSERT' THEN
+    IF OLD.letter IS NOT NULL THEN
+      old_letter := substring(OLD.letter from '[A-z]*');
+    END IF;
+
+    IF OLD.account_id IS NOT NULL THEN
+      old_account_id := OLD.account_id;
+    END IF;
+  END IF;
+
+  UPDATE journal_entry_items
+  SET letter = (CASE
+                  WHEN modified_letter_groups.balance <> 0
+                  THEN modified_letter_groups.letter || '*'
+                  ELSE modified_letter_groups.letter
+                END)
+  FROM (SELECT new_letter AS letter,
+               account_id AS account_id,
+               SUM(debit) - SUM(credit) AS balance
+            FROM journal_entry_items
+            WHERE account_id = new_account_id
+              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\**')
+              AND new_letter IS NOT NULL
+              AND new_account_id IS NOT NULL
+            GROUP BY account_id
+        UNION ALL
+        SELECT old_letter AS letter,
+               account_id AS account_id,
+               SUM(debit) - SUM(credit) AS balance
+          FROM journal_entry_items
+          WHERE account_id = old_account_id
+            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\**')
+            AND old_letter IS NOT NULL
+            AND old_account_id IS NOT NULL
+          GROUP BY account_id) AS modified_letter_groups
+  WHERE modified_letter_groups.account_id = journal_entry_items.account_id
+  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\**');
+
+  RETURN NEW;
+END;
+$$;
+
+
+--
+-- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION synchronize_jei_with_entry() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  synced_entry_id integer DEFAULT NULL;
+BEGIN
+  IF TG_NARGS <> 0 THEN
+    IF TG_ARGV[0] = 'jei' THEN
+      synced_entry_id := NEW.entry_id;
+    END IF;
+
+    IF TG_ARGV[0] = 'entry' THEN
+      synced_entry_id := NEW.id;
+    END IF;
+  END IF;
+
+  UPDATE journal_entry_items AS jei
+  SET state = entries.state,
+      printed_on = entries.printed_on,
+      journal_id = entries.journal_id,
+      financial_year_id = entries.financial_year_id,
+      entry_number = entries.number,
+      real_currency = entries.real_currency,
+      real_currency_rate = entries.real_currency_rate
+  FROM journal_entries AS entries
+  WHERE jei.entry_id = synced_entry_id
+    AND entries.id = synced_entry_id
+    AND synced_entry_id IS NOT NULL
+    AND (jei.state <> entries.state
+     OR jei.printed_on <> entries.printed_on
+     OR jei.journal_id <> entries.journal_id
+     OR jei.financial_year_id <> entries.financial_year_id
+     OR jei.entry_number <> entries.number
+     OR jei.real_currency <> entries.real_currency
+     OR jei.real_currency_rate <> entries.real_currency_rate);
+  RETURN NEW;
+END;
+$$;
 
 
 SET default_tablespace = '';
@@ -2173,6 +2283,346 @@ CREATE TABLE entities (
 
 
 --
+-- Name: incoming_payments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE incoming_payments (
+    id integer NOT NULL,
+    paid_at timestamp without time zone,
+    amount numeric(19,4) NOT NULL,
+    mode_id integer NOT NULL,
+    bank_name character varying,
+    bank_check_number character varying,
+    bank_account_number character varying,
+    payer_id integer,
+    to_bank_at timestamp without time zone NOT NULL,
+    deposit_id integer,
+    responsible_id integer,
+    scheduled boolean DEFAULT false NOT NULL,
+    received boolean DEFAULT true NOT NULL,
+    number character varying,
+    accounted_at timestamp without time zone,
+    receipt text,
+    journal_entry_id integer,
+    commission_account_id integer,
+    commission_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    currency character varying NOT NULL,
+    downpayment boolean DEFAULT true NOT NULL,
+    affair_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb,
+    codes jsonb
+);
+
+
+--
+-- Name: journal_entry_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE journal_entry_items (
+    id integer NOT NULL,
+    entry_id integer NOT NULL,
+    journal_id integer NOT NULL,
+    bank_statement_id integer,
+    financial_year_id integer NOT NULL,
+    state character varying NOT NULL,
+    printed_on date NOT NULL,
+    entry_number character varying NOT NULL,
+    letter character varying,
+    "position" integer,
+    description text,
+    account_id integer NOT NULL,
+    name character varying NOT NULL,
+    real_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_currency character varying NOT NULL,
+    real_currency_rate numeric(19,10) DEFAULT 0.0 NOT NULL,
+    debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    currency character varying NOT NULL,
+    absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_currency character varying NOT NULL,
+    cumulated_absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    cumulated_absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
+    bank_statement_letter character varying,
+    activity_budget_id integer,
+    team_id integer,
+    tax_id integer,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    tax_declaration_item_id integer,
+    resource_id integer,
+    resource_type character varying,
+    resource_prism character varying,
+    variant_id integer,
+    tax_declaration_mode character varying
+);
+
+
+--
+-- Name: outgoing_payments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE outgoing_payments (
+    id integer NOT NULL,
+    accounted_at timestamp without time zone,
+    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    bank_check_number character varying,
+    delivered boolean DEFAULT false NOT NULL,
+    journal_entry_id integer,
+    responsible_id integer NOT NULL,
+    payee_id integer NOT NULL,
+    mode_id integer NOT NULL,
+    number character varying,
+    paid_at timestamp without time zone,
+    to_bank_at timestamp without time zone NOT NULL,
+    cash_id integer NOT NULL,
+    currency character varying NOT NULL,
+    downpayment boolean DEFAULT false NOT NULL,
+    affair_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb,
+    list_id integer,
+    "position" integer,
+    type character varying,
+    CONSTRAINT outgoing_payment_delivered CHECK (((delivered = false) OR ((delivered = true) AND (paid_at IS NOT NULL))))
+);
+
+
+--
+-- Name: purchase_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE purchase_items (
+    id integer NOT NULL,
+    purchase_id integer NOT NULL,
+    variant_id integer NOT NULL,
+    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    tax_id integer NOT NULL,
+    currency character varying NOT NULL,
+    label text,
+    annotation text,
+    "position" integer,
+    account_id integer NOT NULL,
+    unit_pretax_amount numeric(19,4) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    fixed boolean DEFAULT false NOT NULL,
+    reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
+    activity_budget_id integer,
+    team_id integer,
+    depreciable_product_id integer,
+    fixed_asset_id integer,
+    preexisting_asset boolean
+);
+
+
+--
+-- Name: purchases; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE purchases (
+    id integer NOT NULL,
+    supplier_id integer NOT NULL,
+    number character varying NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    delivery_address_id integer,
+    description text,
+    planned_at timestamp without time zone,
+    confirmed_at timestamp without time zone,
+    invoiced_at timestamp without time zone,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    reference_number character varying,
+    state character varying NOT NULL,
+    responsible_id integer,
+    currency character varying NOT NULL,
+    nature_id integer,
+    affair_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb,
+    undelivered_invoice_journal_entry_id integer,
+    quantity_gap_on_invoice_journal_entry_id integer,
+    payment_delay character varying,
+    payment_at timestamp without time zone,
+    contract_id integer,
+    tax_payability character varying NOT NULL
+);
+
+
+--
+-- Name: sale_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sale_items (
+    id integer NOT NULL,
+    sale_id integer NOT NULL,
+    variant_id integer NOT NULL,
+    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    tax_id integer,
+    currency character varying NOT NULL,
+    label text,
+    annotation text,
+    "position" integer,
+    account_id integer,
+    unit_pretax_amount numeric(19,4),
+    reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
+    credited_item_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    credited_quantity numeric(19,4),
+    activity_budget_id integer,
+    team_id integer,
+    codes jsonb,
+    compute_from character varying NOT NULL
+);
+
+
+--
+-- Name: sales; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE sales (
+    id integer NOT NULL,
+    client_id integer NOT NULL,
+    nature_id integer,
+    number character varying NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    state character varying NOT NULL,
+    expired_at timestamp without time zone,
+    has_downpayment boolean DEFAULT false NOT NULL,
+    downpayment_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    address_id integer,
+    invoice_address_id integer,
+    delivery_address_id integer,
+    subject character varying,
+    function_title character varying,
+    introduction text,
+    conclusion text,
+    description text,
+    confirmed_at timestamp without time zone,
+    responsible_id integer,
+    letter_format boolean DEFAULT true NOT NULL,
+    annotation text,
+    transporter_id integer,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    reference_number character varying,
+    invoiced_at timestamp without time zone,
+    credit boolean DEFAULT false NOT NULL,
+    payment_at timestamp without time zone,
+    credited_sale_id integer,
+    initial_number character varying,
+    currency character varying NOT NULL,
+    affair_id integer,
+    expiration_delay character varying,
+    payment_delay character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb,
+    codes jsonb,
+    undelivered_invoice_journal_entry_id integer,
+    quantity_gap_on_invoice_journal_entry_id integer
+);
+
+
+--
+-- Name: economic_situations; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW economic_situations AS
+ SELECT entities.id,
+    COALESCE(client_accounting.balance, (0)::numeric) AS client_accounting_balance,
+    COALESCE(supplier_accounting.balance, (0)::numeric) AS supplier_accounting_balance,
+    (COALESCE(client_accounting.balance, (0)::numeric) + COALESCE(supplier_accounting.balance, (0)::numeric)) AS accounting_balance,
+    COALESCE(client_trade.balance, (0)::numeric) AS client_trade_balance,
+    COALESCE(supplier_trade.balance, (0)::numeric) AS supplier_trade_balance,
+    (COALESCE(client_trade.balance, (0)::numeric) + COALESCE(supplier_trade.balance, (0)::numeric)) AS trade_balance,
+    entities.creator_id,
+    entities.created_at,
+    entities.updater_id,
+    entities.updated_at,
+    entities.lock_version
+   FROM ((((entities
+     LEFT JOIN ( SELECT entities_1.id AS entity_id,
+            (- sum(client_items.balance)) AS balance
+           FROM ((entities entities_1
+             JOIN accounts clients ON ((entities_1.client_account_id = clients.id)))
+             JOIN journal_entry_items client_items ON ((clients.id = client_items.account_id)))
+          GROUP BY entities_1.id) client_accounting ON ((entities.id = client_accounting.entity_id)))
+     LEFT JOIN ( SELECT entities_1.id AS entity_id,
+            (- sum(supplier_items.balance)) AS balance
+           FROM ((entities entities_1
+             JOIN accounts suppliers ON ((entities_1.supplier_account_id = suppliers.id)))
+             JOIN journal_entry_items supplier_items ON ((suppliers.id = supplier_items.account_id)))
+          GROUP BY entities_1.id) supplier_accounting ON ((entities.id = supplier_accounting.entity_id)))
+     LEFT JOIN ( SELECT client_tradings.entity_id,
+            sum(client_tradings.amount) AS balance
+           FROM ( SELECT entities_1.id AS entity_id,
+                    (- sale_items.amount) AS amount
+                   FROM ((entities entities_1
+                     JOIN sales ON ((entities_1.id = sales.client_id)))
+                     JOIN sale_items ON ((sales.id = sale_items.sale_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    incoming_payments.amount
+                   FROM (entities entities_1
+                     JOIN incoming_payments ON ((entities_1.id = incoming_payments.payer_id)))) client_tradings
+          GROUP BY client_tradings.entity_id) client_trade ON ((entities.id = client_trade.entity_id)))
+     LEFT JOIN ( SELECT supplier_tradings.entity_id,
+            sum(supplier_tradings.amount) AS balance
+           FROM ( SELECT entities_1.id AS entity_id,
+                    purchase_items.amount
+                   FROM ((entities entities_1
+                     JOIN purchases ON ((entities_1.id = purchases.supplier_id)))
+                     JOIN purchase_items ON ((purchases.id = purchase_items.purchase_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    (- outgoing_payments.amount) AS amount
+                   FROM (entities entities_1
+                     JOIN outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) supplier_tradings
+          GROUP BY supplier_tradings.entity_id) supplier_trade ON ((entities.id = supplier_trade.entity_id)));
+
+
+--
 -- Name: entities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -2925,43 +3375,6 @@ ALTER SEQUENCE incoming_payment_modes_id_seq OWNED BY incoming_payment_modes.id;
 
 
 --
--- Name: incoming_payments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE incoming_payments (
-    id integer NOT NULL,
-    paid_at timestamp without time zone,
-    amount numeric(19,4) NOT NULL,
-    mode_id integer NOT NULL,
-    bank_name character varying,
-    bank_check_number character varying,
-    bank_account_number character varying,
-    payer_id integer,
-    to_bank_at timestamp without time zone NOT NULL,
-    deposit_id integer,
-    responsible_id integer,
-    scheduled boolean DEFAULT false NOT NULL,
-    received boolean DEFAULT true NOT NULL,
-    number character varying,
-    accounted_at timestamp without time zone,
-    receipt text,
-    journal_entry_id integer,
-    commission_account_id integer,
-    commission_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    currency character varying NOT NULL,
-    downpayment boolean DEFAULT true NOT NULL,
-    affair_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb,
-    codes jsonb
-);
-
-
---
 -- Name: incoming_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -3521,58 +3934,6 @@ CREATE SEQUENCE journal_entries_id_seq
 --
 
 ALTER SEQUENCE journal_entries_id_seq OWNED BY journal_entries.id;
-
-
---
--- Name: journal_entry_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE journal_entry_items (
-    id integer NOT NULL,
-    entry_id integer NOT NULL,
-    journal_id integer NOT NULL,
-    bank_statement_id integer,
-    financial_year_id integer NOT NULL,
-    state character varying NOT NULL,
-    printed_on date NOT NULL,
-    entry_number character varying NOT NULL,
-    letter character varying,
-    "position" integer,
-    description text,
-    account_id integer NOT NULL,
-    name character varying NOT NULL,
-    real_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    real_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    real_currency character varying NOT NULL,
-    real_currency_rate numeric(19,10) DEFAULT 0.0 NOT NULL,
-    debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    currency character varying NOT NULL,
-    absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_currency character varying NOT NULL,
-    cumulated_absolute_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    cumulated_absolute_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    bank_statement_letter character varying,
-    activity_budget_id integer,
-    team_id integer,
-    tax_id integer,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    real_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    absolute_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    tax_declaration_item_id integer,
-    resource_id integer,
-    resource_type character varying,
-    resource_prism character varying,
-    variant_id integer
-);
 
 
 --
@@ -4241,38 +4602,6 @@ ALTER SEQUENCE outgoing_payment_modes_id_seq OWNED BY outgoing_payment_modes.id;
 
 
 --
--- Name: outgoing_payments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE outgoing_payments (
-    id integer NOT NULL,
-    accounted_at timestamp without time zone,
-    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    bank_check_number character varying,
-    delivered boolean DEFAULT true NOT NULL,
-    journal_entry_id integer,
-    responsible_id integer NOT NULL,
-    payee_id integer NOT NULL,
-    mode_id integer NOT NULL,
-    number character varying,
-    paid_at timestamp without time zone,
-    to_bank_at timestamp without time zone NOT NULL,
-    cash_id integer NOT NULL,
-    currency character varying NOT NULL,
-    downpayment boolean DEFAULT true NOT NULL,
-    affair_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb,
-    list_id integer,
-    "position" integer
-);
-
-
---
 -- Name: outgoing_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -4406,6 +4735,93 @@ CREATE SEQUENCE parcels_id_seq
 --
 
 ALTER SEQUENCE parcels_id_seq OWNED BY parcels.id;
+
+
+--
+-- Name: payslip_natures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE payslip_natures (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    currency character varying NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    by_default boolean DEFAULT false NOT NULL,
+    with_accounting boolean DEFAULT false NOT NULL,
+    journal_id integer NOT NULL,
+    account_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: payslip_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE payslip_natures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: payslip_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE payslip_natures_id_seq OWNED BY payslip_natures.id;
+
+
+--
+-- Name: payslips; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE payslips (
+    id integer NOT NULL,
+    number character varying NOT NULL,
+    nature_id integer NOT NULL,
+    employee_id integer,
+    account_id integer,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    emitted_on date,
+    state character varying NOT NULL,
+    amount numeric(19,4) NOT NULL,
+    currency character varying NOT NULL,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    affair_id integer,
+    custom_fields jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: payslips_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE payslips_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: payslips_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE payslips_id_seq OWNED BY payslips.id;
 
 
 --
@@ -5490,40 +5906,6 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 
 --
--- Name: purchase_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE purchase_items (
-    id integer NOT NULL,
-    purchase_id integer NOT NULL,
-    variant_id integer NOT NULL,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    tax_id integer NOT NULL,
-    currency character varying NOT NULL,
-    label text,
-    annotation text,
-    "position" integer,
-    account_id integer NOT NULL,
-    unit_pretax_amount numeric(19,4) NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    fixed boolean DEFAULT false NOT NULL,
-    reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
-    activity_budget_id integer,
-    team_id integer,
-    depreciable_product_id integer,
-    fixed_asset_id integer,
-    preexisting_asset boolean
-);
-
-
---
 -- Name: purchase_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -5560,7 +5942,8 @@ CREATE TABLE purchase_natures (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    nature character varying NOT NULL
+    nature character varying NOT NULL,
+    CONSTRAINT purchase_natures_nature CHECK (((nature)::text = 'purchase'::text))
 );
 
 
@@ -5581,44 +5964,6 @@ CREATE SEQUENCE purchase_natures_id_seq
 --
 
 ALTER SEQUENCE purchase_natures_id_seq OWNED BY purchase_natures.id;
-
-
---
--- Name: purchases; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE purchases (
-    id integer NOT NULL,
-    supplier_id integer NOT NULL,
-    number character varying NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    delivery_address_id integer,
-    description text,
-    planned_at timestamp without time zone,
-    confirmed_at timestamp without time zone,
-    invoiced_at timestamp without time zone,
-    accounted_at timestamp without time zone,
-    journal_entry_id integer,
-    reference_number character varying,
-    state character varying,
-    responsible_id integer,
-    currency character varying NOT NULL,
-    nature_id integer,
-    affair_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb,
-    undelivered_invoice_journal_entry_id integer,
-    quantity_gap_on_invoice_journal_entry_id integer,
-    payment_delay character varying,
-    payment_at timestamp without time zone,
-    contract_id integer,
-    tax_payability character varying NOT NULL
-);
 
 
 --
@@ -5713,40 +6058,6 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
--- Name: sale_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE sale_items (
-    id integer NOT NULL,
-    sale_id integer NOT NULL,
-    variant_id integer NOT NULL,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    tax_id integer,
-    currency character varying NOT NULL,
-    label text,
-    annotation text,
-    "position" integer,
-    account_id integer,
-    unit_pretax_amount numeric(19,4),
-    reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
-    credited_item_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    credited_quantity numeric(19,4),
-    activity_budget_id integer,
-    team_id integer,
-    codes jsonb,
-    compute_from character varying NOT NULL
-);
-
-
---
 -- Name: sale_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -5812,58 +6123,6 @@ CREATE SEQUENCE sale_natures_id_seq
 --
 
 ALTER SEQUENCE sale_natures_id_seq OWNED BY sale_natures.id;
-
-
---
--- Name: sales; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE sales (
-    id integer NOT NULL,
-    client_id integer NOT NULL,
-    nature_id integer,
-    number character varying NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    state character varying NOT NULL,
-    expired_at timestamp without time zone,
-    has_downpayment boolean DEFAULT false NOT NULL,
-    downpayment_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    address_id integer,
-    invoice_address_id integer,
-    delivery_address_id integer,
-    subject character varying,
-    function_title character varying,
-    introduction text,
-    conclusion text,
-    description text,
-    confirmed_at timestamp without time zone,
-    responsible_id integer,
-    letter_format boolean DEFAULT true NOT NULL,
-    annotation text,
-    transporter_id integer,
-    accounted_at timestamp without time zone,
-    journal_entry_id integer,
-    reference_number character varying,
-    invoiced_at timestamp without time zone,
-    credit boolean DEFAULT false NOT NULL,
-    payment_at timestamp without time zone,
-    credited_sale_id integer,
-    initial_number character varying,
-    currency character varying NOT NULL,
-    affair_id integer,
-    expiration_delay character varying,
-    payment_delay character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb,
-    codes jsonb,
-    undelivered_invoice_journal_entry_id integer,
-    quantity_gap_on_invoice_journal_entry_id integer
-);
 
 
 --
@@ -6239,6 +6498,47 @@ CREATE SEQUENCE tasks_id_seq
 --
 
 ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
+
+
+--
+-- Name: tax_declaration_item_parts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tax_declaration_item_parts (
+    id integer NOT NULL,
+    tax_declaration_item_id integer NOT NULL,
+    journal_entry_item_id integer NOT NULL,
+    account_id integer NOT NULL,
+    tax_amount numeric(19,4) NOT NULL,
+    pretax_amount numeric(19,4) NOT NULL,
+    total_tax_amount numeric(19,4) NOT NULL,
+    total_pretax_amount numeric(19,4) NOT NULL,
+    direction character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tax_declaration_item_parts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_declaration_item_parts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tax_declaration_item_parts_id_seq OWNED BY tax_declaration_item_parts.id;
 
 
 --
@@ -7288,6 +7588,20 @@ ALTER TABLE ONLY parcels ALTER COLUMN id SET DEFAULT nextval('parcels_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY payslip_natures ALTER COLUMN id SET DEFAULT nextval('payslip_natures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips ALTER COLUMN id SET DEFAULT nextval('payslips_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY plant_counting_items ALTER COLUMN id SET DEFAULT nextval('plant_counting_items_id_seq'::regclass);
 
 
@@ -7569,6 +7883,13 @@ ALTER TABLE ONLY target_distributions ALTER COLUMN id SET DEFAULT nextval('targe
 --
 
 ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts ALTER COLUMN id SET DEFAULT nextval('tax_declaration_item_parts_id_seq'::regclass);
 
 
 --
@@ -8404,6 +8725,22 @@ ALTER TABLE ONLY parcels
 
 
 --
+-- Name: payslip_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT payslip_natures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payslips_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT payslips_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: plant_counting_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8729,6 +9066,14 @@ ALTER TABLE ONLY target_distributions
 
 ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_declaration_item_parts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT tax_declaration_item_parts_pkey PRIMARY KEY (id);
 
 
 --
@@ -12618,6 +12963,13 @@ CREATE INDEX index_journal_entry_items_on_tax_declaration_item_id ON journal_ent
 
 
 --
+-- Name: index_journal_entry_items_on_tax_declaration_mode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_tax_declaration_mode ON journal_entry_items USING btree (tax_declaration_mode);
+
+
+--
 -- Name: index_journal_entry_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13588,6 +13940,139 @@ CREATE INDEX index_parcels_on_updated_at ON parcels USING btree (updated_at);
 --
 
 CREATE INDEX index_parcels_on_updater_id ON parcels USING btree (updater_id);
+
+
+--
+-- Name: index_payslip_natures_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_account_id ON payslip_natures USING btree (account_id);
+
+
+--
+-- Name: index_payslip_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_created_at ON payslip_natures USING btree (created_at);
+
+
+--
+-- Name: index_payslip_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_creator_id ON payslip_natures USING btree (creator_id);
+
+
+--
+-- Name: index_payslip_natures_on_journal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_journal_id ON payslip_natures USING btree (journal_id);
+
+
+--
+-- Name: index_payslip_natures_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_payslip_natures_on_name ON payslip_natures USING btree (name);
+
+
+--
+-- Name: index_payslip_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_updated_at ON payslip_natures USING btree (updated_at);
+
+
+--
+-- Name: index_payslip_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_updater_id ON payslip_natures USING btree (updater_id);
+
+
+--
+-- Name: index_payslips_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_account_id ON payslips USING btree (account_id);
+
+
+--
+-- Name: index_payslips_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_affair_id ON payslips USING btree (affair_id);
+
+
+--
+-- Name: index_payslips_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_created_at ON payslips USING btree (created_at);
+
+
+--
+-- Name: index_payslips_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_creator_id ON payslips USING btree (creator_id);
+
+
+--
+-- Name: index_payslips_on_employee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_employee_id ON payslips USING btree (employee_id);
+
+
+--
+-- Name: index_payslips_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_journal_entry_id ON payslips USING btree (journal_entry_id);
+
+
+--
+-- Name: index_payslips_on_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_nature_id ON payslips USING btree (nature_id);
+
+
+--
+-- Name: index_payslips_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_number ON payslips USING btree (number);
+
+
+--
+-- Name: index_payslips_on_started_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_started_on ON payslips USING btree (started_on);
+
+
+--
+-- Name: index_payslips_on_stopped_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_stopped_on ON payslips USING btree (stopped_on);
+
+
+--
+-- Name: index_payslips_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_updated_at ON payslips USING btree (updated_at);
+
+
+--
+-- Name: index_payslips_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_updater_id ON payslips USING btree (updater_id);
 
 
 --
@@ -16062,6 +16547,62 @@ CREATE INDEX index_tasks_on_updater_id ON tasks USING btree (updater_id);
 
 
 --
+-- Name: index_tax_declaration_item_parts_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_account_id ON tax_declaration_item_parts USING btree (account_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_created_at ON tax_declaration_item_parts USING btree (created_at);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_creator_id ON tax_declaration_item_parts USING btree (creator_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_direction; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_direction ON tax_declaration_item_parts USING btree (direction);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_journal_entry_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_journal_entry_item_id ON tax_declaration_item_parts USING btree (journal_entry_item_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_tax_declaration_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_tax_declaration_item_id ON tax_declaration_item_parts USING btree (tax_declaration_item_id);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_updated_at ON tax_declaration_item_parts USING btree (updated_at);
+
+
+--
+-- Name: index_tax_declaration_item_parts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_declaration_item_parts_on_updater_id ON tax_declaration_item_parts USING btree (updater_id);
+
+
+--
 -- Name: index_tax_declaration_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16546,10 +17087,70 @@ CREATE RULE delete_product_populations AS
 
 
 --
+-- Name: compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE compute_partial_lettering();
+
+
+--
+-- Name: compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON journal_entry_items FOR EACH ROW WHEN ((((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit))) EXECUTE PROCEDURE compute_partial_lettering();
+
+
+--
 -- Name: outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON outgoing_payments FOR EACH ROW EXECUTE PROCEDURE compute_outgoing_payment_list_cache();
+
+
+--
+-- Name: synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON journal_entry_items FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('jei');
+
+
+--
+-- Name: synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entries FOR EACH ROW EXECUTE PROCEDURE synchronize_jei_with_entry('entry');
+
+
+--
+-- Name: fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_02f6ec2213 FOREIGN KEY (nature_id) REFERENCES payslip_natures(id);
+
+
+--
+-- Name: fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_lists(id);
+
+
+--
+-- Name: fk_rails_214eda6f83; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
 
 
 --
@@ -16577,6 +17178,22 @@ ALTER TABLE ONLY journal_entries
 
 
 --
+-- Name: fk_rails_5be0cd019c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_5be0cd019c FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
+-- Name: fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16593,11 +17210,27 @@ ALTER TABLE ONLY regularizations
 
 
 --
+-- Name: fk_rails_82e76fb89d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_82e76fb89d FOREIGN KEY (journal_id) REFERENCES journals(id);
+
+
+--
 -- Name: fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES interventions(id);
+
+
+--
+-- Name: fk_rails_9d08cd4dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_9d08cd4dc8 FOREIGN KEY (tax_declaration_item_id) REFERENCES tax_declaration_items(id);
 
 
 --
@@ -16617,6 +17250,22 @@ ALTER TABLE ONLY intervention_working_periods
 
 
 --
+-- Name: fk_rails_ac1b8c6e79; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_ac1b8c6e79 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
+-- Name: fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tax_declaration_item_parts
+    ADD CONSTRAINT fk_rails_adb1cc875c FOREIGN KEY (journal_entry_item_id) REFERENCES journal_entry_items(id);
+
+
+--
 -- Name: fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16633,6 +17282,22 @@ ALTER TABLE ONLY journals
 
 
 --
+-- Name: fk_rails_c0e66eeaff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_c0e66eeaff FOREIGN KEY (employee_id) REFERENCES entities(id);
+
+
+--
+-- Name: fk_rails_c3bf0a90b6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_c3bf0a90b6 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
 -- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16641,11 +17306,27 @@ ALTER TABLE ONLY regularizations
 
 
 --
+-- Name: fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_e319c31e6b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
+
+
+--
 -- Name: fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_ee973f6d0f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
@@ -17147,4 +17828,26 @@ INSERT INTO schema_migrations (version) VALUES ('20170407143621');
 INSERT INTO schema_migrations (version) VALUES ('20170408094408');
 
 INSERT INTO schema_migrations (version) VALUES ('20170413073501');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413185630');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413211525');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222518');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222519');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222520');
+
+INSERT INTO schema_migrations (version) VALUES ('20170413222521');
+
+INSERT INTO schema_migrations (version) VALUES ('20170414071529');
+
+INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170415141801');
+
+INSERT INTO schema_migrations (version) VALUES ('20170415163650');
+
+INSERT INTO schema_migrations (version) VALUES ('20170421131536');
 

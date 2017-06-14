@@ -32,7 +32,7 @@ module Backend
       t.column :cached_total_sum, label: :total, datatype: :float, currency: true
     end
 
-    list(:payments, model: :outgoing_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
+    list(:payments, model: :purchase_payment, conditions: { list_id: 'params[:id]'.c }) do |t|
       t.column :number, url: true
       t.column :payee, url: true
       t.column :paid_at

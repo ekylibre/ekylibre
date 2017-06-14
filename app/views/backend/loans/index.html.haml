@@ -13,10 +13,10 @@
   = t.new params: { redirect: nil }
   = t.export :loan_registry, key: Time.zone.now.to_s, resource: @loans
 
-  %span.accounting-trigger.btn-group.hidden
-    - if reading_ltr?
-      = link_to :accounting.tl, { action: :accounting, accounting_date: params[:'accounting-date'] }, { class: 'btn btn-default js-complete-links-with-ids', id: 'accounting', data: {confirm: :are_you_sure.tl, 'update-link-with': '#accounting_date', 'complete-link-with-ids': 'loans_ids', 'display-class-on-click': 'accounting-trigger', 'show-if-check-count': 'zero-or-one'}}
-      = content_tag(:span, :up_to.tl.downcase, class: 'add-on')
-      %input#accounting_date{ type: 'date', value: params[:'accounting-date'] }
+  %span.btn-group.action-form.hidden
+    - bookkeep_until = params[:until] || (Time.zone.today - 1.month).end_of_month
+    = link_to :accounting.tl, { action: :bookkeep, until: bookkeep_until.iso8601, redirect: request.fullpath }, { class: 'btn btn-default', name: 'loan_ids', data: { confirm: :are_you_sure.tl, update_link_with: '#bookkeep-loans-until', complete_link_with_checked_row_ids: '#loans-list input[type="checkbox"]' }, method: :post }
+    %span.add-on= :up_to.tl.downcase
+    = date_field_tag(:until, bookkeep_until, id: 'bookkeep-loans-until', data: { max_date: Time.zone.today.iso8601 })
 
 = main_list

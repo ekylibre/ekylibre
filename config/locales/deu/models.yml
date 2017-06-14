@@ -16,6 +16,9 @@ deu:
         filename: "Datei"
       document_template:
         managed: "Verwaltet vom System"
+      entity:
+        client_accounting_balance: "Client-Kontostand"
+        supplier_accounting_balance: "Lieferant Kontostand"
       equipment:
         born_at: "Setzen Sie im Dienst der"
         dead_at: "Verschrottet bei"
@@ -37,7 +40,7 @@ deu:
         ongoing_at: "Mittelbeschaffung bei"
         started_on: "Erste Rückzahlung begann am"
       outgoing_payment:
-        delivered: "Da an Empfänger"
+        delivered: "Angesichts des Empfängers"
         list: "Abgehende Zahlungsliste"
       outgoing_payment_list:
         payments_sum: "Gesamt"
@@ -59,6 +62,9 @@ deu:
         seeding_density_value: "Erwartete Aussaatdichte"
       purchase:
         # affair_balance: "Balance"
+      purchase_payment: #?
+        delivered: "Da an Empfänger" #?
+        list: "Abgehende Zahlungsliste" #?
       sale:
         # affair_balance: "Balance"
         contact: "Adresse für die Schätzung"
@@ -113,6 +119,7 @@ deu:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -136,7 +143,7 @@ deu:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Ungültige BBAN. Ein oder mehrere Elemente sind nicht korrekt."
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -217,7 +224,7 @@ deu:
       animal: "Tier"
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
-      bank_guarantee_account: "Bankgarantie Konto"
+      bank_guarantee_account: "Bankgarantie Konto" #?
       bank_statement: "Kontoauszug"
       bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
@@ -251,6 +258,7 @@ deu:
       document: "Dokument"
       document_template: "Dokumentvorlage"
       easement: "Erleichterung"
+      economic_situation: "Ökonomische Situation"
       entity: "Wesen"
       entity_address: "Adresse"
       entity_link: "Entity-Link"
@@ -259,6 +267,7 @@ deu:
       event: "Ereignis"
       event_participation: "Messe-Teilnahme"
       financial_year: "Geschäftsjahr"
+      financial_year_exchange: "Geschäftsjahresumsatz"
       fixed_asset: "Anlagevermögen"
       fixed_asset_depreciation: "Abschreibungen auf Sachanlagen"
       fungus: "Pilz"
@@ -275,9 +284,9 @@ deu:
       inspection: "Produktklassifizierung"
       inspection_calibration: "Inspektion Kaliber"
       inspection_point: "Produktsortierprüfung"
-      insurance_account: "Versicherungen Konto"
+      insurance_account: "Versicherungen Konto" #?
       # integration: "Integration"
-      interest_account: "Interesse Konto"
+      interest_account: "Interesse Konto" #?
       # intervention: "Intervention"
       intervention_agent: "Interventionsmittel"
       intervention_doer: "Intervention Macher"
@@ -319,6 +328,10 @@ deu:
       outgoing_payment_mode: "Auszahlungsmodus"
       parcel: "Paket"
       parcel_item: "Parcel Artikel"
+      # payslip: "Payslip"
+      payslip_affair: "Payslip-Affäre"
+      payslip_nature: "Payslip-Typ"
+      payslip_payment: "Payslip Zahlung"
       plant: "Pflanze"
       plant_counting: "Anlagenzahl"
       plant_counting_item: "Anlagenzahl Eintrag"
@@ -351,6 +364,7 @@ deu:
       purchase_gap: "Kauf Lücke"
       purchase_item: "Kaufsache"
       purchase_nature: "Kauf Art"
+      purchase_payment: "Auszahlung"
       regularization: "Regularisierung"
       role: "Rolle"
       sale: "Verkauf"
@@ -374,6 +388,7 @@ deu:
       tax: "Besteuern"
       tax_declaration: "Steuererklärung"
       tax_declaration_item: "Steuererklärung Artikel"
+      tax_declaration_item_part: "Steuererklärung Artikelteil"
       team: "Mannschaft"
       token: "Zeichen"
       tracking: "Verfolgung"
@@ -401,6 +416,7 @@ deu:
     accountable_repayments_started_on: "Rechenschafts Rückzahlungen begann am"
     accountant: "Buchhalter"
     accounted_at: "entfielen auf"
+    accounting_balance: "Accounting Balance"
     accuracy: "Genauigkeit"
     achieved_at: "erreicht bei"
     actions: "Aktionen"
@@ -521,6 +537,8 @@ deu:
     city_name: "Stadtname"
     client: "Klient"
     client_account: "Client-Konto"
+    client_accounting_balance: "Client-Kontensaldo"
+    client_trade_balance: "Client-Handelsbilanz"
     # clients: "Clients"
     closed: "Abgeschlossen"
     closed_at: "geschlossen an"
@@ -675,6 +693,7 @@ deu:
     due_at: "Bis zum"
     due_on: "Fällig am"
     duration: "Dauer"
+    economic_situation: "Ökonomische Situation"
     # email: "Email"
     emails: "E-Mails"
     embedded: "Eingebettet"
@@ -682,6 +701,7 @@ deu:
     emission_cash: "Emissions Bargeld"
     emission_currency: "Emissionswährung"
     emission_journal_entry: "Emissionsjournaleintrag"
+    emitted_on: "Emittiert auf"
     employed: "Beschäftigt"
     employee: "Mitarbeiter"
     employee_account: "Mitarbeiterkonto"
@@ -793,6 +813,7 @@ deu:
     grading_sizes_unit: "Grading Größen Einheit"
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
+    grains_yield: "Kornertrag"
     gravity: "Schwerkraft"
     gross_items: "Gross Zahl" #?
     gross_items_count: "Gross Artikel zählen"
@@ -1114,6 +1135,7 @@ deu:
     payment_mode_complement: "Zahlungsmodus Ergänzung"
     payments: "Zahlungen"
     payments_count: "Zahlungen rechnen"
+    # payslips: "Payslips"
     period: "Periode"
     # person: "Person"
     phases: "Phasen"
@@ -1209,6 +1231,7 @@ deu:
     purchase_item: "Kaufsache"
     purchase_items: "Kauf von Gegenständen"
     purchase_natures: "Kauftypen"
+    purchase_payments: "Kaufzahlungen"
     purchase_taxations: "Kauf Besteuerungen"
     purchase_taxes: "Umsatzsteuern"
     purchased_on: "erworben auf"
@@ -1396,10 +1419,12 @@ deu:
     supervision: "Aufsicht"
     supplier: "Lieferant"
     supplier_account: "Lieferant Konto"
+    supplier_accounting_balance: "Lieferant buchhaltung gleichgewicht"
     supplier_address: "Lieferant Adresse"
     supplier_payment_delay: "Lieferant Zahlungsverzug"
     supplier_payment_mode: "Lieferant Zahlungsmodus"
     supplier_payment_modes: "Lieferant Zahlungsmodi"
+    supplier_trade_balance: "Lieferant Handelsbilanz"
     suppliers: "Lieferanten"
     support: "Unterstützen"
     support_nature: "Unterstützung Art"
@@ -1455,6 +1480,7 @@ deu:
     town_number: "Stadt Zahl"
     tracking: "Verfolgung"
     trackings: "trackings"
+    trade_balance: "Handelsbilanz"
     transaction_number: "Transaktionsnummer"
     transfered_at: "übertragen auf"
     transfered_on: "Übertragen auf"
@@ -1724,6 +1750,11 @@ deu:
           prepared: "Bereit"
           received: "Empfangen"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Entwurf"
+        invoice: "Rechnung"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1774,6 +1805,9 @@ deu:
     purchase_nature:
       default:
         name: "Standard Kauf"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         # administrator: "Administrator"
@@ -1845,6 +1879,7 @@ deu:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [Jahr | 4] [Monat | 2] [Anzahl | 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

@@ -16,6 +16,9 @@ jpn:
         filename: "ファイル"
       document_template:
         managed: "システムによって管理"
+      entity:
+        client_accounting_balance: "クライアントアカウントの残高"
+        supplier_accounting_balance: "サプライヤー口座残高"
       equipment:
         born_at: "で、サービスに入れ"
         dead_at: "で廃車"
@@ -37,7 +40,7 @@ jpn:
         ongoing_at: "資金調達"
         started_on: "最初の返済は、上の開始しました"
       outgoing_payment:
-        delivered: "受信者に与えられました"
+        delivered: "受取人に与えられる"
         list: "支払一覧"
       outgoing_payment_list:
         payments_sum: "合計"
@@ -59,6 +62,9 @@ jpn:
         seeding_density_value: "予想播種密度"
       purchase:
         affair_balance: "バランス"
+      purchase_payment: #?
+        delivered: "受信者に与えられました" #?
+        list: "支払一覧" #?
       sale:
         affair_balance: "バランス"
         contact: "見積もりの​​ための住所"
@@ -113,6 +119,7 @@ jpn:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap: "%{attribute} overlaps an existing record"
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
@@ -136,7 +143,7 @@ jpn:
           # different_of_main_account: "%{attribute} must be different of main account (%{account})"
           unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。"
         deposit:
-          # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
@@ -217,7 +224,7 @@ jpn:
       animal: "動物"
       animal_group: "動物群"
       attachment: "アタッチメント"
-      bank_guarantee_account: "銀行保証口座"
+      bank_guarantee_account: "銀行保証口座" #?
       bank_statement: "銀行取引明細書"
       bank_statement_item: "銀行取引明細書行"
       bioproduct: "リビング製品"
@@ -251,6 +258,7 @@ jpn:
       document: "資料"
       document_template: "ドキュメントテンプレート"
       easement: "地役権"
+      economic_situation: "経済状況"
       entity: "エンティティ"
       entity_address: "住所"
       entity_link: "エンティティリンク"
@@ -259,6 +267,7 @@ jpn:
       event: "イベント"
       event_participation: "イベント参加"
       financial_year: "会計年度"
+      financial_year_exchange: "会計年度の交換"
       fixed_asset: "固定資産"
       fixed_asset_depreciation: "固定資産の減価償却"
       fungus: "菌"
@@ -275,9 +284,9 @@ jpn:
       inspection: "製品のグレーディング"
       inspection_calibration: "検査口径"
       inspection_point: "製品のグレーディングチェック"
-      insurance_account: "保険アカウント"
+      insurance_account: "保険アカウント" #?
       integration: "統合"
-      interest_account: "インタレストアカウント"
+      interest_account: "インタレストアカウント" #?
       intervention: "介入"
       intervention_agent: "介入エージェント"
       intervention_doer: "介入行為者"
@@ -314,11 +323,15 @@ jpn:
       net_service: "ネットサービス"
       notification: "お知らせ"
       observation: "観察"
-      outgoing_payment: "支出"
+      outgoing_payment: "支払い"
       outgoing_payment_list: "支払一覧"
       outgoing_payment_mode: "支払いモード"
       parcel: "小包"
       parcel_item: "小包アイテム"
+      payslip: "ペイプルップ"
+      payslip_affair: "ペイプルップ事件"
+      payslip_nature: "ペイプリップタイプ"
+      payslip_payment: "Payslipの支払い"
       plant: "工場"
       plant_counting: "植物カウント"
       plant_counting_item: "植物カウントエントリ"
@@ -351,6 +364,7 @@ jpn:
       purchase_gap: "購入ギャップ"
       purchase_item: "購入アイテム"
       purchase_nature: "購入タイプ"
+      purchase_payment: "支出"
       regularization: "正則化"
       role: "役割"
       sale: "販売"
@@ -374,6 +388,7 @@ jpn:
       tax: "税金"
       tax_declaration: "税金申告"
       tax_declaration_item: "税務申告項目"
+      tax_declaration_item_part: "納税申告項目部"
       team: "チーム"
       token: "トークン"
       tracking: "追跡"
@@ -401,6 +416,7 @@ jpn:
     accountable_repayments_started_on: "責任返済は上の開始しました"
     accountant: "会計士"
     accounted_at: "で会計処理"
+    accounting_balance: "会計収支"
     accuracy: "精度"
     achieved_at: "で達成"
     actions: "アクション"
@@ -521,6 +537,8 @@ jpn:
     city_name: "市名を指定します。"
     client: "クライアント"
     client_account: "クライアントアカウント"
+    client_accounting_balance: "クライアントの会計収支"
+    client_trade_balance: "クライアントの貿易収支"
     clients: "クライアント"
     closed: "閉じました"
     closed_at: "で閉鎖"
@@ -675,6 +693,7 @@ jpn:
     due_at: "起因します"
     due_on: "上の原因"
     duration: "デュレーション"
+    economic_situation: "経済状況"
     email: "Eメール"
     emails: "電子メール"
     embedded: "埋め込み"
@@ -682,6 +701,7 @@ jpn:
     emission_cash: "排出現金"
     emission_currency: "排出通貨"
     emission_journal_entry: "排出仕訳"
+    emitted_on: "発行日"
     employed: "採用"
     employee: "従業員"
     employee_account: "従業員のアカウント"
@@ -793,6 +813,7 @@ jpn:
     grading_sizes_unit: "グレーディングサイズユニット"
     grading_sizes_unit_name: "グレーディングサイズのユニット名"
     gradings: "グレーディング"
+    grains_yield: "穀物収量"
     gravity: "重力"
     gross_items: "総カウント数" #?
     gross_items_count: "総アイテムがカウント"
@@ -1114,6 +1135,7 @@ jpn:
     payment_mode_complement: "支払モード補数"
     payments: "支払い"
     payments_count: "支払いは数えます"
+    payslips: "ペイスリップス"
     period: "期間"
     person: "人"
     phases: "フェーズ"
@@ -1209,6 +1231,7 @@ jpn:
     purchase_item: "購入アイテム"
     purchase_items: "アイテムを購入します"
     purchase_natures: "購入タイプ"
+    purchase_payments: "購入の支払い"
     purchase_taxations: "購入taxations"
     purchase_taxes: "税金を購入"
     purchased_on: "で購入"
@@ -1396,10 +1419,12 @@ jpn:
     supervision: "監督"
     supplier: "サプライヤー"
     supplier_account: "サプライヤーアカウント"
+    supplier_accounting_balance: "サプライヤーの会計収支"
     supplier_address: "サプライヤーアドレス"
     supplier_payment_delay: "サプライヤーの支払い遅延"
     supplier_payment_mode: "サプライヤーの支払いモード"
     supplier_payment_modes: "サプライヤーの支払いモード"
+    supplier_trade_balance: "サプライヤーの貿易収支"
     suppliers: "サプライヤー"
     support: "サポート"
     support_nature: "サポートタイプ"
@@ -1455,6 +1480,7 @@ jpn:
     town_number: "タウン番号"
     tracking: "追跡"
     # trackings: "Trackings"
+    trade_balance: "貿易収支"
     transaction_number: "トランザクション数"
     transfered_at: "移し"
     transfered_on: "上に移し"
@@ -1725,6 +1751,11 @@ jpn:
           prepared: "準備"
           received: "受け"
       # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
+    payslip:
+      # bookkeep: "[%{resource} %{number}] %{employee} from %{started_on} to %{stopped_on}"
+      states:
+        draft: "ドラフト"
+        invoice: "請求書"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1775,6 +1806,9 @@ jpn:
     purchase_nature:
       default:
         name: "スタンダード購入"
+    purchase_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
     role:
       default:
         administrator: "管理者"
@@ -1846,6 +1880,7 @@ jpn:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        payslips: "PS [年| 4] [月| 2] [番号| 4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

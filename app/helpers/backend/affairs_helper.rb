@@ -9,12 +9,14 @@ module Backend
       types = if affair.is_a?(SaleAffair)
                 %w[Sale IncomingPayment]
               elsif affair.is_a?(PurchaseAffair)
-                %w[Purchase OutgoingPayment]
+                %w[Purchase PurchasePayment]
+              elsif affair.is_a?(PayslipAffair)
+                %w[Payslip PayslipPayment]
               else
                 (Affair.affairable_types - %w[Gap PurchaseGap SaleGap])
               end
       current_deal = options[:current_deal]
-      if current_deal && (current_deal.is_a?(Sale) || current_deal.is_a?(Purchase))
+      if current_deal && (current_deal.class.name + 'Affair' == affair.class.name)
         types.reverse!
       end
       locals = {

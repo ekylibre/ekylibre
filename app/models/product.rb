@@ -49,7 +49,7 @@
 #  initial_dead_at              :datetime
 #  initial_enjoyer_id           :integer
 #  initial_father_id            :integer
-#  initial_geolocation          :geometry({:srid=>4326, :type=>"point"})
+#  initial_geolocation          :geometry({:srid=>4326, :type=>"st_point"})
 #  initial_mother_id            :integer
 #  initial_movement_id          :integer
 #  initial_owner_id             :integer
@@ -86,7 +86,9 @@
 require 'ffaker'
 
 class Product < Ekylibre::Record::Base
-  include Versionable, Indicateable, Attachable
+  include Attachable
+  include Indicateable
+  include Versionable
   include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'

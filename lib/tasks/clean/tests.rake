@@ -36,6 +36,16 @@ namespace :clean do
     errors[:exchangers] = Clean::Tests.check_class_test('exchangers', log, verbose)
     Clean::Tests.print_stat :exchangers, errors
 
+    # Check services test files
+    print ' - Tests: '
+    errors[:services] = Clean::Tests.check_class_test('services', log, verbose)
+    Clean::Tests.print_stat :services, errors
+
+    # Check concepts test files
+    print ' - Tests: '
+    errors[:concepts] = Clean::Tests.check_class_test('concepts', log, verbose)
+    Clean::Tests.print_stat :concepts, errors
+
     # Check fixture files
     print ' - Tests: '
     yaml = nil

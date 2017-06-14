@@ -56,6 +56,7 @@
 # Sale            |    X    |         |
 # SaleCredit      |         |    X    |
 # SaleGap         | Profit! |  Loss!  |
+# Payslip         |         |    X    |
 # Purchase        |         |    X    |
 # PurchaseCredit  |         |         |
 # PurchaseGap     | Profit! |  Loss!  |
@@ -75,6 +76,7 @@ class Affair < Ekylibre::Record::Base
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
+  has_many :payslips,          inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :regularizations,   inverse_of: :affair, dependent: :destroy
@@ -116,14 +118,18 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  before_save :letter_journal_entries
+
   def work_name
     number.to_s
   end
 
-  # return the first deal number for the given type
-  def deal_work_name(type = Purchase)
-    d = deals_of_type(type)
-    return d.first.number if d.count > 0
+  # Returns the first deal number for the given type as deal work name.
+  # FIXME: Not sure that's a good method. Why the first deal number is used as the
+  #        "deal work name".
+  def deal_work_name
+    d = deals_of_type(self.class.deal_class).first
+    return d.number if d
     nil
   end
 
@@ -142,7 +148,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns types of accepted deals
     def affairable_types
-      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
+      @affairable_types ||= %w[SaleGap PurchaseGap Sale Purchase Payslip IncomingPayment OutgoingPayment Regularization DebtTransfer].freeze
     end
 
     # Removes empty affairs in the whole table
@@ -240,12 +246,12 @@ class Affair < Ekylibre::Record::Base
   end
 
   def finishable?
-    !multi_thirds? && unbalanced?
+    unbalanced? && gap_class && !multi_thirds?
   end
 
   def debt_transferable?
     # unbalanced
-    !closed
+    !closed && unbalanced?
   end
 
   # Adds a gap to close the affair
@@ -336,7 +342,11 @@ class Affair < Ekylibre::Record::Base
   end
 
   def gap_class
-    raise NotImplementedError
+    nil
+  end
+
+  def self.deal_class
+    name.gsub(/Affair$/, '').constantize
   end
 
   def originator
@@ -388,19 +398,16 @@ class Affair < Ekylibre::Record::Base
     raise NotImplementedError
   end
 
-  before_save :letter_journal_entries!
-
   def letterable?
     !unletterable?
   end
 
   def unletterable?
-    unbalanced? || multi_thirds? || journal_entry_items_unbalanced? ||
-      journal_entry_items_already_lettered? || !match_with_accountancy?
+    multi_thirds?
   end
 
   def lettered?
-    letter? && journal_entry_items_balanced?
+    letter?
   end
 
   def letter_journal_entries
@@ -418,7 +425,7 @@ class Affair < Ekylibre::Record::Base
 
   # Returns true if a part of items are already lettered by outside
   def journal_entry_items_already_lettered?
-    letters = letterable_journal_entry_items.pluck(:letter)
+    letters = letterable_journal_entry_items.pluck(:letter).map { |letter| letter.delete('*') }
     if (letter? && letters.detect { |x| x != letter }) ||
        (!letter? && letters.detect(&:present?))
       return true
@@ -455,7 +462,7 @@ class Affair < Ekylibre::Record::Base
     # Update letters
     account.unmark(letter) if journal_entry_items.any?
     self.letter = nil if letter.blank?
-    self.letter = account.mark(journal_entry_items.pluck(:id), letter)
+    self.letter = account.mark!(journal_entry_items.pluck(:id), letter)
     true
   end
 end
