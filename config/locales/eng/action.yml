@@ -8,11 +8,11 @@ eng:
       # failure: "Failure omniauth callback: %{name}"
       # passthru: "Passthru omniauth callback: %{name}"
     authentication/passwords:
-      edit: "Edit password: %{name}"
+      edit: "New password"
       new: "New password"
     authentication/registrations:
       # cancel: "Cancel registration: %{name}"
-      # edit: "Edit registration: %{name}"
+      edit: "Sign up"
       new: "Sign up"
     authentication/sessions:
       destroy: "Log out" #?
@@ -294,7 +294,7 @@ eng:
       # show: "Fixed asset depreciation: %{name}"
     backend/fixed_assets:
       # depreciate: "Depreciate fixed asset: %{name}"
-      # depreciate_up_to: "Depreciate up to fixed asset: %{name}"
+      # depreciate_all: "Depreciate all fixed asset: %{name}"
       edit: "Edit fixed asset: %{name}"
       index: "Fixed assets"
       new: "New fixed asset"
@@ -371,6 +371,7 @@ eng:
       convert: "Convert intervention participation: %{name}"
       index: "Intervention participations"
     backend/interventions:
+      # change_page: "Change page intervention: %{name}"
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
       edit: "Edit"
@@ -965,6 +966,7 @@ eng:
     add_catalog_price: "Add catalog price"
     add_child: "Add a child component"
     add_choice: "Add choice"
+    add_compensation_entry: "Add compensation entry"
     add_component: "Add component"
     add_condition: "Add condition"
     add_conditions: "Add conditions"
@@ -1269,6 +1271,7 @@ eng:
     edit: "Edit"
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
+    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
     emissions_and_reevaluation_gaps: "Emissions and reevaluation gaps" #?!
     employee_and_wages: "Employee and wages" #?!
@@ -2144,7 +2147,7 @@ eng:
       access_denied: "Access denied. %{reason} (%{url})"
       accountant_notified: "The accountant has been notified"
       accountant_without_email: "Please set the accountant email"
-      # all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
+      all_fixed_assets_must_be_depreciable: "All fixed assets must be depreciable"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       all_purchases_must_be_ordered_or_invoiced: "All purchases must be ordered or invoiced."
       all_tax_declarations_have_already_existing: "All tax declarations have already existing"
@@ -2161,11 +2164,9 @@ eng:
       closed_financial_year_exchange: "The financial year exchange has been closed successfully"
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
-      # could_not_attach_x_or_y_to_affair: "Could not attach x or y to affair"
+      could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Dashboard is under heavy development"
       density_is_not_computable_in_counting: "Could not compute the density for this counting. The missing values should be completed in the counting's properties or the sower's indicators."
-      depreciation_failed: "Assets could not be depreciated."
-      depreciation_successful: "Assets have been successfully depreciated."
       draft_journal_entries_have_been_validated:
         one: "%{count} entry has been validated"
         other: "%{count} entries have been validated"
@@ -2174,7 +2175,6 @@ eng:
       equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
       equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
       equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
-      # error_while_depreciating: "Error while depreciating"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
@@ -2207,7 +2207,7 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
-      # no_fixed_assets_given: "No fixed assets given"
+      no_fixed_assets_given: "No fixed assets given"
       no_inspections_given: "No inspections given"
       no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
@@ -2246,6 +2246,9 @@ eng:
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        one: "%{count} fixed asset depreciation has been bookkept successfully"
+        other: "%{count} fixed asset depreciations have been bookkept successfully"
       x_loan_repayments_have_been_bookkept_successfully:
         one: "%{count} loan repayment has been bookkept successfully"
         other: "%{count} loan repayments have been bookkept successfully"
@@ -2293,6 +2296,7 @@ eng:
       cancel: "Cancel"
       # change: "Change"
       # change_minutes: "Change minutes"
+      # change_page: "Change page"
       # change_password: "Change password"
       # change_state: "Change state"
       check: "Check"
@@ -2308,7 +2312,7 @@ eng:
       # currency_state: "Currency state"
       # current: "Current"
       # depreciate: "Depreciate"
-      # depreciate_up_to: "Depreciate up to"
+      # depreciate_all: "Depreciate all"
       destroy: "Destroy"
       detach: "Detach"
       # detach_gaps: "Detach gaps"

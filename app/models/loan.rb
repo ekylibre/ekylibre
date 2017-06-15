@@ -155,8 +155,6 @@ class Loan < Ekylibre::Record::Base
       entry.add_debit(label, cash.account_id, amount, as: :bank)
       entry.add_credit(label, unsuppress { loan_account_id }, amount, as: :loan)
 
-      # puts entry.inspect.red
-
       if use_bank_guarantee?
         label_guarantee = tc(:bookkeep_guarantee_payment, resource: self.class.model_name.human, name: name)
         entry.add_debit(label_guarantee, unsuppress { bank_guarantee_account_id }, bank_guarantee_amount, as: :bank_guarantee)

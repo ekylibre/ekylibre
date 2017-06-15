@@ -70,7 +70,7 @@ class LoanRepayment < Ekylibre::Record::Base
   end
 
   # Prevents from deleting if entry exist
-  protect on: %i[destroy update] do
+  protect on: %i[destroy] do
     journal_entry
   end
 

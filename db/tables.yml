@@ -602,7 +602,6 @@ affairs:
     type: string
   number:
     type: string
-    required: true
   origin:
     type: string
   pretax_amount:
