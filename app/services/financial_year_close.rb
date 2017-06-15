@@ -91,13 +91,8 @@ class FinancialYearClose
     # Since debit and credit are reversed, if result is positive, balance is a credit
     # and so it's a profit
     result = items.map { |i| i[:real_debit] - i[:real_credit] }.sum
-    if result > 0
-      profit = Account.find_in_nomenclature(:financial_year_result_profit)
-      items << { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result }
-    elsif result < 0
-      losses = Account.find_in_nomenclature(:financial_year_result_loss)
-      items << { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0 }
-    end
+
+    items << loss_or_profit_item(result) unless result.zero?
 
     @result_journal.entries.create!(
       printed_on: @to_close_on,
@@ -107,6 +102,15 @@ class FinancialYearClose
     )
 
     progress.clean!
+  end
+
+  def loss_or_profit_item(result)
+    if result > 0
+      profit = Account.find_in_nomenclature(:financial_year_result_profit)
+      return { account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result }
+    end
+    losses = Account.find_in_nomenclature(:financial_year_result_loss)
+    { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0 }
   end
 
   # FIXME: Manage non-french accounts
@@ -195,21 +199,7 @@ class FinancialYearClose
     return unless items.any?
     return unless result.nonzero?
 
-    account = Account.find(items.first[:account_id])
-
-    if letter
-      new_letter = account.new_letter
-      lettered_later = account.journal_entry_items.where('printed_on > ?', @to_close_on).where(letter: letter)
-      lettered_later.update_all(letter: new_letter)
-      lettered_later.each do |item|
-        affair = item.entry.resource && item.entry.resource.affair
-        next unless affair
-
-        affair.update(letter: new_letter)
-      end
-
-      items = items.map { |item| item[:letter] = new_letter; item }
-    end
+    items = reletter_items!(items, letter)
 
     generate_closing_or_opening_entry!(@forward_journal,
                                        { number: '891', name: 'Bilan de clôture' },
@@ -217,9 +207,7 @@ class FinancialYearClose
                                        -result)
 
     items = items.map do |item|
-      swap = item[:real_debit]
-      item[:real_debit] = item[:real_credit]
-      item[:real_credit] = swap
+      item[:real_debit], item[:real_credit] = item[:real_credit], item[:real_debit]
       item[:letter] = letter if letter
       item
     end
@@ -228,6 +216,27 @@ class FinancialYearClose
                                        { number: '890', name: 'Bilan d’ouverture' },
                                        items,
                                        result)
+  end
+
+  def reletter_items!(items, letter)
+    return items unless letter
+
+    account = Account.find(items.first[:account_id])
+
+    updated_affairs = Hash.new
+
+    new_letter = account.new_letter
+    lettered_later = account.journal_entry_items.where('printed_on > ?', @to_close_on).where(letter: letter)
+    lettered_later.update_all(letter: new_letter)
+    lettered_later.each do |item|
+      affair = item.entry.resource && item.entry.resource.affair
+      next unless affair && !updated_affairs[affair.id]
+
+      updated_affairs[affair.id] = true
+      affair.update(letter: new_letter)
+    end
+
+    items = items.map { |item| item[:letter] = new_letter; item }
   end
 
   def generate_closing_or_opening_entry!(journal, account_info, items, result)
