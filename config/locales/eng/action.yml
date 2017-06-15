@@ -2073,7 +2073,9 @@ eng:
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
-    # x_purchase_payments: "X purchase payments"
+    x_purchase_payments:
+      one: "%{count} purchase payment"
+      other: "%{count} purchase payments"
     x_purchases:
       one: "%{count} purchase"
       other: "%{count} purchases"
