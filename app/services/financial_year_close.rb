@@ -12,25 +12,19 @@ class FinancialYearClose
     ensure_closability!
 
     ActiveRecord::Base.transaction do
-      # Compute balance of closed year
       @year.compute_balances!
 
-      # Create result entry of the current year
       generate_result_entry! if @result_journal
       @progress.increment!
 
-      # Settle balance sheet accounts
-      # Adds carrying forward entry
       generate_carrying_forward_entry!
       @progress.increment!
 
-      # Close all journals
-      Journal.find_each.with_index do |journal, index|
+      Journal.find_each do |journal|
         journal.close!(@to_close_on) if journal.closed_on < @to_close_on
         @progress.increment!
       end
 
-      # Close year
       @year.update_attributes(stopped_on: @to_close_on, closed: true)
     end
     @progress.clean!
@@ -40,7 +34,6 @@ class FinancialYearClose
   private
 
   def ensure_closability!
-    # Check closeability of journals
     journals = Journal.where('closed_on < ?', @to_close_on)
     unclosables = journals.select { |journal| !journal.closable?(@to_close_on) }
 
@@ -68,31 +61,29 @@ class FinancialYearClose
     return nil unless journal
 
     return true if journal.send(:"#{nature}?") &&
-                                journal.closed_on <= @to_close_on &&
-                                journal.currency == @currency
+                    journal.closed_on <= @to_close_on &&
+                    journal.currency == @currency
 
     @errors << "Cannot close without an opened #{nature} journal with same currency as financial year."
   end
 
   # FIXME: Manage non-french accounts
   def generate_result_entry!
-    accounts = []
-    accounts << Nomen::Account.find(:expenses).send(Account.accounting_system)
-    accounts << Nomen::Account.find(:revenues).send(Account.accounting_system)
+    accounts = [:expenses, :revenues]
+    accounts = accounts.map { |acc| Nomen::Account.find(acc).send(Account.accounting_system) }
 
-    items = []
     total = account_balances_for(accounts).count + 1
     progress = Progress.new(:close_result_entry, id: self.id, max: total)
 
-    account_balances_for(accounts).find_each.with_index do |account_balance, index|
-      items << {
+    items = account_balances_for(accounts).find_each.map do |account_balance|
+      progress.increment!
+
+      {
         account_id: account_balance.account_id,
         name: account_balance.account.name,
         real_debit: account_balance.balance_credit,
         real_credit: account_balance.balance_debit
       }
-
-      progress.set_value(index + 1)
     end
 
     return unless items.any?
@@ -108,7 +99,7 @@ class FinancialYearClose
       items << { account_id: losses.id, name: losses.name, real_debit: result.abs, real_credit: 0.0 }
     end
 
-    result = @result_journal.entries.create!(
+    @result_journal.entries.create!(
       printed_on: @to_close_on,
       currency: @result_journal.currency,
       state: :confirmed,
@@ -116,8 +107,6 @@ class FinancialYearClose
     )
 
     progress.clean!
-
-    result
   end
 
   # FIXME: Manage non-french accounts
@@ -246,7 +235,7 @@ class FinancialYearClose
     account = Account.find_or_create_by_number(account_info[:number], account_info[:name])
 
     journal.entries.create!(
-      printed_on: to_close_on,
+      printed_on: @to_close_on,
       currency: journal.currency,
       items_attributes: items + [{
         account_id: account.id,
