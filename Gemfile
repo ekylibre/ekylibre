@@ -187,6 +187,8 @@ group :development do
 
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
+
+  # Get the time of a process
   gem 'ruby-prof'
 
   # Code metrics
