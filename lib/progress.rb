@@ -33,9 +33,9 @@ class Progress
 
   def set_value(value)
     return false if @read_only
-    value = value.to_f/@max*100.0
+    @value = value.to_f/@max*100.0
     FileUtils.mkdir_p(progress_file.dirname)
-    File.write(progress_file, value.to_s)
+    File.write(progress_file, @value.to_s)
   end
 
   def clean!
@@ -50,6 +50,7 @@ class Progress
   end
 
   def increment!
-    set_value(value + 1)
+    @value ||= value
+    set_value(@value + 1)
   end
 end
