@@ -96,7 +96,6 @@ class Affair < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
 
-  # acts_as_numbered
   scope :closeds, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }
 
