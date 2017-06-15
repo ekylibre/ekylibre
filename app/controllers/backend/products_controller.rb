@@ -82,6 +82,7 @@ module Backend
       t.column :unit_name
       t.column :container, url: true
       t.column :description
+      t.column :derivative_of
     end
 
     # Lists contained products of the current product

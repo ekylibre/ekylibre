@@ -24,7 +24,7 @@ module Isagri
             version = f.readline.to_s[13..16].to_i
           end
         rescue
-          raise NotWellFormedFileError
+          raise ActiveExchanger::NotWellFormedFileError
         end
         used_versions = [8550]
         version = used_versions.select { |x| x <= version }.sort[-1]
@@ -33,10 +33,10 @@ module Isagri
           begin
             isa = SVF::Isacompta8550.parse(file)
           rescue SVF::InvalidSyntax
-            raise NotWellFormedFileError
+            raise ActiveExchanger::NotWellFormedFileError
           end
 
-          raise NotWellFormedFileError unless isa.folder.financial_year
+          raise ActiveExchanger::NotWellFormedFileError unless isa.folder.financial_year
 
           isa_fy = isa.folder.financial_year
           # Find or create financial year
