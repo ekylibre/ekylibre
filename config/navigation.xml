@@ -747,7 +747,6 @@
         <page to="backend/interventions#update"/>
         <page to="backend/interventions#change_page"/>
         <page to="backend/interventions#change_state"/>
-        <page to="backend/interventions#change_page"/>
         <page to="backend/interventions#modal"/>
         <page to="backend/interventions#list_product_parameters"/>
         <page to="backend/interventions#list_record_interventions"/>
