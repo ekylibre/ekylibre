@@ -90,7 +90,11 @@ module Calculus
       in_rate << @insurances if @insurance_method == :compute_to_repay_insurance
 
       global_rate = in_rate.map(&:values).flatten.sum / @period
-      repayment_amount = amount * global_rate / (1 - ((1 + global_rate)**-@count))
+      repayment_amount = if global_rate == 0
+        amount / @count
+      else
+        amount * global_rate / (1 - ((1 + global_rate)**-@count))
+      end
 
       @count.times do |_index|
         repayment = {}
