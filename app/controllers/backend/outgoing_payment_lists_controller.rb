@@ -108,7 +108,6 @@ module Backend
     end
 
     def create
-      binding.pry
       params[:purchase_affairs] ||= []
       params[:purchase_affairs].reject!(&:empty?)
 
