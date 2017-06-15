@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '>= 2.2.3', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
@@ -21,7 +21,7 @@ gem 'possibly'
 
 # Code manipulation
 gem 'charlock_holmes'
-gem 'code_string'
+gem 'code_string', '>= 0.0.1'
 
 gem 'browser'
 
@@ -44,7 +44,9 @@ gem 'therubyracer', platforms: :ruby
 
 # Exception analysis and metrics
 gem 'binding_of_caller'
+gem 'redis-namespace' # Fix for missing dependency in skylight
 gem 'sentry-raven', require: false
+gem 'sidekiq-skylight'
 gem 'skylight'
 
 # Use jquery as the JavaScript library
@@ -95,7 +97,7 @@ gem 'unicorn', group: :production
 gem 'exception_notification'
 
 # Views helpers
-gem 'active_list', '>= 6.8.2' # , path: "../active_list"
+gem 'active_list', '>= 6.9.2' # , path: "../active_list"
 gem 'haml'
 gem 'simple_calendar'
 
@@ -147,7 +149,7 @@ gem 'beardley-open_sans'
 gem 'beardley-xml'
 
 # Import/Export
-gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
+gem 'ekylibre-ofx-parser'
 gem 'rgeo-geojson'
 gem 'rgeo-shapefile'
 gem 'roo'
@@ -209,7 +211,8 @@ group :development, :test do
   gem 'teaspoon-jasmine'
 
   # Exception message tips
-  gem 'did_you_mean', '~> 0.9'
+
+  gem 'did_you_mean', '~> 0.9', platforms: [:ruby_22]
 end
 
 group :test do

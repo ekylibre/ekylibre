@@ -12,7 +12,7 @@ module Backend
       OutgoingPaymentMode.delete_all
       Entity.delete_all
       Purchase.delete_all
-      OutgoingPayment.delete_all
+      PurchasePayment.delete_all
       Tax.delete_all
       Role.delete_all
       User.delete_all
@@ -53,7 +53,7 @@ module Backend
 
       @deal       = Purchase.create!(supplier: @max, nature: @nature, currency: 'EUR')
       @carrots    = ProductNatureVariant.import_from_nomenclature :carrot
-      @payment    = OutgoingPayment.create!(amount: 4242, currency: 'EUR', payee: @max, mode: @diesel, responsible: user, to_bank_at: Time.zone.now - 5.days)
+      @payment    = PurchasePayment.create!(amount: 4242, currency: 'EUR', payee: @max, mode: @diesel, responsible: user, to_bank_at: Time.zone.now - 5.days)
 
       @deal.items.create!(variant_id: @carrots.id,
                           quantity: 500,
@@ -81,7 +81,7 @@ module Backend
                                         payment: :existing
                                       })
       assert_response :redirect
-      assert_equal @payment, @deal.affair.outgoing_payments.first
+      assert_equal @payment, @deal.affair.purchase_payments.first
 
       # From new data
       post *complete_request(:create, except: :bank_statement_item_ids,
@@ -93,7 +93,7 @@ module Backend
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
       assert_equal 13.79, affair.purchases.first.items.first.unit_pretax_amount
-      assert_equal 1379,  affair.outgoing_payments.first.amount
+      assert_equal 1379,  affair.purchase_payments.first.amount
     end
 
     test 'letters on existing purchase/payment' do
@@ -109,7 +109,7 @@ module Backend
                                         cash:   true
                                       })
       assert_response :redirect
-      assert_equal @payment, @deal.affair.outgoing_payments.first
+      assert_equal @payment, @deal.affair.purchase_payments.first
 
       payment_letters = @payment.journal_entry.items
                                 .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
@@ -133,14 +133,14 @@ module Backend
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
-      payment = affair.outgoing_payments.first
+      payment = affair.purchase_payments.first
       payment_letters = payment.journal_entry.items
                                .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
                                .pluck(:bank_statement_letter)
                                .compact.uniq
 
       assert_equal 13.79, affair.purchases.first.items.first.unit_pretax_amount
-      assert_equal 1379,  affair.outgoing_payments.first.amount
+      assert_equal 1379,  affair.purchase_payments.first.amount
       assert_equal @tanks.each(&:reload).map(&:letter).uniq, payment_letters
     end
 
@@ -157,7 +157,7 @@ module Backend
                                         cash:   true
                                       })
       assert_response :redirect
-      assert_equal @payment, @deal.affair.outgoing_payments.first
+      assert_equal @payment, @deal.affair.purchase_payments.first
 
       payment_letters = @payment.journal_entry.items
                                 .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
@@ -177,14 +177,14 @@ module Backend
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
-      payment = affair.outgoing_payments.first
+      payment = affair.purchase_payments.first
       payment_letters = payment.journal_entry.items
                                .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
                                .pluck(:bank_statement_letter)
                                .compact.uniq
 
       assert_equal 12.50, affair.purchases.first.items.first.unit_pretax_amount
-      assert_equal 1250,  affair.outgoing_payments.first.amount
+      assert_equal 1250,  affair.purchase_payments.first.amount
       assert_empty @tanks.map(&:letter).compact.uniq
       assert_empty payment_letters
     end
@@ -202,7 +202,7 @@ module Backend
                                         cash:   true
                                       })
       assert_response :redirect
-      assert_equal @payment, @deal.affair.outgoing_payments.first
+      assert_equal @payment, @deal.affair.purchase_payments.first
 
       payment_letters = @payment.journal_entry.items
                                 .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
@@ -222,14 +222,14 @@ module Backend
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
-      payment = affair.outgoing_payments.first
+      payment = affair.purchase_payments.first
       payment_letters = payment.journal_entry.items
                                .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
                                .pluck(:bank_statement_letter)
                                .compact.uniq
 
       assert_equal 13.79, affair.purchases.first.items.first.unit_pretax_amount
-      assert_equal 1379,  affair.outgoing_payments.first.amount
+      assert_equal 1379,  affair.purchase_payments.first.amount
       assert_empty @tanks.map(&:letter).compact.uniq
       assert_empty payment_letters
     end
@@ -247,7 +247,7 @@ module Backend
                                         cash:   false
                                       })
       assert_response :redirect
-      assert_equal @payment, @deal.affair.outgoing_payments.first
+      assert_equal @payment, @deal.affair.purchase_payments.first
 
       payment_letters = @payment.journal_entry.items
                                 .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
@@ -267,14 +267,14 @@ module Backend
 
       assert_response :redirect
       affair = PurchaseAffair.find(@response.redirect_url.split('/').last)
-      payment = affair.outgoing_payments.first
+      payment = affair.purchase_payments.first
       payment_letters = payment.journal_entry.items
                                .where(account_id: @fuel_level.cash_account_id) # Only matching line is lettered
                                .pluck(:bank_statement_letter)
                                .compact.uniq
 
       assert_equal 12.50, affair.purchases.first.items.first.unit_pretax_amount
-      assert_equal 1250,  affair.outgoing_payments.first.amount
+      assert_equal 1250,  affair.purchase_payments.first.amount
       assert_empty @tanks.map(&:letter).compact.uniq
       assert_empty payment_letters
     end
