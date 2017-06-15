@@ -48,4 +48,8 @@ class Progress
     return @progress_file if defined? @progress_file
     @progress_file = Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name}-#{id}.progress")
   end
+
+  def increment!
+    set_value(value + 1)
+  end
 end
