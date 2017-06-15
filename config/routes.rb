@@ -479,7 +479,7 @@ Rails.application.routes.draw do
 
     resources :fixed_assets, concerns: %i[list unroll], path: 'fixed-assets' do
       collection do
-        get :depreciate_up_to
+        post :depreciate, action: :depreciate_all
       end
 
       member do

@@ -918,7 +918,7 @@ fixed_assets:
     actions:
     - "backend/fixed_assets#create"
     - "backend/fixed_assets#depreciate"
-    - "backend/fixed_assets#depreciate_up_to"
+    - "backend/fixed_assets#depreciate_all"
     - "backend/fixed_assets#destroy"
     - "backend/fixed_assets#edit"
     - "backend/fixed_assets#new"
