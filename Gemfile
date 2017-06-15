@@ -188,6 +188,9 @@ group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
+  # Get the time of a process
+  gem 'ruby-prof'
+
   # Code metrics
   gem 'rails_best_practices', require: false
   gem 'rubocop', '~> 0.49.1', require: false
