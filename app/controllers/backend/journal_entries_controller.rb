@@ -144,7 +144,7 @@ module Backend
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
         end
         # Check if the method is called from "account/:id/mark" view
-        if params[:journal_entry_items_ids]
+        if params[:journal_entry_items_ids].present?
           # Get all journal_entry_items id selected from the view
           journal_entry_items_ids = params[:journal_entry_items_ids].split(',').map(&:to_i)
           account = JournalEntryItem.where(id: journal_entry_items_ids).first.account
