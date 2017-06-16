@@ -126,7 +126,7 @@ class CashTest < ActiveSupport::TestCase
       currency: currency,
       main_account: main,
       suspense_account: suspense,
-      journal: Journal.find_or_create_by(nature: :bank, currency: currency)
+      journal: Journal.find_or_create_by(name: 'Banko', nature: :bank, currency: currency)
     )
     assert_equal main, cash.account
 
