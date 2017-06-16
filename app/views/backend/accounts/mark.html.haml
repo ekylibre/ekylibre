@@ -17,6 +17,9 @@
     - [:period, :started_at, :stopped_at].each do |x|
       = hidden_field_tag(x, params[x])
 
+    %span.action-form.btn-group.hidden
+      = link_to :add_compensation_entry.tl, { controller: :journal_entries, action: :new, redirect: request.fullpath }, { class: 'btn btn-default', id: 'new-entry', name: :journal_entry_items_ids, data: { complete_link_with_checked_row_ids: '#mark_journal_entry_items input[type="checkbox"]', show_if_checked: 'two-or-more' } }
+
     .active-list-actions
       = mask_lettered_items_button :mark_journal_entry_items
 
@@ -36,7 +39,7 @@
 
         %tfoot
           %tr#total.valid.total{data: {valid_if_equality_between: "#total-debit, #total-credit", submit_if_valid: "true"}}
-            %th{colspan: (partial_lettering ? 7 : 6)}= :total.tl
+            %th{colspan: 5 + (partial_lettering ? 1 : 0)}= :total.tl
             %td#total-debit{data:  {use: "tr.selected .debit", calculate_round: precision}}=  0
             %td#total-credit{data: {use: "tr.selected .credit", calculate_round: precision}}= 0
 
