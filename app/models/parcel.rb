@@ -75,6 +75,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :storage, class_name: 'Product'
   belongs_to :responsible, class_name: 'User'
   belongs_to :transporter, class_name: 'Entity'
+  belongs_to :contract
   has_many :items, class_name: 'ParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items
   has_many :issues, as: :target
@@ -275,6 +276,16 @@ class Parcel < Ekylibre::Record::Base
 
   def human_delivery_nature
     nature.text
+  end
+
+  def nature
+    ActiveSupport::Deprecation.warn("Parcel#nature is deprecated, please use Parcel#type instead. This method will be removed in next major release 3.0")
+    super
+  end
+
+  def nature=(value)
+    ActiveSupport::Deprecation.warn("Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0")
+    super(value)
   end
 
   # Number of products delivered

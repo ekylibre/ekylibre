@@ -1,4 +1,3 @@
-- item_partial = f.object.nature.to_s + '_item_fields'
 = field_set :general_informations do
   = f.input :nature, as: :hidden
   = f.input :contract_id, as: :hidden
@@ -33,11 +32,11 @@
           %th= ParcelItem.human_attribute_name(:analysis)
 
       = f.simple_fields_for :items, f.object.items do |item|
-        = render item_partial, f: item
+        = render 'item_fields', f: item
       - if f.object.allow_items_update?
         %tfoot#items_anchor
           %tr.total
-            %th{colspan: 5}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
+            %th{colspan: 5}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
 / -else
 /   = field_set f.object.class.human_attribute_name(:items) do
 /     = "Items cannot be edited in current parcel state."

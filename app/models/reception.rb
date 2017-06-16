@@ -63,20 +63,19 @@
 class Reception < Parcel
   belongs_to :sender, class_name: 'Entity'
   belongs_to :purchase, inverse_of: :parcels
-  belongs_to :contract
+
   validates :sender, presence: true
   validates :storage, presence: true
-	before_save do
-		self.nature = 'incoming'
-	end
 
-  after_initialize do
-    if new_record?
-      self.address ||= Entity.of_company.default_mail_address
-    end
+  before_validation do
+    self.nature = 'incoming'
   end
 
-	# This method permits to add stock journal entries corresponding to the
+  after_initialize do
+    self.address ||= Entity.of_company.default_mail_address if new_record?
+  end
+
+  # This method permits to add stock journal entries corresponding to the
   # incoming or outgoing parcels.
   # It depends on the preferences which permit to activate the "permanent stock
   # inventory" and "automatic bookkeeping".
@@ -108,12 +107,12 @@ class Reception < Parcel
 
     ufb_accountable = Preference[:unbilled_payables] && given?
     # For unbilled payables
-    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: self.currency) }
+    journal = unsuppress { Journal.used_for_unbilled_payables!(currency: currency) }
     b.journal_entry(journal, printed_on: printed_on, as: :undelivered_invoice, if: ufb_accountable, &invoice.call(:suppliers_invoices_not_received, true))
 
     accountable = Preference[:permanent_stock_inventory] && given?
     # For permanent stock inventory
-    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: self.currency) }
+    journal = unsuppress { Journal.used_for_permanent_stock_inventory!(currency: currency) }
     b.journal_entry(journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && given?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human,
                             number: number, entity: entity.full_name, mode: nature.l)
@@ -134,15 +133,14 @@ class Reception < Parcel
     sender
   end
 
-  alias :entity :third
+  alias entity third
 
   def invoiced?
     purchase.present?
   end
 
   class << self
-
-  	# Convert parcels to one purchase. Assume that all parcels are checked before.
+    # Convert parcels to one purchase. Assume that all parcels are checked before.
     # Purchase is written in DB with default values
     def convert_to_purchase(parcels)
       purchase = nil
@@ -196,5 +194,4 @@ class Reception < Parcel
       purchase
     end
   end
-
 end

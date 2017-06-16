@@ -63,9 +63,11 @@
 class Shipment < Parcel
   belongs_to :recipient, class_name: 'Entity'
   belongs_to :sale, inverse_of: :parcels
+  
   validates :recipient, presence: true
-	before_save do
-		self.nature = 'outgoing'
+
+	before_validation do
+		self.nature = :outgoing
 	end
 
 	# This method permits to add stock journal entries corresponding to the
