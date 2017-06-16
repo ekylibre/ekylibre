@@ -1,9 +1,9 @@
 - main_toolbar do |t|
 	= t.export :purchases_order
-	= t.edit resource if resource.updateable? # Redéfinir la condition updateable
+	= t.edit resource if resource.updateable?
 	= t.destroy
 	- if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
-		= t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
+		= t.new(resource, params: { controller: :parcels, purchase_order_id: resource.id, nature: :incoming }, label: :generate_parcel.tl)
 
 = main_state_bar(resource)
 

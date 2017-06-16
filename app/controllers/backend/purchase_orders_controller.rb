@@ -54,8 +54,8 @@ module Backend
       t.action :destroy
       t.column :number, url: :true
       t.column :reference_number, url: true
-      t.column :supplier, url: true
       t.column :created_at
+      t.column :supplier, url: true
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
     end
 
@@ -74,6 +74,19 @@ module Backend
       t.column :fixed_asset, url: true, hidden: true
     end
 
+    def show
+      return unless @purchase_order = find_and_check
+      respond_with(@purchase_order, methods: [:taxes_amount],
+                                    include: { delivery_address: { methods: [:mail_coordinate] },
+                                               supplier: { methods: [:pictures_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
+                                               parcels: { include: [:items] },
+                                               items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
+        format.html do
+          t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
+        end
+      end
+    end
+
     def new
       nature = PurchaseNature.by_default
       @purchase_order = PurchaseOrder.new(nature: nature)
@@ -88,22 +101,15 @@ module Backend
       render locals: { with_continue: true }
     end
 
-    def show
-      return unless @purchase_order = find_and_check
-      respond_with(@purchase_order, methods: [:taxes_amount],
-                                    include: { delivery_address: { methods: [:mail_coordinate] },
-                                               supplier: { methods: [:pictures_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
-                                               parcels: { include: [:items] },
-                                               items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant] } }) do |format|
-        format.html do
-          t3e @purchase_order.attributes, supplier: @purchase_order.supplier.full_name, state: @purchase_order.state_label, label: @purchase_order.label
-        end
-      end
-    end
-
     def open
       return unless @purchase_order = find_and_check
       @purchase_order.open
+      redirect_to action: :show, id: @purchase_order.id
+    end
+
+    def close
+      return unless @purchase_order = find_and_check
+      @purchase_order.close
       redirect_to action: :show, id: @purchase_order.id
     end
   end

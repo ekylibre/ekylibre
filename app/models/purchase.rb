@@ -132,10 +132,6 @@ class Purchase < Ekylibre::Record::Base
     save
   end
 
-  def purchased?
-    (order? || invoice?)
-  end
-
   # Computes an amount (with or without taxes) of the undelivered products
   # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
@@ -171,10 +167,6 @@ class Purchase < Ekylibre::Record::Base
 
   def client_address
     Entity.of_company.default_mail_address.mail_coordinate
-  end
-
-  def payable?
-    (order? || invoice?) && sepable? && amount != 0.0 && affair_balance != 0.0
   end
 
   def sepable?

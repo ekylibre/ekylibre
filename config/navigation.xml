@@ -404,6 +404,42 @@
         <page to="backend/purchase_orders#destroy"/>
         <page to="backend/purchase_orders#edit"/>
         <page to="backend/purchase_orders#new"/>
+        <page to="backend/purchase_orders#list"/>
+        <page to="backend/purchase_orders#list_items"/>
+        <page to="backend/purchase_orders#open"/>
+        <page to="backend/purchase_orders#close"/>
+        <page to="backend/purchase_orders#show"/>
+        <page to="backend/purchase_orders#unroll"/>
+        <page to="backend/purchase_orders#update"/>
+      </item>
+      <item name="purchase_invoices">
+        <page to="backend/purchase_invoices#index"/>
+        <page to="backend/purchase_invoices#create"/>
+        <page to="backend/purchase_invoices#destroy"/>
+        <page to="backend/purchase_invoices#edit"/>
+        <page to="backend/purchase_invoices#list"/>
+        <page to="backend/purchase_invoices#list_items"/>
+        <page to="backend/purchase_invoices#list_parcels"/>
+        <page to="backend/purchase_invoices#new"/>
+        <page to="backend/purchase_invoices#pay"/>
+        <page to="backend/purchase_invoices#payment_mode"/>
+        <page to="backend/purchase_invoices#show"/>
+        <page to="backend/purchase_invoices#unroll"/>
+        <page to="backend/purchase_invoices#update"/>
+        <page to="backend/purchase_affairs#index"/>
+        <page to="backend/purchase_affairs#attach"/>
+        <page to="backend/purchase_affairs#detach"/>
+        <page to="backend/purchase_affairs#detach_gaps"/>
+        <page to="backend/purchase_affairs#finish"/>
+        <page to="backend/purchase_affairs#list"/>
+        <page to="backend/purchase_affairs#select"/>
+        <page to="backend/purchase_affairs#show"/>
+        <page to="backend/purchase_affairs#unroll"/>
+        <page to="backend/purchase_gaps#index"/>
+        <page to="backend/purchase_gaps#destroy"/>
+        <page to="backend/purchase_gaps#list"/>
+        <page to="backend/purchase_gaps#list_items"/>
+        <page to="backend/purchase_gaps#show"/>
       </item>
       <item name="contracts">
         <page to="backend/contracts#index"/>
@@ -557,12 +593,12 @@
       </item>
     </group>
     <group name="receptions" icon="truck">
-      <item name="unreceived_purchase_order">
-        <page to="backend/purchase_orders#index"/>
-        <page to="backend/purchase_orders#create"/>
-        <page to="backend/purchase_orders#destroy"/>
-        <page to="backend/purchase_orders#edit"/>
-        <page to="backend/purchase_orders#new"/>
+      <item name="unreceived_purchase_orders">
+        <page to="backend/unreceived_purchase_orders#index"/>
+        <page to="backend/unreceived_purchase_orders#create"/>
+        <page to="backend/unreceived_purchase_orders#destroy"/>
+        <page to="backend/unreceived_purchase_orders#edit"/>
+        <page to="backend/unreceived_purchase_orders#list"/>
       </item>
       <item name="receptions">
         <page to="backend/receptions#index"/>
@@ -571,7 +607,6 @@
         <page to="backend/receptions#edit"/>
         <page to="backend/receptions#invoice"/>
         <page to="backend/receptions#list"/>
-        <page to="backend/receptions#list_reception_items"/>
         <page to="backend/receptions#new"/>
         <page to="backend/receptions#ship"/>
         <page to="backend/receptions#show"/>
@@ -582,6 +617,7 @@
         <page to="backend/receptions#give"/>
         <page to="backend/receptions#order"/>
         <page to="backend/receptions#prepare"/>
+        <page to="backend/receptions#list_items"/>
       </item>
     </group>
     <group name="shipments" icon="truck">
@@ -592,7 +628,6 @@
         <page to="backend/shipments#edit"/>
         <page to="backend/shipments#invoice"/>
         <page to="backend/shipments#list"/>
-        <page to="backend/shipments#list_reception_items"/>
         <page to="backend/shipments#new"/>
         <page to="backend/shipments#ship"/>
         <page to="backend/shipments#show"/>
@@ -603,26 +638,27 @@
         <page to="backend/shipments#give"/>
         <page to="backend/shipments#order"/>
         <page to="backend/shipments#prepare"/>
+        <page to="backend/shipments#list_items"/>
       </item>
     </group>
     <group name="deliveries" icon="truck">
       <item name="deliveries">
-        <page to="backend/deliveries#index" nonexistent="true"/>
-        <page to="backend/deliveries#create" nonexistent="true"/>
-        <page to="backend/deliveries#destroy" nonexistent="true"/>
-        <page to="backend/deliveries#edit" nonexistent="true"/>
-        <page to="backend/deliveries#list" nonexistent="true"/>
-        <page to="backend/deliveries#list_parcels" nonexistent="true"/>
-        <page to="backend/deliveries#new" nonexistent="true"/>
-        <page to="backend/deliveries#show" nonexistent="true"/>
-        <page to="backend/deliveries#unroll" nonexistent="true"/>
-        <page to="backend/deliveries#update" nonexistent="true"/>
-        <page to="backend/deliveries#cancel" nonexistent="true"/>
-        <page to="backend/deliveries#check" nonexistent="true"/>
-        <page to="backend/deliveries#finish" nonexistent="true"/>
-        <page to="backend/deliveries#order" nonexistent="true"/>
-        <page to="backend/deliveries#prepare" nonexistent="true"/>
-        <page to="backend/deliveries#start" nonexistent="true"/>
+        <page to="backend/deliveries#index"/>
+        <page to="backend/deliveries#create"/>
+        <page to="backend/deliveries#destroy"/>
+        <page to="backend/deliveries#edit"/>
+        <page to="backend/deliveries#list"/>
+        <page to="backend/deliveries#list_parcels"/>
+        <page to="backend/deliveries#new"/>
+        <page to="backend/deliveries#show"/>
+        <page to="backend/deliveries#unroll"/>
+        <page to="backend/deliveries#update"/>
+        <page to="backend/deliveries#cancel"/>
+        <page to="backend/deliveries#check"/>
+        <page to="backend/deliveries#finish"/>
+        <page to="backend/deliveries#order"/>
+        <page to="backend/deliveries#prepare"/>
+        <page to="backend/deliveries#start"/>
       </item>
     </group>
   </part>
@@ -2034,129 +2070,31 @@
         <page to="backend/outgoing_payments#unroll"/>
         <page to="backend/outgoing_payments#update"/>
       </item>
+      <item name="purchases">
+        <page to="backend/purchases#create"/>
+        <page to="backend/purchases#new"/>
+        <page to="backend/purchases#show"/>
+      </item>
+      <item name="unreceived_purchase_orders">
+        <page to="backend/unreceived_purchase_orders#show"/>
+        <page to="backend/unreceived_purchase_orders#update"/>
+      </item>
+    </group>
+    <group>
+      <item name="parcels">
+        <page to="backend/parcels#index"/>
+        <page to="backend/parcels#cancel"/>
+        <page to="backend/parcels#check"/>
+        <page to="backend/parcels#give"/>
+        <page to="backend/parcels#invoice"/>
+        <page to="backend/parcels#new"/>
+        <page to="backend/parcels#order"/>
+        <page to="backend/parcels#prepare"/>
+        <page to="backend/parcels#ship"/>
+        <page to="backend/parcels#show"/>
+      </item>
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="purchase_affairs">
-        <page to="backend/purchase_affairs#index"/>
-        <page to="backend/purchase_affairs#attach"/>
-        <page to="backend/purchase_affairs#detach"/>
-        <page to="backend/purchase_affairs#detach_gaps"/>
-        <page to="backend/purchase_affairs#finish"/>
-        <page to="backend/purchase_affairs#list"/>
-        <page to="backend/purchase_affairs#select"/>
-        <page to="backend/purchase_affairs#show"/>
-        <page to="backend/purchase_affairs#unroll"/>
-      </item>
-      <item name="purchase_gaps">
-        <page to="backend/purchase_gaps#index"/>
-        <page to="backend/purchase_gaps#destroy"/>
-        <page to="backend/purchase_gaps#list"/>
-        <page to="backend/purchase_gaps#list_items"/>
-        <page to="backend/purchase_gaps#show"/>
-      </item>
-      <item name="purchase_invoices">
-        <page to="backend/purchase_invoices#index"/>
-        <page to="backend/purchase_invoices#abort"/>
-        <page to="backend/purchase_invoices#confirm"/>
-        <page to="backend/purchase_invoices#correct"/>
-        <page to="backend/purchase_invoices#create"/>
-        <page to="backend/purchase_invoices#destroy"/>
-        <page to="backend/purchase_invoices#edit"/>
-        <page to="backend/purchase_invoices#invoice"/>
-        <page to="backend/purchase_invoices#list"/>
-        <page to="backend/purchase_invoices#list_items"/>
-        <page to="backend/purchase_invoices#list_parcels"/>
-        <page to="backend/purchase_invoices#new"/>
-        <page to="backend/purchase_invoices#pay"/>
-        <page to="backend/purchase_invoices#payment_mode"/>
-        <page to="backend/purchase_invoices#propose"/>
-        <page to="backend/purchase_invoices#propose_and_invoice"/>
-        <page to="backend/purchase_invoices#refuse"/>
-        <page to="backend/purchase_invoices#show"/>
-        <page to="backend/purchase_invoices#unroll"/>
-        <page to="backend/purchase_invoices#update"/>
-      </item>
-      <item name="purchase_orders">
-        <page to="backend/purchase_orders#abort"/>
-        <page to="backend/purchase_orders#confirm"/>
-        <page to="backend/purchase_orders#correct"/>
-        <page to="backend/purchase_orders#invoice"/>
-        <page to="backend/purchase_orders#list"/>
-        <page to="backend/purchase_orders#list_items"/>
-        <page to="backend/purchase_orders#list_parcels"/>
-        <page to="backend/purchase_orders#open"/>
-        <page to="backend/purchase_orders#pay"/>
-        <page to="backend/purchase_orders#payment_mode"/>
-        <page to="backend/purchase_orders#propose"/>
-        <page to="backend/purchase_orders#propose_and_invoice"/>
-        <page to="backend/purchase_orders#refuse"/>
-        <page to="backend/purchase_orders#show"/>
-        <page to="backend/purchase_orders#unroll"/>
-        <page to="backend/purchase_orders#update"/>
-      </item>
-      <item name="purchases">
-        <page to="backend/purchases#index"/>
-        <page to="backend/purchases#abort"/>
-        <page to="backend/purchases#confirm"/>
-        <page to="backend/purchases#correct"/>
-        <page to="backend/purchases#create"/>
-        <page to="backend/purchases#destroy"/>
-        <page to="backend/purchases#edit"/>
-        <page to="backend/purchases#invoice"/>
-        <page to="backend/purchases#list"/>
-        <page to="backend/purchases#list_items"/>
-        <page to="backend/purchases#list_parcels"/>
-        <page to="backend/purchases#new"/>
-        <page to="backend/purchases#pay"/>
-        <page to="backend/purchases#payment_mode"/>
-        <page to="backend/purchases#propose"/>
-        <page to="backend/purchases#propose_and_invoice"/>
-        <page to="backend/purchases#refuse"/>
-        <page to="backend/purchases#show"/>
-        <page to="backend/purchases#unroll"/>
-        <page to="backend/purchases#update"/>
-      </item>
-      <item name="receptions">
-        <page to="backend/receptions#cancel"/>
-        <page to="backend/receptions#check"/>
-        <page to="backend/receptions#create"/>
-        <page to="backend/receptions#destroy"/>
-        <page to="backend/receptions#edit"/>
-        <page to="backend/receptions#give"/>
-        <page to="backend/receptions#invoice"/>
-        <page to="backend/receptions#list"/>
-        <page to="backend/receptions#list_incoming_items"/>
-        <page to="backend/receptions#list_outgoing_items"/>
-        <page to="backend/receptions#new"/>
-        <page to="backend/receptions#order"/>
-        <page to="backend/receptions#prepare"/>
-        <page to="backend/receptions#ship"/>
-        <page to="backend/receptions#show"/>
-        <page to="backend/receptions#unroll"/>
-        <page to="backend/receptions#update"/>
-      </item>
-      <item name="shipments">
-        <page to="backend/shipments#index"/>
-        <page to="backend/shipments#cancel"/>
-        <page to="backend/shipments#check"/>
-        <page to="backend/shipments#create"/>
-        <page to="backend/shipments#destroy"/>
-        <page to="backend/shipments#edit"/>
-        <page to="backend/shipments#give"/>
-        <page to="backend/shipments#invoice"/>
-        <page to="backend/shipments#list"/>
-        <page to="backend/shipments#list_incoming_items"/>
-        <page to="backend/shipments#list_outgoing_items"/>
-        <page to="backend/shipments#new"/>
-        <page to="backend/shipments#order"/>
-        <page to="backend/shipments#prepare"/>
-        <page to="backend/shipments#ship"/>
-        <page to="backend/shipments#show"/>
-        <page to="backend/shipments#unroll"/>
-        <page to="backend/shipments#update"/>
-      </item>
-    </group>
   </untreated-actions>
 </navigation>

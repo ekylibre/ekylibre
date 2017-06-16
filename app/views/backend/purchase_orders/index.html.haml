@@ -3,7 +3,7 @@
   - sm = PurchaseOrder.state_machine.states
   - k.multi_choice :state, [:estimate, :opened, :closed].map { |s| [sm[s].human_name, s] }, label: PurchaseOrder.human_attribute_name(:state)
   - k.helper :journal_period_crit
-  - responsibles = User.where(id: Purchase.select(:responsible_id).distinct)
+  - responsibles = User.where(id: PurchaseOrder.select(:responsible_id).distinct)
   - if responsibles.any?
     - k.helper do
       %label= PurchaseOrder.human_attribute_name(:responsible)

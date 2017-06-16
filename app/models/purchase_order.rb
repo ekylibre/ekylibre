@@ -81,6 +81,10 @@ class PurchaseOrder < Purchase
     send(third_attribute)
   end
 
+  def purchased?
+    opened?
+  end
+
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
