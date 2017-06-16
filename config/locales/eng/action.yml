@@ -189,9 +189,9 @@ eng:
       index: "Dashboards"
       new: "New dashboard"
       production: "Production dashboard"
-      # purchases: "Purchases dashboard: %{name}"
+      purchases: "Purchases dashboard: %{name}"
       relationship: "Relationship dashboard"
-      # sales: "Sales dashboard: %{name}"
+      sales: "Sales dashboard: %{name}"
       sandbox: "Sandbox dashboard: %{name}"
       search: "Search for: %{searched}"
       settings: "Settings dashboard"
@@ -513,7 +513,7 @@ eng:
     backend/parcels:
       # cancel: "Cancel parcel: %{name}"
       # check: "Check parcel: %{name}"
-      edit: "Edit %{nature} parcel: %{number}"
+      edit: "Edit %{nature} parcel: %{number}" #?
       # give: "Give parcel: %{name}"
       index: "Parcels"
       # invoice: "Invoice parcel: %{name}"
@@ -627,38 +627,23 @@ eng:
       # index: "Purchase gaps"
       # show: "Purchase gap: %{name}"
     backend/purchase_invoices:
-      # abort: "Abort purchase invoice: %{name}"
-      # confirm: "Confirm purchase invoice: %{name}"
-      # correct: "Correct purchase invoice: %{name}"
-      # edit: "Edit purchase invoice: %{name}"
-      # index: "Purchase invoices"
-      # invoice: "Invoice purchase invoice: %{name}"
-      # new: "New purchase invoice"
-      # pay: "Pay purchase invoice: %{name}"
-      # payment_mode: "Payment mode purchase invoice: %{name}"
-      # propose: "Propose purchase invoice: %{name}"
-      # propose_and_invoice: "Propose and invoice purchase invoice: %{name}"
-      # refuse: "Refuse purchase invoice: %{name}"
-      # show: "Purchase invoice: %{name}"
+      edit: "Edit invoice: %{name}"
+      index: "Invoices"
+      new: "New invoice"
+      pay: "Pay invoice: %{name}"
+      payment_mode: "Payment mode invoice: %{name}"
+      show: "Invoice: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
       new: "New purchase type"
       show: "Purchase type: %{name}"
     backend/purchase_orders:
-      # abort: "Abort purchase order: %{name}"
-      # confirm: "Confirm purchase order: %{name}"
-      # correct: "Correct purchase order: %{name}"
+      # close: "Close purchase order: %{name}"
       # edit: "Edit purchase order: %{name}"
       # index: "Purchase orders"
-      # invoice: "Invoice purchase order: %{name}"
       # new: "New purchase order"
       # open: "Open purchase order: %{name}"
-      # pay: "Pay purchase order: %{name}"
-      # payment_mode: "Payment mode purchase order: %{name}"
-      # propose: "Propose purchase order: %{name}"
-      # propose_and_invoice: "Propose and invoice purchase order: %{name}"
-      # refuse: "Refuse purchase order: %{name}"
       # show: "Purchase order: %{name}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
@@ -666,18 +651,17 @@ eng:
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
     backend/purchases:
-      abort: "Abort"
-      confirm: "Confirm order and wait for deliveries"
-      correct: "Correct order"
-      edit: "Edit purchase: %{number}"
-      index: "Purchases"
-      invoice: "Receive invoice"
+      abort: "Abort" #?
+      confirm: "Confirm order and wait for deliveries" #?
+      correct: "Correct order" #?
+      edit: "Edit purchase: %{number}" #?
+      index: "Purchases" #?
+      invoice: "Receive invoice" #?
       new: "New purchase"
-      # pay: "Pay purchase: %{name}"
-      payment_mode: "Select payment mode"
-      propose: "Propose order"
-      propose_and_invoice: "Invoice directly"
-      refuse: "Refused order"
+      payment_mode: "Select payment mode" #?
+      propose: "Propose order" #?
+      propose_and_invoice: "Invoice directly" #?
+      refuse: "Refused order" #?
       show: "Purchase: %{number} - %{state}"
     backend/quick_affairs:
       # new: "New quick affair"
@@ -866,6 +850,10 @@ eng:
       show: "Tracking: %{name}"
     backend/trial_balances:
       show: "Trial balance"
+    backend/unreceived_purchase_orders:
+      # edit: "Edit unreceived purchase order: %{name}"
+      # index: "Unreceived purchase orders"
+      # show: "Unreceived purchase order: %{name}"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
       index: "Users"
@@ -1276,7 +1264,7 @@ eng:
     delete_request: "Delete also the request associate to the selected intervention(s)" #?
     delete_selected_interventions: "Delete the selected interventions"
     deliver: "Delivered on" #?
-    deliveries: "Deliveries" #?
+    deliveries: "Deliveries"
     delivery: "Delivery" #?
     delta: "+/-"
     deposit: "Deposit"
@@ -1615,6 +1603,8 @@ eng:
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
+    # new_reception: "New reception"
+    # new_shipment: "New shipment"
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
@@ -1764,7 +1754,7 @@ eng:
     ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
-    # receptions: "Receptions"
+    receptions: "Receptions"
     record: "Record" #?
     record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
@@ -1844,6 +1834,7 @@ eng:
     sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
+    # shipments: "Shipments"
     show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?

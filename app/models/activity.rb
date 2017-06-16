@@ -93,7 +93,6 @@ class Activity < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
-  validates :grading_net_mass_unit_name, :grading_sizes_indicator_name, :grading_sizes_unit_name, :production_system_name, :size_indicator_name, :size_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :use_seasons, :use_tactics, inclusion: { in: [true, false] }, allow_blank: true
