@@ -60,12 +60,13 @@ deu:
       index: "Tiere"
       new: "neue Tier"
       # show: "%{nature}: %{name}"
+    backend/bank_reconciliation_items:
+      # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
       import: "Import OFX-Datei"
       index: "Kontoauszüge"
       new: "Neue Kontoauszug"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       # show: "Account statement N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"

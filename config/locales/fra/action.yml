@@ -70,12 +70,13 @@ fra:
       index: "Animaux"
       new: "Nouvel animal"
       show: "%{nature}\_: %{name}"
+    backend/bank_reconciliation_items:
+      index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       import: "Importer un fichier OFX"
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
-      reconciliation: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
       show: "Relevé de compte N°%{number}"
     backend/beehives:
       reset: "Ré-initialiser la cellule: %{name}"

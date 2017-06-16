@@ -60,12 +60,13 @@ por:
       index: "Animais"
       new: "Novo animal"
       show: "%{nature}: %{name}"
+    backend/bank_reconciliation_items:
+      # index: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
     backend/bank_statements:
       edit: "Editar extrato bancário %{number}"
       import: "arquivo de importação de OFX"
       index: "Extratos bancários"
       new: "Novo extrato bancário"
-      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Extrato bancário N°%{number}"
     backend/beehives:
       reset: "Redefinir colméia: %{name}"

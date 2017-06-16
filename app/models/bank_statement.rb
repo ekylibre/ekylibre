@@ -162,8 +162,13 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def eligible_journal_entry_items
-    # margin = 20.days
-    unpointed = cash.unpointed_journal_entry_items # .between(started_on - margin, stopped_on + margin)
+    unpointed = cash.unpointed_journal_entry_items
+    pointed = JournalEntryItem.pointed_by(self)
+    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+  end
+
+  def eligible_entries_in(start, finish)
+    unpointed = cash.unpointed_journal_entry_items.between(start, finish)
     pointed = JournalEntryItem.pointed_by(self)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end

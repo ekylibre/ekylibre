@@ -380,6 +380,7 @@ animals:
 bank_statements:
   read:
     actions:
+    - "backend/bank_reconciliation_items#index"
     - "backend/bank_statements#index"
     - "backend/bank_statements#list"
     - "backend/bank_statements#list_items"
@@ -393,14 +394,13 @@ bank_statements:
     - "backend/bank_statement_items#create"
     - "backend/bank_statement_items#destroy"
     - "backend/bank_statement_items#new"
+    - "backend/bank_statement_letters#create"
+    - "backend/bank_statement_letters#destroy"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
     - "backend/bank_statements#import"
-    - "backend/bank_statements#letter"
     - "backend/bank_statements#new"
-    - "backend/bank_statements#reconciliation"
-    - "backend/bank_statements#unletter"
     - "backend/bank_statements#update"
     - "backend/quick_affairs#create"
     - "backend/quick_affairs#new"
