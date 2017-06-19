@@ -186,7 +186,7 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
-  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil))) }
+  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].lteq(at)))) }
   scope :of_owner, lambda { |owner|
     if owner.is_a?(Symbol)
       joins(:current_ownership).where(product_ownerships: { nature: owner })
