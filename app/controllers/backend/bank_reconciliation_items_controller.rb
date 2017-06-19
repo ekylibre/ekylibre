@@ -16,7 +16,6 @@ module Backend
       return unless find_bank_statements
   
       set_period!
-
       @bank_statements.each do |bank_statement|
         reconciliate(bank_statement)
       end
@@ -43,7 +42,7 @@ module Backend
     def reconciliate(bank_statement)
       bank_statement_items = bank_statement.items unless @bank_statement.nil?
       bank_statement_items = BankStatementItem.transfered_between(@period_start, @period_end) unless @bank_statements.nil?
-      
+     
       journal_entry_items  = bank_statement.eligible_entries_in(@period_start, @period_end)
 
       return no_entries if journal_entry_items.blank?
