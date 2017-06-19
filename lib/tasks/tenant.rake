@@ -104,9 +104,12 @@ namespace :tenant do
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       # Set basic preferences
-      Preference.set! :language, ENV['LANGUAGE'] || 'fra'
-      Preference.set! :country, ENV['COUNTRY'] || 'fr'
-      Preference.set! :currency, ENV['CURRENCY'] || 'EUR'
+      language = Nomen::Language.find(ENV['LANGUAGE'])
+      Preference.set! :language, language ? language.name : 'fra'
+      country = Nomen::Country.find(ENV['COUNTRY'])
+      Preference.set! :country, country ? country.name : 'fr'
+      currency = Nomen::Currency.find(ENV['CURRENCY'])
+      Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
       # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
