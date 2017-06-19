@@ -368,7 +368,7 @@
       bankLines = lines.filter(":not(.lettered)[data-type=bank_statement_item]")
       bankIds = bankLines.get().map (line) =>
         @_idForLine line
-      url = window.location.pathname.split('/').slice(0, -1).join('/') + '/letters'
+      url = window.location.pathname.split('/').slice(0, -2).join('/') + '/letters'
       $.ajax url,
         type: 'POST'
         dataType: 'JSON'

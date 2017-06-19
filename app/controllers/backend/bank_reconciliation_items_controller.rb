@@ -65,7 +65,9 @@ module Backend
 
     def no_entries
       notify_error :need_entries_to_reconciliate
-      redirect_to params[:redirect] || backend_bank_statement_path(@bank_statement)
+      redirect_to params[:redirect] unless params[:redirect].nil?
+      backend_bank_statement_path(@bank_statement) unless @bank_statement.nil?
+      backend_bank_statements_path(@bank_statements) unless @bank_statements.nil?
     end
 
     def auto_reconciliate!(bank_statement, items, entries)
