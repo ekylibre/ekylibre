@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # = Informations
 #
 # == License
@@ -160,7 +158,7 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   test 'eligible journal entry items includes journal entry items pointed by the bank statement and unpointed around bank statement range with same account' do
-    bank_statement = bank_statements(:bank_statements_001)
+    bank_statement = bank_statements(:bank_statements_006)
 
     pointed = JournalEntryItem.pointed_by(bank_statement)
     assert pointed.any?
@@ -261,7 +259,7 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   test 'ensure sign of amount is different in Incoming and Outgoing payments' do
-    assert_equal 0, IncomingPayment.sign_of_amount + OutgoingPayment.sign_of_amount
+    assert_equal 0, IncomingPayment.sign_of_amount + PurchasePayment.sign_of_amount
   end
 
   test 'delete bank statement delete journal entry' do
@@ -338,7 +336,7 @@ class BankStatementTest < ActiveSupport::TestCase
     assert_equal journal_entries_count + 1, new_journal_entries_count
   end
 
-  [IncomingPayment, OutgoingPayment].each do |payment|
+  [IncomingPayment, PurchasePayment].each do |payment|
     test "#{payment} can be lettered with bank_statement_items" do
       @payment_class = payment
       setup_data
@@ -387,15 +385,17 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   def wipe_db
+    Payslip.delete_all
+    PayslipNature.delete_all
     Journal.delete_all
     Account.delete_all
     Cash.delete_all
     BankStatement.delete_all
     BankStatementItem.delete_all
+    OutgoingPayment.delete_all
     Entity.delete_all
     IncomingPayment.delete_all
     IncomingPaymentMode.delete_all
-    OutgoingPayment.delete_all
     OutgoingPaymentMode.delete_all
   end
 
@@ -403,7 +403,7 @@ class BankStatementTest < ActiveSupport::TestCase
     wipe_db
 
     ::Preference.set!(:bookkeep_automatically, options[:no_journal_entry].blank?)
-    journal     = Journal.create!
+    journal     = Journal.create!(name: 'Record')
     fuel_act    = Account.create!(name: 'Fuel', number: '002')
     caps_act    = Account.create!(name: 'Caps', number: '001')
 
@@ -447,7 +447,7 @@ class BankStatementTest < ActiveSupport::TestCase
 
     Account.create!(name: 'Citadel', number: '6')
 
-    diesel      = "#{@payment_class}Mode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
+    diesel      = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
     max         = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
     @payment    = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
   end

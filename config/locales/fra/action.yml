@@ -6,6 +6,7 @@ fra:
       edit: "Changer votre mot de passe"
       new: "Nouveau mot de passe"
     authentication/registrations:
+      edit: "S’inscrire"
       new: "Inscription"
     authentication/sessions:
       destroy: "Se déconnecter"
@@ -155,6 +156,7 @@ fra:
       accountancy: "Tableau de bord comptable"
       edit: "Modifier le tableau de bord\_: %{name}"
       home: "Tableau de bord général"
+      humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
       new: "Nouveau tableau de bord"
       production: "Tableau de bord de la production"
@@ -475,6 +477,7 @@ fra:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
       new: "Nouveau mode de décaissement"
+      # show: "Disbursement mode: %{name}"
     backend/outgoing_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -486,6 +489,21 @@ fra:
       new: "Nouveau colis"
       ship: "Expédier les colis"
       show: "Colis %{nature}\_: %{number}"
+    backend/payslip_natures:
+      edit: "Modifier le type de salaire\_: %{name}"
+      index: "Types de salaires"
+      new: "Nouveau type de salaire"
+      show: "Type de salaire\_: %{name}"
+    backend/payslip_payments:
+      edit: "Modifier le paiement de salaire\_: %{number}"
+      index: "Paiements de salaire"
+      new: "Nouveau paiement de salaire"
+      show: "Paiement de salaire\_: %{number}"
+    backend/payslips:
+      edit: "Modifier le salaire\_: %{number}"
+      index: "Salaires"
+      new: "Nouveau salaire"
+      show: "Salaire\_: %{number}"
     backend/plant_countings:
       edit: "Modifier le comptage\_: %{number}"
       index: "Comptages"
@@ -549,6 +567,11 @@ fra:
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
+    backend/purchase_payments:
+      edit: "Modifier le décaissement\_: %{number}"
+      index: "Décaissements"
+      new: "Nouveau décaissement"
+      show: "Décaissement n°%{number} pour %{payee}"
     backend/purchases:
       abort: "Annuler l’achat"
       confirm: "Confimer l’achat et attendre les arrivages"
@@ -839,6 +862,7 @@ fra:
     add_catalog_price: "Ajouter un prix catalogue"
     add_child: "Ajouter un sous-composant"
     add_choice: "Ajouter un choix"
+    add_compensation_entry: "Ajouter une écriture de compensation"
     add_component: "Ajouter un composant"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
@@ -868,12 +892,15 @@ fra:
     add_outgoing_payment: "Ajouter un décaissement"
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
+    add_payslip: "Ajouter un salaire"
+    add_payslip_payment: "Ajouter un paiement de salaire"
     add_phone: "Ajouter un n° de téléphone"
     add_plant_density_abacus: "Ajouter une table de référence de densité de semis"
     add_point: "Ajouter un point"
     add_polygon: "Ajouter un polygone"
     add_production: "Ajouter une production"
     add_purchase: "Ajouter un achat"
+    add_purchase_payment: "Ajouter un décaissement"
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
@@ -1231,7 +1258,7 @@ fra:
     edit: "Modifier"
     edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Temps passé par activité" #?
+    elapsed_interventions_times_by_activities: "Temps passé par activité"
     email: "Email:"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
@@ -1362,6 +1389,7 @@ fra:
     human_target_names: "Nom des cibles" #?
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée" #?
+    humans: "RH"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
@@ -1407,6 +1435,7 @@ fra:
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     inspections: "Agréages"
+    interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
@@ -1431,6 +1460,7 @@ fra:
     investment_security: "Valeur mobilière de placement"
     investment_subsidies: "Subventions d’investissement"
     invitation_status: "État"
+    invoice_period: "Période de facturation"
     invoice_status: "État de facturation"
     invoiced: "Facturés"
     invoiced_amount: "Montant facturé" #?
@@ -1748,6 +1778,8 @@ fra:
     payment_mode: "Mode d’encaissement"
     payments: "Règlements"
     payments_count: "Nombre de %{mode}"
+    payslip_number: "N° du salaire"
+    payslips: "Salaires"
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
@@ -2072,7 +2104,8 @@ fra:
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
     supplier_informations: "Informations fournisseur"
-    supplier_receivables: "Fournisseurs d’exploitations et comptes rattachés"
+    supplier_payment_mode: "Mode de paiement du fournisseur"
+    supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
@@ -2473,6 +2506,7 @@ fra:
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       accountant_notified: "Le comptable a bien été notifié"
       accountant_without_email: "Merci de renseigner l’email du comptable"
+      all_fixed_assets_must_be_depreciable: "Tous les immobilisations doivent être amortissables"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
@@ -2494,10 +2528,9 @@ fra:
       closed_financial_year_exchange: "L’échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
+      # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
-      depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
-      depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       draft_journal_entries_have_been_validated:
         one: "%{count} écriture du brouillard validée"
         other: "%{count} écritures du brouillard validées"
@@ -2556,6 +2589,7 @@ fra:
       no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
       no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
       no_financial_year: "Aucun exercice enregistré" #?
+      no_fixed_assets_given: "Pas d’immobilisations données"
       no_inspections_given: "Aucune inspection donnée"
       no_interventions_given: "Aucune intervention donnée"
       no_items_found: "Aucun produit n’a été ajouté à la commande " #?
@@ -2603,6 +2637,7 @@ fra:
       synchronization_operation_in_progress: "L’opération %{operation_name} est en cours"
       the_automatic_lettering_cannot_be_done_in_accountancy: "Le lettrage automatique ne peut pas être fait en comptabilité"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
+      the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       this_service_is_not_activated: "Ce service n’est pas activé"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
@@ -2612,6 +2647,12 @@ fra:
       unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel" #?
       update_is_done: "La mise à jour a été effectuée"
       validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
+      x_fixed_asset_depreciations_have_been_bookkept_successfully:
+        one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
+        other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"
+      x_loan_repayments_have_been_bookkept_successfully:
+        one: "%{count} remboursement a été comptabilisé avec succès"
+        other: "%{count} remboursements ont été comptabilisés avec succès"
       x_unpointed_journal_entry_items:
         one: "Il y a une écriture à pointer"
         other: "Il y a %{count} écritures à pointer"
@@ -2770,6 +2811,7 @@ fra:
     backend/observations: "%{content}"
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
+    backend/payslip_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/plant_density_abacus_items: "%{plants_count} ‒ %{seeding_density_value} %{plant_density_abacus_seeding_density_unit}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
@@ -2777,5 +2819,6 @@ fra:
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
     backend/products: "%{work_number} %{name} (%{number}) - %{container_name}"
+    backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

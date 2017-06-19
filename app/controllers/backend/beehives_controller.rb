@@ -21,13 +21,9 @@ module Backend
     # Save beehive config in preferences
     def update
       params['boxes'] ||= []
-      boxes = params['boxes'].sort do |a, b|
-        a[0] <=> b[0]
-      end.map do |box|
+      boxes = params['boxes'].sort_by { |a| a[0] }.map do |box|
         next unless box.second['cells']
-        cells = box.second['cells'].symbolize_keys.sort do |a, b|
-          a[0] <=> b[0]
-        end.map do |cell|
+        cells = box.second['cells'].symbolize_keys.sort_by { |a| a[0] }.map do |cell|
           cell.second.symbolize_keys
         end.compact
         cells.any? ? { cells: cells } : nil

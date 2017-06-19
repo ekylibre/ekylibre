@@ -88,6 +88,7 @@
 #     - "backend/cobblers#update"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
+#     - "backend/dashboards#humans"
 #     - "backend/dashboards#production"
 #     - "backend/dashboards#relationship"
 #     - "backend/dashboards#sandbox"
@@ -105,8 +106,7 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/inspections#export"
-#     - "backend/intervention_participations#create"
-#     - "backend/intervention_participations#participations_modal"
+#     - "backend/interventions#change_page"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
@@ -115,6 +115,14 @@
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
+#     - "backend/outgoing_payments#create"
+#     - "backend/outgoing_payments#destroy"
+#     - "backend/outgoing_payments#edit"
+#     - "backend/outgoing_payments#index"
+#     - "backend/outgoing_payments#new"
+#     - "backend/outgoing_payments#show"
+#     - "backend/outgoing_payments#unroll"
+#     - "backend/outgoing_payments#update"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#quantifiers"
@@ -733,7 +741,7 @@ entities:
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
     - "backend/entities#list_outgoing_parcels"
-    - "backend/entities#list_outgoing_payments"
+    - "backend/entities#list_purchase_payments"
     - "backend/entities#list_purchases"
     - "backend/entities#list_sale_opportunities"
     - "backend/entities#list_sales"
@@ -910,7 +918,7 @@ fixed_assets:
     actions:
     - "backend/fixed_assets#create"
     - "backend/fixed_assets#depreciate"
-    - "backend/fixed_assets#depreciate_up_to"
+    - "backend/fixed_assets#depreciate_all"
     - "backend/fixed_assets#destroy"
     - "backend/fixed_assets#edit"
     - "backend/fixed_assets#new"
@@ -1397,7 +1405,7 @@ loans:
     - "backend/loan_repayments#edit"
     - "backend/loan_repayments#new"
     - "backend/loan_repayments#update"
-    - "backend/loans#accounting"
+    - "backend/loans#bookkeep"
     - "backend/loans#confirm"
     - "backend/loans#create"
     - "backend/loans#destroy"
@@ -1592,19 +1600,81 @@ outgoing_payment_modes:
 outgoing_payments:
   read:
     actions:
-    - "backend/outgoing_payments#index"
-    - "backend/outgoing_payments#list"
-    - "backend/outgoing_payments#show"
-    - "backend/outgoing_payments#unroll"
+    - "backend/purchase_payments#index"
+    - "backend/purchase_payments#list"
+    - "backend/purchase_payments#show"
+    - "backend/purchase_payments#unroll"
   write:
     dependencies:
     - read-outgoing_payments
     actions:
-    - "backend/outgoing_payments#create"
-    - "backend/outgoing_payments#destroy"
-    - "backend/outgoing_payments#edit"
-    - "backend/outgoing_payments#new"
-    - "backend/outgoing_payments#update"
+    - "backend/purchase_payments#create"
+    - "backend/purchase_payments#destroy"
+    - "backend/purchase_payments#edit"
+    - "backend/purchase_payments#new"
+    - "backend/purchase_payments#update"
+
+payslip_natures:
+  read:
+    actions:
+    - "backend/payslip_natures#index"
+    - "backend/payslip_natures#list"
+    - "backend/payslip_natures#show"
+    - "backend/payslip_natures#unroll"
+  write:
+    dependencies:
+    - read-payslip_natures
+    actions:
+    - "backend/payslip_natures#create"
+    - "backend/payslip_natures#destroy"
+    - "backend/payslip_natures#edit"
+    - "backend/payslip_natures#new"
+    - "backend/payslip_natures#update"
+
+payslip_payments:
+  read:
+    actions:
+    - "backend/payslip_payments#index"
+    - "backend/payslip_payments#list"
+    - "backend/payslip_payments#show"
+    - "backend/payslip_payments#unroll"
+  write:
+    dependencies:
+    - read-payslip_payments
+    actions:
+    - "backend/payslip_payments#create"
+    - "backend/payslip_payments#destroy"
+    - "backend/payslip_payments#edit"
+    - "backend/payslip_payments#new"
+    - "backend/payslip_payments#update"
+
+payslips:
+  read:
+    actions:
+    - "backend/payslip_affairs#index"
+    - "backend/payslip_affairs#list"
+    - "backend/payslip_affairs#show"
+    - "backend/payslip_affairs#unroll"
+    - "backend/payslips#index"
+    - "backend/payslips#list"
+    - "backend/payslips#show"
+    - "backend/payslips#unroll"
+  write:
+    dependencies:
+    - read-payslips
+    actions:
+    - "backend/payslip_affairs#attach"
+    - "backend/payslip_affairs#detach"
+    - "backend/payslip_affairs#detach_gaps"
+    - "backend/payslip_affairs#finish"
+    - "backend/payslip_affairs#select"
+    - "backend/payslips#correct"
+    - "backend/payslips#create"
+    - "backend/payslips#destroy"
+    - "backend/payslips#edit"
+    - "backend/payslips#invoice"
+    - "backend/payslips#new"
+    - "backend/payslips#update"
 
 plant_countings:
   read:

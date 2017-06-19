@@ -168,12 +168,10 @@
           data: form.serialize()
           beforeSend: ->
             computing.prop 'state', 'waiting'
-            $('.form-actions .primary').attr("disabled", true)
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
-            $('.form-actions .primary').attr("disabled", null)
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
@@ -206,6 +204,33 @@
             @workingTimesModal.removeModalContent()
             @workingTimesModal.getModalContent().append(data)
             @workingTimesModal.getModal().modal 'show'
+
+    addLazyLoading: ->
+      loadContent = false
+      currentPage = 1
+      taskHeight = 60
+      halfTaskList = 12
+
+      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
+      $('#content').scroll ->
+        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+          currentPage++
+          params['page'] = currentPage
+
+          loadContent = true
+
+          $.ajax
+            url: "/backend/interventions/change_page",
+            data: { interventions_taskboard: params }
+            success: (data, status, request) ->
+              loadContent = false
+              taskboard.addTaskClickEvent()
 
 
   ##############################################################################
@@ -270,6 +295,8 @@
 
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
+
+      E.interventions.addLazyLoading()
 
 
   class InterventionsTaskboard

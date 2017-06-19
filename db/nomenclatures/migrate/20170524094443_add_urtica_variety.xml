@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add urtica variety">
+  <item-creation item="varieties#urticaceae" parent="plant" itis_tsn="19119"/>
+  <item-creation item="varieties#urtica" parent="urticaceae" itis_tsn="19151"/>
+</migration>

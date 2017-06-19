@@ -431,3 +431,33 @@ financial_years_026:
   tax_declaration_mode: payment
   updated_at: 2017-05-01 23:52:31.397784000 Z
   updater_id: 1
+financial_years_027:
+  closed: false
+  code: EX2017/2018
+  created_at: 2017-06-09 20:19:57.007205000 Z
+  creator_id: 1
+  currency: EUR
+  currency_precision: 2
+  id: 27
+  lock_version: 0
+  started_on: 2017-09-01
+  stopped_on: 2018-08-31
+  tax_declaration_frequency: monthly
+  tax_declaration_mode: none
+  updated_at: 2017-06-09 20:19:57.007205000 Z
+  updater_id: 1
+financial_years_028:
+  closed: false
+  code: EX2018/2019
+  created_at: 2017-06-09 20:58:15.221403000 Z
+  creator_id: 1
+  currency: EUR
+  currency_precision: 2
+  id: 28
+  lock_version: 0
+  started_on: 2018-09-01
+  stopped_on: 2019-08-31
+  tax_declaration_frequency: monthly
+  tax_declaration_mode: none
+  updated_at: 2017-06-09 20:58:15.221403000 Z
+  updater_id: 1

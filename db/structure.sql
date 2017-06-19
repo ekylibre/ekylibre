@@ -66,16 +66,16 @@ CREATE FUNCTION compute_outgoing_payment_list_cache() RETURNS trigger
 CREATE FUNCTION compute_partial_lettering() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-  DECLARE
-    new_letter varchar DEFAULT NULL;
-    old_letter varchar DEFAULT NULL;
-    new_account_id integer DEFAULT NULL;
-    old_account_id integer DEFAULT NULL;
-  BEGIN
-  IF TG_OP <> 'DELETE' THEN
-    IF NEW.letter IS NOT NULL THEN
-      new_letter := substring(NEW.letter from '[A-z]*');
-    END IF;
+    DECLARE
+      new_letter varchar DEFAULT NULL;
+      old_letter varchar DEFAULT NULL;
+      new_account_id integer DEFAULT NULL;
+      old_account_id integer DEFAULT NULL;
+    BEGIN
+    IF TG_OP <> 'DELETE' THEN
+      IF NEW.letter IS NOT NULL THEN
+        new_letter := substring(NEW.letter from '[A-z]*');
+      END IF;
 
     IF NEW.account_id IS NOT NULL THEN
       new_account_id := NEW.account_id;
@@ -103,7 +103,7 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                SUM(debit) - SUM(credit) AS balance
             FROM journal_entry_items
             WHERE account_id = new_account_id
-              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\*?')
+              AND letter SIMILAR TO (COALESCE(new_letter, '') || '\**')
               AND new_letter IS NOT NULL
               AND new_account_id IS NOT NULL
             GROUP BY account_id
@@ -113,12 +113,12 @@ CREATE FUNCTION compute_partial_lettering() RETURNS trigger
                SUM(debit) - SUM(credit) AS balance
           FROM journal_entry_items
           WHERE account_id = old_account_id
-            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\*?')
+            AND letter SIMILAR TO (COALESCE(old_letter, '') || '\**')
             AND old_letter IS NOT NULL
             AND old_account_id IS NOT NULL
           GROUP BY account_id) AS modified_letter_groups
   WHERE modified_letter_groups.account_id = journal_entry_items.account_id
-  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\*?');
+  AND journal_entry_items.letter SIMILAR TO (modified_letter_groups.letter || '\**');
 
   RETURN NEW;
 END;
@@ -845,7 +845,7 @@ ALTER SEQUENCE activity_tactics_id_seq OWNED BY activity_tactics.id;
 
 CREATE TABLE affairs (
     id integer NOT NULL,
-    number character varying NOT NULL,
+    number character varying,
     closed boolean DEFAULT false NOT NULL,
     closed_at timestamp without time zone,
     third_id integer NOT NULL,
@@ -2381,7 +2381,7 @@ CREATE TABLE outgoing_payments (
     accounted_at timestamp without time zone,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     bank_check_number character varying,
-    delivered boolean DEFAULT true NOT NULL,
+    delivered boolean DEFAULT false NOT NULL,
     journal_entry_id integer,
     responsible_id integer NOT NULL,
     payee_id integer NOT NULL,
@@ -2391,7 +2391,7 @@ CREATE TABLE outgoing_payments (
     to_bank_at timestamp without time zone NOT NULL,
     cash_id integer NOT NULL,
     currency character varying NOT NULL,
-    downpayment boolean DEFAULT true NOT NULL,
+    downpayment boolean DEFAULT false NOT NULL,
     affair_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -2400,7 +2400,9 @@ CREATE TABLE outgoing_payments (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     list_id integer,
-    "position" integer
+    "position" integer,
+    type character varying,
+    CONSTRAINT outgoing_payment_delivered CHECK (((delivered = false) OR ((delivered = true) AND (paid_at IS NOT NULL))))
 );
 
 
@@ -2456,7 +2458,7 @@ CREATE TABLE purchases (
     accounted_at timestamp without time zone,
     journal_entry_id integer,
     reference_number character varying,
-    state character varying,
+    state character varying NOT NULL,
     responsible_id integer,
     currency character varying NOT NULL,
     nature_id integer,
@@ -4736,6 +4738,93 @@ ALTER SEQUENCE parcels_id_seq OWNED BY parcels.id;
 
 
 --
+-- Name: payslip_natures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE payslip_natures (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    currency character varying NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    by_default boolean DEFAULT false NOT NULL,
+    with_accounting boolean DEFAULT false NOT NULL,
+    journal_id integer NOT NULL,
+    account_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: payslip_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE payslip_natures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: payslip_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE payslip_natures_id_seq OWNED BY payslip_natures.id;
+
+
+--
+-- Name: payslips; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE payslips (
+    id integer NOT NULL,
+    number character varying NOT NULL,
+    nature_id integer NOT NULL,
+    employee_id integer,
+    account_id integer,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    emitted_on date,
+    state character varying NOT NULL,
+    amount numeric(19,4) NOT NULL,
+    currency character varying NOT NULL,
+    accounted_at timestamp without time zone,
+    journal_entry_id integer,
+    affair_id integer,
+    custom_fields jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: payslips_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE payslips_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: payslips_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE payslips_id_seq OWNED BY payslips.id;
+
+
+--
 -- Name: plant_counting_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5853,7 +5942,8 @@ CREATE TABLE purchase_natures (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    nature character varying NOT NULL
+    nature character varying NOT NULL,
+    CONSTRAINT purchase_natures_nature CHECK (((nature)::text = 'purchase'::text))
 );
 
 
@@ -7498,6 +7588,20 @@ ALTER TABLE ONLY parcels ALTER COLUMN id SET DEFAULT nextval('parcels_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY payslip_natures ALTER COLUMN id SET DEFAULT nextval('payslip_natures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips ALTER COLUMN id SET DEFAULT nextval('payslips_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY plant_counting_items ALTER COLUMN id SET DEFAULT nextval('plant_counting_items_id_seq'::regclass);
 
 
@@ -8618,6 +8722,22 @@ ALTER TABLE ONLY parcel_items
 
 ALTER TABLE ONLY parcels
     ADD CONSTRAINT parcels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payslip_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT payslip_natures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payslips_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT payslips_pkey PRIMARY KEY (id);
 
 
 --
@@ -13823,6 +13943,139 @@ CREATE INDEX index_parcels_on_updater_id ON parcels USING btree (updater_id);
 
 
 --
+-- Name: index_payslip_natures_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_account_id ON payslip_natures USING btree (account_id);
+
+
+--
+-- Name: index_payslip_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_created_at ON payslip_natures USING btree (created_at);
+
+
+--
+-- Name: index_payslip_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_creator_id ON payslip_natures USING btree (creator_id);
+
+
+--
+-- Name: index_payslip_natures_on_journal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_journal_id ON payslip_natures USING btree (journal_id);
+
+
+--
+-- Name: index_payslip_natures_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_payslip_natures_on_name ON payslip_natures USING btree (name);
+
+
+--
+-- Name: index_payslip_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_updated_at ON payslip_natures USING btree (updated_at);
+
+
+--
+-- Name: index_payslip_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslip_natures_on_updater_id ON payslip_natures USING btree (updater_id);
+
+
+--
+-- Name: index_payslips_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_account_id ON payslips USING btree (account_id);
+
+
+--
+-- Name: index_payslips_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_affair_id ON payslips USING btree (affair_id);
+
+
+--
+-- Name: index_payslips_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_created_at ON payslips USING btree (created_at);
+
+
+--
+-- Name: index_payslips_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_creator_id ON payslips USING btree (creator_id);
+
+
+--
+-- Name: index_payslips_on_employee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_employee_id ON payslips USING btree (employee_id);
+
+
+--
+-- Name: index_payslips_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_journal_entry_id ON payslips USING btree (journal_entry_id);
+
+
+--
+-- Name: index_payslips_on_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_nature_id ON payslips USING btree (nature_id);
+
+
+--
+-- Name: index_payslips_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_number ON payslips USING btree (number);
+
+
+--
+-- Name: index_payslips_on_started_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_started_on ON payslips USING btree (started_on);
+
+
+--
+-- Name: index_payslips_on_stopped_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_stopped_on ON payslips USING btree (stopped_on);
+
+
+--
+-- Name: index_payslips_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_updated_at ON payslips USING btree (updated_at);
+
+
+--
+-- Name: index_payslips_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_payslips_on_updater_id ON payslips USING btree (updater_id);
+
+
+--
 -- Name: index_plant_counting_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16869,6 +17122,38 @@ CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON journal_entri
 
 
 --
+-- Name: fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_02f6ec2213 FOREIGN KEY (nature_id) REFERENCES payslip_natures(id);
+
+
+--
+-- Name: fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_15244a5c09 FOREIGN KEY (mode_id) REFERENCES outgoing_payment_modes(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: fk_rails_1facec8a15; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES outgoing_payment_lists(id);
+
+
+--
+-- Name: fk_rails_214eda6f83; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES entities(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16901,6 +17186,14 @@ ALTER TABLE ONLY tax_declaration_item_parts
 
 
 --
+-- Name: fk_rails_6835dfa420; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16914,6 +17207,14 @@ ALTER TABLE ONLY alert_phases
 
 ALTER TABLE ONLY regularizations
     ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
+-- Name: fk_rails_82e76fb89d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslip_natures
+    ADD CONSTRAINT fk_rails_82e76fb89d FOREIGN KEY (journal_id) REFERENCES journals(id);
 
 
 --
@@ -16949,6 +17250,14 @@ ALTER TABLE ONLY intervention_working_periods
 
 
 --
+-- Name: fk_rails_ac1b8c6e79; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_ac1b8c6e79 FOREIGN KEY (account_id) REFERENCES accounts(id);
+
+
+--
 -- Name: fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16973,6 +17282,22 @@ ALTER TABLE ONLY journals
 
 
 --
+-- Name: fk_rails_c0e66eeaff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_c0e66eeaff FOREIGN KEY (employee_id) REFERENCES entities(id);
+
+
+--
+-- Name: fk_rails_c3bf0a90b6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_c3bf0a90b6 FOREIGN KEY (affair_id) REFERENCES affairs(id);
+
+
+--
 -- Name: fk_rails_ca9854019b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16981,11 +17306,27 @@ ALTER TABLE ONLY regularizations
 
 
 --
+-- Name: fk_rails_e319c31e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY payslips
+    ADD CONSTRAINT fk_rails_e319c31e6b FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
+
+
+--
 -- Name: fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY intervention_participations
     ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_ee973f6d0f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY outgoing_payments
+    ADD CONSTRAINT fk_rails_ee973f6d0f FOREIGN KEY (journal_entry_id) REFERENCES journal_entries(id);
 
 
 --
@@ -17503,4 +17844,12 @@ INSERT INTO schema_migrations (version) VALUES ('20170413222521');
 INSERT INTO schema_migrations (version) VALUES ('20170414071529');
 
 INSERT INTO schema_migrations (version) VALUES ('20170414092904');
+
+INSERT INTO schema_migrations (version) VALUES ('20170415141801');
+
+INSERT INTO schema_migrations (version) VALUES ('20170415163650');
+
+INSERT INTO schema_migrations (version) VALUES ('20170421131536');
+
+INSERT INTO schema_migrations (version) VALUES ('20170425145302');
 
