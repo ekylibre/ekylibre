@@ -29,5 +29,5 @@ namespace :test do
 
   task frontend: ['test:integration', 'test:javascripts']
 
-  task libs: ['test:helpers', 'test:lib', 'test:exchangers', 'test:services', 'test:concepts']
+  task libs: ['test:helpers', 'test:lib', 'test:exchangers', 'test:services', 'test:concepts', 'test:jobs']
 end
