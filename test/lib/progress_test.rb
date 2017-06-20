@@ -27,8 +27,8 @@ class ProgressTest < ActiveSupport::TestCase
   end
 
   test 'progresses with different ids are separate' do
-    first  = Progress.new("Test", id: 1)
-    second = Progress.new("Test", id: 2)
+    first  = Progress.new('Test', id: 1)
+    second = Progress.new('Test', id: 2)
 
     assert_not_equal first, second
 
@@ -51,27 +51,27 @@ class ProgressTest < ActiveSupport::TestCase
   end
 
   test 'progresses can be fetched back after creation' do
-    initialized = Progress.new("Initialized", id: 1)
-    fetched = Progress.fetch("Initialized", id: 1)
+    initialized = Progress.new('Initialized', id: 1)
+    fetched = Progress.fetch('Initialized', id: 1)
 
     assert_equal initialized, fetched
 
-    Progress.new("Not stored", id: 1).set_value(2)
-    fetched = Progress.fetch("Not stored", id: 1)
+    Progress.new('Not stored', id: 1).set_value(2)
+    fetched = Progress.fetch('Not stored', id: 1)
 
     assert_equal 2, fetched.value
   end
 
   test 'progresses aren\'t reachabloe anymore once they have been cleared' do
-    progress = Progress.new("To be cleared", id: 1)
+    progress = Progress.new('To be cleared', id: 1)
     progress.set_value(2)
     progress.clear!
 
-    assert_nil Progress.fetch("To be cleared", id: 1)
+    assert_nil Progress.fetch('To be cleared', id: 1)
   end
 
   test 'cleared progresses are fetchable again if they are re-used' do
-    progress = Progress.new("Lazarus", id: 1)
+    progress = Progress.new('Lazarus', id: 1)
     progress.set_value(2)
     progress.clear!
 
@@ -81,7 +81,7 @@ class ProgressTest < ActiveSupport::TestCase
   end
 
   test 'cleared progresses have 0 value' do
-    progress = Progress.new("Zero", id: 1)
+    progress = Progress.new('Zero', id: 1)
     progress.set_value(2)
     progress.clear!
 

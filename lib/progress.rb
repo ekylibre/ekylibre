@@ -14,7 +14,7 @@ class Progress
 
   class << self
     def register(progress)
-      @progresses ||= Hash.new
+      @progresses ||= {}
       @progresses[progress.name] ||= {}
       @progresses[progress.name][progress.id] = progress
     end
@@ -31,7 +31,7 @@ class Progress
   end
 
   def counting?
-    File.exists?(progress_file)
+    File.exist?(progress_file)
   end
 
   def value
@@ -44,7 +44,7 @@ class Progress
 
   def set_value(value)
     self.class.register(self)
-    @value = value.to_f/@max.to_f*100
+    @value = value.to_f / @max.to_f * 100
     FileUtils.mkdir_p(progress_file.dirname)
     File.write(progress_file, @value.to_s)
   end
