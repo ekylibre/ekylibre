@@ -27,13 +27,15 @@ class Progress
       return 0
     end
     (File.read(progress_file).to_f * 1000).round / 1000.0
+  rescue
+    0
   end
 
   def set_value(value)
     return false if @read_only
-    value = value.to_f/@max*100.0
+    @value = value.to_f/@max*100.0
     FileUtils.mkdir_p(progress_file.dirname)
-    File.write(progress_file, value.to_s)
+    File.write(progress_file, @value.to_s)
   end
 
   def clean!
@@ -45,5 +47,10 @@ class Progress
   def progress_file
     return @progress_file if defined? @progress_file
     @progress_file = Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{name}-#{id}.progress")
+  end
+
+  def increment!
+    @value ||= value
+    set_value(@value + 1)
   end
 end
