@@ -1,19 +1,32 @@
 class Progress
   attr_reader :name
   attr_reader :id
-  attr_reader :read_only
 
-  def initialize(name, id:, reset: true, read_only: false, max: 100)
-    @name = name
+  PRECISION = 3
+
+  def initialize(name, id:, max: 100)
+    @name = name.underscore
     @id = id
-    @read_only = read_only
     @max = max
-    set_value(0) if reset
+    set_value(0)
+    self.class.register(self)
   end
 
   class << self
+    def register(progress)
+      @progresses ||= Hash.new
+      @progresses[progress.name] ||= {}
+      @progresses[progress.name][progress.id] = progress
+    end
+
+    def unregister(progress)
+      return true if @progresses.nil?
+      @progresses[progress.name][progress.id] = nil
+      true
+    end
+
     def fetch(name, id:)
-      Progress.new(name, id: id, reset: false, read_only: true)
+      @progresses[name.underscore][id]
     end
   end
 
@@ -22,27 +35,27 @@ class Progress
   end
 
   def value
-    unless counting?
-      return true if @read_only
-      return 0
-    end
-    (File.read(progress_file).to_f * 1000).round / 1000.0
+    return 0 unless counting?
+    magnitude = 10**PRECISION
+    (File.read(progress_file).to_f * magnitude).round / magnitude.to_f
   rescue
     0
   end
 
   def set_value(value)
-    return false if @read_only
-    @value = value.to_f/@max*100.0
+    self.class.register(self)
+    @value = value.to_f/@max.to_f*100
     FileUtils.mkdir_p(progress_file.dirname)
     File.write(progress_file, @value.to_s)
   end
 
-  def clean!
+  def clear!
     return true unless counting?
     FileUtils.rm_rf(progress_file)
+    self.class.unregister(self)
     true
   end
+  alias clean! clear!
 
   def progress_file
     return @progress_file if defined? @progress_file
